@@ -391,6 +391,10 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 0; background: li
 .pv-photo ~ * { position: relative; z-index: 1; }
 .pv-photo ~ .pv-top .pv-icon { background: rgba(10,12,16,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 
+/* Volledig scherm-ontwerp (optioneel): onder de notch, zelfde donkere kleur als het ontwerp */
+.pv-screen { position: absolute; inset: 0; z-index: 2; background: #080f18; padding-top: 44px; display: flex; justify-content: center; }
+.pv-screen img { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: top; display: block; }
+
 /* Opslaan */
 .done-msg span { display: flex; flex-direction: column; gap: 2px; }
 .done-msg a { color: var(--accent); font-weight: 600; font-size: 13.5px; }

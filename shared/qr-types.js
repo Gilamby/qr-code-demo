@@ -27,7 +27,7 @@
     fields: [ { key: 'name', label: 'fields.name', sample: 'Café Aurora' }, { key: 'address', label: 'fields.address', sample: 'Hoofdstraat 12, Rotterdam' } ] },
   { id: 'video',     icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg',     contentType: 'url',      previewType: 'card',    color: '#e5484d',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.video.title' } }, { key: 'url', type: 'url', label: 'fields.url', sample: 'https://youtu.be/optimasys' } ] },
-  { id: 'images',    icon: 'img',    image: 'assets/qr-types/images.jpg', previewImage: 'assets/previews/images.jpg',    contentType: 'gallery',  previewType: 'card', color: '#2f9e8f',
+  { id: 'images',    icon: 'img',    image: 'assets/qr-types/images.jpg', previewImage: 'assets/previews/images.jpg', previewScreen: 'assets/screens/images.jpg',    contentType: 'gallery',  previewType: 'card', color: '#2f9e8f',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.images.title' } } ] },
   { id: 'facebook',  icon: 'fb',     image: 'assets/qr-types/facebook.jpg', previewImage: 'assets/previews/facebook.jpg',  contentType: 'profile',  previewType: 'card', color: '#1877f2',
     fields: [ { key: 'pageName', label: 'fields.pageName', sample: 'Optimasys' } ] },

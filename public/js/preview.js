@@ -29,18 +29,25 @@ var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, fu
 var CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
 // Foto bovenin de telefoon: zet een bestand op type.previewImage (public/assets/previews/<id>.jpg).
 // Bestaat het bestand niet, dan blijft de preview zonder foto.
-var PREVIEW_PHOTOS = {};
-function previewPhoto(type) {
-  if (!type.previewImage) return '';
-  var st = PREVIEW_PHOTOS[type.id];
+var IMAGE_STATUS = {};
+// Laadt een afbeelding één keer; geeft true zodra hij bestaat. Bestaat hij niet, dan valt de preview terug op het sjabloon.
+function imageReady(src) {
+  var st = IMAGE_STATUS[src];
   if (st === undefined) {
-    PREVIEW_PHOTOS[type.id] = 'loading';
+    IMAGE_STATUS[src] = 'loading';
     var img = new Image();
-    img.onload = function () { PREVIEW_PHOTOS[type.id] = 'ok'; document.dispatchEvent(new Event('preview:refresh')); };
-    img.onerror = function () { PREVIEW_PHOTOS[type.id] = 'missing'; };
-    img.src = type.previewImage;
+    img.onload = function () { IMAGE_STATUS[src] = 'ok'; document.dispatchEvent(new Event('preview:refresh')); };
+    img.onerror = function () { IMAGE_STATUS[src] = 'missing'; };
+    img.src = src;
   }
-  return st === 'ok' ? '<div class="pv-photo" style="background-image:url(' + type.previewImage + ')"></div>' : '';
+  return st === 'ok';
+}
+function previewPhoto(type) {
+  return type.previewImage && imageReady(type.previewImage) ? '<div class="pv-photo" style="background-image:url(' + type.previewImage + ')"></div>' : '';
+}
+// Volledig scherm: een ontwerp van de hele telefoonpagina (type.previewScreen, public/assets/screens/<id>.jpg).
+function previewScreen(type) {
+  return type.previewScreen && imageReady(type.previewScreen) ? '<div class="pv-screen"><img src="' + type.previewScreen + '" alt=""></div>' : '';
 }
 var TEMPLATES = {
   card: function (type, rows) {
@@ -50,4 +57,4 @@ var TEMPLATES = {
       '<div class="pv-rows">' + rows.filter(Boolean).map(function (r) { return '<div class="pv-row"><span class="ri">' + svg(type.icon, 1.7) + '</span><span class="lbl">' + esc(r) + '</span>' + CHEV + '</div>'; }).join('') + '</div>';
   }
 };
-function renderPreview(state) { var type = getType(state.typeId); return TEMPLATES[type.previewType](type, previewRows(type, resolvedContent(state))); }
+function renderPreview(state) { var type = getType(state.typeId); return previewScreen(type) || TEMPLATES[type.previewType](type, previewRows(type, resolvedContent(state))); }
