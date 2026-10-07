@@ -268,7 +268,8 @@
     "description": "Opis",
     "hours": "Godziny otwarcia",
     "company": "Firma",
-    "website": "Strona www"
+    "website": "Strona www",
+    "cover": "Zdjęcie w tle"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -304,5 +305,11 @@
   "appearance": {
     "title": "Kolor Twojej strony",
     "lead": "Najedź na kolory, aby zobaczyć je na żywo w telefonie. Kliknij, aby wybrać."
+  },
+  "upload": {
+    "choose": "Wybierz zdjęcie lub przeciągnij je tutaj",
+    "hint": "JPG lub PNG, zmniejszane automatycznie",
+    "remove": "Usuń",
+    "error": "Nie udało się wczytać zdjęcia. Spróbuj JPG lub PNG."
   }
 }

@@ -268,7 +268,8 @@
     "description": "Beschrijving",
     "hours": "Openingstijden",
     "company": "Bedrijf",
-    "website": "Website"
+    "website": "Website",
+    "cover": "Omslagfoto"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -304,5 +305,11 @@
   "appearance": {
     "title": "Kleur van je pagina",
     "lead": "Beweeg over de kleuren om ze live op de telefoon te zien. Klik om te kiezen."
+  },
+  "upload": {
+    "choose": "Foto kiezen of hierheen slepen",
+    "hint": "JPG of PNG, wordt automatisch verkleind",
+    "remove": "Verwijderen",
+    "error": "Deze foto kon niet worden geladen. Probeer een JPG of PNG."
   }
 }

@@ -19,6 +19,10 @@ function validateQrCode(body) {
     let v = input[field.key];
     if (v == null || String(v).trim() === '') continue;        // leeg = voorbeeldwaarde gebruiken
     v = String(v).trim();
+    if (field.type === 'image') {
+      if (!/^data:image\/(jpeg|png|webp);base64,/.test(v) || v.length > 3000000) errors.push(field.key + ': must be a JPG/PNG/WebP image under 3 MB');
+      content[field.key] = v; continue;
+    }
     if (v.length > MAX_TEXT) errors.push(field.key + ': too long');
     if (field.type === 'url' && !isUrl(v)) errors.push(field.key + ': must be a http(s) URL');
     if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) errors.push(field.key + ': invalid email');

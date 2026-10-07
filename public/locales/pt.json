@@ -268,7 +268,8 @@
     "description": "Descrição",
     "hours": "Horário",
     "company": "Empresa",
-    "website": "Site"
+    "website": "Site",
+    "cover": "Foto de capa"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -304,5 +305,11 @@
   "appearance": {
     "title": "Cor da tua página",
     "lead": "Passa o rato pelas cores para as veres ao vivo no telemóvel. Clica para escolher."
+  },
+  "upload": {
+    "choose": "Escolhe uma foto ou arrasta-a para aqui",
+    "hint": "JPG ou PNG, reduzida automaticamente",
+    "remove": "Remover",
+    "error": "Não foi possível carregar a foto. Tenta JPG ou PNG."
   }
 }

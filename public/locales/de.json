@@ -268,7 +268,8 @@
     "description": "Beschreibung",
     "hours": "Öffnungszeiten",
     "company": "Firma",
-    "website": "Website"
+    "website": "Website",
+    "cover": "Titelbild"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -304,5 +305,11 @@
   "appearance": {
     "title": "Farbe deiner Seite",
     "lead": "Fahre über die Farben, um sie live auf dem Handy zu sehen. Klicke zum Auswählen."
+  },
+  "upload": {
+    "choose": "Foto wählen oder hierher ziehen",
+    "hint": "JPG oder PNG, wird automatisch verkleinert",
+    "remove": "Entfernen",
+    "error": "Dieses Foto konnte nicht geladen werden. Versuche JPG oder PNG."
   }
 }

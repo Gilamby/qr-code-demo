@@ -25,7 +25,7 @@
     fields: [ { key: 'name', label: 'fields.name', sample: 'Sanne de Vries' }, { key: 'role', label: 'fields.role', sample: { t: 'pv.vcard.role' } }, { key: 'phone', type: 'tel', label: 'fields.phone', sample: '+31 6 1234 5678' }, { key: 'email', type: 'email', label: 'fields.email', sample: 'sanne@example.com' },
       { key: 'company', label: 'fields.company', sample: 'Casa Verde Interiors' }, { key: 'website', type: 'url', label: 'fields.website', sample: 'https://casaverde.es' }, { key: 'address', label: 'fields.address', sample: 'Calle Ramón Gómez 4, Marbella' } ] },
   { id: 'business',  icon: 'biz',    image: 'assets/qr-types/business.jpg', previewImage: 'assets/previews/business.jpg',  contentType: 'business', previewType: 'card',    color: '#d08b2c',
-    fields: [ { key: 'name', label: 'fields.name', sample: 'Café Aurora' }, { key: 'description', label: 'fields.description', sample: { t: 'pv.business.descSample' } },
+    fields: [ { key: 'cover', type: 'image', label: 'fields.cover' }, { key: 'name', label: 'fields.name', sample: 'Café Aurora' }, { key: 'description', label: 'fields.description', sample: { t: 'pv.business.descSample' } },
       { key: 'hours', label: 'fields.hours', sample: { t: 'pv.business.hoursSample' } }, { key: 'address', label: 'fields.address', sample: 'Hoofdstraat 12, Rotterdam' },
       { key: 'phone', type: 'tel', label: 'fields.phone', sample: '+31 10 123 4567' }, { key: 'email', type: 'email', label: 'fields.email', sample: 'hallo@cafeaurora.nl' } ] },
   { id: 'video',     icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg',     contentType: 'url',      previewType: 'card',    color: '#e5484d',

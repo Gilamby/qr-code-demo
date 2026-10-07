@@ -268,7 +268,8 @@
     "description": "Description",
     "hours": "Opening hours",
     "company": "Company",
-    "website": "Website"
+    "website": "Website",
+    "cover": "Cover photo"
   },
   "panel": {
     "selected": "{type} selected"
@@ -304,5 +305,11 @@
   "appearance": {
     "title": "Page colour",
     "lead": "Hover over the colours to see them live on the phone. Click to choose."
+  },
+  "upload": {
+    "choose": "Choose a photo or drag it here",
+    "hint": "JPG or PNG, resized automatically",
+    "remove": "Remove",
+    "error": "This photo could not be loaded. Try a JPG or PNG."
   }
 }

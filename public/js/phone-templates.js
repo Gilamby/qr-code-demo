@@ -55,6 +55,32 @@ var PHONE = (function () {
   function initials(name) { return (name || '').split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0].toUpperCase(); }).join(''); }
   function domain(url) { return (url || '').replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0]; }
 
+  // Mockup-foto zolang het bedrijf nog geen eigen foto heeft: een winkelpui in de paginakleur.
+  function storefront(name) {
+    var label = esc((name || 'Café Aurora').slice(0, 22));
+    return '<svg class="bz-mock" viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+      '<defs><linearGradient id="bzSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe6f7"/><stop offset="1" stop-color="#eef6fb"/></linearGradient>' +
+      '<linearGradient id="bzWin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7b3"/><stop offset="1" stop-color="#f5b75a"/></linearGradient>' +
+      '<pattern id="bzStripe" width="24" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" style="fill:var(--pc)"/><rect x="12" width="12" height="10" fill="#fff"/></pattern></defs>' +
+      '<rect width="320" height="150" fill="url(#bzSky)"/>' +
+      '<rect x="0" y="0" width="38" height="150" fill="#d9cbb8"/><rect x="282" y="0" width="38" height="150" fill="#cdbca6"/>' +
+      '<rect x="38" y="6" width="244" height="144" fill="#f3ead9"/><rect x="38" y="6" width="244" height="8" fill="#e4d7c2"/>' +
+      '<rect x="78" y="18" width="164" height="22" rx="4" fill="#2b2b2b"/>' +
+      '<text x="160" y="33.5" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#f6e3b4" letter-spacing="1.5">' + label.toUpperCase() + '</text>' +
+      '<rect x="46" y="46" width="228" height="16" fill="url(#bzStripe)"/>' +
+      '<path d="M46 61' + new Array(20).join(' q6 9 12 0') + 'V61z" fill="url(#bzStripe)"/>' +
+      '<rect x="56" y="78" width="120" height="60" rx="3" fill="url(#bzWin)" stroke="#5a4636" stroke-width="4"/>' +
+      '<path d="M116 78v60M56 106h120" stroke="#5a4636" stroke-width="3"/>' +
+      '<circle cx="80" cy="96" r="6" fill="#fff7e0" opacity=".9"/><circle cx="146" cy="93" r="5" fill="#fff7e0" opacity=".9"/>' +
+      '<rect x="66" y="120" width="22" height="13" rx="2" fill="#c47b3c"/><rect x="134" y="121" width="30" height="12" rx="2" fill="#8c5a33"/>' +
+      '<rect x="196" y="74" width="62" height="76" rx="3" fill="#4b3a2c"/><rect x="202" y="80" width="50" height="38" rx="2" fill="url(#bzWin)"/>' +
+      '<circle cx="246" cy="124" r="2.5" fill="#e9c46a"/>' +
+      '<rect x="38" y="140" width="244" height="10" fill="#bfae97"/>' +
+      '<rect x="182" y="124" width="12" height="16" rx="2" fill="#7a5236"/><circle cx="188" cy="118" r="10" fill="#4f8a4b"/><circle cx="183" cy="113" r="6" fill="#5fa057"/>' +
+      '<rect x="262" y="124" width="12" height="16" rx="2" fill="#7a5236"/><circle cx="268" cy="118" r="10" fill="#4f8a4b"/><circle cx="273" cy="113" r="6" fill="#5fa057"/>' +
+    '</svg>';
+  }
+
   return {
     /* ---------- WhatsApp: precies het chatscherm dat opent ---------- */
     whatsapp: function (c, ex) {
@@ -153,7 +179,7 @@ var PHONE = (function () {
       return '<div class="ph ph-bz">' +
         '<div class="bz-band">' + statusBar(true) + '<div class="bz-top">' + ic('back') + '<b>' + v(c.name, '120px') + '</b>' + ic('share') + '</div></div>' +
         '<div class="bz-scroll">' +
-          '<div class="bz-card"><div class="bz-cover">' + ic('store', 'bz-store') + '</div>' +
+          '<div class="bz-card"><div class="bz-cover">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : storefront(c.name)) + '</div>' +
             '<h4>' + v(c.name, '55%') + '</h4><p>' + (c.description ? esc(c.description) : '<i class="sk"></i><i class="sk" style="width:75%"></i>') + '</p>' +
             '<div class="bz-cta">' + esc(t('pv.business.cta')) + '</div></div>' +
           '<div class="bz-list">' +

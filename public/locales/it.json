@@ -268,7 +268,8 @@
     "description": "Descrizione",
     "hours": "Orari di apertura",
     "company": "Azienda",
-    "website": "Sito web"
+    "website": "Sito web",
+    "cover": "Foto di copertina"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -304,5 +305,11 @@
   "appearance": {
     "title": "Colore della tua pagina",
     "lead": "Passa sui colori per vederli dal vivo sul telefono. Clicca per scegliere."
+  },
+  "upload": {
+    "choose": "Scegli una foto o trascinala qui",
+    "hint": "JPG o PNG, ridimensionata automaticamente",
+    "remove": "Rimuovi",
+    "error": "Impossibile caricare la foto. Prova un JPG o PNG."
   }
 }

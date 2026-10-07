@@ -268,7 +268,8 @@
     "description": "Përshkrimi",
     "hours": "Orari",
     "company": "Kompania",
-    "website": "Faqja web"
+    "website": "Faqja web",
+    "cover": "Foto kopertine"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -304,5 +305,11 @@
   "appearance": {
     "title": "Ngjyra e faqes sate",
     "lead": "Kalo mbi ngjyrat për t’i parë drejtpërdrejt në telefon. Kliko për të zgjedhur."
+  },
+  "upload": {
+    "choose": "Zgjidh një foto ose tërhiqe këtu",
+    "hint": "JPG ose PNG, zvogëlohet automatikisht",
+    "remove": "Hiq",
+    "error": "Kjo foto nuk u ngarkua. Provo JPG ose PNG."
   }
 }

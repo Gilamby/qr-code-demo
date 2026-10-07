@@ -43,6 +43,7 @@ var ContentForm = {
       '<button class="link-btn" type="button" data-go="type">' + t('actions.change') + '</button></div>' +
       '<form class="form" id="contentForm" novalidate>' + type.fields.map(function (f) {
         var id = 'f-' + type.id + '-' + f.key, label = t(f.label, { n: f.n }), v = values[f.key] != null ? values[f.key] : '';
+        if (f.type === 'image') return '<div class="field"><label for="' + id + '">' + label + '</label>' + ImageUpload.html(f, id, v) + '</div>';
         var input = f.type === 'select'
           ? '<select id="' + id + '" name="' + f.key + '">' + f.options.map(function (o) { var cur = v || f.sample; return '<option value="' + o.value + '"' + (o.value === cur ? ' selected' : '') + '>' + resolveSample(o.label) + '</option>'; }).join('') + '</select>'
           : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(resolveSample(f.sample)) + '" autocomplete="off">';
@@ -50,6 +51,7 @@ var ContentForm = {
       }).join('') + '</form>' +
       (type.page === false ? '' : '<section class="appearance"><h3>' + t('appearance.title') + '</h3><p>' + t('appearance.lead') + '</p>' + ColorPicker.html(t('appearance.title')) + '</section>') +
       Actions.html(state);
+    ImageUpload.mount(el, actions.setField);
     var cp = el.querySelector('.cp');
     if (cp) ColorPicker.mount(cp, { value: state.pageColor, onChange: actions.setPageColor, onPreview: actions.previewPageColor });
   }
