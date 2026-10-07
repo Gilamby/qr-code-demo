@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "mainMenu": "Hauptmenü",
+    "home": "Optimasys QR, zu QR-Code erstellen",
+    "collapse": "Seitenleiste einklappen",
+    "expand": "Seitenleiste ausklappen",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "workspace": "Arbeitsbereich",
+    "create": "QR-Code erstellen",
+    "analytics": "Statistiken",
+    "myCodes": "Meine QR-Codes",
+    "account": "Mein Konto",
+    "help": "Hilfe",
+    "contact": "Kontakt",
+    "faq": "Häufige Fragen",
+    "logout": "Abmelden",
+    "loggedOut": "Sie sind abgemeldet"
+  },
+  "header": {
+    "language": "Sprache",
+    "chooseLanguage": "Sprache wählen",
+    "themeLight": "Zum hellen Modus wechseln",
+    "themeDark": "Zum dunklen Modus wechseln",
+    "title": "QR-Code",
+    "background": "Hintergrund anpassen"
+  },
+  "empty": {
+    "text": "Diese Seite wird später ergänzt."
+  },
+  "create": {
+    "progress": "Fortschritt",
+    "preview": "Vorschau auf dem Telefon"
+  },
+  "steps": {
+    "type": "Typ",
+    "content": "Inhalt",
+    "design": "Design",
+    "completed": "Abgeschlossen"
+  },
+  "types": {
+    "website": {
+      "name": "Website",
+      "desc": "Link zu jeder beliebigen Website"
+    },
+    "pdf": {
+      "name": "PDF",
+      "desc": "Ein PDF anzeigen"
+    },
+    "links": {
+      "name": "Linkliste",
+      "desc": "Mehrere Links teilen"
+    },
+    "vcard": {
+      "name": "vCard",
+      "desc": "Digitale Visitenkarte teilen"
+    },
+    "business": {
+      "name": "Unternehmen",
+      "desc": "Infos über Ihr Unternehmen teilen"
+    },
+    "video": {
+      "name": "Video",
+      "desc": "Ein Video zeigen"
+    },
+    "images": {
+      "name": "Bilder",
+      "desc": "Mehrere Bilder teilen"
+    },
+    "facebook": {
+      "name": "Facebook",
+      "desc": "Ihre Facebook-Seite teilen"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "desc": "Ihr Instagram teilen"
+    },
+    "social": {
+      "name": "Social Media",
+      "desc": "Ihre Social-Media-Kanäle teilen"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "desc": "WhatsApp-Nachrichten erhalten"
+    },
+    "mp3": {
+      "name": "MP3",
+      "desc": "Eine Audiodatei teilen"
+    },
+    "menu": {
+      "name": "Speisekarte",
+      "desc": "Eine Restaurant-Speisekarte erstellen"
+    },
+    "apps": {
+      "name": "Apps",
+      "desc": "Zu einem App-Store weiterleiten"
+    },
+    "coupon": {
+      "name": "Gutschein",
+      "desc": "Einen Gutschein teilen"
+    },
+    "wifi": {
+      "name": "WLAN",
+      "desc": "Mit einem WLAN verbinden"
+    }
+  },
+  "pv": {
+    "website": {
+      "title": "Software für Immobilienmakler",
+      "text": "Entdecken Sie unsere Produkte und fordern Sie eine Demo an.",
+      "cta": "Website öffnen"
+    },
+    "pdf": {
+      "sub": "Dokument",
+      "file": "Handbuch.pdf",
+      "size": "Größe",
+      "pages": "Seiten",
+      "language": "Sprache",
+      "cta": "PDF öffnen"
+    },
+    "links": {
+      "sub": "Alle unsere Links",
+      "website": "Website",
+      "jobs": "Jobs",
+      "support": "Kundenservice",
+      "news": "Neuigkeiten"
+    },
+    "vcard": {
+      "sub": "Kontakt",
+      "role": "Projektleiterin",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "cta": "In Kontakte speichern",
+      "call": "Jetzt anrufen"
+    },
+    "business": {
+      "sub": "Unternehmensinfo",
+      "weekdays": "Mo – Fr",
+      "saturday": "Samstag",
+      "sunday": "Sonntag",
+      "closed": "Geschlossen",
+      "cta": "Route planen"
+    },
+    "video": {
+      "title": "So funktioniert Optimasys",
+      "meta": "Produktvideo"
+    },
+    "images": {
+      "sub": "Galerie",
+      "title": "Urlaub 2026",
+      "count": "{count} Fotos",
+      "cta": "Alle herunterladen"
+    },
+    "facebook": {
+      "sub": "Facebook-Seite",
+      "followers": "{count} Follower",
+      "cta": "Auf Facebook folgen"
+    },
+    "instagram": {
+      "stats": "{posts} Beiträge · {followers} Follower",
+      "cta": "Folgen"
+    },
+    "social": {
+      "sub": "Folgen Sie uns"
+    },
+    "whatsapp": {
+      "online": "online",
+      "m1": "Hallo! Wie geht’s? 👋",
+      "m2": "Super, danke! Und dir?",
+      "m3": "Schön! Bis später 🤍",
+      "input": "Nachricht",
+      "start": "Chat starten"
+    },
+    "mp3": {
+      "sub": "Podcast",
+      "title": "Folge 4",
+      "cta": "Abspielen"
+    },
+    "menu": {
+      "sub": "Restaurant Zum Hafen",
+      "dish1": "Pasta mit Venusmuscheln",
+      "dish2": "Gegrillter Wolfsbarsch",
+      "dish3": "Tiramisu",
+      "cta": "Ganze Speisekarte ansehen"
+    },
+    "apps": {
+      "sub": "App",
+      "title": "Optimasys-App"
+    },
+    "coupon": {
+      "sub": "Angebot",
+      "title": "Willkommensrabatt",
+      "valid": "Gültig bis {date}",
+      "off": "Rabatt",
+      "cta": "Code kopieren"
+    },
+    "wifi": {
+      "network": "Netzwerk",
+      "security": "Sicherheit",
+      "cta": "Verbinden"
+    }
+  },
+  "hero": {
+    "title": "Welche Art von QR-Code möchten Sie erstellen?",
+    "lead": "Wählen Sie einen QR-Typ, um zu beginnen."
+  },
+  "content": {
+    "title": "Inhalt hinzufügen",
+    "lead": "Füllen Sie die Angaben aus. Die Vorschau aktualisiert sich beim Tippen."
+  },
+  "design": {
+    "title": "QR-Code gestalten",
+    "lead": "Wählen Sie Farben, die zu Ihrer Marke passen.",
+    "color": "Farbe des Codes",
+    "background": "Hintergrund",
+    "contrastLow": "Geringer Kontrast. Dieser QR-Code lässt sich möglicherweise schlecht scannen.",
+    "contrastOk": "Guter Kontrast. Dieser Code lässt sich leicht scannen.",
+    "done": "Ihr QR-Code ist fertig.",
+    "qrAlt": "QR-Code für {type}",
+    "saveError": "Speichern fehlgeschlagen. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+    "saving": "Wird gespeichert…",
+    "retry": "Erneut versuchen",
+    "demoMode": "Demo-Modus: nicht gespeichert. Starten Sie den Server zum Speichern."
+  },
+  "actions": {
+    "continue": "Weiter",
+    "back": "Zurück",
+    "create": "QR-Code erstellen",
+    "change": "Ändern"
+  },
+  "fields": {
+    "url": "Website-URL",
+    "title": "Titel",
+    "name": "Name",
+    "role": "Position",
+    "phone": "Telefonnummer",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "pageName": "Seitenname",
+    "username": "Benutzername",
+    "message": "Vorausgefüllte Nachricht",
+    "artist": "Künstler",
+    "restaurant": "Name des Restaurants",
+    "appName": "Name der App",
+    "code": "Rabattcode",
+    "discount": "Rabatt (%)",
+    "ssid": "Netzwerkname",
+    "password": "Passwort",
+    "security": "Sicherheit",
+    "securityNone": "Keine",
+    "link": "Link {n}"
+  },
+  "panel": {
+    "selected": "{type} ausgewählt"
+  },
+  "account": {
+    "demo": "Demo-Konto",
+    "background": "Hintergrund",
+    "backgroundLead": "Wählen Sie die Umgebung, in der Sie Ihre QR-Codes erstellen. Nur Sie sehen sie."
+  },
+  "bg": {
+    "optimasys": "Optimasys",
+    "aurora": "Polarlicht",
+    "city": "Stadt",
+    "mountains": "Berge",
+    "office": "Büro",
+    "cafe": "Café",
+    "restaurant": "Restaurant",
+    "custom": "Ihr Foto",
+    "upload": "Eigenes Bild hochladen",
+    "uploadError": "Dieses Bild konnte nicht geladen werden. Versuchen Sie ein JPG oder PNG."
+  },
+  "myCodes": {
+    "lead": "Alle QR-Codes, die Sie erstellt haben.",
+    "loading": "Wird geladen…",
+    "offline": "Diese Online-Demo speichert keine QR-Codes. Starten Sie das Projekt mit dem Server (npm start), um sie hier zu sehen.",
+    "empty": "Sie haben noch keine QR-Codes erstellt.",
+    "error": "Ihre QR-Codes konnten nicht geladen werden. Laden Sie die Seite neu, um es erneut zu versuchen.",
+    "colType": "Typ",
+    "colLink": "Link",
+    "colCreated": "Erstellt",
+    "colScans": "Scans"
+  }
+}

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Optimasys QR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="sidebar" id="sidebar" data-i18n-aria="nav.mainMenu">
+    <div class="side-top">
+      <a class="logo" href="#" data-page="create" data-i18n-aria="nav.home">
+        <span class="logo-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="logo-text">Optimasys <small>QR</small></span>
+      </a>
+      <button class="icon-btn toggle-desktop" id="toggle" aria-expanded="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="icon-btn close-mobile" id="closeMobile" data-i18n-aria="nav.closeMenu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <nav>
+      <div class="group-label" data-i18n="nav.workspace"></div>
+      <a class="item active" href="#" data-page="create">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
+        <span class="label" data-i18n="nav.create"></span><span class="tip" data-i18n="nav.create"></span>
+      </a>
+      <a class="item" href="#" data-page="analytics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 20V12M10 20V5M15 20v-9M20 20V9M2 21h20"/></svg>
+        <span class="label" data-i18n="nav.analytics"></span><span class="tip" data-i18n="nav.analytics"></span>
+      </a>
+      <a class="item" href="#" data-page="myCodes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/></svg>
+        <span class="label" data-i18n="nav.myCodes"></span><span class="tip" data-i18n="nav.myCodes"></span>
+      </a>
+      <a class="item" href="#" data-page="account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/></svg>
+        <span class="label" data-i18n="nav.account"></span><span class="tip" data-i18n="nav.account"></span>
+      </a>
+
+      <div class="divider" role="separator"></div>
+      <div class="group-label" data-i18n="nav.help"></div>
+      <a class="item" href="#" data-page="contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span class="label" data-i18n="nav.contact"></span><span class="tip" data-i18n="nav.contact"></span>
+      </a>
+      <a class="item" href="#" data-page="faq">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17v.01"/></svg>
+        <span class="label" data-i18n="nav.faq"></span><span class="tip" data-i18n="nav.faq"></span>
+      </a>
+      <a class="item logout" href="#" data-page="logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M14 17l5-5-5-5M19 12H9"/></svg>
+        <span class="label" data-i18n="nav.logout"></span><span class="tip" data-i18n="nav.logout"></span>
+      </a>
+    </nav>
+  </aside>
+
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="top-left">
+        <button class="menu-btn" id="menuBtn" data-i18n-aria="nav.openMenu" aria-expanded="false" aria-controls="sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </button>
+        <button class="sq-btn" id="stepBack" type="button" data-i18n-aria="actions.back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <h1 id="pageTitle" class="page-title"></h1>
+      </div>
+      <ol class="stepper" id="stepper" data-i18n-aria="create.progress"></ol>
+      <div class="top-right">
+        <div class="lang" id="lang">
+          <button class="lang-btn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu">
+            <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h9M8.5 3v2M6 5c.6 3 2.6 5.6 5.5 7M11 5c-.8 3.3-3.3 6.3-7 8"/><path d="M13 21l4.5-10L22 21M14.6 17.5h5.8"/></svg>
+            <span class="lang-name" id="langName"></span><span class="lang-code" id="langCode"></span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="lang-menu" id="langMenu" role="menu" hidden>
+            <div class="lang-head" data-i18n="header.chooseLanguage"></div>
+            <div id="langList"></div>
+          </div>
+        </div>
+        <button class="sq-btn" id="bgBtn" type="button" data-i18n-aria="header.background">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="canvas" id="createView">
+      <div class="fit-outer" id="fitOuter"><div class="fit-inner" id="fitInner">
+      <section class="workspace">
+        <aside class="preview" data-i18n-aria="create.preview">
+          <div class="phone"><div class="notch" aria-hidden="true"></div><div class="screen" id="screen" aria-live="polite"></div></div>
+        </aside>
+        <div class="panel-card">
+          <h2 id="heroTitle"></h2>
+          <div class="panel" id="panel"></div>
+        </div>
+      </section>
+      </div></div>
+    </main>
+
+    <main class="canvas" id="accountView" hidden>
+      <section class="account">
+        <div class="glass profile">
+          <span class="avatar-lg">OP</span>
+          <div><b>Optimasys</b><small data-i18n="account.demo"></small></div>
+        </div>
+        <div class="glass bg-card" id="bgSection">
+          <h2 data-i18n="account.background"></h2>
+          <p data-i18n="account.backgroundLead"></p>
+          <div class="bg-grid" id="bgGrid" role="radiogroup" data-i18n-aria="account.background"></div>
+          <p class="bg-error" id="bgError" role="alert" hidden></p>
+        </div>
+      </section>
+    </main>
+
+    <main class="canvas" id="myCodesView" hidden>
+      <section class="account">
+        <div class="glass bg-card">
+          <h2 data-i18n="nav.myCodes"></h2>
+          <p data-i18n="myCodes.lead"></p>
+          <div id="codesList"></div>
+        </div>
+      </section>
+    </main>
+
+    <main class="canvas" id="emptyView" hidden>
+      <div class="empty"><p data-i18n="empty.text"></p></div>
+    </main>
+  </div>
+</div>
+
+<!-- Externe bibliotheek: QR-codes tekenen -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<!-- Gedeelde configuratie (ook gebruikt door de backend) -->
+<script src="shared/qr-types.js"></script>
+<!-- App, in deze volgorde: vertalingen → instellingen → API → state → logica → weergave -->
+<script src="js/i18n.js"></script>
+<script src="js/api.js"></script>
+<script src="js/background.js"></script>
+<script src="js/config.js"></script>
+<script src="js/state.js"></script>
+<script src="js/qr.js"></script>
+<script src="js/preview.js"></script>
+<script src="js/components.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/account.js"></script>
+<script src="js/my-codes.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

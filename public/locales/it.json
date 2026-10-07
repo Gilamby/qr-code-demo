@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "mainMenu": "Menu principale",
+    "home": "Optimasys QR, vai a Crea codice QR",
+    "collapse": "Comprimi barra laterale",
+    "expand": "Espandi barra laterale",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu",
+    "workspace": "Area di lavoro",
+    "create": "Crea codice QR",
+    "analytics": "Statistiche",
+    "myCodes": "I miei codici QR",
+    "account": "Il mio account",
+    "help": "Assistenza",
+    "contact": "Contattaci",
+    "faq": "Domande frequenti",
+    "logout": "Esci",
+    "loggedOut": "Sei uscito dall’account"
+  },
+  "header": {
+    "language": "Lingua",
+    "chooseLanguage": "Scegli la lingua",
+    "themeLight": "Passa alla modalità chiara",
+    "themeDark": "Passa alla modalità scura",
+    "title": "Codice QR",
+    "background": "Personalizza lo sfondo"
+  },
+  "empty": {
+    "text": "Questa pagina verrà completata in seguito."
+  },
+  "create": {
+    "progress": "Avanzamento",
+    "preview": "Anteprima sul telefono"
+  },
+  "steps": {
+    "type": "Tipo",
+    "content": "Contenuto",
+    "design": "Design",
+    "completed": "Completato"
+  },
+  "types": {
+    "website": {
+      "name": "Sito web",
+      "desc": "Link a qualsiasi sito web"
+    },
+    "pdf": {
+      "name": "PDF",
+      "desc": "Mostra un PDF"
+    },
+    "links": {
+      "name": "Elenco di link",
+      "desc": "Condividi più link"
+    },
+    "vcard": {
+      "name": "vCard",
+      "desc": "Condividi un biglietto da visita digitale"
+    },
+    "business": {
+      "name": "Attività",
+      "desc": "Condividi informazioni sulla tua attività"
+    },
+    "video": {
+      "name": "Video",
+      "desc": "Mostra un video"
+    },
+    "images": {
+      "name": "Immagini",
+      "desc": "Condividi più immagini"
+    },
+    "facebook": {
+      "name": "Facebook",
+      "desc": "Condividi la tua pagina Facebook"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "desc": "Condividi il tuo Instagram"
+    },
+    "social": {
+      "name": "Social media",
+      "desc": "Condividi i tuoi canali social"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "desc": "Ricevi messaggi WhatsApp"
+    },
+    "mp3": {
+      "name": "MP3",
+      "desc": "Condividi un file audio"
+    },
+    "menu": {
+      "name": "Menu",
+      "desc": "Crea un menu per il ristorante"
+    },
+    "apps": {
+      "name": "App",
+      "desc": "Reindirizza a un app store"
+    },
+    "coupon": {
+      "name": "Coupon",
+      "desc": "Condividi un coupon"
+    },
+    "wifi": {
+      "name": "Wi-Fi",
+      "desc": "Connettiti a una rete Wi-Fi"
+    }
+  },
+  "pv": {
+    "website": {
+      "title": "Software per agenti immobiliari",
+      "text": "Scopri i nostri prodotti e richiedi una demo.",
+      "cta": "Apri il sito"
+    },
+    "pdf": {
+      "sub": "Documento",
+      "file": "Manuale.pdf",
+      "size": "Dimensione",
+      "pages": "Pagine",
+      "language": "Lingua",
+      "cta": "Apri PDF"
+    },
+    "links": {
+      "sub": "Tutti i nostri link",
+      "website": "Sito web",
+      "jobs": "Lavora con noi",
+      "support": "Assistenza clienti",
+      "news": "Notizie"
+    },
+    "vcard": {
+      "sub": "Contatto",
+      "role": "Project manager",
+      "phone": "Telefono",
+      "email": "E-mail",
+      "cta": "Salva nei contatti",
+      "call": "Chiama ora"
+    },
+    "business": {
+      "sub": "Info attività",
+      "weekdays": "Lun – ven",
+      "saturday": "Sabato",
+      "sunday": "Domenica",
+      "closed": "Chiuso",
+      "cta": "Indicazioni"
+    },
+    "video": {
+      "title": "Come funziona Optimasys",
+      "meta": "Video del prodotto"
+    },
+    "images": {
+      "sub": "Galleria",
+      "title": "Vacanze 2026",
+      "count": "{count} foto",
+      "cta": "Scarica tutto"
+    },
+    "facebook": {
+      "sub": "Pagina Facebook",
+      "followers": "{count} follower",
+      "cta": "Segui su Facebook"
+    },
+    "instagram": {
+      "stats": "{posts} post · {followers} follower",
+      "cta": "Segui"
+    },
+    "social": {
+      "sub": "Seguici"
+    },
+    "whatsapp": {
+      "online": "online",
+      "m1": "Ciao! Come stai? 👋",
+      "m2": "Benissimo, grazie! E tu?",
+      "m3": "Bene! A dopo 🤍",
+      "input": "Messaggio",
+      "start": "Avvia chat"
+    },
+    "mp3": {
+      "sub": "Podcast",
+      "title": "Episodio 4",
+      "cta": "Riproduci"
+    },
+    "menu": {
+      "sub": "Ristorante Il Porto",
+      "dish1": "Pasta alle vongole",
+      "dish2": "Branzino alla griglia",
+      "dish3": "Tiramisù",
+      "cta": "Vedi il menu completo"
+    },
+    "apps": {
+      "sub": "App",
+      "title": "App Optimasys"
+    },
+    "coupon": {
+      "sub": "Offerta",
+      "title": "Sconto di benvenuto",
+      "valid": "Valido fino al {date}",
+      "off": "di sconto",
+      "cta": "Copia codice"
+    },
+    "wifi": {
+      "network": "Rete",
+      "security": "Sicurezza",
+      "cta": "Connetti"
+    }
+  },
+  "hero": {
+    "title": "Che tipo di codice QR vuoi creare?",
+    "lead": "Seleziona un tipo di QR per iniziare."
+  },
+  "content": {
+    "title": "Aggiungi i tuoi contenuti",
+    "lead": "Compila i dati. L’anteprima si aggiorna mentre scrivi."
+  },
+  "design": {
+    "title": "Personalizza il tuo codice QR",
+    "lead": "Scegli colori adatti al tuo brand.",
+    "color": "Colore del codice",
+    "background": "Sfondo",
+    "contrastLow": "Contrasto basso. Questo codice QR potrebbe non essere letto.",
+    "contrastOk": "Buon contrasto. Questo codice si scansiona facilmente.",
+    "done": "Il tuo codice QR è pronto.",
+    "qrAlt": "Codice QR per {type}",
+    "saveError": "Salvataggio non riuscito. Controlla la connessione e riprova.",
+    "saving": "Salvataggio…",
+    "retry": "Riprova",
+    "demoMode": "Modalità demo: non salvato. Avvia il server per salvare."
+  },
+  "actions": {
+    "continue": "Continua",
+    "back": "Indietro",
+    "create": "Crea codice QR",
+    "change": "Modifica"
+  },
+  "fields": {
+    "url": "URL del sito",
+    "title": "Titolo",
+    "name": "Nome",
+    "role": "Ruolo",
+    "phone": "Numero di telefono",
+    "email": "E-mail",
+    "address": "Indirizzo",
+    "pageName": "Nome della pagina",
+    "username": "Nome utente",
+    "message": "Messaggio precompilato",
+    "artist": "Artista",
+    "restaurant": "Nome del ristorante",
+    "appName": "Nome dell’app",
+    "code": "Codice sconto",
+    "discount": "Sconto (%)",
+    "ssid": "Nome della rete",
+    "password": "Password",
+    "security": "Sicurezza",
+    "securityNone": "Nessuna",
+    "link": "Link {n}"
+  },
+  "panel": {
+    "selected": "{type} selezionato"
+  },
+  "account": {
+    "demo": "Account demo",
+    "background": "Sfondo",
+    "backgroundLead": "Scegli l’ambiente in cui crei i tuoi codici QR. Lo vedi solo tu."
+  },
+  "bg": {
+    "optimasys": "Optimasys",
+    "aurora": "Aurora",
+    "city": "Città",
+    "mountains": "Montagne",
+    "office": "Ufficio",
+    "cafe": "Caffè",
+    "restaurant": "Ristorante",
+    "custom": "La tua foto",
+    "upload": "Carica la tua immagine",
+    "uploadError": "Impossibile caricare questa immagine. Prova con un JPG o PNG."
+  },
+  "myCodes": {
+    "lead": "Tutti i codici QR che hai creato.",
+    "loading": "Caricamento…",
+    "offline": "Questa demo online non salva i codici QR. Avvia il progetto con il server (npm start) per vederli qui.",
+    "empty": "Non hai ancora creato codici QR.",
+    "error": "Impossibile caricare i tuoi codici QR. Aggiorna la pagina per riprovare.",
+    "colType": "Tipo",
+    "colLink": "Link",
+    "colCreated": "Creato",
+    "colScans": "Scansioni"
+  }
+}

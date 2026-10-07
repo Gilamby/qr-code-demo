@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "mainMenu": "Menyja kryesore",
+    "home": "Optimasys QR, shko te Krijo kod QR",
+    "collapse": "Mblidh shiritin anësor",
+    "expand": "Zgjero shiritin anësor",
+    "openMenu": "Hap menynë",
+    "closeMenu": "Mbyll menynë",
+    "workspace": "Hapësira e punës",
+    "create": "Krijo kod QR",
+    "analytics": "Statistika",
+    "myCodes": "Kodet e mia QR",
+    "account": "Llogaria ime",
+    "help": "Ndihmë",
+    "contact": "Na kontaktoni",
+    "faq": "Pyetje të shpeshta",
+    "logout": "Dil",
+    "loggedOut": "Keni dalë nga llogaria"
+  },
+  "header": {
+    "language": "Gjuha",
+    "chooseLanguage": "Zgjidh gjuhën",
+    "themeLight": "Kalo në modalitetin e çelët",
+    "themeDark": "Kalo në modalitetin e errët",
+    "title": "Kodi QR",
+    "background": "Përshtat sfondin"
+  },
+  "empty": {
+    "text": "Kjo faqe do të plotësohet më vonë."
+  },
+  "create": {
+    "progress": "Ecuria",
+    "preview": "Pamje paraprake në telefon"
+  },
+  "steps": {
+    "type": "Lloji",
+    "content": "Përmbajtja",
+    "design": "Dizajni",
+    "completed": "Përfunduar"
+  },
+  "types": {
+    "website": {
+      "name": "Faqe interneti",
+      "desc": "Lidhje me çdo faqe interneti"
+    },
+    "pdf": {
+      "name": "PDF",
+      "desc": "Shfaq një PDF"
+    },
+    "links": {
+      "name": "Listë lidhjesh",
+      "desc": "Ndaj disa lidhje"
+    },
+    "vcard": {
+      "name": "vCard",
+      "desc": "Ndaj një kartëvizitë dixhitale"
+    },
+    "business": {
+      "name": "Biznes",
+      "desc": "Ndaj informacion për biznesin tënd"
+    },
+    "video": {
+      "name": "Video",
+      "desc": "Shfaq një video"
+    },
+    "images": {
+      "name": "Imazhe",
+      "desc": "Ndaj disa imazhe"
+    },
+    "facebook": {
+      "name": "Facebook",
+      "desc": "Ndaj faqen tënde në Facebook"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "desc": "Ndaj Instagramin tënd"
+    },
+    "social": {
+      "name": "Rrjete sociale",
+      "desc": "Ndaj kanalet e tua sociale"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "desc": "Merr mesazhe në WhatsApp"
+    },
+    "mp3": {
+      "name": "MP3",
+      "desc": "Ndaj një skedar audio"
+    },
+    "menu": {
+      "name": "Menu",
+      "desc": "Krijo një menu restoranti"
+    },
+    "apps": {
+      "name": "Aplikacione",
+      "desc": "Ridrejto te një dyqan aplikacionesh"
+    },
+    "coupon": {
+      "name": "Kupon",
+      "desc": "Ndaj një kupon"
+    },
+    "wifi": {
+      "name": "Wi-Fi",
+      "desc": "Lidhu me një rrjet Wi-Fi"
+    }
+  },
+  "pv": {
+    "website": {
+      "title": "Softuer për agjentë imobiliarë",
+      "text": "Zbuloni produktet tona dhe kërkoni një demonstrim.",
+      "cta": "Hap faqen"
+    },
+    "pdf": {
+      "sub": "Dokument",
+      "file": "Manuali.pdf",
+      "size": "Madhësia",
+      "pages": "Faqe",
+      "language": "Gjuha",
+      "cta": "Hap PDF-në"
+    },
+    "links": {
+      "sub": "Të gjitha lidhjet tona",
+      "website": "Faqja e internetit",
+      "jobs": "Vende pune",
+      "support": "Shërbimi i klientit",
+      "news": "Lajme"
+    },
+    "vcard": {
+      "sub": "Kontakt",
+      "role": "Menaxhere projekti",
+      "phone": "Telefoni",
+      "email": "Email",
+      "cta": "Ruaj te kontaktet",
+      "call": "Telefono tani"
+    },
+    "business": {
+      "sub": "Info biznesi",
+      "weekdays": "Hën – Pre",
+      "saturday": "E shtunë",
+      "sunday": "E diel",
+      "closed": "Mbyllur",
+      "cta": "Merr udhëzimet"
+    },
+    "video": {
+      "title": "Si funksionon Optimasys",
+      "meta": "Video e produktit"
+    },
+    "images": {
+      "sub": "Galeria",
+      "title": "Pushimet 2026",
+      "count": "{count} foto",
+      "cta": "Shkarko të gjitha"
+    },
+    "facebook": {
+      "sub": "Faqja në Facebook",
+      "followers": "{count} ndjekës",
+      "cta": "Ndiq në Facebook"
+    },
+    "instagram": {
+      "stats": "{posts} postime · {followers} ndjekës",
+      "cta": "Ndiq"
+    },
+    "social": {
+      "sub": "Na ndiqni"
+    },
+    "whatsapp": {
+      "online": "në linjë",
+      "m1": "Përshëndetje! Si je? 👋",
+      "m2": "Shumë mirë, faleminderit! Po ti?",
+      "m3": "Bukur! Shihemi më vonë 🤍",
+      "input": "Mesazh",
+      "start": "Nis bisedën"
+    },
+    "mp3": {
+      "sub": "Podkast",
+      "title": "Episodi 4",
+      "cta": "Luaj"
+    },
+    "menu": {
+      "sub": "Restoranti Porti",
+      "dish1": "Pasta me guaska",
+      "dish2": "Levrek në skarë",
+      "dish3": "Tiramisu",
+      "cta": "Shiko gjithë menunë"
+    },
+    "apps": {
+      "sub": "Aplikacion",
+      "title": "Aplikacioni Optimasys"
+    },
+    "coupon": {
+      "sub": "Ofertë",
+      "title": "Zbritje mirëseardhjeje",
+      "valid": "E vlefshme deri më {date}",
+      "off": "zbritje",
+      "cta": "Kopjo kodin"
+    },
+    "wifi": {
+      "network": "Rrjeti",
+      "security": "Siguria",
+      "cta": "Lidhu"
+    }
+  },
+  "hero": {
+    "title": "Çfarë lloj kodi QR dëshiron të krijosh?",
+    "lead": "Zgjidh një lloj QR për të filluar."
+  },
+  "content": {
+    "title": "Shto përmbajtjen",
+    "lead": "Plotëso të dhënat. Pamja paraprake përditësohet ndërsa shkruan."
+  },
+  "design": {
+    "title": "Dizajno kodin tënd QR",
+    "lead": "Zgjidh ngjyra që i përshtaten markës sate.",
+    "color": "Ngjyra e kodit",
+    "background": "Sfondi",
+    "contrastLow": "Kontrast i ulët. Ky kod QR mund të mos skanohet mirë.",
+    "contrastOk": "Kontrast i mirë. Ky kod skanohet lehtë.",
+    "done": "Kodi yt QR është gati.",
+    "qrAlt": "Kod QR për {type}",
+    "saveError": "Ruajtja dështoi. Kontrollo lidhjen dhe provo përsëri.",
+    "saving": "Duke ruajtur…",
+    "retry": "Provo përsëri",
+    "demoMode": "Modaliteti demo: nuk u ruajt. Nise serverin për të ruajtur."
+  },
+  "actions": {
+    "continue": "Vazhdo",
+    "back": "Mbrapa",
+    "create": "Krijo kodin QR",
+    "change": "Ndrysho"
+  },
+  "fields": {
+    "url": "URL e faqes",
+    "title": "Titulli",
+    "name": "Emri",
+    "role": "Pozicioni",
+    "phone": "Numri i telefonit",
+    "email": "Email",
+    "address": "Adresa",
+    "pageName": "Emri i faqes",
+    "username": "Emri i përdoruesit",
+    "message": "Mesazh i paraplotësuar",
+    "artist": "Artisti",
+    "restaurant": "Emri i restorantit",
+    "appName": "Emri i aplikacionit",
+    "code": "Kodi i zbritjes",
+    "discount": "Zbritja (%)",
+    "ssid": "Emri i rrjetit",
+    "password": "Fjalëkalimi",
+    "security": "Siguria",
+    "securityNone": "Asnjë",
+    "link": "Lidhja {n}"
+  },
+  "panel": {
+    "selected": "U zgjodh: {type}"
+  },
+  "account": {
+    "demo": "Llogari demo",
+    "background": "Sfondi",
+    "backgroundLead": "Zgjidh mjedisin ku krijon kodet QR. E sheh vetëm ti."
+  },
+  "bg": {
+    "optimasys": "Optimasys",
+    "aurora": "Aurora",
+    "city": "Qyteti",
+    "mountains": "Malet",
+    "office": "Zyra",
+    "cafe": "Kafeneja",
+    "restaurant": "Restoranti",
+    "custom": "Fotoja jote",
+    "upload": "Ngarko foton tënde",
+    "uploadError": "Imazhi nuk u ngarkua dot. Provo një JPG ose PNG."
+  },
+  "myCodes": {
+    "lead": "Të gjitha kodet QR që ke krijuar.",
+    "loading": "Duke u ngarkuar…",
+    "offline": "Ky demo online nuk i ruan kodet QR. Nise projektin me serverin (npm start) për t’i parë këtu.",
+    "empty": "Ende nuk ke krijuar asnjë kod QR.",
+    "error": "Kodet e tua QR nuk u ngarkuan dot. Rifresko faqen për të provuar përsëri.",
+    "colType": "Lloji",
+    "colLink": "Lidhja",
+    "colCreated": "Krijuar",
+    "colScans": "Skanime"
+  }
+}
