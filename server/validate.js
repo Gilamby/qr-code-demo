@@ -32,7 +32,10 @@ function validateQrCode(body) {
   if (!HEX.test(design.color || '')) errors.push('design.color: must be #rrggbb');
   if (!HEX.test(design.background || '')) errors.push('design.background: must be #rrggbb');
 
-  return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: { color: design.color, background: design.background } } };
+  if (design.pageColor !== undefined && !HEX.test(design.pageColor)) errors.push('design.pageColor: must be #rrggbb');
+  const cleanDesign = { color: design.color, background: design.background };
+  if (design.pageColor) cleanDesign.pageColor = design.pageColor;
+  return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: cleanDesign } };
 }
 
 function validateMe(body) {

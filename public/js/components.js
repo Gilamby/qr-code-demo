@@ -47,7 +47,11 @@ var ContentForm = {
           ? '<select id="' + id + '" name="' + f.key + '">' + f.options.map(function (o) { var cur = v || f.sample; return '<option value="' + o.value + '"' + (o.value === cur ? ' selected' : '') + '>' + resolveSample(o.label) + '</option>'; }).join('') + '</select>'
           : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(resolveSample(f.sample)) + '" autocomplete="off">';
         return '<div class="field"><label for="' + id + '">' + label + '</label>' + input + '</div>';
-      }).join('') + '</form>' + Actions.html(state);
+      }).join('') + '</form>' +
+      (type.page === false ? '' : '<section class="appearance"><h3>' + t('appearance.title') + '</h3><p>' + t('appearance.lead') + '</p>' + ColorPicker.html(t('appearance.title')) + '</section>') +
+      Actions.html(state);
+    var cp = el.querySelector('.cp');
+    if (cp) ColorPicker.mount(cp, { value: state.pageColor, onChange: actions.setPageColor, onPreview: actions.previewPageColor });
   }
 };
 

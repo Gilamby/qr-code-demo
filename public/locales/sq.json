@@ -280,5 +280,9 @@
     "colLink": "Lidhja",
     "colCreated": "Krijuar",
     "colScans": "Skanime"
+  },
+  "appearance": {
+    "title": "Ngjyra e faqes sate",
+    "lead": "Kalo mbi ngjyrat për t’i parë drejtpërdrejt në telefon. Kliko për të zgjedhur."
   }
 }

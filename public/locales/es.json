@@ -280,5 +280,9 @@
     "colLink": "Enlace",
     "colCreated": "Creado",
     "colScans": "Escaneos"
+  },
+  "appearance": {
+    "title": "Color de tu página",
+    "lead": "Pasa el ratón por los colores para verlos en directo en el móvil. Haz clic para elegir."
   }
 }

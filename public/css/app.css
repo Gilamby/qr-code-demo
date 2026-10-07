@@ -413,3 +413,33 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 0; background: li
 .codes .ti svg { width: 16px; height: 16px; }
 .codes a { color: var(--accent); }
 .codes .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* =========================================================
+   Paginakleur (--pc) in de telefoon + kleurkiezer
+   ========================================================= */
+.screen { --pc: #2bb5f0; background: radial-gradient(130% 55% at 50% 0%, color-mix(in srgb, var(--pc) 42%, transparent), transparent 72%), linear-gradient(180deg, #0c0f13, #08090b) !important; transition: background .25s; }
+.pv-icon { color: var(--pc) !important; background: color-mix(in srgb, var(--pc) 16%, transparent) !important; border-color: color-mix(in srgb, var(--pc) 60%, transparent) !important; }
+.pv-row .ri { color: var(--pc) !important; }
+.pv-row:last-child { background: var(--pc) !important; border-color: transparent !important; color: #fff; }
+.pv-row:last-child .ri { background: rgba(0,0,0,.18) !important; color: #fff !important; }
+.pv-row:last-child .chev { color: rgba(255,255,255,.8); }
+
+.appearance { margin-top: 26px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.12); }
+.appearance h3 { margin: 0; font-size: 15px; font-weight: 700; }
+.appearance p { margin: 4px 0 14px; font-size: 13px; color: var(--muted); }
+.cp { display: grid; gap: 12px; }
+.cp-sv { position: relative; height: 150px; border-radius: 14px; cursor: crosshair; touch-action: none; border: 1px solid rgba(255,255,255,.18);
+  background: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, var(--hue, red)); }
+.cp-dot, .cp-ghost { position: absolute; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 3px 10px rgba(0,0,0,.4); pointer-events: none; }
+.cp-ghost { width: 14px; height: 14px; margin: -7px 0 0 -7px; border-width: 2px; opacity: 0; transition: opacity .15s; }
+.cp-hue { position: relative; height: 14px; border-radius: 999px; cursor: pointer; touch-action: none;
+  background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00); }
+.cp-knob { position: absolute; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 3px 10px rgba(0,0,0,.4); pointer-events: none; }
+.cp-row { display: flex; align-items: center; gap: 10px; }
+.cp-chip { width: 36px; height: 36px; flex: none; border-radius: 10px; border: 1px solid rgba(255,255,255,.2); }
+.cp-hex { width: 96px; height: 36px; flex: none; padding: 0 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05); color: var(--fg); font-size: 13.5px; font-weight: 600; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.cp-hex:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.cp-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.cp-pre { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); cursor: pointer; transition: transform .15s; }
+.cp-pre:hover { transform: scale(1.18); }
+.cp-pre[aria-pressed="true"] { box-shadow: 0 0 0 2px #0b0e13, 0 0 0 4px #fff; }

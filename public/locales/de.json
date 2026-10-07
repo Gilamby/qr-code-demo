@@ -280,5 +280,9 @@
     "colLink": "Link",
     "colCreated": "Erstellt",
     "colScans": "Scans"
+  },
+  "appearance": {
+    "title": "Farbe deiner Seite",
+    "lead": "Fahre über die Farben, um sie live auf dem Handy zu sehen. Klicke zum Auswählen."
   }
 }

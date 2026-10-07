@@ -280,5 +280,9 @@
     "colLink": "Link",
     "colCreated": "Gemaakt",
     "colScans": "Scans"
+  },
+  "appearance": {
+    "title": "Kleur van je pagina",
+    "lead": "Beweeg over de kleuren om ze live op de telefoon te zien. Klik om te kiezen."
   }
 }

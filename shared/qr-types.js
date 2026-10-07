@@ -15,7 +15,7 @@
   if (typeof module === 'object' && module.exports) module.exports = data;
   else root.QR_TYPES = data;
 })(typeof self !== 'undefined' ? self : this, [
-  { id: 'website',   icon: 'globe',  image: 'assets/qr-types/website.jpg', previewImage: 'assets/previews/website.jpg',   contentType: 'url',      previewType: 'card',    color: '#1576c9',
+  { id: 'website', page: false,   icon: 'globe',  image: 'assets/qr-types/website.jpg', previewImage: 'assets/previews/website.jpg',   contentType: 'url',      previewType: 'card',    color: '#1576c9',
     fields: [ { key: 'url', type: 'url', label: 'fields.url', sample: 'https://optimasys.com' }, { key: 'title', label: 'fields.title', sample: { t: 'pv.website.title' } } ] },
   { id: 'pdf',       icon: 'pdf',    image: 'assets/qr-types/pdf.jpg', previewImage: 'assets/previews/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.pdf.file' } } ] },
@@ -31,11 +31,11 @@
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.images.title' } } ] },
   { id: 'facebook',  icon: 'fb',     image: 'assets/qr-types/facebook.jpg', previewImage: 'assets/previews/facebook.jpg',  contentType: 'profile',  previewType: 'card', color: '#1877f2',
     fields: [ { key: 'pageName', label: 'fields.pageName', sample: 'Optimasys' } ] },
-  { id: 'instagram', icon: 'ig',     image: 'assets/qr-types/instagram.jpg', previewImage: 'assets/previews/instagram.jpg', contentType: 'profile',  previewType: 'card', color: '#d6249f',
+  { id: 'instagram', page: false, icon: 'ig',     image: 'assets/qr-types/instagram.jpg', previewImage: 'assets/previews/instagram.jpg', contentType: 'profile',  previewType: 'card', color: '#d6249f',
     fields: [ { key: 'username', label: 'fields.username', sample: 'optimasys' } ] },
   { id: 'social',    icon: 'social', image: 'assets/qr-types/social.jpg', previewImage: 'assets/previews/social.jpg',    contentType: 'links',    previewType: 'card',   color: '#5b6cf0',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.social.sub' } } ] },
-  { id: 'whatsapp',  icon: 'wa',     image: 'assets/qr-types/whatsapp.jpg', previewImage: 'assets/previews/whatsapp.jpg',  contentType: 'message',  previewType: 'card',    color: '#00a884',
+  { id: 'whatsapp', page: false,  icon: 'wa',     image: 'assets/qr-types/whatsapp.jpg', previewImage: 'assets/previews/whatsapp.jpg',  contentType: 'message',  previewType: 'card',    color: '#00a884',
     fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', sample: '+31 6 1234 5678' }, { key: 'message', label: 'fields.message', sample: { t: 'pv.whatsapp.m2' } } ] },
   { id: 'mp3',       icon: 'mp3',    image: 'assets/qr-types/mp3.jpg', previewImage: 'assets/previews/mp3.jpg',       contentType: 'file',     previewType: 'card',    color: '#8b5cf6',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.mp3.title' } }, { key: 'artist', label: 'fields.artist', sample: 'Optimasys Podcast' } ] },
@@ -45,7 +45,7 @@
     fields: [ { key: 'appName', label: 'fields.appName', sample: { t: 'pv.apps.title' } } ] },
   { id: 'coupon',    icon: 'coupon', image: 'assets/qr-types/coupon.jpg', previewImage: 'assets/previews/coupon.jpg',    contentType: 'coupon',   previewType: 'card',    color: '#d4a017',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.coupon.title' } }, { key: 'code', label: 'fields.code', sample: 'WELCOME15' }, { key: 'discount', type: 'number', label: 'fields.discount', sample: '15' } ] },
-  { id: 'wifi',      icon: 'wifi',   image: 'assets/qr-types/wifi.jpg', previewImage: 'assets/previews/wifi.jpg',      contentType: 'wifi',     previewType: 'card',    color: '#2bb5f0',
+  { id: 'wifi', page: false,      icon: 'wifi',   image: 'assets/qr-types/wifi.jpg', previewImage: 'assets/previews/wifi.jpg',      contentType: 'wifi',     previewType: 'card',    color: '#2bb5f0',
     fields: [ { key: 'ssid', label: 'fields.ssid', sample: 'Optimasys-Guest' }, { key: 'password', label: 'fields.password', sample: '' },
               { key: 'security', type: 'select', label: 'fields.security', options: [ { value: 'WPA', label: 'WPA/WPA2' }, { value: 'WEP', label: 'WEP' }, { value: 'nopass', label: { t: 'fields.securityNone' } } ], sample: 'WPA' } ] }
 ]);

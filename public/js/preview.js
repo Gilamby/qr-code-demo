@@ -57,4 +57,4 @@ var TEMPLATES = {
       '<div class="pv-rows">' + rows.filter(Boolean).map(function (r) { return '<div class="pv-row"><span class="ri">' + svg(type.icon, 1.7) + '</span><span class="lbl">' + esc(r) + '</span>' + CHEV + '</div>'; }).join('') + '</div>';
   }
 };
-function renderPreview(state) { var type = getType(state.typeId); return previewScreen(type) || TEMPLATES[type.previewType](type, previewRows(type, resolvedContent(state))); }
+function renderPreview(state) { var type = getType(state.typeId); return (state.step === 'type' && previewScreen(type)) || TEMPLATES[type.previewType](type, previewRows(type, resolvedContent(state))); }

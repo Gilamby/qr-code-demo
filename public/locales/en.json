@@ -280,5 +280,9 @@
     "colLink": "Link",
     "colCreated": "Created",
     "colScans": "Scans"
+  },
+  "appearance": {
+    "title": "Page colour",
+    "lead": "Hover over the colours to see them live on the phone. Click to choose."
   }
 }
