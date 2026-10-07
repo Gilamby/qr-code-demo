@@ -139,7 +139,11 @@
       "saturday": "Samedi",
       "sunday": "Dimanche",
       "closed": "Fermé",
-      "cta": "Itinéraire"
+      "cta": "Itinéraire",
+      "descSample": "Café fraîchement torréfié, gâteaux maison et le coin le plus chaleureux de la ville.",
+      "hoursSample": "Lun – sam 08:00 – 18:00",
+      "hours": "Horaires",
+      "openNow": "Ouvert"
     },
     "video": {
       "title": "Comment fonctionne Optimasys",
@@ -169,7 +173,8 @@
       "m2": "Très bien, merci ! Et toi ?",
       "m3": "Super ! À plus tard 🤍",
       "input": "Message",
-      "start": "Démarrer la discussion"
+      "start": "Démarrer la discussion",
+      "encrypted": "Les messages sont chiffrés de bout en bout."
     },
     "mp3": {
       "sub": "Podcast",
@@ -248,7 +253,9 @@
     "password": "Mot de passe",
     "security": "Sécurité",
     "securityNone": "Aucune",
-    "link": "Lien {n}"
+    "link": "Lien {n}",
+    "description": "Description",
+    "hours": "Horaires d'ouverture"
   },
   "panel": {
     "selected": "{type} sélectionné"

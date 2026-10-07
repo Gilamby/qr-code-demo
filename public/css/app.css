@@ -443,3 +443,81 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 0; background: li
 .cp-pre { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); cursor: pointer; transition: transform .15s; }
 .cp-pre:hover { transform: scale(1.18); }
 .cp-pre[aria-pressed="true"] { box-shadow: 0 0 0 2px #0b0e13, 0 0 0 4px #fff; }
+
+/* =========================================================
+   Telefoon-sjablonen per type (public/js/phone-templates.js)
+   Echte schermen, licht zoals de apps zelf. Vullen het hele scherm.
+   ========================================================= */
+.ph { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; overflow: hidden; font-family: -apple-system, "SF Pro Text", "Segoe UI", Roboto, var(--font); color: #111b21; background: #fff; text-align: left; }
+.ph .i { width: 21px; height: 21px; flex: none; }
+.ph .i.s { width: 12px; height: 12px; }
+.sk { display: block; height: 9px; width: 60%; border-radius: 6px; background: rgba(0,0,0,.1); }
+.sk + .sk { margin-top: 7px; }
+b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
+.light .sk, .wa-head .sk, .bz-top .sk { background: rgba(255,255,255,.35); }
+/* statusbalk */
+.sb { height: 50px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 6px 30px 0 34px; font-size: 14px; color: #111; }
+.sb.light { color: #fff; }
+.sb b { font-weight: 600; letter-spacing: -.01em; }
+.sb span { display: flex; align-items: center; gap: 5px; }
+.sb svg { height: 11px; width: auto; }
+.sb .bat { width: 23px; height: 11px; border: 1.3px solid currentColor; border-radius: 3.5px; padding: 1.3px; opacity: .95; display: block; }
+.sb .bat i { display: block; width: 75%; height: 100%; border-radius: 1.5px; background: currentColor; }
+
+/* WhatsApp */
+.ph-wa { background: #efeae2; }
+.ph-wa .sb, .wa-head { background: #008069; }
+.wa-head { display: flex; align-items: center; gap: 8px; padding: 6px 12px 10px 8px; color: #fff; flex: none; }
+.wa-head .dots { margin-left: 4px; }
+.wa-av { width: 36px; height: 36px; border-radius: 50%; background: #dfe5e7; color: #fff; display: grid; place-items: center; flex: none; overflow: hidden; }
+.wa-av .i { width: 30px; height: 30px; margin-top: 8px; color: #fff; stroke-width: 0; fill: #b5c0c5; }
+.wa-name { flex: 1; min-width: 0; line-height: 1.15; }
+.wa-name b { display: block; font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wa-name small { font-size: 11.5px; opacity: .85; }
+.wa-head > .i + .i { margin-left: 8px; }
+.wa-body { flex: 1; min-height: 0; padding: 12px 12px; display: flex; flex-direction: column; gap: 6px; overflow: hidden;
+  background-color: #efeae2; background-image: radial-gradient(rgba(0,0,0,.045) 1.2px, transparent 1.3px), radial-gradient(rgba(0,0,0,.03) 1px, transparent 1.1px); background-size: 22px 22px, 14px 14px; background-position: 0 0, 7px 9px; }
+.wa-pill { align-self: center; max-width: 86%; display: flex; gap: 6px; align-items: flex-start; padding: 6px 10px; margin-bottom: 8px; border-radius: 8px; background: #ffeecd; color: #54656f; font-size: 11px; line-height: 1.35; text-align: center; box-shadow: 0 1px .5px rgba(0,0,0,.08); }
+.wa-pill .i { margin-top: 1px; }
+.wa-in, .wa-out { position: relative; max-width: 80%; padding: 7px 9px 18px; border-radius: 9px; font-size: 14px; line-height: 1.32; box-shadow: 0 1px .5px rgba(0,0,0,.13); word-wrap: break-word; animation: waIn .35s var(--ease) both; }
+.wa-in { align-self: flex-start; background: #fff; border-top-left-radius: 2px; }
+.wa-out { align-self: flex-end; background: #d9fdd3; border-top-right-radius: 2px; }
+.wa-in time, .wa-out time { position: absolute; right: 8px; bottom: 3px; font-size: 10.5px; color: #667781; }
+.wa-out time em { font-style: normal; color: #53bdeb; letter-spacing: -2px; margin-left: 2px; }
+.wa-out.sk-bub { width: 64%; padding-bottom: 12px; }
+@keyframes waIn { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+.wa-bar { flex: none; display: flex; align-items: center; gap: 6px; padding: 6px 8px 28px; background: #efeae2; }
+.wa-input { flex: 1; display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; border-radius: 22px; background: #fff; color: #8696a0; font-size: 15px; box-shadow: 0 1px .5px rgba(0,0,0,.08); }
+.wa-input span { flex: 1; }
+.wa-send { width: 44px; height: 44px; border-radius: 50%; background: #00a884; color: #fff; display: grid; place-items: center; flex: none; }
+.wa-send .i { width: 19px; height: 19px; fill: #fff; }
+
+/* Bedrijf */
+.ph-bz { background: #f2f3f5; }
+.bz-band { background: var(--pc); color: var(--pc-ink); flex: none; padding-bottom: 54px; transition: background .25s; }
+.bz-band .sb { color: var(--pc-ink); }
+.bz-top { display: flex; align-items: center; gap: 10px; padding: 4px 16px 0; }
+.bz-top b { flex: 1; text-align: center; font-size: 16px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bz-scroll { flex: 1; min-height: 0; margin-top: -46px; padding: 0 14px 20px; overflow: hidden; display: flex; flex-direction: column; gap: 12px; }
+.bz-card { background: #fff; border-radius: 18px; padding: 10px 10px 14px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.25); text-align: center; }
+.bz-cover { height: 118px; border-radius: 12px; display: grid; place-items: center; color: rgba(255,255,255,.9); overflow: hidden; position: relative;
+  background: radial-gradient(120% 90% at 20% 10%, color-mix(in srgb, var(--pc) 55%, #fff), transparent 60%), linear-gradient(135deg, color-mix(in srgb, var(--pc) 80%, #000), color-mix(in srgb, var(--pc) 45%, #000)); }
+.bz-cover::after { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 12px, transparent 12px 24px); }
+.bz-store { width: 54px; height: 54px; stroke-width: 1.4; position: relative; z-index: 1; }
+.bz-card h4 { margin: 12px 0 4px; font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+.bz-card p { margin: 0 8px; font-size: 13px; line-height: 1.4; color: #5f6672; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.bz-card p .sk { margin: 4px auto 0; width: 90%; }
+.bz-cta { margin: 12px 4px 0; height: 44px; border-radius: 11px; background: var(--pc); color: var(--pc-ink); display: grid; place-items: center; font-weight: 700; font-size: 14.5px; transition: background .25s; }
+.bz-list { background: #fff; border-radius: 18px; padding: 4px 14px; box-shadow: 0 10px 30px -16px rgba(0,0,0,.2); }
+.bz-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; }
+.bz-row + .bz-row { border-top: 1px solid #eef0f2; }
+.bz-ic { width: 34px; height: 34px; border-radius: 10px; flex: none; display: grid; place-items: center; background: color-mix(in srgb, var(--pc) 14%, #fff); color: color-mix(in srgb, var(--pc) 75%, #000); }
+.bz-ic .i { width: 17px; height: 17px; }
+.bz-row > span:last-child { min-width: 0; flex: 1; }
+.bz-row b { display: block; font-size: 13.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bz-row b em { font-style: normal; color: #1a9a4b; }
+.bz-row small { display: block; margin-top: 2px; font-size: 12px; color: #6b7280; }
+.bz-row small .sk { margin-top: 5px; }
+.bz-fab { position: absolute; right: 18px; bottom: 30px; width: 46px; height: 46px; border-radius: 14px; background: var(--pc); color: var(--pc-ink); display: grid; place-items: center; box-shadow: 0 8px 20px -6px rgba(0,0,0,.35); }
+.bz-fab .i { fill: currentColor; }
+.screen:has(.ph)::after { background: rgba(0,0,0,.75); z-index: 3; }

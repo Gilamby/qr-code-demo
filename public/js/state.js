@@ -15,7 +15,8 @@ var store = createStore({
   content: {},                                   // { [typeId]: { [fieldKey]: waarde } }
   design: { color: DESIGN_OPTIONS.colors[0], background: DESIGN_OPTIONS.backgrounds[0] },
   pageColor: '#2bb5f0',                         // kleur van de pagina in de telefoon
-  hoverColor: null,                             // tijdelijk voorbeeld zolang de muis over de kleurkiezer gaat
+  hoverColor: null,
+  hoverTypeId: null,                            // tegel waar de muis in stap 1 boven hangt                             // tijdelijk voorbeeld zolang de muis over de kleurkiezer gaat
   created: false,
   saving: false,
   saved: null,                                  // opgeslagen record uit de backend { id, shortUrl, ... }
@@ -23,7 +24,8 @@ var store = createStore({
 });
 var actions = {
   selectType: function (id) { store.set({ typeId: id, created: false, saved: null, error: null }); },
-  goTo: function (step) { store.set({ step: step }); },
+  hoverType: function (id) { if (store.get().hoverTypeId !== id) store.set({ hoverTypeId: id }); },
+  goTo: function (step) { store.set({ step: step, hoverTypeId: null }); },
   setField: function (key, value) {
     var s = store.get(), c = Object.assign({}, s.content), cur = Object.assign({}, c[s.typeId] || {});
     cur[key] = value; c[s.typeId] = cur; store.set({ content: c, created: false, saved: null, error: null });

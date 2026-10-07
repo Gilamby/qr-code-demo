@@ -8,7 +8,9 @@
   function drawPhone(state) {
     var type = getType(state.typeId);
     screen.innerHTML = renderPreview(state);
-    screen.style.setProperty('--pc', type.page === false ? '#2bb5f0' : (state.hoverColor || state.pageColor));
+    var pc = type.page === false ? '#2bb5f0' : (state.hoverColor || state.pageColor);
+    screen.style.setProperty('--pc', pc);
+    screen.style.setProperty('--pc-ink', luminance(pc) > 0.42 ? '#14161a' : '#ffffff');   // leesbare tekst op de paginakleur
   }
 
   panel.addEventListener('click', function (e) {
@@ -17,6 +19,8 @@
     var sw = e.target.closest('[data-design]'); if (sw) return actions.setDesign(sw.getAttribute('data-design'), sw.getAttribute('data-value'));
     if (e.target.closest('[data-create]')) actions.create();
   });
+  panel.addEventListener('mouseover', function (e) { var c = e.target.closest('.qr-card'); if (c) actions.hoverType(c.getAttribute('data-type')); });
+  panel.addEventListener('mouseout', function (e) { if (e.target.closest('.qr-card') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.qr-card'))) actions.hoverType(null); });
   panel.addEventListener('input', function (e) { if (e.target.name) actions.setField(e.target.name, e.target.value); });
   panel.addEventListener('submit', function (e) { e.preventDefault(); });
 
@@ -31,6 +35,7 @@
   store.subscribe(function (state, prev) {
     var stepChanged = state.step !== prev.step, typeChanged = state.typeId !== prev.typeId;
     if (state.hoverColor !== prev.hoverColor || state.pageColor !== prev.pageColor) { drawPhone(state); if (state.step === 'content') return; }
+    if (state.step === 'type' && state.hoverTypeId !== prev.hoverTypeId && !typeChanged) { drawPhone(state); return; }
     if (stepChanged) { renderAll(state, false); document.getElementById('heroTitle').scrollIntoView({ block: 'nearest' }); return; }
     if (state.step === 'type' && typeChanged) { TypeGrid.update(panel, state); renderHero(state); panel.querySelector('.actions').outerHTML = Actions.html(state); drawPhone(state); screen.classList.remove('swap'); void screen.offsetWidth; screen.classList.add('swap'); return; }
     if (state.step === 'content') { drawPhone(state); return; }          // formulier niet opnieuw tekenen: focus blijft

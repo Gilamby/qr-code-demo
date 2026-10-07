@@ -139,7 +139,11 @@
       "saturday": "Sábado",
       "sunday": "Domingo",
       "closed": "Cerrado",
-      "cta": "Cómo llegar"
+      "cta": "Cómo llegar",
+      "descSample": "Café recién tostado, tartas caseras y el rincón más acogedor de la ciudad.",
+      "hoursSample": "Lun – sáb 08:00 – 18:00",
+      "hours": "Horario",
+      "openNow": "Abierto ahora"
     },
     "video": {
       "title": "Así funciona Optimasys",
@@ -169,7 +173,8 @@
       "m2": "¡Genial, gracias! ¿Y tú?",
       "m3": "¡Bien! Hasta luego 🤍",
       "input": "Mensaje",
-      "start": "Iniciar chat"
+      "start": "Iniciar chat",
+      "encrypted": "Los mensajes están cifrados de extremo a extremo."
     },
     "mp3": {
       "sub": "Pódcast",
@@ -248,7 +253,9 @@
     "password": "Contraseña",
     "security": "Seguridad",
     "securityNone": "Ninguna",
-    "link": "Enlace {n}"
+    "link": "Enlace {n}",
+    "description": "Descripción",
+    "hours": "Horario"
   },
   "panel": {
     "selected": "{type} seleccionado"

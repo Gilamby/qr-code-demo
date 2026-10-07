@@ -57,4 +57,15 @@ var TEMPLATES = {
       '<div class="pv-rows">' + rows.filter(Boolean).map(function (r) { return '<div class="pv-row"><span class="ri">' + svg(type.icon, 1.7) + '</span><span class="lbl">' + esc(r) + '</span>' + CHEV + '</div>'; }).join('') + '</div>';
   }
 };
-function renderPreview(state) { var type = getType(state.typeId); return (state.step === 'type' && previewScreen(type)) || TEMPLATES[type.previewType](type, previewRows(type, resolvedContent(state))); }
+// Waarden voor de telefoon: in stap 1 voorbeeldwaarden, daarna alleen wat de gebruiker invult.
+function phoneValues(type, state, example) {
+  var entered = state.content[type.id] || {}, out = {};
+  type.fields.forEach(function (f) { var x = entered[f.key]; out[f.key] = (x != null && String(x).trim() !== '') ? String(x).trim() : (example ? resolveSample(f.sample) : ''); });
+  return out;
+}
+function renderPreview(state) {
+  var ex = state.step === 'type', type = getType(ex && state.hoverTypeId ? state.hoverTypeId : state.typeId);
+  if (ex && previewScreen(type)) return previewScreen(type);
+  if (PHONE[type.id]) return PHONE[type.id](phoneValues(type, state, ex), ex);
+  return TEMPLATES[type.previewType](type, previewRows(type, phoneValues(type, state, true)));
+}

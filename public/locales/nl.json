@@ -139,7 +139,11 @@
       "saturday": "Zaterdag",
       "sunday": "Zondag",
       "closed": "Gesloten",
-      "cta": "Route plannen"
+      "cta": "Route plannen",
+      "descSample": "Vers gebrande koffie, huisgemaakt gebak en de gezelligste plek van de stad.",
+      "hoursSample": "Ma – za 08:00 – 18:00",
+      "hours": "Openingstijden",
+      "openNow": "Nu open"
     },
     "video": {
       "title": "Zo werkt Optimasys",
@@ -169,7 +173,8 @@
       "m2": "Super goed! En met jou?",
       "m3": "Mooi! Tot straks 🤍",
       "input": "Bericht",
-      "start": "Start chat"
+      "start": "Start chat",
+      "encrypted": "Berichten zijn end-to-end versleuteld."
     },
     "mp3": {
       "sub": "Podcast",
@@ -248,7 +253,9 @@
     "password": "Wachtwoord",
     "security": "Beveiliging",
     "securityNone": "Geen",
-    "link": "Link {n}"
+    "link": "Link {n}",
+    "description": "Beschrijving",
+    "hours": "Openingstijden"
   },
   "panel": {
     "selected": "{type} geselecteerd"
