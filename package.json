@@ -1,0 +1,16 @@
+{
+  "name": "optimasys-qr",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Optimasys QR: QR-codes maken met live telefoon-preview (demo)",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "build:demo": "node scripts/build-demo.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

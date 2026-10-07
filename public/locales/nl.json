@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "mainMenu": "Hoofdmenu",
+    "home": "Optimasys QR, naar QR-code maken",
+    "collapse": "Zijbalk inklappen",
+    "expand": "Zijbalk uitklappen",
+    "openMenu": "Menu openen",
+    "closeMenu": "Menu sluiten",
+    "workspace": "Werkruimte",
+    "create": "QR-code maken",
+    "analytics": "Statistieken",
+    "myCodes": "Mijn QR-codes",
+    "account": "Mijn account",
+    "help": "Hulp",
+    "contact": "Contact",
+    "faq": "Veelgestelde vragen",
+    "logout": "Uitloggen",
+    "loggedOut": "Je bent uitgelogd"
+  },
+  "header": {
+    "language": "Taal",
+    "chooseLanguage": "Kies een taal",
+    "themeLight": "Naar lichte modus",
+    "themeDark": "Naar donkere modus",
+    "title": "QR-code",
+    "background": "Achtergrond aanpassen"
+  },
+  "empty": {
+    "text": "Deze pagina wordt later ingevuld."
+  },
+  "create": {
+    "progress": "Voortgang",
+    "preview": "Voorbeeld op telefoon"
+  },
+  "steps": {
+    "type": "Type",
+    "content": "Inhoud",
+    "design": "Ontwerp",
+    "completed": "Voltooid"
+  },
+  "types": {
+    "website": {
+      "name": "Website",
+      "desc": "Link naar elke website"
+    },
+    "pdf": {
+      "name": "PDF",
+      "desc": "Toon een PDF"
+    },
+    "links": {
+      "name": "Lijst met links",
+      "desc": "Deel meerdere links"
+    },
+    "vcard": {
+      "name": "vCard",
+      "desc": "Deel een digitaal visitekaartje"
+    },
+    "business": {
+      "name": "Bedrijf",
+      "desc": "Deel informatie over je bedrijf"
+    },
+    "video": {
+      "name": "Video",
+      "desc": "Toon een video"
+    },
+    "images": {
+      "name": "Afbeeldingen",
+      "desc": "Deel meerdere afbeeldingen"
+    },
+    "facebook": {
+      "name": "Facebook",
+      "desc": "Deel je Facebook-pagina"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "desc": "Deel je Instagram"
+    },
+    "social": {
+      "name": "Social media",
+      "desc": "Deel je sociale kanalen"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "desc": "Ontvang WhatsApp-berichten"
+    },
+    "mp3": {
+      "name": "MP3",
+      "desc": "Deel een audiobestand"
+    },
+    "menu": {
+      "name": "Menu",
+      "desc": "Maak een restaurantmenu"
+    },
+    "apps": {
+      "name": "Apps",
+      "desc": "Stuur door naar een appwinkel"
+    },
+    "coupon": {
+      "name": "Coupon",
+      "desc": "Deel een coupon"
+    },
+    "wifi": {
+      "name": "Wifi",
+      "desc": "Verbind met een wifi-netwerk"
+    }
+  },
+  "pv": {
+    "website": {
+      "title": "Software voor makelaars",
+      "text": "Bekijk onze producten en vraag een demo aan.",
+      "cta": "Open website"
+    },
+    "pdf": {
+      "sub": "Document",
+      "file": "Handleiding.pdf",
+      "size": "Grootte",
+      "pages": "Pagina’s",
+      "language": "Taal",
+      "cta": "Open PDF"
+    },
+    "links": {
+      "sub": "Al onze links",
+      "website": "Website",
+      "jobs": "Vacatures",
+      "support": "Klantenservice",
+      "news": "Nieuws"
+    },
+    "vcard": {
+      "sub": "Contact",
+      "role": "Projectleider",
+      "phone": "Telefoon",
+      "email": "E-mail",
+      "cta": "Opslaan in contacten",
+      "call": "Bel direct"
+    },
+    "business": {
+      "sub": "Bedrijfsinfo",
+      "weekdays": "Ma – vr",
+      "saturday": "Zaterdag",
+      "sunday": "Zondag",
+      "closed": "Gesloten",
+      "cta": "Route plannen"
+    },
+    "video": {
+      "title": "Zo werkt Optimasys",
+      "meta": "Productvideo"
+    },
+    "images": {
+      "sub": "Galerij",
+      "title": "Vakantie 2026",
+      "count": "{count} foto’s",
+      "cta": "Alles downloaden"
+    },
+    "facebook": {
+      "sub": "Facebook-pagina",
+      "followers": "{count} volgers",
+      "cta": "Volgen op Facebook"
+    },
+    "instagram": {
+      "stats": "{posts} berichten · {followers} volgers",
+      "cta": "Volgen"
+    },
+    "social": {
+      "sub": "Volg ons"
+    },
+    "whatsapp": {
+      "online": "online",
+      "m1": "Hoi! Hoe gaat het? 👋",
+      "m2": "Super goed! En met jou?",
+      "m3": "Mooi! Tot straks 🤍",
+      "input": "Bericht",
+      "start": "Start chat"
+    },
+    "mp3": {
+      "sub": "Podcast",
+      "title": "Aflevering 4",
+      "cta": "Afspelen"
+    },
+    "menu": {
+      "sub": "Restaurant De Haven",
+      "dish1": "Pasta vongole",
+      "dish2": "Gegrilde zeebaars",
+      "dish3": "Tiramisu",
+      "cta": "Bekijk hele menu"
+    },
+    "apps": {
+      "sub": "App",
+      "title": "Optimasys-app"
+    },
+    "coupon": {
+      "sub": "Aanbieding",
+      "title": "Welkomstkorting",
+      "valid": "Geldig t/m {date}",
+      "off": "korting",
+      "cta": "Code kopiëren"
+    },
+    "wifi": {
+      "network": "Netwerk",
+      "security": "Beveiliging",
+      "cta": "Verbinden"
+    }
+  },
+  "hero": {
+    "title": "Wat voor QR-code wil je maken?",
+    "lead": "Selecteer een QR-type om te beginnen."
+  },
+  "content": {
+    "title": "Voeg je inhoud toe",
+    "lead": "Vul de gegevens in. Het voorbeeld past zich aan terwijl je typt."
+  },
+  "design": {
+    "title": "Ontwerp je QR-code",
+    "lead": "Kies kleuren die bij je merk passen.",
+    "color": "Kleur van de code",
+    "background": "Achtergrond",
+    "contrastLow": "Te weinig contrast. Deze QR-code wordt mogelijk niet goed gescand.",
+    "contrastOk": "Goed contrast. Deze code scant makkelijk.",
+    "done": "Je QR-code is klaar.",
+    "qrAlt": "QR-code voor {type}",
+    "saveError": "Opslaan is mislukt. Controleer je verbinding en probeer het opnieuw.",
+    "saving": "Opslaan…",
+    "retry": "Opnieuw proberen",
+    "demoMode": "Demo-modus: niet opgeslagen. Start de server om op te slaan."
+  },
+  "actions": {
+    "continue": "Doorgaan",
+    "back": "Terug",
+    "create": "QR-code maken",
+    "change": "Wijzigen"
+  },
+  "fields": {
+    "url": "Website-URL",
+    "title": "Titel",
+    "name": "Naam",
+    "role": "Functie",
+    "phone": "Telefoonnummer",
+    "email": "E-mail",
+    "address": "Adres",
+    "pageName": "Paginanaam",
+    "username": "Gebruikersnaam",
+    "message": "Vooraf ingevuld bericht",
+    "artist": "Artiest",
+    "restaurant": "Naam restaurant",
+    "appName": "Naam van de app",
+    "code": "Kortingscode",
+    "discount": "Korting (%)",
+    "ssid": "Netwerknaam",
+    "password": "Wachtwoord",
+    "security": "Beveiliging",
+    "securityNone": "Geen",
+    "link": "Link {n}"
+  },
+  "panel": {
+    "selected": "{type} geselecteerd"
+  },
+  "account": {
+    "demo": "Demo-account",
+    "background": "Achtergrond",
+    "backgroundLead": "Kies de omgeving waarin je je QR-codes maakt. Alleen jij ziet dit."
+  },
+  "bg": {
+    "optimasys": "Optimasys",
+    "aurora": "Aurora",
+    "city": "Stad",
+    "mountains": "Bergen",
+    "office": "Kantoor",
+    "cafe": "Café",
+    "restaurant": "Restaurant",
+    "custom": "Jouw foto",
+    "upload": "Eigen foto uploaden",
+    "uploadError": "Deze afbeelding kon niet worden geladen. Probeer een JPG of PNG."
+  },
+  "myCodes": {
+    "lead": "Alle QR-codes die je hebt gemaakt.",
+    "loading": "Laden…",
+    "offline": "Deze online demo slaat geen QR-codes op. Start het project met de server (npm start) om ze hier te zien.",
+    "empty": "Je hebt nog geen QR-codes gemaakt.",
+    "error": "Je QR-codes konden niet worden geladen. Ververs de pagina om het opnieuw te proberen.",
+    "colType": "Type",
+    "colLink": "Link",
+    "colCreated": "Gemaakt",
+    "colScans": "Scans"
+  }
+}
