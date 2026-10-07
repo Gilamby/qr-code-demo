@@ -131,7 +131,9 @@
       "phone": "Téléphone",
       "email": "E-mail",
       "cta": "Enregistrer le contact",
-      "call": "Appeler"
+      "call": "Appeler",
+      "website": "Site web",
+      "route": "Itinéraire"
     },
     "business": {
       "sub": "Infos entreprise",
@@ -162,7 +164,12 @@
     },
     "instagram": {
       "stats": "{posts} publications · {followers} abonnés",
-      "cta": "Suivre"
+      "cta": "Suivre",
+      "posts": "publications",
+      "followers": "abonnés",
+      "following": "abonnements",
+      "message": "Message",
+      "contact": "Contact"
     },
     "social": {
       "sub": "Suivez-nous"
@@ -200,9 +207,11 @@
       "cta": "Copier le code"
     },
     "wifi": {
-      "network": "Réseau",
+      "network": "Réseau Wi-Fi",
       "security": "Sécurité",
-      "cta": "Se connecter"
+      "cta": "Se connecter",
+      "alert": "Rejoindre le réseau Wi-Fi",
+      "cancel": "Annuler"
     }
   },
   "hero": {
@@ -255,7 +264,9 @@
     "securityNone": "Aucune",
     "link": "Lien {n}",
     "description": "Description",
-    "hours": "Horaires d'ouverture"
+    "hours": "Horaires d'ouverture",
+    "company": "Entreprise",
+    "website": "Site web"
   },
   "panel": {
     "selected": "{type} sélectionné"

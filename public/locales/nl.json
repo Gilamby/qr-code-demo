@@ -131,7 +131,9 @@
       "phone": "Telefoon",
       "email": "E-mail",
       "cta": "Opslaan in contacten",
-      "call": "Bel direct"
+      "call": "Bel direct",
+      "website": "Website",
+      "route": "Route"
     },
     "business": {
       "sub": "Bedrijfsinfo",
@@ -162,7 +164,12 @@
     },
     "instagram": {
       "stats": "{posts} berichten · {followers} volgers",
-      "cta": "Volgen"
+      "cta": "Volgen",
+      "posts": "berichten",
+      "followers": "volgers",
+      "following": "volgend",
+      "message": "Bericht",
+      "contact": "Contact"
     },
     "social": {
       "sub": "Volg ons"
@@ -200,9 +207,11 @@
       "cta": "Code kopiëren"
     },
     "wifi": {
-      "network": "Netwerk",
+      "network": "Wifi-netwerk",
       "security": "Beveiliging",
-      "cta": "Verbinden"
+      "cta": "Verbinden",
+      "alert": "Verbinden met wifi-netwerk",
+      "cancel": "Annuleer"
     }
   },
   "hero": {
@@ -255,7 +264,9 @@
     "securityNone": "Geen",
     "link": "Link {n}",
     "description": "Beschrijving",
-    "hours": "Openingstijden"
+    "hours": "Openingstijden",
+    "company": "Bedrijf",
+    "website": "Website"
   },
   "panel": {
     "selected": "{type} geselecteerd"

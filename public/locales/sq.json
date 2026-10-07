@@ -131,7 +131,9 @@
       "phone": "Telefoni",
       "email": "Email",
       "cta": "Ruaj te kontaktet",
-      "call": "Telefono tani"
+      "call": "Telefono tani",
+      "website": "Faqja",
+      "route": "Udhëzime"
     },
     "business": {
       "sub": "Info biznesi",
@@ -162,7 +164,12 @@
     },
     "instagram": {
       "stats": "{posts} postime · {followers} ndjekës",
-      "cta": "Ndiq"
+      "cta": "Ndiq",
+      "posts": "postime",
+      "followers": "ndjekës",
+      "following": "ndjek",
+      "message": "Mesazh",
+      "contact": "Kontakt"
     },
     "social": {
       "sub": "Na ndiqni"
@@ -200,9 +207,11 @@
       "cta": "Kopjo kodin"
     },
     "wifi": {
-      "network": "Rrjeti",
+      "network": "Rrjeti Wi-Fi",
       "security": "Siguria",
-      "cta": "Lidhu"
+      "cta": "Lidhu",
+      "alert": "Lidhu me rrjetin Wi-Fi",
+      "cancel": "Anulo"
     }
   },
   "hero": {
@@ -255,7 +264,9 @@
     "securityNone": "Asnjë",
     "link": "Lidhja {n}",
     "description": "Përshkrimi",
-    "hours": "Orari"
+    "hours": "Orari",
+    "company": "Kompania",
+    "website": "Faqja web"
   },
   "panel": {
     "selected": "U zgjodh: {type}"

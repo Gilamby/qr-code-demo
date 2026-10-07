@@ -131,7 +131,9 @@
       "phone": "Phone",
       "email": "Email",
       "cta": "Save to contacts",
-      "call": "Call now"
+      "call": "Call now",
+      "website": "Website",
+      "route": "Directions"
     },
     "business": {
       "sub": "Business info",
@@ -162,7 +164,12 @@
     },
     "instagram": {
       "stats": "{posts} posts · {followers} followers",
-      "cta": "Follow"
+      "cta": "Follow",
+      "posts": "posts",
+      "followers": "followers",
+      "following": "following",
+      "message": "Message",
+      "contact": "Contact"
     },
     "social": {
       "sub": "Follow us"
@@ -200,9 +207,11 @@
       "cta": "Copy code"
     },
     "wifi": {
-      "network": "Network",
+      "network": "Wi-Fi network",
       "security": "Security",
-      "cta": "Connect"
+      "cta": "Connect",
+      "alert": "Join Wi-Fi network",
+      "cancel": "Cancel"
     }
   },
   "hero": {
@@ -255,7 +264,9 @@
     "securityNone": "None",
     "link": "Link {n}",
     "description": "Description",
-    "hours": "Opening hours"
+    "hours": "Opening hours",
+    "company": "Company",
+    "website": "Website"
   },
   "panel": {
     "selected": "{type} selected"
