@@ -148,7 +148,7 @@
       "openNow": "Aberto agora"
     },
     "video": {
-      "title": "Como funciona a Optimasys",
+      "title": "Um dia no Café Aurora",
       "meta": "Vídeo do produto"
     },
     "images": {
@@ -169,7 +169,9 @@
       "followers": "seguidores",
       "following": "a seguir",
       "message": "Mensagem",
-      "contact": "Contacto"
+      "contact": "Contacto",
+      "category": "Fotógrafo",
+      "bio": "Casamentos, retratos e viagens em Barcelona"
     },
     "social": {
       "sub": "Siga-nos"
@@ -197,7 +199,7 @@
     },
     "apps": {
       "sub": "App",
-      "title": "App Optimasys"
+      "title": "FitPlan"
     },
     "coupon": {
       "sub": "Oferta",

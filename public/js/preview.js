@@ -53,7 +53,7 @@ var TEMPLATES = {
   card: function (type, rows) {
     return previewPhoto(type) + '<div class="pv-top"><span class="pv-icon">' + svg(type.icon, 1.7) + '</span>' +
       '<svg class="pv-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg></div>' +
-      '<div class="pv-brand">Optimasys</div><div class="pv-title">' + esc(typeName(type)) + '</div><div class="pv-sub">' + esc(typeDesc(type)) + '</div>' +
+      '<div class="pv-title">' + esc(typeName(type)) + '</div><div class="pv-sub">' + esc(typeDesc(type)) + '</div>' +
       '<div class="pv-rows">' + rows.filter(Boolean).map(function (r) { return '<div class="pv-row"><span class="ri">' + svg(type.icon, 1.7) + '</span><span class="lbl">' + esc(r) + '</span>' + CHEV + '</div>'; }).join('') + '</div>';
   }
 };

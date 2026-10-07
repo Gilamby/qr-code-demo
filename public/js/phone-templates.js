@@ -82,8 +82,8 @@ var PHONE = (function () {
         '<div class="ig-head">' + ic('back') + '<b>' + v(u, '110px') + (ex ? '<span class="ig-ver">' + ic('check', 'i') + '</span>' : '') + '</b>' + ic('bell') + ic('dots', 'i dots') + '</div>' +
         '<div class="ig-prof"><span class="ig-av"><span>' + (u ? esc(u[0].toUpperCase()) : ic('user')) + '</span></span>' +
           '<div class="ig-stats">' + stat('86', 'posts') + stat('3.1K', 'followers') + stat('312', 'following') + '</div></div>' +
-        '<div class="ig-bio"><b>' + (ex ? 'Optimasys' : v(u, '40%')) + '</b>' +
-          (ex ? '<small>Software</small><p>' + esc(t('pv.website.title')) + ' 🏡</p><a>optimasys.com</a>' : '<i class="sk" style="width:85%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
+        '<div class="ig-bio"><b>' + (ex ? 'Studio Luna' : v(u, '40%')) + '</b>' +
+          (ex ? '<small>' + esc(t('pv.instagram.category')) + '</small><p>' + esc(t('pv.instagram.bio')) + ' 📸</p><a>studioluna.com</a>' : '<i class="sk" style="width:85%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
         '<div class="ig-btns"><span class="pri">' + esc(t('pv.instagram.cta')) + '</span><span>' + esc(t('pv.instagram.message')) + '</span><span>' + esc(t('pv.instagram.contact')) + '</span><span class="ic">' + ic('addp') + '</span></div>' +
         '<div class="ig-hl">' + [1, 2, 3, 4, 5].map(function (i) { return '<span' + (ex ? ' style="background:linear-gradient(135deg,' + tiles[i] + ')"' : '') + '></span>'; }).join('') + '</div>' +
         '<div class="ig-tabs"><span class="on">' + ic('grid') + '</span><span>' + ic('reel') + '</span><span>' + ic('tag') + '</span></div>' +
@@ -144,7 +144,6 @@ var PHONE = (function () {
         '<h4>' + v(c.title, '45%') + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : '<i class="sk" style="width:55%;margin:0 auto"></i>') + '</p>' +
         '<div class="lk-list">' + keys.map(function (k) { return '<span>' + ic('link') + '<b>' + v(c[k], '55%') + '</b>' + ic('dots', 'i dots') + '</span>'; }).join('') + '</div>' +
         '<div class="lk-soc"><i></i><i></i><i></i><i></i></div>' +
-        '<div class="lk-foot">Optimasys</div>' +
       '</div>';
     },
 
