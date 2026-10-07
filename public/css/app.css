@@ -147,7 +147,7 @@ nav { margin-top: 30px; display: flex; flex-direction: column; gap: 2px; flex: 1
 .stepper .done .mark { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .stepper .bar { width: 80px; height: 1px; background: var(--line-strong); }
 .stepper .bar.done { background: var(--accent); }
-.not-create .stepper, .not-create #stepBack { visibility: hidden; }
+.not-create .stepper { visibility: hidden; }
 
 /* ---------- Werkruimte ---------- */
 .canvas { position: relative; isolation: isolate; }

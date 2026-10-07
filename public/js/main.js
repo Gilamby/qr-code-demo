@@ -4,7 +4,6 @@
 (function () {
   var panel = document.getElementById('panel'), screen = document.getElementById('screen'), stepper = document.getElementById('stepper');
   Stepper.bind(stepper);
-  document.getElementById('stepBack').addEventListener('click', function () { var go = this.getAttribute('data-go'); if (go) actions.goTo(go); });
 
   panel.addEventListener('click', function (e) {
     var card = e.target.closest('.qr-card'); if (card) return actions.selectType(card.getAttribute('data-type'));

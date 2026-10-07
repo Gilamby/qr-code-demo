@@ -22,8 +22,6 @@ var Stepper = {
 var HERO_TEXT = { type: ['hero.title', 'hero.lead'], content: ['content.title', 'content.lead'], design: ['design.title', 'design.lead'] };
 function renderHero(state) {
   document.getElementById('heroTitle').textContent = t(HERO_TEXT[state.step][0]);
-  var back = document.getElementById('stepBack'), i = STEPS.indexOf(state.step);
-  back.disabled = i === 0; back.setAttribute('data-go', i > 0 ? STEPS[i - 1] : '');
 }
 
 var TypeGrid = {
