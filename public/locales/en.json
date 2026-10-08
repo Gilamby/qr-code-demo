@@ -128,12 +128,13 @@
       "done": "Done"
     },
     "links": {
-      "sub": "Yoga & meditation in Utrecht",
-      "website": "Class schedule",
-      "jobs": "Book a trial class",
+      "sub": "Recipes & cooking workshops in Rotterdam",
+      "website": "Recipes",
+      "jobs": "Book a cooking workshop",
       "support": "Contact",
       "news": "News",
-      "label": "Links"
+      "label": "Links",
+      "featured": "Featured"
     },
     "vcard": {
       "sub": "Contact",

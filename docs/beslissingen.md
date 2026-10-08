@@ -2,6 +2,11 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Lijst met links aantrekkelijker, met een man als voorbeeld
+
+- Voorbeeld is nu **Chef Ruben** (recepten & kookworkshops in Rotterdam), want er stonden al veel vrouwen als voorbeeld.
+- Nieuw ontwerp: kleurrijke omslag in de themakleuren, ronde profielfoto die over de omslag valt, grote naam, en de **eerste link als grote uitgelichte kaart** met beeld en pijl. De andere links als witte kaarten met een kleurig plaatje. Licht en vrolijk, en duidelijk anders dan de donkere Social media-pagina.
+
 ## 8 oktober 2026 – Andere voorbeeldnamen, Lijst met links anders dan Social media
 
 - **Voorbeeldnamen:** "Studio Luna" kwam te vaak terug. Nu heeft elk type een eigen voorbeeld: Lijst met links = *Yoga met Mila*, Social media = *Surfschool Ola*, Instagram = *marco.fotografie* (Marco Ferrer), PDF = *Velo Fietsen*, Coupon = *Boekhandel Pagina*, WiFi = *Hotel-Zonneveld-Gast*. De rest bleef (Sanne de Vries, Bloom & Co, Bakkerij De Molen, Restaurant De Haven, FitPlan, De Ochtendshow).

@@ -198,20 +198,22 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Lijst met links: licht en strak, één nette lijst (anders dan Social media) ---------- */
+    /* ---------- Lijst met links: omslag, profiel, één uitgelichte link en een nette lijst ---------- */
     links: function (c, ex) {
       var keys = ['link1', 'link2', 'link3'];
       var clean = function (x) { return String(x || '').replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, ''); };
       var sk = function (w) { return '<i class="sk" style="width:' + w + '"></i>'; };
-      return '<div class="ph ph-ln">' + statusBar() +
-        '<div class="ln-top"><span class="ln-logo">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span><span class="ln-share">' + ic('share') + '</span></div>' +
-        '<h4 class="ln-title">' + (c.title ? esc(c.title) : sk('60%')) + '</h4>' +
-        '<p class="ln-sub">' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p>' +
-        '<small class="ln-lbl">' + esc(t('pv.links.label')) + '</small>' +
-        '<div class="ln-card">' + keys.map(function (k, i) {
-          var val = clean(c[k]), isUrl = /\.[a-z]{2,}/i.test(val);
-          return '<span class="ln-row"><i class="ln-fav ln-f' + i + '">' + (val ? esc(val[0].toUpperCase()) : '') + '</i>' +
-            '<span><b>' + (val ? esc(isUrl ? val.split('/').pop() || val : val) : sk('55%')) + '</b>' + (isUrl ? '<small>' + esc(val.split('/')[0]) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
+      var label = function (k) { var val = clean(c[k]); return /\.[a-z]{2,}/i.test(val) ? (val.split('/').pop() || val) : val; };
+      var dom = function (k) { var val = clean(c[k]); return /\.[a-z]{2,}/i.test(val) ? val.split('/')[0] : ''; };
+      var first = c[keys[0]];
+      return '<div class="ph ph-lk2">' +
+        '<div class="lk2-cover">' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
+        '<div class="lk2-prof"><span class="lk2-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span>' +
+          '<h4>' + (c.title ? esc(c.title) : sk('55%')) + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p></div>' +
+        '<div class="lk2-feat lk2-row" data-i="0"><span class="lk2-img"><i>' + ic('fwd') + '</i></span>' +
+          '<span class="lk2-txt"><small>' + esc(t('pv.links.featured')) + '</small><b>' + (first ? esc(label(keys[0])) : sk('60%')) + '</b>' + (dom(keys[0]) ? '<em>' + esc(dom(keys[0])) + '</em>' : '') + '</span></div>' +
+        '<div class="lk2-list">' + keys.slice(1).map(function (k, j) {
+          return '<span class="lk2-row" data-i="' + (j + 1) + '"><i class="lk2-th t' + j + '"></i><span><b>' + (c[k] ? esc(label(k)) : sk('55%')) + '</b>' + (dom(k) ? '<small>' + esc(dom(k)) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
         }).join('') + '</div>' +
       '</div>';
     },

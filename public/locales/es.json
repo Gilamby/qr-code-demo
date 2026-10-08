@@ -128,12 +128,13 @@
       "done": "OK"
     },
     "links": {
-      "sub": "Yoga y meditación en Utrecht",
-      "website": "Horario de clases",
-      "jobs": "Reservar clase de prueba",
+      "sub": "Recetas y talleres de cocina en Róterdam",
+      "website": "Recetas",
+      "jobs": "Reservar taller de cocina",
       "support": "Contacto",
       "news": "Noticias",
-      "label": "Enlaces"
+      "label": "Enlaces",
+      "featured": "Destacado"
     },
     "vcard": {
       "sub": "Contacto",

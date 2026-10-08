@@ -128,12 +128,13 @@
       "done": "Gereed"
     },
     "links": {
-      "sub": "Yoga & meditatie in Utrecht",
-      "website": "Lesrooster",
-      "jobs": "Proefles boeken",
+      "sub": "Recepten & kookworkshops in Rotterdam",
+      "website": "Recepten",
+      "jobs": "Kookworkshop boeken",
       "support": "Contact",
       "news": "Nieuws",
-      "label": "Links"
+      "label": "Links",
+      "featured": "Uitgelicht"
     },
     "vcard": {
       "sub": "Contact",

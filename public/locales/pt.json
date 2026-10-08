@@ -128,12 +128,13 @@
       "done": "OK"
     },
     "links": {
-      "sub": "Yoga e meditação em Utrecht",
-      "website": "Horário das aulas",
-      "jobs": "Marcar aula experimental",
+      "sub": "Receitas e workshops de cozinha em Roterdão",
+      "website": "Receitas",
+      "jobs": "Reservar workshop de cozinha",
       "support": "Contacto",
       "news": "Notícias",
-      "label": "Links"
+      "label": "Links",
+      "featured": "Em destaque"
     },
     "vcard": {
       "sub": "Contacto",

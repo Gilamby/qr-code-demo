@@ -128,12 +128,13 @@
       "done": "Gotowe"
     },
     "links": {
-      "sub": "Joga i medytacja w Utrechcie",
-      "website": "Grafik zajęć",
-      "jobs": "Zarezerwuj zajęcia próbne",
+      "sub": "Przepisy i warsztaty kulinarne w Rotterdamie",
+      "website": "Przepisy",
+      "jobs": "Zarezerwuj warsztaty kulinarne",
       "support": "Kontakt",
       "news": "Aktualności",
-      "label": "Linki"
+      "label": "Linki",
+      "featured": "Polecane"
     },
     "vcard": {
       "sub": "Kontakt",

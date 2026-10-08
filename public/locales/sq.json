@@ -128,12 +128,13 @@
       "done": "U krye"
     },
     "links": {
-      "sub": "Joga dhe meditim në Utrecht",
-      "website": "Orari i orëve",
-      "jobs": "Rezervo një orë provë",
+      "sub": "Receta dhe punëtori gatimi në Roterdam",
+      "website": "Receta",
+      "jobs": "Rezervo punëtori gatimi",
       "support": "Kontakt",
       "news": "Lajme",
-      "label": "Lidhje"
+      "label": "Lidhje",
+      "featured": "E veçuar"
     },
     "vcard": {
       "sub": "Kontakt",

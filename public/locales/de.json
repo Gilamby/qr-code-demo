@@ -128,12 +128,13 @@
       "done": "Fertig"
     },
     "links": {
-      "sub": "Yoga & Meditation in Utrecht",
-      "website": "Kursplan",
-      "jobs": "Probestunde buchen",
+      "sub": "Rezepte & Kochkurse in Rotterdam",
+      "website": "Rezepte",
+      "jobs": "Kochkurs buchen",
       "support": "Kontakt",
       "news": "Neuigkeiten",
-      "label": "Links"
+      "label": "Links",
+      "featured": "Empfohlen"
     },
     "vcard": {
       "sub": "Kontakt",

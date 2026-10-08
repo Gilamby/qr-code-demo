@@ -128,12 +128,13 @@
       "done": "Fine"
     },
     "links": {
-      "sub": "Yoga e meditazione a Utrecht",
-      "website": "Orario delle lezioni",
-      "jobs": "Prenota una lezione di prova",
+      "sub": "Ricette e corsi di cucina a Rotterdam",
+      "website": "Ricette",
+      "jobs": "Prenota un corso di cucina",
       "support": "Contatti",
       "news": "Notizie",
-      "label": "Link"
+      "label": "Link",
+      "featured": "In evidenza"
     },
     "vcard": {
       "sub": "Contatto",
