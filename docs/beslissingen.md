@@ -2,6 +2,12 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Alles eruit wat juridisch niet mag
+
+- Geen enkele aanvraag meer naar een andere server: Google Fonts en de QR-bibliotheek staan op onze eigen server, YouTube-miniatuur weg, adres zoeken via onze server.
+- Geen verzonnen beoordelingen (sterren bij Bedrijf, cijfers bij Apps) en geen Apple/Google-logo's buiten de officiële badges.
+- Volledige uitleg en de checklist voor de lancering (privacyverklaring, verwerkersovereenkomst, voorwaarden, DSA-meldknop, bewaartermijn, Photon): zie **docs/juridisch.md**.
+
 ## 8 oktober 2026 – Lijst met links aantrekkelijker, met een man als voorbeeld
 
 - Voorbeeld is nu **Chef Ruben** (recepten & kookworkshops in Rotterdam), want er stonden al veel vrouwen als voorbeeld.

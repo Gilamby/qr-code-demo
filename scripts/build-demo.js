@@ -9,7 +9,8 @@ const out = path.join(root, 'dist');
 const html = fs.readFileSync(path.join(pub, 'index.html'), 'utf8');
 
 const title = html.match(/<title>.*?<\/title>/)[0];
-const fonts = html.match(/<link rel="preconnect"[\s\S]*?display=swap">/)[0];
+// Lettertypes van onze eigen server (geen Google Fonts); in de demo staan ze als losse bestanden naast de pagina
+const fonts = '<style>\n' + fs.readFileSync(path.join(pub, 'css', 'fonts.css'), 'utf8').replace(/\.\.\/fonts\//g, 'fonts/') + '\n</style>';
 const body = html.slice(html.indexOf('<body>') + 6, html.indexOf('<!-- Externe'));
 const css = fs.readFileSync(path.join(pub, 'css', 'app.css'), 'utf8');
 const scripts = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
@@ -35,4 +36,5 @@ fs.mkdirSync(out, { recursive: true });
 fs.writeFileSync(path.join(out, 'demo.html'), demo);
 fs.cpSync(path.join(pub, 'locales'), path.join(out, 'locales'), { recursive: true });
 fs.cpSync(path.join(pub, 'assets'), path.join(out, 'assets'), { recursive: true });
+fs.cpSync(path.join(pub, 'fonts'), path.join(out, 'fonts'), { recursive: true });
 console.log('dist/demo.html gebouwd (' + Math.round(demo.length / 1024) + ' KB)');

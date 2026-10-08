@@ -237,10 +237,10 @@ var PHONE = (function () {
 
     /* ---------- Video: de videopagina met speler ---------- */
     video: function (c, ex) {
-      var d = domain(c.url), yt = (c.url || '').match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{11})/);
+      var d = domain(c.url);
       return '<div class="ph ph-vid">' + statusBar(true) +
         '<div class="vd-top">' + ic('back') + '<span>' + v(d, '100px') + '</span>' + ic('share') + '</div>' +
-        '<div class="vd-player"' + (yt ? ' style="background-image:url(https://img.youtube.com/vi/' + yt[1] + '/hqdefault.jpg)"' : '') + '><span class="vd-play">' + ic('play') + '</span>' +
+        '<div class="vd-player"><span class="vd-play">' + ic('play') + '</span>' +
           '<div class="vd-bar"><i></i></div><small class="vd-time">0:24 / 1:42</small></div>' +
         '<div class="vd-info"><h4>' + v(c.title, '75%') + '</h4>' +
           '<div class="vd-ch"><span class="vd-av">' + (d ? esc(d[0].toUpperCase()) : '') + '</span><b>' + v(d, '90px') + '</b></div>' +
@@ -334,9 +334,9 @@ var PHONE = (function () {
         return '<span class="as-shot"><i class="as-sbar"></i><i class="as-hd"></i>' +
           (k === 0 ? '<i class="as-ring"></i><i class="as-ln"></i><i class="as-ln s"></i>' : k === 1 ? '<i class="as-card"></i><i class="as-card"></i><i class="as-card s"></i>' : '<i class="as-bars"><b style="height:40%"></b><b style="height:70%"></b><b style="height:55%"></b><b style="height:90%"></b></i><i class="as-ln"></i>') + '</span>';
       };
+      // Gewone knoppen met de naam van de winkel. Geen Apple- of Google-logo: die mogen alleen in de officiële badges.
       var badge = function (kind) {
-        return kind === 'ios' ? '<span class="ap-badge"><svg viewBox="0 0 24 24" fill="#fff"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.9-.8-3.1-.8C6.8 7.3 5.3 8.2 4.5 9.7c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 3 2.4 1.2 0 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.7-4.1zM14.1 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.5 2.8-1.3z"/></svg><span><small>' + esc(t('pv.apps.get')) + '</small><b>App Store</b></span></span>'
-          : '<span class="ap-badge"><svg viewBox="0 0 24 24"><path d="M4 3.2l9.6 9.3L4 21.8c-.4-.2-.6-.6-.6-1.1V4.3c0-.5.2-.9.6-1.1z" fill="#34a853"/><path d="M16.8 9.4l-3.2 3.1 3.2 3.1 3.6-2c.9-.5.9-1.8 0-2.3z" fill="#fbbc04"/><path d="M13.6 12.5L4 3.2c.3-.2.8-.2 1.2 0l11.6 6.2z" fill="#4285f4"/><path d="M13.6 12.5l3.2 3.1-11.6 6.2c-.4.2-.9.2-1.2 0z" fill="#ea4335"/></svg><span><small>' + esc(t('pv.apps.getPlay')) + '</small><b>Google Play</b></span></span>';
+        return '<span class="ap-badge">' + ic('save') + '<span><small>' + esc(t(kind === 'ios' ? 'pv.apps.get' : 'pv.apps.getPlay')) + '</small><b>' + (kind === 'ios' ? 'App Store' : 'Google Play') + '</b></span></span>';
       };
       var stores = (ex || c.ios ? badge('ios') : '') + (ex || c.android ? badge('android') : '');
       return '<div class="ph ph-as">' + statusBar() +
@@ -344,7 +344,6 @@ var PHONE = (function () {
         '<div class="as-top"><span class="as-icon">' + (c.logo ? '<img src="' + c.logo + '" alt="">' : (name ? esc(initials(name)) : ic('img'))) + '</span>' +
           '<div class="as-meta"><b>' + v(name, '70%') + '</b><small>' + (c.description ? esc(c.description) : '<i class="sk" style="width:85%"></i>') + '</small>' +
           '<div class="as-get"><span>' + esc(t('pv.apps.download')) + '</span>' + ic('share') + '</div></div></div>' +
-        '<div class="as-stats"><span><small>' + esc(t('pv.apps.ratings')) + '</small><b>' + i18n.fmt.num(4.8) + '</b><em>★★★★★</em></span><span><small>' + esc(t('pv.apps.age')) + '</small><b>4+</b><em>' + esc(t('pv.apps.years')) + '</em></span><span><small>' + esc(t('pv.apps.chart')) + '</small><b>#12</b><em>' + esc(cat) + '</em></span></div>' +
         '<div class="as-shots">' + [0, 1, 2].map(shot).join('') + '</div>' +
         '<div class="as-stores">' + (stores || '<span class="ap-badge ap-empty"><i class="sk"></i></span>') + '</div>' +
       '</div>';
@@ -385,7 +384,6 @@ var PHONE = (function () {
           '<div class="gm-tb"><span>' + ic('back') + '</span><span>' + ic('share') + '</span></div></div>' +
         '<div class="gm-sheet"><i class="gm-grab"></i>' +
           '<h4>' + v(c.name, '55%') + '</h4>' +
-          '<div class="gm-rate"><b>' + i18n.fmt.num(4.7) + '</b><em>★★★★★</em><small>(128)</small></div>' +
           '<div class="gm-open"><b class="' + st + '">' + esc(t(st === 'open' ? 'pv.business.openNow' : 'pv.business.closedNow')) + '</b> · ' + esc(todayTxt) + '</div>' +
           '<div class="gm-acts">' + act('pin', t('pv.vcard.route'), addr ? ADDRESS.mapUrl(addr) : '') + act('call', t('pv.vcard.call')) + act('globe', t('pv.vcard.website')) + act('share', t('pv.business.share')) + '</div>' +
           (c.description ? '<p class="gm-desc">' + esc(c.description) + '</p>' : (ex ? '' : '<p class="gm-desc"><i class="sk"></i><i class="sk" style="width:70%"></i></p>')) +

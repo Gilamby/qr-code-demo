@@ -1568,3 +1568,8 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 .lk2-th { width: 46px; height: 46px; flex: none; border-radius: 13px; }
 .lk2-th.t0 { background: radial-gradient(at 30% 30%, color-mix(in srgb, var(--pc) 45%, #fff), var(--pc)); }
 .lk2-th.t1 { background: radial-gradient(at 70% 30%, color-mix(in srgb, var(--ac) 45%, #fff), var(--ac)); }
+/* Apps: knoppen zonder merk-logo's, downloadknop in de eigen kleur (niet het App Store-blauw) */
+.ap-badge > .i { width: 22px; height: 22px; color: #fff; }
+.as-get span { background: var(--pc); color: var(--pc-ink); }
+.as-get .i { color: var(--pc); }
+.as-top { border-bottom: 0; }

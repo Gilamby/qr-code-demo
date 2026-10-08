@@ -66,6 +66,24 @@ app.get('/api/url-info', async (req, res) => {
   catch (e) { res.json({ ok: false, status: 0, title: '' }); }
 });
 
+/* Adres zoeken via onze server (privacy): de gebruiker praat alleen met ons, wij vragen het aan Photon (OpenStreetMap).
+   Zo ziet de adres-dienst nooit het IP-adres van de gebruiker. Voor groot gebruik: eigen Photon-server draaien (zie docs). */
+app.get('/api/geocode', async (req, res) => {
+  const q = String(req.query.q || '').slice(0, 120).trim();
+  if (q.length < 3) return res.json({ features: [] });
+  const lang = ['de', 'en', 'fr'].includes(req.query.lang) ? '&lang=' + req.query.lang : '';
+  const limit = Math.min(8, Math.max(1, parseInt(req.query.limit, 10) || 5));
+  const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 5000);
+  try {
+    const r = await fetch((process.env.PHOTON_URL || 'https://photon.komoot.io') + '/api/?limit=' + limit + lang + '&q=' + encodeURIComponent(q), { signal: ctrl.signal, headers: { 'User-Agent': 'OptimasysQR (+https://optimasys.com)' } });
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    // Alleen doorgeven wat de app nodig heeft
+    res.json({ features: (data.features || []).map((f) => ({ geometry: { coordinates: f.geometry.coordinates }, properties: f.properties })) });
+  } catch (e) { res.status(502).json({ features: [], error: 'Address search unavailable' }); }
+  finally { clearTimeout(timer); }
+});
+
 app.get('/api/me', (req, res) => res.json(db.getMe()));
 
 app.patch('/api/me', (req, res) => {

@@ -87,7 +87,8 @@ var ADDRESS = {
   mapUrl: function (a) { return 'https://www.google.com/maps/search/?api=1&query=' + (a.lat != null ? a.lat + ',' + a.lon : encodeURIComponent(a.l)); }
 };
 var AddressSearch = (function () {
-  var API = 'https://photon.komoot.io/api/';
+  // Via onze eigen server (/api/geocode): de adres-dienst (Photon) ziet zo nooit het IP-adres van de gebruiker.
+  var API = 'api/geocode';
   function label(p) {
     var street = [p.street || (p.type !== 'city' ? p.name : ''), p.housenumber].filter(Boolean).join(' ');
     var name = p.name && p.street && p.name !== p.street ? p.name : '';
@@ -115,7 +116,7 @@ var AddressSearch = (function () {
       function search(q) {
         var my = ++seq, lang = ['de', 'en', 'fr'].indexOf(i18n.lang()) >= 0 ? '&lang=' + i18n.lang() : '';
         msg.textContent = t('address.searching');
-        fetch(API + '?limit=5' + lang + '&q=' + encodeURIComponent(q)).then(function (r) { return r.json(); }).then(function (data) {
+        fetch(API + '?limit=5' + lang + '&q=' + encodeURIComponent(q)).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (data) {
           if (my !== seq) return;
           results = (data.features || []).map(function (f) { return { l: label(f.properties), lat: +f.geometry.coordinates[1].toFixed(6), lon: +f.geometry.coordinates[0].toFixed(6) }; })
             .filter(function (r, i, all) { return r.l && all.findIndex(function (x) { return x.l === r.l; }) === i; });

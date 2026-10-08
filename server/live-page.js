@@ -42,10 +42,10 @@ function livePage(req, q, type) {
   const js = ['js/i18n.js', 'js/config.js', 'js/qr-render.js', 'js/preview.js', 'js/business-fields.js', 'js/content-fields.js', 'js/phone-templates.js', 'js/live.js'];
   return '<!doctype html><html lang="' + visitorLang(req) + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' +
     '<base href="/"><title>' + esc(title) + '</title><meta name="theme-color" content="' + pc + '">' +
-    '<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/live.css"></head>' +
+    '<link rel="stylesheet" href="css/fonts.css"><link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/live.css"></head>' +
     '<body class="live-body"><main id="live" class="live" style="--pc:' + pc + ';--pc-ink:' + ink(pc) + ';--ac:' + ac + ';--ac-ink:' + ink(ac) + '"></main>' +
     '<script>window.LIVE=' + data + ';</script>' +
-    '<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script><script src="shared/qr-types.js"></script>' +
+    '<script src="vendor/qrcode.js"></script><script src="shared/qr-types.js"></script>' +
     js.map((s) => '<script src="' + s + '"></script>').join('') + '</body></html>';
 }
 
