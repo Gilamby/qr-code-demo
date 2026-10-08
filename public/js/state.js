@@ -16,8 +16,9 @@ var store = createStore({
   design: Object.assign({}, QR_DEFAULT_DESIGN),
   hoverDesign: null,
   draftId: newDraftId(),                        // uniek id voor de code die je nu maakt (wordt de korte link)                            // tijdelijk voorbeeld van een ontwerpkeuze (muis erover)
-  pageColor: '#2bb5f0',                         // hoofdkleur van de pagina in de telefoon
-  accentColor: '#0f172a',                       // knopkleur
+  pageColor: '#00a884',                         // hoofdkleur van de pagina in de telefoon (volgt het type, zie typeColors)
+  accentColor: '#075e54',                       // knopkleur
+  typeColors: {},                               // eigen kleuren per type: { [typeId]: [pc, ac] }
   hoverTheme: null,
   previewUnlocked: false,
   phoneView: 'preview',                         // stap 2/3: 'preview' (de pagina) of 'qr' (de QR-code)                       // telefoon: slot-scherm overgeslagen (alleen voor de preview)                             // tijdelijk voorbeeld { pc, ac } zolang de muis over een kleur gaat
@@ -27,8 +28,11 @@ var store = createStore({
   saved: null,                                  // opgeslagen record uit de backend { id, shortUrl, ... }
   error: null
 });
+function typeColors(id, s) { var own = (s && s.typeColors || {})[id]; return own || getType(id).theme || ['#2bb5f0', '#0f172a']; }
+function rememberColors(s, pc, ac) { var m = Object.assign({}, s.typeColors); m[s.typeId] = [pc, ac]; return m; }
 var actions = {
-  selectType: function (id) { store.set({ typeId: id, created: false, saved: null, error: null }); },
+  // Elk type heeft zijn eigen kleuren (shared/qr-types.js: theme). Past de gebruiker ze aan, dan onthouden we dat per type.
+  selectType: function (id) { var c = typeColors(id, store.get()); store.set({ typeId: id, pageColor: c[0], accentColor: c[1], created: false, saved: null, error: null }); },
   hoverType: function (id) { if (store.get().hoverTypeId !== id) store.set({ hoverTypeId: id }); },
   goTo: function (step) { store.set({ step: step, hoverTypeId: null, previewUnlocked: false, phoneView: step === 'design' ? 'qr' : 'preview' }); },
   setField: function (key, value) {
@@ -36,10 +40,10 @@ var actions = {
     cur[key] = value; c[s.typeId] = cur; store.set({ content: c, created: false, saved: null, error: null, previewUnlocked: key === 'password' ? false : s.previewUnlocked });
     if (value) { var el = document.querySelector('[data-field="' + key + '"].invalid'); if (el) el.classList.remove('invalid'); }
   },
-  setColor: function (target, c) { var p = { created: false, saved: null, error: null }; p[target === 'ac' ? 'accentColor' : 'pageColor'] = c; store.set(p); },
+  setColor: function (target, c) { var s = store.get(), p = { created: false, saved: null, error: null }; p[target === 'ac' ? 'accentColor' : 'pageColor'] = c; p.typeColors = rememberColors(s, target === 'ac' ? s.pageColor : c, target === 'ac' ? c : s.accentColor); store.set(p); },
   setPhoneView: function (v) { store.set({ phoneView: v }); },
   unlockPreview: function (on) { store.set({ previewUnlocked: !!on }); },
-  setTheme: function (pc, ac) { store.set({ pageColor: pc, accentColor: ac, created: false, saved: null, error: null }); },
+  setTheme: function (pc, ac) { store.set({ pageColor: pc, accentColor: ac, typeColors: rememberColors(store.get(), pc, ac), created: false, saved: null, error: null }); },
   previewTheme: function (o) { var cur = store.get().hoverTheme; if (JSON.stringify(cur) !== JSON.stringify(o)) store.set({ hoverTheme: o }); },
   previewDesign: function (o) { if (o) o = safeDesign(Object.assign({}, store.get().design, o)); if (JSON.stringify(store.get().hoverDesign) !== JSON.stringify(o)) store.set({ hoverDesign: o }); },
   applyDesign: function (d) { store.set({ design: safeDesign(Object.assign({}, QR_DEFAULT_DESIGN, d)), created: false, saved: null, error: null }); },

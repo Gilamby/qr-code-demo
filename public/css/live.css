@@ -1,0 +1,42 @@
+/* =========================================================
+   ECHTE PAGINA (na het scannen): de telefoon-sjablonen als volledige webpagina.
+   ========================================================= */
+html, body.live-body { height: auto; min-height: 100%; }
+body.live-body { margin: 0; background: #e9ebee; color: #111b21; overflow-x: hidden; }
+body.live-body::before, body.live-body::after { display: none; }
+.live { position: relative; max-width: 480px; min-height: 100vh; margin: 0 auto; background: #fff; box-shadow: 0 0 60px -20px rgba(0,0,0,.25); }
+.live .ph { position: relative; inset: auto; min-height: 100vh; overflow: visible; padding-bottom: 104px; }
+
+/* Nep-telefoononderdelen weg: statusbalk, terug-knoppen, "Gereed" enz. */
+.live .sb { height: max(14px, env(safe-area-inset-top)); padding: 0; visibility: hidden; }
+.live .lt-top span:first-child, .live .lt-soc, .live .pv-done, .live .wl-nav, .live .as-nav, .live .al-nav, .live .mp-top,
+.live .gm-tb span:first-child, .live .bz-fab, .live .pd-top > .i:first-child, .live .vd-top > .i:first-child { visibility: hidden; }
+.live .wl-nav, .live .as-nav, .live .al-nav { display: none; }
+
+/* Langere pagina's mogen gewoon scrollen */
+.live .gm-sheet, .live .pv-view, .live .bz-scroll { overflow: visible; flex: none; }
+.live .gm-cover { height: 240px; }
+.live .pv-view { padding-bottom: 20px; }
+.live .pv-sheet { height: auto; min-height: 560px; cursor: zoom-in; }
+.live .pv-pg { display: none; }
+.live .mp-art { width: min(300px, 76vw); height: min(300px, 76vw); }
+.live .as-shots { overflow-x: auto; scrollbar-width: none; }
+
+/* Knoppen onderin blijven altijd in beeld */
+.live .vc-save, .live .wl-add, .live .al-dl, .live .gl-btn, .live .cp-btn, .live .mp-file, .live .pv-dl {
+  position: fixed; z-index: 20; top: auto; bottom: calc(16px + env(safe-area-inset-bottom)); transform: none; margin: 0;
+  left: max(16px, calc(50% - 224px)); right: max(16px, calc(50% - 224px)); justify-content: center;
+}
+.live .pv-dl { justify-content: flex-start; }
+
+/* Klikbaar */
+.live a { color: inherit; text-decoration: none; }
+.live [data-go] { cursor: pointer; }
+.live [data-go]:active { opacity: .7; }
+.live .mp-play, .live .mp-ctrl > .i { cursor: pointer; }
+
+/* Foto groot bekijken */
+.lb { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.94); display: grid; place-items: center; padding: 16px; cursor: zoom-out; }
+.lb img { max-width: 100%; max-height: 100%; border-radius: 6px; }
+/* Korte melding (bv. "Gekopieerd") */
+.toast { position: fixed; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 70; padding: 10px 16px; border-radius: 999px; background: rgba(17,17,17,.92); color: #fff; font: 600 14px/1.2 -apple-system, "Segoe UI", Roboto, sans-serif; }

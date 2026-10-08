@@ -8,12 +8,13 @@ const crypto = require('crypto');
 const db = require('./db');
 const { validateQrCode, validateMe, QR_TYPES } = require('./validate');
 const links = require('./links');
+const livePage = require('./live-page');
 const { validateDesign } = require('./validate');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json({ limit: '4mb' }));
+app.use(express.json({ limit: '16mb' }));   // ruimte voor een fotogalerij (max. 6 verkleinde foto's)
 app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/shared', express.static(path.join(__dirname, '..', 'shared')));
@@ -32,7 +33,9 @@ app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 app.get('/api/qr-types', (req, res) => res.json(QR_TYPES));
 
-app.get('/api/qr-codes', (req, res) => res.json(db.listQrCodes().map((q) => withLink(req, q))));
+// Lijst zonder de bestanden zelf (PDF/MP3), anders wordt hij onnodig groot
+const withoutFiles = (q) => { const c = Object.assign({}, q.content); Object.keys(c).forEach((k) => { if (typeof c[k] === 'string' && c[k].indexOf('"d":"data:') > 0) { try { const o = JSON.parse(c[k]); delete o.d; c[k] = JSON.stringify(o); } catch (e) {} } }); return Object.assign({}, q, { content: c }); };
+app.get('/api/qr-codes', (req, res) => res.json(db.listQrCodes().map((q) => withLink(req, withoutFiles(q)))));
 
 app.get('/api/qr-codes/:id', (req, res) => {
   const q = db.getQrCode(req.params.id);
@@ -81,14 +84,25 @@ function openCode(req, res, passwordOk) {
   const c = q.content;
   if (q.contentType === 'url' && c.url) return res.redirect(links.targetUrl(q, req.get('user-agent')));
   if (q.contentType === 'message' && c.phone) return res.redirect('https://wa.me/' + c.phone.replace(/\D/g, '') + (c.message ? '?text=' + encodeURIComponent(c.message) : ''));
-  // Overige types: eenvoudige landingspagina (later vervangen door de echte pagina per type)
-  const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
-  const rows = Object.entries(c).filter(([k]) => k !== 'password').map(([k, v]) => '<li><span>' + esc(k) + '</span>' + esc(v) + '</li>').join('');
-  res.send('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QR</title>' +
-    '<style>body{margin:0;font:16px system-ui;background:#0b0e13;color:#f3f5f8;display:grid;place-items:center;min-height:100vh}main{width:min(420px,90vw)}h1{font-size:28px}ul{list-style:none;padding:0}li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #222}span{color:#98a2b3}</style>' +
-    '<main><h1>' + esc(q.typeId) + '</h1><ul>' + rows + '</ul></main>');
+  // Doorsturen naar wat al bestaat
+  const ua = req.get('user-agent') || '';
+  if (q.typeId === 'facebook' && c.url) return res.redirect(c.url);
+  if (q.typeId === 'instagram' && c.username) return res.redirect('https://instagram.com/' + encodeURIComponent(c.username.replace(/^@/, '')));
+  if (q.typeId === 'apps') {                                   // telefoon: meteen naar de juiste winkel; computer: de pagina met beide knoppen
+    if (/iPhone|iPad|iPod/i.test(ua) && c.ios) return res.redirect(c.ios);
+    if (/Android/i.test(ua) && c.android) return res.redirect(c.android);
+  }
+  // Alle andere types: de echte pagina, met dezelfde sjablonen als de telefoon in de tool
+  const type = QR_TYPES.find((t) => t.id === q.typeId);
+  if (!type) return res.status(404).send('Unknown type');
+  res.send(livePage.livePage(req, q, type));
 }
 app.get('/q/:id', (req, res) => openCode(req, res, false));
+app.get('/q/:id/file/:key', (req, res) => {
+  const q = db.getQrCode(req.params.id);
+  if (!q || links.isExpired(q)) return res.status(404).send('Not found');
+  livePage.sendFile(res, q, req.params.key);
+});
 app.post('/q/:id', (req, res) => {
   const q = db.getQrCode(req.params.id);
   openCode(req, res, !!(q && q.content.password && links.checkPassword((req.body || {}).password || '', q.content.password)));

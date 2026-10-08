@@ -121,7 +121,11 @@
       "size": "Rozmiar",
       "pages": "Strony",
       "language": "Język",
-      "cta": "Otwórz PDF"
+      "cta": "Otwórz PDF",
+      "title": "Instrukcja",
+      "desc": "Wszystko, co musisz wiedzieć, w jednym dokumencie.",
+      "download": "Pobierz",
+      "done": "Gotowe"
     },
     "links": {
       "sub": "Wszystkie nasze linki",
@@ -153,22 +157,36 @@
       "openNow": "Teraz otwarte",
       "closedNow": "Teraz zamknięte",
       "showMap": "Pokaż na mapie",
-      "follow": "Obserwuj nas"
+      "follow": "Obserwuj nas",
+      "share": "Udostępnij"
     },
     "video": {
       "title": "Dzień w Café Aurora",
-      "meta": "Film o produkcie"
+      "meta": "Film o produkcie",
+      "desc": "Zajrzyj za kulisy naszej kawiarni.",
+      "watch": "Obejrzyj film"
     },
     "images": {
       "sub": "Galeria",
       "title": "Wakacje 2026",
       "count": "Zdjęcia: {count}",
-      "cta": "Pobierz wszystko"
+      "cta": "Pobierz wszystko",
+      "desc": "Najpiękniejsze chwile tego lata.",
+      "albums": "Albumy",
+      "select": "Zaznacz"
     },
     "facebook": {
       "sub": "Strona na Facebooku",
       "followers": "Obserwujący: {count}",
-      "cta": "Obserwuj na Facebooku"
+      "cta": "Obserwuj na Facebooku",
+      "desc": "Codziennie świeży chleb i wypieki z naszego pieca.",
+      "like": "Lubię to",
+      "message": "Wiadomość",
+      "likes": "{count} polubień",
+      "tabPosts": "Posty",
+      "tabAbout": "Informacje",
+      "tabPhotos": "Zdjęcia",
+      "time": "2 godz."
     },
     "instagram": {
       "stats": "Posty: {posts} · Obserwujący: {followers}",
@@ -182,7 +200,9 @@
       "bio": "Śluby, portrety i podróże w Barcelonie"
     },
     "social": {
-      "sub": "Obserwuj nas"
+      "sub": "Obserwuj nas",
+      "desc": "Obserwuj nas na wszystkich kanałach",
+      "follow": "Obserwuj"
     },
     "whatsapp": {
       "online": "dostępny",
@@ -196,25 +216,44 @@
     "mp3": {
       "sub": "Podcast",
       "title": "Odcinek 4",
-      "cta": "Odtwórz"
+      "cta": "Odtwórz",
+      "nowPlaying": "Teraz odtwarzane",
+      "download": "Pobierz"
     },
     "menu": {
       "sub": "Restauracja Przystań",
       "dish1": "Makaron z małżami",
       "dish2": "Grillowany labraks",
       "dish3": "Tiramisu",
-      "cta": "Zobacz całe menu"
+      "cta": "Zobacz całe menu",
+      "chip": "Menu",
+      "sampleDishes": "[{\"n\":\"Bruschetta\",\"p\":\"7,50\"},{\"n\":\"Makaron vongole\",\"p\":\"18,50\"},{\"n\":\"Grillowany labraks\",\"p\":\"22,00\"},{\"n\":\"Tiramisu\",\"p\":\"8,00\"},{\"n\":\"Espresso\",\"p\":\"2,80\"}]"
     },
     "apps": {
       "sub": "Aplikacja",
-      "title": "FitPlan"
+      "title": "FitPlan",
+      "desc": "Twój osobisty plan treningowy, zawsze pod ręką.",
+      "get": "Pobierz z",
+      "getPlay": "Pobierz z",
+      "search": "Szukaj",
+      "download": "Pobierz",
+      "ratings": "2K ocen",
+      "age": "Wiek",
+      "years": "lat",
+      "chart": "Ranking",
+      "category": "Zdrowie"
     },
     "coupon": {
       "sub": "Oferta",
       "title": "Rabat powitalny",
       "valid": "Ważny do {date}",
       "off": "zniżki",
-      "cta": "Kopiuj kod"
+      "cta": "Kopiuj kod",
+      "termsSample": "Jednorazowy. Nie łączy się z innymi promocjami.",
+      "yourCode": "Twój kod",
+      "offer": "Oferta",
+      "validLbl": "Ważny do",
+      "wallet": "Dodaj do Apple Wallet"
     },
     "wifi": {
       "network": "Sieć Wi-Fi",
@@ -289,7 +328,19 @@
     "maxScans": "Maksymalna liczba skanów",
     "iosUrl": "Inny link dla iPhone",
     "androidUrl": "Inny link dla Androida",
-    "utm": "Mierz skany w Google Analytics"
+    "utm": "Mierz skany w Google Analytics",
+    "pdfFile": "Plik PDF",
+    "audioFile": "Plik audio",
+    "videoUrl": "Link do filmu",
+    "photos": "Zdjęcia",
+    "fbUrl": "Link do Twojej strony na Facebooku",
+    "coverArt": "Okładka",
+    "dishes": "Dania",
+    "appIcon": "Ikona aplikacji",
+    "appStore": "Link do App Store",
+    "playStore": "Link do Google Play",
+    "validUntil": "Ważny do",
+    "terms": "Warunki"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -335,7 +386,14 @@
     "choose": "Wybierz zdjęcie lub przeciągnij je tutaj",
     "hint": "JPG lub PNG, zmniejszane automatycznie",
     "remove": "Usuń",
-    "error": "Nie udało się wczytać zdjęcia. Spróbuj JPG lub PNG."
+    "error": "Nie udało się wczytać zdjęcia. Spróbuj JPG lub PNG.",
+    "file": "Wybierz plik lub przeciągnij go tutaj",
+    "pdfHint": "Tylko PDF",
+    "audioHint": "MP3, M4A lub WAV",
+    "fileError": "Ten plik nie pasuje. Wybierz inny.",
+    "photos": "Dodaj zdjęcia",
+    "photosHint": "Maksymalnie {n} zdjęć. Są automatycznie zmniejszane.",
+    "tooBig": "Ten plik jest za duży (maks. {n} MB)."
   },
   "hours": {
     "closed": "Zamknięte",
@@ -366,7 +424,8 @@
     "expires": "Potem zobaczą „Ten kod QR wygasł”.",
     "maxScans": "Przydatne przy akcjach typu „pierwszych 100 klientów”.",
     "devices": "Zostaw puste, aby wszyscy mieli ten sam link.",
-    "utm": "Dodaje tagi UTM do linku, by widzieć wejścia z QR w Google Analytics."
+    "utm": "Dodaje tagi UTM do linku, by widzieć wejścia z QR w Google Analytics.",
+    "videoUrl": "YouTube, Vimeo lub inny link do filmu."
   },
   "more": {
     "title": "Więcej opcji",
@@ -635,5 +694,14 @@
       "frame": "Ramka",
       "corners": "Narożniki"
     }
+  },
+  "dish": {
+    "name": "Nazwa dania",
+    "add": "Dodaj danie",
+    "remove": "Usuń danie"
+  },
+  "live": {
+    "linkCopied": "Link skopiowany",
+    "codeCopied": "Kod skopiowany"
   }
 }

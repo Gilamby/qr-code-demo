@@ -121,7 +121,11 @@
       "size": "Größe",
       "pages": "Seiten",
       "language": "Sprache",
-      "cta": "PDF öffnen"
+      "cta": "PDF öffnen",
+      "title": "Handbuch",
+      "desc": "Alles Wichtige in einem Dokument.",
+      "download": "Herunterladen",
+      "done": "Fertig"
     },
     "links": {
       "sub": "Alle unsere Links",
@@ -153,22 +157,36 @@
       "openNow": "Jetzt geöffnet",
       "closedNow": "Jetzt geschlossen",
       "showMap": "Auf Karte zeigen",
-      "follow": "Folge uns"
+      "follow": "Folge uns",
+      "share": "Teilen"
     },
     "video": {
       "title": "Ein Tag im Café Aurora",
-      "meta": "Produktvideo"
+      "meta": "Produktvideo",
+      "desc": "Ein Blick hinter die Kulissen unseres Cafés.",
+      "watch": "Video ansehen"
     },
     "images": {
       "sub": "Galerie",
       "title": "Urlaub 2026",
       "count": "{count} Fotos",
-      "cta": "Alle herunterladen"
+      "cta": "Alle herunterladen",
+      "desc": "Die schönsten Momente dieses Sommers.",
+      "albums": "Alben",
+      "select": "Auswählen"
     },
     "facebook": {
       "sub": "Facebook-Seite",
       "followers": "{count} Follower",
-      "cta": "Auf Facebook folgen"
+      "cta": "Auf Facebook folgen",
+      "desc": "Jeden Tag frisches Brot und Gebäck aus eigenem Ofen.",
+      "like": "Gefällt mir",
+      "message": "Nachricht",
+      "likes": "{count} „Gefällt mir“",
+      "tabPosts": "Beiträge",
+      "tabAbout": "Info",
+      "tabPhotos": "Fotos",
+      "time": "2 Std."
     },
     "instagram": {
       "stats": "{posts} Beiträge · {followers} Follower",
@@ -182,7 +200,9 @@
       "bio": "Hochzeiten, Porträts und Reisen in Barcelona"
     },
     "social": {
-      "sub": "Folgen Sie uns"
+      "sub": "Folgen Sie uns",
+      "desc": "Folge uns auf allen Kanälen",
+      "follow": "Folgen"
     },
     "whatsapp": {
       "online": "online",
@@ -196,25 +216,44 @@
     "mp3": {
       "sub": "Podcast",
       "title": "Folge 4",
-      "cta": "Abspielen"
+      "cta": "Abspielen",
+      "nowPlaying": "Läuft gerade",
+      "download": "Herunterladen"
     },
     "menu": {
       "sub": "Restaurant Zum Hafen",
       "dish1": "Pasta mit Venusmuscheln",
       "dish2": "Gegrillter Wolfsbarsch",
       "dish3": "Tiramisu",
-      "cta": "Ganze Speisekarte ansehen"
+      "cta": "Ganze Speisekarte ansehen",
+      "chip": "Speisekarte",
+      "sampleDishes": "[{\"n\":\"Bruschetta\",\"p\":\"7,50\"},{\"n\":\"Pasta Vongole\",\"p\":\"18,50\"},{\"n\":\"Gegrillter Wolfsbarsch\",\"p\":\"22,00\"},{\"n\":\"Tiramisu\",\"p\":\"8,00\"},{\"n\":\"Espresso\",\"p\":\"2,80\"}]"
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan"
+      "title": "FitPlan",
+      "desc": "Dein persönlicher Trainingsplan, immer dabei.",
+      "get": "Laden im",
+      "getPlay": "Jetzt bei",
+      "search": "Suchen",
+      "download": "Laden",
+      "ratings": "2K Bewertungen",
+      "age": "Alter",
+      "years": "Jahre",
+      "chart": "Charts",
+      "category": "Gesundheit"
     },
     "coupon": {
       "sub": "Angebot",
       "title": "Willkommensrabatt",
       "valid": "Gültig bis {date}",
       "off": "Rabatt",
-      "cta": "Code kopieren"
+      "cta": "Code kopieren",
+      "termsSample": "Einmal einlösbar. Nicht mit anderen Aktionen kombinierbar.",
+      "yourCode": "Dein Code",
+      "offer": "Angebot",
+      "validLbl": "Gültig bis",
+      "wallet": "Zu Apple Wallet hinzufügen"
     },
     "wifi": {
       "network": "WLAN-Netzwerk",
@@ -289,7 +328,19 @@
     "maxScans": "Maximale Anzahl Scans",
     "iosUrl": "Anderer Link für iPhone",
     "androidUrl": "Anderer Link für Android",
-    "utm": "Scans in Google Analytics messen"
+    "utm": "Scans in Google Analytics messen",
+    "pdfFile": "PDF-Datei",
+    "audioFile": "Audiodatei",
+    "videoUrl": "Link zum Video",
+    "photos": "Fotos",
+    "fbUrl": "Link zu deiner Facebook-Seite",
+    "coverArt": "Cover",
+    "dishes": "Gerichte",
+    "appIcon": "App-Symbol",
+    "appStore": "Link zum App Store",
+    "playStore": "Link zu Google Play",
+    "validUntil": "Gültig bis",
+    "terms": "Bedingungen"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -335,7 +386,14 @@
     "choose": "Foto wählen oder hierher ziehen",
     "hint": "JPG oder PNG, wird automatisch verkleinert",
     "remove": "Entfernen",
-    "error": "Dieses Foto konnte nicht geladen werden. Versuche JPG oder PNG."
+    "error": "Dieses Foto konnte nicht geladen werden. Versuche JPG oder PNG.",
+    "file": "Datei auswählen oder hierher ziehen",
+    "pdfHint": "Nur PDF",
+    "audioHint": "MP3, M4A oder WAV",
+    "fileError": "Diese Datei passt nicht. Wähle eine andere Datei.",
+    "photos": "Fotos hinzufügen",
+    "photosHint": "Bis zu {n} Fotos. Sie werden automatisch verkleinert.",
+    "tooBig": "Diese Datei ist zu groß (max. {n} MB)."
   },
   "hours": {
     "closed": "Geschlossen",
@@ -366,7 +424,8 @@
     "expires": "Danach sehen Besucher „Dieser QR-Code ist abgelaufen“.",
     "maxScans": "Praktisch für Aktionen wie „die ersten 100 Kunden“.",
     "devices": "Leer lassen, um für alle denselben Link zu nutzen.",
-    "utm": "Fügt automatisch UTM-Parameter hinzu, damit du QR-Besucher in Google Analytics siehst."
+    "utm": "Fügt automatisch UTM-Parameter hinzu, damit du QR-Besucher in Google Analytics siehst.",
+    "videoUrl": "YouTube, Vimeo oder ein anderer Videolink."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -635,5 +694,14 @@
       "frame": "Rahmen",
       "corners": "Ecken"
     }
+  },
+  "dish": {
+    "name": "Name des Gerichts",
+    "add": "Gericht hinzufügen",
+    "remove": "Gericht entfernen"
+  },
+  "live": {
+    "linkCopied": "Link kopiert",
+    "codeCopied": "Code kopiert"
   }
 }

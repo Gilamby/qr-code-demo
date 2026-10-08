@@ -2,6 +2,52 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – De echte pagina's: wat de bezoeker na het scannen ziet
+
+- **Doorsturen** naar wat al bestaat: Website, Video (naar de videolink), WhatsApp, Facebook (naar de pagina), Instagram (naar het profiel). **Apps**: iPhone → App Store, Android → Google Play, computer → de pagina met beide knoppen. WiFi werkt zonder ons (de gegevens zitten in de code zelf).
+- **Eigen pagina** voor PDF, Lijst met links, vCard, Bedrijf, Afbeeldingen, Social media, MP3, Menu, Apps (op de computer) en Coupon.
+  - Gemaakt met **precies dezelfde sjablonen** als de telefoon in de tool (`server/live-page.js` + `public/js/live.js` + `public/css/live.css`). Wat de klant in de tool ziet, is dus echt wat de bezoeker krijgt. Eén ontwerp, twee plekken.
+  - In de taal van de bezoeker (uit de browser, 10 talen), in de kleuren die de klant koos.
+  - Nep-telefoondelen (statusbalk, terug-knoppen, *Gereed*) zijn weg; lege velden worden weggelaten in plaats van grijze balkjes.
+  - **Alles werkt:** bellen, mailen, route (Google Maps), website openen, delen, contact opslaan (.vcf), PDF openen en downloaden, muziek afspelen en doorspoelen, foto's groot bekijken en downloaden, social links, app-winkels, kortingscode kopiëren.
+- **PDF en MP3 worden nu echt opgeslagen** (max. 10 MB), zodat de bezoeker ze kan openen. Voor nu in de database; bij veel gebruik later naar bestandsopslag (bv. S3).
+- Eerlijkheid: "linktree" uit de mockup gehaald (merknaam van een ander) en de knop *Voeg toe aan Apple Wallet* vervangen door *Code kopiëren*. Een echte Wallet-kaart kan later, maar vraagt een Apple-ontwikkelaarscertificaat.
+- **Coupon:** de korting staat nu groot bovenaan de kaart.
+
+## 8 oktober 2026 – Zeven mockups opnieuw: echte app-schermen
+
+- Goed bevonden (zo laten): WhatsApp, MP3, WiFi, Video, Facebook, vCard, Instagram, Menu, Website. Wat ze gemeen hebben: het is een **echt scherm van een echte app**.
+- Daarom de andere zeven ook zo gemaakt:
+  - **PDF** → PDF-viewer zoals Voorvertoning op de iPhone (*Gereed*, bestandsnaam, volledig blad met kop in de themakleur, grafiek, "1 / 12", downloadknop).
+  - **Lijst met links** → zoals Linktree (zachte kleurvlakken, grote knoppen met icoon, rij met snelknoppen).
+  - **Bedrijf** → zoals een bedrijfskaart in Google Maps (grote foto, sterren, *Nu open*, ronde actieknoppen Route/Bellen/Website/Delen, kaartje met pin, openingstijden).
+  - **Afbeeldingen** → album zoals de Foto's-app (twee kolommen met verschillende hoogtes, *Alles downloaden*).
+  - **Social media** → profiel met een grote tegel per kanaal in de echte merkkleur, met *Volgen*.
+  - **Apps** → zoals de App Store (icoon, *Download*, beoordeling/leeftijd/hitlijst, schermafbeeldingen, winkelknoppen).
+  - **Coupon** → kaart in Apple Wallet met een echte, scanbare QR-code van de kortingscode en *Voeg toe aan Apple Wallet*.
+
+## 8 oktober 2026 – Elk type zijn eigen kleuren
+
+- Eerst kregen alle mockups het Optimasys-blauw. Nu heeft elk type een eigen kleurenpaar dat bij het thema past (`theme` in `shared/qr-types.js`), bv. PDF rood, Video rood/zwart, Menu oranje/groen, MP3 paars/roze, Coupon goud, vCard petrol, Lijst met links paars.
+- Die kleuren gelden overal: het voorbeeld in stap 1, de kleuren in stap 2 en de pagina die de bezoeker ziet. Past de gebruiker ze aan, dan onthouden we dat per type.
+- Het oude foto-voorbeeld van Afbeeldingen (met Optimasys-huisstijl) is vervangen door de nieuwe mockup in de eigen kleuren.
+
+## 8 oktober 2026 – Alle 16 types hebben een echte telefoon-mockup en echte invulvelden
+
+- Nieuwe mockups (zelfde stijl als WhatsApp/Bedrijf/vCard, lege velden = grijze balkjes, kleuren van de pagina):
+  - **PDF:** documentpagina met voorbeeld van het blad, bestandsnaam en grootte, knoppen *Open PDF* en *Downloaden*.
+  - **Video:** videopagina met speler (bij YouTube de echte miniatuur), titel, kanaal en beschrijving.
+  - **Afbeeldingen:** fotogalerij met de eigen foto's en *Alles downloaden*.
+  - **Facebook:** de pagina zoals in de app (omslag, profielfoto, Vind ik leuk / Bericht, tabbladen, bericht).
+  - **Social media:** profiel met een knop per kanaal, met de echte logo's.
+  - **MP3:** muziekspeler met albumhoes, tijdbalk en knoppen.
+  - **Menu:** menukaart met omslagfoto en gerechten met prijs.
+  - **Apps:** app-pagina met icoon, sterren en de echte App Store- en Google Play-knoppen.
+  - **Coupon:** kortingsbon met groot percentage, code om te kopiëren en geldigheidsdatum.
+- Nieuwe veldsoorten in stap Inhoud: **bestand** (PDF/audio), **foto's** (max. 6, automatisch verkleind), **gerechten** (naam + prijs, rij voor rij). De server controleert ze ook.
+- Verplicht per type: PDF-bestand, videolink, minstens één foto, Facebook-link, minstens één social kanaal, audiobestand, restaurantnaam + gerecht, app-naam, coupontitel.
+- Demo-keuze: van een PDF/MP3 bewaren we nu alleen naam en grootte; echt opslaan van het bestand komt bij de opslag-stap (nog te kiezen: eigen server of cloudopslag).
+
 ## 8 oktober 2026 – QR-assistent eruit, vijf kaarten met gewone titels
 
 - **De QR-assistent (AI) is helemaal weg**, ook op de achtergrond (`shared/assistant.js`, `/api/assistant`, de teller van onbekende woorden). Hij staat nog in de Git-geschiedenis als we hem later terug willen.

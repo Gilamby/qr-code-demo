@@ -121,7 +121,11 @@
       "size": "Size",
       "pages": "Pages",
       "language": "Language",
-      "cta": "Open PDF"
+      "cta": "Open PDF",
+      "title": "Manual",
+      "desc": "Everything you need to know, in one document.",
+      "download": "Download",
+      "done": "Done"
     },
     "links": {
       "sub": "All our links",
@@ -153,22 +157,36 @@
       "openNow": "Open now",
       "closedNow": "Closed now",
       "showMap": "Show on map",
-      "follow": "Follow us"
+      "follow": "Follow us",
+      "share": "Share"
     },
     "video": {
       "title": "A day at Café Aurora",
-      "meta": "Product video"
+      "meta": "Product video",
+      "desc": "Take a look behind the scenes at our café.",
+      "watch": "Watch video"
     },
     "images": {
       "sub": "Gallery",
       "title": "Holiday 2026",
       "count": "{count} photos",
-      "cta": "Download all"
+      "cta": "Download all",
+      "desc": "The best moments of this summer.",
+      "albums": "Albums",
+      "select": "Select"
     },
     "facebook": {
       "sub": "Facebook page",
       "followers": "{count} followers",
-      "cta": "Follow on Facebook"
+      "cta": "Follow on Facebook",
+      "desc": "Fresh bread and pastries from our own oven, every day.",
+      "like": "Like",
+      "message": "Message",
+      "likes": "{count} likes",
+      "tabPosts": "Posts",
+      "tabAbout": "About",
+      "tabPhotos": "Photos",
+      "time": "2h"
     },
     "instagram": {
       "stats": "{posts} posts · {followers} followers",
@@ -182,7 +200,9 @@
       "bio": "Weddings, portraits and travel in Barcelona"
     },
     "social": {
-      "sub": "Follow us"
+      "sub": "Follow us",
+      "desc": "Follow us on all our channels",
+      "follow": "Follow"
     },
     "whatsapp": {
       "online": "online",
@@ -196,25 +216,44 @@
     "mp3": {
       "sub": "Podcast",
       "title": "Episode 4",
-      "cta": "Play"
+      "cta": "Play",
+      "nowPlaying": "Now playing",
+      "download": "Download"
     },
     "menu": {
       "sub": "Harbour Restaurant",
       "dish1": "Pasta vongole",
       "dish2": "Grilled sea bass",
       "dish3": "Tiramisu",
-      "cta": "View full menu"
+      "cta": "View full menu",
+      "chip": "Menu",
+      "sampleDishes": "[{\"n\":\"Bruschetta\",\"p\":\"7.50\"},{\"n\":\"Pasta vongole\",\"p\":\"18.50\"},{\"n\":\"Grilled sea bass\",\"p\":\"22.00\"},{\"n\":\"Tiramisu\",\"p\":\"8.00\"},{\"n\":\"Espresso\",\"p\":\"2.80\"}]"
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan"
+      "title": "FitPlan",
+      "desc": "Your personal training plan, always at hand.",
+      "get": "Download on the",
+      "getPlay": "Get it on",
+      "search": "Search",
+      "download": "Get",
+      "ratings": "2K ratings",
+      "age": "Age",
+      "years": "years",
+      "chart": "Chart",
+      "category": "Health"
     },
     "coupon": {
       "sub": "Offer",
       "title": "Welcome discount",
       "valid": "Valid until {date}",
       "off": "off",
-      "cta": "Copy code"
+      "cta": "Copy code",
+      "termsSample": "Single use. Cannot be combined with other offers.",
+      "yourCode": "Your code",
+      "offer": "Offer",
+      "validLbl": "Valid until",
+      "wallet": "Add to Apple Wallet"
     },
     "wifi": {
       "network": "Wi-Fi network",
@@ -289,7 +328,19 @@
     "maxScans": "Maximum number of scans",
     "iosUrl": "Different link for iPhone",
     "androidUrl": "Different link for Android",
-    "utm": "Track scans in Google Analytics"
+    "utm": "Track scans in Google Analytics",
+    "pdfFile": "PDF file",
+    "audioFile": "Audio file",
+    "videoUrl": "Video link",
+    "photos": "Photos",
+    "fbUrl": "Link to your Facebook page",
+    "coverArt": "Cover art",
+    "dishes": "Dishes",
+    "appIcon": "App icon",
+    "appStore": "App Store link",
+    "playStore": "Google Play link",
+    "validUntil": "Valid until",
+    "terms": "Terms"
   },
   "panel": {
     "selected": "{type} selected"
@@ -335,7 +386,14 @@
     "choose": "Choose a photo or drag it here",
     "hint": "JPG or PNG, resized automatically",
     "remove": "Remove",
-    "error": "This photo could not be loaded. Try a JPG or PNG."
+    "error": "This photo could not be loaded. Try a JPG or PNG.",
+    "file": "Choose a file or drag it here",
+    "pdfHint": "PDF only",
+    "audioHint": "MP3, M4A or WAV",
+    "fileError": "This file doesn't fit. Choose another file.",
+    "photos": "Add photos",
+    "photosHint": "Up to {n} photos. They are resized automatically.",
+    "tooBig": "This file is too big (max. {n} MB)."
   },
   "hours": {
     "closed": "Closed",
@@ -366,7 +424,8 @@
     "expires": "After that, visitors see \"This QR code has expired\".",
     "maxScans": "Handy for promotions like \"the first 100 customers\".",
     "devices": "Leave empty to use the same link for everyone.",
-    "utm": "Automatically adds UTM tags to your link so you can see QR visitors in Google Analytics."
+    "utm": "Automatically adds UTM tags to your link so you can see QR visitors in Google Analytics.",
+    "videoUrl": "YouTube, Vimeo or any other video link."
   },
   "more": {
     "title": "More options",
@@ -635,5 +694,14 @@
       "frame": "Frame",
       "corners": "Corners"
     }
+  },
+  "dish": {
+    "name": "Dish name",
+    "add": "Add dish",
+    "remove": "Remove dish"
+  },
+  "live": {
+    "linkCopied": "Link copied",
+    "codeCopied": "Code copied"
   }
 }

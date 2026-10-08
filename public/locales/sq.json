@@ -121,7 +121,11 @@
       "size": "Madhësia",
       "pages": "Faqe",
       "language": "Gjuha",
-      "cta": "Hap PDF-në"
+      "cta": "Hap PDF-në",
+      "title": "Udhëzues",
+      "desc": "Gjithçka që duhet të dish, në një dokument.",
+      "download": "Shkarko",
+      "done": "U krye"
     },
     "links": {
       "sub": "Të gjitha lidhjet tona",
@@ -153,22 +157,36 @@
       "openNow": "Hapur tani",
       "closedNow": "Mbyllur tani",
       "showMap": "Shfaq në hartë",
-      "follow": "Na ndiq"
+      "follow": "Na ndiq",
+      "share": "Ndaj"
     },
     "video": {
       "title": "Një ditë në Café Aurora",
-      "meta": "Video e produktit"
+      "meta": "Video e produktit",
+      "desc": "Një vështrim prapa skenave në kafenenë tonë.",
+      "watch": "Shiko videon"
     },
     "images": {
       "sub": "Galeria",
       "title": "Pushimet 2026",
       "count": "{count} foto",
-      "cta": "Shkarko të gjitha"
+      "cta": "Shkarko të gjitha",
+      "desc": "Momentet më të bukura të kësaj vere.",
+      "albums": "Albumet",
+      "select": "Zgjidh"
     },
     "facebook": {
       "sub": "Faqja në Facebook",
       "followers": "{count} ndjekës",
-      "cta": "Ndiq në Facebook"
+      "cta": "Ndiq në Facebook",
+      "desc": "Bukë dhe ëmbëlsira të freskëta nga furra jonë, çdo ditë.",
+      "like": "Pëlqej",
+      "message": "Mesazh",
+      "likes": "{count} pëlqime",
+      "tabPosts": "Postime",
+      "tabAbout": "Rreth",
+      "tabPhotos": "Foto",
+      "time": "2 orë"
     },
     "instagram": {
       "stats": "{posts} postime · {followers} ndjekës",
@@ -182,7 +200,9 @@
       "bio": "Dasma, portrete dhe udhëtime në Barcelonë"
     },
     "social": {
-      "sub": "Na ndiqni"
+      "sub": "Na ndiqni",
+      "desc": "Na ndiq në të gjitha kanalet tona",
+      "follow": "Ndiq"
     },
     "whatsapp": {
       "online": "në linjë",
@@ -196,25 +216,44 @@
     "mp3": {
       "sub": "Podkast",
       "title": "Episodi 4",
-      "cta": "Luaj"
+      "cta": "Luaj",
+      "nowPlaying": "Po luhet tani",
+      "download": "Shkarko"
     },
     "menu": {
       "sub": "Restoranti Porti",
       "dish1": "Pasta me guaska",
       "dish2": "Levrek në skarë",
       "dish3": "Tiramisu",
-      "cta": "Shiko gjithë menunë"
+      "cta": "Shiko gjithë menunë",
+      "chip": "Menuja",
+      "sampleDishes": "[{\"n\":\"Bruschetta\",\"p\":\"7,50\"},{\"n\":\"Makarona vongole\",\"p\":\"18,50\"},{\"n\":\"Levrek në skarë\",\"p\":\"22,00\"},{\"n\":\"Tiramisu\",\"p\":\"8,00\"},{\"n\":\"Ekspres\",\"p\":\"2,80\"}]"
     },
     "apps": {
       "sub": "Aplikacion",
-      "title": "FitPlan"
+      "title": "FitPlan",
+      "desc": "Plani yt personal i stërvitjes, gjithmonë me ty.",
+      "get": "Shkarko nga",
+      "getPlay": "Merre në",
+      "search": "Kërko",
+      "download": "Merre",
+      "ratings": "2K vlerësime",
+      "age": "Mosha",
+      "years": "vjeç",
+      "chart": "Renditja",
+      "category": "Shëndeti"
     },
     "coupon": {
       "sub": "Ofertë",
       "title": "Zbritje mirëseardhjeje",
       "valid": "E vlefshme deri më {date}",
       "off": "zbritje",
-      "cta": "Kopjo kodin"
+      "cta": "Kopjo kodin",
+      "termsSample": "Përdorim një herë. Nuk kombinohet me oferta të tjera.",
+      "yourCode": "Kodi yt",
+      "offer": "Ofertë",
+      "validLbl": "E vlefshme deri",
+      "wallet": "Shto në Apple Wallet"
     },
     "wifi": {
       "network": "Rrjeti Wi-Fi",
@@ -289,7 +328,19 @@
     "maxScans": "Numri maksimal i skanimeve",
     "iosUrl": "Lidhje tjetër për iPhone",
     "androidUrl": "Lidhje tjetër për Android",
-    "utm": "Mat skanimet në Google Analytics"
+    "utm": "Mat skanimet në Google Analytics",
+    "pdfFile": "Skedar PDF",
+    "audioFile": "Skedar audio",
+    "videoUrl": "Lidhja e videos",
+    "photos": "Foto",
+    "fbUrl": "Lidhja e faqes tënde në Facebook",
+    "coverArt": "Kopertina",
+    "dishes": "Pjatat",
+    "appIcon": "Ikona e aplikacionit",
+    "appStore": "Lidhja e App Store",
+    "playStore": "Lidhja e Google Play",
+    "validUntil": "E vlefshme deri më",
+    "terms": "Kushtet"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -335,7 +386,14 @@
     "choose": "Zgjidh një foto ose tërhiqe këtu",
     "hint": "JPG ose PNG, zvogëlohet automatikisht",
     "remove": "Hiq",
-    "error": "Kjo foto nuk u ngarkua. Provo JPG ose PNG."
+    "error": "Kjo foto nuk u ngarkua. Provo JPG ose PNG.",
+    "file": "Zgjidh një skedar ose tërhiqe këtu",
+    "pdfHint": "Vetëm PDF",
+    "audioHint": "MP3, M4A ose WAV",
+    "fileError": "Ky skedar nuk përshtatet. Zgjidh një tjetër.",
+    "photos": "Shto foto",
+    "photosHint": "Deri në {n} foto. Zvogëlohen automatikisht.",
+    "tooBig": "Ky skedar është shumë i madh (maks. {n} MB)."
   },
   "hours": {
     "closed": "Mbyllur",
@@ -366,7 +424,8 @@
     "expires": "Pas kësaj shohin «Ky kod QR ka skaduar».",
     "maxScans": "E dobishme për oferta si «100 klientët e parë».",
     "devices": "Lëre bosh për të njëjtën lidhje për të gjithë.",
-    "utm": "Shton etiketa UTM në lidhje që të shohësh vizitorët QR në Google Analytics."
+    "utm": "Shton etiketa UTM në lidhje që të shohësh vizitorët QR në Google Analytics.",
+    "videoUrl": "YouTube, Vimeo ose një lidhje tjetër videoje."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -635,5 +694,14 @@
       "frame": "Korniza",
       "corners": "Qoshet"
     }
+  },
+  "dish": {
+    "name": "Emri i pjatës",
+    "add": "Shto pjatë",
+    "remove": "Hiq pjatën"
+  },
+  "live": {
+    "linkCopied": "Lidhja u kopjua",
+    "codeCopied": "Kodi u kopjua"
   }
 }

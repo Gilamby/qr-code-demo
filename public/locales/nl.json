@@ -121,7 +121,11 @@
       "size": "Grootte",
       "pages": "Pagina’s",
       "language": "Taal",
-      "cta": "Open PDF"
+      "cta": "Open PDF",
+      "title": "Handleiding",
+      "desc": "Alles wat je moet weten, in één document.",
+      "download": "Downloaden",
+      "done": "Gereed"
     },
     "links": {
       "sub": "Al onze links",
@@ -153,22 +157,36 @@
       "openNow": "Nu open",
       "closedNow": "Nu gesloten",
       "showMap": "Toon op kaart",
-      "follow": "Volg ons"
+      "follow": "Volg ons",
+      "share": "Delen"
     },
     "video": {
       "title": "Een dag bij Café Aurora",
-      "meta": "Productvideo"
+      "meta": "Productvideo",
+      "desc": "Neem een kijkje achter de schermen bij ons café.",
+      "watch": "Bekijk video"
     },
     "images": {
       "sub": "Galerij",
       "title": "Vakantie 2026",
       "count": "{count} foto’s",
-      "cta": "Alles downloaden"
+      "cta": "Alles downloaden",
+      "desc": "De mooiste momenten van deze zomer.",
+      "albums": "Albums",
+      "select": "Selecteer"
     },
     "facebook": {
       "sub": "Facebook-pagina",
       "followers": "{count} volgers",
-      "cta": "Volgen op Facebook"
+      "cta": "Volgen op Facebook",
+      "desc": "Elke dag vers brood en gebak uit eigen oven.",
+      "like": "Vind ik leuk",
+      "message": "Bericht",
+      "likes": "{count} vind-ik-leuks",
+      "tabPosts": "Berichten",
+      "tabAbout": "Info",
+      "tabPhotos": "Foto's",
+      "time": "2 u"
     },
     "instagram": {
       "stats": "{posts} berichten · {followers} volgers",
@@ -182,7 +200,9 @@
       "bio": "Bruiloften, portretten en reizen in Barcelona"
     },
     "social": {
-      "sub": "Volg ons"
+      "sub": "Volg ons",
+      "desc": "Volg ons op al onze kanalen",
+      "follow": "Volgen"
     },
     "whatsapp": {
       "online": "online",
@@ -196,25 +216,44 @@
     "mp3": {
       "sub": "Podcast",
       "title": "Aflevering 4",
-      "cta": "Afspelen"
+      "cta": "Afspelen",
+      "nowPlaying": "Nu aan het spelen",
+      "download": "Downloaden"
     },
     "menu": {
       "sub": "Restaurant De Haven",
       "dish1": "Pasta vongole",
       "dish2": "Gegrilde zeebaars",
       "dish3": "Tiramisu",
-      "cta": "Bekijk hele menu"
+      "cta": "Bekijk hele menu",
+      "chip": "Menukaart",
+      "sampleDishes": "[{\"n\":\"Bruschetta\",\"p\":\"7,50\"},{\"n\":\"Pasta vongole\",\"p\":\"18,50\"},{\"n\":\"Gegrilde zeebaars\",\"p\":\"22,00\"},{\"n\":\"Tiramisu\",\"p\":\"8,00\"},{\"n\":\"Espresso\",\"p\":\"2,80\"}]"
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan"
+      "title": "FitPlan",
+      "desc": "Je persoonlijke trainingsschema, altijd bij de hand.",
+      "get": "Download in de",
+      "getPlay": "Ontdek het op",
+      "search": "Zoeken",
+      "download": "Download",
+      "ratings": "2K beoordelingen",
+      "age": "Leeftijd",
+      "years": "jaar",
+      "chart": "Hitlijst",
+      "category": "Gezondheid"
     },
     "coupon": {
       "sub": "Aanbieding",
       "title": "Welkomstkorting",
       "valid": "Geldig t/m {date}",
       "off": "korting",
-      "cta": "Code kopiëren"
+      "cta": "Code kopiëren",
+      "termsSample": "Eén keer te gebruiken. Niet geldig met andere acties.",
+      "yourCode": "Jouw code",
+      "offer": "Aanbieding",
+      "validLbl": "Geldig tot",
+      "wallet": "Voeg toe aan Apple Wallet"
     },
     "wifi": {
       "network": "Wifi-netwerk",
@@ -289,7 +328,19 @@
     "maxScans": "Maximaal aantal scans",
     "iosUrl": "Andere link voor iPhone",
     "androidUrl": "Andere link voor Android",
-    "utm": "Scans meten in Google Analytics"
+    "utm": "Scans meten in Google Analytics",
+    "pdfFile": "PDF-bestand",
+    "audioFile": "Audiobestand",
+    "videoUrl": "Link naar de video",
+    "photos": "Foto's",
+    "fbUrl": "Link naar je Facebook-pagina",
+    "coverArt": "Albumhoes",
+    "dishes": "Gerechten",
+    "appIcon": "App-icoon",
+    "appStore": "Link naar de App Store",
+    "playStore": "Link naar Google Play",
+    "validUntil": "Geldig tot",
+    "terms": "Voorwaarden"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -335,7 +386,14 @@
     "choose": "Foto kiezen of hierheen slepen",
     "hint": "JPG of PNG, wordt automatisch verkleind",
     "remove": "Verwijderen",
-    "error": "Deze foto kon niet worden geladen. Probeer een JPG of PNG."
+    "error": "Deze foto kon niet worden geladen. Probeer een JPG of PNG.",
+    "file": "Bestand kiezen of hierheen slepen",
+    "pdfHint": "Alleen PDF",
+    "audioHint": "MP3, M4A of WAV",
+    "fileError": "Dit bestand past niet. Kies een ander bestand.",
+    "photos": "Foto's toevoegen",
+    "photosHint": "Maximaal {n} foto's. Ze worden automatisch verkleind.",
+    "tooBig": "Dit bestand is te groot (max. {n} MB)."
   },
   "hours": {
     "closed": "Gesloten",
@@ -366,7 +424,8 @@
     "expires": "Daarna ziet de bezoeker \"Deze QR-code is verlopen\".",
     "maxScans": "Handig voor acties zoals \"de eerste 100 klanten\".",
     "devices": "Laat leeg om voor iedereen dezelfde link te gebruiken.",
-    "utm": "Voegt automatisch utm-labels toe aan je link, zodat je QR-bezoekers terugziet in Google Analytics."
+    "utm": "Voegt automatisch utm-labels toe aan je link, zodat je QR-bezoekers terugziet in Google Analytics.",
+    "videoUrl": "YouTube, Vimeo of een andere videolink."
   },
   "more": {
     "title": "Meer opties",
@@ -635,5 +694,14 @@
       "frame": "Frame",
       "corners": "Hoeken"
     }
+  },
+  "dish": {
+    "name": "Naam van het gerecht",
+    "add": "Gerecht toevoegen",
+    "remove": "Gerecht verwijderen"
+  },
+  "live": {
+    "linkCopied": "Link gekopieerd",
+    "codeCopied": "Code gekopieerd"
   }
 }

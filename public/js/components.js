@@ -52,6 +52,9 @@ var ContentForm = {
         var wrap = function (inner) { return '<div class="field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small></div>'; };
         if (f.type === 'toggle') return '<div class="field toggle-field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label class="tg"><input type="checkbox" id="' + id + '" name="' + f.key + '"' + (v ? ' checked' : '') + '><span class="sw-ui"></span><span>' + label + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '</span></label></div>';
         if (f.type === 'image') return wrap(ImageUpload.html(f, id, v));
+        if (f.type === 'file') return wrap(FileUpload.html(f, id, v));
+        if (f.type === 'gallery') return wrap(GalleryUpload.html(f, id, v));
+        if (f.type === 'dishes') return wrap(DishesEditor.html(f, id, v));
         if (f.type === 'hours') return wrap(HoursEditor.html(f, id, v));
         if (f.type === 'address') return wrap(AddressSearch.html(f, id, v));
         if (f.type === 'socials') return wrap(SocialsEditor.html(f, id, v));
@@ -76,7 +79,7 @@ var ContentForm = {
     })() + '</form>' +
       (type.page === false ? '' : '<section class="appearance" id="appearance"></section>') +
       Actions.html(state);
-    ImageUpload.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
+    ImageUpload.mount(el, actions.setField); FileUpload.mount(el, actions.setField); GalleryUpload.mount(el, actions.setField); DishesEditor.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
     var ap = el.querySelector('#appearance'); if (ap) Appearance.mount(ap);
     // Meer opties: teller bijwerken
     // Meer opties: knopjes voegen één optie toe, × haalt hem weer weg (en wist de waarde). Teller bijwerken.

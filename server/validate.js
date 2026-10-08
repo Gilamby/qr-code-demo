@@ -41,6 +41,23 @@ function validateQrCode(body) {
       if (!o || typeof o !== 'object' || Array.isArray(o) || Object.keys(o).some((k) => !SOCIAL_NETWORKS.includes(k) || (o[k] && !isUrl(o[k])))) errors.push(field.key + ': invalid social links');
       content[field.key] = v; continue;
     }
+    if (field.type === 'file') {
+      let o = null; try { o = JSON.parse(v); } catch (e) {}
+      if (!o || typeof o.n !== 'string' || !o.n.trim() || o.n.length > 120 || !(o.s >= 0 && o.s < 200 * 1048576)) errors.push(field.key + ': invalid file');
+      // Het bestand zelf (max. 10 MB) als data-URL; alleen PDF of audio
+      else if (o.d != null && (typeof o.d !== 'string' || o.d.length > 14 * 1048576 || !(field.accept === 'application/pdf' ? /^data:application\/pdf;base64,/ : /^data:audio\/[\w.+-]+;base64,/).test(o.d))) errors.push(field.key + ': file must be a ' + (field.accept === 'application/pdf' ? 'PDF' : 'audio file') + ' under 10 MB');
+      content[field.key] = v; continue;
+    }
+    if (field.type === 'gallery') {
+      let a = null; try { a = JSON.parse(v); } catch (e) {}
+      if (!Array.isArray(a) || !a.length || a.length > 6 || a.some((x) => typeof x !== 'string' || !/^data:image\/(jpeg|png|webp);base64,/.test(x) || x.length > 1500000)) errors.push(field.key + ': 1-6 JPG/PNG/WebP images');
+      content[field.key] = v; continue;
+    }
+    if (field.type === 'dishes') {
+      let a = null; try { a = JSON.parse(v); } catch (e) {}
+      if (!Array.isArray(a) || !a.length || a.length > 30 || a.some((d) => !d || typeof d.n !== 'string' || !d.n.trim() || d.n.length > 60 || (d.p != null && !/^\d{0,5}([.,]\d{0,2})?$/.test(String(d.p))))) errors.push(field.key + ': 1-30 dishes with a name and price');
+      content[field.key] = v; continue;
+    }
     if (field.type === 'image') {
       if (!/^data:image\/(jpeg|png|webp);base64,/.test(v) || v.length > 3000000) errors.push(field.key + ': must be a JPG/PNG/WebP image under 3 MB');
       content[field.key] = v; continue;

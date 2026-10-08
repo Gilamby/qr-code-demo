@@ -13,10 +13,11 @@
   }
   // Telefoon tekenen. --pc = paginakleur (of de kleur waar de muis nu boven hangt).
   function drawPhone(state) {
-    var type = getType(state.typeId);
+    var shown = state.step === 'type' && state.hoverTypeId ? state.hoverTypeId : state.typeId, type = getType(shown);
     screen.innerHTML = renderPreview(state);
-    var h = state.hoverTheme || {}, own = type.page !== false;
-    var pc = own ? (h.pc || state.pageColor) : '#2bb5f0', ac = own ? (h.ac || state.accentColor) : '#0f172a';
+    // Kleuren van de telefoon: in stap 1 die van het type waar je naar kijkt, daarna die van je pagina (per type onthouden).
+    var base = shown === state.typeId ? [state.pageColor, state.accentColor] : typeColors(shown, state);
+    var h = state.hoverTheme || {}, pc = h.pc || base[0], ac = h.ac || base[1];
     var ink = function (c) { return luminance(c) > 0.42 ? '#14161a' : '#ffffff'; };   // leesbare tekst op elke kleur
     screen.style.setProperty('--pc', pc); screen.style.setProperty('--pc-ink', ink(pc));
     screen.style.setProperty('--ac', ac); screen.style.setProperty('--ac-ink', ink(ac));

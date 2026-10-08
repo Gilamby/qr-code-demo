@@ -40,7 +40,19 @@ var PHONE = (function () {
     wifi: '<path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.6 15.8a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19" r="1"/>',
     flash: '<path d="M13 3L5 14h6l-1 7 8-11h-6z"/>',
     link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
-    save: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>'
+    save: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+    doc: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+    play: '<path d="M8 5.5v13l11-6.5z" fill="currentColor"/>',
+    pause: '<path d="M8 5v14M16 5v14"/>',
+    prev: '<path d="M18 6v12L9 12zM6 6v12"/>',
+    next: '<path d="M6 6v12l9-6zM18 6v12"/>',
+    like: '<path d="M7 11v9H4v-9zM7 11l4-7c1.5 0 2.5 1 2.2 2.6L12.6 10H18a2 2 0 0 1 2 2.3l-1.2 6A2 2 0 0 1 16.8 20H7"/>',
+    chat: '<path d="M4 18.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8z"/>',
+    note: '<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+    star: '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z" fill="currentColor" stroke="none"/>',
+    img: '<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
+    gift: '<path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1s3 1 5 1zM12 7c1.5-3 5-3.5 5-1s-3 1-5 1z"/>'
   };
   function ic(k, cls) { return '<svg class="' + (cls || 'i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + I[k] + '</svg>'; }
   // Waarde of grijs balkje
@@ -179,45 +191,208 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Lijst met links: profiel met knoppen ---------- */
+    /* ---------- Lijst met links: zoals Linktree ---------- */
     links: function (c, ex) {
-      var keys = ['link1', 'link2', 'link3'];
-      return '<div class="ph ph-lk">' + statusBar(true) +
-        '<div class="lk-share">' + ic('share') + '</div>' +
-        '<span class="lk-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span>' +
-        '<h4>' + v(c.title, '45%') + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : '<i class="sk" style="width:55%;margin:0 auto"></i>') + '</p>' +
-        '<div class="lk-list">' + keys.map(function (k) { return '<span>' + ic('link') + '<b>' + v(c[k], '55%') + '</b>' + ic('dots', 'i dots') + '</span>'; }).join('') + '</div>' +
-        '<div class="lk-soc"><i></i><i></i><i></i><i></i></div>' +
+      var keys = ['link1', 'link2', 'link3'], thumbs = ['globe', 'book', 'chat'];
+      return '<div class="ph ph-lt">' + '<i class="lt-blob a"></i><i class="lt-blob b"></i>' + statusBar(true) +
+        '<div class="lt-top"><span>' + ic('bell') + '</span><span>' + ic('share') + '</span></div>' +
+        '<span class="lt-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span>' +
+        '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : '<i class="sk" style="width:55%;margin:0 auto"></i>') + '</p>' +
+        '<div class="lt-list">' + keys.map(function (k, i) { return '<span><i class="lt-th">' + ic(thumbs[i]) + '</i><b>' + (c[k] ? esc(c[k].replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '')) : '<i class="sk" style="width:55%;margin:0 auto"></i>') + '</b>' + ic('dots', 'i dots') + '</span>'; }).join('') + '</div>' +
+        '<div class="lt-soc">' + ['mail', 'call', 'pin', 'globe'].map(function (k) { return '<i>' + ic(k) + '</i>'; }).join('') + '</div>' +
       '</div>';
     },
 
-    /* ---------- Bedrijf: bedrijfspagina met openingstijden, kaart, contact en socials ---------- */
-    business: function (c, ex) {
-      var row = function (icon, main, sub) { return '<div class="bz-row"><span class="bz-ic">' + ic(icon) + '</span><span><b>' + main + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</span></div>'; };
-      var hrs = HOURS.parse(c.hours), st = HOURS.status(hrs), today = (new Date().getDay() + 6) % 7;
-      var addr = ADDRESS.parse(c.address), socials = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in socials; });
-      var table = hrs.map(function (d, i) {
-        var tm = d.o ? HOURS.fmt(d.f) + ' – ' + HOURS.fmt(d.t) + (d.f2 && d.t2 ? '<br>' + HOURS.fmt(d.f2) + ' – ' + HOURS.fmt(d.t2) : '') : esc(t('hours.closed'));
-        return '<div class="bz-day' + (i === today ? ' today' : '') + (d.o ? '' : ' off') + '"><span>' + esc(HOURS.dayName(i)) + '</span><span>' + tm + '</span></div>';
-      }).join('');
-      return '<div class="ph ph-bz">' +
-        '<div class="bz-band">' + statusBar(true) + '<div class="bz-top">' + ic('back') + '<b>' + v(c.name, '120px') + '</b>' + ic('share') + '</div></div>' +
-        '<div class="bz-scroll">' +
-          '<div class="bz-card"><div class="bz-cover">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : storefront(c.name)) + '</div>' +
-            '<h4>' + v(c.name, '55%') + '</h4><p>' + (c.description ? esc(c.description) : '<i class="sk"></i><i class="sk" style="width:75%"></i>') + '</p>' +
-            (addr ? '<a class="bz-cta" href="' + ADDRESS.mapUrl(addr) + '" target="_blank" rel="noopener">' + esc(t('pv.business.cta')) + '</a>' : '<div class="bz-cta">' + esc(t('pv.business.cta')) + '</div>') + '</div>' +
-          '<div class="bz-list bz-hours">' +
-            row('clock', esc(t('pv.business.hours')) + ' · <em class="bz-status ' + st + '">' + esc(t(st === 'open' ? 'pv.business.openNow' : 'pv.business.closedNow')) + '</em>') +
-            '<div class="bz-table">' + table + '</div></div>' +
-          '<div class="bz-list">' +
-            '<div class="bz-row"><span class="bz-ic">' + ic('pin') + '</span><span>' + (addr ? '<b class="wrap">' + esc(addr.l) + '</b><a class="bz-map" href="' + ADDRESS.mapUrl(addr) + '" target="_blank" rel="noopener">' + esc(t('pv.business.showMap')) + '</a>' : '<b><i class="sk" style="width:80%"></i></b><small><i class="sk" style="width:40%"></i></small>') + '</span></div>' +
-            row('call', v(c.phone, '55%')) +
-            row('mail', v(c.email, '65%')) +
-            row('globe', v(c.website ? c.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '', '50%')) +
-          '</div>' +
-          (nets.length ? '<div class="bz-list bz-soc"><b>' + esc(t('pv.business.follow')) + '</b><div>' + nets.map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div></div>' : '') +
+    /* ---------- PDF: het document in een echte PDF-viewer ---------- */
+    pdf: function (c, ex) {
+      var o = FILES.parse(c.file), name = o ? o.n : (c.title ? c.title + '.pdf' : '');
+      return '<div class="ph ph-pv">' + statusBar() +
+        '<div class="pv-bar"><b class="pv-done">' + esc(t('pv.pdf.done')) + '</b><span>' + v(name, '110px') + '</span>' + ic('share') + '</div>' +
+        '<div class="pv-view"><div class="pv-sheet">' +
+          '<div class="pv-hd"><span class="pv-logo">' + (c.company ? esc(initials(c.company)) : '') + '</span><b>' + (c.company ? esc(c.company) : '<i class="sk" style="width:70px"></i>') + '</b><small>2026</small></div>' +
+          '<h5>' + (c.title ? esc(c.title) : '<i class="sk" style="width:70%;height:12px"></i>') + '</h5>' +
+          (c.description ? '<p>' + esc(c.description) + '</p>' : '<i class="sk"></i><i class="sk" style="width:80%"></i>') +
+          '<div class="pv-chart"><i style="height:45%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:65%"></i></div>' +
+          '<i class="sk"></i><i class="sk" style="width:92%"></i><i class="sk" style="width:76%"></i><i class="sk" style="width:85%"></i>' +
+          '<div class="pv-cols"><span><i class="sk"></i><i class="sk" style="width:80%"></i></span><span><i class="sk"></i><i class="sk" style="width:70%"></i></span></div>' +
+        '</div><span class="pv-pg">1 / 12</span></div>' +
+        '<div class="pv-dl">' + ic('save') + '<span><b>' + esc(t('pv.pdf.download')) + '</b><small>' + (o ? FILES.size(o.s) + ' · PDF' : 'PDF') + '</small></span></div>' +
+      '</div>';
+    },
+
+    /* ---------- Video: de videopagina met speler ---------- */
+    video: function (c, ex) {
+      var d = domain(c.url), yt = (c.url || '').match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{11})/);
+      return '<div class="ph ph-vid">' + statusBar(true) +
+        '<div class="vd-top">' + ic('back') + '<span>' + v(d, '100px') + '</span>' + ic('share') + '</div>' +
+        '<div class="vd-player"' + (yt ? ' style="background-image:url(https://img.youtube.com/vi/' + yt[1] + '/hqdefault.jpg)"' : '') + '><span class="vd-play">' + ic('play') + '</span>' +
+          '<div class="vd-bar"><i></i></div><small class="vd-time">0:24 / 1:42</small></div>' +
+        '<div class="vd-info"><h4>' + v(c.title, '75%') + '</h4>' +
+          '<div class="vd-ch"><span class="vd-av">' + (d ? esc(d[0].toUpperCase()) : '') + '</span><b>' + v(d, '90px') + '</b></div>' +
+          '<p>' + (c.description ? esc(c.description) : '<i class="sk"></i><i class="sk" style="width:80%"></i><i class="sk" style="width:55%"></i>') + '</p></div>' +
+        '<div class="vd-btn">' + ic('play') + esc(t('pv.video.watch')) + '</div>' +
+      '</div>';
+    },
+
+    /* ---------- Afbeeldingen: een album zoals in de Foto's-app ---------- */
+    images: function (c, ex) {
+      var list = FILES.list(c.photos), n = list.length || (ex ? 9 : 0);
+      var scenes = [
+        ['#ffb347', '#ff6f61', '#3b1e54', 'sun'], ['#7dd3fc', '#0369a1', '#0c4a6e', 'sea'], ['#bbf7d0', '#16a34a', '#14532d', 'hill'],
+        ['#fde68a', '#f59e0b', '#7c2d12', 'sun'], ['#c4b5fd', '#7c3aed', '#2e1065', 'hill'], ['#a5f3fc', '#0891b2', '#164e63', 'sea'],
+        ['#fecaca', '#ef4444', '#450a0a', 'hill'], ['#e0f2fe', '#38bdf8', '#075985', 'sea'], ['#fef3c7', '#d97706', '#451a03', 'sun']];
+      var scene = function (sc, tall) {
+        var h = tall ? 130 : 100, sky = '<defs><linearGradient id="g' + sc.join('').replace(/#/g, '') + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + sc[0] + '"/><stop offset="1" stop-color="' + sc[1] + '"/></linearGradient></defs><rect width="100" height="' + h + '" fill="url(#g' + sc.join('').replace(/#/g, '') + ')"/>';
+        var land = sc[3] === 'sea' ? '<path d="M0 ' + (h * .62) + 'q25-6 50 0t50 0V' + h + 'H0z" fill="' + sc[2] + '" opacity=".85"/><path d="M0 ' + (h * .72) + 'q25-5 50 0t50 0V' + h + 'H0z" fill="#fff" opacity=".18"/>'
+          : sc[3] === 'sun' ? '<circle cx="68" cy="' + (h * .42) + '" r="13" fill="#fff" opacity=".85"/><path d="M0 ' + (h * .7) + 'L30 ' + (h * .5) + 'L55 ' + (h * .66) + 'L80 ' + (h * .46) + 'L100 ' + (h * .62) + 'V' + h + 'H0z" fill="' + sc[2] + '"/>'
+          : '<path d="M0 ' + (h * .6) + 'Q30 ' + (h * .35) + ' 60 ' + (h * .58) + 'T100 ' + (h * .5) + 'V' + h + 'H0z" fill="' + sc[2] + '" opacity=".9"/><circle cx="24" cy="' + (h * .3) + '" r="9" fill="#fff" opacity=".7"/>';
+        return '<svg viewBox="0 0 100 ' + h + '" preserveAspectRatio="xMidYMid slice">' + sky + land + '</svg>';
+      };
+      var cols = [[], []];
+      for (var i = 0; i < 6; i++) {
+        var tall = i === 0 || i === 3 || i === 4, html;
+        if (list[i]) html = '<span class="' + (tall ? 'tall' : '') + '" style="background-image:url(' + list[i] + ')"></span>';
+        else if (ex) html = '<span class="' + (tall ? 'tall' : '') + '">' + scene(scenes[i], tall) + '</span>';
+        else html = '<span class="ph-none ' + (tall ? 'tall' : '') + '">' + ic('img') + '</span>';
+        cols[i % 2].push(html);
+      }
+      return '<div class="ph ph-al">' + statusBar() +
+        '<div class="al-nav"><span>' + ic('back') + esc(t('pv.images.albums')) + '</span><b>' + esc(t('pv.images.select')) + '</b></div>' +
+        '<div class="al-head"><h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:60%;height:14px"></i>') + '</h4>' +
+          '<small>' + (n ? esc(t('pv.images.count', { count: i18n.fmt.num(n) })) : '<i class="sk" style="width:70px"></i>') + (c.description ? ' · ' + esc(c.description) : '') + '</small></div>' +
+        '<div class="al-grid"><div>' + cols[0].join('') + '</div><div>' + cols[1].join('') + '</div></div>' +
+        '<div class="al-dl">' + ic('save') + esc(t('pv.images.cta')) + '</div>' +
+      '</div>';
+    },
+
+    /* ---------- Facebook: de pagina zoals in de app ---------- */
+    facebook: function (c, ex) {
+      var name = c.pageName;
+      return '<div class="ph ph-fb">' + statusBar() +
+        '<div class="fb-nav"><b>facebook</b><span>' + ic('search') + ic('chat') + '</span></div>' +
+        '<div class="fb-cover"></div>' +
+        '<div class="fb-prof"><span class="fb-av">' + (name ? esc(initials(name)) : ic('user')) + '</span>' +
+          '<h4>' + v(name, '55%') + (ex ? '<span class="fb-ver">' + ic('check') + '</span>' : '') + '</h4>' +
+          '<small>' + (ex ? esc(t('pv.facebook.likes', { count: i18n.fmt.num(1240) })) + ' · ' + esc(t('pv.facebook.followers', { count: i18n.fmt.num(1310) })) : '<i class="sk" style="width:70%"></i>') + '</small>' +
+          (c.description ? '<p>' + esc(c.description) + '</p>' : '') +
+          '<div class="fb-btns"><span class="pri">' + ic('like') + esc(t('pv.facebook.like')) + '</span><span>' + ic('chat') + esc(t('pv.facebook.message')) + '</span><span class="sq">' + ic('dots', 'i dots') + '</span></div></div>' +
+        '<div class="fb-tabs"><span class="on">' + esc(t('pv.facebook.tabPosts')) + '</span><span>' + esc(t('pv.facebook.tabAbout')) + '</span><span>' + esc(t('pv.facebook.tabPhotos')) + '</span></div>' +
+        '<div class="fb-post"><div class="fb-ph"><span class="fb-av s">' + (name ? esc(initials(name)) : '') + '</span><span><b>' + v(name, '90px') + '</b><small>' + esc(t('pv.facebook.time')) + '</small></span></div>' +
+          '<i class="sk" style="width:90%"></i><i class="sk" style="width:60%"></i><div class="fb-img"></div></div>' +
+      '</div>';
+    },
+
+    /* ---------- Social media: profiel met een grote tegel per kanaal ---------- */
+    social: function (c, ex) {
+      var so = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in so; });
+      var handle = function (url) { var m = String(url || '').replace(/\/$/, '').split('/').pop(); return m ? (m[0] === '@' ? m : '@' + m) : ''; };
+      return '<div class="ph ph-sm">' + '<div class="sm-cover">' + statusBar(true) + '</div>' +
+        '<div class="sm-prof"><span class="sm-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span>' +
+          '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%"></i>') + '</h4><p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:65%"></i>') + '</p></div>' +
+        '<div class="sm-grid">' + (nets.length ? nets.slice(0, 6).map(function (n) {
+            return '<span class="sm-tile sm-' + n.id + '">' + SOCIALS.icon(n.id) + '<b>' + esc(n.name) + '</b><small>' + esc(handle(so[n.id])) + '</small><em>' + esc(t('pv.social.follow')) + '</em></span>';
+          }).join('') : [1, 2, 3, 4].map(function () { return '<span class="sm-tile sm-none"><i class="sk" style="width:30px;height:30px;border-radius:10px"></i><i class="sk" style="width:60%;margin-top:auto"></i></span>'; }).join('')) + '</div>' +
+      '</div>';
+    },
+
+    /* ---------- MP3: muziekspeler ---------- */
+    mp3: function (c, ex) {
+      var o = FILES.parse(c.file), secs = o ? Math.max(30, Math.round(o.s / 16000)) : 192;
+      var mm = function (x) { return Math.floor(x / 60) + ':' + ('0' + (x % 60)).slice(-2); };
+      return '<div class="ph ph-mp3">' + statusBar(true) +
+        '<div class="mp-top">' + ic('back') + '<small>' + esc(t('pv.mp3.nowPlaying')) + '</small>' + ic('dots', 'i dots') + '</div>' +
+        '<div class="mp-art">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : ic('note')) + '</div>' +
+        '<div class="mp-info"><h4>' + v(c.title, '60%') + '</h4><p>' + v(c.artist, '40%') + '</p></div>' +
+        '<div class="mp-bar"><i style="width:' + (o || ex ? 25 : 0) + '%"></i></div><div class="mp-time"><span>' + mm(Math.round(secs / 4)) + '</span><span>' + mm(secs) + '</span></div>' +
+        '<div class="mp-ctrl">' + ic('prev') + '<span class="mp-play">' + ic('play') + '</span>' + ic('next') + '</div>' +
+        '<div class="mp-file">' + ic('save') + (o ? esc(o.n) : esc(t('pv.mp3.download'))) + '</div>' +
+      '</div>';
+    },
+
+    /* ---------- Menu: de menukaart van het restaurant ---------- */
+    menu: function (c, ex) {
+      var list = FILES.list(c.dishes);
+      var price = function (p) { var n = parseFloat(String(p || '').replace(',', '.')); return isNaN(n) ? '' : i18n.fmt.eur(n); };
+      return '<div class="ph ph-menu">' +
+        '<div class="mn-cover">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : '<svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="140" fill="#3b2a20"/><circle cx="160" cy="92" r="70" fill="#f4efe6"/><circle cx="160" cy="92" r="52" fill="#fff"/><circle cx="148" cy="84" r="14" fill="#e07a2f"/><circle cx="172" cy="96" r="12" fill="#6a994e"/><circle cx="160" cy="104" r="9" fill="#bc4749"/><path d="M60 20v60M52 20v22a8 8 0 0 0 16 0V20M262 20c10 10 12 30 0 40v30" stroke="#d9c7a7" stroke-width="5" fill="none" stroke-linecap="round"/></svg>') +
+          statusBar(true) + '</div>' +
+        '<div class="mn-head"><h4>' + v(c.restaurant, '55%') + '</h4><span class="mn-chip">' + esc(t('pv.menu.chip')) + '</span></div>' +
+        '<div class="mn-list">' + (list.length ? list.slice(0, 7).map(function (d) { return '<div class="mn-row"><b>' + esc(d.n) + '</b><i></i><span>' + price(d.p) + '</span></div>'; }).join('')
+          : [1, 2, 3, 4].map(function () { return '<div class="mn-row"><b><i class="sk" style="width:120px"></i></b><i></i><span><i class="sk" style="width:36px"></i></span></div>'; }).join('')) + '</div>' +
+      '</div>';
+    },
+
+    /* ---------- Apps: zoals de App Store ---------- */
+    apps: function (c, ex) {
+      var name = c.appName, cat = t('pv.apps.category');
+      var shot = function (k) {
+        return '<span class="as-shot"><i class="as-sbar"></i><i class="as-hd"></i>' +
+          (k === 0 ? '<i class="as-ring"></i><i class="as-ln"></i><i class="as-ln s"></i>' : k === 1 ? '<i class="as-card"></i><i class="as-card"></i><i class="as-card s"></i>' : '<i class="as-bars"><b style="height:40%"></b><b style="height:70%"></b><b style="height:55%"></b><b style="height:90%"></b></i><i class="as-ln"></i>') + '</span>';
+      };
+      var badge = function (kind) {
+        return kind === 'ios' ? '<span class="ap-badge"><svg viewBox="0 0 24 24" fill="#fff"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.9-.8-3.1-.8C6.8 7.3 5.3 8.2 4.5 9.7c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 3 2.4 1.2 0 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.7-4.1zM14.1 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.5 2.8-1.3z"/></svg><span><small>' + esc(t('pv.apps.get')) + '</small><b>App Store</b></span></span>'
+          : '<span class="ap-badge"><svg viewBox="0 0 24 24"><path d="M4 3.2l9.6 9.3L4 21.8c-.4-.2-.6-.6-.6-1.1V4.3c0-.5.2-.9.6-1.1z" fill="#34a853"/><path d="M16.8 9.4l-3.2 3.1 3.2 3.1 3.6-2c.9-.5.9-1.8 0-2.3z" fill="#fbbc04"/><path d="M13.6 12.5L4 3.2c.3-.2.8-.2 1.2 0l11.6 6.2z" fill="#4285f4"/><path d="M13.6 12.5l3.2 3.1-11.6 6.2c-.4.2-.9.2-1.2 0z" fill="#ea4335"/></svg><span><small>' + esc(t('pv.apps.getPlay')) + '</small><b>Google Play</b></span></span>';
+      };
+      var stores = (ex || c.ios ? badge('ios') : '') + (ex || c.android ? badge('android') : '');
+      return '<div class="ph ph-as">' + statusBar() +
+        '<div class="as-nav">' + ic('back') + '<span>' + esc(t('pv.apps.search')) + '</span></div>' +
+        '<div class="as-top"><span class="as-icon">' + (c.logo ? '<img src="' + c.logo + '" alt="">' : (name ? esc(initials(name)) : ic('img'))) + '</span>' +
+          '<div class="as-meta"><b>' + v(name, '70%') + '</b><small>' + (c.description ? esc(c.description) : '<i class="sk" style="width:85%"></i>') + '</small>' +
+          '<div class="as-get"><span>' + esc(t('pv.apps.download')) + '</span>' + ic('share') + '</div></div></div>' +
+        '<div class="as-stats"><span><small>' + esc(t('pv.apps.ratings')) + '</small><b>' + i18n.fmt.num(4.8) + '</b><em>★★★★★</em></span><span><small>' + esc(t('pv.apps.age')) + '</small><b>4+</b><em>' + esc(t('pv.apps.years')) + '</em></span><span><small>' + esc(t('pv.apps.chart')) + '</small><b>#12</b><em>' + esc(cat) + '</em></span></div>' +
+        '<div class="as-shots">' + [0, 1, 2].map(shot).join('') + '</div>' +
+        '<div class="as-stores">' + (stores || '<span class="ap-badge ap-empty"><i class="sk"></i></span>') + '</div>' +
+      '</div>';
+    },
+
+    /* ---------- Coupon: een Wallet-achtige kaart met grote korting, scanbare code en kopieerknop ---------- */
+    coupon: function (c, ex) {
+      var exp = c.expires || (ex ? new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10) : '');
+      var date = exp ? new Intl.DateTimeFormat(i18n.lang(), { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(exp + 'T12:00:00')) : '';
+      var qr = c.code && typeof QRRender !== 'undefined' ? QRRender.svg(c.code, { color: '#000000' }) : '';
+      return '<div class="ph ph-wl">' + statusBar(true) +
+        '<div class="wl-nav"><b>' + esc(t('pv.pdf.done')) + '</b>' + ic('dots', 'i dots') + '</div>' +
+        '<div class="wl-pass">' +
+          '<div class="wl-row"><span class="wl-logo">' + ic('gift') + '</span><b class="wl-co">' + (c.company ? esc(c.company) : '<i class="sk" style="width:80px"></i>') + '</b></div>' +
+          // De korting is het belangrijkste: groot en als eerste
+          '<div class="wl-off">' + (c.discount ? '<b>' + esc(c.discount) + '<em>%</em></b><span>' + esc(t('pv.coupon.off')) + '</span>' : '<i class="sk" style="width:120px;height:46px"></i>') + '</div>' +
+          '<div class="wl-big"><small>' + esc(t('pv.coupon.offer')) + '</small><b>' + (c.title ? esc(c.title) : '<i class="sk" style="width:70%;height:16px"></i>') + '</b></div>' +
+          '<div class="wl-row f2"><span class="wl-f"><small>' + esc(t('pv.coupon.validLbl')) + '</small><b>' + (date ? esc(date) : '–') + '</b></span><span class="wl-f r"><small>' + esc(t('pv.coupon.yourCode')) + '</small><b>' + (c.code ? esc(c.code) : '–') + '</b></span></div>' +
+          '<div class="wl-code"><span>' + (qr || '<i class="wl-qr-sk"></i>') + '</span><small>' + (c.code ? esc(c.code) : '') + '</small></div>' +
         '</div>' +
-        '<span class="bz-fab">' + ic('dots') + '</span>' +
+        (c.terms ? '<p class="wl-terms">' + esc(c.terms) + '</p>' : '') +
+        '<button type="button" class="wl-add" data-copy="' + esc(c.code || '') + '">' + ic('copy') + '<span>' + esc(t('pv.coupon.cta')) + '</span></button>' +
+      '</div>';
+    },
+
+    /* ---------- Bedrijf: zoals een bedrijfskaart in Google Maps ---------- */
+    business: function (c, ex) {
+      var hrs = HOURS.parse(c.hours), st = HOURS.status(hrs), today = (new Date().getDay() + 6) % 7, td = hrs[today];
+      var addr = ADDRESS.parse(c.address), socials = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in socials; });
+      var act = function (icon, label, href) { return (href ? '<a href="' + href + '" target="_blank" rel="noopener">' : '<span>') + '<i>' + ic(icon) + '</i>' + esc(label) + (href ? '</a>' : '</span>'); };
+      var todayTxt = td && td.o ? HOURS.fmt(td.f) + ' – ' + HOURS.fmt(td.t2 || td.t) : t('hours.closed');
+      var table = hrs.map(function (d, i) {
+        var tm = d.o ? HOURS.fmt(d.f) + ' – ' + HOURS.fmt(d.t) + (d.f2 && d.t2 ? ', ' + HOURS.fmt(d.f2) + ' – ' + HOURS.fmt(d.t2) : '') : esc(t('hours.closed'));
+        return '<div class="gm-day' + (i === today ? ' today' : '') + (d.o ? '' : ' off') + '"><span>' + esc(HOURS.dayName(i)) + '</span><span>' + tm + '</span></div>';
+      }).join('');
+      return '<div class="ph ph-gm">' +
+        '<div class="gm-cover">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : storefront(c.name)) + statusBar(true) +
+          '<div class="gm-tb"><span>' + ic('back') + '</span><span>' + ic('share') + '</span></div></div>' +
+        '<div class="gm-sheet"><i class="gm-grab"></i>' +
+          '<h4>' + v(c.name, '55%') + '</h4>' +
+          '<div class="gm-rate"><b>' + i18n.fmt.num(4.7) + '</b><em>★★★★★</em><small>(128)</small></div>' +
+          '<div class="gm-open"><b class="' + st + '">' + esc(t(st === 'open' ? 'pv.business.openNow' : 'pv.business.closedNow')) + '</b> · ' + esc(todayTxt) + '</div>' +
+          '<div class="gm-acts">' + act('pin', t('pv.vcard.route'), addr ? ADDRESS.mapUrl(addr) : '') + act('call', t('pv.vcard.call')) + act('globe', t('pv.vcard.website')) + act('share', t('pv.business.share')) + '</div>' +
+          (c.description ? '<p class="gm-desc">' + esc(c.description) + '</p>' : (ex ? '' : '<p class="gm-desc"><i class="sk"></i><i class="sk" style="width:70%"></i></p>')) +
+          '<div class="gm-row">' + ic('pin') + '<span>' + (addr ? '<b>' + esc(addr.l) + '</b>' : '<i class="sk" style="width:80%"></i>') + '</span></div>' +
+          '<div class="gm-map">' + '<svg viewBox="0 0 300 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="90" fill="#e8eef3"/><path d="M0 60H300M0 20H300M70 0V90M190 0V90M250 0V90" stroke="#fff" stroke-width="7"/><path d="M0 40Q120 30 300 75" stroke="#fcd34d" stroke-width="6" fill="none"/><rect x="88" y="28" width="40" height="22" rx="3" fill="#c8e6c9"/><rect x="205" y="30" width="30" height="20" rx="3" fill="#dfe6ec"/></svg>' +
+            '<span class="gm-pin">' + ic('pin') + '</span></div>' +
+          '<div class="gm-row">' + ic('clock') + '<span><b>' + esc(t('pv.business.hours')) + '</b><div class="gm-table">' + table + '</div></span></div>' +
+          '<div class="gm-row">' + ic('call') + '<span>' + v(c.phone, '55%') + '</span></div>' +
+          '<div class="gm-row">' + ic('mail') + '<span>' + v(c.email, '65%') + '</span></div>' +
+          '<div class="gm-row">' + ic('globe') + '<span>' + v(c.website ? c.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '', '50%') + '</span></div>' +
+          (nets.length ? '<div class="gm-soc">' + nets.map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') +
+        '</div>' +
       '</div>';
     }
   };

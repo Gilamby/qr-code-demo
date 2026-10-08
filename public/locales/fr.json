@@ -121,7 +121,11 @@
       "size": "Taille",
       "pages": "Pages",
       "language": "Langue",
-      "cta": "Ouvrir le PDF"
+      "cta": "Ouvrir le PDF",
+      "title": "Manuel",
+      "desc": "Tout ce qu’il faut savoir, dans un seul document.",
+      "download": "Télécharger",
+      "done": "OK"
     },
     "links": {
       "sub": "Tous nos liens",
@@ -153,22 +157,36 @@
       "openNow": "Ouvert",
       "closedNow": "Fermé",
       "showMap": "Voir sur la carte",
-      "follow": "Suis-nous"
+      "follow": "Suis-nous",
+      "share": "Partager"
     },
     "video": {
       "title": "Une journée au Café Aurora",
-      "meta": "Vidéo produit"
+      "meta": "Vidéo produit",
+      "desc": "Un coup d’œil dans les coulisses de notre café.",
+      "watch": "Voir la vidéo"
     },
     "images": {
       "sub": "Galerie",
       "title": "Vacances 2026",
       "count": "{count} photos",
-      "cta": "Tout télécharger"
+      "cta": "Tout télécharger",
+      "desc": "Les plus beaux moments de cet été.",
+      "albums": "Albums",
+      "select": "Sélectionner"
     },
     "facebook": {
       "sub": "Page Facebook",
       "followers": "{count} abonnés",
-      "cta": "Suivre sur Facebook"
+      "cta": "Suivre sur Facebook",
+      "desc": "Pain et viennoiseries frais de notre four, chaque jour.",
+      "like": "J'aime",
+      "message": "Message",
+      "likes": "{count} mentions J’aime",
+      "tabPosts": "Publications",
+      "tabAbout": "À propos",
+      "tabPhotos": "Photos",
+      "time": "2 h"
     },
     "instagram": {
       "stats": "{posts} publications · {followers} abonnés",
@@ -182,7 +200,9 @@
       "bio": "Mariages, portraits et voyages à Barcelone"
     },
     "social": {
-      "sub": "Suivez-nous"
+      "sub": "Suivez-nous",
+      "desc": "Suis-nous sur tous nos réseaux",
+      "follow": "Suivre"
     },
     "whatsapp": {
       "online": "en ligne",
@@ -196,25 +216,44 @@
     "mp3": {
       "sub": "Podcast",
       "title": "Épisode 4",
-      "cta": "Lecture"
+      "cta": "Lecture",
+      "nowPlaying": "En cours de lecture",
+      "download": "Télécharger"
     },
     "menu": {
       "sub": "Restaurant Le Port",
       "dish1": "Pâtes aux palourdes",
       "dish2": "Bar grillé",
       "dish3": "Tiramisu",
-      "cta": "Voir tout le menu"
+      "cta": "Voir tout le menu",
+      "chip": "La carte",
+      "sampleDishes": "[{\"n\":\"Bruschetta\",\"p\":\"7,50\"},{\"n\":\"Pâtes vongole\",\"p\":\"18,50\"},{\"n\":\"Bar grillé\",\"p\":\"22,00\"},{\"n\":\"Tiramisu\",\"p\":\"8,00\"},{\"n\":\"Expresso\",\"p\":\"2,80\"}]"
     },
     "apps": {
       "sub": "Appli",
-      "title": "FitPlan"
+      "title": "FitPlan",
+      "desc": "Ton programme d'entraînement, toujours à portée de main.",
+      "get": "Télécharger dans l’",
+      "getPlay": "Disponible sur",
+      "search": "Rechercher",
+      "download": "Obtenir",
+      "ratings": "2K notes",
+      "age": "Âge",
+      "years": "ans",
+      "chart": "Classement",
+      "category": "Santé"
     },
     "coupon": {
       "sub": "Offre",
       "title": "Réduction de bienvenue",
       "valid": "Valable jusqu’au {date}",
       "off": "de réduction",
-      "cta": "Copier le code"
+      "cta": "Copier le code",
+      "termsSample": "Usage unique. Non cumulable avec d’autres offres.",
+      "yourCode": "Ton code",
+      "offer": "Offre",
+      "validLbl": "Valable jusqu’au",
+      "wallet": "Ajouter à Apple Wallet"
     },
     "wifi": {
       "network": "Réseau Wi-Fi",
@@ -289,7 +328,19 @@
     "maxScans": "Nombre maximal de scans",
     "iosUrl": "Autre lien pour iPhone",
     "androidUrl": "Autre lien pour Android",
-    "utm": "Mesurer les scans dans Google Analytics"
+    "utm": "Mesurer les scans dans Google Analytics",
+    "pdfFile": "Fichier PDF",
+    "audioFile": "Fichier audio",
+    "videoUrl": "Lien de la vidéo",
+    "photos": "Photos",
+    "fbUrl": "Lien vers ta page Facebook",
+    "coverArt": "Pochette",
+    "dishes": "Plats",
+    "appIcon": "Icône de l'app",
+    "appStore": "Lien vers l'App Store",
+    "playStore": "Lien vers Google Play",
+    "validUntil": "Valable jusqu'au",
+    "terms": "Conditions"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -335,7 +386,14 @@
     "choose": "Choisis une photo ou glisse-la ici",
     "hint": "JPG ou PNG, redimensionnée automatiquement",
     "remove": "Retirer",
-    "error": "Impossible de charger cette photo. Essaie un JPG ou PNG."
+    "error": "Impossible de charger cette photo. Essaie un JPG ou PNG.",
+    "file": "Choisis un fichier ou glisse-le ici",
+    "pdfHint": "PDF uniquement",
+    "audioHint": "MP3, M4A ou WAV",
+    "fileError": "Ce fichier ne convient pas. Choisis-en un autre.",
+    "photos": "Ajouter des photos",
+    "photosHint": "Jusqu'à {n} photos. Elles sont réduites automatiquement.",
+    "tooBig": "Ce fichier est trop volumineux (max. {n} Mo)."
   },
   "hours": {
     "closed": "Fermé",
@@ -366,7 +424,8 @@
     "expires": "Ensuite, les visiteurs voient « Ce QR code a expiré ».",
     "maxScans": "Pratique pour des offres comme « les 100 premiers clients ».",
     "devices": "Laisse vide pour utiliser le même lien pour tous.",
-    "utm": "Ajoute des balises UTM à ton lien pour voir les visiteurs QR dans Google Analytics."
+    "utm": "Ajoute des balises UTM à ton lien pour voir les visiteurs QR dans Google Analytics.",
+    "videoUrl": "YouTube, Vimeo ou un autre lien vidéo."
   },
   "more": {
     "title": "Plus d'options",
@@ -635,5 +694,14 @@
       "frame": "Cadre",
       "corners": "Coins"
     }
+  },
+  "dish": {
+    "name": "Nom du plat",
+    "add": "Ajouter un plat",
+    "remove": "Supprimer le plat"
+  },
+  "live": {
+    "linkCopied": "Lien copié",
+    "codeCopied": "Code copié"
   }
 }
