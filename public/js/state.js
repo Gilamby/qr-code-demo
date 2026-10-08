@@ -13,7 +13,9 @@ var store = createStore({
   step: 'type',
   typeId: 'whatsapp',
   content: {},                                   // { [typeId]: { [fieldKey]: waarde } }
-  design: { color: DESIGN_OPTIONS.colors[0], background: DESIGN_OPTIONS.backgrounds[0] },
+  design: Object.assign({}, QR_DEFAULT_DESIGN),
+  hoverDesign: null,
+  draftId: newDraftId(),                        // uniek id voor de code die je nu maakt (wordt de korte link)                            // tijdelijk voorbeeld van een ontwerpkeuze (muis erover)
   pageColor: '#2bb5f0',                         // hoofdkleur van de pagina in de telefoon
   accentColor: '#0f172a',                       // knopkleur
   hoverTheme: null,
@@ -39,14 +41,16 @@ var actions = {
   unlockPreview: function (on) { store.set({ previewUnlocked: !!on }); },
   setTheme: function (pc, ac) { store.set({ pageColor: pc, accentColor: ac, created: false, saved: null, error: null }); },
   previewTheme: function (o) { var cur = store.get().hoverTheme; if (JSON.stringify(cur) !== JSON.stringify(o)) store.set({ hoverTheme: o }); },
-  setDesign: function (key, value) { var d = Object.assign({}, store.get().design); d[key] = value; store.set({ design: d, created: false, saved: null, error: null }); },
+  previewDesign: function (o) { if (JSON.stringify(store.get().hoverDesign) !== JSON.stringify(o)) store.set({ hoverDesign: o }); },
+  applyDesign: function (d) { store.set({ design: Object.assign({}, QR_DEFAULT_DESIGN, d), created: false, saved: null, error: null }); },
+  setDesign: function (key, value) { var d = Object.assign({}, store.get().design); d[key] = value; if (key !== 'logo' && key !== 'frameText') d.themeId = ''; /* zelf iets aangepast = eigen ontwerp */ store.set({ design: d, created: false, saved: null, error: null }); },
   create: function () {
     var s = store.get();
     store.set({ saving: true, error: null });
     api.available().then(function (online) {
       if (!online) { store.set({ saving: false, created: true, saved: null }); return; }   // demo zonder server: niets opslaan
-      return api.createQrCode({ typeId: s.typeId, content: s.content[s.typeId] || {}, design: Object.assign({ pageColor: s.pageColor, accentColor: s.accentColor }, s.design) })
-        .then(function (record) { store.set({ saving: false, created: true, saved: record }); });
+      return api.createQrCode({ id: s.draftId, typeId: s.typeId, content: s.content[s.typeId] || {}, design: Object.assign({ pageColor: s.pageColor, accentColor: s.accentColor }, s.design) })
+        .then(function (record) { store.set({ saving: false, created: true, saved: record, draftId: newDraftId() }); });   // volgende code krijgt weer een nieuw id
     }).catch(function () { store.set({ saving: false, error: 'design.saveError' }); });
   }
 };

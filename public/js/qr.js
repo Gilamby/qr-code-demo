@@ -7,15 +7,16 @@ function resolvedContent(state) {
   type.fields.forEach(function (f) { var v = entered[f.key]; out[f.key] = (v != null && String(v).trim() !== '') ? String(v).trim() : resolveSample(f.sample); });
   return out;
 }
+function shortLink(id) { return QR_BASE + '/q/' + id; }
 function encodeQR(state) {
   var c = resolvedContent(state), id = state.typeId;
   var esc = function (v) { return String(v).replace(/([\\;,:"])/g, '\\$1'); };
   switch (getType(id).contentType) {
     case 'wifi': return 'WIFI:T:' + c.security + ';S:' + esc(c.ssid) + ';P:' + esc(c.password) + ';;';
     case 'contact': return ['BEGIN:VCARD', 'VERSION:3.0', 'FN:' + c.name, 'TITLE:' + c.role, 'TEL:' + c.phone, 'EMAIL:' + c.email, 'END:VCARD'].join('\n');
-    case 'message': return state.saved ? state.saved.shortUrl : 'https://wa.me/' + c.phone.replace(/\D/g, '') + '?text=' + encodeURIComponent(c.message);
-    case 'url': return state.saved ? state.saved.shortUrl : c.url;
-    default: return state.saved ? state.saved.shortUrl : 'https://qr.optimasys.com/' + id + '/demo';   // dynamisch: na opslaan de eigen korte link (telt scans)
+    // Dynamisch: elke QR-code krijgt een eigen korte link (uniek, telt scans, inhoud later aan te passen).
+    // Het id wordt vooraf gereserveerd, dus wat je in de preview ziet is precies de code die je krijgt.
+    default: return state.saved ? state.saved.shortUrl : shortLink(state.draftId);
   }
 }
 function contrastRatio(a, b) {

@@ -56,16 +56,39 @@ function validateQrCode(body) {
   for (const key of Object.keys(input)) if (!type.fields.some((f) => f.key === key)) errors.push(key + ': unknown field');
   for (const f of type.fields) if (f.required && !content[f.key]) errors.push(f.key + ': required');
 
-  const design = body.design || {};
+  const dv = validateDesign(body.design || {}, errors);
+  return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: dv } };
+}
+
+function validateDesign(design, errors) {
+  design = Object.assign({ color: '#0b0e13', background: '#ffffff' }, design);
   if (!HEX.test(design.color || '')) errors.push('design.color: must be #rrggbb');
   if (!HEX.test(design.background || '')) errors.push('design.background: must be #rrggbb');
 
   if (design.pageColor !== undefined && !HEX.test(design.pageColor)) errors.push('design.pageColor: must be #rrggbb');
   if (design.accentColor !== undefined && !HEX.test(design.accentColor)) errors.push('design.accentColor: must be #rrggbb');
   const cleanDesign = { color: design.color, background: design.background };
+  // Uitgebreid ontwerp (stap 3): alleen bekende waarden doorlaten
+  const ENUMS = {
+    pattern: ['square', 'rounded', 'smooth', 'dots', 'tiny', 'mosaic', 'classy', 'vertical', 'horizontal', 'diamond', 'cross', 'heart', 'star'],
+    cornerOuter: ['square', 'rounded', 'extra', 'circle', 'leaf', 'drop', 'chamfer', 'dots'],
+    cornerInner: ['square', 'rounded', 'circle', 'chamfer', 'diamond', 'leaf', 'plus', 'flower', 'heart', 'star'],
+    frame: ['none', 'label', 'labelTop', 'bubble', 'tag', 'scanner', 'ribbon', 'ticket', 'stamp', 'polaroid', 'phone', 'script', 'badge',
+      'coffee', 'chalkboard', 'cutlery', 'noodles', 'pizza', 'bag', 'gift', 'pricetag', 'envelope', 'calendar', 'receipt', 'box',
+      'heart', 'ornament', 'balloons', 'confetti', 'pumpkin', 'pin', 'laptop', 'hanger'],
+    frameFont: ['', 'modern', 'hand', 'serif', 'bold', 'round'],
+    decor: ['', 'xmas', 'winter', 'newyear', 'valentine', 'easter', 'spring', 'halloween', 'birthday'],
+    gradient: ['', 'linear', 'radial'] };
+  for (const [k, list] of Object.entries(ENUMS)) if (design[k] !== undefined) { if (!list.includes(design[k])) errors.push('design.' + k + ': unknown value'); else cleanDesign[k] = design[k]; }
+  for (const k of ['color2', 'frameColor', 'frameColor2', 'cornerColor', 'cornerInnerColor']) if (design[k]) { if (!HEX.test(design[k])) errors.push('design.' + k + ': must be #rrggbb'); else cleanDesign[k] = design[k]; }
+  if (design.transparent !== undefined) cleanDesign.transparent = !!design.transparent;
+  if (typeof design.themeId === 'string' && /^[a-z]{0,20}$/.test(design.themeId)) cleanDesign.themeId = design.themeId;
+  if (design.frameGradient !== undefined) cleanDesign.frameGradient = !!design.frameGradient;
+  if (design.frameText) { if (typeof design.frameText !== 'string' || design.frameText.length > 32) errors.push('design.frameText: max 32 characters'); else cleanDesign.frameText = design.frameText; }
+  if (design.logo) { if (!(typeof design.logo === 'string' && /^data:image\/(jpeg|png|webp|svg\+xml);base64,/.test(design.logo) && design.logo.length < 1500000)) errors.push('design.logo: must be an image under 1 MB'); else cleanDesign.logo = design.logo; }
   if (design.pageColor) cleanDesign.pageColor = design.pageColor;
   if (design.accentColor) cleanDesign.accentColor = design.accentColor;
-  return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: cleanDesign } };
+  return cleanDesign;
 }
 
 function validateMe(body) {
@@ -82,4 +105,4 @@ function validateMe(body) {
   return { errors, value };
 }
 
-module.exports = { validateQrCode, validateMe, QR_TYPES };
+module.exports = { validateQrCode, validateMe, validateDesign, QR_TYPES };

@@ -34,7 +34,7 @@
       }
       return actions.goTo(to);
     }
-    var sw = e.target.closest('[data-design]'); if (sw) return actions.setDesign(sw.getAttribute('data-design'), sw.getAttribute('data-value'));
+    var dl = e.target.closest('[data-dl]'); if (dl) return DesignPanel.download(dl.getAttribute('data-dl'));
     if (e.target.closest('[data-create]')) actions.create();
   });
   // Schakelaar boven de telefoon: Voorbeeld | QR-code (alleen in stap 2 en 3)
@@ -111,9 +111,14 @@
     if (stepChanged) { renderAll(state, false); document.getElementById('heroTitle').scrollIntoView({ block: 'nearest' }); return; }
     if (state.step === 'type' && typeChanged) { TypeGrid.update(panel, state); renderHero(state); panel.querySelector('.actions').outerHTML = Actions.html(state); drawPhone(state); screen.classList.remove('swap'); void screen.offsetWidth; screen.classList.add('swap'); return; }
     if (state.step === 'content') { drawPhone(state); return; }          // formulier niet opnieuw tekenen: focus blijft
-    if (state.step === 'design') { Stepper.render(stepper, state); DesignPanel.render(panel, state); layoutPanel(); drawPhone(state); }
+    if (state.step === 'design') {
+      if (state.design !== prev.design || state.created !== prev.created || state.saving !== prev.saving || state.error !== prev.error) { Stepper.render(stepper, state); DesignPanel.update(panel, state); }
+      drawPhone(state);
+    }
   });
   i18n.onChange(function () { renderAll(store.get(), false); });
+  // Draait de eigen server? Dan wijzen de korte links naar die server.
+  api.available().then(function (on) { if (on) { QR_BASE = location.origin; drawPhone(store.get()); } });
   document.addEventListener('preview:refresh', function () { drawPhone(store.get()); });
 })();
 

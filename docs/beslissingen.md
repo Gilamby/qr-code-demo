@@ -2,6 +2,67 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Stap 3 op volgorde van belangrijkheid
+
+- Volgorde: **1. Kies een stijl** (altijd open) → **2. Je logo** (altijd open) → **3. Zelf aanpassen** met tabbladen **Patroon en kleuren** (met Versiering onderaan) · **Frame** · **Hoeken**.
+- Stijlen en logo staan open, omdat dat de belangrijkste keuzes zijn. Zo ziet iedereen meteen dat stijlen professioneel zijn en niet "kinderachtig". Onder *Meer stijlen* staat standaard de groep **Zakelijk** open.
+- De QR-assistent staat onderaan bij de stijlen ("Of beschrijf wat je wilt"), want hij maakt ook stijlen. "Met mijn logo" springt naar het logo-blok.
+
+## 8 oktober 2026 – Stap 3 volgens schets MOCK2: snel kiezen → QR-assistent → zelf aanpassen
+
+- **Drie stappen, van snel naar precies:**
+  1. *Snel kiezen:* 4 echte QR-codes (de eigen code van de gebruiker). Klassiek altijd eerst en standaard, daarna 3 aanbevelingen met een reden (bv. Past bij "Café", Past bij het seizoen). Link *Alle stijlen bekijken (39)* opent het tabblad Stijlen.
+  2. *QR-assistent:* één invoerbalk "Beschrijf je QR-code" + **Maak**. Resultaat = 3 echte varianten (klik = kiezen, muis erover = voorbeeld op de telefoon), één korte regel *Herkend:* met de woorden die hij begreep, en knoppen **Donkerder · Zonder frame · Andere tekst · Met mijn logo**. Je kunt gewoon verder typen ("maak het blauw"); hij bouwt dan verder op het huidige ontwerp. **Geen lange uitlegtekst** in een chat.
+  3. *Zelf aanpassen:* tabbladen met alleen tekst (geen iconen): **Stijlen · Frame · Vorm · Kleuren · Logo · Versiering**. Eén tabblad tegelijk zichtbaar.
+- **Mijn stijlen is weg** (overbodig naast assistent en aanbevelingen). Ook uit het profiel op de server gehaald.
+- **De assistent is zelf gebouwd** (`shared/assistant.js`), geen externe AI en geen kosten per vraag: woordenlijsten in 10 talen voor gelegenheden/branches, kleuren (ook "donkerblauw", "pastel", #hex), vormen, frames, versiering, lettertypes, tekst tussen aanhalingstekens en opdrachten (donkerder, lichter, verloop, simpeler, zonder frame, andere variant). Woorden tellen alleen aan het begin van een woord, korte woorden alleen als heel woord (anders vond "rondjes" muziek en "zielony" zwart).
+- **Altijd scanbaar:** de assistent maakt kleuren zelf donkerder tot het contrast minstens 4,5 is, en zet een lichte code nooit op een donkere achtergrond.
+- **Achterkant:** `POST /api/assistant` draait dezelfde motor, controleert elke variant met dezelfde regels als bij opslaan (`validateDesign`) en telt woorden die hij niet kende (`assistantMisses` in de database). Zo zien we welke woorden we nog moeten toevoegen. Zonder server (demo) draait de motor in de browser.
+- Later eventueel: een taalmodel als reserve voor zinnen die de motor niet begrijpt.
+
+## 8 oktober 2026 – Stap 3 simpel, zoals qr-code.io
+
+- Optimasys gebruikt qr-code.io echt (Website-codes per vereniging, in mappen). Designs en stijlen blijven, want die zijn populair, maar **simpel**.
+- Stap 3 is één rustige lijst, net als bij qr-code.io: **Stijlen · Frame · Patroon en kleuren · Hoeken · Logo · Versiering**. Eén regel tegelijk open; Stijlen staat open bij binnenkomst (met *Aanbevolen voor jou*, Klassiek altijd eerst).
+- Beter dan qr-code.io: rechts op elke dichte regel staat **wat er nu gekozen is** (bv. "Klassiek" met een mini-QR, "Label onder", "Vierkant · Vierkant").
+- De contrastmelding verschijnt alleen als er iets mis is. De unieke link staat klein onder de lijst.
+- AI-assistent: idee bewaard, nog niet gebouwd (eerst navragen hoe Optimasys de tool gebruikt).
+
+## 8 oktober 2026 – Elke QR-code uniek, rustiger Stijlen, zelf ontwerpen
+
+- **Uniek:** elke QR-code krijgt vanaf het begin een eigen id (7 willekeurige tekens via `crypto.getRandomValues`, ±3,5 biljoen mogelijkheden). De code in de preview is dus precies de code die je krijgt; de server neemt dat id over (of kiest een nieuw als het al bestaat). Na opslaan krijgt de volgende code weer een nieuw id. Bovenin stap 3 staat de eigen link (bv. `qr.optimasys.com/q/CJphnxM`). WiFi en vCard zijn statisch: de inhoud zit in de code zelf.
+- **Stijlen geven alleen het uiterlijk**, nooit de code: twee klanten met dezelfde stijl hebben dus twee verschillende codes. De stijl-voorbeelden tonen de eigen code van de gebruiker.
+- **Rustiger:** standaard alleen *Aanbevolen voor jou* (4 tegels). *Alle stijlen bekijken (39)* klapt de groepen pas open als je erom vraagt.
+- **Zelf ontwerpen:** knop die meteen naar Patroon en kleuren gaat.
+- **Mijn stijlen:** je eigen ontwerp bewaren met een naam en later met één klik hergebruiken (max. 12, opgeslagen in het profiel via `/api/me`, met de browser als reserve). Handig voor bedrijven die al hun codes in dezelfde huisstijl willen.
+
+## 8 oktober 2026 – Stijlen die passen bij het bedrijf + seizoensdecoratie
+
+- **Klassiek is altijd de standaard en staat altijd vooraan** (meest gebruikt).
+- **Aanbevolen voor jou** (bovenaan Stijlen): Klassiek + 3 suggesties met een reden eronder.
+  1. *Wat je invulde:* woorden in naam, titel, beschrijving, link of adres (meertalig, zonder accenten), bv. "Café Aurora" → Koffie, Bakkerij; "Kapsalon Bella" → Salon, Spa.
+  2. *Het type:* WiFi → Hotel, WiFi; Menu → Restaurant, Krijtbord; Coupon → Uitverkoop, Cadeaubon; vCard → Zakelijk.
+  3. *Het seizoen* (datum van de gebruiker): februari → Valentijn, oktober → Halloween, december → Kerst, eind december → Nieuwjaar.
+- **39 stijlen in 8 groepen:** Basis · Horeca · Winkel · Zakelijk · Hotel & reizen · Beauty & sport · Feest · Seizoenen.
+- **Seizoensdecoratie** (bij Hoeken): Kerst, Winter, Nieuwjaar, Valentijn, Pasen, Lente, Halloween, Verjaardag. Alleen in een extra rand rond de code, nooit over de puntjes, zodat de code scanbaar blijft.
+
+## 8 oktober 2026 – Stap 3: Ontwerp (meer dan qr-code.io, maar rustig)
+
+Eigen QR-tekenaar (`public/js/qr-render.js`), geen extra library. Vijf secties, één tegelijk open:
+
+| Sectie | Wat | Beter dan qr-code.io |
+|---|---|---|
+| **Stijlen** | 12 kant-en-klare looks: Klassiek, *Mijn merk*, Modern, Valentijn, Kerst, Zomer, Zakelijk, Koffie, Feest, Halloween, Winkel, Neon | Eén klik zet patroon, hoeken, kleuren én frame. *Mijn merk* gebruikt automatisch de paginakleuren uit stap 2 |
+| **Frame** | 32 frames in 5 groepen: *Basis* (label, ballon, scanner, lint, ticket, postzegel, polaroid, telefoon, handgeschreven, embleem…), *Eten & drinken* (koffiebeker, krijtbord, bord en bestek, afhaalbakje, pizzadoos), *Winkel & post* (tas, cadeau, prijskaartje, envelop, kalender, bonnetje, pakketje), *Feestdagen* (hart, kerstbal, ballonnen, confetti, pompoen), *Overig* (locatiepin, laptop, deurhanger). Eigen tekst, 6 lettertypes, kleur + kleurverloop | Groepen houden het overzichtelijk; alle frames zelf getekend (niet gekopieerd); tekst past zich automatisch aan de ruimte aan |
+| **Patroon en kleuren** | 13 patronen (o.a. vloeiend, rondjes, fijn, mozaïek, strepen, plusjes, hartjes, sterren), codekleur, kleurverloop (lineair/rond), achtergrond, transparant | Knop *Gebruik mijn paginakleuren* |
+| **Hoeken** | 8 buitenvormen (o.a. druppel, achthoek), 10 binnenvormen (o.a. bloem, plus), eigen kleuren (of *zelfde als code*) | |
+| **Logo** | Uploaden, of met één klik het icoon van het type | Code wordt automatisch extra sterk (foutcorrectie H) |
+
+- **Live:** elke keuze direct op de telefoon; met de muis erover zie je het al vóór je klikt.
+- **Leesbaarheidscheck** bovenin: contrast, lichte code op donkere achtergrond, transparant, speciale vormen.
+- **Downloaden** als PNG (1024 px) en SVG na het maken.
+- De server accepteert alleen bekende ontwerpwaarden (en een logo tot 1 MB).
+
 ## 8 oktober 2026 – Wachtwoord bij Website
 
 - **Opslag:** het wachtwoord gaat via https naar de server en wordt alleen als hash bewaard (scrypt met salt; in PHP `password_hash()`). Het wordt nooit teruggestuurd; vergeten = nieuw instellen.
