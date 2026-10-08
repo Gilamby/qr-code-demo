@@ -111,7 +111,9 @@
       "cta": "Otwórz stronę",
       "locked": "Ta strona jest chroniona",
       "enterPw": "Wpisz hasło, aby kontynuować.",
-      "open": "Otwórz"
+      "open": "Otwórz",
+      "lockChip": "Z hasłem · zablokuj",
+      "tapToOpen": "Dotknij Otwórz, aby zobaczyć stronę"
     },
     "pdf": {
       "sub": "Dokument",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Znaleziono stronę: {title}",
     "fail": "Nie możemy połączyć się z tą stroną. Czy link jest poprawny?",
     "invalid": "To nie jest poprawny link. Przykład: https://twojafirma.pl"
+  },
+  "pw": {
+    "show": "Pokaż hasło",
+    "hide": "Ukryj hasło",
+    "generate": "Utwórz silne hasło",
+    "save": "Zapisz na moich urządzeniach",
+    "generated": "Utworzono silne hasło. Zapisz je od razu na swoich urządzeniach.",
+    "saved": "✓ Zapisano w menedżerze haseł – na wszystkich urządzeniach z tym samym kontem.",
+    "copied": "Skopiowano. Na iPhone/Mac Safari zaproponuje zapis w pęku kluczy iCloud; lub wklej je do aplikacji Hasła.",
+    "copyFail": "Nie udało się skopiować. Zaznacz hasło i skopiuj je.",
+    "empty": "Najpierw wpisz hasło."
   }
 }

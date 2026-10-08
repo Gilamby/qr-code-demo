@@ -111,7 +111,9 @@
       "cta": "Open website",
       "locked": "Deze pagina is beveiligd",
       "enterPw": "Vul het wachtwoord in om verder te gaan.",
-      "open": "Openen"
+      "open": "Openen",
+      "lockChip": "Met wachtwoord · vergrendel",
+      "tapToOpen": "Tik op Openen om de website te bekijken"
     },
     "pdf": {
       "sub": "Document",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Website gevonden: {title}",
     "fail": "We kunnen deze website niet bereiken. Klopt de link?",
     "invalid": "Dit is geen geldige link. Voorbeeld: https://jouwbedrijf.nl"
+  },
+  "pw": {
+    "show": "Wachtwoord tonen",
+    "hide": "Wachtwoord verbergen",
+    "generate": "Sterk wachtwoord maken",
+    "save": "Bewaren op mijn apparaten",
+    "generated": "Sterk wachtwoord gemaakt. Bewaar het meteen op je apparaten.",
+    "saved": "✓ Bewaard in je wachtwoordmanager. Het staat nu op al je apparaten met hetzelfde account.",
+    "copied": "Gekopieerd. Op iPhone/Mac: Safari biedt aan het te bewaren in iCloud-sleutelhanger; of plak het in de Wachtwoorden-app.",
+    "copyFail": "Kopiëren lukte niet. Selecteer het wachtwoord en kopieer het zelf.",
+    "empty": "Vul eerst een wachtwoord in."
   }
 }

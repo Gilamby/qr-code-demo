@@ -881,3 +881,20 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 .opt-x { position: absolute; right: 8px; top: 8px; width: 28px; height: 28px; border-radius: 8px; border: 0; background: transparent; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer; }
 .opt-x:hover { background: rgba(255,255,255,.08); color: var(--fg); }
 .toggle-field.opt .tg { padding-right: 30px; }
+/* Wachtwoord: oogje om te tonen/verbergen */
+.pw-wrap { position: relative; }
+.field .pw-wrap input { padding-right: 48px; }
+.pw-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border: 0; border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.pw-eye:hover { color: var(--fg); background: rgba(255,255,255,.08); }
+.pw-eye svg { width: 19px; height: 19px; }
+.pw-eye .eye-off, .pw-eye.on .eye-open { display: none; }
+.pw-eye.on .eye-off { display: block; }
+/* Telefoon: slot-scherm is klikbaar, en terug te vergrendelen */
+.lk-btn { width: 100%; border: 0; cursor: pointer; font-family: inherit; }
+.lk-btn:hover { filter: brightness(1.08); }
+.lk-tip { display: block; margin-top: 10px; font-size: 11px; color: #8a919c; }
+.web-lockchip { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 30px; border: 0; background: #eef6fd; color: #0b6fb0; font-size: 11.5px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.web-lockchip:hover { background: #e1f0fb; }
+.pw-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.pw-act { height: 34px; padding: 0 12px; border-radius: 9px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.04); color: var(--fg); font-size: 12.5px; font-weight: 650; cursor: pointer; }
+.pw-act:hover { border-color: var(--accent); background: var(--accent-soft); }

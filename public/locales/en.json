@@ -111,7 +111,9 @@
       "cta": "Open website",
       "locked": "This page is protected",
       "enterPw": "Enter the password to continue.",
-      "open": "Open"
+      "open": "Open",
+      "lockChip": "Password protected · lock",
+      "tapToOpen": "Tap Open to view the website"
     },
     "pdf": {
       "sub": "Document",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Website found: {title}",
     "fail": "We can't reach this website. Is the link correct?",
     "invalid": "This is not a valid link. Example: https://yourbusiness.com"
+  },
+  "pw": {
+    "show": "Show password",
+    "hide": "Hide password",
+    "generate": "Create strong password",
+    "save": "Save to my devices",
+    "generated": "Strong password created. Save it to your devices right away.",
+    "saved": "✓ Saved in your password manager. It is now on all devices with the same account.",
+    "copied": "Copied. On iPhone/Mac, Safari offers to save it in iCloud Keychain; or paste it into the Passwords app.",
+    "copyFail": "Couldn't copy. Select the password and copy it yourself.",
+    "empty": "Enter a password first."
   }
 }

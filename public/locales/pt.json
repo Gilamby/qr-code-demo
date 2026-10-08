@@ -111,7 +111,9 @@
       "cta": "Abrir website",
       "locked": "Esta página está protegida",
       "enterPw": "Introduz a palavra-passe para continuar.",
-      "open": "Abrir"
+      "open": "Abrir",
+      "lockChip": "Com palavra-passe · bloquear",
+      "tapToOpen": "Toca em Abrir para ver o site"
     },
     "pdf": {
       "sub": "Documento",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Site encontrado: {title}",
     "fail": "Não conseguimos aceder a este site. O link está correto?",
     "invalid": "Não é um link válido. Exemplo: https://atuaempresa.pt"
+  },
+  "pw": {
+    "show": "Mostrar palavra-passe",
+    "hide": "Ocultar palavra-passe",
+    "generate": "Criar palavra-passe forte",
+    "save": "Guardar nos meus dispositivos",
+    "generated": "Palavra-passe forte criada. Guarda-a já nos teus dispositivos.",
+    "saved": "✓ Guardada no gestor de palavras-passe, em todos os dispositivos com a mesma conta.",
+    "copied": "Copiada. No iPhone/Mac, o Safari oferece guardá-la no Porta-chaves iCloud; ou cola-a na app Palavras-passe.",
+    "copyFail": "Não foi possível copiar. Seleciona a palavra-passe e copia-a.",
+    "empty": "Escreve primeiro uma palavra-passe."
   }
 }

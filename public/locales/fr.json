@@ -111,7 +111,9 @@
       "cta": "Ouvrir le site",
       "locked": "Cette page est protégée",
       "enterPw": "Saisis le mot de passe pour continuer.",
-      "open": "Ouvrir"
+      "open": "Ouvrir",
+      "lockChip": "Protégé · verrouiller",
+      "tapToOpen": "Touche Ouvrir pour voir le site"
     },
     "pdf": {
       "sub": "Document",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Site trouvé : {title}",
     "fail": "Impossible de joindre ce site. Le lien est-il correct ?",
     "invalid": "Ce n'est pas un lien valide. Exemple : https://tonentreprise.fr"
+  },
+  "pw": {
+    "show": "Afficher le mot de passe",
+    "hide": "Masquer le mot de passe",
+    "generate": "Créer un mot de passe fort",
+    "save": "Enregistrer sur mes appareils",
+    "generated": "Mot de passe fort créé. Enregistre-le tout de suite sur tes appareils.",
+    "saved": "✓ Enregistré dans ton gestionnaire de mots de passe, sur tous tes appareils avec le même compte.",
+    "copied": "Copié. Sur iPhone/Mac, Safari propose de l'enregistrer dans le trousseau iCloud ; ou colle-le dans l'app Mots de passe.",
+    "copyFail": "Copie impossible. Sélectionne le mot de passe et copie-le.",
+    "empty": "Saisis d'abord un mot de passe."
   }
 }

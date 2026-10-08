@@ -22,8 +22,6 @@
       // Meer opties (dichtgeklapt): worden toegepast bij het scannen, zie server/links.js
       { key: 'password', type: 'password', label: 'fields.password', advanced: true, hint: 'hint.password' },
       { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
-      { key: 'iosUrl', type: 'url', label: 'fields.iosUrl', advanced: true, sample: 'https://apps.apple.com/…' },
-      { key: 'androidUrl', type: 'url', label: 'fields.androidUrl', advanced: true, sample: 'https://play.google.com/…', hint: 'hint.devices' },
       { key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utm' } ] },
   { id: 'pdf',       icon: 'pdf',    image: 'assets/qr-types/pdf.jpg', previewImage: 'assets/previews/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.pdf.file' } } ] },

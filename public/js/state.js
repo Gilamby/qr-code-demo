@@ -16,7 +16,8 @@ var store = createStore({
   design: { color: DESIGN_OPTIONS.colors[0], background: DESIGN_OPTIONS.backgrounds[0] },
   pageColor: '#2bb5f0',                         // hoofdkleur van de pagina in de telefoon
   accentColor: '#0f172a',                       // knopkleur
-  hoverTheme: null,                             // tijdelijk voorbeeld { pc, ac } zolang de muis over een kleur gaat
+  hoverTheme: null,
+  previewUnlocked: false,                       // telefoon: slot-scherm overgeslagen (alleen voor de preview)                             // tijdelijk voorbeeld { pc, ac } zolang de muis over een kleur gaat
   hoverTypeId: null,                            // tegel waar de muis in stap 1 boven hangt                             // tijdelijk voorbeeld zolang de muis over de kleurkiezer gaat
   created: false,
   saving: false,
@@ -29,10 +30,11 @@ var actions = {
   goTo: function (step) { store.set({ step: step, hoverTypeId: null }); },
   setField: function (key, value) {
     var s = store.get(), c = Object.assign({}, s.content), cur = Object.assign({}, c[s.typeId] || {});
-    cur[key] = value; c[s.typeId] = cur; store.set({ content: c, created: false, saved: null, error: null });
+    cur[key] = value; c[s.typeId] = cur; store.set({ content: c, created: false, saved: null, error: null, previewUnlocked: key === 'password' ? false : s.previewUnlocked });
     if (value) { var el = document.querySelector('[data-field="' + key + '"].invalid'); if (el) el.classList.remove('invalid'); }
   },
   setColor: function (target, c) { var p = { created: false, saved: null, error: null }; p[target === 'ac' ? 'accentColor' : 'pageColor'] = c; store.set(p); },
+  unlockPreview: function (on) { store.set({ previewUnlocked: !!on }); },
   setTheme: function (pc, ac) { store.set({ pageColor: pc, accentColor: ac, created: false, saved: null, error: null }); },
   previewTheme: function (o) { var cur = store.get().hoverTheme; if (JSON.stringify(cur) !== JSON.stringify(o)) store.set({ hoverTheme: o }); },
   setDesign: function (key, value) { var d = Object.assign({}, store.get().design); d[key] = value; store.set({ design: d, created: false, saved: null, error: null }); },

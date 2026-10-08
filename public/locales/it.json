@@ -111,7 +111,9 @@
       "cta": "Apri il sito",
       "locked": "Questa pagina è protetta",
       "enterPw": "Inserisci la password per continuare.",
-      "open": "Apri"
+      "open": "Apri",
+      "lockChip": "Con password · blocca",
+      "tapToOpen": "Tocca Apri per vedere il sito"
     },
     "pdf": {
       "sub": "Documento",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Sito trovato: {title}",
     "fail": "Non riusciamo a raggiungere questo sito. Il link è corretto?",
     "invalid": "Non è un link valido. Esempio: https://tuaazienda.it"
+  },
+  "pw": {
+    "show": "Mostra password",
+    "hide": "Nascondi password",
+    "generate": "Crea password sicura",
+    "save": "Salva sui miei dispositivi",
+    "generated": "Password sicura creata. Salvala subito sui tuoi dispositivi.",
+    "saved": "✓ Salvata nel gestore password, su tutti i dispositivi con lo stesso account.",
+    "copied": "Copiata. Su iPhone/Mac Safari propone di salvarla nel portachiavi iCloud; oppure incollala nell'app Password.",
+    "copyFail": "Copia non riuscita. Seleziona la password e copiala.",
+    "empty": "Inserisci prima una password."
   }
 }

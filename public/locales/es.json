@@ -111,7 +111,9 @@
       "cta": "Abrir sitio web",
       "locked": "Esta página está protegida",
       "enterPw": "Introduce la contraseña para continuar.",
-      "open": "Abrir"
+      "open": "Abrir",
+      "lockChip": "Con contraseña · bloquear",
+      "tapToOpen": "Toca Abrir para ver la web"
     },
     "pdf": {
       "sub": "Documento",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Web encontrada: {title}",
     "fail": "No podemos acceder a esta web. ¿Es correcto el enlace?",
     "invalid": "No es un enlace válido. Ejemplo: https://tuempresa.es"
+  },
+  "pw": {
+    "show": "Mostrar contraseña",
+    "hide": "Ocultar contraseña",
+    "generate": "Crear contraseña segura",
+    "save": "Guardar en mis dispositivos",
+    "generated": "Contraseña segura creada. Guárdala ya en tus dispositivos.",
+    "saved": "✓ Guardada en tu gestor de contraseñas, en todos tus dispositivos con la misma cuenta.",
+    "copied": "Copiada. En iPhone/Mac, Safari ofrece guardarla en el llavero de iCloud; o pégala en la app Contraseñas.",
+    "copyFail": "No se pudo copiar. Selecciona la contraseña y cópiala.",
+    "empty": "Primero escribe una contraseña."
   }
 }

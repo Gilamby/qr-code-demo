@@ -66,6 +66,6 @@ function phoneValues(type, state, example) {
 function renderPreview(state) {
   var ex = state.step === 'type', type = getType(ex && state.hoverTypeId ? state.hoverTypeId : state.typeId);
   if (ex && previewScreen(type)) return previewScreen(type);
-  if (PHONE[type.id]) return PHONE[type.id](phoneValues(type, state, ex), ex);
+  if (PHONE[type.id]) return PHONE[type.id](phoneValues(type, state, ex), ex, state);
   return TEMPLATES[type.previewType](type, previewRows(type, phoneValues(type, state, true)));
 }

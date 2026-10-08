@@ -111,7 +111,9 @@
       "cta": "Hap faqen",
       "locked": "Kjo faqe është e mbrojtur",
       "enterPw": "Fut fjalëkalimin për të vazhduar.",
-      "open": "Hap"
+      "open": "Hap",
+      "lockChip": "Me fjalëkalim · kyç",
+      "tapToOpen": "Prek Hap për të parë faqen"
     },
     "pdf": {
       "sub": "Dokument",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Faqja u gjet: {title}",
     "fail": "Nuk e arrijmë këtë faqe. A është e saktë lidhja?",
     "invalid": "Kjo nuk është lidhje e vlefshme. Shembull: https://biznesiyt.al"
+  },
+  "pw": {
+    "show": "Shfaq fjalëkalimin",
+    "hide": "Fshih fjalëkalimin",
+    "generate": "Krijo fjalëkalim të fortë",
+    "save": "Ruaje në pajisjet e mia",
+    "generated": "U krijua fjalëkalim i fortë. Ruaje menjëherë në pajisjet e tua.",
+    "saved": "✓ U ruajt në menaxherin e fjalëkalimeve, në të gjitha pajisjet me të njëjtën llogari.",
+    "copied": "U kopjua. Në iPhone/Mac Safari ofron ta ruajë në iCloud Keychain; ose ngjite te aplikacioni Fjalëkalimet.",
+    "copyFail": "Kopjimi dështoi. Zgjidh fjalëkalimin dhe kopjoje.",
+    "empty": "Shkruaj fillimisht një fjalëkalim."
   }
 }

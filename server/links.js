@@ -102,7 +102,7 @@ function page(title, body) {
 function passwordPage(req, wrong) {
   const t = TEXT[lang(req)];
   return page(t.locked, '<div class="ic">🔒</div><h1>' + t.locked + '</h1><p>' + t.enter + '</p><form method="post">' +
-    '<input type="password" name="password" autocomplete="current-password" autofocus required>' + (wrong ? '<div class="err">' + t.wrong + '</div>' : '') + '<button>' + t.open + '</button></form>');
+    '<input type="text" name="username" autocomplete="username" value="" style="position:absolute;left:-9999px" tabindex="-1" aria-hidden="true"><input type="password" name="password" autocomplete="current-password" autofocus required>' + (wrong ? '<div class="err">' + t.wrong + '</div>' : '') + '<button>' + t.open + '</button></form>');
 }
 function expiredPage(req) { const t = TEXT[lang(req)]; return page(t.expired, '<div class="ic">⌛</div><h1>' + t.expired + '</h1><p>' + t.expiredText + '</p>'); }
 

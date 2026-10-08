@@ -111,7 +111,9 @@
       "cta": "Website öffnen",
       "locked": "Diese Seite ist geschützt",
       "enterPw": "Gib das Passwort ein, um fortzufahren.",
-      "open": "Öffnen"
+      "open": "Öffnen",
+      "lockChip": "Mit Passwort · sperren",
+      "tapToOpen": "Tippe auf Öffnen, um die Website zu sehen"
     },
     "pdf": {
       "sub": "Dokument",
@@ -373,5 +375,16 @@
     "okTitle": "✓ Website gefunden: {title}",
     "fail": "Wir erreichen diese Website nicht. Stimmt der Link?",
     "invalid": "Das ist kein gültiger Link. Beispiel: https://deinefirma.de"
+  },
+  "pw": {
+    "show": "Passwort anzeigen",
+    "hide": "Passwort verbergen",
+    "generate": "Starkes Passwort erstellen",
+    "save": "Auf meinen Geräten speichern",
+    "generated": "Starkes Passwort erstellt. Speichere es gleich auf deinen Geräten.",
+    "saved": "✓ Im Passwortmanager gespeichert – jetzt auf allen Geräten mit demselben Konto.",
+    "copied": "Kopiert. Auf iPhone/Mac bietet Safari an, es im iCloud-Schlüsselbund zu sichern; oder füge es in die Passwörter-App ein.",
+    "copyFail": "Kopieren fehlgeschlagen. Markiere das Passwort und kopiere es selbst.",
+    "empty": "Gib zuerst ein Passwort ein."
   }
 }

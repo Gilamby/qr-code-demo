@@ -2,6 +2,15 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Wachtwoord bij Website
+
+- **Opslag:** het wachtwoord gaat via https naar de server en wordt alleen als hash bewaard (scrypt met salt; in PHP `password_hash()`). Het wordt nooit teruggestuurd; vergeten = nieuw instellen.
+- **Oogje** om het wachtwoord te tonen/verbergen.
+- **Sterk wachtwoord maken** (14 tekens, willekeurig via `crypto.getRandomValues`).
+- **Bewaren op mijn apparaten:** Chrome/Edge/Android slaan het direct op in de wachtwoordmanager (Credential Management API, synchroniseert met het Google-account). Safari (iPhone/Mac) heeft die API niet; daar biedt Safari zelf aan het op te slaan in iCloud-sleutelhanger dankzij `autocomplete="new-password"`, en anders wordt het gekopieerd. De invoerpagina voor bezoekers gebruikt `autocomplete="current-password"`, zodat opgeslagen wachtwoorden daar automatisch ingevuld kunnen worden.
+- **Telefoon:** het slot-scherm is klikbaar (*Openen* toont de website), met een balkje om weer te vergrendelen.
+- *Andere link voor iPhone/Android* weggehaald bij Website: dat doet het type **Apps** al. De server ondersteunt het nog.
+
 ## 8 oktober 2026 – Website: alles wat nodig is, de rest onder *Meer opties*
 
 Vergeleken met qr-code.io, QR TIGER en Uniqode. Alleen functies die klanten echt gebruiken; de rest dichtgeklapt.

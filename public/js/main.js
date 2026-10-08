@@ -37,6 +37,44 @@
     var sw = e.target.closest('[data-design]'); if (sw) return actions.setDesign(sw.getAttribute('data-design'), sw.getAttribute('data-value'));
     if (e.target.closest('[data-create]')) actions.create();
   });
+  // Telefoon: slot-scherm openen en weer vergrendelen
+  screen.addEventListener('click', function (e) {
+    if (e.target.closest('[data-unlock]')) actions.unlockPreview(true);
+    if (e.target.closest('[data-lock]')) actions.unlockPreview(false);
+  });
+  // Wachtwoord: sterk wachtwoord maken en bewaren in de wachtwoordmanager van je apparaat
+  // (Chrome/Edge/Android: direct via de Credential Management API; Safari/iPhone/Mac: sterk wachtwoord
+  //  via autocomplete="new-password" wordt automatisch in iCloud-sleutelhanger bewaard; anders kopiëren.)
+  panel.addEventListener('click', function (e) {
+    var gen = e.target.closest('[data-pw-gen]'), save = e.target.closest('[data-pw-save]');
+    if (!gen && !save) return;
+    var box = e.target.closest('.field'), inp = box.querySelector('.pw-wrap input'), msg = box.querySelector('[data-pw-msg]');
+    var say = function (k, cls) { msg.textContent = t(k); msg.className = 'field-msg ' + cls; };
+    if (gen) {
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789', a = new Uint32Array(14), pw = '';
+      crypto.getRandomValues(a); a.forEach(function (n, i) { pw += chars[n % chars.length]; if (i === 4 || i === 9) pw += '-'; });
+      inp.value = pw; inp.type = 'text'; box.querySelector('[data-eye]').classList.add('on');
+      actions.setField(inp.name, pw); say('pw.generated', 'ok');
+    }
+    if (save) {
+      if (!inp.value) return say('pw.empty', 'warn');
+      var user = box.querySelector('[data-pw-user]'); user.value = pwUser(store.get().content[store.get().typeId]);
+      if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) {
+        navigator.credentials.store(new PasswordCredential({ id: user.value, password: inp.value, name: user.value }))
+          .then(function () { say('pw.saved', 'ok'); }, function () { copy(); });
+      } else copy();
+    }
+    function copy() {
+      (navigator.clipboard ? navigator.clipboard.writeText(inp.value) : Promise.reject()).then(function () { say('pw.copied', 'info'); }, function () { say('pw.copyFail', 'warn'); });
+    }
+  });
+  // Wachtwoord tonen/verbergen
+  panel.addEventListener('click', function (e) {
+    var eye = e.target.closest('[data-eye]'); if (!eye) return;
+    var inp = eye.parentNode.querySelector('input'), show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password'; eye.classList.toggle('on', show);
+    eye.setAttribute('aria-label', t(show ? 'pw.hide' : 'pw.show')); eye.setAttribute('aria-pressed', String(show));
+  });
   panel.addEventListener('mouseover', function (e) { var c = e.target.closest('.qr-card'); if (c) actions.hoverType(c.getAttribute('data-type')); });
   panel.addEventListener('mouseout', function (e) { if (e.target.closest('.qr-card') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.qr-card'))) actions.hoverType(null); });
   panel.addEventListener('input', function (e) { if (e.target.name) actions.setField(e.target.name, e.target.type === 'checkbox' ? (e.target.checked ? '1' : '') : e.target.value); });
@@ -52,6 +90,7 @@
 
   store.subscribe(function (state, prev) {
     var stepChanged = state.step !== prev.step, typeChanged = state.typeId !== prev.typeId;
+    if (state.previewUnlocked !== prev.previewUnlocked) { drawPhone(state); if (state.step === 'content') return; }
     if (state.hoverTheme !== prev.hoverTheme || state.pageColor !== prev.pageColor || state.accentColor !== prev.accentColor) { drawPhone(state); if (state.step === 'content') return; }
     if (state.step === 'type' && state.hoverTypeId !== prev.hoverTypeId && !typeChanged) { drawPhone(state); return; }
     if (stepChanged) { renderAll(state, false); document.getElementById('heroTitle').scrollIntoView({ block: 'nearest' }); return; }

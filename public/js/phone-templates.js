@@ -129,15 +129,17 @@ var PHONE = (function () {
     },
 
     /* ---------- Website: de site in de browser, met het adres onderin ---------- */
-    website: function (c, ex) {
+    website: function (c, ex, state) {
       var d = domain(c.url);
-      if (c.password && !ex) return '<div class="ph ph-web ph-lock">' + statusBar() +
+      // Met wachtwoord: eerst het slot-scherm zoals de bezoeker het ziet. Tik op Openen = ontgrendelen (alleen in de preview).
+      if (c.password && !ex && !(state && state.previewUnlocked)) return '<div class="ph ph-web ph-lock">' + statusBar() +
         '<div class="lk-card"><span class="lk-ic">' + ic('lock') + '</span><b>' + esc(t('pv.website.locked')) + '</b><p>' + esc(t('pv.website.enterPw')) + '</p>' +
-        '<span class="lk-input">' + new Array(Math.min(c.password.length, 12) + 1).join('•') + '</span><span class="lk-btn">' + esc(t('pv.website.open')) + '</span></div>' +
+        '<span class="lk-input">' + new Array(Math.min(c.password.length, 12) + 1).join('•') + '</span><button type="button" class="lk-btn" data-unlock>' + esc(t('pv.website.open')) + '</button><small class="lk-tip">' + esc(t('pv.website.tapToOpen')) + '</small></div>' +
         '<div class="web-bar"><div class="web-url">' + ic('aa') + '<span>' + ic('lock', 'i s') + esc(d || '') + '</span>' + ic('reload') + '</div>' +
           '<div class="web-tools">' + ic('back') + ic('fwd') + ic('share') + ic('book') + ic('tabs') + '</div></div></div>';
       return '<div class="ph ph-web">' + statusBar() +
         '<div class="web-page">' +
+          (c.password && !ex ? '<button type="button" class="web-lockchip" data-lock>' + ic('lock', 'i s') + esc(t('pv.website.lockChip')) + '</button>' : '') +
           '<div class="web-nav"><span class="web-logo"><i></i>' + (d ? esc(d.split('.')[0]) : '<i class="sk" style="width:60px"></i>') + '</span>' + ic('menu') + '</div>' +
           '<div class="web-hero"><h4>' + v(c.title, '80%') + '</h4>' +
             (ex ? '<p>' + esc(t('pv.website.text')) + '</p>' : '<i class="sk" style="width:90%"></i><i class="sk" style="width:65%"></i>') +
