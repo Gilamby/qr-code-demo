@@ -108,7 +108,10 @@
     "website": {
       "title": "Softuer për agjentë imobiliarë",
       "text": "Zbuloni produktet tona dhe kërkoni një demonstrim.",
-      "cta": "Hap faqen"
+      "cta": "Hap faqen",
+      "locked": "Kjo faqe është e mbrojtur",
+      "enterPw": "Fut fjalëkalimin për të vazhduar.",
+      "open": "Hap"
     },
     "pdf": {
       "sub": "Dokument",
@@ -273,7 +276,13 @@
     "company": "Kompania",
     "website": "Faqja web",
     "cover": "Foto kopertine",
-    "socials": "Rrjetet sociale"
+    "socials": "Rrjetet sociale",
+    "qrName": "Emri i kodit QR",
+    "expires": "E vlefshme deri më",
+    "maxScans": "Numri maksimal i skanimeve",
+    "iosUrl": "Lidhje tjetër për iPhone",
+    "androidUrl": "Lidhje tjetër për Android",
+    "utm": "Mat skanimet në Google Analytics"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "Fushë e detyrueshme"
+  },
+  "hint": {
+    "qrName": "E plotësojmë automatikisht me titullin e faqes sate. Vetëm ti e sheh këtë emër.",
+    "password": "Vizitorët duhet të fusin këtë fjalëkalim para se të hapet faqja.",
+    "expires": "Pas kësaj shohin «Ky kod QR ka skaduar».",
+    "maxScans": "E dobishme për oferta si «100 klientët e parë».",
+    "devices": "Lëre bosh për të njëjtën lidhje për të gjithë.",
+    "utm": "Shton etiketa UTM në lidhje që të shohësh vizitorët QR në Google Analytics."
+  },
+  "more": {
+    "title": "Më shumë opsione",
+    "active": "{n} aktive",
+    "remove": "Hiq opsionin"
+  },
+  "url": {
+    "fixed": "Lidhja u korrigjua: {url}",
+    "checking": "Duke kontrolluar faqen…",
+    "ok": "✓ Faqja u gjet",
+    "okTitle": "✓ Faqja u gjet: {title}",
+    "fail": "Nuk e arrijmë këtë faqe. A është e saktë lidhja?",
+    "invalid": "Kjo nuk është lidhje e vlefshme. Shembull: https://biznesiyt.al"
   }
 }

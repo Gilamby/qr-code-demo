@@ -108,7 +108,10 @@
     "website": {
       "title": "Oprogramowanie dla agentów nieruchomości",
       "text": "Poznaj nasze produkty i umów się na demo.",
-      "cta": "Otwórz stronę"
+      "cta": "Otwórz stronę",
+      "locked": "Ta strona jest chroniona",
+      "enterPw": "Wpisz hasło, aby kontynuować.",
+      "open": "Otwórz"
     },
     "pdf": {
       "sub": "Dokument",
@@ -273,7 +276,13 @@
     "company": "Firma",
     "website": "Strona www",
     "cover": "Zdjęcie w tle",
-    "socials": "Media społecznościowe"
+    "socials": "Media społecznościowe",
+    "qrName": "Nazwa kodu QR",
+    "expires": "Ważny do",
+    "maxScans": "Maksymalna liczba skanów",
+    "iosUrl": "Inny link dla iPhone",
+    "androidUrl": "Inny link dla Androida",
+    "utm": "Mierz skany w Google Analytics"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "Pole wymagane"
+  },
+  "hint": {
+    "qrName": "Wypełniamy automatycznie tytułem Twojej strony. Tylko Ty widzisz tę nazwę.",
+    "password": "Odwiedzający muszą podać to hasło, zanim strona się otworzy.",
+    "expires": "Potem zobaczą „Ten kod QR wygasł”.",
+    "maxScans": "Przydatne przy akcjach typu „pierwszych 100 klientów”.",
+    "devices": "Zostaw puste, aby wszyscy mieli ten sam link.",
+    "utm": "Dodaje tagi UTM do linku, by widzieć wejścia z QR w Google Analytics."
+  },
+  "more": {
+    "title": "Więcej opcji",
+    "active": "{n} aktywne",
+    "remove": "Usuń opcję"
+  },
+  "url": {
+    "fixed": "Poprawiono link: {url}",
+    "checking": "Sprawdzanie strony…",
+    "ok": "✓ Znaleziono stronę",
+    "okTitle": "✓ Znaleziono stronę: {title}",
+    "fail": "Nie możemy połączyć się z tą stroną. Czy link jest poprawny?",
+    "invalid": "To nie jest poprawny link. Przykład: https://twojafirma.pl"
   }
 }

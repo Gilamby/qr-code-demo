@@ -41,23 +41,62 @@ var ContentForm = {
     el.innerHTML = '<div class="chosen"><span class="thumb">' + svg(type.icon, 1.8) + '</span>' +
       '<span><b>' + typeName(type) + '</b><small>' + typeDesc(type) + '</small></span>' +
       '<button class="link-btn" type="button" data-go="type">' + t('actions.change') + '</button></div>' +
-      '<form class="form" id="contentForm" novalidate>' + type.fields.map(function (f) {
+      '<form class="form" id="contentForm" novalidate>' + (function () { var render = function (f) {
         var id = 'f-' + type.id + '-' + f.key, label = t(f.label, { n: f.n }), v = values[f.key] != null ? values[f.key] : '';
         if (f.required) label += '<span class="req" aria-hidden="true">*</span>';
-        var wrap = function (inner) { return '<div class="field" data-field="' + f.key + '"><label for="' + id + '">' + label + '</label>' + inner + '<small class="field-err">' + t('validate.required') + '</small></div>'; };
+        var cls = f.advanced ? ' opt' : '', attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v ? '' : ' hidden') : '';
+        var rm = f.advanced ? '<button type="button" class="opt-x" data-opt-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>' : '';
+        var wrap = function (inner) { return '<div class="field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small></div>'; };
+        if (f.type === 'toggle') return '<div class="field toggle-field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label class="tg"><input type="checkbox" id="' + id + '" name="' + f.key + '"' + (v ? ' checked' : '') + '><span class="sw-ui"></span><span>' + label + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '</span></label></div>';
         if (f.type === 'image') return wrap(ImageUpload.html(f, id, v));
         if (f.type === 'hours') return wrap(HoursEditor.html(f, id, v));
         if (f.type === 'address') return wrap(AddressSearch.html(f, id, v));
         if (f.type === 'socials') return wrap(SocialsEditor.html(f, id, v));
         var input = f.type === 'select'
           ? '<select id="' + id + '" name="' + f.key + '">' + f.options.map(function (o) { var cur = v || f.sample; return '<option value="' + o.value + '"' + (o.value === cur ? ' selected' : '') + '>' + resolveSample(o.label) + '</option>'; }).join('') + '</select>'
-          : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(resolveSample(f.sample)) + '" autocomplete="off">';
+          : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(resolveSample(f.sample)) + '"' +
+            (f.type === 'date' ? ' min="' + new Date().toISOString().slice(0, 10) + '"' : '') + (f.min != null ? ' min="' + f.min + '"' : '') + (f.max != null ? ' max="' + f.max + '"' : '') +
+            ' autocomplete="' + (f.type === 'password' ? 'new-password' : 'off') + '">';
         return wrap(input);
-      }).join('') + '</form>' +
+      };
+      var basic = type.fields.filter(function (f) { return !f.advanced; }), more = type.fields.filter(function (f) { return f.advanced; });
+      var active = more.filter(function (f) { return values[f.key]; }).length;
+      return basic.map(render).join('') + (more.length
+        ? '<details class="more"' + (active ? ' open' : '') + '><summary><span>' + t('more.title') + '</span><em class="more-count"' + (active ? '' : ' hidden') + '>' + t('more.active', { n: active }) + '</em></summary>' +
+            '<div class="more-body"><div class="opt-chips">' + more.map(function (f) { return '<button type="button" class="opt-chip" data-opt="' + f.key + '"' + (values[f.key] ? ' hidden' : '') + '>+ ' + t(f.label) + '</button>'; }).join('') + '</div>' +
+            more.map(render).join('') + '</div></details>'
+        : '');
+    })() + '</form>' +
       (type.page === false ? '' : '<section class="appearance" id="appearance"></section>') +
       Actions.html(state);
     ImageUpload.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
     var ap = el.querySelector('#appearance'); if (ap) Appearance.mount(ap);
+    // Meer opties: teller bijwerken
+    // Meer opties: knopjes voegen één optie toe, × haalt hem weer weg (en wist de waarde). Teller bijwerken.
+    var det = el.querySelector('.more');
+    if (det) {
+      var count = function () {
+        var c = store.get().content[type.id] || {}, n = type.fields.filter(function (f) { return f.advanced && c[f.key]; }).length, em = det.querySelector('.more-count');
+        em.hidden = !n; em.textContent = t('more.active', { n: n });
+      };
+      el.addEventListener('input', count);
+      det.addEventListener('click', function (e) {
+        var add = e.target.closest('[data-opt]'), rm = e.target.closest('[data-opt-rm]');
+        if (add) {
+          var k = add.getAttribute('data-opt'), box = det.querySelector('[data-opt-field="' + k + '"]'), inp = box.querySelector('input');
+          add.hidden = true; box.hidden = false;
+          if (inp && inp.type === 'checkbox') { inp.checked = true; actions.setField(k, '1'); count(); } else if (inp) inp.focus();
+        }
+        if (rm) {
+          var key = rm.getAttribute('data-opt-rm'), f = det.querySelector('[data-opt-field="' + key + '"]');
+          f.hidden = true; det.querySelector('[data-opt="' + key + '"]').hidden = false;
+          f.querySelectorAll('input').forEach(function (i) { if (i.type === 'checkbox') i.checked = false; else i.value = ''; });
+          actions.setField(key, ''); count();
+        }
+      });
+    }
+    // Link-check: https toevoegen, typfouten verbeteren, kijken of de site bestaat en de naam invullen
+    type.fields.filter(function (f) { return f.check; }).forEach(function (f) { LinkCheck.mount(el, f, type); });
   }
 };
 

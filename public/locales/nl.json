@@ -108,7 +108,10 @@
     "website": {
       "title": "Software voor makelaars",
       "text": "Bekijk onze producten en vraag een demo aan.",
-      "cta": "Open website"
+      "cta": "Open website",
+      "locked": "Deze pagina is beveiligd",
+      "enterPw": "Vul het wachtwoord in om verder te gaan.",
+      "open": "Openen"
     },
     "pdf": {
       "sub": "Document",
@@ -273,7 +276,13 @@
     "company": "Bedrijf",
     "website": "Website",
     "cover": "Omslagfoto",
-    "socials": "Social media"
+    "socials": "Social media",
+    "qrName": "Naam van de QR-code",
+    "expires": "Geldig tot",
+    "maxScans": "Maximaal aantal scans",
+    "iosUrl": "Andere link voor iPhone",
+    "androidUrl": "Andere link voor Android",
+    "utm": "Scans meten in Google Analytics"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "Dit veld is verplicht"
+  },
+  "hint": {
+    "qrName": "Vullen we automatisch in met de titel van je website. Alleen jij ziet deze naam.",
+    "password": "Bezoekers moeten dit wachtwoord invullen voordat de website opent.",
+    "expires": "Daarna ziet de bezoeker \"Deze QR-code is verlopen\".",
+    "maxScans": "Handig voor acties zoals \"de eerste 100 klanten\".",
+    "devices": "Laat leeg om voor iedereen dezelfde link te gebruiken.",
+    "utm": "Voegt automatisch utm-labels toe aan je link, zodat je QR-bezoekers terugziet in Google Analytics."
+  },
+  "more": {
+    "title": "Meer opties",
+    "active": "{n} actief",
+    "remove": "Optie verwijderen"
+  },
+  "url": {
+    "fixed": "Link verbeterd: {url}",
+    "checking": "Website controleren…",
+    "ok": "✓ Website gevonden",
+    "okTitle": "✓ Website gevonden: {title}",
+    "fail": "We kunnen deze website niet bereiken. Klopt de link?",
+    "invalid": "Dit is geen geldige link. Voorbeeld: https://jouwbedrijf.nl"
   }
 }

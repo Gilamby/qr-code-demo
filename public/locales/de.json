@@ -108,7 +108,10 @@
     "website": {
       "title": "Software für Immobilienmakler",
       "text": "Entdecken Sie unsere Produkte und fordern Sie eine Demo an.",
-      "cta": "Website öffnen"
+      "cta": "Website öffnen",
+      "locked": "Diese Seite ist geschützt",
+      "enterPw": "Gib das Passwort ein, um fortzufahren.",
+      "open": "Öffnen"
     },
     "pdf": {
       "sub": "Dokument",
@@ -273,7 +276,13 @@
     "company": "Firma",
     "website": "Website",
     "cover": "Titelbild",
-    "socials": "Social Media"
+    "socials": "Social Media",
+    "qrName": "Name des QR-Codes",
+    "expires": "Gültig bis",
+    "maxScans": "Maximale Anzahl Scans",
+    "iosUrl": "Anderer Link für iPhone",
+    "androidUrl": "Anderer Link für Android",
+    "utm": "Scans in Google Analytics messen"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "Pflichtfeld"
+  },
+  "hint": {
+    "qrName": "Wird automatisch mit dem Titel deiner Website ausgefüllt. Nur du siehst diesen Namen.",
+    "password": "Besucher müssen dieses Passwort eingeben, bevor die Website öffnet.",
+    "expires": "Danach sehen Besucher „Dieser QR-Code ist abgelaufen“.",
+    "maxScans": "Praktisch für Aktionen wie „die ersten 100 Kunden“.",
+    "devices": "Leer lassen, um für alle denselben Link zu nutzen.",
+    "utm": "Fügt automatisch UTM-Parameter hinzu, damit du QR-Besucher in Google Analytics siehst."
+  },
+  "more": {
+    "title": "Weitere Optionen",
+    "active": "{n} aktiv",
+    "remove": "Option entfernen"
+  },
+  "url": {
+    "fixed": "Link korrigiert: {url}",
+    "checking": "Website wird geprüft…",
+    "ok": "✓ Website gefunden",
+    "okTitle": "✓ Website gefunden: {title}",
+    "fail": "Wir erreichen diese Website nicht. Stimmt der Link?",
+    "invalid": "Das ist kein gültiger Link. Beispiel: https://deinefirma.de"
   }
 }

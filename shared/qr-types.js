@@ -16,7 +16,15 @@
   else root.QR_TYPES = data;
 })(typeof self !== 'undefined' ? self : this, [
   { id: 'website', page: false,   icon: 'globe',  image: 'assets/qr-types/website.jpg', previewImage: 'assets/previews/website.jpg',   contentType: 'url',      previewType: 'card',    color: '#1576c9',
-    fields: [ { key: 'url', type: 'url', label: 'fields.url', sample: 'https://optimasys.com' }, { key: 'title', label: 'fields.title', sample: { t: 'pv.website.title' } } ] },
+    fields: [
+      { key: 'url', type: 'url', label: 'fields.url', sample: 'https://optimasys.com', required: true, check: true },
+      { key: 'title', label: 'fields.qrName', sample: { t: 'pv.website.title' }, hint: 'hint.qrName' },
+      // Meer opties (dichtgeklapt): worden toegepast bij het scannen, zie server/links.js
+      { key: 'password', type: 'password', label: 'fields.password', advanced: true, hint: 'hint.password' },
+      { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
+      { key: 'iosUrl', type: 'url', label: 'fields.iosUrl', advanced: true, sample: 'https://apps.apple.com/…' },
+      { key: 'androidUrl', type: 'url', label: 'fields.androidUrl', advanced: true, sample: 'https://play.google.com/…', hint: 'hint.devices' },
+      { key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utm' } ] },
   { id: 'pdf',       icon: 'pdf',    image: 'assets/qr-types/pdf.jpg', previewImage: 'assets/previews/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b',
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'pv.pdf.file' } } ] },
   { id: 'links',     icon: 'links',  image: 'assets/qr-types/links.jpg', previewImage: 'assets/previews/links.jpg',     contentType: 'links',    previewType: 'card',   color: '#2bb5f0',

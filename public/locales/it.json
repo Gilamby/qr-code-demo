@@ -108,7 +108,10 @@
     "website": {
       "title": "Software per agenti immobiliari",
       "text": "Scopri i nostri prodotti e richiedi una demo.",
-      "cta": "Apri il sito"
+      "cta": "Apri il sito",
+      "locked": "Questa pagina è protetta",
+      "enterPw": "Inserisci la password per continuare.",
+      "open": "Apri"
     },
     "pdf": {
       "sub": "Documento",
@@ -273,7 +276,13 @@
     "company": "Azienda",
     "website": "Sito web",
     "cover": "Foto di copertina",
-    "socials": "Social"
+    "socials": "Social",
+    "qrName": "Nome del QR code",
+    "expires": "Valido fino al",
+    "maxScans": "Numero massimo di scansioni",
+    "iosUrl": "Altro link per iPhone",
+    "androidUrl": "Altro link per Android",
+    "utm": "Misura le scansioni in Google Analytics"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "Campo obbligatorio"
+  },
+  "hint": {
+    "qrName": "Lo compiliamo con il titolo del tuo sito. Solo tu vedi questo nome.",
+    "password": "I visitatori devono inserire questa password prima che il sito si apra.",
+    "expires": "Dopo vedranno «Questo QR code è scaduto».",
+    "maxScans": "Utile per promozioni come «i primi 100 clienti».",
+    "devices": "Lascia vuoto per usare lo stesso link per tutti.",
+    "utm": "Aggiunge tag UTM al link per vedere i visitatori QR in Google Analytics."
+  },
+  "more": {
+    "title": "Altre opzioni",
+    "active": "{n} attive",
+    "remove": "Rimuovi opzione"
+  },
+  "url": {
+    "fixed": "Link corretto: {url}",
+    "checking": "Controllo del sito…",
+    "ok": "✓ Sito trovato",
+    "okTitle": "✓ Sito trovato: {title}",
+    "fail": "Non riusciamo a raggiungere questo sito. Il link è corretto?",
+    "invalid": "Non è un link valido. Esempio: https://tuaazienda.it"
   }
 }

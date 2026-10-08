@@ -108,7 +108,10 @@
     "website": {
       "title": "Software para agentes imobiliários",
       "text": "Conheça os nossos produtos e peça uma demonstração.",
-      "cta": "Abrir website"
+      "cta": "Abrir website",
+      "locked": "Esta página está protegida",
+      "enterPw": "Introduz a palavra-passe para continuar.",
+      "open": "Abrir"
     },
     "pdf": {
       "sub": "Documento",
@@ -273,7 +276,13 @@
     "company": "Empresa",
     "website": "Site",
     "cover": "Foto de capa",
-    "socials": "Redes sociais"
+    "socials": "Redes sociais",
+    "qrName": "Nome do código QR",
+    "expires": "Válido até",
+    "maxScans": "Número máximo de leituras",
+    "iosUrl": "Outro link para iPhone",
+    "androidUrl": "Outro link para Android",
+    "utm": "Medir leituras no Google Analytics"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "Campo obrigatório"
+  },
+  "hint": {
+    "qrName": "Preenchemos com o título do teu site. Só tu vês este nome.",
+    "password": "Os visitantes têm de introduzir esta palavra-passe antes de o site abrir.",
+    "expires": "Depois, veem «Este código QR expirou».",
+    "maxScans": "Útil para promoções como «os primeiros 100 clientes».",
+    "devices": "Deixa vazio para usar o mesmo link para todos.",
+    "utm": "Adiciona etiquetas UTM ao link para veres os visitantes por QR no Google Analytics."
+  },
+  "more": {
+    "title": "Mais opções",
+    "active": "{n} ativas",
+    "remove": "Remover opção"
+  },
+  "url": {
+    "fixed": "Link corrigido: {url}",
+    "checking": "A verificar o site…",
+    "ok": "✓ Site encontrado",
+    "okTitle": "✓ Site encontrado: {title}",
+    "fail": "Não conseguimos aceder a este site. O link está correto?",
+    "invalid": "Não é um link válido. Exemplo: https://atuaempresa.pt"
   }
 }

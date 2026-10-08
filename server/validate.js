@@ -46,7 +46,10 @@ function validateQrCode(body) {
     if (v.length > MAX_TEXT) errors.push(field.key + ': too long');
     if (field.type === 'url' && !isUrl(v)) errors.push(field.key + ': must be a http(s) URL');
     if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) errors.push(field.key + ': invalid email');
-    if (field.type === 'number' && (isNaN(Number(v)) || Number(v) < 0 || Number(v) > 100)) errors.push(field.key + ': must be 0-100');
+    if (field.type === 'number') { const n = Number(v), lo = field.min != null ? field.min : 0, hi = field.max != null ? field.max : 100; if (isNaN(n) || n < lo || n > hi || (field.min != null && !Number.isInteger(n))) errors.push(field.key + ': must be ' + lo + '-' + hi); }
+    if (field.type === 'date' && (!/^\d{4}-\d{2}-\d{2}$/.test(v) || isNaN(Date.parse(v)))) errors.push(field.key + ': must be a date (YYYY-MM-DD)');
+    if (field.type === 'toggle' && v !== '1') errors.push(field.key + ': must be 1 or empty');
+    if (field.type === 'password' && (v.length < 4 || v.length > 64)) errors.push(field.key + ': must be 4-64 characters');
     if (field.type === 'select' && !field.options.some((o) => o.value === v)) errors.push(field.key + ': invalid option');
     content[field.key] = v;
   }

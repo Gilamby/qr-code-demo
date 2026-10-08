@@ -829,3 +829,55 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 .ap-pick .cp-sv { height: 130px; }
 .ap-sug i { box-shadow: inset 0 0 0 1px rgba(255,255,255,.28); }
 .ap-sug i + i { box-shadow: inset 0 0 0 1px rgba(255,255,255,.28), 0 0 0 2px rgba(20,25,33,.9); }
+/* Knoppenbalk onderin: geen donkere balk meer, alleen glas dat de tekst eronder vervaagt */
+.panel-card .actions { background: none !important; -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 26px); mask-image: linear-gradient(180deg, transparent 0, #000 26px); }
+/* Paneel: velden scrollen, knoppen staan vast onderin (geen zwevende balk) */
+.panel-card { display: flex; flex-direction: column; max-height: 760px; overflow: hidden !important; }
+.panel-card > h2 { flex: none; }
+.panel { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.panel-scroll { flex: 1; min-height: 0; overflow-y: auto; margin-right: -14px; padding-right: 14px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent; }
+.panel-card .actions { position: static !important; margin: 20px 0 0 !important; padding: 20px 0 0 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; -webkit-mask-image: none !important; mask-image: none !important; background: none !important; border-top: 1px solid rgba(255,255,255,.14) !important; flex: none; }
+.panel-scroll { -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 22px), transparent); mask-image: linear-gradient(180deg, #000 calc(100% - 22px), transparent); padding-bottom: 16px; }
+
+/* =========================================================
+   Hulptekst, link-check, Meer opties, schakelaar-veld, slot-scherm
+   ========================================================= */
+.field-hint { display: block; margin-top: 6px; font-size: 12.5px; line-height: 1.4; color: var(--muted); }
+.field-msg { display: block; margin-top: 6px; font-size: 12.5px; font-weight: 600; min-height: 0; }
+.field-msg:empty { display: none; }
+.field-msg.ok { color: var(--ok); } .field-msg.warn { color: var(--warn); } .field-msg.bad { color: #ff8a80; } .field-msg.info { color: var(--muted); font-weight: 500; }
+.more { margin-top: 4px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(255,255,255,.03); }
+.more > summary { list-style: none; display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 16px; cursor: pointer; font-weight: 650; font-size: 14px; }
+.more > summary::-webkit-details-marker { display: none; }
+.more > summary::after { content: ""; margin-left: auto; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+.more[open] > summary::after { transform: rotate(-135deg) translateY(-2px); }
+.more-count { font-style: normal; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.more-body { display: grid; gap: 18px; padding: 4px 16px 18px; }
+.toggle-field .tg { display: flex; align-items: flex-start; gap: 12px; margin: 0; cursor: pointer; font-size: 13px; font-weight: 650; }
+.toggle-field .tg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.toggle-field .tg .sw-ui { margin-top: 1px; }
+.toggle-field .tg input:checked + .sw-ui { background: var(--accent); }
+.toggle-field .tg input:checked + .sw-ui::after { transform: translateX(14px); }
+.toggle-field .tg input:focus-visible + .sw-ui { outline: 2px solid var(--accent); outline-offset: 2px; }
+.field input[type="date"] { color-scheme: dark; }
+/* Website met wachtwoord: slot-scherm op de telefoon */
+.ph-lock { background: #f2f4f7; }
+.lk-card { margin: auto 22px; background: #fff; border-radius: 20px; padding: 24px 18px; text-align: center; box-shadow: 0 16px 40px -20px rgba(0,0,0,.3); }
+.lk-ic { width: 52px; height: 52px; margin: 0 auto 12px; border-radius: 15px; background: #eef6fd; color: #0b8fd8; display: grid; place-items: center; }
+.lk-ic .i { width: 24px; height: 24px; }
+.lk-card b { display: block; font-size: 17px; }
+.lk-card p { margin: 4px 0 14px; font-size: 13px; color: #5b6472; }
+.lk-input { display: block; height: 42px; line-height: 42px; border: 1px solid #d6dbe1; border-radius: 11px; text-align: left; padding: 0 12px; letter-spacing: 3px; color: #111; }
+.lk-btn { display: block; margin-top: 10px; height: 42px; line-height: 42px; border-radius: 11px; background: #0b8fd8; color: #fff; font-weight: 700; font-size: 14px; }
+.panel-card { overflow: clip !important; }   /* clip: ook niet stiekem meescrollen bij focus */
+/* Meer opties: knopjes, gekozen opties met × */
+.opt-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt-chip { height: 36px; padding: 0 14px; border-radius: 999px; border: 1px dashed rgba(255,255,255,.28); background: transparent; color: var(--fg); font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color .15s, background .15s; }
+.opt-chip:hover { border-style: solid; border-color: var(--accent); background: var(--accent-soft); }
+.opt-chips:not(:has(.opt-chip:not([hidden]))) { display: none; }
+.field.opt { position: relative; padding: 14px 14px 14px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); }
+.field.opt[hidden] { display: none; }
+.opt-x { position: absolute; right: 8px; top: 8px; width: 28px; height: 28px; border-radius: 8px; border: 0; background: transparent; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer; }
+.opt-x:hover { background: rgba(255,255,255,.08); color: var(--fg); }
+.toggle-field.opt .tg { padding-right: 30px; }

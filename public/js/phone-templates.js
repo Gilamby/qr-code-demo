@@ -131,6 +131,11 @@ var PHONE = (function () {
     /* ---------- Website: de site in de browser, met het adres onderin ---------- */
     website: function (c, ex) {
       var d = domain(c.url);
+      if (c.password && !ex) return '<div class="ph ph-web ph-lock">' + statusBar() +
+        '<div class="lk-card"><span class="lk-ic">' + ic('lock') + '</span><b>' + esc(t('pv.website.locked')) + '</b><p>' + esc(t('pv.website.enterPw')) + '</p>' +
+        '<span class="lk-input">' + new Array(Math.min(c.password.length, 12) + 1).join('•') + '</span><span class="lk-btn">' + esc(t('pv.website.open')) + '</span></div>' +
+        '<div class="web-bar"><div class="web-url">' + ic('aa') + '<span>' + ic('lock', 'i s') + esc(d || '') + '</span>' + ic('reload') + '</div>' +
+          '<div class="web-tools">' + ic('back') + ic('fwd') + ic('share') + ic('book') + ic('tabs') + '</div></div></div>';
       return '<div class="ph ph-web">' + statusBar() +
         '<div class="web-page">' +
           '<div class="web-nav"><span class="web-logo"><i></i>' + (d ? esc(d.split('.')[0]) : '<i class="sk" style="width:60px"></i>') + '</span>' + ic('menu') + '</div>' +

@@ -108,7 +108,10 @@
     "website": {
       "title": "Software for real estate agents",
       "text": "Explore our products and request a demo.",
-      "cta": "Open website"
+      "cta": "Open website",
+      "locked": "This page is protected",
+      "enterPw": "Enter the password to continue.",
+      "open": "Open"
     },
     "pdf": {
       "sub": "Document",
@@ -273,7 +276,13 @@
     "company": "Company",
     "website": "Website",
     "cover": "Cover photo",
-    "socials": "Social media"
+    "socials": "Social media",
+    "qrName": "QR code name",
+    "expires": "Valid until",
+    "maxScans": "Maximum number of scans",
+    "iosUrl": "Different link for iPhone",
+    "androidUrl": "Different link for Android",
+    "utm": "Track scans in Google Analytics"
   },
   "panel": {
     "selected": "{type} selected"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "This field is required"
+  },
+  "hint": {
+    "qrName": "We fill this in automatically with your website's title. Only you see this name.",
+    "password": "Visitors must enter this password before the website opens.",
+    "expires": "After that, visitors see \"This QR code has expired\".",
+    "maxScans": "Handy for promotions like \"the first 100 customers\".",
+    "devices": "Leave empty to use the same link for everyone.",
+    "utm": "Automatically adds UTM tags to your link so you can see QR visitors in Google Analytics."
+  },
+  "more": {
+    "title": "More options",
+    "active": "{n} active",
+    "remove": "Remove option"
+  },
+  "url": {
+    "fixed": "Link corrected: {url}",
+    "checking": "Checking website…",
+    "ok": "✓ Website found",
+    "okTitle": "✓ Website found: {title}",
+    "fail": "We can't reach this website. Is the link correct?",
+    "invalid": "This is not a valid link. Example: https://yourbusiness.com"
   }
 }

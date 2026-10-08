@@ -4,6 +4,13 @@
 (function () {
   var panel = document.getElementById('panel'), screen = document.getElementById('screen'), stepper = document.getElementById('stepper');
   Stepper.bind(stepper);
+  // Alles behalve de knoppen in een eigen scrollvlak, zodat Terug/Doorgaan altijd onderin staan zonder over de velden heen te vallen.
+  function layoutPanel() {
+    var a = panel.querySelector(':scope > .actions'); if (!a) return;
+    var sc = document.createElement('div'); sc.className = 'panel-scroll';
+    while (panel.firstChild && panel.firstChild !== a) sc.appendChild(panel.firstChild);
+    panel.insertBefore(sc, a);
+  }
   // Telefoon tekenen. --pc = paginakleur (of de kleur waar de muis nu boven hangt).
   function drawPhone(state) {
     var type = getType(state.typeId);
@@ -32,13 +39,13 @@
   });
   panel.addEventListener('mouseover', function (e) { var c = e.target.closest('.qr-card'); if (c) actions.hoverType(c.getAttribute('data-type')); });
   panel.addEventListener('mouseout', function (e) { if (e.target.closest('.qr-card') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.qr-card'))) actions.hoverType(null); });
-  panel.addEventListener('input', function (e) { if (e.target.name) actions.setField(e.target.name, e.target.value); });
+  panel.addEventListener('input', function (e) { if (e.target.name) actions.setField(e.target.name, e.target.type === 'checkbox' ? (e.target.checked ? '1' : '') : e.target.value); });
   panel.addEventListener('submit', function (e) { e.preventDefault(); });
 
   function renderAll(state, animate) {
     Stepper.render(stepper, state);
     renderHero(state);
-    PANELS[state.step].render(panel, state);
+    PANELS[state.step].render(panel, state); layoutPanel();
     drawPhone(state);
     if (animate) { screen.classList.remove('swap'); void screen.offsetWidth; screen.classList.add('swap'); }
   }
@@ -50,7 +57,7 @@
     if (stepChanged) { renderAll(state, false); document.getElementById('heroTitle').scrollIntoView({ block: 'nearest' }); return; }
     if (state.step === 'type' && typeChanged) { TypeGrid.update(panel, state); renderHero(state); panel.querySelector('.actions').outerHTML = Actions.html(state); drawPhone(state); screen.classList.remove('swap'); void screen.offsetWidth; screen.classList.add('swap'); return; }
     if (state.step === 'content') { drawPhone(state); return; }          // formulier niet opnieuw tekenen: focus blijft
-    if (state.step === 'design') { Stepper.render(stepper, state); DesignPanel.render(panel, state); drawPhone(state); }
+    if (state.step === 'design') { Stepper.render(stepper, state); DesignPanel.render(panel, state); layoutPanel(); drawPhone(state); }
   });
   i18n.onChange(function () { renderAll(store.get(), false); });
   document.addEventListener('preview:refresh', function () { drawPhone(store.get()); });

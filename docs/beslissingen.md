@@ -2,6 +2,22 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Website: alles wat nodig is, de rest onder *Meer opties*
+
+Vergeleken met qr-code.io, QR TIGER en Uniqode. Alleen functies die klanten echt gebruiken; de rest dichtgeklapt.
+
+- **Website-URL** (verplicht) met link-check: `https://` wordt automatisch toegevoegd, typfouten (`htps`, `.con`, …) worden verbeterd, en de server controleert of de site bestaat.
+- **Naam van de QR-code** wordt automatisch de titel van de website (aan te passen).
+- **Meer opties** (dichtgeklapt, met teller "2 actief"). Opengeklapt zie je alleen knopjes (`+ Wachtwoord`, `+ Geldig tot`, …); je voegt alleen toe wat je nodig hebt en haalt het weg met ×. Zo wordt het formulier nooit lang.
+  - Wachtwoord – wordt versleuteld opgeslagen (scrypt), nooit leesbaar teruggestuurd. De telefoon toont het slot-scherm.
+  - Geldig tot (datum) – daarna ziet de bezoeker "Deze QR-code is verlopen".
+  - Andere link voor iPhone / Android.
+  - Scans meten in Google Analytics (UTM-labels automatisch). De labels zelf bevatten geen persoonsgegevens; de cookietoestemming op de eigen website is de verantwoordelijkheid van de klant. Onze eigen scanteller bewaart geen IP-adressen.
+- *Maximaal aantal scans* is weggehaald bij Website (bijna niemand gebruikt het voor een gewone link) en komt later bij **Coupon** ("de eerste 100 klanten"). De server ondersteunt het al.
+- Niet overgenomen: map (hoort bij Mijn QR-codes), advertentiepixels, locatie-afbakening, leeftijdscheck.
+- Veiligheid link-check: de server haalt alleen openbare websites op; interne adressen (localhost, 10.x, 192.168.x, …) worden geweigerd.
+- Opslaan: nu bij *QR-code maken* in stap 3. **Nog te doen:** automatisch een concept bewaren tijdens het invullen.
+
 ## 8 oktober 2026 – Kleuren: hoofdkleur + knopkleur
 
 - Uitgangspunt: qr-code.io heeft goede functies, maar zet ze rommelig neer. Wij bieden minstens dezelfde functies, beter georganiseerd en met extra's.

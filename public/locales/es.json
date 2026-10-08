@@ -108,7 +108,10 @@
     "website": {
       "title": "Software para agentes inmobiliarios",
       "text": "Descubre nuestros productos y solicita una demo.",
-      "cta": "Abrir sitio web"
+      "cta": "Abrir sitio web",
+      "locked": "Esta página está protegida",
+      "enterPw": "Introduce la contraseña para continuar.",
+      "open": "Abrir"
     },
     "pdf": {
       "sub": "Documento",
@@ -273,7 +276,13 @@
     "company": "Empresa",
     "website": "Sitio web",
     "cover": "Foto de portada",
-    "socials": "Redes sociales"
+    "socials": "Redes sociales",
+    "qrName": "Nombre del código QR",
+    "expires": "Válido hasta",
+    "maxScans": "Número máximo de escaneos",
+    "iosUrl": "Otro enlace para iPhone",
+    "androidUrl": "Otro enlace para Android",
+    "utm": "Medir escaneos en Google Analytics"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -343,5 +352,26 @@
   },
   "validate": {
     "required": "Campo obligatorio"
+  },
+  "hint": {
+    "qrName": "Lo rellenamos con el título de tu web. Solo tú ves este nombre.",
+    "password": "Los visitantes deben introducir esta contraseña antes de abrir la web.",
+    "expires": "Después verán «Este código QR ha caducado».",
+    "maxScans": "Útil para promociones como «los primeros 100 clientes».",
+    "devices": "Déjalo vacío para usar el mismo enlace para todos.",
+    "utm": "Añade etiquetas UTM a tu enlace para ver las visitas por QR en Google Analytics."
+  },
+  "more": {
+    "title": "Más opciones",
+    "active": "{n} activas",
+    "remove": "Quitar opción"
+  },
+  "url": {
+    "fixed": "Enlace corregido: {url}",
+    "checking": "Comprobando la web…",
+    "ok": "✓ Web encontrada",
+    "okTitle": "✓ Web encontrada: {title}",
+    "fail": "No podemos acceder a esta web. ¿Es correcto el enlace?",
+    "invalid": "No es un enlace válido. Ejemplo: https://tuempresa.es"
   }
 }
