@@ -2,6 +2,18 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Opgeschoond: alleen nette opties, nooit een contrastmelding
+
+- **Weg, omdat het slordig oogde of slecht scant:**
+  - *Patronen:* hartjes, sterren, ruitjes, plusjes, strepen (2×), mozaïek en fijn. Er blijven 5 over: vierkant, afgerond, vloeiend, rondjes en elegant.
+  - *Hoeken:* buitenkant druppel en stippellijn; binnenkant ruit, plus, bloem, hart en ster.
+  - *Frames:* telefoon, pijl, bestek, afhaalbakje, envelop, kalender, bonnetje, doos, locatie, laptop en deurhanger. De groep "Meer" is weg; er blijven 22 over.
+  - *Lettertypes:* modern en speels (bijna niet te onderscheiden). Er blijven 4 over.
+  - *Kleuren:* achtergrondkleur, transparante achtergrond, kleurverloop in het frame, rond kleurverloop en een aparte kleur voor de binnenkant van de hoeken. Kleurverloop is nu één schakelaar; de hoeken hebben één kleur.
+  - *Stijl:* Neon.
+- **Geen contrastmeldingen meer.** In plaats van waarschuwen zorgt `safeDesign()` (in `shared/design-data.js`) er altijd voor dat het goed is: witte achtergrond, en kleuren die te licht zijn worden vanzelf donkerder tot het contrast minstens 4,5 is (frame: 3). Dit geldt voor stijlen, de assistent, zelf aanpassen én de server bij het opslaan.
+- Oude codes met een weggehaalde optie krijgen automatisch de dichtstbijzijnde nette optie.
+
 ## 8 oktober 2026 – Stap 3 op volgorde van belangrijkheid
 
 - Volgorde: **1. Kies een stijl** (altijd open) → **2. Je logo** (altijd open) → **3. Zelf aanpassen** met tabbladen **Patroon en kleuren** (met Versiering onderaan) · **Frame** · **Hoeken**.

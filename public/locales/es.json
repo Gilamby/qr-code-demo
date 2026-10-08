@@ -399,30 +399,19 @@
       "codeColor": "Color del código",
       "color2": "Segundo color",
       "gradient": "Degradado",
-      "background": "Fondo",
-      "transparent": "Fondo transparente",
       "outer": "Exterior",
       "inner": "Interior",
-      "outerColor": "Color exterior",
-      "innerColor": "Color interior",
       "same": "Igual que el código",
       "usePage": "Usar los colores de mi página",
       "typeLogo": "Usar el icono de {type}",
       "logoHint": "Un logo cuadrado funciona mejor. Reforzamos el código automáticamente.",
       "download": "Descargar PNG",
       "frameFont": "Tipografía",
-      "frameGradient": "Degradado en el marco",
-      "showAll": "Ver todos los estilos ({n})",
       "unique": "Código único con enlace propio",
       "uniqueStatic": "Código único: el contenido va en el propio código",
       "pattern": "Patrón",
-      "contrastOk": "✓ Buen contraste",
-      "moreStyles": "Más estilos"
-    },
-    "grad": {
-      "none": "Ninguno",
-      "linear": "Lineal",
-      "radial": "Radial"
+      "moreStyles": "Más estilos",
+      "cornerColor": "Color de las esquinas"
     },
     "theme": {
       "classic": "Clásico",
@@ -432,7 +421,6 @@
       "xmas": "Navidad",
       "summer": "Verano",
       "business": "Empresa",
-      "neon": "Neón",
       "coffee": "Café",
       "party": "Fiesta",
       "halloween": "Halloween",
@@ -507,15 +495,7 @@
       "rounded": "Redondeado",
       "smooth": "Fluido",
       "dots": "Puntos",
-      "classy": "Elegante",
-      "diamond": "Rombos",
-      "heart": "Corazones",
-      "star": "Estrellas",
-      "tiny": "Fino",
-      "mosaic": "Mosaico",
-      "vertical": "Rayas",
-      "horizontal": "Líneas",
-      "cross": "Cruces"
+      "classy": "Elegante"
     },
     "cornerOuter": {
       "square": "Cuadrado",
@@ -523,28 +503,20 @@
       "extra": "Muy redondeado",
       "circle": "Círculo",
       "leaf": "Hoja",
-      "dots": "Puntos",
-      "drop": "Gota",
       "chamfer": "Octágono"
     },
     "cornerInner": {
       "square": "Cuadrado",
       "rounded": "Redondeado",
       "circle": "Círculo",
-      "diamond": "Rombo",
-      "heart": "Corazón",
-      "star": "Estrella",
       "leaf": "Hoja",
-      "chamfer": "Octágono",
-      "plus": "Más",
-      "flower": "Flor"
+      "chamfer": "Octágono"
     },
     "frame": {
       "none": "Sin marco",
       "label": "Etiqueta abajo",
       "labelTop": "Etiqueta arriba",
       "bubble": "Bocadillo",
-      "script": "Manuscrito",
       "badge": "Insignia redonda",
       "tag": "Etiqueta con flecha",
       "scanner": "Escáner",
@@ -552,48 +524,29 @@
       "ticket": "Entrada",
       "stamp": "Sello",
       "polaroid": "Polaroid",
-      "phone": "Móvil",
       "coffee": "Vaso de café",
       "chalkboard": "Pizarra",
-      "cutlery": "Plato y cubiertos",
-      "noodles": "Caja para llevar",
       "pizza": "Caja de pizza",
       "bag": "Bolsa de compra",
       "gift": "Regalo",
       "pricetag": "Etiqueta de precio",
-      "envelope": "Sobre",
-      "calendar": "Calendario",
-      "receipt": "Ticket de compra",
-      "box": "Paquete",
       "heart": "Corazón",
       "ornament": "Bola de Navidad",
       "balloons": "Globos",
       "confetti": "Confeti",
-      "pumpkin": "Calabaza",
-      "pin": "Pin de ubicación",
-      "laptop": "Portátil",
-      "hanger": "Colgador de puerta"
-    },
-    "check": {
-      "low": "Poco contraste: oscurece el código o aclara el fondo.",
-      "inverted": "Código claro sobre fondo oscuro: no todos los móviles lo leen. Intercambia los colores.",
-      "transparent": "Fondo transparente: imprímelo sobre una superficie clara.",
-      "fancy": "Formas especiales: escanéalo una vez con tu móvil para asegurarte."
+      "pumpkin": "Calabaza"
     },
     "fgroup": {
       "basic": "Básico",
       "food": "Comida y bebida",
       "shop": "Tienda y correo",
-      "party": "Fiestas",
-      "more": "Más"
+      "party": "Fiestas"
     },
     "font": {
       "auto": "Auto",
-      "modern": "Moderna",
       "hand": "Manuscrita",
       "serif": "Clásica",
-      "bold": "Fuerte",
-      "round": "Divertida"
+      "bold": "Fuerte"
     },
     "tgroup": {
       "basic": "Básico",

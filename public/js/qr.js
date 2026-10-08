@@ -24,4 +24,3 @@ function contrastRatio(a, b) {
   var A = lum(a), B = lum(b); return (Math.max(A, B) + .05) / (Math.min(A, B) + .05);
 }
 function luminance(hex) { var n = parseInt(hex.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255].reduce(function (s, v, i) { v /= 255; v = v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); return s + v * [.2126, .7152, .0722][i]; }, 0); }
-function isScannable(design) { return contrastRatio(design.color, design.background) >= 4 && luminance(design.color) < luminance(design.background); }

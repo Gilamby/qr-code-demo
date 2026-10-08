@@ -399,30 +399,19 @@
       "codeColor": "Code colour",
       "color2": "Second colour",
       "gradient": "Gradient",
-      "background": "Background",
-      "transparent": "Transparent background",
       "outer": "Outside",
       "inner": "Inside",
-      "outerColor": "Outside colour",
-      "innerColor": "Inside colour",
       "same": "Same as code",
       "usePage": "Use my page colours",
       "typeLogo": "Use the {type} icon",
       "logoHint": "A square logo works best. We automatically make the code extra strong so it still scans with a logo.",
       "download": "Download PNG",
       "frameFont": "Font",
-      "frameGradient": "Gradient in the frame",
-      "showAll": "See all styles ({n})",
       "unique": "Unique code with its own link",
       "uniqueStatic": "Unique code: the content is in the code itself",
       "pattern": "Pattern",
-      "contrastOk": "✓ Good contrast",
-      "moreStyles": "More styles"
-    },
-    "grad": {
-      "none": "None",
-      "linear": "Linear",
-      "radial": "Radial"
+      "moreStyles": "More styles",
+      "cornerColor": "Corner colour"
     },
     "theme": {
       "classic": "Classic",
@@ -432,7 +421,6 @@
       "xmas": "Christmas",
       "summer": "Summer",
       "business": "Business",
-      "neon": "Neon",
       "coffee": "Coffee",
       "party": "Party",
       "halloween": "Halloween",
@@ -507,15 +495,7 @@
       "rounded": "Rounded",
       "smooth": "Smooth",
       "dots": "Dots",
-      "classy": "Classy",
-      "diamond": "Diamonds",
-      "heart": "Hearts",
-      "star": "Stars",
-      "tiny": "Fine",
-      "mosaic": "Mosaic",
-      "vertical": "Stripes",
-      "horizontal": "Lines",
-      "cross": "Crosses"
+      "classy": "Classy"
     },
     "cornerOuter": {
       "square": "Square",
@@ -523,28 +503,20 @@
       "extra": "Extra rounded",
       "circle": "Circle",
       "leaf": "Leaf",
-      "dots": "Dots",
-      "drop": "Drop",
       "chamfer": "Octagon"
     },
     "cornerInner": {
       "square": "Square",
       "rounded": "Rounded",
       "circle": "Circle",
-      "diamond": "Diamond",
-      "heart": "Heart",
-      "star": "Star",
       "leaf": "Leaf",
-      "chamfer": "Octagon",
-      "plus": "Plus",
-      "flower": "Flower"
+      "chamfer": "Octagon"
     },
     "frame": {
       "none": "No frame",
       "label": "Label below",
       "labelTop": "Label above",
       "bubble": "Speech bubble",
-      "script": "Handwritten",
       "badge": "Round badge",
       "tag": "Arrow label",
       "scanner": "Scanner",
@@ -552,48 +524,29 @@
       "ticket": "Ticket",
       "stamp": "Stamp",
       "polaroid": "Polaroid",
-      "phone": "Phone",
       "coffee": "Coffee cup",
       "chalkboard": "Chalkboard",
-      "cutlery": "Plate & cutlery",
-      "noodles": "Takeaway box",
       "pizza": "Pizza box",
       "bag": "Shopping bag",
       "gift": "Gift",
       "pricetag": "Price tag",
-      "envelope": "Envelope",
-      "calendar": "Calendar",
-      "receipt": "Receipt",
-      "box": "Parcel",
       "heart": "Heart",
       "ornament": "Bauble",
       "balloons": "Balloons",
       "confetti": "Confetti",
-      "pumpkin": "Pumpkin",
-      "pin": "Map pin",
-      "laptop": "Laptop",
-      "hanger": "Door hanger"
-    },
-    "check": {
-      "low": "Not enough contrast: make the code darker or the background lighter.",
-      "inverted": "Light code on a dark background: not every phone can scan this. Swap the colours.",
-      "transparent": "Transparent background: print the code on a light surface.",
-      "fancy": "Special shapes: scan the code once with your phone to be sure."
+      "pumpkin": "Pumpkin"
     },
     "fgroup": {
       "basic": "Basics",
       "food": "Food & drink",
       "shop": "Shop & mail",
-      "party": "Holidays",
-      "more": "More"
+      "party": "Holidays"
     },
     "font": {
       "auto": "Auto",
-      "modern": "Modern",
       "hand": "Hand",
       "serif": "Classic",
-      "bold": "Bold",
-      "round": "Playful"
+      "bold": "Bold"
     },
     "tgroup": {
       "basic": "Basics",

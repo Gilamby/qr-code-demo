@@ -917,10 +917,6 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 /* =========================================================
    Stap 3 – Ontwerp: secties, tegels, kleuren
    ========================================================= */
-.dz-note { display: flex; gap: 10px; align-items: flex-start; padding: 11px 14px; margin-bottom: 14px; border-radius: 12px; font-size: 13px; line-height: 1.45; background: rgba(76,195,138,.1); border: 1px solid rgba(76,195,138,.35); }
-.dz-note svg { width: 18px; height: 18px; flex: none; color: var(--ok); margin-top: 1px; }
-.dz-note.warn { background: rgba(240,162,75,.1); border-color: rgba(240,162,75,.4); } .dz-note.warn svg { color: var(--warn); }
-.dz-note.bad { background: rgba(255,107,107,.1); border-color: rgba(255,107,107,.45); } .dz-note.bad svg { color: #ff8a80; }
 .dz-sub { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); margin-bottom: -6px; }
 .dz-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .dz-tiles.small { grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 8px; }
@@ -981,7 +977,6 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 .dz-unique { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: -6px 0 14px; font-size: 12.5px; color: var(--muted); }
 .dz-unique code { padding: 3px 8px; border-radius: 7px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); color: var(--fg); font-size: 12px; }
 /* Stap 3 als rustige lijst (zoals qr-code.io), met de huidige keuze rechts op elke regel */
-.dz-note[hidden] { display: none; }
 .dz-unique { margin: 12px 0 0; justify-content: center; }
 
 /* ---- Stap 3: snel kiezen → QR-assistent → zelf aanpassen ---- */
@@ -1033,7 +1028,6 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 .dz-pane { display: grid; gap: 14px; padding-top: 2px; }
 .dz-pane[hidden] { display: none; }
 .dz-unique { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.1); justify-content: center; }
-.dz-ok { color: var(--ok); font-weight: 700; }
 :root[data-theme="light"] .dz-tabs, :root[data-theme="light"] .dz-ai-out { background: rgba(13,19,32,.03); border-color: var(--line-strong); }
 :root[data-theme="light"] .dz-tabs button[aria-selected="true"] { background: #fff; box-shadow: 0 1px 3px rgba(13,19,32,.12); }
 :root[data-theme="light"] .dz-chip { border-color: rgba(13,19,32,.25); }

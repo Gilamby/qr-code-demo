@@ -399,30 +399,19 @@
       "codeColor": "Kolor kodu",
       "color2": "Drugi kolor",
       "gradient": "Gradient",
-      "background": "Tło",
-      "transparent": "Przezroczyste tło",
       "outer": "Zewnątrz",
       "inner": "Wewnątrz",
-      "outerColor": "Kolor zewnętrzny",
-      "innerColor": "Kolor wewnętrzny",
       "same": "Jak kod",
       "usePage": "Użyj kolorów mojej strony",
       "typeLogo": "Użyj ikony {type}",
       "logoHint": "Najlepiej działa kwadratowe logo. Automatycznie wzmacniamy kod.",
       "download": "Pobierz PNG",
       "frameFont": "Czcionka",
-      "frameGradient": "Gradient w ramce",
-      "showAll": "Zobacz wszystkie style ({n})",
       "unique": "Unikalny kod z własnym linkiem",
       "uniqueStatic": "Unikalny kod: treść jest w samym kodzie",
       "pattern": "Wzór",
-      "contrastOk": "✓ Dobry kontrast",
-      "moreStyles": "Więcej stylów"
-    },
-    "grad": {
-      "none": "Brak",
-      "linear": "Liniowy",
-      "radial": "Okrągły"
+      "moreStyles": "Więcej stylów",
+      "cornerColor": "Kolor narożników"
     },
     "theme": {
       "classic": "Klasyczny",
@@ -432,7 +421,6 @@
       "xmas": "Święta",
       "summer": "Lato",
       "business": "Biznes",
-      "neon": "Neon",
       "coffee": "Kawa",
       "party": "Impreza",
       "halloween": "Halloween",
@@ -507,15 +495,7 @@
       "rounded": "Zaokrąglony",
       "smooth": "Płynny",
       "dots": "Kropki",
-      "classy": "Elegancki",
-      "diamond": "Romby",
-      "heart": "Serca",
-      "star": "Gwiazdy",
-      "tiny": "Drobny",
-      "mosaic": "Mozaika",
-      "vertical": "Paski",
-      "horizontal": "Linie",
-      "cross": "Krzyżyki"
+      "classy": "Elegancki"
     },
     "cornerOuter": {
       "square": "Kwadrat",
@@ -523,28 +503,20 @@
       "extra": "Bardzo okrągły",
       "circle": "Koło",
       "leaf": "Liść",
-      "dots": "Kropki",
-      "drop": "Kropla",
       "chamfer": "Ośmiokąt"
     },
     "cornerInner": {
       "square": "Kwadrat",
       "rounded": "Zaokrąglony",
       "circle": "Koło",
-      "diamond": "Romb",
-      "heart": "Serce",
-      "star": "Gwiazda",
       "leaf": "Liść",
-      "chamfer": "Ośmiokąt",
-      "plus": "Plus",
-      "flower": "Kwiat"
+      "chamfer": "Ośmiokąt"
     },
     "frame": {
       "none": "Bez ramki",
       "label": "Etykieta pod",
       "labelTop": "Etykieta nad",
       "bubble": "Dymek",
-      "script": "Odręczny",
       "badge": "Okrągła odznaka",
       "tag": "Etykieta ze strzałką",
       "scanner": "Skaner",
@@ -552,48 +524,29 @@
       "ticket": "Bilet",
       "stamp": "Znaczek",
       "polaroid": "Polaroid",
-      "phone": "Telefon",
       "coffee": "Kubek kawy",
       "chalkboard": "Tablica kredowa",
-      "cutlery": "Talerz i sztućce",
-      "noodles": "Pudełko na wynos",
       "pizza": "Pudełko na pizzę",
       "bag": "Torba na zakupy",
       "gift": "Prezent",
       "pricetag": "Metka z ceną",
-      "envelope": "Koperta",
-      "calendar": "Kalendarz",
-      "receipt": "Paragon",
-      "box": "Paczka",
       "heart": "Serce",
       "ornament": "Bombka",
       "balloons": "Balony",
       "confetti": "Konfetti",
-      "pumpkin": "Dynia",
-      "pin": "Pinezka",
-      "laptop": "Laptop",
-      "hanger": "Zawieszka na drzwi"
-    },
-    "check": {
-      "low": "Za mały kontrast: przyciemnij kod lub rozjaśnij tło.",
-      "inverted": "Jasny kod na ciemnym tle: nie każdy telefon to odczyta. Zamień kolory.",
-      "transparent": "Przezroczyste tło: drukuj na jasnej powierzchni.",
-      "fancy": "Nietypowe kształty: zeskanuj kod raz telefonem, by mieć pewność."
+      "pumpkin": "Dynia"
     },
     "fgroup": {
       "basic": "Podstawowe",
       "food": "Jedzenie i picie",
       "shop": "Sklep i poczta",
-      "party": "Święta",
-      "more": "Więcej"
+      "party": "Święta"
     },
     "font": {
       "auto": "Auto",
-      "modern": "Nowoczesna",
       "hand": "Odręczna",
       "serif": "Klasyczna",
-      "bold": "Mocna",
-      "round": "Zabawna"
+      "bold": "Mocna"
     },
     "tgroup": {
       "basic": "Podstawowe",

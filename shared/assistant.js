@@ -39,44 +39,26 @@
   var PASTEL = ['pastel', 'zacht', 'soft', 'suave'];
   var PATTERNS = {
     dots: ['rondjes', 'stippen', 'stip', 'dots', 'dotted', 'puntos', 'punkte', 'points', 'pallini', 'kropk', 'pontos', 'κουκκιδ', 'pika'],
-    heart: ['hartjes', 'hearts', 'corazones', 'herzen', 'coeurs', 'cuori', 'serca', 'coracoes', 'καρδιες'],
-    star: ['sterren', 'sterretjes', 'stars', 'estrellas', 'sterne', 'etoiles', 'stelle', 'gwiazd', 'estrelas', 'αστερια'],
     smooth: ['vloeiend', 'smooth', 'liquid', 'fluid', 'organisch', 'blob'],
     rounded: ['afgerond', 'rounded', 'redondead', 'abgerundet', 'arrondi', 'arrotondat', 'zaokraglon'],
     square: ['vierkant', 'blokjes', 'square', 'cuadrad', 'quadrat', 'carre', 'quadrat', 'kwadrat', 'pixel'],
-    diamond: ['ruitjes', 'ruit', 'diamond', 'rombo', 'raute', 'losange'],
-    vertical: ['strepen', 'stripes', 'rayas', 'streifen', 'rayures', 'strisce', 'paski'],
-    mosaic: ['mozaiek', 'mosaic', 'mosaico', 'mosaik', 'mosaique'],
-    tiny: ['fijn', 'klein', 'tiny', 'fine', 'fino', 'fein', 'minimal'],
     classy: ['elegant', 'chic', 'sierlijk', 'elegante', 'elegancki'],
-    cross: ['plusjes', 'kruisjes', 'crosses', 'cruces', 'kreuze', 'croix']
   };
   var FRAMES = {
     coffee: ['koffiebeker', 'beker', 'coffee cup', 'taza', 'vaso de cafe', 'kaffeebecher', 'gobelet'],
     chalkboard: ['krijtbord', 'schoolbord', 'chalkboard', 'pizarra', 'kreidetafel', 'ardoise', 'lavagna'],
-    cutlery: ['bestek', 'bord', 'cutlery', 'plate', 'cubiertos', 'besteck', 'couverts', 'posate'],
-    noodles: ['afhaalbakje', 'noodle', 'takeaway box', 'wok'],
     pizza: ['pizzadoos', 'pizza box', 'caja de pizza'],
     bag: ['tas', 'tasje', 'boodschappentas', 'shopping bag', 'bag', 'bolsa', 'tasche', 'sac'],
     gift: ['cadeau', 'kado', 'gift', 'present', 'regalo', 'geschenk', 'pakje'],
     pricetag: ['prijskaartje', 'label prijs', 'price tag', 'etiqueta de precio', 'preisschild'],
-    envelope: ['envelop', 'brief', 'envelope', 'sobre', 'umschlag', 'enveloppe', 'busta'],
-    calendar: ['kalender', 'agenda', 'calendar', 'calendario', 'calendrier'],
-    receipt: ['bonnetje', 'kassabon', 'receipt', 'ticket de compra', 'kassenbon'],
-    box: ['pakketje', 'doos', 'parcel', 'box', 'paquete', 'paket', 'colis'],
     ornament: ['kerstbal', 'bauble', 'ornament', 'bola de navidad'],
     balloons: ['ballon', 'ballonnen', 'balloons', 'globos', 'luftballon'],
     confetti: ['confetti', 'konfetti', 'confeti'],
     pumpkin: ['pompoen', 'pumpkin', 'calabaza', 'kurbis', 'citrouille', 'zucca'],
-    pin: ['locatie', 'pin', 'kaart', 'map pin', 'ubicacion', 'standort'],
-    laptop: ['laptop', 'computer', 'portatil'],
-    hanger: ['deurhanger', 'door hanger', 'colgador'],
     ticket: ['ticket', 'kaartje', 'entree', 'entrada', 'billet', 'biglietto'],
     polaroid: ['polaroid', 'foto', 'photo'],
-    phone: ['telefoon', 'mobiel', 'phone', 'movil', 'handy'],
     badge: ['embleem', 'badge', 'rond frame', 'cirkel', 'circle', 'stempel'],
     bubble: ['tekstballon', 'ballonnetje', 'speech bubble', 'bocadillo', 'sprechblase'],
-    script: ['handgeschreven', 'met pijl', 'pijl', 'arrow', 'flecha', 'pfeil', 'fleche'],
     label: ['label', 'kader', 'frame', 'marco', 'rahmen', 'cadre', 'cornice', 'ramk', 'moldura', 'πλαισιο', 'kornize'],
     heart: ['in een hart', 'hartvorm', 'heart shape', 'forma de corazon']
   };
@@ -103,7 +85,7 @@
     birthday: ['verjaardag', 'birthday', 'cumpleanos', 'geburtstag', 'anniversaire', 'compleanno', 'urodzin'],
     wedding: ['bruiloft', 'huwelijk', 'trouwen', 'wedding', 'boda', 'hochzeit', 'mariage', 'matrimonio', 'slub']
   };
-  var FONTS = { hand: ['handgeschreven', 'handwritten', 'manuscrit', 'script'], serif: ['klassiek', 'classic', 'serif', 'deftig'], bold: ['stoer', 'bold', 'dik', 'groot'], round: ['speels', 'playful', 'kinder', 'grappig', 'fun'] };
+  var FONTS = { hand: ['handgeschreven', 'handwritten', 'manuscrit', 'script'], serif: ['klassiek', 'classic', 'serif', 'deftig'], bold: ['stoer', 'bold', 'dik', 'groot'] };
   var CMD = {
     darker: ['donkerder', 'darker', 'mas oscuro', 'dunkler', 'plus fonce', 'piu scuro'],
     lighter: ['lichter', 'lighter', 'mas claro', 'heller', 'plus clair', 'piu chiaro'],
@@ -114,7 +96,7 @@
   };
 
   /* ---------- Hulpjes ---------- */
-  var norm = function (s) { return (' ' + String(s || '') + ' ').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[.,!?;:()]/g, ' ').replace(/\s+/g, ' '); };
+  var norm = function (s) { return (' ' + String(s || '') + ' ').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[.,!?;:()]/g, ' ').replace(/ (licht|donker|hell|dunkel)(?!d?er)(?=[a-z]{3,})/g, ' $1 ').replace(/\s+/g, ' '); };   // "lichtgeel" → "licht geel"
   // Alleen zoeken aan het begin van een woord ("rondjes" bevat dus niet "dj"); de tekst begint en eindigt met een spatie.
   // Korte woorden (max. 3 letters, bv. "zi", "rot", "web") en woorden met een spatie erachter tellen alleen als heel woord.
   var at = function (txt, w) { var k = w.trim(), whole = k.length <= 3 || / $/.test(w), p = txt.indexOf(' ' + k + (whole ? ' ' : '')); return p < 0 ? -1 : p + 1; };
@@ -219,9 +201,10 @@
     var v3 = Object.assign({}, v1, { frame: v1.frame === 'none' ? 'none' : frames[1], pattern: v1.pattern === 'smooth' ? 'square' : 'smooth', cornerOuter: v1.cornerOuter === 'circle' ? 'rounded' : 'circle', cornerInner: 'circle' });
     if (cmd.other) { var rot = [v2, v3, v1]; v1 = rot[0]; v2 = rot[1]; v3 = rot[2]; }
 
-    var knownWords = [].concat.apply([], understood.map(function (u) { return norm(u.word).trim().split(' '); })), noQuotes = norm(raw.replace(/["“”'‘’«»„][^"“”'‘’«»„]*["“”'‘’«»„]/g, ' '));
+    var knownWords = [].concat.apply(DARK.concat(LIGHT, PASTEL), understood.map(function (u) { return norm(u.word).trim().split(' '); })), noQuotes = norm(raw.replace(/["“”'‘’«»„][^"“”'‘’«»„]*["“”'‘’«»„]/g, ' '));
     var unknown = noQuotes.trim().split(' ').filter(function (w) { return w.length > 3 && !knownWords.some(function (k) { return k && (w.indexOf(k) === 0 || k.indexOf(w) === 0); }) && !/^(een|met|and|with|the|voor|for|van|de|het|code|qr-code|qrcode|graag|wil|want|maak|make|please|mijn|my|con|para|und|mit|pour|avec|tekst|text|texto|texte|testo|tekstem|tekstin|teksti|κειμενο|kleur|kleuren|colors|colours|stijl|style)$/.test(w); });
-    return { variants: [v1, v2, v3], understood: understood, unknown: unknown.slice(0, 10), askLogo: !!cmd.logo, ok: understood.length > 0 };
+    var safe = DATA.safeDesign || function (x) { return x; };
+    return { variants: [v1, v2, v3].map(safe), understood: understood, unknown: unknown.slice(0, 10), askLogo: !!cmd.logo, ok: understood.length > 0 };
   }
 
   return { parse: parse, contrast: contrast };

@@ -399,30 +399,19 @@
       "codeColor": "Couleur du code",
       "color2": "Deuxième couleur",
       "gradient": "Dégradé",
-      "background": "Fond",
-      "transparent": "Fond transparent",
       "outer": "Extérieur",
       "inner": "Intérieur",
-      "outerColor": "Couleur extérieure",
-      "innerColor": "Couleur intérieure",
       "same": "Comme le code",
       "usePage": "Utiliser les couleurs de ma page",
       "typeLogo": "Utiliser l’icône {type}",
       "logoHint": "Un logo carré fonctionne mieux. Nous renforçons automatiquement le code.",
       "download": "Télécharger PNG",
       "frameFont": "Police",
-      "frameGradient": "Dégradé dans le cadre",
-      "showAll": "Voir tous les styles ({n})",
       "unique": "Code unique avec son propre lien",
       "uniqueStatic": "Code unique : le contenu est dans le code",
       "pattern": "Motif",
-      "contrastOk": "✓ Bon contraste",
-      "moreStyles": "Plus de styles"
-    },
-    "grad": {
-      "none": "Aucun",
-      "linear": "Linéaire",
-      "radial": "Radial"
+      "moreStyles": "Plus de styles",
+      "cornerColor": "Couleur des coins"
     },
     "theme": {
       "classic": "Classique",
@@ -432,7 +421,6 @@
       "xmas": "Noël",
       "summer": "Été",
       "business": "Pro",
-      "neon": "Néon",
       "coffee": "Café",
       "party": "Fête",
       "halloween": "Halloween",
@@ -507,15 +495,7 @@
       "rounded": "Arrondi",
       "smooth": "Fluide",
       "dots": "Points",
-      "classy": "Élégant",
-      "diamond": "Losanges",
-      "heart": "Cœurs",
-      "star": "Étoiles",
-      "tiny": "Fin",
-      "mosaic": "Mosaïque",
-      "vertical": "Rayures",
-      "horizontal": "Lignes",
-      "cross": "Croix"
+      "classy": "Élégant"
     },
     "cornerOuter": {
       "square": "Carré",
@@ -523,28 +503,20 @@
       "extra": "Très arrondi",
       "circle": "Cercle",
       "leaf": "Feuille",
-      "dots": "Points",
-      "drop": "Goutte",
       "chamfer": "Octogone"
     },
     "cornerInner": {
       "square": "Carré",
       "rounded": "Arrondi",
       "circle": "Cercle",
-      "diamond": "Losange",
-      "heart": "Cœur",
-      "star": "Étoile",
       "leaf": "Feuille",
-      "chamfer": "Octogone",
-      "plus": "Plus",
-      "flower": "Fleur"
+      "chamfer": "Octogone"
     },
     "frame": {
       "none": "Sans cadre",
       "label": "Étiquette en bas",
       "labelTop": "Étiquette en haut",
       "bubble": "Bulle",
-      "script": "Manuscrit",
       "badge": "Badge rond",
       "tag": "Étiquette flèche",
       "scanner": "Scanner",
@@ -552,48 +524,29 @@
       "ticket": "Billet",
       "stamp": "Timbre",
       "polaroid": "Polaroid",
-      "phone": "Téléphone",
       "coffee": "Gobelet de café",
       "chalkboard": "Ardoise",
-      "cutlery": "Assiette & couverts",
-      "noodles": "Boîte à emporter",
       "pizza": "Boîte à pizza",
       "bag": "Sac de courses",
       "gift": "Cadeau",
       "pricetag": "Étiquette de prix",
-      "envelope": "Enveloppe",
-      "calendar": "Calendrier",
-      "receipt": "Ticket de caisse",
-      "box": "Colis",
       "heart": "Cœur",
       "ornament": "Boule de Noël",
       "balloons": "Ballons",
       "confetti": "Confettis",
-      "pumpkin": "Citrouille",
-      "pin": "Repère",
-      "laptop": "Ordinateur",
-      "hanger": "Accroche-porte"
-    },
-    "check": {
-      "low": "Contraste insuffisant : fonce le code ou éclaircis le fond.",
-      "inverted": "Code clair sur fond sombre : tous les téléphones ne le lisent pas. Inverse les couleurs.",
-      "transparent": "Fond transparent : imprime-le sur une surface claire.",
-      "fancy": "Formes spéciales : scanne-le une fois avec ton téléphone pour vérifier."
+      "pumpkin": "Citrouille"
     },
     "fgroup": {
       "basic": "Base",
       "food": "Boire & manger",
       "shop": "Boutique & courrier",
-      "party": "Fêtes",
-      "more": "Plus"
+      "party": "Fêtes"
     },
     "font": {
       "auto": "Auto",
-      "modern": "Moderne",
       "hand": "Manuscrit",
       "serif": "Classique",
-      "bold": "Gras",
-      "round": "Ludique"
+      "bold": "Gras"
     },
     "tgroup": {
       "basic": "Base",

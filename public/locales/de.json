@@ -399,30 +399,19 @@
       "codeColor": "Codefarbe",
       "color2": "Zweite Farbe",
       "gradient": "Farbverlauf",
-      "background": "Hintergrund",
-      "transparent": "Transparenter Hintergrund",
       "outer": "Außen",
       "inner": "Innen",
-      "outerColor": "Farbe außen",
-      "innerColor": "Farbe innen",
       "same": "Wie der Code",
       "usePage": "Meine Seitenfarben verwenden",
       "typeLogo": "{type}-Symbol verwenden",
       "logoHint": "Ein quadratisches Logo funktioniert am besten. Wir machen den Code automatisch extra robust.",
       "download": "PNG herunterladen",
       "frameFont": "Schriftart",
-      "frameGradient": "Farbverlauf im Rahmen",
-      "showAll": "Alle Stile ansehen ({n})",
       "unique": "Einzigartiger Code mit eigenem Link",
       "uniqueStatic": "Einzigartiger Code: der Inhalt steckt im Code selbst",
       "pattern": "Muster",
-      "contrastOk": "✓ Guter Kontrast",
-      "moreStyles": "Mehr Stile"
-    },
-    "grad": {
-      "none": "Keiner",
-      "linear": "Linear",
-      "radial": "Rund"
+      "moreStyles": "Mehr Stile",
+      "cornerColor": "Farbe der Ecken"
     },
     "theme": {
       "classic": "Klassisch",
@@ -432,7 +421,6 @@
       "xmas": "Weihnachten",
       "summer": "Sommer",
       "business": "Business",
-      "neon": "Neon",
       "coffee": "Kaffee",
       "party": "Party",
       "halloween": "Halloween",
@@ -507,15 +495,7 @@
       "rounded": "Abgerundet",
       "smooth": "Fließend",
       "dots": "Punkte",
-      "classy": "Elegant",
-      "diamond": "Rauten",
-      "heart": "Herzen",
-      "star": "Sterne",
-      "tiny": "Fein",
-      "mosaic": "Mosaik",
-      "vertical": "Streifen",
-      "horizontal": "Linien",
-      "cross": "Kreuze"
+      "classy": "Elegant"
     },
     "cornerOuter": {
       "square": "Quadrat",
@@ -523,28 +503,20 @@
       "extra": "Extra rund",
       "circle": "Kreis",
       "leaf": "Blatt",
-      "dots": "Punkte",
-      "drop": "Tropfen",
       "chamfer": "Achteck"
     },
     "cornerInner": {
       "square": "Quadrat",
       "rounded": "Abgerundet",
       "circle": "Kreis",
-      "diamond": "Raute",
-      "heart": "Herz",
-      "star": "Stern",
       "leaf": "Blatt",
-      "chamfer": "Achteck",
-      "plus": "Plus",
-      "flower": "Blume"
+      "chamfer": "Achteck"
     },
     "frame": {
       "none": "Kein Rahmen",
       "label": "Label unten",
       "labelTop": "Label oben",
       "bubble": "Sprechblase",
-      "script": "Handschrift",
       "badge": "Rundes Emblem",
       "tag": "Pfeil-Label",
       "scanner": "Scanner",
@@ -552,48 +524,29 @@
       "ticket": "Ticket",
       "stamp": "Briefmarke",
       "polaroid": "Polaroid",
-      "phone": "Handy",
       "coffee": "Kaffeebecher",
       "chalkboard": "Kreidetafel",
-      "cutlery": "Teller & Besteck",
-      "noodles": "To-go-Box",
       "pizza": "Pizzakarton",
       "bag": "Einkaufstasche",
       "gift": "Geschenk",
       "pricetag": "Preisschild",
-      "envelope": "Umschlag",
-      "calendar": "Kalender",
-      "receipt": "Kassenbon",
-      "box": "Paket",
       "heart": "Herz",
       "ornament": "Christbaumkugel",
       "balloons": "Luftballons",
       "confetti": "Konfetti",
-      "pumpkin": "Kürbis",
-      "pin": "Standort-Pin",
-      "laptop": "Laptop",
-      "hanger": "Türhänger"
-    },
-    "check": {
-      "low": "Zu wenig Kontrast: Code dunkler oder Hintergrund heller machen.",
-      "inverted": "Heller Code auf dunklem Hintergrund: nicht jedes Handy kann das scannen. Tausche die Farben.",
-      "transparent": "Transparenter Hintergrund: auf hellem Untergrund drucken.",
-      "fancy": "Besondere Formen: scanne den Code einmal mit deinem Handy."
+      "pumpkin": "Kürbis"
     },
     "fgroup": {
       "basic": "Basis",
       "food": "Essen & Trinken",
       "shop": "Shop & Post",
-      "party": "Feiertage",
-      "more": "Mehr"
+      "party": "Feiertage"
     },
     "font": {
       "auto": "Auto",
-      "modern": "Modern",
       "hand": "Hand",
       "serif": "Klassisch",
-      "bold": "Kräftig",
-      "round": "Verspielt"
+      "bold": "Kräftig"
     },
     "tgroup": {
       "basic": "Basis",

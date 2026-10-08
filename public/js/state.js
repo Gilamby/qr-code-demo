@@ -41,9 +41,9 @@ var actions = {
   unlockPreview: function (on) { store.set({ previewUnlocked: !!on }); },
   setTheme: function (pc, ac) { store.set({ pageColor: pc, accentColor: ac, created: false, saved: null, error: null }); },
   previewTheme: function (o) { var cur = store.get().hoverTheme; if (JSON.stringify(cur) !== JSON.stringify(o)) store.set({ hoverTheme: o }); },
-  previewDesign: function (o) { if (JSON.stringify(store.get().hoverDesign) !== JSON.stringify(o)) store.set({ hoverDesign: o }); },
-  applyDesign: function (d) { store.set({ design: Object.assign({}, QR_DEFAULT_DESIGN, d), created: false, saved: null, error: null }); },
-  setDesign: function (key, value) { var d = Object.assign({}, store.get().design); d[key] = value; if (key !== 'logo' && key !== 'frameText') d.themeId = ''; /* zelf iets aangepast = eigen ontwerp */ store.set({ design: d, created: false, saved: null, error: null }); },
+  previewDesign: function (o) { if (o) o = safeDesign(Object.assign({}, store.get().design, o)); if (JSON.stringify(store.get().hoverDesign) !== JSON.stringify(o)) store.set({ hoverDesign: o }); },
+  applyDesign: function (d) { store.set({ design: safeDesign(Object.assign({}, QR_DEFAULT_DESIGN, d)), created: false, saved: null, error: null }); },
+  setDesign: function (key, value) { var d = Object.assign({}, store.get().design); d[key] = value; if (key !== 'logo' && key !== 'frameText') d.themeId = ''; /* zelf iets aangepast = eigen ontwerp */ store.set({ design: safeDesign(d), created: false, saved: null, error: null }); },
   create: function () {
     var s = store.get();
     store.set({ saving: true, error: null });

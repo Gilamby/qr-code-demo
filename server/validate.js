@@ -1,6 +1,7 @@
 /* Validatie: controleert wat de frontend stuurt, op basis van dezelfde QR-types (shared/qr-types.js).
    Zo bestaan de regels maar op één plek. */
 const QR_TYPES = require('../shared/qr-types');
+const { safeDesign } = require('../shared/design-data');
 
 const HEX = /^#[0-9a-f]{6}$/i;
 const MAX_TEXT = 500;
@@ -88,7 +89,7 @@ function validateDesign(design, errors) {
   if (design.logo) { if (!(typeof design.logo === 'string' && /^data:image\/(jpeg|png|webp|svg\+xml);base64,/.test(design.logo) && design.logo.length < 1500000)) errors.push('design.logo: must be an image under 1 MB'); else cleanDesign.logo = design.logo; }
   if (design.pageColor) cleanDesign.pageColor = design.pageColor;
   if (design.accentColor) cleanDesign.accentColor = design.accentColor;
-  return cleanDesign;
+  return errors.length ? cleanDesign : safeDesign(cleanDesign);   // altijd netjes en scanbaar opslaan
 }
 
 function validateMe(body) {

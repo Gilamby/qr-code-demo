@@ -330,19 +330,5 @@ var QRRender = (function () {
     return '';
   }
 
-  // Leesbaarheid: contrast, omgekeerde kleuren, transparant, speciale vormen
-  function check(design) {
-    var d = Object.assign({}, QR_DEFAULT_DESIGN, design), notes = [], level = 'ok';
-    var bg = d.transparent ? '#ffffff' : d.background;
-    var codeColors = [d.color].concat(d.gradient ? [d.color2] : []).concat(d.cornerColor ? [d.cornerColor] : []).concat(d.cornerInnerColor ? [d.cornerInnerColor] : []);
-    var worst = Math.min.apply(null, codeColors.map(function (c) { return contrastRatio(c, bg); }));
-    if (worst < 2.5) { level = 'bad'; notes.push('dz.check.low'); }
-    else if (worst < 4) { level = 'warn'; notes.push('dz.check.low'); }
-    if (codeColors.some(function (c) { return luminance(c) > luminance(bg); })) { level = 'bad'; notes.push('dz.check.inverted'); }
-    if (d.transparent) { if (level === 'ok') level = 'warn'; notes.push('dz.check.transparent'); }
-    if (['heart', 'star', 'diamond'].indexOf(d.pattern) >= 0 || ['heart', 'star'].indexOf(d.cornerInner) >= 0) { if (level === 'ok') level = 'warn'; notes.push('dz.check.fancy'); }
-    return { level: level, notes: notes.length ? notes : ['design.contrastOk'] };
-  }
-
-  return { svg: svg, swatch: swatch, check: check };
+  return { svg: svg, swatch: swatch };
 })();

@@ -399,30 +399,19 @@
       "codeColor": "Ngjyra e kodit",
       "color2": "Ngjyra e dytë",
       "gradient": "Gradient",
-      "background": "Sfondi",
-      "transparent": "Sfond transparent",
       "outer": "Jashtë",
       "inner": "Brenda",
-      "outerColor": "Ngjyra e jashtme",
-      "innerColor": "Ngjyra e brendshme",
       "same": "Si kodi",
       "usePage": "Përdor ngjyrat e faqes sime",
       "typeLogo": "Përdor ikonën {type}",
       "logoHint": "Një logo katrore funksionon më mirë. E forcojmë kodin automatikisht.",
       "download": "Shkarko PNG",
       "frameFont": "Shkronja",
-      "frameGradient": "Gradient në kornizë",
-      "showAll": "Shiko të gjitha stilet ({n})",
       "unique": "Kod unik me lidhje të vetën",
       "uniqueStatic": "Kod unik: përmbajtja është në vetë kodin",
       "pattern": "Motivi",
-      "contrastOk": "✓ Kontrast i mirë",
-      "moreStyles": "Më shumë stile"
-    },
-    "grad": {
-      "none": "Asnjë",
-      "linear": "Linear",
-      "radial": "Rrethor"
+      "moreStyles": "Më shumë stile",
+      "cornerColor": "Ngjyra e qosheve"
     },
     "theme": {
       "classic": "Klasik",
@@ -432,7 +421,6 @@
       "xmas": "Krishtlindje",
       "summer": "Verë",
       "business": "Biznes",
-      "neon": "Neon",
       "coffee": "Kafe",
       "party": "Festë",
       "halloween": "Halloween",
@@ -507,15 +495,7 @@
       "rounded": "I rrumbullakosur",
       "smooth": "I rrjedhshëm",
       "dots": "Pika",
-      "classy": "Elegant",
-      "diamond": "Rombe",
-      "heart": "Zemra",
-      "star": "Yje",
-      "tiny": "I imët",
-      "mosaic": "Mozaik",
-      "vertical": "Vija",
-      "horizontal": "Rreshta",
-      "cross": "Kryqe"
+      "classy": "Elegant"
     },
     "cornerOuter": {
       "square": "Katror",
@@ -523,28 +503,20 @@
       "extra": "Shumë i rrumbullakët",
       "circle": "Rreth",
       "leaf": "Gjethe",
-      "dots": "Pika",
-      "drop": "Pikë",
       "chamfer": "Tetëkëndësh"
     },
     "cornerInner": {
       "square": "Katror",
       "rounded": "I rrumbullakosur",
       "circle": "Rreth",
-      "diamond": "Romb",
-      "heart": "Zemër",
-      "star": "Yll",
       "leaf": "Gjethe",
-      "chamfer": "Tetëkëndësh",
-      "plus": "Plus",
-      "flower": "Lule"
+      "chamfer": "Tetëkëndësh"
     },
     "frame": {
       "none": "Pa kornizë",
       "label": "Etiketë poshtë",
       "labelTop": "Etiketë sipër",
       "bubble": "Flluskë",
-      "script": "Me dorë",
       "badge": "Stemë e rrumbullakët",
       "tag": "Etiketë me shigjetë",
       "scanner": "Skaner",
@@ -552,48 +524,29 @@
       "ticket": "Biletë",
       "stamp": "Pullë",
       "polaroid": "Polaroid",
-      "phone": "Telefon",
       "coffee": "Gotë kafeje",
       "chalkboard": "Dërrasë",
-      "cutlery": "Pjatë & takëm",
-      "noodles": "Kuti për të marrë",
       "pizza": "Kuti pice",
       "bag": "Çantë blerjesh",
       "gift": "Dhuratë",
       "pricetag": "Etiketë çmimi",
-      "envelope": "Zarf",
-      "calendar": "Kalendar",
-      "receipt": "Faturë",
-      "box": "Pako",
       "heart": "Zemër",
       "ornament": "Top Krishtlindjesh",
       "balloons": "Tullumbace",
       "confetti": "Konfeti",
-      "pumpkin": "Kungull",
-      "pin": "Pin vendndodhjeje",
-      "laptop": "Laptop",
-      "hanger": "Varëse dere"
-    },
-    "check": {
-      "low": "Kontrast i pamjaftueshëm: errëso kodin ose ndriço sfondin.",
-      "inverted": "Kod i çelët në sfond të errët: jo çdo telefon e lexon. Ndërro ngjyrat.",
-      "transparent": "Sfond transparent: printoje në sipërfaqe të çelët.",
-      "fancy": "Forma të veçanta: skanoje një herë me telefon për siguri."
+      "pumpkin": "Kungull"
     },
     "fgroup": {
       "basic": "Bazë",
       "food": "Ushqim & pije",
       "shop": "Dyqan & postë",
-      "party": "Festa",
-      "more": "Të tjera"
+      "party": "Festa"
     },
     "font": {
       "auto": "Auto",
-      "modern": "Moderne",
       "hand": "Me dorë",
       "serif": "Klasike",
-      "bold": "E fortë",
-      "round": "Lozonjare"
+      "bold": "E fortë"
     },
     "tgroup": {
       "basic": "Bazë",

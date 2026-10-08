@@ -127,11 +127,8 @@ var DesignPanel = (function () {
       pane('colors', '<div class="dz-sub">' + t('dz.lbl.pattern') + '</div>' + tiles('pattern', DESIGN_PATTERNS, sw('pattern'), 'small') +
         '<div class="dz-quick"><button type="button" class="pw-act" data-use-page>' + t('dz.lbl.usePage') + '</button></div>' +
         colorRow('color', t('dz.lbl.codeColor')) +
-        '<div class="dz-seg" role="radiogroup" aria-label="' + esc(t('dz.lbl.gradient')) + '"><span>' + t('dz.lbl.gradient') + '</span>' +
-          ['', 'linear', 'radial'].map(function (g) { return '<button type="button" data-d="gradient" data-v="' + g + '">' + t('dz.grad.' + (g || 'none')) + '</button>'; }).join('') + '</div>' +
+        '<label class="tg dz-check"><input type="checkbox" data-grad><span class="sw-ui"></span><span>' + t('dz.lbl.gradient') + '</span></label>' +
         '<div class="dz-when" data-when="gradient">' + colorRow('color2', t('dz.lbl.color2')) + '</div>' +
-        colorRow('background', t('dz.lbl.background')) +
-        '<label class="tg dz-check"><input type="checkbox" data-bool="transparent"><span class="sw-ui"></span><span>' + t('dz.lbl.transparent') + '</span></label>' +
         '<div class="dz-sub">' + t('dz.tab.decor') + '</div>' + tiles('decor', DESIGN_DECOR, function (v) {
           return v ? '<span class="dz-mini">' + QRRender.svg(DESIGN_SAMPLE, { decor: v, color: '#1e293b' }) + '</span>' : '<span class="dz-none"></span>';
         }, 'decor')) +
@@ -144,15 +141,12 @@ var DesignPanel = (function () {
         }).join('') +
         '<div class="dz-when" data-when="frame"><div class="field"><label for="dzFrameText">' + t('dz.lbl.frameText') + '</label><input id="dzFrameText" maxlength="32" data-text="frameText" value="' + esc(d.frameText) + '" placeholder="' + esc(t('dz.text.scan')) + '"></div>' +
         '<div class="dz-seg"><span>' + t('dz.lbl.frameFont') + '</span>' + FRAME_FONTS.map(function (fo) { return '<button type="button" data-d="frameFont" data-v="' + fo + '" class="ff-' + (fo || 'auto') + '">' + t('dz.font.' + (fo || 'auto')) + '</button>'; }).join('') + '</div>' +
-        colorRow('frameColor', t('dz.lbl.frameColor')) +
-        '<label class="tg dz-check"><input type="checkbox" data-bool="frameGradient"><span class="sw-ui"></span><span>' + t('dz.lbl.frameGradient') + '</span></label>' +
-        '<div class="dz-when" data-when="frameGradient">' + colorRow('frameColor2', t('dz.lbl.color2')) + '</div></div>') +
+        colorRow('frameColor', t('dz.lbl.frameColor')) + '</div>') +
       pane('corners', '<div class="dz-sub">' + t('dz.lbl.outer') + '</div>' + tiles('cornerOuter', DESIGN_OUTER, sw('cornerOuter'), 'small') +
         '<div class="dz-sub">' + t('dz.lbl.inner') + '</div>' + tiles('cornerInner', DESIGN_INNER, sw('cornerInner'), 'small') +
-        colorRow('cornerColor', t('dz.lbl.outerColor'), true) + colorRow('cornerInnerColor', t('dz.lbl.innerColor'), true));
+        colorRow('cornerColor', t('dz.lbl.cornerColor'), true));
 
-    return '<div class="dz-note" id="dzNote" role="status"></div>' +
-      '<section class="dz-block">' + styles + '</section>' +
+    return '<section class="dz-block">' + styles + '</section>' +
       '<section class="dz-block" id="dzLogoBlock">' + logo + '</section>' +
       '<section class="dz-block" id="dzOwn">' + step(3, t('dz.step.own')) + tabsBar + panes + '</section>' +
       '<div class="dz-unique" id="dzUnique"></div>';
@@ -169,20 +163,15 @@ var DesignPanel = (function () {
       r.querySelector('.ap-val i').style.background = shown; r.querySelector('.ap-val em').textContent = v ? v.toUpperCase() : t(k === 'frameColor2' ? 'dz.font.auto' : 'dz.lbl.same');
       var same = r.querySelector('[data-same]'); if (same) same.hidden = !v;
     });
-    el.querySelectorAll('[data-bool]').forEach(function (c) { c.checked = !!d[c.getAttribute('data-bool')]; });
+    var gr = el.querySelector('[data-grad]'); if (gr) gr.checked = !!d.gradient;
     var ft = el.querySelector('#dzFrameText'); if (ft && document.activeElement !== ft) ft.value = d.frameText || '';
-    var c = QRRender.check(d), note = el.querySelector('#dzNote');
-    note.className = 'dz-note ' + c.level; note.hidden = c.level === 'ok';          // alleen tonen als er iets is om op te letten
-    note.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17v.01"/></svg>' +
-      '<span>' + c.notes.map(function (k) { return t(k); }).join(' ') + '</span>';
     // Een gekozen assistent-variant blijft alleen gemarkeerd zolang het ontwerp nog hetzelfde is
     if (ai.out && ai.out.ok) el.querySelectorAll('[data-var]').forEach(function (b) {
       var v = ai.out.variants[+b.getAttribute('data-var')];
       b.setAttribute('aria-checked', String(!!v && sameDesign(v, d)));
     });
     var u = el.querySelector('#dzUnique'), link = encodeQR(state);
-    if (u) u.innerHTML = (c.level === 'ok' ? '<b class="dz-ok">' + t('dz.lbl.contrastOk') + '</b> · ' : '') +
-      (/^https?:\/\//.test(link) ? '<span>' + t('dz.lbl.unique') + '</span> <code>' + esc(link.replace(/^https?:\/\//, '')) + '</code>' : '<span>' + t('dz.lbl.uniqueStatic') + '</span>');
+    if (u) u.innerHTML = (/^https?:\/\//.test(link) ? '<span>' + t('dz.lbl.unique') + '</span> <code>' + esc(link.replace(/^https?:\/\//, '')) + '</code>' : '<span>' + t('dz.lbl.uniqueStatic') + '</span>');
     var a = el.querySelector('.actions'); if (a) a.outerHTML = Actions.html(state);
   }
   function sameDesign(a, b) {
@@ -194,7 +183,7 @@ var DesignPanel = (function () {
     pick.innerHTML = ColorPicker.html(key, true);
     ColorPicker.mount(pick.querySelector('.cp'), {
       value: d[key] || (key === 'cornerInnerColor' && d.cornerColor) || d.color,
-      onChange: function (v) { actions.setDesign(key, v); },
+      onChange: function (v) { if (key === 'cornerColor') { actions.applyDesign(Object.assign({}, store.get().design, { cornerColor: v, cornerInnerColor: '', themeId: '' })); } else actions.setDesign(key, v); },
       onPreview: function (v) { var o = null; if (v) { o = {}; o[key] = v; } actions.previewDesign(o); }
     });
   }
@@ -244,7 +233,7 @@ var DesignPanel = (function () {
       if (opt) { actions.previewDesign(null); actions.setDesign(opt.getAttribute('data-d'), opt.getAttribute('data-v')); if (opt.getAttribute('data-d') === 'frame' && !s.design.frameText) actions.setDesign('frameText', t('dz.text.scan')); }
       if (th) { var theme = themeById(th.getAttribute('data-theme')); actions.previewDesign(null); actions.applyDesign(Object.assign(themeDesign(theme, s), { logo: s.design.logo || '', themeId: theme.id })); }
       if (co) { var k = co.getAttribute('data-color-open'); el.querySelectorAll('.dz-color').forEach(function (r) { r.classList.remove('open'); r.querySelector('.ap-pick').innerHTML = ''; }); colorOpen = colorOpen === k ? null : k; if (colorOpen) { el.querySelector('[data-color="' + k + '"]').classList.add('open'); mountColor(el, k); } }
-      if (same) actions.setDesign(same.getAttribute('data-same'), '');
+      if (same) actions.applyDesign(Object.assign({}, s.design, { cornerColor: '', cornerInnerColor: '', themeId: '' }));
       var tgb = e.target.closest('[data-tgroup]');
       if (tgb) { themeGroup = tgb.getAttribute('data-tgroup'); el.querySelectorAll('[data-tgroup]').forEach(function (b) { b.setAttribute('aria-selected', String(b === tgb)); }); el.querySelectorAll('[data-tg]').forEach(function (x) { x.hidden = x.getAttribute('data-tg') !== themeGroup; }); }
       var fg = e.target.closest('[data-fgroup]');
@@ -264,7 +253,11 @@ var DesignPanel = (function () {
         else runAssistant(el, rf.getAttribute('data-cmd'), s.design);
       }
     });
-    el.addEventListener('change', function (e) { var b = e.target.getAttribute('data-bool'); if (b) actions.setDesign(b, e.target.checked); });
+    el.addEventListener('change', function (e) {
+      if (!e.target.hasAttribute('data-grad')) return;
+      var d = store.get().design;
+      actions.applyDesign(Object.assign({}, d, { gradient: e.target.checked ? 'linear' : '', color2: d.color2 || d.cornerColor || '#2563eb', themeId: '' }));
+    });
     el.addEventListener('input', function (e) {
       if (e.target.id === 'dzAiText') { ai.text = e.target.value; return; }
       var k = e.target.getAttribute('data-text'); if (k) { e.stopPropagation(); actions.setDesign(k, e.target.value.slice(0, 32)); }
