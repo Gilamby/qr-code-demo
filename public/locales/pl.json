@@ -222,6 +222,11 @@
       "cta": "Połącz",
       "alert": "Połącz z siecią Wi-Fi",
       "cancel": "Anuluj"
+    },
+    "toggle": {
+      "preview": "Podgląd",
+      "qr": "Kod QR",
+      "needed": "Najpierw uzupełnij wymagane pola"
     }
   },
   "hero": {

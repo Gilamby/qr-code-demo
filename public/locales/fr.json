@@ -222,6 +222,11 @@
       "cta": "Se connecter",
       "alert": "Rejoindre le réseau Wi-Fi",
       "cancel": "Annuler"
+    },
+    "toggle": {
+      "preview": "Aperçu",
+      "qr": "QR code",
+      "needed": "Remplis d'abord les champs obligatoires"
     }
   },
   "hero": {

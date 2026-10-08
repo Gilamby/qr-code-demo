@@ -66,6 +66,8 @@ function phoneValues(type, state, example) {
 function renderPreview(state) {
   var ex = state.step === 'type', type = getType(ex && state.hoverTypeId ? state.hoverTypeId : state.typeId);
   if (ex && previewScreen(type)) return previewScreen(type);
+  // Stap 2/3 met de schakelaar op "QR-code": de echte QR-code groot op de telefoon, met de gekozen kleuren.
+  if (!ex && state.phoneView === 'qr') return '<div class="ph ph-qr" style="background:' + state.design.background + '">' + PHONE.statusBar(luminance(state.design.background) < 0.4) + '<div class="qr-full">' + DesignPanel.qrSvg(encodeQR(state), state.design) + '</div></div>';
   if (PHONE[type.id]) return PHONE[type.id](phoneValues(type, state, ex), ex, state);
   return TEMPLATES[type.previewType](type, previewRows(type, phoneValues(type, state, true)));
 }

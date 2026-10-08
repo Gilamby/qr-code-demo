@@ -222,6 +222,11 @@
       "cta": "Verbinden",
       "alert": "Verbinden met wifi-netwerk",
       "cancel": "Annuleer"
+    },
+    "toggle": {
+      "preview": "Voorbeeld",
+      "qr": "QR-code",
+      "needed": "Vul eerst de verplichte velden in"
     }
   },
   "hero": {

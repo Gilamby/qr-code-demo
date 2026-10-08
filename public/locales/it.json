@@ -222,6 +222,11 @@
       "cta": "Connetti",
       "alert": "Connettiti alla rete Wi-Fi",
       "cancel": "Annulla"
+    },
+    "toggle": {
+      "preview": "Anteprima",
+      "qr": "QR code",
+      "needed": "Compila prima i campi obbligatori"
     }
   },
   "hero": {

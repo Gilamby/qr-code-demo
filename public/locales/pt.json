@@ -222,6 +222,11 @@
       "cta": "Ligar",
       "alert": "Ligar à rede Wi-Fi",
       "cancel": "Cancelar"
+    },
+    "toggle": {
+      "preview": "Pré-visualização",
+      "qr": "Código QR",
+      "needed": "Preenche primeiro os campos obrigatórios"
     }
   },
   "hero": {

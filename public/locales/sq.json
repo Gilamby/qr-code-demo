@@ -222,6 +222,11 @@
       "cta": "Lidhu",
       "alert": "Lidhu me rrjetin Wi-Fi",
       "cancel": "Anulo"
+    },
+    "toggle": {
+      "preview": "Pamje",
+      "qr": "Kodi QR",
+      "needed": "Plotëso fillimisht fushat e detyrueshme"
     }
   },
   "hero": {

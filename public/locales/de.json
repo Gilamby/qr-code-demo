@@ -222,6 +222,11 @@
       "cta": "Verbinden",
       "alert": "WLAN-Netzwerk verbinden",
       "cancel": "Abbrechen"
+    },
+    "toggle": {
+      "preview": "Vorschau",
+      "qr": "QR-Code",
+      "needed": "Fülle zuerst die Pflichtfelder aus"
     }
   },
   "hero": {

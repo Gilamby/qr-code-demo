@@ -37,6 +37,21 @@
     var sw = e.target.closest('[data-design]'); if (sw) return actions.setDesign(sw.getAttribute('data-design'), sw.getAttribute('data-value'));
     if (e.target.closest('[data-create]')) actions.create();
   });
+  // Schakelaar boven de telefoon: Voorbeeld | QR-code (alleen in stap 2 en 3)
+  var pvToggle = document.getElementById('pvToggle');
+  function drawToggle(state) {
+    var show = state.step !== 'type', ready = !missingRequired(state).length;
+    pvToggle.hidden = !show; document.querySelector('.preview').classList.toggle('with-toggle', show);
+    if (!show) return;
+    pvToggle.innerHTML = ['preview', 'qr'].map(function (v) {
+      var dis = v === 'qr' && !ready;
+      return '<button type="button" role="tab" data-view="' + v + '" aria-selected="' + (state.phoneView === v) + '"' + (dis ? ' disabled title="' + esc(t('pv.toggle.needed')) + '"' : '') + '>' + t('pv.toggle.' + v) + '</button>';
+    }).join('');
+  }
+  pvToggle.addEventListener('click', function (e) { var b = e.target.closest('[data-view]'); if (b && !b.disabled) actions.setPhoneView(b.getAttribute('data-view')); });
+  store.subscribe(function (s, p) { if (s.step !== p.step || s.phoneView !== p.phoneView || s.content !== p.content) drawToggle(s); if (s.phoneView !== p.phoneView && s.step === p.step) drawPhone(s); });
+  i18n.onChange(function () { drawToggle(store.get()); });
+
   // Telefoon: slot-scherm openen en weer vergrendelen
   screen.addEventListener('click', function (e) {
     if (e.target.closest('[data-unlock]')) actions.unlockPreview(true);

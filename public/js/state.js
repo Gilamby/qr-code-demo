@@ -17,7 +17,8 @@ var store = createStore({
   pageColor: '#2bb5f0',                         // hoofdkleur van de pagina in de telefoon
   accentColor: '#0f172a',                       // knopkleur
   hoverTheme: null,
-  previewUnlocked: false,                       // telefoon: slot-scherm overgeslagen (alleen voor de preview)                             // tijdelijk voorbeeld { pc, ac } zolang de muis over een kleur gaat
+  previewUnlocked: false,
+  phoneView: 'preview',                         // stap 2/3: 'preview' (de pagina) of 'qr' (de QR-code)                       // telefoon: slot-scherm overgeslagen (alleen voor de preview)                             // tijdelijk voorbeeld { pc, ac } zolang de muis over een kleur gaat
   hoverTypeId: null,                            // tegel waar de muis in stap 1 boven hangt                             // tijdelijk voorbeeld zolang de muis over de kleurkiezer gaat
   created: false,
   saving: false,
@@ -27,13 +28,14 @@ var store = createStore({
 var actions = {
   selectType: function (id) { store.set({ typeId: id, created: false, saved: null, error: null }); },
   hoverType: function (id) { if (store.get().hoverTypeId !== id) store.set({ hoverTypeId: id }); },
-  goTo: function (step) { store.set({ step: step, hoverTypeId: null }); },
+  goTo: function (step) { store.set({ step: step, hoverTypeId: null, previewUnlocked: false, phoneView: step === 'design' ? 'qr' : 'preview' }); },
   setField: function (key, value) {
     var s = store.get(), c = Object.assign({}, s.content), cur = Object.assign({}, c[s.typeId] || {});
     cur[key] = value; c[s.typeId] = cur; store.set({ content: c, created: false, saved: null, error: null, previewUnlocked: key === 'password' ? false : s.previewUnlocked });
     if (value) { var el = document.querySelector('[data-field="' + key + '"].invalid'); if (el) el.classList.remove('invalid'); }
   },
   setColor: function (target, c) { var p = { created: false, saved: null, error: null }; p[target === 'ac' ? 'accentColor' : 'pageColor'] = c; store.set(p); },
+  setPhoneView: function (v) { store.set({ phoneView: v }); },
   unlockPreview: function (on) { store.set({ previewUnlocked: !!on }); },
   setTheme: function (pc, ac) { store.set({ pageColor: pc, accentColor: ac, created: false, saved: null, error: null }); },
   previewTheme: function (o) { var cur = store.get().hoverTheme; if (JSON.stringify(cur) !== JSON.stringify(o)) store.set({ hoverTheme: o }); },

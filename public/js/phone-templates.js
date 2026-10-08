@@ -92,6 +92,7 @@ var PHONE = (function () {
   }
 
   return {
+    statusBar: statusBar,
     /* ---------- WhatsApp: precies het chatscherm dat opent ---------- */
     whatsapp: function (c, ex) {
       var msgs = ex
