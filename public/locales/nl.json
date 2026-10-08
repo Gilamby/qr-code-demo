@@ -146,7 +146,9 @@
       "hoursSample": "Ma – za 08:00 – 18:00",
       "hours": "Openingstijden",
       "openNow": "Nu open",
-      "closedNow": "Nu gesloten"
+      "closedNow": "Nu gesloten",
+      "showMap": "Toon op kaart",
+      "follow": "Volg ons"
     },
     "video": {
       "title": "Een dag bij Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Openingstijden",
     "company": "Bedrijf",
     "website": "Website",
-    "cover": "Omslagfoto"
+    "cover": "Omslagfoto",
+    "socials": "Social media"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -304,13 +307,41 @@
     "colScans": "Scans"
   },
   "appearance": {
-    "title": "Kleur van je pagina",
-    "lead": "Beweeg over de kleuren om ze live op de telefoon te zien. Klik om te kiezen."
+    "title": "Kleuren",
+    "lead": "Kies een thema of maak je eigen combinatie. Beweeg erover om het live te zien.",
+    "themes": "Kleurthema's",
+    "fromPhoto": "Uit je foto",
+    "primary": "Hoofdkleur",
+    "button": "Knopkleur",
+    "swap": "Wissel kleuren"
   },
   "upload": {
     "choose": "Foto kiezen of hierheen slepen",
     "hint": "JPG of PNG, wordt automatisch verkleind",
     "remove": "Verwijderen",
     "error": "Deze foto kon niet worden geladen. Probeer een JPG of PNG."
+  },
+  "hours": {
+    "closed": "Gesloten",
+    "same": "Zelfde tijden als maandag voor alle dagen",
+    "addSlot": "Pauze toevoegen",
+    "removeSlot": "Pauze verwijderen",
+    "from": "van",
+    "to": "tot"
+  },
+  "address": {
+    "placeholder": "Zoek je adres, bv. Hoofdstraat 12, Amsterdam",
+    "pick": "Kies je adres uit de lijst.",
+    "none": "Geen adres gevonden. Probeer straat, huisnummer en plaats.",
+    "offline": "Adressen zoeken lukt nu niet. Dit adres wordt opgeslagen zonder controle.",
+    "ok": "✓ Gevonden op de kaart",
+    "unverified": "Adres niet gecontroleerd",
+    "searching": "Zoeken…"
+  },
+  "socials": {
+    "placeholder": "Link naar je {name}-pagina"
+  },
+  "validate": {
+    "required": "Dit veld is verplicht"
   }
 }

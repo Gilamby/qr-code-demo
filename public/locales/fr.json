@@ -146,7 +146,9 @@
       "hoursSample": "Lun – sam 08:00 – 18:00",
       "hours": "Horaires",
       "openNow": "Ouvert",
-      "closedNow": "Fermé"
+      "closedNow": "Fermé",
+      "showMap": "Voir sur la carte",
+      "follow": "Suis-nous"
     },
     "video": {
       "title": "Une journée au Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Horaires d'ouverture",
     "company": "Entreprise",
     "website": "Site web",
-    "cover": "Photo de couverture"
+    "cover": "Photo de couverture",
+    "socials": "Réseaux sociaux"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -304,13 +307,41 @@
     "colScans": "Scans"
   },
   "appearance": {
-    "title": "Couleur de ta page",
-    "lead": "Survole les couleurs pour les voir en direct sur le téléphone. Clique pour choisir."
+    "title": "Couleurs",
+    "lead": "Choisis un thème ou crée ta combinaison. Survole pour voir en direct.",
+    "themes": "Thèmes de couleur",
+    "fromPhoto": "Depuis ta photo",
+    "primary": "Couleur principale",
+    "button": "Couleur du bouton",
+    "swap": "Inverser les couleurs"
   },
   "upload": {
     "choose": "Choisis une photo ou glisse-la ici",
     "hint": "JPG ou PNG, redimensionnée automatiquement",
     "remove": "Retirer",
     "error": "Impossible de charger cette photo. Essaie un JPG ou PNG."
+  },
+  "hours": {
+    "closed": "Fermé",
+    "same": "Horaires du lundi pour tous les jours",
+    "addSlot": "Ajouter une pause",
+    "removeSlot": "Retirer la pause",
+    "from": "de",
+    "to": "à"
+  },
+  "address": {
+    "placeholder": "Cherche ton adresse, ex. 12 rue de Rivoli, Paris",
+    "pick": "Choisis ton adresse dans la liste.",
+    "none": "Aucune adresse trouvée. Essaie rue, numéro et ville.",
+    "offline": "Recherche indisponible. L'adresse sera enregistrée sans vérification.",
+    "ok": "✓ Trouvée sur la carte",
+    "unverified": "Adresse non vérifiée",
+    "searching": "Recherche…"
+  },
+  "socials": {
+    "placeholder": "Lien vers ta page {name}"
+  },
+  "validate": {
+    "required": "Champ obligatoire"
   }
 }

@@ -55,42 +55,6 @@ var PHONE = (function () {
   }
   function liveClock(offsetMin) { return '<span data-clock="' + (offsetMin || 0) + '">' + clock(offsetMin) + '</span>'; }
 
-  /* Openingstijden lezen: "Ma – za 08:00 – 18:00", "Mon-Fri 9-17, Sat 10:00-16:00", ...
-     Geeft 'open', 'closed' of null (niet te lezen). */
-  var DAYS = {
-    nl: ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'], en: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-    de: ['mo', 'di', 'mi', 'do', 'fr', 'sa', 'so'], es: ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'],
-    fr: ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'], it: ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'],
-    pl: ['pon', 'wt', 'sr', 'czw', 'pt', 'sob', 'nd'], pt: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],
-    el: ['δευ', 'τρι', 'τετ', 'πεμ', 'παρ', 'σαβ', 'κυρ'], sq: ['hen', 'mar', 'mer', 'enj', 'pre', 'sht', 'die']
-  };
-  var plain = function (x) { return x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); };
-  function dayIndex(word) {
-    var lists = [DAYS[i18n.lang()] || [], DAYS.en, DAYS.nl];
-    for (var l = 0; l < lists.length; l++) for (var i = 0; i < 7; i++) if (word.indexOf(lists[l][i]) === 0) return i;
-    return -1;
-  }
-  function openStatus(text) {
-    if (!text) return null;
-    var now = new Date(), today = (now.getDay() + 6) % 7, mins = now.getHours() * 60 + now.getMinutes(), found = false, coversToday = false, open = false;
-    plain(text).split(/[,;\n]/).forEach(function (seg) {
-      var re = /(\d{1,2})(?:[:.h](\d{2}))?\s*(?:u|h)?\s*[-–—]\s*(\d{1,2})(?:[:.h](\d{2}))?/g, m, ranges = [];
-      while ((m = re.exec(seg))) ranges.push([+m[1] * 60 + (+m[2] || 0), +m[3] * 60 + (+m[4] || 0)]);
-      if (!ranges.length) return;
-      found = true;
-      var dayPart = seg.replace(re, ' '), days = [];
-      (dayPart.match(/[a-zα-ω]+/g) || []).forEach(function (w) { var d = dayIndex(w); if (d >= 0) days.push(d); });
-      var applies = !days.length || (days.length >= 2 && /[-–—]|tot|to|bis|au|al|a\b/.test(dayPart)
-        ? (days[0] <= days[1] ? today >= days[0] && today <= days[1] : today >= days[0] || today <= days[1])
-        : days.indexOf(today) >= 0);
-      if (!applies) return;
-      coversToday = true;
-      ranges.forEach(function (r) { if (r[1] <= r[0] ? (mins >= r[0] || mins < r[1]) : (mins >= r[0] && mins < r[1])) open = true; });
-    });
-    if (!found) return null;
-    return coversToday && open ? 'open' : 'closed';
-  }
-
   function statusBar(light) {
     return '<div class="sb' + (light ? ' light' : '') + '"><b>' + liveClock(0) + '</b><span>' +
       '<svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5.5" width="3" height="6.5" rx=".6"/><rect x="10" y="3" width="3" height="9" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg>' +
@@ -219,21 +183,31 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Bedrijf: bedrijfspagina met openingstijden en contact ---------- */
+    /* ---------- Bedrijf: bedrijfspagina met openingstijden, kaart, contact en socials ---------- */
     business: function (c, ex) {
       var row = function (icon, main, sub) { return '<div class="bz-row"><span class="bz-ic">' + ic(icon) + '</span><span><b>' + main + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</span></div>'; };
+      var hrs = HOURS.parse(c.hours), st = HOURS.status(hrs), today = (new Date().getDay() + 6) % 7;
+      var addr = ADDRESS.parse(c.address), socials = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in socials; });
+      var table = hrs.map(function (d, i) {
+        var tm = d.o ? HOURS.fmt(d.f) + ' – ' + HOURS.fmt(d.t) + (d.f2 && d.t2 ? '<br>' + HOURS.fmt(d.f2) + ' – ' + HOURS.fmt(d.t2) : '') : esc(t('hours.closed'));
+        return '<div class="bz-day' + (i === today ? ' today' : '') + (d.o ? '' : ' off') + '"><span>' + esc(HOURS.dayName(i)) + '</span><span>' + tm + '</span></div>';
+      }).join('');
       return '<div class="ph ph-bz">' +
         '<div class="bz-band">' + statusBar(true) + '<div class="bz-top">' + ic('back') + '<b>' + v(c.name, '120px') + '</b>' + ic('share') + '</div></div>' +
         '<div class="bz-scroll">' +
           '<div class="bz-card"><div class="bz-cover">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : storefront(c.name)) + '</div>' +
             '<h4>' + v(c.name, '55%') + '</h4><p>' + (c.description ? esc(c.description) : '<i class="sk"></i><i class="sk" style="width:75%"></i>') + '</p>' +
-            '<div class="bz-cta">' + esc(t('pv.business.cta')) + '</div></div>' +
+            (addr ? '<a class="bz-cta" href="' + ADDRESS.mapUrl(addr) + '" target="_blank" rel="noopener">' + esc(t('pv.business.cta')) + '</a>' : '<div class="bz-cta">' + esc(t('pv.business.cta')) + '</div>') + '</div>' +
+          '<div class="bz-list bz-hours">' +
+            row('clock', esc(t('pv.business.hours')) + ' · <em class="bz-status ' + st + '">' + esc(t(st === 'open' ? 'pv.business.openNow' : 'pv.business.closedNow')) + '</em>') +
+            '<div class="bz-table">' + table + '</div></div>' +
           '<div class="bz-list">' +
-            row('clock', esc(t('pv.business.hours')) + (function (st) { return st ? ' · <em class="bz-status ' + st + '">' + esc(t(st === 'open' ? 'pv.business.openNow' : 'pv.business.closedNow')) + '</em>' : ''; })(openStatus(c.hours)), v(c.hours, '70%')) +
-            row('pin', v(c.address, '75%')) +
+            '<div class="bz-row"><span class="bz-ic">' + ic('pin') + '</span><span>' + (addr ? '<b class="wrap">' + esc(addr.l) + '</b><a class="bz-map" href="' + ADDRESS.mapUrl(addr) + '" target="_blank" rel="noopener">' + esc(t('pv.business.showMap')) + '</a>' : '<b><i class="sk" style="width:80%"></i></b><small><i class="sk" style="width:40%"></i></small>') + '</span></div>' +
             row('call', v(c.phone, '55%')) +
             row('mail', v(c.email, '65%')) +
+            row('globe', v(c.website ? c.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '', '50%')) +
           '</div>' +
+          (nets.length ? '<div class="bz-list bz-soc"><b>' + esc(t('pv.business.follow')) + '</b><div>' + nets.map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div></div>' : '') +
         '</div>' +
         '<span class="bz-fab">' + ic('dots') + '</span>' +
       '</div>';

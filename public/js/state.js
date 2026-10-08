@@ -14,8 +14,9 @@ var store = createStore({
   typeId: 'whatsapp',
   content: {},                                   // { [typeId]: { [fieldKey]: waarde } }
   design: { color: DESIGN_OPTIONS.colors[0], background: DESIGN_OPTIONS.backgrounds[0] },
-  pageColor: '#2bb5f0',                         // kleur van de pagina in de telefoon
-  hoverColor: null,
+  pageColor: '#2bb5f0',                         // hoofdkleur van de pagina in de telefoon
+  accentColor: '#0f172a',                       // knopkleur
+  hoverTheme: null,                             // tijdelijk voorbeeld { pc, ac } zolang de muis over een kleur gaat
   hoverTypeId: null,                            // tegel waar de muis in stap 1 boven hangt                             // tijdelijk voorbeeld zolang de muis over de kleurkiezer gaat
   created: false,
   saving: false,
@@ -29,16 +30,18 @@ var actions = {
   setField: function (key, value) {
     var s = store.get(), c = Object.assign({}, s.content), cur = Object.assign({}, c[s.typeId] || {});
     cur[key] = value; c[s.typeId] = cur; store.set({ content: c, created: false, saved: null, error: null });
+    if (value) { var el = document.querySelector('[data-field="' + key + '"].invalid'); if (el) el.classList.remove('invalid'); }
   },
-  setPageColor: function (c) { store.set({ pageColor: c, created: false, saved: null, error: null }); },
-  previewPageColor: function (c) { if (store.get().hoverColor !== c) store.set({ hoverColor: c }); },
+  setColor: function (target, c) { var p = { created: false, saved: null, error: null }; p[target === 'ac' ? 'accentColor' : 'pageColor'] = c; store.set(p); },
+  setTheme: function (pc, ac) { store.set({ pageColor: pc, accentColor: ac, created: false, saved: null, error: null }); },
+  previewTheme: function (o) { var cur = store.get().hoverTheme; if (JSON.stringify(cur) !== JSON.stringify(o)) store.set({ hoverTheme: o }); },
   setDesign: function (key, value) { var d = Object.assign({}, store.get().design); d[key] = value; store.set({ design: d, created: false, saved: null, error: null }); },
   create: function () {
     var s = store.get();
     store.set({ saving: true, error: null });
     api.available().then(function (online) {
       if (!online) { store.set({ saving: false, created: true, saved: null }); return; }   // demo zonder server: niets opslaan
-      return api.createQrCode({ typeId: s.typeId, content: s.content[s.typeId] || {}, design: Object.assign({ pageColor: s.pageColor }, s.design) })
+      return api.createQrCode({ typeId: s.typeId, content: s.content[s.typeId] || {}, design: Object.assign({ pageColor: s.pageColor, accentColor: s.accentColor }, s.design) })
         .then(function (record) { store.set({ saving: false, created: true, saved: record }); });
     }).catch(function () { store.set({ saving: false, error: 'design.saveError' }); });
   }

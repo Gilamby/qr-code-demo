@@ -6,6 +6,11 @@ const HEX = /^#[0-9a-f]{6}$/i;
 const MAX_TEXT = 500;
 const BACKGROUNDS = ['optimasys', 'aurora', 'city', 'mountains', 'office', 'cafe', 'restaurant', 'custom'];
 
+const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
+const SOCIAL_NETWORKS = ['instagram', 'facebook', 'tiktok', 'linkedin', 'x', 'youtube', 'whatsapp', 'google'];
+function validHours(arr) {
+  return Array.isArray(arr) && arr.length === 7 && arr.every((d) => d && (!d.o || (TIME.test(d.f) && TIME.test(d.t) && ((!d.f2 && !d.t2) || (TIME.test(d.f2) && TIME.test(d.t2))))));
+}
 function isUrl(v) { try { const u = new URL(v); return u.protocol === 'http:' || u.protocol === 'https:'; } catch (e) { return false; } }
 
 function validateQrCode(body) {
@@ -19,6 +24,21 @@ function validateQrCode(body) {
     let v = input[field.key];
     if (v == null || String(v).trim() === '') continue;        // leeg = voorbeeldwaarde gebruiken
     v = String(v).trim();
+    if (field.type === 'hours') {
+      let ok = false; try { ok = validHours(JSON.parse(v)); } catch (e) {}
+      if (!ok) errors.push(field.key + ': invalid opening hours');
+      content[field.key] = v; continue;
+    }
+    if (field.type === 'address') {
+      let a = null; try { a = JSON.parse(v); } catch (e) {}
+      if (!a || typeof a.l !== 'string' || !a.l.trim() || a.l.length > 300 || (a.lat != null && !(Math.abs(a.lat) <= 90 && Math.abs(a.lon) <= 180))) errors.push(field.key + ': must be an address chosen from the search');
+      content[field.key] = v; continue;
+    }
+    if (field.type === 'socials') {
+      let o = null; try { o = JSON.parse(v); } catch (e) {}
+      if (!o || typeof o !== 'object' || Array.isArray(o) || Object.keys(o).some((k) => !SOCIAL_NETWORKS.includes(k) || (o[k] && !isUrl(o[k])))) errors.push(field.key + ': invalid social links');
+      content[field.key] = v; continue;
+    }
     if (field.type === 'image') {
       if (!/^data:image\/(jpeg|png|webp);base64,/.test(v) || v.length > 3000000) errors.push(field.key + ': must be a JPG/PNG/WebP image under 3 MB');
       content[field.key] = v; continue;
@@ -31,14 +51,17 @@ function validateQrCode(body) {
     content[field.key] = v;
   }
   for (const key of Object.keys(input)) if (!type.fields.some((f) => f.key === key)) errors.push(key + ': unknown field');
+  for (const f of type.fields) if (f.required && !content[f.key]) errors.push(f.key + ': required');
 
   const design = body.design || {};
   if (!HEX.test(design.color || '')) errors.push('design.color: must be #rrggbb');
   if (!HEX.test(design.background || '')) errors.push('design.background: must be #rrggbb');
 
   if (design.pageColor !== undefined && !HEX.test(design.pageColor)) errors.push('design.pageColor: must be #rrggbb');
+  if (design.accentColor !== undefined && !HEX.test(design.accentColor)) errors.push('design.accentColor: must be #rrggbb');
   const cleanDesign = { color: design.color, background: design.background };
   if (design.pageColor) cleanDesign.pageColor = design.pageColor;
+  if (design.accentColor) cleanDesign.accentColor = design.accentColor;
   return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: cleanDesign } };
 }
 

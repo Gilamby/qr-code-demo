@@ -146,7 +146,9 @@
       "hoursSample": "Lun – sab 08:00 – 18:00",
       "hours": "Orari",
       "openNow": "Aperto ora",
-      "closedNow": "Chiuso ora"
+      "closedNow": "Chiuso ora",
+      "showMap": "Mostra sulla mappa",
+      "follow": "Seguici"
     },
     "video": {
       "title": "Una giornata al Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Orari di apertura",
     "company": "Azienda",
     "website": "Sito web",
-    "cover": "Foto di copertina"
+    "cover": "Foto di copertina",
+    "socials": "Social"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -304,13 +307,41 @@
     "colScans": "Scansioni"
   },
   "appearance": {
-    "title": "Colore della tua pagina",
-    "lead": "Passa sui colori per vederli dal vivo sul telefono. Clicca per scegliere."
+    "title": "Colori",
+    "lead": "Scegli un tema o crea la tua combinazione. Passa sopra per vederlo dal vivo.",
+    "themes": "Temi di colore",
+    "fromPhoto": "Dalla tua foto",
+    "primary": "Colore principale",
+    "button": "Colore pulsante",
+    "swap": "Scambia colori"
   },
   "upload": {
     "choose": "Scegli una foto o trascinala qui",
     "hint": "JPG o PNG, ridimensionata automaticamente",
     "remove": "Rimuovi",
     "error": "Impossibile caricare la foto. Prova un JPG o PNG."
+  },
+  "hours": {
+    "closed": "Chiuso",
+    "same": "Orari del lunedì per tutti i giorni",
+    "addSlot": "Aggiungi pausa",
+    "removeSlot": "Rimuovi pausa",
+    "from": "dalle",
+    "to": "alle"
+  },
+  "address": {
+    "placeholder": "Cerca il tuo indirizzo, es. Via Roma 12, Milano",
+    "pick": "Scegli l'indirizzo dall'elenco.",
+    "none": "Nessun indirizzo trovato. Prova via, numero e città.",
+    "offline": "Ricerca non disponibile. L'indirizzo sarà salvato senza verifica.",
+    "ok": "✓ Trovato sulla mappa",
+    "unverified": "Indirizzo non verificato",
+    "searching": "Ricerca…"
+  },
+  "socials": {
+    "placeholder": "Link alla tua pagina {name}"
+  },
+  "validate": {
+    "required": "Campo obbligatorio"
   }
 }

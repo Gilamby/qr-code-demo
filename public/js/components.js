@@ -43,17 +43,21 @@ var ContentForm = {
       '<button class="link-btn" type="button" data-go="type">' + t('actions.change') + '</button></div>' +
       '<form class="form" id="contentForm" novalidate>' + type.fields.map(function (f) {
         var id = 'f-' + type.id + '-' + f.key, label = t(f.label, { n: f.n }), v = values[f.key] != null ? values[f.key] : '';
-        if (f.type === 'image') return '<div class="field"><label for="' + id + '">' + label + '</label>' + ImageUpload.html(f, id, v) + '</div>';
+        if (f.required) label += '<span class="req" aria-hidden="true">*</span>';
+        var wrap = function (inner) { return '<div class="field" data-field="' + f.key + '"><label for="' + id + '">' + label + '</label>' + inner + '<small class="field-err">' + t('validate.required') + '</small></div>'; };
+        if (f.type === 'image') return wrap(ImageUpload.html(f, id, v));
+        if (f.type === 'hours') return wrap(HoursEditor.html(f, id, v));
+        if (f.type === 'address') return wrap(AddressSearch.html(f, id, v));
+        if (f.type === 'socials') return wrap(SocialsEditor.html(f, id, v));
         var input = f.type === 'select'
           ? '<select id="' + id + '" name="' + f.key + '">' + f.options.map(function (o) { var cur = v || f.sample; return '<option value="' + o.value + '"' + (o.value === cur ? ' selected' : '') + '>' + resolveSample(o.label) + '</option>'; }).join('') + '</select>'
           : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(resolveSample(f.sample)) + '" autocomplete="off">';
-        return '<div class="field"><label for="' + id + '">' + label + '</label>' + input + '</div>';
+        return wrap(input);
       }).join('') + '</form>' +
-      (type.page === false ? '' : '<section class="appearance"><h3>' + t('appearance.title') + '</h3><p>' + t('appearance.lead') + '</p>' + ColorPicker.html(t('appearance.title')) + '</section>') +
+      (type.page === false ? '' : '<section class="appearance" id="appearance"></section>') +
       Actions.html(state);
-    ImageUpload.mount(el, actions.setField);
-    var cp = el.querySelector('.cp');
-    if (cp) ColorPicker.mount(cp, { value: state.pageColor, onChange: actions.setPageColor, onPreview: actions.previewPageColor });
+    ImageUpload.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
+    var ap = el.querySelector('#appearance'); if (ap) Appearance.mount(ap);
   }
 };
 

@@ -8,14 +8,25 @@
   function drawPhone(state) {
     var type = getType(state.typeId);
     screen.innerHTML = renderPreview(state);
-    var pc = type.page === false ? '#2bb5f0' : (state.hoverColor || state.pageColor);
-    screen.style.setProperty('--pc', pc);
-    screen.style.setProperty('--pc-ink', luminance(pc) > 0.42 ? '#14161a' : '#ffffff');   // leesbare tekst op de paginakleur
+    var h = state.hoverTheme || {}, own = type.page !== false;
+    var pc = own ? (h.pc || state.pageColor) : '#2bb5f0', ac = own ? (h.ac || state.accentColor) : '#0f172a';
+    var ink = function (c) { return luminance(c) > 0.42 ? '#14161a' : '#ffffff'; };   // leesbare tekst op elke kleur
+    screen.style.setProperty('--pc', pc); screen.style.setProperty('--pc-ink', ink(pc));
+    screen.style.setProperty('--ac', ac); screen.style.setProperty('--ac-ink', ink(ac));
   }
 
   panel.addEventListener('click', function (e) {
     var card = e.target.closest('.qr-card'); if (card) return actions.selectType(card.getAttribute('data-type'));
-    var go = e.target.closest('[data-go]'); if (go) return actions.goTo(go.getAttribute('data-go'));
+    var go = e.target.closest('[data-go]');
+    if (go) {
+      var to = go.getAttribute('data-go'), st = store.get();
+      if (st.step === 'content' && STEPS.indexOf(to) > STEPS.indexOf('content')) {
+        var miss = missingRequired(st);
+        panel.querySelectorAll('[data-field]').forEach(function (f) { f.classList.toggle('invalid', miss.indexOf(f.getAttribute('data-field')) >= 0); });
+        if (miss.length) { var first = panel.querySelector('.field.invalid'); first.scrollIntoView({ block: 'center', behavior: 'smooth' }); var fi = first.querySelector('input'); if (fi && fi.type !== 'file') fi.focus({ preventScroll: true }); return; }
+      }
+      return actions.goTo(to);
+    }
     var sw = e.target.closest('[data-design]'); if (sw) return actions.setDesign(sw.getAttribute('data-design'), sw.getAttribute('data-value'));
     if (e.target.closest('[data-create]')) actions.create();
   });
@@ -34,7 +45,7 @@
 
   store.subscribe(function (state, prev) {
     var stepChanged = state.step !== prev.step, typeChanged = state.typeId !== prev.typeId;
-    if (state.hoverColor !== prev.hoverColor || state.pageColor !== prev.pageColor) { drawPhone(state); if (state.step === 'content') return; }
+    if (state.hoverTheme !== prev.hoverTheme || state.pageColor !== prev.pageColor || state.accentColor !== prev.accentColor) { drawPhone(state); if (state.step === 'content') return; }
     if (state.step === 'type' && state.hoverTypeId !== prev.hoverTypeId && !typeChanged) { drawPhone(state); return; }
     if (stepChanged) { renderAll(state, false); document.getElementById('heroTitle').scrollIntoView({ block: 'nearest' }); return; }
     if (state.step === 'type' && typeChanged) { TypeGrid.update(panel, state); renderHero(state); panel.querySelector('.actions').outerHTML = Actions.html(state); drawPhone(state); screen.classList.remove('swap'); void screen.offsetWidth; screen.classList.add('swap'); return; }

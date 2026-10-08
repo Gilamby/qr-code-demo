@@ -146,7 +146,9 @@
       "hoursSample": "Hën – Sht 08:00 – 18:00",
       "hours": "Orari",
       "openNow": "Hapur tani",
-      "closedNow": "Mbyllur tani"
+      "closedNow": "Mbyllur tani",
+      "showMap": "Shfaq në hartë",
+      "follow": "Na ndiq"
     },
     "video": {
       "title": "Një ditë në Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Orari",
     "company": "Kompania",
     "website": "Faqja web",
-    "cover": "Foto kopertine"
+    "cover": "Foto kopertine",
+    "socials": "Rrjetet sociale"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -304,13 +307,41 @@
     "colScans": "Skanime"
   },
   "appearance": {
-    "title": "Ngjyra e faqes sate",
-    "lead": "Kalo mbi ngjyrat për t’i parë drejtpërdrejt në telefon. Kliko për të zgjedhur."
+    "title": "Ngjyrat",
+    "lead": "Zgjidh një temë ose krijo kombinimin tënd. Kalo sipër për ta parë drejtpërdrejt.",
+    "themes": "Tema ngjyrash",
+    "fromPhoto": "Nga fotoja jote",
+    "primary": "Ngjyra kryesore",
+    "button": "Ngjyra e butonit",
+    "swap": "Ndërro ngjyrat"
   },
   "upload": {
     "choose": "Zgjidh një foto ose tërhiqe këtu",
     "hint": "JPG ose PNG, zvogëlohet automatikisht",
     "remove": "Hiq",
     "error": "Kjo foto nuk u ngarkua. Provo JPG ose PNG."
+  },
+  "hours": {
+    "closed": "Mbyllur",
+    "same": "Orari i së hënës për të gjitha ditët",
+    "addSlot": "Shto pushim",
+    "removeSlot": "Hiq pushimin",
+    "from": "nga",
+    "to": "deri"
+  },
+  "address": {
+    "placeholder": "Kërko adresën, p.sh. Rruga e Durrësit 12, Tiranë",
+    "pick": "Zgjidh adresën nga lista.",
+    "none": "Nuk u gjet adresa. Provo rrugën, numrin dhe qytetin.",
+    "offline": "Kërkimi nuk është i disponueshëm. Adresa do të ruhet pa verifikim.",
+    "ok": "✓ U gjet në hartë",
+    "unverified": "Adresë e paverifikuar",
+    "searching": "Duke kërkuar…"
+  },
+  "socials": {
+    "placeholder": "Lidhje me faqen tënde në {name}"
+  },
+  "validate": {
+    "required": "Fushë e detyrueshme"
   }
 }

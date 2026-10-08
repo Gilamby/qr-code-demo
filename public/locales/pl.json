@@ -146,7 +146,9 @@
       "hoursSample": "Pon – sob 08:00 – 18:00",
       "hours": "Godziny otwarcia",
       "openNow": "Teraz otwarte",
-      "closedNow": "Teraz zamknięte"
+      "closedNow": "Teraz zamknięte",
+      "showMap": "Pokaż na mapie",
+      "follow": "Obserwuj nas"
     },
     "video": {
       "title": "Dzień w Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Godziny otwarcia",
     "company": "Firma",
     "website": "Strona www",
-    "cover": "Zdjęcie w tle"
+    "cover": "Zdjęcie w tle",
+    "socials": "Media społecznościowe"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -304,13 +307,41 @@
     "colScans": "Skany"
   },
   "appearance": {
-    "title": "Kolor Twojej strony",
-    "lead": "Najedź na kolory, aby zobaczyć je na żywo w telefonie. Kliknij, aby wybrać."
+    "title": "Kolory",
+    "lead": "Wybierz motyw lub własne połączenie. Najedź, aby zobaczyć na żywo.",
+    "themes": "Motywy kolorów",
+    "fromPhoto": "Z Twojego zdjęcia",
+    "primary": "Kolor główny",
+    "button": "Kolor przycisku",
+    "swap": "Zamień kolory"
   },
   "upload": {
     "choose": "Wybierz zdjęcie lub przeciągnij je tutaj",
     "hint": "JPG lub PNG, zmniejszane automatycznie",
     "remove": "Usuń",
     "error": "Nie udało się wczytać zdjęcia. Spróbuj JPG lub PNG."
+  },
+  "hours": {
+    "closed": "Zamknięte",
+    "same": "Godziny z poniedziałku na wszystkie dni",
+    "addSlot": "Dodaj przerwę",
+    "removeSlot": "Usuń przerwę",
+    "from": "od",
+    "to": "do"
+  },
+  "address": {
+    "placeholder": "Wyszukaj adres, np. ul. Długa 12, Gdańsk",
+    "pick": "Wybierz adres z listy.",
+    "none": "Nie znaleziono adresu. Podaj ulicę, numer i miasto.",
+    "offline": "Wyszukiwanie niedostępne. Adres zostanie zapisany bez weryfikacji.",
+    "ok": "✓ Znaleziono na mapie",
+    "unverified": "Adres niezweryfikowany",
+    "searching": "Szukam…"
+  },
+  "socials": {
+    "placeholder": "Link do Twojej strony {name}"
+  },
+  "validate": {
+    "required": "Pole wymagane"
   }
 }

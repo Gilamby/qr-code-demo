@@ -146,7 +146,9 @@
       "hoursSample": "Mo – Sa 08:00 – 18:00",
       "hours": "Öffnungszeiten",
       "openNow": "Jetzt geöffnet",
-      "closedNow": "Jetzt geschlossen"
+      "closedNow": "Jetzt geschlossen",
+      "showMap": "Auf Karte zeigen",
+      "follow": "Folge uns"
     },
     "video": {
       "title": "Ein Tag im Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Öffnungszeiten",
     "company": "Firma",
     "website": "Website",
-    "cover": "Titelbild"
+    "cover": "Titelbild",
+    "socials": "Social Media"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -304,13 +307,41 @@
     "colScans": "Scans"
   },
   "appearance": {
-    "title": "Farbe deiner Seite",
-    "lead": "Fahre über die Farben, um sie live auf dem Handy zu sehen. Klicke zum Auswählen."
+    "title": "Farben",
+    "lead": "Wähle ein Thema oder deine eigene Kombination. Fahre darüber für eine Live-Vorschau.",
+    "themes": "Farbthemen",
+    "fromPhoto": "Aus deinem Foto",
+    "primary": "Hauptfarbe",
+    "button": "Buttonfarbe",
+    "swap": "Farben tauschen"
   },
   "upload": {
     "choose": "Foto wählen oder hierher ziehen",
     "hint": "JPG oder PNG, wird automatisch verkleinert",
     "remove": "Entfernen",
     "error": "Dieses Foto konnte nicht geladen werden. Versuche JPG oder PNG."
+  },
+  "hours": {
+    "closed": "Geschlossen",
+    "same": "Zeiten von Montag für alle Tage",
+    "addSlot": "Pause hinzufügen",
+    "removeSlot": "Pause entfernen",
+    "from": "von",
+    "to": "bis"
+  },
+  "address": {
+    "placeholder": "Adresse suchen, z. B. Hauptstraße 12, Berlin",
+    "pick": "Wähle deine Adresse aus der Liste.",
+    "none": "Keine Adresse gefunden. Versuche Straße, Nummer und Ort.",
+    "offline": "Adresssuche nicht verfügbar. Die Adresse wird ungeprüft gespeichert.",
+    "ok": "✓ Auf der Karte gefunden",
+    "unverified": "Adresse nicht geprüft",
+    "searching": "Suche…"
+  },
+  "socials": {
+    "placeholder": "Link zu deiner {name}-Seite"
+  },
+  "validate": {
+    "required": "Pflichtfeld"
   }
 }

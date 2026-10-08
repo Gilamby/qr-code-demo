@@ -146,7 +146,9 @@
       "hoursSample": "Mon – Sat 08:00 – 18:00",
       "hours": "Opening hours",
       "openNow": "Open now",
-      "closedNow": "Closed now"
+      "closedNow": "Closed now",
+      "showMap": "Show on map",
+      "follow": "Follow us"
     },
     "video": {
       "title": "A day at Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Opening hours",
     "company": "Company",
     "website": "Website",
-    "cover": "Cover photo"
+    "cover": "Cover photo",
+    "socials": "Social media"
   },
   "panel": {
     "selected": "{type} selected"
@@ -304,13 +307,41 @@
     "colScans": "Scans"
   },
   "appearance": {
-    "title": "Page colour",
-    "lead": "Hover over the colours to see them live on the phone. Click to choose."
+    "title": "Colours",
+    "lead": "Pick a theme or make your own combination. Hover to see it live.",
+    "themes": "Colour themes",
+    "fromPhoto": "From your photo",
+    "primary": "Main colour",
+    "button": "Button colour",
+    "swap": "Swap colours"
   },
   "upload": {
     "choose": "Choose a photo or drag it here",
     "hint": "JPG or PNG, resized automatically",
     "remove": "Remove",
     "error": "This photo could not be loaded. Try a JPG or PNG."
+  },
+  "hours": {
+    "closed": "Closed",
+    "same": "Use Monday's hours for all days",
+    "addSlot": "Add a break",
+    "removeSlot": "Remove break",
+    "from": "from",
+    "to": "to"
+  },
+  "address": {
+    "placeholder": "Search your address, e.g. 12 High Street, London",
+    "pick": "Choose your address from the list.",
+    "none": "No address found. Try street, number and city.",
+    "offline": "Address search is unavailable. This address will be saved unverified.",
+    "ok": "✓ Found on the map",
+    "unverified": "Address not verified",
+    "searching": "Searching…"
+  },
+  "socials": {
+    "placeholder": "Link to your {name} page"
+  },
+  "validate": {
+    "required": "This field is required"
   }
 }

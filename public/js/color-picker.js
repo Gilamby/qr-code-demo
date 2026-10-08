@@ -20,12 +20,12 @@ var ColorPicker = (function () {
   }
   var isHex = function (v) { return /^#[0-9a-f]{6}$/i.test(v); };
 
-  function html(label) {
+  function html(label, simple) {
     return '<div class="cp">' +
       '<div class="cp-sv" tabindex="-1"><span class="cp-dot"></span><span class="cp-ghost"></span></div>' +
       '<div class="cp-hue"><span class="cp-knob"></span></div>' +
       '<div class="cp-row"><span class="cp-chip"></span><input class="cp-hex" type="text" maxlength="7" spellcheck="false" autocomplete="off" aria-label="' + esc(label) + ' (hex)">' +
-      '<div class="cp-presets">' + PRESETS.map(function (c) { return '<button type="button" class="cp-pre" data-c="' + c + '" style="background:' + c + '" aria-label="' + c + '"></button>'; }).join('') + '</div></div>' +
+      (simple ? '' : '<div class="cp-presets">' + PRESETS.map(function (c) { return '<button type="button" class="cp-pre" data-c="' + c + '" style="background:' + c + '" aria-label="' + c + '"></button>'; }).join('') + '</div>') + '</div>' +
     '</div>';
   }
 

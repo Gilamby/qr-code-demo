@@ -146,7 +146,9 @@
       "hoursSample": "Seg – sáb 08:00 – 18:00",
       "hours": "Horário",
       "openNow": "Aberto agora",
-      "closedNow": "Fechado agora"
+      "closedNow": "Fechado agora",
+      "showMap": "Ver no mapa",
+      "follow": "Segue-nos"
     },
     "video": {
       "title": "Um dia no Café Aurora",
@@ -270,7 +272,8 @@
     "hours": "Horário",
     "company": "Empresa",
     "website": "Site",
-    "cover": "Foto de capa"
+    "cover": "Foto de capa",
+    "socials": "Redes sociais"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -304,13 +307,41 @@
     "colScans": "Leituras"
   },
   "appearance": {
-    "title": "Cor da tua página",
-    "lead": "Passa o rato pelas cores para as veres ao vivo no telemóvel. Clica para escolher."
+    "title": "Cores",
+    "lead": "Escolhe um tema ou cria a tua combinação. Passa por cima para ver ao vivo.",
+    "themes": "Temas de cor",
+    "fromPhoto": "Da tua foto",
+    "primary": "Cor principal",
+    "button": "Cor do botão",
+    "swap": "Trocar cores"
   },
   "upload": {
     "choose": "Escolhe uma foto ou arrasta-a para aqui",
     "hint": "JPG ou PNG, reduzida automaticamente",
     "remove": "Remover",
     "error": "Não foi possível carregar a foto. Tenta JPG ou PNG."
+  },
+  "hours": {
+    "closed": "Fechado",
+    "same": "Usar o horário de segunda para todos os dias",
+    "addSlot": "Adicionar pausa",
+    "removeSlot": "Remover pausa",
+    "from": "das",
+    "to": "às"
+  },
+  "address": {
+    "placeholder": "Procura a tua morada, ex. Rua Augusta 12, Lisboa",
+    "pick": "Escolhe a tua morada da lista.",
+    "none": "Morada não encontrada. Tenta rua, número e cidade.",
+    "offline": "Pesquisa indisponível. A morada será guardada sem verificação.",
+    "ok": "✓ Encontrada no mapa",
+    "unverified": "Morada não verificada",
+    "searching": "A procurar…"
+  },
+  "socials": {
+    "placeholder": "Link para a tua página de {name}"
+  },
+  "validate": {
+    "required": "Campo obrigatório"
   }
 }
