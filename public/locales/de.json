@@ -145,7 +145,8 @@
       "descSample": "Frische Sträuße, Pflanzen und Blumen für jeden Moment.",
       "hoursSample": "Mo – Sa 08:00 – 18:00",
       "hours": "Öffnungszeiten",
-      "openNow": "Jetzt geöffnet"
+      "openNow": "Jetzt geöffnet",
+      "closedNow": "Jetzt geschlossen"
     },
     "video": {
       "title": "Ein Tag im Café Aurora",

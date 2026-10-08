@@ -145,7 +145,8 @@
       "descSample": "Buqeta të freskëta, bimë dhe lule për çdo moment.",
       "hoursSample": "Hën – Sht 08:00 – 18:00",
       "hours": "Orari",
-      "openNow": "Hapur tani"
+      "openNow": "Hapur tani",
+      "closedNow": "Mbyllur tani"
     },
     "video": {
       "title": "Një ditë në Café Aurora",

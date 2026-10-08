@@ -145,7 +145,8 @@
       "descSample": "Bouquet freschi, piante e fiori per ogni momento.",
       "hoursSample": "Lun – sab 08:00 – 18:00",
       "hours": "Orari",
-      "openNow": "Aperto ora"
+      "openNow": "Aperto ora",
+      "closedNow": "Chiuso ora"
     },
     "video": {
       "title": "Una giornata al Café Aurora",

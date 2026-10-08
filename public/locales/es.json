@@ -145,7 +145,8 @@
       "descSample": "Ramos frescos, plantas y flores para cada momento.",
       "hoursSample": "Lun – sáb 08:00 – 18:00",
       "hours": "Horario",
-      "openNow": "Abierto ahora"
+      "openNow": "Abierto ahora",
+      "closedNow": "Cerrado ahora"
     },
     "video": {
       "title": "Un día en el Café Aurora",

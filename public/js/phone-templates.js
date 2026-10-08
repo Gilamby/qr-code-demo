@@ -45,8 +45,54 @@ var PHONE = (function () {
   function ic(k, cls) { return '<svg class="' + (cls || 'i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + I[k] + '</svg>'; }
   // Waarde of grijs balkje
   function v(val, w) { return val ? esc(val) : '<i class="sk" style="width:' + (w || '60%') + '"></i>'; }
+  /* ---------- Echte tijd ----------
+     De klok van het apparaat (dus de tijdzone van de bezoeker). Engels: 12-uurs zonder AM/PM, zoals op een iPhone; andere talen 24-uurs.
+     data-clock="-3" = 3 minuten geleden; wordt elke minuut bijgewerkt (zie tick onderaan). */
+  function clock(offsetMin) {
+    var d = new Date(Date.now() + (offsetMin || 0) * 60000), h = d.getHours(), m = ('0' + d.getMinutes()).slice(-2);
+    if (i18n.lang() === 'en') h = h % 12 || 12;
+    return h + ':' + m;
+  }
+  function liveClock(offsetMin) { return '<span data-clock="' + (offsetMin || 0) + '">' + clock(offsetMin) + '</span>'; }
+
+  /* Openingstijden lezen: "Ma – za 08:00 – 18:00", "Mon-Fri 9-17, Sat 10:00-16:00", ...
+     Geeft 'open', 'closed' of null (niet te lezen). */
+  var DAYS = {
+    nl: ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'], en: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+    de: ['mo', 'di', 'mi', 'do', 'fr', 'sa', 'so'], es: ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'],
+    fr: ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'], it: ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'],
+    pl: ['pon', 'wt', 'sr', 'czw', 'pt', 'sob', 'nd'], pt: ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'],
+    el: ['δευ', 'τρι', 'τετ', 'πεμ', 'παρ', 'σαβ', 'κυρ'], sq: ['hen', 'mar', 'mer', 'enj', 'pre', 'sht', 'die']
+  };
+  var plain = function (x) { return x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); };
+  function dayIndex(word) {
+    var lists = [DAYS[i18n.lang()] || [], DAYS.en, DAYS.nl];
+    for (var l = 0; l < lists.length; l++) for (var i = 0; i < 7; i++) if (word.indexOf(lists[l][i]) === 0) return i;
+    return -1;
+  }
+  function openStatus(text) {
+    if (!text) return null;
+    var now = new Date(), today = (now.getDay() + 6) % 7, mins = now.getHours() * 60 + now.getMinutes(), found = false, coversToday = false, open = false;
+    plain(text).split(/[,;\n]/).forEach(function (seg) {
+      var re = /(\d{1,2})(?:[:.h](\d{2}))?\s*(?:u|h)?\s*[-–—]\s*(\d{1,2})(?:[:.h](\d{2}))?/g, m, ranges = [];
+      while ((m = re.exec(seg))) ranges.push([+m[1] * 60 + (+m[2] || 0), +m[3] * 60 + (+m[4] || 0)]);
+      if (!ranges.length) return;
+      found = true;
+      var dayPart = seg.replace(re, ' '), days = [];
+      (dayPart.match(/[a-zα-ω]+/g) || []).forEach(function (w) { var d = dayIndex(w); if (d >= 0) days.push(d); });
+      var applies = !days.length || (days.length >= 2 && /[-–—]|tot|to|bis|au|al|a\b/.test(dayPart)
+        ? (days[0] <= days[1] ? today >= days[0] && today <= days[1] : today >= days[0] || today <= days[1])
+        : days.indexOf(today) >= 0);
+      if (!applies) return;
+      coversToday = true;
+      ranges.forEach(function (r) { if (r[1] <= r[0] ? (mins >= r[0] || mins < r[1]) : (mins >= r[0] && mins < r[1])) open = true; });
+    });
+    if (!found) return null;
+    return coversToday && open ? 'open' : 'closed';
+  }
+
   function statusBar(light) {
-    return '<div class="sb' + (light ? ' light' : '') + '"><b>9:41</b><span>' +
+    return '<div class="sb' + (light ? ' light' : '') + '"><b>' + liveClock(0) + '</b><span>' +
       '<svg viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="5" y="5.5" width="3" height="6.5" rx=".6"/><rect x="10" y="3" width="3" height="9" rx=".6"/><rect x="15" y="0" width="3" height="12" rx=".6"/></svg>' +
       '<svg viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.4 0 4.6.9 6.2 2.5l1.3-1.3A10.6 10.6 0 0 0 8 .4 10.6 10.6 0 0 0 .5 3.4l1.3 1.3A8.7 8.7 0 0 1 8 2.2zm0 3.6c1.4 0 2.7.5 3.7 1.5l1.3-1.3A7 7 0 0 0 8 4 7 7 0 0 0 3 6l1.3 1.3c1-1 2.3-1.5 3.7-1.5zM8 9.4l2.1-2.1a3 3 0 0 0-4.2 0z"/></svg>' +
       '<i class="bat"><i></i></i></span></div>';
@@ -85,10 +131,10 @@ var PHONE = (function () {
     /* ---------- WhatsApp: precies het chatscherm dat opent ---------- */
     whatsapp: function (c, ex) {
       var msgs = ex
-        ? '<div class="wa-in">' + esc(t('pv.whatsapp.m1')) + '<time>10:02</time></div>' +
-          '<div class="wa-out">' + esc(c.message) + '<time>10:03 <em>✓✓</em></time></div>' +
-          '<div class="wa-in">' + esc(t('pv.whatsapp.m3')) + '<time>10:04</time></div>'
-        : (c.message ? '<div class="wa-out">' + esc(c.message) + '<time>10:03 <em>✓✓</em></time></div>'
+        ? '<div class="wa-in">' + esc(t('pv.whatsapp.m1')) + '<time>' + liveClock(-6) + '</time></div>' +
+          '<div class="wa-out">' + esc(c.message) + '<time>' + liveClock(-4) + ' <em>✓✓</em></time></div>' +
+          '<div class="wa-in">' + esc(t('pv.whatsapp.m3')) + '<time>' + liveClock(-1) + '</time></div>'
+        : (c.message ? '<div class="wa-out">' + esc(c.message) + '<time>' + liveClock(0) + ' <em>✓✓</em></time></div>'
                      : '<div class="wa-out sk-bub"><i class="sk"></i><i class="sk" style="width:70%"></i></div>');
       return '<div class="ph ph-wa">' + statusBar(true) +
         '<div class="wa-head">' + ic('back') + '<span class="wa-av">' + ic('user') + '</span>' +
@@ -183,7 +229,7 @@ var PHONE = (function () {
             '<h4>' + v(c.name, '55%') + '</h4><p>' + (c.description ? esc(c.description) : '<i class="sk"></i><i class="sk" style="width:75%"></i>') + '</p>' +
             '<div class="bz-cta">' + esc(t('pv.business.cta')) + '</div></div>' +
           '<div class="bz-list">' +
-            row('clock', esc(t('pv.business.hours')) + ' · <em>' + esc(t('pv.business.openNow')) + '</em>', v(c.hours, '70%')) +
+            row('clock', esc(t('pv.business.hours')) + (function (st) { return st ? ' · <em class="bz-status ' + st + '">' + esc(t(st === 'open' ? 'pv.business.openNow' : 'pv.business.closedNow')) + '</em>' : ''; })(openStatus(c.hours)), v(c.hours, '70%')) +
             row('pin', v(c.address, '75%')) +
             row('call', v(c.phone, '55%')) +
             row('mail', v(c.email, '65%')) +
@@ -193,4 +239,17 @@ var PHONE = (function () {
       '</div>';
     }
   };
+})();
+
+/* Elke minuut: klokjes bijwerken; schermen met open/dicht opnieuw tekenen. */
+(function () {
+  function tick() {
+    document.querySelectorAll('#screen [data-clock]').forEach(function (el) {
+      var d = new Date(Date.now() + (+el.getAttribute('data-clock')) * 60000), h = d.getHours();
+      if (i18n.lang() === 'en') h = h % 12 || 12;
+      el.textContent = h + ':' + ('0' + d.getMinutes()).slice(-2);
+    });
+    if (document.querySelector('#screen .bz-status')) document.dispatchEvent(new Event('preview:refresh'));
+  }
+  setTimeout(function () { tick(); setInterval(tick, 60000); }, 60000 - Date.now() % 60000 + 50);
 })();
