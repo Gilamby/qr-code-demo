@@ -57,7 +57,8 @@ var GalleryUpload = (function () {
       img.onload = function () {
         var s = Math.min(1, SIZE / Math.max(img.width, img.height)), cv = document.createElement('canvas');
         cv.width = Math.round(img.width * s); cv.height = Math.round(img.height * s);
-        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        var cx = cv.getContext('2d'); cx.fillStyle = '#ffffff'; cx.fillRect(0, 0, cv.width, cv.height);   // doorzichtig wordt wit, niet zwart
+        cx.drawImage(img, 0, 0, cv.width, cv.height);
         URL.revokeObjectURL(url); resolve(cv.toDataURL('image/jpeg', 0.8));
       };
       img.onerror = function () { URL.revokeObjectURL(url); reject(); };

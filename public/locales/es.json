@@ -173,7 +173,8 @@
       "cta": "Descargar todo",
       "desc": "Los mejores momentos de este verano.",
       "albums": "Álbumes",
-      "select": "Seleccionar"
+      "select": "Seleccionar",
+      "album": "Álbum"
     },
     "facebook": {
       "sub": "Página de Facebook",

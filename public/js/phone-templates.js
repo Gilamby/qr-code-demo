@@ -74,6 +74,13 @@ var PHONE = (function () {
       '<i class="bat"><i></i></i></span></div>';
   }
 
+  // Zachte kleurvlakken (zoals een iPhone-achtergrond) als voorbeeldfoto's
+  var MESH = [['#ff9a8b', '#ff6a88', '#ffd194', '#7f53ac'], ['#4facfe', '#00f2fe', '#1e3c72', '#a1c4fd'], ['#a8e063', '#56ab2f', '#134e5e', '#fceabb'],
+    ['#c471f5', '#fa71cd', '#7f53ac', '#ffd6e8'], ['#f6d365', '#fda085', '#e94e77', '#fff1c1'], ['#89f7fe', '#66a6ff', '#c2e9fb', '#3a1c71'], ['#fbc2eb', '#a6c1ee', '#f68084', '#ffffff']];
+  function mesh(i) {
+    var m = MESH[i % MESH.length];
+    return 'background:radial-gradient(at 18% 22%,' + m[0] + ' 0,transparent 55%),radial-gradient(at 82% 18%,' + m[1] + ' 0,transparent 50%),radial-gradient(at 70% 85%,' + m[2] + ' 0,transparent 55%),radial-gradient(at 20% 90%,' + m[3] + ' 0,transparent 50%),' + m[1];
+  }
   function initials(name) { return (name || '').split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0].toUpperCase(); }).join(''); }
   function domain(url) { return (url || '').replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0]; }
 
@@ -234,34 +241,22 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Afbeeldingen: een album zoals in de Foto's-app ---------- */
+    /* ---------- Afbeeldingen: grote foto bovenaan, daaronder een strak raster ---------- */
     images: function (c, ex) {
-      var list = FILES.list(c.photos), n = list.length || (ex ? 9 : 0);
-      var scenes = [
-        ['#ffb347', '#ff6f61', '#3b1e54', 'sun'], ['#7dd3fc', '#0369a1', '#0c4a6e', 'sea'], ['#bbf7d0', '#16a34a', '#14532d', 'hill'],
-        ['#fde68a', '#f59e0b', '#7c2d12', 'sun'], ['#c4b5fd', '#7c3aed', '#2e1065', 'hill'], ['#a5f3fc', '#0891b2', '#164e63', 'sea'],
-        ['#fecaca', '#ef4444', '#450a0a', 'hill'], ['#e0f2fe', '#38bdf8', '#075985', 'sea'], ['#fef3c7', '#d97706', '#451a03', 'sun']];
-      var scene = function (sc, tall) {
-        var h = tall ? 130 : 100, sky = '<defs><linearGradient id="g' + sc.join('').replace(/#/g, '') + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + sc[0] + '"/><stop offset="1" stop-color="' + sc[1] + '"/></linearGradient></defs><rect width="100" height="' + h + '" fill="url(#g' + sc.join('').replace(/#/g, '') + ')"/>';
-        var land = sc[3] === 'sea' ? '<path d="M0 ' + (h * .62) + 'q25-6 50 0t50 0V' + h + 'H0z" fill="' + sc[2] + '" opacity=".85"/><path d="M0 ' + (h * .72) + 'q25-5 50 0t50 0V' + h + 'H0z" fill="#fff" opacity=".18"/>'
-          : sc[3] === 'sun' ? '<circle cx="68" cy="' + (h * .42) + '" r="13" fill="#fff" opacity=".85"/><path d="M0 ' + (h * .7) + 'L30 ' + (h * .5) + 'L55 ' + (h * .66) + 'L80 ' + (h * .46) + 'L100 ' + (h * .62) + 'V' + h + 'H0z" fill="' + sc[2] + '"/>'
-          : '<path d="M0 ' + (h * .6) + 'Q30 ' + (h * .35) + ' 60 ' + (h * .58) + 'T100 ' + (h * .5) + 'V' + h + 'H0z" fill="' + sc[2] + '" opacity=".9"/><circle cx="24" cy="' + (h * .3) + '" r="9" fill="#fff" opacity=".7"/>';
-        return '<svg viewBox="0 0 100 ' + h + '" preserveAspectRatio="xMidYMid slice">' + sky + land + '</svg>';
+      var list = FILES.list(c.photos), n = list.length || (ex ? 12 : 0);
+      var tile = function (i, cls) {
+        if (list[i]) return '<span class="' + cls + '" style="background-image:url(' + list[i] + ')"></span>';
+        if (ex) return '<span class="' + cls + ' gx-mesh" style="' + mesh(i) + '"></span>';
+        return '<span class="' + cls + ' gx-none">' + ic('img') + '</span>';
       };
-      var cols = [[], []];
-      for (var i = 0; i < 6; i++) {
-        var tall = i === 0 || i === 3 || i === 4, html;
-        if (list[i]) html = '<span class="' + (tall ? 'tall' : '') + '" style="background-image:url(' + list[i] + ')"></span>';
-        else if (ex) html = '<span class="' + (tall ? 'tall' : '') + '">' + scene(scenes[i], tall) + '</span>';
-        else html = '<span class="ph-none ' + (tall ? 'tall' : '') + '">' + ic('img') + '</span>';
-        cols[i % 2].push(html);
-      }
-      return '<div class="ph ph-al">' + statusBar() +
-        '<div class="al-nav"><span>' + ic('back') + esc(t('pv.images.albums')) + '</span><b>' + esc(t('pv.images.select')) + '</b></div>' +
-        '<div class="al-head"><h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:60%;height:14px"></i>') + '</h4>' +
-          '<small>' + (n ? esc(t('pv.images.count', { count: i18n.fmt.num(n) })) : '<i class="sk" style="width:70px"></i>') + (c.description ? ' · ' + esc(c.description) : '') + '</small></div>' +
-        '<div class="al-grid"><div>' + cols[0].join('') + '</div><div>' + cols[1].join('') + '</div></div>' +
-        '<div class="al-dl">' + ic('save') + esc(t('pv.images.cta')) + '</div>' +
+      var date = new Intl.DateTimeFormat(i18n.lang(), { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
+      return '<div class="ph ph-gx">' +
+        '<div class="gx-hero">' + tile(0, 'gx-hero-img') + statusBar(true) +
+          '<div class="gx-cap"><small>' + esc(t('pv.images.album')) + '</small><h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:65%;height:18px"></i>') + '</h4>' +
+            '<p>' + (n ? esc(t('pv.images.count', { count: i18n.fmt.num(n) })) + ' · ' + esc(date) : '<i class="sk" style="width:45%"></i>') + '</p></div></div>' +
+        (c.description ? '<p class="gx-desc">' + esc(c.description) + '</p>' : '') +
+        '<div class="gx-grid">' + [1, 2, 3, 4, 5, 6].map(function (i) { return tile(i, 'gx-t'); }).join('') + '</div>' +
+        '<div class="gx-dl">' + ic('save') + esc(t('pv.images.cta')) + '</div>' +
       '</div>';
     },
 
@@ -282,16 +277,18 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Social media: profiel met een grote tegel per kanaal ---------- */
+    /* ---------- Social media: donkere, chique pagina met een glazen kaart per kanaal ---------- */
     social: function (c, ex) {
       var so = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in so; });
       var handle = function (url) { var m = String(url || '').replace(/\/$/, '').split('/').pop(); return m ? (m[0] === '@' ? m : '@' + m) : ''; };
-      return '<div class="ph ph-sm">' + '<div class="sm-cover">' + statusBar(true) + '</div>' +
-        '<div class="sm-prof"><span class="sm-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span>' +
-          '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%"></i>') + '</h4><p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:65%"></i>') + '</p></div>' +
-        '<div class="sm-grid">' + (nets.length ? nets.slice(0, 6).map(function (n) {
-            return '<span class="sm-tile sm-' + n.id + '">' + SOCIALS.icon(n.id) + '<b>' + esc(n.name) + '</b><small>' + esc(handle(so[n.id])) + '</small><em>' + esc(t('pv.social.follow')) + '</em></span>';
-          }).join('') : [1, 2, 3, 4].map(function () { return '<span class="sm-tile sm-none"><i class="sk" style="width:30px;height:30px;border-radius:10px"></i><i class="sk" style="width:60%;margin-top:auto"></i></span>'; }).join('')) + '</div>' +
+      return '<div class="ph ph-sx"><i class="sx-glow a"></i><i class="sx-glow b"></i>' + statusBar(true) +
+        '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span></span>' +
+          '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4>' +
+          '<p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:60%;margin:0 auto"></i>') + '</p>' +
+          (nets.length ? '<div class="sx-quick">' + nets.slice(0, 5).map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') + '</div>' +
+        '<div class="sx-list">' + (nets.length ? nets.slice(0, 6).map(function (n) {
+            return '<span class="sx-card"><i class="sx-ic sx-' + n.id + '">' + SOCIALS.icon(n.id) + '</i><span><b>' + esc(n.name) + '</b><small>' + esc(handle(so[n.id])) + '</small></span>' + ic('fwd') + '</span>';
+          }).join('') : [1, 2, 3].map(function () { return '<span class="sx-card"><i class="sx-ic sx-empty"></i><span><i class="sk" style="width:50%"></i><i class="sk" style="width:35%"></i></span></span>'; }).join('')) + '</div>' +
       '</div>';
     },
 

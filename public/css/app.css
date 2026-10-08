@@ -1460,3 +1460,48 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 .wl-code > span { width: 104px; height: 104px; }
 .wl-add { color: #fff; font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; }
 .wl-add .i { width: 18px; height: 18px; }
+
+/* ===== Telefoon v3: Afbeeldingen (grote foto + raster) ===== */
+.ph-gx { background: #fff; }
+.gx-hero { position: relative; height: 330px; flex: none; color: #fff; overflow: hidden; }
+.gx-hero-img { position: absolute; inset: 0; background: #e5e7eb center / cover no-repeat; display: grid; place-items: center; }
+.gx-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, transparent 28%, transparent 50%, rgba(0,0,0,.6) 100%); pointer-events: none; }
+.gx-hero .sb { position: relative; z-index: 1; }
+.gx-cap { position: absolute; left: 20px; right: 20px; bottom: 18px; z-index: 1; }
+.gx-cap small { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.gx-cap h4 { margin: 4px 0 4px; font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+.gx-cap p { margin: 0; font-size: 13px; opacity: .9; }
+.gx-cap .sk { background: rgba(255,255,255,.45); }
+.gx-desc { margin: 14px 18px 2px; font-size: 13.5px; color: #4b5563; line-height: 1.45; }
+.gx-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; margin-top: 12px; flex: none; }
+.gx-t { display: block; aspect-ratio: 1; background: #eef0f3 center / cover no-repeat; }
+.gx-none { display: grid; place-items: center; color: #c3c8cf; }
+.gx-none .i { width: 26px; height: 26px; }
+.gx-dl { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 20px; border-radius: 999px; background: rgba(255,255,255,.75); color: #111; font-size: 14px; font-weight: 700; white-space: nowrap; backdrop-filter: blur(16px) saturate(1.6); -webkit-backdrop-filter: blur(16px) saturate(1.6); box-shadow: 0 10px 30px -10px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.6); }
+.gx-dl .i { width: 18px; height: 18px; }
+
+/* ===== Telefoon v3: Social media (donker met glas) ===== */
+.ph-sx { background: #0b0b10; color: #fff; text-align: center; overflow: hidden; }
+.sx-glow { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .75; pointer-events: none; }
+.sx-glow.a { width: 280px; height: 280px; left: -90px; top: -60px; background: var(--pc); }
+.sx-glow.b { width: 260px; height: 260px; right: -110px; top: 180px; background: var(--ac); opacity: .55; }
+.ph-sx .sb { position: relative; z-index: 1; color: #fff; }
+.sx-prof { position: relative; z-index: 1; padding: 8px 22px 0; }
+.sx-ring { display: inline-grid; place-items: center; width: 102px; height: 102px; border-radius: 50%; background: conic-gradient(from 200deg, var(--pc), var(--ac), #fff, var(--pc)); }
+.sx-av { width: 94px; height: 94px; border-radius: 50%; background: #16161d; border: 3px solid #0b0b10; display: grid; place-items: center; font-size: 32px; font-weight: 800; box-sizing: border-box; }
+.sx-av .i { width: 40px; height: 40px; }
+.sx-prof h4 { margin: 12px 0 4px; font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+.sx-prof p { margin: 0; font-size: 13.5px; color: rgba(255,255,255,.7); }
+.ph-sx .sk { background: rgba(255,255,255,.18); }
+.sx-quick { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+.sx-quick .br { width: 34px; height: 34px; box-shadow: 0 0 0 2px rgba(255,255,255,.12); }
+.sx-list { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 20px 16px 0; text-align: left; }
+.sx-card { display: flex; align-items: center; gap: 12px; height: 62px; padding: 0 14px 0 10px; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.sx-card > span { flex: 1; min-width: 0; }
+.sx-card b { display: block; font-size: 15px; font-weight: 700; }
+.sx-card small { display: block; font-size: 12px; color: rgba(255,255,255,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sx-card > .i { width: 16px; height: 16px; color: rgba(255,255,255,.5); }
+.sx-ic { width: 42px; height: 42px; flex: none; display: grid; place-items: center; }
+.sx-ic .br { width: 42px; height: 42px; border-radius: 13px; }
+.sx-ic .br svg { width: 22px; height: 22px; }
+.sx-empty { border-radius: 13px; background: rgba(255,255,255,.1); }

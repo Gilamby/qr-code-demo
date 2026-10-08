@@ -2,6 +2,12 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Afbeeldingen en Social media opnieuw (te simpel/lelijk)
+
+- **Afbeeldingen:** grote foto bovenaan over de hele breedte met de titel er wit overheen ("ALBUM", aantal foto's, datum), daaronder een strak 3-koloms raster zoals Instagram, en een glazen *Alles downloaden*-knop. Voorbeeldfoto's zijn zachte kleurvlakken (zoals een iPhone-achtergrond) in plaats van getekende landschapjes.
+- **Social media:** donkere, chique pagina met gloed in de kleuren van het type, grote profielfoto met gekleurde ring, rij met snelle logo's en per kanaal een glazen kaart (logo, naam, @naam, pijltje).
+- Foto's met een doorzichtige achtergrond worden in het album wit in plaats van zwart.
+
 ## 8 oktober 2026 – De echte pagina's: wat de bezoeker na het scannen ziet
 
 - **Doorsturen** naar wat al bestaat: Website, Video (naar de videolink), WhatsApp, Facebook (naar de pagina), Instagram (naar het profiel). **Apps**: iPhone → App Store, Android → Google Play, computer → de pagina met beide knoppen. WiFi werkt zonder ons (de gegevens zitten in de code zelf).

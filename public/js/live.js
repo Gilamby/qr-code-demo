@@ -26,13 +26,13 @@
   // Lege velden: geen grijze balkjes zoals in de tool, maar gewoon weglaten
   function tidy() {
     $$('.sk').forEach(function (sk) {
-      var row = sk.closest('.vc-row, .gm-row, .gm-desc, .lt-list > span, .pd-file, .mn-row, .wl-f, .vc-acts > span, .sm-tile, .ap-badge, .bz-row, p, small');
+      var row = sk.closest('.vc-row, .gm-row, .gm-desc, .lt-list > span, .pd-file, .mn-row, .wl-f, .vc-acts > span, .sx-card, .ap-badge, .bz-row, p, small');
       if (row && !row.textContent.trim()) row.remove(); else sk.remove();
     });
     // Rijen met een label maar zonder waarde, en lege fotovakjes
     $$('.vc-row').forEach(function (r) { var b = r.querySelector('b'); if (b && !b.textContent.trim()) r.remove(); });
     $$('.gm-row').forEach(function (r) { var sp = r.querySelector('span'); if (sp && !sp.textContent.trim()) r.remove(); });
-    $$('.al-grid .ph-none').forEach(function (x) { x.remove(); });
+    $$('.gx-none').forEach(function (x) { x.remove(); });
   }
 
   var WIRE = {
@@ -65,16 +65,17 @@
     },
     images: function () {
       var list = FILES.list(c.photos);
-      $$('.al-grid span').forEach(function (el) {
+      $$('.gx-hero-img, .gx-t').forEach(function (el) {
         var m = (el.getAttribute('style') || '').match(/url\(([^)]+)\)/); if (!m) return;
         el.setAttribute('data-go', ''); el.addEventListener('click', function () { var lb = document.createElement('div'); lb.className = 'lb'; lb.innerHTML = '<img src="' + m[1] + '" alt="">'; lb.onclick = function () { lb.remove(); }; document.body.appendChild(lb); });
       });
-      var dl = $('.al-dl'); if (!list.length && dl) dl.remove();
+      var dl = $('.gx-dl'); if (!list.length && dl) dl.remove();
       if (dl) dl.addEventListener('click', function () { list.forEach(function (src, i) { setTimeout(function () { var a = document.createElement('a'); a.href = src; a.download = (c.title || 'foto').replace(/[^\w ]+/g, '') + '-' + (i + 1) + '.jpg'; document.body.appendChild(a); a.click(); a.remove(); }, i * 300); }); });
     },
     social: function () {
       var so = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in so; });
-      $$('.sm-tile').forEach(function (el, i) { if (nets[i]) go(el, href(so[nets[i].id])); });
+      $$('.sx-card').forEach(function (el, i) { if (nets[i]) go(el, href(so[nets[i].id])); });
+      $$('.sx-quick .br').forEach(function (el, i) { if (nets[i]) go(el, href(so[nets[i].id])); });
     },
     mp3: function () {
       var o = FILES.parse(c.file); if (!o || !o.url) return;
