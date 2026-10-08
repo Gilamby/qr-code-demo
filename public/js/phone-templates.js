@@ -138,8 +138,8 @@ var PHONE = (function () {
         '<div class="ig-head">' + ic('back') + '<b>' + v(u, '110px') + (ex ? '<span class="ig-ver">' + ic('check', 'i') + '</span>' : '') + '</b>' + ic('bell') + ic('dots', 'i dots') + '</div>' +
         '<div class="ig-prof"><span class="ig-av"><span>' + (u ? esc(u[0].toUpperCase()) : ic('user')) + '</span></span>' +
           '<div class="ig-stats">' + stat('86', 'posts') + stat('3.1K', 'followers') + stat('312', 'following') + '</div></div>' +
-        '<div class="ig-bio"><b>' + (ex ? 'Studio Luna' : v(u, '40%')) + '</b>' +
-          (ex ? '<small>' + esc(t('pv.instagram.category')) + '</small><p>' + esc(t('pv.instagram.bio')) + ' 📸</p><a>studioluna.com</a>' : '<i class="sk" style="width:85%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
+        '<div class="ig-bio"><b>' + (ex ? 'Marco Ferrer' : v(u, '40%')) + '</b>' +
+          (ex ? '<small>' + esc(t('pv.instagram.category')) + '</small><p>' + esc(t('pv.instagram.bio')) + ' 📸</p><a>marcoferrer.com</a>' : '<i class="sk" style="width:85%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
         '<div class="ig-btns"><span class="pri">' + esc(t('pv.instagram.cta')) + '</span><span>' + esc(t('pv.instagram.message')) + '</span><span>' + esc(t('pv.instagram.contact')) + '</span><span class="ic">' + ic('addp') + '</span></div>' +
         '<div class="ig-hl">' + [1, 2, 3, 4, 5].map(function (i) { return '<span' + (ex ? ' style="background:linear-gradient(135deg,' + tiles[i] + ')"' : '') + '></span>'; }).join('') + '</div>' +
         '<div class="ig-tabs"><span class="on">' + ic('grid') + '</span><span>' + ic('reel') + '</span><span>' + ic('tag') + '</span></div>' +
@@ -198,15 +198,21 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Lijst met links: zoals Linktree ---------- */
+    /* ---------- Lijst met links: licht en strak, één nette lijst (anders dan Social media) ---------- */
     links: function (c, ex) {
-      var keys = ['link1', 'link2', 'link3'], thumbs = ['globe', 'book', 'chat'];
-      return '<div class="ph ph-lt">' + '<i class="lt-blob a"></i><i class="lt-blob b"></i>' + statusBar(true) +
-        '<div class="lt-top"><span>' + ic('bell') + '</span><span>' + ic('share') + '</span></div>' +
-        '<span class="lt-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span>' +
-        '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : '<i class="sk" style="width:55%;margin:0 auto"></i>') + '</p>' +
-        '<div class="lt-list">' + keys.map(function (k, i) { return '<span><i class="lt-th">' + ic(thumbs[i]) + '</i><b>' + (c[k] ? esc(c[k].replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, '')) : '<i class="sk" style="width:55%;margin:0 auto"></i>') + '</b>' + ic('dots', 'i dots') + '</span>'; }).join('') + '</div>' +
-        '<div class="lt-soc">' + ['mail', 'call', 'pin', 'globe'].map(function (k) { return '<i>' + ic(k) + '</i>'; }).join('') + '</div>' +
+      var keys = ['link1', 'link2', 'link3'];
+      var clean = function (x) { return String(x || '').replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, ''); };
+      var sk = function (w) { return '<i class="sk" style="width:' + w + '"></i>'; };
+      return '<div class="ph ph-ln">' + statusBar() +
+        '<div class="ln-top"><span class="ln-logo">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span><span class="ln-share">' + ic('share') + '</span></div>' +
+        '<h4 class="ln-title">' + (c.title ? esc(c.title) : sk('60%')) + '</h4>' +
+        '<p class="ln-sub">' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p>' +
+        '<small class="ln-lbl">' + esc(t('pv.links.label')) + '</small>' +
+        '<div class="ln-card">' + keys.map(function (k, i) {
+          var val = clean(c[k]), isUrl = /\.[a-z]{2,}/i.test(val);
+          return '<span class="ln-row"><i class="ln-fav ln-f' + i + '">' + (val ? esc(val[0].toUpperCase()) : '') + '</i>' +
+            '<span><b>' + (val ? esc(isUrl ? val.split('/').pop() || val : val) : sk('55%')) + '</b>' + (isUrl ? '<small>' + esc(val.split('/')[0]) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
+        }).join('') + '</div>' +
       '</div>';
     },
 

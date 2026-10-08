@@ -26,7 +26,7 @@
   // Lege velden: geen grijze balkjes zoals in de tool, maar gewoon weglaten
   function tidy() {
     $$('.sk').forEach(function (sk) {
-      var row = sk.closest('.vc-row, .gm-row, .gm-desc, .lt-list > span, .pd-file, .mn-row, .wl-f, .vc-acts > span, .sx-card, .ap-badge, .bz-row, p, small');
+      var row = sk.closest('.vc-row, .gm-row, .gm-desc, .ln-row, .pd-file, .mn-row, .wl-f, .vc-acts > span, .sx-card, .ap-badge, .bz-row, p, small');
       if (row && !row.textContent.trim()) row.remove(); else sk.remove();
     });
     // Rijen met een label maar zonder waarde, en lege fotovakjes
@@ -37,8 +37,8 @@
 
   var WIRE = {
     links: function () {
-      $$('.lt-list > span').forEach(function (el, i) { go(el, href(c['link' + (i + 1)])); });
-      var s = $('.lt-top span:last-child'); if (s) { s.setAttribute('data-go', ''); s.onclick = share; }
+      $$('.ln-row').forEach(function (el, i) { go(el, href(c['link' + (i + 1)])); });
+      var s = $('.ln-share'); if (s) { s.setAttribute('data-go', ''); s.onclick = share; }
     },
     vcard: function () {
       var addr = c.address ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.address) : '';

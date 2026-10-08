@@ -128,11 +128,12 @@
       "done": "OK"
     },
     "links": {
-      "sub": "Todos nuestros enlaces",
-      "website": "Sitio web",
-      "jobs": "Empleo",
-      "support": "Atención al cliente",
-      "news": "Noticias"
+      "sub": "Yoga y meditación en Utrecht",
+      "website": "Horario de clases",
+      "jobs": "Reservar clase de prueba",
+      "support": "Contacto",
+      "news": "Noticias",
+      "label": "Enlaces"
     },
     "vcard": {
       "sub": "Contacto",

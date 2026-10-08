@@ -128,11 +128,12 @@
       "done": "U krye"
     },
     "links": {
-      "sub": "Të gjitha lidhjet tona",
-      "website": "Faqja e internetit",
-      "jobs": "Vende pune",
-      "support": "Shërbimi i klientit",
-      "news": "Lajme"
+      "sub": "Joga dhe meditim në Utrecht",
+      "website": "Orari i orëve",
+      "jobs": "Rezervo një orë provë",
+      "support": "Kontakt",
+      "news": "Lajme",
+      "label": "Lidhje"
     },
     "vcard": {
       "sub": "Kontakt",

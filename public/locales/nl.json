@@ -128,11 +128,12 @@
       "done": "Gereed"
     },
     "links": {
-      "sub": "Al onze links",
-      "website": "Website",
-      "jobs": "Vacatures",
-      "support": "Klantenservice",
-      "news": "Nieuws"
+      "sub": "Yoga & meditatie in Utrecht",
+      "website": "Lesrooster",
+      "jobs": "Proefles boeken",
+      "support": "Contact",
+      "news": "Nieuws",
+      "label": "Links"
     },
     "vcard": {
       "sub": "Contact",

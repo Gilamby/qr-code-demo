@@ -128,11 +128,12 @@
       "done": "Gotowe"
     },
     "links": {
-      "sub": "Wszystkie nasze linki",
-      "website": "Strona WWW",
-      "jobs": "Praca",
-      "support": "Obsługa klienta",
-      "news": "Aktualności"
+      "sub": "Joga i medytacja w Utrechcie",
+      "website": "Grafik zajęć",
+      "jobs": "Zarezerwuj zajęcia próbne",
+      "support": "Kontakt",
+      "news": "Aktualności",
+      "label": "Linki"
     },
     "vcard": {
       "sub": "Kontakt",

@@ -2,6 +2,11 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Andere voorbeeldnamen, Lijst met links anders dan Social media
+
+- **Voorbeeldnamen:** "Studio Luna" kwam te vaak terug. Nu heeft elk type een eigen voorbeeld: Lijst met links = *Yoga met Mila*, Social media = *Surfschool Ola*, Instagram = *marco.fotografie* (Marco Ferrer), PDF = *Velo Fietsen*, Coupon = *Boekhandel Pagina*, WiFi = *Hotel-Zonneveld-Gast*. De rest bleef (Sanne de Vries, Bloom & Co, Bakkerij De Molen, Restaurant De Haven, FitPlan, De Ochtendshow).
+- **Lijst met links** leek te veel op Social media. Nu het tegenovergestelde: licht en strak, links uitgelijnd (logo, grote titel, ondertitel), en de links in één witte lijst zoals de instellingen op een iPhone (letter-icoon, naam, domein, pijltje). Social media blijft donker met glas en een profiel in het midden.
+
 ## 8 oktober 2026 – Afbeeldingen en Social media opnieuw (te simpel/lelijk)
 
 - **Afbeeldingen:** grote foto bovenaan over de hele breedte met de titel er wit overheen ("ALBUM", aantal foto's, datum), daaronder een strak 3-koloms raster zoals Instagram, en een glazen *Alles downloaden*-knop. Voorbeeldfoto's zijn zachte kleurvlakken (zoals een iPhone-achtergrond) in plaats van getekende landschapjes.

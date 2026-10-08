@@ -128,11 +128,12 @@
       "done": "Fertig"
     },
     "links": {
-      "sub": "Alle unsere Links",
-      "website": "Website",
-      "jobs": "Jobs",
-      "support": "Kundenservice",
-      "news": "Neuigkeiten"
+      "sub": "Yoga & Meditation in Utrecht",
+      "website": "Kursplan",
+      "jobs": "Probestunde buchen",
+      "support": "Kontakt",
+      "news": "Neuigkeiten",
+      "label": "Links"
     },
     "vcard": {
       "sub": "Kontakt",
