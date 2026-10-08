@@ -128,7 +128,7 @@
       "done": "Fine"
     },
     "links": {
-      "sub": "Ricette e corsi di cucina a Rotterdam",
+      "sub": "Ricette e corsi di cucina a Bologna",
       "website": "Ricette",
       "jobs": "Prenota un corso di cucina",
       "support": "Contatti",
@@ -200,7 +200,7 @@
       "message": "Messaggio",
       "contact": "Contatta",
       "category": "Fotografo",
-      "bio": "Matrimoni, ritratti e viaggi a Barcellona"
+      "bio": "Matrimoni, ritratti e viaggi a Firenze"
     },
     "social": {
       "sub": "Seguici",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Link copiato",
     "codeCopied": "Codice copiato"
+  },
+  "sample": {
+    "pdfCompany": "Bici Velo",
+    "linksTitle": "Chef Luca",
+    "vcardName": "Marco Rossi",
+    "vcardPhone": "+39 312 345 6789",
+    "vcardEmail": "marco@rossicostruzioni.it",
+    "vcardCompany": "Rossi Costruzioni",
+    "vcardWebsite": "https://rossicostruzioni.it",
+    "vcardAddress": "Via del Corso 120, Roma",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+39 06 1234 5678",
+    "bizEmail": "ciao@bloomandco.it",
+    "bizWebsite": "https://bloomandco.it",
+    "bizAddress": "{\"l\": \"Via della Spiga 12, 20121 Milano, Italia\", \"lat\": 45.4693, \"lon\": 9.1952}",
+    "fbPage": "Panificio Il Mulino",
+    "fbUrl": "https://facebook.com/panificioilmulino",
+    "igUser": "matteo.fotografia",
+    "igName": "Matteo Bianchi",
+    "igSite": "matteobianchi.it",
+    "socialTitle": "Scuola Surf Onda",
+    "waPhone": "+39 333 987 6543",
+    "mp3Artist": "Il Morning Show",
+    "couponCompany": "Libreria La Pagina",
+    "couponCode": "BENVENUTO15",
+    "wifiSsid": "Hotel-Sole-Ospiti",
+    "pdfFile": "{\"n\": \"Manuale.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}"
   }
 }

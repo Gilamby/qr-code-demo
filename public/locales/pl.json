@@ -128,7 +128,7 @@
       "done": "Gotowe"
     },
     "links": {
-      "sub": "Przepisy i warsztaty kulinarne w Rotterdamie",
+      "sub": "Przepisy i warsztaty kulinarne w Gdańsku",
       "website": "Przepisy",
       "jobs": "Zarezerwuj warsztaty kulinarne",
       "support": "Kontakt",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Kontakt",
-      "role": "Kierowniczka projektu",
+      "role": "Kierownik projektu",
       "phone": "Telefon",
       "email": "E-mail",
       "cta": "Zapisz w kontaktach",
@@ -200,7 +200,7 @@
       "message": "Wiadomość",
       "contact": "Kontakt",
       "category": "Fotograf",
-      "bio": "Śluby, portrety i podróże w Barcelonie"
+      "bio": "Śluby, portrety i podróże w Krakowie"
     },
     "social": {
       "sub": "Obserwuj nas",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Link skopiowany",
     "codeCopied": "Kod skopiowany"
+  },
+  "sample": {
+    "pdfCompany": "Rowery Velo",
+    "linksTitle": "Szef Kuba",
+    "vcardName": "Piotr Kowalski",
+    "vcardPhone": "+48 512 345 678",
+    "vcardEmail": "piotr@kowalskibud.pl",
+    "vcardCompany": "Kowalski Budownictwo",
+    "vcardWebsite": "https://kowalskibud.pl",
+    "vcardAddress": "ul. Marszałkowska 10, Warszawa",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+48 22 123 45 67",
+    "bizEmail": "czesc@bloomandco.pl",
+    "bizWebsite": "https://bloomandco.pl",
+    "bizAddress": "{\"l\": \"ul. Floriańska 12, 31-019 Kraków, Polska\", \"lat\": 50.0631, \"lon\": 19.9398}",
+    "fbPage": "Piekarnia Młyn",
+    "fbUrl": "https://facebook.com/piekarniamlyn",
+    "igUser": "kuba.fotografia",
+    "igName": "Jakub Nowak",
+    "igSite": "jakubnowak.pl",
+    "socialTitle": "Szkoła Surfingu Fala",
+    "waPhone": "+48 601 987 654",
+    "mp3Artist": "Poranny Program",
+    "couponCompany": "Księgarnia Strona",
+    "couponCode": "WITAJ15",
+    "wifiSsid": "Hotel-Slonce-Goscie",
+    "pdfFile": "{\"n\": \"Instrukcja.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"odcinek-4.mp3\", \"s\": 7340032}"
   }
 }

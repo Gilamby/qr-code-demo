@@ -128,7 +128,7 @@
       "done": "Fertig"
     },
     "links": {
-      "sub": "Rezepte & Kochkurse in Rotterdam",
+      "sub": "Rezepte & Kochkurse in Hamburg",
       "website": "Rezepte",
       "jobs": "Kochkurs buchen",
       "support": "Kontakt",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Kontakt",
-      "role": "Projektleiterin",
+      "role": "Projektleiter",
       "phone": "Telefon",
       "email": "E-Mail",
       "cta": "In Kontakte speichern",
@@ -200,7 +200,7 @@
       "message": "Nachricht",
       "contact": "Kontakt",
       "category": "Fotograf",
-      "bio": "Hochzeiten, Porträts und Reisen in Barcelona"
+      "bio": "Hochzeiten, Porträts und Reisen in München"
     },
     "social": {
       "sub": "Folgen Sie uns",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Link kopiert",
     "codeCopied": "Code kopiert"
+  },
+  "sample": {
+    "pdfCompany": "Velo Räder",
+    "linksTitle": "Koch Jonas",
+    "vcardName": "Lukas Weber",
+    "vcardPhone": "+49 151 2345 6789",
+    "vcardEmail": "lukas@weberbau.de",
+    "vcardCompany": "Weber Bau",
+    "vcardWebsite": "https://weberbau.de",
+    "vcardAddress": "Friedrichstraße 43, Berlin",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+49 30 1234 5678",
+    "bizEmail": "hallo@bloomundco.de",
+    "bizWebsite": "https://bloomundco.de",
+    "bizAddress": "{\"l\": \"Kastanienallee 12, 10435 Berlin, Deutschland\", \"lat\": 52.5386, \"lon\": 13.4106}",
+    "fbPage": "Bäckerei Mühle",
+    "fbUrl": "https://facebook.com/baeckereimuehle",
+    "igUser": "felix.fotografie",
+    "igName": "Felix Braun",
+    "igSite": "felixbraun.de",
+    "socialTitle": "Surfschule Ostsee",
+    "waPhone": "+49 160 9876 5432",
+    "mp3Artist": "Die Morgenshow",
+    "couponCompany": "Buchhandlung Seite",
+    "couponCode": "WILLKOMMEN15",
+    "wifiSsid": "Hotel-Sonnenfeld-Gast",
+    "pdfFile": "{\"n\": \"Handbuch.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"folge-4.mp3\", \"s\": 7340032}"
   }
 }

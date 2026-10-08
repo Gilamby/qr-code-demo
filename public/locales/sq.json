@@ -128,7 +128,7 @@
       "done": "U krye"
     },
     "links": {
-      "sub": "Receta dhe punëtori gatimi në Roterdam",
+      "sub": "Receta dhe punëtori gatimi në Durrës",
       "website": "Receta",
       "jobs": "Rezervo punëtori gatimi",
       "support": "Kontakt",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Kontakt",
-      "role": "Menaxhere projekti",
+      "role": "Menaxher projekti",
       "phone": "Telefoni",
       "email": "Email",
       "cta": "Ruaj te kontaktet",
@@ -200,7 +200,7 @@
       "message": "Mesazh",
       "contact": "Kontakt",
       "category": "Fotograf",
-      "bio": "Dasma, portrete dhe udhëtime në Barcelonë"
+      "bio": "Dasma, portrete dhe udhëtime në Tiranë"
     },
     "social": {
       "sub": "Na ndiqni",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Lidhja u kopjua",
     "codeCopied": "Kodi u kopjua"
+  },
+  "sample": {
+    "pdfCompany": "Biçikleta Velo",
+    "linksTitle": "Shefi Arben",
+    "vcardName": "Ardit Hoxha",
+    "vcardPhone": "+355 69 123 4567",
+    "vcardEmail": "ardit@hoxhandertim.al",
+    "vcardCompany": "Hoxha Ndërtim",
+    "vcardWebsite": "https://hoxhandertim.al",
+    "vcardAddress": "Rruga e Durrësit 10, Tiranë",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+355 4 222 3344",
+    "bizEmail": "pershendetje@bloomandco.al",
+    "bizWebsite": "https://bloomandco.al",
+    "bizAddress": "{\"l\": \"Rruga Myslym Shyri 12, 1001 Tiranë, Shqipëri\", \"lat\": 41.324, \"lon\": 19.8132}",
+    "fbPage": "Furra e Mullirit",
+    "fbUrl": "https://facebook.com/furraemullirit",
+    "igUser": "erion.fotografi",
+    "igName": "Erion Gashi",
+    "igSite": "eriongashi.al",
+    "socialTitle": "Shkolla e Surfit Vala",
+    "waPhone": "+355 68 765 4321",
+    "mp3Artist": "Shfaqja e Mëngjesit",
+    "couponCompany": "Libraria Faqja",
+    "couponCode": "MIRESEVINI15",
+    "wifiSsid": "Hotel-Dielli-Mysafire",
+    "pdfFile": "{\"n\": \"Udhezues.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"episodi-4.mp3\", \"s\": 7340032}"
   }
 }

@@ -200,7 +200,7 @@
       "message": "Bericht",
       "contact": "Contact",
       "category": "Fotograaf",
-      "bio": "Bruiloften, portretten en reizen in Barcelona"
+      "bio": "Bruiloften, portretten en reizen in Utrecht"
     },
     "social": {
       "sub": "Volg ons",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Link gekopieerd",
     "codeCopied": "Code gekopieerd"
+  },
+  "sample": {
+    "pdfCompany": "Velo Fietsen",
+    "linksTitle": "Chef Ruben",
+    "vcardName": "Daan Visser",
+    "vcardPhone": "+31 6 1234 5678",
+    "vcardEmail": "daan@visserbouw.nl",
+    "vcardCompany": "Visser Bouw",
+    "vcardWebsite": "https://visserbouw.nl",
+    "vcardAddress": "Keizersgracht 120, Amsterdam",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+31 20 123 4567",
+    "bizEmail": "hallo@bloomenco.nl",
+    "bizWebsite": "https://bloomenco.nl",
+    "bizAddress": "{\"l\": \"Prinsengracht 263, 1016 GV Amsterdam, Nederland\", \"lat\": 52.3752, \"lon\": 4.884}",
+    "fbPage": "Bakkerij De Molen",
+    "fbUrl": "https://facebook.com/bakkerijdemolen",
+    "igUser": "thijs.fotografie",
+    "igName": "Thijs de Boer",
+    "igSite": "thijsdeboer.nl",
+    "socialTitle": "Surfschool Noordzee",
+    "waPhone": "+31 6 2345 6789",
+    "mp3Artist": "De Ochtendshow",
+    "couponCompany": "Boekhandel Pagina",
+    "couponCode": "WELKOM15",
+    "wifiSsid": "Hotel-Zonneveld-Gast",
+    "pdfFile": "{\"n\": \"Handleiding.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"aflevering-4.mp3\", \"s\": 7340032}"
   }
 }

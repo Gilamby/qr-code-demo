@@ -128,7 +128,7 @@
       "done": "OK"
     },
     "links": {
-      "sub": "Recetas y talleres de cocina en Róterdam",
+      "sub": "Recetas y talleres de cocina en Valencia",
       "website": "Recetas",
       "jobs": "Reservar taller de cocina",
       "support": "Contacto",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Contacto",
-      "role": "Jefa de proyecto",
+      "role": "Jefe de proyecto",
       "phone": "Teléfono",
       "email": "Correo",
       "cta": "Guardar en contactos",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Enlace copiado",
     "codeCopied": "Código copiado"
+  },
+  "sample": {
+    "pdfCompany": "Bicis Velo",
+    "linksTitle": "Chef Javier",
+    "vcardName": "Pablo García",
+    "vcardPhone": "+34 612 345 678",
+    "vcardEmail": "pablo@construccionesgarcia.es",
+    "vcardCompany": "Construcciones García",
+    "vcardWebsite": "https://construccionesgarcia.es",
+    "vcardAddress": "Calle de Alcalá 45, Madrid",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+34 952 123 456",
+    "bizEmail": "hola@bloomandco.es",
+    "bizWebsite": "https://bloomandco.es",
+    "bizAddress": "{\"l\": \"Calle Ricardo Soriano 12, 29601 Marbella, España\", \"lat\": 36.5097, \"lon\": -4.8862}",
+    "fbPage": "Panadería El Molino",
+    "fbUrl": "https://facebook.com/panaderiaelmolino",
+    "igUser": "marco.fotografia",
+    "igName": "Marco Ferrer",
+    "igSite": "marcoferrer.es",
+    "socialTitle": "Escuela de Surf Ola",
+    "waPhone": "+34 623 456 789",
+    "mp3Artist": "El Programa Matinal",
+    "couponCompany": "Librería Página",
+    "couponCode": "BIENVENIDA15",
+    "wifiSsid": "Hotel-Solmar-Invitados",
+    "pdfFile": "{\"n\": \"Manual.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}"
   }
 }

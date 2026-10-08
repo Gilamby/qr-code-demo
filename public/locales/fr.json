@@ -128,7 +128,7 @@
       "done": "OK"
     },
     "links": {
-      "sub": "Recettes et ateliers de cuisine à Rotterdam",
+      "sub": "Recettes et ateliers de cuisine à Lyon",
       "website": "Recettes",
       "jobs": "Réserver un atelier de cuisine",
       "support": "Contact",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Contact",
-      "role": "Cheffe de projet",
+      "role": "Chef de projet",
       "phone": "Téléphone",
       "email": "E-mail",
       "cta": "Enregistrer le contact",
@@ -200,7 +200,7 @@
       "message": "Message",
       "contact": "Contact",
       "category": "Photographe",
-      "bio": "Mariages, portraits et voyages à Barcelone"
+      "bio": "Mariages, portraits et voyages à Paris"
     },
     "social": {
       "sub": "Suivez-nous",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Lien copié",
     "codeCopied": "Code copié"
+  },
+  "sample": {
+    "pdfCompany": "Vélo Cycles",
+    "linksTitle": "Chef Julien",
+    "vcardName": "Thomas Martin",
+    "vcardPhone": "+33 6 12 34 56 78",
+    "vcardEmail": "thomas@martinbatiment.fr",
+    "vcardCompany": "Martin Bâtiment",
+    "vcardWebsite": "https://martinbatiment.fr",
+    "vcardAddress": "12 rue de Rivoli, Paris",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+33 1 23 45 67 89",
+    "bizEmail": "bonjour@bloomandco.fr",
+    "bizWebsite": "https://bloomandco.fr",
+    "bizAddress": "{\"l\": \"8 rue des Martyrs, 75009 Paris, France\", \"lat\": 48.8782, \"lon\": 2.3401}",
+    "fbPage": "Boulangerie du Moulin",
+    "fbUrl": "https://facebook.com/boulangeriedumoulin",
+    "igUser": "hugo.photographie",
+    "igName": "Hugo Bernard",
+    "igSite": "hugobernard.fr",
+    "socialTitle": "École de Surf Océan",
+    "waPhone": "+33 6 98 76 54 32",
+    "mp3Artist": "La Matinale",
+    "couponCompany": "Librairie La Page",
+    "couponCode": "BIENVENUE15",
+    "wifiSsid": "Hotel-Soleil-Invites",
+    "pdfFile": "{\"n\": \"Manuel.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"episode-4.mp3\", \"s\": 7340032}"
   }
 }

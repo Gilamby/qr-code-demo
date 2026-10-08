@@ -128,7 +128,7 @@
       "done": "OK"
     },
     "links": {
-      "sub": "Receitas e workshops de cozinha em Roterdão",
+      "sub": "Receitas e workshops de cozinha no Porto",
       "website": "Receitas",
       "jobs": "Reservar workshop de cozinha",
       "support": "Contacto",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Contacto",
-      "role": "Gestora de projeto",
+      "role": "Gestor de projeto",
       "phone": "Telefone",
       "email": "E-mail",
       "cta": "Guardar nos contactos",
@@ -200,7 +200,7 @@
       "message": "Mensagem",
       "contact": "Contacto",
       "category": "Fotógrafo",
-      "bio": "Casamentos, retratos e viagens em Barcelona"
+      "bio": "Casamentos, retratos e viagens em Lisboa"
     },
     "social": {
       "sub": "Siga-nos",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Link copiado",
     "codeCopied": "Código copiado"
+  },
+  "sample": {
+    "pdfCompany": "Bicicletas Velo",
+    "linksTitle": "Chef Tiago",
+    "vcardName": "João Silva",
+    "vcardPhone": "+351 912 345 678",
+    "vcardEmail": "joao@silvaconstrucoes.pt",
+    "vcardCompany": "Silva Construções",
+    "vcardWebsite": "https://silvaconstrucoes.pt",
+    "vcardAddress": "Rua Augusta 100, Lisboa",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+351 21 123 4567",
+    "bizEmail": "ola@bloomandco.pt",
+    "bizWebsite": "https://bloomandco.pt",
+    "bizAddress": "{\"l\": \"Rua das Flores 12, 1200-195 Lisboa, Portugal\", \"lat\": 38.7099, \"lon\": -9.1432}",
+    "fbPage": "Padaria O Moinho",
+    "fbUrl": "https://facebook.com/padariaomoinho",
+    "igUser": "rui.fotografia",
+    "igName": "Rui Costa",
+    "igSite": "ruicosta.pt",
+    "socialTitle": "Escola de Surf Onda",
+    "waPhone": "+351 934 567 890",
+    "mp3Artist": "O Programa da Manhã",
+    "couponCompany": "Livraria Página",
+    "couponCode": "BEMVINDO15",
+    "wifiSsid": "Hotel-Sol-Hospedes",
+    "pdfFile": "{\"n\": \"Manual.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}"
   }
 }

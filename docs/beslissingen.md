@@ -2,6 +2,12 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – Alle tekst in de telefoon wisselt mee met de taal
+
+- De voorbeeldgegevens zijn nu per taal echt lokaal (vertaalsleutels `sample.*`): namen, telefoonnummers met de juiste landcode, adressen in een stad van dat land (met kaartpunt), websites, e-mail, kortingscode (WELKOM15, BIENVENIDA15, …), WiFi-naam, bestandsnamen (Handleiding.pdf, Manual.pdf, …) en de steden in de omschrijvingen.
+- Meer mannen en meer variatie: vCard (Daan Visser, Oliver Bennett, Pablo García, …), Instagram-fotograaf, chef bij Lijst met links.
+- Automatisch gecontroleerd: in alle 9 andere talen staat in geen enkel type nog een Nederlands woord in de telefoon.
+
 ## 8 oktober 2026 – Alles eruit wat juridisch niet mag
 
 - Geen enkele aanvraag meer naar een andere server: Google Fonts en de QR-bibliotheek staan op onze eigen server, YouTube-miniatuur weg, adres zoeken via onze server.

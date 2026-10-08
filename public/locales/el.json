@@ -128,7 +128,7 @@
       "done": "Τέλος"
     },
     "links": {
-      "sub": "Συνταγές και εργαστήρια μαγειρικής στο Ρότερνταμ",
+      "sub": "Συνταγές και εργαστήρια μαγειρικής στη Θεσσαλονίκη",
       "website": "Συνταγές",
       "jobs": "Κλείσε εργαστήρι μαγειρικής",
       "support": "Επικοινωνία",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Επαφή",
-      "role": "Υπεύθυνη έργου",
+      "role": "Υπεύθυνος έργου",
       "phone": "Τηλέφωνο",
       "email": "Email",
       "cta": "Αποθήκευση στις επαφές",
@@ -200,7 +200,7 @@
       "message": "Μήνυμα",
       "contact": "Επικοινωνία",
       "category": "Φωτογράφος",
-      "bio": "Γάμοι, πορτρέτα και ταξίδια στη Βαρκελώνη"
+      "bio": "Γάμοι, πορτρέτα και ταξίδια στην Αθήνα"
     },
     "social": {
       "sub": "Ακολουθήστε μας",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Ο σύνδεσμος αντιγράφηκε",
     "codeCopied": "Ο κωδικός αντιγράφηκε"
+  },
+  "sample": {
+    "pdfCompany": "Ποδήλατα Velo",
+    "linksTitle": "Σεφ Νίκος",
+    "vcardName": "Γιώργος Παπαδόπουλος",
+    "vcardPhone": "+30 691 234 5678",
+    "vcardEmail": "giorgos@papadopoulos.gr",
+    "vcardCompany": "Παπαδόπουλος Κατασκευές",
+    "vcardWebsite": "https://papadopoulos.gr",
+    "vcardAddress": "Ερμού 25, Αθήνα",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+30 210 123 4567",
+    "bizEmail": "geia@bloomandco.gr",
+    "bizWebsite": "https://bloomandco.gr",
+    "bizAddress": "{\"l\": \"Αδριανού 12, 105 55 Αθήνα, Ελλάδα\", \"lat\": 37.9757, \"lon\": 23.7253}",
+    "fbPage": "Φούρνος Ο Μύλος",
+    "fbUrl": "https://facebook.com/fournosomylos",
+    "igUser": "kostas.photography",
+    "igName": "Κώστας Νικολάου",
+    "igSite": "kostasnikolaou.gr",
+    "socialTitle": "Σχολή Σέρφινγκ Κύμα",
+    "waPhone": "+30 697 765 4321",
+    "mp3Artist": "Η Πρωινή Εκπομπή",
+    "couponCompany": "Βιβλιοπωλείο Σελίδα",
+    "couponCode": "KALOSORISMA15",
+    "wifiSsid": "Hotel-Ilios-Guests",
+    "pdfFile": "{\"n\": \"Egcheiridio.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"epeisodio-4.mp3\", \"s\": 7340032}"
   }
 }

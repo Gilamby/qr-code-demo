@@ -128,7 +128,7 @@
       "done": "Done"
     },
     "links": {
-      "sub": "Recipes & cooking workshops in Rotterdam",
+      "sub": "Recipes & cooking workshops in Manchester",
       "website": "Recipes",
       "jobs": "Book a cooking workshop",
       "support": "Contact",
@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Contact",
-      "role": "Project lead",
+      "role": "Project manager",
       "phone": "Phone",
       "email": "Email",
       "cta": "Save to contacts",
@@ -200,7 +200,7 @@
       "message": "Message",
       "contact": "Contact",
       "category": "Photographer",
-      "bio": "Weddings, portraits and travel in Barcelona"
+      "bio": "Weddings, portraits and travel in London"
     },
     "social": {
       "sub": "Follow us",
@@ -706,5 +706,33 @@
   "live": {
     "linkCopied": "Link copied",
     "codeCopied": "Code copied"
+  },
+  "sample": {
+    "pdfCompany": "Harbour Cycles",
+    "linksTitle": "Chef James",
+    "vcardName": "Oliver Bennett",
+    "vcardPhone": "+44 7700 900123",
+    "vcardEmail": "oliver@bennettbuilders.co.uk",
+    "vcardCompany": "Bennett Builders",
+    "vcardWebsite": "https://bennettbuilders.co.uk",
+    "vcardAddress": "221 Baker Street, London",
+    "bizName": "Bloom & Co",
+    "bizPhone": "+44 20 7946 0123",
+    "bizEmail": "hello@bloomandco.co.uk",
+    "bizWebsite": "https://bloomandco.co.uk",
+    "bizAddress": "{\"l\": \"12 Neal Street, London WC2H 9PW, United Kingdom\", \"lat\": 51.5139, \"lon\": -0.1262}",
+    "fbPage": "The Old Mill Bakery",
+    "fbUrl": "https://facebook.com/oldmillbakery",
+    "igUser": "tom.photography",
+    "igName": "Tom Hayes",
+    "igSite": "tomhayes.co.uk",
+    "socialTitle": "Cornwall Surf School",
+    "waPhone": "+44 7700 900456",
+    "mp3Artist": "The Morning Show",
+    "couponCompany": "Page & Co Books",
+    "couponCode": "WELCOME15",
+    "wifiSsid": "Seaview-Hotel-Guest",
+    "pdfFile": "{\"n\": \"Manual.pdf\", \"s\": 2516582}",
+    "mp3File": "{\"n\": \"episode-4.mp3\", \"s\": 7340032}"
   }
 }
