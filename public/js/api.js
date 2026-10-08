@@ -25,7 +25,6 @@ var api = (function () {
     listQrCodes:  function ()      { return request('GET', 'api/qr-codes'); },
     createQrCode: function (data)  { return request('POST', 'api/qr-codes', data); },
     deleteQrCode: function (id)    { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id)); },
-    assistant:    function (text, design) { return request('POST', 'api/assistant', { text: text, design: design }); },
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },
     updateMe:     function (patch) { return request('PATCH', 'api/me', patch); }

@@ -403,15 +403,14 @@
       "inner": "Interior",
       "same": "Igual ao código",
       "usePage": "Usar as cores da minha página",
-      "typeLogo": "Usar o ícone {type}",
-      "logoHint": "Um logótipo quadrado funciona melhor. Reforçamos o código automaticamente.",
       "download": "Descarregar PNG",
       "frameFont": "Tipo de letra",
-      "unique": "Código único com link próprio",
-      "uniqueStatic": "Código único: o conteúdo está no próprio código",
       "pattern": "Padrão",
-      "moreStyles": "Mais estilos",
-      "cornerColor": "Cor dos cantos"
+      "colors": "Cores",
+      "ownDesign": "Design próprio",
+      "hasLogo": "Logo adicionado",
+      "noLogo": "Sem logo",
+      "decor": "Decoração"
     },
     "theme": {
       "classic": "Clássico",
@@ -495,7 +494,21 @@
       "rounded": "Arredondado",
       "smooth": "Fluido",
       "dots": "Pontos",
-      "classy": "Elegante"
+      "classy": "Elegante",
+      "smoothSoft": "Fluido suave",
+      "bigdots": "Pontos grandes",
+      "softsquare": "Blocos suaves",
+      "smallsquare": "Blocos soltos",
+      "squircle": "Almofadas",
+      "octagon": "Octógonos",
+      "classyRounded": "Elegante redondo",
+      "leaf": "Folhas",
+      "drop": "Gotas",
+      "vpill": "Barras",
+      "hpill": "Linhas",
+      "diamond": "Losangos",
+      "star": "Estrelas",
+      "heart": "Corações"
     },
     "cornerOuter": {
       "square": "Quadrado",
@@ -503,14 +516,32 @@
       "extra": "Muito arredondado",
       "circle": "Círculo",
       "leaf": "Folha",
-      "chamfer": "Octógono"
+      "chamfer": "Octógono",
+      "squareSoft": "Quadrado suave",
+      "leafAlt": "Folha (espelho)",
+      "drop": "Gota",
+      "point": "Ponta para fora",
+      "oneRound": "Um canto redondo",
+      "shield": "Escudo",
+      "chamferSoft": "Chanfro leve",
+      "dots": "Pontos"
     },
     "cornerInner": {
       "square": "Quadrado",
       "rounded": "Arredondado",
       "circle": "Círculo",
       "leaf": "Folha",
-      "chamfer": "Octógono"
+      "chamfer": "Octógono",
+      "roundedSmall": "Pouco arredondado",
+      "squircle": "Almofada",
+      "dots9": "Nove pontos",
+      "leafAlt": "Folha (espelho)",
+      "drop": "Gota",
+      "point": "Ponta",
+      "shield": "Escudo",
+      "diamond": "Losango",
+      "star": "Estrela",
+      "heart": "Coração"
     },
     "frame": {
       "none": "Sem moldura",
@@ -534,12 +565,26 @@
       "ornament": "Bola de Natal",
       "balloons": "Balões",
       "confetti": "Confetes",
-      "pumpkin": "Abóbora"
+      "pumpkin": "Abóbora",
+      "outline": "Borda em baixo",
+      "outlineTop": "Borda em cima",
+      "block": "Bloco",
+      "card": "Cartão",
+      "button": "Botão",
+      "underline": "Sublinhado",
+      "arrowDown": "Seta",
+      "sideLabel": "Etiqueta lateral",
+      "tab": "Separador",
+      "round": "Redondo",
+      "doubleBorder": "Borda dupla",
+      "sticker": "Autocolante",
+      "menu": "Ementa"
     },
     "fgroup": {
       "basic": "Básico",
+      "shapes": "Formas",
       "food": "Comida e bebida",
-      "shop": "Loja e correio",
+      "shop": "Loja",
       "party": "Festas"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "Popular",
       "classic": "Predefinido"
     },
-    "step": {
-      "style": "Escolhe um estilo",
-      "ai": "Ou descreve o que queres",
-      "logo": "O teu logo",
-      "own": "Ajustar"
+    "part": {
+      "all": "Tudo",
+      "color": "Pontos",
+      "outer": "Cantos exteriores",
+      "inner": "Cantos interiores"
     },
-    "tab": {
+    "card": {
+      "style": "Estilos",
+      "logo": "Logo",
       "colors": "Padrão e cores",
       "frame": "Moldura",
-      "corners": "Cantos",
-      "decor": "Decoração"
-    },
-    "ai": {
-      "badge": "Assistente QR",
-      "placeholder": "Descreve o teu código QR, ex. verde com pontos e o texto \"Bem-vindo\"",
-      "go": "Criar",
-      "try": "Experimenta:",
-      "ex1": "Natal em vermelho e verde com neve",
-      "ex2": "Preto com pontos, sem moldura",
-      "ex3": "Azul com o texto \"Encomende aqui\"",
-      "none": "Ainda não reconheci isso. Indica uma cor, ocasião, forma ou moldura, ou põe o texto entre \"aspas\".",
-      "got": "Reconhecido",
-      "pick": "Escolhe uma variante",
-      "variant": "Variante {n}",
-      "darker": "Mais escuro",
-      "noFrame": "Sem moldura",
-      "text": "Outro texto",
-      "logo": "Com o meu logo"
+      "corners": "Cantos"
     }
   }
 }

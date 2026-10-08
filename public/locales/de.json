@@ -403,15 +403,14 @@
       "inner": "Innen",
       "same": "Wie der Code",
       "usePage": "Meine Seitenfarben verwenden",
-      "typeLogo": "{type}-Symbol verwenden",
-      "logoHint": "Ein quadratisches Logo funktioniert am besten. Wir machen den Code automatisch extra robust.",
       "download": "PNG herunterladen",
       "frameFont": "Schriftart",
-      "unique": "Einzigartiger Code mit eigenem Link",
-      "uniqueStatic": "Einzigartiger Code: der Inhalt steckt im Code selbst",
       "pattern": "Muster",
-      "moreStyles": "Mehr Stile",
-      "cornerColor": "Farbe der Ecken"
+      "colors": "Farben",
+      "ownDesign": "Eigenes Design",
+      "hasLogo": "Logo hinzugefügt",
+      "noLogo": "Kein Logo",
+      "decor": "Deko"
     },
     "theme": {
       "classic": "Klassisch",
@@ -495,7 +494,21 @@
       "rounded": "Abgerundet",
       "smooth": "Fließend",
       "dots": "Punkte",
-      "classy": "Elegant"
+      "classy": "Elegant",
+      "smoothSoft": "Weich fließend",
+      "bigdots": "Große Punkte",
+      "softsquare": "Weiche Blöcke",
+      "smallsquare": "Lose Blöcke",
+      "squircle": "Kissen",
+      "octagon": "Achtecke",
+      "classyRounded": "Elegant rund",
+      "leaf": "Blätter",
+      "drop": "Tropfen",
+      "vpill": "Stäbchen",
+      "hpill": "Striche",
+      "diamond": "Rauten",
+      "star": "Sterne",
+      "heart": "Herzen"
     },
     "cornerOuter": {
       "square": "Quadrat",
@@ -503,14 +516,32 @@
       "extra": "Extra rund",
       "circle": "Kreis",
       "leaf": "Blatt",
-      "chamfer": "Achteck"
+      "chamfer": "Achteck",
+      "squareSoft": "Weiches Quadrat",
+      "leafAlt": "Blatt (gespiegelt)",
+      "drop": "Tropfen",
+      "point": "Spitze nach außen",
+      "oneRound": "Eine runde Ecke",
+      "shield": "Schild",
+      "chamferSoft": "Leicht abgeschrägt",
+      "dots": "Punkte"
     },
     "cornerInner": {
       "square": "Quadrat",
       "rounded": "Abgerundet",
       "circle": "Kreis",
       "leaf": "Blatt",
-      "chamfer": "Achteck"
+      "chamfer": "Achteck",
+      "roundedSmall": "Leicht abgerundet",
+      "squircle": "Kissen",
+      "dots9": "Neun Punkte",
+      "leafAlt": "Blatt (gespiegelt)",
+      "drop": "Tropfen",
+      "point": "Spitze",
+      "shield": "Schild",
+      "diamond": "Raute",
+      "star": "Stern",
+      "heart": "Herz"
     },
     "frame": {
       "none": "Kein Rahmen",
@@ -534,12 +565,26 @@
       "ornament": "Christbaumkugel",
       "balloons": "Luftballons",
       "confetti": "Konfetti",
-      "pumpkin": "Kürbis"
+      "pumpkin": "Kürbis",
+      "outline": "Rahmen unten",
+      "outlineTop": "Rahmen oben",
+      "block": "Block",
+      "card": "Karte",
+      "button": "Button",
+      "underline": "Unterstrichen",
+      "arrowDown": "Pfeil",
+      "sideLabel": "Seitenlabel",
+      "tab": "Reiter",
+      "round": "Rund",
+      "doubleBorder": "Doppelrahmen",
+      "sticker": "Sticker",
+      "menu": "Speisekarte"
     },
     "fgroup": {
       "basic": "Basis",
+      "shapes": "Formen",
       "food": "Essen & Trinken",
-      "shop": "Shop & Post",
+      "shop": "Shop",
       "party": "Feiertage"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "Beliebt",
       "classic": "Standard"
     },
-    "step": {
-      "style": "Wähle einen Stil",
-      "ai": "Oder beschreibe, was du willst",
-      "logo": "Dein Logo",
-      "own": "Selbst anpassen"
+    "part": {
+      "all": "Alles",
+      "color": "Punkte",
+      "outer": "Ecken außen",
+      "inner": "Ecken innen"
     },
-    "tab": {
+    "card": {
+      "style": "Stile",
+      "logo": "Logo",
       "colors": "Muster & Farben",
       "frame": "Rahmen",
-      "corners": "Ecken",
-      "decor": "Deko"
-    },
-    "ai": {
-      "badge": "QR-Assistent",
-      "placeholder": "Beschreibe deinen QR-Code, z. B. grün mit Punkten und dem Text \"Willkommen\"",
-      "go": "Erstellen",
-      "try": "Probier mal:",
-      "ex1": "Weihnachten in Rot und Grün mit Schnee",
-      "ex2": "Schwarz mit Punkten, ohne Rahmen",
-      "ex3": "Blau mit dem Text \"Hier bestellen\"",
-      "none": "Das habe ich noch nicht erkannt. Nenne eine Farbe, einen Anlass, eine Form oder einen Rahmen, oder setze deinen Text in \"Anführungszeichen\".",
-      "got": "Erkannt",
-      "pick": "Wähle eine Variante",
-      "variant": "Variante {n}",
-      "darker": "Dunkler",
-      "noFrame": "Ohne Rahmen",
-      "text": "Anderer Text",
-      "logo": "Mit meinem Logo"
+      "corners": "Ecken"
     }
   }
 }

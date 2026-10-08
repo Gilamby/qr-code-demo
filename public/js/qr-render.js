@@ -94,6 +94,21 @@ var QRRender = (function () {
     switch (kind) {
       case 'rounded': return rr(x + .05, y + .05, .9, .9, .3);
       case 'dots':    return circle(x + .5, y + .5, .44);
+      case 'bigdots': return circle(x + .5, y + .5, .5);
+      case 'softsquare': return rr(x + .08, y + .08, .84, .84, .18);
+      case 'smallsquare': return rr(x + .1, y + .1, .8, .8, 0);
+      case 'squircle': return rr(x + .04, y + .04, .92, .92, .38);
+      case 'octagon': return oct(x + .03, y + .03, .94, .28);
+      case 'classyRounded': return rr(x, y, 1, 1, [.5, .14, .5, .14]);
+      case 'leaf':    return rr(x, y, 1, 1, [0, .5, 0, .5]);
+      case 'drop':    return rr(x, y, 1, 1, [.5, .5, 0, .5]);
+      case 'vpill': { var u2 = isDark(y - 1, x), d2 = isDark(y + 1, x); return rr(x + .06, y, .88, 1, [u2 ? 0 : .44, u2 ? 0 : .44, d2 ? 0 : .44, d2 ? 0 : .44]); }
+      case 'hpill': { var l2 = isDark(y, x - 1), r2 = isDark(y, x + 1); return rr(x, y + .06, 1, .88, [l2 ? 0 : .44, r2 ? 0 : .44, r2 ? 0 : .44, l2 ? 0 : .44]); }
+      case 'smoothSoft': {
+        var a1 = isDark(y - 1, x) || isDark(y, x - 1) ? 0 : .3, a2 = isDark(y - 1, x) || isDark(y, x + 1) ? 0 : .3;
+        var a3 = isDark(y + 1, x) || isDark(y, x + 1) ? 0 : .3, a4 = isDark(y + 1, x) || isDark(y, x - 1) ? 0 : .3;
+        return rr(x, y, 1, 1, [a1, a2, a3, a4]);
+      }
       case 'classy':  return rr(x, y, 1, 1, [.5, 0, .5, 0]);
       case 'diamond': return diamond(x - .04, y - .04, 1.08);
       case 'heart':   return heart(x - .03, y - .02, 1.06);
@@ -121,6 +136,12 @@ var QRRender = (function () {
       case 'circle':  return circle(x + 3.5, y + 3.5, 3.5) + circle(x + 3.5, y + 3.5, 2.5);
       case 'leaf':    return rr(x, y, 7, 7, leafO) + rr(x + 1, y + 1, 5, 5, leafI);
       case 'chamfer': return oct(x, y, 7, 2) + oct(x + 1, y + 1, 5, 1.4);
+      case 'chamferSoft': return oct(x, y, 7, 1.1) + oct(x + 1, y + 1, 5, .7);
+      case 'leafAlt': return rr(x, y, 7, 7, pos === 0 ? [0, 3, 0, 3] : [3, 0, 3, 0]) + rr(x + 1, y + 1, 5, 5, pos === 0 ? [0, 2, 0, 2] : [2, 0, 2, 0]);
+      case 'point':   return rr(x, y, 7, 7, pos === 0 ? [0, 3, 3, 3] : pos === 1 ? [3, 0, 3, 3] : [3, 3, 3, 0]) + rr(x + 1, y + 1, 5, 5, pos === 0 ? [0, 2, 2, 2] : pos === 1 ? [2, 0, 2, 2] : [2, 2, 2, 0]);
+      case 'oneRound': return rr(x, y, 7, 7, pos === 0 ? [3, 0, 0, 0] : pos === 1 ? [0, 3, 0, 0] : [0, 0, 0, 3]) + rr(x + 1, y + 1, 5, 5, pos === 0 ? [2, 0, 0, 0] : pos === 1 ? [0, 2, 0, 0] : [0, 0, 0, 2]);
+      case 'squareSoft': return rr(x, y, 7, 7, .6) + rr(x + 1, y + 1, 5, 5, 1.6);
+      case 'shield':  return rr(x, y, 7, 7, [0, 0, 3, 3]) + rr(x + 1, y + 1, 5, 5, [0, 0, 2, 2]);
       case 'drop':    return rr(x, y, 7, 7, pos === 0 ? [3.5, 3.5, 0, 3.5] : pos === 1 ? [3.5, 3.5, 3.5, 0] : [3.5, 0, 3.5, 3.5]) + rr(x + 1, y + 1, 5, 5, pos === 0 ? [2.5, 2.5, 0, 2.5] : pos === 1 ? [2.5, 2.5, 2.5, 0] : [2.5, 0, 2.5, 2.5]);
       case 'dots': {
         var d = '';
@@ -141,6 +162,13 @@ var QRRender = (function () {
       case 'flower':  return circle(x + 1.5, y + .75, .75) + circle(x + 2.25, y + 1.5, .75) + circle(x + 1.5, y + 2.25, .75) + circle(x + .75, y + 1.5, .75) + circle(x + 1.5, y + 1.5, .8);
       case 'plus':    return plus(x - .2, y - .2, 3.4, 1.5);
       case 'chamfer': return oct(x, y, 3, .9);
+      case 'roundedSmall': return rr(x, y, 3, 3, .4);
+      case 'squircle': return rr(x, y, 3, 3, 1.2);
+      case 'leafAlt': return rr(x, y, 3, 3, pos === 0 ? [0, 1.4, 0, 1.4] : [1.4, 0, 1.4, 0]);
+      case 'drop':    return rr(x, y, 3, 3, pos === 0 ? [1.5, 1.5, 0, 1.5] : pos === 1 ? [1.5, 1.5, 1.5, 0] : [1.5, 0, 1.5, 1.5]);
+      case 'point':   return rr(x, y, 3, 3, pos === 0 ? [0, 1.4, 1.4, 1.4] : pos === 1 ? [1.4, 0, 1.4, 1.4] : [1.4, 1.4, 1.4, 0]);
+      case 'shield':  return rr(x, y, 3, 3, [0, 0, 1.4, 1.4]);
+      case 'dots9': { var g9 = ''; for (var i9 = 0; i9 < 3; i9++) for (var j9 = 0; j9 < 3; j9++) g9 += circle(x + j9 + .5, y + i9 + .5, .5); return g9; }
       default:        return rr(x, y, 3, 3, 0);
     }
   }
@@ -244,6 +272,24 @@ var QRRender = (function () {
         win(10, 10, 100) + T(60, 140, 15, fc));
       case 'ribbon':   return out(140, 150, '<path d="' + rr(20, 0, 100, 106, 6) + '" fill="#fff" stroke="' + fc + '" stroke-width="2"/>' + win(20, 2, 100) +
         '<path d="M0 116H16V142H0L7 129Z M124 116H140L133 129L140 142H124Z" fill="' + dk + '"/><path d="M16 142L24 136V142ZM124 142L116 136V142Z" fill="' + shade(base, -.5) + '"/><rect x="12" y="110" width="116" height="26" rx="2" fill="' + fc + '"/>' + T(70, 128, 13, ik, '', 108));
+
+      case 'outline':  return out(116, 146, '<path d="' + rr(2, 2, 112, 142, 12) + '" fill="#fff" stroke="' + fc + '" stroke-width="4"/>' + win(8, 8, 100) + T(58, 134, 15, fc));
+      case 'outlineTop': return out(116, 146, '<path d="' + rr(2, 2, 112, 142, 12) + '" fill="#fff" stroke="' + fc + '" stroke-width="4"/>' + win(8, 38, 100) + T(58, 28, 15, fc));
+      case 'block':    return out(112, 140, '<rect width="112" height="140" fill="' + fc + '"/>' + win(6, 6, 100, 0) + T(56, 128, 15, ik));
+      case 'card':     return out(120, 152, '<path d="' + rr(3, 6, 114, 144, 12) + '" fill="#000" opacity=".1"/><path d="' + rr(0, 0, 114, 144, 12) + '" fill="#fff" stroke="#e2e6eb"/>' +
+        '<path d="' + rr(0, 112, 114, 32, [0, 0, 12, 12]) + '" fill="' + fc + '"/>' + win(7, 7, 100) + T(57, 134, 13.5, ik));
+      case 'button':   return out(112, 150, win(6, 2, 100) + '<path d="' + rr(12, 114, 88, 32, 16) + '" fill="' + fc + '"/>' + T(56, 135, 13, ik, '', 76));
+      case 'underline': return out(112, 144, win(6, 2, 100) + T(56, 126, 15, fc) + '<path d="M30 136H82" stroke="' + fc + '" stroke-width="3" stroke-linecap="round"/>');
+      case 'arrowDown': return out(112, 148, T(56, 18, 15, fc) + '<path d="M48 27L56 35L64 27" fill="none" stroke="' + fc + '" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' + win(6, 44, 100));
+      case 'sideLabel': return out(142, 112, '<path d="' + rr(0, 0, 142, 112, 10) + '" fill="' + fc + '"/>' + win(36, 6, 100) + T(20, 61, 14, ik, ' transform="rotate(-90 20 56)"', 100));
+      case 'tab':      return out(116, 142, '<path d="' + rr(2, 24, 112, 116, 10) + '" fill="#fff" stroke="' + fc + '" stroke-width="3"/><path d="' + rr(2, 0, 76, 28, [10, 10, 0, 0]) + '" fill="' + fc + '"/>' + T(40, 19, 12, ik, '', 68) + win(8, 32, 100));
+      case 'round':    return out(140, 174, '<circle cx="70" cy="70" r="68" fill="' + fc + '"/><circle cx="70" cy="70" r="61" fill="#fff"/>' + win(28, 28, 84, 3) +
+        '<path d="' + rr(18, 144, 104, 28, 14) + '" fill="' + fc + '"/>' + T(70, 163, 13, ik, '', 92));
+      case 'doubleBorder': return out(124, 156, '<path d="' + rr(1.5, 1.5, 121, 153, 11) + '" fill="#fff" stroke="' + fc + '" stroke-width="2.5"/><path d="' + rr(6.5, 6.5, 111, 143, 7) + '" fill="none" stroke="' + fc + '" stroke-width="1.2"/>' + win(12, 12, 100) + T(62, 141, 14, fc));
+      case 'sticker':  return out(140, 166, '<g transform="rotate(-4 70 83)"><path d="' + rr(12, 14, 120, 146, 18) + '" fill="#000" opacity=".12"/><path d="' + rr(8, 8, 120, 146, 18) + '" fill="' + fc + '"/>' +
+        '<path d="' + rr(16, 16, 104, 104, 10) + '" fill="#fff"/>' + win(18, 18, 100) + T(68, 142, 14, ik, '', 100) + '</g>');
+      case 'menu':     return out(130, 178, '<path d="' + rr(1, 1, 128, 176, 8) + '" fill="#fff" stroke="' + fc + '" stroke-width="2"/><path d="' + rr(1, 1, 128, 36, [8, 8, 0, 0]) + '" fill="' + fc + '"/>' + T(65, 25, 14, ik, '', 112) +
+        win(15, 46, 100) + '<path d="M34 160H96" stroke="' + fc + '" stroke-opacity=".35" stroke-width="1.5"/><circle cx="28" cy="160" r="2" fill="' + fc + '"/><circle cx="102" cy="160" r="2" fill="' + fc + '"/>');
 
       /* ----- Eten & drinken ----- */
       case 'coffee':   return out(132, 218, '<path d="' + rr(14, 2, 104, 14, 6) + '" fill="' + dk + '"/><path d="' + rr(6, 14, 120, 12, 6) + '" fill="' + fc + '"/>' +

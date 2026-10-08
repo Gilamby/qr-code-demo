@@ -403,15 +403,14 @@
       "inner": "Binnenkant",
       "same": "Zelfde als code",
       "usePage": "Gebruik mijn paginakleuren",
-      "typeLogo": "Gebruik het {type}-icoon",
-      "logoHint": "Een vierkant logo werkt het best. We maken de code automatisch extra sterk, zodat hij ook met logo goed scant.",
       "download": "Download PNG",
       "frameFont": "Lettertype",
-      "unique": "Unieke code met eigen link",
-      "uniqueStatic": "Unieke code: de inhoud zit in de code zelf",
       "pattern": "Patroon",
-      "moreStyles": "Meer stijlen",
-      "cornerColor": "Kleur van de hoeken"
+      "colors": "Kleuren",
+      "ownDesign": "Eigen ontwerp",
+      "hasLogo": "Logo toegevoegd",
+      "noLogo": "Geen logo",
+      "decor": "Versiering"
     },
     "theme": {
       "classic": "Klassiek",
@@ -495,7 +494,21 @@
       "rounded": "Afgerond",
       "smooth": "Vloeiend",
       "dots": "Rondjes",
-      "classy": "Elegant"
+      "classy": "Elegant",
+      "smoothSoft": "Zacht vloeiend",
+      "bigdots": "Grote rondjes",
+      "softsquare": "Zachte blokjes",
+      "smallsquare": "Losse blokjes",
+      "squircle": "Kussentjes",
+      "octagon": "Achthoekjes",
+      "classyRounded": "Elegant rond",
+      "leaf": "Blaadjes",
+      "drop": "Druppels",
+      "vpill": "Staafjes",
+      "hpill": "Streepjes",
+      "diamond": "Ruitjes",
+      "star": "Sterren",
+      "heart": "Hartjes"
     },
     "cornerOuter": {
       "square": "Vierkant",
@@ -503,14 +516,32 @@
       "extra": "Extra rond",
       "circle": "Cirkel",
       "leaf": "Blad",
-      "chamfer": "Achthoek"
+      "chamfer": "Achthoek",
+      "squareSoft": "Zacht vierkant",
+      "leafAlt": "Blad (gespiegeld)",
+      "drop": "Druppel",
+      "point": "Punt naar buiten",
+      "oneRound": "Eén ronde hoek",
+      "shield": "Schild",
+      "chamferSoft": "Licht afgeschuind",
+      "dots": "Stippen"
     },
     "cornerInner": {
       "square": "Vierkant",
       "rounded": "Afgerond",
       "circle": "Cirkel",
       "leaf": "Blad",
-      "chamfer": "Achthoek"
+      "chamfer": "Achthoek",
+      "roundedSmall": "Licht afgerond",
+      "squircle": "Kussen",
+      "dots9": "Negen rondjes",
+      "leafAlt": "Blad (gespiegeld)",
+      "drop": "Druppel",
+      "point": "Punt",
+      "shield": "Schild",
+      "diamond": "Ruit",
+      "star": "Ster",
+      "heart": "Hart"
     },
     "frame": {
       "none": "Geen frame",
@@ -534,12 +565,26 @@
       "ornament": "Kerstbal",
       "balloons": "Ballonnen",
       "confetti": "Confetti",
-      "pumpkin": "Pompoen"
+      "pumpkin": "Pompoen",
+      "outline": "Rand onder",
+      "outlineTop": "Rand boven",
+      "block": "Blok",
+      "card": "Kaart",
+      "button": "Knop",
+      "underline": "Onderstreept",
+      "arrowDown": "Pijltje",
+      "sideLabel": "Label opzij",
+      "tab": "Tabblad",
+      "round": "Rond",
+      "doubleBorder": "Dubbele rand",
+      "sticker": "Sticker",
+      "menu": "Menukaart"
     },
     "fgroup": {
       "basic": "Basis",
+      "shapes": "Vormen",
       "food": "Eten & drinken",
-      "shop": "Winkel & post",
+      "shop": "Winkel",
       "party": "Feestdagen"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "Populair",
       "classic": "Standaard"
     },
-    "step": {
-      "style": "Kies een stijl",
-      "ai": "Of beschrijf wat je wilt",
-      "logo": "Je logo",
-      "own": "Zelf aanpassen"
+    "part": {
+      "all": "Alles",
+      "color": "Puntjes",
+      "outer": "Hoeken buiten",
+      "inner": "Hoeken binnen"
     },
-    "tab": {
+    "card": {
+      "style": "Stijlen",
+      "logo": "Logo",
       "colors": "Patroon en kleuren",
       "frame": "Frame",
-      "corners": "Hoeken",
-      "decor": "Versiering"
-    },
-    "ai": {
-      "badge": "QR-assistent",
-      "placeholder": "Beschrijf je QR-code, bv. groen met rondjes en de tekst \"Welkom\"",
-      "go": "Maak",
-      "try": "Probeer:",
-      "ex1": "Kerst in rood en groen met sneeuw",
-      "ex2": "Zwart met rondjes, zonder frame",
-      "ex3": "Blauw met de tekst \"Bestel hier\"",
-      "none": "Dat herkende ik nog niet. Noem een kleur, gelegenheid, vorm of frame, of zet je tekst tussen \"aanhalingstekens\".",
-      "got": "Herkend",
-      "pick": "Kies een variant",
-      "variant": "Variant {n}",
-      "darker": "Donkerder",
-      "noFrame": "Zonder frame",
-      "text": "Andere tekst",
-      "logo": "Met mijn logo"
+      "corners": "Hoeken"
     }
   }
 }

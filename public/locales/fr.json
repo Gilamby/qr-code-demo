@@ -403,15 +403,14 @@
       "inner": "Intérieur",
       "same": "Comme le code",
       "usePage": "Utiliser les couleurs de ma page",
-      "typeLogo": "Utiliser l’icône {type}",
-      "logoHint": "Un logo carré fonctionne mieux. Nous renforçons automatiquement le code.",
       "download": "Télécharger PNG",
       "frameFont": "Police",
-      "unique": "Code unique avec son propre lien",
-      "uniqueStatic": "Code unique : le contenu est dans le code",
       "pattern": "Motif",
-      "moreStyles": "Plus de styles",
-      "cornerColor": "Couleur des coins"
+      "colors": "Couleurs",
+      "ownDesign": "Design perso",
+      "hasLogo": "Logo ajouté",
+      "noLogo": "Pas de logo",
+      "decor": "Décoration"
     },
     "theme": {
       "classic": "Classique",
@@ -495,7 +494,21 @@
       "rounded": "Arrondi",
       "smooth": "Fluide",
       "dots": "Points",
-      "classy": "Élégant"
+      "classy": "Élégant",
+      "smoothSoft": "Fluide doux",
+      "bigdots": "Gros points",
+      "softsquare": "Blocs doux",
+      "smallsquare": "Blocs espacés",
+      "squircle": "Coussins",
+      "octagon": "Octogones",
+      "classyRounded": "Élégant arrondi",
+      "leaf": "Feuilles",
+      "drop": "Gouttes",
+      "vpill": "Barres",
+      "hpill": "Traits",
+      "diamond": "Losanges",
+      "star": "Étoiles",
+      "heart": "Cœurs"
     },
     "cornerOuter": {
       "square": "Carré",
@@ -503,14 +516,32 @@
       "extra": "Très arrondi",
       "circle": "Cercle",
       "leaf": "Feuille",
-      "chamfer": "Octogone"
+      "chamfer": "Octogone",
+      "squareSoft": "Carré doux",
+      "leafAlt": "Feuille (miroir)",
+      "drop": "Goutte",
+      "point": "Pointe vers l’extérieur",
+      "oneRound": "Un coin arrondi",
+      "shield": "Bouclier",
+      "chamferSoft": "Biseau léger",
+      "dots": "Points"
     },
     "cornerInner": {
       "square": "Carré",
       "rounded": "Arrondi",
       "circle": "Cercle",
       "leaf": "Feuille",
-      "chamfer": "Octogone"
+      "chamfer": "Octogone",
+      "roundedSmall": "Légèrement arrondi",
+      "squircle": "Coussin",
+      "dots9": "Neuf points",
+      "leafAlt": "Feuille (miroir)",
+      "drop": "Goutte",
+      "point": "Pointe",
+      "shield": "Bouclier",
+      "diamond": "Losange",
+      "star": "Étoile",
+      "heart": "Cœur"
     },
     "frame": {
       "none": "Sans cadre",
@@ -534,12 +565,26 @@
       "ornament": "Boule de Noël",
       "balloons": "Ballons",
       "confetti": "Confettis",
-      "pumpkin": "Citrouille"
+      "pumpkin": "Citrouille",
+      "outline": "Bordure en bas",
+      "outlineTop": "Bordure en haut",
+      "block": "Bloc",
+      "card": "Carte",
+      "button": "Bouton",
+      "underline": "Souligné",
+      "arrowDown": "Flèche",
+      "sideLabel": "Étiquette latérale",
+      "tab": "Onglet",
+      "round": "Rond",
+      "doubleBorder": "Double bordure",
+      "sticker": "Autocollant",
+      "menu": "Carte du menu"
     },
     "fgroup": {
-      "basic": "Base",
-      "food": "Boire & manger",
-      "shop": "Boutique & courrier",
+      "basic": "Basique",
+      "shapes": "Formes",
+      "food": "Repas & boissons",
+      "shop": "Boutique",
       "party": "Fêtes"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "Populaire",
       "classic": "Par défaut"
     },
-    "step": {
-      "style": "Choisis un style",
-      "ai": "Ou décris ce que tu veux",
-      "logo": "Ton logo",
-      "own": "Personnaliser"
+    "part": {
+      "all": "Tout",
+      "color": "Points",
+      "outer": "Coins extérieurs",
+      "inner": "Coins intérieurs"
     },
-    "tab": {
+    "card": {
+      "style": "Styles",
+      "logo": "Logo",
       "colors": "Motif et couleurs",
       "frame": "Cadre",
-      "corners": "Coins",
-      "decor": "Décoration"
-    },
-    "ai": {
-      "badge": "Assistant QR",
-      "placeholder": "Décris ton QR code, ex. vert avec des points et le texte \"Bienvenue\"",
-      "go": "Créer",
-      "try": "Essaie :",
-      "ex1": "Noël en rouge et vert avec de la neige",
-      "ex2": "Noir avec des points, sans cadre",
-      "ex3": "Bleu avec le texte \"Commandez ici\"",
-      "none": "Je ne l’ai pas encore reconnu. Indique une couleur, une occasion, une forme ou un cadre, ou mets ton texte entre \"guillemets\".",
-      "got": "Reconnu",
-      "pick": "Choisis une variante",
-      "variant": "Variante {n}",
-      "darker": "Plus foncé",
-      "noFrame": "Sans cadre",
-      "text": "Autre texte",
-      "logo": "Avec mon logo"
+      "corners": "Coins"
     }
   }
 }

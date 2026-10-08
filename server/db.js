@@ -37,13 +37,6 @@ module.exports = {
     q.scans += 1; q.lastScanAt = new Date().toISOString(); save();
     return q;
   },
-  // Woorden die de QR-assistent niet kende, met een teller (om hem slimmer te maken)
-  countAssistantMisses: (words) => {
-    if (!words || !words.length) return;
-    data.assistantMisses = data.assistantMisses || {};
-    words.forEach((w) => { if (/^[\p{L}-]{3,24}$/u.test(w)) data.assistantMisses[w] = (data.assistantMisses[w] || 0) + 1; });
-    save();
-  },
   getMe: () => data.me,
   updateMe: (patch) => { data.me = Object.assign({}, data.me, patch); save(); return data.me; }
 };

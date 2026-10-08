@@ -403,15 +403,14 @@
       "inner": "Wewnątrz",
       "same": "Jak kod",
       "usePage": "Użyj kolorów mojej strony",
-      "typeLogo": "Użyj ikony {type}",
-      "logoHint": "Najlepiej działa kwadratowe logo. Automatycznie wzmacniamy kod.",
       "download": "Pobierz PNG",
       "frameFont": "Czcionka",
-      "unique": "Unikalny kod z własnym linkiem",
-      "uniqueStatic": "Unikalny kod: treść jest w samym kodzie",
       "pattern": "Wzór",
-      "moreStyles": "Więcej stylów",
-      "cornerColor": "Kolor narożników"
+      "colors": "Kolory",
+      "ownDesign": "Własny projekt",
+      "hasLogo": "Logo dodane",
+      "noLogo": "Brak logo",
+      "decor": "Dekoracje"
     },
     "theme": {
       "classic": "Klasyczny",
@@ -495,7 +494,21 @@
       "rounded": "Zaokrąglony",
       "smooth": "Płynny",
       "dots": "Kropki",
-      "classy": "Elegancki"
+      "classy": "Elegancki",
+      "smoothSoft": "Miękki płynny",
+      "bigdots": "Duże kropki",
+      "softsquare": "Miękkie bloki",
+      "smallsquare": "Luźne bloki",
+      "squircle": "Poduszki",
+      "octagon": "Ośmiokąty",
+      "classyRounded": "Elegancki okrągły",
+      "leaf": "Liście",
+      "drop": "Krople",
+      "vpill": "Słupki",
+      "hpill": "Kreski",
+      "diamond": "Romby",
+      "star": "Gwiazdy",
+      "heart": "Serca"
     },
     "cornerOuter": {
       "square": "Kwadrat",
@@ -503,14 +516,32 @@
       "extra": "Bardzo okrągły",
       "circle": "Koło",
       "leaf": "Liść",
-      "chamfer": "Ośmiokąt"
+      "chamfer": "Ośmiokąt",
+      "squareSoft": "Miękki kwadrat",
+      "leafAlt": "Liść (odbity)",
+      "drop": "Kropla",
+      "point": "Szpic na zewnątrz",
+      "oneRound": "Jeden okrągły róg",
+      "shield": "Tarcza",
+      "chamferSoft": "Lekkie ścięcie",
+      "dots": "Kropki"
     },
     "cornerInner": {
       "square": "Kwadrat",
       "rounded": "Zaokrąglony",
       "circle": "Koło",
       "leaf": "Liść",
-      "chamfer": "Ośmiokąt"
+      "chamfer": "Ośmiokąt",
+      "roundedSmall": "Lekko zaokrąglony",
+      "squircle": "Poduszka",
+      "dots9": "Dziewięć kropek",
+      "leafAlt": "Liść (odbity)",
+      "drop": "Kropla",
+      "point": "Szpic",
+      "shield": "Tarcza",
+      "diamond": "Romb",
+      "star": "Gwiazda",
+      "heart": "Serce"
     },
     "frame": {
       "none": "Bez ramki",
@@ -534,12 +565,26 @@
       "ornament": "Bombka",
       "balloons": "Balony",
       "confetti": "Konfetti",
-      "pumpkin": "Dynia"
+      "pumpkin": "Dynia",
+      "outline": "Ramka u dołu",
+      "outlineTop": "Ramka u góry",
+      "block": "Blok",
+      "card": "Karta",
+      "button": "Przycisk",
+      "underline": "Podkreślenie",
+      "arrowDown": "Strzałka",
+      "sideLabel": "Etykieta z boku",
+      "tab": "Zakładka",
+      "round": "Okrągła",
+      "doubleBorder": "Podwójna ramka",
+      "sticker": "Naklejka",
+      "menu": "Karta menu"
     },
     "fgroup": {
       "basic": "Podstawowe",
-      "food": "Jedzenie i picie",
-      "shop": "Sklep i poczta",
+      "shapes": "Kształty",
+      "food": "Jedzenie i napoje",
+      "shop": "Sklep",
       "party": "Święta"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "Popularne",
       "classic": "Domyślne"
     },
-    "step": {
-      "style": "Wybierz styl",
-      "ai": "Albo opisz, czego chcesz",
-      "logo": "Twoje logo",
-      "own": "Dostosuj sam"
+    "part": {
+      "all": "Wszystko",
+      "color": "Kropki",
+      "outer": "Narożniki zewnętrzne",
+      "inner": "Narożniki wewnętrzne"
     },
-    "tab": {
+    "card": {
+      "style": "Style",
+      "logo": "Logo",
       "colors": "Wzór i kolory",
       "frame": "Ramka",
-      "corners": "Narożniki",
-      "decor": "Dekoracje"
-    },
-    "ai": {
-      "badge": "Asystent QR",
-      "placeholder": "Opisz swój kod QR, np. zielony z kropkami i tekstem \"Witaj\"",
-      "go": "Utwórz",
-      "try": "Spróbuj:",
-      "ex1": "Boże Narodzenie, czerwony i zielony, ze śniegiem",
-      "ex2": "Czarny z kropkami, bez ramki",
-      "ex3": "Niebieski z tekstem \"Zamów tutaj\"",
-      "none": "Jeszcze tego nie rozpoznaję. Podaj kolor, okazję, kształt lub ramkę albo wpisz tekst w \"cudzysłowie\".",
-      "got": "Rozpoznano",
-      "pick": "Wybierz wariant",
-      "variant": "Wariant {n}",
-      "darker": "Ciemniej",
-      "noFrame": "Bez ramki",
-      "text": "Inny tekst",
-      "logo": "Z moim logo"
+      "corners": "Narożniki"
     }
   }
 }

@@ -8,7 +8,6 @@ const crypto = require('crypto');
 const db = require('./db');
 const { validateQrCode, validateMe, QR_TYPES } = require('./validate');
 const links = require('./links');
-const assistant = require('../shared/assistant');
 const { validateDesign } = require('./validate');
 
 const app = express();
@@ -62,19 +61,6 @@ app.get('/api/url-info', async (req, res) => {
   try { new URL(url); } catch (e) { return res.status(400).json({ ok: false, error: 'Invalid URL' }); }
   try { res.json(await links.urlInfo(url)); }
   catch (e) { res.json({ ok: false, status: 0, title: '' }); }
-});
-
-// QR-assistent: zin → 3 ontwerpen. Dezelfde taal-motor als in de browser (shared/assistant.js),
-// maar hier controleren we de uitkomst met de gewone ontwerp-validatie en houden we anoniem bij
-// welke woorden hij nog niet kende (zonder de zin zelf of persoonsgegevens op te slaan).
-app.post('/api/assistant', (req, res) => {
-  const text = typeof req.body.text === 'string' ? req.body.text.slice(0, 300) : '';
-  if (!text.trim()) return res.status(400).json({ error: 'Empty text' });
-  const errs = []; const current = validateDesign(req.body.design || {}, errs);
-  const out = assistant.parse(text, Object.assign({}, req.body.design || {}, current));
-  out.variants = out.variants.map((v) => { const e = []; const clean = validateDesign(v, e); if (v.frameTextKey) clean.frameTextKey = v.frameTextKey; return clean; });
-  db.countAssistantMisses(out.unknown);
-  res.json(out);
 });
 
 app.get('/api/me', (req, res) => res.json(db.getMe()));

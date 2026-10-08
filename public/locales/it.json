@@ -403,15 +403,14 @@
       "inner": "Interno",
       "same": "Come il codice",
       "usePage": "Usa i colori della mia pagina",
-      "typeLogo": "Usa l’icona {type}",
-      "logoHint": "Un logo quadrato funziona meglio. Rafforziamo automaticamente il codice.",
       "download": "Scarica PNG",
       "frameFont": "Carattere",
-      "unique": "Codice unico con link proprio",
-      "uniqueStatic": "Codice unico: il contenuto è nel codice stesso",
       "pattern": "Motivo",
-      "moreStyles": "Altri stili",
-      "cornerColor": "Colore degli angoli"
+      "colors": "Colori",
+      "ownDesign": "Design personale",
+      "hasLogo": "Logo aggiunto",
+      "noLogo": "Nessun logo",
+      "decor": "Decorazione"
     },
     "theme": {
       "classic": "Classico",
@@ -495,7 +494,21 @@
       "rounded": "Arrotondato",
       "smooth": "Fluido",
       "dots": "Pallini",
-      "classy": "Elegante"
+      "classy": "Elegante",
+      "smoothSoft": "Fluido morbido",
+      "bigdots": "Pallini grandi",
+      "softsquare": "Blocchi morbidi",
+      "smallsquare": "Blocchi separati",
+      "squircle": "Cuscini",
+      "octagon": "Ottagoni",
+      "classyRounded": "Elegante tondo",
+      "leaf": "Foglie",
+      "drop": "Gocce",
+      "vpill": "Barre",
+      "hpill": "Linee",
+      "diamond": "Rombi",
+      "star": "Stelle",
+      "heart": "Cuori"
     },
     "cornerOuter": {
       "square": "Quadrato",
@@ -503,14 +516,32 @@
       "extra": "Molto arrotondato",
       "circle": "Cerchio",
       "leaf": "Foglia",
-      "chamfer": "Ottagono"
+      "chamfer": "Ottagono",
+      "squareSoft": "Quadrato morbido",
+      "leafAlt": "Foglia (specchio)",
+      "drop": "Goccia",
+      "point": "Punta verso fuori",
+      "oneRound": "Un angolo tondo",
+      "shield": "Scudo",
+      "chamferSoft": "Smusso leggero",
+      "dots": "Pallini"
     },
     "cornerInner": {
       "square": "Quadrato",
       "rounded": "Arrotondato",
       "circle": "Cerchio",
       "leaf": "Foglia",
-      "chamfer": "Ottagono"
+      "chamfer": "Ottagono",
+      "roundedSmall": "Poco arrotondato",
+      "squircle": "Cuscino",
+      "dots9": "Nove pallini",
+      "leafAlt": "Foglia (specchio)",
+      "drop": "Goccia",
+      "point": "Punta",
+      "shield": "Scudo",
+      "diamond": "Rombo",
+      "star": "Stella",
+      "heart": "Cuore"
     },
     "frame": {
       "none": "Nessuna cornice",
@@ -534,12 +565,26 @@
       "ornament": "Pallina di Natale",
       "balloons": "Palloncini",
       "confetti": "Coriandoli",
-      "pumpkin": "Zucca"
+      "pumpkin": "Zucca",
+      "outline": "Bordo sotto",
+      "outlineTop": "Bordo sopra",
+      "block": "Blocco",
+      "card": "Scheda",
+      "button": "Pulsante",
+      "underline": "Sottolineato",
+      "arrowDown": "Freccia",
+      "sideLabel": "Etichetta laterale",
+      "tab": "Linguetta",
+      "round": "Rotondo",
+      "doubleBorder": "Doppio bordo",
+      "sticker": "Adesivo",
+      "menu": "Menù"
     },
     "fgroup": {
       "basic": "Base",
+      "shapes": "Forme",
       "food": "Cibo e bevande",
-      "shop": "Negozio e posta",
+      "shop": "Negozio",
       "party": "Feste"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "Popolare",
       "classic": "Predefinito"
     },
-    "step": {
-      "style": "Scegli uno stile",
-      "ai": "Oppure descrivi cosa vuoi",
-      "logo": "Il tuo logo",
-      "own": "Personalizza"
+    "part": {
+      "all": "Tutto",
+      "color": "Puntini",
+      "outer": "Angoli esterni",
+      "inner": "Angoli interni"
     },
-    "tab": {
+    "card": {
+      "style": "Stili",
+      "logo": "Logo",
       "colors": "Motivo e colori",
       "frame": "Cornice",
-      "corners": "Angoli",
-      "decor": "Decorazione"
-    },
-    "ai": {
-      "badge": "Assistente QR",
-      "placeholder": "Descrivi il tuo QR code, es. verde con pallini e il testo \"Benvenuto\"",
-      "go": "Crea",
-      "try": "Prova:",
-      "ex1": "Natale in rosso e verde con neve",
-      "ex2": "Nero con pallini, senza cornice",
-      "ex3": "Blu con il testo \"Ordina qui\"",
-      "none": "Non l’ho ancora riconosciuto. Indica un colore, un’occasione, una forma o una cornice, o metti il testo tra \"virgolette\".",
-      "got": "Riconosciuto",
-      "pick": "Scegli una variante",
-      "variant": "Variante {n}",
-      "darker": "Più scuro",
-      "noFrame": "Senza cornice",
-      "text": "Altro testo",
-      "logo": "Con il mio logo"
+      "corners": "Angoli"
     }
   }
 }

@@ -2,6 +2,44 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 oktober 2026 – QR-assistent eruit, vijf kaarten met gewone titels
+
+- **De QR-assistent (AI) is helemaal weg**, ook op de achtergrond (`shared/assistant.js`, `/api/assistant`, de teller van onbekende woorden). Hij staat nog in de Git-geschiedenis als we hem later terug willen.
+- **Gewone titels, elk een eigen kaart, in volgorde van belangrijkheid:** Stijlen · Logo · Patroon en kleuren · Frame · Hoeken. Geen tabbladen meer binnen een kaart. Stijlen en Logo staan open, de rest dicht.
+- Fout opgelost: in de online demo stond "dz.step.own" in beeld. De demo gebruikte oude vertaalbestanden; die worden nu altijd mee gepubliceerd.
+
+## Ontwerpregel (geldt voor de hele tool)
+
+- **Ook fijn voor mensen met dyslexie:** zo min mogelijk tekst, korte kopjes, grote tegels met plaatjes in plaats van woorden, alles gegroepeerd in kaarten die je kunt in- en uitklappen, en geen opties die op elkaar lijken.
+
+## 8 oktober 2026 – Ontwerp in glazen kaarten, in- en uitklapbaar
+
+- De nummers 1/2/3 zijn weg. Elk onderdeel (**Kies een stijl**, **Je logo**, **Zelf aanpassen**) is een eigen glazen kaart, zodat je ziet wat bij elkaar hoort.
+- Elke kaart klapt in en uit. Geen samenvatting op de dichte kaart (je ziet je keuze al op de telefoon).
+- De regel "Unieke code met eigen link" is weg uit deze stap: je ziet de link pas na het maken van de code.
+- Standaard open: Stijl en Logo (belangrijkst). Zelf aanpassen staat dicht en gaat vanzelf open als je de assistent-knop "Andere tekst" gebruikt.
+
+## 8 oktober 2026 – Simpeler: minder vormen, elk duidelijk anders; kleuren per onderdeel
+
+- **Kleuren zoals eerst** (één kleurkiezer + "Gebruik mijn paginakleuren" + kleurverloop), zonder de rijen kant-en-klare kleuren en combinaties (te druk).
+- **Nieuw in de kleurkiezer zelf:** kies welk onderdeel je kleurt: *Alles · Puntjes · Hoeken buiten · Hoeken binnen*. Zo maak je zelf een combinatie. In de dichte regel zie je de drie kleuren als bolletjes.
+- **Patronen (9), van basic naar creatief:** vierkant, afgerond, rondjes, vloeiend, elegant, staafjes, ruitjes, sterren, hartjes. Patronen die op elkaar leken zijn weg.
+- **Hoeken, naast elkaar zoals bij qr-code.io:** buitenkant 6 (vierkant, afgerond, cirkel, blad, achthoek, stippen) en binnenkant 6 (vierkant, afgerond, rondje, ruit, negen bolletjes, ster). Een hart als binnenkant scant niet en is daarom niet teruggekomen.
+- Alle 94 combinaties zijn opnieuw getest met een scanner: ze scannen allemaal.
+
+## 8 oktober 2026 – Veel meer keuze, maar netjes en zonder opvulling
+
+- **Veel meer opties, allemaal netjes en scanbaar:**
+  - *Patronen:* 16 (o.a. zacht vloeiend, grote rondjes, zachte blokjes, losse blokjes, kussentjes, achthoekjes, blaadjes, druppels, staafjes, streepjes).
+  - *Hoeken buiten:* 13 (o.a. zacht vierkant, blad gespiegeld, druppel, punt naar buiten, één ronde hoek, schild, licht afgeschuind).
+  - *Hoeken binnen:* 12 (o.a. kussen, negen rondjes, druppel, punt, schild).
+  - *Frames:* 35, in groepen Basis · Vormen · Eten & drinken · Winkel · Feestdagen. Nieuw: rand onder/boven, blok, kaart, knop, onderstreept, pijltje, label opzij, tabblad, rond, dubbele rand, sticker en menukaart.
+  - *Kleuren:* 22 kant-en-klare kleuren en 16 kleurcombinaties (code + hoeken) met één klik, plus "Jouw kleuren" (paginakleuren) en een eigen kleur.
+- **Getest met een echte scanner** (ZXing, dezelfde techniek als veel Android-telefoons): alle 114 combinaties van patronen, hoeken, frames en stijlen scannen.
+- **Minder opvulling:** geen voorbeeldzinnen onder de assistent, geen uitlegtekst bij het logo, geen label "Meer stijlen".
+- **Logo:** de knop "Gebruik het Website-icoon" is weg. Verwijderen werkt nu altijd (duidelijke knop "Verwijderen"). PNG-logo's met een doorzichtige achtergrond blijven doorzichtig (eerst werd dat zwart).
+- De assistent kent de nieuwe frames ("knop", "sticker", "menukaart", "rand") en negeert woorden die in de tekst tussen aanhalingstekens staan.
+
 ## 8 oktober 2026 – Opgeschoond: alleen nette opties, nooit een contrastmelding
 
 - **Weg, omdat het slordig oogde of slecht scant:**

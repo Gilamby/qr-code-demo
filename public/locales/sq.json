@@ -403,15 +403,14 @@
       "inner": "Brenda",
       "same": "Si kodi",
       "usePage": "Përdor ngjyrat e faqes sime",
-      "typeLogo": "Përdor ikonën {type}",
-      "logoHint": "Një logo katrore funksionon më mirë. E forcojmë kodin automatikisht.",
       "download": "Shkarko PNG",
       "frameFont": "Shkronja",
-      "unique": "Kod unik me lidhje të vetën",
-      "uniqueStatic": "Kod unik: përmbajtja është në vetë kodin",
       "pattern": "Motivi",
-      "moreStyles": "Më shumë stile",
-      "cornerColor": "Ngjyra e qosheve"
+      "colors": "Ngjyrat",
+      "ownDesign": "Dizajn i vetë",
+      "hasLogo": "Logo u shtua",
+      "noLogo": "Pa logo",
+      "decor": "Dekorim"
     },
     "theme": {
       "classic": "Klasik",
@@ -495,7 +494,21 @@
       "rounded": "I rrumbullakosur",
       "smooth": "I rrjedhshëm",
       "dots": "Pika",
-      "classy": "Elegant"
+      "classy": "Elegant",
+      "smoothSoft": "I butë i rrjedhshëm",
+      "bigdots": "Pika të mëdha",
+      "softsquare": "Blloqe të buta",
+      "smallsquare": "Blloqe të ndara",
+      "squircle": "Jastëkë",
+      "octagon": "Tetëkëndësha",
+      "classyRounded": "Elegant i rrumbullakët",
+      "leaf": "Gjethe",
+      "drop": "Pika uji",
+      "vpill": "Shufra",
+      "hpill": "Vija",
+      "diamond": "Rombe",
+      "star": "Yje",
+      "heart": "Zemra"
     },
     "cornerOuter": {
       "square": "Katror",
@@ -503,14 +516,32 @@
       "extra": "Shumë i rrumbullakët",
       "circle": "Rreth",
       "leaf": "Gjethe",
-      "chamfer": "Tetëkëndësh"
+      "chamfer": "Tetëkëndësh",
+      "squareSoft": "Katror i butë",
+      "leafAlt": "Gjethe (pasqyrë)",
+      "drop": "Pikë uji",
+      "point": "Majë jashtë",
+      "oneRound": "Një qoshe e rrumbullakët",
+      "shield": "Mburojë",
+      "chamferSoft": "Prerje e lehtë",
+      "dots": "Pika"
     },
     "cornerInner": {
       "square": "Katror",
       "rounded": "I rrumbullakosur",
       "circle": "Rreth",
       "leaf": "Gjethe",
-      "chamfer": "Tetëkëndësh"
+      "chamfer": "Tetëkëndësh",
+      "roundedSmall": "Pak i rrumbullakët",
+      "squircle": "Jastëk",
+      "dots9": "Nëntë pika",
+      "leafAlt": "Gjethe (pasqyrë)",
+      "drop": "Pikë uji",
+      "point": "Majë",
+      "shield": "Mburojë",
+      "diamond": "Romb",
+      "star": "Yll",
+      "heart": "Zemër"
     },
     "frame": {
       "none": "Pa kornizë",
@@ -534,12 +565,26 @@
       "ornament": "Top Krishtlindjesh",
       "balloons": "Tullumbace",
       "confetti": "Konfeti",
-      "pumpkin": "Kungull"
+      "pumpkin": "Kungull",
+      "outline": "Kornizë poshtë",
+      "outlineTop": "Kornizë sipër",
+      "block": "Bllok",
+      "card": "Kartë",
+      "button": "Buton",
+      "underline": "I nënvizuar",
+      "arrowDown": "Shigjetë",
+      "sideLabel": "Etiketë anësore",
+      "tab": "Skedë",
+      "round": "I rrumbullakët",
+      "doubleBorder": "Kornizë e dyfishtë",
+      "sticker": "Ngjitëse",
+      "menu": "Menu"
     },
     "fgroup": {
       "basic": "Bazë",
+      "shapes": "Forma",
       "food": "Ushqim & pije",
-      "shop": "Dyqan & postë",
+      "shop": "Dyqan",
       "party": "Festa"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "E popullarizuar",
       "classic": "Parazgjedhje"
     },
-    "step": {
-      "style": "Zgjidh një stil",
-      "ai": "Ose përshkruaj çfarë do",
-      "logo": "Logoja jote",
-      "own": "Përshtat vetë"
+    "part": {
+      "all": "Gjithçka",
+      "color": "Pikat",
+      "outer": "Qoshet e jashtme",
+      "inner": "Qoshet e brendshme"
     },
-    "tab": {
+    "card": {
+      "style": "Stilet",
+      "logo": "Logo",
       "colors": "Motivi dhe ngjyrat",
       "frame": "Korniza",
-      "corners": "Qoshet",
-      "decor": "Dekorim"
-    },
-    "ai": {
-      "badge": "Asistenti QR",
-      "placeholder": "Përshkruaj kodin QR, p.sh. jeshil me pika dhe tekstin \"Mirë se vini\"",
-      "go": "Krijo",
-      "try": "Provo:",
-      "ex1": "Krishtlindje, e kuqe dhe jeshile, me borë",
-      "ex2": "E zezë me pika, pa kornizë",
-      "ex3": "Blu me tekstin \"Porosit këtu\"",
-      "none": "Ende nuk e njoha. Thuaj një ngjyrë, rast, formë ose kornizë, ose vendose tekstin në \"thonjëza\".",
-      "got": "U njoh",
-      "pick": "Zgjidh një variant",
-      "variant": "Varianti {n}",
-      "darker": "Më e errët",
-      "noFrame": "Pa kornizë",
-      "text": "Tekst tjetër",
-      "logo": "Me logon time"
+      "corners": "Qoshet"
     }
   }
 }

@@ -403,15 +403,14 @@
       "inner": "Inside",
       "same": "Same as code",
       "usePage": "Use my page colours",
-      "typeLogo": "Use the {type} icon",
-      "logoHint": "A square logo works best. We automatically make the code extra strong so it still scans with a logo.",
       "download": "Download PNG",
       "frameFont": "Font",
-      "unique": "Unique code with its own link",
-      "uniqueStatic": "Unique code: the content is in the code itself",
       "pattern": "Pattern",
-      "moreStyles": "More styles",
-      "cornerColor": "Corner colour"
+      "colors": "Colours",
+      "ownDesign": "Custom design",
+      "hasLogo": "Logo added",
+      "noLogo": "No logo",
+      "decor": "Decoration"
     },
     "theme": {
       "classic": "Classic",
@@ -495,7 +494,21 @@
       "rounded": "Rounded",
       "smooth": "Smooth",
       "dots": "Dots",
-      "classy": "Classy"
+      "classy": "Classy",
+      "smoothSoft": "Soft smooth",
+      "bigdots": "Big dots",
+      "softsquare": "Soft blocks",
+      "smallsquare": "Spaced blocks",
+      "squircle": "Cushions",
+      "octagon": "Octagons",
+      "classyRounded": "Classy round",
+      "leaf": "Leaves",
+      "drop": "Drops",
+      "vpill": "Bars",
+      "hpill": "Lines",
+      "diamond": "Diamonds",
+      "star": "Stars",
+      "heart": "Hearts"
     },
     "cornerOuter": {
       "square": "Square",
@@ -503,14 +516,32 @@
       "extra": "Extra rounded",
       "circle": "Circle",
       "leaf": "Leaf",
-      "chamfer": "Octagon"
+      "chamfer": "Octagon",
+      "squareSoft": "Soft square",
+      "leafAlt": "Leaf (mirrored)",
+      "drop": "Drop",
+      "point": "Point outward",
+      "oneRound": "One round corner",
+      "shield": "Shield",
+      "chamferSoft": "Light bevel",
+      "dots": "Dots"
     },
     "cornerInner": {
       "square": "Square",
       "rounded": "Rounded",
       "circle": "Circle",
       "leaf": "Leaf",
-      "chamfer": "Octagon"
+      "chamfer": "Octagon",
+      "roundedSmall": "Slightly rounded",
+      "squircle": "Cushion",
+      "dots9": "Nine dots",
+      "leafAlt": "Leaf (mirrored)",
+      "drop": "Drop",
+      "point": "Point",
+      "shield": "Shield",
+      "diamond": "Diamond",
+      "star": "Star",
+      "heart": "Heart"
     },
     "frame": {
       "none": "No frame",
@@ -534,12 +565,26 @@
       "ornament": "Bauble",
       "balloons": "Balloons",
       "confetti": "Confetti",
-      "pumpkin": "Pumpkin"
+      "pumpkin": "Pumpkin",
+      "outline": "Border below",
+      "outlineTop": "Border above",
+      "block": "Block",
+      "card": "Card",
+      "button": "Button",
+      "underline": "Underlined",
+      "arrowDown": "Arrow",
+      "sideLabel": "Side label",
+      "tab": "Tab",
+      "round": "Round",
+      "doubleBorder": "Double border",
+      "sticker": "Sticker",
+      "menu": "Menu card"
     },
     "fgroup": {
-      "basic": "Basics",
+      "basic": "Basic",
+      "shapes": "Shapes",
       "food": "Food & drink",
-      "shop": "Shop & mail",
+      "shop": "Shop",
       "party": "Holidays"
     },
     "font": {
@@ -577,34 +622,18 @@
       "popular": "Popular",
       "classic": "Default"
     },
-    "step": {
-      "style": "Choose a style",
-      "ai": "Or describe what you want",
-      "logo": "Your logo",
-      "own": "Fine-tune"
+    "part": {
+      "all": "Everything",
+      "color": "Dots",
+      "outer": "Outer corners",
+      "inner": "Inner corners"
     },
-    "tab": {
+    "card": {
+      "style": "Styles",
+      "logo": "Logo",
       "colors": "Pattern & colours",
       "frame": "Frame",
-      "corners": "Corners",
-      "decor": "Decoration"
-    },
-    "ai": {
-      "badge": "QR assistant",
-      "placeholder": "Describe your QR code, e.g. green with dots and the text \"Welcome\"",
-      "go": "Create",
-      "try": "Try:",
-      "ex1": "Christmas in red and green with snow",
-      "ex2": "Black with dots, no frame",
-      "ex3": "Blue with the text \"Order here\"",
-      "none": "I didn't recognise that yet. Name a colour, occasion, shape or frame, or put your text in \"quotes\".",
-      "got": "Recognised",
-      "pick": "Choose a variant",
-      "variant": "Variant {n}",
-      "darker": "Darker",
-      "noFrame": "No frame",
-      "text": "Other text",
-      "logo": "With my logo"
+      "corners": "Corners"
     }
   }
 }

@@ -1,7 +1,8 @@
 /* Validatie: controleert wat de frontend stuurt, op basis van dezelfde QR-types (shared/qr-types.js).
    Zo bestaan de regels maar op één plek. */
 const QR_TYPES = require('../shared/qr-types');
-const { safeDesign } = require('../shared/design-data');
+const DESIGN = require('../shared/design-data');
+const { safeDesign } = DESIGN;
 
 const HEX = /^#[0-9a-f]{6}$/i;
 const MAX_TEXT = 500;
@@ -71,14 +72,13 @@ function validateDesign(design, errors) {
   const cleanDesign = { color: design.color, background: design.background };
   // Uitgebreid ontwerp (stap 3): alleen bekende waarden doorlaten
   const ENUMS = {
-    pattern: ['square', 'rounded', 'smooth', 'dots', 'tiny', 'mosaic', 'classy', 'vertical', 'horizontal', 'diamond', 'cross', 'heart', 'star'],
-    cornerOuter: ['square', 'rounded', 'extra', 'circle', 'leaf', 'drop', 'chamfer', 'dots'],
-    cornerInner: ['square', 'rounded', 'circle', 'chamfer', 'diamond', 'leaf', 'plus', 'flower', 'heart', 'star'],
-    frame: ['none', 'label', 'labelTop', 'bubble', 'tag', 'scanner', 'ribbon', 'ticket', 'stamp', 'polaroid', 'phone', 'script', 'badge',
-      'coffee', 'chalkboard', 'cutlery', 'noodles', 'pizza', 'bag', 'gift', 'pricetag', 'envelope', 'calendar', 'receipt', 'box',
-      'heart', 'ornament', 'balloons', 'confetti', 'pumpkin', 'pin', 'laptop', 'hanger'],
-    frameFont: ['', 'modern', 'hand', 'serif', 'bold', 'round'],
-    decor: ['', 'xmas', 'winter', 'newyear', 'valentine', 'easter', 'spring', 'halloween', 'birthday'],
+    // huidige opties + oude namen (die safeDesign omzet naar de dichtstbijzijnde nette optie)
+    pattern: DESIGN.DESIGN_PATTERNS.concat(Object.keys(DESIGN.REPLACE.pattern)),
+    cornerOuter: DESIGN.DESIGN_OUTER.concat(Object.keys(DESIGN.REPLACE.cornerOuter)),
+    cornerInner: DESIGN.DESIGN_INNER.concat(Object.keys(DESIGN.REPLACE.cornerInner)),
+    frame: [].concat.apply([], Object.values(DESIGN.FRAME_GROUPS)).concat(Object.keys(DESIGN.REPLACE.frame)),
+    frameFont: DESIGN.FRAME_FONTS.concat(Object.keys(DESIGN.REPLACE.frameFont)),
+    decor: DESIGN.DESIGN_DECOR,
     gradient: ['', 'linear', 'radial'] };
   for (const [k, list] of Object.entries(ENUMS)) if (design[k] !== undefined) { if (!list.includes(design[k])) errors.push('design.' + k + ': unknown value'); else cleanDesign[k] = design[k]; }
   for (const k of ['color2', 'frameColor', 'frameColor2', 'cornerColor', 'cornerInnerColor']) if (design[k]) { if (!HEX.test(design[k])) errors.push('design.' + k + ': must be #rrggbb'); else cleanDesign[k] = design[k]; }
