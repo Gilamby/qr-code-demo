@@ -65,9 +65,18 @@ app.use('/api', auth.sameOrigin);                      // wijzigingen alleen van
 //    want "localhost" op je telefoon is je telefoon zelf. Telefoon en computer moeten dan op hetzelfde wifi zitten.
 // 3. anders het adres waarmee de app geopend is.
 const os = require('os');
+// Het wifi-adres van deze computer. Virtuele netwerken (WSL, Docker, VirtualBox, VMware, VPN) slaan we over,
+// en we kiezen het liefst een thuis-/kantooradres (192.168.x.x, dan 10.x.x.x, dan 172.16-31.x.x).
 function lanIp() {
-  for (const list of Object.values(os.networkInterfaces())) for (const a of list || []) if (a.family === 'IPv4' && !a.internal && !/^169\.254\./.test(a.address)) return a.address;
-  return '';
+  const VIRTUAL = /vethernet|virtualbox|vmware|vbox|docker|wsl|hyper-v|tailscale|zerotier|utun|tun|tap|loopback|bridge|br-|veth/i;
+  const list = [];
+  for (const [name, addrs] of Object.entries(os.networkInterfaces())) for (const a of addrs || []) {
+    if (a.family !== 'IPv4' && a.family !== 4) continue;
+    if (a.internal || /^169\.254\./.test(a.address) || VIRTUAL.test(name)) continue;
+    list.push(a.address);
+  }
+  const rank = (ip) => /^192\.168\./.test(ip) ? 0 : /^10\./.test(ip) ? 1 : /^172\.(1[6-9]|2\d|3[01])\./.test(ip) ? 2 : 3;
+  return list.sort((x, y) => rank(x) - rank(y))[0] || '';
 }
 const LOCAL = /^(localhost|127\.\d+\.\d+\.\d+|\[::1\])(:\d+)?$/i;
 const baseUrl = (req) => {
