@@ -84,6 +84,7 @@ var HoursEditor = (function () {
 /* ---------- Adres: zoeken in echte adressen ---------- */
 var ADDRESS = {
   parse: function (v) { try { var a = JSON.parse(v); return a && a.l ? a : null; } catch (e) { return null; } },
+  text: function (v) { var a = ADDRESS.parse(v); return a ? a.l : (v || ''); },          // ook oude, gewone tekst
   mapUrl: function (a) { return 'https://www.google.com/maps/search/?api=1&query=' + (a.lat != null ? a.lat + ',' + a.lon : encodeURIComponent(a.l)); }
 };
 var AddressSearch = (function () {
@@ -98,7 +99,7 @@ var AddressSearch = (function () {
     var a = ADDRESS.parse(value);
     return '<div class="addr' + (a ? ' ok' : '') + '" data-addr="' + f.key + '">' +
       '<input id="' + id + '" type="text" autocomplete="off" spellcheck="false" placeholder="' + esc(t('address.placeholder')) + '" value="' + esc(a ? a.l : '') + '" role="combobox" aria-expanded="false" aria-autocomplete="list">' +
-      '<ul class="addr-list" role="listbox" hidden></ul><small class="addr-msg">' + (a ? (a.u ? t('address.unverified') : t('address.ok')) : '') + '</small></div>';
+      '<ul class="addr-list" role="listbox" hidden></ul><small class="addr-msg">' + (a ? (a.u ? t('address.manual') : t('address.ok')) : '') + '</small></div>';
   }
   function mount(root, onChange) {
     root.querySelectorAll('[data-addr]').forEach(function (box) {
@@ -106,11 +107,11 @@ var AddressSearch = (function () {
       var timer, results = [], active = -1, seq = 0;
       function close() { list.hidden = true; input.setAttribute('aria-expanded', 'false'); active = -1; }
       function pick(r) {
-        box.classList.add('ok'); box.classList.remove('err'); input.value = r.l; msg.textContent = r.u ? t('address.unverified') : t('address.ok');
-        close(); onChange(key, JSON.stringify(r));
+        box.classList.add('ok'); box.classList.remove('err'); input.value = r.l; msg.textContent = r.u ? t('address.manual') : t('address.ok');
+        close(); onChange(key, JSON.stringify({ l: r.l, lat: r.lat, lon: r.lon, u: r.u }));
       }
       function show() {
-        list.innerHTML = results.map(function (r, i) { return '<li role="option" data-i="' + i + '"' + (i === active ? ' class="on"' : '') + '>' + esc(r.l) + '</li>'; }).join('');
+        list.innerHTML = results.map(function (r, i) { return '<li role="option" data-i="' + i + '" class="' + (i === active ? 'on' : '') + (r.manual ? ' manual' : '') + '">' + (r.manual ? '✎ ' + esc(t('address.useTyped', { q: r.l })) : esc(r.l)) + '</li>'; }).join('');
         list.hidden = !results.length; input.setAttribute('aria-expanded', String(!!results.length));
       }
       function search(q) {
@@ -120,11 +121,13 @@ var AddressSearch = (function () {
           if (my !== seq) return;
           results = (data.features || []).map(function (f) { return { l: label(f.properties), lat: +f.geometry.coordinates[1].toFixed(6), lon: +f.geometry.coordinates[0].toFixed(6) }; })
             .filter(function (r, i, all) { return r.l && all.findIndex(function (x) { return x.l === r.l; }) === i; });
-          active = -1; show(); msg.textContent = results.length ? t('address.pick') : t('address.none');
+          var found = results.length;
+          if (q.length >= 5) results.push({ l: q, u: 1, manual: true });   // niet gevonden of niet goed? dan mag je het zelf invullen
+          active = -1; show(); msg.textContent = found ? t('address.pick') : t('address.none');
         }).catch(function () {
           // Zoekdienst niet bereikbaar (bv. geen internet): adres toch toestaan, maar gemarkeerd als niet gecontroleerd.
           if (my !== seq) return;
-          results = [{ l: q, u: 1 }]; active = 0; show(); msg.textContent = t('address.offline');
+          results = [{ l: q, u: 1, manual: true }]; active = 0; show(); msg.textContent = t('address.offline');
         });
       }
       input.addEventListener('input', function (e) {
@@ -151,14 +154,89 @@ var AddressSearch = (function () {
 var SOCIALS = (function () {
   var LIST = [
     { id: 'instagram', name: 'Instagram' }, { id: 'facebook', name: 'Facebook' }, { id: 'tiktok', name: 'TikTok' }, { id: 'linkedin', name: 'LinkedIn' },
-    { id: 'x', name: 'X' }, { id: 'youtube', name: 'YouTube' }, { id: 'whatsapp', name: 'WhatsApp' }, { id: 'google', name: 'Google' }
+    { id: 'x', name: 'X' }, { id: 'youtube', name: 'YouTube' }, { id: 'whatsapp', name: 'WhatsApp' }, { id: 'google', name: 'Google' },
+    // Alle andere netwerken: verstopt achter de knop "+" (kleur + korte letter, geen officiële logo's)
+    { id: 'messenger', name: 'Messenger', more: true },
+    { id: 'threads', name: 'Threads', more: true },
+    { id: 'pinterest', name: 'Pinterest', more: true },
+    { id: 'snapchat', name: 'Snapchat', more: true },
+    { id: 'telegram', name: 'Telegram', more: true },
+    { id: 'signal', name: 'Signal', more: true },
+    { id: 'discord', name: 'Discord', more: true },
+    { id: 'reddit', name: 'Reddit', more: true },
+    { id: 'bluesky', name: 'Bluesky', more: true },
+    { id: 'mastodon', name: 'Mastodon', more: true },
+    { id: 'twitch', name: 'Twitch', more: true },
+    { id: 'kick', name: 'Kick', more: true },
+    { id: 'vimeo', name: 'Vimeo', more: true },
+    { id: 'spotify', name: 'Spotify', more: true },
+    { id: 'applemusic', name: 'Apple Music', more: true },
+    { id: 'soundcloud', name: 'SoundCloud', more: true },
+    { id: 'podcasts', name: 'Podcasts', more: true },
+    { id: 'tumblr', name: 'Tumblr', more: true },
+    { id: 'medium', name: 'Medium', more: true },
+    { id: 'substack', name: 'Substack', more: true },
+    { id: 'patreon', name: 'Patreon', more: true },
+    { id: 'behance', name: 'Behance', more: true },
+    { id: 'dribbble', name: 'Dribbble', more: true },
+    { id: 'github', name: 'GitHub', more: true },
+    { id: 'flickr', name: 'Flickr', more: true },
+    { id: 'strava', name: 'Strava', more: true },
+    { id: 'xing', name: 'XING', more: true },
+    { id: 'quora', name: 'Quora', more: true },
+    { id: 'wechat', name: 'WeChat', more: true },
+    { id: 'line', name: 'LINE', more: true },
+    { id: 'vk', name: 'VK', more: true },
+    { id: 'weibo', name: 'Weibo', more: true },
+    { id: 'tripadvisor', name: 'Tripadvisor', more: true },
+    { id: 'yelp', name: 'Yelp', more: true },
+    { id: 'etsy', name: 'Etsy', more: true },
+    { id: 'airbnb', name: 'Airbnb', more: true },
+    { id: 'booking', name: 'Booking.com', more: true }
   ];
   var G = {
     instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><rect x="4.5" y="4.5" width="15" height="15" rx="4.5"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.6" cy="7.4" r=".6" fill="#fff"/></svg>',
     facebook: '<b>f</b>', tiktok: '<b>♪</b>', linkedin: '<b>in</b>', x: '<b>X</b>',
     youtube: '<svg viewBox="0 0 24 24"><path d="M10 8.5l6 3.5-6 3.5z" fill="#fff"/></svg>',
     whatsapp: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.3z"/><path d="M9.5 9.5c.3 1.8 1.8 3.5 3.8 4.2l1-1 1.4.7-.4 1.3c-2.9.3-6-2.6-6.3-5.6l1.3-.4.7 1.4z" fill="#fff" stroke="none"/></svg>',
-    google: '<b>G</b>'
+    google: '<b>G</b>',
+    messenger: '<b>m</b>',
+    threads: '<b>@</b>',
+    pinterest: '<b>P</b>',
+    snapchat: '<b>S</b>',
+    telegram: '<b>➤</b>',
+    signal: '<b>S</b>',
+    discord: '<b>D</b>',
+    reddit: '<b>r</b>',
+    bluesky: '<b>b</b>',
+    mastodon: '<b>m</b>',
+    twitch: '<b>T</b>',
+    kick: '<b>K</b>',
+    vimeo: '<b>v</b>',
+    spotify: '<b>♫</b>',
+    applemusic: '<b>♪</b>',
+    soundcloud: '<b>☁</b>',
+    podcasts: '<b>P</b>',
+    tumblr: '<b>t</b>',
+    medium: '<b>M</b>',
+    substack: '<b>S</b>',
+    patreon: '<b>P</b>',
+    behance: '<b>Bē</b>',
+    dribbble: '<b>D</b>',
+    github: '<b>GH</b>',
+    flickr: '<b>f</b>',
+    strava: '<b>S</b>',
+    xing: '<b>X</b>',
+    quora: '<b>Q</b>',
+    wechat: '<b>W</b>',
+    line: '<b>L</b>',
+    vk: '<b>VK</b>',
+    weibo: '<b>W</b>',
+    tripadvisor: '<b>TA</b>',
+    yelp: '<b>y</b>',
+    etsy: '<b>E</b>',
+    airbnb: '<b>a</b>',
+    booking: '<b>B</b>'
   };
   function icon(id) { return '<span class="br br-' + id + '">' + G[id] + '</span>'; }
   function parse(v) { try { var o = JSON.parse(v); return o && typeof o === 'object' && !Array.isArray(o) ? o : {}; } catch (e) { return {}; } }
@@ -170,21 +248,43 @@ var SocialsEditor = (function () {
       return '<div class="so-row">' + SOCIALS.icon(s.id) + '<input type="url" data-net="' + s.id + '" value="' + esc(obj[s.id] || '') + '" placeholder="' + esc(t('socials.placeholder', { name: s.name })) + '"><button type="button" class="hr-x" data-rm="' + s.id + '" aria-label="' + esc(s.name) + '">×</button></div>';
     }).join('');
   }
+  function chip(s, obj) { return '<button type="button" class="so-chip" data-net-toggle="' + s.id + '" aria-pressed="' + (s.id in obj) + '" title="' + s.name + '" aria-label="' + s.name + '">' + SOCIALS.icon(s.id) + '</button>'; }
+  // Bovenaan de 8 belangrijkste (+ gekozen extra's), dan de knop "+": alle andere netwerken met naam
+  function pick(obj) {
+    return SOCIALS.LIST.filter(function (s) { return !s.more || s.id in obj; }).map(function (s) { return chip(s, obj); }).join('') +
+      '<button type="button" class="so-chip so-more" data-so-more aria-expanded="false" title="' + esc(t('socials.more')) + '" aria-label="' + esc(t('socials.more')) + '">+</button>';
+  }
+  function morePanel(obj) {
+    return SOCIALS.LIST.filter(function (s) { return s.more; }).map(function (s) {
+      return '<button type="button" class="so-opt" data-net-toggle="' + s.id + '" aria-pressed="' + (s.id in obj) + '">' + SOCIALS.icon(s.id) + '<span>' + esc(s.name) + '</span></button>';
+    }).join('');
+  }
   function html(f, id, value) {
     var obj = SOCIALS.parse(value);
-    return '<div class="socials" data-socials="' + f.key + '" id="' + id + '"><div class="so-pick">' + SOCIALS.LIST.map(function (s) {
-      return '<button type="button" class="so-chip" data-net-toggle="' + s.id + '" aria-pressed="' + (s.id in obj) + '" title="' + s.name + '">' + SOCIALS.icon(s.id) + '</button>';
-    }).join('') + '</div><div class="so-list">' + inputs(obj) + '</div></div>';
+    return '<div class="socials" data-socials="' + f.key + '" id="' + id + '"><div class="so-pick">' + pick(obj) + '</div>' +
+      '<div class="so-all" hidden><input type="search" class="so-find" placeholder="' + esc(t('socials.find')) + '" aria-label="' + esc(t('socials.find')) + '"><div class="so-grid">' + morePanel(obj) + '</div></div>' +
+      '<div class="so-list">' + inputs(obj) + '</div></div>';
   }
   function mount(root, onChange) {
     root.querySelectorAll('[data-socials]').forEach(function (box) {
       var key = box.getAttribute('data-socials'), list = box.querySelector('.so-list');
       var obj = SOCIALS.parse((store.get().content[store.get().typeId] || {})[key]);
+      var all = box.querySelector('.so-all'), pickEl = box.querySelector('.so-pick');
       function save(redraw) {
-        if (redraw) { list.innerHTML = inputs(obj); box.querySelectorAll('[data-net-toggle]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-net-toggle') in obj)); }); }
+        if (redraw) {
+          var open = !all.hidden; list.innerHTML = inputs(obj); pickEl.innerHTML = pick(obj);
+          pickEl.querySelector('[data-so-more]').setAttribute('aria-expanded', String(open));
+          box.querySelectorAll('[data-net-toggle]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-net-toggle') in obj)); });
+        }
         onChange(key, Object.keys(obj).length ? JSON.stringify(obj) : '');
       }
+      box.querySelector('.so-find').addEventListener('input', function (e) {
+        e.stopPropagation(); var q = e.target.value.trim().toLowerCase();
+        box.querySelectorAll('.so-opt').forEach(function (b) { b.hidden = q && b.textContent.toLowerCase().indexOf(q) < 0; });
+      });
       box.addEventListener('click', function (e) {
+        var more = e.target.closest('[data-so-more]');
+        if (more) { all.hidden = !all.hidden; more.setAttribute('aria-expanded', String(!all.hidden)); if (!all.hidden) box.querySelector('.so-find').focus(); return; }
         var tg = e.target.closest('[data-net-toggle]'), rm = e.target.closest('[data-rm]');
         if (tg) { var n = tg.getAttribute('data-net-toggle'); if (n in obj) delete obj[n]; else obj[n] = ''; save(true); var inp = list.querySelector('[data-net="' + n + '"]'); if (inp) inp.focus(); }
         if (rm) { delete obj[rm.getAttribute('data-rm')]; save(true); }

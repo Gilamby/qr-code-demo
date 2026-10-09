@@ -344,7 +344,8 @@
     "appStore": "Link naar de App Store",
     "playStore": "Link naar Google Play",
     "validUntil": "Geldig tot",
-    "terms": "Voorwaarden"
+    "terms": "Voorwaarden",
+    "addLink": "Link toevoegen"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Zoek je adres, bv. Hoofdstraat 12, Amsterdam",
     "pick": "Kies je adres uit de lijst.",
-    "none": "Geen adres gevonden. Probeer straat, huisnummer en plaats.",
+    "none": "Niet gevonden. Kies „Gebruik wat ik typte” of probeer straat, huisnummer en plaats.",
     "offline": "Adressen zoeken lukt nu niet. Dit adres wordt opgeslagen zonder controle.",
     "ok": "✓ Gevonden op de kaart",
     "unverified": "Adres niet gecontroleerd",
-    "searching": "Zoeken…"
+    "searching": "Zoeken…",
+    "useTyped": "Gebruik wat ik typte: “{q}”",
+    "manual": "✓ Zelf ingevuld"
   },
   "socials": {
-    "placeholder": "Link naar je {name}-pagina"
+    "placeholder": "Link naar je {name}-pagina",
+    "more": "Meer netwerken",
+    "find": "Zoek een netwerk"
   },
   "validate": {
     "required": "Dit veld is verplicht"
@@ -803,5 +808,19 @@
     "toCodes": "Naar Mijn QR-codes",
     "pwKeep": "Leeg laten = huidig wachtwoord houden",
     "staticNote": "Let op: bij dit type zit de inhoud in de code zelf. Na het opslaan moet je de nieuwe code opnieuw downloaden en printen."
+  },
+  "mobile": {
+    "preview": "Bekijk voorbeeld",
+    "close": "Voorbeeld sluiten"
+  },
+  "phone": {
+    "country": "Land",
+    "invalid": "Dit nummer klopt niet. Het moet {n} cijfers hebben (zonder de 0 vooraan)."
+  },
+  "email": {
+    "format": "Dit is geen geldig e-mailadres. Voorbeeld: naam@bedrijf.nl",
+    "didYouMean": "Bedoel je",
+    "domain": "Dit e-maildomein bestaat niet of kan geen mail ontvangen.",
+    "ok": "E-mailadres klopt"
   }
 }

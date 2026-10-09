@@ -107,3 +107,15 @@
   window.fitWorkspace = fit;
   fit();
 })();
+
+/* ---------- Telefoon: voorbeeld openen als scherm erover ---------- */
+(function () {
+  var fab = document.getElementById('pvFab'), close = document.getElementById('pvClose'), phone = document.querySelector('.preview .phone');
+  function size() { var s = Math.min(1, (window.innerHeight - 110) / 740, (window.innerWidth - 24) / 350); document.body.style.setProperty('--pvs', s.toFixed(3)); }
+  function open(on) { document.body.classList.toggle('pv-open', on); if (on) { size(); close.focus(); } else fab.focus({ preventScroll: true }); }
+  fab.addEventListener('click', function () { open(true); });
+  close.addEventListener('click', function () { open(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('pv-open')) open(false); });
+  addEventListener('resize', function () { if (document.body.classList.contains('pv-open')) size(); });
+  document.addEventListener('pagechange', function () { document.body.classList.remove('pv-open'); });
+})();

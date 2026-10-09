@@ -344,7 +344,8 @@
     "appStore": "Enlace a App Store",
     "playStore": "Enlace a Google Play",
     "validUntil": "Válido hasta",
-    "terms": "Condiciones"
+    "terms": "Condiciones",
+    "addLink": "Añadir enlace"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Busca tu dirección, p. ej. Calle Mayor 12, Madrid",
     "pick": "Elige tu dirección de la lista.",
-    "none": "No se encontró la dirección. Prueba calle, número y ciudad.",
+    "none": "No encontrado. Elige «Usar lo que escribí» o prueba calle, número y ciudad.",
     "offline": "La búsqueda no está disponible. La dirección se guardará sin verificar.",
     "ok": "✓ Encontrada en el mapa",
     "unverified": "Dirección sin verificar",
-    "searching": "Buscando…"
+    "searching": "Buscando…",
+    "useTyped": "Usar lo que escribí: «{q}»",
+    "manual": "✓ Escrito por ti"
   },
   "socials": {
-    "placeholder": "Enlace a tu página de {name}"
+    "placeholder": "Enlace a tu página de {name}",
+    "more": "Más redes",
+    "find": "Buscar una red"
   },
   "validate": {
     "required": "Campo obligatorio"
@@ -803,5 +808,19 @@
     "toCodes": "Ir a Mis códigos QR",
     "pwKeep": "Déjalo vacío para mantener la contraseña actual",
     "staticNote": "Ojo: en este tipo el contenido va dentro del propio código. Después de guardar, descarga e imprime el código nuevo."
+  },
+  "mobile": {
+    "preview": "Ver vista previa",
+    "close": "Cerrar vista previa"
+  },
+  "phone": {
+    "country": "País",
+    "invalid": "Este número no es correcto. Debe tener {n} cifras."
+  },
+  "email": {
+    "format": "No es un correo válido. Ejemplo: nombre@empresa.es",
+    "didYouMean": "¿Quisiste decir",
+    "domain": "Este dominio de correo no existe o no puede recibir correo.",
+    "ok": "Correo correcto"
   }
 }

@@ -9,11 +9,14 @@ const MAX_TEXT = 500;
 const BACKGROUNDS = ['optimasys', 'aurora', 'city', 'mountains', 'office', 'cafe', 'restaurant', 'custom'];
 
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
-const SOCIAL_NETWORKS = ['instagram', 'facebook', 'tiktok', 'linkedin', 'x', 'youtube', 'whatsapp', 'google'];
+const SOCIAL_NETWORKS = ['instagram', 'facebook', 'tiktok', 'linkedin', 'x', 'youtube', 'whatsapp', 'google', 'messenger', 'threads', 'pinterest', 'snapchat', 'telegram', 'signal', 'discord', 'reddit', 'bluesky', 'mastodon', 'twitch', 'kick', 'vimeo', 'spotify', 'applemusic', 'soundcloud', 'podcasts', 'tumblr', 'medium', 'substack', 'patreon', 'behance', 'dribbble', 'github', 'flickr', 'strava', 'xing', 'quora', 'wechat', 'line', 'vk', 'weibo', 'tripadvisor', 'yelp', 'etsy', 'airbnb', 'booking'];
 function validHours(arr) {
   return Array.isArray(arr) && arr.length === 7 && arr.every((d) => d && (!d.o || (TIME.test(d.f) && TIME.test(d.t) && ((!d.f2 && !d.t2) || (TIME.test(d.f2) && TIME.test(d.t2))))));
 }
 function isUrl(v) { try { const u = new URL(v); return u.protocol === 'http:' || u.protocol === 'https:'; } catch (e) { return false; } }
+
+// E-mail: naam@domein.extensie, geen spaties of dubbele punten, extensie minstens 2 letters
+const EMAIL = /^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,24}$/;
 
 function validateQrCode(body) {
   const errors = [];
@@ -64,7 +67,8 @@ function validateQrCode(body) {
     }
     if (v.length > MAX_TEXT) errors.push(field.key + ': too long');
     if (field.type === 'url' && !isUrl(v)) errors.push(field.key + ': must be a http(s) URL');
-    if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) errors.push(field.key + ': invalid email');
+    if (field.type === 'email' && !EMAIL.test(v)) errors.push(field.key + ': invalid email');
+    if (field.type === 'tel' && !/^\+\d{7,16}$/.test(v.replace(/\s/g, ''))) errors.push(field.key + ': must be a phone number with country code (+31 …)');
     if (field.type === 'number') { const n = Number(v), lo = field.min != null ? field.min : 0, hi = field.max != null ? field.max : 100; if (isNaN(n) || n < lo || n > hi || (field.min != null && !Number.isInteger(n))) errors.push(field.key + ': must be ' + lo + '-' + hi); }
     if (field.type === 'date' && (!/^\d{4}-\d{2}-\d{2}$/.test(v) || isNaN(Date.parse(v)))) errors.push(field.key + ': must be a date (YYYY-MM-DD)');
     if (field.type === 'toggle' && v !== '1') errors.push(field.key + ': must be 1 or empty');
@@ -123,4 +127,4 @@ function validateMe(body) {
   return { errors, value };
 }
 
-module.exports = { validateQrCode, validateMe, validateDesign, QR_TYPES };
+module.exports = { EMAIL, validateQrCode, validateMe, validateDesign, QR_TYPES };

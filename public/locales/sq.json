@@ -344,7 +344,8 @@
     "appStore": "Lidhja e App Store",
     "playStore": "Lidhja e Google Play",
     "validUntil": "E vlefshme deri më",
-    "terms": "Kushtet"
+    "terms": "Kushtet",
+    "addLink": "Shto lidhje"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Kërko adresën, p.sh. Rruga e Durrësit 12, Tiranë",
     "pick": "Zgjidh adresën nga lista.",
-    "none": "Nuk u gjet adresa. Provo rrugën, numrin dhe qytetin.",
+    "none": "Nuk u gjet. Zgjidh “Përdor atë që shkrova” ose provo rrugën, numrin dhe qytetin.",
     "offline": "Kërkimi nuk është i disponueshëm. Adresa do të ruhet pa verifikim.",
     "ok": "✓ U gjet në hartë",
     "unverified": "Adresë e paverifikuar",
-    "searching": "Duke kërkuar…"
+    "searching": "Duke kërkuar…",
+    "useTyped": "Përdor atë që shkrova: “{q}”",
+    "manual": "✓ E shkruar nga ti"
   },
   "socials": {
-    "placeholder": "Lidhje me faqen tënde në {name}"
+    "placeholder": "Lidhje me faqen tënde në {name}",
+    "more": "Më shumë rrjete",
+    "find": "Kërko një rrjet"
   },
   "validate": {
     "required": "Fushë e detyrueshme"
@@ -851,5 +856,77 @@
     "toCodes": "Te Kodet e mia QR",
     "pwKeep": "Lëre bosh për të mbajtur fjalëkalimin aktual",
     "staticNote": "Kujdes: te ky lloj përmbajtja është brenda vetë kodit. Pas ruajtjes, shkarko dhe printo sërish kodin e ri."
+  },
+  "mobile": {
+    "preview": "Shiko pamjen",
+    "close": "Mbyll pamjen"
+  },
+  "phone": {
+    "country": "Shteti",
+    "invalid": "Ky numër nuk është i saktë. Duhet të ketë {n} shifra (pa 0 në fillim)."
+  },
+  "email": {
+    "format": "Ky nuk është email i vlefshëm. Shembull: emri@kompania.al",
+    "didYouMean": "Mos do të thoshe",
+    "domain": "Ky domen emaili nuk ekziston ose nuk merr email.",
+    "ok": "Emaili është i saktë"
+  },
+  "countries": {
+    "NL": "Holanda",
+    "BE": "Belgjika",
+    "DE": "Gjermania",
+    "FR": "Franca",
+    "ES": "Spanja",
+    "IT": "Italia",
+    "PT": "Portugalia",
+    "GB": "Mbretëria e Bashkuar",
+    "IE": "Irlanda",
+    "LU": "Luksemburgu",
+    "AT": "Austria",
+    "CH": "Zvicra",
+    "DK": "Danimarka",
+    "SE": "Suedia",
+    "NO": "Norvegjia",
+    "FI": "Finlanda",
+    "IS": "Islanda",
+    "PL": "Polonia",
+    "CZ": "Çekia",
+    "SK": "Sllovakia",
+    "HU": "Hungaria",
+    "RO": "Rumania",
+    "BG": "Bullgaria",
+    "GR": "Greqia",
+    "CY": "Qiproja",
+    "MT": "Malta",
+    "HR": "Kroacia",
+    "SI": "Sllovenia",
+    "RS": "Serbia",
+    "BA": "Bosnja dhe Hercegovina",
+    "ME": "Mali i Zi",
+    "MK": "Maqedonia e Veriut",
+    "AL": "Shqipëria",
+    "XK": "Kosova",
+    "LT": "Lituania",
+    "LV": "Letonia",
+    "EE": "Estonia",
+    "UA": "Ukraina",
+    "TR": "Turqia",
+    "MA": "Maroku",
+    "EG": "Egjipti",
+    "ZA": "Afrika e Jugut",
+    "NG": "Nigeria",
+    "AE": "Emiratet e Bashkuara Arabe",
+    "SA": "Arabia Saudite",
+    "IN": "India",
+    "CN": "Kina",
+    "JP": "Japonia",
+    "ID": "Indonezia",
+    "AU": "Australia",
+    "US": "Shtetet e Bashkuara",
+    "CA": "Kanadaja",
+    "MX": "Meksika",
+    "BR": "Brazili",
+    "SR": "Surinami",
+    "CW": "Kuraçao"
   }
 }

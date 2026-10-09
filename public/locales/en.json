@@ -344,7 +344,8 @@
     "appStore": "App Store link",
     "playStore": "Google Play link",
     "validUntil": "Valid until",
-    "terms": "Terms"
+    "terms": "Terms",
+    "addLink": "Add link"
   },
   "panel": {
     "selected": "{type} selected"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Search your address, e.g. 12 High Street, London",
     "pick": "Choose your address from the list.",
-    "none": "No address found. Try street, number and city.",
+    "none": "Not found. Choose “Use what I typed” or try street, number and city.",
     "offline": "Address search is unavailable. This address will be saved unverified.",
     "ok": "✓ Found on the map",
     "unverified": "Address not verified",
-    "searching": "Searching…"
+    "searching": "Searching…",
+    "useTyped": "Use what I typed: “{q}”",
+    "manual": "✓ Entered by you"
   },
   "socials": {
-    "placeholder": "Link to your {name} page"
+    "placeholder": "Link to your {name} page",
+    "more": "More networks",
+    "find": "Find a network"
   },
   "validate": {
     "required": "This field is required"
@@ -803,5 +808,19 @@
     "toCodes": "Go to My QR codes",
     "pwKeep": "Leave empty to keep the current password",
     "staticNote": "Note: for this type the content is inside the code itself. After saving, download and print the new code again."
+  },
+  "mobile": {
+    "preview": "View preview",
+    "close": "Close preview"
+  },
+  "phone": {
+    "country": "Country",
+    "invalid": "This number doesn’t look right. It should have {n} digits (without the leading 0)."
+  },
+  "email": {
+    "format": "This isn’t a valid email address. Example: name@company.com",
+    "didYouMean": "Did you mean",
+    "domain": "This email domain doesn’t exist or can’t receive mail.",
+    "ok": "Email address looks good"
   }
 }

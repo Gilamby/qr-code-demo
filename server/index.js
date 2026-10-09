@@ -115,6 +115,27 @@ app.get('/api/geocode', async (req, res) => {
   finally { clearTimeout(timer); }
 });
 
+// E-mail controleren: klopt de vorm en kan het domein mail ontvangen (MX-record, anders een gewoon adres)?
+// We sturen geen mail en bewaren niets; alleen het domein wordt opgezocht.
+const dns = require('dns').promises;
+const { EMAIL } = require('./validate');
+const mailCache = new Map();
+app.get('/api/email-check', async (req, res) => {
+  const email = String(req.query.e || '').trim().slice(0, 254);
+  if (!EMAIL.test(email)) return res.json({ ok: false, reason: 'format' });
+  const domain = email.split('@')[1].toLowerCase();
+  if (mailCache.has(domain)) return res.json({ ok: mailCache.get(domain), reason: mailCache.get(domain) ? '' : 'domain' });
+  const timeout = new Promise((r) => setTimeout(() => r('timeout'), 3500));
+  const look = (async () => {
+    try { const mx = await dns.resolveMx(domain); if (mx && mx.some((m) => m.exchange && m.exchange !== '.')) return true; } catch (e) { if (e.code !== 'ENODATA' && e.code !== 'ENOTFOUND') throw e; }
+    try { const a = await dns.resolve4(domain); return a.length > 0; } catch (e) { if (e.code === 'ENODATA' || e.code === 'ENOTFOUND') return false; throw e; }
+  })().catch(() => 'unknown');
+  const ok = await Promise.race([look, timeout]);
+  if (ok === 'timeout' || ok === 'unknown') return res.json({ ok: true, reason: 'unchecked' });   // twijfel: niet blokkeren
+  mailCache.set(domain, ok);
+  res.json({ ok, reason: ok ? '' : 'domain' });
+});
+
 app.get('/api/me', (req, res) => res.json(db.getMe()));
 
 app.patch('/api/me', (req, res) => {

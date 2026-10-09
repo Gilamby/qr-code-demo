@@ -344,7 +344,8 @@
     "appStore": "Link da App Store",
     "playStore": "Link do Google Play",
     "validUntil": "Válido até",
-    "terms": "Condições"
+    "terms": "Condições",
+    "addLink": "Adicionar link"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Procura a tua morada, ex. Rua Augusta 12, Lisboa",
     "pick": "Escolhe a tua morada da lista.",
-    "none": "Morada não encontrada. Tenta rua, número e cidade.",
+    "none": "Não encontrado. Escolhe «Usar o que escrevi» ou tenta rua, número e cidade.",
     "offline": "Pesquisa indisponível. A morada será guardada sem verificação.",
     "ok": "✓ Encontrada no mapa",
     "unverified": "Morada não verificada",
-    "searching": "A procurar…"
+    "searching": "A procurar…",
+    "useTyped": "Usar o que escrevi: «{q}»",
+    "manual": "✓ Escrito por ti"
   },
   "socials": {
-    "placeholder": "Link para a tua página de {name}"
+    "placeholder": "Link para a tua página de {name}",
+    "more": "Mais redes",
+    "find": "Procurar uma rede"
   },
   "validate": {
     "required": "Campo obrigatório"
@@ -803,5 +808,19 @@
     "toCodes": "Ir para Os meus códigos QR",
     "pwKeep": "Deixa vazio para manter a palavra-passe atual",
     "staticNote": "Atenção: neste tipo o conteúdo está dentro do próprio código. Depois de guardar, descarrega e imprime o novo código."
+  },
+  "mobile": {
+    "preview": "Ver pré-visualização",
+    "close": "Fechar pré-visualização"
+  },
+  "phone": {
+    "country": "País",
+    "invalid": "Este número não está correto. Deve ter {n} algarismos."
+  },
+  "email": {
+    "format": "Este endereço de e-mail não é válido. Exemplo: nome@empresa.pt",
+    "didYouMean": "Querias dizer",
+    "domain": "Este domínio de e-mail não existe ou não pode receber e-mails.",
+    "ok": "Endereço de e-mail correto"
   }
 }

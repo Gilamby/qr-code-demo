@@ -2,6 +2,26 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 9 okt 2026: invulvelden strenger en vollediger
+
+- **Lijst met links:** link 1-3 zichtbaar, daarna "+ Link toevoegen" tot 10 links (× haalt een extra link weg). Lege links verschijnen niet op de echte pagina.
+- **Telefoon:** land kiezen (56 landen, vlag + kengetal, landnamen in de eigen taal; Albanees uit `sq.json`), alleen cijfers, eerste 0 valt weg (niet in Italië), lengte gecontroleerd per land. Bewaard als "+31 612 345 678". WhatsApp-nummer is verplicht. Server weigert alles wat geen +landcode-nummer is.
+- **E-mail:** strenge vorm-controle; typfout in bekende domeinen geeft "Bedoel je …@gmail.com?" (klik = verbeteren); de server kijkt of het domein mail kan ontvangen (MX, anders A-record, `GET /api/email-check`). Twijfel (time-out) blokkeert niet. Er wordt niets opgeslagen of gemaild.
+- Velden die niet kloppen houden *Doorgaan* tegen tot ze verbeterd zijn.
+- **Adres:** kiezen uit de zoekresultaten, of "Gebruik wat ik typte" als het niet gevonden wordt (bewaard als zelf ingevuld, zonder kaartpunt). vCard gebruikt nu ook het adres-zoekveld.
+- **Social media:** de 8 belangrijkste blijven bovenaan; de knop **+** opent alle andere netwerken (37 extra, met zoekveld): Messenger, Threads, Pinterest, Snapchat, Telegram, Signal, Discord, Reddit, Bluesky, Mastodon, Twitch, Kick, Vimeo, Spotify, Apple Music, SoundCloud, Podcasts, Tumblr, Medium, Substack, Patreon, Behance, Dribbble, GitHub, Flickr, Strava, XING, Quora, WeChat, LINE, VK, Weibo, Tripadvisor, Yelp, Etsy, Airbnb, Booking.com. Iconen zijn merkkleur + letter (geen officiële logo's).
+- Fout opgelost: een nieuwe variabele heette `PHONE`, net als de telefoon-sjablonen; nu `TEL`.
+
+## 9 okt 2026: telefoonweergave en laatste voorbeeldfoto's (stap Type af)
+
+- Op een telefoon (≤ 760 px) wordt de maak-pagina niet meer verkleind. Alleen het paneel, op normale grootte; het voorbeeld opent met de knop **Bekijk voorbeeld** als scherm erover (sluiten met × of Esc). De zijbalk wordt een uitschuifmenu (☰). Computer en tablet blijven zoals ze waren.
+- Bedrijf: omslagfoto niet meer verplicht (zonder foto toont de pagina een getekende winkelpui).
+- Video: algemeen (geen YouTube-uitstraling), HTML-les als voorbeeld, blauw.
+- Facebook-bakkerij: eigen ouderwets logo zonder tekst (past in elke taal), foto's warm/vintage.
+- Lijst met links: keukenfoto's van Chef James, kleuren terracotta + basilicumgroen.
+- Instagram: bruiloftsfoto alleen met het bruidspaar, bovenaan het raster. MP3: getekende hoes voor de ochtendshow.
+- Stap Type is volgens de klant af ("misschien later nog kleine dingen").
+
 ## 9 okt 2026: Mijn QR-codes af
 
 - Kaart per code: QR-plaatje, naam (klik = wijzigen), type, datum, link + kopiëren, scans, aan/uit-schakelaar, Downloaden (PNG/SVG), Bewerken, menu (link openen, kopiëren, naam wijzigen, verwijderen met bevestiging).

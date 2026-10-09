@@ -344,7 +344,8 @@
     "appStore": "Lien vers l'App Store",
     "playStore": "Lien vers Google Play",
     "validUntil": "Valable jusqu'au",
-    "terms": "Conditions"
+    "terms": "Conditions",
+    "addLink": "Ajouter un lien"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Cherche ton adresse, ex. 12 rue de Rivoli, Paris",
     "pick": "Choisis ton adresse dans la liste.",
-    "none": "Aucune adresse trouvée. Essaie rue, numéro et ville.",
+    "none": "Introuvable. Choisissez « Utiliser ma saisie » ou essayez rue, numéro et ville.",
     "offline": "Recherche indisponible. L'adresse sera enregistrée sans vérification.",
     "ok": "✓ Trouvée sur la carte",
     "unverified": "Adresse non vérifiée",
-    "searching": "Recherche…"
+    "searching": "Recherche…",
+    "useTyped": "Utiliser ma saisie : « {q} »",
+    "manual": "✓ Saisi par vous"
   },
   "socials": {
-    "placeholder": "Lien vers ta page {name}"
+    "placeholder": "Lien vers ta page {name}",
+    "more": "Plus de réseaux",
+    "find": "Chercher un réseau"
   },
   "validate": {
     "required": "Champ obligatoire"
@@ -803,5 +808,19 @@
     "toCodes": "Aller à Mes QR codes",
     "pwKeep": "Laisse vide pour garder le mot de passe actuel",
     "staticNote": "Attention : pour ce type, le contenu est dans le code lui-même. Après l’enregistrement, télécharge et imprime à nouveau le nouveau code."
+  },
+  "mobile": {
+    "preview": "Voir l’aperçu",
+    "close": "Fermer l’aperçu"
+  },
+  "phone": {
+    "country": "Pays",
+    "invalid": "Ce numéro n’est pas correct. Il doit avoir {n} chiffres (sans le 0 au début)."
+  },
+  "email": {
+    "format": "Cette adresse e-mail n’est pas valide. Exemple : nom@entreprise.fr",
+    "didYouMean": "Vouliez-vous dire",
+    "domain": "Ce domaine e-mail n’existe pas ou ne peut pas recevoir de mails.",
+    "ok": "Adresse e-mail correcte"
   }
 }

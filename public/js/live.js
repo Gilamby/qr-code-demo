@@ -37,15 +37,15 @@
 
   var WIRE = {
     links: function () {
-      $$('.lk2-row').forEach(function (el) { var i = +el.getAttribute('data-i'); go(el, href(c['link' + (i + 1)])); });
+      $$('.lk2-row').forEach(function (el) { go(el, href(c[el.getAttribute('data-k')])); });
       var s = $('.lk2-share'); if (s) { s.setAttribute('data-go', ''); s.onclick = share; }
     },
     vcard: function () {
-      var addr = c.address ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.address) : '';
+      var addr = c.address ? ADDRESS.mapUrl(ADDRESS.parse(c.address) || { l: c.address }) : '';
       var urls = [tel(c.phone), mail(c.email), href(c.website), addr];
       $$('.vc-acts > span').forEach(function (el, i) { go(el, urls[i]); if (!urls[i]) el.style.opacity = '.35'; });
       $$('.vc-row').forEach(function (el, i) { go(el, urls[i]); });
-      var vcf = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:' + c.name, c.role ? 'TITLE:' + c.role : '', c.company ? 'ORG:' + c.company : '', c.phone ? 'TEL:' + c.phone : '', c.email ? 'EMAIL:' + c.email : '', c.website ? 'URL:' + c.website : '', c.address ? 'ADR:;;' + c.address + ';;;;' : '', 'END:VCARD'].filter(Boolean).join('\r\n');
+      var vcf = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:' + c.name, c.role ? 'TITLE:' + c.role : '', c.company ? 'ORG:' + c.company : '', c.phone ? 'TEL:' + c.phone : '', c.email ? 'EMAIL:' + c.email : '', c.website ? 'URL:' + c.website : '', c.address ? 'ADR:;;' + ADDRESS.text(c.address).replace(/([;,])/g, '\\$1') + ';;;;' : '', 'END:VCARD'].filter(Boolean).join('\r\n');
       go($('.vc-save'), 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcf), (c.name || 'contact').replace(/[^\w ]+/g, '') + '.vcf');
     },
     business: function () {

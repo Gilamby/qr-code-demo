@@ -344,7 +344,8 @@
     "appStore": "Link zum App Store",
     "playStore": "Link zu Google Play",
     "validUntil": "Gültig bis",
-    "terms": "Bedingungen"
+    "terms": "Bedingungen",
+    "addLink": "Link hinzufügen"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Adresse suchen, z. B. Hauptstraße 12, Berlin",
     "pick": "Wähle deine Adresse aus der Liste.",
-    "none": "Keine Adresse gefunden. Versuche Straße, Nummer und Ort.",
+    "none": "Nicht gefunden. Wähle „Meine Eingabe verwenden“ oder versuche Straße, Hausnummer und Ort.",
     "offline": "Adresssuche nicht verfügbar. Die Adresse wird ungeprüft gespeichert.",
     "ok": "✓ Auf der Karte gefunden",
     "unverified": "Adresse nicht geprüft",
-    "searching": "Suche…"
+    "searching": "Suche…",
+    "useTyped": "Meine Eingabe verwenden: „{q}“",
+    "manual": "✓ Selbst eingegeben"
   },
   "socials": {
-    "placeholder": "Link zu deiner {name}-Seite"
+    "placeholder": "Link zu deiner {name}-Seite",
+    "more": "Weitere Netzwerke",
+    "find": "Netzwerk suchen"
   },
   "validate": {
     "required": "Pflichtfeld"
@@ -803,5 +808,19 @@
     "toCodes": "Zu Meine QR-Codes",
     "pwKeep": "Leer lassen = aktuelles Passwort behalten",
     "staticNote": "Hinweis: Bei diesem Typ steckt der Inhalt im Code selbst. Lade den neuen Code nach dem Speichern erneut herunter und drucke ihn neu."
+  },
+  "mobile": {
+    "preview": "Vorschau ansehen",
+    "close": "Vorschau schließen"
+  },
+  "phone": {
+    "country": "Land",
+    "invalid": "Diese Nummer stimmt nicht. Sie muss {n} Ziffern haben (ohne die 0 am Anfang)."
+  },
+  "email": {
+    "format": "Das ist keine gültige E-Mail-Adresse. Beispiel: name@firma.de",
+    "didYouMean": "Meinst du",
+    "domain": "Diese E-Mail-Domain gibt es nicht oder sie kann keine Mails empfangen.",
+    "ok": "E-Mail-Adresse stimmt"
   }
 }

@@ -49,8 +49,9 @@ var ContentForm = {
         var id = 'f-' + type.id + '-' + f.key, label = t(f.label, { n: f.n }), v = values[f.key] != null ? values[f.key] : '';
         if (f.required) label += '<span class="req" aria-hidden="true">*</span>';
         var keepPw = f.type === 'password' && state.editing && state.editing.hasPassword;   // bestaand wachtwoord: leeg laten = houden
-        var cls = f.advanced ? ' opt' : '', attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v || keepPw ? '' : ' hidden') : '';
-        var rm = f.advanced ? '<button type="button" class="opt-x" data-opt-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>' : '';
+        var cls = f.advanced ? ' opt' : (f.extra ? ' opt extra' : ''), attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v || keepPw ? '' : ' hidden') : (f.extra ? ' data-extra-field="' + f.key + '"' + (v ? '' : ' hidden') : '');
+        var rm = f.advanced ? '<button type="button" class="opt-x" data-opt-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>'
+               : f.extra ? '<button type="button" class="opt-x" data-extra-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>' : '';
         var wrap = function (inner) { return '<div class="field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small></div>'; };
         if (f.type === 'toggle') return '<div class="field toggle-field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label class="tg"><input type="checkbox" id="' + id + '" name="' + f.key + '"' + (v ? ' checked' : '') + '><span class="sw-ui"></span><span>' + label + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '</span></label></div>';
         if (f.type === 'image') return wrap(ImageUpload.html(f, id, v));
@@ -60,6 +61,7 @@ var ContentForm = {
         if (f.type === 'hours') return wrap(HoursEditor.html(f, id, v));
         if (f.type === 'address') return wrap(AddressSearch.html(f, id, v));
         if (f.type === 'socials') return wrap(SocialsEditor.html(f, id, v));
+        if (f.type === 'tel') return wrap(PhoneInput.html(f, id, v));
         var input = f.type === 'select'
           ? '<select id="' + id + '" name="' + f.key + '">' + f.options.map(function (o) { var cur = v || f.sample; return '<option value="' + o.value + '"' + (o.value === cur ? ' selected' : '') + '>' + resolveSample(o.label) + '</option>'; }).join('') + '</select>'
           : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(keepPw ? t('edit.pwKeep') : resolveSample(f.sample)) + '"' +
@@ -73,7 +75,10 @@ var ContentForm = {
       };
       var basic = type.fields.filter(function (f) { return !f.advanced; }), more = type.fields.filter(function (f) { return f.advanced; });
       var active = more.filter(function (f) { return values[f.key]; }).length;
-      return basic.map(render).join('') + (more.length
+      // Extra velden (bv. link 4-10): verborgen tot je op "+ toevoegen" klikt, knop direct onder de laatste
+      var extras = basic.filter(function (f) { return f.extra; }), html = basic.map(render), lastExtra = basic.lastIndexOf(extras[extras.length - 1]);
+      if (extras.length) html.splice(lastExtra + 1, 0, '<button type="button" class="add-row" data-extra-add' + (extras.every(function (f) { return values[f.key]; }) ? ' hidden' : '') + '>+ ' + t('fields.addLink') + '</button>');
+      return html.join('') + (more.length
         ? '<details class="more"' + (active ? ' open' : '') + '><summary><span>' + t('more.title') + '</span><em class="more-count"' + (active ? '' : ' hidden') + '>' + t('more.active', { n: active }) + '</em></summary>' +
             '<div class="more-body"><div class="opt-chips">' + more.map(function (f) { return '<button type="button" class="opt-chip" data-opt="' + f.key + '"' + (values[f.key] ? ' hidden' : '') + '>+ ' + t(f.label) + '</button>'; }).join('') + '</div>' +
             more.map(render).join('') + '</div></details>'
@@ -81,7 +86,7 @@ var ContentForm = {
     })() + '</form>' +
       (type.page === false ? '' : '<section class="appearance" id="appearance"></section>') +
       Actions.html(state);
-    ImageUpload.mount(el, actions.setField); FileUpload.mount(el, actions.setField); GalleryUpload.mount(el, actions.setField); DishesEditor.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
+    ImageUpload.mount(el, actions.setField); FileUpload.mount(el, actions.setField); GalleryUpload.mount(el, actions.setField); DishesEditor.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); PhoneInput.mount(el, actions.setField); EmailCheck.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
     var ap = el.querySelector('#appearance'); if (ap) Appearance.mount(ap);
     // Meer opties: teller bijwerken
     // Meer opties: knopjes voegen één optie toe, × haalt hem weer weg (en wist de waarde). Teller bijwerken.
@@ -107,6 +112,20 @@ var ContentForm = {
         }
       });
     }
+    // Extra velden: + toont het volgende lege veld, × wist en verbergt het weer
+    var addBtn = el.querySelector('[data-extra-add]');
+    if (addBtn) el.querySelector('#contentForm').addEventListener('click', function (e) {
+      if (e.target.closest('[data-extra-add]')) {
+        var next = el.querySelector('[data-extra-field][hidden]'); if (!next) return;
+        next.hidden = false; var inp = next.querySelector('input'); if (inp) inp.focus();
+        addBtn.hidden = !el.querySelector('[data-extra-field][hidden]');
+      }
+      var rm = e.target.closest('[data-extra-rm]');
+      if (rm) {
+        var k = rm.getAttribute('data-extra-rm'), box = el.querySelector('[data-extra-field="' + k + '"]');
+        box.querySelectorAll('input').forEach(function (i) { i.value = ''; }); box.hidden = true; actions.setField(k, ''); addBtn.hidden = false;
+      }
+    });
     // Link-check: https toevoegen, typfouten verbeteren, kijken of de site bestaat en de naam invullen
     type.fields.filter(function (f) { return f.check; }).forEach(function (f) { LinkCheck.mount(el, f, type); });
   }

@@ -32,6 +32,9 @@
         var miss = missingRequired(st);
         panel.querySelectorAll('[data-field]').forEach(function (f) { f.classList.toggle('invalid', miss.indexOf(f.getAttribute('data-field')) >= 0); });
         if (miss.length) { var first = panel.querySelector('.field.invalid'); first.scrollIntoView({ block: 'center', behavior: 'smooth' }); var fi = first.querySelector('input'); if (fi && fi.type !== 'file') fi.focus({ preventScroll: true }); return; }
+        // Iets ingevuld dat niet klopt (telefoon, e-mail): eerst verbeteren
+        var bad = panel.querySelector('.field.bad');
+        if (bad) { bad.querySelectorAll('input').forEach(function (i) { i.dispatchEvent(new Event('blur')); }); bad.scrollIntoView({ block: 'center', behavior: 'smooth' }); var bi = bad.querySelector('input:not([type=hidden])'); if (bi) bi.focus({ preventScroll: true }); return; }
       }
       return actions.goTo(to);
     }

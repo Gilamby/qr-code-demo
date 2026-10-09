@@ -344,7 +344,8 @@
     "appStore": "Link do App Store",
     "playStore": "Link do Google Play",
     "validUntil": "Ważny do",
-    "terms": "Warunki"
+    "terms": "Warunki",
+    "addLink": "Dodaj link"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -453,14 +454,18 @@
   "address": {
     "placeholder": "Wyszukaj adres, np. ul. Długa 12, Gdańsk",
     "pick": "Wybierz adres z listy.",
-    "none": "Nie znaleziono adresu. Podaj ulicę, numer i miasto.",
+    "none": "Nie znaleziono. Wybierz „Użyj tego, co wpisałem” albo wpisz ulicę, numer i miasto.",
     "offline": "Wyszukiwanie niedostępne. Adres zostanie zapisany bez weryfikacji.",
     "ok": "✓ Znaleziono na mapie",
     "unverified": "Adres niezweryfikowany",
-    "searching": "Szukam…"
+    "searching": "Szukam…",
+    "useTyped": "Użyj tego, co wpisałem: „{q}”",
+    "manual": "✓ Wpisane ręcznie"
   },
   "socials": {
-    "placeholder": "Link do Twojej strony {name}"
+    "placeholder": "Link do Twojej strony {name}",
+    "more": "Więcej sieci",
+    "find": "Szukaj sieci"
   },
   "validate": {
     "required": "Pole wymagane"
@@ -803,5 +808,19 @@
     "toCodes": "Przejdź do Moich kodów QR",
     "pwKeep": "Zostaw puste, aby zachować obecne hasło",
     "staticNote": "Uwaga: w tym typie treść jest zapisana w samym kodzie. Po zapisaniu pobierz i wydrukuj nowy kod."
+  },
+  "mobile": {
+    "preview": "Zobacz podgląd",
+    "close": "Zamknij podgląd"
+  },
+  "phone": {
+    "country": "Kraj",
+    "invalid": "Ten numer jest nieprawidłowy. Powinien mieć {n} cyfr."
+  },
+  "email": {
+    "format": "To nie jest prawidłowy adres e-mail. Przykład: imie@firma.pl",
+    "didYouMean": "Czy chodziło o",
+    "domain": "Ta domena e-mail nie istnieje lub nie może odbierać poczty.",
+    "ok": "Adres e-mail jest prawidłowy"
   }
 }

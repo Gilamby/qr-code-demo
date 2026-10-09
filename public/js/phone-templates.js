@@ -201,14 +201,15 @@ var PHONE = (function () {
           '<span class="vc-av">' + (exPhoto('vcard', ex) ? '<img src="' + exPhoto('vcard', ex) + '" alt="">' : (c.name ? esc(initials(c.name)) : ic('user'))) + '</span>' +
           '<h4>' + v(c.name, '50%') + '</h4><p>' + (c.role || c.company ? esc([c.role, c.company].filter(Boolean).join(' · ')) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</p>' +
           '<div class="vc-acts">' + act('call', t('pv.vcard.phone')) + act('mail', t('pv.vcard.email')) + act('globe', t('pv.vcard.website')) + act('pin', t('pv.vcard.route')) + '</div></div>' +
-        '<div class="vc-list">' + row('call', t('pv.vcard.phone'), c.phone, '55%') + row('mail', t('pv.vcard.email'), c.email, '65%') + row('globe', t('pv.vcard.website'), domain(c.website), '50%') + row('pin', t('fields.address'), c.address, '70%') + '</div>' +
+        '<div class="vc-list">' + row('call', t('pv.vcard.phone'), c.phone, '55%') + row('mail', t('pv.vcard.email'), c.email, '65%') + row('globe', t('pv.vcard.website'), domain(c.website), '50%') + row('pin', t('fields.address'), ADDRESS.text(c.address), '70%') + '</div>' +
         '<div class="vc-save">' + ic('save') + esc(t('pv.vcard.cta')) + '</div>' +
       '</div>';
     },
 
     /* ---------- Lijst met links: omslag, profiel, één uitgelichte link en een nette lijst ---------- */
     links: function (c, ex) {
-      var keys = ['link1', 'link2', 'link3'];
+      // Link 1-3 altijd (leeg = skelet), link 4-10 alleen als ze ingevuld zijn
+      var keys = ['link1', 'link2', 'link3', 'link4', 'link5', 'link6', 'link7', 'link8', 'link9', 'link10'].filter(function (k, i) { return i < 3 || c[k]; });
       var clean = function (x) { return String(x || '').replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, ''); };
       var sk = function (w) { return '<i class="sk" style="width:' + w + '"></i>'; };
       var label = function (k) { var val = clean(c[k]); return /\.[a-z]{2,}/i.test(val) ? (val.split('/').pop() || val) : val; };
@@ -218,10 +219,10 @@ var PHONE = (function () {
         '<div class="lk2-cover"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-cover.jpg) center / cover"' : '') + '>' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
         '<div class="lk2-prof"><span class="lk2-av">' + (exPhoto('links', ex) ? '<img src="' + exPhoto('links', ex) + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span>' +
           '<h4>' + (c.title ? esc(c.title) : sk('55%')) + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p></div>' +
-        '<div class="lk2-feat lk2-row" data-i="0"><span class="lk2-img"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-feat.jpg) center 80% / cover"' : '') + '><i>' + ic('fwd') + '</i></span>' +
+        '<div class="lk2-feat lk2-row" data-k="' + keys[0] + '"><span class="lk2-img"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-feat.jpg) center 80% / cover"' : '') + '><i>' + ic('fwd') + '</i></span>' +
           '<span class="lk2-txt"><small>' + esc(t('pv.links.featured')) + '</small><b>' + (first ? esc(label(keys[0])) : sk('60%')) + '</b>' + (dom(keys[0]) ? '<em>' + esc(dom(keys[0])) + '</em>' : '') + '</span></div>' +
         '<div class="lk2-list">' + keys.slice(1).map(function (k, j) {
-          return '<span class="lk2-row" data-i="' + (j + 1) + '"><i class="lk2-th t' + j + '"></i><span><b>' + (c[k] ? esc(label(k)) : sk('55%')) + '</b>' + (dom(k) ? '<small>' + esc(dom(k)) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
+          return '<span class="lk2-row" data-k="' + k + '"><i class="lk2-th t' + (j % 2) + '"></i><span><b>' + (c[k] ? esc(label(k)) : sk('55%')) + '</b>' + (dom(k) ? '<small>' + esc(dom(k)) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
         }).join('') + '</div>' +
       '</div>';
     },
@@ -316,7 +317,7 @@ var PHONE = (function () {
       var mm = function (x) { return Math.floor(x / 60) + ':' + ('0' + (x % 60)).slice(-2); };
       return '<div class="ph ph-mp3">' + statusBar(true) +
         '<div class="mp-top">' + ic('back') + '<small>' + esc(t('pv.mp3.nowPlaying')) + '</small>' + ic('dots', 'i dots') + '</div>' +
-        '<div class="mp-art">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : ic('note')) + '</div>' +
+        '<div class="mp-art">' + (c.cover || exPhoto('mp3', ex) ? '<img src="' + (c.cover || exPhoto('mp3', ex)) + '" alt="">' : ic('note')) + '</div>' +
         '<div class="mp-info"><h4>' + v(c.title, '60%') + '</h4><p>' + v(c.artist, '40%') + '</p></div>' +
         '<div class="mp-bar"><i style="width:' + (o || ex ? 25 : 0) + '%"></i></div><div class="mp-time"><span>' + mm(Math.round(secs / 4)) + '</span><span>' + mm(secs) + '</span></div>' +
         '<div class="mp-ctrl">' + ic('prev') + '<span class="mp-play">' + ic('play') + '</span>' + ic('next') + '</div>' +

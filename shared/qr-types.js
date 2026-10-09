@@ -31,13 +31,15 @@
       { key: 'description', label: 'fields.description', sample: { t: 'pv.pdf.desc' } },
       { key: 'company', label: 'fields.company', sample: { t: 'sample.pdfCompany' } } ] },
   { id: 'links',     icon: 'links',  image: 'assets/qr-types/links.jpg', previewImage: 'assets/previews/links.jpg',     contentType: 'links',    previewType: 'card',   color: '#2bb5f0', theme: ['#c2410c', '#4d7c0f'],
-    fields: [ { key: 'title', label: 'fields.title', sample: { t: 'sample.linksTitle' } }, { key: 'link1', label: 'fields.link', n: 1, sample: { t: 'pv.links.website' } }, { key: 'link2', label: 'fields.link', n: 2, sample: { t: 'pv.links.jobs' } }, { key: 'link3', label: 'fields.link', n: 3, sample: { t: 'pv.links.support' } } ] },
+    fields: [ { key: 'title', label: 'fields.title', sample: { t: 'sample.linksTitle' } }, { key: 'link1', label: 'fields.link', n: 1, sample: { t: 'pv.links.website' } }, { key: 'link2', label: 'fields.link', n: 2, sample: { t: 'pv.links.jobs' } }, { key: 'link3', label: 'fields.link', n: 3, sample: { t: 'pv.links.support' } },
+      // Link 4 t/m 10: verborgen tot je op "+ Link toevoegen" klikt
+      { key: 'link4', label: 'fields.link', n: 4, extra: true }, { key: 'link5', label: 'fields.link', n: 5, extra: true }, { key: 'link6', label: 'fields.link', n: 6, extra: true }, { key: 'link7', label: 'fields.link', n: 7, extra: true }, { key: 'link8', label: 'fields.link', n: 8, extra: true }, { key: 'link9', label: 'fields.link', n: 9, extra: true }, { key: 'link10', label: 'fields.link', n: 10, extra: true } ] },
   { id: 'vcard',     icon: 'vcard',  image: 'assets/qr-types/vcard.jpg', previewImage: 'assets/previews/vcard.jpg',     contentType: 'contact',  previewType: 'card',    color: '#2bb5f0', theme: ['#0f766e', '#0b3b36'],
     fields: [ { key: 'name', label: 'fields.name', sample: { t: 'sample.vcardName' } }, { key: 'role', label: 'fields.role', sample: { t: 'pv.vcard.role' } }, { key: 'phone', type: 'tel', label: 'fields.phone', sample: { t: 'sample.vcardPhone' } }, { key: 'email', type: 'email', label: 'fields.email', sample: { t: 'sample.vcardEmail' } },
-      { key: 'company', label: 'fields.company', sample: { t: 'sample.vcardCompany' } }, { key: 'website', type: 'url', label: 'fields.website', sample: { t: 'sample.vcardWebsite' } }, { key: 'address', label: 'fields.address', sample: { t: 'sample.vcardAddress' } } ] },
+      { key: 'company', label: 'fields.company', sample: { t: 'sample.vcardCompany' } }, { key: 'website', type: 'url', label: 'fields.website', sample: { t: 'sample.vcardWebsite' } }, { key: 'address', type: 'address', label: 'fields.address', sample: { t: 'sample.vcardAddress' } } ] },
   { id: 'business',  icon: 'biz',    image: 'assets/qr-types/business.jpg', previewImage: 'assets/previews/business.jpg',  contentType: 'business', previewType: 'card',    color: '#d08b2c', theme: ['#d08b2c', '#3b2a20'],
     fields: [
-      { key: 'cover', type: 'image', label: 'fields.cover', required: true },
+      { key: 'cover', type: 'image', label: 'fields.cover' },
       { key: 'name', label: 'fields.name', sample: { t: 'sample.bizName' }, required: true },
       { key: 'description', label: 'fields.description', sample: { t: 'pv.business.descSample' } },
       { key: 'address', type: 'address', label: 'fields.address', required: true, sample: { t: 'sample.bizAddress' } },
@@ -69,7 +71,7 @@
       { key: 'description', label: 'fields.description', sample: { t: 'pv.social.desc' } },
       { key: 'socials', type: 'socials', label: 'fields.socials', required: true, sample: { t: 'sample.socials' } } ] },
   { id: 'whatsapp', page: false,  icon: 'wa',     image: 'assets/qr-types/whatsapp.jpg', previewImage: 'assets/previews/whatsapp.jpg',  contentType: 'message',  previewType: 'card',    color: '#00a884', theme: ['#00a884', '#075e54'],
-    fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', sample: { t: 'sample.waPhone' } }, { key: 'message', label: 'fields.message', sample: { t: 'pv.whatsapp.m2' } } ] },
+    fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', required: true, sample: { t: 'sample.waPhone' } }, { key: 'message', label: 'fields.message', sample: { t: 'pv.whatsapp.m2' } } ] },
   { id: 'mp3',       icon: 'mp3',    image: 'assets/qr-types/mp3.jpg', previewImage: 'assets/previews/mp3.jpg',       contentType: 'file',     previewType: 'card',    color: '#8b5cf6', theme: ['#8b5cf6', '#ec4899'],
     fields: [
       { key: 'file', type: 'file', accept: 'audio/*', label: 'fields.audioFile', required: true, sample: { t: 'sample.mp3File' } },
