@@ -73,8 +73,9 @@ var i18n = (function () {
     // style: 'long' (8 oktober 2026), 'short' (8 okt 2026) of 'day' (8 oktober)
     date: function (d, style) {
       var o = own();
-      if (o) { var m = (style === 'short' ? o.monthsShort : o.months)[d.getMonth()]; return d.getDate() + ' ' + m + (style === 'day' ? '' : ' ' + d.getFullYear()); }
-      var opt = { day: 'numeric', month: style === 'short' ? 'short' : 'long' }; if (style !== 'day') opt.year = 'numeric';
+      // 'dshort' = dag + korte maand zonder jaar (9 okt), voor grafieken
+      if (o) { var m = (style === 'short' || style === 'dshort' ? o.monthsShort : o.months)[d.getMonth()]; return d.getDate() + ' ' + m + (style === 'day' || style === 'dshort' ? '' : ' ' + d.getFullYear()); }
+      var opt = { day: 'numeric', month: style === 'short' || style === 'dshort' ? 'short' : 'long' }; if (style !== 'day' && style !== 'dshort') opt.year = 'numeric';
       return new Intl.DateTimeFormat(current, opt).format(d);
     },
     day: function (d) { return fmt.date(d, 'day'); },

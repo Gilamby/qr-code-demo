@@ -12,6 +12,9 @@ const livePage = require('./live-page');
 const { validateDesign } = require('./validate');
 
 const app = express();
+// Achter een proxy (nginx, hosting): het echte IP-adres van de bezoeker uit X-Forwarded-For. Standaard alleen van deze machine.
+app.set('trust proxy', process.env.TRUST_PROXY || 'loopback');
+const analytics = require('./analytics');
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: '16mb' }));   // ruimte voor een fotogalerij (max. 6 verkleinde foto's)
@@ -26,7 +29,8 @@ const secretKey = (typeId) => { const t = QR_TYPES.find((x) => x.id === typeId);
 const withLink = (req, q) => {
   const content = Object.assign({}, q.content), key = secretKey(q.typeId);
   const hasPassword = !!(key && content[key]); if (key) delete content[key];
-  return Object.assign({}, q, { content, hasPassword, shortUrl: baseUrl(req) + '/q/' + q.id });
+  const out = Object.assign({}, q, { content, hasPassword, shortUrl: baseUrl(req) + '/q/' + q.id }); delete out.stats; delete out.daily;   // statistieken via /api/analytics
+  return out;
 };
 const cleanName = (v) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, 60);
 const newId = () => crypto.randomBytes(5).toString('base64url');   // bv. "aZ3k9Qp"
@@ -136,6 +140,14 @@ app.get('/api/email-check', async (req, res) => {
   res.json({ ok, reason: ok ? '' : 'domain' });
 });
 
+// Statistieken: ?from=JJJJ-MM-DD&to=…&codes=id,id&os=iOS,…&cc=NL,…&city=NL|Amsterdam,…
+app.get('/api/analytics', (req, res) => res.json(analytics.overview(db.listQrCodes(), req.query)));
+app.get('/api/analytics.csv', (req, res) => {
+  const nameOf = (q) => q.name || q.content.title || q.content.name || q.content.pageName || q.content.restaurant || q.content.appName || q.content.company || q.content.ssid || q.content.url || q.typeId;
+  res.set('Content-Type', 'text/csv; charset=utf-8').set('Content-Disposition', 'attachment; filename="statistieken.csv"');
+  res.send(analytics.csv(db.listQrCodes(), req.query, nameOf));
+});
+
 app.get('/api/me', (req, res) => res.json(db.getMe()));
 
 app.patch('/api/me', (req, res) => {
@@ -152,7 +164,7 @@ function openCode(req, res, passwordOk) {
   if (links.isExpired(found)) return res.status(410).send(links.expiredPage(req));
   const key = secretKey(found.typeId);
   if (key && found.content[key] && !passwordOk) return res.send(links.passwordPage(req, req.method === 'POST'));
-  const q = db.addScan(found.id);
+  const q = db.addScan(found.id, analytics.describe(found, req));
   const c = q.content;
   if (q.contentType === 'url' && c.url) return res.redirect(links.targetUrl(q, req.get('user-agent')));
   if (q.contentType === 'message' && c.phone) return res.redirect('https://wa.me/' + c.phone.replace(/\D/g, '') + (c.message ? '?text=' + encodeURIComponent(c.message) : ''));

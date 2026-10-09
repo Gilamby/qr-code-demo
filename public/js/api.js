@@ -68,7 +68,36 @@ var api = (function () {
       remove: function (id) { memory = read().filter(function (q) { return q.id !== id; }); write(); return Promise.resolve(null); }
     };
   })();
+  /* ---------- Demo-statistieken (alleen zonder server) ----------
+     Voorbeeldcijfers, steeds dezelfde per code, zodat de pagina Statistieken te bekijken is.
+     De pagina toont duidelijk dat het voorbeeldcijfers zijn. */
+  var demoStats = (function () {
+    var PLACES = [['NL', 'Amsterdam', 9], ['NL', 'Rotterdam', 6], ['NL', 'Utrecht', 4], ['BE', 'Antwerp', 3], ['BE', 'Brussels', 2], ['DE', 'Berlin', 4], ['DE', 'Hamburg', 2],
+      ['ES', 'Madrid', 3], ['ES', 'Barcelona', 3], ['FR', 'Paris', 3], ['GB', 'London', 4], ['IT', 'Milan', 2], ['PT', 'Lisbon', 1], ['US', 'New York', 2], ['PL', 'Krakow', 1]];
+    var OS = [['iOS', 46], ['Android', 38], ['Windows', 8], ['macOS', 5], ['other', 3]];
+    function rnd(seed) { var h = 2166136261; for (var i = 0; i < seed.length; i++) { h ^= seed.charCodeAt(i); h = Math.imul(h, 16777619); } return function () { h += 0x6D2B79F5; var t = h; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+    function weighted(r, list, w) { var sum = list.reduce(function (s, x) { return s + x[w]; }, 0), x = r() * sum; for (var i = 0; i < list.length; i++) { x -= list[i][w]; if (x <= 0) return list[i]; } return list[0]; }
+    return function (code) {
+      var r = rnd(code.id), stats = {}, base = 3 + Math.floor(r() * 9);
+      ANALYTICS.days(new Date(Date.now() - 120 * 864e5).toISOString().slice(0, 10), new Date().toISOString().slice(0, 10)).forEach(function (d, i) {
+        var wk = new Date(d + 'T12:00:00Z').getUTCDay(), n = Math.max(0, Math.round(base * (wk === 0 || wk === 6 ? 1.5 : 1) * (0.4 + r() * 1.2) * (0.7 + i / 300)));
+        if (!n) return; var day = stats[d] = {};
+        for (var k = 0; k < n; k++) { var o = weighted(r, OS, 1)[0], p = weighted(r, PLACES, 2), key = o + '|' + p[0] + '|' + p[1], v = day[key] = day[key] || [0, 0]; v[0]++; if (r() < 0.82) v[1]++; }
+      });
+      return Object.assign({}, code, { stats: stats, createdAt: new Date(Date.now() - 120 * 864e5).toISOString() });
+    };
+  })();
+  function demoCodes() {
+    return local.list().then(function (rows) {
+      if (!rows.length) rows = [['demo-site', 'website', 'Optimasys'], ['demo-menu', 'menu', t('sample.bizName')], ['demo-coupon', 'coupon', t('pv.coupon.title')], ['demo-wifi', 'wifi', t('sample.wifiSsid')]]
+        .map(function (x) { return { id: x[0], typeId: x[1], name: x[2], content: {}, createdAt: new Date().toISOString() }; });
+      return rows.map(demoStats);
+    });
+  }
+
   // Kies per aanroep: server als die er is, anders de demo-opslag
+  function flat(q) { var o = {}; Object.keys(q || {}).forEach(function (k) { o[k] = Array.isArray(q[k]) ? q[k].join(',') : q[k]; }); return o; }
+  function query(q) { var f = flat(q); return Object.keys(f).filter(function (k) { return f[k]; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); }
   function either(server, demo) { return function () { var a = arguments; return available().then(function (on) { return on ? server.apply(null, a) : demo.apply(null, a); }); }; }
 
   return {
@@ -80,6 +109,12 @@ var api = (function () {
     updateQrCode: either(function (id, data) { return request('PUT', 'api/qr-codes/' + encodeURIComponent(id), data); }, local.update),
     patchQrCode:  either(function (id, patch) { return request('PATCH', 'api/qr-codes/' + encodeURIComponent(id), patch); }, local.patch),
     deleteQrCode: either(function (id) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id)); }, local.remove),
+    // Statistieken: { from, to, codes: [], os: [], cc: [], city: [] }
+    analytics: either(function (q) { return request('GET', 'api/analytics?' + query(q)); },
+      function (q) { return demoCodes().then(function (codes) { return Object.assign(ANALYTICS.overview(codes, flat(q)), { demo: true, geo: true, names: codes.map(function (c) { return { id: c.id, typeId: c.typeId, name: c.name }; }) }); }); }),
+    // CSV: met server een link (downloadt zelf), zonder server de tekst
+    analyticsCsv: either(function (q) { return Promise.resolve({ url: 'api/analytics.csv?' + query(q) }); },
+      function (q) { return demoCodes().then(function (codes) { return { text: ANALYTICS.csv(codes, flat(q), function (c) { return c.name || c.id; }) }; }); }),
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },
     updateMe:     function (patch) { return request('PATCH', 'api/me', patch); }

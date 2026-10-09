@@ -134,6 +134,19 @@
       <div class="mc-toast" id="mcToast" role="status" hidden></div>
     </main>
 
+    <main class="canvas" id="analyticsView" hidden>
+      <section class="an">
+        <header class="an-head">
+          <div><h2 data-i18n="nav.analytics"></h2><p class="an-range" id="anRange"></p></div>
+          <button type="button" class="btn ghost" id="anExport"></button>
+        </header>
+        <p class="mc-demo" id="anDemo" hidden></p>
+        <div class="an-filters glass" id="anFilters"></div>
+        <div id="anBody" aria-live="polite"></div>
+        <p class="an-foot" id="anFoot"></p>
+      </section>
+    </main>
+
     <main class="canvas" id="emptyView" hidden>
       <div class="empty"><p data-i18n="empty.text"></p></div>
     </main>
@@ -144,6 +157,7 @@
 <script src="vendor/qrcode.js"></script>
 <!-- Gedeelde configuratie (ook gebruikt door de backend) -->
 <script src="shared/qr-types.js"></script>
+<script src="shared/analytics-core.js"></script>
 <!-- App, in deze volgorde: vertalingen → instellingen → API → state → logica → weergave -->
 <script src="js/i18n.js"></script>
 <script src="js/api.js"></script>
@@ -167,6 +181,7 @@
 <script src="js/layout.js"></script>
 <script src="js/account.js"></script>
 <script src="js/my-codes.js"></script>
+<script src="js/analytics.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

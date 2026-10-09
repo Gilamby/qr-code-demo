@@ -3,3 +3,4 @@ server/data/*.json
 server/data/*.tmp
 dist/
 .DS_Store
+server/data/geo/

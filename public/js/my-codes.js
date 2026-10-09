@@ -80,7 +80,8 @@ var MyCodes = (function () {
       '<div class="mc-main">' + nameHtml +
         '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.date(new Date(r.createdAt), 'short') })) + '</span></div>' +
         '<div class="mc-link">' + link + '</div></div>' +
-      '<div class="mc-scans">' + (stat ? '<b>–</b><small>' + t('myCodes.noScans') + '</small>' : '<b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small>') + '</div>' +
+      (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
+        : '<button type="button" class="mc-scans" data-act="stats" title="' + esc(t('myCodes.viewStats')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
       '<div class="mc-state">' + (stat ? '<span class="mc-pill on">' + t('myCodes.always') + '</span>'
         : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" data-act="toggle"><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
       '<div class="mc-acts">' +
@@ -190,6 +191,7 @@ var MyCodes = (function () {
     if (act === 'copy') return copy(r.shortUrl);
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'edit') return edit(r);
+    if (act === 'stats') return Analytics.open({ codes: [r.id] });
     if (act === 'toggle') return toggle(r);
     if (act === 'delete') return askDelete(r);
     if (act === 'rename') { renaming = r.id; return draw(); }

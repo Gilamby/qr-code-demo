@@ -2,6 +2,16 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 9 okt 2026: Statistieken
+
+- Zelfde inhoud als qr-code.io (periode, QR-code, systeem, land, stad; tegels QR-codes/scans/unieke scans; lijn per dag; verdelingen; export), maar duidelijker:
+  - verdelingen als **liggende balken met naam, aantal en %** in plaats van cirkels (makkelijker te lezen, minder kleuren);
+  - klik op een balk = alleen dat tonen; "Bekijk als tabel" onder de grafiek; tooltip bij de lijn;
+  - extra kaart **Per QR-code**; vanuit Mijn QR-codes klik je op het aantal scans om meteen de statistieken van die code te zien.
+- Kleuren lijnen: blauw (scans) en groen (unieke scans), getest op kleurenblindheid en contrast.
+- Privacy: zie `docs/juridisch.md` en `docs/statistieken.md` (geen IP opslaan, geen cookies, dagcode voor uniek).
+- Online demo: duidelijk gemarkeerde voorbeeldcijfers (dezelfde berekening als de server, `shared/analytics-core.js`).
+
 ## 9 okt 2026: invulvelden strenger en vollediger
 
 - **Lijst met links:** link 1-3 zichtbaar, daarna "+ Link toevoegen" tot 10 links (× haalt een extra link weg). Lege links verschijnen niet op de echte pagina.

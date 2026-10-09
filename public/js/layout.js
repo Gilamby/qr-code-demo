@@ -57,7 +57,8 @@
     document.body.classList.toggle('not-create', page !== 'create');
     document.getElementById('accountView').hidden = page !== 'account';
     document.getElementById('myCodesView').hidden = page !== 'myCodes';
-    document.getElementById('emptyView').hidden = page === 'create' || page === 'account' || page === 'myCodes';
+    document.getElementById('analyticsView').hidden = page !== 'analytics';
+    document.getElementById('emptyView').hidden = ['create', 'account', 'myCodes', 'analytics'].indexOf(page) >= 0;
     document.dispatchEvent(new CustomEvent('pagechange', { detail: page }));
     if (window.fitWorkspace) requestAnimationFrame(window.fitWorkspace);
   }

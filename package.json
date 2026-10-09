@@ -11,6 +11,10 @@
   },
   "engines": { "node": ">=18" },
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "maxmind": "^5.0.7"
+  },
+  "optionalDependencies": {
+    "@ip-location-db/dbip-city-mmdb": "2.3.2026060513"
   }
 }

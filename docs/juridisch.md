@@ -21,7 +21,11 @@ Gecontroleerd: bij het gebruik van de tool en het openen van alle echte pagina's
 
 ## Wat de app opslaat
 
-- **Scans:** alleen een teller en het tijdstip van de laatste scan. **Geen IP-adres, geen apparaat, geen locatie.**
+- **Scans (vanaf 9 okt 2026, voor Statistieken):** per QR-code per dag alleen aantallen per *systeem* (iOS, Android, …), *land* en *stad*.
+  - Land en stad worden bij het scannen opgezocht in een eigen database op onze server (DB-IP Lite). Het **IP-adres wordt niet opgeslagen** en niet doorgestuurd.
+  - "Unieke scans" zonder cookies: een dagcode met een geheim dat alleen in het geheugen staat en elke dag vervangen wordt. Na die dag is niet meer te herleiden wie er scande.
+  - Dit is wel *verwerking* van persoonsgegevens (het IP-adres wordt even gebruikt). Grondslag: gerechtvaardigd belang. **Moet in de privacyverklaring** (wat, waarom, dat IP niet wordt bewaard). Laat dit door een privacyjurist nakijken; het is dezelfde aanpak als privacyvriendelijke tools zoals Plausible.
+  - DB-IP-licentie (CC BY 4.0): bronvermelding staat onderaan Statistieken.
 - **Wachtwoorden** van beveiligde codes: alleen versleuteld (scrypt), nooit leesbaar.
 - **Inhoud** die de klant invult (teksten, foto's, PDF's, audio): nodig om de pagina te tonen.
 - **In de browser (localStorage):** alleen voorkeuren: taal, achtergrond, ingeklapte zijbalk. Dat zijn functionele voorkeuren: daarvoor is geen cookiemelding nodig.

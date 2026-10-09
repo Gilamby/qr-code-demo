@@ -37,13 +37,16 @@ module.exports = {
     data.qrCodes[i] = Object.assign({}, data.qrCodes[i], patch); save();
     return data.qrCodes[i];
   },
-  // Scan tellen: totaal + per dag (alleen aantallen, geen IP-adres, apparaat of locatie)
-  addScan: (id) => {
+  // Scan tellen: totaal + per dag per soort (systeem|land|stad). Geen IP-adres, geen volledige browsergegevens.
+  addScan: (id, info) => {
     const q = data.qrCodes.find((x) => x.id === id);
     if (!q) return null;
-    const now = new Date(), day = now.toISOString().slice(0, 10);
+    const now = new Date(), day = now.toISOString().slice(0, 10), key = (info && info.key) || 'other||';
     q.scans += 1; q.lastScanAt = now.toISOString();
     q.daily = Object.assign({}, q.daily); q.daily[day] = (q.daily[day] || 0) + 1;
+    if (!q.stats) { q.stats = {}; Object.keys(q.daily).forEach((d) => { if (d !== day) q.stats[d] = { 'other||': [q.daily[d], q.daily[d]] }; }); }   // oude tellers overnemen
+    const d = q.stats[day] = q.stats[day] || {}, v = d[key] = d[key] || [0, 0];
+    v[0] += 1; if (!info || info.unique) v[1] += 1;
     save();
     return q;
   },
