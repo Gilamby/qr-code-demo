@@ -138,7 +138,11 @@ var Actions = {
     var back = i > 0 && !(ed && STEPS[i - 1] === 'type') ? '<button type="button" class="btn ghost" data-go="' + STEPS[i - 1] + '">' + BACK + t('actions.back') + '</button>'
              : ed ? '<button type="button" class="btn ghost" data-cancel-edit>' + BACK + t('edit.cancel') + '</button>'
              : '<span class="picked">' + t('panel.selected', { type: '<b>' + esc(typeName(getType(state.typeId))) + '</b>' }) + '</span>';
-    var shown = state.saved && !/^(contact|wifi)$/.test(getType(state.typeId).contentType);   // vaste codes hebben geen link
+    var shown = state.saved && !api.isDemo() && !/^(contact|wifi)$/.test(getType(state.typeId).contentType);   // vaste codes hebben geen link; demo: link bestaat nog niet
+    // Waarschuwing als een telefoon de link in de code (nog) niet kan openen: demo zonder server, of server op localhost zonder wifi-adres
+    var dyn = !/^(contact|wifi)$/.test(getType(state.typeId).contentType);
+    var scanNote = last && dyn ? (api.isDemo() ? 'design.demoScan' : (api.info().phoneReachable === false ? 'design.localScan' : '')) : '';
+    scanNote = scanNote ? '<p class="scan-note" role="note">' + t(scanNote) + '</p>' : '';
     var next = last
       ? (state.created
           ? '<span class="done-msg" role="status">' + CHECK + '<span>' + t(ed ? 'edit.saved' : 'design.done') + (shown ? ' <a href="' + esc(state.saved.shortUrl) + '" target="_blank" rel="noopener">' + esc(state.saved.shortUrl.replace(/^https?:\/\//, '')) + '</a>' : '') + '</span></span>' +
@@ -147,7 +151,7 @@ var Actions = {
           : (state.error ? '<span class="save-error" role="alert">' + t(state.error) + '</span>' : '') +
             '<button type="button" class="btn primary" data-create' + (state.saving ? ' disabled' : '') + '>' + t(state.saving ? 'design.saving' : (state.error ? 'design.retry' : (ed ? 'edit.save' : 'actions.create'))) + '</button>')
       : '<button type="button" class="btn primary" data-go="' + STEPS[i + 1] + '">' + t('actions.continue') + CHEV.replace('class="chev"', '') + '</button>';
-    return '<div class="actions' + (last && state.created ? ' is-done' : '') + '">' + back + '<span class="spacer"></span>' + next + '</div>';
+    return '<div class="actions' + (last && state.created ? ' is-done' : '') + (scanNote ? ' has-note' : '') + '">' + scanNote + back + '<span class="spacer"></span>' + next + '</div>';
   }
 };
 

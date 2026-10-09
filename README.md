@@ -1,84 +1,104 @@
 # Optimasys QR
 
-Demo van een QR-code-maker voor Optimasys. Kies een type, vul de inhoud in, kies een ontwerp, en zie het resultaat live op een telefoon.
+Web-app om QR-codes te maken, te beheren en te meten. Kies een type, vul de inhoud in, kies een ontwerp en zie het resultaat live op een telefoon. Met accounts, een eigen server en een SQLite-database.
 
-## Starten
+## Starten (op je eigen computer)
 
-Nodig: [Node.js](https://nodejs.org) 18 of nieuwer.
+Nodig: [Node.js](https://nodejs.org) 20 of nieuwer.
 
 ```bash
 npm install
 npm start
 ```
 
-Open daarna <http://localhost:3000>.
+Open daarna <http://localhost:3000> en maak een account aan.
 
-Tijdens het programmeren kun je `npm run dev` gebruiken. De server herstart dan vanzelf als je iets aanpast.
+- `npm run dev`: de server herstart vanzelf als je iets aanpast.
+- `npm test`: automatische test van de server (accounts, codes per klant, bestanden, scans, statistieken, beveiliging).
+- `npm run build`: productieversie (samengevoegd en verkleind, in `build/`). Met `NODE_ENV=production` gebruikt de server alleen deze versie; de losse bronbestanden zijn dan niet te zien.
+- `npm run backup`: back-up van database en bestanden naar `backups/`.
+- `npm run migrate -- jouw@email.nl`: oude demo-gegevens (`server/data/db.json`) overzetten naar een account.
 
-## Mappen
+Instellingen (webadres, e-mail, enzovoort): kopieer `.env.example` naar `.env`. Live zetten: zie **docs/installatie.md**.
+
+## Hoe het in elkaar zit
 
 ```
-public/              frontend (wat de gebruiker ziet)
+Browser (public/)  ──fetch──▶  Server (server/)  ──▶  SQLite (server/data/optimasys.db)
+                                     │                 Bestanden (server/data/files/)
+Bezoeker scant QR ──/q/:id──▶  scan tellen + pagina tonen of doorsturen
+```
+
+```
+public/              de app (wat de gebruiker ziet)
   index.html         de pagina
   css/app.css        alle opmaak
-  js/                de app, één bestand per taak (zie hieronder)
-  locales/*.json     vertalingen, één bestand per taal
-  assets/qr-types/   afbeeldingen van de QR-types
-  assets/previews/   foto's voor de telefoon-preview (zie README daar)
+  js/                één bestand per taak (zie hieronder)
+  locales/*.json     teksten in 10 talen
 shared/
-  qr-types.js        DE lijst met QR-types en hun velden, gedeeld door frontend én backend
+  qr-types.js        DE lijst met QR-types en velden (frontend én server)
+  design-data.js     ontwerpopties (patronen, hoeken, kaders)
+  analytics-core.js  berekening van de statistieken (server én online demo)
 server/
-  index.js           Express-server + API
-  validate.js        controleert alles wat binnenkomt (op basis van shared/qr-types.js)
-  db.js              opslag in server/data/db.json (later te vervangen door een echte database)
-scripts/
-  build-demo.js      bouwt dist/demo.html: één bestand voor de online demo zonder server
+  index.js           Express-server, API en korte links
+  db.js              SQLite: users, sessions, password_resets, qr_codes, scan_stats, files
+  auth.js            accounts, inloggen, sessies, wachtwoord vergeten, AVG (export/verwijderen)
+  mailer.js          e-mail (SMTP) voor "wachtwoord vergeten"
+  validate.js        controleert alles wat binnenkomt
+  analytics.js       wat er bij een scan wordt vastgelegd (systeem, land/stad, uniek)
+  links.js           regels bij het scannen (wachtwoord, verlopen, uit) en bezoekerspagina's
+  live-page.js       de echte pagina die een bezoeker na het scannen ziet
+  config.js          .env inlezen
+scripts/             back-up, migratie, online demo bouwen
+test/                automatische tests (npm test)
+docs/                beslissingen, juridisch, statistieken, installatie
 ```
 
 ### Frontend (public/js)
 
-De volgorde in `index.html` is: vertalingen → instellingen → API → state → logica → weergave.
-
 | Bestand | Taak |
 |---|---|
-| `i18n.js` | vertalingen laden, taal onthouden, getallen/prijzen/datums per taal |
-| `api.js` | het enige bestand dat met de backend praat |
-| `background.js` | eigen achtergrond (opgeslagen in het profiel) |
-| `config.js` | iconen, ontwerpkleuren, stappen |
-| `state.js` | één centrale state + alle acties (één bron van waarheid) |
-| `qr.js` | QR-data opbouwen (WiFi, vCard, links) en contrast controleren |
-| `preview.js` | het telefoon-sjabloon |
-| `components.js` | stappen, tegels, formulier, ontwerp, knoppen |
-| `layout.js` | taalkiezer, zijbalk, pagina's, schalen |
-| `account.js` | Mijn account: achtergrond kiezen of uploaden |
-| `my-codes.js` | Mijn QR-codes: lijst uit de backend |
-| `main.js` | koppelt de state aan de componenten en start de app |
-
-Componenten lezen alleen de state en roepen alleen `actions` aan. Bedrijfslogica staat niet in de weergave.
+| `i18n.js` | vertalingen, taal onthouden, getallen/datums per taal |
+| `api.js` | het enige bestand dat met de server praat (zonder server: demo-opslag in de browser) |
+| `session.js` | inlogscherm, account maken, wachtwoord vergeten, uitloggen |
+| `state.js` | centrale state + alle acties (maken, bewerken) |
+| `components.js`, `design-panel.js`, `content-fields.js`, `business-fields.js` | de drie stappen van QR-code maken |
+| `phone-templates.js`, `preview.js` | de telefoon (ook gebruikt voor de echte bezoekerspagina) |
+| `my-codes.js` | Mijn QR-codes |
+| `analytics.js` | Statistieken |
+| `account.js`, `account-settings.js`, `background.js` | Mijn account |
+| `layout.js`, `main.js` | zijbalk, pagina's, opstarten |
 
 ## API
 
+Alles onder `/api` (behalve health, qr-types en de inlogroutes) vraagt een ingelogde gebruiker. Je ziet en wijzigt alleen je eigen codes.
+
 | Methode | Pad | Wat |
 |---|---|---|
-| GET | `/api/health` | draait de server? |
-| GET | `/api/qr-types` | alle QR-types (uit `shared/qr-types.js`) |
-| GET | `/api/qr-codes` | alle opgeslagen QR-codes |
-| POST | `/api/qr-codes` | QR-code opslaan: `{ typeId, content, design }` |
-| GET | `/api/qr-codes/:id` | één QR-code |
-| DELETE | `/api/qr-codes/:id` | QR-code verwijderen |
-| GET | `/api/me` | profiel (achtergrond) |
-| PATCH | `/api/me` | profiel aanpassen: `{ background, customBackground }` |
-| GET | `/q/:id` | korte link in de QR-code: telt de scan en stuurt door |
+| GET | `/api/health` | draait de server en de database? |
+| POST | `/api/auth/register` · `/login` · `/logout` | account maken, inloggen, uitloggen |
+| GET | `/api/auth/me` | wie is ingelogd? |
+| POST | `/api/auth/forgot` · `/reset` | wachtwoord vergeten (link per e-mail, 1 uur geldig) |
+| PATCH | `/api/account` | naam wijzigen |
+| POST | `/api/account/password` | wachtwoord wijzigen |
+| GET | `/api/account/export` | al mijn gegevens (JSON) |
+| DELETE | `/api/account` | account en alles verwijderen (met wachtwoord) |
+| GET / POST | `/api/qr-codes` | mijn codes / nieuwe code |
+| GET / PUT / PATCH / DELETE | `/api/qr-codes/:id` | één code: ophalen, bewerken, naam of aan/uit, verwijderen |
+| GET | `/api/analytics` · `/api/analytics.csv` | statistieken (filters: from, to, codes, os, cc, city) |
+| GET / PATCH | `/api/me` | achtergrond |
+| GET | `/api/url-info` · `/api/geocode` · `/api/email-check` | hulp bij het invullen |
+| GET | `/q/:id` | korte link in de QR-code |
 
-Fout in de invoer? Dan krijg je `400` met `{ error, details: [...] }`.
+Fout in de invoer: `400` met `{ error, details }`. Niet ingelogd: `401`.
 
 ## Veelvoorkomende aanpassingen
 
-- **QR-type of veld toevoegen:** alleen `shared/qr-types.js` aanpassen, plus de teksten in `public/locales/*.json`. De frontend en de validatie volgen vanzelf.
-- **Foto's in de telefoon:** zie `public/assets/previews/README.md`.
-- **Taal toevoegen:** één regel in `LANGUAGES` (`public/js/i18n.js`) en een nieuw bestand `public/locales/<code>.json`.
-- **Echte database:** vervang `server/db.js`; de functies blijven hetzelfde.
+- **QR-type of veld toevoegen:** `shared/qr-types.js` + teksten in `public/locales/*.json`. Formulier en controle volgen vanzelf.
+- **Foto's in de voorbeelden:** `public/assets/previews/` (zie de README daar).
+- **Taal toevoegen:** één regel in `LANGUAGES` (`public/js/i18n.js`) en `public/locales/<code>.json`.
+- **Naar PostgreSQL:** alleen `server/db.js` vervangen; de functies blijven hetzelfde.
 
 ## Online demo
 
-`npm run build:demo` maakt `dist/demo.html` met de vertalingen en afbeeldingen ernaast. Die versie werkt zonder server. Opslaan gebeurt dan niet; de app laat zien dat hij in demo-modus draait.
+`npm run build:demo` maakt `dist/demo.html` (met vertalingen en afbeeldingen ernaast). Die werkt zonder server en zonder account: codes worden in de browser bewaard en Statistieken toont gemarkeerde voorbeeldcijfers.

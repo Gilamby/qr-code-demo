@@ -37,7 +37,7 @@ var QRRender = (function () {
       'H' + f(x + d) + (d ? 'A' + f(d) + ' ' + f(d) + ' 0 0 1 ' + f(x) + ' ' + f(y + h - d) : '') +
       'V' + f(y + a) + (a ? 'A' + f(a) + ' ' + f(a) + ' 0 0 1 ' + f(x + a) + ' ' + f(y) : '') + 'Z';
   }
-  function circle(cx, cy, r) { return 'M' + f(cx - r) + ' ' + f(cy) + 'a' + f(r) + ' ' + f(r) + ' 0 1 0 ' + f(2 * r) + ' 0a' + f(r) + ' ' + f(r) + ' 0 1 0 ' + f(-2 * r) + ' 0Z'; }
+  function circle(cx, cy, r) { return 'M' + f(cx - r) + ' ' + f(cy) + 'a' + f(r) + ' ' + f(r) + ' 0 1 1 ' + f(2 * r) + ' 0a' + f(r) + ' ' + f(r) + ' 0 1 1 ' + f(-2 * r) + ' 0Z'; }   // met de klok mee, net als de andere vormen: overlappende vormen vullen elkaar aan
   function diamond(x, y, s) { var m = s / 2; return 'M' + f(x + m) + ' ' + f(y) + 'L' + f(x + s) + ' ' + f(y + m) + 'L' + f(x + m) + ' ' + f(y + s) + 'L' + f(x) + ' ' + f(y + m) + 'Z'; }
   function heart(x, y, s) {
     var p = function (a, b) { return f(x + a * s) + ' ' + f(y + b * s); };
@@ -157,7 +157,7 @@ var QRRender = (function () {
       case 'circle':  return circle(x + 1.5, y + 1.5, 1.5);
       case 'diamond': return diamond(x - .25, y - .25, 3.5);
       case 'heart':   return heart(x - .2, y - .15, 3.4);
-      case 'star':    return star(x - .3, y - .3, 3.6);
+      case 'star':    return star(x - .6, y - .7, 4.2) + circle(x + 1.5, y + 1.5, 1.45);   // met gevuld hart: blijft scanbaar
       case 'leaf':    return rr(x, y, 3, 3, pos === 0 ? [1.4, 0, 1.4, 0] : [0, 1.4, 0, 1.4]);
       case 'flower':  return circle(x + 1.5, y + .75, .75) + circle(x + 2.25, y + 1.5, .75) + circle(x + 1.5, y + 2.25, .75) + circle(x + .75, y + 1.5, .75) + circle(x + 1.5, y + 1.5, .8);
       case 'plus':    return plus(x - .2, y - .2, 3.4, 1.5);
@@ -168,7 +168,7 @@ var QRRender = (function () {
       case 'drop':    return rr(x, y, 3, 3, pos === 0 ? [1.5, 1.5, 0, 1.5] : pos === 1 ? [1.5, 1.5, 1.5, 0] : [1.5, 0, 1.5, 1.5]);
       case 'point':   return rr(x, y, 3, 3, pos === 0 ? [0, 1.4, 1.4, 1.4] : pos === 1 ? [1.4, 0, 1.4, 1.4] : [1.4, 1.4, 1.4, 0]);
       case 'shield':  return rr(x, y, 3, 3, [0, 0, 1.4, 1.4]);
-      case 'dots9': { var g9 = ''; for (var i9 = 0; i9 < 3; i9++) for (var j9 = 0; j9 < 3; j9++) g9 += circle(x + j9 + .5, y + i9 + .5, .5); return g9; }
+      case 'dots9': { var g9 = ''; for (var i9 = 0; i9 < 3; i9++) for (var j9 = 0; j9 < 3; j9++) g9 += circle(x + j9 + .5, y + i9 + .5, .62); return rr(x + .4, y + .4, 2.2, 2.2, .3) + g9; }   // iets overlappend: blijft scanbaar
       default:        return rr(x, y, 3, 3, 0);
     }
   }

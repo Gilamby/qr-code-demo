@@ -84,7 +84,12 @@ var PHONE = (function () {
   // Eerste letter van het eerste en het laatste woord ("Panadería El Molino" -> PM, "Chef Ruben" -> CR)
   function initials(name) { var w = (name || '').replace(/[^\p{L}\p{N}\s]/gu, ' ').split(/\s+/).filter(Boolean); if (!w.length) return ''; return (w[0][0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase(); }
   // Voorbeeldfoto van het type (public/assets/previews/<id>.jpg), alleen in de voorbeeldweergave van stap 1.
-  function exPhoto(id, ex) { var tp = ex && getType(id), src = tp && tp.previewImage; return src && imageReady(src) ? src : ''; }
+  // Pas als álle foto's van dit voorbeeld klaar zijn, tonen we de fotoversie (anders even grijze vlakken).
+  var EX_EXTRA = { instagram: ['ig/1', 'ig/2', 'ig/3', 'ig/4', 'ig/5', 'ig/6', 'ig/7', 'ig/8', 'ig/h1', 'ig/h2', 'ig/h3', 'ig/h4', 'ig/h5'], links: ['links-cover', 'links-feat'], facebook: ['facebook-cover', 'facebook-post'], social: ['social-avatar'] };
+  function exPhoto(id, ex) {
+    var tp = ex && getType(id), src = tp && tp.previewImage; if (!src || !imageReady(src)) return '';
+    return (EX_EXTRA[id] || []).every(function (n) { return imageReady('assets/previews/' + n + '.jpg'); }) ? src : '';
+  }
   function domain(url) { return (url || '').replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0]; }
 
   // Mockup-foto zolang het bedrijf nog geen eigen foto heeft: een winkelpui in de paginakleur.
@@ -124,7 +129,7 @@ var PHONE = (function () {
         : (c.message ? '<div class="wa-out">' + esc(c.message) + '<time>' + liveClock(0) + ' <em>✓✓</em></time></div>'
                      : '<div class="wa-out sk-bub"><i class="sk"></i><i class="sk" style="width:70%"></i></div>');
       return '<div class="ph ph-wa">' + statusBar(true) +
-        '<div class="wa-head">' + ic('back') + '<span class="wa-av">' + (exPhoto('whatsapp', ex) ? '<img src="' + exPhoto('whatsapp', ex) + '" alt="">' : ic('user')) + '</span>' +
+        '<div class="wa-head">' + ic('back') + '<span class="wa-av">' + (exPhoto('whatsapp', ex) ? '<img decoding="sync" src="' + exPhoto('whatsapp', ex) + '" alt="">' : ic('user')) + '</span>' +
           '<span class="wa-name"><b>' + v(c.phone, '110px') + '</b><small>' + esc(t('pv.whatsapp.online')) + '</small></span>' +
           ic('video') + ic('call') + ic('dots', 'i dots') + '</div>' +
         '<div class="wa-body"><div class="wa-pill">' + ic('lock', 'i s') + esc(t('pv.whatsapp.encrypted')) + '</div>' + msgs + '</div>' +
@@ -139,7 +144,7 @@ var PHONE = (function () {
       var tiles = ['#f58529,#dd2a7b', '#515bd4,#8134af', '#2bb5f0,#1e3a8a', '#fcd34d,#f97316', '#10b981,#0f766e', '#f472b6,#7c3aed'];
       // Voorbeeldfoto's (stap 1): profielfoto, 5 highlights en 8 berichten in assets/previews/ig/
       var me = exPhoto('instagram', ex), pics = me ? [1, 2, 3, 4, 5, 6, 7, 8].map(function (i) { return 'assets/previews/ig/' + i + '.jpg'; }) : null;
-      var face = function (letter) { return me ? '<img src="' + me + '" alt="">' : letter; };
+      var face = function (letter) { return me ? '<img decoding="sync" src="' + me + '" alt="">' : letter; };
       var hl = function (i) { return pics ? ' style="background:#ddd url(assets/previews/ig/h' + i + '.jpg) center / cover"' : (ex ? ' style="background:linear-gradient(135deg,' + tiles[i] + ')"' : ''); };
       return '<div class="ph ph-ig">' + statusBar() +
         '<div class="ig-head">' + ic('back') + '<b>' + v(u, '110px') + (ex ? '<span class="ig-ver">' + ic('check', 'i') + '</span>' : '') + '</b>' + ic('bell') + ic('dots', 'i dots') + '</div>' +
@@ -198,7 +203,7 @@ var PHONE = (function () {
       var row = function (icon, label, val, w) { return '<div class="vc-row"><span class="vc-ic">' + ic(icon) + '</span><span><small>' + esc(label) + '</small><b>' + v(val, w) + '</b></span></div>'; };
       return '<div class="ph ph-vc">' +
         '<div class="vc-band">' + statusBar(true) +
-          '<span class="vc-av">' + (exPhoto('vcard', ex) ? '<img src="' + exPhoto('vcard', ex) + '" alt="">' : (c.name ? esc(initials(c.name)) : ic('user'))) + '</span>' +
+          '<span class="vc-av">' + (exPhoto('vcard', ex) ? '<img decoding="sync" src="' + exPhoto('vcard', ex) + '" alt="">' : (c.name ? esc(initials(c.name)) : ic('user'))) + '</span>' +
           '<h4>' + v(c.name, '50%') + '</h4><p>' + (c.role || c.company ? esc([c.role, c.company].filter(Boolean).join(' · ')) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</p>' +
           '<div class="vc-acts">' + act('call', t('pv.vcard.phone')) + act('mail', t('pv.vcard.email')) + act('globe', t('pv.vcard.website')) + act('pin', t('pv.vcard.route')) + '</div></div>' +
         '<div class="vc-list">' + row('call', t('pv.vcard.phone'), c.phone, '55%') + row('mail', t('pv.vcard.email'), c.email, '65%') + row('globe', t('pv.vcard.website'), domain(c.website), '50%') + row('pin', t('fields.address'), ADDRESS.text(c.address), '70%') + '</div>' +
@@ -217,7 +222,7 @@ var PHONE = (function () {
       var first = c[keys[0]];
       return '<div class="ph ph-lk2">' +
         '<div class="lk2-cover"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-cover.jpg) center / cover"' : '') + '>' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
-        '<div class="lk2-prof"><span class="lk2-av">' + (exPhoto('links', ex) ? '<img src="' + exPhoto('links', ex) + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span>' +
+        '<div class="lk2-prof"><span class="lk2-av">' + (exPhoto('links', ex) ? '<img decoding="sync" src="' + exPhoto('links', ex) + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span>' +
           '<h4>' + (c.title ? esc(c.title) : sk('55%')) + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p></div>' +
         '<div class="lk2-feat lk2-row" data-k="' + keys[0] + '"><span class="lk2-img"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-feat.jpg) center 80% / cover"' : '') + '><i>' + ic('fwd') + '</i></span>' +
           '<span class="lk2-txt"><small>' + esc(t('pv.links.featured')) + '</small><b>' + (first ? esc(label(keys[0])) : sk('60%')) + '</b>' + (dom(keys[0]) ? '<em>' + esc(dom(keys[0])) + '</em>' : '') + '</span></div>' +
@@ -283,13 +288,13 @@ var PHONE = (function () {
       return '<div class="ph ph-fb">' + statusBar() +
         '<div class="fb-nav"><b>facebook</b><span>' + ic('search') + ic('chat') + '</span></div>' +
         '<div class="fb-cover"' + (fbLogo ? ' style="background:#ccc url(assets/previews/facebook-cover.jpg) center / cover"' : '') + '></div>' +
-        '<div class="fb-prof"><span class="fb-av">' + (fbLogo ? '<img src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : ic('user'))) + '</span>' +
+        '<div class="fb-prof"><span class="fb-av">' + (fbLogo ? '<img decoding="sync" src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : ic('user'))) + '</span>' +
           '<h4>' + v(name, '55%') + (ex ? '<span class="fb-ver">' + ic('check') + '</span>' : '') + '</h4>' +
           '<small>' + (ex ? esc(t('pv.facebook.likes', { count: i18n.fmt.num(12400) })) + ' · ' + esc(t('pv.facebook.followers', { count: i18n.fmt.num(13100) })) : '<i class="sk" style="width:70%"></i>') + '</small>' +
           (c.description ? '<p>' + esc(c.description) + '</p>' : '') +
           '<div class="fb-btns"><span class="pri">' + ic('like') + esc(t('pv.facebook.like')) + '</span><span>' + ic('chat') + esc(t('pv.facebook.message')) + '</span><span class="sq">' + ic('dots', 'i dots') + '</span></div></div>' +
         '<div class="fb-tabs"><span class="on">' + esc(t('pv.facebook.tabPosts')) + '</span><span>' + esc(t('pv.facebook.tabAbout')) + '</span><span>' + esc(t('pv.facebook.tabPhotos')) + '</span></div>' +
-        '<div class="fb-post"><div class="fb-ph"><span class="fb-av s">' + (fbLogo ? '<img src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : '')) + '</span><span><b>' + v(name, '90px') + '</b><small>' + esc(t('pv.facebook.time')) + '</small></span></div>' +
+        '<div class="fb-post"><div class="fb-ph"><span class="fb-av s">' + (fbLogo ? '<img decoding="sync" src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : '')) + '</span><span><b>' + v(name, '90px') + '</b><small>' + esc(t('pv.facebook.time')) + '</small></span></div>' +
           (fbLogo ? '<p class="fb-text">' + esc(t('pv.facebook.post')) + '</p><div class="fb-img" style="background:#ccc url(assets/previews/facebook-post.jpg) center / cover"></div>'
             : '<i class="sk" style="width:90%"></i><i class="sk" style="width:60%"></i><div class="fb-img"></div>') + '</div>' +
       '</div>';
@@ -301,7 +306,7 @@ var PHONE = (function () {
       var handle = function (url) { var m = String(url || '').replace(/\/$/, '').split('/').pop(); return m ? (m[0] === '@' ? m : '@' + m) : ''; };
       var hero = exPhoto('social', ex);
       return '<div class="ph ph-sx' + (hero ? ' has-hero' : '') + '">' + (hero ? '<div class="sx-hero" style="background-image:url(' + hero + ')"></div>' : '<i class="sx-glow a"></i><i class="sx-glow b"></i>') + statusBar(true) +
-        '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (hero ? '<img src="assets/previews/social-avatar.jpg" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span></span>' +
+        '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (hero ? '<img decoding="sync" src="assets/previews/social-avatar.jpg" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span></span>' +
           '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4>' +
           '<p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:60%;margin:0 auto"></i>') + '</p>' +
           (nets.length ? '<div class="sx-quick">' + nets.slice(0, 5).map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') + '</div>' +
@@ -317,7 +322,7 @@ var PHONE = (function () {
       var mm = function (x) { return Math.floor(x / 60) + ':' + ('0' + (x % 60)).slice(-2); };
       return '<div class="ph ph-mp3">' + statusBar(true) +
         '<div class="mp-top">' + ic('back') + '<small>' + esc(t('pv.mp3.nowPlaying')) + '</small>' + ic('dots', 'i dots') + '</div>' +
-        '<div class="mp-art">' + (c.cover || exPhoto('mp3', ex) ? '<img src="' + (c.cover || exPhoto('mp3', ex)) + '" alt="">' : ic('note')) + '</div>' +
+        '<div class="mp-art">' + (c.cover || exPhoto('mp3', ex) ? '<img decoding="sync" src="' + (c.cover || exPhoto('mp3', ex)) + '" alt="">' : ic('note')) + '</div>' +
         '<div class="mp-info"><h4>' + v(c.title, '60%') + '</h4><p>' + v(c.artist, '40%') + '</p></div>' +
         '<div class="mp-bar"><i style="width:' + (o || ex ? 25 : 0) + '%"></i></div><div class="mp-time"><span>' + mm(Math.round(secs / 4)) + '</span><span>' + mm(secs) + '</span></div>' +
         '<div class="mp-ctrl">' + ic('prev') + '<span class="mp-play">' + ic('play') + '</span>' + ic('next') + '</div>' +
@@ -330,7 +335,7 @@ var PHONE = (function () {
       var list = FILES.list(c.dishes);
       var price = function (p) { var n = parseFloat(String(p || '').replace(',', '.')); return isNaN(n) ? '' : i18n.fmt.eur(n); };
       return '<div class="ph ph-menu">' +
-        '<div class="mn-cover">' + (c.cover || exPhoto('menu', ex) ? '<img src="' + (c.cover || exPhoto('menu', ex)) + '" alt="">' : '<svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="140" fill="#3b2a20"/><circle cx="160" cy="92" r="70" fill="#f4efe6"/><circle cx="160" cy="92" r="52" fill="#fff"/><circle cx="148" cy="84" r="14" fill="#e07a2f"/><circle cx="172" cy="96" r="12" fill="#6a994e"/><circle cx="160" cy="104" r="9" fill="#bc4749"/><path d="M60 20v60M52 20v22a8 8 0 0 0 16 0V20M262 20c10 10 12 30 0 40v30" stroke="#d9c7a7" stroke-width="5" fill="none" stroke-linecap="round"/></svg>') +
+        '<div class="mn-cover">' + (c.cover || exPhoto('menu', ex) ? '<img decoding="sync" src="' + (c.cover || exPhoto('menu', ex)) + '" alt="">' : '<svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="140" fill="#3b2a20"/><circle cx="160" cy="92" r="70" fill="#f4efe6"/><circle cx="160" cy="92" r="52" fill="#fff"/><circle cx="148" cy="84" r="14" fill="#e07a2f"/><circle cx="172" cy="96" r="12" fill="#6a994e"/><circle cx="160" cy="104" r="9" fill="#bc4749"/><path d="M60 20v60M52 20v22a8 8 0 0 0 16 0V20M262 20c10 10 12 30 0 40v30" stroke="#d9c7a7" stroke-width="5" fill="none" stroke-linecap="round"/></svg>') +
           statusBar(true) + '</div>' +
         '<div class="mn-head"><h4>' + v(c.restaurant, '55%') + '</h4><span class="mn-chip">' + esc(t('pv.menu.chip')) + '</span></div>' +
         '<div class="mn-list">' + (list.length ? list.slice(0, 7).map(function (d) { return '<div class="mn-row"><b>' + esc(d.n) + '</b><i></i><span>' + price(d.p) + '</span></div>'; }).join('')
@@ -352,7 +357,7 @@ var PHONE = (function () {
       var stores = (ex || c.ios ? badge('ios') : '') + (ex || c.android ? badge('android') : '');
       return '<div class="ph ph-as">' + statusBar() +
         '<div class="as-nav">' + ic('back') + '<span>' + esc(t('pv.apps.search')) + '</span></div>' +
-        '<div class="as-top"><span class="as-icon">' + (c.logo || exPhoto('apps', ex) ? '<img src="' + (c.logo || exPhoto('apps', ex)) + '" alt="">' : (name ? esc(initials(name)) : ic('img'))) + '</span>' +
+        '<div class="as-top"><span class="as-icon">' + (c.logo || exPhoto('apps', ex) ? '<img decoding="sync" src="' + (c.logo || exPhoto('apps', ex)) + '" alt="">' : (name ? esc(initials(name)) : ic('img'))) + '</span>' +
           '<div class="as-meta"><b>' + v(name, '70%') + '</b><small>' + (c.description ? esc(c.description) : '<i class="sk" style="width:85%"></i>') + '</small>' +
           '<div class="as-get"><span>' + esc(t('pv.apps.download')) + '</span>' + ic('share') + '</div></div></div>' +
         '<div class="as-shots">' + [0, 1, 2].map(shot).join('') + '</div>' +
@@ -391,7 +396,7 @@ var PHONE = (function () {
         return '<div class="gm-day' + (i === today ? ' today' : '') + (d.o ? '' : ' off') + '"><span>' + esc(HOURS.dayName(i)) + '</span><span>' + tm + '</span></div>';
       }).join('');
       return '<div class="ph ph-gm">' +
-        '<div class="gm-cover">' + (c.cover || exPhoto('business', ex) ? '<img src="' + (c.cover || exPhoto('business', ex)) + '" alt="">' : storefront(c.name)) + statusBar(true) +
+        '<div class="gm-cover">' + (c.cover || exPhoto('business', ex) ? '<img decoding="sync" src="' + (c.cover || exPhoto('business', ex)) + '" alt="">' : storefront(c.name)) + statusBar(true) +
           '<div class="gm-tb"><span>' + ic('back') + '</span><span>' + ic('share') + '</span></div></div>' +
         '<div class="gm-sheet"><i class="gm-grab"></i>' +
           '<h4>' + v(c.name, '55%') + '</h4>' +

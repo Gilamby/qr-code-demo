@@ -47,6 +47,8 @@ function validateQrCode(body) {
     if (field.type === 'file') {
       let o = null; try { o = JSON.parse(v); } catch (e) {}
       if (!o || typeof o.n !== 'string' || !o.n.trim() || o.n.length > 120 || !(o.s >= 0 && o.s < 200 * 1048576)) errors.push(field.key + ': invalid file');
+      // Al opgeslagen bestand (bij bewerken): verwijzing naar het bestand op de server
+      else if (o.f != null && (typeof o.f !== 'string' || !/^[A-Za-z0-9_-]{10,40}$/.test(o.f))) errors.push(field.key + ': invalid file reference');
       // Het bestand zelf (max. 10 MB) als data-URL; alleen PDF of audio
       else if (o.d != null && (typeof o.d !== 'string' || o.d.length > 14 * 1048576 || !(field.accept === 'application/pdf' ? /^data:application\/pdf;base64,/ : /^data:audio\/[\w.+-]+;base64,/).test(o.d))) errors.push(field.key + ': file must be a ' + (field.accept === 'application/pdf' ? 'PDF' : 'audio file') + ' under 10 MB');
       content[field.key] = v; continue;

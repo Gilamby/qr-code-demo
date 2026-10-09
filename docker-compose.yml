@@ -1,0 +1,14 @@
+# Starten: docker compose up -d   (instellingen in .env, gegevens in het volume "optimasys-data")
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+    ports:
+      - "3000:3000"
+    volumes:
+      - optimasys-data:/data
+volumes:
+  optimasys-data:

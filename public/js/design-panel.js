@@ -215,7 +215,7 @@ var DesignPanel = (function () {
     };
     img.src = url;
   }
-  function save(blob, filename) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+  function save(blob, filename) { saveFile(blob, filename); }
 
   return { render: render, update: update, download: download, qrSvg: function (data, design) { return QRRender.svg(data, design); } };
 })();

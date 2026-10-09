@@ -156,9 +156,9 @@ var Analytics = (function () {
   }
   function exportCsv() {
     api.analyticsCsv(query()).then(function (r) {
-      var a = document.createElement('a');
-      if (r.url) a.href = r.url; else a.href = URL.createObjectURL(new Blob([r.text], { type: 'text/csv;charset=utf-8' }));
-      a.download = 'statistieken-' + (range().from || 'alles') + '.csv'; document.body.appendChild(a); a.click(); setTimeout(function () { a.remove(); }, 500);
+      var name = 'statistieken-' + (range().from || 'alles') + '.csv';
+      if (!r.url) return saveFile(new Blob([r.text], { type: 'text/csv;charset=utf-8' }), name);   // demo
+      var a = document.createElement('a'); a.href = r.url; a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { a.remove(); }, 500);
     });
   }
 

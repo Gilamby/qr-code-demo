@@ -26,9 +26,11 @@ Gecontroleerd: bij het gebruik van de tool en het openen van alle echte pagina's
   - "Unieke scans" zonder cookies: een dagcode met een geheim dat alleen in het geheugen staat en elke dag vervangen wordt. Na die dag is niet meer te herleiden wie er scande.
   - Dit is wel *verwerking* van persoonsgegevens (het IP-adres wordt even gebruikt). Grondslag: gerechtvaardigd belang. **Moet in de privacyverklaring** (wat, waarom, dat IP niet wordt bewaard). Laat dit door een privacyjurist nakijken; het is dezelfde aanpak als privacyvriendelijke tools zoals Plausible.
   - DB-IP-licentie (CC BY 4.0): bronvermelding staat onderaan Statistieken.
+- **Accounts:** e-mailadres, naam en wachtwoord (alleen versleuteld met scrypt). Een sessie-cookie `sid` (HttpOnly, alleen voor inloggen): een *noodzakelijke* cookie, daarvoor is geen toestemming nodig.
+- **Rechten van de gebruiker (AVG):** in Mijn account kan iemand al zijn gegevens downloaden (inzage/overdraagbaarheid) en zijn account met alles verwijderen (vergetelheid). Dit werkt direct, zonder tussenkomst.
 - **Wachtwoorden** van beveiligde codes: alleen versleuteld (scrypt), nooit leesbaar.
 - **Inhoud** die de klant invult (teksten, foto's, PDF's, audio): nodig om de pagina te tonen.
-- **In de browser (localStorage):** alleen voorkeuren: taal, achtergrond, ingeklapte zijbalk. Dat zijn functionele voorkeuren: daarvoor is geen cookiemelding nodig.
+- **In de browser (localStorage):** alleen voorkeuren: taal, achtergrond, ingeklapte zijbalk. Plus, alleen in de online demo zonder server, de demo-codes. Dat zijn functionele voorkeuren: daarvoor is geen cookiemelding nodig.
 - **Geen cookies, geen tracking, geen analytics.** Daarom is er ook geen cookiebanner nodig.
 
 ## Links naar andere diensten
@@ -47,3 +49,7 @@ De mockups van WhatsApp, Instagram en Facebook in de tool laten zien waar de bez
 6. **Photon:** de openbare server is voor licht gebruik. Bij echte lancering: eigen Photon-server of een betaalde adresdienst (instellen via `PHOTON_URL`). Bron vermelden: © OpenStreetMap-bijdragers.
 7. **Toegankelijkheid:** sinds juni 2025 geldt de European Accessibility Act voor veel digitale diensten. De tool is er al op gebouwd (dyslexievriendelijk, toetsenbord, labels), maar laat het testen.
 8. **Coupons:** de klant moet de actievoorwaarden zelf eerlijk vermelden (veld *Voorwaarden* staat klaar).
+9. **"QR Code" is een geregistreerd merk van DENSO WAVE.** Het woord gebruiken mag, maar zet ergens (voettekst of voorwaarden): *"QR Code is een geregistreerd handelsmerk van DENSO WAVE INCORPORATED."*
+10. **Foto's in de voorbeelden:** zorg dat je het recht hebt om ze te gebruiken (zelf gemaakt, AI-gegenereerd met commerciële licentie, of een vrije licentie). Herkenbare echte personen alleen met toestemming.
+11. **Bedrijfsgegevens:** KvK-nummer, adres en contact op de site (verplicht voor online diensten in de EU).
+12. **Misbruik (phishing via QR-codes):** voorwaarden moeten dit verbieden; codes moeten uit te zetten zijn (kan al) en er moet een meldadres zijn.

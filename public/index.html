@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+<div class="auth" id="authView" hidden><div class="auth-card glass" role="dialog" aria-modal="true" aria-labelledby="authTitle"></div></div>
+<script>document.body.classList.add('auth-checking');</script>
+<dialog class="mc-dialog glass" id="mcDialog"></dialog>
+<div class="mc-toast" id="mcToast" role="status" hidden></div>
 <div class="app" id="app">
   <aside class="sidebar" id="sidebar" data-i18n-aria="nav.mainMenu">
     <div class="side-top">
@@ -108,9 +112,10 @@
     <main class="canvas" id="accountView" hidden>
       <section class="account">
         <div class="glass profile">
-          <span class="avatar-lg">OP</span>
-          <div><b>Optimasys</b><small data-i18n="account.demo"></small></div>
+          <span class="avatar-lg" id="acctAvatar">OP</span>
+          <div><b id="acctName">Optimasys</b><small id="acctEmail" data-i18n="account.demo"></small></div>
         </div>
+        <div id="acctCards"></div>
         <div class="glass bg-card" id="bgSection">
           <h2 data-i18n="account.background"></h2>
           <p data-i18n="account.backgroundLead"></p>
@@ -130,8 +135,6 @@
         <div class="mc-tools glass" id="mcTools"></div>
         <div id="codesList" class="mc-list" aria-live="polite"></div>
       </section>
-      <dialog class="mc-dialog glass" id="mcDialog"></dialog>
-      <div class="mc-toast" id="mcToast" role="status" hidden></div>
     </main>
 
     <main class="canvas" id="analyticsView" hidden>
@@ -180,8 +183,11 @@
 <script src="js/components.js"></script>
 <script src="js/layout.js"></script>
 <script src="js/account.js"></script>
+<script src="js/session.js"></script>
+<script src="js/account-settings.js"></script>
 <script src="js/my-codes.js"></script>
 <script src="js/analytics.js"></script>
 <script src="js/main.js"></script>
+<script src="js/hello.js"></script>
 </body>
 </html>

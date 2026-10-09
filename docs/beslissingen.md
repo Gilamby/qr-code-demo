@@ -2,6 +2,17 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 9 okt 2026: echte back-end (accounts + SQLite)
+
+- **Database: SQLite** (better-sqlite3, WAL). Eén bestand, geen extra server. Tabellen: users, sessions, password_resets, qr_codes, scan_stats, files. Overstap naar PostgreSQL: alleen `server/db.js`.
+- **Inloggen: e-mail + wachtwoord.** scrypt; sessie = willekeurige code in een HttpOnly-cookie (in de database alleen een hash), 30 dagen, verlengt bij gebruik. Wachtwoord vergeten via e-mail (SMTP, anders in de serverlog), link 1 uur, één keer. Minstens 8 tekens, geen veelgebruikte wachtwoorden.
+- **Elke klant ziet alleen zijn eigen codes**, statistieken en bestanden (gecontroleerd in `npm test`).
+- **PDF/MP3 op schijf** (`server/data/files`), niet meer als tekst in de database. Vervangen of verwijderen ruimt het bestand op.
+- **Beveiliging:** CSRF (Origin/Sec-Fetch-Site), te veel pogingen = wachten, beveiligingsheaders, hulpdiensten (adres, e-mail, website-check) alleen voor ingelogde gebruikers.
+- **AVG in de app:** gegevens downloaden, account verwijderen (met wachtwoord).
+- **Hosting:** `.env.example`, Dockerfile + docker-compose, `npm run backup` (14 back-ups), `npm run migrate` (oude db.json → account), `docs/installatie.md`.
+- De online demo (zonder server) werkt zoals voorheen, zonder account.
+
 ## 9 okt 2026: Statistieken
 
 - Zelfde inhoud als qr-code.io (periode, QR-code, systeem, land, stad; tegels QR-codes/scans/unieke scans; lijn per dag; verdelingen; export), maar duidelijker:

@@ -25,7 +25,7 @@ function publicContent(q, type) {
     let v = q.content[f.key];
     if (v == null || f.key === 'password') continue;
     if (f.type === 'file') {
-      try { const o = JSON.parse(v); v = JSON.stringify({ n: o.n, s: o.s, url: o.d ? 'q/' + q.id + '/file/' + f.key + (q.content.password ? '?t=' + require('./links').fileToken(q, f.key) : '') : '' }); } catch (e) { continue; }
+      try { const o = JSON.parse(v); v = JSON.stringify({ n: o.n, s: o.s, url: o.d || o.f ? 'q/' + q.id + '/file/' + f.key + (q.content.password ? '?t=' + require('./links').fileToken(q, f.key) : '') : '' }); } catch (e) { continue; }
     }
     out[f.key] = v;
   }
@@ -42,16 +42,25 @@ function livePage(req, q, type) {
   const js = ['js/i18n.js', 'js/config.js', 'js/qr-render.js', 'js/preview.js', 'js/business-fields.js', 'js/content-fields.js', 'js/phone-templates.js', 'js/live.js'];
   return '<!doctype html><html lang="' + visitorLang(req) + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' +
     '<base href="/"><title>' + esc(title) + '</title><meta name="theme-color" content="' + pc + '">' +
-    '<link rel="stylesheet" href="css/fonts.css"><link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/live.css"></head>' +
+    '<link rel="stylesheet" href="css/fonts.css">' + (bundle ? '<link rel="stylesheet" href="' + bundle.liveCss + '">' : '<link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/live.css">') + '</head>' +
     '<body class="live-body"><main id="live" class="live" style="--pc:' + pc + ';--pc-ink:' + ink(pc) + ';--ac:' + ac + ';--ac-ink:' + ink(ac) + '"></main>' +
     '<script>window.LIVE=' + data + ';</script>' +
-    '<script src="vendor/qrcode.js"></script><script src="shared/qr-types.js"></script>' +
-    js.map((s) => '<script src="' + s + '"></script>').join('') + '</body></html>';
+    (bundle ? '<script src="' + bundle.live + '"></script>'                    // productie: één gecomprimeerd bestand
+      : '<script src="vendor/qrcode.js"></script><script src="shared/qr-types.js"></script>' + js.map((s) => '<script src="' + s + '"></script>').join('')) + '</body></html>';
 }
 
 // Bestand ophalen: /q/:id/file/:key
 function sendFile(res, q, key) {
   let o = null; try { o = JSON.parse(q.content[key]); } catch (e) {}
+  // Bestand op schijf (nieuw)
+  if (o && o.f) {
+    const f = require('./db').getFile(o.f);
+    if (!f || f.code_id !== q.id) return res.status(404).send('File not found');
+    res.set('Content-Type', f.mime).set('X-Content-Type-Options', 'nosniff').set('Cache-Control', 'private, max-age=3600');
+    res.set('Content-Disposition', 'inline; filename="' + String(o.n || f.name || 'file').replace(/[^\w.\- ]/g, '_') + '"');
+    return res.sendFile(f.path, (err) => { if (err && !res.headersSent) res.status(404).send('File not found'); });
+  }
+  // Oud: als data-URL in de inhoud
   const m = o && typeof o.d === 'string' && o.d.match(/^data:([\w/.+-]+);base64,(.*)$/);
   if (!m) return res.status(404).send('File not found');
   res.set('Content-Type', m[1]);
@@ -59,4 +68,8 @@ function sendFile(res, q, key) {
   res.send(Buffer.from(m[2], 'base64'));
 }
 
-module.exports = { livePage, sendFile, visitorLang };
+// Productie: namen van de gecomprimeerde bestanden (build/manifest.json), zie server/index.js
+let bundle = null;
+function useBundle(m) { bundle = m; }
+
+module.exports = { livePage, sendFile, visitorLang, useBundle };

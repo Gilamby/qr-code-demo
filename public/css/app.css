@@ -1934,3 +1934,71 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
   .an-drop { max-width: calc(100vw - 48px); }
 }
 #anBody { display: grid; gap: 16px; }
+
+/* =========================================================
+   INLOGGEN
+   ========================================================= */
+.auth-checking .app { visibility: hidden; }
+.auth-open .app { visibility: hidden; }
+.auth { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 24px 16px; overflow-y: auto; }
+.auth[hidden] { display: none; }
+.auth-card { width: min(440px, 100%); padding: 26px 28px 28px; border-radius: 26px; display: grid; gap: 14px; }
+.auth-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.auth-logo { display: flex; align-items: center; gap: 10px; font-size: 17px; }
+.auth-logo small { font-size: inherit; color: var(--accent); }
+.auth-lang { height: 38px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line-strong); background: rgba(0,0,0,.2); color: var(--fg); font: inherit; font-size: 14px; }
+.auth-card h1 { margin: 6px 0 0; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.auth-lead { margin: -6px 0 4px; color: var(--muted); font-size: 15.5px; line-height: 1.5; }
+.auth-tabs { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 14px; background: rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.1); }
+.auth-tabs button { height: 42px; border: 0; border-radius: 10px; background: none; color: var(--muted); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.auth-tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+.auth-form { display: grid; gap: 14px; }
+.auth-f { display: grid; gap: 6px; }
+.auth-f > span:first-child { font-size: 14px; font-weight: 700; }
+.auth-in { position: relative; display: flex; }
+.auth-in input { flex: 1; min-width: 0; height: 50px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line-strong); background: rgba(0,0,0,.22); color: var(--fg); font: inherit; font-size: 16px; }
+.auth-in input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.auth-in input:disabled { opacity: .65; }
+.auth-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border: 0; border-radius: 10px; background: none; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.auth-eye svg { width: 20px; height: 20px; }
+.auth-eye[aria-pressed="true"] { color: var(--accent); }
+.auth-in input[type=password], .auth-in input[name=password] { padding-right: 48px; }
+.auth-hint { color: var(--muted); font-size: 13px; margin-top: -6px; }
+.auth-go { width: 100%; justify-content: center; height: 52px; margin-top: 4px; }
+.auth-link { justify-self: center; font-weight: 700; }
+.auth-small { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; text-align: center; }
+.auth-msg, .acct-msg { margin: 0; padding: 11px 14px; border-radius: 12px; font-size: 14.5px; font-weight: 600; line-height: 1.45; }
+.auth-msg.bad, .acct-msg.bad { background: rgba(245,158,11,.15); color: #fbbf24; }
+.acct-msg.ok { background: rgba(19,138,82,.18); color: #4ade80; margin-top: 12px; }
+.acct-msg.bad { margin-top: 12px; }
+/* Mijn account */
+#acctCards { display: grid; gap: 20px; }
+.acct h2 { margin: 0 0 6px; }
+.acct > p { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; }
+.acct-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)) auto; gap: 12px; align-items: end; margin-top: 14px; }
+.acct-row .btn { height: 50px; }
+.acct-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.acct-btns .btn { text-decoration: none; }
+.danger-ghost { color: #f87171 !important; border-color: rgba(248,113,113,.45) !important; }
+.danger-ghost:hover { background: rgba(248,113,113,.1) !important; }
+.mc-dialog .auth-f { text-align: left; margin-top: 8px; }
+@media (max-width: 640px) { .acct-row { grid-template-columns: minmax(0, 1fr); } .auth-card { padding: 22px 18px; } .auth-card h1 { font-size: 24px; } }
+
+/* Waarschuwing: telefoon kan de link (nog) niet openen */
+.scan-note { margin: 0 0 10px; padding: 10px 14px; border-radius: 12px; background: #fff7e6; border: 1px solid #f5c26b; color: #6b4300; font-size: 14px; line-height: 1.5; }
+
+/* Mijn account: overzicht en voorkeuren */
+.acct-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+.acct-stat { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 14px; background: rgba(43, 181, 240, .08); border: 1px solid rgba(43, 181, 240, .25); color: inherit; text-decoration: none; transition: background .15s; }
+.acct-stat:hover, .acct-stat:focus-visible { background: rgba(43, 181, 240, .16); }
+.acct-stat b { font-size: 26px; line-height: 1.1; }
+.acct-stat small { font-size: 14px; opacity: .75; }
+.acct-since { margin: 12px 0 0; font-size: 14px; opacity: .75; }
+.acct-lang { max-width: 320px; }
+.acct-lang select { width: 100%; font: inherit; font-size: 16px; color: inherit; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.35); }
+.acct-lang select option { color: #111; }
+.acct-dev { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 14px; }
+.acct-dev p { margin: 0; }
+@media (max-width: 560px) { .acct-stats { grid-template-columns: 1fr; } }
+.actions.has-note { flex-wrap: wrap; }
+.actions .scan-note { flex: 1 0 100%; }

@@ -42,6 +42,24 @@ function imageReady(src) {
   }
   return st === 'ok';
 }
+// Alle voorbeeldfoto's direct bij het openen vooraf laden, zodat je bij het klikken op een type
+// meteen de mooie versie ziet (en niet eerst even het sjabloon zonder foto).
+var PRELOAD_EXTRA = ['ig/1', 'ig/2', 'ig/3', 'ig/4', 'ig/5', 'ig/6', 'ig/7', 'ig/8', 'ig/h1', 'ig/h2', 'ig/h3', 'ig/h4', 'ig/h5',
+  'links-cover', 'links-feat', 'facebook-cover', 'facebook-post', 'social-avatar'];
+var PRELOADED = [];
+function preloadPreviewImages() {
+  var list = (typeof QR_TYPES !== 'undefined' ? QR_TYPES : []).map(function (tp) { return tp.previewImage; }).filter(Boolean)
+    .concat(PRELOAD_EXTRA.map(function (n) { return 'assets/previews/' + n + '.jpg'; }));
+  list.forEach(function (src) {
+    if (IMAGE_STATUS[src]) return;
+    IMAGE_STATUS[src] = 'loading';
+    var img = new Image(); img.decoding = 'async';
+    img.onload = function () { IMAGE_STATUS[src] = 'ok'; (img.decode ? img.decode() : Promise.resolve()).catch(function () {}).then(function () { document.dispatchEvent(new Event('preview:refresh')); }); };
+    img.onerror = function () { IMAGE_STATUS[src] = 'missing'; };
+    img.src = src; PRELOADED.push(img);                               // vasthouden = blijft in het geheugen
+  });
+}
+if (!window.LIVE) preloadPreviewImages();                      // niet op de echte scanpagina
 function previewPhoto(type) {
   return type.previewImage && imageReady(type.previewImage) ? '<div class="pv-photo" style="background-image:url(' + type.previewImage + ')"></div>' : '';
 }

@@ -125,7 +125,7 @@
   });
   i18n.onChange(function () { renderAll(store.get(), false); });
   // Draait de eigen server? Dan wijzen de korte links naar die server.
-  api.available().then(function (on) { if (on) { QR_BASE = location.origin; drawPhone(store.get()); } });
+  api.available().then(function (on) { if (on) { QR_BASE = api.info().qrBase || location.origin; drawPhone(store.get()); } });
   document.addEventListener('preview:refresh', function () { drawPhone(store.get()); });
 })();
 

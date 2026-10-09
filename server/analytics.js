@@ -19,6 +19,7 @@ function findDb(file) {
   const tries = [
     process.env['GEO_DB_' + (file.includes('ipv6') ? 'V6' : 'V4')],
     path.join(__dirname, 'data', 'geo', file),
+    path.join(process.env.DATA_DIR || path.join(__dirname, 'data'), 'geo', file),
     (() => { try { return require.resolve('@ip-location-db/dbip-city-mmdb/' + file); } catch (e) { return null; } })()
   ];
   return tries.find((p) => p && fs.existsSync(p)) || null;
@@ -27,7 +28,7 @@ function findDb(file) {
   try {
     const maxmind = require('maxmind');
     // 1) Officiële maandelijkse download van db-ip.com (één bestand voor IPv4 + IPv6): GEO_DB of server/data/geo/dbip-city-lite.mmdb
-    const one = [process.env.GEO_DB, path.join(__dirname, 'data', 'geo', 'dbip-city-lite.mmdb')].find((p) => p && fs.existsSync(p));
+    const one = [process.env.GEO_DB, path.join(process.env.DATA_DIR || path.join(__dirname, 'data'), 'geo', 'dbip-city-lite.mmdb')].find((p) => p && fs.existsSync(p));
     if (one) { geo.v4 = geo.v6 = await maxmind.open(one); }
     else {
       // 2) Losse bestanden (npm-pakket @ip-location-db/dbip-city-mmdb)

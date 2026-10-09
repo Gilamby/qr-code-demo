@@ -1,3 +1,11 @@
+/* Bestand opslaan (download). In de online demo (claude.ai) mag een pagina niet zelf downloaden:
+   daar gaat het via claude.use("downloads"), met een bevestiging. Elders: gewone download-link. */
+function saveFile(blob, filename) {
+  function plain() { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+  if (!(window.claude && typeof window.claude.use === 'function')) return plain();
+  window.claude.use('downloads').then(function (dl) { if (!dl) return plain(); return dl.save({ filename: filename, data: blob }).catch(function () {}); }).catch(plain);
+}
+
 /* =========================================================
    API: het enige bestand dat met de backend praat.
    Zonder server (zoals in de online demo) bewaart de app je QR-codes in deze browser (demo-opslag),
@@ -10,15 +18,20 @@ var api = (function () {
       .then(function (res) {
         if (res.status === 204) return null;
         return res.json().catch(function () { return {}; }).then(function (data) {
-          if (!res.ok) { var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.details = data.details; throw err; }
+          if (!res.ok) {
+            var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details;
+            if (res.status === 401 && url.indexOf('api/auth/') !== 0) document.dispatchEvent(new Event('auth:required'));   // sessie verlopen: opnieuw inloggen
+            throw err;
+          }
           return data;
         });
       });
   }
+  var info = {};                                                   // { qrBase, phoneReachable } van de server
   function available() {
     if (online !== null) return Promise.resolve(online);
     return fetch('api/health').then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (d) { online = !!(d && d.ok); return online; })
+      .then(function (d) { online = !!(d && d.ok); info = d || {}; return online; })
       .catch(function () { online = false; return online; });
   }
 
@@ -102,6 +115,7 @@ var api = (function () {
 
   return {
     available: available,
+    info: function () { return info; },
     isDemo: function () { return online === false; },
     listQrCodes:  either(function () { return request('GET', 'api/qr-codes'); }, local.list),
     getQrCode:    either(function (id) { return request('GET', 'api/qr-codes/' + encodeURIComponent(id)); }, local.get),
@@ -115,6 +129,23 @@ var api = (function () {
     // CSV: met server een link (downloadt zelf), zonder server de tekst
     analyticsCsv: either(function (q) { return Promise.resolve({ url: 'api/analytics.csv?' + query(q) }); },
       function (q) { return demoCodes().then(function (codes) { return { text: ANALYTICS.csv(codes, flat(q), function (c) { return c.name || c.id; }) }; }); }),
+    // Accounts (alleen met server)
+    auth: {
+      me:       function ()  { return request('GET', 'api/auth/me'); },
+      login:    function (d) { return request('POST', 'api/auth/login', d); },
+      register: function (d) { return request('POST', 'api/auth/register', d); },
+      logout:   function ()  { return request('POST', 'api/auth/logout', {}); },
+      forgot:   function (d) { return request('POST', 'api/auth/forgot', d); },
+      reset:    function (d) { return request('POST', 'api/auth/reset', d); }
+    },
+    account: {
+      update:   function (d) { return request('PATCH', 'api/account', d); },
+      password: function (d) { return request('POST', 'api/account/password', d); },
+      remove:   function (d) { return request('DELETE', 'api/account', d); },
+      summary:  function ()  { return request('GET', 'api/account/summary'); },
+      logoutOthers: function () { return request('POST', 'api/account/logout-others', {}); },
+      exportUrl: 'api/account/export'
+    },
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },
     updateMe:     function (patch) { return request('PATCH', 'api/me', patch); }

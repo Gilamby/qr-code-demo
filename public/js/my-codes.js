@@ -142,7 +142,7 @@ var MyCodes = (function () {
     };
     img.src = url;
   }
-  function saveBlob(blob, filename) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+  function saveBlob(blob, filename) { saveFile(blob, filename); }
   function rename(id, value) {
     var r = find(id); renaming = null;
     value = String(value || '').replace(/\s+/g, ' ').trim();
