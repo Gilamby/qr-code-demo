@@ -11,7 +11,8 @@
     "test": "node --test test/*.test.js",
     "backup": "node scripts/backup.js",
     "migrate": "node scripts/migrate-json.js",
-    "build:demo": "node scripts/build-demo.js"
+    "build:demo": "node scripts/build-demo.js",
+    "share": "node scripts/share.js"
   },
   "engines": {
     "node": ">=20"
@@ -23,7 +24,8 @@
     "nodemailer": "^6.10.1"
   },
   "optionalDependencies": {
-    "@ip-location-db/dbip-city-mmdb": "2.3.2026060513"
+    "@ip-location-db/dbip-city-mmdb": "2.3.2026060513",
+    "cloudflared": "0.7.3"
   },
   "devDependencies": {
     "esbuild": "^0.24.2"

@@ -8,7 +8,9 @@ Een QR-code bevat een link naar de server (`…/q/abc123`). De telefoon moet die
 
 | Waar draait de server? | Werkt scannen? |
 |---|---|
-| Online met `PUBLIC_URL` (bv. `https://qr.optimasys.com`) | Ja, overal (4G, elk wifi). **Dit is de veilige keuze voor een presentatie.** |
+| **GitHub Codespaces** (`npm start` in de Codespace) | Ja, overal. De app herkent Codespaces zelf en zet `https://<naam>-3000.app.github.dev` in de codes. Poort 3000 moet op **Public** staan (de app probeert dat zelf; anders: tab *Poorten* > rechtermuisknop > *Port Visibility* > *Public*). Open de app via dat adres. Het adres blijft hetzelfde zolang je dezelfde Codespace gebruikt; de Codespace moet wel aan staan. |
+| **Gratis online vanaf je laptop: `npm run share`** | Ja, overal (4G, elk wifi). Je krijgt een `https://…trycloudflare.com`-adres, zonder account of kosten. Laat het venster open. Elke keer starten = nieuw adres, dus maak de codes voor een presentatie op de dag zelf. **Beste gratis keuze voor testen en presenteren.** |
+| Echte hosting met `PUBLIC_URL` (bv. `https://qr.optimasys.com`) | Ja, overal, ook als je laptop uit staat. Voor als het bedrijf het echt gaat gebruiken (zie `docs/railway.md`); de kosten zijn dan voor het bedrijf. |
 | Op je laptop (`npm start`) | Ja, als telefoon en laptop op **hetzelfde wifi** zitten. De server zet dan vanzelf het wifi-adres van de laptop in de code (bv. `http://192.168.1.20:3000`); je ziet het bij het opstarten. Werkt het niet: firewall van de laptop toestaan voor poort 3000, en sommige gast-/schoolnetwerken blokkeren apparaten onderling. |
 | Online demo op claude.ai (zonder server) | Alleen wifi en contactkaart (die hebben geen server nodig). De app zegt dit er zelf bij. |
 

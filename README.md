@@ -13,6 +13,7 @@ npm start
 
 Open daarna <http://localhost:3000> en maak een account aan.
 
+- `npm run share`: **gratis online** vanaf je laptop (Cloudflare-tunnel). Je krijgt een https-adres dat je telefoon overal kan openen; dat adres komt in de QR-codes. Laat het venster open.
 - `npm run dev`: de server herstart vanzelf als je iets aanpast.
 - `npm test`: automatische test van de server (accounts, codes per klant, bestanden, scans, statistieken, beveiliging).
 - `npm run build`: productieversie (samengevoegd en verkleind, in `build/`). Met `NODE_ENV=production` gebruikt de server alleen deze versie; de losse bronbestanden zijn dan niet te zien.

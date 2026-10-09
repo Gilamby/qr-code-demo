@@ -20,7 +20,9 @@ const app = express();
 const PORT = +process.env.PORT || 3000;
 app.disable('x-powered-by');
 // Achter een proxy (nginx, hosting): het echte IP-adres uit X-Forwarded-For. Standaard alleen van deze machine.
-app.set('trust proxy', process.env.TRUST_PROXY || 'loopback');
+// TRUST_PROXY: "true" (alles), een getal (aantal proxy's, bv. 1 bij Railway/Render) of IP-adressen/"loopback".
+const tp = String(process.env.TRUST_PROXY || 'loopback').trim();
+app.set('trust proxy', tp === 'true' ? true : tp === 'false' ? false : /^\d+$/.test(tp) ? +tp : tp);
 
 /* ---------- Beveiliging: headers voor elke pagina ---------- */
 app.use((req, res, next) => {
@@ -79,8 +81,12 @@ function lanIp() {
   return list.sort((x, y) => rank(x) - rank(y))[0] || '';
 }
 const LOCAL = /^(localhost|127\.\d+\.\d+\.\d+|\[::1\])(:\d+)?$/i;
+// GitHub Codespaces: de app is bereikbaar via https://<naam>-<poort>.app.github.dev (poort op "Public" zetten)
+const codespaceUrl = () => process.env.CODESPACE_NAME && process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN
+  ? 'https://' + process.env.CODESPACE_NAME + '-' + PORT + '.' + process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN : '';
 const baseUrl = (req) => {
   if (process.env.PUBLIC_URL) return process.env.PUBLIC_URL.replace(/\/+$/, '');
+  if (codespaceUrl()) return codespaceUrl();
   const host = req.get('host') || '';
   if (LOCAL.test(host)) { const ip = lanIp(), port = (host.match(/:(\d+)$/) || [])[1]; if (ip) return req.protocol + '://' + ip + (port ? ':' + port : ''); }
   return req.protocol + '://' + host;
@@ -309,6 +315,13 @@ if (require.main === module) {
   const server = app.listen(PORT, process.env.HOST || undefined, () => {
     console.log('Optimasys QR draait op http://localhost:' + PORT + ' (database: ' + db.path + ')');
     if (process.env.PUBLIC_URL) console.log('QR-codes wijzen naar: ' + process.env.PUBLIC_URL);
+    else if (codespaceUrl()) {
+      console.log('\nCodespaces: QR-codes wijzen naar ' + codespaceUrl());
+      // Poort openbaar maken, zodat een telefoon hem kan openen (lukt dit niet: tab "Poorten" > rechtermuisknop op ' + PORT + ' > Port Visibility > Public)
+      require('child_process').exec('gh codespace ports visibility ' + PORT + ':public -c ' + process.env.CODESPACE_NAME, (err) => console.log(err
+        ? 'Zet poort ' + PORT + ' op "Public": tab "Poorten" (Ports) onderin > rechtermuisknop op ' + PORT + ' > Port Visibility > Public.'
+        : 'Poort ' + PORT + ' staat op Public: je telefoon kan de codes openen (ook via 4G). Open de app via dit adres: ' + codespaceUrl()));
+    }
     else if (lanIp()) console.log('QR-codes wijzen naar: http://' + lanIp() + ':' + PORT + '  (scannen met je telefoon: zelfde wifi als deze computer)');
     else console.log('Let op: geen wifi-adres gevonden. Zet PUBLIC_URL in .env, anders kan een telefoon de QR-codes niet openen.');
   });

@@ -63,10 +63,16 @@ function requireUser(req, res, next) { if (!req.user) return res.status(401).jso
 function sameOrigin(req, res, next) {
   if (['GET', 'HEAD', 'OPTIONS'].indexOf(req.method) >= 0) return next();
   const site = req.get('sec-fetch-site'), origin = req.get('origin');
-  if (site && site !== 'same-origin' && site !== 'none') return res.status(403).json({ error: 'Cross-site request blocked' });
-  if (origin) { try { if (new URL(origin).host !== req.get('host')) return res.status(403).json({ error: 'Cross-site request blocked' }); } catch (e) { return res.status(403).json({ error: 'Bad origin' }); } }
+  if (site === 'same-origin') return next();                          // de browser zelf bevestigt: van onze eigen pagina
+  if (site && site !== 'none') return res.status(403).json({ error: 'Cross-site request blocked' });
+  if (origin) {
+    // Achter een proxy (Codespaces, hosting) kan "Host" anders zijn dan het adres in de browser
+    const ok = [req.get('host'), req.get('x-forwarded-host'), hostOf(process.env.PUBLIC_URL), process.env.CODESPACE_NAME && process.env.CODESPACE_NAME + '-' + (process.env.PORT || 3000) + '.' + process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN].filter(Boolean);
+    try { if (ok.indexOf(new URL(origin).host) < 0) return res.status(403).json({ error: 'Cross-site request blocked' }); } catch (e) { return res.status(403).json({ error: 'Bad origin' }); }
+  }
   next();
 }
+function hostOf(u) { try { return u ? new URL(u).host : ''; } catch (e) { return ''; } }
 
 /* ---------- Routes ---------- */
 function routes(app, baseUrl) {
