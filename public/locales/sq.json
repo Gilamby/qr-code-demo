@@ -1013,7 +1013,9 @@
     "errLong": "Ky fjalëkalim është shumë i gjatë.",
     "errTooMany": "Shumë përpjekje. Prit 15 minuta dhe provo përsëri.",
     "errToken": "Kjo lidhje ka skaduar ose është përdorur. Kërko një të re.",
-    "errGeneral": "Diçka shkoi keq. Provo përsëri."
+    "errGeneral": "Diçka shkoi keq. Provo përsëri.",
+    "demoNote": "Demo: funksionon çdo email dhe fjalëkalim (min. 8 karaktere). Llogaria ruhet vetëm në këtë shfletues.",
+    "demoAccount": "Demo: kjo llogari ekziston vetëm në këtë shfletues. Në versionin e vërtetë këtu menaxhon emrin, fjalëkalimin dhe të dhënat."
   },
   "acct": {
     "profile": "Profili",

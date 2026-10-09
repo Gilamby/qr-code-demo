@@ -111,6 +111,23 @@ var api = (function () {
   // Kies per aanroep: server als die er is, anders de demo-opslag
   function flat(q) { var o = {}; Object.keys(q || {}).forEach(function (k) { o[k] = Array.isArray(q[k]) ? q[k].join(',') : q[k]; }); return o; }
   function query(q) { var f = flat(q); return Object.keys(f).filter(function (k) { return f[k]; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); }
+  var demoAuth = (function () {
+    var KEY = 'optimasys-demo-user';
+    function fail(code) { var e = new Error(code); e.code = code; e.status = 401; return Promise.reject(e); }
+    function read() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
+    return {
+      me: function () { var u = read(); return u ? Promise.resolve(u) : fail('Not logged in'); },
+      login: function (d) {
+        var email = String(d.email || '').trim().toLowerCase();
+        if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) return fail('email');
+        if (String(d.password || '').length < 8) return fail('password_short');
+        var u = { id: 'demo', email: email, name: String(d.name || '').trim() || (read() || {}).name || email.split('@')[0], createdAt: new Date().toISOString(), demo: true };
+        try { localStorage.setItem(KEY, JSON.stringify(u)); } catch (e) {}
+        return Promise.resolve(u);
+      },
+      logout: function () { try { localStorage.removeItem(KEY); } catch (e) {} return Promise.resolve(null); }
+    };
+  })();
   function either(server, demo) { return function () { var a = arguments; return available().then(function (on) { return on ? server.apply(null, a) : demo.apply(null, a); }); }; }
 
   return {
@@ -130,12 +147,13 @@ var api = (function () {
     analyticsCsv: either(function (q) { return Promise.resolve({ url: 'api/analytics.csv?' + query(q) }); },
       function (q) { return demoCodes().then(function (codes) { return { text: ANALYTICS.csv(codes, flat(q), function (c) { return c.name || c.id; }) }; }); }),
     // Accounts (alleen met server)
+    // Online demo (geen server): het inlogscherm werkt ook, maar het "account" staat alleen in deze browser.
     auth: {
-      me:       function ()  { return request('GET', 'api/auth/me'); },
-      login:    function (d) { return request('POST', 'api/auth/login', d); },
-      register: function (d) { return request('POST', 'api/auth/register', d); },
-      logout:   function ()  { return request('POST', 'api/auth/logout', {}); },
-      forgot:   function (d) { return request('POST', 'api/auth/forgot', d); },
+      me:       either(function ()  { return request('GET', 'api/auth/me'); }, demoAuth.me),
+      login:    either(function (d) { return request('POST', 'api/auth/login', d); }, demoAuth.login),
+      register: either(function (d) { return request('POST', 'api/auth/register', d); }, demoAuth.login),
+      logout:   either(function ()  { return request('POST', 'api/auth/logout', {}); }, demoAuth.logout),
+      forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),
       reset:    function (d) { return request('POST', 'api/auth/reset', d); }
     },
     account: {

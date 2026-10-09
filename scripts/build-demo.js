@@ -19,6 +19,15 @@ const local = scripts.filter((s) => !/^https?:/.test(s)).map((s) => {
   const file = s.startsWith('shared/') ? path.join(root, s) : path.join(pub, s);
   return '/* ---- ' + s + ' ---- */\n' + fs.readFileSync(file, 'utf8');
 });
+// Voorbeeldfoto's ín de demo (geen wachttijd bij het wisselen van type; zie asset() in preview.js)
+const assetData = {};
+(function walk(dir) {
+  fs.readdirSync(dir, { withFileTypes: true }).forEach((e) => {
+    const f = path.join(dir, e.name);
+    if (e.isDirectory()) return walk(f);
+    if (/\.jpe?g$/i.test(e.name)) assetData[path.relative(pub, f).split(path.sep).join('/')] = fs.readFileSync(f).toString('base64');
+  });
+})(path.join(pub, 'assets', 'previews'));
 const en = fs.readFileSync(path.join(pub, 'locales', 'en.json'), 'utf8').replace(/<\//g, '<\\/');
 
 const demo = [
@@ -28,6 +37,7 @@ const demo = [
   '<style>\n' + css + '\n</style>',
   body.trim(),
   '<script type="application/json" id="locale-en">' + en + '</script>',
+  '<script type="application/json" id="asset-data">' + JSON.stringify(assetData) + '</script>',
   ...external.map((s) => '<script src="' + s + '"></script>'),
   '<script>\n' + local.join('\n') + '\n</script>'
 ].join('\n');

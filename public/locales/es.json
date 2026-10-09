@@ -907,7 +907,9 @@
     "errLong": "Esta contraseña es demasiado larga.",
     "errTooMany": "Demasiados intentos. Espera 15 minutos y vuelve a intentarlo.",
     "errToken": "Este enlace ha caducado o ya se usó. Pide uno nuevo.",
-    "errGeneral": "Algo salió mal. Inténtalo de nuevo."
+    "errGeneral": "Algo salió mal. Inténtalo de nuevo.",
+    "demoNote": "Demo: sirve cualquier correo y contraseña (mín. 8 caracteres). Tu cuenta solo se guarda en este navegador.",
+    "demoAccount": "Demo: esta cuenta solo existe en este navegador. En la versión real gestionas aquí tu nombre, contraseña y datos."
   },
   "acct": {
     "profile": "Perfil",

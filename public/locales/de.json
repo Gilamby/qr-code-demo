@@ -907,7 +907,9 @@
     "errLong": "Dieses Passwort ist zu lang.",
     "errTooMany": "Zu viele Versuche. Warte 15 Minuten und versuche es erneut.",
     "errToken": "Dieser Link ist abgelaufen oder wurde schon benutzt. Fordere einen neuen an.",
-    "errGeneral": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+    "errGeneral": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "demoNote": "Demo: Jede E-Mail-Adresse und jedes Passwort (mind. 8 Zeichen) funktioniert. Dein Konto wird nur in diesem Browser gespeichert.",
+    "demoAccount": "Demo: Dieses Konto gibt es nur in diesem Browser. In der echten Version verwaltest du hier Name, Passwort und Daten."
   },
   "acct": {
     "profile": "Profil",

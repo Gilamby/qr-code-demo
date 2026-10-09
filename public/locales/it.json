@@ -907,7 +907,9 @@
     "errLong": "Questa password è troppo lunga.",
     "errTooMany": "Troppi tentativi. Aspetta 15 minuti e riprova.",
     "errToken": "Questo link è scaduto o già usato. Richiedine uno nuovo.",
-    "errGeneral": "Qualcosa è andato storto. Riprova."
+    "errGeneral": "Qualcosa è andato storto. Riprova.",
+    "demoNote": "Demo: funziona qualsiasi e-mail e password (min. 8 caratteri). L'account è salvato solo in questo browser.",
+    "demoAccount": "Demo: questo account esiste solo in questo browser. Nella versione reale qui gestisci nome, password e dati."
   },
   "acct": {
     "profile": "Profilo",

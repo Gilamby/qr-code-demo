@@ -907,7 +907,9 @@
     "errLong": "To hasło jest za długie.",
     "errTooMany": "Zbyt wiele prób. Odczekaj 15 minut i spróbuj ponownie.",
     "errToken": "Ten link wygasł lub został już użyty. Poproś o nowy.",
-    "errGeneral": "Coś poszło nie tak. Spróbuj ponownie."
+    "errGeneral": "Coś poszło nie tak. Spróbuj ponownie.",
+    "demoNote": "Demo: działa każdy e-mail i hasło (min. 8 znaków). Konto jest zapisane tylko w tej przeglądarce.",
+    "demoAccount": "Demo: to konto istnieje tylko w tej przeglądarce. W prawdziwej wersji zarządzasz tu imieniem, hasłem i danymi."
   },
   "acct": {
     "profile": "Profil",

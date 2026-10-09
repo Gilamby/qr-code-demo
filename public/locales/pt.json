@@ -907,7 +907,9 @@
     "errLong": "Esta palavra-passe é demasiado longa.",
     "errTooMany": "Demasiadas tentativas. Espera 15 minutos e tenta outra vez.",
     "errToken": "Este link expirou ou já foi usado. Pede um novo.",
-    "errGeneral": "Algo correu mal. Tenta novamente."
+    "errGeneral": "Algo correu mal. Tenta novamente.",
+    "demoNote": "Demo: qualquer e-mail e palavra-passe (mín. 8 caracteres) funciona. A conta fica guardada só neste navegador.",
+    "demoAccount": "Demo: esta conta só existe neste navegador. Na versão real, aqui gere o nome, a palavra-passe e os dados."
   },
   "acct": {
     "profile": "Perfil",

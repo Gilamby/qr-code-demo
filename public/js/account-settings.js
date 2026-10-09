@@ -9,7 +9,7 @@
    ========================================================= */
 (function () {
   var box = document.getElementById('acctCards'), user = null, sum = null;
-  function loadSummary() { if (!user) return; api.account.summary().then(function (x) { sum = x; draw(); }).catch(function () {}); }
+  function loadSummary() { if (!user || api.isDemo()) return; api.account.summary().then(function (x) { sum = x; draw(); }).catch(function () {}); }
   function initials(n) { var w = String(n || '').trim().split(/\s+/).filter(Boolean); return ((w[0] || '?')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase(); }
   function head() {
     document.getElementById('acctAvatar').textContent = initials(user.name || user.email);
@@ -19,6 +19,7 @@
   function draw(msg) {
     if (!user) { box.innerHTML = ''; return; }
     head();
+    if (api.isDemo()) { box.innerHTML = '<div class="glass bg-card acct"><p>' + t('auth.demoAccount') + '</p></div>'; return; }   // demo: geen echte accountgegevens
     var m = msg || {};
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
     var stat = function (v, k, page) { return '<a href="#" class="acct-stat" data-goto="' + page + '"><b>' + (v == null ? '–' : i18n.fmt.num(v)) + '</b><small>' + t(k) + '</small></a>'; };

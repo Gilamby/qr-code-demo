@@ -907,7 +907,9 @@
     "errLong": "This password is too long.",
     "errTooMany": "Too many attempts. Wait 15 minutes and try again.",
     "errToken": "This link has expired or was already used. Request a new one.",
-    "errGeneral": "Something went wrong. Please try again."
+    "errGeneral": "Something went wrong. Please try again.",
+    "demoNote": "Demo: any email and password (min. 8 characters) works. Your account is only stored in this browser.",
+    "demoAccount": "Demo: this account only exists in this browser. In the real version you manage your name, password and data here."
   },
   "acct": {
     "profile": "Profile",

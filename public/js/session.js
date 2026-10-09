@@ -43,6 +43,7 @@ var Session = (function () {
         '<form class="auth-form" novalidate>' + field('password', 'password', t('auth.newPassword'), 'new-password') + '<small class="auth-hint">' + t('auth.pwRule') + '</small>' +
         '<button class="btn primary auth-go" type="submit">' + t('auth.savePassword') + '</button></form>';
     }
+    if (api.isDemo() && (mode === 'login' || mode === 'register')) body += '<p class="auth-demo">' + t('auth.demoNote') + '</p>';
     card.innerHTML = head + body;
     var first = card.querySelector('input[name=name], input[name=email]:not([value]), input[name=email][value=""], input[name=password]'); if (first) first.focus();
   }
@@ -89,7 +90,6 @@ var Session = (function () {
   // Starten
   var m = location.search.match(/[?&]reset=([^&]+)/);
   api.available().then(function (online) {
-    if (!online) return ready();                                          // online demo: geen account nodig
     if (m) { resetToken = decodeURIComponent(m[1]); history.replaceState(null, '', location.pathname); return show('reset'); }
     return api.auth.me().then(function (u) { user = u; ready(); listeners.forEach(function (f) { f(u); }); }).catch(function () { show('login'); });
   });

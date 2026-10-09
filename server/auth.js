@@ -2,6 +2,7 @@
    ACCOUNTS EN INLOGGEN
    - Wachtwoord: scrypt (zout per gebruiker), nooit leesbaar opgeslagen.
    - Sessie: willekeurige code in een cookie "sid" (HttpOnly, SameSite=Lax, Secure op https).
+     Je blijft ingelogd tot je uitlogt: 1 jaar, en elke dag dat je de app gebruikt schuift dat op.
      In de database staat alleen een hash van die code. Dit is een noodzakelijke cookie: geen cookiebanner nodig.
    - Bescherming: te veel pogingen = even wachten; verzoeken van andere websites worden geweigerd (CSRF).
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
@@ -51,7 +52,11 @@ setInterval(() => { const t = Date.now(); for (const [k, v] of hits) if (!v.some
 
 /* ---------- Middleware ---------- */
 // Wie is ingelogd? (zet req.user, of null)
-function session(req, res, next) { req.sid = cookies(req)[COOKIE] || ''; req.user = db.sessionUser(req.sid); next(); }
+function session(req, res, next) {
+  req.sid = cookies(req)[COOKIE] || ''; req.user = db.sessionUser(req.sid);
+  if (req.user && req.user.renewUntil) setSession(req, res, { token: req.sid, expires: req.user.renewUntil });   // cookie mee verlengen: je blijft ingelogd
+  next();
+}
 // Alleen voor ingelogde gebruikers
 function requireUser(req, res, next) { if (!req.user) return res.status(401).json({ error: 'Not logged in' }); next(); }
 // Wijzigingen alleen vanaf onze eigen pagina's (niet via een andere website)

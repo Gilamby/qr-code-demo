@@ -83,7 +83,7 @@ CREATE INDEX IF NOT EXISTS files_code ON files(code_id);
 const now = () => new Date().toISOString();
 const newId = (n) => crypto.randomBytes(n || 9).toString('base64url');
 const hash = (token) => crypto.createHash('sha256').update(String(token)).digest('base64url');
-const SESSION_DAYS = 30;
+const SESSION_DAYS = 365;                     // ingelogd blijven tot je zelf uitlogt; elke dag dat je de app gebruikt, schuift dit op
 
 /* ---------- Rij → object ---------- */
 function codeOut(r) {
@@ -149,8 +149,13 @@ module.exports = {
     if (!token) return null;
     const r = st.sessionUser.get(hash(token)); if (!r) return null;
     if (r.s_exp < now()) { st.deleteSession.run(hash(token)); return null; }
-    if (new Date(r.s_exp) - Date.now() < (SESSION_DAYS - 1) * 864e5) st.extendSession.run(new Date(Date.now() + SESSION_DAYS * 864e5).toISOString(), hash(token));
-    return userOut(r);
+    const u = userOut(r);
+    if (new Date(r.s_exp) - Date.now() < (SESSION_DAYS - 1) * 864e5) {             // hooguit één keer per dag verlengen
+      const exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString();
+      st.extendSession.run(exp, hash(token));
+      Object.defineProperty(u, 'renewUntil', { value: exp, enumerable: false });   // auth.js ververst dan ook het cookie
+    }
+    return u;
   },
   deleteSession: (token) => st.deleteSession.run(hash(token)),
   deleteSessionsOf: (userId, exceptToken) => db.prepare('DELETE FROM sessions WHERE user_id = ? AND token_hash != ?').run(userId, exceptToken ? hash(exceptToken) : ''),

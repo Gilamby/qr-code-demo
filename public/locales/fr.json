@@ -907,7 +907,9 @@
     "errLong": "Ce mot de passe est trop long.",
     "errTooMany": "Trop de tentatives. Attendez 15 minutes et réessayez.",
     "errToken": "Ce lien a expiré ou a déjà été utilisé. Demandez-en un nouveau.",
-    "errGeneral": "Une erreur est survenue. Réessayez."
+    "errGeneral": "Une erreur est survenue. Réessayez.",
+    "demoNote": "Démo : n'importe quel e-mail et mot de passe (8 caractères min.) fonctionne. Votre compte est enregistré uniquement dans ce navigateur.",
+    "demoAccount": "Démo : ce compte n'existe que dans ce navigateur. Dans la vraie version, vous gérez ici votre nom, mot de passe et données."
   },
   "acct": {
     "profile": "Profil",

@@ -88,7 +88,7 @@ var PHONE = (function () {
   var EX_EXTRA = { instagram: ['ig/1', 'ig/2', 'ig/3', 'ig/4', 'ig/5', 'ig/6', 'ig/7', 'ig/8', 'ig/h1', 'ig/h2', 'ig/h3', 'ig/h4', 'ig/h5'], links: ['links-cover', 'links-feat'], facebook: ['facebook-cover', 'facebook-post'], social: ['social-avatar'] };
   function exPhoto(id, ex) {
     var tp = ex && getType(id), src = tp && tp.previewImage; if (!src || !imageReady(src)) return '';
-    return (EX_EXTRA[id] || []).every(function (n) { return imageReady('assets/previews/' + n + '.jpg'); }) ? src : '';
+    return (EX_EXTRA[id] || []).every(function (n) { return imageReady('assets/previews/' + n + '.jpg'); }) ? asset(src) : '';
   }
   function domain(url) { return (url || '').replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0]; }
 
@@ -143,9 +143,9 @@ var PHONE = (function () {
       var stat = function (n, k) { return '<span><b>' + (ex ? n : '<i class="sk" style="width:26px"></i>') + '</b><small>' + esc(t('pv.instagram.' + k)) + '</small></span>'; };
       var tiles = ['#f58529,#dd2a7b', '#515bd4,#8134af', '#2bb5f0,#1e3a8a', '#fcd34d,#f97316', '#10b981,#0f766e', '#f472b6,#7c3aed'];
       // Voorbeeldfoto's (stap 1): profielfoto, 5 highlights en 8 berichten in assets/previews/ig/
-      var me = exPhoto('instagram', ex), pics = me ? [1, 2, 3, 4, 5, 6, 7, 8].map(function (i) { return 'assets/previews/ig/' + i + '.jpg'; }) : null;
+      var me = exPhoto('instagram', ex), pics = me ? [1, 2, 3, 4, 5, 6, 7, 8].map(function (i) { return asset('assets/previews/ig/' + i + '.jpg'); }) : null;
       var face = function (letter) { return me ? '<img decoding="sync" src="' + me + '" alt="">' : letter; };
-      var hl = function (i) { return pics ? ' style="background:#ddd url(assets/previews/ig/h' + i + '.jpg) center / cover"' : (ex ? ' style="background:linear-gradient(135deg,' + tiles[i] + ')"' : ''); };
+      var hl = function (i) { return pics ? ' style="background:#ddd url(' + asset('assets/previews/ig/h' + i + '.jpg') + ') center / cover"' : (ex ? ' style="background:linear-gradient(135deg,' + tiles[i] + ')"' : ''); };
       return '<div class="ph ph-ig">' + statusBar() +
         '<div class="ig-head">' + ic('back') + '<b>' + v(u, '110px') + (ex ? '<span class="ig-ver">' + ic('check', 'i') + '</span>' : '') + '</b>' + ic('bell') + ic('dots', 'i dots') + '</div>' +
         '<div class="ig-prof"><span class="ig-av"><span>' + face(u ? esc(u[0].toUpperCase()) : ic('user')) + '</span></span>' +
@@ -221,10 +221,10 @@ var PHONE = (function () {
       var dom = function (k) { var val = clean(c[k]); return /\.[a-z]{2,}/i.test(val) ? val.split('/')[0] : ''; };
       var first = c[keys[0]];
       return '<div class="ph ph-lk2">' +
-        '<div class="lk2-cover"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-cover.jpg) center / cover"' : '') + '>' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
+        '<div class="lk2-cover"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(' + asset('assets/previews/links-cover.jpg') + ') center / cover"' : '') + '>' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
         '<div class="lk2-prof"><span class="lk2-av">' + (exPhoto('links', ex) ? '<img decoding="sync" src="' + exPhoto('links', ex) + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span>' +
           '<h4>' + (c.title ? esc(c.title) : sk('55%')) + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p></div>' +
-        '<div class="lk2-feat lk2-row" data-k="' + keys[0] + '"><span class="lk2-img"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-feat.jpg) center 80% / cover"' : '') + '><i>' + ic('fwd') + '</i></span>' +
+        '<div class="lk2-feat lk2-row" data-k="' + keys[0] + '"><span class="lk2-img"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(' + asset('assets/previews/links-feat.jpg') + ') center 80% / cover"' : '') + '><i>' + ic('fwd') + '</i></span>' +
           '<span class="lk2-txt"><small>' + esc(t('pv.links.featured')) + '</small><b>' + (first ? esc(label(keys[0])) : sk('60%')) + '</b>' + (dom(keys[0]) ? '<em>' + esc(dom(keys[0])) + '</em>' : '') + '</span></div>' +
         '<div class="lk2-list">' + keys.slice(1).map(function (k, j) {
           return '<span class="lk2-row" data-k="' + k + '"><i class="lk2-th t' + (j % 2) + '"></i><span><b>' + (c[k] ? esc(label(k)) : sk('55%')) + '</b>' + (dom(k) ? '<small>' + esc(dom(k)) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
@@ -287,7 +287,7 @@ var PHONE = (function () {
       var name = c.pageName, fbLogo = exPhoto('facebook', ex);   // voorbeeld: logo, omslagfoto en een bericht met foto
       return '<div class="ph ph-fb">' + statusBar() +
         '<div class="fb-nav"><b>facebook</b><span>' + ic('search') + ic('chat') + '</span></div>' +
-        '<div class="fb-cover"' + (fbLogo ? ' style="background:#ccc url(assets/previews/facebook-cover.jpg) center / cover"' : '') + '></div>' +
+        '<div class="fb-cover"' + (fbLogo ? ' style="background:#ccc url(' + asset('assets/previews/facebook-cover.jpg') + ') center / cover"' : '') + '></div>' +
         '<div class="fb-prof"><span class="fb-av">' + (fbLogo ? '<img decoding="sync" src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : ic('user'))) + '</span>' +
           '<h4>' + v(name, '55%') + (ex ? '<span class="fb-ver">' + ic('check') + '</span>' : '') + '</h4>' +
           '<small>' + (ex ? esc(t('pv.facebook.likes', { count: i18n.fmt.num(12400) })) + ' · ' + esc(t('pv.facebook.followers', { count: i18n.fmt.num(13100) })) : '<i class="sk" style="width:70%"></i>') + '</small>' +
@@ -295,7 +295,7 @@ var PHONE = (function () {
           '<div class="fb-btns"><span class="pri">' + ic('like') + esc(t('pv.facebook.like')) + '</span><span>' + ic('chat') + esc(t('pv.facebook.message')) + '</span><span class="sq">' + ic('dots', 'i dots') + '</span></div></div>' +
         '<div class="fb-tabs"><span class="on">' + esc(t('pv.facebook.tabPosts')) + '</span><span>' + esc(t('pv.facebook.tabAbout')) + '</span><span>' + esc(t('pv.facebook.tabPhotos')) + '</span></div>' +
         '<div class="fb-post"><div class="fb-ph"><span class="fb-av s">' + (fbLogo ? '<img decoding="sync" src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : '')) + '</span><span><b>' + v(name, '90px') + '</b><small>' + esc(t('pv.facebook.time')) + '</small></span></div>' +
-          (fbLogo ? '<p class="fb-text">' + esc(t('pv.facebook.post')) + '</p><div class="fb-img" style="background:#ccc url(assets/previews/facebook-post.jpg) center / cover"></div>'
+          (fbLogo ? '<p class="fb-text">' + esc(t('pv.facebook.post')) + '</p><div class="fb-img" style="background:#ccc url(' + asset('assets/previews/facebook-post.jpg') + ') center / cover"></div>'
             : '<i class="sk" style="width:90%"></i><i class="sk" style="width:60%"></i><div class="fb-img"></div>') + '</div>' +
       '</div>';
     },
@@ -306,7 +306,7 @@ var PHONE = (function () {
       var handle = function (url) { var m = String(url || '').replace(/\/$/, '').split('/').pop(); return m ? (m[0] === '@' ? m : '@' + m) : ''; };
       var hero = exPhoto('social', ex);
       return '<div class="ph ph-sx' + (hero ? ' has-hero' : '') + '">' + (hero ? '<div class="sx-hero" style="background-image:url(' + hero + ')"></div>' : '<i class="sx-glow a"></i><i class="sx-glow b"></i>') + statusBar(true) +
-        '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (hero ? '<img decoding="sync" src="assets/previews/social-avatar.jpg" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span></span>' +
+        '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (hero ? '<img decoding="sync" src="' + asset('assets/previews/social-avatar.jpg') + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span></span>' +
           '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4>' +
           '<p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:60%;margin:0 auto"></i>') + '</p>' +
           (nets.length ? '<div class="sx-quick">' + nets.slice(0, 5).map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') + '</div>' +

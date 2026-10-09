@@ -30,6 +30,20 @@ var CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentCol
 // Foto bovenin de telefoon: zet een bestand op type.previewImage (public/assets/previews/<id>.jpg).
 // Bestaat het bestand niet, dan blijft de preview zonder foto.
 var IMAGE_STATUS = {};
+// Online demo: de voorbeeldfoto's zitten ín de pagina (<script id="asset-data">). We maken er bij het openen
+// blob-adressen van: die staan in het geheugen, dus geen wachttijd en geen flits van de oude versie.
+var ASSET_URL = {};
+(function () {
+  var el = document.getElementById('asset-data'); if (!el) return;
+  try {
+    var d = JSON.parse(el.textContent);
+    Object.keys(d).forEach(function (k) {
+      var bin = atob(d[k]), arr = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+      ASSET_URL[k] = URL.createObjectURL(new Blob([arr], { type: 'image/jpeg' }));
+    });
+  } catch (e) {}
+})();
+function asset(src) { return ASSET_URL[src] || src; }
 // Laadt een afbeelding één keer; geeft true zodra hij bestaat. Bestaat hij niet, dan valt de preview terug op het sjabloon.
 function imageReady(src) {
   var st = IMAGE_STATUS[src];
@@ -38,7 +52,7 @@ function imageReady(src) {
     var img = new Image();
     img.onload = function () { IMAGE_STATUS[src] = 'ok'; document.dispatchEvent(new Event('preview:refresh')); };
     img.onerror = function () { IMAGE_STATUS[src] = 'missing'; };
-    img.src = src;
+    img.src = asset(src); PRELOADED.push(img);
   }
   return st === 'ok';
 }
@@ -56,12 +70,12 @@ function preloadPreviewImages() {
     var img = new Image(); img.decoding = 'async';
     img.onload = function () { IMAGE_STATUS[src] = 'ok'; (img.decode ? img.decode() : Promise.resolve()).catch(function () {}).then(function () { document.dispatchEvent(new Event('preview:refresh')); }); };
     img.onerror = function () { IMAGE_STATUS[src] = 'missing'; };
-    img.src = src; PRELOADED.push(img);                               // vasthouden = blijft in het geheugen
+    img.src = asset(src); PRELOADED.push(img);                        // vasthouden = blijft in het geheugen
   });
 }
 if (!window.LIVE) preloadPreviewImages();                      // niet op de echte scanpagina
 function previewPhoto(type) {
-  return type.previewImage && imageReady(type.previewImage) ? '<div class="pv-photo" style="background-image:url(' + type.previewImage + ')"></div>' : '';
+  return type.previewImage && imageReady(type.previewImage) ? '<div class="pv-photo" style="background-image:url(' + asset(type.previewImage) + ')"></div>' : '';
 }
 // Volledig scherm: een ontwerp van de hele telefoonpagina (type.previewScreen, public/assets/screens/<id>.jpg).
 function previewScreen(type) {

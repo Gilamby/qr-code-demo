@@ -907,7 +907,9 @@
     "errLong": "Dit wachtwoord is te lang.",
     "errTooMany": "Te veel pogingen. Wacht een kwartier en probeer het opnieuw.",
     "errToken": "Deze link is verlopen of al gebruikt. Vraag een nieuwe aan.",
-    "errGeneral": "Er ging iets mis. Probeer het opnieuw."
+    "errGeneral": "Er ging iets mis. Probeer het opnieuw.",
+    "demoNote": "Demo: elk e-mailadres en wachtwoord (min. 8 tekens) werkt. Je account staat alleen in deze browser.",
+    "demoAccount": "Demo: dit account staat alleen in deze browser. In de echte versie kun je hier je naam, wachtwoord en gegevens beheren."
   },
   "acct": {
     "profile": "Profiel",
