@@ -111,19 +111,40 @@ var api = (function () {
   // Kies per aanroep: server als die er is, anders de demo-opslag
   function flat(q) { var o = {}; Object.keys(q || {}).forEach(function (k) { o[k] = Array.isArray(q[k]) ? q[k].join(',') : q[k]; }); return o; }
   function query(q) { var f = flat(q); return Object.keys(f).filter(function (k) { return f[k]; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); }
+  // Demo zonder server: accounts alleen in deze browser; de bevestigingsmail wordt nagebootst met een knop.
   var demoAuth = (function () {
-    var KEY = 'optimasys-demo-user';
-    function fail(code) { var e = new Error(code); e.code = code; e.status = 401; return Promise.reject(e); }
-    function read() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
+    var KEY = 'optimasys-demo-user', ACCOUNTS = 'optimasys-demo-accounts';
+    function fail(code, status) { var e = new Error(code); e.code = code; e.status = status || 401; return Promise.reject(e); }
+    function get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+    function put(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    function digest(pw) {                       // nooit het wachtwoord zelf bewaren, ook niet in de demo
+      if (!(window.crypto && crypto.subtle)) return Promise.resolve(String(pw).length + ':' + String(pw).split('').reverse().join('').slice(0, 2));
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode('optimasys-demo:' + pw)).then(function (b) { return Array.from(new Uint8Array(b)).map(function (x) { return x.toString(16).padStart(2, '0'); }).join(''); });
+    }
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
     return {
-      me: function () { var u = read(); return u ? Promise.resolve(u) : fail('Not logged in'); },
+      me: function () { var u = get(KEY); return u ? Promise.resolve(u) : fail('Not logged in'); },
+      register: function (d) {
+        var email = String(d.email || '').trim().toLowerCase(), acc = get(ACCOUNTS) || {};
+        if (!EMAIL_RE.test(email)) return fail('email', 400);
+        if (String(d.password || '').length < 8) return fail('password_short', 400);
+        return digest(d.password).then(function (h) {
+          if (!acc[email] || !acc[email].verified) acc[email] = { email: email, name: String(d.name || '').trim() || email.split('@')[0], pw: h, verified: false, createdAt: new Date().toISOString() };
+          put(ACCOUNTS, acc); return { verify: true, email: email };
+        });
+      },
+      verify: function (d) {
+        var email = String(d.token || '').replace(/^demo:/, ''), acc = get(ACCOUNTS) || {};
+        if (!acc[email]) return fail('token', 400);
+        acc[email].verified = true; put(ACCOUNTS, acc); return Promise.resolve({ ok: true, email: email });
+      },
       login: function (d) {
-        var email = String(d.email || '').trim().toLowerCase();
-        if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) return fail('email');
-        if (String(d.password || '').length < 8) return fail('password_short');
-        var u = { id: 'demo', email: email, name: String(d.name || '').trim() || (read() || {}).name || email.split('@')[0], createdAt: new Date().toISOString(), demo: true };
-        try { localStorage.setItem(KEY, JSON.stringify(u)); } catch (e) {}
-        return Promise.resolve(u);
+        var email = String(d.email || '').trim().toLowerCase(), a = (get(ACCOUNTS) || {})[email];
+        return digest(d.password || '').then(function (h) {
+          if (!a || a.pw !== h) return fail('wrong');
+          if (!a.verified) return fail('unverified', 403);
+          var u = { id: 'demo', email: a.email, name: a.name, createdAt: a.createdAt, demo: true }; put(KEY, u); return u;
+        });
       },
       logout: function () { try { localStorage.removeItem(KEY); } catch (e) {} return Promise.resolve(null); }
     };
@@ -151,7 +172,10 @@ var api = (function () {
     auth: {
       me:       either(function ()  { return request('GET', 'api/auth/me'); }, demoAuth.me),
       login:    either(function (d) { return request('POST', 'api/auth/login', d); }, demoAuth.login),
-      register: either(function (d) { return request('POST', 'api/auth/register', d); }, demoAuth.login),
+      register: either(function (d) { return request('POST', 'api/auth/register', d); }, demoAuth.register),
+      verify:   either(function (d) { return request('POST', 'api/auth/verify', d); }, demoAuth.verify),
+      resend:   either(function (d) { return request('POST', 'api/auth/resend', d); }, function () { return Promise.resolve({ ok: true }); }),
+      demoToken: function (email) { return 'demo:' + String(email || '').trim().toLowerCase(); },
       logout:   either(function ()  { return request('POST', 'api/auth/logout', {}); }, demoAuth.logout),
       forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),
       reset:    function (d) { return request('POST', 'api/auth/reset', d); }

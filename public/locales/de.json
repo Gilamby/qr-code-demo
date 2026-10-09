@@ -908,8 +908,16 @@
     "errTooMany": "Zu viele Versuche. Warte 15 Minuten und versuche es erneut.",
     "errToken": "Dieser Link ist abgelaufen oder wurde schon benutzt. Fordere einen neuen an.",
     "errGeneral": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-    "demoNote": "Demo: Jede E-Mail-Adresse und jedes Passwort (mind. 8 Zeichen) funktioniert. Dein Konto wird nur in diesem Browser gespeichert.",
-    "demoAccount": "Demo: Dieses Konto gibt es nur in diesem Browser. In der echten Version verwaltest du hier Name, Passwort und Daten."
+    "demoNote": "Demo: Es wird keine echte E-Mail gesendet; der Bestätigungslink ist ein Button. Dein Konto wird nur in diesem Browser gespeichert.",
+    "demoAccount": "Demo: Dieses Konto gibt es nur in diesem Browser. In der echten Version verwaltest du hier Name, Passwort und Daten.",
+    "checkTitle": "Bestätige deine E-Mail-Adresse",
+    "checkLead": "Wir haben einen Link an {email} geschickt. Klicke auf den Link in der E-Mail, um dein Konto zu bestätigen. Danach kannst du dich anmelden.",
+    "resend": "E-Mail erneut senden",
+    "resent": "Gesendet. Schau auch im Spam-Ordner nach.",
+    "errUnverified": "Dein Konto ist noch nicht bestätigt. Klicke auf den Link in der E-Mail, die wir dir geschickt haben.",
+    "verified": "Dein Konto ist bestätigt. Melde dich jetzt mit E-Mail und Passwort an.",
+    "errVerifyToken": "Dieser Bestätigungslink funktioniert nicht mehr. Melde dich an, um einen neuen zu bekommen.",
+    "demoVerify": "Demo: Bestätigungslink öffnen"
   },
   "acct": {
     "profile": "Profil",
@@ -943,6 +951,10 @@
     "resetHello": "Hallo,",
     "resetText": "Klicke auf den Button, um ein neues Passwort zu wählen. Der Link gilt 1 Stunde.",
     "resetButton": "Neues Passwort wählen",
-    "resetIgnore": "Hast du das nicht angefordert? Dann musst du nichts tun; dein Passwort bleibt gleich."
+    "resetIgnore": "Hast du das nicht angefordert? Dann musst du nichts tun; dein Passwort bleibt gleich.",
+    "verifySubject": "Bestätige dein Optimasys-QR-Konto",
+    "verifyText": "Klicke auf den Button, um deine E-Mail-Adresse zu bestätigen. Danach kannst du dich anmelden. Der Link gilt 24 Stunden.",
+    "verifyButton": "E-Mail-Adresse bestätigen",
+    "verifyIgnore": "Du hast kein Konto erstellt? Dann musst du nichts tun; ohne Bestätigung wird das Konto nach 7 Tagen gelöscht."
   }
 }

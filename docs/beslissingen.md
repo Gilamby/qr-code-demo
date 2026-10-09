@@ -327,3 +327,12 @@ Vergeleken met qr-code.io, QR TIGER en Uniqode. Alleen functies die klanten echt
 - Bedrijf: eigen omslagfoto; zonder foto een mockup die verdwijnt zodra je een foto kiest.
 - De telefoon gebruikt de echte tijd van de bezoeker (klok, chattijden, open/gesloten).
 - Werkwijze: wijzigingen eerst in de online demo; pas op GitHub als Gilamby dat zegt.
+
+## Database: PostgreSQL in productie, SQLite om te ontwikkelen (9 okt 2026)
+
+- **Waarom PostgreSQL:** standaard bij ontwikkelteams; beheerde varianten geven automatische back-ups (point-in-time recovery), versleuteling, eigen databasegebruikers met rechten, een afgeschermd netwerk en reservekopieën die het overnemen bij uitval. Met SQLite is de app één server: valt die uit, dan werken geen geprinte codes.
+- **Waarom SQLite blijft:** nul installatie voor ontwikkelen en Codespaces (`npm start` werkt meteen) en voor de automatische tests.
+- **Hoe:** `server/db.js` is één async laag met twee stuurprogramma's (`server/db/sqlite.js`, `server/db/postgres.js`). `DATABASE_URL` gezet = PostgreSQL. Dezelfde SQL (met `?`) werkt op beide; alle tests draaien op beide.
+- **Overstappen:** `npm run migrate:pg` (mag vaker draaien, alles of niets).
+- **Wifi-wachtwoorden** staan versleuteld (AES-256-GCM, sleutel `DATA_KEY`), ook in back-ups.
+- **Redis:** pas nodig bij meerdere app-servers (gedeelde rate limiting). Nu niet.

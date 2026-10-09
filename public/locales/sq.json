@@ -1014,8 +1014,16 @@
     "errTooMany": "Shumë përpjekje. Prit 15 minuta dhe provo përsëri.",
     "errToken": "Kjo lidhje ka skaduar ose është përdorur. Kërko një të re.",
     "errGeneral": "Diçka shkoi keq. Provo përsëri.",
-    "demoNote": "Demo: funksionon çdo email dhe fjalëkalim (min. 8 karaktere). Llogaria ruhet vetëm në këtë shfletues.",
-    "demoAccount": "Demo: kjo llogari ekziston vetëm në këtë shfletues. Në versionin e vërtetë këtu menaxhon emrin, fjalëkalimin dhe të dhënat."
+    "demoNote": "Demo: nuk dërgohet email i vërtetë; lidhja e konfirmimit është një buton. Llogaria ruhet vetëm në këtë shfletues.",
+    "demoAccount": "Demo: kjo llogari ekziston vetëm në këtë shfletues. Në versionin e vërtetë këtu menaxhon emrin, fjalëkalimin dhe të dhënat.",
+    "checkTitle": "Konfirmo adresën e emailit",
+    "checkLead": "Dërguam një lidhje te {email}. Kliko lidhjen në email për të konfirmuar llogarinë. Pastaj mund të hysh.",
+    "resend": "Dërgo emailin përsëri",
+    "resent": "U dërgua. Shiko edhe te spam.",
+    "errUnverified": "Llogaria jote nuk është konfirmuar ende. Kliko lidhjen në emailin që të dërguam.",
+    "verified": "Llogaria jote u konfirmua. Tani hyr me email dhe fjalëkalim.",
+    "errVerifyToken": "Kjo lidhje konfirmimi nuk funksionon më. Hyr për të marrë një të re.",
+    "demoVerify": "Demo: hap lidhjen e konfirmimit"
   },
   "acct": {
     "profile": "Profili",
@@ -1049,6 +1057,10 @@
     "resetHello": "Përshëndetje,",
     "resetText": "Kliko butonin për të zgjedhur një fjalëkalim të ri. Lidhja vlen 1 orë.",
     "resetButton": "Zgjidh fjalëkalim të ri",
-    "resetIgnore": "Nuk e kërkove ti? Atëherë s’ke nevojë të bësh asgjë; fjalëkalimi mbetet i njëjti."
+    "resetIgnore": "Nuk e kërkove ti? Atëherë s’ke nevojë të bësh asgjë; fjalëkalimi mbetet i njëjti.",
+    "verifySubject": "Konfirmo llogarinë tënde Optimasys QR",
+    "verifyText": "Kliko butonin për të konfirmuar adresën e emailit. Pastaj mund të hysh. Lidhja vlen 24 orë.",
+    "verifyButton": "Konfirmo adresën e emailit",
+    "verifyIgnore": "Nuk ke krijuar llogari? Nuk ke nevojë të bësh asgjë; pa konfirmim llogaria fshihet pas 7 ditësh."
   }
 }

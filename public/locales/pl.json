@@ -908,8 +908,16 @@
     "errTooMany": "Zbyt wiele prób. Odczekaj 15 minut i spróbuj ponownie.",
     "errToken": "Ten link wygasł lub został już użyty. Poproś o nowy.",
     "errGeneral": "Coś poszło nie tak. Spróbuj ponownie.",
-    "demoNote": "Demo: działa każdy e-mail i hasło (min. 8 znaków). Konto jest zapisane tylko w tej przeglądarce.",
-    "demoAccount": "Demo: to konto istnieje tylko w tej przeglądarce. W prawdziwej wersji zarządzasz tu imieniem, hasłem i danymi."
+    "demoNote": "Demo: nie jest wysyłany prawdziwy e-mail; link potwierdzający to przycisk. Konto jest zapisane tylko w tej przeglądarce.",
+    "demoAccount": "Demo: to konto istnieje tylko w tej przeglądarce. W prawdziwej wersji zarządzasz tu imieniem, hasłem i danymi.",
+    "checkTitle": "Potwierdź swój adres e-mail",
+    "checkLead": "Wysłaliśmy link na {email}. Kliknij link w e-mailu, aby potwierdzić konto. Potem możesz się zalogować.",
+    "resend": "Wyślij e-mail ponownie",
+    "resent": "Wysłano. Sprawdź też folder spam.",
+    "errUnverified": "Twoje konto nie jest jeszcze potwierdzone. Kliknij link w e-mailu, który wysłaliśmy.",
+    "verified": "Twoje konto jest potwierdzone. Zaloguj się e-mailem i hasłem.",
+    "errVerifyToken": "Ten link potwierdzający już nie działa. Zaloguj się, aby dostać nowy.",
+    "demoVerify": "Demo: otwórz link potwierdzający"
   },
   "acct": {
     "profile": "Profil",
@@ -943,6 +951,10 @@
     "resetHello": "Cześć,",
     "resetText": "Kliknij przycisk, aby ustawić nowe hasło. Link działa 1 godzinę.",
     "resetButton": "Ustaw nowe hasło",
-    "resetIgnore": "To nie Ty? Nic nie musisz robić; hasło pozostaje bez zmian."
+    "resetIgnore": "To nie Ty? Nic nie musisz robić; hasło pozostaje bez zmian.",
+    "verifySubject": "Potwierdź konto Optimasys QR",
+    "verifyText": "Kliknij przycisk, aby potwierdzić adres e-mail. Potem możesz się zalogować. Link jest ważny 24 godziny.",
+    "verifyButton": "Potwierdź adres e-mail",
+    "verifyIgnore": "Nie zakładałeś konta? Nic nie musisz robić; bez potwierdzenia konto zostanie usunięte po 7 dniach."
   }
 }

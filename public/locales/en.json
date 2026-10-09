@@ -908,8 +908,16 @@
     "errTooMany": "Too many attempts. Wait 15 minutes and try again.",
     "errToken": "This link has expired or was already used. Request a new one.",
     "errGeneral": "Something went wrong. Please try again.",
-    "demoNote": "Demo: any email and password (min. 8 characters) works. Your account is only stored in this browser.",
-    "demoAccount": "Demo: this account only exists in this browser. In the real version you manage your name, password and data here."
+    "demoNote": "Demo: no real email is sent; the confirmation link is a button. Your account is only stored in this browser.",
+    "demoAccount": "Demo: this account only exists in this browser. In the real version you manage your name, password and data here.",
+    "checkTitle": "Confirm your email address",
+    "checkLead": "We sent a link to {email}. Click the link in the email to confirm your account. Then you can log in.",
+    "resend": "Send email again",
+    "resent": "Sent. Also check your spam folder.",
+    "errUnverified": "Your account is not confirmed yet. Click the link in the email we sent you.",
+    "verified": "Your account is confirmed. Now log in with your email and password.",
+    "errVerifyToken": "This confirmation link no longer works. Log in to get a new one.",
+    "demoVerify": "Demo: open confirmation link"
   },
   "acct": {
     "profile": "Profile",
@@ -943,6 +951,10 @@
     "resetHello": "Hello,",
     "resetText": "Click the button to choose a new password. The link works for 1 hour.",
     "resetButton": "Choose a new password",
-    "resetIgnore": "Didn’t ask for this? Then you don’t need to do anything; your password stays the same."
+    "resetIgnore": "Didn’t ask for this? Then you don’t need to do anything; your password stays the same.",
+    "verifySubject": "Confirm your Optimasys QR account",
+    "verifyText": "Click the button to confirm your email address. Then you can log in. The link works for 24 hours.",
+    "verifyButton": "Confirm email address",
+    "verifyIgnore": "Didn't create an account? You don't need to do anything; without confirmation the account is deleted after 7 days."
   }
 }

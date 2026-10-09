@@ -908,8 +908,16 @@
     "errTooMany": "Trop de tentatives. Attendez 15 minutes et réessayez.",
     "errToken": "Ce lien a expiré ou a déjà été utilisé. Demandez-en un nouveau.",
     "errGeneral": "Une erreur est survenue. Réessayez.",
-    "demoNote": "Démo : n'importe quel e-mail et mot de passe (8 caractères min.) fonctionne. Votre compte est enregistré uniquement dans ce navigateur.",
-    "demoAccount": "Démo : ce compte n'existe que dans ce navigateur. Dans la vraie version, vous gérez ici votre nom, mot de passe et données."
+    "demoNote": "Démo : aucun vrai e-mail n'est envoyé ; le lien de confirmation est un bouton. Votre compte est enregistré uniquement dans ce navigateur.",
+    "demoAccount": "Démo : ce compte n'existe que dans ce navigateur. Dans la vraie version, vous gérez ici votre nom, mot de passe et données.",
+    "checkTitle": "Confirmez votre adresse e-mail",
+    "checkLead": "Nous avons envoyé un lien à {email}. Cliquez sur le lien dans l'e-mail pour confirmer votre compte. Ensuite, vous pourrez vous connecter.",
+    "resend": "Renvoyer l'e-mail",
+    "resent": "Envoyé. Vérifiez aussi vos spams.",
+    "errUnverified": "Votre compte n'est pas encore confirmé. Cliquez sur le lien dans l'e-mail que nous vous avons envoyé.",
+    "verified": "Votre compte est confirmé. Connectez-vous avec votre e-mail et votre mot de passe.",
+    "errVerifyToken": "Ce lien de confirmation ne fonctionne plus. Connectez-vous pour en recevoir un nouveau.",
+    "demoVerify": "Démo : ouvrir le lien de confirmation"
   },
   "acct": {
     "profile": "Profil",
@@ -943,6 +951,10 @@
     "resetHello": "Bonjour,",
     "resetText": "Cliquez sur le bouton pour choisir un nouveau mot de passe. Le lien est valable 1 heure.",
     "resetButton": "Choisir un nouveau mot de passe",
-    "resetIgnore": "Vous n’avez rien demandé ? Alors ne faites rien ; votre mot de passe reste le même."
+    "resetIgnore": "Vous n’avez rien demandé ? Alors ne faites rien ; votre mot de passe reste le même.",
+    "verifySubject": "Confirmez votre compte Optimasys QR",
+    "verifyText": "Cliquez sur le bouton pour confirmer votre adresse e-mail. Vous pourrez ensuite vous connecter. Le lien est valable 24 heures.",
+    "verifyButton": "Confirmer l'adresse e-mail",
+    "verifyIgnore": "Vous n'avez pas créé de compte ? Vous n'avez rien à faire ; sans confirmation, le compte est supprimé après 7 jours."
   }
 }

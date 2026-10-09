@@ -1,12 +1,14 @@
 /* =========================================================
    INLOGGEN (alleen met de echte server; de online demo werkt zonder account)
    - Bij het openen: ben je ingelogd? Zo niet, dan het inlogscherm over de app heen.
-   - Inloggen, account maken, wachtwoord vergeten, nieuw wachtwoord (link uit de e-mail: ?reset=…).
+   - Account maken -> "check je e-mail" -> link uit de mail (?verify=…) bevestigt het account -> zelf inloggen.
+     Pas na bevestigen kun je inloggen (zo kan niet zomaar iedereen of een robot accounts aanmaken).
+   - Inloggen, wachtwoord vergeten, nieuw wachtwoord (link uit de e-mail: ?reset=…).
    - Uitloggen via de zijbalk. Sessie verlopen? Dan verschijnt het inlogscherm vanzelf.
    ========================================================= */
 var Session = (function () {
   var view = document.getElementById('authView'), card = view.querySelector('.auth-card');
-  var user = null, mode = 'login', resetToken = '', listeners = [];
+  var user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var LOGO = '<span class="logo-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>';
 
@@ -20,7 +22,8 @@ var Session = (function () {
     return '<select class="auth-lang" aria-label="' + esc(t('header.chooseLanguage')) + '">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + l.name + '</option>'; }).join('') + '</select>';
   }
   function draw(msg, kind) {
-    var email = (card.querySelector('input[name=email]') || {}).value || '', name = (card.querySelector('input[name=name]') || {}).value || '';   // ingevulde waarden houden bij een foutmelding
+    if (!msg && flash) { msg = t(flash[0]); kind = flash[1]; }
+    var email = (card.querySelector('input[name=email]') || {}).value || prefill || '', name = (card.querySelector('input[name=name]') || {}).value || '';   // ingevulde waarden houden bij een foutmelding
     var head = '<div class="auth-top"><span class="auth-logo">' + LOGO + '<b>Optimasys <small>QR</small></b></span>' + langPicker() + '</div>';
     var note = msg ? '<p class="auth-msg ' + (kind || 'bad') + '" role="alert">' + esc(msg) + '</p>' : '';
     var body;
@@ -32,6 +35,13 @@ var Session = (function () {
         (mode === 'register' ? '<small class="auth-hint">' + t('auth.pwRule') + '</small>' : '') +
         '<button class="btn primary auth-go" type="submit">' + t(mode === 'login' ? 'auth.login' : 'auth.createAccount') + '</button></form>' +
         (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>');
+    } else if (mode === 'check') {
+      // Account gemaakt: eerst e-mail bevestigen
+      body = '<span class="auth-mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>' +
+        '<h1 id="authTitle">' + t('auth.checkTitle') + '</h1><p class="auth-lead">' + t('auth.checkLead', { email: '<b>' + esc(pendingEmail) + '</b>' }) + '</p>' + note +
+        (api.isDemo() ? '<button type="button" class="btn primary auth-go" data-demo-verify>' + t('auth.demoVerify') + '</button>' : '') +
+        '<button type="button" class="btn ghost auth-go" data-resend>' + t('auth.resend') + '</button>' +
+        '<button type="button" class="link-btn auth-link" data-mode="login">← ' + t('auth.backToLogin') + '</button>';
     } else if (mode === 'forgot') {
       body = '<h1 id="authTitle">' + t('auth.forgotTitle') + '</h1><p class="auth-lead">' + t('auth.forgotLead') + '</p>' + note +
         '<form class="auth-form" novalidate>' + field('email', 'email', t('auth.email'), 'email', email) + '<button class="btn primary auth-go" type="submit">' + t('auth.sendLink') + '</button></form>' +
@@ -47,6 +57,11 @@ var Session = (function () {
     card.innerHTML = head + body;
     var first = card.querySelector('input[name=name], input[name=email]:not([value]), input[name=email][value=""], input[name=password]'); if (first) first.focus();
   }
+  // Link uit de bevestigingsmail
+  function verify(token) {
+    return api.auth.verify({ token: token }).then(function (r) { prefill = (r && r.email) || pendingEmail; flash = ['auth.verified', 'ok']; show('login'); })
+      .catch(function () { flash = ['auth.errVerifyToken', 'bad']; show('login'); });
+  }
   function errorText(e) {
     var map = { wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', password_short: 'auth.errShort', password_common: 'auth.errCommon', password_long: 'auth.errLong', too_many: 'auth.errTooMany', token: 'auth.errToken' };
     return t(map[e && e.code] || 'auth.errGeneral');
@@ -59,23 +74,30 @@ var Session = (function () {
   function enter() { location.replace(location.pathname); }
 
   card.addEventListener('click', function (e) {
-    var m = e.target.closest('[data-mode]'); if (m) { mode = m.getAttribute('data-mode'); return draw(); }
+    var m = e.target.closest('[data-mode]'); if (m) { flash = null; if (mode === 'check') prefill = pendingEmail; mode = m.getAttribute('data-mode'); return draw(); }
+    if (e.target.closest('[data-resend]')) {
+      var rb = e.target.closest('[data-resend]'); rb.disabled = true;
+      return api.auth.resend({ email: pendingEmail, lang: i18n.lang() }).then(function () { draw(t('auth.resent'), 'ok'); }).catch(function (err) { draw(errorText(err)); });
+    }
+    if (e.target.closest('[data-demo-verify]')) return verify(api.auth.demoToken(pendingEmail));
     var eye = e.target.closest('[data-eye]');
     if (eye) { var inp = eye.parentNode.querySelector('input'), on = inp.type === 'password'; inp.type = on ? 'text' : 'password'; eye.setAttribute('aria-pressed', String(on)); eye.setAttribute('aria-label', t(on ? 'pw.hide' : 'pw.show')); }
   });
   card.addEventListener('change', function (e) { if (e.target.classList.contains('auth-lang')) i18n.set(e.target.value); });
   card.addEventListener('submit', function (e) {
-    e.preventDefault();
+    e.preventDefault(); flash = null;
     var f = e.target, val = function (n) { var i = f.querySelector('[name=' + n + ']'); return i ? i.value.trim() : ''; }, btn = f.querySelector('.auth-go');
     var pw = (f.querySelector('[name=password]') || {}).value || '';
     if (f.querySelector('[name=email]') && !EmailCheck.valid(val('email')) || f.querySelector('[name=email]') && !val('email')) return draw(t('auth.errEmail'));
     if (f.querySelector('[name=password]') && !pw) return draw(t('auth.errPassword'));
     btn.disabled = true;
     var job = mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
-      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name') })
+      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang() }).then(function () { pendingEmail = val('email'); mode = 'check'; draw(); return null; })
       : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
       : api.auth.reset({ token: resetToken, password: pw });
-    job.then(function (u) { if (u) enter(); }).catch(function (err) { draw(errorText(err)); var b = card.querySelector('.auth-go'); if (b) b.disabled = false; });
+    job.then(function (u) { if (u) enter(); }).catch(function (err) {
+      if (err && err.code === 'unverified') { pendingEmail = val('email'); mode = 'check'; flash = ['auth.errUnverified', 'bad']; return draw(); }
+      draw(errorText(err)); var b = card.querySelector('.auth-go'); if (b) b.disabled = false; });
   });
   i18n.onChange(function () { if (!view.hidden) draw(); });
 
@@ -91,6 +113,8 @@ var Session = (function () {
   var m = location.search.match(/[?&]reset=([^&]+)/);
   api.available().then(function (online) {
     if (m) { resetToken = decodeURIComponent(m[1]); history.replaceState(null, '', location.pathname); return show('reset'); }
+    var v = location.search.match(/[?&]verify=([^&]+)/);
+    if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
     return api.auth.me().then(function (u) { user = u; ready(); listeners.forEach(function (f) { f(u); }); }).catch(function () { show('login'); });
   });
   return { user: function () { return user; }, onUser: function (f) { listeners.push(f); if (user) f(user); }, show: show };

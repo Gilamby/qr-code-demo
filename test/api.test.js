@@ -7,6 +7,11 @@ const os = require('os');
 const path = require('path');
 process.env.DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'optimasys-test-'));
 const app = require('../server/index.js');
+// E-mails onderscheppen: de bevestigingslink uit de "mail" halen
+const mailer = require('../server/mailer');
+const mails = {};
+mailer.sendVerify = async (to, link) => { mails[to] = link; };
+const tokenFor = (email) => decodeURIComponent(mails[email].split('verify=')[1]);
 
 let base, server;
 test.before(() => new Promise((r) => { server = app.listen(0, () => { base = 'http://localhost:' + server.address().port; r(); }); }));
@@ -22,17 +27,35 @@ function client() {
     return { status: r.status, json, text, headers: r.headers };
   };
 }
+// Account maken + bevestigen + inloggen (zoals een echte klant)
+async function signup(c, email, password, name) {
+  await c('POST', '/api/auth/register', { email, password, name });
+  await c('POST', '/api/auth/verify', { token: tokenFor(email) });
+  return c('POST', '/api/auth/login', { email, password });
+}
 const pdf = (s) => JSON.stringify({ n: 'test.pdf', s: s.length, d: 'data:application/pdf;base64,' + Buffer.from(s).toString('base64') });
 const filesOnDisk = () => fs.readdirSync(path.join(process.env.DATA_DIR, 'files')).length;
 
-test('inloggen en accounts', async () => {
+test('inloggen en accounts (met e-mailbevestiging)', async () => {
   const a = client();
   assert.equal((await a('GET', '/api/qr-codes')).status, 401, 'zonder inloggen geen codes');
   assert.equal((await a('POST', '/api/auth/register', { email: 'a@example.com', password: 'kort' })).json.error, 'password_short');
-  assert.equal((await a('POST', '/api/auth/register', { email: 'a@example.com', password: 'mijn geheime zin', name: 'Anna' })).status, 201);
-  assert.equal((await a('GET', '/api/auth/me')).json.email, 'a@example.com');
-  assert.equal((await client()('POST', '/api/auth/register', { email: 'A@example.com', password: 'nog een zin hier' })).json.error, 'exists');
+  const reg = await a('POST', '/api/auth/register', { email: 'a@example.com', password: 'mijn geheime zin', name: 'Anna' });
+  assert.equal(reg.status, 201); assert.equal(reg.json.verify, true);
+  assert.equal((await a('GET', '/api/auth/me')).status, 401, 'na account maken nog NIET ingelogd');
+  assert.ok(mails['a@example.com'], 'bevestigingsmail verstuurd');
+  assert.equal((await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' })).json.error, 'unverified', 'inloggen kan pas na bevestigen');
+  assert.equal((await a('POST', '/api/auth/verify', { token: 'verzonnen' })).status, 400);
+  const tok = tokenFor('a@example.com');
+  assert.equal((await a('POST', '/api/auth/verify', { token: tok })).json.email, 'a@example.com');
+  assert.equal((await a('POST', '/api/auth/verify', { token: tok })).status, 400, 'link werkt maar één keer');
+  assert.equal((await a('GET', '/api/auth/me')).status, 401, 'bevestigen logt niet vanzelf in');
+  const dup = await client()('POST', '/api/auth/register', { email: 'A@example.com', password: 'nog een zin hier' });
+  assert.equal(dup.status, 201, 'bestaand adres: zelfde antwoord (niet te zien wie een account heeft)');
+  assert.equal((await client()('POST', '/api/auth/login', { email: 'a@example.com', password: 'nog een zin hier' })).status, 401, 'wachtwoord niet overschreven');
   assert.equal((await client()('POST', '/api/auth/login', { email: 'a@example.com', password: 'fout fout fout' })).status, 401);
+  assert.equal((await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' })).status, 200);
+  assert.equal((await a('GET', '/api/auth/me')).json.email, 'a@example.com');
   await a('POST', '/api/auth/logout', {});
   assert.equal((await a('GET', '/api/auth/me')).status, 401, 'uitgelogd');
   assert.equal((await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' })).status, 200);
@@ -41,7 +64,7 @@ test('inloggen en accounts', async () => {
 test('codes zijn per klant, bestanden op schijf, scannen en statistieken', async () => {
   const a = client(), b = client();
   await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' });
-  await b('POST', '/api/auth/register', { email: 'b@example.com', password: 'bobs geheime zin' });
+  await signup(b, 'b@example.com', 'bobs geheime zin');
   const before = filesOnDisk();
   const made = await a('POST', '/api/qr-codes', { typeId: 'pdf', content: { file: pdf('%PDF eerste'), title: 'Prijzen' } });
   assert.equal(made.status, 201); const id = made.json.id;
@@ -102,3 +125,19 @@ test('wachtwoord vergeten en account verwijderen', async () => {
   assert.equal(filesOnDisk(), before - 1, 'bestanden van het account weg');
   assert.equal((await client()('POST', '/api/auth/login', { email: 'b@example.com', password: 'nieuwe zin voor bob' })).status, 401);
 });
+
+test('wifi-wachtwoord staat versleuteld in de database, maar de eigenaar ziet het gewoon', async () => {
+  const db = require('../server/db');
+  const a = client();
+  await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' });
+  const made = await a('POST', '/api/qr-codes', { typeId: 'wifi', content: { ssid: 'Kantoor', password: 'supergeheim123', security: 'WPA' } });
+  assert.equal(made.status, 201);
+  const raw = await db.sql('get', 'SELECT content FROM qr_codes WHERE id = ?', [made.json.id]);
+  assert.ok(!raw.content.includes('supergeheim123'), 'niet leesbaar in de database');
+  assert.ok(raw.content.includes('enc:v1:'), 'versleuteld');
+  assert.equal((await a('GET', '/api/qr-codes/' + made.json.id)).json.content.password, 'supergeheim123', 'eigenaar ziet het wachtwoord');
+  const edited = await a('PUT', '/api/qr-codes/' + made.json.id, { content: { ssid: 'Kantoor', password: 'nieuwwachtwoord9', security: 'WPA' }, design: {} });
+  assert.equal(edited.json.content.password, 'nieuwwachtwoord9');
+  assert.ok(!(await db.sql('get', 'SELECT content FROM qr_codes WHERE id = ?', [made.json.id])).content.includes('nieuwwachtwoord9'));
+});
+

@@ -12,7 +12,8 @@
     "backup": "node scripts/backup.js",
     "migrate": "node scripts/migrate-json.js",
     "build:demo": "node scripts/build-demo.js",
-    "share": "node scripts/share.js"
+    "share": "node scripts/share.js",
+    "migrate:pg": "node scripts/migrate-to-postgres.js"
   },
   "engines": {
     "node": ">=20"
@@ -21,7 +22,8 @@
     "better-sqlite3": "^11.10.0",
     "express": "^4.21.2",
     "maxmind": "^5.0.7",
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^6.10.1",
+    "pg": "^8.13.1"
   },
   "optionalDependencies": {
     "@ip-location-db/dbip-city-mmdb": "2.3.2026060513",

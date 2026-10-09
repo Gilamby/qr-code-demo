@@ -1,4 +1,6 @@
-# Starten: docker compose up -d   (instellingen in .env, gegevens in het volume "optimasys-data")
+# Starten: docker compose up -d   (instellingen in .env)
+# Met PostgreSQL erbij:  docker compose --profile postgres up -d
+#   en zet in .env: DATABASE_URL=postgres://optimasys:${POSTGRES_PASSWORD}@db:5432/optimasys
 services:
   app:
     build: .
@@ -10,5 +12,16 @@ services:
       - "3000:3000"
     volumes:
       - optimasys-data:/data
+  db:
+    image: postgres:17
+    profiles: ["postgres"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: optimasys
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}   # zet POSTGRES_PASSWORD in .env
+      POSTGRES_DB: optimasys
+    volumes:
+      - optimasys-pg:/var/lib/postgresql/data
 volumes:
   optimasys-data:
+  optimasys-pg:

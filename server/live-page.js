@@ -50,11 +50,11 @@ function livePage(req, q, type) {
 }
 
 // Bestand ophalen: /q/:id/file/:key
-function sendFile(res, q, key) {
+async function sendFile(res, q, key) {
   let o = null; try { o = JSON.parse(q.content[key]); } catch (e) {}
   // Bestand op schijf (nieuw)
   if (o && o.f) {
-    const f = require('./db').getFile(o.f);
+    const f = await require('./db').getFile(o.f);
     if (!f || f.code_id !== q.id) return res.status(404).send('File not found');
     res.set('Content-Type', f.mime).set('X-Content-Type-Options', 'nosniff').set('Cache-Control', 'private, max-age=3600');
     res.set('Content-Disposition', 'inline; filename="' + String(o.n || f.name || 'file').replace(/[^\w.\- ]/g, '_') + '"');

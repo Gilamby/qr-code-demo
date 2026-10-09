@@ -1,6 +1,6 @@
 # Optimasys QR
 
-Web-app om QR-codes te maken, te beheren en te meten. Kies een type, vul de inhoud in, kies een ontwerp en zie het resultaat live op een telefoon. Met accounts, een eigen server en een SQLite-database.
+Web-app om QR-codes te maken, te beheren en te meten. Kies een type, vul de inhoud in, kies een ontwerp en zie het resultaat live op een telefoon. Met accounts (e-mailbevestiging), een eigen server en een database: **PostgreSQL** in productie, **SQLite** om te ontwikkelen.
 
 ## Starten (op je eigen computer)
 
@@ -17,6 +17,7 @@ Open daarna <http://localhost:3000> en maak een account aan.
 - `npm run dev`: de server herstart vanzelf als je iets aanpast.
 - `npm test`: automatische test van de server (accounts, codes per klant, bestanden, scans, statistieken, beveiliging).
 - `npm run build`: productieversie (samengevoegd en verkleind, in `build/`). Met `NODE_ENV=production` gebruikt de server alleen deze versie; de losse bronbestanden zijn dan niet te zien.
+- `npm run migrate:pg`: alles uit SQLite overzetten naar PostgreSQL (`DATABASE_URL` zetten). Mag vaker draaien.
 - `npm run backup`: back-up van database en bestanden naar `backups/`.
 - `npm run migrate -- jouw@email.nl`: oude demo-gegevens (`server/data/db.json`) overzetten naar een account.
 
@@ -25,7 +26,7 @@ Instellingen (webadres, e-mail, enzovoort): kopieer `.env.example` naar `.env`. 
 ## Hoe het in elkaar zit
 
 ```
-Browser (public/)  ──fetch──▶  Server (server/)  ──▶  SQLite (server/data/optimasys.db)
+Browser (public/)  ──fetch──▶  Server (server/)  ──▶  PostgreSQL (DATABASE_URL) of SQLite (server/data/optimasys.db)
                                      │                 Bestanden (server/data/files/)
 Bezoeker scant QR ──/q/:id──▶  scan tellen + pagina tonen of doorsturen
 ```
@@ -42,7 +43,10 @@ shared/
   analytics-core.js  berekening van de statistieken (server én online demo)
 server/
   index.js           Express-server, API en korte links
-  db.js              SQLite: users, sessions, password_resets, qr_codes, scan_stats, files
+  db.js              database-laag (async): users, sessions, resets, verificaties, qr_codes, scan_stats, files
+  db/sqlite.js       stuurprogramma SQLite (ontwikkelen)
+  db/postgres.js     stuurprogramma PostgreSQL (productie, via DATABASE_URL)
+  secret.js          versleuteling van gevoelige velden (wifi-wachtwoorden), AES-256-GCM
   auth.js            accounts, inloggen, sessies, wachtwoord vergeten, AVG (export/verwijderen)
   mailer.js          e-mail (SMTP) voor "wachtwoord vergeten"
   validate.js        controleert alles wat binnenkomt
@@ -77,7 +81,9 @@ Alles onder `/api` (behalve health, qr-types en de inlogroutes) vraagt een ingel
 | Methode | Pad | Wat |
 |---|---|---|
 | GET | `/api/health` | draait de server en de database? |
-| POST | `/api/auth/register` · `/login` · `/logout` | account maken, inloggen, uitloggen |
+| POST | `/api/auth/register` | account maken (nog niet ingelogd: er gaat een bevestigingsmail uit) |
+| POST | `/api/auth/verify` · `/resend` | e-mailadres bevestigen (link uit de mail, 24 uur geldig) · mail opnieuw sturen |
+| POST | `/api/auth/login` · `/logout` | inloggen (pas na bevestigen), uitloggen |
 | GET | `/api/auth/me` | wie is ingelogd? |
 | POST | `/api/auth/forgot` · `/reset` | wachtwoord vergeten (link per e-mail, 1 uur geldig) |
 | PATCH | `/api/account` | naam wijzigen |
@@ -98,7 +104,7 @@ Fout in de invoer: `400` met `{ error, details }`. Niet ingelogd: `401`.
 - **QR-type of veld toevoegen:** `shared/qr-types.js` + teksten in `public/locales/*.json`. Formulier en controle volgen vanzelf.
 - **Foto's in de voorbeelden:** `public/assets/previews/` (zie de README daar).
 - **Taal toevoegen:** één regel in `LANGUAGES` (`public/js/i18n.js`) en `public/locales/<code>.json`.
-- **Naar PostgreSQL:** alleen `server/db.js` vervangen; de functies blijven hetzelfde.
+- **Database kiezen:** zet `DATABASE_URL` voor PostgreSQL; zonder is het SQLite. Tabellen worden bij het opstarten zelf aangemaakt. Testen op PostgreSQL: `DATABASE_URL=… npm test`.
 
 ## Online demo
 

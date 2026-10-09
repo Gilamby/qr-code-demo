@@ -908,8 +908,16 @@
     "errTooMany": "Demasiadas tentativas. Espera 15 minutos e tenta outra vez.",
     "errToken": "Este link expirou ou já foi usado. Pede um novo.",
     "errGeneral": "Algo correu mal. Tenta novamente.",
-    "demoNote": "Demo: qualquer e-mail e palavra-passe (mín. 8 caracteres) funciona. A conta fica guardada só neste navegador.",
-    "demoAccount": "Demo: esta conta só existe neste navegador. Na versão real, aqui gere o nome, a palavra-passe e os dados."
+    "demoNote": "Demo: não é enviado nenhum e-mail real; o link de confirmação é um botão. A conta fica guardada só neste navegador.",
+    "demoAccount": "Demo: esta conta só existe neste navegador. Na versão real, aqui gere o nome, a palavra-passe e os dados.",
+    "checkTitle": "Confirme o seu e-mail",
+    "checkLead": "Enviámos um link para {email}. Clique no link do e-mail para confirmar a conta. Depois pode iniciar sessão.",
+    "resend": "Enviar e-mail de novo",
+    "resent": "Enviado. Veja também a pasta de spam.",
+    "errUnverified": "A sua conta ainda não está confirmada. Clique no link do e-mail que lhe enviámos.",
+    "verified": "A sua conta está confirmada. Inicie sessão com o e-mail e a palavra-passe.",
+    "errVerifyToken": "Este link de confirmação já não funciona. Inicie sessão para receber um novo.",
+    "demoVerify": "Demo: abrir link de confirmação"
   },
   "acct": {
     "profile": "Perfil",
@@ -943,6 +951,10 @@
     "resetHello": "Olá,",
     "resetText": "Clica no botão para escolher uma nova palavra-passe. O link funciona 1 hora.",
     "resetButton": "Escolher nova palavra-passe",
-    "resetIgnore": "Não foste tu? Então não precisas de fazer nada; a palavra-passe fica igual."
+    "resetIgnore": "Não foste tu? Então não precisas de fazer nada; a palavra-passe fica igual.",
+    "verifySubject": "Confirme a sua conta Optimasys QR",
+    "verifyText": "Clique no botão para confirmar o seu e-mail. Depois pode iniciar sessão. O link é válido durante 24 horas.",
+    "verifyButton": "Confirmar e-mail",
+    "verifyIgnore": "Não criou uma conta? Não precisa de fazer nada; sem confirmação, a conta é eliminada após 7 dias."
   }
 }

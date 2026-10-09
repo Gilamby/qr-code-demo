@@ -10,3 +10,5 @@ server/data/files/
 backups/
 .env
 build/
+server/data/secret.key
+*.key

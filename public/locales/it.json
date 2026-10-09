@@ -908,8 +908,16 @@
     "errTooMany": "Troppi tentativi. Aspetta 15 minuti e riprova.",
     "errToken": "Questo link è scaduto o già usato. Richiedine uno nuovo.",
     "errGeneral": "Qualcosa è andato storto. Riprova.",
-    "demoNote": "Demo: funziona qualsiasi e-mail e password (min. 8 caratteri). L'account è salvato solo in questo browser.",
-    "demoAccount": "Demo: questo account esiste solo in questo browser. Nella versione reale qui gestisci nome, password e dati."
+    "demoNote": "Demo: non viene inviata nessuna e-mail reale; il link di conferma è un pulsante. L'account è salvato solo in questo browser.",
+    "demoAccount": "Demo: questo account esiste solo in questo browser. Nella versione reale qui gestisci nome, password e dati.",
+    "checkTitle": "Conferma il tuo indirizzo e-mail",
+    "checkLead": "Abbiamo inviato un link a {email}. Clicca sul link nell'e-mail per confermare l'account. Poi potrai accedere.",
+    "resend": "Invia di nuovo l'e-mail",
+    "resent": "Inviata. Controlla anche lo spam.",
+    "errUnverified": "Il tuo account non è ancora confermato. Clicca sul link nell'e-mail che ti abbiamo inviato.",
+    "verified": "Il tuo account è confermato. Ora accedi con e-mail e password.",
+    "errVerifyToken": "Questo link di conferma non funziona più. Accedi per riceverne uno nuovo.",
+    "demoVerify": "Demo: apri il link di conferma"
   },
   "acct": {
     "profile": "Profilo",
@@ -943,6 +951,10 @@
     "resetHello": "Ciao,",
     "resetText": "Clicca il pulsante per scegliere una nuova password. Il link vale 1 ora.",
     "resetButton": "Scegli una nuova password",
-    "resetIgnore": "Non l’hai chiesto tu? Allora non devi fare nulla; la password resta la stessa."
+    "resetIgnore": "Non l’hai chiesto tu? Allora non devi fare nulla; la password resta la stessa.",
+    "verifySubject": "Conferma il tuo account Optimasys QR",
+    "verifyText": "Clicca sul pulsante per confermare il tuo indirizzo e-mail. Poi potrai accedere. Il link è valido 24 ore.",
+    "verifyButton": "Conferma indirizzo e-mail",
+    "verifyIgnore": "Non hai creato un account? Non devi fare nulla; senza conferma l'account viene eliminato dopo 7 giorni."
   }
 }

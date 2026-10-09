@@ -908,8 +908,16 @@
     "errTooMany": "Te veel pogingen. Wacht een kwartier en probeer het opnieuw.",
     "errToken": "Deze link is verlopen of al gebruikt. Vraag een nieuwe aan.",
     "errGeneral": "Er ging iets mis. Probeer het opnieuw.",
-    "demoNote": "Demo: elk e-mailadres en wachtwoord (min. 8 tekens) werkt. Je account staat alleen in deze browser.",
-    "demoAccount": "Demo: dit account staat alleen in deze browser. In de echte versie kun je hier je naam, wachtwoord en gegevens beheren."
+    "demoNote": "Demo: er wordt geen echte e-mail verstuurd; de bevestigingslink is een knop. Je account staat alleen in deze browser.",
+    "demoAccount": "Demo: dit account staat alleen in deze browser. In de echte versie kun je hier je naam, wachtwoord en gegevens beheren.",
+    "checkTitle": "Bevestig je e-mailadres",
+    "checkLead": "We hebben een link gestuurd naar {email}. Klik op de link in de e-mail om je account te bevestigen. Daarna kun je inloggen.",
+    "resend": "Mail opnieuw sturen",
+    "resent": "Verstuurd. Kijk ook in je spam.",
+    "errUnverified": "Je account is nog niet bevestigd. Klik op de link in de e-mail die we je stuurden.",
+    "verified": "Je account is bevestigd. Log nu in met je e-mail en wachtwoord.",
+    "errVerifyToken": "Deze bevestigingslink werkt niet meer. Log in om een nieuwe te krijgen.",
+    "demoVerify": "Demo: bevestigingslink openen"
   },
   "acct": {
     "profile": "Profiel",
@@ -943,6 +951,10 @@
     "resetHello": "Hallo,",
     "resetText": "Klik op de knop om een nieuw wachtwoord te kiezen. De link werkt 1 uur.",
     "resetButton": "Nieuw wachtwoord kiezen",
-    "resetIgnore": "Heb jij dit niet gevraagd? Dan hoef je niets te doen; je wachtwoord blijft hetzelfde."
+    "resetIgnore": "Heb jij dit niet gevraagd? Dan hoef je niets te doen; je wachtwoord blijft hetzelfde.",
+    "verifySubject": "Bevestig je account bij Optimasys QR",
+    "verifyText": "Klik op de knop om je e-mailadres te bevestigen. Daarna kun je inloggen. De link werkt 24 uur.",
+    "verifyButton": "E-mailadres bevestigen",
+    "verifyIgnore": "Heb jij geen account gemaakt? Dan hoef je niets te doen; zonder bevestiging wordt het account na 7 dagen verwijderd."
   }
 }

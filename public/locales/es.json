@@ -908,8 +908,16 @@
     "errTooMany": "Demasiados intentos. Espera 15 minutos y vuelve a intentarlo.",
     "errToken": "Este enlace ha caducado o ya se usó. Pide uno nuevo.",
     "errGeneral": "Algo salió mal. Inténtalo de nuevo.",
-    "demoNote": "Demo: sirve cualquier correo y contraseña (mín. 8 caracteres). Tu cuenta solo se guarda en este navegador.",
-    "demoAccount": "Demo: esta cuenta solo existe en este navegador. En la versión real gestionas aquí tu nombre, contraseña y datos."
+    "demoNote": "Demo: no se envía ningún correo real; el enlace de confirmación es un botón. Tu cuenta solo se guarda en este navegador.",
+    "demoAccount": "Demo: esta cuenta solo existe en este navegador. En la versión real gestionas aquí tu nombre, contraseña y datos.",
+    "checkTitle": "Confirma tu correo electrónico",
+    "checkLead": "Hemos enviado un enlace a {email}. Haz clic en el enlace del correo para confirmar tu cuenta. Después podrás iniciar sesión.",
+    "resend": "Enviar el correo de nuevo",
+    "resent": "Enviado. Revisa también la carpeta de spam.",
+    "errUnverified": "Tu cuenta aún no está confirmada. Haz clic en el enlace del correo que te enviamos.",
+    "verified": "Tu cuenta está confirmada. Inicia sesión con tu correo y contraseña.",
+    "errVerifyToken": "Este enlace de confirmación ya no funciona. Inicia sesión para recibir uno nuevo.",
+    "demoVerify": "Demo: abrir enlace de confirmación"
   },
   "acct": {
     "profile": "Perfil",
@@ -943,6 +951,10 @@
     "resetHello": "Hola:",
     "resetText": "Pulsa el botón para elegir una contraseña nueva. El enlace funciona 1 hora.",
     "resetButton": "Elegir contraseña nueva",
-    "resetIgnore": "¿No lo has pedido tú? Entonces no tienes que hacer nada; tu contraseña sigue igual."
+    "resetIgnore": "¿No lo has pedido tú? Entonces no tienes que hacer nada; tu contraseña sigue igual.",
+    "verifySubject": "Confirma tu cuenta de Optimasys QR",
+    "verifyText": "Haz clic en el botón para confirmar tu correo electrónico. Después podrás iniciar sesión. El enlace es válido 24 horas.",
+    "verifyButton": "Confirmar correo electrónico",
+    "verifyIgnore": "¿No has creado una cuenta? No tienes que hacer nada; sin confirmación, la cuenta se elimina a los 7 días."
   }
 }

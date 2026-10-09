@@ -6,6 +6,7 @@
    Instellingen via omgevingsvariabelen of een .env-bestand (zie .env.example).
    ========================================================= */
 require('./config');                                   // .env inlezen (vóór de rest)
+require('./async-errors');                             // fouten in async routes netjes afhandelen (Express 4)
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
@@ -108,7 +109,7 @@ const cleanName = (v) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().
 const newId = () => crypto.randomBytes(5).toString('base64url');   // bv. "aZ3k9Qp"
 
 // PDF/MP3 uit de inhoud halen en als bestand op schijf zetten; in de inhoud blijft { n, s, f } over
-function storeFiles(userId, typeId, content, codeId) {
+async function storeFiles(userId, typeId, content, codeId) {
   const keep = [];
   for (const key of fileFields(typeId)) {
     if (!content[key]) continue;
@@ -116,10 +117,10 @@ function storeFiles(userId, typeId, content, codeId) {
     if (o.d) {
       const m = o.d.match(/^data:([\w/.+-]+);base64,(.*)$/); if (!m) { delete content[key]; continue; }
       const buffer = Buffer.from(m[2], 'base64');
-      const id = db.saveFile({ userId, codeId, name: o.n, mime: m[1], buffer });
+      const id = await db.saveFile({ userId, codeId, name: o.n, mime: m[1], buffer });
       content[key] = JSON.stringify({ n: o.n, s: buffer.length, f: id }); keep.push(id);
     } else if (o.f) {
-      const f = db.getFile(o.f);                                       // alleen een eigen bestand van deze code
+      const f = await db.getFile(o.f);                                       // alleen een eigen bestand van deze code
       if (!f || f.user_id !== userId || (codeId && f.code_id && f.code_id !== codeId)) delete content[key];
       else { content[key] = JSON.stringify({ n: o.n, s: f.size, f: f.id }); keep.push(f.id); }
     } else delete content[key];
@@ -129,7 +130,7 @@ function storeFiles(userId, typeId, content, codeId) {
 const missingRequired = (typeId, content) => { const t = QR_TYPES.find((x) => x.id === typeId); return t.fields.filter((f) => f.required && !content[f.key]).map((f) => f.key + ': required'); };
 
 /* ---------- Openbaar ---------- */
-app.get('/api/health', (req, res) => { try { db.raw.prepare('SELECT 1').get(); const qrBase = baseUrl(req); res.json({ ok: true, qrBase, phoneReachable: phoneReachable(qrBase) }); } catch (e) { res.status(503).json({ ok: false }); } });
+app.get('/api/health', async (req, res) => { try { await db.ping(); const qrBase = baseUrl(req); res.json({ ok: true, qrBase, phoneReachable: phoneReachable(qrBase) }); } catch (e) { res.status(503).json({ ok: false }); } });
 app.get('/api/qr-types', (req, res) => res.json(QR_TYPES));
 
 /* ---------- Accounts ---------- */
@@ -137,32 +138,32 @@ auth.routes(app, baseUrl);
 const need = auth.requireUser;
 
 /* ---------- QR-codes (alleen eigen codes) ---------- */
-app.get('/api/qr-codes', need, (req, res) => res.json(db.listQrCodes(req.user.id).map((q) => out(req, q))));
+app.get('/api/qr-codes', need, async (req, res) => res.json((await db.listQrCodes(req.user.id)).map((q) => out(req, q))));
 
-app.get('/api/qr-codes/:id', need, (req, res) => {
-  const q = db.getOwnedQrCode(req.params.id, req.user.id);
+app.get('/api/qr-codes/:id', need, async (req, res) => {
+  const q = await db.getOwnedQrCode(req.params.id, req.user.id);
   if (!q) return res.status(404).json({ error: 'QR code not found' });
   res.json(out(req, q));
 });
 
-app.post('/api/qr-codes', need, (req, res) => {
+app.post('/api/qr-codes', need, async (req, res) => {
   const { errors, value } = validateQrCode(req.body);
   if (errors.length) return res.status(400).json({ error: 'Invalid QR code', details: errors });
   const key = secretKey(value.typeId);
   if (key && value.content[key]) value.content[key] = links.hashPassword(value.content[key]);
   if (req.body.name) value.name = cleanName(req.body.name);
   // De app reserveert vooraf een eigen id, zodat de QR-code in de preview precies de code is die je krijgt.
-  const id = typeof req.body.id === 'string' && /^[A-Za-z0-9_-]{7,12}$/.test(req.body.id) && !db.idTaken(req.body.id) ? req.body.id : newId();
-  const files = storeFiles(req.user.id, value.typeId, value.content, null);
+  const id = typeof req.body.id === 'string' && /^[A-Za-z0-9_-]{7,12}$/.test(req.body.id) && !(await db.idTaken(req.body.id)) ? req.body.id : newId();
+  const files = await storeFiles(req.user.id, value.typeId, value.content, null);
   const miss = missingRequired(value.typeId, value.content); if (miss.length) return res.status(400).json({ error: 'Invalid QR code', details: miss });
-  const record = db.insertQrCode(req.user.id, Object.assign({ id }, value));
-  files.forEach((f) => db.attachFile(f, id));
+  const record = await db.insertQrCode(req.user.id, Object.assign({ id }, value));
+  for (const f of files) await db.attachFile(f, id);
   res.status(201).json(out(req, record));
 });
 
 // Bewerken: nieuwe inhoud en ontwerp, zelfde link, scans blijven staan.
-app.put('/api/qr-codes/:id', need, (req, res) => {
-  const old = db.getOwnedQrCode(req.params.id, req.user.id);
+app.put('/api/qr-codes/:id', need, async (req, res) => {
+  const old = await db.getOwnedQrCode(req.params.id, req.user.id);
   if (!old) return res.status(404).json({ error: 'QR code not found' });
   const { errors, value } = validateQrCode(Object.assign({}, req.body, { typeId: old.typeId }));
   if (errors.length) return res.status(400).json({ error: 'Invalid QR code', details: errors });
@@ -171,44 +172,44 @@ app.put('/api/qr-codes/:id', need, (req, res) => {
     if (value.content[key]) value.content[key] = links.hashPassword(value.content[key]);
     else if (req.body.keepPassword && old.content[key]) value.content[key] = old.content[key];   // wachtwoord niet opnieuw ingevuld: het oude blijft
   }
-  const files = storeFiles(req.user.id, old.typeId, value.content, old.id);
+  const files = await storeFiles(req.user.id, old.typeId, value.content, old.id);
   const miss = missingRequired(old.typeId, value.content); if (miss.length) return res.status(400).json({ error: 'Invalid QR code', details: miss });
-  files.forEach((f) => db.attachFile(f, old.id));
-  db.pruneFiles(old.id, files);                                        // vervangen bestanden opruimen
+  for (const f of files) await db.attachFile(f, old.id);
+  await db.pruneFiles(old.id, files);                                        // vervangen bestanden opruimen
   const patch = { content: value.content, design: value.design };
   if (req.body.name !== undefined) patch.name = cleanName(req.body.name);
-  res.json(out(req, db.updateQrCode(old.id, patch)));
+  res.json(out(req, await db.updateQrCode(old.id, patch)));
 });
 
 // Kleine wijziging vanuit Mijn QR-codes: naam of aan/uit
-app.patch('/api/qr-codes/:id', need, (req, res) => {
-  if (!db.getOwnedQrCode(req.params.id, req.user.id)) return res.status(404).json({ error: 'QR code not found' });
+app.patch('/api/qr-codes/:id', need, async (req, res) => {
+  if (!(await db.getOwnedQrCode(req.params.id, req.user.id))) return res.status(404).json({ error: 'QR code not found' });
   const b = req.body || {}, patch = {}, errors = [];
   if (b.name !== undefined) { if (typeof b.name !== 'string') errors.push('name: must be text'); else patch.name = cleanName(b.name); }
   if (b.paused !== undefined) { if (typeof b.paused !== 'boolean') errors.push('paused: must be true or false'); else patch.paused = b.paused; }
   if (errors.length || !Object.keys(patch).length) return res.status(400).json({ error: 'Invalid update', details: errors.length ? errors : ['nothing to change'] });
-  res.json(out(req, db.updateQrCode(req.params.id, patch)));
+  res.json(out(req, await db.updateQrCode(req.params.id, patch)));
 });
 
-app.delete('/api/qr-codes/:id', need, (req, res) => {
-  if (!db.deleteQrCode(req.params.id, req.user.id)) return res.status(404).json({ error: 'QR code not found' });
+app.delete('/api/qr-codes/:id', need, async (req, res) => {
+  if (!(await db.deleteQrCode(req.params.id, req.user.id))) return res.status(404).json({ error: 'QR code not found' });
   res.status(204).end();
 });
 
 /* ---------- Statistieken (alleen eigen codes) ---------- */
-app.get('/api/analytics', need, (req, res) => res.json(analytics.overview(db.listWithStats(req.user.id), req.query)));
-app.get('/api/analytics.csv', need, (req, res) => {
+app.get('/api/analytics', need, async (req, res) => res.json(analytics.overview(await db.listWithStats(req.user.id), req.query)));
+app.get('/api/analytics.csv', need, async (req, res) => {
   const nameOf = (q) => q.name || q.content.title || q.content.name || q.content.pageName || q.content.restaurant || q.content.appName || q.content.company || q.content.ssid || q.content.url || q.typeId;
   res.set('Content-Type', 'text/csv; charset=utf-8').set('Content-Disposition', 'attachment; filename="statistieken.csv"');
-  res.send(analytics.csv(db.listWithStats(req.user.id), req.query, nameOf));
+  res.send(analytics.csv(await db.listWithStats(req.user.id), req.query, nameOf));
 });
 
 /* ---------- Instellingen van de gebruiker (achtergrond) ---------- */
 app.get('/api/me', need, (req, res) => res.json({ name: req.user.name, background: req.user.background, customBackground: req.user.customBackground }));
-app.patch('/api/me', need, (req, res) => {
+app.patch('/api/me', need, async (req, res) => {
   const { errors, value } = validateMe(req.body || {});
   if (errors.length) return res.status(400).json({ error: 'Invalid profile update', details: errors });
-  const u = db.updateUser(req.user.id, value);
+  const u = await db.updateUser(req.user.id, value);
   res.json({ name: u.name, background: u.background, customBackground: u.customBackground });
 });
 
@@ -262,14 +263,14 @@ app.get('/api/email-check', need, async (req, res) => {
 app.use('/api', (req, res) => res.status(404).json({ error: 'Not found' }));
 
 /* ---------- Korte link: regels toepassen, scan tellen en doorsturen ---------- */
-function openCode(req, res, passwordOk) {
-  const found = db.getQrCode(req.params.id);
+async function openCode(req, res, passwordOk) {
+  const found = await db.getQrCode(req.params.id);
   if (!found) return res.status(404).send(links.notFoundPage(req));
   if (found.paused) return res.status(503).set('Retry-After', '3600').send(links.pausedPage(req));   // tijdelijk uit: niet tellen
   if (links.isExpired(found)) return res.status(410).send(links.expiredPage(req));
   const key = secretKey(found.typeId);
   if (key && found.content[key] && !passwordOk) return res.send(links.passwordPage(req, req.method === 'POST'));
-  const q = db.addScan(found.id, analytics.describe(found, req));
+  const q = await db.addScan(found.id, analytics.describe(found, req));
   const c = q.content;
   res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen
   if (q.contentType === 'url' && c.url) return res.redirect(links.targetUrl(q, req.get('user-agent')));
@@ -288,17 +289,17 @@ function openCode(req, res, passwordOk) {
   res.send(livePage.livePage(req, q, type));
 }
 app.get('/q/:id', (req, res) => openCode(req, res, false));
-app.get('/q/:id/file/:key', (req, res) => {
-  const q = db.getQrCode(req.params.id);
+app.get('/q/:id/file/:key', async (req, res) => {
+  const q = await db.getQrCode(req.params.id);
   if (!q || q.paused || links.isExpired(q)) return res.status(404).send(links.notFoundPage(req));
   const key = secretKey(q.typeId);
   if (key && q.content[key] && !links.fileTokenOk(q, req.params.key, req.query.t)) return res.status(403).send(links.passwordPage(req, false));
-  livePage.sendFile(res, q, req.params.key);
+  return livePage.sendFile(res, q, req.params.key);
 });
-app.post('/q/:id', (req, res) => {
-  const q = db.getQrCode(req.params.id);
+app.post('/q/:id', async (req, res) => {
+  const q = await db.getQrCode(req.params.id);
   const key = q && secretKey(q.typeId);
-  openCode(req, res, !!(key && q.content[key] && links.checkPassword((req.body || {}).password || '', q.content[key])));
+  return openCode(req, res, !!(key && q.content[key] && links.checkPassword((req.body || {}).password || '', q.content[key])));
 });
 
 /* ---------- Fouten: nette antwoorden, geen interne details ---------- */
@@ -310,10 +311,16 @@ app.use((err, req, res, next) => {
 });
 
 /* ---------- Opruimen en netjes stoppen ---------- */
-db.cleanup(); setInterval(() => db.cleanup(), 3600e3).unref();
-if (require.main === module) {
+const tidy = () => db.cleanup().catch((e) => console.error('Opruimen mislukt:', e.message));
+tidy(); setInterval(tidy, 3600e3).unref();
+if (require.main === module) db.ready.then(start, (e) => {
+  console.error('\nDe database is niet bereikbaar: ' + e.message);
+  console.error(process.env.DATABASE_URL ? 'Controleer DATABASE_URL (adres, gebruiker, wachtwoord, database) en of de database aan staat.' : 'Controleer DATA_DIR / DB_PATH.');
+  process.exit(1);
+});
+function start() {
   const server = app.listen(PORT, process.env.HOST || undefined, () => {
-    console.log('Optimasys QR draait op http://localhost:' + PORT + ' (database: ' + db.path + ')');
+    db.label().then((l) => console.log('Optimasys QR draait op http://localhost:' + PORT + ' (database: ' + (db.kind === 'postgres' ? 'PostgreSQL ' : 'SQLite ') + l + ')')).catch(() => {});
     if (process.env.PUBLIC_URL) console.log('QR-codes wijzen naar: ' + process.env.PUBLIC_URL);
     else if (codespaceUrl()) {
       console.log('\nCodespaces: QR-codes wijzen naar ' + codespaceUrl());
@@ -325,7 +332,12 @@ if (require.main === module) {
     else if (lanIp()) console.log('QR-codes wijzen naar: http://' + lanIp() + ':' + PORT + '  (scannen met je telefoon: zelfde wifi als deze computer)');
     else console.log('Let op: geen wifi-adres gevonden. Zet PUBLIC_URL in .env, anders kan een telefoon de QR-codes niet openen.');
   });
-  const stop = () => { server.close(() => { db.raw.close(); process.exit(0); }); setTimeout(() => process.exit(0), 5000).unref(); };
+  server.on('error', (e) => {
+    if (e.code === 'EADDRINUSE') console.error('\nPoort ' + PORT + ' is al bezet: de app draait waarschijnlijk al in een ander terminalvenster.\nStop die eerst (Ctrl+C in dat venster, of het prullenbakje bij die terminal) en typ dan opnieuw: npm start\n');
+    else console.error(e);
+    process.exit(1);
+  });
+  const stop = () => { server.close(() => { db.close().finally(() => process.exit(0)); }); setTimeout(() => process.exit(0), 5000).unref(); };
   process.on('SIGTERM', stop); process.on('SIGINT', stop);
 }
 module.exports = app;

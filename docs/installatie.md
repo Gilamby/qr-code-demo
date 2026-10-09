@@ -22,7 +22,12 @@ Getest (9 okt 2026): alle 16 types gemaakt, PNG en SVG gedownload, uitgelezen me
 
 Elke plek waar Node.js 20+ of Docker draait, met een **vaste schijf** (voor de database en de bestanden). Bijvoorbeeld een VPS (Hetzner, TransIP, DigitalOcean) of een platform met een volume (Fly.io, Railway, Render).
 
-Let op: de database is één bestand (SQLite). Draai daarom **één** server tegelijk. Voor duizenden klanten is dat ruim genoeg; wordt het later te groot, dan kan `server/db.js` naar PostgreSQL.
+**Database:** zet `DATABASE_URL` (PostgreSQL 15+, bij voorkeur beheerd door de hostingpartij met automatische back-ups). Zonder `DATABASE_URL` gebruikt de app een SQLite-bestand in `DATA_DIR`; prima om te ontwikkelen, maar dan maximaal één server.
+
+- Tabellen worden bij het opstarten zelf aangemaakt; een apart migratiescript is niet nodig.
+- Al data in SQLite? `DATABASE_URL=… npm run migrate:pg` zet alles over (mag vaker draaien). Neem daarna de map `files/` en de sleutel (`DATA_KEY` of `secret.key`) mee.
+- **DATA_KEY** (`openssl rand -hex 32`): sleutel voor versleutelde velden (wifi-wachtwoorden). Zet hem in het secretbeheer en bewaar hem apart van de database-back-ups; zonder sleutel zijn die velden onleesbaar.
+- Bestanden (PDF/MP3) staan in `DATA_DIR/files`: dat moet een persistent volume zijn.
 
 ## 2. Domein en HTTPS
 
@@ -63,7 +68,24 @@ Controle: `https://qr.optimasys.com/api/health` geeft `{"ok":true}`.
 
 ## 4. E-mail
 
-Voor "wachtwoord vergeten" is een mailserver nodig (bv. Postmark, Mailgun, Brevo of de mailserver van je hosting). Vul `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` en `MAIL_FROM` in. Zonder mailserver staat de link alleen in de serverlog.
+Nodig voor **account bevestigen** (na "Account maken" krijg je een bevestigingslink; pas daarna kun je inloggen) en **wachtwoord vergeten**.
+
+**Zonder mailserver** (testen): de link verschijnt in de terminal waar de server draait (`[e-mail niet ingesteld] Bevestigingslink voor …`). Kopieer hem naar je browser.
+
+**Gratis echte e-mail met Gmail** (genoeg voor testen en een demo, ± 500 mails per dag):
+1. Zet in je Google-account *2-stapsverificatie* aan.
+2. Ga naar <https://myaccount.google.com/apppasswords>, maak een app-wachtwoord ("Optimasys QR"). Je krijgt 16 letters.
+3. Zet in `.env` (in Codespaces: maak het bestand `.env` naast `package.json`):
+   ```
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USER=jouwnaam@gmail.com
+   SMTP_PASS=de16letters
+   MAIL_FROM=Optimasys QR <jouwnaam@gmail.com>
+   ```
+4. Server opnieuw starten. `.env` staat in `.gitignore`: je wachtwoord komt nooit op GitHub.
+
+Voor echt gebruik door het bedrijf: een eigen afzender (bv. Postmark, Brevo, Mailgun of de mailserver van Optimasys).
 
 ## 5. Back-up
 
@@ -73,7 +95,10 @@ Elke nacht een back-up, en die ook ergens anders bewaren (andere server of cloud
 0 3 * * *  cd /pad/naar/optimasys && npm run backup
 ```
 
-Terugzetten: server stoppen, `optimasys.db` en de map `files/` uit de back-up terugzetten in de datamap, server starten.
+- **PostgreSQL:** de automatische back-ups van de hostingpartij (point-in-time recovery), of `pg_dump "$DATABASE_URL" > optimasys.sql`. `npm run backup` kopieert dan alleen de bestanden.
+- **SQLite:** `npm run backup` kopieert database én bestanden.
+
+Terugzetten: server stoppen, database (pg_restore / `optimasys.db`) en de map `files/` terugzetten, server starten. De sleutel (`DATA_KEY`) zit bewust niet in de back-up: bewaar hem apart.
 
 ## 6. Land/stad-database
 

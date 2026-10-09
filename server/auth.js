@@ -52,8 +52,8 @@ setInterval(() => { const t = Date.now(); for (const [k, v] of hits) if (!v.some
 
 /* ---------- Middleware ---------- */
 // Wie is ingelogd? (zet req.user, of null)
-function session(req, res, next) {
-  req.sid = cookies(req)[COOKIE] || ''; req.user = db.sessionUser(req.sid);
+async function session(req, res, next) {
+  req.sid = cookies(req)[COOKIE] || ''; req.user = await db.sessionUser(req.sid);
   if (req.user && req.user.renewUntil) setSession(req, res, { token: req.sid, expires: req.user.renewUntil });   // cookie mee verlengen: je blijft ingelogd
   next();
 }
@@ -80,36 +80,60 @@ function routes(app, baseUrl) {
 
   app.get('/api/auth/me', (req, res) => req.user ? res.json(me(req.user)) : res.status(401).json({ error: 'Not logged in' }));
 
+  // Account maken: nog NIET ingelogd. Eerst het e-mailadres bevestigen via de link in de mail.
+  // Bestaat het adres al, dan hetzelfde antwoord (zo kan niemand zien welke adressen een account hebben).
   app.post('/api/auth/register', async (req, res) => {
-    const b = req.body || {}, email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').trim().slice(0, 80);
-    if (limited('reg:' + req.ip, 50, 60)) return res.status(429).json({ error: 'too_many' });
+    const b = req.body || {}, email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').trim().slice(0, 80), lang = String(b.lang || 'en');
+    if (limited('reg:' + req.ip, 50, 60) || limited('reg:' + email, 3, 60)) return res.status(429).json({ error: 'too_many' });
     if (!EMAIL.test(email) || email.length > 254) return res.status(400).json({ error: 'email' });
     const pp = passwordProblem(b.password); if (pp) return res.status(400).json({ error: 'password_' + pp });
-    if (db.userByEmail(email)) return res.status(409).json({ error: 'exists' });
-    const user = db.createUser({ email, name, passwordHash: await hashPassword(b.password) });
-    setSession(req, res, db.createSession(user.id));
-    res.status(201).json(me(user));
+    const existing = await db.userByEmail(email);
+    if (!existing) {
+      const user = await db.createUser({ email, name, passwordHash: await hashPassword(b.password) });
+      await sendVerifyMail(req, user.id, email, lang);
+    } else if (!(await db.isVerified(existing.id))) await sendVerifyMail(req, existing.id, email, lang);   // nog niet bevestigd: nieuwe link
+    res.status(201).json({ verify: true, email });
+  });
+  async function sendVerifyMail(req, userId, email, lang) {
+    const link = baseUrl(req) + '/?verify=' + encodeURIComponent(await db.createVerification(userId));
+    mailer.sendVerify(email, link, lang).catch((e) => console.error('E-mail versturen mislukt:', e.message));
+  }
+  // Link uit de mail: account bevestigd. Daarna zelf inloggen.
+  app.post('/api/auth/verify', async (req, res) => {
+    if (limited('verify:' + req.ip, 30, 60)) return res.status(429).json({ error: 'too_many' });
+    const userId = await db.useVerification(String((req.body || {}).token || ''));
+    if (!userId) return res.status(400).json({ error: 'token' });
+    res.json({ ok: true, email: (await db.getUser(userId)).email });
+  });
+  // Nieuwe bevestigingsmail (altijd hetzelfde antwoord)
+  app.post('/api/auth/resend', async (req, res) => {
+    const email = String((req.body || {}).email || '').trim().toLowerCase();
+    if (limited('resend:' + req.ip, 10, 60) || limited('resend:' + email, 3, 60)) return res.status(429).json({ error: 'too_many' });
+    const row = EMAIL.test(email) && await db.userByEmail(email);
+    if (row && !(await db.isVerified(row.id))) await sendVerifyMail(req, row.id, email, String((req.body || {}).lang || 'en'));
+    res.json({ ok: true });
   });
 
   app.post('/api/auth/login', async (req, res) => {
     const b = req.body || {}, email = String(b.email || '').trim().toLowerCase();
     if (limited('login:' + req.ip, 100, 15) || limited('login:' + email, 10, 15)) return res.status(429).json({ error: 'too_many' });
-    const row = db.userByEmail(email);
+    const row = await db.userByEmail(email);
     const ok = await checkPassword(b.password || '', row ? row.password_hash : DUMMY);
     if (!row || !ok) return res.status(401).json({ error: 'wrong' });
-    setSession(req, res, db.createSession(row.id));
-    res.json(me(db.getUser(row.id)));
+    if (!(await db.isVerified(row.id))) return res.status(403).json({ error: 'unverified' });   // eerst e-mail bevestigen
+    setSession(req, res, await db.createSession(row.id));
+    res.json(me(await db.getUser(row.id)));
   });
 
-  app.post('/api/auth/logout', (req, res) => { if (req.sid) db.deleteSession(req.sid); clearSession(req, res); res.status(204).end(); });
+  app.post('/api/auth/logout', async (req, res) => { if (req.sid) await db.deleteSession(req.sid); clearSession(req, res); res.status(204).end(); });
 
   // Wachtwoord vergeten: altijd hetzelfde antwoord (niemand kan zo zien of een e-mailadres een account heeft)
   app.post('/api/auth/forgot', async (req, res) => {
     const email = String((req.body || {}).email || '').trim().toLowerCase();
     if (limited('forgot:' + req.ip, 10, 60) || limited('forgot:' + email, 3, 60)) return res.status(429).json({ error: 'too_many' });
-    const row = EMAIL.test(email) && db.userByEmail(email);
+    const row = EMAIL.test(email) && await db.userByEmail(email);
     if (row) {
-      const token = db.createReset(row.id), link = baseUrl(req) + '/?reset=' + encodeURIComponent(token);
+      const token = await db.createReset(row.id), link = baseUrl(req) + '/?reset=' + encodeURIComponent(token);
       mailer.sendReset(row.email, link, String((req.body || {}).lang || 'en')).catch((e) => console.error('E-mail versturen mislukt:', e.message));
     }
     res.json({ ok: true });
@@ -119,41 +143,42 @@ function routes(app, baseUrl) {
     const b = req.body || {};
     if (limited('reset:' + req.ip, 20, 60)) return res.status(429).json({ error: 'too_many' });
     const pp = passwordProblem(b.password); if (pp) return res.status(400).json({ error: 'password_' + pp });
-    const userId = db.useReset(String(b.token || '')); if (!userId) return res.status(400).json({ error: 'token' });
-    db.updateUser(userId, { passwordHash: await hashPassword(b.password) });
-    db.deleteSessionsOf(userId);                                       // overal uitloggen
-    setSession(req, res, db.createSession(userId));
-    res.json(me(db.getUser(userId)));
+    const userId = await db.useReset(String(b.token || '')); if (!userId) return res.status(400).json({ error: 'token' });
+    await db.updateUser(userId, { passwordHash: await hashPassword(b.password) });
+    await db.markVerified(userId);                                           // link uit de mail = e-mailadres is van jou
+    await db.deleteSessionsOf(userId);                                 // overal uitloggen
+    setSession(req, res, await db.createSession(userId));
+    res.json(me(await db.getUser(userId)));
   });
 
   /* Mijn account */
-  app.patch('/api/account', requireUser, (req, res) => {
+  app.patch('/api/account', requireUser, async (req, res) => {
     const name = (req.body || {}).name; if (typeof name !== 'string') return res.status(400).json({ error: 'name' });
-    res.json(me(db.updateUser(req.user.id, { name: name.trim().slice(0, 80) })));
+    res.json(me(await db.updateUser(req.user.id, { name: name.trim().slice(0, 80) })));
   });
   app.post('/api/account/password', requireUser, async (req, res) => {
     const b = req.body || {};
     if (limited('pw:' + req.user.id, 10, 15)) return res.status(429).json({ error: 'too_many' });
-    if (!(await checkPassword(b.current || '', db.passwordHashOf(req.user.id)))) return res.status(403).json({ error: 'wrong' });   // 403: wel ingelogd, verkeerd wachtwoord
+    if (!(await checkPassword(b.current || '', await db.passwordHashOf(req.user.id)))) return res.status(403).json({ error: 'wrong' });   // 403: wel ingelogd, verkeerd wachtwoord
     const pp = passwordProblem(b.password); if (pp) return res.status(400).json({ error: 'password_' + pp });
-    db.updateUser(req.user.id, { passwordHash: await hashPassword(b.password) });
-    db.deleteSessionsOf(req.user.id, req.sid);                         // andere apparaten uitloggen
+    await db.updateUser(req.user.id, { passwordHash: await hashPassword(b.password) });
+    await db.deleteSessionsOf(req.user.id, req.sid);                         // andere apparaten uitloggen
     res.json({ ok: true });
   });
   // Overzicht (Mijn account)
-  app.get('/api/account/summary', requireUser, (req, res) => res.json(Object.assign({ createdAt: req.user.createdAt }, db.summary(req.user.id))));
+  app.get('/api/account/summary', requireUser, async (req, res) => res.json(Object.assign({ createdAt: req.user.createdAt }, await db.summary(req.user.id))));
   // Uitloggen op alle andere apparaten (deze blijft ingelogd)
-  app.post('/api/account/logout-others', requireUser, (req, res) => { db.deleteSessionsOf(req.user.id, req.sid); res.json({ ok: true }); });
+  app.post('/api/account/logout-others', requireUser, async (req, res) => { await db.deleteSessionsOf(req.user.id, req.sid); res.json({ ok: true }); });
   // AVG: al je gegevens downloaden
-  app.get('/api/account/export', requireUser, (req, res) => {
-    const codes = db.listWithStats(req.user.id).map((q) => { const c = Object.assign({}, q.content); Object.keys(c).forEach((k) => { if (/password/i.test(k) && q.typeId !== 'wifi') delete c[k]; }); return Object.assign({}, q, { content: c, userId: undefined }); });
+  app.get('/api/account/export', requireUser, async (req, res) => {
+    const codes = (await db.listWithStats(req.user.id)).map((q) => { const c = Object.assign({}, q.content); Object.keys(c).forEach((k) => { if (/password/i.test(k) && q.typeId !== 'wifi') delete c[k]; }); return Object.assign({}, q, { content: c, userId: undefined }); });
     res.set('Content-Disposition', 'attachment; filename="optimasys-mijn-gegevens.json"');
     res.json({ exportedAt: new Date().toISOString(), account: me(req.user), qrCodes: codes });
   });
   // AVG: account en alles verwijderen (met wachtwoord)
   app.delete('/api/account', requireUser, async (req, res) => {
-    if (!(await checkPassword((req.body || {}).password || '', db.passwordHashOf(req.user.id)))) return res.status(403).json({ error: 'wrong' });
-    db.deleteUser(req.user.id); clearSession(req, res); res.status(204).end();
+    if (!(await checkPassword((req.body || {}).password || '', await db.passwordHashOf(req.user.id)))) return res.status(403).json({ error: 'wrong' });
+    await db.deleteUser(req.user.id); clearSession(req, res); res.status(204).end();
   });
 }
 
