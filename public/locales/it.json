@@ -163,9 +163,9 @@
       "share": "Condividi"
     },
     "video": {
-      "title": "Una giornata al Caffè dell'Angolo",
+      "title": "Lezione 1: HTML – le basi",
       "meta": "Video del prodotto",
-      "desc": "Uno sguardo dietro le quinte del nostro caffè.",
+      "desc": "Impara passo dopo passo a creare il tuo sito.",
       "watch": "Guarda il video"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Post",
       "tabAbout": "Informazioni",
       "tabPhotos": "Foto",
-      "time": "2 h"
+      "time": "2 h",
+      "post": "Appena sfornato stamattina 🥐 Passate a trovarci!"
     },
     "instagram": {
       "stats": "{posts} post · {followers} follower",
@@ -200,7 +201,7 @@
       "message": "Messaggio",
       "contact": "Contatta",
       "category": "Fotografo",
-      "bio": "Matrimoni, ritratti e viaggi a Firenze"
+      "bio": "Matrimoni e ritratti a Firenze · In viaggio per il mondo"
     },
     "social": {
       "sub": "Seguici",
@@ -374,7 +375,50 @@
     "colType": "Tipo",
     "colLink": "Link",
     "colCreated": "Creato",
-    "colScans": "Scansioni"
+    "colScans": "Scansioni",
+    "new": "Nuovo codice QR",
+    "count": "{n} codici QR",
+    "countOne": "1 codice QR",
+    "demoNote": "Demo: i tuoi codici QR sono salvati solo in questo browser. Qui le scansioni non vengono contate.",
+    "search": "Cerca per nome o link",
+    "type": "Tipo",
+    "allTypes": "Tutti i tipi",
+    "sort": "Ordina",
+    "sort_new": "Più recenti",
+    "sort_old": "Meno recenti",
+    "sort_scans": "Più scansioni",
+    "sort_name": "Nome (A–Z)",
+    "static": "Funziona senza internet",
+    "copy": "Copia link",
+    "rename": "Rinomina",
+    "made": "Creato il {date}",
+    "noScans": "nessuna scansione",
+    "scans": "scansioni",
+    "always": "Sempre attivo",
+    "onLabel": "Attivo",
+    "offLabel": "Spento",
+    "download": "Scarica",
+    "pngHint": "per schermo e stampa",
+    "svgHint": "per la tipografia, nitido a ogni misura",
+    "edit": "Modifica",
+    "more": "Altro",
+    "open": "Apri link",
+    "delete": "Elimina",
+    "emptyTitle": "Ancora nessun codice QR",
+    "emptyText": "Qui vedrai tutti i tuoi codici QR. Potrai scaricarli, modificarli e accenderli o spegnerli.",
+    "first": "Crea il tuo primo codice QR",
+    "noneFound": "Nessun risultato",
+    "clear": "Cancella filtri",
+    "copied": "Link copiato",
+    "renamed": "Nome salvato",
+    "failed": "Non ha funzionato. Riprova.",
+    "pausedToast": "Il codice QR è spento",
+    "activeToast": "Il codice QR è attivo",
+    "deleteTitle": "Eliminare «{name}»?",
+    "deleteText": "Il link smetterà di funzionare, anche i codici stampati. Non si può annullare.",
+    "deleteTextStatic": "Il codice continua a funzionare, ma non sarà più nella tua lista. Non si può annullare.",
+    "cancel": "Annulla",
+    "deleted": "Codice QR eliminato"
   },
   "appearance": {
     "title": "Colori",
@@ -737,6 +781,27 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/fiorerialaspiga\", \"facebook\": \"https://facebook.com/fiorerialaspiga\", \"whatsapp\": \"https://wa.me/390612345678\"}",
     "socials": "{\"instagram\": \"https://instagram.com/scuolasurfonda\", \"facebook\": \"https://facebook.com/scuolasurfonda\", \"tiktok\": \"https://tiktok.com/@scuolasurfonda\", \"youtube\": \"https://youtube.com/@scuolasurfonda\", \"linkedin\": \"https://linkedin.com/company/scuolasurfonda\"}",
     "appIos": "https://apps.apple.com/app/allenami",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.allenami.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.allenami.app",
+    "videoUrl": "https://scuolaweb.it/lezione-1-html"
+  },
+  "visit": {
+    "locked": "Questa pagina è protetta",
+    "enter": "Inserisci la password per continuare.",
+    "open": "Apri",
+    "wrong": "Password errata. Riprova.",
+    "expired": "Questo codice QR è scaduto",
+    "expiredText": "Questo codice non è più valido. Contatta il proprietario.",
+    "paused": "Questo codice QR è disattivato",
+    "pausedText": "Il proprietario ha disattivato questo codice per ora. Riprova più tardi.",
+    "notFound": "Codice QR non trovato"
+  },
+  "edit": {
+    "title": "Modifica: {name}",
+    "cancel": "Annulla",
+    "save": "Salva modifiche",
+    "saved": "Modifiche salvate.",
+    "toCodes": "Vai a I miei codici QR",
+    "pwKeep": "Lascia vuoto per mantenere la password attuale",
+    "staticNote": "Attenzione: per questo tipo il contenuto è nel codice stesso. Dopo il salvataggio, scarica e stampa di nuovo il codice."
   }
 }

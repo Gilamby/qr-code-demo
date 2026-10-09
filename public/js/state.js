@@ -26,13 +26,14 @@ var store = createStore({
   created: false,
   saving: false,
   saved: null,                                  // opgeslagen record uit de backend { id, shortUrl, ... }
+  editing: null,                                // bestaande code die je aanpast { id, name, hasPassword } (vanuit Mijn QR-codes)
   error: null
 });
 function typeColors(id, s) { var own = (s && s.typeColors || {})[id]; return own || getType(id).theme || ['#2bb5f0', '#0f172a']; }
 function rememberColors(s, pc, ac) { var m = Object.assign({}, s.typeColors); m[s.typeId] = [pc, ac]; return m; }
 var actions = {
   // Elk type heeft zijn eigen kleuren (shared/qr-types.js: theme). Past de gebruiker ze aan, dan onthouden we dat per type.
-  selectType: function (id) { var c = typeColors(id, store.get()); store.set({ typeId: id, pageColor: c[0], accentColor: c[1], created: false, saved: null, error: null }); },
+  selectType: function (id) { if (store.get().editing) return; var c = typeColors(id, store.get()); store.set({ typeId: id, pageColor: c[0], accentColor: c[1], created: false, saved: null, error: null }); },
   hoverType: function (id) { if (store.get().hoverTypeId !== id) store.set({ hoverTypeId: id }); },
   goTo: function (step) { store.set({ step: step, hoverTypeId: null, previewUnlocked: false, phoneView: step === 'design' ? 'qr' : 'preview' }); },
   setField: function (key, value) {
@@ -48,13 +49,33 @@ var actions = {
   previewDesign: function (o) { if (o) o = safeDesign(Object.assign({}, store.get().design, o)); if (JSON.stringify(store.get().hoverDesign) !== JSON.stringify(o)) store.set({ hoverDesign: o }); },
   applyDesign: function (d) { store.set({ design: safeDesign(Object.assign({}, QR_DEFAULT_DESIGN, d)), created: false, saved: null, error: null }); },
   setDesign: function (key, value) { var d = Object.assign({}, store.get().design); d[key] = value; if (key !== 'logo' && key !== 'frameText') d.themeId = ''; /* zelf iets aangepast = eigen ontwerp */ store.set({ design: safeDesign(d), created: false, saved: null, error: null }); },
+  // Opslaan. Nieuw: een nieuwe code. Bewerken: dezelfde code (zelfde link, scans blijven).
   create: function () {
-    var s = store.get();
+    var s = store.get(), design = Object.assign({ pageColor: s.pageColor, accentColor: s.accentColor }, s.design), content = s.content[s.typeId] || {};
     store.set({ saving: true, error: null });
-    api.available().then(function (online) {
-      if (!online) { store.set({ saving: false, created: true, saved: null }); return; }   // demo zonder server: niets opslaan
-      return api.createQrCode({ id: s.draftId, typeId: s.typeId, content: s.content[s.typeId] || {}, design: Object.assign({ pageColor: s.pageColor, accentColor: s.accentColor }, s.design) })
-        .then(function (record) { store.set({ saving: false, created: true, saved: record, draftId: newDraftId() }); });   // volgende code krijgt weer een nieuw id
+    var job = s.editing
+      ? api.updateQrCode(s.editing.id, { content: content, design: design, keepPassword: true })
+      : api.createQrCode({ id: s.draftId, typeId: s.typeId, content: content, design: design });
+    job.then(function (record) {
+      store.set({ saving: false, created: true, saved: record, draftId: s.editing ? s.draftId : newDraftId() });   // nieuwe code: de volgende krijgt weer een eigen id
     }).catch(function () { store.set({ saving: false, error: 'design.saveError' }); });
+  },
+  // Bestaande code openen in de stappen (vanuit Mijn QR-codes)
+  startEdit: function (r) {
+    var d = Object.assign({}, r.design), c = Object.assign({}, store.get().content), tc = typeColors(r.typeId, store.get());
+    var pc = d.pageColor || tc[0], ac = d.accentColor || tc[1]; delete d.pageColor; delete d.accentColor;
+    c[r.typeId] = Object.assign({}, r.content);
+    store.set({ editing: { id: r.id, name: r.name || '', label: typeof MyCodes !== 'undefined' ? MyCodes.displayName(r) : (r.name || ''), hasPassword: !!r.hasPassword }, typeId: r.typeId, content: c, design: safeDesign(Object.assign({}, QR_DEFAULT_DESIGN, d)),
+      pageColor: pc, accentColor: ac, draftId: r.id, saved: null, created: false, error: null, step: 'content', hoverTypeId: null, hoverDesign: null, previewUnlocked: false, phoneView: 'preview' });
+  },
+  // Klaar met bewerken: terug naar een lege, nieuwe code
+  stopEdit: function () {
+    var s = store.get(), c = Object.assign({}, s.content); if (s.editing) delete c[s.typeId];
+    store.set({ editing: null, content: c, design: Object.assign({}, QR_DEFAULT_DESIGN), draftId: newDraftId(), saved: null, created: false, error: null, step: 'type', phoneView: 'preview' });
+  },
+  // Na het maken: meteen een nieuwe beginnen
+  startNew: function () {
+    var s = store.get(), c = Object.assign({}, s.content); delete c[s.typeId];
+    store.set({ editing: null, content: c, design: Object.assign({}, QR_DEFAULT_DESIGN), draftId: newDraftId(), saved: null, created: false, error: null, step: 'type', phoneView: 'preview' });
   }
 };

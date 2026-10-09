@@ -163,9 +163,9 @@
       "share": "Partager"
     },
     "video": {
-      "title": "Une journée au Café du Coin",
+      "title": "Leçon 1 : HTML – les bases",
       "meta": "Vidéo produit",
-      "desc": "Un coup d’œil dans les coulisses de notre café.",
+      "desc": "Apprends pas à pas à créer ton propre site.",
       "watch": "Voir la vidéo"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Publications",
       "tabAbout": "À propos",
       "tabPhotos": "Photos",
-      "time": "2 h"
+      "time": "2 h",
+      "post": "Tout juste sorti du four ce matin 🥐 Passez nous voir !"
     },
     "instagram": {
       "stats": "{posts} publications · {followers} abonnés",
@@ -200,7 +201,7 @@
       "message": "Message",
       "contact": "Contact",
       "category": "Photographe",
-      "bio": "Mariages, portraits et voyages à Paris"
+      "bio": "Mariages et portraits à Paris · Voyage autour du monde"
     },
     "social": {
       "sub": "Suivez-nous",
@@ -374,7 +375,50 @@
     "colType": "Type",
     "colLink": "Lien",
     "colCreated": "Créé le",
-    "colScans": "Scans"
+    "colScans": "Scans",
+    "new": "Nouveau QR code",
+    "count": "{n} QR codes",
+    "countOne": "1 QR code",
+    "demoNote": "Démo : tes QR codes sont enregistrés uniquement dans ce navigateur. Les scans ne sont pas comptés ici.",
+    "search": "Rechercher par nom ou lien",
+    "type": "Type",
+    "allTypes": "Tous les types",
+    "sort": "Trier",
+    "sort_new": "Plus récents",
+    "sort_old": "Plus anciens",
+    "sort_scans": "Plus de scans",
+    "sort_name": "Nom (A–Z)",
+    "static": "Fonctionne sans internet",
+    "copy": "Copier le lien",
+    "rename": "Renommer",
+    "made": "Créé le {date}",
+    "noScans": "aucun scan",
+    "scans": "scans",
+    "always": "Toujours actif",
+    "onLabel": "Actif",
+    "offLabel": "Désactivé",
+    "download": "Télécharger",
+    "pngHint": "pour écran et impression",
+    "svgHint": "pour l’imprimerie, net à toute taille",
+    "edit": "Modifier",
+    "more": "Plus",
+    "open": "Ouvrir le lien",
+    "delete": "Supprimer",
+    "emptyTitle": "Pas encore de QR codes",
+    "emptyText": "Tous tes QR codes apparaîtront ici. Tu pourras les télécharger, les modifier et les activer ou désactiver.",
+    "first": "Crée ton premier QR code",
+    "noneFound": "Aucun résultat",
+    "clear": "Effacer les filtres",
+    "copied": "Lien copié",
+    "renamed": "Nom enregistré",
+    "failed": "Ça n’a pas marché. Réessaie.",
+    "pausedToast": "Le QR code est désactivé",
+    "activeToast": "Le QR code est actif",
+    "deleteTitle": "Supprimer « {name} » ?",
+    "deleteText": "Le lien ne fonctionnera plus, les codes imprimés non plus. Action irréversible.",
+    "deleteTextStatic": "Le code continue de fonctionner, mais il ne sera plus dans ta liste. Action irréversible.",
+    "cancel": "Annuler",
+    "deleted": "QR code supprimé"
   },
   "appearance": {
     "title": "Couleurs",
@@ -737,6 +781,27 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/fleursdesmartyrs\", \"facebook\": \"https://facebook.com/fleursdesmartyrs\", \"whatsapp\": \"https://wa.me/33123456789\"}",
     "socials": "{\"instagram\": \"https://instagram.com/ecoledesurfocean\", \"facebook\": \"https://facebook.com/ecoledesurfocean\", \"tiktok\": \"https://tiktok.com/@ecoledesurfocean\", \"youtube\": \"https://youtube.com/@ecoledesurfocean\", \"linkedin\": \"https://linkedin.com/company/ecoledesurfocean\"}",
     "appIos": "https://apps.apple.com/app/formeplus",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.formeplus.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.formeplus.app",
+    "videoUrl": "https://ecoleweb.fr/lecon-1-html"
+  },
+  "visit": {
+    "locked": "Cette page est protégée",
+    "enter": "Saisis le mot de passe pour continuer.",
+    "open": "Ouvrir",
+    "wrong": "Mot de passe incorrect. Réessaie.",
+    "expired": "Ce QR code a expiré",
+    "expiredText": "Ce code n’est plus valable. Contacte le propriétaire.",
+    "paused": "Ce QR code est désactivé",
+    "pausedText": "Le propriétaire a désactivé ce code pour le moment. Réessaie plus tard.",
+    "notFound": "QR code introuvable"
+  },
+  "edit": {
+    "title": "Modifier : {name}",
+    "cancel": "Annuler",
+    "save": "Enregistrer les modifications",
+    "saved": "Modifications enregistrées.",
+    "toCodes": "Aller à Mes QR codes",
+    "pwKeep": "Laisse vide pour garder le mot de passe actuel",
+    "staticNote": "Attention : pour ce type, le contenu est dans le code lui-même. Après l’enregistrement, télécharge et imprime à nouveau le nouveau code."
   }
 }

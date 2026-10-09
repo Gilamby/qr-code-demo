@@ -119,13 +119,17 @@
     </main>
 
     <main class="canvas" id="myCodesView" hidden>
-      <section class="account">
-        <div class="glass bg-card">
-          <h2 data-i18n="nav.myCodes"></h2>
-          <p data-i18n="myCodes.lead"></p>
-          <div id="codesList"></div>
-        </div>
+      <section class="mc">
+        <header class="mc-head">
+          <div><h2 data-i18n="nav.myCodes"></h2><p class="mc-count" id="mcCount"></p></div>
+          <button type="button" class="btn primary" data-mc-new></button>
+        </header>
+        <p class="mc-demo" id="mcDemo" hidden></p>
+        <div class="mc-tools glass" id="mcTools"></div>
+        <div id="codesList" class="mc-list" aria-live="polite"></div>
       </section>
+      <dialog class="mc-dialog glass" id="mcDialog"></dialog>
+      <div class="mc-toast" id="mcToast" role="status" hidden></div>
     </main>
 
     <main class="canvas" id="emptyView" hidden>

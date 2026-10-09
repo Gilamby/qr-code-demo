@@ -163,9 +163,9 @@
       "share": "Delen"
     },
     "video": {
-      "title": "Een dag bij Café De Hoek",
+      "title": "Les 1: HTML – de basis",
       "meta": "Productvideo",
-      "desc": "Neem een kijkje achter de schermen bij ons café.",
+      "desc": "Leer stap voor stap je eigen website bouwen.",
       "watch": "Bekijk video"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Berichten",
       "tabAbout": "Info",
       "tabPhotos": "Foto's",
-      "time": "2 u"
+      "time": "2 u",
+      "post": "Vanochtend vers uit de oven 🥐 Kom gauw langs!"
     },
     "instagram": {
       "stats": "{posts} berichten · {followers} volgers",
@@ -200,7 +201,7 @@
       "message": "Bericht",
       "contact": "Contact",
       "category": "Fotograaf",
-      "bio": "Bruiloften, portretten en reizen in Utrecht"
+      "bio": "Bruiloften en portretten in Utrecht · Reist de wereld rond"
     },
     "social": {
       "sub": "Volg ons",
@@ -374,7 +375,50 @@
     "colType": "Type",
     "colLink": "Link",
     "colCreated": "Gemaakt",
-    "colScans": "Scans"
+    "colScans": "Scans",
+    "new": "Nieuwe QR-code",
+    "count": "{n} QR-codes",
+    "countOne": "1 QR-code",
+    "demoNote": "Demo: je QR-codes staan alleen in deze browser. Scans worden hier niet geteld.",
+    "search": "Zoek op naam of link",
+    "type": "Type",
+    "allTypes": "Alle types",
+    "sort": "Sorteren",
+    "sort_new": "Nieuwste eerst",
+    "sort_old": "Oudste eerst",
+    "sort_scans": "Meeste scans",
+    "sort_name": "Naam (A–Z)",
+    "static": "Werkt zonder internet",
+    "copy": "Link kopiëren",
+    "rename": "Naam wijzigen",
+    "made": "Gemaakt op {date}",
+    "noScans": "geen scans",
+    "scans": "scans",
+    "always": "Altijd aan",
+    "onLabel": "Aan",
+    "offLabel": "Uit",
+    "download": "Downloaden",
+    "pngHint": "voor scherm en print",
+    "svgHint": "voor drukwerk, scherp op elk formaat",
+    "edit": "Bewerken",
+    "more": "Meer",
+    "open": "Link openen",
+    "delete": "Verwijderen",
+    "emptyTitle": "Nog geen QR-codes",
+    "emptyText": "Hier zie je straks al je QR-codes. Je kunt ze downloaden, aanpassen en aan of uit zetten.",
+    "first": "Maak je eerste QR-code",
+    "noneFound": "Niets gevonden",
+    "clear": "Filters wissen",
+    "copied": "Link gekopieerd",
+    "renamed": "Naam opgeslagen",
+    "failed": "Dat lukte niet. Probeer het opnieuw.",
+    "pausedToast": "QR-code staat uit",
+    "activeToast": "QR-code staat aan",
+    "deleteTitle": "“{name}” verwijderen?",
+    "deleteText": "De link werkt daarna niet meer. Geprinte codes doen het dan ook niet meer. Dit kun je niet terugdraaien.",
+    "deleteTextStatic": "De code zelf blijft werken, maar hij staat niet meer in je lijst. Dit kun je niet terugdraaien.",
+    "cancel": "Annuleren",
+    "deleted": "QR-code verwijderd"
   },
   "appearance": {
     "title": "Kleuren",
@@ -737,6 +781,27 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/bloemenhuisdetulp\", \"facebook\": \"https://facebook.com/bloemenhuisdetulp\", \"whatsapp\": \"https://wa.me/31201234567\"}",
     "socials": "{\"instagram\": \"https://instagram.com/surfschoolnoordzee\", \"facebook\": \"https://facebook.com/surfschoolnoordzee\", \"tiktok\": \"https://tiktok.com/@surfschoolnoordzee\", \"youtube\": \"https://youtube.com/@surfschoolnoordzee\", \"linkedin\": \"https://linkedin.com/company/surfschoolnoordzee\"}",
     "appIos": "https://apps.apple.com/app/trainfit",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.trainfit.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.trainfit.app",
+    "videoUrl": "https://webschool.nl/les-1-html"
+  },
+  "visit": {
+    "locked": "Deze pagina is beveiligd",
+    "enter": "Vul het wachtwoord in om verder te gaan.",
+    "open": "Openen",
+    "wrong": "Onjuist wachtwoord. Probeer het opnieuw.",
+    "expired": "Deze QR-code is verlopen",
+    "expiredText": "Deze code is niet meer geldig. Neem contact op met de eigenaar.",
+    "paused": "Deze QR-code staat even uit",
+    "pausedText": "De eigenaar heeft deze code tijdelijk uitgezet. Probeer het later opnieuw.",
+    "notFound": "QR-code niet gevonden"
+  },
+  "edit": {
+    "title": "Bewerken: {name}",
+    "cancel": "Annuleren",
+    "save": "Wijzigingen opslaan",
+    "saved": "Wijzigingen opgeslagen.",
+    "toCodes": "Naar Mijn QR-codes",
+    "pwKeep": "Leeg laten = huidig wachtwoord houden",
+    "staticNote": "Let op: bij dit type zit de inhoud in de code zelf. Na het opslaan moet je de nieuwe code opnieuw downloaden en printen."
   }
 }

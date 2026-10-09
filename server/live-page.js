@@ -25,7 +25,7 @@ function publicContent(q, type) {
     let v = q.content[f.key];
     if (v == null || f.key === 'password') continue;
     if (f.type === 'file') {
-      try { const o = JSON.parse(v); v = JSON.stringify({ n: o.n, s: o.s, url: o.d ? 'q/' + q.id + '/file/' + f.key : '' }); } catch (e) { continue; }
+      try { const o = JSON.parse(v); v = JSON.stringify({ n: o.n, s: o.s, url: o.d ? 'q/' + q.id + '/file/' + f.key + (q.content.password ? '?t=' + require('./links').fileToken(q, f.key) : '') : '' }); } catch (e) { continue; }
     }
     out[f.key] = v;
   }

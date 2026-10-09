@@ -2,6 +2,19 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 9 okt 2026: Mijn QR-codes af
+
+- Kaart per code: QR-plaatje, naam (klik = wijzigen), type, datum, link + kopiëren, scans, aan/uit-schakelaar, Downloaden (PNG/SVG), Bewerken, menu (link openen, kopiëren, naam wijzigen, verwijderen met bevestiging).
+- Zoeken, filter op type, sorteren (nieuwste, oudste, meeste scans, naam).
+- Bewerken opent de code in de stappen Inhoud en Ontwerp; opslaan overschrijft dezelfde code (zelfde link, scans blijven). Type ligt vast. Wachtwoord leeg laten = het oude houden.
+- Server: `PUT /api/qr-codes/:id` (bewerken), `PATCH` (naam, aan/uit). Uitgezette code toont de bezoeker "staat even uit" (503) en telt niet. Scans worden nu ook per dag bewaard (alleen aantallen) voor de Statistieken.
+- Meldingen voor de bezoeker (wachtwoord, verlopen, uit, niet gevonden) in 10 talen.
+- Wifi-wachtwoord wordt niet meer versleuteld opgeslagen (het is inhoud van de code, geen beveiliging); alleen het paginawachtwoord wel.
+- Fout opgelost: vCard- en wifi-codes kregen voorbeeldtekst mee voor lege velden. Nu alleen wat de klant invult (vCard 3.0 met N, ORG, URL, ADR).
+- Bestanden van een beveiligde pagina alleen met een geheime sleutel op te halen.
+- Online demo zonder server: codes worden in de browser bewaard (localStorage), met een melding dat scans daar niet tellen.
+- Foto's in voorbeelden: WhatsApp, Instagram (profiel, 5 highlights, 8 berichten), Lijst met links, Social media (profielfoto), Apps (app-icoon).
+
 ## 8 okt 2026: eerste echte foto's in de voorbeelden
 
 - Bedrijf: winkelfoto bovenaan. vCard: portretfoto in het rondje. Social media: foto van de surfschool bovenaan, zacht overlopend in het donker.

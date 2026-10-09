@@ -163,9 +163,9 @@
       "share": "Ndaj"
     },
     "video": {
-      "title": "Një ditë në Kafe Qoshja",
+      "title": "Mësimi 1: HTML – bazat",
       "meta": "Video e produktit",
-      "desc": "Një vështrim prapa skenave në kafenenë tonë.",
+      "desc": "Mëso hap pas hapi të ndërtosh faqen tënde.",
       "watch": "Shiko videon"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Postime",
       "tabAbout": "Rreth",
       "tabPhotos": "Foto",
-      "time": "2 orë"
+      "time": "2 orë",
+      "post": "Sapo doli nga furra këtë mëngjes 🥐 Ejani të na takoni!"
     },
     "instagram": {
       "stats": "{posts} postime · {followers} ndjekës",
@@ -200,7 +201,7 @@
       "message": "Mesazh",
       "contact": "Kontakt",
       "category": "Fotograf",
-      "bio": "Dasma, portrete dhe udhëtime në Tiranë"
+      "bio": "Dasma dhe portrete në Tiranë · Udhëton nëpër botë"
     },
     "social": {
       "sub": "Na ndiqni",
@@ -374,7 +375,50 @@
     "colType": "Lloji",
     "colLink": "Lidhja",
     "colCreated": "Krijuar",
-    "colScans": "Skanime"
+    "colScans": "Skanime",
+    "new": "Kod i ri QR",
+    "count": "{n} kode QR",
+    "countOne": "1 kod QR",
+    "demoNote": "Demo: kodet e tua QR ruhen vetëm në këtë shfletues. Skanimet nuk numërohen këtu.",
+    "search": "Kërko me emër ose lidhje",
+    "type": "Lloji",
+    "allTypes": "Të gjitha llojet",
+    "sort": "Rendit",
+    "sort_new": "Më të rejat",
+    "sort_old": "Më të vjetrat",
+    "sort_scans": "Më shumë skanime",
+    "sort_name": "Emri (A–Z)",
+    "static": "Punon pa internet",
+    "copy": "Kopjo lidhjen",
+    "rename": "Ndrysho emrin",
+    "made": "Krijuar më {date}",
+    "noScans": "pa skanime",
+    "scans": "skanime",
+    "always": "Gjithmonë aktiv",
+    "onLabel": "Aktiv",
+    "offLabel": "Fikur",
+    "download": "Shkarko",
+    "pngHint": "për ekran dhe printim",
+    "svgHint": "për shtypshkronjë, i qartë në çdo madhësi",
+    "edit": "Ndrysho",
+    "more": "Më shumë",
+    "open": "Hap lidhjen",
+    "delete": "Fshi",
+    "emptyTitle": "Ende pa kode QR",
+    "emptyText": "Këtu do të shohësh të gjitha kodet e tua QR. Mund t’i shkarkosh, t’i ndryshosh dhe t’i ndezësh ose fikësh.",
+    "first": "Krijo kodin tënd të parë QR",
+    "noneFound": "Nuk u gjet asgjë",
+    "clear": "Pastro filtrat",
+    "copied": "Lidhja u kopjua",
+    "renamed": "Emri u ruajt",
+    "failed": "Nuk funksionoi. Provo përsëri.",
+    "pausedToast": "Kodi QR është i fikur",
+    "activeToast": "Kodi QR është aktiv",
+    "deleteTitle": "Të fshihet «{name}»?",
+    "deleteText": "Lidhja nuk do të punojë më, as kodet e printuara. Kjo nuk kthehet pas.",
+    "deleteTextStatic": "Kodi vetë vazhdon të punojë, por nuk do të jetë më në listën tënde. Kjo nuk kthehet pas.",
+    "cancel": "Anulo",
+    "deleted": "Kodi QR u fshi"
   },
   "appearance": {
     "title": "Ngjyrat",
@@ -737,7 +781,8 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/lulishtjablloku\", \"facebook\": \"https://facebook.com/lulishtjablloku\", \"whatsapp\": \"https://wa.me/35542223344\"}",
     "socials": "{\"instagram\": \"https://instagram.com/shkollasurfitvala\", \"facebook\": \"https://facebook.com/shkollasurfitvala\", \"tiktok\": \"https://tiktok.com/@shkollasurfitvala\", \"youtube\": \"https://youtube.com/@shkollasurfitvala\", \"linkedin\": \"https://linkedin.com/company/shkollasurfitvala\"}",
     "appIos": "https://apps.apple.com/app/stervitu",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.stervitu.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.stervitu.app",
+    "videoUrl": "https://shkollaweb.al/mesimi-1-html"
   },
   "fmt": {
     "months": [
@@ -786,5 +831,25 @@
       "sht",
       "die"
     ]
+  },
+  "visit": {
+    "locked": "Kjo faqe është e mbrojtur",
+    "enter": "Shkruaj fjalëkalimin për të vazhduar.",
+    "open": "Hap",
+    "wrong": "Fjalëkalim i gabuar. Provo përsëri.",
+    "expired": "Ky kod QR ka skaduar",
+    "expiredText": "Ky kod nuk është më i vlefshëm. Kontakto pronarin.",
+    "paused": "Ky kod QR është i fikur",
+    "pausedText": "Pronari e ka fikur përkohësisht këtë kod. Provo më vonë.",
+    "notFound": "Kodi QR nuk u gjet"
+  },
+  "edit": {
+    "title": "Duke ndryshuar: {name}",
+    "cancel": "Anulo",
+    "save": "Ruaj ndryshimet",
+    "saved": "Ndryshimet u ruajtën.",
+    "toCodes": "Te Kodet e mia QR",
+    "pwKeep": "Lëre bosh për të mbajtur fjalëkalimin aktual",
+    "staticNote": "Kujdes: te ky lloj përmbajtja është brenda vetë kodit. Pas ruajtjes, shkarko dhe printo sërish kodin e ri."
   }
 }

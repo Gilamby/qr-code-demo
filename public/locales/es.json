@@ -163,9 +163,9 @@
       "share": "Compartir"
     },
     "video": {
-      "title": "Un día en el Café La Esquina",
+      "title": "Lección 1: HTML – lo básico",
       "meta": "Vídeo del producto",
-      "desc": "Echa un vistazo entre bastidores en nuestro café.",
+      "desc": "Aprende paso a paso a crear tu propia web.",
       "watch": "Ver vídeo"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Publicaciones",
       "tabAbout": "Información",
       "tabPhotos": "Fotos",
-      "time": "2 h"
+      "time": "2 h",
+      "post": "Recién salido del horno esta mañana 🥐 ¡Pásate!"
     },
     "instagram": {
       "stats": "{posts} publicaciones · {followers} seguidores",
@@ -200,7 +201,7 @@
       "message": "Mensaje",
       "contact": "Contacto",
       "category": "Fotógrafo",
-      "bio": "Bodas, retratos y viajes en Barcelona"
+      "bio": "Bodas y retratos en Barcelona · Viajando por el mundo"
     },
     "social": {
       "sub": "Síguenos",
@@ -374,7 +375,50 @@
     "colType": "Tipo",
     "colLink": "Enlace",
     "colCreated": "Creado",
-    "colScans": "Escaneos"
+    "colScans": "Escaneos",
+    "new": "Nuevo código QR",
+    "count": "{n} códigos QR",
+    "countOne": "1 código QR",
+    "demoNote": "Demo: tus códigos QR solo se guardan en este navegador. Aquí no se cuentan los escaneos.",
+    "search": "Buscar por nombre o enlace",
+    "type": "Tipo",
+    "allTypes": "Todos los tipos",
+    "sort": "Ordenar",
+    "sort_new": "Más recientes",
+    "sort_old": "Más antiguos",
+    "sort_scans": "Más escaneos",
+    "sort_name": "Nombre (A–Z)",
+    "static": "Funciona sin internet",
+    "copy": "Copiar enlace",
+    "rename": "Cambiar nombre",
+    "made": "Creado el {date}",
+    "noScans": "sin escaneos",
+    "scans": "escaneos",
+    "always": "Siempre activo",
+    "onLabel": "Activo",
+    "offLabel": "Apagado",
+    "download": "Descargar",
+    "pngHint": "para pantalla e impresión",
+    "svgHint": "para imprenta, nítido a cualquier tamaño",
+    "edit": "Editar",
+    "more": "Más",
+    "open": "Abrir enlace",
+    "delete": "Eliminar",
+    "emptyTitle": "Aún no tienes códigos QR",
+    "emptyText": "Aquí verás todos tus códigos QR. Podrás descargarlos, cambiarlos y activarlos o apagarlos.",
+    "first": "Crea tu primer código QR",
+    "noneFound": "No se ha encontrado nada",
+    "clear": "Borrar filtros",
+    "copied": "Enlace copiado",
+    "renamed": "Nombre guardado",
+    "failed": "No ha funcionado. Inténtalo de nuevo.",
+    "pausedToast": "El código QR está apagado",
+    "activeToast": "El código QR está activo",
+    "deleteTitle": "¿Eliminar «{name}»?",
+    "deleteText": "El enlace dejará de funcionar, y los códigos impresos tampoco. No se puede deshacer.",
+    "deleteTextStatic": "El código seguirá funcionando, pero ya no estará en tu lista. No se puede deshacer.",
+    "cancel": "Cancelar",
+    "deleted": "Código QR eliminado"
   },
   "appearance": {
     "title": "Colores",
@@ -737,6 +781,27 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/floristerialarosa\", \"facebook\": \"https://facebook.com/floristerialarosa\", \"whatsapp\": \"https://wa.me/34952123456\"}",
     "socials": "{\"instagram\": \"https://instagram.com/escueladesurfola\", \"facebook\": \"https://facebook.com/escueladesurfola\", \"tiktok\": \"https://tiktok.com/@escueladesurfola\", \"youtube\": \"https://youtube.com/@escueladesurfola\", \"linkedin\": \"https://linkedin.com/company/escueladesurfola\"}",
     "appIos": "https://apps.apple.com/app/entrenaya",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.entrenaya.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.entrenaya.app",
+    "videoUrl": "https://escuelaweb.es/leccion-1-html"
+  },
+  "visit": {
+    "locked": "Esta página está protegida",
+    "enter": "Introduce la contraseña para continuar.",
+    "open": "Abrir",
+    "wrong": "Contraseña incorrecta. Inténtalo de nuevo.",
+    "expired": "Este código QR ha caducado",
+    "expiredText": "Este código ya no es válido. Ponte en contacto con el propietario.",
+    "paused": "Este código QR está desactivado",
+    "pausedText": "El propietario ha desactivado este código por ahora. Inténtalo más tarde.",
+    "notFound": "Código QR no encontrado"
+  },
+  "edit": {
+    "title": "Editando: {name}",
+    "cancel": "Cancelar",
+    "save": "Guardar cambios",
+    "saved": "Cambios guardados.",
+    "toCodes": "Ir a Mis códigos QR",
+    "pwKeep": "Déjalo vacío para mantener la contraseña actual",
+    "staticNote": "Ojo: en este tipo el contenido va dentro del propio código. Después de guardar, descarga e imprime el código nuevo."
   }
 }

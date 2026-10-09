@@ -163,9 +163,9 @@
       "share": "Teilen"
     },
     "video": {
-      "title": "Ein Tag im Café Eckhaus",
+      "title": "Lektion 1: HTML – die Grundlagen",
       "meta": "Produktvideo",
-      "desc": "Ein Blick hinter die Kulissen unseres Cafés.",
+      "desc": "Lerne Schritt für Schritt, deine eigene Website zu bauen.",
       "watch": "Video ansehen"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Beiträge",
       "tabAbout": "Info",
       "tabPhotos": "Fotos",
-      "time": "2 Std."
+      "time": "2 Std.",
+      "post": "Heute Morgen frisch aus dem Ofen 🥐 Kommt vorbei!"
     },
     "instagram": {
       "stats": "{posts} Beiträge · {followers} Follower",
@@ -200,7 +201,7 @@
       "message": "Nachricht",
       "contact": "Kontakt",
       "category": "Fotograf",
-      "bio": "Hochzeiten, Porträts und Reisen in München"
+      "bio": "Hochzeiten und Porträts in München · Reist um die Welt"
     },
     "social": {
       "sub": "Folgen Sie uns",
@@ -374,7 +375,50 @@
     "colType": "Typ",
     "colLink": "Link",
     "colCreated": "Erstellt",
-    "colScans": "Scans"
+    "colScans": "Scans",
+    "new": "Neuer QR-Code",
+    "count": "{n} QR-Codes",
+    "countOne": "1 QR-Code",
+    "demoNote": "Demo: Deine QR-Codes werden nur in diesem Browser gespeichert. Scans werden hier nicht gezählt.",
+    "search": "Nach Name oder Link suchen",
+    "type": "Typ",
+    "allTypes": "Alle Typen",
+    "sort": "Sortieren",
+    "sort_new": "Neueste zuerst",
+    "sort_old": "Älteste zuerst",
+    "sort_scans": "Meiste Scans",
+    "sort_name": "Name (A–Z)",
+    "static": "Funktioniert ohne Internet",
+    "copy": "Link kopieren",
+    "rename": "Umbenennen",
+    "made": "Erstellt am {date}",
+    "noScans": "keine Scans",
+    "scans": "Scans",
+    "always": "Immer an",
+    "onLabel": "An",
+    "offLabel": "Aus",
+    "download": "Herunterladen",
+    "pngHint": "für Bildschirm und Druck",
+    "svgHint": "für Druck, scharf in jeder Größe",
+    "edit": "Bearbeiten",
+    "more": "Mehr",
+    "open": "Link öffnen",
+    "delete": "Löschen",
+    "emptyTitle": "Noch keine QR-Codes",
+    "emptyText": "Hier siehst du bald alle deine QR-Codes. Du kannst sie herunterladen, ändern und an- oder ausschalten.",
+    "first": "Erstelle deinen ersten QR-Code",
+    "noneFound": "Nichts gefunden",
+    "clear": "Filter löschen",
+    "copied": "Link kopiert",
+    "renamed": "Name gespeichert",
+    "failed": "Das hat nicht geklappt. Bitte versuche es erneut.",
+    "pausedToast": "QR-Code ist aus",
+    "activeToast": "QR-Code ist an",
+    "deleteTitle": "„{name}“ löschen?",
+    "deleteText": "Der Link funktioniert danach nicht mehr – auch gedruckte Codes nicht. Das kannst du nicht rückgängig machen.",
+    "deleteTextStatic": "Der Code selbst funktioniert weiter, steht aber nicht mehr in deiner Liste. Das kannst du nicht rückgängig machen.",
+    "cancel": "Abbrechen",
+    "deleted": "QR-Code gelöscht"
   },
   "appearance": {
     "title": "Farben",
@@ -737,6 +781,27 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/blumenhauskastanie\", \"facebook\": \"https://facebook.com/blumenhauskastanie\", \"whatsapp\": \"https://wa.me/493012345678\"}",
     "socials": "{\"instagram\": \"https://instagram.com/surfschuleostsee\", \"facebook\": \"https://facebook.com/surfschuleostsee\", \"tiktok\": \"https://tiktok.com/@surfschuleostsee\", \"youtube\": \"https://youtube.com/@surfschuleostsee\", \"linkedin\": \"https://linkedin.com/company/surfschuleostsee\"}",
     "appIos": "https://apps.apple.com/app/fitplaner",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplaner.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplaner.app",
+    "videoUrl": "https://webschule.de/lektion-1-html"
+  },
+  "visit": {
+    "locked": "Diese Seite ist geschützt",
+    "enter": "Gib das Passwort ein, um fortzufahren.",
+    "open": "Öffnen",
+    "wrong": "Falsches Passwort. Bitte versuche es erneut.",
+    "expired": "Dieser QR-Code ist abgelaufen",
+    "expiredText": "Dieser Code ist nicht mehr gültig. Bitte wende dich an den Inhaber.",
+    "paused": "Dieser QR-Code ist ausgeschaltet",
+    "pausedText": "Der Inhaber hat diesen Code vorübergehend ausgeschaltet. Bitte versuche es später erneut.",
+    "notFound": "QR-Code nicht gefunden"
+  },
+  "edit": {
+    "title": "Bearbeiten: {name}",
+    "cancel": "Abbrechen",
+    "save": "Änderungen speichern",
+    "saved": "Änderungen gespeichert.",
+    "toCodes": "Zu Meine QR-Codes",
+    "pwKeep": "Leer lassen = aktuelles Passwort behalten",
+    "staticNote": "Hinweis: Bei diesem Typ steckt der Inhalt im Code selbst. Lade den neuen Code nach dem Speichern erneut herunter und drucke ihn neu."
   }
 }

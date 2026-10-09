@@ -16,12 +16,12 @@ var Stepper = {
         (st === 'done' ? '<span class="sr"> · ' + t('steps.completed') + '</span>' : '') + '</button></li>';
     }).join('');
   },
-  bind: function (el) { el.addEventListener('click', function (e) { var b = e.target.closest('.done [data-step]'); if (b) actions.goTo(b.getAttribute('data-step')); }); }
+  bind: function (el) { el.addEventListener('click', function (e) { var b = e.target.closest('.done [data-step]'); if (!b) return; var to = b.getAttribute('data-step'); if (to === 'type' && store.get().editing) return; /* type ligt vast bij bewerken */ actions.goTo(to); }); }
 };
 
 var HERO_TEXT = { type: ['hero.title', 'hero.lead'], content: ['content.title', 'content.lead'], design: ['design.title', 'design.lead'] };
 function renderHero(state) {
-  document.getElementById('heroTitle').textContent = t(HERO_TEXT[state.step][0]);
+  document.getElementById('heroTitle').textContent = state.editing ? t('edit.title', { name: state.editing.label || typeName(getType(state.typeId)) }) : t(HERO_TEXT[state.step][0]);
 }
 
 var TypeGrid = {
@@ -43,11 +43,13 @@ var ContentForm = {
     var type = getType(state.typeId), values = state.content[type.id] || {};
     el.innerHTML = '<div class="chosen"><span class="thumb">' + svg(type.icon, 1.8) + '</span>' +
       '<span><b>' + typeName(type) + '</b><small>' + typeDesc(type) + '</small></span>' +
-      '<button class="link-btn" type="button" data-go="type">' + t('actions.change') + '</button></div>' +
+      (state.editing ? '' : '<button class="link-btn" type="button" data-go="type">' + t('actions.change') + '</button>') + '</div>' +
+      (state.editing && /^(contact|wifi)$/.test(type.contentType) ? '<p class="edit-note">' + t('edit.staticNote') + '</p>' : '') +
       '<form class="form" id="contentForm" novalidate>' + (function () { var render = function (f) {
         var id = 'f-' + type.id + '-' + f.key, label = t(f.label, { n: f.n }), v = values[f.key] != null ? values[f.key] : '';
         if (f.required) label += '<span class="req" aria-hidden="true">*</span>';
-        var cls = f.advanced ? ' opt' : '', attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v ? '' : ' hidden') : '';
+        var keepPw = f.type === 'password' && state.editing && state.editing.hasPassword;   // bestaand wachtwoord: leeg laten = houden
+        var cls = f.advanced ? ' opt' : '', attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v || keepPw ? '' : ' hidden') : '';
         var rm = f.advanced ? '<button type="button" class="opt-x" data-opt-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>' : '';
         var wrap = function (inner) { return '<div class="field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small></div>'; };
         if (f.type === 'toggle') return '<div class="field toggle-field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label class="tg"><input type="checkbox" id="' + id + '" name="' + f.key + '"' + (v ? ' checked' : '') + '><span class="sw-ui"></span><span>' + label + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '</span></label></div>';
@@ -60,7 +62,7 @@ var ContentForm = {
         if (f.type === 'socials') return wrap(SocialsEditor.html(f, id, v));
         var input = f.type === 'select'
           ? '<select id="' + id + '" name="' + f.key + '">' + f.options.map(function (o) { var cur = v || f.sample; return '<option value="' + o.value + '"' + (o.value === cur ? ' selected' : '') + '>' + resolveSample(o.label) + '</option>'; }).join('') + '</select>'
-          : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(resolveSample(f.sample)) + '"' +
+          : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(keepPw ? t('edit.pwKeep') : resolveSample(f.sample)) + '"' +
             (f.type === 'date' ? ' min="' + new Date().toISOString().slice(0, 10) + '"' : '') + (f.min != null ? ' min="' + f.min + '"' : '') + (f.max != null ? ' max="' + f.max + '"' : '') +
             ' autocomplete="' + (f.type === 'password' ? 'new-password' : 'off') + '">';
         if (f.type === 'password') input = '<input class="sr" type="text" name="" autocomplete="username" tabindex="-1" aria-hidden="true" data-pw-user value="' + esc(pwUser(values)) + '">' + '<div class="pw-wrap">' + input + '<button type="button" class="pw-eye" data-eye aria-pressed="false" aria-label="' + esc(t('pw.show')) + '">' +
@@ -113,16 +115,20 @@ var ContentForm = {
 var Actions = {
   html: function (state) {
     var i = STEPS.indexOf(state.step), last = i === STEPS.length - 1;
-    var back = i > 0 ? '<button type="button" class="btn ghost" data-go="' + STEPS[i - 1] + '">' + BACK + t('actions.back') + '</button>'
-                     : '<span class="picked">' + t('panel.selected', { type: '<b>' + esc(typeName(getType(state.typeId))) + '</b>' }) + '</span>';
+    var ed = state.editing;
+    var back = i > 0 && !(ed && STEPS[i - 1] === 'type') ? '<button type="button" class="btn ghost" data-go="' + STEPS[i - 1] + '">' + BACK + t('actions.back') + '</button>'
+             : ed ? '<button type="button" class="btn ghost" data-cancel-edit>' + BACK + t('edit.cancel') + '</button>'
+             : '<span class="picked">' + t('panel.selected', { type: '<b>' + esc(typeName(getType(state.typeId))) + '</b>' }) + '</span>';
+    var shown = state.saved && !/^(contact|wifi)$/.test(getType(state.typeId).contentType);   // vaste codes hebben geen link
     var next = last
       ? (state.created
-          ? '<span class="done-msg" role="status">' + CHECK + '<span>' + t('design.done') + (state.saved ? ' <a href="' + esc(state.saved.shortUrl) + '" target="_blank" rel="noopener">' + esc(state.saved.shortUrl.replace(/^https?:\/\//, '')) + '</a>' : '<small>' + t('design.demoMode') + '</small>') + '</span></span>' +
+          ? '<span class="done-msg" role="status">' + CHECK + '<span>' + t(ed ? 'edit.saved' : 'design.done') + (shown ? ' <a href="' + esc(state.saved.shortUrl) + '" target="_blank" rel="noopener">' + esc(state.saved.shortUrl.replace(/^https?:\/\//, '')) + '</a>' : '') + '</span></span>' +
+            '<button type="button" class="btn ghost" data-to-codes>' + t('nav.myCodes') + '</button>' +
             '<button type="button" class="btn ghost" data-dl="svg">SVG</button><button type="button" class="btn primary" data-dl="png">' + t('dz.lbl.download') + '</button>'
           : (state.error ? '<span class="save-error" role="alert">' + t(state.error) + '</span>' : '') +
-            '<button type="button" class="btn primary" data-create' + (state.saving ? ' disabled' : '') + '>' + t(state.saving ? 'design.saving' : (state.error ? 'design.retry' : 'actions.create')) + '</button>')
+            '<button type="button" class="btn primary" data-create' + (state.saving ? ' disabled' : '') + '>' + t(state.saving ? 'design.saving' : (state.error ? 'design.retry' : (ed ? 'edit.save' : 'actions.create'))) + '</button>')
       : '<button type="button" class="btn primary" data-go="' + STEPS[i + 1] + '">' + t('actions.continue') + CHEV.replace('class="chev"', '') + '</button>';
-    return '<div class="actions">' + back + '<span class="spacer"></span>' + next + '</div>';
+    return '<div class="actions' + (last && state.created ? ' is-done' : '') + '">' + back + '<span class="spacer"></span>' + next + '</div>';
   }
 };
 

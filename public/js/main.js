@@ -37,6 +37,8 @@
     }
     var dl = e.target.closest('[data-dl]'); if (dl) return DesignPanel.download(dl.getAttribute('data-dl'));
     if (e.target.closest('[data-create]')) actions.create();
+    if (e.target.closest('[data-cancel-edit]')) { actions.stopEdit(); return goToPage('myCodes'); }
+    if (e.target.closest('[data-to-codes]')) { if (store.get().editing) actions.stopEdit(); else actions.startNew(); return goToPage('myCodes'); }
   });
   // Schakelaar boven de telefoon: Voorbeeld | QR-code (alleen in stap 2 en 3)
   var pvToggle = document.getElementById('pvToggle');
@@ -106,6 +108,7 @@
 
   store.subscribe(function (state, prev) {
     var stepChanged = state.step !== prev.step, typeChanged = state.typeId !== prev.typeId;
+    if (state.editing !== prev.editing) { renderAll(state, false); return; }   // bewerken gestart of gestopt: alles opnieuw
     if (state.previewUnlocked !== prev.previewUnlocked) { drawPhone(state); if (state.step === 'content') return; }
     if (state.hoverTheme !== prev.hoverTheme || state.pageColor !== prev.pageColor || state.accentColor !== prev.accentColor) { drawPhone(state); if (state.step === 'content') return; }
     if (state.step === 'type' && state.hoverTypeId !== prev.hoverTypeId && !typeChanged) { drawPhone(state); return; }

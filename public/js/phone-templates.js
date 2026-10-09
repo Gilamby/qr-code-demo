@@ -124,7 +124,7 @@ var PHONE = (function () {
         : (c.message ? '<div class="wa-out">' + esc(c.message) + '<time>' + liveClock(0) + ' <em>✓✓</em></time></div>'
                      : '<div class="wa-out sk-bub"><i class="sk"></i><i class="sk" style="width:70%"></i></div>');
       return '<div class="ph ph-wa">' + statusBar(true) +
-        '<div class="wa-head">' + ic('back') + '<span class="wa-av">' + ic('user') + '</span>' +
+        '<div class="wa-head">' + ic('back') + '<span class="wa-av">' + (exPhoto('whatsapp', ex) ? '<img src="' + exPhoto('whatsapp', ex) + '" alt="">' : ic('user')) + '</span>' +
           '<span class="wa-name"><b>' + v(c.phone, '110px') + '</b><small>' + esc(t('pv.whatsapp.online')) + '</small></span>' +
           ic('video') + ic('call') + ic('dots', 'i dots') + '</div>' +
         '<div class="wa-body"><div class="wa-pill">' + ic('lock', 'i s') + esc(t('pv.whatsapp.encrypted')) + '</div>' + msgs + '</div>' +
@@ -137,17 +137,22 @@ var PHONE = (function () {
       var u = c.username ? c.username.replace(/^@/, '') : '';
       var stat = function (n, k) { return '<span><b>' + (ex ? n : '<i class="sk" style="width:26px"></i>') + '</b><small>' + esc(t('pv.instagram.' + k)) + '</small></span>'; };
       var tiles = ['#f58529,#dd2a7b', '#515bd4,#8134af', '#2bb5f0,#1e3a8a', '#fcd34d,#f97316', '#10b981,#0f766e', '#f472b6,#7c3aed'];
+      // Voorbeeldfoto's (stap 1): profielfoto, 5 highlights en 8 berichten in assets/previews/ig/
+      var me = exPhoto('instagram', ex), pics = me ? [1, 2, 3, 4, 5, 6, 7, 8].map(function (i) { return 'assets/previews/ig/' + i + '.jpg'; }) : null;
+      var face = function (letter) { return me ? '<img src="' + me + '" alt="">' : letter; };
+      var hl = function (i) { return pics ? ' style="background:#ddd url(assets/previews/ig/h' + i + '.jpg) center / cover"' : (ex ? ' style="background:linear-gradient(135deg,' + tiles[i] + ')"' : ''); };
       return '<div class="ph ph-ig">' + statusBar() +
         '<div class="ig-head">' + ic('back') + '<b>' + v(u, '110px') + (ex ? '<span class="ig-ver">' + ic('check', 'i') + '</span>' : '') + '</b>' + ic('bell') + ic('dots', 'i dots') + '</div>' +
-        '<div class="ig-prof"><span class="ig-av"><span>' + (u ? esc(u[0].toUpperCase()) : ic('user')) + '</span></span>' +
+        '<div class="ig-prof"><span class="ig-av"><span>' + face(u ? esc(u[0].toUpperCase()) : ic('user')) + '</span></span>' +
           '<div class="ig-stats">' + stat('86', 'posts') + stat(i18n.fmt.compact(3100), 'followers') + stat('312', 'following') + '</div></div>' +
         '<div class="ig-bio"><b>' + (ex ? esc(t('sample.igName')) : v(u, '40%')) + '</b>' +
-          (ex ? '<small>' + esc(t('pv.instagram.category')) + '</small><p>' + esc(t('pv.instagram.bio')) + ' 📸</p><a>' + esc(t('sample.igSite')) + '</a>' : '<i class="sk" style="width:85%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
+          (ex ? '<small>' + esc(t('pv.instagram.category')) + '</small><p>' + esc(t('pv.instagram.bio')) + ' 🌍</p><a>' + esc(t('sample.igSite')) + '</a>' : '<i class="sk" style="width:85%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
         '<div class="ig-btns"><span class="pri">' + esc(t('pv.instagram.cta')) + '</span><span>' + esc(t('pv.instagram.message')) + '</span><span>' + esc(t('pv.instagram.contact')) + '</span><span class="ic">' + ic('addp') + '</span></div>' +
-        '<div class="ig-hl">' + [1, 2, 3, 4, 5].map(function (i) { return '<span' + (ex ? ' style="background:linear-gradient(135deg,' + tiles[i] + ')"' : '') + '></span>'; }).join('') + '</div>' +
+        '<div class="ig-hl">' + [1, 2, 3, 4, 5].map(function (i) { return '<span' + hl(i) + '></span>'; }).join('') + '</div>' +
         '<div class="ig-tabs"><span class="on">' + ic('grid') + '</span><span>' + ic('reel') + '</span><span>' + ic('tag') + '</span></div>' +
-        '<div class="ig-grid">' + tiles.map(function (g) { return '<span' + (ex ? ' style="background:linear-gradient(135deg,' + g + ')"' : '') + '></span>'; }).join('') + '</div>' +
-        '<div class="ig-nav">' + ic('home') + ic('search') + ic('plus') + ic('reel') + '<span class="ig-me">' + (u ? esc(u[0].toUpperCase()) : '') + '</span></div>' +
+        '<div class="ig-grid">' + (pics ? pics.map(function (src) { return '<span style="background-image:url(' + src + ')"></span>'; }).join('')
+          : tiles.map(function (g) { return '<span' + (ex ? ' style="background:linear-gradient(135deg,' + g + ')"' : '') + '></span>'; }).join('')) + '</div>' +
+        '<div class="ig-nav">' + ic('home') + ic('search') + ic('plus') + ic('reel') + '<span class="ig-me">' + face(u ? esc(u[0].toUpperCase()) : '') + '</span></div>' +
       '</div>';
     },
 
@@ -210,10 +215,10 @@ var PHONE = (function () {
       var dom = function (k) { var val = clean(c[k]); return /\.[a-z]{2,}/i.test(val) ? val.split('/')[0] : ''; };
       var first = c[keys[0]];
       return '<div class="ph ph-lk2">' +
-        '<div class="lk2-cover">' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
-        '<div class="lk2-prof"><span class="lk2-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span>' +
+        '<div class="lk2-cover"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-cover.jpg) center / cover"' : '') + '>' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
+        '<div class="lk2-prof"><span class="lk2-av">' + (exPhoto('links', ex) ? '<img src="' + exPhoto('links', ex) + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span>' +
           '<h4>' + (c.title ? esc(c.title) : sk('55%')) + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p></div>' +
-        '<div class="lk2-feat lk2-row" data-i="0"><span class="lk2-img"><i>' + ic('fwd') + '</i></span>' +
+        '<div class="lk2-feat lk2-row" data-i="0"><span class="lk2-img"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(assets/previews/links-feat.jpg) center 80% / cover"' : '') + '><i>' + ic('fwd') + '</i></span>' +
           '<span class="lk2-txt"><small>' + esc(t('pv.links.featured')) + '</small><b>' + (first ? esc(label(keys[0])) : sk('60%')) + '</b>' + (dom(keys[0]) ? '<em>' + esc(dom(keys[0])) + '</em>' : '') + '</span></div>' +
         '<div class="lk2-list">' + keys.slice(1).map(function (k, j) {
           return '<span class="lk2-row" data-i="' + (j + 1) + '"><i class="lk2-th t' + j + '"></i><span><b>' + (c[k] ? esc(label(k)) : sk('55%')) + '</b>' + (dom(k) ? '<small>' + esc(dom(k)) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
@@ -243,7 +248,7 @@ var PHONE = (function () {
       var d = domain(c.url);
       return '<div class="ph ph-vid">' + statusBar(true) +
         '<div class="vd-top">' + ic('back') + '<span>' + v(d, '100px') + '</span>' + ic('share') + '</div>' +
-        '<div class="vd-player"><span class="vd-play">' + ic('play') + '</span>' +
+        '<div class="vd-player"' + (exPhoto('video', ex) ? ' style="background-image:url(' + exPhoto('video', ex) + ')"' : '') + '><span class="vd-play">' + ic('play') + '</span>' +
           '<div class="vd-bar"><i></i></div><small class="vd-time">0:24 / 1:42</small></div>' +
         '<div class="vd-info"><h4>' + v(c.title, '75%') + '</h4>' +
           '<div class="vd-ch"><span class="vd-av">' + (d ? esc(d[0].toUpperCase()) : '') + '</span><b>' + v(d, '90px') + '</b></div>' +
@@ -273,18 +278,19 @@ var PHONE = (function () {
 
     /* ---------- Facebook: de pagina zoals in de app ---------- */
     facebook: function (c, ex) {
-      var name = c.pageName;
+      var name = c.pageName, fbLogo = exPhoto('facebook', ex);   // voorbeeld: logo, omslagfoto en een bericht met foto
       return '<div class="ph ph-fb">' + statusBar() +
         '<div class="fb-nav"><b>facebook</b><span>' + ic('search') + ic('chat') + '</span></div>' +
-        '<div class="fb-cover"></div>' +
-        '<div class="fb-prof"><span class="fb-av">' + (name ? esc(initials(name)) : ic('user')) + '</span>' +
+        '<div class="fb-cover"' + (fbLogo ? ' style="background:#ccc url(assets/previews/facebook-cover.jpg) center / cover"' : '') + '></div>' +
+        '<div class="fb-prof"><span class="fb-av">' + (fbLogo ? '<img src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : ic('user'))) + '</span>' +
           '<h4>' + v(name, '55%') + (ex ? '<span class="fb-ver">' + ic('check') + '</span>' : '') + '</h4>' +
           '<small>' + (ex ? esc(t('pv.facebook.likes', { count: i18n.fmt.num(12400) })) + ' · ' + esc(t('pv.facebook.followers', { count: i18n.fmt.num(13100) })) : '<i class="sk" style="width:70%"></i>') + '</small>' +
           (c.description ? '<p>' + esc(c.description) + '</p>' : '') +
           '<div class="fb-btns"><span class="pri">' + ic('like') + esc(t('pv.facebook.like')) + '</span><span>' + ic('chat') + esc(t('pv.facebook.message')) + '</span><span class="sq">' + ic('dots', 'i dots') + '</span></div></div>' +
         '<div class="fb-tabs"><span class="on">' + esc(t('pv.facebook.tabPosts')) + '</span><span>' + esc(t('pv.facebook.tabAbout')) + '</span><span>' + esc(t('pv.facebook.tabPhotos')) + '</span></div>' +
-        '<div class="fb-post"><div class="fb-ph"><span class="fb-av s">' + (name ? esc(initials(name)) : '') + '</span><span><b>' + v(name, '90px') + '</b><small>' + esc(t('pv.facebook.time')) + '</small></span></div>' +
-          '<i class="sk" style="width:90%"></i><i class="sk" style="width:60%"></i><div class="fb-img"></div></div>' +
+        '<div class="fb-post"><div class="fb-ph"><span class="fb-av s">' + (fbLogo ? '<img src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : '')) + '</span><span><b>' + v(name, '90px') + '</b><small>' + esc(t('pv.facebook.time')) + '</small></span></div>' +
+          (fbLogo ? '<p class="fb-text">' + esc(t('pv.facebook.post')) + '</p><div class="fb-img" style="background:#ccc url(assets/previews/facebook-post.jpg) center / cover"></div>'
+            : '<i class="sk" style="width:90%"></i><i class="sk" style="width:60%"></i><div class="fb-img"></div>') + '</div>' +
       '</div>';
     },
 
@@ -294,7 +300,7 @@ var PHONE = (function () {
       var handle = function (url) { var m = String(url || '').replace(/\/$/, '').split('/').pop(); return m ? (m[0] === '@' ? m : '@' + m) : ''; };
       var hero = exPhoto('social', ex);
       return '<div class="ph ph-sx' + (hero ? ' has-hero' : '') + '">' + (hero ? '<div class="sx-hero" style="background-image:url(' + hero + ')"></div>' : '<i class="sx-glow a"></i><i class="sx-glow b"></i>') + statusBar(true) +
-        '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span></span>' +
+        '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (hero ? '<img src="assets/previews/social-avatar.jpg" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span></span>' +
           '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4>' +
           '<p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:60%;margin:0 auto"></i>') + '</p>' +
           (nets.length ? '<div class="sx-quick">' + nets.slice(0, 5).map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') + '</div>' +
@@ -323,7 +329,7 @@ var PHONE = (function () {
       var list = FILES.list(c.dishes);
       var price = function (p) { var n = parseFloat(String(p || '').replace(',', '.')); return isNaN(n) ? '' : i18n.fmt.eur(n); };
       return '<div class="ph ph-menu">' +
-        '<div class="mn-cover">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : '<svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="140" fill="#3b2a20"/><circle cx="160" cy="92" r="70" fill="#f4efe6"/><circle cx="160" cy="92" r="52" fill="#fff"/><circle cx="148" cy="84" r="14" fill="#e07a2f"/><circle cx="172" cy="96" r="12" fill="#6a994e"/><circle cx="160" cy="104" r="9" fill="#bc4749"/><path d="M60 20v60M52 20v22a8 8 0 0 0 16 0V20M262 20c10 10 12 30 0 40v30" stroke="#d9c7a7" stroke-width="5" fill="none" stroke-linecap="round"/></svg>') +
+        '<div class="mn-cover">' + (c.cover || exPhoto('menu', ex) ? '<img src="' + (c.cover || exPhoto('menu', ex)) + '" alt="">' : '<svg viewBox="0 0 320 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="320" height="140" fill="#3b2a20"/><circle cx="160" cy="92" r="70" fill="#f4efe6"/><circle cx="160" cy="92" r="52" fill="#fff"/><circle cx="148" cy="84" r="14" fill="#e07a2f"/><circle cx="172" cy="96" r="12" fill="#6a994e"/><circle cx="160" cy="104" r="9" fill="#bc4749"/><path d="M60 20v60M52 20v22a8 8 0 0 0 16 0V20M262 20c10 10 12 30 0 40v30" stroke="#d9c7a7" stroke-width="5" fill="none" stroke-linecap="round"/></svg>') +
           statusBar(true) + '</div>' +
         '<div class="mn-head"><h4>' + v(c.restaurant, '55%') + '</h4><span class="mn-chip">' + esc(t('pv.menu.chip')) + '</span></div>' +
         '<div class="mn-list">' + (list.length ? list.slice(0, 7).map(function (d) { return '<div class="mn-row"><b>' + esc(d.n) + '</b><i></i><span>' + price(d.p) + '</span></div>'; }).join('')
@@ -345,7 +351,7 @@ var PHONE = (function () {
       var stores = (ex || c.ios ? badge('ios') : '') + (ex || c.android ? badge('android') : '');
       return '<div class="ph ph-as">' + statusBar() +
         '<div class="as-nav">' + ic('back') + '<span>' + esc(t('pv.apps.search')) + '</span></div>' +
-        '<div class="as-top"><span class="as-icon">' + (c.logo ? '<img src="' + c.logo + '" alt="">' : (name ? esc(initials(name)) : ic('img'))) + '</span>' +
+        '<div class="as-top"><span class="as-icon">' + (c.logo || exPhoto('apps', ex) ? '<img src="' + (c.logo || exPhoto('apps', ex)) + '" alt="">' : (name ? esc(initials(name)) : ic('img'))) + '</span>' +
           '<div class="as-meta"><b>' + v(name, '70%') + '</b><small>' + (c.description ? esc(c.description) : '<i class="sk" style="width:85%"></i>') + '</small>' +
           '<div class="as-get"><span>' + esc(t('pv.apps.download')) + '</span>' + ic('share') + '</div></div></div>' +
         '<div class="as-shots">' + [0, 1, 2].map(shot).join('') + '</div>' +

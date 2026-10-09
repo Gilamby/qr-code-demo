@@ -31,10 +31,20 @@ module.exports = {
     if (data.qrCodes.length !== before) { save(); return true; }
     return false;
   },
+  updateQrCode: (id, patch) => {
+    const i = data.qrCodes.findIndex((q) => q.id === id);
+    if (i < 0) return null;
+    data.qrCodes[i] = Object.assign({}, data.qrCodes[i], patch); save();
+    return data.qrCodes[i];
+  },
+  // Scan tellen: totaal + per dag (alleen aantallen, geen IP-adres, apparaat of locatie)
   addScan: (id) => {
     const q = data.qrCodes.find((x) => x.id === id);
     if (!q) return null;
-    q.scans += 1; q.lastScanAt = new Date().toISOString(); save();
+    const now = new Date(), day = now.toISOString().slice(0, 10);
+    q.scans += 1; q.lastScanAt = now.toISOString();
+    q.daily = Object.assign({}, q.daily); q.daily[day] = (q.daily[day] || 0) + 1;
+    save();
     return q;
   },
   getMe: () => data.me,

@@ -163,9 +163,9 @@
       "share": "Share"
     },
     "video": {
-      "title": "A day at The Corner Café",
+      "title": "Lesson 1: HTML – the basics",
       "meta": "Product video",
-      "desc": "Take a look behind the scenes at our café.",
+      "desc": "Learn to build your own website, step by step.",
       "watch": "Watch video"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Posts",
       "tabAbout": "About",
       "tabPhotos": "Photos",
-      "time": "2h"
+      "time": "2h",
+      "post": "Fresh from the oven this morning 🥐 Come and say hi!"
     },
     "instagram": {
       "stats": "{posts} posts · {followers} followers",
@@ -200,7 +201,7 @@
       "message": "Message",
       "contact": "Contact",
       "category": "Photographer",
-      "bio": "Weddings, portraits and travel in London"
+      "bio": "Weddings and portraits in London · Travelling the world"
     },
     "social": {
       "sub": "Follow us",
@@ -374,7 +375,50 @@
     "colType": "Type",
     "colLink": "Link",
     "colCreated": "Created",
-    "colScans": "Scans"
+    "colScans": "Scans",
+    "new": "New QR code",
+    "count": "{n} QR codes",
+    "countOne": "1 QR code",
+    "demoNote": "Demo: your QR codes are only stored in this browser. Scans are not counted here.",
+    "search": "Search by name or link",
+    "type": "Type",
+    "allTypes": "All types",
+    "sort": "Sort",
+    "sort_new": "Newest first",
+    "sort_old": "Oldest first",
+    "sort_scans": "Most scans",
+    "sort_name": "Name (A–Z)",
+    "static": "Works offline",
+    "copy": "Copy link",
+    "rename": "Rename",
+    "made": "Created {date}",
+    "noScans": "no scans",
+    "scans": "scans",
+    "always": "Always on",
+    "onLabel": "On",
+    "offLabel": "Off",
+    "download": "Download",
+    "pngHint": "for screen and print",
+    "svgHint": "for print, sharp at any size",
+    "edit": "Edit",
+    "more": "More",
+    "open": "Open link",
+    "delete": "Delete",
+    "emptyTitle": "No QR codes yet",
+    "emptyText": "All your QR codes will show up here. You can download them, change them and switch them on or off.",
+    "first": "Create your first QR code",
+    "noneFound": "Nothing found",
+    "clear": "Clear filters",
+    "copied": "Link copied",
+    "renamed": "Name saved",
+    "failed": "That didn't work. Please try again.",
+    "pausedToast": "QR code is off",
+    "activeToast": "QR code is on",
+    "deleteTitle": "Delete “{name}”?",
+    "deleteText": "The link will stop working, so printed codes won't work either. You can't undo this.",
+    "deleteTextStatic": "The code itself keeps working, but it won't be in your list any more. You can't undo this.",
+    "cancel": "Cancel",
+    "deleted": "QR code deleted"
   },
   "appearance": {
     "title": "Colours",
@@ -737,6 +781,27 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/nealstreetflowers\", \"facebook\": \"https://facebook.com/nealstreetflowers\", \"whatsapp\": \"https://wa.me/442079460123\"}",
     "socials": "{\"instagram\": \"https://instagram.com/cornwallsurfschool\", \"facebook\": \"https://facebook.com/cornwallsurfschool\", \"tiktok\": \"https://tiktok.com/@cornwallsurfschool\", \"youtube\": \"https://youtube.com/@cornwallsurfschool\", \"linkedin\": \"https://linkedin.com/company/cornwallsurfschool\"}",
     "appIos": "https://apps.apple.com/app/fitplan",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
+    "videoUrl": "https://codeclass.co.uk/lesson-1-html"
+  },
+  "visit": {
+    "locked": "This page is protected",
+    "enter": "Enter the password to continue.",
+    "open": "Open",
+    "wrong": "Wrong password. Please try again.",
+    "expired": "This QR code has expired",
+    "expiredText": "This code is no longer valid. Please contact the owner.",
+    "paused": "This QR code is switched off",
+    "pausedText": "The owner has switched this code off for now. Please try again later.",
+    "notFound": "QR code not found"
+  },
+  "edit": {
+    "title": "Editing: {name}",
+    "cancel": "Cancel",
+    "save": "Save changes",
+    "saved": "Changes saved.",
+    "toCodes": "Go to My QR codes",
+    "pwKeep": "Leave empty to keep the current password",
+    "staticNote": "Note: for this type the content is inside the code itself. After saving, download and print the new code again."
   }
 }

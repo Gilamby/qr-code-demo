@@ -163,9 +163,9 @@
       "share": "Udostępnij"
     },
     "video": {
-      "title": "Dzień w kawiarni Na Rogu",
+      "title": "Lekcja 1: HTML – podstawy",
       "meta": "Film o produkcie",
-      "desc": "Zajrzyj za kulisy naszej kawiarni.",
+      "desc": "Krok po kroku zbuduj własną stronę.",
       "watch": "Obejrzyj film"
     },
     "images": {
@@ -189,7 +189,8 @@
       "tabPosts": "Posty",
       "tabAbout": "Informacje",
       "tabPhotos": "Zdjęcia",
-      "time": "2 godz."
+      "time": "2 godz.",
+      "post": "Prosto z pieca dziś rano 🥐 Wpadnijcie!"
     },
     "instagram": {
       "stats": "Posty: {posts} · Obserwujący: {followers}",
@@ -200,7 +201,7 @@
       "message": "Wiadomość",
       "contact": "Kontakt",
       "category": "Fotograf",
-      "bio": "Śluby, portrety i podróże w Krakowie"
+      "bio": "Śluby i portrety w Krakowie · Podróżuje po świecie"
     },
     "social": {
       "sub": "Obserwuj nas",
@@ -374,7 +375,50 @@
     "colType": "Typ",
     "colLink": "Link",
     "colCreated": "Utworzono",
-    "colScans": "Skany"
+    "colScans": "Skany",
+    "new": "Nowy kod QR",
+    "count": "Kody QR: {n}",
+    "countOne": "1 kod QR",
+    "demoNote": "Demo: Twoje kody QR są zapisane tylko w tej przeglądarce. Skany nie są tu liczone.",
+    "search": "Szukaj po nazwie lub linku",
+    "type": "Typ",
+    "allTypes": "Wszystkie typy",
+    "sort": "Sortuj",
+    "sort_new": "Najnowsze",
+    "sort_old": "Najstarsze",
+    "sort_scans": "Najwięcej skanów",
+    "sort_name": "Nazwa (A–Z)",
+    "static": "Działa bez internetu",
+    "copy": "Kopiuj link",
+    "rename": "Zmień nazwę",
+    "made": "Utworzono {date}",
+    "noScans": "brak skanów",
+    "scans": "skany",
+    "always": "Zawsze włączony",
+    "onLabel": "Włączony",
+    "offLabel": "Wyłączony",
+    "download": "Pobierz",
+    "pngHint": "na ekran i do druku",
+    "svgHint": "do druku, ostry w każdym rozmiarze",
+    "edit": "Edytuj",
+    "more": "Więcej",
+    "open": "Otwórz link",
+    "delete": "Usuń",
+    "emptyTitle": "Nie masz jeszcze kodów QR",
+    "emptyText": "Tutaj zobaczysz wszystkie swoje kody QR. Możesz je pobierać, zmieniać oraz włączać i wyłączać.",
+    "first": "Utwórz pierwszy kod QR",
+    "noneFound": "Nic nie znaleziono",
+    "clear": "Wyczyść filtry",
+    "copied": "Link skopiowany",
+    "renamed": "Nazwa zapisana",
+    "failed": "Nie udało się. Spróbuj ponownie.",
+    "pausedToast": "Kod QR jest wyłączony",
+    "activeToast": "Kod QR jest włączony",
+    "deleteTitle": "Usunąć „{name}”?",
+    "deleteText": "Link przestanie działać, wydrukowane kody też. Tego nie można cofnąć.",
+    "deleteTextStatic": "Sam kod nadal działa, ale zniknie z Twojej listy. Tego nie można cofnąć.",
+    "cancel": "Anuluj",
+    "deleted": "Kod QR usunięty"
   },
   "appearance": {
     "title": "Kolory",
@@ -737,6 +781,27 @@
     "bizSocials": "{\"instagram\": \"https://instagram.com/kwiaciarniaflorianska\", \"facebook\": \"https://facebook.com/kwiaciarniaflorianska\", \"whatsapp\": \"https://wa.me/48221234567\"}",
     "socials": "{\"instagram\": \"https://instagram.com/szkolasurfingufala\", \"facebook\": \"https://facebook.com/szkolasurfingufala\", \"tiktok\": \"https://tiktok.com/@szkolasurfingufala\", \"youtube\": \"https://youtube.com/@szkolasurfingufala\", \"linkedin\": \"https://linkedin.com/company/szkolasurfingufala\"}",
     "appIos": "https://apps.apple.com/app/treningpro",
-    "appAndroid": "https://play.google.com/store/apps/details?id=com.treningpro.app"
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.treningpro.app",
+    "videoUrl": "https://szkolaweb.pl/lekcja-1-html"
+  },
+  "visit": {
+    "locked": "Ta strona jest chroniona",
+    "enter": "Wpisz hasło, aby kontynuować.",
+    "open": "Otwórz",
+    "wrong": "Nieprawidłowe hasło. Spróbuj ponownie.",
+    "expired": "Ten kod QR wygasł",
+    "expiredText": "Ten kod nie jest już ważny. Skontaktuj się z właścicielem.",
+    "paused": "Ten kod QR jest wyłączony",
+    "pausedText": "Właściciel tymczasowo wyłączył ten kod. Spróbuj ponownie później.",
+    "notFound": "Nie znaleziono kodu QR"
+  },
+  "edit": {
+    "title": "Edycja: {name}",
+    "cancel": "Anuluj",
+    "save": "Zapisz zmiany",
+    "saved": "Zmiany zapisane.",
+    "toCodes": "Przejdź do Moich kodów QR",
+    "pwKeep": "Zostaw puste, aby zachować obecne hasło",
+    "staticNote": "Uwaga: w tym typie treść jest zapisana w samym kodzie. Po zapisaniu pobierz i wydrukuj nowy kod."
   }
 }

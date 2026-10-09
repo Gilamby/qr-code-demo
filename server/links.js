@@ -83,14 +83,18 @@ function targetUrl(q, userAgent = '') {
 }
 
 /* ---------- Kleine pagina's voor de bezoeker (wachtwoord, verlopen) ---------- */
-const TEXT = {
-  nl: { locked: 'Deze pagina is beveiligd', enter: 'Vul het wachtwoord in om verder te gaan.', open: 'Openen', wrong: 'Onjuist wachtwoord. Probeer het opnieuw.', expired: 'Deze QR-code is verlopen', expiredText: 'Deze code is niet meer geldig. Neem contact op met de eigenaar.' },
-  en: { locked: 'This page is protected', enter: 'Enter the password to continue.', open: 'Open', wrong: 'Wrong password. Please try again.', expired: 'This QR code has expired', expiredText: 'This code is no longer valid. Please contact the owner.' }
-};
-const lang = (req) => (/^nl/i.test(req.get('accept-language') || '') ? 'nl' : 'en');
+// Teksten in de taal van de bezoeker (uit public/locales/*.json, sleutel "visit")
+const path = require('path');
+const LOCALES = {};
+['nl', 'en', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'el', 'sq'].forEach((l) => { try { LOCALES[l] = require(path.join(__dirname, '..', 'public', 'locales', l + '.json')).visit; } catch (e) {} });
+function lang(req) {
+  const list = String(req.get('accept-language') || '').split(',').map((x) => x.trim().slice(0, 2).toLowerCase());
+  return list.find((l) => LOCALES[l]) || 'en';
+}
+const text = (req) => Object.assign({}, LOCALES.en, LOCALES[lang(req)]);
 const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
-function page(title, body) {
-  return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(title) + '</title>' +
+function page(title, body, lng) {
+  return '<!doctype html><html lang="' + (lng || 'en') + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(title) + '</title>' +
     '<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f2f4f7;font:16px -apple-system,system-ui,sans-serif;color:#111}' +
     'main{width:min(360px,88vw);background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 20px 50px -20px rgba(0,0,0,.25);text-align:center}' +
     '.ic{width:56px;height:56px;margin:0 auto 14px;border-radius:16px;background:#eef6fd;color:#0b8fd8;display:grid;place-items:center;font-size:26px}' +
@@ -100,10 +104,17 @@ function page(title, body) {
     '<body><main>' + body + '</main></body></html>';
 }
 function passwordPage(req, wrong) {
-  const t = TEXT[lang(req)];
-  return page(t.locked, '<div class="ic">🔒</div><h1>' + t.locked + '</h1><p>' + t.enter + '</p><form method="post">' +
-    '<input type="text" name="username" autocomplete="username" value="" style="position:absolute;left:-9999px" tabindex="-1" aria-hidden="true"><input type="password" name="password" autocomplete="current-password" autofocus required>' + (wrong ? '<div class="err">' + t.wrong + '</div>' : '') + '<button>' + t.open + '</button></form>');
+  const t = text(req);
+  return page(t.locked, '<div class="ic">🔒</div><h1>' + esc(t.locked) + '</h1><p>' + esc(t.enter) + '</p><form method="post">' +
+    '<input type="text" name="username" autocomplete="username" value="" style="position:absolute;left:-9999px" tabindex="-1" aria-hidden="true"><input type="password" name="password" autocomplete="current-password" autofocus required>' + (wrong ? '<div class="err">' + esc(t.wrong) + '</div>' : '') + '<button>' + esc(t.open) + '</button></form>', lang(req));
 }
-function expiredPage(req) { const t = TEXT[lang(req)]; return page(t.expired, '<div class="ic">⌛</div><h1>' + t.expired + '</h1><p>' + t.expiredText + '</p>'); }
+function expiredPage(req) { const t = text(req); return page(t.expired, '<div class="ic">⌛</div><h1>' + esc(t.expired) + '</h1><p>' + esc(t.expiredText) + '</p>', lang(req)); }
+function pausedPage(req) { const t = text(req); return page(t.paused, '<div class="ic">⏸</div><h1>' + esc(t.paused) + '</h1><p>' + esc(t.pausedText) + '</p>', lang(req)); }
+function notFoundPage(req) { const t = text(req); return page(t.notFound, '<div class="ic">?</div><h1>' + esc(t.notFound) + '</h1>', lang(req)); }
 
-module.exports = { hashPassword, checkPassword, urlInfo, isExpired, targetUrl, passwordPage, expiredPage };
+// Bestanden (PDF/MP3) van een beveiligde pagina: alleen ophalen met een sleutel die we pas na het juiste wachtwoord meegeven.
+const FILE_SECRET = process.env.FILE_SECRET || crypto.randomBytes(32).toString('hex');
+function fileToken(q, key) { return crypto.createHmac('sha256', FILE_SECRET).update(q.id + ':' + key + ':' + String((q.content || {}).password || '')).digest('base64url').slice(0, 22); }
+function fileTokenOk(q, key, token) { const a = Buffer.from(fileToken(q, key)), b = Buffer.from(String(token || '')); return a.length === b.length && crypto.timingSafeEqual(a, b); }
+
+module.exports = { fileToken, fileTokenOk, hashPassword, checkPassword, urlInfo, isExpired, targetUrl, passwordPage, expiredPage, pausedPage, notFoundPage };
