@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Kontakt",
-      "role": "Menaxher projekti",
+      "role": "Menaxhere projekti",
       "phone": "Telefoni",
       "email": "Email",
       "cta": "Ruaj te kontaktet",
@@ -163,7 +163,7 @@
       "share": "Ndaj"
     },
     "video": {
-      "title": "Një ditë në Café Aurora",
+      "title": "Një ditë në Kafe Qoshja",
       "meta": "Video e produktit",
       "desc": "Një vështrim prapa skenave në kafenenë tonë.",
       "watch": "Shiko videon"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "Aplikacion",
-      "title": "FitPlan",
+      "title": "Stërvitu",
       "desc": "Plani yt personal i stërvitjes, gjithmonë me ty.",
       "get": "Shkarko nga",
       "getPlay": "Merre në",
@@ -498,7 +498,7 @@
       "giftcard": "Kartë dhuratë",
       "parcel": "Pako",
       "florist": "Luleshitës",
-      "tech": "Tech",
+      "tech": "Teknologji",
       "realestate": "Pasuri të paluajtshme",
       "event": "Event",
       "thanks": "Faleminderit",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Biçikleta Velo",
     "linksTitle": "Shefi Arben",
-    "vcardName": "Ardit Hoxha",
+    "vcardName": "Elira Hoxha",
     "vcardPhone": "+355 69 123 4567",
-    "vcardEmail": "ardit@hoxhandertim.al",
+    "vcardEmail": "elira@hoxhandertim.al",
     "vcardCompany": "Hoxha Ndërtim",
     "vcardWebsite": "https://hoxhandertim.al",
     "vcardAddress": "Rruga e Durrësit 10, Tiranë",
-    "bizName": "Bloom & Co",
+    "bizName": "Lulishtja Blloku",
     "bizPhone": "+355 4 222 3344",
-    "bizEmail": "pershendetje@bloomandco.al",
-    "bizWebsite": "https://bloomandco.al",
+    "bizEmail": "pershendetje@lulishtjablloku.al",
+    "bizWebsite": "https://lulishtjablloku.al",
     "bizAddress": "{\"l\": \"Rruga Myslym Shyri 12, 1001 Tiranë, Shqipëri\", \"lat\": 41.324, \"lon\": 19.8132}",
     "fbPage": "Furra e Mullirit",
     "fbUrl": "https://facebook.com/furraemullirit",
@@ -733,6 +733,58 @@
     "couponCode": "MIRESEVINI15",
     "wifiSsid": "Hotel-Dielli-Mysafire",
     "pdfFile": "{\"n\": \"Udhezues.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"episodi-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"episodi-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/lulishtjablloku\", \"facebook\": \"https://facebook.com/lulishtjablloku\", \"whatsapp\": \"https://wa.me/35542223344\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/shkollasurfitvala\", \"facebook\": \"https://facebook.com/shkollasurfitvala\", \"tiktok\": \"https://tiktok.com/@shkollasurfitvala\", \"youtube\": \"https://youtube.com/@shkollasurfitvala\", \"linkedin\": \"https://linkedin.com/company/shkollasurfitvala\"}",
+    "appIos": "https://apps.apple.com/app/stervitu",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.stervitu.app"
+  },
+  "fmt": {
+    "months": [
+      "janar",
+      "shkurt",
+      "mars",
+      "prill",
+      "maj",
+      "qershor",
+      "korrik",
+      "gusht",
+      "shtator",
+      "tetor",
+      "nëntor",
+      "dhjetor"
+    ],
+    "monthsShort": [
+      "jan",
+      "shk",
+      "mar",
+      "pri",
+      "maj",
+      "qer",
+      "korr",
+      "gush",
+      "sht",
+      "tet",
+      "nën",
+      "dhj"
+    ],
+    "days": [
+      "e hënë",
+      "e martë",
+      "e mërkurë",
+      "e enjte",
+      "e premte",
+      "e shtunë",
+      "e diel"
+    ],
+    "daysShort": [
+      "hën",
+      "mar",
+      "mër",
+      "enj",
+      "pre",
+      "sht",
+      "die"
+    ]
   }
 }

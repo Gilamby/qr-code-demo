@@ -163,7 +163,7 @@
       "share": "Condividi"
     },
     "video": {
-      "title": "Una giornata al Café Aurora",
+      "title": "Una giornata al Caffè dell'Angolo",
       "meta": "Video del prodotto",
       "desc": "Uno sguardo dietro le quinte del nostro caffè.",
       "watch": "Guarda il video"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan",
+      "title": "AllenaMi",
       "desc": "Il tuo piano di allenamento, sempre a portata di mano.",
       "get": "Scarica dall'",
       "getPlay": "Disponibile su",
@@ -498,7 +498,7 @@
       "giftcard": "Buono regalo",
       "parcel": "Pacco",
       "florist": "Fiorista",
-      "tech": "Tech",
+      "tech": "Tecnologia",
       "realestate": "Immobiliare",
       "event": "Evento",
       "thanks": "Grazie",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Bici Velo",
     "linksTitle": "Chef Luca",
-    "vcardName": "Marco Rossi",
+    "vcardName": "Giulia Rossi",
     "vcardPhone": "+39 312 345 6789",
-    "vcardEmail": "marco@rossicostruzioni.it",
+    "vcardEmail": "giulia@rossicostruzioni.it",
     "vcardCompany": "Rossi Costruzioni",
     "vcardWebsite": "https://rossicostruzioni.it",
     "vcardAddress": "Via del Corso 120, Roma",
-    "bizName": "Bloom & Co",
+    "bizName": "Fioreria La Spiga",
     "bizPhone": "+39 06 1234 5678",
-    "bizEmail": "ciao@bloomandco.it",
-    "bizWebsite": "https://bloomandco.it",
+    "bizEmail": "ciao@fiorerialaspiga.it",
+    "bizWebsite": "https://fiorerialaspiga.it",
     "bizAddress": "{\"l\": \"Via della Spiga 12, 20121 Milano, Italia\", \"lat\": 45.4693, \"lon\": 9.1952}",
     "fbPage": "Panificio Il Mulino",
     "fbUrl": "https://facebook.com/panificioilmulino",
@@ -733,6 +733,10 @@
     "couponCode": "BENVENUTO15",
     "wifiSsid": "Hotel-Sole-Ospiti",
     "pdfFile": "{\"n\": \"Manuale.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/fiorerialaspiga\", \"facebook\": \"https://facebook.com/fiorerialaspiga\", \"whatsapp\": \"https://wa.me/390612345678\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/scuolasurfonda\", \"facebook\": \"https://facebook.com/scuolasurfonda\", \"tiktok\": \"https://tiktok.com/@scuolasurfonda\", \"youtube\": \"https://youtube.com/@scuolasurfonda\", \"linkedin\": \"https://linkedin.com/company/scuolasurfonda\"}",
+    "appIos": "https://apps.apple.com/app/allenami",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.allenami.app"
   }
 }

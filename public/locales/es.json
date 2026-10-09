@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Contacto",
-      "role": "Jefe de proyecto",
+      "role": "Jefa de proyecto",
       "phone": "Teléfono",
       "email": "Correo",
       "cta": "Guardar en contactos",
@@ -163,7 +163,7 @@
       "share": "Compartir"
     },
     "video": {
-      "title": "Un día en el Café Aurora",
+      "title": "Un día en el Café La Esquina",
       "meta": "Vídeo del producto",
       "desc": "Echa un vistazo entre bastidores en nuestro café.",
       "watch": "Ver vídeo"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan",
+      "title": "EntrenaYa",
       "desc": "Tu plan de entrenamiento personal, siempre a mano.",
       "get": "Consíguelo en el",
       "getPlay": "Disponible en",
@@ -498,7 +498,7 @@
       "giftcard": "Tarjeta regalo",
       "parcel": "Paquete",
       "florist": "Floristería",
-      "tech": "Tech",
+      "tech": "Tecnología",
       "realestate": "Inmobiliaria",
       "event": "Evento",
       "thanks": "Gracias",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Bicis Velo",
     "linksTitle": "Chef Javier",
-    "vcardName": "Pablo García",
+    "vcardName": "Lucía García",
     "vcardPhone": "+34 612 345 678",
-    "vcardEmail": "pablo@construccionesgarcia.es",
+    "vcardEmail": "lucia@construccionesgarcia.es",
     "vcardCompany": "Construcciones García",
     "vcardWebsite": "https://construccionesgarcia.es",
     "vcardAddress": "Calle de Alcalá 45, Madrid",
-    "bizName": "Bloom & Co",
+    "bizName": "Floristería La Rosa",
     "bizPhone": "+34 952 123 456",
-    "bizEmail": "hola@bloomandco.es",
-    "bizWebsite": "https://bloomandco.es",
+    "bizEmail": "hola@floristerialarosa.es",
+    "bizWebsite": "https://floristerialarosa.es",
     "bizAddress": "{\"l\": \"Calle Ricardo Soriano 12, 29601 Marbella, España\", \"lat\": 36.5097, \"lon\": -4.8862}",
     "fbPage": "Panadería El Molino",
     "fbUrl": "https://facebook.com/panaderiaelmolino",
@@ -733,6 +733,10 @@
     "couponCode": "BIENVENIDA15",
     "wifiSsid": "Hotel-Solmar-Invitados",
     "pdfFile": "{\"n\": \"Manual.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/floristerialarosa\", \"facebook\": \"https://facebook.com/floristerialarosa\", \"whatsapp\": \"https://wa.me/34952123456\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/escueladesurfola\", \"facebook\": \"https://facebook.com/escueladesurfola\", \"tiktok\": \"https://tiktok.com/@escueladesurfola\", \"youtube\": \"https://youtube.com/@escueladesurfola\", \"linkedin\": \"https://linkedin.com/company/escueladesurfola\"}",
+    "appIos": "https://apps.apple.com/app/entrenaya",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.entrenaya.app"
   }
 }

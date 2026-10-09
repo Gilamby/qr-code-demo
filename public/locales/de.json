@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Kontakt",
-      "role": "Projektleiter",
+      "role": "Projektleiterin",
       "phone": "Telefon",
       "email": "E-Mail",
       "cta": "In Kontakte speichern",
@@ -163,7 +163,7 @@
       "share": "Teilen"
     },
     "video": {
-      "title": "Ein Tag im Café Aurora",
+      "title": "Ein Tag im Café Eckhaus",
       "meta": "Produktvideo",
       "desc": "Ein Blick hinter die Kulissen unseres Cafés.",
       "watch": "Video ansehen"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan",
+      "title": "FitPlaner",
       "desc": "Dein persönlicher Trainingsplan, immer dabei.",
       "get": "Laden im",
       "getPlay": "Jetzt bei",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Velo Räder",
     "linksTitle": "Koch Jonas",
-    "vcardName": "Lukas Weber",
+    "vcardName": "Lena Weber",
     "vcardPhone": "+49 151 2345 6789",
-    "vcardEmail": "lukas@weberbau.de",
+    "vcardEmail": "lena@weberbau.de",
     "vcardCompany": "Weber Bau",
     "vcardWebsite": "https://weberbau.de",
     "vcardAddress": "Friedrichstraße 43, Berlin",
-    "bizName": "Bloom & Co",
+    "bizName": "Blumenhaus Kastanie",
     "bizPhone": "+49 30 1234 5678",
-    "bizEmail": "hallo@bloomundco.de",
-    "bizWebsite": "https://bloomundco.de",
+    "bizEmail": "hallo@blumenhauskastanie.de",
+    "bizWebsite": "https://blumenhauskastanie.de",
     "bizAddress": "{\"l\": \"Kastanienallee 12, 10435 Berlin, Deutschland\", \"lat\": 52.5386, \"lon\": 13.4106}",
     "fbPage": "Bäckerei Mühle",
     "fbUrl": "https://facebook.com/baeckereimuehle",
@@ -733,6 +733,10 @@
     "couponCode": "WILLKOMMEN15",
     "wifiSsid": "Hotel-Sonnenfeld-Gast",
     "pdfFile": "{\"n\": \"Handbuch.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"folge-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"folge-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/blumenhauskastanie\", \"facebook\": \"https://facebook.com/blumenhauskastanie\", \"whatsapp\": \"https://wa.me/493012345678\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/surfschuleostsee\", \"facebook\": \"https://facebook.com/surfschuleostsee\", \"tiktok\": \"https://tiktok.com/@surfschuleostsee\", \"youtube\": \"https://youtube.com/@surfschuleostsee\", \"linkedin\": \"https://linkedin.com/company/surfschuleostsee\"}",
+    "appIos": "https://apps.apple.com/app/fitplaner",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplaner.app"
   }
 }

@@ -22,6 +22,7 @@ const local = scripts.filter((s) => !/^https?:/.test(s)).map((s) => {
 const en = fs.readFileSync(path.join(pub, 'locales', 'en.json'), 'utf8').replace(/<\//g, '<\\/');
 
 const demo = [
+  '<meta charset="utf-8">',
   title.replace('Optimasys QR', 'Optimasys QR Sidebar'),
   fonts,
   '<style>\n' + css + '\n</style>',

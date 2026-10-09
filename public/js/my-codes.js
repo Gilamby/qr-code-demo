@@ -4,7 +4,7 @@
 (function () {
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList');
   function msg(key) { list.innerHTML = '<p class="muted-msg">' + t(key) + '</p>'; }
-  function date(iso) { return new Intl.DateTimeFormat(i18n.lang(), { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso)); }
+  function date(iso) { return i18n.fmt.date(new Date(iso), 'short'); }
   function render(rows) {
     if (!rows.length) return msg('myCodes.empty');
     list.innerHTML = '<div class="table-wrap"><table class="codes"><thead><tr><th>' + t('myCodes.colType') + '</th><th>' + t('myCodes.colLink') + '</th><th>' + t('myCodes.colCreated') + '</th><th class="num">' + t('myCodes.colScans') + '</th></tr></thead><tbody>' +

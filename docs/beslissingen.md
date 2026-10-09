@@ -2,6 +2,22 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 8 okt 2026: eerste echte foto's in de voorbeelden
+
+- Bedrijf: winkelfoto bovenaan. vCard: portretfoto in het rondje. Social media: foto van de surfschool bovenaan, zacht overlopend in het donker.
+- Bestanden: `public/assets/previews/<type>.jpg` (verkleind). De foto's staan alleen in het voorbeeld van stap 1. Op de echte pagina staat alleen wat de klant zelf uploadt.
+- De vCard-voorbeelden zijn nu vrouwen (passend bij de foto). Links, Instagram, WhatsApp en andere voorbeelden blijven mannen.
+
+## 8 okt 2026: talen in de telefoon dubbel gecontroleerd
+
+- Alle namen per taal: bedrijf (bloemist), app-naam, video-titel, social-handles, App Store-links en wifi-naam.
+- Initialen = eerste letter van het eerste en laatste woord ("Panadería El Molino" -> PM).
+- Datums, dagen, tijden en getallen gaan via `i18n.fmt` (date, weekday, time, compact). Chrome kent geen Albanees: dan komen maand- en dagnamen uit `sq.json` (sleutel `fmt`) en getallen in de stijl 1 240 / 7,50 €.
+- Tijden: Engels 9:00 AM, alle andere talen 24 uur (ook Grieks).
+- Dagnamen alleen met de eerste letter groot (Segunda-feira, E hënë).
+- Instagram-cijfers passen nu in elke taal (geen afgekapte woorden).
+- Gecontroleerd in alle 10 talen: type, inhoud, ontwerp en echte bezoekerspagina. Wat de klant zelf typt, blijft zoals hij het typte.
+
 ## 8 oktober 2026 – Alle tekst in de telefoon wisselt mee met de taal
 
 - De voorbeeldgegevens zijn nu per taal echt lokaal (vertaalsleutels `sample.*`): namen, telefoonnummers met de juiste landcode, adressen in een stad van dat land (met kaartpunt), websites, e-mail, kortingscode (WELKOM15, BIENVENIDA15, …), WiFi-naam, bestandsnamen (Handleiding.pdf, Manual.pdf, …) en de steden in de omschrijvingen.

@@ -163,7 +163,7 @@
       "share": "Delen"
     },
     "video": {
-      "title": "Een dag bij Café Aurora",
+      "title": "Een dag bij Café De Hoek",
       "meta": "Productvideo",
       "desc": "Neem een kijkje achter de schermen bij ons café.",
       "watch": "Bekijk video"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan",
+      "title": "TrainFit",
       "desc": "Je persoonlijke trainingsschema, altijd bij de hand.",
       "get": "Download in de",
       "getPlay": "Ontdek het op",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Velo Fietsen",
     "linksTitle": "Chef Ruben",
-    "vcardName": "Daan Visser",
+    "vcardName": "Naomi Visser",
     "vcardPhone": "+31 6 1234 5678",
-    "vcardEmail": "daan@visserbouw.nl",
+    "vcardEmail": "naomi@visserbouw.nl",
     "vcardCompany": "Visser Bouw",
     "vcardWebsite": "https://visserbouw.nl",
     "vcardAddress": "Keizersgracht 120, Amsterdam",
-    "bizName": "Bloom & Co",
+    "bizName": "Bloemenhuis De Tulp",
     "bizPhone": "+31 20 123 4567",
-    "bizEmail": "hallo@bloomenco.nl",
-    "bizWebsite": "https://bloomenco.nl",
+    "bizEmail": "hallo@bloemenhuisdetulp.nl",
+    "bizWebsite": "https://bloemenhuisdetulp.nl",
     "bizAddress": "{\"l\": \"Prinsengracht 263, 1016 GV Amsterdam, Nederland\", \"lat\": 52.3752, \"lon\": 4.884}",
     "fbPage": "Bakkerij De Molen",
     "fbUrl": "https://facebook.com/bakkerijdemolen",
@@ -733,6 +733,10 @@
     "couponCode": "WELKOM15",
     "wifiSsid": "Hotel-Zonneveld-Gast",
     "pdfFile": "{\"n\": \"Handleiding.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"aflevering-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"aflevering-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/bloemenhuisdetulp\", \"facebook\": \"https://facebook.com/bloemenhuisdetulp\", \"whatsapp\": \"https://wa.me/31201234567\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/surfschoolnoordzee\", \"facebook\": \"https://facebook.com/surfschoolnoordzee\", \"tiktok\": \"https://tiktok.com/@surfschoolnoordzee\", \"youtube\": \"https://youtube.com/@surfschoolnoordzee\", \"linkedin\": \"https://linkedin.com/company/surfschoolnoordzee\"}",
+    "appIos": "https://apps.apple.com/app/trainfit",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.trainfit.app"
   }
 }

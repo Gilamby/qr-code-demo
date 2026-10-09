@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Contact",
-      "role": "Chef de projet",
+      "role": "Cheffe de projet",
       "phone": "Téléphone",
       "email": "E-mail",
       "cta": "Enregistrer le contact",
@@ -163,7 +163,7 @@
       "share": "Partager"
     },
     "video": {
-      "title": "Une journée au Café Aurora",
+      "title": "Une journée au Café du Coin",
       "meta": "Vidéo produit",
       "desc": "Un coup d’œil dans les coulisses de notre café.",
       "watch": "Voir la vidéo"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "Appli",
-      "title": "FitPlan",
+      "title": "Forme+",
       "desc": "Ton programme d'entraînement, toujours à portée de main.",
       "get": "Télécharger dans l’",
       "getPlay": "Disponible sur",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Vélo Cycles",
     "linksTitle": "Chef Julien",
-    "vcardName": "Thomas Martin",
+    "vcardName": "Inès Martin",
     "vcardPhone": "+33 6 12 34 56 78",
-    "vcardEmail": "thomas@martinbatiment.fr",
+    "vcardEmail": "ines@martinbatiment.fr",
     "vcardCompany": "Martin Bâtiment",
     "vcardWebsite": "https://martinbatiment.fr",
     "vcardAddress": "12 rue de Rivoli, Paris",
-    "bizName": "Bloom & Co",
+    "bizName": "Fleurs des Martyrs",
     "bizPhone": "+33 1 23 45 67 89",
-    "bizEmail": "bonjour@bloomandco.fr",
-    "bizWebsite": "https://bloomandco.fr",
+    "bizEmail": "bonjour@fleursdesmartyrs.fr",
+    "bizWebsite": "https://fleursdesmartyrs.fr",
     "bizAddress": "{\"l\": \"8 rue des Martyrs, 75009 Paris, France\", \"lat\": 48.8782, \"lon\": 2.3401}",
     "fbPage": "Boulangerie du Moulin",
     "fbUrl": "https://facebook.com/boulangeriedumoulin",
@@ -733,6 +733,10 @@
     "couponCode": "BIENVENUE15",
     "wifiSsid": "Hotel-Soleil-Invites",
     "pdfFile": "{\"n\": \"Manuel.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"episode-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"episode-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/fleursdesmartyrs\", \"facebook\": \"https://facebook.com/fleursdesmartyrs\", \"whatsapp\": \"https://wa.me/33123456789\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/ecoledesurfocean\", \"facebook\": \"https://facebook.com/ecoledesurfocean\", \"tiktok\": \"https://tiktok.com/@ecoledesurfocean\", \"youtube\": \"https://youtube.com/@ecoledesurfocean\", \"linkedin\": \"https://linkedin.com/company/ecoledesurfocean\"}",
+    "appIos": "https://apps.apple.com/app/formeplus",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.formeplus.app"
   }
 }

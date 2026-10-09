@@ -81,12 +81,15 @@ var PHONE = (function () {
     var m = MESH[i % MESH.length];
     return 'background:radial-gradient(at 18% 22%,' + m[0] + ' 0,transparent 55%),radial-gradient(at 82% 18%,' + m[1] + ' 0,transparent 50%),radial-gradient(at 70% 85%,' + m[2] + ' 0,transparent 55%),radial-gradient(at 20% 90%,' + m[3] + ' 0,transparent 50%),' + m[1];
   }
-  function initials(name) { return (name || '').split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w[0].toUpperCase(); }).join(''); }
+  // Eerste letter van het eerste en het laatste woord ("Panadería El Molino" -> PM, "Chef Ruben" -> CR)
+  function initials(name) { var w = (name || '').replace(/[^\p{L}\p{N}\s]/gu, ' ').split(/\s+/).filter(Boolean); if (!w.length) return ''; return (w[0][0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase(); }
+  // Voorbeeldfoto van het type (public/assets/previews/<id>.jpg), alleen in de voorbeeldweergave van stap 1.
+  function exPhoto(id, ex) { var tp = ex && getType(id), src = tp && tp.previewImage; return src && imageReady(src) ? src : ''; }
   function domain(url) { return (url || '').replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0]; }
 
   // Mockup-foto zolang het bedrijf nog geen eigen foto heeft: een winkelpui in de paginakleur.
   function storefront(name) {
-    var label = esc((name || 'Bloom & Co').slice(0, 22));
+    var label = esc((name || t('sample.bizName')).slice(0, 22));
     return '<svg class="bz-mock" viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
       '<defs><linearGradient id="bzSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe6f7"/><stop offset="1" stop-color="#eef6fb"/></linearGradient>' +
       '<linearGradient id="bzWin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe7b3"/><stop offset="1" stop-color="#f5b75a"/></linearGradient>' +
@@ -137,7 +140,7 @@ var PHONE = (function () {
       return '<div class="ph ph-ig">' + statusBar() +
         '<div class="ig-head">' + ic('back') + '<b>' + v(u, '110px') + (ex ? '<span class="ig-ver">' + ic('check', 'i') + '</span>' : '') + '</b>' + ic('bell') + ic('dots', 'i dots') + '</div>' +
         '<div class="ig-prof"><span class="ig-av"><span>' + (u ? esc(u[0].toUpperCase()) : ic('user')) + '</span></span>' +
-          '<div class="ig-stats">' + stat('86', 'posts') + stat('3.1K', 'followers') + stat('312', 'following') + '</div></div>' +
+          '<div class="ig-stats">' + stat('86', 'posts') + stat(i18n.fmt.compact(3100), 'followers') + stat('312', 'following') + '</div></div>' +
         '<div class="ig-bio"><b>' + (ex ? esc(t('sample.igName')) : v(u, '40%')) + '</b>' +
           (ex ? '<small>' + esc(t('pv.instagram.category')) + '</small><p>' + esc(t('pv.instagram.bio')) + ' 📸</p><a>' + esc(t('sample.igSite')) + '</a>' : '<i class="sk" style="width:85%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
         '<div class="ig-btns"><span class="pri">' + esc(t('pv.instagram.cta')) + '</span><span>' + esc(t('pv.instagram.message')) + '</span><span>' + esc(t('pv.instagram.contact')) + '</span><span class="ic">' + ic('addp') + '</span></div>' +
@@ -190,7 +193,7 @@ var PHONE = (function () {
       var row = function (icon, label, val, w) { return '<div class="vc-row"><span class="vc-ic">' + ic(icon) + '</span><span><small>' + esc(label) + '</small><b>' + v(val, w) + '</b></span></div>'; };
       return '<div class="ph ph-vc">' +
         '<div class="vc-band">' + statusBar(true) +
-          '<span class="vc-av">' + (c.name ? esc(initials(c.name)) : ic('user')) + '</span>' +
+          '<span class="vc-av">' + (exPhoto('vcard', ex) ? '<img src="' + exPhoto('vcard', ex) + '" alt="">' : (c.name ? esc(initials(c.name)) : ic('user'))) + '</span>' +
           '<h4>' + v(c.name, '50%') + '</h4><p>' + (c.role || c.company ? esc([c.role, c.company].filter(Boolean).join(' · ')) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</p>' +
           '<div class="vc-acts">' + act('call', t('pv.vcard.phone')) + act('mail', t('pv.vcard.email')) + act('globe', t('pv.vcard.website')) + act('pin', t('pv.vcard.route')) + '</div></div>' +
         '<div class="vc-list">' + row('call', t('pv.vcard.phone'), c.phone, '55%') + row('mail', t('pv.vcard.email'), c.email, '65%') + row('globe', t('pv.vcard.website'), domain(c.website), '50%') + row('pin', t('fields.address'), c.address, '70%') + '</div>' +
@@ -257,7 +260,7 @@ var PHONE = (function () {
         if (ex) return '<span class="' + cls + ' gx-mesh" style="' + mesh(i) + '"></span>';
         return '<span class="' + cls + ' gx-none">' + ic('img') + '</span>';
       };
-      var date = new Intl.DateTimeFormat(i18n.lang(), { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
+      var date = i18n.fmt.date(new Date(), 'long');
       return '<div class="ph ph-gx">' +
         '<div class="gx-hero">' + tile(0, 'gx-hero-img') + statusBar(true) +
           '<div class="gx-cap"><small>' + esc(t('pv.images.album')) + '</small><h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:65%;height:18px"></i>') + '</h4>' +
@@ -276,7 +279,7 @@ var PHONE = (function () {
         '<div class="fb-cover"></div>' +
         '<div class="fb-prof"><span class="fb-av">' + (name ? esc(initials(name)) : ic('user')) + '</span>' +
           '<h4>' + v(name, '55%') + (ex ? '<span class="fb-ver">' + ic('check') + '</span>' : '') + '</h4>' +
-          '<small>' + (ex ? esc(t('pv.facebook.likes', { count: i18n.fmt.num(1240) })) + ' · ' + esc(t('pv.facebook.followers', { count: i18n.fmt.num(1310) })) : '<i class="sk" style="width:70%"></i>') + '</small>' +
+          '<small>' + (ex ? esc(t('pv.facebook.likes', { count: i18n.fmt.num(12400) })) + ' · ' + esc(t('pv.facebook.followers', { count: i18n.fmt.num(13100) })) : '<i class="sk" style="width:70%"></i>') + '</small>' +
           (c.description ? '<p>' + esc(c.description) + '</p>' : '') +
           '<div class="fb-btns"><span class="pri">' + ic('like') + esc(t('pv.facebook.like')) + '</span><span>' + ic('chat') + esc(t('pv.facebook.message')) + '</span><span class="sq">' + ic('dots', 'i dots') + '</span></div></div>' +
         '<div class="fb-tabs"><span class="on">' + esc(t('pv.facebook.tabPosts')) + '</span><span>' + esc(t('pv.facebook.tabAbout')) + '</span><span>' + esc(t('pv.facebook.tabPhotos')) + '</span></div>' +
@@ -289,7 +292,8 @@ var PHONE = (function () {
     social: function (c, ex) {
       var so = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in so; });
       var handle = function (url) { var m = String(url || '').replace(/\/$/, '').split('/').pop(); return m ? (m[0] === '@' ? m : '@' + m) : ''; };
-      return '<div class="ph ph-sx"><i class="sx-glow a"></i><i class="sx-glow b"></i>' + statusBar(true) +
+      var hero = exPhoto('social', ex);
+      return '<div class="ph ph-sx' + (hero ? ' has-hero' : '') + '">' + (hero ? '<div class="sx-hero" style="background-image:url(' + hero + ')"></div>' : '<i class="sx-glow a"></i><i class="sx-glow b"></i>') + statusBar(true) +
         '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (c.title ? esc(initials(c.title)) : ic('user')) + '</span></span>' +
           '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4>' +
           '<p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:60%;margin:0 auto"></i>') + '</p>' +
@@ -352,7 +356,7 @@ var PHONE = (function () {
     /* ---------- Coupon: een Wallet-achtige kaart met grote korting, scanbare code en kopieerknop ---------- */
     coupon: function (c, ex) {
       var exp = c.expires || (ex ? new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10) : '');
-      var date = exp ? new Intl.DateTimeFormat(i18n.lang(), { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(exp + 'T12:00:00')) : '';
+      var date = exp ? i18n.fmt.date(new Date(exp + 'T12:00:00'), 'short') : '';
       var qr = c.code && typeof QRRender !== 'undefined' ? QRRender.svg(c.code, { color: '#000000' }) : '';
       return '<div class="ph ph-wl">' + statusBar(true) +
         '<div class="wl-nav"><b>' + esc(t('pv.pdf.done')) + '</b>' + ic('dots', 'i dots') + '</div>' +
@@ -380,7 +384,7 @@ var PHONE = (function () {
         return '<div class="gm-day' + (i === today ? ' today' : '') + (d.o ? '' : ' off') + '"><span>' + esc(HOURS.dayName(i)) + '</span><span>' + tm + '</span></div>';
       }).join('');
       return '<div class="ph ph-gm">' +
-        '<div class="gm-cover">' + (c.cover ? '<img src="' + c.cover + '" alt="">' : storefront(c.name)) + statusBar(true) +
+        '<div class="gm-cover">' + (c.cover || exPhoto('business', ex) ? '<img src="' + (c.cover || exPhoto('business', ex)) + '" alt="">' : storefront(c.name)) + statusBar(true) +
           '<div class="gm-tb"><span>' + ic('back') + '</span><span>' + ic('share') + '</span></div></div>' +
         '<div class="gm-sheet"><i class="gm-grab"></i>' +
           '<h4>' + v(c.name, '55%') + '</h4>' +

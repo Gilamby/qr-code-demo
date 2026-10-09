@@ -58,12 +58,37 @@ var i18n = (function () {
       listeners.forEach(function (fn) { fn(code); });
     });
   }
-  // Getallen, prijzen en datums in de stijl van de gekozen taal
+  // Getallen, prijzen en datums in de stijl van de gekozen taal.
+  // Sommige browsers kennen een taal niet (Chrome kent bv. geen Albanees): dan nemen we een taal met dezelfde
+  // schrijfwijze voor getallen, en de namen van maanden en dagen uit het taalbestand (sleutel "fmt").
+  var NUM_FALLBACK = { sq: 'fr' };            // Albanees schrijft getallen als 1 240 en 7,50 €
+  function known(code) { try { return Intl.DateTimeFormat.supportedLocalesOf([code]).length > 0; } catch (e) { return false; } }
+  function numLoc() { return known(current) ? current : (NUM_FALLBACK[current] || current); }
+  function own() { return !known(current) && lookup(dicts[current], 'fmt.months') ? lookup(dicts[current], 'fmt') : null; }
   var fmt = {
-    num: function (n) { return new Intl.NumberFormat(current).format(n); },
-    eur: function (n) { return new Intl.NumberFormat(current, { style: 'currency', currency: 'EUR' }).format(n); },
-    pct: function (n) { return new Intl.NumberFormat(current, { style: 'percent' }).format(n); },
-    day: function (d) { return new Intl.DateTimeFormat(current, { day: 'numeric', month: 'long' }).format(d); }
+    num: function (n) { return new Intl.NumberFormat(numLoc()).format(n); },
+    eur: function (n) { return new Intl.NumberFormat(numLoc(), { style: 'currency', currency: 'EUR' }).format(n); },
+    pct: function (n) { return new Intl.NumberFormat(numLoc(), { style: 'percent' }).format(n); },
+    compact: function (n) { var c = own() ? '' : new Intl.NumberFormat(current, { notation: 'compact', maximumFractionDigits: 1 }).format(n); return /\D/.test(c) ? c : fmt.num(n); },   // 3,1K / 3,1 mil; anders gewoon 3.100
+    // style: 'long' (8 oktober 2026), 'short' (8 okt 2026) of 'day' (8 oktober)
+    date: function (d, style) {
+      var o = own();
+      if (o) { var m = (style === 'short' ? o.monthsShort : o.months)[d.getMonth()]; return d.getDate() + ' ' + m + (style === 'day' ? '' : ' ' + d.getFullYear()); }
+      var opt = { day: 'numeric', month: style === 'short' ? 'short' : 'long' }; if (style !== 'day') opt.year = 'numeric';
+      return new Intl.DateTimeFormat(current, opt).format(d);
+    },
+    day: function (d) { return fmt.date(d, 'day'); },
+    // i = 0 is maandag
+    weekday: function (i, style) {
+      var o = own(), w = o ? (style === 'short' ? o.daysShort : o.days)[i] : new Intl.DateTimeFormat(current, { weekday: style || 'long' }).format(new Date(2024, 0, 1 + i));
+      return w.charAt(0).toUpperCase() + w.slice(1);     // alleen de eerste letter groot: "Segunda-feira", "E hënë"
+    },
+    // "HH:MM" -> tijd in de stijl van de taal (Engels 9:00 AM, de rest 24 uur: 09:00)
+    time: function (hm) {
+      if (current !== 'en') return hm.slice(0, 5);
+      var d = new Date(2024, 0, 1, +hm.slice(0, 2), +hm.slice(3, 5));
+      return new Intl.DateTimeFormat('en', { hour: 'numeric', minute: '2-digit' }).format(d);
+    }
   };
   function render() { document.documentElement.lang = current; applyDom(); listeners.forEach(function (fn) { fn(current); }); }
   function langName() { var c = current; return LANGUAGES.filter(function (l) { return l.code === c; })[0].name; }

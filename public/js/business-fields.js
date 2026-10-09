@@ -25,8 +25,8 @@ var HOURS = (function () {
     if (prev && prev.o) slots(prev).forEach(function (r) { var a = mins(r[0]), b = mins(r[1]); if (b <= a && m < b) open = true; });
     return open ? 'open' : 'closed';
   }
-  function dayName(i, style) { return new Intl.DateTimeFormat(i18n.lang(), { weekday: style || 'long' }).format(new Date(2024, 0, 1 + i)); }
-  function fmt(s) { var d = new Date(2024, 0, 1, +s.slice(0, 2), +s.slice(3, 5)); return new Intl.DateTimeFormat(i18n.lang(), { hour: i18n.lang() === 'en' ? 'numeric' : '2-digit', minute: '2-digit' }).format(d); }
+  function dayName(i, style) { return i18n.fmt.weekday(i, style); }
+  function fmt(s) { return i18n.fmt.time(s); }
   function valid(arr) {
     return Array.isArray(arr) && arr.length === 7 && arr.every(function (d) {
       return d && (!d.o || (TIME.test(d.f) && TIME.test(d.t) && (!d.f2 && !d.t2 || TIME.test(d.f2) && TIME.test(d.t2))));

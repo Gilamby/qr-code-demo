@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Contacto",
-      "role": "Gestor de projeto",
+      "role": "Gestora de projeto",
       "phone": "Telefone",
       "email": "E-mail",
       "cta": "Guardar nos contactos",
@@ -163,7 +163,7 @@
       "share": "Partilhar"
     },
     "video": {
-      "title": "Um dia no Café Aurora",
+      "title": "Um dia no Café da Esquina",
       "meta": "Vídeo do produto",
       "desc": "Espreita os bastidores do nosso café.",
       "watch": "Ver vídeo"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "App",
-      "title": "FitPlan",
+      "title": "TreinaJá",
       "desc": "O teu plano de treino pessoal, sempre à mão.",
       "get": "Descarregar na",
       "getPlay": "Disponível no",
@@ -498,7 +498,7 @@
       "giftcard": "Vale-oferta",
       "parcel": "Encomenda",
       "florist": "Florista",
-      "tech": "Tech",
+      "tech": "Tecnologia",
       "realestate": "Imobiliária",
       "event": "Evento",
       "thanks": "Obrigado",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Bicicletas Velo",
     "linksTitle": "Chef Tiago",
-    "vcardName": "João Silva",
+    "vcardName": "Beatriz Silva",
     "vcardPhone": "+351 912 345 678",
-    "vcardEmail": "joao@silvaconstrucoes.pt",
+    "vcardEmail": "beatriz@silvaconstrucoes.pt",
     "vcardCompany": "Silva Construções",
     "vcardWebsite": "https://silvaconstrucoes.pt",
     "vcardAddress": "Rua Augusta 100, Lisboa",
-    "bizName": "Bloom & Co",
+    "bizName": "Flores do Chiado",
     "bizPhone": "+351 21 123 4567",
-    "bizEmail": "ola@bloomandco.pt",
-    "bizWebsite": "https://bloomandco.pt",
+    "bizEmail": "ola@floresdochiado.pt",
+    "bizWebsite": "https://floresdochiado.pt",
     "bizAddress": "{\"l\": \"Rua das Flores 12, 1200-195 Lisboa, Portugal\", \"lat\": 38.7099, \"lon\": -9.1432}",
     "fbPage": "Padaria O Moinho",
     "fbUrl": "https://facebook.com/padariaomoinho",
@@ -733,6 +733,10 @@
     "couponCode": "BEMVINDO15",
     "wifiSsid": "Hotel-Sol-Hospedes",
     "pdfFile": "{\"n\": \"Manual.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"episodio-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/floresdochiado\", \"facebook\": \"https://facebook.com/floresdochiado\", \"whatsapp\": \"https://wa.me/351211234567\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/escoladesurfonda\", \"facebook\": \"https://facebook.com/escoladesurfonda\", \"tiktok\": \"https://tiktok.com/@escoladesurfonda\", \"youtube\": \"https://youtube.com/@escoladesurfonda\", \"linkedin\": \"https://linkedin.com/company/escoladesurfonda\"}",
+    "appIos": "https://apps.apple.com/app/treinaja",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.treinaja.app"
   }
 }

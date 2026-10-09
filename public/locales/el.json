@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Επαφή",
-      "role": "Υπεύθυνος έργου",
+      "role": "Υπεύθυνη έργου",
       "phone": "Τηλέφωνο",
       "email": "Email",
       "cta": "Αποθήκευση στις επαφές",
@@ -163,7 +163,7 @@
       "share": "Κοινοποίηση"
     },
     "video": {
-      "title": "Μια μέρα στο Café Aurora",
+      "title": "Μια μέρα στο καφέ Η Γωνία",
       "meta": "Βίντεο προϊόντος",
       "desc": "Μια ματιά στα παρασκήνια του καφέ μας.",
       "watch": "Δες το βίντεο"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "Εφαρμογή",
-      "title": "FitPlan",
+      "title": "Γυμνάσου",
       "desc": "Το προσωπικό σου πρόγραμμα προπόνησης, πάντα μαζί σου.",
       "get": "Λήψη από το",
       "getPlay": "Διαθέσιμο στο",
@@ -498,7 +498,7 @@
       "giftcard": "Δωροκάρτα",
       "parcel": "Δέμα",
       "florist": "Ανθοπωλείο",
-      "tech": "Tech",
+      "tech": "Τεχνολογία",
       "realestate": "Ακίνητα",
       "event": "Εκδήλωση",
       "thanks": "Ευχαριστούμε",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Ποδήλατα Velo",
     "linksTitle": "Σεφ Νίκος",
-    "vcardName": "Γιώργος Παπαδόπουλος",
+    "vcardName": "Ελένη Παπαδοπούλου",
     "vcardPhone": "+30 691 234 5678",
-    "vcardEmail": "giorgos@papadopoulos.gr",
+    "vcardEmail": "eleni@papadopoulos.gr",
     "vcardCompany": "Παπαδόπουλος Κατασκευές",
     "vcardWebsite": "https://papadopoulos.gr",
     "vcardAddress": "Ερμού 25, Αθήνα",
-    "bizName": "Bloom & Co",
+    "bizName": "Ανθοπωλείο Πλάκα",
     "bizPhone": "+30 210 123 4567",
-    "bizEmail": "geia@bloomandco.gr",
-    "bizWebsite": "https://bloomandco.gr",
+    "bizEmail": "geia@anthopoleioplaka.gr",
+    "bizWebsite": "https://anthopoleioplaka.gr",
     "bizAddress": "{\"l\": \"Αδριανού 12, 105 55 Αθήνα, Ελλάδα\", \"lat\": 37.9757, \"lon\": 23.7253}",
     "fbPage": "Φούρνος Ο Μύλος",
     "fbUrl": "https://facebook.com/fournosomylos",
@@ -731,8 +731,12 @@
     "mp3Artist": "Η Πρωινή Εκπομπή",
     "couponCompany": "Βιβλιοπωλείο Σελίδα",
     "couponCode": "KALOSORISMA15",
-    "wifiSsid": "Hotel-Ilios-Guests",
+    "wifiSsid": "Xenodocheio-Ilios",
     "pdfFile": "{\"n\": \"Egcheiridio.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"epeisodio-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"epeisodio-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/anthopoleioplaka\", \"facebook\": \"https://facebook.com/anthopoleioplaka\", \"whatsapp\": \"https://wa.me/302101234567\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/kymasurf\", \"facebook\": \"https://facebook.com/kymasurf\", \"tiktok\": \"https://tiktok.com/@kymasurf\", \"youtube\": \"https://youtube.com/@kymasurf\", \"linkedin\": \"https://linkedin.com/company/kymasurf\"}",
+    "appIos": "https://apps.apple.com/app/gymnasou",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.gymnasou.app"
   }
 }

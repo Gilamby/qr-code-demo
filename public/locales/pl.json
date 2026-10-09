@@ -138,7 +138,7 @@
     },
     "vcard": {
       "sub": "Kontakt",
-      "role": "Kierownik projektu",
+      "role": "Kierowniczka projektu",
       "phone": "Telefon",
       "email": "E-mail",
       "cta": "Zapisz w kontaktach",
@@ -163,7 +163,7 @@
       "share": "Udostępnij"
     },
     "video": {
-      "title": "Dzień w Café Aurora",
+      "title": "Dzień w kawiarni Na Rogu",
       "meta": "Film o produkcie",
       "desc": "Zajrzyj za kulisy naszej kawiarni.",
       "watch": "Obejrzyj film"
@@ -234,7 +234,7 @@
     },
     "apps": {
       "sub": "Aplikacja",
-      "title": "FitPlan",
+      "title": "TreningPro",
       "desc": "Twój osobisty plan treningowy, zawsze pod ręką.",
       "get": "Pobierz z",
       "getPlay": "Pobierz z",
@@ -498,7 +498,7 @@
       "giftcard": "Karta podarunkowa",
       "parcel": "Paczka",
       "florist": "Kwiaciarnia",
-      "tech": "Tech",
+      "tech": "Technologia",
       "realestate": "Nieruchomości",
       "event": "Wydarzenie",
       "thanks": "Dziękujemy",
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Rowery Velo",
     "linksTitle": "Szef Kuba",
-    "vcardName": "Piotr Kowalski",
+    "vcardName": "Natalia Kowalska",
     "vcardPhone": "+48 512 345 678",
-    "vcardEmail": "piotr@kowalskibud.pl",
+    "vcardEmail": "natalia@kowalskibud.pl",
     "vcardCompany": "Kowalski Budownictwo",
     "vcardWebsite": "https://kowalskibud.pl",
     "vcardAddress": "ul. Marszałkowska 10, Warszawa",
-    "bizName": "Bloom & Co",
+    "bizName": "Kwiaciarnia Floriańska",
     "bizPhone": "+48 22 123 45 67",
-    "bizEmail": "czesc@bloomandco.pl",
-    "bizWebsite": "https://bloomandco.pl",
+    "bizEmail": "czesc@kwiaciarniaflorianska.pl",
+    "bizWebsite": "https://kwiaciarniaflorianska.pl",
     "bizAddress": "{\"l\": \"ul. Floriańska 12, 31-019 Kraków, Polska\", \"lat\": 50.0631, \"lon\": 19.9398}",
     "fbPage": "Piekarnia Młyn",
     "fbUrl": "https://facebook.com/piekarniamlyn",
@@ -733,6 +733,10 @@
     "couponCode": "WITAJ15",
     "wifiSsid": "Hotel-Slonce-Goscie",
     "pdfFile": "{\"n\": \"Instrukcja.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"odcinek-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"odcinek-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/kwiaciarniaflorianska\", \"facebook\": \"https://facebook.com/kwiaciarniaflorianska\", \"whatsapp\": \"https://wa.me/48221234567\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/szkolasurfingufala\", \"facebook\": \"https://facebook.com/szkolasurfingufala\", \"tiktok\": \"https://tiktok.com/@szkolasurfingufala\", \"youtube\": \"https://youtube.com/@szkolasurfingufala\", \"linkedin\": \"https://linkedin.com/company/szkolasurfingufala\"}",
+    "appIos": "https://apps.apple.com/app/treningpro",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.treningpro.app"
   }
 }

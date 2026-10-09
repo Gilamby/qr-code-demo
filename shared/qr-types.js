@@ -45,7 +45,7 @@
       { key: 'phone', type: 'tel', label: 'fields.phone', sample: { t: 'sample.bizPhone' } },
       { key: 'email', type: 'email', label: 'fields.email', sample: { t: 'sample.bizEmail' } },
       { key: 'website', type: 'url', label: 'fields.website', sample: { t: 'sample.bizWebsite' } },
-      { key: 'socials', type: 'socials', label: 'fields.socials', sample: '{"instagram":"https://instagram.com/bloomandco","facebook":"https://facebook.com/bloomandco","google":"https://g.page/bloomandco","whatsapp":"https://wa.me/34600000000"}' } ] },
+      { key: 'socials', type: 'socials', label: 'fields.socials', sample: { t: 'sample.bizSocials' } } ] },
   { id: 'video',     icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg',     contentType: 'url',      previewType: 'card',    color: '#e5484d', theme: ['#e5484d', '#18181b'],
     fields: [
       { key: 'url', type: 'url', label: 'fields.videoUrl', required: true, sample: 'https://youtu.be/cafe-aurora', hint: 'hint.videoUrl' },
@@ -67,7 +67,7 @@
     fields: [
       { key: 'title', label: 'fields.title', sample: { t: 'sample.socialTitle' } },
       { key: 'description', label: 'fields.description', sample: { t: 'pv.social.desc' } },
-      { key: 'socials', type: 'socials', label: 'fields.socials', required: true, sample: '{"instagram":"https://instagram.com/surfschoolola","facebook":"https://facebook.com/surfschoolola","tiktok":"https://tiktok.com/@surfschoolola","youtube":"https://youtube.com/@surfschoolola","linkedin":"https://linkedin.com/company/surfschoolola"}' } ] },
+      { key: 'socials', type: 'socials', label: 'fields.socials', required: true, sample: { t: 'sample.socials' } } ] },
   { id: 'whatsapp', page: false,  icon: 'wa',     image: 'assets/qr-types/whatsapp.jpg', previewImage: 'assets/previews/whatsapp.jpg',  contentType: 'message',  previewType: 'card',    color: '#00a884', theme: ['#00a884', '#075e54'],
     fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', sample: { t: 'sample.waPhone' } }, { key: 'message', label: 'fields.message', sample: { t: 'pv.whatsapp.m2' } } ] },
   { id: 'mp3',       icon: 'mp3',    image: 'assets/qr-types/mp3.jpg', previewImage: 'assets/previews/mp3.jpg',       contentType: 'file',     previewType: 'card',    color: '#8b5cf6', theme: ['#8b5cf6', '#ec4899'],
@@ -86,8 +86,8 @@
       { key: 'appName', label: 'fields.appName', required: true, sample: { t: 'pv.apps.title' } },
       { key: 'description', label: 'fields.description', sample: { t: 'pv.apps.desc' } },
       { key: 'logo', type: 'image', label: 'fields.appIcon' },
-      { key: 'ios', type: 'url', label: 'fields.appStore', sample: 'https://apps.apple.com/app/fitplan' },
-      { key: 'android', type: 'url', label: 'fields.playStore', sample: 'https://play.google.com/store/apps/details?id=fitplan' } ] },
+      { key: 'ios', type: 'url', label: 'fields.appStore', sample: { t: 'sample.appIos' } },
+      { key: 'android', type: 'url', label: 'fields.playStore', sample: { t: 'sample.appAndroid' } } ] },
   { id: 'coupon',    icon: 'coupon', image: 'assets/qr-types/coupon.jpg', previewImage: 'assets/previews/coupon.jpg',    contentType: 'coupon',   previewType: 'card',    color: '#d4a017', theme: ['#b7791f', '#7c2d12'],
     fields: [
       { key: 'company', label: 'fields.company', sample: { t: 'sample.couponCompany' } },

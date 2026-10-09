@@ -163,7 +163,7 @@
       "share": "Share"
     },
     "video": {
-      "title": "A day at Café Aurora",
+      "title": "A day at The Corner Café",
       "meta": "Product video",
       "desc": "Take a look behind the scenes at our café.",
       "watch": "Watch video"
@@ -710,16 +710,16 @@
   "sample": {
     "pdfCompany": "Harbour Cycles",
     "linksTitle": "Chef James",
-    "vcardName": "Oliver Bennett",
+    "vcardName": "Maya Bennett",
     "vcardPhone": "+44 7700 900123",
-    "vcardEmail": "oliver@bennettbuilders.co.uk",
+    "vcardEmail": "maya@bennettbuilders.co.uk",
     "vcardCompany": "Bennett Builders",
     "vcardWebsite": "https://bennettbuilders.co.uk",
     "vcardAddress": "221 Baker Street, London",
-    "bizName": "Bloom & Co",
+    "bizName": "Neal Street Flowers",
     "bizPhone": "+44 20 7946 0123",
-    "bizEmail": "hello@bloomandco.co.uk",
-    "bizWebsite": "https://bloomandco.co.uk",
+    "bizEmail": "hello@nealstreetflowers.co.uk",
+    "bizWebsite": "https://nealstreetflowers.co.uk",
     "bizAddress": "{\"l\": \"12 Neal Street, London WC2H 9PW, United Kingdom\", \"lat\": 51.5139, \"lon\": -0.1262}",
     "fbPage": "The Old Mill Bakery",
     "fbUrl": "https://facebook.com/oldmillbakery",
@@ -733,6 +733,10 @@
     "couponCode": "WELCOME15",
     "wifiSsid": "Seaview-Hotel-Guest",
     "pdfFile": "{\"n\": \"Manual.pdf\", \"s\": 2516582}",
-    "mp3File": "{\"n\": \"episode-4.mp3\", \"s\": 7340032}"
+    "mp3File": "{\"n\": \"episode-4.mp3\", \"s\": 7340032}",
+    "bizSocials": "{\"instagram\": \"https://instagram.com/nealstreetflowers\", \"facebook\": \"https://facebook.com/nealstreetflowers\", \"whatsapp\": \"https://wa.me/442079460123\"}",
+    "socials": "{\"instagram\": \"https://instagram.com/cornwallsurfschool\", \"facebook\": \"https://facebook.com/cornwallsurfschool\", \"tiktok\": \"https://tiktok.com/@cornwallsurfschool\", \"youtube\": \"https://youtube.com/@cornwallsurfschool\", \"linkedin\": \"https://linkedin.com/company/cornwallsurfschool\"}",
+    "appIos": "https://apps.apple.com/app/fitplan",
+    "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app"
   }
 }
