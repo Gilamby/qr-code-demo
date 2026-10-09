@@ -4,7 +4,7 @@ Web-app om QR-codes te maken, te beheren en te meten. Kies een type, vul de inho
 
 ## Starten (op je eigen computer)
 
-Nodig: [Node.js](https://nodejs.org) 20 of nieuwer.
+Nodig: [Node.js](https://nodejs.org) 20 of nieuwer. De server is gebouwd met **NestJS** (TypeScript); `npm start` bouwt hem eerst automatisch.
 
 ```bash
 npm install
@@ -14,7 +14,8 @@ npm start
 Open daarna <http://localhost:3000> en maak een account aan.
 
 - `npm run share`: **gratis online** vanaf je laptop (Cloudflare-tunnel). Je krijgt een https-adres dat je telefoon overal kan openen; dat adres komt in de QR-codes. Laat het venster open.
-- `npm run dev`: de server herstart vanzelf als je iets aanpast.
+- `npm run dev`: de server wordt opnieuw gebouwd en herstart vanzelf als je iets aanpast.
+- `npm run build:server`: alleen de server bouwen (TypeScript → `server/dist`).
 - `npm test`: automatische test van de server (accounts, codes per klant, bestanden, scans, statistieken, beveiliging).
 - `npm run build`: productieversie (samengevoegd en verkleind, in `build/`). Met `NODE_ENV=production` gebruikt de server alleen deze versie; de losse bronbestanden zijn dan niet te zien.
 - `npm run migrate:pg`: alles uit SQLite overzetten naar PostgreSQL (`DATABASE_URL` zetten). Mag vaker draaien.
@@ -41,19 +42,17 @@ shared/
   qr-types.js        DE lijst met QR-types en velden (frontend én server)
   design-data.js     ontwerpopties (patronen, hoeken, kaders)
   analytics-core.js  berekening van de statistieken (server én online demo)
-server/
-  index.js           Express-server, API en korte links
-  db.js              database-laag (async): users, sessions, resets, verificaties, qr_codes, scan_stats, files
-  db/sqlite.js       stuurprogramma SQLite (ontwikkelen)
-  db/postgres.js     stuurprogramma PostgreSQL (productie, via DATABASE_URL)
-  secret.js          versleuteling van gevoelige velden (wifi-wachtwoorden), AES-256-GCM
-  auth.js            accounts, inloggen, sessies, wachtwoord vergeten, AVG (export/verwijderen)
-  mailer.js          e-mail (SMTP) voor "wachtwoord vergeten"
-  validate.js        controleert alles wat binnenkomt
-  analytics.js       wat er bij een scan wordt vastgelegd (systeem, land/stad, uniek)
-  links.js           regels bij het scannen (wachtwoord, verlopen, uit) en bezoekerspagina's
-  live-page.js       de echte pagina die een bezoeker na het scannen ziet
-  config.js          .env inlezen
+server/              NestJS (TypeScript) op Node.js — bron in server/src, gebouwd naar server/dist
+  src/main.ts                          opstarten: middleware (headers, JSON, statische bestanden, sessie, CSRF)
+  src/app.module.ts                    alle modules bij elkaar
+  src/config/env.ts                    .env inlezen, mappen, het adres in de QR-codes (PUBLIC_URL / Codespaces / wifi)
+  src/common/http.ts                   foutafhandeling ({ error }), beveiligingsheaders, CSRF
+  src/database/                        DatabaseModule: PostgreSQL (DATABASE_URL) of SQLite, versleuteling (secret.ts)
+  src/auth/                            AuthModule: account maken + e-mailbevestiging, inloggen, Mijn account, e-mail
+  src/qr-codes/                        QR-codes maken/bewerken/verwijderen, bestanden, validatie
+  src/analytics/                       statistieken: systeem, land/stad, uniek (zonder IP op te slaan)
+  src/helpers/                         /api/health, qr-types, link-check, adres zoeken, e-mailcheck
+  src/visitor/                         korte links /q/:id: regels, scan tellen, echte bezoekerspagina
 scripts/             back-up, migratie, online demo bouwen
 test/                automatische tests (npm test)
 docs/                beslissingen, juridisch, statistieken, installatie

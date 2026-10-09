@@ -13,12 +13,14 @@
    ========================================================= */
 const fs = require('fs');
 const { bin, install, Tunnel } = require('cloudflared');
-const app = require('../server/index.js');
+const { createApp } = require('../server/dist/main');
 
 const PORT = +process.env.PORT || 3000;
 
 (async () => {
-  const server = app.listen(PORT, () => console.log('App draait op deze laptop: http://localhost:' + PORT));
+  const app = await createApp();
+  await app.listen(PORT); console.log('App draait op deze laptop: http://localhost:' + PORT);
+  const server = { close: (cb) => app.close().then(cb) };
   if (!fs.existsSync(bin)) { console.log('Cloudflare-tunnel installeren (eenmalig)…'); await install(bin); }
   console.log('Tunnel openen…');
   const t = Tunnel.quick('http://localhost:' + PORT);

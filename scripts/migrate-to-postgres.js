@@ -9,14 +9,14 @@
    - De bestanden zelf (map files/) en de sleutel (DATA_KEY of secret.key) moeten mee naar de nieuwe server:
      zonder die sleutel zijn versleutelde wifi-wachtwoorden onleesbaar.
    ========================================================= */
-require('../server/config');
+const { PATHS } = require('../server/dist/config/env');            // .env inlezen
 const fs = require('fs');
 const path = require('path');
 const Database = require('better-sqlite3');
 const { Pool } = require('pg');
 
 const url = process.env.DATABASE_URL;
-const file = process.env.SQLITE_FILE || path.join(process.env.DATA_DIR || path.join(__dirname, '..', 'server', 'data'), 'optimasys.db');
+const file = process.env.SQLITE_FILE || path.join(PATHS.data, 'optimasys.db');
 if (!url) { console.error('Zet eerst DATABASE_URL (postgres://…).'); process.exit(1); }
 if (!fs.existsSync(file)) { console.error('SQLite-bestand niet gevonden: ' + file); process.exit(1); }
 
@@ -30,7 +30,7 @@ const TABLES = [
 ];
 
 (async () => {
-  await require('../server/db/postgres').open(url).then((d) => d.close());       // tabellen aanmaken
+  await require('../server/dist/database/postgres.driver').openPostgres(url).then((d) => d.close());       // tabellen aanmaken
   const src = new Database(file, { readonly: true });
   const pool = new Pool({ connectionString: url }), c = await pool.connect();
   try {

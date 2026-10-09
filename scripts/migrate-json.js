@@ -1,14 +1,17 @@
 /* Oude demo-opslag (server/data/db.json) overzetten naar de database, bij één account.
    Gebruik: npm run migrate -- jouw@email.nl
    Het account moet al bestaan (maak het eerst aan in de app). Bestanden (PDF/MP3) gaan naar schijf. */
-require('../server/config');
+const { ROOT } = require('../server/dist/config/env');             // .env inlezen
 const fs = require('fs');
 const path = require('path');
-const db = require('../server/db');
+const { NestFactory } = require('@nestjs/core');
+const { DatabaseModule } = require('../server/dist/database/database.module');
+const { DatabaseService } = require('../server/dist/database/database.service');
 const email = process.argv[2];
-const file = process.argv[3] || path.join(__dirname, '..', 'server', 'data', 'db.json');
+const file = process.argv[3] || path.join(ROOT, 'server', 'data', 'db.json');
 if (!email) { console.error('Gebruik: npm run migrate -- jouw@email.nl [pad/naar/db.json]'); process.exit(1); }
 (async () => {
+const ctx = await NestFactory.createApplicationContext(DatabaseModule, { logger: ['error'] }), db = ctx.get(DatabaseService);
 const user = await db.userByEmail(email);
 if (!user) { console.error('Geen account met ' + email + '. Maak het eerst aan in de app.'); process.exit(1); }
 const old = JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -31,5 +34,5 @@ for (const q of old.qrCodes || []) {
 }
 if (old.me && old.me.background) await db.updateUser(user.id, { background: old.me.background, customBackground: old.me.customBackground || null });
 console.log(n + ' QR-codes overgezet naar ' + email + (skipped ? ' (' + skipped + ' bestonden al)' : '') + '.');
-  await db.close();
+  await ctx.close();
 })().catch((e) => { console.error('Overzetten mislukt:', e.message); process.exit(1); });

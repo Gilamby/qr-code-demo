@@ -12,3 +12,4 @@ backups/
 build/
 server/data/secret.key
 *.key
+server/dist/

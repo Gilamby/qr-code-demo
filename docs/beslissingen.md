@@ -4,7 +4,7 @@ Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
 ## 9 okt 2026: echte back-end (accounts + SQLite)
 
-- **Database: SQLite** (better-sqlite3, WAL). Eén bestand, geen extra server. Tabellen: users, sessions, password_resets, qr_codes, scan_stats, files. Overstap naar PostgreSQL: alleen `server/db.js`.
+- **Database:** eerst alleen SQLite (één bestand); sinds 9 okt 2026 PostgreSQL in productie en SQLite om te ontwikkelen (zie onderaan). Tabellen: users, sessions, password_resets, email_verifications, qr_codes, scan_stats, files.
 - **Inloggen: e-mail + wachtwoord.** scrypt; sessie = willekeurige code in een HttpOnly-cookie (in de database alleen een hash), 30 dagen, verlengt bij gebruik. Wachtwoord vergeten via e-mail (SMTP, anders in de serverlog), link 1 uur, één keer. Minstens 8 tekens, geen veelgebruikte wachtwoorden.
 - **Elke klant ziet alleen zijn eigen codes**, statistieken en bestanden (gecontroleerd in `npm test`).
 - **PDF/MP3 op schijf** (`server/data/files`), niet meer als tekst in de database. Vervangen of verwijderen ruimt het bestand op.
@@ -104,7 +104,7 @@ Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
 - **Doorsturen** naar wat al bestaat: Website, Video (naar de videolink), WhatsApp, Facebook (naar de pagina), Instagram (naar het profiel). **Apps**: iPhone → App Store, Android → Google Play, computer → de pagina met beide knoppen. WiFi werkt zonder ons (de gegevens zitten in de code zelf).
 - **Eigen pagina** voor PDF, Lijst met links, vCard, Bedrijf, Afbeeldingen, Social media, MP3, Menu, Apps (op de computer) en Coupon.
-  - Gemaakt met **precies dezelfde sjablonen** als de telefoon in de tool (`server/live-page.js` + `public/js/live.js` + `public/css/live.css`). Wat de klant in de tool ziet, is dus echt wat de bezoeker krijgt. Eén ontwerp, twee plekken.
+  - Gemaakt met **precies dezelfde sjablonen** als de telefoon in de tool (`server/src/visitor/live-page.ts` + `public/js/live.js` + `public/css/live.css`). Wat de klant in de tool ziet, is dus echt wat de bezoeker krijgt. Eén ontwerp, twee plekken.
   - In de taal van de bezoeker (uit de browser, 10 talen), in de kleuren die de klant koos.
   - Nep-telefoondelen (statusbalk, terug-knoppen, *Gereed*) zijn weg; lege velden worden weggelaten in plaats van grijze balkjes.
   - **Alles werkt:** bellen, mailen, route (Google Maps), website openen, delen, contact opslaan (.vcf), PDF openen en downloaden, muziek afspelen en doorspoelen, foto's groot bekijken en downloaden, social links, app-winkels, kortingscode kopiëren.
@@ -332,7 +332,14 @@ Vergeleken met qr-code.io, QR TIGER en Uniqode. Alleen functies die klanten echt
 
 - **Waarom PostgreSQL:** standaard bij ontwikkelteams; beheerde varianten geven automatische back-ups (point-in-time recovery), versleuteling, eigen databasegebruikers met rechten, een afgeschermd netwerk en reservekopieën die het overnemen bij uitval. Met SQLite is de app één server: valt die uit, dan werken geen geprinte codes.
 - **Waarom SQLite blijft:** nul installatie voor ontwikkelen en Codespaces (`npm start` werkt meteen) en voor de automatische tests.
-- **Hoe:** `server/db.js` is één async laag met twee stuurprogramma's (`server/db/sqlite.js`, `server/db/postgres.js`). `DATABASE_URL` gezet = PostgreSQL. Dezelfde SQL (met `?`) werkt op beide; alle tests draaien op beide.
+- **Hoe:** `DatabaseService` (`server/src/database/`) is één laag met twee stuurprogramma's (`sqlite.driver.ts`, `postgres.driver.ts`). `DATABASE_URL` gezet = PostgreSQL. Dezelfde SQL (met `?`) werkt op beide; alle tests draaien op beide.
 - **Overstappen:** `npm run migrate:pg` (mag vaker draaien, alles of niets).
 - **Wifi-wachtwoorden** staan versleuteld (AES-256-GCM, sleutel `DATA_KEY`), ook in back-ups.
 - **Redis:** pas nodig bij meerdere app-servers (gedeelde rate limiting). Nu niet.
+
+## Server: NestJS (TypeScript) in plaats van losse Express-code (10 okt 2026)
+
+- **Waarom:** NestJS is de standaard bij het ontwikkelteam van Optimasys. Vaste indeling in modules, controllers en services, TypeScript, dependency injection: makkelijker te lezen, te testen en over te dragen.
+- **Wat bleef gelijk:** alle API-adressen, statuscodes en antwoorden (`{ error, details? }`), de voorkant, de database, de beveiliging (headers, CSRF, sessiecookie, rate limits). NestJS draait op Node.js met Express 5 eronder.
+- **Bouwen:** `server/src` (TypeScript) → `server/dist` via `tsc`; `npm start`, `npm test` en de Dockerfile doen dat vanzelf.
+- **Getest:** dezelfde automatische tests en browsertests als voor de omzetting, op SQLite én PostgreSQL, en in de productieversie.

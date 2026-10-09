@@ -57,7 +57,7 @@ docker compose up -d
 npm ci
 npm run build             # maakt de productieversie (build/)
 cp .env.example .env      # en invullen
-NODE_ENV=production node server/index.js
+NODE_ENV=production node server/dist/main.js
 ```
 
 `npm run build` voegt alle JavaScript en CSS samen tot een paar kleine, onleesbare bestanden. In productie zijn de losse bronbestanden (`/js/...`, `/shared/...`) niet te downloaden. Na elke update opnieuw `npm run build` draaien (Docker doet dit vanzelf).

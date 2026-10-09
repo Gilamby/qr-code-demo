@@ -6,16 +6,22 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 process.env.DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'optimasys-test-'));
-const app = require('../server/index.js');
-// E-mails onderscheppen: de bevestigingslink uit de "mail" halen
-const mailer = require('../server/mailer');
-const mails = {};
-mailer.sendVerify = async (to, link) => { mails[to] = link; };
-const tokenFor = (email) => decodeURIComponent(mails[email].split('verify=')[1]);
+const { createApp } = require('../server/dist/main');                 // NestJS-app (npm test bouwt eerst server/src)
+const { MailerService } = require('../server/dist/auth/mailer.service');
+const { DatabaseService } = require('../server/dist/database/database.service');
 
-let base, server;
-test.before(() => new Promise((r) => { server = app.listen(0, () => { base = 'http://localhost:' + server.address().port; r(); }); }));
-test.after(() => { server.close(); fs.rmSync(process.env.DATA_DIR, { recursive: true, force: true }); });
+let base, app, db;
+// E-mails onderscheppen: de bevestigingslink uit de "mail" halen
+const mails = {};
+const tokenFor = (email) => decodeURIComponent(mails[email].split('verify=')[1]);
+test.before(async () => {
+  app = await createApp();
+  app.get(MailerService).sendVerify = async (to, link) => { mails[to] = link; };
+  db = app.get(DatabaseService);
+  await app.listen(0);
+  base = 'http://localhost:' + app.getHttpServer().address().port;
+});
+test.after(async () => { await app.close(); fs.rmSync(process.env.DATA_DIR, { recursive: true, force: true }); });
 
 // Kleine "browser" met eigen cookie
 function client() {
@@ -127,7 +133,6 @@ test('wachtwoord vergeten en account verwijderen', async () => {
 });
 
 test('wifi-wachtwoord staat versleuteld in de database, maar de eigenaar ziet het gewoon', async () => {
-  const db = require('../server/db');
   const a = client();
   await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' });
   const made = await a('POST', '/api/qr-codes', { typeId: 'wifi', content: { ssid: 'Kantoor', password: 'supergeheim123', security: 'WPA' } });

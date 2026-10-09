@@ -1,11 +1,11 @@
 /* =========================================================
    Stuurprogramma: SQLite (één bestand). Standaard voor ontwikkelen en kleine installaties.
-   Zelfde vorm als postgres.js: all / get / run / batch / ping / close (allemaal async).
-   SQL gebruikt ? als plaatshouder.
+   Zelfde vorm als postgres.driver.ts (SqlDriver). SQL gebruikt ? als plaatshouder.
    ========================================================= */
-const fs = require('fs');
-const path = require('path');
-const Database = require('better-sqlite3');
+import * as fs from 'fs';
+import * as path from 'path';
+import Database from 'better-sqlite3';
+import type { SqlDriver } from '../types';
 
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS users (
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS files (
 CREATE INDEX IF NOT EXISTS files_code ON files(code_id);
 `;
 
-function open(file) {
+export function openSqlite(file: string): SqlDriver {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   const db = new Database(file);
   db.pragma('journal_mode = WAL');        // snel en veilig bij veel scans tegelijk
@@ -83,23 +83,21 @@ function open(file) {
     db.prepare('UPDATE users SET email_verified_at = created_at').run();
   }
 
-  const cache = new Map();
-  const stmt = (sql) => { let s = cache.get(sql); if (!s) { s = db.prepare(sql); cache.set(sql, s); } return s; };
-  const fix = (p) => (p || []).map((v) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));
-  const run = (sql, p) => { const r = stmt(sql).run(...fix(p)); return { changes: r.changes }; };
-  const runAll = db.transaction((list) => list.map(([sql, p]) => run(sql, p)));
+  const cache = new Map<string, Database.Statement>();
+  const stmt = (sql: string) => { let s = cache.get(sql); if (!s) { s = db.prepare(sql); cache.set(sql, s); } return s; };
+  const fix = (p?: unknown[]) => (p || []).map((v) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));
+  const run = (sql: string, p?: unknown[]) => ({ changes: stmt(sql).run(...fix(p)).changes });
+  const runAll = db.transaction((list: [string, unknown[]][]) => list.map(([sql, p]) => run(sql, p)));
 
   return {
     kind: 'sqlite',
     label: file,
-    all: async (sql, p) => stmt(sql).all(...fix(p)),
-    get: async (sql, p) => stmt(sql).get(...fix(p)) || null,
+    all: async (sql, p) => stmt(sql).all(...fix(p)) as any[],
+    get: async (sql, p) => (stmt(sql).get(...fix(p)) as any) || null,
     run: async (sql, p) => run(sql, p),
-    batch: async (list) => runAll(list),                          // alles of niets (één transactie)
+    batch: async (list) => runAll(list),
     ping: async () => !!stmt('SELECT 1 AS ok').get(),
-    close: async () => db.close(),
-    backup: (to) => db.backup(to),
+    close: async () => { db.close(); },
+    backup: (to: string) => db.backup(to),
   };
 }
-
-module.exports = { open };

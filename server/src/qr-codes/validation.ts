@@ -1,7 +1,9 @@
 /* Validatie: controleert wat de frontend stuurt, op basis van dezelfde QR-types (shared/qr-types.js).
-   Zo bestaan de regels maar op één plek. */
-const QR_TYPES = require('../shared/qr-types');
-const DESIGN = require('../shared/design-data');
+   Zo bestaan de regels maar op één plek (frontend én server). */
+import { shared } from '../config/env';
+
+export const QR_TYPES: any[] = shared('qr-types.js');
+const DESIGN = shared('design-data.js');
 const { safeDesign } = DESIGN;
 
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -9,22 +11,22 @@ const MAX_TEXT = 500;
 const BACKGROUNDS = ['optimasys', 'aurora', 'city', 'mountains', 'office', 'cafe', 'restaurant', 'custom'];
 
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
-const SOCIAL_NETWORKS = ['instagram', 'facebook', 'tiktok', 'linkedin', 'x', 'youtube', 'whatsapp', 'google', 'messenger', 'threads', 'pinterest', 'snapchat', 'telegram', 'signal', 'discord', 'reddit', 'bluesky', 'mastodon', 'twitch', 'kick', 'vimeo', 'spotify', 'applemusic', 'soundcloud', 'podcasts', 'tumblr', 'medium', 'substack', 'patreon', 'behance', 'dribbble', 'github', 'flickr', 'strava', 'xing', 'quora', 'wechat', 'line', 'vk', 'weibo', 'tripadvisor', 'yelp', 'etsy', 'airbnb', 'booking'];
-function validHours(arr) {
+export const SOCIAL_NETWORKS = ['instagram', 'facebook', 'tiktok', 'linkedin', 'x', 'youtube', 'whatsapp', 'google', 'messenger', 'threads', 'pinterest', 'snapchat', 'telegram', 'signal', 'discord', 'reddit', 'bluesky', 'mastodon', 'twitch', 'kick', 'vimeo', 'spotify', 'applemusic', 'soundcloud', 'podcasts', 'tumblr', 'medium', 'substack', 'patreon', 'behance', 'dribbble', 'github', 'flickr', 'strava', 'xing', 'quora', 'wechat', 'line', 'vk', 'weibo', 'tripadvisor', 'yelp', 'etsy', 'airbnb', 'booking'];
+function validHours(arr: any) {
   return Array.isArray(arr) && arr.length === 7 && arr.every((d) => d && (!d.o || (TIME.test(d.f) && TIME.test(d.t) && ((!d.f2 && !d.t2) || (TIME.test(d.f2) && TIME.test(d.t2))))));
 }
-function isUrl(v) { try { const u = new URL(v); return u.protocol === 'http:' || u.protocol === 'https:'; } catch (e) { return false; } }
+function isUrl(v: string) { try { const u = new URL(v); return u.protocol === 'http:' || u.protocol === 'https:'; } catch (e) { return false; } }
 
 // E-mail: naam@domein.extensie, geen spaties of dubbele punten, extensie minstens 2 letters
-const EMAIL = /^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,24}$/;
+export const EMAIL = /^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,24}$/;
 
-function validateQrCode(body) {
-  const errors = [];
+export function validateQrCode(body: any): { errors: string[]; value?: { typeId: string; contentType: string; content: Record<string, any>; design: Record<string, any> } } {
+  const errors: string[] = [];
   const type = QR_TYPES.find((t) => t.id === (body && body.typeId));
   if (!type) return { errors: ['typeId: unknown QR type'] };
 
   const input = (body.content && typeof body.content === 'object') ? body.content : {};
-  const content = {};
+  const content: Record<string, any> = {};
   for (const field of type.fields) {
     let v = input[field.key];
     if (v == null || String(v).trim() === '') continue;        // leeg = voorbeeldwaarde gebruiken
@@ -85,16 +87,16 @@ function validateQrCode(body) {
   return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: dv } };
 }
 
-function validateDesign(design, errors) {
+export function validateDesign(design: any, errors: string[]) {
   design = Object.assign({ color: '#0b0e13', background: '#ffffff' }, design);
   if (!HEX.test(design.color || '')) errors.push('design.color: must be #rrggbb');
   if (!HEX.test(design.background || '')) errors.push('design.background: must be #rrggbb');
 
   if (design.pageColor !== undefined && !HEX.test(design.pageColor)) errors.push('design.pageColor: must be #rrggbb');
   if (design.accentColor !== undefined && !HEX.test(design.accentColor)) errors.push('design.accentColor: must be #rrggbb');
-  const cleanDesign = { color: design.color, background: design.background };
+  const cleanDesign: Record<string, any> = { color: design.color, background: design.background };
   // Uitgebreid ontwerp (stap 3): alleen bekende waarden doorlaten
-  const ENUMS = {
+  const ENUMS: Record<string, string[]> = {
     // huidige opties + oude namen (die safeDesign omzet naar de dichtstbijzijnde nette optie)
     pattern: DESIGN.DESIGN_PATTERNS.concat(Object.keys(DESIGN.REPLACE.pattern)),
     cornerOuter: DESIGN.DESIGN_OUTER.concat(Object.keys(DESIGN.REPLACE.cornerOuter)),
@@ -115,8 +117,8 @@ function validateDesign(design, errors) {
   return errors.length ? cleanDesign : safeDesign(cleanDesign);   // altijd netjes en scanbaar opslaan
 }
 
-function validateMe(body) {
-  const errors = [], value = {};
+export function validateMe(body: any) {
+  const errors: string[] = [], value: { background?: string; customBackground?: string | null } = {};
   if (body.background !== undefined) {
     if (!BACKGROUNDS.includes(body.background)) errors.push('background: unknown');
     else value.background = body.background;
@@ -129,4 +131,3 @@ function validateMe(body) {
   return { errors, value };
 }
 
-module.exports = { EMAIL, validateQrCode, validateMe, validateDesign, QR_TYPES };

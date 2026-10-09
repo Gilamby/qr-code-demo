@@ -4,15 +4,18 @@
    SQLite: database-bestand + bestanden. PostgreSQL: alleen de bestanden; de database zelf met pg_dump
    (of de automatische back-ups van de hostingpartij).
    De sleutel voor versleutelde velden (DATA_KEY of <DATA_DIR>/secret.key) zit NIET in de back-up: bewaar die apart. */
-require('../server/config');
+const { PATHS } = require('../server/dist/config/env');            // .env inlezen
 const fs = require('fs');
 const path = require('path');
-const db = require('../server/db');
+const { NestFactory } = require('@nestjs/core');
+const { DatabaseModule } = require('../server/dist/database/database.module');
+const { DatabaseService } = require('../server/dist/database/database.service');
 const root = process.env.BACKUP_DIR || path.join(__dirname, '..', 'backups');
 const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
 const dir = path.join(root, 'optimasys-' + stamp);
 
 (async () => {
+  const ctx = await NestFactory.createApplicationContext(DatabaseModule, { logger: ['error'] }), db = ctx.get(DatabaseService);
   fs.mkdirSync(path.join(dir, 'files'), { recursive: true });
   if (db.kind === 'sqlite') await db.backup(path.join(dir, 'optimasys.db'));
   else console.log('PostgreSQL: maak de database-back-up met pg_dump (bv. pg_dump "$DATABASE_URL" > optimasys.sql) of via de hostingpartij.');
@@ -20,5 +23,5 @@ const dir = path.join(root, 'optimasys-' + stamp);
   const all = fs.readdirSync(root).filter((d) => d.startsWith('optimasys-')).sort();
   all.slice(0, Math.max(0, all.length - 14)).forEach((d) => fs.rmSync(path.join(root, d), { recursive: true, force: true }));
   console.log('Back-up klaar: ' + dir);
-  await db.close(); process.exit(0);
+  await ctx.close(); process.exit(0);
 })().catch((e) => { console.error('Back-up mislukt:', e.message); process.exit(1); });

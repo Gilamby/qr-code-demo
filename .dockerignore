@@ -4,3 +4,5 @@ backups
 dist
 .env
 .git
+server/dist
+build
