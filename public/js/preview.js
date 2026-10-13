@@ -89,9 +89,10 @@ var TEMPLATES = {
       '<div class="pv-rows">' + rows.filter(Boolean).map(function (r) { return '<div class="pv-row"><span class="ri">' + svg(type.icon, 1.7) + '</span><span class="lbl">' + esc(r) + '</span>' + CHEV + '</div>'; }).join('') + '</div>';
   }
 };
-// Waarden voor de telefoon: in stap 1 voorbeeldwaarden, daarna alleen wat de gebruiker invult.
-function phoneValues(type, state, example) {
-  var entered = state.content[type.id] || {}, out = {};
+// Waarden voor de telefoon: in stap 1 alleen het voorbeeld (wat je bij Inhoud invult, verandert het voorbeeld niet),
+// daarna alleen wat de gebruiker invult. samplesOnly: niets van de gebruiker gebruiken.
+function phoneValues(type, state, example, samplesOnly) {
+  var entered = samplesOnly ? {} : (state.content[type.id] || {}), out = {};
   type.fields.forEach(function (f) { var x = entered[f.key]; out[f.key] = (x != null && String(x).trim() !== '') ? String(x).trim() : (example ? resolveSample(f.sample) : ''); });
   return out;
 }
@@ -100,6 +101,6 @@ function renderPreview(state) {
   if (ex && previewScreen(type)) return previewScreen(type);
   // Stap 2/3 met de schakelaar op "QR-code": de echte QR-code groot op de telefoon, met de gekozen kleuren.
   if (!ex && state.phoneView === 'qr') return '<div class="ph ph-qr">' + PHONE.statusBar() + '<div class="qr-full">' + QRRender.svg(encodeQR(state), Object.assign({}, state.design, state.hoverDesign), { label: t('design.qrAlt', { type: typeName(type) }) }) + '</div></div>';
-  if (PHONE[type.id]) return PHONE[type.id](phoneValues(type, state, ex), ex, state);
-  return TEMPLATES[type.previewType](type, previewRows(type, phoneValues(type, state, true)));
+  if (PHONE[type.id]) return PHONE[type.id](phoneValues(type, state, ex, ex), ex, state);
+  return TEMPLATES[type.previewType](type, previewRows(type, phoneValues(type, state, true, ex)));
 }

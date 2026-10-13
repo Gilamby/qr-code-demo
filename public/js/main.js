@@ -15,8 +15,9 @@
   function drawPhone(state) {
     var shown = state.step === 'type' && state.hoverTypeId ? state.hoverTypeId : state.typeId, type = getType(shown);
     screen.innerHTML = renderPreview(state);
-    // Kleuren van de telefoon: in stap 1 die van het type waar je naar kijkt, daarna die van je pagina (per type onthouden).
-    var base = shown === state.typeId ? [state.pageColor, state.accentColor] : typeColors(shown, state);
+    // Kleuren van de telefoon: in stap 1 altijd de standaardkleuren van het voorbeeld (jouw keuzes blijven bewaard),
+    // daarna die van je pagina (per type onthouden).
+    var base = state.step === 'type' ? (type.theme || ['#2bb5f0', '#0f172a']) : shown === state.typeId ? [state.pageColor, state.accentColor] : typeColors(shown, state);
     var h = state.hoverTheme || {}, pc = h.pc || base[0], ac = h.ac || base[1];
     var ink = function (c) { return luminance(c) > 0.42 ? '#14161a' : '#ffffff'; };   // leesbare tekst op elke kleur
     screen.style.setProperty('--pc', pc); screen.style.setProperty('--pc-ink', ink(pc));
