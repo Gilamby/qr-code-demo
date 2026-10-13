@@ -254,7 +254,8 @@ var Admin = (function () {
   /* App / Beheer: één pagina, één adres. Admins wisselen met de knop bovenin de zijbalk;
      in Beheer krijgt de zijbalk het beheermenu en de pagina een eigen, rustige achtergrond. */
   var ENV_KEY = 'optimasys-env', envSwitch = document.getElementById('envSwitch');
-  function savedEnv() { try { return localStorage.getItem(ENV_KEY) === 'admin' ? 'admin' : 'app'; } catch (e) { return 'app'; } }
+  // Admin logt in: meteen het beheer (tenzij je de vorige keer zelf op App hebt gezet)
+  function savedEnv() { try { return localStorage.getItem(ENV_KEY) === 'app' ? 'app' : 'admin'; } catch (e) { return 'admin'; } }
   function setEnv(env, go) {
     var adm = env === 'admin' && !!(me && me.admin);
     document.body.classList.toggle('env-admin', adm);
