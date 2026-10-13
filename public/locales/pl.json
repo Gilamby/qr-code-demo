@@ -1301,6 +1301,9 @@
     "pwCurrent": "Obecne hasło",
     "pwSave": "Zapisz hasło",
     "pwSaved": "Hasło zmienione. Inne urządzenia zostały wylogowane.",
-    "pwWrong": "Obecne hasło jest nieprawidłowe."
+    "pwWrong": "Obecne hasło jest nieprawidłowe.",
+    "toAdmin": "Przejdź do administracji",
+    "app": "Aplikacja",
+    "switch": "Przełącz między aplikacją a administracją"
   }
 }

@@ -1407,6 +1407,9 @@
     "pwCurrent": "Fjalëkalimi aktual",
     "pwSave": "Ruaj fjalëkalimin",
     "pwSaved": "Fjalëkalimi u ndryshua. Pajisjet e tjera u nxorën nga llogaria.",
-    "pwWrong": "Fjalëkalimi aktual nuk është i saktë."
+    "pwWrong": "Fjalëkalimi aktual nuk është i saktë.",
+    "toAdmin": "Shko te administrimi",
+    "app": "Aplikacioni",
+    "switch": "Kalo mes aplikacionit dhe administrimit"
   }
 }

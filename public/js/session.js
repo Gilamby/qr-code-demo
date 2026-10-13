@@ -14,10 +14,9 @@ var Session = (function () {
   var user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var LOGO = '<img class="logo-mark" src="icons/favicon.svg" alt="">';
-  // Twee omgevingen met hetzelfde inlogscherm: de app voor klanten (/) en het beheer (/admin, alleen voor admins).
-  // Een admin die bij de klanten-app inlogt gaat naar /admin; een klant kan het beheer niet in.
+  // Twee omgevingen met hetzelfde inlogscherm: de app (/) en het beheer (/admin, alleen voor admins).
+  // Een admin kan alles wat een klant kan en wisselt met de knop App / Beheer; een klant kan het beheer niet in.
   var ADMIN = document.body.getAttribute('data-app') === 'admin';
-  function home(u) { return u && u.admin && !ADMIN ? '/admin' : null; }
 
   function field(name, type, label, auto, value) {
     var pw = type === 'password';
@@ -87,7 +86,7 @@ var Session = (function () {
     if (ADMIN && u && !u.admin) {                                         // klant probeert het beheer: weer uitloggen
       return api.auth.logout().catch(function () {}).then(function () { flash = ['adminApp.notAdmin', 'bad']; show('login'); });
     }
-    location.replace(home(u) || location.pathname);
+    location.replace(location.pathname);
   }
 
   card.addEventListener('click', function (e) {
@@ -135,7 +134,6 @@ var Session = (function () {
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
     return api.auth.me().then(function (u) {
-      if (home(u)) return location.replace(home(u));                     // admin in de klanten-app: naar het beheer
       if (ADMIN && !u.admin) { flash = ['adminApp.notAdmin', 'bad']; return show('login'); }
       user = u; ready(); listeners.forEach(function (f) { f(u); });
     }).catch(function () { show('login'); });

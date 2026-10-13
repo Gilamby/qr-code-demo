@@ -81,3 +81,10 @@
   .adm-acct { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) { .adm-side { transition: none; } }
+/* Wisselknop App / Beheer */
+.adm-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 13px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); }
+.adm-switch > * { display: flex; align-items: center; justify-content: center; gap: 7px; height: 36px; border-radius: 10px; font-size: 13px; font-weight: 700; color: var(--muted); text-decoration: none; }
+.adm-switch svg { width: 16px; height: 16px; }
+.adm-switch a:hover { color: var(--fg); background: rgba(255,255,255,.05); }
+.adm-switch [aria-current] { color: #fff; background: linear-gradient(90deg, rgba(43,181,240,.3), rgba(167,139,250,.3)); }
+.adm-switch a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

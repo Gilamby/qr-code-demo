@@ -1301,6 +1301,9 @@
     "pwCurrent": "Contraseña actual",
     "pwSave": "Guardar contraseña",
     "pwSaved": "Contraseña cambiada. Se ha cerrado la sesión en otros dispositivos.",
-    "pwWrong": "Tu contraseña actual no es correcta."
+    "pwWrong": "Tu contraseña actual no es correcta.",
+    "toAdmin": "Ir a la administración",
+    "app": "App",
+    "switch": "Cambiar entre la app y la administración"
   }
 }

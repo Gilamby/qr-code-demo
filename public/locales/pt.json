@@ -1301,6 +1301,9 @@
     "pwCurrent": "Palavra-passe atual",
     "pwSave": "Guardar palavra-passe",
     "pwSaved": "Palavra-passe alterada. Os outros dispositivos terminaram a sessão.",
-    "pwWrong": "A palavra-passe atual não está correta."
+    "pwWrong": "A palavra-passe atual não está correta.",
+    "toAdmin": "Ir para a administração",
+    "app": "App",
+    "switch": "Alternar entre a app e a administração"
   }
 }

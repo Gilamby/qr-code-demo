@@ -1301,6 +1301,9 @@
     "pwCurrent": "Current password",
     "pwSave": "Save password",
     "pwSaved": "Password changed. Other devices have been signed out.",
-    "pwWrong": "Your current password is not correct."
+    "pwWrong": "Your current password is not correct.",
+    "toAdmin": "Go to admin",
+    "app": "App",
+    "switch": "Switch between app and admin"
   }
 }

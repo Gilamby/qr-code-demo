@@ -1301,6 +1301,9 @@
     "pwCurrent": "Mot de passe actuel",
     "pwSave": "Enregistrer le mot de passe",
     "pwSaved": "Mot de passe modifié. Les autres appareils ont été déconnectés.",
-    "pwWrong": "Votre mot de passe actuel est incorrect."
+    "pwWrong": "Votre mot de passe actuel est incorrect.",
+    "toAdmin": "Aller à l’administration",
+    "app": "App",
+    "switch": "Basculer entre l’app et l’administration"
   }
 }

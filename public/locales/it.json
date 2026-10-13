@@ -1301,6 +1301,9 @@
     "pwCurrent": "Password attuale",
     "pwSave": "Salva password",
     "pwSaved": "Password cambiata. Gli altri dispositivi sono stati disconnessi.",
-    "pwWrong": "La password attuale non è corretta."
+    "pwWrong": "La password attuale non è corretta.",
+    "toAdmin": "Vai all’amministrazione",
+    "app": "App",
+    "switch": "Passa tra app e amministrazione"
   }
 }
