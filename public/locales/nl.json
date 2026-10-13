@@ -1129,7 +1129,7 @@
     "cpDoneTitle": "Je profiel is compleet",
     "cpDoneText": "Alles staat erin. Goed bezig!",
     "cpTitle": "Voltooi je profiel",
-    "cpLead": "Nog {n} stap(pen). Klik op een onderdeel om het in te vullen.",
+    "cpLead": "Nog {n} stappen. Klik op een onderdeel om het in te vullen.",
     "personalLead": "Bekijk je gegevens. Klik op Wijzigen om iets aan te passen.",
     "emailSentTitle": "Check je mail",
     "emailSentText": "We hebben een link gestuurd naar {email}. Klik erop binnen 24 uur. Tot die tijd log je in met je huidige adres.",
@@ -1174,7 +1174,9 @@
     "emailErrInvalid": "Dit e-mailadres klopt niet.",
     "emailErrToken": "Deze link werkt niet meer. Vraag een nieuwe aan bij Mijn account.",
     "emailChanged": "Gelukt! Je e-mailadres is nu {email}.",
-    "emailChangedLogin": "Gelukt! Je e-mailadres is gewijzigd. Log in met je nieuwe adres."
+    "emailChangedLogin": "Gelukt! Je e-mailadres is gewijzigd. Log in met je nieuwe adres.",
+    "photoHintShort": "JPG, PNG of WebP. Sleep een foto op deze kaart.",
+    "cpLeadOne": "Nog 1 stap. Klik erop om het in te vullen."
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor Optimasys QR",

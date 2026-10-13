@@ -1129,7 +1129,7 @@
     "cpDoneTitle": "Votre profil est complet",
     "cpDoneText": "Tout est rempli. Bravo !",
     "cpTitle": "Complétez votre profil",
-    "cpLead": "Encore {n} étape(s). Cliquez sur un élément pour le remplir.",
+    "cpLead": "Encore {n} étapes. Cliquez sur un élément pour le remplir.",
     "personalLead": "Consultez vos informations. Cliquez sur Modifier pour changer quelque chose.",
     "emailSentTitle": "Vérifiez vos e-mails",
     "emailSentText": "Nous avons envoyé un lien à {email}. Cliquez dessus dans les 24 heures. D’ici là, connectez-vous avec votre adresse actuelle.",
@@ -1174,7 +1174,9 @@
     "emailErrInvalid": "Cette adresse e-mail n’est pas valide.",
     "emailErrToken": "Ce lien ne fonctionne plus. Demandez-en un nouveau dans Mon compte.",
     "emailChanged": "C’est fait ! Votre adresse e-mail est maintenant {email}.",
-    "emailChangedLogin": "C’est fait ! Votre adresse e-mail a été modifiée. Connectez-vous avec la nouvelle adresse."
+    "emailChangedLogin": "C’est fait ! Votre adresse e-mail a été modifiée. Connectez-vous avec la nouvelle adresse.",
+    "photoHintShort": "JPG, PNG ou WebP. Glissez une photo sur cette carte.",
+    "cpLeadOne": "Encore 1 étape. Cliquez dessus pour la remplir."
   },
   "mail": {
     "resetSubject": "Nouveau mot de passe pour Optimasys QR",

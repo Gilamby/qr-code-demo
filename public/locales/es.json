@@ -1129,7 +1129,7 @@
     "cpDoneTitle": "Tu perfil está completo",
     "cpDoneText": "Todo está rellenado. ¡Buen trabajo!",
     "cpTitle": "Completa tu perfil",
-    "cpLead": "Quedan {n} paso(s). Haz clic en un elemento para rellenarlo.",
+    "cpLead": "Quedan {n} pasos. Haz clic en un elemento para rellenarlo.",
     "personalLead": "Consulta tus datos. Haz clic en Cambiar para editar algo.",
     "emailSentTitle": "Revisa tu correo",
     "emailSentText": "Hemos enviado un enlace a {email}. Haz clic en él en 24 horas. Hasta entonces, inicia sesión con tu dirección actual.",
@@ -1174,7 +1174,9 @@
     "emailErrInvalid": "Este correo no es válido.",
     "emailErrToken": "Este enlace ya no funciona. Pide uno nuevo en Mi cuenta.",
     "emailChanged": "¡Hecho! Tu correo ahora es {email}.",
-    "emailChangedLogin": "¡Hecho! Tu correo ha cambiado. Inicia sesión con tu nueva dirección."
+    "emailChangedLogin": "¡Hecho! Tu correo ha cambiado. Inicia sesión con tu nueva dirección.",
+    "photoHintShort": "JPG, PNG o WebP. Arrastra una foto a esta tarjeta.",
+    "cpLeadOne": "Queda 1 paso. Haz clic en él para rellenarlo."
   },
   "mail": {
     "resetSubject": "Nueva contraseña para Optimasys QR",

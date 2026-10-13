@@ -1235,7 +1235,7 @@
     "cpDoneTitle": "Profili yt është i plotë",
     "cpDoneText": "Gjithçka është plotësuar. Të lumtë!",
     "cpTitle": "Plotëso profilin",
-    "cpLead": "Edhe {n} hap(a). Kliko një element për ta plotësuar.",
+    "cpLead": "Edhe {n} hapa. Kliko një element për ta plotësuar.",
     "personalLead": "Shiko të dhënat e tua. Kliko Ndrysho për të ndryshuar diçka.",
     "emailSentTitle": "Kontrollo email-in",
     "emailSentText": "Dërguam një lidhje te {email}. Klikoje brenda 24 orëve. Deri atëherë hyr me adresën aktuale.",
@@ -1280,7 +1280,9 @@
     "emailErrInvalid": "Ky email nuk është i vlefshëm.",
     "emailErrToken": "Kjo lidhje nuk punon më. Kërko një të re te Llogaria ime.",
     "emailChanged": "U krye! Email-i yt tani është {email}.",
-    "emailChangedLogin": "U krye! Email-i yt u ndryshua. Hyr me adresën e re."
+    "emailChangedLogin": "U krye! Email-i yt u ndryshua. Hyr me adresën e re.",
+    "photoHintShort": "JPG, PNG ose WebP. Tërhiq një foto mbi këtë kartë.",
+    "cpLeadOne": "Edhe 1 hap. Klikoje për ta plotësuar."
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për Optimasys QR",

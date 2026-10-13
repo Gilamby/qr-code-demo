@@ -1174,7 +1174,9 @@
     "emailErrInvalid": "Αυτό το email δεν είναι έγκυρο.",
     "emailErrToken": "Αυτός ο σύνδεσμος δεν λειτουργεί πια. Ζητήστε νέο από τον Λογαριασμό μου.",
     "emailChanged": "Έγινε! Το email σας είναι τώρα {email}.",
-    "emailChangedLogin": "Έγινε! Το email σας άλλαξε. Συνδεθείτε με τη νέα διεύθυνση."
+    "emailChangedLogin": "Έγινε! Το email σας άλλαξε. Συνδεθείτε με τη νέα διεύθυνση.",
+    "photoHintShort": "JPG, PNG ή WebP. Σύρετε μια φωτογραφία σε αυτή την κάρτα.",
+    "cpLeadOne": "Απομένει 1 βήμα. Πατήστε το για να το συμπληρώσετε."
   },
   "mail": {
     "resetSubject": "Νέος κωδικός για το Optimasys QR",

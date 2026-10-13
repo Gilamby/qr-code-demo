@@ -139,17 +139,20 @@
       <section class="account">
         <header class="acct-head"><h2 data-i18n="nav.account"></h2><p data-i18n="acct.lead"></p><p class="acct-demo" id="acctDemo" hidden></p></header>
         <div class="acct-layout">
-        <div class="glass acct-menu" id="acctMenu" role="tablist" aria-orientation="vertical" data-i18n-aria="acct.sections"></div>
-        <div class="acct-main">
-        <div class="glass profile acct-id">
-          <div class="acct-cover" aria-hidden="true"></div>
-          <div class="acct-id-row">
+        <aside class="acct-side">
+          <div class="glass acct-idc">
             <button type="button" class="acct-av" id="acctAvatar" data-photo-pick><span id="acctAvatarIn">OP</span><span class="acct-av-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span></button>
-            <div class="profile-who"><div class="acct-id-name"><b id="acctName">Optimasys</b><span id="acctBadges" class="acct-badges"></span></div><small id="acctEmail" data-i18n="account.demo"></small><small id="acctSince"></small></div>
-            <div class="profile-stats" id="acctStats"></div>
+            <b class="idc-name" id="acctName">Optimasys</b>
+            <small class="idc-mail" id="acctEmail" data-i18n="account.demo"></small>
+            <span id="acctBadges" class="acct-badges"></span>
+            <div class="idc-stats" id="acctStats"></div>
+            <div class="idc-photo" id="acctPhotoBox"></div>
+            <small class="idc-since" id="acctSince"></small>
+            <input type="file" id="acctPhoto" accept="image/jpeg,image/png,image/webp" hidden>
           </div>
-          <input type="file" id="acctPhoto" accept="image/jpeg,image/png,image/webp" hidden>
-        </div>
+          <div class="glass acct-menu" id="acctMenu" role="tablist" aria-orientation="vertical" data-i18n-aria="acct.sections"></div>
+        </aside>
+        <div class="acct-main">
         <div id="acctCards" role="tabpanel"></div>
         <div class="glass bg-card" id="bgSection" role="tabpanel" hidden>
           <h2 data-i18n="account.background"></h2>

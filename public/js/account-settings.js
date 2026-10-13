@@ -52,7 +52,10 @@
     ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav']]],
     ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
   ];
-  var TAB_IDS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
+  var ALL_TABS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
+  /** Het hoofdaccount (super-admin) kan niet verwijderd worden: dan ook geen knop of onderdeel daarvoor */
+  function canDelete() { return !(user && user.superAdmin); }
+  function tabIds() { return ALL_TABS.filter(function (id) { return id !== 'delete' || canDelete(); }); }
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
   function loadSummary() { if (!user) return; api.account.summary().then(function (x) { sum = x; draw(); }).catch(function () {}); }
@@ -127,16 +130,17 @@
   /* ---------- Menu ---------- */
   function drawMenu() {
     menu.innerHTML = GROUPS.map(function (g) {
-      return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].map(function (x) {
+      return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].filter(function (x) { return x[0] !== 'delete' || canDelete(); }).map(function (x) {
         var on = x[0] === tab;
         return '<button type="button" role="tab"' + (x[0] === 'delete' ? ' class="acct-tab-danger"' : '') + ' id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
-          (x[0] === 'billing' && billingLoaded && !billing ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
+          (x[0] === 'billing' && billingLoaded && !billing && !user.admin ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
       }).join('');
     }).join('') +
     '<span class="acct-menu-line" aria-hidden="true"></span>' +
     '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>';
   }
-  function head() {
+  function head(m) {
+    m = m || {};
     var av = document.getElementById('acctAvatar');
     document.getElementById('acctAvatarIn').innerHTML = avatarHtml(user); av.classList.toggle('has-photo', !!user.avatar);
     av.setAttribute('aria-label', t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd')); av.title = t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd');
@@ -151,6 +155,9 @@
     var se = document.getElementById('acctSince'); se.textContent = since ? t('acct.since', { date: since }) : ''; se.hidden = !since;
     var stat = function (v, k, page) { return '<a href="#" class="acct-stat" data-goto="' + page + '"><b>' + (v == null ? '–' : i18n.fmt.num(v)) + '</b><small>' + t(k) + '</small></a>'; };
     stats.innerHTML = stat(sum && sum.codes, 'acct.codes', 'myCodes') + stat(sum && sum.scans, 'acct.scansTotal', 'analytics') + stat(sum && sum.scans30, 'acct.scans30', 'analytics');
+    document.getElementById('acctPhotoBox').innerHTML = '<div class="idc-btns"><button type="button" class="btn ghost" data-photo-pick>' + SVG + ICON.camera + '</svg>' + t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd') + '</button>' +
+      (user.avatar ? '<button type="button" class="btn ghost idc-rm" data-photo-remove aria-label="' + esc(t('acct.photoRemove')) + '" title="' + esc(t('acct.photoRemove')) + '">' + SVG + ICON.trash + '</svg></button>' : '') + '</div>' +
+      '<small>' + t('acct.photoHintShort') + '</small>' + (m.photo ? '<p class="acct-msg ' + m.photo[1] + '" role="status">' + esc(m.photo[0]) + '</p>' : '');
     var dn = document.getElementById('acctDemo'); if (dn) { dn.hidden = !api.isDemo(); dn.textContent = t('acct.demoNote'); }
   }
 
@@ -208,6 +215,7 @@
         '<div class="acct-empty" role="row"><span role="cell">' + SVG + ICON.billing + '</svg>' + t('acct.invEmpty') + '</span></div></div></div>';
   }
   function dangerCard(m) {
+    if (!canDelete()) return '';
     return '<div class="glass bg-card acct acct-danger"><div class="acct-danger-head">' + SVG + ICON.warn + '</svg><div><h2>' + t('acct.dangerTitle') + '</h2><p>' + t('acct.dangerLead') + '</p></div></div>' +
       '<div class="acct-danger-row"><div><b>' + t('acct.delete') + '</b><small>' + t('acct.deleteHint') + '</small></div>' +
       '<button type="button" class="btn danger" data-tab-go="delete">' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div></div>';
@@ -235,12 +243,12 @@
       ['name', !!splitName(user.name)[1], 'acct.cpName', 'data-edit="name"', 'person'],
       ['email', user.verified !== false, 'acct.cpEmail', '', 'mail'],
       ['tz', !!user.timezone, 'acct.cpTz', 'data-edit="tz"', 'clock'],
-      ['billing', !!billing, 'acct.cpBilling', 'data-tab-go="billing"', 'billing'],
+      user.admin ? null : ['billing', !!billing, 'acct.cpBilling', 'data-tab-go="billing"', 'billing'],   // admin-accounts zijn gratis: geen factuur
       ['code', !!(sum && sum.codes), 'acct.cpCode', 'data-goto="create"', 'qr']
-    ];
+    ].filter(Boolean);
     var done = items.filter(function (x) { return x[1]; }).length, pct = Math.round(done / items.length * 100);
     if (pct === 100) return '<div class="glass bg-card acct cp cp-done"><span class="cp-badge">' + SVG + ICON.check + '</svg></span><div><h2>' + t('acct.cpDoneTitle') + '</h2><p>' + t('acct.cpDoneText') + '</p></div></div>';
-    return '<div class="glass bg-card acct cp"><div class="cp-head"><div><h2>' + t('acct.cpTitle') + '</h2><p>' + t('acct.cpLead', { n: items.length - done }) + '</p></div>' +
+    return '<div class="glass bg-card acct cp"><div class="cp-head"><div><h2>' + t('acct.cpTitle') + '</h2><p>' + t(items.length - done === 1 ? 'acct.cpLeadOne' : 'acct.cpLead', { n: items.length - done }) + '</p></div>' +
       '<b class="cp-pct">' + pct + '%</b></div>' +
       '<div class="cp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '" aria-label="' + esc(t('acct.cpTitle')) + '"><i style="width:' + pct + '%"></i></div>' +
       '<ul class="cp-list">' + items.map(function (x) {
@@ -258,11 +266,6 @@
     var pending = emailPending ? '<div class="ar-pending">' + SVG + ICON.mail + '</svg><div><b>' + t('acct.emailSentTitle') + '</b><small>' + t('acct.emailSentText', { email: '<b>' + esc(emailPending.email) + '</b>' }) + '</small>' +
       (emailPending.link ? '<a class="btn ghost" href="' + esc(emailPending.link) + '">' + t('acct.emailOpenLink') + '</a>' : emailPending.mail === false ? '<small class="ar-warn">' + t('acct.emailNoMail') + '</small>' : '') + '</div></div>' : '';
     return completeness() +
-      '<div class="glass bg-card acct"><h2>' + t('acct.photoTitle') + '</h2><p>' + t('acct.photoLead') + '</p>' +
-        '<div class="acct-photo" data-photo-drop><span class="acct-photo-av' + (user.avatar ? ' has-photo' : '') + '">' + avatarHtml(user) + '</span>' +
-        '<div class="acct-photo-txt"><div class="acct-btns"><button type="button" class="btn primary" data-photo-pick>' + SVG + ICON.camera + '</svg>' + t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd') + '</button>' +
-        (user.avatar ? '<button type="button" class="btn ghost" data-photo-remove>' + t('acct.photoRemove') + '</button>' : '') + '</div>' +
-        '<small class="auth-hint">' + t('acct.photoHint') + '</small></div></div>' + note('photo') + '</div>' +
       '<div class="glass bg-card acct"><h2>' + t('acct.personalTitle') + '</h2><p>' + t('acct.personalLead') + '</p><div class="ar-list">' +
         row('name', t('auth.name'), esc(user.name || '–'), { edit: true, icon: 'person', msg: m.name,
           form: '<form data-form="name" class="acct-grid">' +
@@ -279,7 +282,6 @@
           form: '<form data-form="tz">' + field(t('acct.timezone'), '<select name="timezone">' + opts + '</select>', { icon: 'clock', hint: '<span id="acctTzNow">' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</span>' }) + btns() + '</form>' }) +
         row('role', t('acct.role'), '<span class="acct-chip role-' + role + '">' + (role !== 'user' ? SVG + ICON.shield + '</svg>' : '') + t('acct.role_' + role) + '</span>', { locked: true, icon: 'shield',
           why: t(role === 'super' ? 'acct.whyRoleSuper' : 'acct.whyRole') }) +
-        row('since', t('acct.memberSince'), sum && sum.createdAt ? esc(i18n.fmt.stamp(sum.createdAt, 'long')) : '–', { icon: 'check' }) +
       '</div></div>' +
       dangerCard(m);
   }
@@ -325,8 +327,6 @@
   function deletePanel() {
     var dots = '<ol class="del-steps" aria-label="' + esc(t('acct.delStepOf', { n: delStep, total: 3 })) + '">' + [1, 2, 3].map(function (i) {
       return '<li class="' + (i < delStep ? 'done' : i === delStep ? 'on' : '') + '"><span>' + (i < delStep ? SVG + ICON.check + '</svg>' : i) + '</span><em>' + t('acct.delStep' + i) + '</em></li>'; }).join('') + '</ol>';
-    if (user.superAdmin) return '<div class="glass bg-card acct del-card del-safe">' +
-      '<div class="del-hero"><span class="del-ic ok">' + SVG + ICON.shield + '</svg></span><div><h2>' + t('acct.delSuperTitle') + '</h2><p>' + t('acct.delSuperText') + '</p></div></div></div>';
     if (delStep === 1) {
       var n = function (v) { return v == null ? '–' : i18n.fmt.num(v); };
       var lose = [['acct.delLoseCodes', n(sum && sum.codes)], ['acct.delLoseScans', n(sum && sum.scans)], ['acct.delLoseFiles'], ['acct.delLoseBilling'], ['acct.delLosePrinted']];
@@ -363,14 +363,15 @@
   function draw(msg) {
     if (!msg && sticky) msg = sticky();                                  // melding blijft staan als de cijfers later binnenkomen
     if (!user) { box.innerHTML = ''; menu.innerHTML = ''; stats.innerHTML = ''; return; }
-    if (TAB_IDS.indexOf(tab) < 0) tab = 'profile';
-    head(); drawMenu();
+    if (tabIds().indexOf(tab) < 0) tab = 'profile';
+    head(msg); drawMenu();
     var isBg = tab === 'background';
     bgSection.hidden = !isBg; box.hidden = isBg;
     (isBg ? bgSection : box).setAttribute('aria-labelledby', 'acctTab-' + tab);
     box.innerHTML = isBg ? '' : panel(msg || {});
   }
   function open(id, focus) {
+    if (id === 'delete' && !canDelete()) id = 'profile';
     tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') loadSecurity();
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
@@ -383,7 +384,7 @@
 
   menu.addEventListener('click', function (e) { var b = e.target.closest('[data-tab]'); if (b) open(b.getAttribute('data-tab')); });
   menu.addEventListener('keydown', function (e) {   // pijltjes: naar het vorige/volgende onderdeel
-    var i = TAB_IDS.indexOf(tab), n = null;
+    var TAB_IDS = tabIds(), i = TAB_IDS.indexOf(tab), n = null;
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = TAB_IDS[(i + 1) % TAB_IDS.length];
     if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = TAB_IDS[(i - 1 + TAB_IDS.length) % TAB_IDS.length];
     if (e.key === 'Home') n = TAB_IDS[0];
@@ -521,7 +522,6 @@
   }
   function usePhoto(file) {
     if (!file) return;
-    if (tab !== 'profile') open('profile');
     shrink(file).then(savePhoto, function (x) { draw({ photo: [t(x.message === 'big' ? 'acct.photoBig' : 'acct.photoType'), 'bad'] }); });
   }
   document.getElementById('accountView').addEventListener('click', function (e) {
@@ -529,9 +529,11 @@
     if (e.target.closest('[data-photo-remove]')) savePhoto(null);
   });
   picker.addEventListener('change', function () { usePhoto(picker.files[0]); });
-  box.addEventListener('dragover', function (e) { var z = e.target.closest('[data-photo-drop]'); if (z) { e.preventDefault(); z.classList.add('over'); } });
-  box.addEventListener('dragleave', function (e) { var z = e.target.closest('[data-photo-drop]'); if (z) z.classList.remove('over'); });
-  box.addEventListener('drop', function (e) { var z = e.target.closest('[data-photo-drop]'); if (!z) return; e.preventDefault(); z.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
+  // Foto op het visitekaartje slepen
+  var idc = document.querySelector('.acct-idc');
+  idc.addEventListener('dragover', function (e) { e.preventDefault(); idc.classList.add('over'); });
+  idc.addEventListener('dragleave', function (e) { if (!idc.contains(e.relatedTarget)) idc.classList.remove('over'); });
+  idc.addEventListener('drop', function (e) { e.preventDefault(); idc.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
 
   Session.onUser(function (u) { user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; draw(); loadSummary(); loadBilling(); });
   // Net op de link in de mail geklikt (nieuw e-mailadres): Mijn account openen met de uitkomst
