@@ -60,7 +60,7 @@ button, input, select { font: inherit; color: inherit; }
 }
 .side-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 40px; padding-left: 8px; }
 .logo { display: flex; align-items: center; gap: 11px; color: var(--fg); text-decoration: none; font-weight: 700; font-size: 16.5px; white-space: nowrap; border-radius: 8px; }
-.logo-mark { width: 28px; height: 28px; flex: none; display: block; }   /* het Q-logo, zelfde bestand als het tabblad-icoon */
+.logo-mark { width: 28px; height: 28px; flex: none; display: block; }   /* het QR-logo, zelfde bestand als het tabblad-icoon */
 .logo-text small { font-size: inherit; color: var(--accent); }
 .icon-btn { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border: 0; border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; transition: background .2s, color .2s, transform .28s var(--ease); }
 .icon-btn:hover { background: var(--hover); color: var(--fg); }
