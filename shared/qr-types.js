@@ -24,12 +24,11 @@
       { key: 'password', type: 'password', label: 'fields.password', advanced: true, hint: 'hint.password' },
       { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
       { key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utm' } ] },
-  { id: 'pdf',       icon: 'pdf',    image: 'assets/qr-types/pdf.jpg', previewImage: 'assets/previews/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b', theme: ['#c0392b', '#1f2937'],
+  { id: 'pdf', page: false, icon: 'pdf',    image: 'assets/qr-types/pdf.jpg', previewImage: 'assets/previews/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b', theme: ['#c0392b', '#1f2937'],
     fields: [
       { key: 'file', type: 'file', accept: 'application/pdf', label: 'fields.pdfFile', required: true, sample: { t: 'sample.pdfFile' } },
-      { key: 'title', label: 'fields.title', sample: { t: 'pv.pdf.title' } },
-      { key: 'description', label: 'fields.description', sample: { t: 'pv.pdf.desc' } },
-      { key: 'company', label: 'fields.company', sample: { t: 'sample.pdfCompany' } } ] },
+      // Bij het scannen opent de PDF meteen: geen eigen pagina, dus geen kleuren of teksten nodig
+      { key: 'title', label: 'fields.qrName', sample: { t: 'pv.pdf.title' }, hint: 'hint.qrNameOwn' } ] },
   { id: 'links',     icon: 'links',  image: 'assets/qr-types/links.jpg', previewImage: 'assets/previews/links.jpg',     contentType: 'links',    previewType: 'card',   color: '#2bb5f0', theme: ['#c2410c', '#4d7c0f'],
     fields: [ { key: 'title', label: 'fields.title', sample: { t: 'sample.linksTitle' } }, { key: 'photo', type: 'image', label: 'fields.profilePhoto', small: true } ].concat(
       // Link 1-3 zichtbaar, 4 t/m 10 verborgen tot je op "+ Link toevoegen" klikt.
@@ -53,23 +52,24 @@
       { key: 'email', type: 'email', label: 'fields.email', sample: { t: 'sample.bizEmail' } },
       { key: 'website', type: 'url', label: 'fields.website', sample: { t: 'sample.bizWebsite' } },
       { key: 'socials', type: 'socials', label: 'fields.socials', sample: { t: 'sample.bizSocials' } } ] },
-  { id: 'video',     icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg',     contentType: 'url',      previewType: 'card',    color: '#2563eb', theme: ['#2563eb', '#0f172a'],
+  { id: 'video', pageIf: 'file', icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg',     contentType: 'url',      previewType: 'card',    color: '#2563eb', theme: ['#2563eb', '#0f172a'],
     fields: [
       // Een link (YouTube, Vimeo …) óf een eigen videobestand: één van de twee is genoeg (or)
       { key: 'url', type: 'url', label: 'fields.videoUrl', required: true, or: 'file', sample: { t: 'sample.videoUrl' }, hint: 'hint.videoUrl' },
       { key: 'file', type: 'file', accept: 'video/*', label: 'fields.videoFile', or: 'url' },
-      { key: 'title', label: 'fields.title', sample: { t: 'pv.video.title' } },
-      { key: 'description', label: 'fields.description', sample: { t: 'pv.video.desc' } } ] },
+      // Titel, tekst en kleuren alleen bij een eigen video: een link stuurt meteen door naar YouTube enz.
+      { key: 'title', label: 'fields.title', sample: { t: 'pv.video.title' }, needs: 'file' },
+      { key: 'description', label: 'fields.description', sample: { t: 'pv.video.desc' }, needs: 'file' } ] },
   { id: 'images',    icon: 'img',    image: 'assets/qr-types/images.jpg', previewImage: 'assets/previews/images.jpg',    contentType: 'gallery',  previewType: 'card', color: '#2f9e8f', theme: ['#2f9e8f', '#134e4a'],
     fields: [
       { key: 'photos', type: 'gallery', label: 'fields.photos', required: true },
       { key: 'title', label: 'fields.title', sample: { t: 'pv.images.title' } },
       { key: 'description', label: 'fields.description', sample: { t: 'pv.images.desc' } } ] },
-  { id: 'facebook',  icon: 'fb',     image: 'assets/qr-types/facebook.jpg', previewImage: 'assets/previews/facebook.jpg',  contentType: 'profile',  previewType: 'card', color: '#1877f2', theme: ['#1877f2', '#0b3d91'],
+  { id: 'facebook', page: false, icon: 'fb',     image: 'assets/qr-types/facebook.jpg', previewImage: 'assets/previews/facebook.jpg',  contentType: 'profile',  previewType: 'card', color: '#1877f2', theme: ['#1877f2', '#0b3d91'],
     fields: [
       { key: 'url', type: 'url', label: 'fields.fbUrl', required: true, sample: { t: 'sample.fbUrl' } },
-      { key: 'pageName', label: 'fields.pageName', sample: { t: 'sample.fbPage' } },
-      { key: 'description', label: 'fields.description', sample: { t: 'pv.facebook.desc' } } ] },
+      // Bij het scannen opent Facebook zelf: alleen de link is nodig
+      { key: 'title', label: 'fields.qrName', sample: { t: 'sample.fbPage' }, hint: 'hint.qrNameOwn' } ] },
   { id: 'instagram', page: false, icon: 'ig',     image: 'assets/qr-types/instagram.jpg', previewImage: 'assets/previews/instagram.jpg', contentType: 'profile',  previewType: 'card', color: '#d6249f', theme: ['#d6249f', '#515bd4'],
     fields: [ { key: 'username', label: 'fields.username', sample: { t: 'sample.igUser' } } ] },
   { id: 'social',    icon: 'social', image: 'assets/qr-types/social.jpg', previewImage: 'assets/previews/social.jpg',    contentType: 'links',    previewType: 'card',   color: '#5b6cf0', theme: ['#5b6cf0', '#ec4899'],

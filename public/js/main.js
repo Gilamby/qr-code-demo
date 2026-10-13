@@ -58,6 +58,13 @@
   pvToggle.addEventListener('click', function (e) { var b = e.target.closest('[data-view]'); if (b && !b.disabled) actions.setPhoneView(b.getAttribute('data-view')); });
   store.subscribe(function (s, p) { if (s.step !== p.step || s.phoneView !== p.phoneView || s.content !== p.content) drawToggle(s); if (s.phoneView !== p.phoneView && s.step === p.step) drawPhone(s); });
   i18n.onChange(function () { drawToggle(store.get()); });
+  // Velden en kleuren die alleen nodig zijn met een eigen pagina (bv. video: alleen bij een eigen bestand)
+  store.subscribe(function (s, p) {
+    if (s.step !== 'content' || s.content === p.content) return;
+    var c = s.content[s.typeId] || {}, type = getType(s.typeId);
+    document.querySelectorAll('[data-needs]').forEach(function (el) { el.hidden = !c[el.getAttribute('data-needs')]; });
+    var ap = document.getElementById('appearance'); if (ap) ap.hidden = !hasPage(type, c);
+  });
 
   // Telefoon: slot-scherm openen en weer vergrendelen
   screen.addEventListener('click', function (e) {

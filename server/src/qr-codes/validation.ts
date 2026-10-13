@@ -30,6 +30,7 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
   for (const field of type.fields) {
     let v = input[field.key];
     if (v == null || String(v).trim() === '') continue;        // leeg = voorbeeldwaarde gebruiken
+    if (field.needs && (input[field.needs] == null || String(input[field.needs]).trim() === '')) continue;   // bv. videotitel zonder eigen video: niet bewaren
     v = String(v).trim();
     if (field.type === 'hours') {
       let ok = false; try { ok = validHours(JSON.parse(v)); } catch (e) {}

@@ -58,6 +58,7 @@ var ContentForm = {
           if (p.type === 'image') return '<div class="part-img"><span class="part-lbl">' + t(p.label) + ' <em>' + t('fields.optional') + '</em></span>' + ImageUpload.html(p, pid, pv) + '</div>';
           return '<label class="part-txt"><span class="part-lbl">' + t(p.label) + ' <em>' + t('fields.optional') + '</em></span><input id="' + pid + '" name="' + p.key + '" type="text" value="' + esc(pv) + '" maxlength="' + (p.max || 120) + '" placeholder="' + esc(t(p.label + 'Ph')) + '" autocomplete="off"></label>';
         }).join('') + '</div>' : '';
+        if (f.needs) attrs += ' data-needs="' + f.needs + '"' + (values[f.needs] ? '' : ' hidden');   // bv. videotitel: alleen bij een eigen video
         var wrap = function (inner) { return '<div class="field' + cls + (parts.length ? ' has-parts' : '') + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small>' + partsHtml + '</div>'; };
         if (f.type === 'toggle') return '<div class="field toggle-field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label class="tg"><input type="checkbox" id="' + id + '" name="' + f.key + '"' + (v ? ' checked' : '') + '><span class="sw-ui"></span><span>' + label + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '</span></label></div>';
         if (f.type === 'image') return wrap(ImageUpload.html(f, id, v));
@@ -90,7 +91,7 @@ var ContentForm = {
             more.map(render).join('') + '</div></details>'
         : '');
     })() + '</form>' +
-      (type.page === false ? '' : '<section class="appearance" id="appearance"></section>') +
+      (type.page === false ? '' : '<section class="appearance" id="appearance"' + (hasPage(type, values) ? '' : ' hidden') + '></section>') +
       Actions.html(state);
     ImageUpload.mount(el, actions.setField); FileUpload.mount(el, actions.setField); GalleryUpload.mount(el, actions.setField); DishesEditor.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); PhoneInput.mount(el, actions.setField); EmailCheck.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
     var ap = el.querySelector('#appearance'); if (ap) Appearance.mount(ap);

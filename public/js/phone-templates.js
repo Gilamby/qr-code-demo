@@ -120,6 +120,14 @@ var PHONE = (function () {
     '</svg>';
   }
 
+  // Naam uit een Facebook-link: facebook.com/bakkerij.jansen → "Bakkerij Jansen"
+  function fbName(url) {
+    var m = String(url || '').match(/facebook\.com\/(?:pg\/|people\/)?([^/?#]+)/i), n = m && m[1];
+    if (!n || /^(profile\.php|share|groups|watch|events)$/i.test(n)) return '';
+    try { n = decodeURIComponent(n); } catch (e) { /* laten zoals het is */ }
+    return n.replace(/[._-]+/g, ' ').replace(/\s+\d{6,}$/, '').trim().replace(/(^|\s)\S/g, function (x) { return x.toUpperCase(); });
+  }
+
   return {
     statusBar: statusBar,
     /* ---------- WhatsApp: precies het chatscherm dat opent ---------- */
@@ -247,7 +255,9 @@ var PHONE = (function () {
 
     /* ---------- PDF: het document in een echte PDF-viewer ---------- */
     pdf: function (c, ex) {
+      // De PDF opent meteen in de pdf-lezer van de telefoon. Voorbeeld: verzonnen inhoud; eigen PDF: neutrale pagina.
       var o = FILES.parse(c.file), name = o ? o.n : (c.title ? c.title + '.pdf' : '');
+      c = ex ? { company: t('sample.pdfCompany'), title: t('pv.pdf.title'), description: t('pv.pdf.desc') } : {};
       return '<div class="ph ph-pv">' + statusBar() +
         '<div class="pv-bar"><b class="pv-done">' + esc(t('pv.pdf.done')) + '</b><span>' + v(name, '110px') + '</span>' + ic('share') + '</div>' +
         '<div class="pv-view"><div class="pv-sheet">' +
@@ -301,14 +311,14 @@ var PHONE = (function () {
 
     /* ---------- Facebook: de pagina zoals in de app ---------- */
     facebook: function (c, ex) {
-      var name = c.pageName, fbLogo = exPhoto('facebook', ex);   // voorbeeld: logo, omslagfoto en een bericht met foto
+      var name = c.pageName || fbName(c.url) || (ex ? t('sample.fbPage') : ''), fbLogo = exPhoto('facebook', ex);   // voorbeeld: logo, omslagfoto en een bericht met foto
       return '<div class="ph ph-fb">' + statusBar() +
         '<div class="fb-nav"><b>facebook</b><span>' + ic('search') + ic('chat') + '</span></div>' +
         '<div class="fb-cover"' + (fbLogo ? ' style="background:#ccc url(' + asset('assets/previews/facebook-cover.jpg') + ') center / cover"' : '') + '></div>' +
         '<div class="fb-prof"><span class="fb-av">' + (fbLogo ? '<img decoding="sync" src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : ic('user'))) + '</span>' +
           '<h4>' + v(name, '55%') + (ex ? '<span class="fb-ver">' + ic('check') + '</span>' : '') + '</h4>' +
           '<small>' + (ex ? esc(t('pv.facebook.likes', { count: i18n.fmt.num(12400) })) + ' · ' + esc(t('pv.facebook.followers', { count: i18n.fmt.num(13100) })) : '<i class="sk" style="width:70%"></i>') + '</small>' +
-          (c.description ? '<p>' + esc(c.description) + '</p>' : '') +
+          (c.description || ex ? '<p>' + esc(c.description || t('pv.facebook.desc')) + '</p>' : '') +
           '<div class="fb-btns"><span class="pri">' + ic('like') + esc(t('pv.facebook.like')) + '</span><span>' + ic('chat') + esc(t('pv.facebook.message')) + '</span><span class="sq">' + ic('dots', 'i dots') + '</span></div></div>' +
         '<div class="fb-tabs"><span class="on">' + esc(t('pv.facebook.tabPosts')) + '</span><span>' + esc(t('pv.facebook.tabAbout')) + '</span><span>' + esc(t('pv.facebook.tabPhotos')) + '</span></div>' +
         '<div class="fb-post"><div class="fb-ph"><span class="fb-av s">' + (fbLogo ? '<img decoding="sync" src="' + fbLogo + '" alt="">' : (name ? esc(initials(name)) : '')) + '</span><span><b>' + v(name, '90px') + '</b><small>' + esc(t('pv.facebook.time')) + '</small></span></div>' +

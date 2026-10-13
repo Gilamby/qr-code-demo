@@ -26,6 +26,8 @@ var QR_TYPES = window.QR_TYPES;   // komt uit shared/qr-types.js
 function typeName(type) { return t('types.' + type.id + '.name'); }
 function typeDesc(type) { return t('types.' + type.id + '.desc'); }
 function getType(id) { return QR_TYPES.filter(function (x) { return x.id === id; })[0]; }
+// Krijgt de bezoeker een eigen pagina te zien? Zo niet (doorsturen naar YouTube, Facebook, de PDF …) dan zijn kleuren en teksten zinloos.
+function hasPage(type, content) { return !!type && type.page !== false && (!type.pageIf || !!(content && content[type.pageIf])); }
 
 var DESIGN_OPTIONS = {
   colors: ['#0b0e13', '#0f3d63', '#0b8fd8', '#5b2a86', '#0f5c45', '#a7b0bd'],

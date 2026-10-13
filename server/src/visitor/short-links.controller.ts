@@ -53,6 +53,7 @@ export class ShortLinksController {
     // Doorsturen naar wat al bestaat
     const ua = req.get('user-agent') || '';
     if (q.typeId === 'facebook' && c.url) return res.redirect(c.url);
+    if (q.typeId === 'pdf' && c.file) return res.redirect((req.path.endsWith('/') ? '' : q.id + '/') + 'file/file');   // PDF: meteen openen in de pdf-lezer van de telefoon
     if (q.typeId === 'instagram' && c.username) return res.redirect('https://instagram.com/' + encodeURIComponent(c.username.replace(/^@/, '')));
     if (q.typeId === 'apps') {                                   // telefoon: meteen naar de juiste winkel; computer: de pagina met beide knoppen
       if (/iPhone|iPad|iPod/i.test(ua) && c.ios) return res.redirect(c.ios);

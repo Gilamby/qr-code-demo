@@ -490,7 +490,8 @@
     "maxScans": "E dobishme për oferta si «100 klientët e parë».",
     "devices": "Lëre bosh për të njëjtën lidhje për të gjithë.",
     "utm": "Shton etiketa UTM në lidhje që të shohësh vizitorët QR në Google Analytics.",
-    "videoUrl": "YouTube, Vimeo ose një lidhje tjetër videoje. Ose ngarko më poshtë videon tënde."
+    "videoUrl": "YouTube, Vimeo ose një lidhje tjetër videoje. Ose ngarko më poshtë videon tënde.",
+    "qrNameOwn": "Vetëm ti e sheh këtë emër, te Kodet e mia QR. Kështu e gjen shpejt kodin."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -973,7 +974,7 @@
     "totalCodes": "Kodet QR",
     "totalScans": "Skanime",
     "totalUnique": "Skanime unike",
-    "uniqueTip": "Çdo vizitor numërohet një herë në ditë për çdo kod QR. Nëse dikush skanon tri herë në një ditë, janë 3 skanime dhe 1 skanim unik.",
+    "uniqueTip": "Një skanim numërohet sa herë që kodi skanohet. Një skanim unik e numëron çdo person vetëm një herë në ditë për çdo kod QR. Nëse dikush skanon tri herë në një ditë, janë 3 skanime dhe 1 skanim unik.",
     "chartTitle": "Skanime në ditë",
     "scans": "Skanime",
     "unique": "Skanime unike",
@@ -995,7 +996,9 @@
     "byCity": "Sipas qytetit",
     "byCode": "Sipas kodit QR",
     "error": "Statistikat nuk u ngarkuan. Provo përsëri.",
-    "export": "Eksporto (CSV)"
+    "export": "Eksporto (CSV)",
+    "scansSub": "Sa herë që dikush skanon kodin",
+    "uniqueSub": "Persona të ndryshëm: kush skanon sërish numërohet 1 herë në ditë"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",

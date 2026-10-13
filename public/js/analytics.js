@@ -66,11 +66,13 @@ var Analytics = (function () {
 
   /* ---------- Tegels ---------- */
   function tiles(tot) {
-    var tile = function (k, n, txt, tip) {
+    // sub = korte uitleg die altijd zichtbaar is (wat is een scan, wat is een unieke scan)
+    var tile = function (k, n, txt, tip, sub) {
       return '<div class="an-tile glass an-' + k + '"><span class="an-tic">' + ico(k) + '</span><span class="an-tl"><small>' + txt +
-        (tip ? ' <button type="button" class="an-tip" aria-label="' + esc(tip) + '" data-tip="' + esc(tip) + '">' + ico('info', 'an-ii') + '</button>' : '') + '</small><b>' + i18n.fmt.num(n) + '</b></span></div>';
+        (tip ? ' <button type="button" class="an-tip" aria-label="' + esc(tip) + '" data-tip="' + esc(tip) + '">' + ico('info', 'an-ii') + '</button>' : '') + '</small><b>' + i18n.fmt.num(n) + '</b>' +
+        (sub ? '<em class="an-sub">' + esc(sub) + '</em>' : '') + '</span></div>';
     };
-    return '<div class="an-tiles">' + tile('codes', tot.codes, t('an.totalCodes')) + tile('scans', tot.scans, t('an.totalScans')) + tile('unique', tot.unique, t('an.totalUnique'), t('an.uniqueTip')) + '</div>';
+    return '<div class="an-tiles">' + tile('codes', tot.codes, t('an.totalCodes')) + tile('scans', tot.scans, t('an.totalScans'), null, t('an.scansSub')) + tile('unique', tot.unique, t('an.totalUnique'), t('an.uniqueTip'), t('an.uniqueSub')) + '</div>';
   }
 
   /* ---------- Lijngrafiek ---------- */

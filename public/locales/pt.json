@@ -490,7 +490,8 @@
     "maxScans": "Útil para promoções como «os primeiros 100 clientes».",
     "devices": "Deixa vazio para usar o mesmo link para todos.",
     "utm": "Adiciona etiquetas UTM ao link para veres os visitantes por QR no Google Analytics.",
-    "videoUrl": "YouTube, Vimeo ou outro link de vídeo. Ou carregue o seu próprio vídeo abaixo."
+    "videoUrl": "YouTube, Vimeo ou outro link de vídeo. Ou carregue o seu próprio vídeo abaixo.",
+    "qrNameOwn": "Só você vê este nome, em Os meus códigos QR. Assim encontra o código depressa."
   },
   "more": {
     "title": "Mais opções",
@@ -867,7 +868,7 @@
     "totalCodes": "Códigos QR",
     "totalScans": "Leituras",
     "totalUnique": "Leituras únicas",
-    "uniqueTip": "Cada visitante conta uma vez por dia por código QR. Se alguém ler três vezes no mesmo dia, são 3 leituras e 1 leitura única.",
+    "uniqueTip": "Uma leitura conta sempre que o código é lido. Uma leitura única conta cada pessoa só uma vez por dia por código QR. Se alguém ler três vezes num dia, são 3 leituras e 1 leitura única.",
     "chartTitle": "Leituras por dia",
     "scans": "Leituras",
     "unique": "Leituras únicas",
@@ -889,7 +890,9 @@
     "byCity": "Por cidade",
     "byCode": "Por código QR",
     "error": "Não foi possível carregar as estatísticas. Tenta novamente.",
-    "export": "Exportar (CSV)"
+    "export": "Exportar (CSV)",
+    "scansSub": "Cada vez que alguém lê o código",
+    "uniqueSub": "Pessoas diferentes: quem lê de novo conta 1 vez por dia"
   },
   "auth": {
     "loginTitle": "Bem-vindo de volta",

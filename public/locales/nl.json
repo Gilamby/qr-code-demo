@@ -490,7 +490,8 @@
     "maxScans": "Handig voor acties zoals \"de eerste 100 klanten\".",
     "devices": "Laat leeg om voor iedereen dezelfde link te gebruiken.",
     "utm": "Voegt automatisch utm-labels toe aan je link, zodat je QR-bezoekers terugziet in Google Analytics.",
-    "videoUrl": "YouTube, Vimeo of een andere videolink. Of upload hieronder je eigen video."
+    "videoUrl": "YouTube, Vimeo of een andere videolink. Of upload hieronder je eigen video.",
+    "qrNameOwn": "Alleen jij ziet deze naam, in Mijn QR-codes. Zo vind je de code snel terug."
   },
   "more": {
     "title": "Meer opties",
@@ -867,7 +868,7 @@
     "totalCodes": "QR-codes",
     "totalScans": "Scans",
     "totalUnique": "Unieke scans",
-    "uniqueTip": "Elke bezoeker telt één keer per dag per QR-code. Scant iemand drie keer op één dag, dan is dat 3 scans en 1 unieke scan.",
+    "uniqueTip": "Een scan telt elke keer dat de code wordt gescand. Een unieke scan telt elke persoon maar één keer per dag per QR-code. Scant iemand drie keer op één dag, dan is dat 3 scans en 1 unieke scan.",
     "chartTitle": "Scans per dag",
     "scans": "Scans",
     "unique": "Unieke scans",
@@ -889,7 +890,9 @@
     "byCity": "Per stad",
     "byCode": "Per QR-code",
     "error": "De statistieken konden niet worden geladen. Probeer het opnieuw.",
-    "export": "Exporteren (CSV)"
+    "export": "Exporteren (CSV)",
+    "scansSub": "Elke keer dat iemand de code scant",
+    "uniqueSub": "Verschillende mensen: wie vaker scant, telt 1 keer per dag"
   },
   "auth": {
     "loginTitle": "Welkom terug",

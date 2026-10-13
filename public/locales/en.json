@@ -490,7 +490,8 @@
     "maxScans": "Handy for promotions like \"the first 100 customers\".",
     "devices": "Leave empty to use the same link for everyone.",
     "utm": "Automatically adds UTM tags to your link so you can see QR visitors in Google Analytics.",
-    "videoUrl": "YouTube, Vimeo or another video link. Or upload your own video below."
+    "videoUrl": "YouTube, Vimeo or another video link. Or upload your own video below.",
+    "qrNameOwn": "Only you see this name, in My QR codes. It helps you find the code quickly."
   },
   "more": {
     "title": "More options",
@@ -867,7 +868,7 @@
     "totalCodes": "QR codes",
     "totalScans": "Scans",
     "totalUnique": "Unique scans",
-    "uniqueTip": "Each visitor counts once per day per QR code. If someone scans three times in one day, that is 3 scans and 1 unique scan.",
+    "uniqueTip": "A scan counts every time the code is scanned. A unique scan counts each person only once a day per QR code. If someone scans three times in one day, that is 3 scans and 1 unique scan.",
     "chartTitle": "Scans per day",
     "scans": "Scans",
     "unique": "Unique scans",
@@ -889,7 +890,9 @@
     "byCity": "By city",
     "byCode": "By QR code",
     "error": "The statistics could not be loaded. Please try again.",
-    "export": "Export (CSV)"
+    "export": "Export (CSV)",
+    "scansSub": "Every time someone scans the code",
+    "uniqueSub": "Different people: someone who scans again counts once a day"
   },
   "auth": {
     "loginTitle": "Welcome back",
