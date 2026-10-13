@@ -13,7 +13,7 @@ var Session = (function () {
   var view = document.getElementById('authView'), card = view.querySelector('.auth-card');
   var user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-  var LOGO = '<span class="logo-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>';
+  var LOGO = '<svg class="logo-mark" viewBox="9 9 46 46" aria-hidden="true"><g fill="currentColor"><path fill-rule="evenodd" d="M9 9h19v19H9zm4 4v11h11V13z"/><rect x="15.5" y="15.5" width="6" height="6" rx="1"/><path fill-rule="evenodd" d="M36 9h19v19H36zm4 4v11h11V13z"/><rect x="42.5" y="15.5" width="6" height="6" rx="1"/><path fill-rule="evenodd" d="M9 36h19v19H9zm4 4v11h11V40z"/><rect x="15.5" y="42.5" width="6" height="6" rx="1"/><rect x="36" y="36" width="7" height="7" rx="1.5"/><rect x="48" y="36" width="7" height="7" rx="1.5"/><rect x="42" y="42" width="7" height="7" rx="1.5"/><rect x="36" y="48" width="7" height="7" rx="1.5"/><rect x="48" y="48" width="7" height="7" rx="1.5"/></g></svg>';
 
   function field(name, type, label, auto, value) {
     var pw = type === 'password';
