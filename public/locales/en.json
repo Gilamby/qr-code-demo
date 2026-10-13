@@ -258,7 +258,10 @@
       "yourCode": "Your code",
       "offer": "Offer",
       "validLbl": "Valid until",
-      "wallet": "Add to Apple Wallet"
+      "wallet": "Add to Apple Wallet",
+      "shopNow": "Shop now",
+      "howOnline": "Use this code at checkout.",
+      "howStore": "Show this code at the till."
     },
     "wifi": {
       "network": "Wi-Fi network",
@@ -295,7 +298,9 @@
     "retry": "Try again",
     "demoMode": "Demo mode: not saved. Start the server to save.",
     "demoScan": "Demo: this code only works once the app is online. Wi-Fi and contact card already work.",
-    "localScan": "Note: your phone cannot open this address. Set PUBLIC_URL in .env (see docs/installatie.md)."
+    "localScan": "Note: your phone cannot open this address. Set PUBLIC_URL in .env (see docs/installatie.md).",
+    "privateScan": "Note: this QR code now opens the GitHub sign-in page because port 3000 of your Codespace is Private. Make it Public: Ports tab > right-click 3000 > Port Visibility > Public. Then reload this page.",
+    "devScan": "This is a temporary test address (Codespaces). Scanning works, but do not print this code: it stops working when the Codespace stops. Real codes need the live server."
   },
   "actions": {
     "continue": "Continue",
@@ -354,7 +359,17 @@
     "linkNamePh": "For example: Pink top from Zara",
     "linkImage": "Photo or logo",
     "optional": "(optional)",
-    "videoFile": "Or upload your own video"
+    "videoFile": "Or upload your own video",
+    "igUrl": "Or paste the profile link",
+    "menuMode": "How do you want to share your menu?",
+    "menuUrl": "Link to your menu or ordering page",
+    "menuFile": "Your menu (PDF or photo)",
+    "couponScan": "Show code as",
+    "scanQr": "QR code",
+    "scanBarcode": "Barcode",
+    "scanNone": "Text only",
+    "couponUrl": "Button to your web shop or booking page",
+    "buttonLabel": "Button text"
   },
   "panel": {
     "selected": "{type} selected"
@@ -454,7 +469,14 @@
     "tooBig": "This file is too big (max. {n} MB).",
     "videoHint": "MP4, MOV or WebM, max. 100 MB",
     "uploading": "Uploading… {p}%",
-    "videoError": "Upload failed. Try again or choose a smaller file."
+    "videoError": "Upload failed. Try again or choose a smaller file.",
+    "photosCount": "{n} of {max} photos · {left} more possible",
+    "photosBusy": "{n} uploading",
+    "photoError": "{n} photo(s) could not be uploaded. Please try again.",
+    "photosTooMany": "You can add up to {max} photos. The rest was skipped.",
+    "photoReplace": "Replace photo {n}",
+    "photoRemove": "Remove photo {n}",
+    "menuHint": "PDF, JPG or PNG, max. 10 MB"
   },
   "hours": {
     "closed": "Closed",
@@ -481,7 +503,8 @@
     "find": "Find a network"
   },
   "validate": {
-    "required": "This field is required"
+    "required": "This field is required",
+    "igUser": "An Instagram name only has letters, numbers, dots and _ (max. 30 characters)."
   },
   "hint": {
     "qrName": "We fill this in automatically with your website's title. Only you see this name.",
@@ -491,7 +514,11 @@
     "devices": "Leave empty to use the same link for everyone.",
     "utm": "Automatically adds UTM tags to your link so you can see QR visitors in Google Analytics.",
     "videoUrl": "YouTube, Vimeo or another video link. Or upload your own video below.",
-    "qrNameOwn": "Only you see this name, in My QR codes. It helps you find the code quickly."
+    "qrNameOwn": "Only you see this name, in My QR codes. It helps you find the code quickly.",
+    "igUser": "With or without @. You can also paste the profile link below.",
+    "menuUrl": "For example your own menu page or an ordering site. Guests go straight there.",
+    "couponCode": "The code customers use. Note: set up the same code in your till or web shop. This app does not check whether a code was already used.",
+    "couponUrl": "Optional. Customers use the code there at checkout."
   },
   "more": {
     "title": "More options",
@@ -504,7 +531,8 @@
     "ok": "✓ Website found",
     "okTitle": "✓ Website found: {title}",
     "fail": "We can't reach this website. Is the link correct?",
-    "invalid": "This is not a valid link. Example: https://yourbusiness.com"
+    "invalid": "This is not a valid link. Example: https://yourbusiness.com",
+    "wrongSite": "This is not a link to {site}. Copy the link of the right page."
   },
   "pw": {
     "show": "Show password",
@@ -775,7 +803,13 @@
   },
   "live": {
     "linkCopied": "Link copied",
-    "codeCopied": "Code copied"
+    "codeCopied": "Code copied",
+    "photoOpen": "Open photo {n} of {total}",
+    "photoClose": "Close",
+    "photoPrev": "Previous photo",
+    "photoNext": "Next photo",
+    "photoFailed": "This photo could not be loaded.",
+    "photos": "Photos"
   },
   "sample": {
     "pdfCompany": "Harbour Cycles",
@@ -808,7 +842,9 @@
     "socials": "{\"instagram\": \"https://instagram.com/cornwallsurfschool\", \"facebook\": \"https://facebook.com/cornwallsurfschool\", \"tiktok\": \"https://tiktok.com/@cornwallsurfschool\", \"youtube\": \"https://youtube.com/@cornwallsurfschool\", \"linkedin\": \"https://linkedin.com/company/cornwallsurfschool\"}",
     "appIos": "https://apps.apple.com/app/fitplan",
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
-    "videoUrl": "https://codeclass.co.uk/lesson-1-html"
+    "videoUrl": "https://codeclass.co.uk/lesson-1-html",
+    "igUrl": "https://www.instagram.com/thijs.photography/",
+    "menuUrl": "https://yourrestaurant.com/menu"
   },
   "visit": {
     "locked": "This page is protected",
@@ -1160,5 +1196,13 @@
     "exists": "An account with this email address already exists.",
     "alreadyActive": "This customer has already activated the account.",
     "cantRemove": "Team accounts can’t be deleted here."
+  },
+  "menu": {
+    "modeLink": "Link to your menu",
+    "modeLinkHint": "You already have a menu or ordering page",
+    "modeUpload": "Upload menu",
+    "modeUploadHint": "PDF or photo of your menu",
+    "modeBuild": "Create it here",
+    "modeBuildHint": "Enter dishes and prices here"
   }
 }

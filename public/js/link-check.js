@@ -1,7 +1,8 @@
 /* =========================================================
-   LINK-CHECK voor URL-velden met check: true
+   LINK-CHECK voor alle URL-velden (en velden met een vaste vorm, zoals een Instagram-naam)
    1. https:// automatisch toevoegen en bekende typfouten verbeteren (htps, .con, …)
-   2. Met server: kijken of de website bestaat en de titel als naam voorstellen
+   2. domains: moet een link naar die website zijn (bv. Facebook, App Store)
+   3. Alleen bij check: true en met server: kijken of de website bestaat en de titel als naam voorstellen
    ========================================================= */
 var LinkCheck = (function () {
   var FIXES = [[/^htps?:\/\//i, 'https://'], [/^https?\/\/(?!\/)/i, 'https://'], [/^https?:\/(?!\/)/i, 'https://'], [/^ttps?:\/\//i, 'https://'],
@@ -14,16 +15,25 @@ var LinkCheck = (function () {
     return x;
   }
   function valid(v) { try { var u = new URL(v); return /^https?:$/.test(u.protocol) && /\.[a-z]{2,}$/i.test(u.hostname); } catch (e) { return false; } }
+  function onDomain(v, domains) { try { var h = new URL(v).hostname.toLowerCase(); return domains.some(function (d) { return h === d || h.slice(-d.length - 1) === '.' + d; }); } catch (e) { return false; } }
   function mount(root, f, type) {
-    var input = root.querySelector('[name="' + f.key + '"]'), msg = root.querySelector('[data-msg="' + f.key + '"]'), seq = 0;
-    if (!input) return;
-    function say(text, cls) { msg.textContent = text; msg.className = 'field-msg ' + (cls || ''); }
+    var input = root.querySelector('[name="' + f.key + '"]'), msg = root.querySelector('[data-msg="' + f.key + '"]'), field = root.querySelector('[data-field="' + f.key + '"]'), seq = 0;
+    if (!input || !msg) return;
+    function say(text, cls) { msg.textContent = text; msg.className = 'field-msg ' + (cls || ''); if (field) field.classList.toggle('bad', cls === 'bad'); }
     function check() {
-      var raw = input.value, v = normalize(raw), my = ++seq;
+      var raw = input.value, my = ++seq;
       if (!raw.trim()) return say('');
+      if (f.pattern) {   // bv. Instagram: een geplakte profiellink wordt de naam
+        var m = raw.match(/instagram\.com\/([A-Za-z0-9._]{1,30})/i), name = (m ? m[1] : raw.trim()).replace(/^@/, '');
+        if (name !== raw.trim()) { input.value = name; actions.setField(f.key, name); }
+        return new RegExp(f.pattern).test(name) ? say('') : say(t(f.patternError || 'url.invalid'), 'bad');
+      }
+      var v = normalize(raw);
       if (v !== raw.trim()) { input.value = v; actions.setField(f.key, v); }
       if (!valid(v)) return say(t('url.invalid'), 'bad');
+      if (f.domains && !onDomain(v, f.domains)) return say(t('url.wrongSite', { site: f.domains[0] }), 'bad');
       say(v !== raw.trim() ? t('url.fixed', { url: v }) : '', 'info');
+      if (!f.check) return;
       api.available().then(function (online) {
         if (!online || my !== seq) return;
         say(t('url.checking'), 'info');

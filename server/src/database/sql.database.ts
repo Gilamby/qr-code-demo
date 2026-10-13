@@ -212,6 +212,7 @@ export class SqlDatabase extends DatabaseService {
   }
   attachFile(id: string, codeId: string) { return this.d.run('UPDATE files SET code_id = ? WHERE id = ?', [codeId, id]); }
   async getFile(id: string): Promise<StoredFile | null> { const r = await this.d.get('SELECT * FROM files WHERE id = ?', [id]); return r ? { ...r, size: Number(r.size), path: path.join(FILES_DIR, r.id) } : null; }
+  async pruneLooseFile(id: string) { await this.d.run('DELETE FROM files WHERE id = ? AND code_id IS NULL', [id]); removeFiles([id]); }
   async pruneFiles(codeId: string, keepIds: string[]) {
     const gone = (await this.d.all(SQL.filesOfCode, [codeId])).map((r) => r.id).filter((id) => keepIds.indexOf(id) < 0);
     for (const id of gone) await this.d.run('DELETE FROM files WHERE id = ?', [id]);

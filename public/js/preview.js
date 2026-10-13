@@ -15,7 +15,7 @@ function previewRows(type, c) {
     case 'video':     return [c.title, '1:42 · ' + t('pv.video.meta')];
     case 'images':    return [c.title, t('pv.images.count', { count: f.num(12) }), t('pv.images.cta')];
     case 'facebook':  return [c.pageName || c.title, t('pv.facebook.followers', { count: f.num(13100) }), t('pv.facebook.cta')];
-    case 'instagram': return ['@' + c.username.replace(/^@/, ''), t('pv.instagram.stats', { posts: f.num(86), followers: f.num(3100) }), t('pv.instagram.cta')];
+    case 'instagram': return [c.username ? '@' + c.username.replace(/^@/, '') : (c.url || ''), t('pv.instagram.stats', { posts: f.num(86), followers: f.num(3100) }), t('pv.instagram.cta')];
     case 'social':    return ['Instagram', 'Facebook', 'LinkedIn'];
     case 'whatsapp':  return [c.phone, c.message, t('pv.whatsapp.start')];
     case 'mp3':       return [c.title, c.artist, t('pv.mp3.cta')];

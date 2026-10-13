@@ -35,6 +35,9 @@ function publicContent(q: QrCode, type: any) {
     if (f.type === 'file') {
       try { const o = JSON.parse(v); v = JSON.stringify({ n: o.n, s: o.s, url: o.d || o.f ? 'q/' + q.id + '/file/' + f.key + (q.content.password ? '?t=' + fileToken(q, f.key) : '') : '' }); } catch (e) { continue; }
     }
+    if (f.type === 'gallery') {   // foto's: alleen een link per foto (met maten, zodat de galerij niet verspringt)
+      try { v = JSON.stringify(JSON.parse(v).map((x: any, i: number) => ({ u: 'q/' + q.id + '/photo/' + i, w: x && x.w, h: x && x.h }))); } catch (e) { continue; }
+    }
     out[f.key] = v;
   }
   return out;

@@ -258,7 +258,10 @@
       "yourCode": "Il tuo codice",
       "offer": "Offerta",
       "validLbl": "Valido fino al",
-      "wallet": "Aggiungi a Apple Wallet"
+      "wallet": "Aggiungi a Apple Wallet",
+      "shopNow": "Acquista ora",
+      "howOnline": "Usa questo codice al pagamento.",
+      "howStore": "Mostra questo codice alla cassa."
     },
     "wifi": {
       "network": "Rete Wi-Fi",
@@ -295,7 +298,9 @@
     "retry": "Riprova",
     "demoMode": "Modalità demo: non salvato. Avvia il server per salvare.",
     "demoScan": "Demo: questo codice funziona solo quando l'app è online. Wi-Fi e biglietto da visita funzionano già.",
-    "localScan": "Attenzione: il telefono non può aprire questo indirizzo. Imposta PUBLIC_URL in .env (vedi docs/installatie.md)."
+    "localScan": "Attenzione: il telefono non può aprire questo indirizzo. Imposta PUBLIC_URL in .env (vedi docs/installatie.md).",
+    "privateScan": "Attenzione: questo codice QR ora apre la pagina di accesso di GitHub, perché la porta 3000 del tuo Codespace è Private. Impostala su Public: scheda Ports > clic destro su 3000 > Port Visibility > Public. Poi ricarica questa pagina.",
+    "devScan": "Questo è un indirizzo di prova temporaneo (Codespaces). La scansione funziona, ma non stampare questo codice: smette di funzionare quando il Codespace si ferma. Per i codici veri serve il server online."
   },
   "actions": {
     "continue": "Continua",
@@ -354,7 +359,17 @@
     "linkNamePh": "Per esempio: Top rosa di Zara",
     "linkImage": "Foto o logo",
     "optional": "(facoltativo)",
-    "videoFile": "Oppure carica il tuo video"
+    "videoFile": "Oppure carica il tuo video",
+    "igUrl": "Oppure incolla il link del profilo",
+    "menuMode": "Come vuoi condividere il tuo menu?",
+    "menuUrl": "Link al tuo menu o alla pagina per ordinare",
+    "menuFile": "Il tuo menu (PDF o foto)",
+    "couponScan": "Mostra il codice come",
+    "scanQr": "Codice QR",
+    "scanBarcode": "Codice a barre",
+    "scanNone": "Solo testo",
+    "couponUrl": "Pulsante verso il tuo negozio online o pagina di prenotazione",
+    "buttonLabel": "Testo del pulsante"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -454,7 +469,14 @@
     "tooBig": "Questo file è troppo grande (max {n} MB).",
     "videoHint": "MP4, MOV o WebM, max 100 MB",
     "uploading": "Caricamento… {p}%",
-    "videoError": "Caricamento non riuscito. Riprova o scegli un file più piccolo."
+    "videoError": "Caricamento non riuscito. Riprova o scegli un file più piccolo.",
+    "photosCount": "{n} di {max} foto · puoi aggiungerne altre {left}",
+    "photosBusy": "{n} in caricamento",
+    "photoError": "Non è stato possibile caricare {n} foto. Riprova.",
+    "photosTooMany": "Puoi aggiungere al massimo {max} foto. Le altre sono state saltate.",
+    "photoReplace": "Sostituisci foto {n}",
+    "photoRemove": "Rimuovi foto {n}",
+    "menuHint": "PDF, JPG o PNG, max 10 MB"
   },
   "hours": {
     "closed": "Chiuso",
@@ -481,7 +503,8 @@
     "find": "Cerca un social"
   },
   "validate": {
-    "required": "Campo obbligatorio"
+    "required": "Campo obbligatorio",
+    "igUser": "Un nome Instagram contiene solo lettere, numeri, punti e _ (max 30 caratteri)."
   },
   "hint": {
     "qrName": "Lo compiliamo con il titolo del tuo sito. Solo tu vedi questo nome.",
@@ -491,7 +514,11 @@
     "devices": "Lascia vuoto per usare lo stesso link per tutti.",
     "utm": "Aggiunge tag UTM al link per vedere i visitatori QR in Google Analytics.",
     "videoUrl": "YouTube, Vimeo o un altro link video. Oppure carica il tuo video qui sotto.",
-    "qrNameOwn": "Solo tu vedi questo nome, in I miei codici QR. Così ritrovi subito il codice."
+    "qrNameOwn": "Solo tu vedi questo nome, in I miei codici QR. Così ritrovi subito il codice.",
+    "igUser": "Con o senza @. Puoi anche incollare qui sotto il link del profilo.",
+    "menuUrl": "Per esempio la tua pagina del menu o un sito per ordinare. Gli ospiti ci arrivano subito.",
+    "couponCode": "Il codice che usano i clienti. Attenzione: imposta lo stesso codice anche in cassa o nel negozio online. Questa app non controlla se un codice è già stato usato.",
+    "couponUrl": "Facoltativo. I clienti usano lì il codice al pagamento."
   },
   "more": {
     "title": "Altre opzioni",
@@ -504,7 +531,8 @@
     "ok": "✓ Sito trovato",
     "okTitle": "✓ Sito trovato: {title}",
     "fail": "Non riusciamo a raggiungere questo sito. Il link è corretto?",
-    "invalid": "Non è un link valido. Esempio: https://tuaazienda.it"
+    "invalid": "Non è un link valido. Esempio: https://tuaazienda.it",
+    "wrongSite": "Questo non è un link a {site}. Copia il link della pagina giusta."
   },
   "pw": {
     "show": "Mostra password",
@@ -775,7 +803,13 @@
   },
   "live": {
     "linkCopied": "Link copiato",
-    "codeCopied": "Codice copiato"
+    "codeCopied": "Codice copiato",
+    "photoOpen": "Apri foto {n} di {total}",
+    "photoClose": "Chiudi",
+    "photoPrev": "Foto precedente",
+    "photoNext": "Foto successiva",
+    "photoFailed": "Impossibile caricare questa foto.",
+    "photos": "Foto"
   },
   "sample": {
     "pdfCompany": "Bici Velo",
@@ -808,7 +842,9 @@
     "socials": "{\"instagram\": \"https://instagram.com/scuolasurfonda\", \"facebook\": \"https://facebook.com/scuolasurfonda\", \"tiktok\": \"https://tiktok.com/@scuolasurfonda\", \"youtube\": \"https://youtube.com/@scuolasurfonda\", \"linkedin\": \"https://linkedin.com/company/scuolasurfonda\"}",
     "appIos": "https://apps.apple.com/app/allenami",
     "appAndroid": "https://play.google.com/store/apps/details?id=com.allenami.app",
-    "videoUrl": "https://scuolaweb.it/lezione-1-html"
+    "videoUrl": "https://scuolaweb.it/lezione-1-html",
+    "igUrl": "https://www.instagram.com/thijs.fotografia/",
+    "menuUrl": "https://iltuoristorante.it/menu"
   },
   "visit": {
     "locked": "Questa pagina è protetta",
@@ -1160,5 +1196,13 @@
     "exists": "Esiste già un account con questo indirizzo e-mail.",
     "alreadyActive": "Questo cliente ha già attivato l’account.",
     "cantRemove": "Gli account del team non si possono eliminare qui."
+  },
+  "menu": {
+    "modeLink": "Link al tuo menu",
+    "modeLinkHint": "Hai già una pagina del menu o per ordinare",
+    "modeUpload": "Carica il menu",
+    "modeUploadHint": "PDF o foto del tuo menu",
+    "modeBuild": "Crealo qui",
+    "modeBuildHint": "Inserisci qui piatti e prezzi"
   }
 }

@@ -258,7 +258,10 @@
       "yourCode": "Twój kod",
       "offer": "Oferta",
       "validLbl": "Ważny do",
-      "wallet": "Dodaj do Apple Wallet"
+      "wallet": "Dodaj do Apple Wallet",
+      "shopNow": "Kup teraz",
+      "howOnline": "Użyj tego kodu przy płatności.",
+      "howStore": "Pokaż ten kod przy kasie."
     },
     "wifi": {
       "network": "Sieć Wi-Fi",
@@ -295,7 +298,9 @@
     "retry": "Spróbuj ponownie",
     "demoMode": "Tryb demo: nie zapisano. Uruchom serwer, aby zapisywać.",
     "demoScan": "Demo: ten kod zadziała dopiero, gdy aplikacja będzie online. Wi-Fi i wizytówka działają już teraz.",
-    "localScan": "Uwaga: telefon nie otworzy tego adresu. Ustaw PUBLIC_URL w .env (zob. docs/installatie.md)."
+    "localScan": "Uwaga: telefon nie otworzy tego adresu. Ustaw PUBLIC_URL w .env (zob. docs/installatie.md).",
+    "privateScan": "Uwaga: ten kod QR otwiera teraz stronę logowania GitHub, bo port 3000 Twojego Codespace jest ustawiony na Private. Ustaw go na Public: karta Ports > prawy klik na 3000 > Port Visibility > Public. Potem odśwież tę stronę.",
+    "devScan": "To tymczasowy adres testowy (Codespaces). Skanowanie działa, ale nie drukuj tego kodu: przestanie działać, gdy Codespace się zatrzyma. Prawdziwe kody wymagają serwera online."
   },
   "actions": {
     "continue": "Dalej",
@@ -354,7 +359,17 @@
     "linkNamePh": "Na przykład: Różowy top z Zary",
     "linkImage": "Zdjęcie lub logo",
     "optional": "(opcjonalnie)",
-    "videoFile": "Lub prześlij własny film"
+    "videoFile": "Lub prześlij własny film",
+    "igUrl": "Lub wklej link do profilu",
+    "menuMode": "Jak chcesz udostępnić menu?",
+    "menuUrl": "Link do menu lub strony zamówień",
+    "menuFile": "Twoje menu (PDF lub zdjęcie)",
+    "couponScan": "Pokaż kod jako",
+    "scanQr": "Kod QR",
+    "scanBarcode": "Kod kreskowy",
+    "scanNone": "Tylko tekst",
+    "couponUrl": "Przycisk do sklepu internetowego lub strony rezerwacji",
+    "buttonLabel": "Tekst na przycisku"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -454,7 +469,14 @@
     "tooBig": "Ten plik jest za duży (maks. {n} MB).",
     "videoHint": "MP4, MOV lub WebM, maks. 100 MB",
     "uploading": "Przesyłanie… {p}%",
-    "videoError": "Nie udało się przesłać. Spróbuj ponownie lub wybierz mniejszy plik."
+    "videoError": "Nie udało się przesłać. Spróbuj ponownie lub wybierz mniejszy plik.",
+    "photosCount": "{n} z {max} zdjęć · możesz dodać jeszcze {left}",
+    "photosBusy": "Przesyłanie: {n}",
+    "photoError": "Nie udało się przesłać zdjęć: {n}. Spróbuj ponownie.",
+    "photosTooMany": "Możesz dodać maksymalnie {max} zdjęć. Pozostałe pominięto.",
+    "photoReplace": "Zamień zdjęcie {n}",
+    "photoRemove": "Usuń zdjęcie {n}",
+    "menuHint": "PDF, JPG lub PNG, maks. 10 MB"
   },
   "hours": {
     "closed": "Zamknięte",
@@ -481,7 +503,8 @@
     "find": "Szukaj sieci"
   },
   "validate": {
-    "required": "Pole wymagane"
+    "required": "Pole wymagane",
+    "igUser": "Nazwa na Instagramie ma tylko litery, cyfry, kropki i _ (maks. 30 znaków)."
   },
   "hint": {
     "qrName": "Wypełniamy automatycznie tytułem Twojej strony. Tylko Ty widzisz tę nazwę.",
@@ -491,7 +514,11 @@
     "devices": "Zostaw puste, aby wszyscy mieli ten sam link.",
     "utm": "Dodaje tagi UTM do linku, by widzieć wejścia z QR w Google Analytics.",
     "videoUrl": "YouTube, Vimeo lub inny link do filmu. Albo prześlij poniżej własny film.",
-    "qrNameOwn": "Tylko Ty widzisz tę nazwę, w Moje kody QR. Dzięki niej szybko znajdziesz kod."
+    "qrNameOwn": "Tylko Ty widzisz tę nazwę, w Moje kody QR. Dzięki niej szybko znajdziesz kod.",
+    "igUser": "Z @ lub bez. Możesz też wkleić poniżej link do profilu.",
+    "menuUrl": "Na przykład Twoja strona z menu, Pyszne.pl lub inna strona zamówień. Goście trafią tam od razu.",
+    "couponCode": "Kod, którego używają klienci. Uwaga: ustaw ten sam kod w kasie lub sklepie internetowym. Ta aplikacja nie sprawdza, czy kod został już użyty.",
+    "couponUrl": "Opcjonalnie. Klienci używają tam kodu przy płatności."
   },
   "more": {
     "title": "Więcej opcji",
@@ -504,7 +531,8 @@
     "ok": "✓ Znaleziono stronę",
     "okTitle": "✓ Znaleziono stronę: {title}",
     "fail": "Nie możemy połączyć się z tą stroną. Czy link jest poprawny?",
-    "invalid": "To nie jest poprawny link. Przykład: https://twojafirma.pl"
+    "invalid": "To nie jest poprawny link. Przykład: https://twojafirma.pl",
+    "wrongSite": "To nie jest link do {site}. Skopiuj link właściwej strony."
   },
   "pw": {
     "show": "Pokaż hasło",
@@ -775,7 +803,13 @@
   },
   "live": {
     "linkCopied": "Link skopiowany",
-    "codeCopied": "Kod skopiowany"
+    "codeCopied": "Kod skopiowany",
+    "photoOpen": "Otwórz zdjęcie {n} z {total}",
+    "photoClose": "Zamknij",
+    "photoPrev": "Poprzednie zdjęcie",
+    "photoNext": "Następne zdjęcie",
+    "photoFailed": "Nie udało się wczytać tego zdjęcia.",
+    "photos": "Zdjęcia"
   },
   "sample": {
     "pdfCompany": "Rowery Velo",
@@ -808,7 +842,9 @@
     "socials": "{\"instagram\": \"https://instagram.com/szkolasurfingufala\", \"facebook\": \"https://facebook.com/szkolasurfingufala\", \"tiktok\": \"https://tiktok.com/@szkolasurfingufala\", \"youtube\": \"https://youtube.com/@szkolasurfingufala\", \"linkedin\": \"https://linkedin.com/company/szkolasurfingufala\"}",
     "appIos": "https://apps.apple.com/app/treningpro",
     "appAndroid": "https://play.google.com/store/apps/details?id=com.treningpro.app",
-    "videoUrl": "https://szkolaweb.pl/lekcja-1-html"
+    "videoUrl": "https://szkolaweb.pl/lekcja-1-html",
+    "igUrl": "https://www.instagram.com/thijs.fotografia/",
+    "menuUrl": "https://twojarestauracja.pl/menu"
   },
   "visit": {
     "locked": "Ta strona jest chroniona",
@@ -1160,5 +1196,13 @@
     "exists": "Konto z tym adresem e-mail już istnieje.",
     "alreadyActive": "Ten klient już aktywował konto.",
     "cantRemove": "Kont zespołu nie można tu usunąć."
+  },
+  "menu": {
+    "modeLink": "Link do menu",
+    "modeLinkHint": "Masz już stronę z menu lub zamówieniami",
+    "modeUpload": "Prześlij menu",
+    "modeUploadHint": "PDF lub zdjęcie menu",
+    "modeBuild": "Utwórz tutaj",
+    "modeBuildHint": "Wpisz tutaj dania i ceny"
   }
 }

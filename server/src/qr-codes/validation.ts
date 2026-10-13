@@ -15,6 +15,13 @@ export const SOCIAL_NETWORKS = ['instagram', 'facebook', 'tiktok', 'linkedin', '
 function validHours(arr: any) {
   return Array.isArray(arr) && arr.length === 7 && arr.every((d) => d && (!d.o || (TIME.test(d.f) && TIME.test(d.t) && ((!d.f2 && !d.t2) || (TIME.test(d.f2) && TIME.test(d.t2))))));
 }
+/** Hoort de link bij deze website? (ook subdomeinen: m.facebook.com, www.instagram.com) */
+export function onDomain(v: string, domains: string[]) { try { const h = new URL(v).hostname.toLowerCase().replace(/\.$/, ''); return domains.some((d) => h === d || h.endsWith('.' + d)); } catch (e) { return false; } }
+/** Past de data-URL bij accept? ("application/pdf,image/jpeg", "audio/*") */
+function acceptsData(accept: string, d: string) {
+  const m = d.match(/^data:([\w.+-]+\/[\w.+-]+);base64,/); if (!m) return false;
+  return String(accept || '').split(',').map((a) => a.trim()).some((a) => a === m[1] || (a.endsWith('/*') && m[1].startsWith(a.slice(0, -1))));
+}
 function isUrl(v: string) { try { const u = new URL(v); return u.protocol === 'http:' || u.protocol === 'https:'; } catch (e) { return false; } }
 
 // E-mail: naam@domein.extensie, geen spaties of dubbele punten, extensie minstens 2 letters
@@ -30,7 +37,11 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
   for (const field of type.fields) {
     let v = input[field.key];
     if (v == null || String(v).trim() === '') continue;        // leeg = voorbeeldwaarde gebruiken
-    if (field.needs && (input[field.needs] == null || String(input[field.needs]).trim() === '')) continue;   // bv. videotitel zonder eigen video: niet bewaren
+    if (!(QR_TYPES as any).active(type, field, input)) continue;   // niet in gebruik (bv. videotitel zonder eigen video, menu: andere keuze): niet bewaren
+    if (field.type === 'choice') {
+      if (!field.options.some((o: any) => o.value === v)) errors.push(field.key + ': unknown option');
+      content[field.key] = v; continue;
+    }
     v = String(v).trim();
     if (field.type === 'hours') {
       let ok = false; try { ok = validHours(JSON.parse(v)); } catch (e) {}
@@ -55,12 +66,16 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
       // Al opgeslagen bestand (bij bewerken): verwijzing naar het bestand op de server
       else if (o.f != null && (typeof o.f !== 'string' || !/^[A-Za-z0-9_-]{10,40}$/.test(o.f))) errors.push(field.key + ': invalid file reference');
       // Het bestand zelf (max. 10 MB) als data-URL; alleen PDF of audio
-      else if (o.d != null && (typeof o.d !== 'string' || o.d.length > 14 * 1048576 || !(field.accept === 'application/pdf' ? /^data:application\/pdf;base64,/ : /^data:audio\/[\w.+-]+;base64,/).test(o.d))) errors.push(field.key + ': file must be a ' + (field.accept === 'application/pdf' ? 'PDF' : 'audio file') + ' under 10 MB');
+      else if (o.d != null && (typeof o.d !== 'string' || o.d.length > 14 * 1048576 || !acceptsData(field.accept, o.d))) errors.push(field.key + ': file must be ' + field.accept + ' under 10 MB');
       content[field.key] = v; continue;
     }
     if (field.type === 'gallery') {
       let a = null; try { a = JSON.parse(v); } catch (e) {}
-      if (!Array.isArray(a) || !a.length || a.length > 6 || a.some((x) => typeof x !== 'string' || !/^data:image\/(jpeg|png|webp);base64,/.test(x) || x.length > 1500000)) errors.push(field.key + ': 1-6 JPG/PNG/WebP images');
+      // Elke foto: een verwijzing naar een geüpload bestand { f, w, h } (nieuw), of een data-URL (oude codes)
+      const max = field.max || 6, dim = (n: any) => n == null || (Number.isInteger(n) && n > 0 && n <= 20000);
+      const ok = (x: any) => typeof x === 'string' ? /^data:image\/(jpeg|png|webp);base64,/.test(x) && x.length <= 1500000
+        : !!x && typeof x === 'object' && typeof x.f === 'string' && /^[A-Za-z0-9_-]{10,40}$/.test(x.f) && dim(x.w) && dim(x.h);
+      if (!Array.isArray(a) || !a.length || a.length > max || !a.every(ok)) errors.push(field.key + ': 1-' + max + ' JPG/PNG/WebP images');
       content[field.key] = v; continue;
     }
     if (field.type === 'dishes') {
@@ -74,6 +89,8 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
     }
     if (v.length > MAX_TEXT || (!field.type && typeof field.max === 'number' && v.length > field.max)) errors.push(field.key + ': too long');
     if (field.type === 'url' && !isUrl(v)) errors.push(field.key + ': must be a http(s) URL');
+    else if (field.type === 'url' && field.domains && !onDomain(v, field.domains)) errors.push(field.key + ': must be a link to ' + field.domains[0]);
+    if (field.pattern) { v = v.replace(/^@/, ''); if (!new RegExp(field.pattern).test(v)) errors.push(field.key + ': invalid format'); }   // bv. Instagram-naam, zonder @ bewaard
     if (field.type === 'email' && !EMAIL.test(v)) errors.push(field.key + ': invalid email');
     if (field.type === 'tel' && !/^\+\d{7,16}$/.test(v.replace(/\s/g, ''))) errors.push(field.key + ': must be a phone number with country code (+31 …)');
     if (field.type === 'number') { const n = Number(v), lo = field.min != null ? field.min : 0, hi = field.max != null ? field.max : 100; if (isNaN(n) || n < lo || n > hi || (field.min != null && !Number.isInteger(n))) errors.push(field.key + ': must be ' + lo + '-' + hi); }
@@ -84,7 +101,7 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
     content[field.key] = v;
   }
   for (const key of Object.keys(input)) if (!type.fields.some((f) => f.key === key)) errors.push(key + ': unknown field');
-  for (const f of type.fields) if (f.required && !content[f.key] && !(f.or && content[f.or])) errors.push(f.key + ': required');   // or: het andere veld mag ook
+  for (const f of type.fields) if (f.required && (QR_TYPES as any).active(type, f, input) && !content[f.key] && !(f.or && content[f.or])) errors.push(f.key + ': required');   // or: het andere veld mag ook
 
   const dv = validateDesign(body.design || {}, errors);
   return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: dv } };

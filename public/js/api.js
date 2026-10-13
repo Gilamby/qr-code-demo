@@ -275,6 +275,14 @@ var api = (function () {
         });
       });
     },
+    // Eén foto voor een galerij (al verkleind). Zonder server (demo): null, dan bewaart de galerij een kleine data-URL.
+    uploadImage: function (blob, name) {
+      return available().then(function (on) {
+        if (!on) return null;
+        return fetch('api/uploads/image?name=' + encodeURIComponent(String(name || 'foto.jpg').slice(0, 120)), { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': blob.type || 'image/jpeg' }, body: blob })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) { var e = new Error(d.error || 'HTTP ' + r.status); e.status = r.status; throw e; } return d; }); });
+      });
+    },
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },
     updateMe:     function (patch) { return request('PATCH', 'api/me', patch); }

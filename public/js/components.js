@@ -58,8 +58,16 @@ var ContentForm = {
           if (p.type === 'image') return '<div class="part-img"><span class="part-lbl">' + t(p.label) + ' <em>' + t('fields.optional') + '</em></span>' + ImageUpload.html(p, pid, pv) + '</div>';
           return '<label class="part-txt"><span class="part-lbl">' + t(p.label) + ' <em>' + t('fields.optional') + '</em></span><input id="' + pid + '" name="' + p.key + '" type="text" value="' + esc(pv) + '" maxlength="' + (p.max || 120) + '" placeholder="' + esc(t(p.label + 'Ph')) + '" autocomplete="off"></label>';
         }).join('') + '</div>' : '';
-        if (f.needs) attrs += ' data-needs="' + f.needs + '"' + (values[f.needs] ? '' : ' hidden');   // bv. videotitel: alleen bij een eigen video
-        var wrap = function (inner) { return '<div class="field' + cls + (parts.length ? ' has-parts' : '') + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small>' + partsHtml + '</div>'; };
+        if (f.needs || f.show) attrs += ' data-cond' + (QR_TYPES.active(type, f, values) ? '' : ' hidden');   // bv. videotitel alleen bij een eigen video, menu: alleen bij die keuze
+        // Keuze (bv. menu: link / uploaden / zelf maken): grote, duidelijke knoppen met een korte uitleg
+        if (f.type === 'choice') {
+          var cur = QR_TYPES.choice(type, f.key, values);
+          return '<div class="field choice-field" data-field="' + f.key + '"><span class="choice-lbl" id="' + id + '">' + t(f.label) + '</span>' +
+            '<div class="choice" role="radiogroup" aria-labelledby="' + id + '">' + f.options.map(function (o) {
+              return '<button type="button" role="radio" class="choice-opt" data-choice="' + f.key + '" data-value="' + o.value + '" aria-checked="' + (o.value === cur) + '"><b>' + t(o.label) + '</b>' + (o.hint ? '<small>' + t(o.hint) + '</small>' : '') + '</button>';
+            }).join('') + '</div></div>';
+        }
+        var wrap = function (inner) { return '<div class="field' + cls + (parts.length ? ' has-parts' : '') + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check || f.type === 'url' || f.pattern ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small>' + partsHtml + '</div>'; };
         if (f.type === 'toggle') return '<div class="field toggle-field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label class="tg"><input type="checkbox" id="' + id + '" name="' + f.key + '"' + (v ? ' checked' : '') + '><span class="sw-ui"></span><span>' + label + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '</span></label></div>';
         if (f.type === 'image') return wrap(ImageUpload.html(f, id, v));
         if (f.type === 'file') return wrap(FileUpload.html(f, id, v));
@@ -91,12 +99,20 @@ var ContentForm = {
             more.map(render).join('') + '</div></details>'
         : '');
     })() + '</form>' +
-      (type.page === false ? '' : '<section class="appearance" id="appearance"' + (hasPage(type, values) ? '' : ' hidden') + '></section>') +
+      (type.page === false || type.colors === false ? '' : '<section class="appearance" id="appearance"' + (hasPage(type, values) ? '' : ' hidden') + '></section>') +
       Actions.html(state);
     ImageUpload.mount(el, actions.setField); FileUpload.mount(el, actions.setField); GalleryUpload.mount(el, actions.setField); DishesEditor.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); PhoneInput.mount(el, actions.setField); EmailCheck.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
     var ap = el.querySelector('#appearance'); if (ap) Appearance.mount(ap);
     // Meer opties: teller bijwerken
     // Meer opties: knopjes voegen één optie toe, × haalt hem weer weg (en wist de waarde). Teller bijwerken.
+    // Keuzeknoppen: kiezen = bewaren; de velden die bij die keuze horen verschijnen (main.js)
+    el.querySelectorAll('.choice').forEach(function (grp) {
+      grp.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-choice]'); if (!b) return;
+        grp.querySelectorAll('[data-choice]').forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); });
+        actions.setField(b.getAttribute('data-choice'), b.getAttribute('data-value'));
+      });
+    });
     var det = el.querySelector('.more');
     if (det) {
       var count = function () {
@@ -158,7 +174,7 @@ var ContentForm = {
       name.addEventListener('input', function () { name.removeAttribute('data-auto'); });   // zelf getypt: niet meer overschrijven
     });
     // Link-check: https toevoegen, typfouten verbeteren, kijken of de site bestaat en de naam invullen
-    type.fields.filter(function (f) { return f.check; }).forEach(function (f) { LinkCheck.mount(el, f, type); });
+    type.fields.filter(function (f) { return f.check || f.type === 'url' || f.pattern; }).forEach(function (f) { LinkCheck.mount(el, f, type); });   // https:// aanvullen, juiste website, juiste vorm
   }
 };
 
@@ -172,7 +188,8 @@ var Actions = {
     var shown = state.saved && !api.isDemo() && !/^(contact|wifi)$/.test(getType(state.typeId).contentType);   // vaste codes hebben geen link; demo: link bestaat nog niet
     // Waarschuwing als een telefoon de link in de code (nog) niet kan openen: demo zonder server, of server op localhost zonder wifi-adres
     var dyn = !/^(contact|wifi)$/.test(getType(state.typeId).contentType);
-    var scanNote = last && dyn ? (api.isDemo() ? 'design.demoScan' : (api.info().phoneReachable === false ? 'design.localScan' : '')) : '';
+    var inf = api.info();   // privateScan: Codespace-poort op Private = scan opent GitHub-inlog; devScan: tijdelijk testadres, niet afdrukken
+    var scanNote = last && dyn ? (api.isDemo() ? 'design.demoScan' : inf.access === 'private' ? 'design.privateScan' : inf.phoneReachable === false ? 'design.localScan' : inf.devUrl ? 'design.devScan' : '') : '';
     scanNote = scanNote ? '<p class="scan-note" role="note">' + t(scanNote) + '</p>' : '';
     var next = last
       ? (state.created

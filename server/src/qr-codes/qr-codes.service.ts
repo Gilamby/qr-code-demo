@@ -14,10 +14,11 @@ export const secretKey = (typeId: string): string | null => {
   const t = QR_TYPES.find((x) => x.id === typeId); const f = t && t.fields.find((x) => x.type === 'password'); return f ? f.key : null;
 };
 const fileFields = (typeId: string): string[] => { const t = QR_TYPES.find((x) => x.id === typeId); return t ? t.fields.filter((f) => f.type === 'file').map((f) => f.key) : []; };
+const galleryFields = (typeId: string): string[] => { const t = QR_TYPES.find((x) => x.id === typeId); return t ? t.fields.filter((f) => f.type === 'gallery').map((f) => f.key) : []; };
 export const cleanName = (v: unknown) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, 60);
 export const newCodeId = () => crypto.randomBytes(5).toString('base64url');   // bv. "aZ3k9Qp"
 export const missingRequired = (typeId: string, content: Record<string, any>) => {
-  const t = QR_TYPES.find((x) => x.id === typeId); return t.fields.filter((f) => f.required && !content[f.key] && !(f.or && content[f.or])).map((f) => f.key + ': required');
+  const t = QR_TYPES.find((x) => x.id === typeId); return t.fields.filter((f) => f.required && (QR_TYPES as any).active(t, f, content) && !content[f.key] && !(f.or && content[f.or])).map((f) => f.key + ': required');
 };
 
 @Injectable()
@@ -49,6 +50,23 @@ export class QrCodesService {
         if (!f || f.user_id !== userId || (codeId && f.code_id && f.code_id !== codeId)) delete content[key];
         else { content[key] = JSON.stringify({ n: o.n, s: f.size, f: f.id }); keep.push(f.id); }
       } else delete content[key];
+    }
+    // Fotogalerij: elke foto is een eigen bestand. Oude data-URL's worden bij opslaan ook een bestand.
+    for (const key of galleryFields(typeId)) {
+      if (!content[key]) continue;
+      const out: { f: string; w?: number; h?: number }[] = [];
+      for (const x of JSON.parse(content[key])) {
+        if (typeof x === 'string') {
+          const m = x.match(/^data:(image\/(?:jpeg|png|webp));base64,(.*)$/); if (!m) continue;
+          const id = await this.db.saveFile({ userId, codeId, name: 'foto-' + (out.length + 1) + '.' + m[1].split('/')[1].replace('jpeg', 'jpg'), mime: m[1], buffer: Buffer.from(m[2], 'base64') });
+          out.push({ f: id }); keep.push(id);
+        } else {
+          const f = await this.db.getFile(x.f);
+          if (!f || f.user_id !== userId || !/^image\//.test(f.mime) || (codeId ? f.code_id && f.code_id !== codeId : f.code_id)) continue;
+          out.push(x.w && x.h ? { f: f.id, w: x.w, h: x.h } : { f: f.id }); keep.push(f.id);
+        }
+      }
+      if (out.length) content[key] = JSON.stringify(out); else delete content[key];
     }
     return keep;
   }

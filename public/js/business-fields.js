@@ -299,5 +299,5 @@ var SocialsEditor = (function () {
 function missingRequired(state) {
   var type = getType(state.typeId), c = state.content[type.id] || {};
   var has = function (k) { return !!(c[k] && String(c[k]).trim()); };
-  return type.fields.filter(function (f) { return f.required && !has(f.key) && !(f.or && has(f.or)); }).map(function (f) { return f.key; });   // or: het andere veld mag ook
+  return type.fields.filter(function (f) { return f.required && QR_TYPES.active(type, f, c) && !has(f.key) && !(f.or && has(f.or)); }).map(function (f) { return f.key; });   // or: het andere veld mag ook
 }

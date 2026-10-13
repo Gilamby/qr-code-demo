@@ -62,7 +62,10 @@
   store.subscribe(function (s, p) {
     if (s.step !== 'content' || s.content === p.content) return;
     var c = s.content[s.typeId] || {}, type = getType(s.typeId);
-    document.querySelectorAll('[data-needs]').forEach(function (el) { el.hidden = !c[el.getAttribute('data-needs')]; });
+    document.querySelectorAll('[data-cond]').forEach(function (el) {
+      var f = type.fields.filter(function (x) { return x.key === el.getAttribute('data-field'); })[0];
+      if (f) { el.hidden = !QR_TYPES.active(type, f, c); if (el.hidden) el.classList.remove('invalid', 'bad'); }
+    });
     var ap = document.getElementById('appearance'); if (ap) ap.hidden = !hasPage(type, c);
   });
 

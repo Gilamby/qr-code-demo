@@ -77,5 +77,25 @@ export function baseUrl(req: Request): string {
   if (LOCAL.test(host)) { const ip = lanIp(), port = (host.match(/:(\d+)$/) || [])[1]; if (ip) return req.protocol + '://' + ip + (port ? ':' + port : ''); }
   return req.protocol + '://' + host;
 }
-/** Kan een telefoon dit adres openen? (niet bij localhost zonder wifi-adres) */
-export const phoneReachable = (base: string): boolean => !/^https?:\/\/(localhost|127\.|\[::1\])/i.test(base);
+/* ---------- Codespaces: staat de poort op Public? ----------
+   Oorzaak van "QR-code opent GitHub-inlogpagina": in Codespaces wijzen de codes naar https://<naam>-3000.app.github.dev.
+   Staat die poort op Private (standaard), dan stuurt GitHub elke bezoeker naar de GitHub-inlogpagina.
+   We vragen ons eigen adres op zonder inloggegevens: 200 = openbaar, doorsturen/401 = privé. Elke minuut opnieuw. */
+let codespaceAccess: 'public' | 'private' | 'unknown' = 'unknown', lastCheck = 0;
+export async function checkCodespaceAccess(): Promise<typeof codespaceAccess> {
+  const url = codespaceUrl();
+  if (!url || Date.now() - lastCheck < 60000) return codespaceAccess;
+  lastCheck = Date.now();
+  try {
+    const r = await fetch(url + '/api/health?probe=1', { redirect: 'manual', signal: AbortSignal.timeout(5000) });
+    const loc = r.headers.get('location') || '';
+    codespaceAccess = r.status === 200 ? 'public' : (r.status >= 300 && r.status < 400 && /github\.com|login/i.test(loc)) || r.status === 401 ? 'private' : 'unknown';
+  } catch (e) { codespaceAccess = 'unknown'; }
+  return codespaceAccess;
+}
+export const codespaceAccessNow = () => codespaceAccess;
+/** Tijdelijk ontwikkeladres (Codespaces) in plaats van een vast webadres? Dan niet afdrukken. */
+export const isDevUrl = (base: string): boolean => /\.app\.github\.dev$|\.githubpreview\.dev$/i.test(base.replace(/^https?:\/\//, '').replace(/[:/].*$/, ''));
+
+/** Kan een telefoon dit adres openen? (niet bij localhost zonder wifi-adres, niet bij een Codespace op Private) */
+export const phoneReachable = (base: string): boolean => !/^https?:\/\/(localhost|127\.|\[::1\])/i.test(base) && !(isDevUrl(base) && codespaceAccess === 'private');

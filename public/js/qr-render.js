@@ -14,7 +14,7 @@
    }
    ========================================================= */
 // Elke QR-code is uniek: hij krijgt een eigen korte link met een willekeurig id (7 tekens, ±3,5 biljoen mogelijkheden).
-var QR_BASE = 'https://qr.optimasys.com';                  // wordt de eigen server zodra die bereikbaar is (zie main.js)
+var QR_BASE = location.origin;   // geen verzonnen domein: de server geeft het echte adres (PUBLIC_URL) door, zie main.js
 function newDraftId() { var a = new Uint8Array(7), c = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789', s = ''; crypto.getRandomValues(a); a.forEach(function (n) { s += c[n % c.length]; }); return s; }
 
 var QR_DEFAULT_DESIGN = {

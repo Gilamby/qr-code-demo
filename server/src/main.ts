@@ -7,7 +7,7 @@
    Starten: npm start  (bouwt eerst de TypeScript in server/src naar server/dist)
    ========================================================= */
 import 'reflect-metadata';
-import { PATHS, PORT, codespaceUrl, isProduction, lanIp, publicUrl, trustProxy } from './config/env';
+import { checkCodespaceAccess, PATHS, PORT, codespaceUrl, isProduction, lanIp, publicUrl, trustProxy } from './config/env';
 import * as fs from 'fs';
 import * as path from 'path';
 import { exec } from 'child_process';
@@ -77,9 +77,14 @@ async function main() {
   else if (codespaceUrl()) {
     console.log('\nCodespaces: QR-codes wijzen naar ' + codespaceUrl());
     // Poort openbaar maken, zodat een telefoon hem kan openen
-    exec('gh codespace ports visibility ' + port + ':public -c ' + process.env.CODESPACE_NAME, (err) => console.log(err
-      ? 'Zet poort ' + port + ' op "Public": tab "Poorten" (Ports) onderin > rechtermuisknop op ' + port + ' > Port Visibility > Public.'
-      : 'Poort ' + port + ' staat op Public: je telefoon kan de codes openen (ook via 4G). Open de app via dit adres: ' + codespaceUrl()));
+    exec('gh codespace ports visibility ' + port + ':public -c ' + process.env.CODESPACE_NAME, () => setTimeout(async () => {
+      // Echt nakijken: zonder Public opent elke scan de GitHub-inlogpagina
+      const access = await checkCodespaceAccess();
+      console.log(access === 'public'
+        ? 'Poort ' + port + ' staat op Public: je telefoon kan de codes openen (ook via 4G). Let op: dit is een tijdelijk testadres, druk deze codes niet af.'
+        : 'LET OP: poort ' + port + ' staat (nog) op Private, dus een scan opent de GitHub-inlogpagina.\n' +
+          'Oplossing: tab "Poorten" (Ports) onderin > rechtermuisknop op ' + port + ' > Port Visibility > Public.');
+    }, 1500));
   } else if (lanIp()) console.log('QR-codes wijzen naar: http://' + lanIp() + ':' + port + '  (scannen met je telefoon: zelfde wifi als deze computer)');
   else console.log('Let op: geen wifi-adres gevonden. Zet PUBLIC_URL in .env, anders kan een telefoon de QR-codes niet openen.');
 }

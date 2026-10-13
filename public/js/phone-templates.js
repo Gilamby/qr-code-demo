@@ -120,6 +120,31 @@ var PHONE = (function () {
     '</svg>';
   }
 
+  // Fotogalerij: items { r: hoogte/breedte, html } over n kolommen, telkens in de kortste kolom
+  window.GALLERY = {
+    columns: function (items, n) {
+      var h = [], out = [];
+      for (var i = 0; i < n; i++) { h.push(0); out.push([]); }
+      items.forEach(function (it) { var k = h.indexOf(Math.min.apply(null, h)); out[k].push(it.html); h[k] += it.r + 0.02; });
+      return out.map(function (col) { return '<div class="gx-col">' + col.join('') + '</div>'; }).join('');
+    }
+  };
+
+  // Streepjescode Code 128 (set B: gewone letters, cijfers en tekens) als SVG. Lukt het niet (bv. é), dan null -> QR-code.
+  window.BARCODE = (function () {
+    var W = '212222 222122 222221 121223 121322 131222 122213 122312 132212 221213 221312 231212 112232 122132 122231 113222 123122 123221 223211 221132 221231 213212 223112 312131 311222 321122 321221 312212 322112 322211 212123 212321 232121 111323 131123 131321 112313 132113 132311 211313 231113 231311 112133 112331 132131 113123 113321 133121 313121 211331 231131 213113 213311 213131 311123 311321 331121 312113 312311 332111 314111 221411 431111 111224 111422 121124 121421 141122 141221 112214 112412 122114 122411 142112 142211 241211 221114 413111 241112 134111 111242 121142 121241 114212 124112 124211 411212 421112 421211 212141 214121 412121 111143 111341 131141 114113 114311 411113 411311 113141 114131 311141 411131 211412 211214 211232 2331112'.split(' ');
+    function svg(text) {
+      text = String(text || ''); if (!text || text.length > 40 || /[^\x20-\x7e]/.test(text)) return '';
+      var codes = [104], sum = 104;
+      for (var i = 0; i < text.length; i++) { var v = text.charCodeAt(i) - 32; codes.push(v); sum += v * (i + 1); }
+      codes.push(sum % 103); codes.push(106);
+      var x = 10, bars = '';
+      codes.forEach(function (c) { W[c].split('').forEach(function (w, k) { w = +w; if (k % 2 === 0) bars += '<rect x="' + x + '" y="0" width="' + w + '" height="60"/>'; x += w; }); });
+      return '<svg viewBox="0 0 ' + (x + 10) + ' 60" preserveAspectRatio="none" role="img" aria-label="' + esc(text) + '"><rect width="' + (x + 10) + '" height="60" fill="#fff"/><g fill="#000">' + bars + '</g></svg>';
+    }
+    return { svg: svg };
+  })();
+
   // Naam uit een Facebook-link: facebook.com/bakkerij.jansen → "Bakkerij Jansen"
   function fbName(url) {
     var m = String(url || '').match(/facebook\.com\/(?:pg\/|people\/)?([^/?#]+)/i), n = m && m[1];
@@ -149,7 +174,7 @@ var PHONE = (function () {
 
     /* ---------- Instagram: het profiel dat opent ---------- */
     instagram: function (c, ex) {
-      var u = c.username ? c.username.replace(/^@/, '') : '';
+      var u = c.username ? c.username.replace(/^@/, '') : ((String(c.url || '').match(/instagram\.com\/([A-Za-z0-9._]{1,30})/i) || [])[1] || '');   // naam, of uit de profiellink
       var stat = function (n, k) { return '<span><b>' + (ex ? n : '<i class="sk" style="width:26px"></i>') + '</b><small>' + esc(t('pv.instagram.' + k)) + '</small></span>'; };
       var tiles = ['#f58529,#dd2a7b', '#515bd4,#8134af', '#2bb5f0,#1e3a8a', '#fcd34d,#f97316', '#10b981,#0f766e', '#f472b6,#7c3aed'];
       // Voorbeeldfoto's (stap 1): profielfoto, 5 highlights en 8 berichten in assets/previews/ig/
@@ -290,22 +315,22 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Afbeeldingen: grote foto bovenaan, daaronder een strak raster ---------- */
+    /* ---------- Afbeeldingen: rustige fotogalerij. Foto's in hun eigen verhouding, verdeeld over kolommen
+       (steeds de kortste kolom eerst, zodat de volgorde van links naar rechts blijft). Tik = grote weergave (live.js). ---------- */
     images: function (c, ex) {
-      var list = FILES.list(c.photos), n = list.length || (ex ? 12 : 0);
-      var tile = function (i, cls) {
-        if (list[i]) return '<span class="' + cls + '" style="background-image:url(' + list[i] + ')"></span>';
-        if (ex) return '<span class="' + cls + ' gx-mesh" style="' + mesh(i) + '"></span>';
-        return '<span class="' + cls + ' gx-none">' + ic('img') + '</span>';
-      };
-      var date = i18n.fmt.date(new Date(), 'long');
-      return '<div class="ph ph-gx">' +
-        '<div class="gx-hero">' + tile(0, 'gx-hero-img') + statusBar(true) +
-          '<div class="gx-cap"><small>' + esc(t('pv.images.album')) + '</small><h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:65%;height:18px"></i>') + '</h4>' +
-            '<p>' + (n ? esc(t('pv.images.count', { count: i18n.fmt.num(n) })) + ' · ' + esc(date) : '<i class="sk" style="width:45%"></i>') + '</p></div></div>' +
-        (c.description ? '<p class="gx-desc">' + esc(c.description) + '</p>' : '') +
-        '<div class="gx-grid">' + [1, 2, 3, 4, 5, 6].map(function (i) { return tile(i, 'gx-t'); }).join('') + '</div>' +
-        '<div class="gx-dl">' + ic('save') + esc(t('pv.images.cta')) + '</div>' +
+      var list = FILES.photos(c.photos), n = list.length || (ex ? 9 : 0);
+      var items = list.length ? list.map(function (p, i) {
+        var r = p.w && p.h ? p.h / p.w : 1;
+        return { r: r, html: '<button type="button" class="gx-item" data-i="' + i + '" aria-label="' + esc(t('live.photoOpen', { n: i + 1, total: list.length })) + '"' + (p.w && p.h ? ' style="aspect-ratio:' + p.w + '/' + p.h + '"' : '') + '>' +
+          '<img src="' + esc(p.src) + '" alt="" loading="lazy" decoding="async"></button>' };
+      }) : (ex ? [1.33, .75, 1, .67, 1.25, .8, 1, .75, 1.33] : [1, 1, 1, 1]).map(function (r, i) {
+        return { r: r, html: '<span class="gx-item ' + (ex ? 'gx-mesh' : 'gx-none') + '" style="aspect-ratio:1/' + r + (ex ? ';' + mesh(i) : '') + '">' + (ex ? '' : ic('img')) + '</span>' };
+      });
+      return '<div class="ph ph-gx">' + statusBar() +
+        '<header class="gx-head"><h4>' + (c.title ? esc(c.title) : ex ? '' : '<i class="sk" style="width:60%;height:16px"></i>') + '</h4>' +
+          '<p class="gx-meta">' + (n ? esc(t('pv.images.count', { count: i18n.fmt.num(n) })) : '<i class="sk" style="width:35%"></i>') + '</p>' +
+          (c.description ? '<p class="gx-desc">' + esc(c.description) + '</p>' : '') + '</header>' +
+        '<div class="gx-grid">' + GALLERY.columns(items, 2) + '</div>' +
       '</div>';
     },
 
@@ -330,15 +355,15 @@ var PHONE = (function () {
     /* ---------- Social media: donkere, chique pagina met een glazen kaart per kanaal ---------- */
     social: function (c, ex) {
       var so = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in so; });
-      var handle = function (url) { var m = String(url || '').replace(/\/$/, '').split('/').pop(); return m ? (m[0] === '@' ? m : '@' + m) : ''; };
       var hero = exPhoto('social', ex);
       return '<div class="ph ph-sx' + (hero ? ' has-hero' : '') + '">' + (hero ? '<div class="sx-hero" style="background-image:url(' + hero + ')"></div>' : '<i class="sx-glow a"></i><i class="sx-glow b"></i>') + statusBar(true) +
         '<div class="sx-prof"><span class="sx-ring"><span class="sx-av">' + (hero ? '<img decoding="sync" src="' + asset('assets/previews/social-avatar.jpg') + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span></span>' +
           '<h4>' + (c.title ? esc(c.title) : '<i class="sk" style="width:45%;margin:0 auto"></i>') + '</h4>' +
           '<p>' + (c.description ? esc(c.description) : '<i class="sk" style="width:60%;margin:0 auto"></i>') + '</p>' +
           (nets.length ? '<div class="sx-quick">' + nets.slice(0, 5).map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') + '</div>' +
-        '<div class="sx-list">' + (nets.length ? nets.slice(0, 6).map(function (n) {
-            return '<span class="sx-card"><i class="sx-ic sx-' + n.id + '">' + SOCIALS.icon(n.id) + '</i><span><b>' + esc(n.name) + '</b><small>' + esc(handle(so[n.id])) + '</small></span>' + ic('fwd') + '</span>';
+        '<div class="sx-list">' + (nets.length ? nets.map(function (n) {
+            // Alleen de naam van het platform; de link zelf zit achter de kaart (geen lange URL's in beeld)
+            return '<span class="sx-card" data-net="' + n.id + '"><i class="sx-ic sx-' + n.id + '">' + SOCIALS.icon(n.id) + '</i><span><b>' + esc(n.name) + '</b></span>' + ic('fwd') + '</span>';
           }).join('') : [1, 2, 3].map(function () { return '<span class="sx-card"><i class="sx-ic sx-empty"></i><span><i class="sk" style="width:50%"></i><i class="sk" style="width:35%"></i></span></span>'; }).join('')) + '</div>' +
       '</div>';
     },
@@ -359,6 +384,14 @@ var PHONE = (function () {
 
     /* ---------- Menu: de menukaart van het restaurant ---------- */
     menu: function (c, ex) {
+      // Wat de gast ziet hangt af van de keuze: de bestaande menusite, het geüploade menu, of het menu dat je hier maakt
+      var mode = ex ? 'build' : QR_TYPES.choice(getType('menu'), 'mode', c);
+      if (mode === 'link') return PHONE.website({ url: c.menuUrl, title: '' }, false);
+      if (mode === 'upload') {
+        var o = FILES.parse(c.menuFile), img = o && o.d && /^data:image\//.test(o.d) ? o.d : '';
+        if (img) return '<div class="ph ph-mnimg">' + statusBar() + '<div class="mni-view"><img src="' + img + '" alt=""></div></div>';
+        return PHONE.pdf({ file: c.menuFile }, false);
+      }
       var list = FILES.list(c.dishes);
       var price = function (p) { var n = parseFloat(String(p || '').replace(',', '.')); return isNaN(n) ? '' : i18n.fmt.eur(n); };
       return '<div class="ph ph-menu">' +
@@ -384,8 +417,9 @@ var PHONE = (function () {
       var stores = (ex || c.ios ? badge('ios') : '') + (ex || c.android ? badge('android') : '');
       return '<div class="ph ph-as">' + statusBar() +
         '<div class="as-nav">' + ic('back') + '<span>' + esc(t('pv.apps.search')) + '</span></div>' +
-        '<div class="as-top"><span class="as-icon">' + (c.logo || exPhoto('apps', ex) ? '<img decoding="sync" src="' + (c.logo || exPhoto('apps', ex)) + '" alt="">' : (name ? esc(initials(name)) : ic('img'))) + '</span>' +
-          '<div class="as-meta"><b>' + v(name, '70%') + '</b><small>' + (c.description ? esc(c.description) : '<i class="sk" style="width:85%"></i>') + '</small>' +
+        // Geen eigen logo of tekst nodig: naam (mag leeg) en de winkelknoppen die echt ingevuld zijn
+        '<div class="as-top"><span class="as-icon">' + (exPhoto('apps', ex) ? '<img decoding="sync" src="' + exPhoto('apps', ex) + '" alt="">' : (name ? esc(initials(name)) : ic('save'))) + '</span>' +
+          '<div class="as-meta"><b>' + v(name, '70%') + '</b><small>' + (ex ? esc(t('pv.apps.desc')) : '') + '</small>' +
           '<div class="as-get"><span>' + esc(t('pv.apps.download')) + '</span>' + ic('share') + '</div></div></div>' +
         '<div class="as-shots">' + [0, 1, 2].map(shot).join('') + '</div>' +
         '<div class="as-stores">' + (stores || '<span class="ap-badge ap-empty"><i class="sk"></i></span>') + '</div>' +
@@ -396,7 +430,9 @@ var PHONE = (function () {
     coupon: function (c, ex) {
       var exp = c.expires || (ex ? new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10) : '');
       var date = exp ? i18n.fmt.date(new Date(exp + 'T12:00:00'), 'short') : '';
-      var qr = c.code && typeof QRRender !== 'undefined' ? QRRender.svg(c.code, { color: '#000000' }) : '';
+      var scan = c.scan || 'qr', bar = c.code && scan === 'barcode' ? BARCODE.svg(c.code) : '';
+      if (scan === 'barcode' && !bar) scan = 'qr';   // tekens die een streepjescode niet kan (bv. €): dan een QR-code
+      var qr = c.code && scan === 'qr' && typeof QRRender !== 'undefined' ? QRRender.svg(c.code, { color: '#000000' }) : '';
       return '<div class="ph ph-wl">' + statusBar(true) +
         '<div class="wl-nav"><b>' + esc(t('pv.pdf.done')) + '</b>' + ic('dots', 'i dots') + '</div>' +
         '<div class="wl-pass">' +
@@ -405,10 +441,14 @@ var PHONE = (function () {
           '<div class="wl-off">' + (c.discount ? '<b>' + esc(c.discount) + '<em>%</em></b><span>' + esc(t('pv.coupon.off')) + '</span>' : '<i class="sk" style="width:120px;height:46px"></i>') + '</div>' +
           '<div class="wl-big"><small>' + esc(t('pv.coupon.offer')) + '</small><b>' + (c.title ? esc(c.title) : '<i class="sk" style="width:70%;height:16px"></i>') + '</b></div>' +
           '<div class="wl-row f2"><span class="wl-f"><small>' + esc(t('pv.coupon.validLbl')) + '</small><b>' + (date ? esc(date) : '–') + '</b></span><span class="wl-f r"><small>' + esc(t('pv.coupon.yourCode')) + '</small><b>' + (c.code ? esc(c.code) : '–') + '</b></span></div>' +
-          '<div class="wl-code"><span>' + (qr || '<i class="wl-qr-sk"></i>') + '</span><small>' + (c.code ? esc(c.code) : '') + '</small></div>' +
+          (bar ? '<div class="wl-code wl-bar"><span>' + bar + '</span><small>' + esc(c.code) + '</small></div>'
+            : c.code && scan === 'none' ? '' : '<div class="wl-code"><span>' + (qr || '<i class="wl-qr-sk"></i>') + '</span><small>' + (c.code ? esc(c.code) : '') + '</small></div>') +
         '</div>' +
+        // Hoe gebruik je deze korting? Online (knop naar de shop) of laten zien bij de kassa
+        (c.code || ex ? '<p class="wl-how">' + esc(t(c.buttonUrl ? 'pv.coupon.howOnline' : 'pv.coupon.howStore')) + '</p>' : '') +
         (c.terms ? '<p class="wl-terms">' + esc(c.terms) + '</p>' : '') +
-        '<button type="button" class="wl-add" data-copy="' + esc(c.code || '') + '">' + ic('copy') + '<span>' + esc(t('pv.coupon.cta')) + '</span></button>' +
+        '<div class="wl-acts">' + (c.buttonUrl ? '<button type="button" class="wl-add wl-go" data-shop>' + ic('fwd') + '<span>' + esc(c.buttonLabel || t('pv.coupon.shopNow')) + '</span></button>' : '') +
+          '<button type="button" class="wl-add" data-copy="' + esc(c.code || '') + '">' + ic('copy') + '<span>' + esc(t('pv.coupon.cta')) + '</span></button></div>' +
       '</div>';
     },
 

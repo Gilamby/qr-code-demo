@@ -38,6 +38,26 @@ export class ShortLinksController {
     return this.sendFile(res, q, key);
   }
 
+  /** Eén foto van een fotogalerij */
+  @Get(':id/photo/:n')
+  async photo(@Req() req: Request, @Res() res: Response, @Param('id') id: string, @Param('n') n: string) {
+    const q = await this.db.getQrCode(id);
+    if (!q || q.paused || rules.isExpired(q)) return res.status(404).send(rules.notFoundPage(req));
+    const field = (QR_TYPES.find((t) => t.id === q.typeId)?.fields || []).find((f: any) => f.type === 'gallery');
+    let list: any[] = []; try { list = field ? JSON.parse(q.content[field.key] || '[]') : []; } catch (e) { /* leeg */ }
+    const x = /^\d{1,3}$/.test(n) ? list[Number(n)] : null;
+    if (!x) return res.status(404).send('Not found');
+    res.set('X-Content-Type-Options', 'nosniff').set('Cache-Control', 'public, max-age=86400');
+    if (typeof x === 'string') {   // oude code: foto staat als data-URL in de inhoud
+      const m = x.match(/^data:(image\/(?:jpeg|png|webp));base64,(.*)$/); if (!m) return res.status(404).send('Not found');
+      return res.set('Content-Type', m[1]).send(Buffer.from(m[2], 'base64'));
+    }
+    const f = await this.db.getFile(x.f);
+    if (!f || f.code_id !== q.id) return res.status(404).send('Not found');
+    res.set('Content-Type', f.mime);
+    return res.sendFile(f.path, { dotfiles: 'allow' }, (err) => { if (err && !res.headersSent) res.status(404).send('Not found'); });
+  }
+
   private async openCode(req: Request, res: Response, id: string, passwordOk: boolean) {
     const found = await this.db.getQrCode(id);
     if (!found) return res.status(404).send(rules.notFoundPage(req));
@@ -53,8 +73,13 @@ export class ShortLinksController {
     // Doorsturen naar wat al bestaat
     const ua = req.get('user-agent') || '';
     if (q.typeId === 'facebook' && c.url) return res.redirect(c.url);
+    if (q.typeId === 'menu') {   // menu: bestaande menupagina of bestelsite openen, of het geüploade menu (PDF/foto) tonen
+      const mode = (QR_TYPES as any).choice(QR_TYPES.find((t) => t.id === 'menu'), 'mode', c);
+      if (mode === 'link' && c.menuUrl) return res.redirect(c.menuUrl);
+      if (mode === 'upload' && c.menuFile) return res.redirect((req.path.endsWith('/') ? '' : q.id + '/') + 'file/menuFile');
+    }
     if (q.typeId === 'pdf' && c.file) return res.redirect((req.path.endsWith('/') ? '' : q.id + '/') + 'file/file');   // PDF: meteen openen in de pdf-lezer van de telefoon
-    if (q.typeId === 'instagram' && c.username) return res.redirect('https://instagram.com/' + encodeURIComponent(c.username.replace(/^@/, '')));
+    if (q.typeId === 'instagram' && (c.username || c.url)) return res.redirect(c.username ? 'https://www.instagram.com/' + encodeURIComponent(c.username.replace(/^@/, '')) + '/' : c.url);   // naam of profiellink
     if (q.typeId === 'apps') {                                   // telefoon: meteen naar de juiste winkel; computer: de pagina met beide knoppen
       if (/iPhone|iPad|iPod/i.test(ua) && c.ios) return res.redirect(c.ios);
       if (/Android/i.test(ua) && c.android) return res.redirect(c.android);

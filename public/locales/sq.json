@@ -258,7 +258,10 @@
       "yourCode": "Kodi yt",
       "offer": "Ofertë",
       "validLbl": "E vlefshme deri",
-      "wallet": "Shto në Apple Wallet"
+      "wallet": "Shto në Apple Wallet",
+      "shopNow": "Bli tani",
+      "howOnline": "Përdore këtë kod kur paguan.",
+      "howStore": "Trego këtë kod në arkë."
     },
     "wifi": {
       "network": "Rrjeti Wi-Fi",
@@ -295,7 +298,9 @@
     "retry": "Provo përsëri",
     "demoMode": "Modaliteti demo: nuk u ruajt. Nise serverin për të ruajtur.",
     "demoScan": "Demo: ky kod funksionon vetëm kur aplikacioni është online. Wi-Fi dhe karta e kontaktit funksionojnë që tani.",
-    "localScan": "Kujdes: telefoni nuk mund ta hapë këtë adresë. Vendos PUBLIC_URL në .env (shih docs/installatie.md)."
+    "localScan": "Kujdes: telefoni nuk mund ta hapë këtë adresë. Vendos PUBLIC_URL në .env (shih docs/installatie.md).",
+    "privateScan": "Kujdes: ky kod QR tani hap faqen e hyrjes në GitHub, sepse porta 3000 e Codespace-it tënd është Private. Bëje Public: skeda Ports > kliko djathtas te 3000 > Port Visibility > Public. Pastaj rifresko këtë faqe.",
+    "devScan": "Kjo është një adresë testimi e përkohshme (Codespaces). Skanimi funksionon, por mos e printo këtë kod: ndalon së punuari kur ndalon Codespace-i. Kodet e vërteta kanë nevojë për serverin live."
   },
   "actions": {
     "continue": "Vazhdo",
@@ -354,7 +359,17 @@
     "linkNamePh": "Për shembull: Bluzë rozë nga Zara",
     "linkImage": "Foto ose logo",
     "optional": "(opsionale)",
-    "videoFile": "Ose ngarko videon tënde"
+    "videoFile": "Ose ngarko videon tënde",
+    "igUrl": "Ose ngjit lidhjen e profilit",
+    "menuMode": "Si dëshiron ta ndash menunë?",
+    "menuUrl": "Lidhje te menuja ose faqja e porosive",
+    "menuFile": "Menuja jote (PDF ose foto)",
+    "couponScan": "Shfaq kodin si",
+    "scanQr": "Kod QR",
+    "scanBarcode": "Barkod",
+    "scanNone": "Vetëm tekst",
+    "couponUrl": "Buton për dyqanin online ose faqen e rezervimeve",
+    "buttonLabel": "Teksti i butonit"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -454,7 +469,14 @@
     "tooBig": "Ky skedar është shumë i madh (maks. {n} MB).",
     "videoHint": "MP4, MOV ose WebM, maks. 100 MB",
     "uploading": "Duke ngarkuar… {p}%",
-    "videoError": "Ngarkimi nuk u krye. Provo sërish ose zgjidh një skedar më të vogël."
+    "videoError": "Ngarkimi nuk u krye. Provo sërish ose zgjidh një skedar më të vogël.",
+    "photosCount": "{n} nga {max} foto · mund të shtosh edhe {left}",
+    "photosBusy": "Duke ngarkuar: {n}",
+    "photoError": "{n} foto nuk u ngarkuan. Provo sërish.",
+    "photosTooMany": "Mund të shtosh deri në {max} foto. Të tjerat u anashkaluan.",
+    "photoReplace": "Zëvendëso foton {n}",
+    "photoRemove": "Hiq foton {n}",
+    "menuHint": "PDF, JPG ose PNG, maks. 10 MB"
   },
   "hours": {
     "closed": "Mbyllur",
@@ -481,7 +503,8 @@
     "find": "Kërko një rrjet"
   },
   "validate": {
-    "required": "Fushë e detyrueshme"
+    "required": "Fushë e detyrueshme",
+    "igUser": "Një emër Instagrami ka vetëm shkronja, numra, pika dhe _ (maks. 30 shenja)."
   },
   "hint": {
     "qrName": "E plotësojmë automatikisht me titullin e faqes sate. Vetëm ti e sheh këtë emër.",
@@ -491,7 +514,11 @@
     "devices": "Lëre bosh për të njëjtën lidhje për të gjithë.",
     "utm": "Shton etiketa UTM në lidhje që të shohësh vizitorët QR në Google Analytics.",
     "videoUrl": "YouTube, Vimeo ose një lidhje tjetër videoje. Ose ngarko më poshtë videon tënde.",
-    "qrNameOwn": "Vetëm ti e sheh këtë emër, te Kodet e mia QR. Kështu e gjen shpejt kodin."
+    "qrNameOwn": "Vetëm ti e sheh këtë emër, te Kodet e mia QR. Kështu e gjen shpejt kodin.",
+    "igUser": "Me ose pa @. Mund ta ngjitësh edhe më poshtë lidhjen e profilit.",
+    "menuUrl": "Për shembull faqja jote e menusë ose një faqe porosish. Mysafirët shkojnë drejt aty.",
+    "couponCode": "Kodi që përdorin klientët. Kujdes: vendos të njëjtin kod edhe në arkë ose në dyqanin online. Ky aplikacion nuk kontrollon nëse një kod është përdorur.",
+    "couponUrl": "Opsionale. Klientët e përdorin kodin atje kur paguajnë."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -504,7 +531,8 @@
     "ok": "✓ Faqja u gjet",
     "okTitle": "✓ Faqja u gjet: {title}",
     "fail": "Nuk e arrijmë këtë faqe. A është e saktë lidhja?",
-    "invalid": "Kjo nuk është lidhje e vlefshme. Shembull: https://biznesiyt.al"
+    "invalid": "Kjo nuk është lidhje e vlefshme. Shembull: https://biznesiyt.al",
+    "wrongSite": "Kjo nuk është një lidhje për {site}. Kopjo lidhjen e faqes së duhur."
   },
   "pw": {
     "show": "Shfaq fjalëkalimin",
@@ -775,7 +803,13 @@
   },
   "live": {
     "linkCopied": "Lidhja u kopjua",
-    "codeCopied": "Kodi u kopjua"
+    "codeCopied": "Kodi u kopjua",
+    "photoOpen": "Hap foton {n} nga {total}",
+    "photoClose": "Mbyll",
+    "photoPrev": "Foto e mëparshme",
+    "photoNext": "Foto tjetër",
+    "photoFailed": "Kjo foto nuk u ngarkua dot.",
+    "photos": "Foto"
   },
   "sample": {
     "pdfCompany": "Biçikleta Velo",
@@ -808,7 +842,9 @@
     "socials": "{\"instagram\": \"https://instagram.com/shkollasurfitvala\", \"facebook\": \"https://facebook.com/shkollasurfitvala\", \"tiktok\": \"https://tiktok.com/@shkollasurfitvala\", \"youtube\": \"https://youtube.com/@shkollasurfitvala\", \"linkedin\": \"https://linkedin.com/company/shkollasurfitvala\"}",
     "appIos": "https://apps.apple.com/app/stervitu",
     "appAndroid": "https://play.google.com/store/apps/details?id=com.stervitu.app",
-    "videoUrl": "https://shkollaweb.al/mesimi-1-html"
+    "videoUrl": "https://shkollaweb.al/mesimi-1-html",
+    "igUrl": "https://www.instagram.com/thijs.fotografi/",
+    "menuUrl": "https://restoranti-yt.al/menu"
   },
   "fmt": {
     "months": [
@@ -1266,5 +1302,13 @@
     "exists": "Ekziston tashmë një llogari me këtë email.",
     "alreadyActive": "Ky klient e ka aktivizuar tashmë llogarinë.",
     "cantRemove": "Llogaritë e ekipit nuk mund të fshihen këtu."
+  },
+  "menu": {
+    "modeLink": "Lidhje te menuja",
+    "modeLinkHint": "Ke tashmë një faqe menuje ose porosish",
+    "modeUpload": "Ngarko menunë",
+    "modeUploadHint": "PDF ose foto e menusë",
+    "modeBuild": "Krijoje këtu",
+    "modeBuildHint": "Shkruaj këtu pjatat dhe çmimet"
   }
 }

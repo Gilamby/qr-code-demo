@@ -125,3 +125,14 @@ The developer logs in over SSH as `optimasys-qr` and can:
 - Hourly, the app removes expired sessions and links, and accounts that were never verified after 7 days.
 - Monthly: update the geo database for country/city statistics (`docs/statistieken.md`).
 - Checking it works: `npm test` runs the full API test suite (accounts, codes per customer, files, scans, analytics, security, billing, contact). With `DATABASE_URL=…` it runs against another database; use an empty test database.
+
+## Troubleshooting: a scanned QR code opens the GitHub sign-in page
+
+- **Cause:** the QR code holds the app's address at the moment the code was made. When you run the app in GitHub Codespaces, that address is `https://<codespace>-3000.app.github.dev`. If port 3000 is set to *Private* (the default), GitHub sends every visitor to its sign-in page.
+- **Not a deployment issue:** no production server exists yet, so nothing is "still deploying". Codespaces addresses are temporary test addresses.
+- **What the app does now:**
+  - At start-up and from `/api/health`, it checks whether the Codespace port is public.
+  - In the Design step, it warns when a scan would open the GitHub sign-in page, or when the address is only temporary ("don't print this code").
+  - There is no longer a made-up fallback domain.
+- **Fix for testing:** open the *Ports* tab, right-click 3000, then choose *Port Visibility* > *Public*.
+- **Fix for real codes:** set `PUBLIC_URL` to the production domain on the server, so every QR code points there. Codes printed with a Codespaces address stop working when the Codespace stops.

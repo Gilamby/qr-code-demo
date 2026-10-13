@@ -1,7 +1,7 @@
 /* =========================================================
    EXTRA INVULVELDEN voor stap Inhoud
    - FileUpload    : één bestand (PDF of audio). Bewaart naam + grootte als JSON {"n","s"}.
-   - GalleryUpload : meerdere foto's (max. 6), automatisch verkleind. Bewaart een JSON-lijst met afbeeldingen.
+   - GalleryUpload : veel foto's (max. in qr-types.js), verkleind in de browser en los geüpload. Bewaart [{ f, w, h }].
    - DishesEditor  : gerechten met prijs, rij voor rij. Bewaart een JSON-lijst [{n, p}].
    Allemaal in dezelfde stijl als de andere velden; de telefoon past zich direct aan.
    ========================================================= */
@@ -9,15 +9,23 @@ var FILES = {
   parse: function (v) { try { var o = JSON.parse(v); return o && o.n ? o : null; } catch (e) { return null; } },
   size: function (b) { b = +b || 0; return b >= 1048576 ? i18n.fmt.num(Math.round(b / 104857.6) / 10) + ' MB' : i18n.fmt.num(Math.max(1, Math.round(b / 1024))) + ' KB'; },
   list: function (v) { try { var a = JSON.parse(v); return Array.isArray(a) ? a : []; } catch (e) { return []; } },
-  // Gekozen bestanden in deze browser (voor de preview, bv. een video die net is geüpload): veldnaam -> object-URL
-  local: {}
+  // Gekozen bestanden in deze browser (voor de preview, bv. een video die net is geüpload): veldnaam of bestand-id -> object-URL
+  local: {},
+  // Foto's van een galerij -> [{ src, w, h }]. Een foto is: een data-URL (oud/demo), { u } (echte pagina) of { f } (geüpload bestand)
+  photos: function (v) {
+    return FILES.list(v).map(function (x) {
+      if (typeof x === 'string') return { src: x };
+      if (!x) return null;
+      return { src: x.u || FILES.local[x.f] || (x.f ? 'api/uploads/' + x.f : ''), w: x.w, h: x.h };
+    }).filter(function (p) { return p && p.src; });
+  }
 };
 
 var FileUpload = (function () {
   var IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 17v-6M9 14l3-3 3 3"/></svg>';
   function inner(f, o) {
     return '<span class="up-thumb fu-thumb">' + IC + '</span>' +
-      '<span class="up-text"><b>' + (o ? esc(o.n) : t('upload.file')) + '</b><small>' + (o ? FILES.size(o.s) : t(f.accept === 'application/pdf' ? 'upload.pdfHint' : /^video/.test(f.accept || '') ? 'upload.videoHint' : 'upload.audioHint')) + '</small></span>' +
+      '<span class="up-text"><b>' + (o ? esc(o.n) : t('upload.file')) + '</b><small>' + (o ? FILES.size(o.s) : t(f.accept === 'application/pdf' ? 'upload.pdfHint' : /^video/.test(f.accept || '') ? 'upload.videoHint' : /image\//.test(f.accept || '') ? 'upload.menuHint' : 'upload.audioHint')) + '</small></span>' +
       (/^video/.test(f.accept || '') ? '<span class="fu-bar" hidden><i></i></span>' : '');
   }
   function html(f, id, value) {
@@ -50,12 +58,14 @@ var FileUpload = (function () {
       }
       function take(file) {
         if (file && /^video/.test(accept)) return takeVideo(file);
-        var ok = file && (accept === 'application/pdf' ? file.type === 'application/pdf' || /\.pdf$/i.test(file.name) : /^audio\//.test(file.type) || /\.(mp3|m4a|wav|ogg)$/i.test(file.name));
+        // Welk soort bestand? Uit accept ("application/pdf,image/jpeg", "audio/*"); PDF en mp3 ook herkennen aan de naam
+        var mime = file && (file.type || (/\.pdf$/i.test(file.name) ? 'application/pdf' : /\.(mp3|m4a|wav|ogg)$/i.test(file.name) ? 'audio/mpeg' : ''));
+        var ok = mime && accept.split(',').some(function (a) { a = a.trim(); return a === mime || (/\/\*$/.test(a) && mime.indexOf(a.slice(0, -1)) === 0); });
         if (!ok) { box.querySelector('small').textContent = t('upload.fileError'); return; }
         if (file.size > 10 * 1048576) { box.querySelector('small').textContent = t('upload.tooBig', { n: 10 }); return; }
         // Het bestand zelf gaat mee (als data-URL), zodat de bezoeker het echt kan openen en downloaden
         var rd = new FileReader();
-        rd.onload = function () { set({ n: file.name.slice(0, 120), s: file.size, d: String(rd.result).replace(/^data:[^;]*;/, 'data:' + (accept === 'application/pdf' ? 'application/pdf' : (/^audio\//.test(file.type) ? file.type : 'audio/mpeg')) + ';') }); };
+        rd.onload = function () { set({ n: file.name.slice(0, 120), s: file.size, d: String(rd.result).replace(/^data:[^;]*;/, 'data:' + mime + ';') }); };
         rd.onerror = function () { box.querySelector('small').textContent = t('upload.fileError'); };
         rd.readAsDataURL(file);
       }
@@ -71,7 +81,9 @@ var FileUpload = (function () {
 })();
 
 var GalleryUpload = (function () {
-  var MAX = 6, SIZE = 800;
+  // Verkleind tot max. 1600 px (scherp genoeg voor de fotoviewer, ~250 kB). Elke foto gaat meteen los naar de server;
+  // in de inhoud staat alleen { f, w, h }. Zonder server (demo) blijft het een kleine data-URL.
+  var SIZE = 1600, BUSY = 3;
   function shrink(file) {
     return new Promise(function (resolve, reject) {
       var img = new Image(), url = URL.createObjectURL(file);
@@ -80,36 +92,77 @@ var GalleryUpload = (function () {
         cv.width = Math.round(img.width * s); cv.height = Math.round(img.height * s);
         var cx = cv.getContext('2d'); cx.fillStyle = '#ffffff'; cx.fillRect(0, 0, cv.width, cv.height);   // doorzichtig wordt wit, niet zwart
         cx.drawImage(img, 0, 0, cv.width, cv.height);
-        URL.revokeObjectURL(url); resolve(cv.toDataURL('image/jpeg', 0.8));
+        URL.revokeObjectURL(url);
+        cv.toBlob(function (blob) { blob ? resolve({ blob: blob, w: cv.width, h: cv.height, canvas: cv }) : reject(); }, 'image/jpeg', 0.82);
       };
       img.onerror = function () { URL.revokeObjectURL(url); reject(); };
       img.src = url;
     });
   }
-  function tiles(list) {
-    return list.map(function (src, i) { return '<span class="ga-tile" style="background-image:url(' + src + ')"><button type="button" class="ga-x" data-ga-rm="' + i + '" aria-label="' + esc(t('upload.remove')) + '">×</button></span>'; }).join('') +
-      (list.length < MAX ? '<button type="button" class="ga-add" data-ga-add><b>+</b><small>' + t('upload.photos') + '</small></button>' : '');
+  // Eén foto: verkleinen en uploaden -> item voor de lijst
+  function prepare(file) {
+    return shrink(file).then(function (r) {
+      return api.uploadImage(r.blob, file.name).then(function (o) {
+        if (!o) { var c = r.canvas, k = Math.min(1, 800 / Math.max(c.width, c.height)), d = document.createElement('canvas');   // demo: kleine data-URL
+          d.width = Math.round(c.width * k); d.height = Math.round(c.height * k); d.getContext('2d').drawImage(c, 0, 0, d.width, d.height); return d.toDataURL('image/jpeg', 0.8); }
+        FILES.local[o.f] = URL.createObjectURL(r.blob);
+        return { f: o.f, w: r.w, h: r.h };
+      });
+    });
   }
+  function src(x) { var p = FILES.photos(JSON.stringify([x]))[0]; return p ? p.src : ''; }
+  function tiles(list, max, busy) {
+    return list.map(function (x, i) {
+      return '<span class="ga-tile" style="background-image:url(' + src(x) + ')">' +
+        '<button type="button" class="ga-swap" data-ga-swap="' + i + '" aria-label="' + esc(t('upload.photoReplace', { n: i + 1 })) + '" title="' + esc(t('upload.photoReplace', { n: i + 1 })) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></button>' +
+        '<button type="button" class="ga-x" data-ga-rm="' + i + '" aria-label="' + esc(t('upload.photoRemove', { n: i + 1 })) + '">×</button></span>';
+    }).join('') +
+      new Array(busy + 1).join('<span class="ga-tile ga-busy" aria-hidden="true"><i></i></span>') +
+      (list.length + busy < max ? '<button type="button" class="ga-add" data-ga-add><b>+</b><small>' + t('upload.photos') + '</small></button>' : '');
+  }
+  function count(list, max) { return t('upload.photosCount', { n: list.length, max: max, left: Math.max(0, max - list.length) }); }
   function html(f, id, value) {
-    var list = FILES.list(value);
-    return '<div class="ga" data-gallery="' + f.key + '"><div class="ga-grid">' + tiles(list) + '</div>' +
-      '<small class="ga-hint">' + t('upload.photosHint', { n: MAX }) + '</small><input id="' + id + '" type="file" accept="image/jpeg,image/png,image/webp" multiple class="up-file"></div>';
+    var list = FILES.list(value), max = f.max || 6;
+    return '<div class="ga" data-gallery="' + f.key + '" data-max="' + max + '"><div class="ga-grid">' + tiles(list, max, 0) + '</div>' +
+      '<small class="ga-hint" aria-live="polite">' + count(list, max) + '</small><small class="ga-err" role="alert" hidden></small>' +
+      '<input id="' + id + '" type="file" accept="image/jpeg,image/png,image/webp" multiple class="up-file"><input type="file" accept="image/jpeg,image/png,image/webp" class="up-file ga-one" tabindex="-1" aria-hidden="true"></div>';
   }
   function mount(root, onChange) {
     root.querySelectorAll('[data-gallery]').forEach(function (box) {
-      var key = box.getAttribute('data-gallery'), input = box.querySelector('.up-file'), grid = box.querySelector('.ga-grid');
-      var list = FILES.list((store.get().content[store.get().typeId] || {})[key]);
-      function save() { grid.innerHTML = tiles(list); onChange(key, list.length ? JSON.stringify(list) : ''); }
+      var key = box.getAttribute('data-gallery'), max = +box.getAttribute('data-max') || 6, input = box.querySelector('.up-file:not(.ga-one)'), one = box.querySelector('.ga-one');
+      var grid = box.querySelector('.ga-grid'), hint = box.querySelector('.ga-hint'), err = box.querySelector('.ga-err');
+      var list = FILES.list((store.get().content[store.get().typeId] || {})[key]), busy = 0, swapAt = -1, failed = 0;
+      function draw() { grid.innerHTML = tiles(list, max, busy); hint.textContent = count(list, max) + (busy ? ' · ' + t('upload.photosBusy', { n: busy }) : ''); }
+      function save() { draw(); onChange(key, list.length ? JSON.stringify(list) : ''); }
+      function oops() { failed++; err.textContent = t('upload.photoError', { n: failed }); err.hidden = false; }
       function take(files) {
-        var todo = Array.prototype.slice.call(files || []).filter(function (f) { return /^image\//.test(f.type); }).slice(0, MAX - list.length);
-        Promise.all(todo.map(function (f) { return shrink(f).catch(function () { return null; }); })).then(function (srcs) { list = list.concat(srcs.filter(Boolean)).slice(0, MAX); save(); });
+        var all = Array.prototype.slice.call(files || []).filter(function (f) { return /^image\/(jpeg|png|webp)$/.test(f.type); });
+        var todo = all.slice(0, Math.max(0, max - list.length - busy));
+        failed = 0; err.hidden = true;
+        if (all.length > todo.length) { err.textContent = t('upload.photosTooMany', { max: max }); err.hidden = false; }
+        busy += todo.length; draw();
+        var queue = todo.slice(), running = 0;
+        function next() {
+          if (!queue.length) return;
+          var file = queue.shift(); running++;
+          prepare(file).then(function (item) { list.push(item); }, oops).then(function () { busy--; running--; save(); next(); });
+        }
+        for (var i = 0; i < BUSY; i++) next();
+      }
+      function swap(file) {
+        if (!file || !/^image\/(jpeg|png|webp)$/.test(file.type) || swapAt < 0) return;
+        var at = swapAt; swapAt = -1; err.hidden = true;
+        var tile = grid.querySelectorAll('.ga-tile')[at]; if (tile) tile.classList.add('ga-busy');
+        prepare(file).then(function (item) { list[at] = item; save(); }, function () { failed = 0; oops(); draw(); });
       }
       box.addEventListener('click', function (e) {
-        var rm = e.target.closest('[data-ga-rm]');
-        if (rm) { list.splice(+rm.getAttribute('data-ga-rm'), 1); save(); return; }
+        var rm = e.target.closest('[data-ga-rm]'), sw = e.target.closest('[data-ga-swap]');
+        if (rm) { list.splice(+rm.getAttribute('data-ga-rm'), 1); err.hidden = true; save(); return; }
+        if (sw) { swapAt = +sw.getAttribute('data-ga-swap'); one.click(); return; }
         if (e.target.closest('[data-ga-add]')) input.click();
       });
       input.addEventListener('change', function (e) { e.stopPropagation(); take(input.files); input.value = ''; });
+      one.addEventListener('change', function (e) { e.stopPropagation(); swap(one.files[0]); one.value = ''; });
       box.addEventListener('dragover', function (e) { e.preventDefault(); box.classList.add('drag'); });
       box.addEventListener('dragleave', function () { box.classList.remove('drag'); });
       box.addEventListener('drop', function (e) { e.preventDefault(); box.classList.remove('drag'); take(e.dataTransfer.files); });

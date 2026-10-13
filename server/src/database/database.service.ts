@@ -126,6 +126,8 @@ export abstract class DatabaseService {
   abstract getFile(id: string): Promise<StoredFile | null>;
   /** Bestanden van een code die niet meer gebruikt worden (na bewerken) weghalen */
   abstract pruneFiles(codeId: string, keepIds: string[]): Promise<void>;
+  /** Eén los bestand (nog zonder code) meteen weggooien, bv. een upload die geen echte foto bleek */
+  abstract pruneLooseFile(id: string): Promise<void>;
 
   /** Versleutelde velden die nog leesbaar in de database staan alsnog versleutelen (bij het opstarten) */
   abstract sealOldRows(): Promise<void>;

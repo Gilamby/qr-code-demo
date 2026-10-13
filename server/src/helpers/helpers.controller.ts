@@ -10,7 +10,7 @@ import { reply } from '../common/http';
 import * as dns from 'dns/promises';
 import { DatabaseService } from '../database/database.service';
 import { LoggedIn } from '../auth/auth.guard';
-import { baseUrl, phoneReachable } from '../config/env';
+import { baseUrl, phoneReachable, isDevUrl, checkCodespaceAccess } from '../config/env';
 import { EMAIL, QR_TYPES } from '../qr-codes/validation';
 import { urlInfo } from './url-check';
 
@@ -23,8 +23,10 @@ export class SystemController {
   async health(@Req() req: Request) {
     try {
       await this.db.ping();
-      const qrBase = baseUrl(req);
-      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), signup: process.env.ALLOW_SIGNUP === 'true' };
+      const qrBase = baseUrl(req), dev = isDevUrl(qrBase);
+      // Codespaces: controleren of de poort openbaar is (anders opent een scan de GitHub-inlogpagina)
+      const access = dev && !req.query.probe ? await checkCodespaceAccess() : undefined;
+      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: process.env.ALLOW_SIGNUP === 'true' };
     } catch (e) { throw reply(503, { ok: false }); }
   }
 

@@ -258,7 +258,10 @@
       "yourCode": "Jouw code",
       "offer": "Aanbieding",
       "validLbl": "Geldig tot",
-      "wallet": "Voeg toe aan Apple Wallet"
+      "wallet": "Voeg toe aan Apple Wallet",
+      "shopNow": "Nu bestellen",
+      "howOnline": "Gebruik deze code bij het afrekenen.",
+      "howStore": "Laat deze code zien bij de kassa."
     },
     "wifi": {
       "network": "Wifi-netwerk",
@@ -295,7 +298,9 @@
     "retry": "Opnieuw proberen",
     "demoMode": "Demo-modus: niet opgeslagen. Start de server om op te slaan.",
     "demoScan": "Demo: deze code werkt pas als de app online staat. Wifi en contactkaart werken nu al.",
-    "localScan": "Let op: je telefoon kan dit adres niet openen. Zet PUBLIC_URL in .env (zie docs/installatie.md)."
+    "localScan": "Let op: je telefoon kan dit adres niet openen. Zet PUBLIC_URL in .env (zie docs/installatie.md).",
+    "privateScan": "Let op: deze QR-code opent nu de GitHub-inlogpagina, omdat poort 3000 van je Codespace op Private staat. Zet hem op Public: tab Poorten > rechtermuisklik op 3000 > Port Visibility > Public. Herlaad daarna deze pagina.",
+    "devScan": "Dit is een tijdelijk testadres (Codespaces). Scannen werkt, maar druk deze code niet af: hij stopt met werken als de Codespace stopt. Voor echte codes is de live server nodig."
   },
   "actions": {
     "continue": "Doorgaan",
@@ -354,7 +359,17 @@
     "linkNamePh": "Bijvoorbeeld: Roze top van Zara",
     "linkImage": "Foto of logo",
     "optional": "(optioneel)",
-    "videoFile": "Of upload je eigen video"
+    "videoFile": "Of upload je eigen video",
+    "igUrl": "Of plak de link naar het profiel",
+    "menuMode": "Hoe wil je je menu delen?",
+    "menuUrl": "Link naar je menu of bestelpagina",
+    "menuFile": "Je menu (PDF of foto)",
+    "couponScan": "Code tonen als",
+    "scanQr": "QR-code",
+    "scanBarcode": "Streepjescode",
+    "scanNone": "Alleen tekst",
+    "couponUrl": "Knop naar je webshop of boekingspagina",
+    "buttonLabel": "Tekst op de knop"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -454,7 +469,14 @@
     "tooBig": "Dit bestand is te groot (max. {n} MB).",
     "videoHint": "MP4, MOV of WebM, max. 100 MB",
     "uploading": "Uploaden… {p}%",
-    "videoError": "Uploaden lukte niet. Probeer het opnieuw of kies een kleiner bestand."
+    "videoError": "Uploaden lukte niet. Probeer het opnieuw of kies een kleiner bestand.",
+    "photosCount": "{n} van {max} foto's · nog {left} erbij mogelijk",
+    "photosBusy": "{n} bezig met uploaden",
+    "photoError": "{n} foto('s) konden niet worden geüpload. Probeer het opnieuw.",
+    "photosTooMany": "Je kunt maximaal {max} foto's toevoegen. De rest is overgeslagen.",
+    "photoReplace": "Foto {n} vervangen",
+    "photoRemove": "Foto {n} verwijderen",
+    "menuHint": "PDF, JPG of PNG, max. 10 MB"
   },
   "hours": {
     "closed": "Gesloten",
@@ -481,7 +503,8 @@
     "find": "Zoek een netwerk"
   },
   "validate": {
-    "required": "Dit veld is verplicht"
+    "required": "Dit veld is verplicht",
+    "igUser": "Een Instagram-naam bestaat alleen uit letters, cijfers, punten en _ (max. 30 tekens)."
   },
   "hint": {
     "qrName": "Vullen we automatisch in met de titel van je website. Alleen jij ziet deze naam.",
@@ -491,7 +514,11 @@
     "devices": "Laat leeg om voor iedereen dezelfde link te gebruiken.",
     "utm": "Voegt automatisch utm-labels toe aan je link, zodat je QR-bezoekers terugziet in Google Analytics.",
     "videoUrl": "YouTube, Vimeo of een andere videolink. Of upload hieronder je eigen video.",
-    "qrNameOwn": "Alleen jij ziet deze naam, in Mijn QR-codes. Zo vind je de code snel terug."
+    "qrNameOwn": "Alleen jij ziet deze naam, in Mijn QR-codes. Zo vind je de code snel terug.",
+    "igUser": "Met of zonder @. Je kunt ook hieronder de link naar het profiel plakken.",
+    "menuUrl": "Bijvoorbeeld je eigen menupagina, Thuisbezorgd of een andere bestelsite. Gasten komen daar meteen terecht.",
+    "couponCode": "De code die klanten gebruiken. Let op: stel dezelfde code ook in bij je kassa of webshop. Deze app controleert niet of een code al gebruikt is.",
+    "couponUrl": "Optioneel. Klanten gebruiken de code daar bij het afrekenen."
   },
   "more": {
     "title": "Meer opties",
@@ -504,7 +531,8 @@
     "ok": "✓ Website gevonden",
     "okTitle": "✓ Website gevonden: {title}",
     "fail": "We kunnen deze website niet bereiken. Klopt de link?",
-    "invalid": "Dit is geen geldige link. Voorbeeld: https://jouwbedrijf.nl"
+    "invalid": "Dit is geen geldige link. Voorbeeld: https://jouwbedrijf.nl",
+    "wrongSite": "Dit is geen link naar {site}. Kopieer de link van de juiste pagina."
   },
   "pw": {
     "show": "Wachtwoord tonen",
@@ -775,7 +803,13 @@
   },
   "live": {
     "linkCopied": "Link gekopieerd",
-    "codeCopied": "Code gekopieerd"
+    "codeCopied": "Code gekopieerd",
+    "photoOpen": "Foto {n} van {total} openen",
+    "photoClose": "Sluiten",
+    "photoPrev": "Vorige foto",
+    "photoNext": "Volgende foto",
+    "photoFailed": "Deze foto kon niet worden geladen.",
+    "photos": "Foto's"
   },
   "sample": {
     "pdfCompany": "Velo Fietsen",
@@ -808,7 +842,9 @@
     "socials": "{\"instagram\": \"https://instagram.com/surfschoolnoordzee\", \"facebook\": \"https://facebook.com/surfschoolnoordzee\", \"tiktok\": \"https://tiktok.com/@surfschoolnoordzee\", \"youtube\": \"https://youtube.com/@surfschoolnoordzee\", \"linkedin\": \"https://linkedin.com/company/surfschoolnoordzee\"}",
     "appIos": "https://apps.apple.com/app/trainfit",
     "appAndroid": "https://play.google.com/store/apps/details?id=com.trainfit.app",
-    "videoUrl": "https://webschool.nl/les-1-html"
+    "videoUrl": "https://webschool.nl/les-1-html",
+    "igUrl": "https://www.instagram.com/thijs.fotografie/",
+    "menuUrl": "https://jouwrestaurant.nl/menu"
   },
   "visit": {
     "locked": "Deze pagina is beveiligd",
@@ -1160,5 +1196,13 @@
     "exists": "Er bestaat al een account met dit e-mailadres.",
     "alreadyActive": "Deze klant heeft het account al geactiveerd.",
     "cantRemove": "Team-accounts kun je hier niet verwijderen."
+  },
+  "menu": {
+    "modeLink": "Link naar je menu",
+    "modeLinkHint": "Je hebt al een menu- of bestelpagina",
+    "modeUpload": "Menu uploaden",
+    "modeUploadHint": "PDF of foto van je menu",
+    "modeBuild": "Zelf maken",
+    "modeBuildHint": "Gerechten en prijzen hier invullen"
   }
 }

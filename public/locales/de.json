@@ -258,7 +258,10 @@
       "yourCode": "Dein Code",
       "offer": "Angebot",
       "validLbl": "Gültig bis",
-      "wallet": "Zu Apple Wallet hinzufügen"
+      "wallet": "Zu Apple Wallet hinzufügen",
+      "shopNow": "Jetzt bestellen",
+      "howOnline": "Nutze diesen Code beim Bezahlen.",
+      "howStore": "Zeige diesen Code an der Kasse."
     },
     "wifi": {
       "network": "WLAN-Netzwerk",
@@ -295,7 +298,9 @@
     "retry": "Erneut versuchen",
     "demoMode": "Demo-Modus: nicht gespeichert. Starten Sie den Server zum Speichern.",
     "demoScan": "Demo: Dieser Code funktioniert erst, wenn die App online ist. WLAN und Kontaktkarte funktionieren schon.",
-    "localScan": "Achtung: Dein Handy kann diese Adresse nicht öffnen. Setze PUBLIC_URL in .env (siehe docs/installatie.md)."
+    "localScan": "Achtung: Dein Handy kann diese Adresse nicht öffnen. Setze PUBLIC_URL in .env (siehe docs/installatie.md).",
+    "privateScan": "Achtung: Dieser QR-Code öffnet gerade die GitHub-Anmeldeseite, weil Port 3000 deines Codespace auf Private steht. Stelle ihn auf Public: Tab Ports > Rechtsklick auf 3000 > Port Visibility > Public. Lade dann diese Seite neu.",
+    "devScan": "Das ist eine vorübergehende Testadresse (Codespaces). Scannen funktioniert, aber drucke diesen Code nicht: Er funktioniert nicht mehr, wenn der Codespace stoppt. Für echte Codes braucht es den Live-Server."
   },
   "actions": {
     "continue": "Weiter",
@@ -354,7 +359,17 @@
     "linkNamePh": "Zum Beispiel: Rosa Top von Zara",
     "linkImage": "Foto oder Logo",
     "optional": "(optional)",
-    "videoFile": "Oder lade dein eigenes Video hoch"
+    "videoFile": "Oder lade dein eigenes Video hoch",
+    "igUrl": "Oder füge den Link zum Profil ein",
+    "menuMode": "Wie möchtest du dein Menü teilen?",
+    "menuUrl": "Link zu deinem Menü oder deiner Bestellseite",
+    "menuFile": "Dein Menü (PDF oder Foto)",
+    "couponScan": "Code anzeigen als",
+    "scanQr": "QR-Code",
+    "scanBarcode": "Strichcode",
+    "scanNone": "Nur Text",
+    "couponUrl": "Button zu deinem Webshop oder deiner Buchungsseite",
+    "buttonLabel": "Text auf dem Button"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -454,7 +469,14 @@
     "tooBig": "Diese Datei ist zu groß (max. {n} MB).",
     "videoHint": "MP4, MOV oder WebM, max. 100 MB",
     "uploading": "Wird hochgeladen… {p} %",
-    "videoError": "Hochladen hat nicht geklappt. Versuche es erneut oder wähle eine kleinere Datei."
+    "videoError": "Hochladen hat nicht geklappt. Versuche es erneut oder wähle eine kleinere Datei.",
+    "photosCount": "{n} von {max} Fotos · noch {left} möglich",
+    "photosBusy": "{n} werden hochgeladen",
+    "photoError": "{n} Foto(s) konnten nicht hochgeladen werden. Bitte versuche es erneut.",
+    "photosTooMany": "Du kannst maximal {max} Fotos hinzufügen. Der Rest wurde übersprungen.",
+    "photoReplace": "Foto {n} ersetzen",
+    "photoRemove": "Foto {n} entfernen",
+    "menuHint": "PDF, JPG oder PNG, max. 10 MB"
   },
   "hours": {
     "closed": "Geschlossen",
@@ -481,7 +503,8 @@
     "find": "Netzwerk suchen"
   },
   "validate": {
-    "required": "Pflichtfeld"
+    "required": "Pflichtfeld",
+    "igUser": "Ein Instagram-Name besteht nur aus Buchstaben, Ziffern, Punkten und _ (max. 30 Zeichen)."
   },
   "hint": {
     "qrName": "Wird automatisch mit dem Titel deiner Website ausgefüllt. Nur du siehst diesen Namen.",
@@ -491,7 +514,11 @@
     "devices": "Leer lassen, um für alle denselben Link zu nutzen.",
     "utm": "Fügt automatisch UTM-Parameter hinzu, damit du QR-Besucher in Google Analytics siehst.",
     "videoUrl": "YouTube, Vimeo oder ein anderer Videolink. Oder lade unten dein eigenes Video hoch.",
-    "qrNameOwn": "Nur du siehst diesen Namen, unter Meine QR-Codes. So findest du den Code schnell wieder."
+    "qrNameOwn": "Nur du siehst diesen Namen, unter Meine QR-Codes. So findest du den Code schnell wieder.",
+    "igUser": "Mit oder ohne @. Du kannst unten auch den Link zum Profil einfügen.",
+    "menuUrl": "Zum Beispiel deine eigene Menüseite, Lieferando oder eine andere Bestellseite. Gäste landen direkt dort.",
+    "couponCode": "Der Code, den Kunden verwenden. Achtung: Richte denselben Code auch in deiner Kasse oder deinem Webshop ein. Diese App prüft nicht, ob ein Code schon benutzt wurde.",
+    "couponUrl": "Optional. Kunden nutzen den Code dort beim Bezahlen."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -504,7 +531,8 @@
     "ok": "✓ Website gefunden",
     "okTitle": "✓ Website gefunden: {title}",
     "fail": "Wir erreichen diese Website nicht. Stimmt der Link?",
-    "invalid": "Das ist kein gültiger Link. Beispiel: https://deinefirma.de"
+    "invalid": "Das ist kein gültiger Link. Beispiel: https://deinefirma.de",
+    "wrongSite": "Das ist kein Link zu {site}. Kopiere den Link der richtigen Seite."
   },
   "pw": {
     "show": "Passwort anzeigen",
@@ -775,7 +803,13 @@
   },
   "live": {
     "linkCopied": "Link kopiert",
-    "codeCopied": "Code kopiert"
+    "codeCopied": "Code kopiert",
+    "photoOpen": "Foto {n} von {total} öffnen",
+    "photoClose": "Schließen",
+    "photoPrev": "Vorheriges Foto",
+    "photoNext": "Nächstes Foto",
+    "photoFailed": "Dieses Foto konnte nicht geladen werden.",
+    "photos": "Fotos"
   },
   "sample": {
     "pdfCompany": "Velo Räder",
@@ -808,7 +842,9 @@
     "socials": "{\"instagram\": \"https://instagram.com/surfschuleostsee\", \"facebook\": \"https://facebook.com/surfschuleostsee\", \"tiktok\": \"https://tiktok.com/@surfschuleostsee\", \"youtube\": \"https://youtube.com/@surfschuleostsee\", \"linkedin\": \"https://linkedin.com/company/surfschuleostsee\"}",
     "appIos": "https://apps.apple.com/app/fitplaner",
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplaner.app",
-    "videoUrl": "https://webschule.de/lektion-1-html"
+    "videoUrl": "https://webschule.de/lektion-1-html",
+    "igUrl": "https://www.instagram.com/thijs.fotografie/",
+    "menuUrl": "https://deinrestaurant.de/menu"
   },
   "visit": {
     "locked": "Diese Seite ist geschützt",
@@ -1160,5 +1196,13 @@
     "exists": "Es gibt bereits ein Konto mit dieser E-Mail-Adresse.",
     "alreadyActive": "Dieser Kunde hat das Konto bereits aktiviert.",
     "cantRemove": "Team-Konten kannst du hier nicht löschen."
+  },
+  "menu": {
+    "modeLink": "Link zu deinem Menü",
+    "modeLinkHint": "Du hast schon eine Menü- oder Bestellseite",
+    "modeUpload": "Menü hochladen",
+    "modeUploadHint": "PDF oder Foto deines Menüs",
+    "modeBuild": "Selbst erstellen",
+    "modeBuildHint": "Gerichte und Preise hier eingeben"
   }
 }

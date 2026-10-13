@@ -64,17 +64,67 @@
       var sh = $('.pv-bar > .i'); if (sh) { sh.setAttribute('data-go', ''); sh.addEventListener('click', share); }
     },
     images: function () {
-      var list = FILES.list(c.photos);
-      $$('.gx-hero-img, .gx-t').forEach(function (el) {
-        var m = (el.getAttribute('style') || '').match(/url\(([^)]+)\)/); if (!m) return;
-        el.setAttribute('data-go', ''); el.addEventListener('click', function () { var lb = document.createElement('div'); lb.className = 'lb'; lb.innerHTML = '<img src="' + m[1] + '" alt="">'; lb.onclick = function () { lb.remove(); }; document.body.appendChild(lb); });
+      // Galerij: kolommen naar de schermbreedte (telefoon 2, tablet 3, computer 4), tik op een foto = grote weergave
+      var list = FILES.photos(c.photos), grid = $('.gx-grid'); if (!grid || !list.length) return;
+      root.classList.add('live-gallery');
+      var items = $$('.gx-item').map(function (el) { var p = list[+el.getAttribute('data-i')] || {}; return { el: el, r: p.w && p.h ? p.h / p.w : 1 }; });
+      var cols = 0;
+      function layout() {
+        var w = grid.clientWidth, n = w >= 900 ? 4 : w >= 600 ? 3 : 2; if (n === cols) return; cols = n;
+        grid.innerHTML = GALLERY.columns(items.map(function (it, i) { return { r: it.r, html: '<i data-slot="' + i + '"></i>' }; }), n);
+        grid.querySelectorAll('[data-slot]').forEach(function (slot) { slot.replaceWith(items[+slot.getAttribute('data-slot')].el); });
+      }
+      layout(); window.addEventListener('resize', layout);
+      items.forEach(function (it) {
+        var img = it.el.querySelector('img');
+        img.addEventListener('error', function () { it.el.classList.add('gx-broken'); });   // foto kan niet laden: rustig grijs vlak
+        it.el.addEventListener('click', function () { viewer(+it.el.getAttribute('data-i')); });
       });
-      var dl = $('.gx-dl'); if (!list.length && dl) dl.remove();
-      if (dl) dl.addEventListener('click', function () { list.forEach(function (src, i) { setTimeout(function () { var a = document.createElement('a'); a.href = src; a.download = (c.title || 'foto').replace(/[^\w ]+/g, '') + '-' + (i + 1) + '.jpg'; document.body.appendChild(a); a.click(); a.remove(); }, i * 300); }); });
+
+      // Grote weergave: pijlen, teller, sluiten (×, Esc, tik naast de foto), vegen op de telefoon. Terug = zelfde plek in de galerij.
+      function viewer(at) {
+        var back = document.activeElement, IC = function (d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; };
+        var lb = document.createElement('div'); lb.className = 'lb2'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', c.title || t('live.photos'));
+        lb.innerHTML = '<div class="lb2-stage"><img alt=""><p class="lb2-err" hidden>' + esc(t('live.photoFailed')) + '</p></div>' +
+          '<span class="lb2-count" aria-live="polite"></span>' +
+          '<button type="button" class="lb2-btn lb2-close" aria-label="' + esc(t('live.photoClose')) + '">' + IC('M6 6l12 12M18 6L6 18') + '</button>' +
+          (list.length > 1 ? '<button type="button" class="lb2-btn lb2-prev" aria-label="' + esc(t('live.photoPrev')) + '">' + IC('M15 5l-7 7 7 7') + '</button>' +
+            '<button type="button" class="lb2-btn lb2-next" aria-label="' + esc(t('live.photoNext')) + '">' + IC('M9 5l7 7-7 7') + '</button>' : '');
+        var img = lb.querySelector('img'), err = lb.querySelector('.lb2-err'), count = lb.querySelector('.lb2-count'), prev = lb.querySelector('.lb2-prev'), next = lb.querySelector('.lb2-next');
+        function show(i) {
+          at = i; err.hidden = true; img.hidden = false; img.src = list[i].src;
+          count.textContent = (i + 1) + ' / ' + list.length;
+          if (prev) prev.disabled = i === 0;                       // begin en eind: niet rondgaan, de knop is dan uit
+          if (next) next.disabled = i === list.length - 1;
+          [i - 1, i + 1].forEach(function (k) { if (list[k]) new Image().src = list[k].src; });   // buren alvast laden
+        }
+        img.addEventListener('error', function () { img.hidden = true; err.hidden = false; });
+        function go(d) { var k = at + d; if (k >= 0 && k < list.length) show(k); }
+        function close() {
+          document.removeEventListener('keydown', key); lb.remove(); document.documentElement.classList.remove('lb2-open');
+          var tile = grid.querySelector('[data-i="' + at + '"]'); (tile || back || document.body).focus({ preventScroll: true });
+        }
+        function key(e) { if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') go(-1); else if (e.key === 'ArrowRight') go(1); }
+        lb.addEventListener('click', function (e) {
+          if (e.target.closest('.lb2-close') || e.target === lb || e.target.classList.contains('lb2-stage')) return close();
+          if (e.target.closest('.lb2-prev')) go(-1); if (e.target.closest('.lb2-next')) go(1);
+        });
+        var x0 = null;
+        lb.addEventListener('touchstart', function (e) { x0 = e.touches.length === 1 ? e.touches[0].clientX : null; }, { passive: true });
+        lb.addEventListener('touchend', function (e) { if (x0 == null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1); });
+        document.addEventListener('keydown', key);
+        document.documentElement.classList.add('lb2-open'); document.body.appendChild(lb); show(at);
+        lb.querySelector('.lb2-close').focus();
+      }
     },
     social: function () {
       var so = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in so; });
-      $$('.sx-card').forEach(function (el, i) { if (nets[i]) go(el, href(so[nets[i].id])); });
+      // Echte links: naam van het platform als tekst, de ingevulde URL als doel (werkt ook met toetsenbord en schermlezer)
+      $$('.sx-card[data-net]').forEach(function (el) {
+        var net = el.getAttribute('data-net'), url = href(so[net]); if (!url) return el.remove();
+        var a = document.createElement('a'); a.className = el.className; a.href = url; a.target = '_blank'; a.rel = 'noopener';
+        a.setAttribute('data-net', net); a.innerHTML = el.innerHTML; a.setAttribute('aria-label', (el.querySelector('b') || el).textContent); el.replaceWith(a);
+      });
       $$('.sx-quick .br').forEach(function (el, i) { if (nets[i]) go(el, href(so[nets[i].id])); });
     },
     mp3: function () {
@@ -106,6 +156,7 @@
       var sh = $('.as-get .i'); if (sh) { sh.setAttribute('data-go', ''); sh.addEventListener('click', share); }
     },
     coupon: function () {
+      go($('[data-shop]'), href(c.buttonUrl));   // knop naar de webshop/boekingspagina
       var btn = $('[data-copy]'); if (!btn) return; if (!c.code) { btn.remove(); return; }
       btn.addEventListener('click', function () {
         var done = function () { toast(t('live.codeCopied')); };

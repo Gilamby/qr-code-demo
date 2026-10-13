@@ -278,6 +278,7 @@ export class MongoDatabase extends DatabaseService {
     const d = await this.files.findOne({ _id: id }); if (!d) return null;
     return { id: d._id, code_id: d.codeId || null, user_id: d.userId, name: d.name, mime: d.mime, size: Number(d.size), created_at: d.createdAt, path: path.join(FILES_DIR, d._id) };
   }
+  async pruneLooseFile(id: string) { await this.files.deleteOne({ _id: id, codeId: null }); removeFiles([id]); }
   async pruneFiles(codeId: string, keepIds: string[]) {
     const gone = (await this.files.find({ codeId }, { projection: { _id: 1 } }).toArray()).map((d) => d._id).filter((id) => keepIds.indexOf(id) < 0);
     if (gone.length) await this.files.deleteMany({ _id: { $in: gone } });

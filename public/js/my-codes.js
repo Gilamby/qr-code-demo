@@ -31,7 +31,7 @@ var MyCodes = (function () {
   function displayName(r) {
     if (r.name) return r.name;
     var c = r.content || {};
-    var v = c.title || c.name || c.pageName || c.restaurant || c.appName || c.company || c.ssid || (c.username ? '@' + c.username.replace(/^@/, '') : '') || domainOf(c.url) || '';
+    var v = c.title || c.name || c.pageName || c.restaurant || c.appName || c.company || c.ssid || (c.username ? '@' + c.username.replace(/^@/, '') : '') || domainOf(c.url) || domainOf(c.menuUrl) || ((FILES.parse(c.menuFile) || FILES.parse(c.file) || {}).n) || '';
     if (!v && c.file) { try { v = JSON.parse(c.file).n; } catch (e) {} }
     return v || typeName(getType(r.typeId));
   }
