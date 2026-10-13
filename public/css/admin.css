@@ -22,7 +22,7 @@
 .adm-side { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 22px; padding: 22px 16px 16px;
   background: linear-gradient(180deg, rgba(13,17,25,.92), rgba(9,12,18,.92)); border-right: 1px solid rgba(255,255,255,.06); backdrop-filter: blur(18px); }
 .adm-brand { display: flex; align-items: center; gap: 12px; padding: 4px 8px; color: var(--fg); text-decoration: none; }
-.adm-brand-ic { width: 38px; height: 38px; border-radius: 11px; box-shadow: 0 8px 24px -8px rgba(43,181,240,.6); }
+.adm-brand-ic { width: 38px; height: 38px; filter: drop-shadow(0 6px 14px rgba(43,181,240,.45)); }
 .adm-brand b { display: block; font-size: 16px; font-weight: 800; } .adm-brand b small { font-size: inherit; color: var(--accent); }
 .adm-brand em { display: inline-block; margin-top: 3px; padding: 2px 8px; border-radius: 999px; font-style: normal; font-size: 10.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
   background: linear-gradient(90deg, rgba(43,181,240,.22), rgba(167,139,250,.22)); color: #c7d2fe; }

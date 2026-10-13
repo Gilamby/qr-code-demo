@@ -1151,7 +1151,8 @@
       "password": "Come cambio la password o la lingua?",
       "billing": "Dove inserisco i dati di fatturazione?",
       "data": "Come scarico i miei dati o elimino il mio account?",
-      "price": "Quanto costa Optimasys QR?"
+      "price": "Quanto costa Optimasys QR?",
+      "unique": "Qual è la differenza tra scansioni e scansioni uniche?"
     },
     "a": {
       "make": "In Crea codice QR scegli un tipo, per esempio Sito web. Poi compila il contenuto e scegli un design. Vedi subito come appare su un telefono.\nFatto? Scarica il codice in PNG o SVG. Lo ritrovi anche in I miei codici QR.",
@@ -1165,7 +1166,8 @@
       "password": "Vai su Il mio account > Sicurezza e inserisci la password attuale e quella nuova. Poi verrai disconnesso dagli altri dispositivi.\nLa lingua dell’app si sceglie in Il mio account > Preferenze.",
       "billing": "Vai su Il mio account > Dati di fatturazione. Scegli Azienda o Privato e compila i tuoi dati. La partita IVA è facoltativa.",
       "data": "In Il mio account > I miei dati scarichi tutto ciò che conserviamo su di te. Lì puoi anche eliminare il tuo account.\nAttenzione: verranno cancellati tutti i codici QR, i file e le statistiche, e i codici stampati smetteranno di funzionare.",
-      "price": "Durante la fase di prova Optimasys QR è gratuito. Il tuo piano è in Il mio account > Piano e fatture."
+      "price": "Durante la fase di prova Optimasys QR è gratuito. Il tuo piano è in Il mio account > Piano e fatture.",
+      "unique": "Scansioni: ogni volta che qualcuno scansiona il tuo codice QR, conta. Se una persona scansiona tre volte, sono 3 scansioni.\nScansioni uniche: quante persone diverse hanno scansionato. Ogni persona conta una sola volta al giorno per codice QR. Quelle tre scansioni della stessa persona in un giorno sono quindi 1 scansione unica.\nEsempio: 10 clienti scansionano il tuo menu e 2 di loro lo scansionano di nuovo più tardi. Vedrai 12 scansioni e 10 scansioni uniche.\nRiconosciamo una persona senza cookie e senza salvare indirizzi IP, solo come conteggio temporaneo giornaliero."
     }
   },
   "cust": {

@@ -1151,7 +1151,8 @@
       "password": "How do I change my password or the language?",
       "billing": "Where do I enter my billing details?",
       "data": "How do I download my data or delete my account?",
-      "price": "How much does Optimasys QR cost?"
+      "price": "How much does Optimasys QR cost?",
+      "unique": "What is the difference between scans and unique scans?"
     },
     "a": {
       "make": "In Create QR Code, choose a type, for example Website. Then fill in the content and choose a design. You immediately see how it looks on a phone.\nDone? Download your code as PNG or SVG. You’ll also find it in My QR Codes.",
@@ -1165,7 +1166,8 @@
       "password": "Go to My Account > Security and enter your current and new password. You’ll then be logged out on your other devices.\nYou choose the app language in My Account > Preferences.",
       "billing": "Go to My Account > Billing details. Choose Company or Private person and fill in your details. A VAT number is optional.",
       "data": "In My Account > My data you can download everything we store about you. You can also delete your account there.\nNote: this erases all your QR codes, files and analytics, and printed codes stop working.",
-      "price": "Optimasys QR is free during the test phase. You can see your plan in My Account > Plan and invoices."
+      "price": "Optimasys QR is free during the test phase. You can see your plan in My Account > Plan and invoices.",
+      "unique": "Scans: every time someone scans your QR code, it counts. If one person scans three times, that is 3 scans.\nUnique scans: how many different people scanned. Each person counts only once a day per QR code. So those three scans by the same person on one day are 1 unique scan.\nExample: 10 customers scan your menu, and 2 of them scan it again later. You then see 12 scans and 10 unique scans.\nWe recognise a person without cookies and without storing IP addresses, only as a temporary count per day."
     }
   },
   "cust": {

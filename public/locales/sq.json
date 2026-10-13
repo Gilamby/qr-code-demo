@@ -1257,7 +1257,8 @@
       "password": "Si ta ndryshoj fjalëkalimin ose gjuhën?",
       "billing": "Ku i plotësoj të dhënat e faturimit?",
       "data": "Si t’i shkarkoj të dhënat ose ta fshij llogarinë?",
-      "price": "Sa kushton Optimasys QR?"
+      "price": "Sa kushton Optimasys QR?",
+      "unique": "Cili është ndryshimi mes skanimeve dhe skanimeve unike?"
     },
     "a": {
       "make": "Te Krijo kod QR zgjidhni një lloj, për shembull Faqe interneti. Pastaj plotësoni përmbajtjen dhe zgjidhni një dizajn. E shihni menjëherë si duket në telefon.\nGati? Shkarkojeni kodin si PNG ose SVG. Do ta gjeni edhe te Kodet e mia QR.",
@@ -1271,7 +1272,8 @@
       "password": "Shkoni te Llogaria ime > Siguria dhe shkruani fjalëkalimin aktual dhe të riun. Pas kësaj do të dilni nga pajisjet e tjera.\nGjuhën e aplikacionit e zgjidhni te Llogaria ime > Preferencat.",
       "billing": "Shkoni te Llogaria ime > Të dhënat e faturimit. Zgjidhni Kompani ose Person privat dhe plotësoni të dhënat. NIPT-i nuk është i detyrueshëm.",
       "data": "Te Llogaria ime > Të dhënat e mia shkarkoni gjithçka që ruajmë për ju. Atje mund ta fshini edhe llogarinë.\nKujdes: fshihen të gjitha kodet QR, skedarët dhe statistikat, dhe kodet e printuara nuk funksionojnë më.",
-      "price": "Gjatë fazës së testimit Optimasys QR është falas. Planin tuaj e shihni te Llogaria ime > Plani dhe faturat."
+      "price": "Gjatë fazës së testimit Optimasys QR është falas. Planin tuaj e shihni te Llogaria ime > Plani dhe faturat.",
+      "unique": "Skanime: sa herë që dikush skanon kodin tënd QR, numërohet. Nëse një person skanon tri herë, janë 3 skanime.\nSkanime unike: sa persona të ndryshëm kanë skanuar. Çdo person numërohet vetëm një herë në ditë për çdo kod QR. Pra, ato tri skanime të të njëjtit person në një ditë janë 1 skanim unik.\nShembull: 10 klientë skanojnë menunë tënde dhe 2 prej tyre e skanojnë sërish më vonë. Do të shohësh 12 skanime dhe 10 skanime unike.\nE njohim një person pa cookies dhe pa ruajtur adresa IP, vetëm si numërim i përkohshëm për ditë."
     }
   },
   "cust": {

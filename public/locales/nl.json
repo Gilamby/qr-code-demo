@@ -1151,7 +1151,8 @@
       "password": "Hoe verander ik mijn wachtwoord of de taal?",
       "billing": "Waar vul ik mijn factuurgegevens in?",
       "data": "Hoe download ik mijn gegevens of verwijder ik mijn account?",
-      "price": "Wat kost Optimasys QR?"
+      "price": "Wat kost Optimasys QR?",
+      "unique": "Wat is het verschil tussen scans en unieke scans?"
     },
     "a": {
       "make": "Kies bij QR-code maken een soort, bijvoorbeeld Website. Vul daarna de inhoud in en kies een ontwerp. Je ziet meteen hoe het eruitziet op een telefoon.\nKlaar? Download je code als PNG of SVG. Je vindt hem daarna ook terug bij Mijn QR-codes.",
@@ -1165,7 +1166,8 @@
       "password": "Ga naar Mijn account > Beveiliging en vul je huidige en je nieuwe wachtwoord in. Daarna word je op je andere apparaten uitgelogd.\nDe taal van de app kies je bij Mijn account > Voorkeuren.",
       "billing": "Ga naar Mijn account > Factuurgegevens. Kies Bedrijf of Particulier en vul je gegevens in. Een btw-nummer is niet verplicht.",
       "data": "Bij Mijn account > Mijn gegevens download je alles wat we van je bewaren. Daar kun je ook je account verwijderen.\nLet op: dan worden al je QR-codes, bestanden en statistieken gewist, en werken geprinte codes niet meer.",
-      "price": "Tijdens de testfase is Optimasys QR gratis. Je abonnement zie je bij Mijn account > Abonnement en facturen."
+      "price": "Tijdens de testfase is Optimasys QR gratis. Je abonnement zie je bij Mijn account > Abonnement en facturen.",
+      "unique": "Scans: elke keer dat iemand je QR-code scant, telt het. Scant één persoon drie keer, dan zijn dat 3 scans.\nUnieke scans: hoeveel verschillende mensen hebben gescand. Elke persoon telt maar één keer per dag per QR-code. Die drie scans van dezelfde persoon op één dag zijn dus 1 unieke scan.\nVoorbeeld: 10 klanten scannen je menu, en 2 van hen scannen later nog eens. Dan zie je 12 scans en 10 unieke scans.\nWe herkennen een persoon zonder cookies en zonder IP-adressen te bewaren, alleen als een tijdelijke telling per dag."
     }
   },
   "cust": {

@@ -1151,7 +1151,8 @@
       "password": "Wie ändere ich mein Passwort oder die Sprache?",
       "billing": "Wo gebe ich meine Rechnungsdaten ein?",
       "data": "Wie lade ich meine Daten herunter oder lösche mein Konto?",
-      "price": "Was kostet Optimasys QR?"
+      "price": "Was kostet Optimasys QR?",
+      "unique": "Was ist der Unterschied zwischen Scans und eindeutigen Scans?"
     },
     "a": {
       "make": "Wähle bei QR-Code erstellen eine Art, zum Beispiel Website. Fülle dann den Inhalt aus und wähle ein Design. Du siehst sofort, wie es auf einem Handy aussieht.\nFertig? Lade deinen Code als PNG oder SVG herunter. Du findest ihn danach auch unter Meine QR-Codes.",
@@ -1165,7 +1166,8 @@
       "password": "Geh zu Mein Konto > Sicherheit und gib dein aktuelles und dein neues Passwort ein. Danach wirst du auf deinen anderen Geräten abgemeldet.\nDie Sprache der App wählst du unter Mein Konto > Einstellungen.",
       "billing": "Geh zu Mein Konto > Rechnungsdaten. Wähle Unternehmen oder Privatperson und fülle deine Angaben aus. Eine USt-IdNr. ist nicht nötig.",
       "data": "Unter Mein Konto > Meine Daten lädst du alles herunter, was wir über dich speichern. Dort kannst du auch dein Konto löschen.\nAchtung: Dann werden alle QR-Codes, Dateien und Statistiken gelöscht und gedruckte Codes funktionieren nicht mehr.",
-      "price": "Während der Testphase ist Optimasys QR kostenlos. Deinen Tarif siehst du unter Mein Konto > Tarif und Rechnungen."
+      "price": "Während der Testphase ist Optimasys QR kostenlos. Deinen Tarif siehst du unter Mein Konto > Tarif und Rechnungen.",
+      "unique": "Scans: Jedes Mal, wenn jemand deinen QR-Code scannt, zählt es. Scannt eine Person dreimal, sind das 3 Scans.\nEindeutige Scans: wie viele verschiedene Personen gescannt haben. Jede Person zählt nur einmal pro Tag und QR-Code. Diese drei Scans derselben Person an einem Tag sind also 1 eindeutiger Scan.\nBeispiel: 10 Kunden scannen dein Menü, 2 davon später noch einmal. Dann siehst du 12 Scans und 10 eindeutige Scans.\nWir erkennen eine Person ohne Cookies und ohne IP-Adressen zu speichern, nur als vorübergehende Zählung pro Tag."
     }
   },
   "cust": {

@@ -1151,7 +1151,8 @@
       "password": "Como altero a palavra-passe ou o idioma?",
       "billing": "Onde preencho os dados de faturação?",
       "data": "Como descarrego os meus dados ou elimino a minha conta?",
-      "price": "Quanto custa o Optimasys QR?"
+      "price": "Quanto custa o Optimasys QR?",
+      "unique": "Qual é a diferença entre leituras e leituras únicas?"
     },
     "a": {
       "make": "Em Criar código QR, escolha um tipo, por exemplo Website. Depois preencha o conteúdo e escolha um design. Vê logo como fica num telemóvel.\nPronto? Descarregue o código em PNG ou SVG. Também o encontra em Os meus códigos QR.",
@@ -1165,7 +1166,8 @@
       "password": "Vá a A minha conta > Segurança e introduza a palavra-passe atual e a nova. Depois, a sessão termina nos seus outros dispositivos.\nO idioma da app escolhe-se em A minha conta > Preferências.",
       "billing": "Vá a A minha conta > Dados de faturação. Escolha Empresa ou Particular e preencha os seus dados. O NIF/IVA é opcional.",
       "data": "Em A minha conta > Os meus dados descarrega tudo o que guardamos sobre si. Também pode eliminar a sua conta aí.\nAtenção: todos os seus códigos QR, ficheiros e estatísticas são apagados, e os códigos impressos deixam de funcionar.",
-      "price": "Durante a fase de testes, o Optimasys QR é gratuito. Vê o seu plano em A minha conta > Plano e faturas."
+      "price": "Durante a fase de testes, o Optimasys QR é gratuito. Vê o seu plano em A minha conta > Plano e faturas.",
+      "unique": "Leituras: cada vez que alguém lê o seu código QR, conta. Se uma pessoa ler três vezes, são 3 leituras.\nLeituras únicas: quantas pessoas diferentes leram. Cada pessoa conta só uma vez por dia por código QR. Essas três leituras da mesma pessoa num dia são, portanto, 1 leitura única.\nExemplo: 10 clientes leem o seu menu e 2 deles voltam a lê-lo mais tarde. Verá 12 leituras e 10 leituras únicas.\nReconhecemos uma pessoa sem cookies e sem guardar endereços IP, apenas como contagem temporária por dia."
     }
   },
   "cust": {

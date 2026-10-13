@@ -96,6 +96,7 @@
     ['scanFix', 'codes'],
     ['pause', 'codes', ['faq.go.myCodes', 'myCodes']],
     ['stats', 'stats', ['faq.go.analytics', 'analytics']],
+    ['unique', 'stats', ['faq.go.analytics', 'analytics']],
     ['privacy', 'stats'],
     ['password', 'account', ['faq.go.security', 'account:security']],
     ['billing', 'account', ['faq.go.billing', 'account:billing']],

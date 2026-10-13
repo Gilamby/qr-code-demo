@@ -1151,7 +1151,8 @@
       "password": "Comment changer mon mot de passe ou la langue ?",
       "billing": "Où saisir mes informations de facturation ?",
       "data": "Comment télécharger mes données ou supprimer mon compte ?",
-      "price": "Combien coûte Optimasys QR ?"
+      "price": "Combien coûte Optimasys QR ?",
+      "unique": "Quelle est la différence entre scans et scans uniques ?"
     },
     "a": {
       "make": "Dans Créer un code QR, choisissez un type, par exemple Site web. Remplissez ensuite le contenu et choisissez un design. Vous voyez tout de suite le rendu sur un téléphone.\nTerminé ? Téléchargez votre code en PNG ou SVG. Vous le retrouverez aussi dans Mes codes QR.",
@@ -1165,7 +1166,8 @@
       "password": "Allez dans Mon compte > Sécurité et saisissez votre mot de passe actuel puis le nouveau. Vous serez ensuite déconnecté de vos autres appareils.\nLa langue de l’application se choisit dans Mon compte > Préférences.",
       "billing": "Allez dans Mon compte > Informations de facturation. Choisissez Entreprise ou Particulier et remplissez vos informations. Le numéro de TVA est facultatif.",
       "data": "Dans Mon compte > Mes données, téléchargez tout ce que nous conservons sur vous. Vous pouvez aussi y supprimer votre compte.\nAttention : tous vos codes QR, fichiers et statistiques sont alors effacés, et les codes imprimés ne fonctionnent plus.",
-      "price": "Optimasys QR est gratuit pendant la phase de test. Votre abonnement s’affiche dans Mon compte > Abonnement et factures."
+      "price": "Optimasys QR est gratuit pendant la phase de test. Votre abonnement s’affiche dans Mon compte > Abonnement et factures.",
+      "unique": "Scans : chaque fois que quelqu’un scanne votre QR code, cela compte. Si une personne scanne trois fois, cela fait 3 scans.\nScans uniques : combien de personnes différentes ont scanné. Chaque personne compte une seule fois par jour et par QR code. Ces trois scans de la même personne le même jour font donc 1 scan unique.\nExemple : 10 clients scannent votre menu et 2 d’entre eux le scannent encore plus tard. Vous voyez alors 12 scans et 10 scans uniques.\nNous reconnaissons une personne sans cookies et sans conserver d’adresse IP, uniquement sous forme de comptage temporaire par jour."
     }
   },
   "cust": {
