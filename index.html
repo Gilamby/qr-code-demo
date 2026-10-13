@@ -2141,6 +2141,111 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
   .profile-stats .acct-stat { flex: 1 1 0; min-width: 0; }
 }
 
+/* ---------- Formulieren: keuzelijst en tekstvak zoals de invulvelden, icoon in het veld, fouten ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.auth-in select, .auth-in textarea { flex: 1; min-width: 0; height: 50px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line-strong); background: rgba(0,0,0,.22); color: var(--fg); font: inherit; font-size: 16px; }
+.auth-in select option { color: #111; }
+.auth-in textarea { height: auto; min-height: 150px; padding: 12px 14px; line-height: 1.55; resize: vertical; }
+.auth-in select:focus, .auth-in textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.acct-ic > svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.acct-ic input, .acct-ic select { padding-left: 44px; }
+.auth-in [aria-invalid="true"] { border-color: #f87171; box-shadow: 0 0 0 3px rgba(248,113,113,.18); }
+.acct-err { color: #fca5a5; font-size: 13.5px; font-weight: 600; }
+.acct-opt { font-style: normal; font-weight: 500; color: var(--muted); }
+.acct-wide { grid-column: 1 / -1; }
+.auth-f .auth-hint { margin: 0; }
+
+/* ---------- Mijn account: groepen in het menu, demo-melding, facturatie ---------- */
+.acct-demo { margin: 10px 0 0; display: inline-block; padding: 8px 12px; border-radius: 10px; background: rgba(245,158,11,.14); color: #fbbf24; font-size: 14px; font-weight: 600; }
+.acct-group { margin: 12px 14px 4px; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.acct-group:first-child { margin-top: 4px; }
+.acct-menu button { position: relative; }
+.acct-dot { position: absolute; right: 14px; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: #fbbf24; box-shadow: 0 0 0 3px rgba(251,191,36,.2); }
+.acct-seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0 0 22px; max-width: 520px; }
+.acct-seg button { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border-radius: 14px; border: 1px solid var(--line-strong); background: rgba(0,0,0,.18); color: var(--muted); font: inherit; font-size: 15.5px; font-weight: 700; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.acct-seg button svg { width: 20px; height: 20px; }
+.acct-seg button:hover { color: var(--fg); }
+.acct-seg button[aria-checked="true"] { border-color: var(--accent); background: rgba(43,181,240,.14); color: var(--fg); }
+.acct-seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.acct-actions { gap: 10px; }
+.acct-plan-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.acct-plan-head p { margin: 4px 0 0; color: var(--muted); font-size: 14.5px; }
+.acct-badge { flex: none; padding: 7px 14px; border-radius: 999px; background: rgba(43,181,240,.16); border: 1px solid rgba(43,181,240,.45); color: var(--accent); font-weight: 800; font-size: 14px; }
+.acct-feats { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 20px; }
+.acct-feats li { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.acct-feats svg { width: 18px; height: 18px; flex: none; color: #4ade80; }
+.acct-note { margin: 16px 0 0; color: var(--muted); font-size: 14px; }
+.acct-addr { margin: 4px 0 16px !important; color: var(--fg) !important; font-size: 15px !important; line-height: 1.6; }
+.acct-addr span { color: var(--muted); }
+.acct-table { margin-top: 10px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.acct-tr { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 12px 16px; }
+.acct-th { background: rgba(255,255,255,.04); font-size: 12.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.acct-empty span { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 30px 20px; color: var(--muted); font-size: 14.5px; text-align: center; }
+.acct-empty svg { width: 30px; height: 30px; opacity: .7; }
+@media (max-width: 860px) { .acct-group { display: none; } }
+@media (max-width: 640px) { .acct-feats { grid-template-columns: minmax(0, 1fr); } .acct-tr { grid-template-columns: repeat(2, minmax(0, 1fr)); } .acct-plan-head { flex-direction: column; } }
+
+/* ---------- Contact en Veelgestelde vragen ---------- */
+.help { display: grid; gap: 20px; max-width: 1120px; margin: 40px auto 0; padding-bottom: 40px; }
+.help-head h2 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.help-head p { margin: 6px 0 0; color: var(--muted); font-size: 15.5px; }
+.help-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.help-main h3, .help-card h3 { margin: 0 0 16px; font-size: 19px; font-weight: 800; }
+.help-side { display: grid; gap: 16px; }
+.help-card { padding: 22px; border-radius: 22px; }
+.help-card h3 { margin: 12px 0 6px; font-size: 17px; }
+.help-card p { margin: 0 0 14px; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+.help-card .btn svg, .faq-go svg, .faq-more .btn svg { width: 18px; height: 18px; margin-left: 6px; }
+.help-ic { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(43,181,240,.14); color: var(--accent); }
+.help-ic svg { width: 22px; height: 22px; }
+.help-ic.big { width: 64px; height: 64px; border-radius: 50%; background: rgba(74,222,128,.14); color: #4ade80; }
+.help-ic.big svg { width: 34px; height: 34px; }
+.help-tips { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+.help-form-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.help-form-foot .btn { min-height: 48px; gap: 8px; }
+.help-form-foot .btn svg { width: 18px; height: 18px; }
+.help-count { color: var(--muted); font-size: 13px; }
+.help-sent { display: grid; justify-items: start; gap: 6px; }
+.help-sent h3 { margin: 10px 0 0; outline: none; }
+.help-sent p { margin: 0 0 10px; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.help-sent p b { color: var(--fg); }
+.help-search { position: relative; display: block; max-width: 560px; margin-top: 18px; }
+.help-search svg { position: absolute; left: 16px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.help-search input { width: 100%; box-sizing: border-box; height: 54px; padding: 0 16px 0 48px; border-radius: 14px; border: 1px solid var(--line-strong); background: rgba(0,0,0,.25); color: var(--fg); font: inherit; font-size: 16px; }
+.help-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.help-cats { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.chip { min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(0,0,0,.18); color: var(--muted); font: inherit; font-size: 14.5px; font-weight: 700; cursor: pointer; }
+.chip:hover { color: var(--fg); }
+.chip[aria-pressed="true"] { border-color: var(--accent); background: rgba(43,181,240,.16); color: var(--fg); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.faq-count { margin-left: auto; color: var(--muted); font-size: 14px; }
+.faq-list { display: grid; gap: 10px; }
+.faq-cat { margin: 14px 0 2px; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.faq-cat:first-child { margin-top: 0; }
+.faq-item { border-radius: 16px; overflow: hidden; }
+.faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; font-size: 16.5px; font-weight: 700; line-height: 1.4; cursor: pointer; list-style: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary svg { width: 20px; height: 20px; flex: none; color: var(--muted); transition: transform .2s var(--ease); }
+.faq-item[open] summary svg { transform: rotate(180deg); color: var(--accent); }
+.faq-item summary:hover { background: rgba(255,255,255,.03); }
+.faq-item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 16px; }
+.faq-a { padding: 0 22px 20px; }
+.faq-a p { margin: 0 0 10px; color: #c4cbd6; font-size: 15.5px; line-height: 1.65; max-width: 72ch; }
+.faq-go { margin-top: 4px; }
+.faq-none { text-align: center; }
+.faq-none p { color: var(--muted); }
+.faq-more { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.faq-more h3 { margin: 0 0 4px; }
+.faq-more p { margin: 0; }
+@media (max-width: 900px) { .help-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) {
+  .help { margin-top: 20px; }
+  .help-gap { display: none; }
+  .faq-more { flex-direction: column; align-items: stretch; }
+  .help-form-foot { flex-direction: column-reverse; align-items: stretch; }
+  .help-form-foot .btn { justify-content: center; }
+}
+
 </style>
 <div class="auth" id="authView" hidden><div class="auth-card glass" role="dialog" aria-modal="true" aria-labelledby="authTitle"></div></div>
 <script>document.body.classList.add('auth-checking');</script>
@@ -2245,7 +2350,7 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 
     <main class="canvas" id="accountView" hidden>
       <section class="account">
-        <header class="acct-head"><h2 data-i18n="nav.account"></h2><p data-i18n="acct.lead"></p></header>
+        <header class="acct-head"><h2 data-i18n="nav.account"></h2><p data-i18n="acct.lead"></p><p class="acct-demo" id="acctDemo" hidden></p></header>
         <div class="acct-layout">
         <div class="glass acct-menu" id="acctMenu" role="tablist" aria-orientation="vertical" data-i18n-aria="acct.sections"></div>
         <div class="acct-main">
@@ -2289,6 +2394,14 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
         <div id="anBody" aria-live="polite"></div>
         <p class="an-foot" id="anFoot"></p>
       </section>
+    </main>
+
+    <main class="canvas" id="contactView" hidden>
+      <section class="help" id="contactPage"></section>
+    </main>
+
+    <main class="canvas" id="faqView" hidden>
+      <section class="help" id="faqPage"></section>
     </main>
 
     <main class="canvas" id="emptyView" hidden>
@@ -3248,7 +3361,53 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
     "security": "Security",
     "profileLead": "Your name is shown in the app. You log in with your email address.",
     "prefsLead": "The language of the app and of the emails you receive.",
-    "devicesTitle": "Devices"
+    "devicesTitle": "Devices",
+    "groupAccount": "Account",
+    "groupBilling": "Billing",
+    "groupPrivacy": "Privacy",
+    "billing": "Billing details",
+    "billingLead": "These details appear on your invoices.",
+    "typeLabel": "Customer type",
+    "company": "Company",
+    "private": "Private person",
+    "companyName": "Company name",
+    "taxId": "VAT number",
+    "taxIdHint": "With country code, for example GB123456789.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "billingEmail": "Email for invoices",
+    "billingEmailHint": "Leave empty to use your account email.",
+    "address": "Address",
+    "postalCode": "Postal code",
+    "city": "City",
+    "country": "Country",
+    "chooseCountry": "Choose a country",
+    "optional": "(optional)",
+    "billingSaved": "Billing details saved.",
+    "errRequired": "Please fill this in.",
+    "errInvalid": "This doesn’t look right. Please check it.",
+    "errTaxId": "Start with the country code, for example GB123456789.",
+    "errBilling": "Please check the fields marked in red.",
+    "planNav": "Plan and invoices",
+    "planCurrent": "Your plan",
+    "planFree": "Free",
+    "planFreeLead": "You’re using Optimasys QR for free during the test phase.",
+    "planF1": "Unlimited QR codes",
+    "planF2": "All 16 types of QR codes",
+    "planF3": "Analytics by country, city and system",
+    "planF4": "Your own design, colours and logo",
+    "planNote": "Paid plans are not available yet.",
+    "billingTo": "Billing address",
+    "billingEdit": "Edit billing details",
+    "billingMissing": "You haven’t filled in your billing details yet.",
+    "billingFill": "Fill in now",
+    "invoices": "Invoices",
+    "invDate": "Date",
+    "invNumber": "Number",
+    "invAmount": "Amount",
+    "invStatus": "Status",
+    "invEmpty": "No invoices yet. They will appear here once you have a paid plan.",
+    "demoNote": "Demo: your details are only stored in this browser."
   },
   "mail": {
     "resetSubject": "New password for Optimasys QR",
@@ -3260,6 +3419,92 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
     "verifyText": "Click the button to confirm your email address. Then you can log in. The link works for 24 hours.",
     "verifyButton": "Confirm email address",
     "verifyIgnore": "Didn't create an account? You don't need to do anything; without confirmation the account is deleted after 7 days."
+  },
+  "contact": {
+    "lead": "A question, a problem or an idea? Send us a message.",
+    "formTitle": "Send a message",
+    "emailHint": "We’ll send our reply to this address.",
+    "topic": "Topic",
+    "chooseTopic": "Choose a topic",
+    "topics": {
+      "question": "Question",
+      "problem": "Something doesn’t work",
+      "idea": "Idea or wish",
+      "billing": "Plan or invoice",
+      "other": "Something else"
+    },
+    "message": "Message",
+    "messagePlaceholder": "Tell us as precisely as you can what it’s about.",
+    "send": "Send message",
+    "sentTitle": "Thank you, your message has been sent",
+    "sentText": "We’ve received your message and will reply to {email}.",
+    "demoNote": "Demo: nothing is sent in this online version.",
+    "another": "Send another message",
+    "errMessage": "Please write at least 10 characters.",
+    "errTopic": "Please choose a topic.",
+    "errSend": "Sending failed. Please try again later.",
+    "faqTitle": "Need a quick answer?",
+    "faqText": "Many questions are already answered in the FAQs.",
+    "faqButton": "View the questions",
+    "tipsTitle": "Help us help you faster",
+    "tip1": "Mention the name of the QR code it’s about.",
+    "tip2": "Describe what you did and what you saw.",
+    "tip3": "Tell us which device it happened on, for example iPhone or Android."
+  },
+  "faq": {
+    "lead": "Answers to the questions we get most often.",
+    "search": "Search the questions",
+    "searchPlaceholder": "Search a question, for example \"print\"",
+    "filter": "Topic",
+    "cats": {
+      "all": "All",
+      "start": "Getting started",
+      "codes": "QR codes",
+      "stats": "Scans and analytics",
+      "account": "Account and plan"
+    },
+    "count": "{n} found",
+    "none": "No questions found for {q}.",
+    "askUs": "Ask your question",
+    "moreTitle": "Can’t find your question?",
+    "moreText": "Send us a message and we’ll help you.",
+    "go": {
+      "create": "Go to Create QR Code",
+      "myCodes": "Go to My QR Codes",
+      "analytics": "Go to Analytics",
+      "security": "Go to Security",
+      "billing": "Go to Billing details",
+      "data": "Go to My data",
+      "plan": "Go to Plan"
+    },
+    "q": {
+      "make": "How do I create a QR code?",
+      "types": "Which types of QR codes can I create?",
+      "edit": "Can I change a QR code after it has been printed?",
+      "format": "Should I download PNG or SVG?",
+      "scanFix": "My QR code doesn’t scan well. What can I do?",
+      "pause": "Can I switch a QR code off for a while?",
+      "stats": "What do I see in Analytics?",
+      "privacy": "Do you store the IP addresses of people who scan?",
+      "password": "How do I change my password or the language?",
+      "billing": "Where do I enter my billing details?",
+      "data": "How do I download my data or delete my account?",
+      "price": "How much does Optimasys QR cost?"
+    },
+    "a": {
+      "make": "In Create QR Code, choose a type, for example Website. Then fill in the content and choose a design. You immediately see how it looks on a phone.\nDone? Download your code as PNG or SVG. You’ll also find it in My QR Codes.",
+      "types": "There are 16 types, from a website or PDF to a menu, coupon or Wi-Fi. You see them all in the first step of Create QR Code.",
+      "edit": "Yes. Most types put a short link in the QR code. If you change the content, the code stays the same and you don’t need to print anything again.\nException: Wi-Fi and vCard. Their content is inside the code itself, so after a change you use the new code.",
+      "format": "PNG is a normal image. Handy for websites, email, Word and PowerPoint.\nSVG always stays sharp, however large you make it. Choose SVG for print, such as flyers, posters and packaging.",
+      "scanFix": "Make sure there is enough contrast between the code and the background: dark on light works best. Print the code at least 2 by 2 cm, and larger if people scan from further away.\nKeep a logo small and leave some space around the code. Always test your code with your own phone before printing.",
+      "pause": "Yes. In My QR Codes, switch the code off. Anyone who scans it then sees a friendly message that it’s not available right now.\nSwitch it back on whenever you like. The scans so far are kept.",
+      "stats": "For one code or all your codes together: the number of scans and unique visitors, per day, per system (such as iPhone or Android), per country and per city. Choose the period yourself and download everything as CSV for Excel.",
+      "privacy": "No. We only store counts per day, with the system, country and city. We only use the IP address briefly to work out the country. It is not stored, and people who scan don’t get cookies.",
+      "password": "Go to My Account > Security and enter your current and new password. You’ll then be logged out on your other devices.\nYou choose the app language in My Account > Preferences.",
+      "billing": "Go to My Account > Billing details. Choose Company or Private person and fill in your details. A VAT number is optional.",
+      "data": "In My Account > My data you can download everything we store about you. You can also delete your account there.\nNote: this erases all your QR codes, files and analytics, and printed codes stop working.",
+      "price": "Optimasys QR is free during the test phase. You can see your plan in My Account > Plan and invoices."
+    }
   }
 }
 </script>
@@ -5999,7 +6244,62 @@ var api = (function () {
           var u = { id: 'demo', email: a.email, name: a.name, createdAt: a.createdAt, demo: true }; put(KEY, u); return u;
         });
       },
-      logout: function () { try { localStorage.removeItem(KEY); } catch (e) {} return Promise.resolve(null); }
+      logout: function () { try { localStorage.removeItem(KEY); } catch (e) {} return Promise.resolve(null); },
+
+      /* Mijn account in de demo: zelfde antwoorden als de server, maar alles in deze browser */
+      account: (function () {
+        function cur() { var u = get(KEY), acc = get(ACCOUNTS) || {}; return u && acc[u.email] ? { u: u, acc: acc, a: acc[u.email] } : null; }
+        function need() { var c = cur(); if (!c) { var e = new Error('Not logged in'); e.status = 401; throw e; } return c; }
+        function save(c) { put(ACCOUNTS, c.acc); }
+        return {
+          update: function (d) { return Promise.resolve().then(function () {
+            var c = need(); c.a.name = String(d.name || '').trim().slice(0, 80); save(c);
+            c.u.name = c.a.name; put(KEY, c.u); return c.u; }); },
+          password: function (d) { return Promise.resolve().then(function () {
+            var c = need();
+            return digest(d.current || '').then(function (h) {
+              if (h !== c.a.pw) return fail('wrong', 403);
+              if (String(d.password || '').length < 8) return fail('password_short', 400);
+              return digest(d.password).then(function (nh) { c.a.pw = nh; save(c); return { ok: true }; });
+            }); }); },
+          summary: function () { return Promise.resolve().then(function () {
+            var c = need();
+            return demoCodes().then(function (codes) {
+              var o = ANALYTICS.overview(codes, {}), since = new Date(Date.now() - 29 * 864e5).toISOString().slice(0, 10), s30 = 0;
+              codes.forEach(function (q) { Object.keys(q.stats || {}).forEach(function (day) { if (day >= since) Object.keys(q.stats[day]).forEach(function (k) { s30 += q.stats[day][k][0]; }); }); });
+              return { createdAt: c.a.createdAt, codes: codes.length, scans: o.totals.scans, scans30: s30, sessions: 1 };
+            }); }); },
+          logoutOthers: function () { return Promise.resolve({ ok: true }); },
+          billing: function () { return Promise.resolve().then(function () { return { billing: need().a.billing || null }; }); },
+          saveBilling: function (b) { return Promise.resolve().then(function () {
+            var c = need(), v = Object.assign({}, b), err = [];
+            ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'].forEach(function (k) { v[k] = String(v[k] || '').replace(/\s+/g, ' ').trim(); });
+            if (v.type !== 'private') { v.type = 'company'; v.taxId = v.taxId.toUpperCase().replace(/[\s.]/g, ''); } else { v.companyName = ''; v.taxId = ''; }
+            v.postalCode = v.postalCode.toUpperCase(); v.country = v.country.toUpperCase(); v.email = v.email.toLowerCase();
+            if (v.type === 'company' && !v.companyName) err.push('companyName');
+            if (v.type === 'private' && !v.firstName) err.push('firstName');
+            if (v.type === 'private' && !v.lastName) err.push('lastName');
+            if (v.taxId && !/^[A-Z]{2}[A-Z0-9-]{2,15}$/.test(v.taxId)) err.push('taxId');
+            if (v.email && !EMAIL_RE.test(v.email)) err.push('email');
+            if (!v.address) err.push('address');
+            if (!/^[A-Z0-9][A-Z0-9 -]{1,11}$/.test(v.postalCode)) err.push('postalCode');
+            if (!v.city) err.push('city');
+            if (!/^[A-Z]{2}$/.test(v.country)) err.push('country');
+            if (err.length) { var e = new Error('Invalid billing details'); e.status = 400; e.details = err; throw e; }
+            c.a.billing = v; save(c); return { billing: v }; }); },
+          exportData: function () { return Promise.resolve().then(function () {
+            var c = need();
+            return local.list().then(function (codes) { return { exportedAt: new Date().toISOString(), demo: true, account: { email: c.a.email, name: c.a.name, createdAt: c.a.createdAt }, billing: c.a.billing || null, qrCodes: codes }; }); }); },
+          remove: function (d) { return Promise.resolve().then(function () {
+            var c = need();
+            return digest(d.password || '').then(function (h) {
+              if (h !== c.a.pw) return fail('wrong', 403);
+              delete c.acc[c.u.email]; save(c);
+              try { localStorage.removeItem(KEY); localStorage.removeItem('optimasys-demo-codes'); } catch (e) {}
+              return null;
+            }); }); }
+        };
+      })()
     };
   })();
   function either(server, demo) { return function () { var a = arguments; return available().then(function (on) { return on ? server.apply(null, a) : demo.apply(null, a); }); }; }
@@ -6033,14 +6333,20 @@ var api = (function () {
       forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),
       reset:    function (d) { return request('POST', 'api/auth/reset', d); }
     },
+    // Mijn account. Zonder server (online demo): alles in deze browser, zelfde antwoorden.
     account: {
-      update:   function (d) { return request('PATCH', 'api/account', d); },
-      password: function (d) { return request('POST', 'api/account/password', d); },
-      remove:   function (d) { return request('DELETE', 'api/account', d); },
-      summary:  function ()  { return request('GET', 'api/account/summary'); },
-      logoutOthers: function () { return request('POST', 'api/account/logout-others', {}); },
-      exportUrl: 'api/account/export'
+      update:   either(function (d) { return request('PATCH', 'api/account', d); }, demoAuth.account.update),
+      password: either(function (d) { return request('POST', 'api/account/password', d); }, demoAuth.account.password),
+      remove:   either(function (d) { return request('DELETE', 'api/account', d); }, demoAuth.account.remove),
+      summary:  either(function ()  { return request('GET', 'api/account/summary'); }, demoAuth.account.summary),
+      logoutOthers: either(function () { return request('POST', 'api/account/logout-others', {}); }, demoAuth.account.logoutOthers),
+      billing:  either(function ()  { return request('GET', 'api/account/billing'); }, demoAuth.account.billing),
+      saveBilling: either(function (b) { return request('PUT', 'api/account/billing', b); }, demoAuth.account.saveBilling),
+      // Gegevens downloaden: met server de echte export, zonder server wat in deze browser staat
+      exportData: either(function () { return request('GET', 'api/account/export'); }, demoAuth.account.exportData)
     },
+    // Contactformulier. In de demo wordt er niets verstuurd (dat zegt de pagina er ook bij).
+    contact: either(function (d) { return request('POST', 'api/contact', d); }, function () { return Promise.resolve({ ok: true, demo: true }); }),
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },
     updateMe:     function (patch) { return request('PATCH', 'api/me', patch); }
@@ -8703,7 +9009,9 @@ var PANELS = { type: TypeGrid, content: ContentForm, design: DesignPanel };
     document.getElementById('accountView').hidden = page !== 'account';
     document.getElementById('myCodesView').hidden = page !== 'myCodes';
     document.getElementById('analyticsView').hidden = page !== 'analytics';
-    document.getElementById('emptyView').hidden = ['create', 'account', 'myCodes', 'analytics'].indexOf(page) >= 0;
+    document.getElementById('contactView').hidden = page !== 'contact';
+    document.getElementById('faqView').hidden = page !== 'faq';
+    document.getElementById('emptyView').hidden = ['create', 'account', 'myCodes', 'analytics', 'contact', 'faq'].indexOf(page) >= 0;
     document.dispatchEvent(new CustomEvent('pagechange', { detail: page }));
     if (window.fitWorkspace) requestAnimationFrame(window.fitWorkspace);
   }
@@ -8930,38 +9238,76 @@ var Session = (function () {
 
 /* ---- js/account-settings.js ---- */
 /* =========================================================
-   MIJN ACCOUNT (met de echte server)
-   Links een menu met onderdelen, rechts het gekozen onderdeel:
-   - Profiel: naam wijzigen, e-mailadres zien
-   - Beveiliging: wachtwoord wijzigen, uitloggen op andere apparaten
-   - Voorkeuren: taal
-   - Achtergrond: zie account.js
-   - Gegevens & privacy: downloaden (AVG) en account verwijderen (met wachtwoord)
+   MIJN ACCOUNT
+   Links een menu in drie groepen, rechts het gekozen onderdeel:
+     Account     Profiel · Beveiliging · Voorkeuren · Achtergrond
+     Facturatie  Factuurgegevens · Abonnement en facturen
+     Privacy     Mijn gegevens (downloaden, account verwijderen)
    Bovenaan: naam, e-mail, lid sinds en de cijfers (met links naar Mijn QR-codes en Statistieken).
-   In de online demo: alleen Profiel (uitleg) en Achtergrond (er is geen echt account).
+   In de online demo (zonder server) werkt alles ook; de gegevens staan dan alleen in deze browser.
    ========================================================= */
 (function () {
   var box = document.getElementById('acctCards'), menu = document.getElementById('acctMenu'), stats = document.getElementById('acctStats');
   var bgSection = document.getElementById('bgSection'), user = null, sum = null, tab = 'profile';
+  var billing = null, billingLoaded = false, draft = null, bad = [];                 // factuurgegevens: opgeslagen, in bewerking, foute velden
   var SVG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
-  var TABS = [
-    { id: 'profile',    label: 'acct.profile',    icon: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/>' },
-    { id: 'security',   label: 'acct.security',   icon: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>', server: true },
-    { id: 'prefs',      label: 'acct.prefsTitle', icon: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>', server: true },
-    { id: 'background', label: 'account.background', icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/>' },
-    { id: 'data',       label: 'acct.dataTitle',  icon: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>', server: true }
+  var ICON = {
+    profile: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/>',
+    security: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    prefs: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',
+    background: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/>',
+    billing: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h6M9 16h6"/>',
+    plan: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
+    data: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+    company: '<rect x="4" y="7" width="16" height="13" rx="1.5"/><path d="M9 7V4h6v3M4 12h16"/>',
+    person: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/>',
+    hash: '<path d="M5 9h14M5 15h14M10 4L8 20M16 4l-2 16"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>'
+  };
+  var GROUPS = [
+    ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
+    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav']]],
+    ['acct.groupPrivacy', [['data', 'acct.dataTitle']]]
   ];
-  function tabs() { return TABS.filter(function (x) { return !x.server || !api.isDemo(); }); }
-  function loadSummary() { if (!user || api.isDemo()) return; api.account.summary().then(function (x) { sum = x; draw(); }).catch(function () {}); }
-  function initials(n) { var w = String(n || '').trim().split(/\s+/).filter(Boolean); return ((w[0] || '?')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase(); }
+  var TAB_IDS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
+  var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
+  function loadSummary() { if (!user) return; api.account.summary().then(function (x) { sum = x; draw(); }).catch(function () {}); }
+  function loadBilling() {
+    if (!user) return;
+    api.account.billing().then(function (r) { billing = r.billing || null; billingLoaded = true; if (!draft) draft = startDraft(); draw(); }).catch(function () { billingLoaded = true; draw(); });
+  }
+  function startDraft() {
+    var b = Object.assign({ type: 'company' }, billing || {});
+    if (!billing) {                                                     // eerste keer: alvast invullen wat we weten
+      var w = String(user.name || '').trim().split(/\s+/);
+      b.firstName = w.length > 1 ? w.slice(0, -1).join(' ') : (w[0] || ''); b.lastName = w.length > 1 ? w[w.length - 1] : '';
+      b.country = ({ nl: 'NL', en: 'GB', de: 'DE', es: 'ES', fr: 'FR', it: 'IT', pl: 'PL', pt: 'PT', el: 'GR', sq: 'AL' })[i18n.lang()] || 'NL';
+    }
+    BILLING_KEYS.forEach(function (k) { if (b[k] == null) b[k] = ''; });
+    return b;
+  }
+  function initials(n) { var w = String(n || '').trim().split(/\s+/).filter(Boolean); return ((w[0] || '?')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase(); }
+  function countries() {
+    return TEL.C.map(function (c) { return c[0]; }).filter(function (v, i, a) { return a.indexOf(v) === i; })
+      .map(function (iso) { return [iso, TEL.name(iso)]; }).sort(function (a, b) { return a[1].localeCompare(b[1], i18n.lang()); });
+  }
+
+  /* ---------- Menu ---------- */
   function drawMenu() {
-    menu.innerHTML = tabs().map(function (x) {
-      var on = x.id === tab;
-      return '<button type="button" role="tab" id="acctTab-' + x.id + '" data-tab="' + x.id + '" aria-selected="' + on + '" aria-controls="' + (x.id === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + x.icon + '</svg><span>' + t(x.label) + '</span></button>';
+    menu.innerHTML = GROUPS.map(function (g) {
+      return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].map(function (x) {
+        var on = x[0] === tab;
+        return '<button type="button" role="tab" id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
+          (x[0] === 'billing' && billingLoaded && !billing ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
+      }).join('');
     }).join('') +
     '<span class="acct-menu-line" aria-hidden="true"></span>' +
-    '<button type="button" class="acct-out" data-page="logout">' + SVG + '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span>' + t('nav.logout') + '</span></button>';
+    '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>';
   }
   function head() {
     document.getElementById('acctAvatar').textContent = initials(user.name || user.email);
@@ -8971,35 +9317,88 @@ var Session = (function () {
     em.textContent = user.email;
     var se = document.getElementById('acctSince'); se.textContent = since ? t('acct.since', { date: since }) : ''; se.hidden = !since;
     var stat = function (v, k, page) { return '<a href="#" class="acct-stat" data-goto="' + page + '"><b>' + (v == null ? '–' : i18n.fmt.num(v)) + '</b><small>' + t(k) + '</small></a>'; };
-    stats.innerHTML = api.isDemo() ? '' : stat(sum && sum.codes, 'acct.codes', 'myCodes') + stat(sum && sum.scans, 'acct.scansTotal', 'analytics') + stat(sum && sum.scans30, 'acct.scans30', 'analytics');
+    stats.innerHTML = stat(sum && sum.codes, 'acct.codes', 'myCodes') + stat(sum && sum.scans, 'acct.scansTotal', 'analytics') + stat(sum && sum.scans30, 'acct.scans30', 'analytics');
+    var dn = document.getElementById('acctDemo'); if (dn) { dn.hidden = !api.isDemo(); dn.textContent = t('acct.demoNote'); }
+  }
+
+  /* ---------- Onderdelen ---------- */
+  function field(label, input, opts) {
+    opts = opts || {};
+    return '<label class="auth-f' + (opts.wide ? ' acct-wide' : '') + (opts.cls ? ' ' + opts.cls : '') + '"><span>' + label + (opts.optional ? ' <em class="acct-opt">' + t('acct.optional') + '</em>' : '') + '</span>' +
+      '<span class="auth-in' + (opts.icon ? ' acct-ic' : '') + '">' + (opts.icon ? SVG + ICON[opts.icon] + '</svg>' : '') + input + '</span>' +
+      (opts.error ? '<small class="acct-err" id="' + opts.errId + '">' + opts.error + '</small>' : opts.hint ? '<small class="auth-hint">' + opts.hint + '</small>' : '') + '</label>';
+  }
+  function billingPanel(m) {
+    if (!billingLoaded || !draft) return '<div class="glass bg-card acct"><h2>' + t('acct.billing') + '</h2><p>…</p></div>';
+    var b = draft, company = b.type !== 'private';
+    var input = function (k, extra) {
+      var isBad = bad.indexOf(k) >= 0;
+      return '<input name="' + k + '" value="' + esc(b[k]) + '"' + (isBad ? ' aria-invalid="true" aria-describedby="err-' + k + '"' : '') + (extra || '') + '>';
+    };
+    var e = function (k) {
+      if (bad.indexOf(k) < 0) return null;
+      if (k === 'taxId') return t('acct.errTaxId');
+      return String(b[k] || '').trim() ? t('acct.errInvalid') : t('acct.errRequired');
+    };
+    var f = function (k, label, icon, opts) { opts = Object.assign({ icon: icon, error: e(k), errId: 'err-' + k }, opts || {}); return field(label, input(k, opts.attrs), opts); };
+    var seg = function (v, label, icon) { var on = b.type === v; return '<button type="button" role="radio" aria-checked="' + on + '" data-btype="' + v + '">' + SVG + ICON[icon] + '</svg>' + label + '</button>'; };
+    return '<div class="glass bg-card acct"><h2>' + t('acct.billing') + '</h2><p>' + t('acct.billingLead') + '</p>' +
+      '<form data-form="billing" novalidate>' +
+      '<div class="acct-seg" role="radiogroup" aria-label="' + esc(t('acct.typeLabel')) + '">' + seg('company', t('acct.company'), 'company') + seg('private', t('acct.private'), 'person') + '</div>' +
+      '<div class="acct-grid">' +
+      (company ? f('companyName', t('acct.companyName'), 'company', { attrs: ' maxlength="120" autocomplete="organization"' }) +
+                 f('taxId', t('acct.taxId'), 'hash', { optional: true, hint: t('acct.taxIdHint'), attrs: ' maxlength="24" autocapitalize="characters" spellcheck="false"' }) : '') +
+      f('firstName', t('acct.firstName'), 'person', { optional: company, attrs: ' maxlength="60" autocomplete="given-name"' }) +
+      f('lastName', t('acct.lastName'), 'person', { optional: company, attrs: ' maxlength="60" autocomplete="family-name"' }) +
+      f('email', t('acct.billingEmail'), 'mail', { optional: true, wide: true, hint: t('acct.billingEmailHint'), attrs: ' type="email" maxlength="254" autocomplete="email" placeholder="' + esc(user.email) + '"' }) +
+      f('address', t('acct.address'), 'pin', { attrs: ' maxlength="160" autocomplete="street-address"' }) +
+      f('postalCode', t('acct.postalCode'), 'hash', { attrs: ' maxlength="12" autocomplete="postal-code"' }) +
+      f('city', t('acct.city'), 'pin', { attrs: ' maxlength="80" autocomplete="address-level2"' }) +
+      field(t('acct.country'), '<select name="country"' + (bad.indexOf('country') >= 0 ? ' aria-invalid="true"' : '') + ' autocomplete="country"><option value="">' + t('acct.chooseCountry') + '</option>' +
+        countries().map(function (c) { return '<option value="' + c[0] + '"' + (c[0] === b.country ? ' selected' : '') + '>' + TEL.flag(c[0]) + ' ' + esc(c[1]) + '</option>'; }).join('') + '</select>',
+        { icon: 'globe', error: e('country'), errId: 'err-country' }) +
+      '</div>' +
+      '<div class="acct-actions">' + (billing ? '<button class="btn ghost" type="button" data-billing-reset>' + t('myCodes.cancel') + '</button>' : '') +
+      '<button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + (m.billing ? '<p class="acct-msg ' + m.billing[1] + '" role="status">' + esc(m.billing[0]) + '</p>' : '') + '</div>';
+  }
+  function planPanel() {
+    var feats = ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(function (k) { return '<li>' + SVG + ICON.check + '</svg>' + t(k) + '</li>'; }).join('');
+    var addr = billing ? [billing.type === 'company' ? billing.companyName : (billing.firstName + ' ' + billing.lastName), billing.address, billing.postalCode + ' ' + billing.city, TEL.name(billing.country)].filter(Boolean).map(esc).join('<br>') : '';
+    return '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t('acct.planFreeLead') + '</p></div><span class="acct-badge">' + t('acct.planFree') + '</span></div>' +
+        '<ul class="acct-feats">' + feats + '</ul><p class="acct-note">' + t('acct.planNote') + '</p></div>' +
+      '<div class="glass bg-card acct"><h2>' + t('acct.billingTo') + '</h2>' +
+        (billing ? '<p class="acct-addr">' + addr + (billing.taxId ? '<br><span>' + t('acct.taxId') + ': ' + esc(billing.taxId) + '</span>' : '') + '</p><button type="button" class="btn ghost" data-tab-go="billing">' + t('acct.billingEdit') + '</button>'
+          : '<p>' + t('acct.billingMissing') + '</p><button type="button" class="btn primary" data-tab-go="billing">' + t('acct.billingFill') + '</button>') + '</div>' +
+      '<div class="glass bg-card acct"><h2>' + t('acct.invoices') + '</h2>' +
+        '<div class="acct-table" role="table" aria-label="' + esc(t('acct.invoices')) + '"><div class="acct-tr acct-th" role="row">' +
+        ['acct.invDate', 'acct.invNumber', 'acct.invAmount', 'acct.invStatus'].map(function (k) { return '<span role="columnheader">' + t(k) + '</span>'; }).join('') + '</div>' +
+        '<div class="acct-empty" role="row"><span role="cell">' + SVG + ICON.billing + '</svg>' + t('acct.invEmpty') + '</span></div></div></div>';
   }
   function panel(m) {
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
-    var field = function (label, input) { return '<label class="auth-f"><span>' + label + '</span><span class="auth-in">' + input + '</span></label>'; };
-    if (tab === 'profile') return '<div class="glass bg-card acct"><h2>' + t('acct.profile') + '</h2>' +
-      (api.isDemo() ? '<p>' + t('auth.demoAccount') + '</p></div>' :
-      '<p>' + t('acct.profileLead') + '</p>' +
-      '<form data-form="name"><div class="acct-grid">' + field(t('auth.name'), '<input name="name" value="' + esc(user.name) + '" maxlength="80" autocomplete="name">') +
-      field(t('auth.email'), '<input value="' + esc(user.email) + '" disabled>') + '</div>' +
-      '<div class="acct-actions"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + note('name') + '</div>');
+    if (tab === 'profile') return '<div class="glass bg-card acct"><h2>' + t('acct.profile') + '</h2><p>' + t('acct.profileLead') + '</p>' +
+      '<form data-form="name"><div class="acct-grid">' + field(t('auth.name'), '<input name="name" value="' + esc(user.name) + '" maxlength="80" autocomplete="name">', { icon: 'person' }) +
+      field(t('auth.email'), '<input value="' + esc(user.email) + '" disabled>', { icon: 'mail' }) + '</div>' +
+      '<div class="acct-actions"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + note('name') + '</div>';
     if (tab === 'security') return '<div class="glass bg-card acct"><h2>' + t('acct.passwordTitle') + '</h2><p>' + t('acct.passwordLead') + '</p>' +
       '<form data-form="password"><div class="acct-grid">' +
       field(t('acct.current'), '<input name="current" type="password" autocomplete="current-password" required>') +
-      field(t('auth.newPassword'), '<input name="password" type="password" autocomplete="new-password" minlength="8" required>') + '</div>' +
-      '<small class="auth-hint">' + t('auth.pwRule') + '</small>' +
+      field(t('auth.newPassword'), '<input name="password" type="password" autocomplete="new-password" minlength="8" required>', { hint: t('auth.pwRule') }) + '</div>' +
       '<div class="acct-actions"><button class="btn primary" type="submit">' + t('auth.savePassword') + '</button></div></form>' + note('password') + '</div>' +
       '<div class="glass bg-card acct"><h2>' + t('acct.devicesTitle') + '</h2>' +
       '<div class="acct-dev"><p>' + t('acct.devices', { n: sum ? sum.sessions : 1 }) + '</p>' + (sum && sum.sessions > 1 ? '<button type="button" class="btn ghost" data-logout-others>' + t('acct.logoutOthers') + '</button>' : '') + '</div>' + note('devices') + '</div>';
     if (tab === 'prefs') return '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
-      field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>').replace('class="auth-f"', 'class="auth-f acct-lang"') + '</div>';
+      field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>', { icon: 'globe', cls: 'acct-lang' }) + '</div>';
+    if (tab === 'billing') return billingPanel(m);
+    if (tab === 'plan') return planPanel();
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
-      '<div class="acct-btns"><a class="btn ghost" href="' + api.account.exportUrl + '" download>' + t('acct.download') + '</a>' +
+      '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + t('acct.download') + '</button>' +
       '<button type="button" class="btn ghost danger-ghost" data-delete>' + t('acct.delete') + '</button></div>' + note('delete') + '</div>';
     return '';
   }
   function draw(msg) {
     if (!user) { box.innerHTML = ''; menu.innerHTML = ''; stats.innerHTML = ''; return; }
-    if (!tabs().some(function (x) { return x.id === tab; })) tab = 'profile';
+    if (TAB_IDS.indexOf(tab) < 0) tab = 'profile';
     head(); drawMenu();
     var isBg = tab === 'background';
     bgSection.hidden = !isBg; box.hidden = isBg;
@@ -9007,20 +9406,22 @@ var Session = (function () {
     box.innerHTML = isBg ? '' : panel(msg || {});
   }
   function open(id, focus) {
-    tab = id; draw();
+    tab = id; bad = []; if (id === 'billing' && billingLoaded) draft = startDraft();
+    draw();
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
   }
   window.openAccountTab = function (id) { open(id); };
 
   function err(e) { return e && e.code === 'wrong' ? t('acct.wrongCurrent') : e && /^password_/.test(e.code || '') ? t({ password_short: 'auth.errShort', password_common: 'auth.errCommon', password_long: 'auth.errLong' }[e.code]) : e && e.code === 'too_many' ? t('auth.errTooMany') : t('auth.errGeneral'); }
+  function readBilling(f) { BILLING_KEYS.forEach(function (k) { if (f.elements[k]) draft[k] = f.elements[k].value; }); }
 
   menu.addEventListener('click', function (e) { var b = e.target.closest('[data-tab]'); if (b) open(b.getAttribute('data-tab')); });
   menu.addEventListener('keydown', function (e) {   // pijltjes: naar het vorige/volgende onderdeel
-    var ids = tabs().map(function (x) { return x.id; }), i = ids.indexOf(tab), n = null;
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = ids[(i + 1) % ids.length];
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = ids[(i - 1 + ids.length) % ids.length];
-    if (e.key === 'Home') n = ids[0];
-    if (e.key === 'End') n = ids[ids.length - 1];
+    var i = TAB_IDS.indexOf(tab), n = null;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = TAB_IDS[(i + 1) % TAB_IDS.length];
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = TAB_IDS[(i - 1 + TAB_IDS.length) % TAB_IDS.length];
+    if (e.key === 'Home') n = TAB_IDS[0];
+    if (e.key === 'End') n = TAB_IDS[TAB_IDS.length - 1];
     if (n && e.target.closest('[data-tab]')) { e.preventDefault(); open(n, true); }
   });
   stats.addEventListener('click', function (e) { var go = e.target.closest('[data-goto]'); if (go) { e.preventDefault(); window.goToPage(go.getAttribute('data-goto')); } });
@@ -9029,19 +9430,49 @@ var Session = (function () {
     e.preventDefault();
     var f = e.target, kind = f.getAttribute('data-form'), btn = f.querySelector('button[type="submit"]'); btn.disabled = true;
     if (kind === 'name') {
-      api.account.update({ name: f.name.value }).then(function (u) { user = u; draw({ name: [t('acct.saved'), 'ok'] }); })
+      api.account.update({ name: f.name.value }).then(function (u) { user = Object.assign({}, user, u); draw({ name: [t('acct.saved'), 'ok'] }); })
         .catch(function (x) { draw({ name: [err(x), 'bad'] }); });
     }
     if (kind === 'password') {
       api.account.password({ current: f.current.value, password: f.password.value }).then(function () { if (sum) sum.sessions = 1; draw({ password: [t('acct.passwordSaved'), 'ok'] }); })
         .catch(function (x) { draw({ password: [err(x), 'bad'] }); });
     }
+    if (kind === 'billing') {
+      readBilling(f);
+      api.account.saveBilling(draft).then(function (r) { billing = r.billing; draft = startDraft(); bad = []; draw({ billing: [t('acct.billingSaved'), 'ok'] }); })
+        .catch(function (x) {
+          bad = (x && x.details) || []; draw({ billing: [bad.length ? t('acct.errBilling') : err(x), 'bad'] });
+          var first = box.querySelector('[aria-invalid="true"]'); if (first) first.focus();
+        });
+    }
   });
-  box.addEventListener('change', function (e) { if (e.target.id === 'acctLang') i18n.set(e.target.value); });
+  box.addEventListener('input', function (e) {
+    var f = e.target.form; if (!f || f.getAttribute('data-form') !== 'billing' || !e.target.name) return;
+    draft[e.target.name] = e.target.value;
+    if (e.target.getAttribute('aria-invalid')) { e.target.removeAttribute('aria-invalid'); var m = document.getElementById('err-' + e.target.name); if (m) m.remove(); bad = bad.filter(function (k) { return k !== e.target.name; }); }
+  });
+  box.addEventListener('change', function (e) {
+    if (e.target.id === 'acctLang') i18n.set(e.target.value);
+    if (e.target.name === 'country' && draft) draft.country = e.target.value;
+  });
   box.addEventListener('click', function (e) {
+    var seg = e.target.closest('[data-btype]');
+    if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
+    if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
+    var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
+    if (e.target.closest('[data-export]')) {
+      return api.account.exportData().then(function (d) { saveFile(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), 'optimasys-mijn-gegevens.json'); })
+        .catch(function (x) { draw({ delete: [err(x), 'bad'] }); });
+    }
     if (e.target.closest('[data-logout-others]')) {
       api.account.logoutOthers().then(function () { sum.sessions = 1; draw({ devices: [t('acct.loggedOutOthers'), 'ok'] }); }).catch(function (x) { draw({ devices: [err(x), 'bad'] }); });
     }
+  });
+  // Bedrijf / particulier: pijltjes wisselen (zoals bij een keuzerondje)
+  box.addEventListener('keydown', function (e) {
+    var seg = e.target.closest('[data-btype]'); if (!seg || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(e.key) < 0) return;
+    e.preventDefault(); readBilling(seg.closest('form')); draft.type = draft.type === 'private' ? 'company' : 'private'; draw();
+    var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus();
   });
   // Account verwijderen: eerst bevestigen met het wachtwoord
   box.addEventListener('click', function (e) {
@@ -9058,7 +9489,7 @@ var Session = (function () {
     });
     d.showModal(); d.querySelector('#delPw').focus();
   });
-  Session.onUser(function (u) { user = u; sum = null; tab = 'profile'; draw(); loadSummary(); });
+  Session.onUser(function (u) { user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; draw(); loadSummary(); loadBilling(); });
   // Elke keer dat je Mijn account opent: verse cijfers
   document.addEventListener('click', function (e) { if (e.target.closest('[data-page="account"], #bgBtn')) loadSummary(); });
   i18n.onChange(function () { draw(); });
@@ -9480,6 +9911,172 @@ var Analytics = (function () {
 
   // Vanuit Mijn QR-codes: meteen de statistieken van één code
   return { open: function (opts) { f.codes = (opts && opts.codes) || []; f.os = []; f.cc = []; f.city = []; goToPage('analytics'); } };
+})();
+
+/* ---- js/help.js ---- */
+/* =========================================================
+   HULP: Contact en Veelgestelde vragen
+   - Contact: formulier (naam, e-mail, onderwerp, bericht) → POST /api/contact (per e-mail naar het team).
+     In de online demo wordt niets verstuurd; dat staat er dan ook bij.
+   - Veelgestelde vragen: zoeken, filteren op onderwerp, uitklappen. Bij veel antwoorden een knop
+     die meteen naar de juiste plek in de app gaat (bv. Mijn account > Beveiliging).
+   Alle teksten staan in public/locales/*.json (contact.*, faq.*).
+   ========================================================= */
+(function () {
+  var contactBox = document.getElementById('contactPage'), faqBox = document.getElementById('faqPage');
+  var user = null;
+  var SVG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
+  var ICON = {
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+    chevron: '<path d="M6 9l6 6 6-6"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    faq: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17h.01"/>',
+    tip: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+    send: '<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>',
+    ok: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>'
+  };
+
+  /* ---------- Contact ---------- */
+  var TOPICS = ['question', 'problem', 'idea', 'billing', 'other'];
+  var form = { name: '', email: '', topic: '', message: '' }, bad = [], sent = null, busy = false, failMsg = '';
+  function contactField(k, label, input, hint) {
+    var isBad = bad.indexOf(k) >= 0;
+    var msg = !isBad ? '' : k === 'message' ? t('contact.errMessage') : k === 'topic' ? t('contact.errTopic') : String(form[k] || '').trim() ? t('acct.errInvalid') : t('acct.errRequired');
+    return '<label class="auth-f' + (k === 'message' ? ' acct-wide' : '') + '"><span>' + label + '</span><span class="auth-in">' + input.replace('>', (isBad ? ' aria-invalid="true" aria-describedby="cerr-' + k + '"' : '') + '>') + '</span>' +
+      (isBad ? '<small class="acct-err" id="cerr-' + k + '">' + msg + '</small>' : hint ? '<small class="auth-hint">' + hint + '</small>' : '') + '</label>';
+  }
+  function drawContact() {
+    if (!contactBox) return;
+    var side = '<aside class="help-side">' +
+      '<div class="glass help-card"><span class="help-ic">' + SVG + ICON.faq + '</svg></span><h3>' + t('contact.faqTitle') + '</h3><p>' + t('contact.faqText') + '</p>' +
+        '<button type="button" class="btn ghost" data-help-go="faq">' + t('contact.faqButton') + SVG + ICON.arrow + '</svg></button></div>' +
+      '<div class="glass help-card"><span class="help-ic">' + SVG + ICON.tip + '</svg></span><h3>' + t('contact.tipsTitle') + '</h3><ul class="help-tips">' +
+        ['contact.tip1', 'contact.tip2', 'contact.tip3'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul></div></aside>';
+    var main;
+    if (sent) {
+      main = '<div class="glass bg-card help-main help-sent" role="status"><span class="help-ic big">' + SVG + ICON.ok + '</svg></span><h3>' + t('contact.sentTitle') + '</h3>' +
+        '<p>' + t('contact.sentText', { email: '<b>' + esc(sent.email) + '</b>' }) + '</p>' + (sent.demo ? '<p class="acct-note">' + t('contact.demoNote') + '</p>' : '') +
+        '<button type="button" class="btn ghost" data-contact-new>' + t('contact.another') + '</button></div>';
+    } else {
+      main = '<form class="glass bg-card help-main" data-contact novalidate><h3>' + t('contact.formTitle') + '</h3>' +
+        '<div class="acct-grid">' +
+        contactField('name', t('auth.name'), '<input name="name" maxlength="80" autocomplete="name" value="' + esc(form.name) + '">') +
+        contactField('email', t('auth.email'), '<input name="email" type="email" maxlength="254" autocomplete="email" value="' + esc(form.email) + '">', t('contact.emailHint')) +
+        contactField('topic', t('contact.topic'), '<select name="topic"><option value="">' + t('contact.chooseTopic') + '</option>' +
+          TOPICS.map(function (k) { return '<option value="' + k + '"' + (form.topic === k ? ' selected' : '') + '>' + t('contact.topics.' + k) + '</option>'; }).join('') + '</select>') +
+        '<span class="help-gap" aria-hidden="true"></span>' +
+        contactField('message', t('contact.message'), '<textarea name="message" rows="7" maxlength="4000" placeholder="' + esc(t('contact.messagePlaceholder')) + '">' + esc(form.message) + '</textarea>') +
+        '</div><div class="help-form-foot"><small class="help-count" aria-live="polite">' + form.message.length + ' / 4000</small>' +
+        '<button class="btn primary" type="submit"' + (busy ? ' disabled' : '') + '>' + SVG + ICON.send + '</svg>' + t('contact.send') + '</button></div>' +
+        (failMsg ? '<p class="acct-msg bad" role="alert">' + esc(failMsg) + '</p>' : '') + '</form>';
+    }
+    contactBox.innerHTML = '<header class="help-head"><h2>' + t('nav.contact') + '</h2><p>' + t('contact.lead') + '</p></header><div class="help-grid">' + main + side + '</div>';
+  }
+  function checkContact() {
+    var e = [];
+    if (!form.name.trim()) e.push('name');
+    if (!(window.EmailCheck ? EmailCheck.valid(form.email.trim()) : /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(form.email.trim()))) e.push('email');
+    if (!form.topic) e.push('topic');
+    if (form.message.trim().length < 10) e.push('message');
+    return e;
+  }
+  if (contactBox) {
+    contactBox.addEventListener('input', function (e) {
+      var n = e.target.name; if (!n || !(n in form)) return;
+      form[n] = e.target.value;
+      if (n === 'message') { var c = contactBox.querySelector('.help-count'); if (c) c.textContent = form.message.length + ' / 4000'; }
+      if (e.target.getAttribute('aria-invalid')) { e.target.removeAttribute('aria-invalid'); var m = document.getElementById('cerr-' + n); if (m) m.remove(); bad = bad.filter(function (k) { return k !== n; }); }
+    });
+    contactBox.addEventListener('change', function (e) { if (e.target.name === 'topic') form.topic = e.target.value; });
+    contactBox.addEventListener('submit', function (e) {
+      e.preventDefault(); failMsg = '';
+      bad = checkContact();
+      if (bad.length) { drawContact(); var f = contactBox.querySelector('[aria-invalid="true"]'); if (f) f.focus(); return; }
+      busy = true; drawContact();
+      api.contact({ name: form.name.trim(), email: form.email.trim(), topic: form.topic, message: form.message.trim(), lang: i18n.lang() })
+        .then(function (r) { busy = false; sent = { email: form.email.trim(), demo: !!(r && r.demo) }; form.message = ''; form.topic = ''; drawContact(); var h = contactBox.querySelector('.help-sent h3'); if (h) { h.tabIndex = -1; h.focus(); } })
+        .catch(function (x) { busy = false; bad = (x && x.details) || []; failMsg = x && x.code === 'too_many' ? t('auth.errTooMany') : bad.length ? t('acct.errBilling') : t('contact.errSend'); drawContact(); });
+    });
+    contactBox.addEventListener('click', function (e) {
+      if (e.target.closest('[data-contact-new]')) { sent = null; bad = []; drawContact(); var n = contactBox.querySelector('select[name=topic]'); if (n) n.focus(); }
+    });
+  }
+
+  /* ---------- Veelgestelde vragen ---------- */
+  // [id, onderwerp, knop (tekst, waarheen)]
+  var FAQ = [
+    ['make', 'start', ['faq.go.create', 'create']],
+    ['types', 'start'],
+    ['edit', 'codes', ['faq.go.myCodes', 'myCodes']],
+    ['format', 'codes'],
+    ['scanFix', 'codes'],
+    ['pause', 'codes', ['faq.go.myCodes', 'myCodes']],
+    ['stats', 'stats', ['faq.go.analytics', 'analytics']],
+    ['privacy', 'stats'],
+    ['password', 'account', ['faq.go.security', 'account:security']],
+    ['billing', 'account', ['faq.go.billing', 'account:billing']],
+    ['data', 'account', ['faq.go.data', 'account:data']],
+    ['price', 'account', ['faq.go.plan', 'account:plan']]
+  ];
+  var CATS = ['all', 'start', 'codes', 'stats', 'account'];
+  var cat = 'all', query = '', openIds = {};
+  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function matches(item) {
+    if (cat !== 'all' && item[1] !== cat) return false;
+    if (!query) return true;
+    var hay = norm(t('faq.q.' + item[0]) + ' ' + t('faq.a.' + item[0]));
+    return norm(query).split(/\s+/).filter(Boolean).every(function (w) { return hay.indexOf(w) >= 0; });
+  }
+  function itemHtml(item) {
+    var id = item[0], open = openIds[id] || (query && true);
+    return '<details class="glass faq-item" data-faq="' + id + '"' + (open ? ' open' : '') + '><summary><span>' + t('faq.q.' + id) + '</span>' + SVG + ICON.chevron + '</svg></summary>' +
+      '<div class="faq-a">' + t('faq.a.' + id).split('\n').map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+      (item[2] ? '<button type="button" class="btn ghost faq-go" data-help-go="' + item[2][1] + '">' + t(item[2][0]) + SVG + ICON.arrow + '</svg></button>' : '') + '</div></details>';
+  }
+  function drawList() {
+    var list = faqBox.querySelector('.faq-list'); if (!list) return;
+    var shown = FAQ.filter(matches), html;
+    if (!shown.length) html = '<div class="glass bg-card faq-none"><p>' + t('faq.none', { q: '<b>' + esc(query) + '</b>' }) + '</p><button type="button" class="btn ghost" data-help-go="contact">' + t('faq.askUs') + '</button></div>';
+    else if (cat === 'all' && !query) html = CATS.slice(1).map(function (c) { return '<h3 class="faq-cat">' + t('faq.cats.' + c) + '</h3>' + FAQ.filter(function (x) { return x[1] === c; }).map(itemHtml).join(''); }).join('');
+    else html = shown.map(itemHtml).join('');
+    list.innerHTML = html;
+    var n = faqBox.querySelector('.faq-count'); if (n) n.textContent = query || cat !== 'all' ? t('faq.count', { n: shown.length }) : '';
+  }
+  function drawFaq() {
+    if (!faqBox) return;
+    faqBox.innerHTML = '<header class="help-head"><h2>' + t('nav.faq') + '</h2><p>' + t('faq.lead') + '</p>' +
+      '<label class="help-search">' + SVG + ICON.search + '</svg><span class="sr-only">' + t('faq.search') + '</span><input type="search" id="faqSearch" placeholder="' + esc(t('faq.searchPlaceholder')) + '" value="' + esc(query) + '" autocomplete="off"></label></header>' +
+      '<div class="help-cats" role="group" aria-label="' + esc(t('faq.filter')) + '">' + CATS.map(function (c) { return '<button type="button" class="chip" data-cat="' + c + '" aria-pressed="' + (cat === c) + '">' + t('faq.cats.' + c) + '</button>'; }).join('') +
+      '<span class="faq-count" aria-live="polite"></span></div>' +
+      '<div class="faq-list"></div>' +
+      '<div class="glass help-card faq-more"><div><h3>' + t('faq.moreTitle') + '</h3><p>' + t('faq.moreText') + '</p></div><button type="button" class="btn primary" data-help-go="contact">' + t('faq.askUs') + SVG + ICON.arrow + '</svg></button></div>';
+    drawList();
+  }
+  if (faqBox) {
+    faqBox.addEventListener('input', function (e) { if (e.target.id === 'faqSearch') { query = e.target.value.trim(); drawList(); } });
+    faqBox.addEventListener('click', function (e) {
+      var c = e.target.closest('[data-cat]');
+      if (c) { cat = c.getAttribute('data-cat'); faqBox.querySelectorAll('[data-cat]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === c)); }); drawList(); }
+    });
+    faqBox.addEventListener('toggle', function (e) { var d = e.target.closest && e.target.closest('[data-faq]'); if (d && !query) openIds[d.getAttribute('data-faq')] = d.open; }, true);
+  }
+
+  /* ---------- Knoppen naar een plek in de app ---------- */
+  document.addEventListener('click', function (e) {
+    var go = e.target.closest('[data-help-go]'); if (!go) return;
+    var to = go.getAttribute('data-help-go').split(':');
+    window.goToPage(to[0]);
+    if (to[1] && window.openAccountTab) window.openAccountTab(to[1]);
+    var top = document.querySelector('.canvas:not([hidden])'); if (top) top.scrollTop = 0;
+  });
+
+  if (window.Session) Session.onUser(function (u) {
+    user = u; sent = null; bad = []; failMsg = '';
+    form.name = (u && u.name) || ''; form.email = (u && u.email) || '';
+    drawContact();
+  });
+  i18n.onChange(function () { drawContact(); drawFaq(); });
+  drawContact(); drawFaq();
 })();
 
 /* ---- js/main.js ---- */
