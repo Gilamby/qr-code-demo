@@ -251,10 +251,26 @@ var Admin = (function () {
     goToPage(g.getAttribute('data-go-page'));
   });
 
+  /* App / Beheer: één pagina, één adres. Admins wisselen met de knop bovenin de zijbalk;
+     in Beheer krijgt de zijbalk het beheermenu en de pagina een eigen, rustige achtergrond. */
+  var ENV_KEY = 'optimasys-env', envSwitch = document.getElementById('envSwitch');
+  function savedEnv() { try { return localStorage.getItem(ENV_KEY) === 'admin' ? 'admin' : 'app'; } catch (e) { return 'app'; } }
+  function setEnv(env, go) {
+    var adm = env === 'admin' && !!(me && me.admin);
+    document.body.classList.toggle('env-admin', adm);
+    var navApp = document.getElementById('navApp'), navAdm = document.getElementById('navAdmin');
+    if (navApp) navApp.hidden = adm; if (navAdm) navAdm.hidden = !adm;
+    if (envSwitch) envSwitch.querySelectorAll('[data-env]').forEach(function (b) { b.setAttribute('aria-checked', String((b.getAttribute('data-env') === 'admin') === adm)); });
+    try { localStorage.setItem(ENV_KEY, adm ? 'admin' : 'app'); } catch (e) {}
+    if (go) goToPage(adm ? 'adminDash' : 'create');
+  }
+  if (envSwitch) envSwitch.addEventListener('click', function (e) { var b = e.target.closest('[data-env]'); if (b) setEnv(b.getAttribute('data-env'), true); });
+
   Session.onUser(function (u) {
     me = u; var admin = !!(u && u.admin);
-    var nav = document.getElementById('navAdmin'); if (nav) nav.hidden = !admin;
-    if (!admin) { data = null; res = null; }
+    if (envSwitch) envSwitch.hidden = !admin;
+    if (!admin) { data = null; res = null; setEnv('app', false); return; }
+    if (savedEnv() === 'admin') setEnv('admin', true);           // je was in het beheer: daar ga je verder
   });
   document.addEventListener('pagechange', function (e) {
     if (e.detail === 'adminDash') { drawDash(); loadDash(); }

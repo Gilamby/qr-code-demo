@@ -143,6 +143,3 @@
 /* ---------- Start: opgeslagen taal, anders Engels ---------- */
 if (document.getElementById('locale-en')) i18n.render();
 i18n.set(i18n.detect());
-
-// Admins: knop naar het beheer in de zijbalk (een admin kan alles wat een klant kan, plus beheren)
-Session.onUser(function (u) { var a = document.getElementById('navToAdmin'); if (a) a.hidden = !(u && u.admin); });

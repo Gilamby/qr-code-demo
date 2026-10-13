@@ -32,7 +32,14 @@
       </button>
     </div>
 
+    <!-- Alleen voor admins: wisselen tussen de app en het beheer, op dezelfde pagina (admin.js) -->
+    <div class="env-switch" id="envSwitch" role="radiogroup" data-i18n-aria="adminApp.switch" hidden>
+      <button type="button" role="radio" data-env="app" aria-checked="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg><span data-i18n="adminApp.app"></span></button>
+      <button type="button" role="radio" data-env="admin" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg><span data-i18n="adminApp.badge"></span></button>
+    </div>
+
     <nav>
+      <div class="nav-app" id="navApp">
       <div class="group-label" data-i18n="nav.workspace"></div>
       <a class="item active" href="#" data-page="create">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
@@ -52,12 +59,28 @@
       </a>
 
 
-      <!-- Alleen voor admins: wisselen naar het beheer (main.js zet dit aan) -->
-      <a class="item env-go" id="navToAdmin" href="admin" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-        <span class="label" data-i18n="adminApp.toAdmin"></span><span class="tip" data-i18n="adminApp.toAdmin"></span>
-      </a>
+      </div>
 
+      <!-- Beheer (alleen admins, als de wisselknop op Beheer staat) -->
+      <div class="nav-admin" id="navAdmin" hidden>
+      <div class="group-label" data-i18n="adminApp.badge"></div>
+      <a class="item" href="#" data-page="adminDash">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19a8 8 0 1 1 16 0"/><path d="M12 19l4-6"/><circle cx="12" cy="19" r="1.2"/></svg>
+        <span class="label" data-i18n="nav.adminDash"></span><span class="tip" data-i18n="nav.adminDash"></span>
+      </a>
+      <a class="item" href="#" data-page="adminCodes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM19 19h2v2M14 19v2M19 14h2"/></svg>
+        <span class="label" data-i18n="nav.adminCodes"></span><span class="tip" data-i18n="nav.adminCodes"></span>
+      </a>
+      <a class="item" href="#" data-page="customers" id="navCustomers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.6 3.6-5.5 6.5-5.5s5.5 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.8.7 3 2.5 3.5 5.2"/></svg>
+        <span class="label" data-i18n="nav.users"></span><span class="tip" data-i18n="nav.users"></span>
+      </a>
+      <a class="item" href="#" data-page="account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/></svg>
+        <span class="label" data-i18n="nav.account"></span><span class="tip" data-i18n="nav.account"></span>
+      </a>
+      </div>
       <div class="divider" role="separator"></div>
       <div class="group-label" data-i18n="nav.help"></div>
       <a class="item" href="#" data-page="contact">
@@ -173,6 +196,18 @@
       <section class="help" id="contactPage"></section>
     </main>
 
+    <main class="canvas" id="adminDashView" hidden>
+      <section class="help ad-page" id="adminDashPage"></section>
+    </main>
+
+    <main class="canvas" id="adminCodesView" hidden>
+      <section class="help ad-page" id="adminCodesPage"></section>
+    </main>
+
+    <main class="canvas" id="customersView" hidden>
+      <section class="help ad-page" id="customersPage"></section>
+    </main>
+
     <main class="canvas" id="faqView" hidden>
       <section class="help" id="faqPage"></section>
     </main>
@@ -217,6 +252,8 @@
 <script src="js/my-codes.js"></script>
 <script src="js/analytics.js"></script>
 <script src="js/help.js"></script>
+<script src="js/customers.js"></script>
+<script src="js/admin.js"></script>
 <script src="js/main.js"></script>
 <script src="js/hello.js"></script>
 </body>
