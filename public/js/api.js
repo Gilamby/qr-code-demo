@@ -236,7 +236,8 @@ var api = (function () {
       demoToken: function (email) { return 'demo:' + String(email || '').trim().toLowerCase(); },
       logout:   either(function ()  { return request('POST', 'api/auth/logout', {}); }, demoAuth.logout),
       forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),
-      reset:    function (d) { return request('POST', 'api/auth/reset', d); }
+      reset:    function (d) { return request('POST', 'api/auth/reset', d); },
+      emailChange: function (d) { return request('POST', 'api/auth/email-change', d); }
     },
     // Mijn account. Zonder server (online demo): alles in deze browser, zelfde antwoorden.
     account: {
@@ -248,7 +249,12 @@ var api = (function () {
       billing:  either(function ()  { return request('GET', 'api/account/billing'); }, demoAuth.account.billing),
       saveBilling: either(function (b) { return request('PUT', 'api/account/billing', b); }, demoAuth.account.saveBilling),
       // Gegevens downloaden: met server de echte export, zonder server wat in deze browser staat
-      exportData: either(function () { return request('GET', 'api/account/export'); }, demoAuth.account.exportData)
+      exportData: either(function () { return request('GET', 'api/account/export'); }, demoAuth.account.exportData),
+      // Beveiliging en e-mail wijzigen: alleen met server (de demo heeft één apparaat en geen e-mail)
+      sessions: either(function () { return request('GET', 'api/account/sessions'); }, function () { return Promise.resolve({ sessions: [], demo: true }); }),
+      endSession: function (id) { return request('DELETE', 'api/account/sessions/' + encodeURIComponent(id)); },
+      activity: either(function () { return request('GET', 'api/account/activity'); }, function () { return Promise.resolve({ activity: [], demo: true }); }),
+      changeEmail: either(function (d) { return request('POST', 'api/account/email', d); }, function () { var e = new Error('demo'); e.code = 'demo'; return Promise.reject(e); })
     },
     // Klanten (alleen voor het team, alleen met server)
     customers: {

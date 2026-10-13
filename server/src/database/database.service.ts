@@ -45,7 +45,14 @@ export function removeFiles(ids: string[]) { ids.forEach((id) => { try { fs.unli
 export interface UserRow { id: string; email: string; name: string; password_hash: string; email_verified_at: string | null; created_at: string }
 export type NewQrCode = { id: string; typeId: string; contentType: string; content: Record<string, any>; design?: Record<string, any>; name?: string; createdAt?: string };
 export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean };
-export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null }>;
+export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null; passwordChangedAt: string }>;
+/** Waar je bent ingelogd (Mijn account > Beveiliging). id = deel van de hash, nooit de sessiecode zelf */
+export type SessionInfo = { id: string; createdAt: string; seenAt: string | null; ua: string | null; ip: string | null; current?: boolean };
+export type ClientMeta = { ua?: string; ip?: string };
+/** Recente activiteit: login, login_failed, password, email, sessions_ended, session_ended */
+export type Activity = { kind: string; at: string; ip: string | null; ua: string | null };
+export const SESSION_ID_LEN = 16;
+export const EMAIL_CHANGE_HOURS = 24;
 export type Summary = { codes: number; scans: number; scans30: number; sessions: number };
 /** Een klant in de lijst van het team (pagina Klanten) */
 export type Customer = { id: string; email: string; name: string; createdAt: string; active: boolean; codes: number; inviteUntil: string | null;
@@ -88,7 +95,17 @@ export abstract class DatabaseService {
   abstract useVerification(token: string): Promise<string | null>;
 
   /* Sessies */
-  abstract createSession(userId: string): Promise<{ token: string; expires: string }>;
+  abstract createSession(userId: string, meta?: ClientMeta): Promise<{ token: string; expires: string }>;
+  /** Alle ingelogde apparaten (nieuwste eerst); current = deze sessie */
+  abstract listSessions(userId: string, currentToken?: string): Promise<SessionInfo[]>;
+  /** Eén apparaat uitloggen (id uit listSessions). true = gevonden */
+  abstract endSession(userId: string, id: string): Promise<boolean>;
+  /* Recente activiteit (max. 90 dagen bewaard) */
+  abstract addActivity(userId: string, kind: string, meta?: ClientMeta): Promise<void>;
+  abstract listActivity(userId: string, limit?: number): Promise<Activity[]>;
+  /* E-mail wijzigen: link naar het nieuwe adres, 24 uur geldig, één keer te gebruiken */
+  abstract createEmailChange(userId: string, email: string): Promise<string>;
+  abstract useEmailChange(token: string): Promise<{ userId: string; email: string } | null>;
   /** Geldige sessie? Dan de gebruiker; sessies worden bij gebruik verlengd (max. 1x per dag) */
   abstract sessionUser(token: string): Promise<User | null>;
   abstract deleteSession(token: string): Promise<unknown>;

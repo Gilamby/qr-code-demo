@@ -3,20 +3,37 @@
    Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond, factuurgegevens,
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
-import { Body, Controller, Delete, Get, HttpCode, Patch, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { DatabaseService } from '../database/database.service';
 import { AuthService } from './auth.service';
 import { CurrentUser, LoggedIn } from './auth.guard';
-import { validateMe } from '../qr-codes/validation';
+import { EMAIL, validateMe } from '../qr-codes/validation';
+import { MailerService } from './mailer.service';
+import { baseUrl } from '../config/env';
 import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
 
+/** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
+export function device(ua: string | null) {
+  const s = String(ua || '');
+  const browser = /Edg\//.test(s) ? 'Edge' : /OPR\/|Opera/.test(s) ? 'Opera' : /Firefox\//.test(s) ? 'Firefox' : /Chrome\/|CriOS/.test(s) ? 'Chrome' : /Safari\//.test(s) ? 'Safari' : s ? 'Browser' : '';
+  const os = /iPhone/.test(s) ? 'iPhone' : /iPad/.test(s) ? 'iPad' : /Android/.test(s) ? 'Android' : /Windows/.test(s) ? 'Windows' : /Mac OS X|Macintosh/.test(s) ? 'macOS' : /CrOS/.test(s) ? 'ChromeOS' : /Linux/.test(s) ? 'Linux' : '';
+  return { browser, os, mobile: /Mobi|iPhone|Android/.test(s) };
+}
+/** 84.104.12.7 -> 84.104.12.•••  (IPv6: alleen het begin) */
+export function maskIp(ip: string | null) {
+  const v = String(ip || '').replace(/^::ffff:/, '');
+  if (!v) return null;
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(v)) return v.replace(/\.\d+$/, '.•••');
+  return v.split(':').slice(0, 3).join(':') + ':•••';
+}
+
 @Controller('api')
 @UseGuards(LoggedIn)
 export class AccountController {
-  constructor(private readonly db: DatabaseService, private readonly auth: AuthService) {}
+  constructor(private readonly db: DatabaseService, private readonly auth: AuthService, private readonly mailer: MailerService) {}
 
   @Patch('account')
   async rename(@CurrentUser() user: User, @Body() b: any = {}) {
@@ -41,9 +58,10 @@ export class AccountController {
     if (this.auth.limited('pw:' + user.id, 10, 15)) throw fail(429, 'too_many');
     if (!(await this.auth.checkPassword(b.current || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');   // 403: wel ingelogd, verkeerd wachtwoord
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
-    await this.db.updateUser(user.id, { passwordHash: await this.auth.hashPassword(b.password) });
+    await this.db.updateUser(user.id, { passwordHash: await this.auth.hashPassword(b.password), passwordChangedAt: new Date().toISOString() });
     await this.db.deleteSessionsOf(user.id, req.sid);                  // andere apparaten uitloggen
-    return { ok: true };
+    await this.db.addActivity(user.id, 'password', this.auth.meta(req));
+    return { ok: true, passwordChangedAt: new Date().toISOString() };
   }
 
   /** Factuurgegevens: ophalen (null = nog niet ingevuld) en opslaan */
@@ -68,7 +86,45 @@ export class AccountController {
   @HttpCode(200)
   async logoutOthers(@Req() req: Request, @CurrentUser() user: User) {
     await this.db.deleteSessionsOf(user.id, req.sid);
+    await this.db.addActivity(user.id, 'sessions_ended', this.auth.meta(req));
     return { ok: true };
+  }
+
+  /** Apparaten waar je bent ingelogd (browser, systeem, IP deels verborgen, laatst actief) */
+  @Get('account/sessions')
+  async sessions(@Req() req: Request, @CurrentUser() user: User) {
+    return { sessions: (await this.db.listSessions(user.id, req.sid)).map((s) => ({ id: s.id, current: !!s.current, createdAt: s.createdAt, seenAt: s.seenAt, ...device(s.ua), ip: maskIp(s.ip) })) };
+  }
+  /** Eén ander apparaat uitloggen */
+  @Delete('account/sessions/:id')
+  @HttpCode(204)
+  async endSession(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string) {
+    const cur = (await this.db.listSessions(user.id, req.sid)).find((s) => s.current);
+    if (cur && cur.id === id) throw fail(400, 'current');               // dit apparaat: gewoon uitloggen
+    if (!(await this.db.endSession(user.id, String(id)))) throw fail(404, 'not_found');
+    await this.db.addActivity(user.id, 'session_ended', this.auth.meta(req));
+  }
+  /** Recente activiteit: inloggen (ook mislukt), wachtwoord, e-mail, uitloggen op andere apparaten */
+  @Get('account/activity')
+  async activity(@CurrentUser() user: User) {
+    return { activity: (await this.db.listActivity(user.id, 20)).map((a) => ({ kind: a.kind, at: a.at, ...device(a.ua), ip: maskIp(a.ip) })) };
+  }
+
+  /** E-mail wijzigen: met je wachtwoord; we sturen een link naar het nieuwe adres. Pas na klikken verandert het. */
+  @Post('account/email')
+  @HttpCode(200)
+  async changeEmail(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (this.auth.limited('email:' + user.id, 5, 60)) throw fail(429, 'too_many');
+    if (this.auth.emailLocked(user)) throw fail(403, 'locked');
+    const email = String(b.email || '').trim().toLowerCase();
+    if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
+    if (email === String(user.email).toLowerCase()) throw fail(400, 'same');
+    if (!(await this.auth.checkPassword(b.password || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');
+    if (await this.db.userByEmail(email)) throw fail(409, 'exists');
+    const token = await this.db.createEmailChange(user.id, email), link = baseUrl(req) + '/?email=' + encodeURIComponent(token);
+    this.mailer.sendEmailChange(email, link, String(b.lang || 'en')).catch((e) => console.error('E-mail versturen mislukt:', e.message));
+    // Demo-server zonder mail (SHOW_VERIFY_LINK=true): de link gaat mee, zodat je hem kunt testen
+    return { sent: true, email, mail: this.mailer.configured, ...(process.env.SHOW_VERIFY_LINK === 'true' && !this.mailer.configured ? { link } : {}) };
   }
 
   /** AVG: al je gegevens downloaden */

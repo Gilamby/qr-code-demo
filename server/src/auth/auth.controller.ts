@@ -79,11 +79,13 @@ export class AuthController {
     if (this.auth.limited('login:' + req.ip, 100, 15) || this.auth.limited('login:' + email, 10, 15)) throw fail(429, 'too_many');
     const row = await this.db.userByEmail(email);
     const ok = await this.auth.checkPassword(b.password || '', row ? row.password_hash : DUMMY_HASH);
+    if (row && !ok) await this.db.addActivity(row.id, 'login_failed', this.auth.meta(req));   // zie je terug bij Recente activiteit
     if (!row || !ok) throw fail(401, 'wrong');
     if (!(await this.db.isVerified(row.id))) throw fail(403, 'unverified');   // eerst e-mail bevestigen
     const user = await this.db.getUser(row.id);
     if (user.disabledAt) throw fail(403, 'disabled');                         // uitgezet door het team
-    this.auth.setSession(req, res, await this.db.createSession(row.id));
+    this.auth.setSession(req, res, await this.db.createSession(row.id, this.auth.meta(req)));
+    await this.db.addActivity(row.id, 'login', this.auth.meta(req));
     return this.auth.me(await this.db.updateUser(row.id, { lastLoginAt: new Date().toISOString() }));
   }
 
@@ -115,10 +117,28 @@ export class AuthController {
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
     const userId = await this.db.useReset(String(b.token || '')); if (!userId) throw fail(400, 'token');
     if ((await this.db.getUser(userId)).disabledAt) throw fail(403, 'disabled');
-    await this.db.updateUser(userId, { passwordHash: await this.auth.hashPassword(b.password) });
+    await this.db.updateUser(userId, { passwordHash: await this.auth.hashPassword(b.password), passwordChangedAt: new Date().toISOString() });
     await this.db.markVerified(userId);                                // link uit de mail = e-mailadres is van jou
     await this.db.deleteSessionsOf(userId);                            // overal uitloggen
-    this.auth.setSession(req, res, await this.db.createSession(userId));
+    this.auth.setSession(req, res, await this.db.createSession(userId, this.auth.meta(req)));
+    await this.db.addActivity(userId, 'password', this.auth.meta(req));
     return this.auth.me(await this.db.getUser(userId));
+  }
+
+  /** Link uit de mail naar je nieuwe e-mailadres: vanaf nu log je daarmee in. Het oude adres krijgt een melding. */
+  @Post('email-change')
+  @HttpCode(200)
+  async emailChange(@Req() req: Request, @Body() b: any = {}) {
+    if (this.auth.limited('emailchange:' + req.ip, 30, 60)) throw fail(429, 'too_many');
+    const r = await this.db.useEmailChange(String(b.token || '')); if (!r) throw fail(400, 'token');
+    const user = await this.db.getUser(r.userId); if (!user) throw fail(400, 'token');
+    const taken = await this.db.userByEmail(r.email); if (taken && taken.id !== user.id) throw fail(409, 'exists');
+    if (this.auth.emailLocked(user)) throw fail(403, 'locked');
+    const old = user.email;
+    await this.db.updateUser(user.id, { email: r.email });
+    await this.db.markVerified(user.id);
+    await this.db.addActivity(user.id, 'email', this.auth.meta(req));
+    this.mailer.sendEmailChanged(old, r.email, String(b.lang || 'en')).catch((e) => console.error('Melding oud e-mailadres mislukt:', e.message));
+    return { ok: true, email: r.email };
   }
 }

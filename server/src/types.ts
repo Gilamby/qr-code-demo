@@ -17,6 +17,8 @@ export interface User {
   /** Tijdzone voor datums, bv. 'Europe/Amsterdam' (leeg = die van de browser) */
   timezone?: string | null;
   verified?: boolean;
+  /** Laatst wachtwoord gewijzigd (null = nog nooit sinds het account er is) */
+  passwordChangedAt?: string | null;
   /** Gezet als de sessie net is verlengd: dan moet het cookie ook ververst worden. */
   renewUntil?: string;
 }

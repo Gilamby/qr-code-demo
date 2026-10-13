@@ -1,9 +1,11 @@
 /* =========================================================
    Opslag in MongoDB (DATABASE_URL=mongodb://… of mongodb+srv://…).
    Collections (worden bij het opstarten met hun indexen aangemaakt):
-     users               { _id, email, emailLower (uniek), name, passwordHash, background, customBackground, billing {…}, emailVerifiedAt, role, disabledAt, lastLoginAt, avatar, timezone, createdAt, updatedAt }
+     users               { _id, email, emailLower (uniek), name, passwordHash, background, customBackground, billing {…}, emailVerifiedAt, role, disabledAt, lastLoginAt, avatar, timezone, passwordChangedAt, createdAt, updatedAt }
      settings            { _id: sleutel, value, updatedAt }   (vertalingen, DeepL-sleutel …)
-     sessions            { _id: hash van de sessiecode, userId, createdAt, expiresAt }
+     sessions            { _id: hash van de sessiecode, userId, createdAt, expiresAt, ua, ip, seenAt }
+     activity            { _id, userId, kind, at, ip, ua }   (recente activiteit, 90 dagen)
+     emailChanges        { _id: hash van de code, userId, email, expiresAt }
      passwordResets      { _id: hash van de code, userId, expiresAt }
      emailVerifications  { _id: hash van de code, userId, expiresAt }
      qrCodes             { _id, userId, typeId, contentType, content {…}, design {…}, name, paused, scans, lastScanAt, createdAt, updatedAt }
@@ -19,7 +21,7 @@ import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
-  Customer, DatabaseService, DayCount, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, ClientMeta, Customer, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -31,10 +33,11 @@ function codeOut(d: Doc): QrCode {
   return { id: d._id, userId: d.userId, typeId: d.typeId, contentType: d.contentType, content: openContent(d.contentType, d.content || {}), design: d.design || {},
     name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined };
 }
+const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 function userOut(d: Doc): User {
   return d && { id: d._id, email: d.email, name: d.name, background: d.background, customBackground: d.customBackground || null, createdAt: d.createdAt,
     role: d.role || null, disabledAt: d.disabledAt || null, lastLoginAt: d.lastLoginAt || null,
-    avatar: d.avatar || null, timezone: d.timezone || null, verified: !!d.emailVerifiedAt };
+    avatar: d.avatar || null, timezone: d.timezone || null, verified: !!d.emailVerifiedAt, passwordChangedAt: d.passwordChangedAt || null };
 }
 /** Adres zonder wachtwoord, voor in de logs */
 export function safeMongoLabel(url: string) { return String(url).replace(/\/\/[^@/]*@/, '//***@').replace(/\?.*$/, ''); }
@@ -52,6 +55,8 @@ export class MongoDatabase extends DatabaseService {
   private readonly stats: Collection<Doc>;
   private readonly files: Collection<Doc>;
   private readonly settings: Collection<Doc>;
+  private readonly activity: Collection<Doc>;
+  private readonly emailChanges: Collection<Doc>;
 
   private constructor(private readonly client: MongoClient, readonly db: Db, url: string) {
     super();
@@ -59,6 +64,7 @@ export class MongoDatabase extends DatabaseService {
     this.users = db.collection('users'); this.sessions = db.collection('sessions');
     this.resets = db.collection('passwordResets'); this.verifications = db.collection('emailVerifications');
     this.codes = db.collection('qrCodes'); this.stats = db.collection('scanStats'); this.files = db.collection('files'); this.settings = db.collection('settings');
+    this.activity = db.collection('activity'); this.emailChanges = db.collection('emailChanges');
   }
 
   /** Verbinden en de indexen aanmaken (mag vaker: bestaat de index al, dan gebeurt er niets) */
@@ -69,6 +75,8 @@ export class MongoDatabase extends DatabaseService {
     await Promise.all([
       m.users.createIndex({ emailLower: 1 }, { unique: true, name: 'email_unique' }),
       m.sessions.createIndex({ userId: 1 }),
+      m.activity.createIndex({ userId: 1, at: -1 }),
+      m.emailChanges.createIndex({ userId: 1 }),
       m.resets.createIndex({ userId: 1 }),
       m.verifications.createIndex({ userId: 1 }),
       m.codes.createIndex({ userId: 1, createdAt: -1 }),
@@ -100,7 +108,7 @@ export class MongoDatabase extends DatabaseService {
   async passwordHashOf(id: string): Promise<string> { return ((await this.users.findOne({ _id: id }, { projection: { passwordHash: 1 } })) || ({} as Doc)).passwordHash; }
   async updateUser(id: string, patch: UserPatch): Promise<User> {
     const set: Doc = {};
-    for (const k of ['name', 'background', 'customBackground', 'passwordHash', 'role', 'disabledAt', 'lastLoginAt', 'avatar', 'timezone'] as const) if (k in patch) set[k] = patch[k];
+    for (const k of ['name', 'background', 'customBackground', 'passwordHash', 'role', 'disabledAt', 'lastLoginAt', 'avatar', 'timezone', 'passwordChangedAt'] as const) if (k in patch) set[k] = patch[k];
     if (patch.email !== undefined) { set.email = patch.email.trim(); set.emailLower = set.email.toLowerCase(); }
     if (!Object.keys(set).length) return this.getUser(id);
     set.updatedAt = now();
@@ -116,6 +124,8 @@ export class MongoDatabase extends DatabaseService {
     await this.sessions.deleteMany({ userId: id });
     await this.resets.deleteMany({ userId: id });
     await this.verifications.deleteMany({ userId: id });
+    await this.activity.deleteMany({ userId: id });
+    await this.emailChanges.deleteMany({ userId: id });
     await this.users.deleteOne({ _id: id });
     removeFiles(files);
   }
@@ -141,16 +151,45 @@ export class MongoDatabase extends DatabaseService {
     await this.markVerified(r.userId); return r.userId;
   }
 
-  async createSession(userId: string) {
-    const token = newId(32), exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString();
-    await this.sessions.insertOne({ _id: hash(token), userId, createdAt: now(), expiresAt: exp });
+  async createSession(userId: string, meta: ClientMeta = {}) {
+    const token = newId(32), exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString(), t = now();
+    await this.sessions.insertOne({ _id: hash(token), userId, createdAt: t, expiresAt: exp, ua: cut(meta.ua, 300), ip: cut(meta.ip, 64), seenAt: t });
     return { token, expires: exp };
+  }
+  async listSessions(userId: string, currentToken?: string): Promise<SessionInfo[]> {
+    const cur = currentToken ? hash(currentToken) : '';
+    const rows = await this.sessions.find({ userId, expiresAt: { $gt: now() } }).toArray();
+    return rows.map((r) => ({ id: String(r._id).slice(0, SESSION_ID_LEN), createdAt: r.createdAt, seenAt: r.seenAt || null, ua: r.ua || null, ip: r.ip || null, current: r._id === cur }))
+      .sort((a, b) => String(b.seenAt || b.createdAt).localeCompare(String(a.seenAt || a.createdAt)));
+  }
+  async endSession(userId: string, id: string) {
+    if (!/^[A-Za-z0-9_-]{16}$/.test(id)) return false;
+    return (await this.sessions.deleteMany({ userId, _id: { $regex: '^' + id } })).deletedCount > 0;
+  }
+  async addActivity(userId: string, kind: string, meta: ClientMeta = {}) {
+    await this.activity.insertOne({ _id: newId(16), userId, kind, at: now(), ip: cut(meta.ip, 64), ua: cut(meta.ua, 300) });
+  }
+  async listActivity(userId: string, limit = 20): Promise<Activity[]> {
+    return (await this.activity.find({ userId }).sort({ at: -1 }).limit(Math.min(100, Math.max(1, limit | 0))).toArray())
+      .map((r) => ({ kind: r.kind, at: r.at, ip: r.ip || null, ua: r.ua || null }));
+  }
+  async createEmailChange(userId: string, email: string) {
+    const token = newId(32);
+    await this.emailChanges.deleteMany({ userId });
+    await this.emailChanges.insertOne({ _id: hash(token), userId, email, expiresAt: new Date(Date.now() + EMAIL_CHANGE_HOURS * 3600e3).toISOString() });
+    return token;
+  }
+  async useEmailChange(token: string) {
+    const r = await this.emailChanges.findOneAndDelete({ _id: hash(token) });          // in één stap: werkt maar één keer
+    if (!r || r.expiresAt < now()) return null;
+    return { userId: r.userId, email: r.email };
   }
   async sessionUser(token: string): Promise<User | null> {
     if (!token) return null;
     const s = await this.sessions.findOne({ _id: hash(token) }); if (!s) return null;
     if (s.expiresAt < now()) { await this.sessions.deleteOne({ _id: s._id }); return null; }
     const u = userOut(await this.users.findOne({ _id: s.userId })); if (!u || u.disabledAt) return null;   // uitgezet door het team: niet ingelogd
+    if (!s.seenAt || Date.now() - new Date(s.seenAt).getTime() > 5 * 6e4) await this.sessions.updateOne({ _id: s._id }, { $set: { seenAt: now() } });   // laatst actief (max. 1x per 5 min)
     if (new Date(s.expiresAt).getTime() - Date.now() < (SESSION_DAYS - 1) * 864e5) {         // hooguit één keer per dag verlengen
       const exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString();
       await this.sessions.updateOne({ _id: s._id }, { $set: { expiresAt: exp } });
@@ -190,6 +229,8 @@ export class MongoDatabase extends DatabaseService {
     await this.sessions.deleteMany({ expiresAt: { $lt: t } });
     await this.resets.deleteMany({ expiresAt: { $lt: t } });
     await this.verifications.deleteMany({ expiresAt: { $lt: t } });
+    await this.emailChanges.deleteMany({ expiresAt: { $lt: t } });
+    await this.activity.deleteMany({ at: { $lt: new Date(Date.now() - 90 * 864e5).toISOString() } });
     // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
     const loose = (await this.files.find({ codeId: null, createdAt: { $lt: new Date(Date.now() - 864e5).toISOString() } }, { projection: { _id: 1 } }).toArray()).map((d) => d._id);
     if (loose.length) await this.files.deleteMany({ _id: { $in: loose } });

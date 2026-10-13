@@ -2,15 +2,17 @@
    Opslag in een SQL-database: SQLite (één bestand) of PostgreSQL.
    Beide stuurprogramma's (sqlite.driver.ts, postgres.driver.ts) hebben dezelfde vorm (SqlDriver);
    deze klasse weet niet welke het is.
-   Tabellen: users, sessions, password_resets, email_verifications, qr_codes, scan_stats, files.
+   Tabellen: users, sessions, password_resets, email_verifications, email_changes, activity, qr_codes, scan_stats, files, settings.
    ========================================================= */
 import * as fs from 'fs';
 import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
-  Customer, DatabaseService, DayCount, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, ClientMeta, Customer, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
+
+const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 
 /* ---------- Rij → object ---------- */
 function codeOut(r: any): QrCode {
@@ -21,7 +23,7 @@ function codeOut(r: any): QrCode {
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
     role: r.role || null, disabledAt: r.disabled_at || null, lastLoginAt: r.last_login_at || null,
-    avatar: r.avatar || null, timezone: r.timezone || null, verified: !!r.email_verified_at };
+    avatar: r.avatar || null, timezone: r.timezone || null, verified: !!r.email_verified_at, passwordChangedAt: r.password_changed_at || null };
 }
 
 const SQL = {
@@ -52,7 +54,7 @@ export class SqlDatabase extends DatabaseService {
   async getUser(id: string): Promise<User> { return userOut(await this.d.get(SQL.userById, [id])); }
   async passwordHashOf(id: string): Promise<string> { return ((await this.d.get(SQL.userById, [id])) || ({} as any)).password_hash; }
   async updateUser(id: string, patch: UserPatch): Promise<User> {
-    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email', role: 'role', disabledAt: 'disabled_at', lastLoginAt: 'last_login_at', avatar: 'avatar', timezone: 'timezone' };
+    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email', role: 'role', disabledAt: 'disabled_at', lastLoginAt: 'last_login_at', avatar: 'avatar', timezone: 'timezone', passwordChangedAt: 'password_changed_at' };
     const keys = Object.keys(patch).filter((k) => cols[k]); if (!keys.length) return this.getUser(id);
     await this.d.run('UPDATE users SET ' + keys.map((k) => cols[k] + ' = ?').join(', ') + ', updated_at = ? WHERE id = ?', [...keys.map((k) => patch[k]), now(), id]);
     return this.getUser(id);
@@ -87,18 +89,49 @@ export class SqlDatabase extends DatabaseService {
     await this.markVerified(r.user_id); return r.user_id;
   }
 
-  async createSession(userId: string) {
-    const token = newId(32), exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString();
-    await this.d.run('INSERT INTO sessions (token_hash, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)', [hash(token), userId, now(), exp]);
+  async createSession(userId: string, meta: ClientMeta = {}) {
+    const token = newId(32), exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString(), t = now();
+    await this.d.run('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, ua, ip, seen_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [hash(token), userId, t, exp, cut(meta.ua, 300), cut(meta.ip, 64), t]);
     return { token, expires: exp };
+  }
+  async listSessions(userId: string, currentToken?: string): Promise<SessionInfo[]> {
+    const cur = currentToken ? hash(currentToken) : '';
+    return (await this.d.all('SELECT token_hash, created_at, seen_at, ua, ip FROM sessions WHERE user_id = ? AND expires_at > ? ORDER BY COALESCE(seen_at, created_at) DESC', [userId, now()]))
+      .map((r) => ({ id: r.token_hash.slice(0, SESSION_ID_LEN), createdAt: r.created_at, seenAt: r.seen_at || null, ua: r.ua || null, ip: r.ip || null, current: r.token_hash === cur }));
+  }
+  async endSession(userId: string, id: string) {
+    if (!/^[A-Za-z0-9_-]{16}$/.test(id)) return false;
+    return !!(await this.d.run('DELETE FROM sessions WHERE user_id = ? AND substr(token_hash, 1, 16) = ?', [userId, id])).changes;
+  }
+  async addActivity(userId: string, kind: string, meta: ClientMeta = {}) {
+    await this.d.run('INSERT INTO activity (id, user_id, kind, at, ip, ua) VALUES (?, ?, ?, ?, ?, ?)', [newId(16), userId, kind, now(), cut(meta.ip, 64), cut(meta.ua, 300)]);
+  }
+  async listActivity(userId: string, limit = 20): Promise<Activity[]> {
+    return (await this.d.all('SELECT kind, at, ip, ua FROM activity WHERE user_id = ? ORDER BY at DESC LIMIT ' + Math.min(100, Math.max(1, limit | 0)), [userId]))
+      .map((r) => ({ kind: r.kind, at: r.at, ip: r.ip || null, ua: r.ua || null }));
+  }
+  async createEmailChange(userId: string, email: string) {
+    const token = newId(32);
+    await this.d.batch([
+      ['DELETE FROM email_changes WHERE user_id = ?', [userId]],
+      ['INSERT INTO email_changes (token_hash, user_id, email, expires_at) VALUES (?, ?, ?, ?)', [hash(token), userId, email, new Date(Date.now() + EMAIL_CHANGE_HOURS * 3600e3).toISOString()]],
+    ]);
+    return token;
+  }
+  async useEmailChange(token: string) {
+    const r = await this.d.get('SELECT * FROM email_changes WHERE token_hash = ?', [hash(token)]); if (!r) return null;
+    const del = await this.d.run('DELETE FROM email_changes WHERE token_hash = ?', [hash(token)]);
+    if (!del.changes || r.expires_at < now()) return null;
+    return { userId: r.user_id, email: r.email };
   }
   async sessionUser(token: string): Promise<User | null> {
     if (!token) return null;
-    const r = await this.d.get('SELECT u.*, s.expires_at AS s_exp FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ?', [hash(token)]);
+    const r = await this.d.get('SELECT u.*, s.expires_at AS s_exp, s.seen_at AS s_seen FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ?', [hash(token)]);
     if (!r) return null;
     if (r.s_exp < now()) { await this.d.run('DELETE FROM sessions WHERE token_hash = ?', [hash(token)]); return null; }
     if (r.disabled_at) return null;                                               // uitgezet door het team
     const u = userOut(r);
+    if (!r.s_seen || Date.now() - new Date(r.s_seen).getTime() > 5 * 6e4) await this.d.run('UPDATE sessions SET seen_at = ? WHERE token_hash = ?', [now(), hash(token)]);   // laatst actief (max. 1x per 5 min)
     if (new Date(r.s_exp).getTime() - Date.now() < (SESSION_DAYS - 1) * 864e5) {             // hooguit één keer per dag verlengen
       const exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString();
       await this.d.run('UPDATE sessions SET expires_at = ? WHERE token_hash = ?', [exp, hash(token)]);
@@ -138,6 +171,8 @@ export class SqlDatabase extends DatabaseService {
     await this.d.run('DELETE FROM sessions WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM password_resets WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM email_verifications WHERE expires_at < ?', [t]);
+    await this.d.run('DELETE FROM email_changes WHERE expires_at < ?', [t]);
+    await this.d.run('DELETE FROM activity WHERE at < ?', [new Date(Date.now() - 90 * 864e5).toISOString()]);
     // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
     const loose = (await this.d.all('SELECT id FROM files WHERE code_id IS NULL AND created_at < ?', [new Date(Date.now() - 864e5).toISOString()])).map((r) => r.id);
     for (const id of loose) await this.d.run('DELETE FROM files WHERE id = ?', [id]);

@@ -79,7 +79,15 @@ export class AuthService implements OnModuleDestroy {
   };
 
   /** Wat de app over de ingelogde gebruiker te zien krijgt */
-  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, avatar: u.avatar || null, timezone: u.timezone || null, verified: u.verified !== false, role: this.isSuper(u) ? 'super' : this.isAdmin(u) ? 'admin' : 'user', admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
+  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, avatar: u.avatar || null, timezone: u.timezone || null, verified: u.verified !== false, passwordChangedAt: u.passwordChangedAt || null, emailLocked: this.emailLocked(u), role: this.isSuper(u) ? 'super' : this.isAdmin(u) ? 'admin' : 'user', admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
+
+  /** Browser en IP van een verzoek (voor Apparaten en Recente activiteit) */
+  meta(req: Request) { return { ua: String(req.get('user-agent') || ''), ip: String(req.ip || '') }; }
+  /** E-mail staat vast in de serverinstellingen (SUPPORT_EMAIL / ADMIN_EMAILS): wijzigen zou de rechten kapotmaken */
+  emailLocked(u: { email?: string }) {
+    const list = [process.env.SUPPORT_EMAIL || ''].concat(String(process.env.ADMIN_EMAILS || '').split(',')).map((x) => x.trim().toLowerCase()).filter(Boolean);
+    return list.indexOf(String(u.email || '').toLowerCase()) >= 0;
+  }
 
   /* ---------- Team (beheer) ----------
      Team-leden zien de pagina Klanten en kunnen klanten uitnodigen.

@@ -13,7 +13,8 @@
 (function () {
   var box = document.getElementById('acctCards'), menu = document.getElementById('acctMenu'), stats = document.getElementById('acctStats');
   var bgSection = document.getElementById('bgSection'), user = null, sum = null, tab = 'profile';
-  var billing = null, billingLoaded = false, draft = null, bad = [], delStep = 1, delErr = '';                 // factuurgegevens: opgeslagen, in bewerking, foute velden
+  var billing = null, billingLoaded = false, draft = null, bad = [], delStep = 1, delErr = '';
+  var sticky = null, editing = null, emailDraft = '', emailPending = null, sessions = null, activity = null;   // welke regel open staat; e-mail onderweg; apparaten en activiteit                 // factuurgegevens: opgeslagen, in bewerking, foute velden
   var SVG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
   var ICON = {
     profile: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/>',
@@ -37,6 +38,12 @@
     warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
     shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
     download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+    lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    laptop: '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
+    phone: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
+    key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/>',
+    qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
+    edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
     'delete': '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     x: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
@@ -205,24 +212,114 @@
       '<div class="acct-danger-row"><div><b>' + t('acct.delete') + '</b><small>' + t('acct.deleteHint') + '</small></div>' +
       '<button type="button" class="btn danger" data-tab-go="delete">' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div></div>';
   }
+  /* ---------- Profiel: eerst bekijken, per regel "Wijzigen" (zoals bij grote apps: niets verandert per ongeluk) ---------- */
+  function row(key, label, value, o) {
+    o = o || {};
+    var open = editing === key;
+    return '<div class="ar' + (open ? ' open' : '') + '" data-row="' + key + '"><div class="ar-top">' +
+      '<span class="ar-ic">' + SVG + ICON[o.icon || 'person'] + '</svg></span>' +
+      '<div class="ar-main"><span class="ar-label">' + label + '</span><div class="ar-val">' + value + '</div></div>' +
+      (o.locked ? '<span class="ar-lock" title="' + esc(t('acct.locked')) + '">' + SVG + ICON.lock + '</svg></span>'
+        : o.edit && !open ? '<button type="button" class="btn ghost ar-btn" data-edit="' + key + '" aria-label="' + esc(t('acct.change') + ': ' + label) + '">' + SVG + ICON.edit + '</svg>' + t('acct.change') + '</button>' : '') + '</div>' +
+      (o.why ? '<details class="ar-why"><summary>' + t('acct.whyLocked') + '</summary><p>' + o.why + '</p></details>' : '') +
+      (open && o.form ? '<div class="ar-form">' + o.form + '</div>' : '') +
+      (o.msg ? '<p class="acct-msg ' + o.msg[1] + '" role="status">' + esc(o.msg[0]) + '</p>' : '') + '</div>';
+  }
+  function btns(label) {
+    return '<div class="ar-actions"><button type="button" class="btn ghost" data-edit-cancel>' + t('myCodes.cancel') + '</button><button class="btn primary" type="submit">' + (label || t('acct.save')) + '</button></div>';
+  }
+  /** Voltooi je profiel: wat is er al, wat nog (klik = er meteen heen) */
+  function completeness() {
+    var items = [
+      ['photo', !!user.avatar, 'acct.cpPhoto', 'data-photo-pick', 'camera'],
+      ['name', !!splitName(user.name)[1], 'acct.cpName', 'data-edit="name"', 'person'],
+      ['email', user.verified !== false, 'acct.cpEmail', '', 'mail'],
+      ['tz', !!user.timezone, 'acct.cpTz', 'data-edit="tz"', 'clock'],
+      ['billing', !!billing, 'acct.cpBilling', 'data-tab-go="billing"', 'billing'],
+      ['code', !!(sum && sum.codes), 'acct.cpCode', 'data-goto="create"', 'qr']
+    ];
+    var done = items.filter(function (x) { return x[1]; }).length, pct = Math.round(done / items.length * 100);
+    if (pct === 100) return '<div class="glass bg-card acct cp cp-done"><span class="cp-badge">' + SVG + ICON.check + '</svg></span><div><h2>' + t('acct.cpDoneTitle') + '</h2><p>' + t('acct.cpDoneText') + '</p></div></div>';
+    return '<div class="glass bg-card acct cp"><div class="cp-head"><div><h2>' + t('acct.cpTitle') + '</h2><p>' + t('acct.cpLead', { n: items.length - done }) + '</p></div>' +
+      '<b class="cp-pct">' + pct + '%</b></div>' +
+      '<div class="cp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '" aria-label="' + esc(t('acct.cpTitle')) + '"><i style="width:' + pct + '%"></i></div>' +
+      '<ul class="cp-list">' + items.map(function (x) {
+        return '<li class="' + (x[1] ? 'ok' : '') + '">' + (x[1] || !x[3] ? '<span>' : '<button type="button" ' + x[3] + '>') +
+          '<i>' + SVG + (x[1] ? ICON.check : ICON[x[4]]) + '</svg></i>' + t(x[2]) + (x[1] || !x[3] ? '</span>' : '<em>' + SVG + '<path d="M9 6l6 6-6 6"/></svg></em></button>') + '</li>';
+      }).join('') + '</ul></div>';
+  }
   function profilePanel(m, note) {
     var nm = splitName(user.name), tz = user.timezone || '', here = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    var role = user.role || (user.superAdmin ? 'super' : user.admin ? 'admin' : 'user'), locked = !!user.emailLocked;
+    var tzLabel = tz ? (zoneList().filter(function (z) { return z[0] === tz; })[0] || [0, 0, tz])[2] : t('acct.tzAuto', { zone: (here || 'UTC').replace(/_/g, ' ') });
     var opts = '<option value="">' + esc(t('acct.tzAuto', { zone: (here || 'UTC').replace(/_/g, ' ') })) + '</option>' +
       zoneList().map(function (z) { return '<option value="' + z[0] + '"' + (z[0] === tz ? ' selected' : '') + '>' + esc(z[2]) + '</option>'; }).join('');
-    return '<div class="glass bg-card acct"><h2>' + t('acct.photoTitle') + '</h2><p>' + t('acct.photoLead') + '</p>' +
+    var verified = user.verified !== false ? ' <em class="acct-verified inline">' + SVG + ICON.check + '</svg>' + t('acct.verified') + '</em>' : '';
+    var pending = emailPending ? '<div class="ar-pending">' + SVG + ICON.mail + '</svg><div><b>' + t('acct.emailSentTitle') + '</b><small>' + t('acct.emailSentText', { email: '<b>' + esc(emailPending.email) + '</b>' }) + '</small>' +
+      (emailPending.link ? '<a class="btn ghost" href="' + esc(emailPending.link) + '">' + t('acct.emailOpenLink') + '</a>' : emailPending.mail === false ? '<small class="ar-warn">' + t('acct.emailNoMail') + '</small>' : '') + '</div></div>' : '';
+    return completeness() +
+      '<div class="glass bg-card acct"><h2>' + t('acct.photoTitle') + '</h2><p>' + t('acct.photoLead') + '</p>' +
         '<div class="acct-photo" data-photo-drop><span class="acct-photo-av' + (user.avatar ? ' has-photo' : '') + '">' + avatarHtml(user) + '</span>' +
         '<div class="acct-photo-txt"><div class="acct-btns"><button type="button" class="btn primary" data-photo-pick>' + SVG + ICON.camera + '</svg>' + t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd') + '</button>' +
         (user.avatar ? '<button type="button" class="btn ghost" data-photo-remove>' + t('acct.photoRemove') + '</button>' : '') + '</div>' +
         '<small class="auth-hint">' + t('acct.photoHint') + '</small></div></div>' + note('photo') + '</div>' +
-      '<div class="glass bg-card acct"><h2>' + t('acct.personalTitle') + '</h2><p>' + t('acct.profileLead') + '</p>' +
-      '<form data-form="profile"><div class="acct-grid">' +
-        field(t('acct.firstName'), '<input name="first" value="' + esc(nm[0]) + '" maxlength="40" autocomplete="given-name" required>', { icon: 'person' }) +
-        field(t('acct.lastName'), '<input name="last" value="' + esc(nm[1]) + '" maxlength="40" autocomplete="family-name">', { icon: 'person', optional: true }) +
-        '<label class="auth-f acct-wide"><span>' + t('auth.email') + '</span><span class="auth-in acct-ic acct-mail">' + SVG + ICON.mail + '</svg><input value="' + esc(user.email) + '" disabled>' +
-          (user.verified !== false ? '<em class="acct-verified">' + SVG + ICON.check + '</svg>' + t('acct.verified') + '</em>' : '') + '</span><small class="auth-hint">' + t('acct.emailHint') + '</small></label>' +
-        field(t('acct.timezone'), '<select name="timezone">' + opts + '</select>', { icon: 'clock', wide: true, hint: '<span id="acctTzNow">' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</span>' }) +
-      '</div><div class="acct-actions"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + note('name') + '</div>' +
+      '<div class="glass bg-card acct"><h2>' + t('acct.personalTitle') + '</h2><p>' + t('acct.personalLead') + '</p><div class="ar-list">' +
+        row('name', t('auth.name'), esc(user.name || '–'), { edit: true, icon: 'person', msg: m.name,
+          form: '<form data-form="name" class="acct-grid">' +
+            field(t('acct.firstName'), '<input name="first" value="' + esc(nm[0]) + '" maxlength="40" autocomplete="given-name" required>') +
+            field(t('acct.lastName'), '<input name="last" value="' + esc(nm[1]) + '" maxlength="40" autocomplete="family-name">', { optional: true }) +
+            '<div class="acct-wide">' + btns() + '</div></form>' }) +
+        row('email', t('auth.email'), esc(user.email) + verified + pending, { edit: !locked, locked: locked, icon: 'mail', msg: m.email,
+          why: locked ? t(user.superAdmin ? 'acct.whyEmailSuper' : 'acct.whyEmailAdmin') : '',
+          form: '<form data-form="email" class="acct-grid" novalidate><p class="ar-help acct-wide">' + t('acct.emailHow') + '</p>' +
+            field(t('acct.emailNew'), '<input name="email" type="email" maxlength="254" autocomplete="email" required value="' + esc(emailDraft) + '">') +
+            field(t('acct.current'), '<input name="password" type="password" autocomplete="current-password" required>') +
+            '<div class="acct-wide">' + btns(t('acct.emailSend')) + '</div></form>' }) +
+        row('tz', t('acct.timezone'), esc(tzLabel) + '<small>' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</small>', { edit: true, icon: 'clock', msg: m.tz,
+          form: '<form data-form="tz">' + field(t('acct.timezone'), '<select name="timezone">' + opts + '</select>', { icon: 'clock', hint: '<span id="acctTzNow">' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</span>' }) + btns() + '</form>' }) +
+        row('role', t('acct.role'), '<span class="acct-chip role-' + role + '">' + (role !== 'user' ? SVG + ICON.shield + '</svg>' : '') + t('acct.role_' + role) + '</span>', { locked: true, icon: 'shield',
+          why: t(role === 'super' ? 'acct.whyRoleSuper' : 'acct.whyRole') }) +
+        row('since', t('acct.memberSince'), sum && sum.createdAt ? esc(i18n.fmt.stamp(sum.createdAt, 'long')) : '–', { icon: 'check' }) +
+      '</div></div>' +
       dangerCard(m);
+  }
+  /* ---------- Beveiliging: wachtwoord, apparaten, recente activiteit ---------- */
+  function devName(x) { return x.browser || x.os ? t('acct.devOn', { browser: x.browser || t('acct.devBrowser'), os: x.os || t('acct.devUnknown') }) : t('acct.devUnknownFull'); }
+  var ACT_ICON = { login: 'check', login_failed: 'warn', password: 'key', email: 'mail', sessions_ended: 'out', session_ended: 'out' };
+  function securityPanel(m, note) {
+    var ago = function (iso) { return window.Admin ? Admin.ago(iso) : i18n.fmt.stamp(iso, 'time'); };
+    var pwVal = user.passwordChangedAt ? t('acct.pwChanged', { date: i18n.fmt.stamp(user.passwordChangedAt, 'long') }) : t('acct.pwNever');
+    var pwCard = '<div class="glass bg-card acct"><h2>' + t('acct.passwordTitle') + '</h2><p>' + t('acct.passwordLead') + '</p><div class="ar-list">' +
+      row('password', t('auth.password'), '<span class="ar-dots">••••••••••</span><small>' + esc(pwVal) + '</small>', { edit: true, icon: 'key', msg: m.password,
+        form: '<form data-form="password"><div class="acct-grid">' +
+          field(t('acct.current'), '<input name="current" type="password" autocomplete="current-password" required>') +
+          field(t('auth.newPassword'), '<input name="password" type="password" autocomplete="new-password" minlength="8" required data-pw-rules="acctPwRules" aria-describedby="acctPwRules">') + PasswordRules.list('acctPwRules').replace('<ul class="pw-rules"', '<ul class="pw-rules acct-wide"') + '</div>' +
+          btns(t('auth.savePassword')) + '</form>' }) + '</div></div>';
+    var demo = api.isDemo();
+    var others = (sessions || []).filter(function (x) { return !x.current; }).length;
+    var devCard = '<div class="glass bg-card acct"><div class="sec-head"><div><h2>' + t('acct.devicesTitle') + '</h2><p>' + t('acct.devicesLead') + '</p></div>' +
+      (others ? '<button type="button" class="btn ghost" data-logout-others>' + SVG + ICON.out + '</svg>' + t('acct.logoutOthers') + '</button>' : '') + '</div>' +
+      (demo ? '<p class="sec-empty">' + t('acct.secDemo') + '</p>' : !sessions ? '<p class="sec-empty">…</p>' :
+        '<ul class="dev-list">' + sessions.map(function (x) {
+          return '<li class="' + (x.current ? 'cur' : '') + '"><span class="dev-ic">' + SVG + ICON[x.mobile ? 'phone' : 'laptop'] + '</svg></span>' +
+            '<div class="dev-main"><b>' + esc(devName(x)) + (x.current ? ' <em class="acct-chip ok"><i></i>' + t('acct.thisDevice') + '</em>' : '') + '</b>' +
+            '<small>' + (x.current ? t('acct.activeNow') : t('acct.lastActive', { when: ago(x.seenAt || x.createdAt) })) + (x.ip ? ' · IP ' + esc(x.ip) : '') + '</small>' +
+            '<small>' + t('acct.signedInOn', { date: i18n.fmt.stamp(x.createdAt, 'time') }) + '</small></div>' +
+            (x.current ? '' : '<button type="button" class="btn ghost dev-out" data-end-session="' + esc(x.id) + '">' + t('acct.signOut') + '</button>') + '</li>';
+        }).join('') + '</ul>') + note('devices') + '</div>';
+    var actCard = '<div class="glass bg-card acct"><h2>' + t('acct.activityTitle') + '</h2><p>' + t('acct.activityLead') + '</p>' +
+      (demo ? '<p class="sec-empty">' + t('acct.secDemo') + '</p>' : !activity ? '<p class="sec-empty">…</p>' : !activity.length ? '<p class="sec-empty">' + t('acct.activityEmpty') + '</p>' :
+        '<ol class="act-list">' + activity.map(function (a) {
+          return '<li class="act-' + a.kind + '"><span class="act-ic">' + SVG + ICON[ACT_ICON[a.kind] || 'check'] + '</svg></span><div><b>' + t('acct.act_' + a.kind) + '</b>' +
+            '<small>' + [devName(a), a.ip ? 'IP ' + esc(a.ip) : '', esc(i18n.fmt.stamp(a.at, 'time'))].filter(Boolean).join(' · ') + '</small></div></li>';
+        }).join('') + '</ol>' +
+        '<div class="act-tip">' + SVG + ICON.shield + '</svg><span>' + t('acct.activityTip') + '</span><button type="button" class="btn ghost" data-edit="password">' + t('acct.pwChangeNow') + '</button></div>') + '</div>';
+    return pwCard + devCard + actCard;
+  }
+  function loadSecurity() {
+    if (!user) return;
+    api.account.sessions().then(function (r) { sessions = (r.sessions || []).sort(function (x, y) { return (y.current ? 1 : 0) - (x.current ? 1 : 0); }); if (tab === 'security') draw(); }).catch(function () { sessions = []; });
+    api.account.activity().then(function (r) { activity = r.activity || []; if (tab === 'security') draw(); }).catch(function () { activity = []; });
   }
   /* ---------- Account verwijderen: stap 1 en 2 op de pagina, stap 3 in een venster ---------- */
   function deletePanel() {
@@ -253,13 +350,7 @@
   function panel(m) {
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
     if (tab === 'profile') return profilePanel(m, note);
-    if (tab === 'security') return '<div class="glass bg-card acct"><h2>' + t('acct.passwordTitle') + '</h2><p>' + t('acct.passwordLead') + '</p>' +
-      '<form data-form="password"><div class="acct-grid">' +
-      field(t('acct.current'), '<input name="current" type="password" autocomplete="current-password" required>') +
-      field(t('auth.newPassword'), '<input name="password" type="password" autocomplete="new-password" minlength="8" required data-pw-rules="acctPwRules" aria-describedby="acctPwRules">') + PasswordRules.list('acctPwRules').replace('<ul class="pw-rules"', '<ul class="pw-rules acct-wide"') + '</div>' +
-      '<div class="acct-actions"><button class="btn primary" type="submit">' + t('auth.savePassword') + '</button></div></form>' + note('password') + '</div>' +
-      '<div class="glass bg-card acct"><h2>' + t('acct.devicesTitle') + '</h2>' +
-      '<div class="acct-dev"><p>' + t('acct.devices', { n: sum ? sum.sessions : 1 }) + '</p>' + (sum && sum.sessions > 1 ? '<button type="button" class="btn ghost" data-logout-others>' + t('acct.logoutOthers') + '</button>' : '') + '</div>' + note('devices') + '</div>';
+    if (tab === 'security') return securityPanel(m, note);
     if (tab === 'prefs') return '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
       field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>', { icon: 'globe', cls: 'acct-lang' }) + '</div>';
     if (tab === 'delete') return deletePanel();
@@ -270,6 +361,7 @@
     return '';
   }
   function draw(msg) {
+    if (!msg && sticky) msg = sticky();                                  // melding blijft staan als de cijfers later binnenkomen
     if (!user) { box.innerHTML = ''; menu.innerHTML = ''; stats.innerHTML = ''; return; }
     if (TAB_IDS.indexOf(tab) < 0) tab = 'profile';
     head(); drawMenu();
@@ -279,7 +371,8 @@
     box.innerHTML = isBg ? '' : panel(msg || {});
   }
   function open(id, focus) {
-    tab = id; bad = []; delStep = 1; delErr = ''; if (id === 'billing' && billingLoaded) draft = startDraft();
+    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') loadSecurity();
+    if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
   }
@@ -300,21 +393,39 @@
   stats.addEventListener('click', function (e) { var go = e.target.closest('[data-goto]'); if (go) { e.preventDefault(); window.goToPage(go.getAttribute('data-goto')); } });
 
   box.addEventListener('submit', function (e) {
-    e.preventDefault();
+    e.preventDefault(); sticky = null;
     var f = e.target, kind = f.getAttribute('data-form'), btn = f.querySelector('button[type="submit"]'); btn.disabled = true;
-    if (kind === 'profile') {
+    var saved = function (key, u, extra) { user = Object.assign({}, user, u, extra || {}); editing = null; var o = {}; o[key] = [t('acct.saved'), 'ok']; draw(o); document.dispatchEvent(new CustomEvent('account:changed')); };
+    var failed = function (key) { return function (x) { var o = {}; o[key] = [err(x), 'bad']; btn.disabled = false; draw(o); }; };
+    if (kind === 'name') {
       var name = (f.first.value.trim() + ' ' + f.last.value.trim()).trim();
       if (!f.first.value.trim()) { btn.disabled = false; f.first.focus(); return; }
-      api.account.update({ name: name, timezone: f.timezone.value }).then(function (u) {
-        user = Object.assign({}, user, u, { timezone: f.timezone.value || null }); i18n.setZone(user.timezone);
-        draw({ name: [t('acct.saved'), 'ok'] }); document.dispatchEvent(new CustomEvent('account:changed'));
-      }).catch(function (x) { draw({ name: [err(x), 'bad'] }); });
+      api.account.update({ name: name }).then(function (u) { saved('name', u); }).catch(failed('name'));
+    }
+    if (kind === 'tz') {
+      var tz = f.timezone.value;
+      api.account.update({ timezone: tz }).then(function (u) { i18n.setZone(tz || null); saved('tz', u, { timezone: tz || null }); }).catch(failed('tz'));
+    }
+    if (kind === 'email') {
+      var em = f.email.value.trim(); emailDraft = em;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) { btn.disabled = false; f.email.setAttribute('aria-invalid', 'true'); f.email.focus(); return; }
+      if (!f.password.value) { btn.disabled = false; f.password.focus(); return; }
+      api.account.changeEmail({ email: em, password: f.password.value, lang: i18n.lang() }).then(function (r) {
+        emailPending = { email: r.email, link: r.link || null, mail: r.mail }; editing = null; emailDraft = ''; draw();
+      }).catch(function (x) {
+        var k = x && x.code === 'wrong' ? 'acct.wrongCurrent' : x && x.code === 'exists' ? 'acct.emailErrExists' : x && x.code === 'same' ? 'acct.emailErrSame' : x && x.code === 'email' ? 'acct.emailErrInvalid' : x && x.code === 'locked' ? 'acct.whyEmailAdmin' : x && x.code === 'demo' ? 'acct.secDemo' : null;
+        btn.disabled = false; draw({ email: [k ? t(k) : err(x), 'bad'] });
+        var fi = box.querySelector(x && x.code === 'wrong' ? 'form[data-form=email] input[name=password]' : 'form[data-form=email] input[name=email]'); if (fi) fi.focus();
+      });
     }
     if (kind === 'delete') { btn.disabled = false; return lastWarning(f); }
     if (kind === 'password') {
       var prob = PasswordRules.problem(f.password.value);
       if (prob) { btn.disabled = false; return draw({ password: [t(PasswordRules.errorKey('password_' + prob)), 'bad'] }); }
-      api.account.password({ current: f.current.value, password: f.password.value }).then(function () { if (sum) sum.sessions = 1; draw({ password: [t('acct.passwordSaved'), 'ok'] }); })
+      api.account.password({ current: f.current.value, password: f.password.value }).then(function (r) {
+        if (sum) sum.sessions = 1; user = Object.assign({}, user, { passwordChangedAt: (r && r.passwordChangedAt) || new Date().toISOString() }); editing = null;
+        draw({ password: [t('acct.passwordSaved'), 'ok'] }); loadSecurity();
+      })
         .catch(function (x) { draw({ password: [err(x), 'bad'] }); });
     }
     if (kind === 'billing') {
@@ -347,12 +458,27 @@
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
+    var ed = e.target.closest('[data-edit]');
+    if (ed) {
+      editing = ed.getAttribute('data-edit'); sticky = null; draw();
+      var rw = box.querySelector('[data-row="' + editing + '"]');
+      if (rw) { rw.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); var fi = rw.querySelector('.ar-form input, .ar-form select'); if (fi) fi.focus({ preventScroll: true }); }
+      return;
+    }
+    if (e.target.closest('[data-edit-cancel]')) { var was = editing; editing = null; draw(); var b2 = box.querySelector('[data-edit="' + was + '"]'); if (b2) b2.focus(); return; }
+    var gt = e.target.closest('[data-goto]'); if (gt) { e.preventDefault(); return window.goToPage(gt.getAttribute('data-goto')); }
+    var es = e.target.closest('[data-end-session]');
+    if (es) {
+      es.disabled = true;
+      return api.account.endSession(es.getAttribute('data-end-session')).then(function () { draw({ devices: [t('acct.signedOutOne'), 'ok'] }); loadSecurity(); loadSummary(); })
+        .catch(function (x) { draw({ devices: [err(x), 'bad'] }); loadSecurity(); });
+    }
     if (e.target.closest('[data-export]')) {
       return api.account.exportData().then(function (d) { saveFile(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), 'optimasys-mijn-gegevens.json'); })
         .catch(function (x) { draw({ export: [err(x), 'bad'] }); });
     }
     if (e.target.closest('[data-logout-others]')) {
-      api.account.logoutOthers().then(function () { sum.sessions = 1; draw({ devices: [t('acct.loggedOutOthers'), 'ok'] }); }).catch(function (x) { draw({ devices: [err(x), 'bad'] }); });
+      api.account.logoutOthers().then(function () { if (sum) sum.sessions = 1; draw({ devices: [t('acct.loggedOutOthers'), 'ok'] }); loadSecurity(); }).catch(function (x) { draw({ devices: [err(x), 'bad'] }); });
     }
   });
   // Bedrijf / particulier: pijltjes wisselen (zoals bij een keuzerondje)
@@ -407,7 +533,14 @@
   box.addEventListener('dragleave', function (e) { var z = e.target.closest('[data-photo-drop]'); if (z) z.classList.remove('over'); });
   box.addEventListener('drop', function (e) { var z = e.target.closest('[data-photo-drop]'); if (!z) return; e.preventDefault(); z.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
 
-  Session.onUser(function (u) { user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; draw(); loadSummary(); loadBilling(); });
+  Session.onUser(function (u) { user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; draw(); loadSummary(); loadBilling(); });
+  // Net op de link in de mail geklikt (nieuw e-mailadres): Mijn account openen met de uitkomst
+  document.addEventListener('account:email-note', function (e) {
+    var n = e.detail || {}; window.goToPage('account'); open('profile');
+    if (n.ok) { user = Object.assign({}, user, { email: n.email, verified: true }); emailPending = null; sticky = function () { return { email: [t('acct.emailChanged', { email: n.email }), 'ok'] }; }; }
+    else sticky = function () { return { email: [t(n.code === 'exists' ? 'acct.emailErrExists' : 'acct.emailErrToken'), 'bad'] }; };
+    draw();
+  });
   // Elke keer dat je Mijn account opent: verse cijfers
   document.addEventListener('click', function (e) { if (e.target.closest('[data-page="account"], #bgBtn')) loadSummary(); });
   i18n.onChange(function () { draw(); });

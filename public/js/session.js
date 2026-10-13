@@ -133,10 +133,18 @@ var Session = (function () {
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
-    return api.auth.me().then(function (u) {
+    // Link uit de mail naar je nieuwe e-mailadres (?email=…): eerst bevestigen, dan gewoon verder
+    var ec = location.search.match(/[?&]email=([^&]+)/), note = null;
+    var first = ec ? (history.replaceState(null, '', location.pathname), api.auth.emailChange({ token: decodeURIComponent(ec[1]), lang: i18n.lang() })
+      .then(function (r) { note = { ok: true, email: r.email }; prefill = r.email; }, function (x) { note = { ok: false, code: x && x.code }; })) : Promise.resolve();
+    return first.then(function () { return api.auth.me(); }).then(function (u) {
       if (ADMIN && !u.admin) { flash = ['adminApp.notAdmin', 'bad']; return show('login'); }
       user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); });
-    }).catch(function () { show('login'); });
+      if (note) document.dispatchEvent(new CustomEvent('account:email-note', { detail: note }));
+    }).catch(function () {
+      if (note) flash = note.ok ? ['acct.emailChangedLogin', 'ok'] : [note.code === 'exists' ? 'acct.emailErrExists' : 'acct.emailErrToken', 'bad'];
+      show('login');
+    });
   });
   return { user: function () { return user; }, onUser: function (f) { listeners.push(f); if (user) f(user); }, show: show };
 })();
