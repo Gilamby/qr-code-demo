@@ -348,7 +348,12 @@
     "playStore": "Enlace a Google Play",
     "validUntil": "Válido hasta",
     "terms": "Condiciones",
-    "addLink": "Añadir enlace"
+    "addLink": "Añadir enlace",
+    "profilePhoto": "Foto de perfil o logotipo",
+    "linkName": "Nombre",
+    "linkNamePh": "Por ejemplo: Top rosa de Zara",
+    "linkImage": "Foto o logotipo",
+    "optional": "(opcional)"
   },
   "panel": {
     "selected": "{type} seleccionado"

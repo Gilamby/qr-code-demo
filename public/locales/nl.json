@@ -348,7 +348,12 @@
     "playStore": "Link naar Google Play",
     "validUntil": "Geldig tot",
     "terms": "Voorwaarden",
-    "addLink": "Link toevoegen"
+    "addLink": "Link toevoegen",
+    "profilePhoto": "Profielfoto of logo",
+    "linkName": "Naam",
+    "linkNamePh": "Bijvoorbeeld: Roze top van Zara",
+    "linkImage": "Foto of logo",
+    "optional": "(optioneel)"
   },
   "panel": {
     "selected": "{type} geselecteerd"

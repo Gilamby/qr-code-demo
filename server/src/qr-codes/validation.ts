@@ -69,7 +69,7 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
       if (!/^data:image\/(jpeg|png|webp);base64,/.test(v) || v.length > 3000000) errors.push(field.key + ': must be a JPG/PNG/WebP image under 3 MB');
       content[field.key] = v; continue;
     }
-    if (v.length > MAX_TEXT) errors.push(field.key + ': too long');
+    if (v.length > MAX_TEXT || (!field.type && typeof field.max === 'number' && v.length > field.max)) errors.push(field.key + ': too long');
     if (field.type === 'url' && !isUrl(v)) errors.push(field.key + ': must be a http(s) URL');
     if (field.type === 'email' && !EMAIL.test(v)) errors.push(field.key + ': invalid email');
     if (field.type === 'tel' && !/^\+\d{7,16}$/.test(v.replace(/\s/g, ''))) errors.push(field.key + ': must be a phone number with country code (+31 …)');

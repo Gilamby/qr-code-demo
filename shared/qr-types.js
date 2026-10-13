@@ -31,9 +31,14 @@
       { key: 'description', label: 'fields.description', sample: { t: 'pv.pdf.desc' } },
       { key: 'company', label: 'fields.company', sample: { t: 'sample.pdfCompany' } } ] },
   { id: 'links',     icon: 'links',  image: 'assets/qr-types/links.jpg', previewImage: 'assets/previews/links.jpg',     contentType: 'links',    previewType: 'card',   color: '#2bb5f0', theme: ['#c2410c', '#4d7c0f'],
-    fields: [ { key: 'title', label: 'fields.title', sample: { t: 'sample.linksTitle' } }, { key: 'link1', label: 'fields.link', n: 1, sample: { t: 'pv.links.website' } }, { key: 'link2', label: 'fields.link', n: 2, sample: { t: 'pv.links.jobs' } }, { key: 'link3', label: 'fields.link', n: 3, sample: { t: 'pv.links.support' } },
-      // Link 4 t/m 10: verborgen tot je op "+ Link toevoegen" klikt
-      { key: 'link4', label: 'fields.link', n: 4, extra: true }, { key: 'link5', label: 'fields.link', n: 5, extra: true }, { key: 'link6', label: 'fields.link', n: 6, extra: true }, { key: 'link7', label: 'fields.link', n: 7, extra: true }, { key: 'link8', label: 'fields.link', n: 8, extra: true }, { key: 'link9', label: 'fields.link', n: 9, extra: true }, { key: 'link10', label: 'fields.link', n: 10, extra: true } ] },
+    fields: [ { key: 'title', label: 'fields.title', sample: { t: 'sample.linksTitle' } }, { key: 'photo', type: 'image', label: 'fields.profilePhoto', small: true } ].concat(
+      // Link 1-3 zichtbaar, 4 t/m 10 verborgen tot je op "+ Link toevoegen" klikt.
+      // Bij elke link (optioneel): een naam (linkNName) en een foto of logo (linkNImg); die staan in het formulier in het blok van de link.
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].reduce(function (all, n) {
+        var k = 'link' + n, sample = { 1: 'pv.links.website', 2: 'pv.links.jobs', 3: 'pv.links.support' }[n], f = { key: k, label: 'fields.link', n: n };
+        if (sample) f.sample = { t: sample }; else f.extra = true;
+        return all.concat([f, { key: k + 'Name', label: 'fields.linkName', sub: k, max: 60 }, { key: k + 'Img', type: 'image', label: 'fields.linkImage', sub: k, small: true }]);
+      }, [])) },
   { id: 'vcard',     icon: 'vcard',  image: 'assets/qr-types/vcard.jpg', previewImage: 'assets/previews/vcard.jpg',     contentType: 'contact',  previewType: 'card',    color: '#2bb5f0', theme: ['#0f766e', '#0b3b36'],
     fields: [ { key: 'name', label: 'fields.name', sample: { t: 'sample.vcardName' } }, { key: 'role', label: 'fields.role', sample: { t: 'pv.vcard.role' } }, { key: 'phone', type: 'tel', label: 'fields.phone', sample: { t: 'sample.vcardPhone' } }, { key: 'email', type: 'email', label: 'fields.email', sample: { t: 'sample.vcardEmail' } },
       { key: 'company', label: 'fields.company', sample: { t: 'sample.vcardCompany' } }, { key: 'website', type: 'url', label: 'fields.website', sample: { t: 'sample.vcardWebsite' } }, { key: 'address', type: 'address', label: 'fields.address', sample: { t: 'sample.vcardAddress' } } ] },

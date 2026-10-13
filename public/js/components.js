@@ -52,7 +52,13 @@ var ContentForm = {
         var cls = f.advanced ? ' opt' : (f.extra ? ' opt extra' : ''), attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v || keepPw ? '' : ' hidden') : (f.extra ? ' data-extra-field="' + f.key + '"' + (v ? '' : ' hidden') : '');
         var rm = f.advanced ? '<button type="button" class="opt-x" data-opt-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>'
                : f.extra ? '<button type="button" class="opt-x" data-extra-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>' : '';
-        var wrap = function (inner) { return '<div class="field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small></div>'; };
+        // Onderdelen van dit veld (bv. bij een link: naam en foto), in hetzelfde blok
+        var parts = type.fields.filter(function (x) { return x.sub === f.key; }), partsHtml = parts.length ? '<div class="field-parts">' + parts.map(function (p) {
+          var pid = 'f-' + type.id + '-' + p.key, pv = values[p.key] != null ? values[p.key] : '';
+          if (p.type === 'image') return '<div class="part-img"><span class="part-lbl">' + t(p.label) + ' <em>' + t('fields.optional') + '</em></span>' + ImageUpload.html(p, pid, pv) + '</div>';
+          return '<label class="part-txt"><span class="part-lbl">' + t(p.label) + ' <em>' + t('fields.optional') + '</em></span><input id="' + pid + '" name="' + p.key + '" type="text" value="' + esc(pv) + '" maxlength="' + (p.max || 120) + '" placeholder="' + esc(t(p.label + 'Ph')) + '" autocomplete="off"></label>';
+        }).join('') + '</div>' : '';
+        var wrap = function (inner) { return '<div class="field' + cls + (parts.length ? ' has-parts' : '') + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label for="' + id + '">' + label + '</label>' + inner + (f.check ? '<small class="field-msg" data-msg="' + f.key + '"></small>' : '') + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '<small class="field-err">' + t('validate.required') + '</small>' + partsHtml + '</div>'; };
         if (f.type === 'toggle') return '<div class="field toggle-field' + cls + '"' + attrs + ' data-field="' + f.key + '">' + rm + '<label class="tg"><input type="checkbox" id="' + id + '" name="' + f.key + '"' + (v ? ' checked' : '') + '><span class="sw-ui"></span><span>' + label + (f.hint ? '<small class="field-hint">' + t(f.hint) + '</small>' : '') + '</span></label></div>';
         if (f.type === 'image') return wrap(ImageUpload.html(f, id, v));
         if (f.type === 'file') return wrap(FileUpload.html(f, id, v));
@@ -73,7 +79,7 @@ var ContentForm = {
           '<div class="pw-actions"><button type="button" class="pw-act" data-pw-gen>' + t('pw.generate') + '</button><button type="button" class="pw-act" data-pw-save>' + t('pw.save') + '</button></div><small class="field-msg" data-pw-msg></small>';
         return wrap(input);
       };
-      var basic = type.fields.filter(function (f) { return !f.advanced; }), more = type.fields.filter(function (f) { return f.advanced; });
+      var basic = type.fields.filter(function (f) { return !f.advanced && !f.sub; }), more = type.fields.filter(function (f) { return f.advanced && !f.sub; });
       var active = more.filter(function (f) { return values[f.key]; }).length;
       // Extra velden (bv. link 4-10): verborgen tot je op "+ toevoegen" klikt, knop direct onder de laatste
       var extras = basic.filter(function (f) { return f.extra; }), html = basic.map(render), lastExtra = basic.lastIndexOf(extras[extras.length - 1]);
@@ -124,6 +130,8 @@ var ContentForm = {
       if (rm) {
         var k = rm.getAttribute('data-extra-rm'), box = el.querySelector('[data-extra-field="' + k + '"]');
         box.querySelectorAll('input').forEach(function (i) { i.value = ''; }); box.hidden = true; actions.setField(k, ''); addBtn.hidden = false;
+        type.fields.filter(function (x) { return x.sub === k; }).forEach(function (x) { actions.setField(x.key, ''); });
+        box.querySelectorAll('[data-up]').forEach(function (u) { u.classList.remove('has'); var th = u.querySelector('.up-thumb'); if (th) th.style.backgroundImage = ''; });
       }
     });
     // Link-check: https toevoegen, typfouten verbeteren, kijken of de site bestaat en de naam invullen

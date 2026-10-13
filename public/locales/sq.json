@@ -348,7 +348,12 @@
     "playStore": "Lidhja e Google Play",
     "validUntil": "E vlefshme deri më",
     "terms": "Kushtet",
-    "addLink": "Shto lidhje"
+    "addLink": "Shto lidhje",
+    "profilePhoto": "Foto profili ose logo",
+    "linkName": "Emri",
+    "linkNamePh": "Për shembull: Bluzë rozë nga Zara",
+    "linkImage": "Foto ose logo",
+    "optional": "(opsionale)"
   },
   "panel": {
     "selected": "U zgjodh: {type}"

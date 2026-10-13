@@ -348,7 +348,12 @@
     "playStore": "Σύνδεσμος Google Play",
     "validUntil": "Ισχύει έως",
     "terms": "Όροι",
-    "addLink": "Προσθήκη συνδέσμου"
+    "addLink": "Προσθήκη συνδέσμου",
+    "profilePhoto": "Φωτογραφία προφίλ ή λογότυπο",
+    "linkName": "Όνομα",
+    "linkNamePh": "Για παράδειγμα: Ροζ τοπ από τη Zara",
+    "linkImage": "Φωτογραφία ή λογότυπο",
+    "optional": "(προαιρετικό)"
   },
   "panel": {
     "selected": "Επιλέχθηκε: {type}"

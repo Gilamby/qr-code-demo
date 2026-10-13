@@ -2212,3 +2212,17 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .pw-rules li[data-ok="true"] { color: var(--fg); }
 .pw-rules li[data-ok="true"] svg { background: #16a34a; border-color: #16a34a; color: #fff; }
 @media (max-width: 420px) { .pw-rules { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Lijst met links: naam en foto/logo per link ---------- */
+.lk2-th.has-img { background-color: #fff !important; background-position: center !important; background-size: cover !important; background-repeat: no-repeat !important; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); }
+.field.has-parts { padding-bottom: 2px; }
+.field-parts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px 12px; margin-top: 10px; padding: 12px; border-radius: 14px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); }
+.part-lbl { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.part-lbl em { font-style: normal; font-weight: 500; opacity: .8; }
+.part-txt input { width: 100%; box-sizing: border-box; }
+.up.up-small { padding: 7px 10px; gap: 10px; min-height: 0; }
+.up.up-small .up-thumb { width: 38px; height: 38px; border-radius: 10px; }
+.up.up-small .up-thumb svg { width: 18px; height: 18px; }
+.up.up-small .up-text small { display: none; }
+.up.up-small .up-text b { font-size: 14px; }
+@media (max-width: 560px) { .field-parts { grid-template-columns: minmax(0, 1fr); } }

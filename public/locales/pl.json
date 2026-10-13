@@ -348,7 +348,12 @@
     "playStore": "Link do Google Play",
     "validUntil": "Ważny do",
     "terms": "Warunki",
-    "addLink": "Dodaj link"
+    "addLink": "Dodaj link",
+    "profilePhoto": "Zdjęcie profilowe lub logo",
+    "linkName": "Nazwa",
+    "linkNamePh": "Na przykład: Różowy top z Zary",
+    "linkImage": "Zdjęcie lub logo",
+    "optional": "(opcjonalnie)"
   },
   "panel": {
     "selected": "Wybrano: {type}"

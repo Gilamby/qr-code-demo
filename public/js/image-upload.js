@@ -5,7 +5,7 @@
 var ImageUpload = (function () {
   var MAX = 1200;
   function html(f, id, value) {
-    return '<div class="up' + (value ? ' has' : '') + '" data-up="' + f.key + '">' +
+    return '<div class="up' + (value ? ' has' : '') + (f.small ? ' up-small' : '') + '" data-up="' + f.key + '"' + (f.small ? ' data-small' : '') + '>' +
       '<span class="up-thumb"' + (value ? ' style="background-image:url(' + value + ')"' : '') + '>' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></svg></span>' +
       '<span class="up-text"><b>' + t('upload.choose') + '</b><small>' + t('upload.hint') + '</small></span>' +
@@ -13,11 +13,11 @@ var ImageUpload = (function () {
       '<input id="' + id + '" type="file" accept="image/jpeg,image/png,image/webp" class="up-file">' +
     '</div>';
   }
-  function shrink(file) {
+  function shrink(file, small) {
     return new Promise(function (resolve, reject) {
       var img = new Image(), url = URL.createObjectURL(file);
       img.onload = function () {
-        var keepAlpha = /png|webp|svg/.test(file.type), max = keepAlpha ? 600 : MAX;   // logo's met doorzichtige achtergrond blijven doorzichtig
+        var keepAlpha = /png|webp|svg/.test(file.type), max = small ? 400 : keepAlpha ? 600 : MAX;   // logo's met doorzichtige achtergrond blijven doorzichtig; kleine plaatjes (logo bij een link) kleiner
         var s = Math.min(1, max / Math.max(img.width, img.height)), cv = document.createElement('canvas');
         cv.width = Math.round(img.width * s); cv.height = Math.round(img.height * s);
         cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
@@ -36,7 +36,7 @@ var ImageUpload = (function () {
       }
       function take(file) {
         if (!file || !/^image\//.test(file.type)) { hint.textContent = t('upload.error'); return; }
-        shrink(file).then(set, function () { hint.textContent = t('upload.error'); });
+        shrink(file, box.hasAttribute('data-small')).then(set, function () { hint.textContent = t('upload.error'); });
       }
       box.addEventListener('click', function (e) { if (e.target.closest('.up-remove')) { e.stopPropagation(); input.value = ''; return set(''); } if (e.target !== input) input.click(); });
       input.addEventListener('click', function (e) { e.stopPropagation(); });
