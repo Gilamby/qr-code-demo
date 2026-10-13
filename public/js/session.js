@@ -1,22 +1,26 @@
 /* =========================================================
    INLOGGEN (alleen met de echte server; de online demo werkt zonder account)
    - Bij het openen: ben je ingelogd? Zo niet, dan het inlogscherm over de app heen.
-   - Account maken -> "check je e-mail" -> link uit de mail (?verify=…) bevestigt het account -> zelf inloggen.
+   - Licentie: klanten maken niet zelf een account. Het team nodigt uit (pagina Klanten); de klant opent de link
+     uit de mail (?invite=…), kiest een wachtwoord en is meteen ingelogd. Zelf aanmelden alleen als de server
+     dat toestaat (ALLOW_SIGNUP=true) en in de online demo.
+   - Account maken (als dat aan staat) -> "check je e-mail" -> link uit de mail (?verify=…) bevestigt het account -> zelf inloggen.
      Pas na bevestigen kun je inloggen (zo kan niet zomaar iedereen of een robot accounts aanmaken).
    - Inloggen, wachtwoord vergeten, nieuw wachtwoord (link uit de e-mail: ?reset=…).
    - Uitloggen via de zijbalk. Sessie verlopen? Dan verschijnt het inlogscherm vanzelf.
    ========================================================= */
 var Session = (function () {
   var view = document.getElementById('authView'), card = view.querySelector('.auth-card');
-  var user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
+  var user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var LOGO = '<span class="logo-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>';
 
   function field(name, type, label, auto, value) {
     var pw = type === 'password';
     return '<label class="auth-f"><span>' + esc(label) + '</span><span class="auth-in">' +
-      '<input name="' + name + '" type="' + type + '" autocomplete="' + auto + '" value="' + esc(value || '') + '" required' + (name === 'email' ? ' inputmode="email" spellcheck="false"' : '') + (pw && auto === 'new-password' ? ' minlength="8"' : '') + '>' +
-      (pw ? '<button type="button" class="auth-eye" data-eye aria-label="' + esc(t('pw.show')) + '" aria-pressed="false">' + EYE + '</button>' : '') + '</span></label>';
+      '<input name="' + name + '" type="' + type + '" autocomplete="' + auto + '" value="' + esc(value || '') + '" required' + (name === 'email' ? ' inputmode="email" spellcheck="false"' : '') + (pw && auto === 'new-password' ? ' minlength="8" data-pw-rules="authPwRules" aria-describedby="authPwRules"' : '') + '>' +
+      (pw ? '<button type="button" class="auth-eye" data-eye aria-label="' + esc(t('pw.show')) + '" aria-pressed="false">' + EYE + '</button>' : '') + '</span></label>' +
+      (pw && auto === 'new-password' ? PasswordRules.list('authPwRules') : '');
   }
   function langPicker() {
     return '<select class="auth-lang" aria-label="' + esc(t('header.chooseLanguage')) + '">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + l.name + '</option>'; }).join('') + '</select>';
@@ -27,19 +31,21 @@ var Session = (function () {
     var head = '<div class="auth-top"><span class="auth-logo">' + LOGO + '<b>Optimasys <small>QR</small></b></span>' + langPicker() + '</div>';
     var note = msg ? '<p class="auth-msg ' + (kind || 'bad') + '" role="alert">' + esc(msg) + '</p>' : '';
     var body;
+    var signup = api.isDemo() || !!api.info().signup;                     // zelf een account maken: alleen als dat mag
+    if (mode === 'register' && !signup) mode = 'login';
     if (mode === 'login' || mode === 'register') {
       body = '<h1 id="authTitle">' + t(mode === 'login' ? 'auth.loginTitle' : 'auth.registerTitle') + '</h1><p class="auth-lead">' + t(mode === 'login' ? 'auth.loginLead' : 'auth.registerLead') + '</p>' +
-        '<div class="auth-tabs" role="tablist"><button type="button" role="tab" data-mode="login" aria-selected="' + (mode === 'login') + '">' + t('auth.login') + '</button><button type="button" role="tab" data-mode="register" aria-selected="' + (mode === 'register') + '">' + t('auth.register') + '</button></div>' + note +
+        (signup ? '<div class="auth-tabs" role="tablist"><button type="button" role="tab" data-mode="login" aria-selected="' + (mode === 'login') + '">' + t('auth.login') + '</button><button type="button" role="tab" data-mode="register" aria-selected="' + (mode === 'register') + '">' + t('auth.register') + '</button></div>' : '') + note +
         '<form class="auth-form" novalidate>' + (mode === 'register' ? field('name', 'text', t('auth.name'), 'name', name) : '') +
         field('email', 'email', t('auth.email'), 'email', email) + field('password', 'password', t('auth.password'), mode === 'login' ? 'current-password' : 'new-password') +
-        (mode === 'register' ? '<small class="auth-hint">' + t('auth.pwRule') + '</small>' : '') +
         '<button class="btn primary auth-go" type="submit">' + t(mode === 'login' ? 'auth.login' : 'auth.createAccount') + '</button></form>' +
-        (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>');
+        (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>') +
+        (mode === 'login' && !signup ? '<p class="auth-license">' + t('auth.licenseNote') + '</p>' : '');
     } else if (mode === 'check') {
       // Account gemaakt: eerst e-mail bevestigen
       body = '<span class="auth-mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>' +
         '<h1 id="authTitle">' + t('auth.checkTitle') + '</h1><p class="auth-lead">' + t('auth.checkLead', { email: '<b>' + esc(pendingEmail) + '</b>' }) + '</p>' + note +
-        (api.isDemo() ? '<button type="button" class="btn primary auth-go" data-demo-verify>' + t('auth.demoVerify') + '</button>' : '') +
+        (api.isDemo() || pendingToken ? '<button type="button" class="btn primary auth-go" data-demo-verify>' + t('auth.demoVerify') + '</button>' : '') +
         '<button type="button" class="btn ghost auth-go" data-resend>' + t('auth.resend') + '</button>' +
         '<button type="button" class="link-btn auth-link" data-mode="login">← ' + t('auth.backToLogin') + '</button>';
     } else if (mode === 'forgot') {
@@ -49,9 +55,10 @@ var Session = (function () {
     } else if (mode === 'sent') {
       body = '<h1 id="authTitle">' + t('auth.sentTitle') + '</h1><p class="auth-lead">' + t('auth.sentLead') + '</p><button type="button" class="btn ghost auth-go" data-mode="login">' + t('auth.backToLogin') + '</button>';
     } else {
-      body = '<h1 id="authTitle">' + t('auth.resetTitle') + '</h1><p class="auth-lead">' + t('auth.resetLead') + '</p>' + note +
-        '<form class="auth-form" novalidate>' + field('password', 'password', t('auth.newPassword'), 'new-password') + '<small class="auth-hint">' + t('auth.pwRule') + '</small>' +
-        '<button class="btn primary auth-go" type="submit">' + t('auth.savePassword') + '</button></form>';
+      var invite = mode === 'invite';                                     // uitnodiging van het team: eerste wachtwoord kiezen
+      body = '<h1 id="authTitle">' + t(invite ? 'auth.inviteTitle' : 'auth.resetTitle') + '</h1><p class="auth-lead">' + t(invite ? 'auth.inviteLead' : 'auth.resetLead') + '</p>' + note +
+        '<form class="auth-form" novalidate>' + field('password', 'password', t('auth.newPassword'), 'new-password') +
+        '<button class="btn primary auth-go" type="submit">' + t(invite ? 'auth.inviteGo' : 'auth.savePassword') + '</button></form>';
     }
     if (api.isDemo() && (mode === 'login' || mode === 'register')) body += '<p class="auth-demo">' + t('auth.demoNote') + '</p>';
     card.innerHTML = head + body;
@@ -63,8 +70,8 @@ var Session = (function () {
       .catch(function () { flash = ['auth.errVerifyToken', 'bad']; show('login'); });
   }
   function errorText(e) {
-    var map = { wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', password_short: 'auth.errShort', password_common: 'auth.errCommon', password_long: 'auth.errLong', too_many: 'auth.errTooMany', token: 'auth.errToken' };
-    return t(map[e && e.code] || 'auth.errGeneral');
+    var map = { signup_closed: 'auth.licenseNote', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken' };
+    return t(map[e && e.code] || PasswordRules.errorKey(e && e.code) || 'auth.errGeneral');
   }
   function ready() { document.body.classList.remove('auth-checking'); }
   setTimeout(ready, 4000);                                                // nooit eeuwig een leeg scherm
@@ -77,9 +84,9 @@ var Session = (function () {
     var m = e.target.closest('[data-mode]'); if (m) { flash = null; if (mode === 'check') prefill = pendingEmail; mode = m.getAttribute('data-mode'); return draw(); }
     if (e.target.closest('[data-resend]')) {
       var rb = e.target.closest('[data-resend]'); rb.disabled = true;
-      return api.auth.resend({ email: pendingEmail, lang: i18n.lang() }).then(function () { draw(t('auth.resent'), 'ok'); }).catch(function (err) { draw(errorText(err)); });
+      return api.auth.resend({ email: pendingEmail, lang: i18n.lang() }).then(function (r) { if (r && r.token) pendingToken = r.token; draw(t('auth.resent'), 'ok'); }).catch(function (err) { draw(errorText(err)); });
     }
-    if (e.target.closest('[data-demo-verify]')) return verify(api.auth.demoToken(pendingEmail));
+    if (e.target.closest('[data-demo-verify]')) return verify(pendingToken || api.auth.demoToken(pendingEmail));
     var eye = e.target.closest('[data-eye]');
     if (eye) { var inp = eye.parentNode.querySelector('input'), on = inp.type === 'password'; inp.type = on ? 'text' : 'password'; eye.setAttribute('aria-pressed', String(on)); eye.setAttribute('aria-label', t(on ? 'pw.hide' : 'pw.show')); }
   });
@@ -90,13 +97,15 @@ var Session = (function () {
     var pw = (f.querySelector('[name=password]') || {}).value || '';
     if (f.querySelector('[name=email]') && !EmailCheck.valid(val('email')) || f.querySelector('[name=email]') && !val('email')) return draw(t('auth.errEmail'));
     if (f.querySelector('[name=password]') && !pw) return draw(t('auth.errPassword'));
+    var np = f.querySelector('[data-pw-rules]'), prob = np && PasswordRules.problem(pw);    // nieuw wachtwoord: eerst zelf controleren
+    if (prob) return draw(t(PasswordRules.errorKey('password_' + prob)));
     btn.disabled = true;
     var job = mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
-      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang() }).then(function () { pendingEmail = val('email'); mode = 'check'; draw(); return null; })
+      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang() }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); return null; })
       : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
       : api.auth.reset({ token: resetToken, password: pw });
     job.then(function (u) { if (u) enter(); }).catch(function (err) {
-      if (err && err.code === 'unverified') { pendingEmail = val('email'); mode = 'check'; flash = ['auth.errUnverified', 'bad']; return draw(); }
+      if (err && err.code === 'unverified') { pendingEmail = val('email'); pendingToken = null; mode = 'check'; flash = ['auth.errUnverified', 'bad']; return draw(); }
       draw(errorText(err)); var b = card.querySelector('.auth-go'); if (b) b.disabled = false; });
   });
   i18n.onChange(function () { if (!view.hidden) draw(); });
@@ -110,9 +119,9 @@ var Session = (function () {
   document.addEventListener('auth:required', function () { if (user || view.hidden) { user = null; show('login'); } });
 
   // Starten
-  var m = location.search.match(/[?&]reset=([^&]+)/);
+  var m = location.search.match(/[?&](reset|invite)=([^&]+)/);
   api.available().then(function (online) {
-    if (m) { resetToken = decodeURIComponent(m[1]); history.replaceState(null, '', location.pathname); return show('reset'); }
+    if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
     return api.auth.me().then(function (u) { user = u; ready(); listeners.forEach(function (f) { f(u); }); }).catch(function () { show('login'); });

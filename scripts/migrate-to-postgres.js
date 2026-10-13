@@ -22,7 +22,7 @@ if (!fs.existsSync(file)) { console.error('SQLite-bestand niet gevonden: ' + fil
 
 // Volgorde telt: eerst users, dan wat ernaar verwijst
 const TABLES = [
-  ['users', ['id', 'email', 'name', 'password_hash', 'background', 'custom_background', 'created_at', 'updated_at', 'email_verified_at']],
+  ['users', ['id', 'email', 'name', 'password_hash', 'background', 'custom_background', 'created_at', 'updated_at', 'email_verified_at', 'billing']],
   ['sessions', ['token_hash', 'user_id', 'created_at', 'expires_at']],
   ['qr_codes', ['id', 'user_id', 'type_id', 'content_type', 'content', 'design', 'name', 'paused', 'scans', 'last_scan_at', 'created_at', 'updated_at']],
   ['scan_stats', ['code_id', 'day', 'key', 'scans', 'uniq']],

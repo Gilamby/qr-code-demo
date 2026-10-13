@@ -68,8 +68,10 @@ export const codespaceHost = (): string => (process.env.CODESPACE_NAME && proces
 export const codespaceUrl = (): string => (codespaceHost() ? 'https://' + codespaceHost() : '');
 
 const LOCAL = /^(localhost|127\.\d+\.\d+\.\d+|\[::1\])(:\d+)?$/i;
+/** Vast webadres: PUBLIC_URL, of het adres dat Render zelf meegeeft */
+export const publicUrl = (): string => (process.env.PUBLIC_URL || process.env.RENDER_EXTERNAL_URL || '').replace(/\/+$/, '');
 export function baseUrl(req: Request): string {
-  if (process.env.PUBLIC_URL) return process.env.PUBLIC_URL.replace(/\/+$/, '');
+  if (publicUrl()) return publicUrl();
   if (codespaceUrl()) return codespaceUrl();
   const host = req.get('host') || '';
   if (LOCAL.test(host)) { const ip = lanIp(), port = (host.match(/:(\d+)$/) || [])[1]; if (ip) return req.protocol + '://' + ip + (port ? ':' + port : ''); }

@@ -4,7 +4,7 @@
    ========================================================= */
 import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import type { NextFunction, Request, Response } from 'express';
-import { codespaceHost } from '../config/env';
+import { codespaceHost, publicUrl } from '../config/env';
 
 /** API-fout met onze vaste vorm: throw fail(400, 'Invalid QR code', { details }) */
 export const fail = (status: number, error: string, extra: Record<string, unknown> = {}) => new HttpException({ error, ...extra }, status);
@@ -65,7 +65,7 @@ export function sameOrigin(req: Request, res: Response, next: NextFunction) {
   if (site && site !== 'none') return res.status(403).json({ error: 'Cross-site request blocked' });
   if (origin) {
     // Achter een proxy (Codespaces, hosting) kan "Host" anders zijn dan het adres in de browser
-    const ok = [req.get('host'), req.get('x-forwarded-host'), hostOf(process.env.PUBLIC_URL), codespaceHost()].filter(Boolean);
+    const ok = [req.get('host'), req.get('x-forwarded-host'), hostOf(publicUrl()), codespaceHost()].filter(Boolean);
     try { if (ok.indexOf(new URL(origin).host) < 0) return res.status(403).json({ error: 'Cross-site request blocked' }); } catch (e) { return res.status(403).json({ error: 'Bad origin' }); }
   }
   next();

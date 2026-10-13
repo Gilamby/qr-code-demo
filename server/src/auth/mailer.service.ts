@@ -12,7 +12,7 @@ import { PATHS } from '../config/env';
 
 const LANGS = ['nl', 'en', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'el', 'sq'];
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
-type Kind = 'verify' | 'reset';
+type Kind = 'verify' | 'reset' | 'invite';
 
 @Injectable()
 export class MailerService {
@@ -29,10 +29,20 @@ export class MailerService {
   get configured() { return !!this.transport; }
   sendVerify(to: string, link: string, lang: string) { return this.send('verify', to, link, lang); }
   sendReset(to: string, link: string, lang: string) { return this.send('reset', to, link, lang); }
+  sendInvite(to: string, link: string, lang: string) { return this.send('invite', to, link, lang); }
+
+  /** Contactformulier: bericht naar het team (CONTACT_EMAIL, anders MAIL_FROM); antwoorden gaat naar de afzender */
+  async sendContact(m: { name: string; email: string; topic: string; message: string; account: string }) {
+    const to = process.env.CONTACT_EMAIL || (process.env.MAIL_FROM || '').replace(/^.*<|>.*$/g, '');
+    const body = 'Van: ' + m.name + ' <' + m.email + '>\nAccount: ' + m.account + '\nOnderwerp: ' + m.topic + '\n\n' + m.message;
+    if (!this.transport || !to) { console.log('[e-mail niet ingesteld] Contactformulier:\n' + body.replace(/^/gm, '  ')); return; }
+    await this.transport.sendMail({ from: process.env.MAIL_FROM || 'Optimasys QR <no-reply@optimasys.com>', to, replyTo: m.name + ' <' + m.email + '>',
+      subject: '[Optimasys QR] ' + m.topic + ': ' + m.message.slice(0, 60).replace(/\s+/g, ' '), text: body });
+  }
 
   private async send(kind: Kind, to: string, link: string, lang: string) {
     const t = { ...this.text.en, ...this.text[lang] };
-    if (!this.transport) { console.log('[e-mail niet ingesteld] ' + (kind === 'verify' ? 'Bevestigingslink' : 'Wachtwoord-link') + ' voor ' + to + ':\n  ' + link); return; }
+    if (!this.transport) { console.log('[e-mail niet ingesteld] ' + ({ verify: 'Bevestigingslink', reset: 'Wachtwoord-link', invite: 'Uitnodiging' }[kind]) + ' voor ' + to + ':\n  ' + link); return; }
     await this.transport.sendMail({
       from: process.env.MAIL_FROM || 'Optimasys QR <no-reply@optimasys.com>', to, subject: t[kind + 'Subject'],
       text: (t[kind + 'Hello'] || t.resetHello) + '\n\n' + t[kind + 'Text'] + '\n' + link + '\n\n' + t[kind + 'Ignore'],

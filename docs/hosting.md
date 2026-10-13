@@ -1,6 +1,6 @@
 # Hosting guide (Optimasys infrastructure)
 
-How to run Optimasys QR on the standard Optimasys setup: **native Node.js 22, systemd, nginx + Cloudflare, a dedicated Unix account and MongoDB**. No Docker is needed.
+How to run QR Generator on the standard Optimasys setup: **native Node.js 22, systemd, nginx + Cloudflare, a dedicated Unix account, and SQLite** (MongoDB later if wanted). No Docker is needed.
 
 ## At a glance
 
@@ -9,8 +9,8 @@ How to run Optimasys QR on the standard Optimasys setup: **native Node.js 22, sy
 | Runtime | Node.js 22 LTS (works on Node 20.19+ as well) |
 | Start command | `node server/dist/main.js` (after `npm ci && npm run build`) |
 | Listens on | `HOST:PORT`, default `127.0.0.1:3000` behind nginx |
-| Database | MongoDB 6.0+ (`DATABASE_URL=mongodb://…`). SQLite (no `DATABASE_URL`) and PostgreSQL also work |
-| Persistent data | `DATA_DIR`: uploaded files (PDF/MP3), `secret.key`, and the SQLite file only if SQLite is used |
+| Database | SQLite in `DATA_DIR` (WAL mode): the default, no `DATABASE_URL` needed. MongoDB 6.0+ (`DATABASE_URL=mongodb://…`) and PostgreSQL also work |
+| Persistent data | `DATA_DIR`: the SQLite database (`optimasys.db`), uploaded files (PDF/MP3) and `secret.key` |
 | Health check | `GET /api/health` returns `{"ok":true,…}` (checks the database too) |
 | Logs | stdout/stderr, read with `journalctl -u optimasys-qr` |
 | Ready-made files | `deploy/optimasys-qr.service`, `deploy/nginx-optimasys-qr.conf`, `deploy/deploy.sh` |
@@ -30,7 +30,7 @@ chmod 700 /var/lib/optimasys-qr
   releases/<git-sha>/  one directory per deployed version (last 5 kept)
   current -> releases/<git-sha>
   shared/.env          configuration, never in git (chmod 600)
-/var/lib/optimasys-qr/ DATA_DIR, outside every release: files/, secret.key (and optimasys.db with SQLite)
+/var/lib/optimasys-qr/ DATA_DIR, outside every release: optimasys.db (SQLite), files/, secret.key
 ```
 
 ## 2. Configuration (`shared/.env`)
@@ -41,31 +41,32 @@ Start from `.env.example` in the repository. The values that matter on the serve
 PUBLIC_URL=https://qr.example.com          # goes into every printed QR code: choose once, never change
 PORT=3000
 TRUST_PROXY=loopback                       # nginx on the same machine passes the visitor IP
-DATABASE_URL=mongodb://optimasys_qr:PASSWORD@127.0.0.1:27017/optimasys_qr?authSource=optimasys_qr
+# DATABASE_URL stays empty: SQLite in DATA_DIR. (Later: mongodb://… to switch to MongoDB, see section 3.)
 DATA_KEY=<openssl rand -hex 32>            # encrypts Wi-Fi passwords in the database; store it in your secret manager
 FILE_SECRET=<openssl rand -hex 32>         # signs file links of password-protected pages
 SMTP_HOST=… SMTP_PORT=587 SMTP_USER=… SMTP_PASS=… MAIL_FROM="Optimasys QR <no-reply@optimasys.com>"
+SUPPORT_EMAIL=support@…                    # team account, created (already verified) at startup if it doesn't exist
+SUPPORT_PASSWORD=…                         # only on the server, at least 8 characters
+# ADMIN_EMAILS=a@…,b@…                     # more team members (optional)
 ```
+
+**Licences / accounts.** Customers can't sign up themselves. A team member (`SUPPORT_EMAIL`, `ADMIN_EMAILS`) adds a customer on the **Customers** page. The customer gets an email to choose a password (valid 7 days) and is then logged in. Without SMTP, the page shows the invitation link to send manually. `ALLOW_SIGNUP=true` opens self sign-up again, for development only.
 
 `NODE_ENV`, `HOST` and `DATA_DIR` are set in the systemd unit.
 
 Keep `DATA_KEY` **separate from database backups**: without it, encrypted fields are unreadable, and anyone with the key and a backup can read them.
 
-## 3. MongoDB
+## 3. Database
 
-- Any MongoDB 6.0 or newer works: a standalone server is fine. The app does not use multi-document transactions, so no replica set is required.
-- Create one database and one user with `readWrite` on that database only:
+**SQLite (default).** With `DATABASE_URL` empty, the app uses `DATA_DIR/optimasys.db` with WAL mode, a busy timeout and foreign keys. Tables are created automatically at startup; there is no separate migration step.
 
-  ```js
-  use optimasys_qr
-  db.createUser({ user: "optimasys_qr", pwd: "…", roles: [{ role: "readWrite", db: "optimasys_qr" }] })
-  ```
-- The database name comes from `DATABASE_URL` (default `optimasys`). Collections and indexes are created automatically at startup. There is no separate migration step.
-- Collections: `users`, `sessions`, `emailVerifications`, `passwordResets`, `qrCodes`, `scanStats` (daily counts per code, no IP addresses), `files` (metadata only; the files themselves are in `DATA_DIR/files`).
-- **Backups:** `mongodump --uri="$DATABASE_URL" --archive=… --gzip`, plus a copy of `DATA_DIR/files`. `npm run backup` copies the files directory.
-- **Existing data in SQLite?** Run `DATABASE_URL=mongodb://… npm run migrate:mongo` once. It copies accounts, sessions, codes, statistics and file metadata, and skips anything that already exists, so it is safe to run again. Then move `DATA_DIR/files` and the key.
+- **Backups:** `npm run backup` makes a consistent copy of the database (safe while the app runs) plus `DATA_DIR/files` into `backups/` (keeps the last 14). Run it nightly from a systemd timer or cron as the app user, and copy the result off the server.
+- One app process per database file. That is plenty for this app: in tests it handled more than 1,000 scans per second.
 
-**Starting with SQLite instead:** leave `DATABASE_URL` empty and the app uses `DATA_DIR/optimasys.db` (WAL mode). Switch later with `npm run migrate:mongo`.
+**MongoDB (optional, later).** Set `DATABASE_URL=mongodb://…` and restart.
+- MongoDB 6.0+, standalone is fine (no transactions used, so no replica set needed). One database and one user with `readWrite` on that database only.
+- Collections and indexes are created automatically at startup.
+- Move existing SQLite data once with `DATABASE_URL=mongodb://… npm run migrate:mongo` (safe to run again). Backups: `mongodump`, plus `DATA_DIR/files`.
 
 ## 4. Deployment (GitHub → versioned release)
 
@@ -116,11 +117,11 @@ The developer logs in over SSH as `optimasys-qr` and can:
 - see logs: `journalctl -u optimasys-qr -f` (add the user to the `systemd-journal` group);
 - see status and restart: `sudo systemctl status|restart optimasys-qr` (sudoers line above);
 - deploy: `~/current/deploy/deploy.sh` or through CI;
-- read data: `mongosh "$DATABASE_URL"` with the app's own database user.
+- read data: `sqlite3 /var/lib/optimasys-qr/optimasys.db` (read-only queries), or `mongosh "$DATABASE_URL"` when MongoDB is used.
 
 ## 8. Monitoring and maintenance
 
 - Health: `GET /api/health` returns `200 {"ok":true}`, or `503` when the database is unreachable.
 - Hourly, the app removes expired sessions and links, and accounts that were never verified after 7 days.
 - Monthly: update the geo database for country/city statistics (`docs/statistieken.md`).
-- Checking it works: `DATABASE_URL=mongodb://…/optimasys_qr_test npm test` runs the full API test suite against a real MongoDB, including 50 simultaneous scans on one code. Use an empty test database.
+- Checking it works: `npm test` runs the full API test suite (accounts, codes per customer, files, scans, analytics, security, billing, contact). With `DATABASE_URL=…` it runs against another database; use an empty test database.

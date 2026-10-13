@@ -82,7 +82,11 @@ Alles onder `/api` (behalve health, qr-types en de inlogroutes) vraagt een ingel
 | Methode | Pad | Wat |
 |---|---|---|
 | GET | `/api/health` | draait de server en de database? |
-| POST | `/api/auth/register` | account maken (nog niet ingelogd: er gaat een bevestigingsmail uit) |
+| POST | `/api/auth/register` | zelf een account maken: staat standaard uit (licentie); alleen met `ALLOW_SIGNUP=true` |
+| GET / POST | `/api/admin/customers` | team: alle klanten / klant toevoegen en uitnodigen (mail met link om een wachtwoord te kiezen) |
+| POST / DELETE | `/api/admin/customers/:id/invite` · `/api/admin/customers/:id` | team: opnieuw uitnodigen · klant verwijderen |
+| GET / PUT | `/api/account/billing` | factuurgegevens |
+| POST | `/api/contact` | contactformulier |
 | POST | `/api/auth/verify` · `/resend` | e-mailadres bevestigen (link uit de mail, 24 uur geldig) · mail opnieuw sturen |
 | POST | `/api/auth/login` · `/logout` | inloggen (pas na bevestigen), uitloggen |
 | GET | `/api/auth/me` | wie is ingelogd? |

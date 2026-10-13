@@ -83,6 +83,9 @@ export function openSqlite(file: string): SqlDriver {
     db.prepare('UPDATE users SET email_verified_at = created_at').run();
   }
 
+  // Kolom van 13 okt 2026: factuurgegevens (JSON)
+  if (!db.prepare("SELECT 1 FROM pragma_table_info('users') WHERE name = 'billing'").get()) db.exec('ALTER TABLE users ADD COLUMN billing TEXT');
+
   const cache = new Map<string, Database.Statement>();
   const stmt = (sql: string) => { let s = cache.get(sql); if (!s) { s = db.prepare(sql); cache.set(sql, s); } return s; };
   const fix = (p?: unknown[]) => (p || []).map((v) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));

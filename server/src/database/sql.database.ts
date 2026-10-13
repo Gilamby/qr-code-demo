@@ -6,9 +6,9 @@
    ========================================================= */
 import * as fs from 'fs';
 import * as path from 'path';
-import type { QrCode, SqlDriver, StoredFile, User } from '../types';
+import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
-  DatabaseService, FILES_DIR, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Customer, DatabaseService, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -61,6 +61,15 @@ export class SqlDatabase extends DatabaseService {
     removeFiles(files);
   }
 
+  async getBilling(userId: string): Promise<Billing | null> {
+    const r = await this.d.get('SELECT billing FROM users WHERE id = ?', [userId]);
+    try { return r && r.billing ? JSON.parse(r.billing) : null; } catch (e) { return null; }
+  }
+  async setBilling(userId: string, b: Billing) {
+    await this.d.run('UPDATE users SET billing = ?, updated_at = ? WHERE id = ?', [JSON.stringify(b), now(), userId]);
+    return this.getBilling(userId);
+  }
+
   async createVerification(userId: string) {
     const token = newId(32);
     await this.d.batch([
@@ -107,11 +116,11 @@ export class SqlDatabase extends DatabaseService {
     };
   }
 
-  async createReset(userId: string) {
+  async createReset(userId: string, hours = RESET_HOURS) {
     const token = newId(32);
     await this.d.batch([
       ['DELETE FROM password_resets WHERE user_id = ?', [userId]],
-      ['INSERT INTO password_resets (token_hash, user_id, expires_at) VALUES (?, ?, ?)', [hash(token), userId, new Date(Date.now() + RESET_HOURS * 3600e3).toISOString()]],
+      ['INSERT INTO password_resets (token_hash, user_id, expires_at) VALUES (?, ?, ?)', [hash(token), userId, new Date(Date.now() + hours * 3600e3).toISOString()]],
     ]);
     return token;
   }
@@ -126,7 +135,12 @@ export class SqlDatabase extends DatabaseService {
     await this.d.run('DELETE FROM sessions WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM password_resets WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM email_verifications WHERE expires_at < ?', [t]);
-    await this.d.run('DELETE FROM users WHERE email_verified_at IS NULL AND created_at < ?', [new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString()]);
+    // nooit bevestigde aanmeldingen weg; uitgenodigde klanten blijven staan (het team kan opnieuw uitnodigen)
+    await this.d.run('DELETE FROM users WHERE email_verified_at IS NULL AND password_hash <> ? AND created_at < ?', [INVITED, new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString()]);
+  }
+  async listCustomers(): Promise<Customer[]> {
+    const rows = await this.d.all('SELECT u.id, u.email, u.name, u.created_at, u.email_verified_at, (SELECT COUNT(*) FROM qr_codes q WHERE q.user_id = u.id) AS codes, (SELECT MAX(r.expires_at) FROM password_resets r WHERE r.user_id = u.id) AS invite_until FROM users u ORDER BY u.created_at DESC');
+    return rows.map((r) => ({ id: r.id, email: r.email, name: r.name, createdAt: r.created_at, active: !!r.email_verified_at, codes: Number(r.codes) || 0, inviteUntil: r.email_verified_at ? null : r.invite_until || null }));
   }
 
   /* ---------- QR-codes ---------- */

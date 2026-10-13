@@ -7,7 +7,7 @@
    Starten: npm start  (bouwt eerst de TypeScript in server/src naar server/dist)
    ========================================================= */
 import 'reflect-metadata';
-import { PATHS, PORT, codespaceUrl, isProduction, lanIp, trustProxy } from './config/env';
+import { PATHS, PORT, codespaceUrl, isProduction, lanIp, publicUrl, trustProxy } from './config/env';
 import * as fs from 'fs';
 import * as path from 'path';
 import { exec } from 'child_process';
@@ -73,7 +73,7 @@ async function main() {
     process.exit(1);
   }
   console.log('Optimasys QR (NestJS) draait op http://localhost:' + port + ' (database: ' + db.kindName + ' ' + db.label + ')');
-  if (process.env.PUBLIC_URL) console.log('QR-codes wijzen naar: ' + process.env.PUBLIC_URL);
+  if (publicUrl()) console.log('QR-codes wijzen naar: ' + publicUrl());
   else if (codespaceUrl()) {
     console.log('\nCodespaces: QR-codes wijzen naar ' + codespaceUrl());
     // Poort openbaar maken, zodat een telefoon hem kan openen

@@ -1,14 +1,15 @@
 /* =========================================================
    MIJN ACCOUNT  (/api/account, /api/me)
-   Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond,
+   Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond, factuurgegevens,
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
-import { Body, Controller, Delete, Get, HttpCode, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Patch, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { DatabaseService } from '../database/database.service';
 import { AuthService } from './auth.service';
 import { CurrentUser, LoggedIn } from './auth.guard';
 import { validateMe } from '../qr-codes/validation';
+import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
 
@@ -34,6 +35,17 @@ export class AccountController {
     return { ok: true };
   }
 
+  /** Factuurgegevens: ophalen (null = nog niet ingevuld) en opslaan */
+  @Get('account/billing')
+  async billing(@CurrentUser() user: User) { return { billing: await this.db.getBilling(user.id) }; }
+
+  @Put('account/billing')
+  async saveBilling(@CurrentUser() user: User, @Body() b: any = {}) {
+    const { errors, value } = validateBilling(b);
+    if (errors.length) throw fail(400, 'Invalid billing details', { details: errors });
+    return { billing: await this.db.setBilling(user.id, value) };
+  }
+
   /** Overzicht: aantal codes, scans, ingelogde apparaten */
   @Get('account/summary')
   async summary(@CurrentUser() user: User) {
@@ -56,7 +68,7 @@ export class AccountController {
       return { ...q, content: c, userId: undefined };
     });
     res.set('Content-Disposition', 'attachment; filename="optimasys-mijn-gegevens.json"');
-    return { exportedAt: new Date().toISOString(), account: this.auth.me(user), qrCodes: codes };
+    return { exportedAt: new Date().toISOString(), account: this.auth.me(user), billing: await this.db.getBilling(user.id), qrCodes: codes };
   }
 
   /** AVG: account en alles verwijderen (met wachtwoord) */

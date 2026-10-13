@@ -1,7 +1,7 @@
 /* =========================================================
    Opslag in MongoDB (DATABASE_URL=mongodb://… of mongodb+srv://…).
    Collections (worden bij het opstarten met hun indexen aangemaakt):
-     users               { _id, email, emailLower (uniek), name, passwordHash, background, customBackground, emailVerifiedAt, createdAt, updatedAt }
+     users               { _id, email, emailLower (uniek), name, passwordHash, background, customBackground, billing {…}, emailVerifiedAt, createdAt, updatedAt }
      sessions            { _id: hash van de sessiecode, userId, createdAt, expiresAt }
      passwordResets      { _id: hash van de code, userId, expiresAt }
      emailVerifications  { _id: hash van de code, userId, expiresAt }
@@ -16,9 +16,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
-import type { QrCode, StoredFile, User } from '../types';
+import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
-  DatabaseService, FILES_DIR, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Customer, DatabaseService, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -116,6 +116,15 @@ export class MongoDatabase extends DatabaseService {
     removeFiles(files);
   }
 
+  async getBilling(userId: string): Promise<Billing | null> {
+    const d = await this.users.findOne({ _id: userId }, { projection: { billing: 1 } });
+    return (d && d.billing) || null;
+  }
+  async setBilling(userId: string, b: Billing) {
+    await this.users.updateOne({ _id: userId }, { $set: { billing: b, updatedAt: now() } });
+    return this.getBilling(userId);
+  }
+
   async createVerification(userId: string) {
     const token = newId(32);
     await this.verifications.deleteMany({ userId });
@@ -161,10 +170,10 @@ export class MongoDatabase extends DatabaseService {
     };
   }
 
-  async createReset(userId: string) {
+  async createReset(userId: string, hours = RESET_HOURS) {
     const token = newId(32);
     await this.resets.deleteMany({ userId });
-    await this.resets.insertOne({ _id: hash(token), userId, expiresAt: new Date(Date.now() + RESET_HOURS * 3600e3).toISOString() });
+    await this.resets.insertOne({ _id: hash(token), userId, expiresAt: new Date(Date.now() + hours * 3600e3).toISOString() });
     return token;
   }
   async useReset(token: string): Promise<string | null> {
@@ -177,8 +186,16 @@ export class MongoDatabase extends DatabaseService {
     await this.sessions.deleteMany({ expiresAt: { $lt: t } });
     await this.resets.deleteMany({ expiresAt: { $lt: t } });
     await this.verifications.deleteMany({ expiresAt: { $lt: t } });
-    const old = await this.users.find({ emailVerifiedAt: null, createdAt: { $lt: new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString() } }, { projection: { _id: 1 } }).toArray();
+    // nooit bevestigde aanmeldingen weg; uitgenodigde klanten blijven staan (het team kan opnieuw uitnodigen)
+    const old = await this.users.find({ emailVerifiedAt: null, passwordHash: { $ne: INVITED }, createdAt: { $lt: new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString() } }, { projection: { _id: 1 } }).toArray();
     for (const u of old) await this.deleteUser(u._id);
+  }
+  async listCustomers(): Promise<Customer[]> {
+    const users = await this.users.find({}, { projection: { email: 1, name: 1, createdAt: 1, emailVerifiedAt: 1 } }).sort({ createdAt: -1 }).toArray();
+    const counts: Record<string, number> = {}, invites: Record<string, string> = {};
+    for (const r of await this.codes.aggregate([{ $group: { _id: '$userId', n: { $sum: 1 } } }]).toArray()) counts[r._id] = Number(r.n) || 0;
+    for (const r of await this.resets.find({}).toArray()) if (!invites[r.userId] || r.expiresAt > invites[r.userId]) invites[r.userId] = r.expiresAt;
+    return users.map((u) => ({ id: u._id, email: u.email, name: u.name, createdAt: u.createdAt, active: !!u.emailVerifiedAt, codes: counts[u._id] || 0, inviteUntil: u.emailVerifiedAt ? null : invites[u._id] || null }));
   }
 
   /* ---------- QR-codes ---------- */

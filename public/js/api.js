@@ -127,7 +127,7 @@ var api = (function () {
       register: function (d) {
         var email = String(d.email || '').trim().toLowerCase(), acc = get(ACCOUNTS) || {};
         if (!EMAIL_RE.test(email)) return fail('email', 400);
-        if (String(d.password || '').length < 8) return fail('password_short', 400);
+        var pp = PasswordRules.problem(d.password); if (pp) return fail('password_' + pp, 400);
         return digest(d.password).then(function (h) {
           if (!acc[email] || !acc[email].verified) acc[email] = { email: email, name: String(d.name || '').trim() || email.split('@')[0], pw: h, verified: false, createdAt: new Date().toISOString() };
           put(ACCOUNTS, acc); return { verify: true, email: email };
@@ -146,7 +146,62 @@ var api = (function () {
           var u = { id: 'demo', email: a.email, name: a.name, createdAt: a.createdAt, demo: true }; put(KEY, u); return u;
         });
       },
-      logout: function () { try { localStorage.removeItem(KEY); } catch (e) {} return Promise.resolve(null); }
+      logout: function () { try { localStorage.removeItem(KEY); } catch (e) {} return Promise.resolve(null); },
+
+      /* Mijn account in de demo: zelfde antwoorden als de server, maar alles in deze browser */
+      account: (function () {
+        function cur() { var u = get(KEY), acc = get(ACCOUNTS) || {}; return u && acc[u.email] ? { u: u, acc: acc, a: acc[u.email] } : null; }
+        function need() { var c = cur(); if (!c) { var e = new Error('Not logged in'); e.status = 401; throw e; } return c; }
+        function save(c) { put(ACCOUNTS, c.acc); }
+        return {
+          update: function (d) { return Promise.resolve().then(function () {
+            var c = need(); c.a.name = String(d.name || '').trim().slice(0, 80); save(c);
+            c.u.name = c.a.name; put(KEY, c.u); return c.u; }); },
+          password: function (d) { return Promise.resolve().then(function () {
+            var c = need();
+            return digest(d.current || '').then(function (h) {
+              if (h !== c.a.pw) return fail('wrong', 403);
+              var pp = PasswordRules.problem(d.password); if (pp) return fail('password_' + pp, 400);
+              return digest(d.password).then(function (nh) { c.a.pw = nh; save(c); return { ok: true }; });
+            }); }); },
+          summary: function () { return Promise.resolve().then(function () {
+            var c = need();
+            return demoCodes().then(function (codes) {
+              var o = ANALYTICS.overview(codes, {}), since = new Date(Date.now() - 29 * 864e5).toISOString().slice(0, 10), s30 = 0;
+              codes.forEach(function (q) { Object.keys(q.stats || {}).forEach(function (day) { if (day >= since) Object.keys(q.stats[day]).forEach(function (k) { s30 += q.stats[day][k][0]; }); }); });
+              return { createdAt: c.a.createdAt, codes: codes.length, scans: o.totals.scans, scans30: s30, sessions: 1 };
+            }); }); },
+          logoutOthers: function () { return Promise.resolve({ ok: true }); },
+          billing: function () { return Promise.resolve().then(function () { return { billing: need().a.billing || null }; }); },
+          saveBilling: function (b) { return Promise.resolve().then(function () {
+            var c = need(), v = Object.assign({}, b), err = [];
+            ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'].forEach(function (k) { v[k] = String(v[k] || '').replace(/\s+/g, ' ').trim(); });
+            if (v.type !== 'private') { v.type = 'company'; v.taxId = v.taxId.toUpperCase().replace(/[\s.]/g, ''); } else { v.companyName = ''; v.taxId = ''; }
+            v.postalCode = v.postalCode.toUpperCase(); v.country = v.country.toUpperCase(); v.email = v.email.toLowerCase();
+            if (v.type === 'company' && !v.companyName) err.push('companyName');
+            if (v.type === 'private' && !v.firstName) err.push('firstName');
+            if (v.type === 'private' && !v.lastName) err.push('lastName');
+            if (v.taxId && !/^[A-Z]{2}[A-Z0-9-]{2,15}$/.test(v.taxId)) err.push('taxId');
+            if (v.email && !EMAIL_RE.test(v.email)) err.push('email');
+            if (!v.address) err.push('address');
+            if (!/^[A-Z0-9][A-Z0-9 -]{1,11}$/.test(v.postalCode)) err.push('postalCode');
+            if (!v.city) err.push('city');
+            if (!/^[A-Z]{2}$/.test(v.country)) err.push('country');
+            if (err.length) { var e = new Error('Invalid billing details'); e.status = 400; e.details = err; throw e; }
+            c.a.billing = v; save(c); return { billing: v }; }); },
+          exportData: function () { return Promise.resolve().then(function () {
+            var c = need();
+            return local.list().then(function (codes) { return { exportedAt: new Date().toISOString(), demo: true, account: { email: c.a.email, name: c.a.name, createdAt: c.a.createdAt }, billing: c.a.billing || null, qrCodes: codes }; }); }); },
+          remove: function (d) { return Promise.resolve().then(function () {
+            var c = need();
+            return digest(d.password || '').then(function (h) {
+              if (h !== c.a.pw) return fail('wrong', 403);
+              delete c.acc[c.u.email]; save(c);
+              try { localStorage.removeItem(KEY); localStorage.removeItem('optimasys-demo-codes'); } catch (e) {}
+              return null;
+            }); }); }
+        };
+      })()
     };
   })();
   function either(server, demo) { return function () { var a = arguments; return available().then(function (on) { return on ? server.apply(null, a) : demo.apply(null, a); }); }; }
@@ -180,14 +235,27 @@ var api = (function () {
       forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),
       reset:    function (d) { return request('POST', 'api/auth/reset', d); }
     },
+    // Mijn account. Zonder server (online demo): alles in deze browser, zelfde antwoorden.
     account: {
-      update:   function (d) { return request('PATCH', 'api/account', d); },
-      password: function (d) { return request('POST', 'api/account/password', d); },
-      remove:   function (d) { return request('DELETE', 'api/account', d); },
-      summary:  function ()  { return request('GET', 'api/account/summary'); },
-      logoutOthers: function () { return request('POST', 'api/account/logout-others', {}); },
-      exportUrl: 'api/account/export'
+      update:   either(function (d) { return request('PATCH', 'api/account', d); }, demoAuth.account.update),
+      password: either(function (d) { return request('POST', 'api/account/password', d); }, demoAuth.account.password),
+      remove:   either(function (d) { return request('DELETE', 'api/account', d); }, demoAuth.account.remove),
+      summary:  either(function ()  { return request('GET', 'api/account/summary'); }, demoAuth.account.summary),
+      logoutOthers: either(function () { return request('POST', 'api/account/logout-others', {}); }, demoAuth.account.logoutOthers),
+      billing:  either(function ()  { return request('GET', 'api/account/billing'); }, demoAuth.account.billing),
+      saveBilling: either(function (b) { return request('PUT', 'api/account/billing', b); }, demoAuth.account.saveBilling),
+      // Gegevens downloaden: met server de echte export, zonder server wat in deze browser staat
+      exportData: either(function () { return request('GET', 'api/account/export'); }, demoAuth.account.exportData)
     },
+    // Klanten (alleen voor het team, alleen met server)
+    customers: {
+      list:     function ()       { return request('GET', 'api/admin/customers'); },
+      add:      function (d)      { return request('POST', 'api/admin/customers', d); },
+      reinvite: function (id, d)  { return request('POST', 'api/admin/customers/' + encodeURIComponent(id) + '/invite', d || {}); },
+      remove:   function (id)     { return request('DELETE', 'api/admin/customers/' + encodeURIComponent(id)); }
+    },
+    // Contactformulier. In de demo wordt er niets verstuurd (dat zegt de pagina er ook bij).
+    contact: either(function (d) { return request('POST', 'api/contact', d); }, function () { return Promise.resolve({ ok: true, demo: true }); }),
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },
     updateMe:     function (patch) { return request('PATCH', 'api/me', patch); }

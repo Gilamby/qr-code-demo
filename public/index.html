@@ -45,6 +45,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/></svg>
         <span class="label" data-i18n="nav.account"></span><span class="tip" data-i18n="nav.account"></span>
       </a>
+      <a class="item" href="#" data-page="customers" id="navCustomers" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.6 3.6-5.5 6.5-5.5s5.5 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.8.7 3 2.5 3.5 5.2"/></svg>
+        <span class="label" data-i18n="nav.customers"></span><span class="tip" data-i18n="nav.customers"></span>
+      </a>
 
       <div class="divider" role="separator"></div>
       <div class="group-label" data-i18n="nav.help"></div>
@@ -111,7 +115,7 @@
 
     <main class="canvas" id="accountView" hidden>
       <section class="account">
-        <header class="acct-head"><h2 data-i18n="nav.account"></h2><p data-i18n="acct.lead"></p></header>
+        <header class="acct-head"><h2 data-i18n="nav.account"></h2><p data-i18n="acct.lead"></p><p class="acct-demo" id="acctDemo" hidden></p></header>
         <div class="acct-layout">
         <div class="glass acct-menu" id="acctMenu" role="tablist" aria-orientation="vertical" data-i18n-aria="acct.sections"></div>
         <div class="acct-main">
@@ -157,6 +161,18 @@
       </section>
     </main>
 
+    <main class="canvas" id="customersView" hidden>
+      <section class="help" id="customersPage"></section>
+    </main>
+
+    <main class="canvas" id="contactView" hidden>
+      <section class="help" id="contactPage"></section>
+    </main>
+
+    <main class="canvas" id="faqView" hidden>
+      <section class="help" id="faqPage"></section>
+    </main>
+
     <main class="canvas" id="emptyView" hidden>
       <div class="empty"><p data-i18n="empty.text"></p></div>
     </main>
@@ -190,10 +206,13 @@
 <script src="js/components.js"></script>
 <script src="js/layout.js"></script>
 <script src="js/account.js"></script>
+<script src="js/password-rules.js"></script>
 <script src="js/session.js"></script>
 <script src="js/account-settings.js"></script>
 <script src="js/my-codes.js"></script>
 <script src="js/analytics.js"></script>
+<script src="js/help.js"></script>
+<script src="js/customers.js"></script>
 <script src="js/main.js"></script>
 <script src="js/hello.js"></script>
 </body>

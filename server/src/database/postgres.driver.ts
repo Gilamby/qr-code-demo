@@ -83,6 +83,7 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   pool.on('error', (e) => console.error('PostgreSQL:', e.message));
   await pool.query(SCHEMA);
   await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified_at TEXT');
+  await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS billing TEXT');
 
   const q = (client: Pool | PoolClient, sql: string, p?: unknown[]) => client.query(toPg(sql), fix(p));
   const safeUrl = url.replace(/\/\/([^:/@]+):[^@]*@/, '//$1:***@');   // wachtwoord nooit in de log

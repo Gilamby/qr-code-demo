@@ -27,22 +27,28 @@ export class AuthController {
   @Post('register')
   @HttpCode(201)
   async register(@Req() req: Request, @Body() b: any = {}) {
+    if (!this.auth.signupOpen()) throw fail(403, 'signup_closed');                 // licentie: het team maakt accounts aan
     const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').trim().slice(0, 80), lang = String(b.lang || 'en');
     if (this.auth.limited('reg:' + req.ip, 50, 60) || this.auth.limited('reg:' + email, 3, 60)) throw fail(429, 'too_many');
     if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
     const existing = await this.db.userByEmail(email);
+    let token: string = null;
     if (!existing) {
       const user = await this.db.createUser({ email, name, passwordHash: await this.auth.hashPassword(b.password) });
-      await this.sendVerifyMail(req, user.id, email, lang);
-    } else if (!(await this.db.isVerified(existing.id))) await this.sendVerifyMail(req, existing.id, email, lang);   // nog niet bevestigd: nieuwe link
-    return { verify: true, email };
+      token = await this.sendVerifyMail(req, user.id, email, lang);
+    } else if (!(await this.db.isVerified(existing.id))) token = await this.sendVerifyMail(req, existing.id, email, lang);   // nog niet bevestigd: nieuwe link
+    return { verify: true, email, ...this.demoToken(token) };
   }
 
   private async sendVerifyMail(req: Request, userId: string, email: string, lang: string) {
-    const link = baseUrl(req) + '/?verify=' + encodeURIComponent(await this.db.createVerification(userId));
+    const token = await this.db.createVerification(userId), link = baseUrl(req) + '/?verify=' + encodeURIComponent(token);
     this.mailer.sendVerify(email, link, lang).catch((e) => console.error('E-mail versturen mislukt:', e.message));
+    return token;
   }
+  /** Alleen voor een demo-server zonder e-mail (SHOW_VERIFY_LINK=true en geen SMTP): de bevestigingscode gaat mee in het antwoord,
+   *  zodat de app een knop "bevestigingslink openen" kan tonen. Nooit gebruiken voor echte klanten. */
+  private demoToken(token: string | null) { return token && process.env.SHOW_VERIFY_LINK === 'true' && !this.mailer.configured ? { token } : {}; }
 
   /** Link uit de mail: account bevestigd. Daarna zelf inloggen. */
   @Post('verify')
@@ -61,8 +67,9 @@ export class AuthController {
     const email = String(b.email || '').trim().toLowerCase();
     if (this.auth.limited('resend:' + req.ip, 10, 60) || this.auth.limited('resend:' + email, 3, 60)) throw fail(429, 'too_many');
     const row = EMAIL.test(email) && await this.db.userByEmail(email);
-    if (row && !(await this.db.isVerified(row.id))) await this.sendVerifyMail(req, row.id, email, String(b.lang || 'en'));
-    return { ok: true };
+    let token: string = null;
+    if (row && !(await this.db.isVerified(row.id))) token = await this.sendVerifyMail(req, row.id, email, String(b.lang || 'en'));
+    return { ok: true, ...this.demoToken(token) };
   }
 
   @Post('login')

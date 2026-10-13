@@ -28,6 +28,20 @@ export interface QrCode {
   stats?: Record<string, Record<string, [number, number]>>;
 }
 
+/** Factuurgegevens (Mijn account > Facturatie) */
+export interface Billing {
+  type: 'company' | 'private';
+  companyName: string;
+  taxId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  postalCode: string;
+  city: string;
+  country: string;
+}
+
 export interface StoredFile {
   id: string;
   code_id: string | null;

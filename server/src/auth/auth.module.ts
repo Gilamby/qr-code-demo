@@ -4,10 +4,12 @@ import { AccountController } from './account.controller';
 import { AuthService } from './auth.service';
 import { MailerService } from './mailer.service';
 import { LoggedIn } from './auth.guard';
+import { SupportAccountService } from './support-account.service';
+import { AdminController, TeamOnly } from './admin.controller';
 
 @Module({
-  controllers: [AuthController, AccountController],
-  providers: [AuthService, MailerService, LoggedIn],
+  controllers: [AuthController, AccountController, AdminController],
+  providers: [AuthService, MailerService, LoggedIn, SupportAccountService, TeamOnly],
   exports: [AuthService, MailerService, LoggedIn],
 })
 export class AuthModule {}

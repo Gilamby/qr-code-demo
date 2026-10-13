@@ -15,7 +15,7 @@ import * as path from 'path';
 import * as crypto from 'crypto';
 import { PATHS } from '../config/env';
 import * as secret from './secret';
-import type { QrCode, StoredFile, User } from '../types';
+import type { Billing, QrCode, StoredFile, User } from '../types';
 
 export const FILES_DIR = path.join(PATHS.data, 'files');
 export const SQLITE_FILE = process.env.DB_PATH || path.join(PATHS.data, 'optimasys.db');
@@ -47,6 +47,11 @@ export type NewQrCode = { id: string; typeId: string; contentType: string; conte
 export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean };
 export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string }>;
 export type Summary = { codes: number; scans: number; scans30: number; sessions: number };
+/** Een klant in de lijst van het team (pagina Klanten) */
+export type Customer = { id: string; email: string; name: string; createdAt: string; active: boolean; codes: number; inviteUntil: string | null };
+/** Wachtwoord-hash van een account dat is uitgenodigd maar nog geen wachtwoord heeft gekozen (kan nooit inloggen) */
+export const INVITED = 'invited';
+export const INVITE_HOURS = 7 * 24;
 
 export abstract class DatabaseService {
   abstract readonly kind: 'sqlite' | 'postgres' | 'mongodb';
@@ -71,6 +76,9 @@ export abstract class DatabaseService {
   abstract updateUser(id: string, patch: UserPatch): Promise<User>;
   /** Account verwijderen: alles weg (codes, statistieken, sessies, bestanden op schijf) */
   abstract deleteUser(id: string): Promise<void>;
+  /** Factuurgegevens (null = nog niet ingevuld) */
+  abstract getBilling(userId: string): Promise<Billing | null>;
+  abstract setBilling(userId: string, b: Billing): Promise<Billing>;
 
   /* Bevestigingslink: 24 uur geldig, één keer te gebruiken */
   abstract createVerification(userId: string): Promise<string>;
@@ -86,10 +94,13 @@ export abstract class DatabaseService {
   abstract summary(userId: string): Promise<Summary>;
 
   /* Wachtwoord vergeten: één keer bruikbaar, 1 uur geldig */
-  abstract createReset(userId: string): Promise<string>;
+  /** Link om een (nieuw) wachtwoord te kiezen; ook gebruikt voor uitnodigingen (dan 7 dagen geldig) */
+  abstract createReset(userId: string, hours?: number): Promise<string>;
   abstract useReset(token: string): Promise<string | null>;
   /** Opruimen: verlopen sessies en links, nooit bevestigde accounts (na 7 dagen) */
   abstract cleanup(): Promise<void>;
+  /** Alle accounts, nieuwste eerst (alleen voor het team) */
+  abstract listCustomers(): Promise<Customer[]>;
 
   /* ---------- QR-codes ---------- */
   abstract listQrCodes(userId: string): Promise<QrCode[]>;

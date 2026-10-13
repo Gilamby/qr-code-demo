@@ -17,8 +17,10 @@ function loadKey(): Buffer {
   if (key) return key;
   const env = String(process.env.DATA_KEY || '').trim();
   if (env) {
-    if (!/^[0-9a-f]{64}$/i.test(env)) throw new Error('DATA_KEY moet 64 hex-tekens zijn (32 bytes). Maak er een met: openssl rand -hex 32');
-    key = Buffer.from(env, 'hex'); return key;
+    if (/^[0-9a-f]{64}$/i.test(env)) { key = Buffer.from(env, 'hex'); return key; }
+    // Ander formaat (bv. een door de hosting gemaakt geheim): mag, als het lang genoeg is; de sleutel wordt er dan van afgeleid
+    if (env.length < 32) throw new Error('DATA_KEY is te kort: gebruik 64 hex-tekens (openssl rand -hex 32) of een willekeurige tekst van minstens 32 tekens.');
+    key = crypto.createHash('sha256').update('optimasys-data-key:' + env).digest(); return key;
   }
   const dir = PATHS.data, file = path.join(dir, 'secret.key');
   fs.mkdirSync(dir, { recursive: true });

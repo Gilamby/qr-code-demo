@@ -29,7 +29,7 @@ const has = (src, table) => !!src.prepare("SELECT 1 FROM sqlite_master WHERE typ
   const owner = {};                                                        // code-id → user-id (voor de statistieken)
   const PLAN = [
     ['users', 'users', (r) => ({ _id: r.id, email: r.email, emailLower: String(r.email).toLowerCase(), name: r.name || '', passwordHash: r.password_hash,
-      background: r.background || 'optimasys', customBackground: r.custom_background || null, emailVerifiedAt: r.email_verified_at || null, createdAt: r.created_at, updatedAt: r.updated_at || null })],
+      background: r.background || 'optimasys', customBackground: r.custom_background || null, emailVerifiedAt: r.email_verified_at || null, billing: json(r.billing, null), createdAt: r.created_at, updatedAt: r.updated_at || null })],
     ['sessions', 'sessions', (r) => ({ _id: r.token_hash, userId: r.user_id, createdAt: r.created_at, expiresAt: r.expires_at })],
     ['qr_codes', 'qrCodes', (r) => { owner[r.id] = r.user_id; return { _id: r.id, userId: r.user_id, typeId: r.type_id, contentType: r.content_type, content: json(r.content, {}), design: json(r.design, {}),
       name: r.name || null, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at || null, createdAt: r.created_at, updatedAt: r.updated_at || null }; }],

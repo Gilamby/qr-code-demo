@@ -34,11 +34,15 @@ export class AuthService implements OnModuleDestroy {
     const a = Buffer.from(h, 'hex'), b = await scrypt(String(pw), salt, a.length || 64);
     return a.length === b.length && crypto.timingSafeEqual(a, b);
   }
-  /** '' = goed, anders 'short' | 'long' | 'common' */
+  /** Regels: minstens 8 tekens, 1 hoofdletter, 1 cijfer, 1 speciaal teken (zelfde als public/js/password-rules.js).
+   *  '' = goed, anders 'short' | 'long' | 'common' | 'upper' | 'digit' | 'special' */
   passwordProblem(pw: unknown) {
     const s = String(pw || '');
     if (s.length < 8) return 'short';
     if (s.length > 200) return 'long';
+    if (!/\p{Lu}/u.test(s)) return 'upper';
+    if (!/\p{N}/u.test(s)) return 'digit';
+    if (!/[^\p{L}\p{N}\s]/u.test(s)) return 'special';
     if (COMMON.indexOf(s.toLowerCase()) >= 0) return 'common';
     return '';
   }
@@ -75,5 +79,16 @@ export class AuthService implements OnModuleDestroy {
   };
 
   /** Wat de app over de ingelogde gebruiker te zien krijgt */
-  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt }; }
+  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, admin: this.isAdmin(u) }; }
+
+  /* ---------- Team (beheer) ----------
+     Team-leden zien de pagina Klanten en kunnen klanten uitnodigen.
+     Wie: SUPPORT_EMAIL en de adressen in ADMIN_EMAILS (komma's ertussen). */
+  isAdmin(u: { email?: string } | null) {
+    if (!u || !u.email) return false;
+    const list = [process.env.SUPPORT_EMAIL || ''].concat(String(process.env.ADMIN_EMAILS || '').split(',')).map((x) => x.trim().toLowerCase()).filter(Boolean);
+    return list.indexOf(String(u.email).toLowerCase()) >= 0;
+  }
+  /** Mag iedereen zelf een account maken? Standaard niet: klanten krijgen een account bij hun licentie (ALLOW_SIGNUP=true zet het aan). */
+  signupOpen() { return process.env.ALLOW_SIGNUP === 'true'; }
 }

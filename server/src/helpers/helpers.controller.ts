@@ -24,7 +24,7 @@ export class SystemController {
     try {
       await this.db.ping();
       const qrBase = baseUrl(req);
-      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase) };
+      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), signup: process.env.ALLOW_SIGNUP === 'true' };
     } catch (e) { throw reply(503, { ok: false }); }
   }
 

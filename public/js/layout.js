@@ -40,7 +40,7 @@
   var menuBtn = document.getElementById('menuBtn'), closeMobile = document.getElementById('closeMobile');
   var scrim = document.getElementById('scrim'), mq = window.matchMedia('(max-width: 900px)');
   var KEY = 'optimasys-sidebar-collapsed';
-  var PAGES = { create: 'nav.create', analytics: 'nav.analytics', myCodes: 'nav.myCodes', account: 'nav.account', contact: 'nav.contact', faq: 'nav.faq', logout: 'nav.loggedOut' };
+  var PAGES = { create: 'nav.create', analytics: 'nav.analytics', myCodes: 'nav.myCodes', account: 'nav.account', customers: 'nav.customers', contact: 'nav.contact', faq: 'nav.faq', logout: 'nav.loggedOut' };
   var page = 'create';
   function load() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
   function save(v) { try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
@@ -58,7 +58,10 @@
     document.getElementById('accountView').hidden = page !== 'account';
     document.getElementById('myCodesView').hidden = page !== 'myCodes';
     document.getElementById('analyticsView').hidden = page !== 'analytics';
-    document.getElementById('emptyView').hidden = ['create', 'account', 'myCodes', 'analytics'].indexOf(page) >= 0;
+    document.getElementById('contactView').hidden = page !== 'contact';
+    document.getElementById('customersView').hidden = page !== 'customers';
+    document.getElementById('faqView').hidden = page !== 'faq';
+    document.getElementById('emptyView').hidden = ['create', 'account', 'myCodes', 'analytics', 'contact', 'faq', 'customers'].indexOf(page) >= 0;
     document.dispatchEvent(new CustomEvent('pagechange', { detail: page }));
     if (window.fitWorkspace) requestAnimationFrame(window.fitWorkspace);
   }
