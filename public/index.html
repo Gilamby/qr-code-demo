@@ -141,10 +141,14 @@
         <div class="acct-layout">
         <div class="glass acct-menu" id="acctMenu" role="tablist" aria-orientation="vertical" data-i18n-aria="acct.sections"></div>
         <div class="acct-main">
-        <div class="glass profile">
-          <span class="avatar-lg" id="acctAvatar">OP</span>
-          <div class="profile-who"><b id="acctName">Optimasys</b><small id="acctEmail" data-i18n="account.demo"></small><small id="acctSince"></small></div>
-          <div class="profile-stats" id="acctStats"></div>
+        <div class="glass profile acct-id">
+          <div class="acct-cover" aria-hidden="true"></div>
+          <div class="acct-id-row">
+            <button type="button" class="acct-av" id="acctAvatar" data-photo-pick><span id="acctAvatarIn">OP</span><span class="acct-av-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span></button>
+            <div class="profile-who"><div class="acct-id-name"><b id="acctName">Optimasys</b><span id="acctBadges" class="acct-badges"></span></div><small id="acctEmail" data-i18n="account.demo"></small><small id="acctSince"></small></div>
+            <div class="profile-stats" id="acctStats"></div>
+          </div>
+          <input type="file" id="acctPhoto" accept="image/jpeg,image/png,image/webp" hidden>
         </div>
         <div id="acctCards" role="tabpanel"></div>
         <div class="glass bg-card" id="bgSection" role="tabpanel" hidden>

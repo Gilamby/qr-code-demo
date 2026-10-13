@@ -65,6 +65,7 @@ var i18n = (function () {
   function known(code) { try { return Intl.DateTimeFormat.supportedLocalesOf([code]).length > 0; } catch (e) { return false; } }
   function numLoc() { return known(current) ? current : (NUM_FALLBACK[current] || current); }
   function own() { return !known(current) && lookup(dicts[current], 'fmt.months') ? lookup(dicts[current], 'fmt') : null; }
+  var zone = null;                            // tijdzone uit Mijn account (null = die van dit apparaat)
   var fmt = {
     num: function (n) { return new Intl.NumberFormat(numLoc()).format(n); },
     eur: function (n) { return new Intl.NumberFormat(numLoc(), { style: 'currency', currency: 'EUR' }).format(n); },
@@ -79,6 +80,20 @@ var i18n = (function () {
       return new Intl.DateTimeFormat(current, opt).format(d);
     },
     day: function (d) { return fmt.date(d, 'day'); },
+    // Een echt moment (ISO-tijd, bv. aangemaakt of laatst ingelogd) in de tijdzone uit Mijn account.
+    // style: 'short' (8 okt 2026), 'long' (8 oktober 2026) of 'time' (8 okt 2026, 14:32)
+    stamp: function (iso, style) {
+      if (!iso) return '';
+      var d = new Date(iso), o = own(), tz = zone || undefined;
+      if (o) {                                        // taal die de browser niet kent: datum via Engels, namen uit het taalbestand
+        var p = {}; new Intl.DateTimeFormat('en-GB', { timeZone: tz, year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
+        return +p.day + ' ' + (style === 'long' ? o.months : o.monthsShort)[p.month - 1] + ' ' + p.year + (style === 'time' ? ', ' + p.hour + ':' + p.minute : '');
+      }
+      var opt = { timeZone: tz, day: 'numeric', month: style === 'long' ? 'long' : 'short', year: 'numeric' };
+      if (style === 'time') { opt.hour = '2-digit'; opt.minute = '2-digit'; }
+      return new Intl.DateTimeFormat(current, opt).format(d);
+    },
+    zone: function () { return zone || (Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'); },
     // i = 0 is maandag
     weekday: function (i, style) {
       var o = own(), w = o ? (style === 'short' ? o.daysShort : o.days)[i] : new Intl.DateTimeFormat(current, { weekday: style || 'long' }).format(new Date(2024, 0, 1 + i));
@@ -93,6 +108,6 @@ var i18n = (function () {
   };
   function render() { document.documentElement.lang = current; applyDom(); listeners.forEach(function (fn) { fn(current); }); }
   function langName() { var c = current; return LANGUAGES.filter(function (l) { return l.code === c; })[0].name; }
-  return { t: t, set: set, render: render, langName: langName, detect: detect, fmt: fmt, lang: function () { return current; }, onChange: function (fn) { listeners.push(fn); } };
+  return { t: t, set: set, render: render, langName: langName, detect: detect, fmt: fmt, setZone: function (z) { zone = z || null; }, lang: function () { return current; }, onChange: function (fn) { listeners.push(fn); } };
 })();
 var t = i18n.t;

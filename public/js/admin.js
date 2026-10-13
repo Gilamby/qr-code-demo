@@ -27,7 +27,7 @@ var Admin = (function () {
   };
   function ico(k, cls) { return SVG(IC[k], cls); }
   function num(n) { return i18n.fmt.num(n || 0); }
-  function date(iso) { return iso ? new Date(iso).toLocaleDateString(i18n.lang(), { day: 'numeric', month: 'short', year: 'numeric' }) : ''; }
+  function date(iso) { return i18n.fmt.stamp(iso, 'short'); }
   function ago(iso) {
     if (!iso) return t('adm.never');
     var s = (Date.now() - new Date(iso).getTime()) / 1000;

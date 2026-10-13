@@ -20,7 +20,8 @@ function codeOut(r: any): QrCode {
 }
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
-    role: r.role || null, disabledAt: r.disabled_at || null, lastLoginAt: r.last_login_at || null };
+    role: r.role || null, disabledAt: r.disabled_at || null, lastLoginAt: r.last_login_at || null,
+    avatar: r.avatar || null, timezone: r.timezone || null, verified: !!r.email_verified_at };
 }
 
 const SQL = {
@@ -51,7 +52,7 @@ export class SqlDatabase extends DatabaseService {
   async getUser(id: string): Promise<User> { return userOut(await this.d.get(SQL.userById, [id])); }
   async passwordHashOf(id: string): Promise<string> { return ((await this.d.get(SQL.userById, [id])) || ({} as any)).password_hash; }
   async updateUser(id: string, patch: UserPatch): Promise<User> {
-    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email', role: 'role', disabledAt: 'disabled_at', lastLoginAt: 'last_login_at' };
+    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email', role: 'role', disabledAt: 'disabled_at', lastLoginAt: 'last_login_at', avatar: 'avatar', timezone: 'timezone' };
     const keys = Object.keys(patch).filter((k) => cols[k]); if (!keys.length) return this.getUser(id);
     await this.d.run('UPDATE users SET ' + keys.map((k) => cols[k] + ' = ?').join(', ') + ', updated_at = ? WHERE id = ?', [...keys.map((k) => patch[k]), now(), id]);
     return this.getUser(id);

@@ -79,7 +79,7 @@ export class AuthService implements OnModuleDestroy {
   };
 
   /** Wat de app over de ingelogde gebruiker te zien krijgt */
-  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
+  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, avatar: u.avatar || null, timezone: u.timezone || null, verified: u.verified !== false, role: this.isSuper(u) ? 'super' : this.isAdmin(u) ? 'admin' : 'user', admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
 
   /* ---------- Team (beheer) ----------
      Team-leden zien de pagina Klanten en kunnen klanten uitnodigen.

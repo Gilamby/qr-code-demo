@@ -12,6 +12,11 @@ export interface User {
   /** Uitgezet door het team: kan niet inloggen (de QR-codes blijven werken) */
   disabledAt?: string | null;
   lastLoginAt?: string | null;
+  /** Profielfoto (kleine JPG/PNG/WebP als data-URL, ± 256 px) */
+  avatar?: string | null;
+  /** Tijdzone voor datums, bv. 'Europe/Amsterdam' (leeg = die van de browser) */
+  timezone?: string | null;
+  verified?: boolean;
   /** Gezet als de sessie net is verlengd: dan moet het cookie ook ververst worden. */
   renewUntil?: string;
 }

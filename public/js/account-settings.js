@@ -1,10 +1,11 @@
 /* =========================================================
    MIJN ACCOUNT
-   Links een menu in drie groepen, rechts het gekozen onderdeel:
+   Rechts een menu in drie groepen, links het gekozen onderdeel (op de telefoon staat het menu bovenaan):
      Account     Profiel · Beveiliging · Voorkeuren · Achtergrond
      Facturatie  Factuurgegevens · Abonnement en facturen
      Privacy     Mijn gegevens (downloaden, account verwijderen)
-   Bovenaan: naam, e-mail, lid sinds en de cijfers (met links naar Mijn QR-codes en Statistieken).
+   Bovenaan een visitekaartje: profielfoto (klik = wijzigen), naam, rol en status, e-mail, lid sinds en de cijfers.
+   Profiel: foto, voornaam/achternaam, e-mail (bevestigd), tijdzone (alle datums volgen die) en de gevarenzone.
    In de online demo (zonder server) werkt alles ook; de gegevens staan dan alleen in deze browser.
    ========================================================= */
 (function () {
@@ -27,7 +28,13 @@
     pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
-    out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>'
+    out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
+    warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
+    shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>'
   };
   var GROUPS = [
     ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
@@ -58,6 +65,54 @@
       .map(function (iso) { return [iso, TEL.name(iso)]; }).sort(function (a, b) { return a[1].localeCompare(b[1], i18n.lang()); });
   }
 
+  /* ---------- Naam, foto, tijdzone ---------- */
+  function splitName(n) { var w = String(n || '').trim().split(/\s+/).filter(Boolean); return [w[0] || '', w.slice(1).join(' ')]; }   // "Jan van Dijk" -> Jan / van Dijk
+  function avatarHtml(u) { return u.avatar ? '<img src="' + esc(u.avatar) + '" alt="">' : esc(initials(u.name || u.email)); }
+  var zones = null;
+  function zoneList() {
+    if (zones) return zones;
+    var list = []; try { list = Intl.supportedValuesOf('timeZone'); } catch (e) {}
+    if (!list.length) list = ['Europe/Amsterdam', 'Europe/Brussels', 'Europe/Berlin', 'Europe/Paris', 'Europe/Madrid', 'Europe/Rome', 'Europe/Lisbon', 'Europe/London', 'Europe/Warsaw', 'Europe/Athens', 'Europe/Tirane', 'America/New_York', 'America/Chicago', 'America/Los_Angeles', 'Asia/Dubai', 'Asia/Tokyo', 'Australia/Sydney', 'UTC'];
+    var now = new Date();
+    zones = list.map(function (z) { var o = offset(z, now); return [z, o, '(UTC' + (o < 0 ? '−' : '+') + pad(Math.floor(Math.abs(o) / 60)) + ':' + pad(Math.abs(o) % 60) + ') ' + z.replace(/_/g, ' ')]; })
+      .sort(function (a, b) { return a[1] - b[1] || a[0].localeCompare(b[0]); });
+    return zones;
+  }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function offset(z, d) {                                             // minuten voor/achter UTC, nu
+    try {
+      var p = {}; new Intl.DateTimeFormat('en-US', { timeZone: z, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }).formatToParts(d).forEach(function (x) { p[x.type] = +x.value; });
+      return Math.round((Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute) - Math.floor(d.getTime() / 6e4) * 6e4) / 6e4);
+    } catch (e) { return 0; }
+  }
+  function nowIn(z) { try { return new Intl.DateTimeFormat(i18n.lang() === 'en' ? 'en' : 'nl', { timeZone: z || undefined, hour: '2-digit', minute: '2-digit' }).format(new Date()); } catch (e) { return ''; } }
+  /** Foto verkleinen in de browser: vierkant uit het midden, 256 × 256, JPG */
+  function shrink(file) {
+    return new Promise(function (ok, no) {
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return no(new Error('type'));
+      if (file.size > 15 * 1048576) return no(new Error('big'));
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        var S = 256, c = document.createElement('canvas'), m = Math.min(img.naturalWidth, img.naturalHeight); c.width = c.height = S;
+        var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, S, S);
+        g.imageSmoothingQuality = 'high';
+        g.drawImage(img, (img.naturalWidth - m) / 2, (img.naturalHeight - m) / 2, m, m, 0, 0, S, S);
+        URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg', 0.86));
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); no(new Error('type')); };
+      img.src = url;
+    });
+  }
+  // Je foto ook in het menu (in plaats van het poppetje bij Mijn account)
+  function navAvatar() {
+    var a = document.querySelector('.sidebar .item[data-page="account"], nav .item[data-page="account"]'); if (!a) return;
+    var old = a.querySelector('.nav-av'), ic = a.querySelector('svg');
+    if (user && user.avatar) {
+      if (!old) { old = document.createElement('img'); old.className = 'nav-av'; old.alt = ''; a.insertBefore(old, a.firstChild); }
+      old.src = user.avatar; if (ic) ic.style.display = 'none';
+    } else { if (old) old.remove(); if (ic) ic.style.display = ''; }
+  }
+
   /* ---------- Menu ---------- */
   function drawMenu() {
     menu.innerHTML = GROUPS.map(function (g) {
@@ -71,11 +126,17 @@
     '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>';
   }
   function head() {
-    document.getElementById('acctAvatar').textContent = initials(user.name || user.email);
+    var av = document.getElementById('acctAvatar');
+    document.getElementById('acctAvatarIn').innerHTML = avatarHtml(user); av.classList.toggle('has-photo', !!user.avatar);
+    av.setAttribute('aria-label', t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd')); av.title = t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd');
     document.getElementById('acctName').textContent = user.name || user.email;
-    var since = sum && sum.createdAt ? new Date(sum.createdAt).toLocaleDateString(i18n.lang(), { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+    var role = user.role || (user.superAdmin ? 'super' : user.admin ? 'admin' : 'user');
+    document.getElementById('acctBadges').innerHTML = '<span class="acct-chip role-' + role + '">' + (role !== 'user' ? SVG + ICON.shield + '</svg>' : '') + t('acct.role_' + role) + '</span>' +
+      '<span class="acct-chip ok"><i></i>' + t('acct.statusActive') + '</span>';
+    var since = sum && sum.createdAt ? i18n.fmt.stamp(sum.createdAt, 'long') : '';
     var em = document.getElementById('acctEmail'); em.removeAttribute('data-i18n');
     em.textContent = user.email;
+    navAvatar();
     var se = document.getElementById('acctSince'); se.textContent = since ? t('acct.since', { date: since }) : ''; se.hidden = !since;
     var stat = function (v, k, page) { return '<a href="#" class="acct-stat" data-goto="' + page + '"><b>' + (v == null ? '–' : i18n.fmt.num(v)) + '</b><small>' + t(k) + '</small></a>'; };
     stats.innerHTML = stat(sum && sum.codes, 'acct.codes', 'myCodes') + stat(sum && sum.scans, 'acct.scansTotal', 'analytics') + stat(sum && sum.scans30, 'acct.scans30', 'analytics');
@@ -135,12 +196,33 @@
         ['acct.invDate', 'acct.invNumber', 'acct.invAmount', 'acct.invStatus'].map(function (k) { return '<span role="columnheader">' + t(k) + '</span>'; }).join('') + '</div>' +
         '<div class="acct-empty" role="row"><span role="cell">' + SVG + ICON.billing + '</svg>' + t('acct.invEmpty') + '</span></div></div></div>';
   }
+  function dangerCard(m) {
+    return '<div class="glass bg-card acct acct-danger"><div class="acct-danger-head">' + SVG + ICON.warn + '</svg><div><h2>' + t('acct.dangerTitle') + '</h2><p>' + t('acct.dangerLead') + '</p></div></div>' +
+      '<div class="acct-danger-row"><div><b>' + t('acct.delete') + '</b><small>' + t('acct.deleteHint') + '</small></div>' +
+      '<button type="button" class="btn danger" data-delete>' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div>' + (m.delete ? '<p class="acct-msg ' + m.delete[1] + '" role="status">' + esc(m.delete[0]) + '</p>' : '') + '</div>';
+  }
+  function profilePanel(m, note) {
+    var nm = splitName(user.name), tz = user.timezone || '', here = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    var opts = '<option value="">' + esc(t('acct.tzAuto', { zone: (here || 'UTC').replace(/_/g, ' ') })) + '</option>' +
+      zoneList().map(function (z) { return '<option value="' + z[0] + '"' + (z[0] === tz ? ' selected' : '') + '>' + esc(z[2]) + '</option>'; }).join('');
+    return '<div class="glass bg-card acct"><h2>' + t('acct.photoTitle') + '</h2><p>' + t('acct.photoLead') + '</p>' +
+        '<div class="acct-photo" data-photo-drop><span class="acct-photo-av' + (user.avatar ? ' has-photo' : '') + '">' + avatarHtml(user) + '</span>' +
+        '<div class="acct-photo-txt"><div class="acct-btns"><button type="button" class="btn primary" data-photo-pick>' + SVG + ICON.camera + '</svg>' + t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd') + '</button>' +
+        (user.avatar ? '<button type="button" class="btn ghost" data-photo-remove>' + t('acct.photoRemove') + '</button>' : '') + '</div>' +
+        '<small class="auth-hint">' + t('acct.photoHint') + '</small></div></div>' + note('photo') + '</div>' +
+      '<div class="glass bg-card acct"><h2>' + t('acct.personalTitle') + '</h2><p>' + t('acct.profileLead') + '</p>' +
+      '<form data-form="profile"><div class="acct-grid">' +
+        field(t('acct.firstName'), '<input name="first" value="' + esc(nm[0]) + '" maxlength="40" autocomplete="given-name" required>', { icon: 'person' }) +
+        field(t('acct.lastName'), '<input name="last" value="' + esc(nm[1]) + '" maxlength="40" autocomplete="family-name">', { icon: 'person', optional: true }) +
+        '<label class="auth-f acct-wide"><span>' + t('auth.email') + '</span><span class="auth-in acct-ic acct-mail">' + SVG + ICON.mail + '</svg><input value="' + esc(user.email) + '" disabled>' +
+          (user.verified !== false ? '<em class="acct-verified">' + SVG + ICON.check + '</svg>' + t('acct.verified') + '</em>' : '') + '</span><small class="auth-hint">' + t('acct.emailHint') + '</small></label>' +
+        field(t('acct.timezone'), '<select name="timezone">' + opts + '</select>', { icon: 'clock', wide: true, hint: '<span id="acctTzNow">' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</span>' }) +
+      '</div><div class="acct-actions"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + note('name') + '</div>' +
+      dangerCard(m);
+  }
   function panel(m) {
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
-    if (tab === 'profile') return '<div class="glass bg-card acct"><h2>' + t('acct.profile') + '</h2><p>' + t('acct.profileLead') + '</p>' +
-      '<form data-form="name"><div class="acct-grid">' + field(t('auth.name'), '<input name="name" value="' + esc(user.name) + '" maxlength="80" autocomplete="name">', { icon: 'person' }) +
-      field(t('auth.email'), '<input value="' + esc(user.email) + '" disabled>', { icon: 'mail' }) + '</div>' +
-      '<div class="acct-actions"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + note('name') + '</div>';
+    if (tab === 'profile') return profilePanel(m, note);
     if (tab === 'security') return '<div class="glass bg-card acct"><h2>' + t('acct.passwordTitle') + '</h2><p>' + t('acct.passwordLead') + '</p>' +
       '<form data-form="password"><div class="acct-grid">' +
       field(t('acct.current'), '<input name="current" type="password" autocomplete="current-password" required>') +
@@ -153,8 +235,7 @@
     if (tab === 'billing') return billingPanel(m);
     if (tab === 'plan') return planPanel();
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
-      '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + t('acct.download') + '</button>' +
-      '<button type="button" class="btn ghost danger-ghost" data-delete>' + t('acct.delete') + '</button></div>' + note('delete') + '</div>';
+      '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + SVG + ICON.download + '</svg>' + t('acct.download') + '</button></div>' + note('export') + '</div>' + dangerCard(m);
     return '';
   }
   function draw(msg) {
@@ -190,9 +271,13 @@
   box.addEventListener('submit', function (e) {
     e.preventDefault();
     var f = e.target, kind = f.getAttribute('data-form'), btn = f.querySelector('button[type="submit"]'); btn.disabled = true;
-    if (kind === 'name') {
-      api.account.update({ name: f.name.value }).then(function (u) { user = Object.assign({}, user, u); draw({ name: [t('acct.saved'), 'ok'] }); })
-        .catch(function (x) { draw({ name: [err(x), 'bad'] }); });
+    if (kind === 'profile') {
+      var name = (f.first.value.trim() + ' ' + f.last.value.trim()).trim();
+      if (!f.first.value.trim()) { btn.disabled = false; f.first.focus(); return; }
+      api.account.update({ name: name, timezone: f.timezone.value }).then(function (u) {
+        user = Object.assign({}, user, u, { timezone: f.timezone.value || null }); i18n.setZone(user.timezone);
+        draw({ name: [t('acct.saved'), 'ok'] }); document.dispatchEvent(new CustomEvent('account:changed'));
+      }).catch(function (x) { draw({ name: [err(x), 'bad'] }); });
     }
     if (kind === 'password') {
       var prob = PasswordRules.problem(f.password.value);
@@ -216,6 +301,7 @@
   });
   box.addEventListener('change', function (e) {
     if (e.target.id === 'acctLang') i18n.set(e.target.value);
+    if (e.target.name === 'timezone') { var h = document.getElementById('acctTzNow'); if (h) h.textContent = t('acct.tzHint', { time: nowIn(e.target.value) }); }
     if (e.target.name === 'country' && draft) draft.country = e.target.value;
   });
   box.addEventListener('click', function (e) {
@@ -225,7 +311,7 @@
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
     if (e.target.closest('[data-export]')) {
       return api.account.exportData().then(function (d) { saveFile(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), 'optimasys-mijn-gegevens.json'); })
-        .catch(function (x) { draw({ delete: [err(x), 'bad'] }); });
+        .catch(function (x) { draw({ export: [err(x), 'bad'] }); });
     }
     if (e.target.closest('[data-logout-others]')) {
       api.account.logoutOthers().then(function () { sum.sessions = 1; draw({ devices: [t('acct.loggedOutOthers'), 'ok'] }); }).catch(function (x) { draw({ devices: [err(x), 'bad'] }); });
@@ -252,6 +338,26 @@
     });
     d.showModal(); d.querySelector('#delPw').focus();
   });
+  /* ---------- Profielfoto: kiezen, slepen, verwijderen ---------- */
+  var picker = document.getElementById('acctPhoto');
+  function savePhoto(v) {
+    return api.account.update({ avatar: v }).then(function (u) { user = Object.assign({}, user, u, { avatar: v }); draw({ photo: [t(v ? 'acct.photoSaved' : 'acct.photoRemoved'), 'ok'] }); })
+      .catch(function (x) { draw({ photo: [err(x), 'bad'] }); });
+  }
+  function usePhoto(file) {
+    if (!file) return;
+    if (tab !== 'profile') open('profile');
+    shrink(file).then(savePhoto, function (x) { draw({ photo: [t(x.message === 'big' ? 'acct.photoBig' : 'acct.photoType'), 'bad'] }); });
+  }
+  document.getElementById('accountView').addEventListener('click', function (e) {
+    if (e.target.closest('[data-photo-pick]')) { picker.value = ''; picker.click(); }
+    if (e.target.closest('[data-photo-remove]')) savePhoto(null);
+  });
+  picker.addEventListener('change', function () { usePhoto(picker.files[0]); });
+  box.addEventListener('dragover', function (e) { var z = e.target.closest('[data-photo-drop]'); if (z) { e.preventDefault(); z.classList.add('over'); } });
+  box.addEventListener('dragleave', function (e) { var z = e.target.closest('[data-photo-drop]'); if (z) z.classList.remove('over'); });
+  box.addEventListener('drop', function (e) { var z = e.target.closest('[data-photo-drop]'); if (!z) return; e.preventDefault(); z.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
+
   Session.onUser(function (u) { user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; draw(); loadSummary(); loadBilling(); });
   // Elke keer dat je Mijn account opent: verse cijfers
   document.addEventListener('click', function (e) { if (e.target.closest('[data-page="account"], #bgBtn')) loadSummary(); });

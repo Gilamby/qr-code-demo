@@ -23,7 +23,7 @@
     shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/>',
     plus: '<path d="M12 5v14M5 12h14"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
-  function date(iso) { return iso ? new Date(iso).toLocaleDateString(i18n.lang(), { day: 'numeric', month: 'short', year: 'numeric' }) : ''; }
+  function date(iso) { return i18n.fmt.stamp(iso, 'short'); }
   function statusKey(c) { return c.disabledAt ? 'disabled' : c.active ? 'active' : 'invited'; }
   function roleBadge(c) {
     return c.level === 'super' ? '<i class="ad-role super">' + SVG + ICON.shield + '</svg>' + t('adm.rSuper') + '</i>' : c.level === 'admin' ? '<i class="ad-role admin">' + t('adm.rAdmin') + '</i>' : '<i class="ad-role">' + t('adm.rUser') + '</i>';

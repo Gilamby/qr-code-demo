@@ -135,7 +135,7 @@ var Session = (function () {
     if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
     return api.auth.me().then(function (u) {
       if (ADMIN && !u.admin) { flash = ['adminApp.notAdmin', 'bad']; return show('login'); }
-      user = u; ready(); listeners.forEach(function (f) { f(u); });
+      user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); });
     }).catch(function () { show('login'); });
   });
   return { user: function () { return user; }, onUser: function (f) { listeners.push(f); if (user) f(user); }, show: show };

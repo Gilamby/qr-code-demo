@@ -155,8 +155,11 @@ var api = (function () {
         function save(c) { put(ACCOUNTS, c.acc); }
         return {
           update: function (d) { return Promise.resolve().then(function () {
-            var c = need(); c.a.name = String(d.name || '').trim().slice(0, 80); save(c);
-            c.u.name = c.a.name; put(KEY, c.u); return c.u; }); },
+            var c = need();
+            if (d.name !== undefined) c.u.name = c.a.name = String(d.name || '').trim().slice(0, 80);
+            if (d.avatar !== undefined) c.u.avatar = c.a.avatar = d.avatar;
+            if (d.timezone !== undefined) c.u.timezone = c.a.timezone = d.timezone || null;
+            save(c); put(KEY, c.u); return c.u; }); },
           password: function (d) { return Promise.resolve().then(function () {
             var c = need();
             return digest(d.current || '').then(function (h) {
