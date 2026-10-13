@@ -1,6 +1,6 @@
 # Optimasys QR
 
-Web-app om QR-codes te maken, te beheren en te meten. Kies een type, vul de inhoud in, kies een ontwerp en zie het resultaat live op een telefoon. Met accounts (e-mailbevestiging), een eigen server en een database: **PostgreSQL** in productie, **SQLite** om te ontwikkelen.
+Web-app om QR-codes te maken, te beheren en te meten. Kies een type, vul de inhoud in, kies een ontwerp en zie het resultaat live op een telefoon. Met accounts (e-mailbevestiging), een eigen server en een database: **MongoDB** op de Optimasys-servers, **SQLite** om te ontwikkelen (PostgreSQL kan ook).
 
 ## Starten (op je eigen computer)
 
@@ -18,16 +18,17 @@ Open daarna <http://localhost:3000> en maak een account aan.
 - `npm run build:server`: alleen de server bouwen (TypeScript → `server/dist`).
 - `npm test`: automatische test van de server (accounts, codes per klant, bestanden, scans, statistieken, beveiliging).
 - `npm run build`: productieversie (samengevoegd en verkleind, in `build/`). Met `NODE_ENV=production` gebruikt de server alleen deze versie; de losse bronbestanden zijn dan niet te zien.
-- `npm run migrate:pg`: alles uit SQLite overzetten naar PostgreSQL (`DATABASE_URL` zetten). Mag vaker draaien.
+- `npm run migrate:mongo`: alles uit SQLite overzetten naar MongoDB (`DATABASE_URL=mongodb://…`). Mag vaker draaien.
+- `npm run migrate:pg`: hetzelfde naar PostgreSQL.
 - `npm run backup`: back-up van database en bestanden naar `backups/`.
 - `npm run migrate -- jouw@email.nl`: oude demo-gegevens (`server/data/db.json`) overzetten naar een account.
 
-Instellingen (webadres, e-mail, enzovoort): kopieer `.env.example` naar `.env`. Live zetten: zie **docs/installatie.md**.
+Instellingen (webadres, e-mail, enzovoort): kopieer `.env.example` naar `.env`. Live zetten op de Optimasys-servers (Node 22, systemd, nginx, MongoDB): **docs/hosting.md** (Engels, voor het team). Andere manieren: **docs/installatie.md**.
 
 ## Hoe het in elkaar zit
 
 ```
-Browser (public/)  ──fetch──▶  Server (server/)  ──▶  PostgreSQL (DATABASE_URL) of SQLite (server/data/optimasys.db)
+Browser (public/)  ──fetch──▶  Server (server/)  ──▶  MongoDB / PostgreSQL (DATABASE_URL) of SQLite (server/data/optimasys.db)
                                      │                 Bestanden (server/data/files/)
 Bezoeker scant QR ──/q/:id──▶  scan tellen + pagina tonen of doorsturen
 ```
@@ -47,13 +48,14 @@ server/              NestJS (TypeScript) op Node.js — bron in server/src, gebo
   src/app.module.ts                    alle modules bij elkaar
   src/config/env.ts                    .env inlezen, mappen, het adres in de QR-codes (PUBLIC_URL / Codespaces / wifi)
   src/common/http.ts                   foutafhandeling ({ error }), beveiligingsheaders, CSRF
-  src/database/                        DatabaseModule: PostgreSQL (DATABASE_URL) of SQLite, versleuteling (secret.ts)
+  src/database/                        DatabaseModule kiest de database: mongo.database.ts (MongoDB) of sql.database.ts (PostgreSQL/SQLite); versleuteling (secret.ts)
   src/auth/                            AuthModule: account maken + e-mailbevestiging, inloggen, Mijn account, e-mail
   src/qr-codes/                        QR-codes maken/bewerken/verwijderen, bestanden, validatie
   src/analytics/                       statistieken: systeem, land/stad, uniek (zonder IP op te slaan)
   src/helpers/                         /api/health, qr-types, link-check, adres zoeken, e-mailcheck
   src/visitor/                         korte links /q/:id: regels, scan tellen, echte bezoekerspagina
 scripts/             back-up, migratie, online demo bouwen
+deploy/              systemd-service, nginx + Cloudflare, deploy-script (zie docs/hosting.md)
 test/                automatische tests (npm test)
 docs/                beslissingen, juridisch, statistieken, installatie
 ```
@@ -103,7 +105,8 @@ Fout in de invoer: `400` met `{ error, details }`. Niet ingelogd: `401`.
 - **QR-type of veld toevoegen:** `shared/qr-types.js` + teksten in `public/locales/*.json`. Formulier en controle volgen vanzelf.
 - **Foto's in de voorbeelden:** `public/assets/previews/` (zie de README daar).
 - **Taal toevoegen:** één regel in `LANGUAGES` (`public/js/i18n.js`) en `public/locales/<code>.json`.
-- **Database kiezen:** zet `DATABASE_URL` voor PostgreSQL; zonder is het SQLite. Tabellen worden bij het opstarten zelf aangemaakt. Testen op PostgreSQL: `DATABASE_URL=… npm test`.
+- **Database kiezen:** `DATABASE_URL=mongodb://…` (MongoDB) of `postgres://…` (PostgreSQL); leeg is SQLite. Tabellen/collections en indexen worden bij het opstarten zelf aangemaakt. Testen op een andere database: `DATABASE_URL=… npm test` (lege testdatabase gebruiken).
+- **Iets opslaan wat nieuw is:** voeg een methode toe aan `server/src/database/database.service.ts` en maak hem in beide uitvoeringen (`sql.database.ts` en `mongo.database.ts`). De rest van de app merkt niet welke database er draait.
 
 ## Online demo
 

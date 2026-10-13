@@ -1,0 +1,45 @@
+# systemd service for Optimasys QR
+# Install: copy to /etc/systemd/system/optimasys-qr.service, then
+#   systemctl daemon-reload && systemctl enable --now optimasys-qr
+# Assumes the layout from docs/hosting.md:
+#   /srv/optimasys-qr/current   -> symlink to the active release (releases/<git-sha>)
+#   /srv/optimasys-qr/shared/.env    configuration (not in git)
+#   /var/lib/optimasys-qr       persistent data: SQLite database (if used), uploaded files, secret.key
+[Unit]
+Description=Optimasys QR (NestJS)
+After=network-online.target
+Wants=network-online.target
+# If MongoDB runs on the same machine, uncomment:
+# After=mongod.service
+
+[Service]
+Type=simple
+User=optimasys-qr
+Group=optimasys-qr
+WorkingDirectory=/srv/optimasys-qr/current
+EnvironmentFile=/srv/optimasys-qr/shared/.env
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=DATA_DIR=/var/lib/optimasys-qr
+# Node.js 22 path: check with `which node` (usually /usr/bin/node with NodeSource or distro packages)
+ExecStart=/usr/bin/node server/dist/main.js
+Restart=always
+RestartSec=3
+# The app closes its database connection on SIGTERM
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+# Hardening: the app only needs to write to its data directory
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/optimasys-qr
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

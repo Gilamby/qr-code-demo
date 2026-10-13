@@ -28,8 +28,7 @@ for (const q of old.qrCodes || []) {
   if (q.paused) await db.updateQrCode(q.id, { paused: true });
   // Scans en statistieken overnemen
   const stats = q.stats || Object.fromEntries(Object.entries(q.daily || {}).map(([d, c]) => [d, { 'other||': [c, c] }]));
-  for (const [day, keys] of Object.entries(stats)) for (const [key, v] of Object.entries(keys)) await db.sql('run', 'INSERT INTO scan_stats (code_id, day, key, scans, uniq) VALUES (?, ?, ?, ?, ?)', [q.id, day, key, v[0], v[1]]);
-  await db.sql('run', 'UPDATE qr_codes SET scans = ?, last_scan_at = ? WHERE id = ?', [q.scans || 0, q.lastScanAt || null, q.id]);
+  await db.importStats(q.id, stats, q.scans || 0, q.lastScanAt || null);
   n++;
 }
 if (old.me && old.me.background) await db.updateUser(user.id, { background: old.me.background, customBackground: old.me.customBackground || null });

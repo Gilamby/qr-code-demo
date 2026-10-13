@@ -14,6 +14,7 @@
     "build:demo": "node scripts/build-demo.js",
     "share": "npm run -s build:server && node scripts/share.js",
     "migrate:pg": "npm run -s build:server && node scripts/migrate-to-postgres.js",
+    "migrate:mongo": "npm run -s build:server && node scripts/migrate-to-mongo.js",
     "build:server": "node scripts/build-server.js",
     "prestart": "npm run -s build:server"
   },
@@ -27,6 +28,7 @@
     "better-sqlite3": "^11.10.0",
     "express": "^5.2.1",
     "maxmind": "^5.0.7",
+    "mongodb": "7.6.0",
     "nodemailer": "^6.10.1",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",

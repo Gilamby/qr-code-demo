@@ -137,12 +137,24 @@ test('wifi-wachtwoord staat versleuteld in de database, maar de eigenaar ziet he
   await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' });
   const made = await a('POST', '/api/qr-codes', { typeId: 'wifi', content: { ssid: 'Kantoor', password: 'supergeheim123', security: 'WPA' } });
   assert.equal(made.status, 201);
-  const raw = await db.sql('get', 'SELECT content FROM qr_codes WHERE id = ?', [made.json.id]);
-  assert.ok(!raw.content.includes('supergeheim123'), 'niet leesbaar in de database');
-  assert.ok(raw.content.includes('enc:v1:'), 'versleuteld');
+  const raw = await db.storedContent(made.json.id);
+  assert.ok(!raw.includes('supergeheim123'), 'niet leesbaar in de database');
+  assert.ok(raw.includes('enc:v1:'), 'versleuteld');
   assert.equal((await a('GET', '/api/qr-codes/' + made.json.id)).json.content.password, 'supergeheim123', 'eigenaar ziet het wachtwoord');
   const edited = await a('PUT', '/api/qr-codes/' + made.json.id, { content: { ssid: 'Kantoor', password: 'nieuwwachtwoord9', security: 'WPA' }, design: {} });
   assert.equal(edited.json.content.password, 'nieuwwachtwoord9');
-  assert.ok(!(await db.sql('get', 'SELECT content FROM qr_codes WHERE id = ?', [made.json.id])).content.includes('nieuwwachtwoord9'));
+  assert.ok(!(await db.storedContent(made.json.id)).includes('nieuwwachtwoord9'));
 });
 
+
+test('veel scans tegelijk: geen enkele scan gaat verloren', async () => {
+  const a = client();
+  await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'mijn geheime zin' });
+  const made = await a('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com/druk' } });
+  const N = 50;
+  const codes = await Promise.all(Array.from({ length: N }, (_, i) => fetch(base + '/q/' + made.json.id, { redirect: 'manual', headers: { 'user-agent': i % 2 ? 'Mozilla/5.0 (iPhone)' : 'Mozilla/5.0 (Linux; Android 14)' } }).then((r) => r.status)));
+  assert.deepEqual([...new Set(codes)], [302]);
+  assert.equal((await a('GET', '/api/qr-codes/' + made.json.id)).json.scans, N, 'teller op de code');
+  const an = await a('GET', '/api/analytics?codes=' + made.json.id);
+  assert.equal(an.json.totals.scans, N, 'statistieken');
+});

@@ -2,6 +2,17 @@
 
 Wat we hebben besloten en waarom. Nieuwste bovenaan.
 
+## 12 okt 2026: MongoDB en hosting op de Optimasys-servers
+
+- **Vraag van Geert:** MongoDB gebruiken, "zo blijven we in dezelfde family van DB's". **Hosting** (voorstel van het team): Node.js 22 zonder Docker, eigen Unix-account, systemd, nginx + HTTPS + Cloudflare, gegevens buiten de release, deployen vanaf GitHub in versies.
+- **MongoDB toegevoegd als derde keuze**, niet in plaats van: `DATABASE_URL=mongodb://…` → MongoDB, `postgres://…` → PostgreSQL, leeg → SQLite. SQLite blijft voor ontwikkelen (niets te installeren) en het team wilde er eventueel mee beginnen.
+- **Opbouw:** `DatabaseService` is nu een abstracte klasse (de "afspraak"); `sql.database.ts` (SQLite/PostgreSQL) en `mongo.database.ts` (MongoDB) voeren hem uit. Controllers en services merken het verschil niet. Elke nieuwe opslag-functie moet in beide komen.
+- **MongoDB-ontwerp:** 7 collections met camelCase-velden, inhoud en ontwerp als echte documenten (geen JSON-tekst), datums als ISO-tekst (zelfde als SQL). Indexen worden bij het opstarten aangemaakt (o.a. uniek e-mailadres, uniek code+dag+sleutel voor statistieken). Geen transacties (dan is geen replica set nodig): scans tellen met `$inc` (atomair per document); bevestigings- en resetlinks met `findOneAndDelete` (maar één keer bruikbaar). MongoDB kent geen cascade: account/code verwijderen ruimt zelf alles op.
+- **Overzetten:** `npm run migrate:mongo` (SQLite → MongoDB, mag vaker draaien).
+- **Getest** met FerretDB 1.24 (spreekt de MongoDB-taal; echte MongoDB downloaden was in de testomgeving geblokkeerd): `npm test`, alle 16 types maken + scannen (ZXing) + link volgen, bewerken/uitzetten, account, e-mailbevestiging, overzetten (uitkomst gelijk aan SQLite). De test "50 scans tegelijk" slaagt op SQLite en PostgreSQL, maar niet op FerretDB: dat telt `$inc` niet atomair. Echte MongoDB wel; **het team moet `npm test` één keer op hun MongoDB draaien** om dat te bevestigen.
+- **Hosting-bestanden:** `deploy/optimasys-qr.service` (systemd, beveiligd: mag alleen in DATA_DIR schrijven), `deploy/nginx-optimasys-qr.conf` (Cloudflare echte IP via CF-Connecting-IP, 16 MB uploads), `deploy/deploy.sh` (release per commit, symlink, health check, laatste 5 bewaren), uitleg in `docs/hosting.md` (Engels).
+- `HOST` (bv. 127.0.0.1 achter nginx) staat nu ook in `.env.example`. `DATABASE_URL` met een onbekend begin geeft nu een duidelijke fout.
+
 ## 9 okt 2026: echte back-end (accounts + SQLite)
 
 - **Database:** eerst alleen SQLite (één bestand); sinds 9 okt 2026 PostgreSQL in productie en SQLite om te ontwikkelen (zie onderaan). Tabellen: users, sessions, password_resets, email_verifications, qr_codes, scan_stats, files.

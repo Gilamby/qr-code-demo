@@ -63,7 +63,7 @@ async function main() {
   let app: NestExpressApplication;
   try { app = await createApp(); } catch (e) {
     console.error('\nDe server kon niet starten: ' + e.message);
-    console.error(process.env.DATABASE_URL ? 'Controleer DATABASE_URL (adres, gebruiker, wachtwoord, database) en of de database aan staat.' : 'Controleer DATA_DIR / DB_PATH.');
+    console.error(process.env.DATABASE_URL ? 'Controleer DATABASE_URL (mongodb://… of postgres://…: adres, gebruiker, wachtwoord, database) en of de database aan staat.' : 'Controleer DATA_DIR / DB_PATH.');
     process.exit(1);
   }
   const db = app.get(DatabaseService), port = PORT();
@@ -72,7 +72,7 @@ async function main() {
     else console.error(e);
     process.exit(1);
   }
-  console.log('Optimasys QR (NestJS) draait op http://localhost:' + port + ' (database: ' + (db.kind === 'postgres' ? 'PostgreSQL ' : 'SQLite ') + db.label + ')');
+  console.log('Optimasys QR (NestJS) draait op http://localhost:' + port + ' (database: ' + db.kindName + ' ' + db.label + ')');
   if (process.env.PUBLIC_URL) console.log('QR-codes wijzen naar: ' + process.env.PUBLIC_URL);
   else if (codespaceUrl()) {
     console.log('\nCodespaces: QR-codes wijzen naar ' + codespaceUrl());

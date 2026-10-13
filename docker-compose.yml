@@ -1,6 +1,9 @@
 # Starten: docker compose up -d   (instellingen in .env)
+# Met MongoDB erbij:     docker compose --profile mongo up -d
+#   en zet in .env: DATABASE_URL=mongodb://mongo:27017/optimasys
 # Met PostgreSQL erbij:  docker compose --profile postgres up -d
 #   en zet in .env: DATABASE_URL=postgres://optimasys:${POSTGRES_PASSWORD}@db:5432/optimasys
+# (Op de Optimasys-servers draait de app zonder Docker: zie docs/hosting.md)
 services:
   app:
     build: .
@@ -22,6 +25,13 @@ services:
       POSTGRES_DB: optimasys
     volumes:
       - optimasys-pg:/var/lib/postgresql/data
+  mongo:
+    image: mongo:7
+    profiles: ["mongo"]
+    restart: unless-stopped
+    volumes:
+      - optimasys-mongo:/data/db
 volumes:
   optimasys-data:
   optimasys-pg:
+  optimasys-mongo:

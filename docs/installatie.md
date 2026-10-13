@@ -2,6 +2,8 @@
 
 Wat er nodig is om Optimasys QR echt online te hebben, voor klanten.
 
+> **Op de servers van Optimasys** (Node.js 22, systemd, nginx + Cloudflare, MongoDB, zonder Docker): zie **[docs/hosting.md](hosting.md)**, met kant-en-klare bestanden in `deploy/`. Hieronder staan de andere manieren en de algemene uitleg.
+
 ## Eerst: scannen met je telefoon (testen of presenteren)
 
 Een QR-code bevat een link naar de server (`…/q/abc123`). De telefoon moet die server kunnen bereiken.
@@ -20,12 +22,18 @@ Getest (9 okt 2026): alle 16 types gemaakt, PNG en SVG gedownload, uitgelezen me
 
 ## 1. Een server
 
-Elke plek waar Node.js 20+ of Docker draait, met een **vaste schijf** (voor de database en de bestanden). Bijvoorbeeld een VPS (Hetzner, TransIP, DigitalOcean) of een platform met een volume (Fly.io, Railway, Render).
+Elke plek waar Node.js 22 (of 20.19+) of Docker draait, met een **vaste schijf** (voor de bestanden, en bij SQLite de database). Bijvoorbeeld de Optimasys-servers (zie `docs/hosting.md`), een VPS of een platform met een volume (Fly.io, Railway, Render).
 
-**Database:** zet `DATABASE_URL` (PostgreSQL 15+, bij voorkeur beheerd door de hostingpartij met automatische back-ups). Zonder `DATABASE_URL` gebruikt de app een SQLite-bestand in `DATA_DIR`; prima om te ontwikkelen, maar dan maximaal één server.
+**Database:** het begin van `DATABASE_URL` bepaalt welke database de app gebruikt:
+
+| `DATABASE_URL` | Database | Wanneer |
+|---|---|---|
+| `mongodb://…` of `mongodb+srv://…` | MongoDB 6+ | Optimasys-servers (dezelfde soort database als hun andere projecten) |
+| `postgres://…` | PostgreSQL 15+ | als een hostingpartij dat aanbiedt |
+| leeg | SQLite-bestand in `DATA_DIR` | ontwikkelen en testen; ook prima om mee te beginnen op één server |
 
 - Tabellen worden bij het opstarten zelf aangemaakt; een apart migratiescript is niet nodig.
-- Al data in SQLite? `DATABASE_URL=… npm run migrate:pg` zet alles over (mag vaker draaien). Neem daarna de map `files/` en de sleutel (`DATA_KEY` of `secret.key`) mee.
+- Al data in SQLite? `DATABASE_URL=mongodb://… npm run migrate:mongo` (of `postgres://… npm run migrate:pg`) zet alles over (mag vaker draaien). Neem daarna de map `files/` en de sleutel (`DATA_KEY` of `secret.key`) mee.
 - **DATA_KEY** (`openssl rand -hex 32`): sleutel voor versleutelde velden (wifi-wachtwoorden). Zet hem in het secretbeheer en bewaar hem apart van de database-back-ups; zonder sleutel zijn die velden onleesbaar.
 - Bestanden (PDF/MP3) staan in `DATA_DIR/files`: dat moet een persistent volume zijn.
 
@@ -95,10 +103,11 @@ Elke nacht een back-up, en die ook ergens anders bewaren (andere server of cloud
 0 3 * * *  cd /pad/naar/optimasys && npm run backup
 ```
 
+- **MongoDB:** `mongodump --uri="$DATABASE_URL" --archive=optimasys.archive --gzip` (of de back-ups van het team). `npm run backup` kopieert dan alleen de bestanden.
 - **PostgreSQL:** de automatische back-ups van de hostingpartij (point-in-time recovery), of `pg_dump "$DATABASE_URL" > optimasys.sql`. `npm run backup` kopieert dan alleen de bestanden.
 - **SQLite:** `npm run backup` kopieert database én bestanden.
 
-Terugzetten: server stoppen, database (pg_restore / `optimasys.db`) en de map `files/` terugzetten, server starten. De sleutel (`DATA_KEY`) zit bewust niet in de back-up: bewaar hem apart.
+Terugzetten: server stoppen, database (mongorestore / pg_restore / `optimasys.db`) en de map `files/` terugzetten, server starten. De sleutel (`DATA_KEY`) zit bewust niet in de back-up: bewaar hem apart.
 
 ## 6. Land/stad-database
 

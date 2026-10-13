@@ -1,4 +1,4 @@
-# Optimasys QR — container voor hosting (NestJS op Node 22; PostgreSQL via DATABASE_URL of SQLite op het volume)
+# Optimasys QR — container voor hosting (NestJS op Node 22; MongoDB/PostgreSQL via DATABASE_URL of SQLite op het volume)
 FROM node:22-bookworm-slim
 WORKDIR /app
 ENV NODE_ENV=production DATA_DIR=/data PORT=3000

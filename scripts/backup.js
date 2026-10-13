@@ -1,8 +1,8 @@
 /* Back-up van de database en de bestanden, ook terwijl de server draait.
    Gebruik: npm run backup            -> backups/optimasys-JJJJ-MM-DD-UUMM/
    Bewaart de laatste 14 back-ups. Zet dit bv. elke nacht in een cron-taak.
-   SQLite: database-bestand + bestanden. PostgreSQL: alleen de bestanden; de database zelf met pg_dump
-   (of de automatische back-ups van de hostingpartij).
+   SQLite: database-bestand + bestanden. MongoDB/PostgreSQL: alleen de bestanden; de database zelf met
+   mongodump / pg_dump (of de automatische back-ups van de hostingpartij).
    De sleutel voor versleutelde velden (DATA_KEY of <DATA_DIR>/secret.key) zit NIET in de back-up: bewaar die apart. */
 const { PATHS } = require('../server/dist/config/env');            // .env inlezen
 const fs = require('fs');
@@ -18,6 +18,7 @@ const dir = path.join(root, 'optimasys-' + stamp);
   const ctx = await NestFactory.createApplicationContext(DatabaseModule, { logger: ['error'] }), db = ctx.get(DatabaseService);
   fs.mkdirSync(path.join(dir, 'files'), { recursive: true });
   if (db.kind === 'sqlite') await db.backup(path.join(dir, 'optimasys.db'));
+  else if (db.kind === 'mongodb') console.log('MongoDB: maak de database-back-up met mongodump (bv. mongodump --uri="$DATABASE_URL" --archive=optimasys.archive) of via de hostingpartij.');
   else console.log('PostgreSQL: maak de database-back-up met pg_dump (bv. pg_dump "$DATABASE_URL" > optimasys.sql) of via de hostingpartij.');
   for (const f of fs.readdirSync(db.filesDir)) fs.copyFileSync(path.join(db.filesDir, f), path.join(dir, 'files', f));
   const all = fs.readdirSync(root).filter((d) => d.startsWith('optimasys-')).sort();
