@@ -262,7 +262,7 @@ var Admin = (function () {
     var navApp = document.getElementById('navApp'), navAdm = document.getElementById('navAdmin');
     if (navApp) navApp.hidden = adm; if (navAdm) navAdm.hidden = !adm;
     if (envSwitch) envSwitch.querySelectorAll('[data-env]').forEach(function (b) { b.setAttribute('aria-checked', String((b.getAttribute('data-env') === 'admin') === adm)); });
-    try { localStorage.setItem(ENV_KEY, adm ? 'admin' : 'app'); } catch (e) {}
+    if (me && me.admin) try { localStorage.setItem(ENV_KEY, adm ? 'admin' : 'app'); } catch (e) {}   // alleen de keuze van een admin onthouden
     if (go) goToPage(adm ? 'adminDash' : 'create');
   }
   if (envSwitch) envSwitch.addEventListener('click', function (e) { var b = e.target.closest('[data-env]'); if (b) setEnv(b.getAttribute('data-env'), true); });
