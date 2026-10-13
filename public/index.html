@@ -32,14 +32,7 @@
       </button>
     </div>
 
-    <!-- Alleen voor admins: wisselen tussen de app en het beheer, op dezelfde pagina (admin.js) -->
-    <div class="env-switch" id="envSwitch" role="radiogroup" data-i18n-aria="adminApp.switch" hidden>
-      <button type="button" role="radio" data-env="app" aria-checked="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg><span data-i18n="adminApp.app"></span></button>
-      <button type="button" role="radio" data-env="admin" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg><span data-i18n="adminApp.badge"></span></button>
-    </div>
-
     <nav>
-      <div class="nav-app" id="navApp">
       <div class="group-label" data-i18n="nav.workspace"></div>
       <a class="item active" href="#" data-page="create">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
@@ -59,10 +52,10 @@
       </a>
 
 
-      </div>
 
-      <!-- Beheer (alleen admins, als de wisselknop op Beheer staat) -->
+      <!-- Beheer: alleen zichtbaar voor admins, in hetzelfde menu (admin.js) -->
       <div class="nav-admin" id="navAdmin" hidden>
+      <div class="divider" role="separator"></div>
       <div class="group-label" data-i18n="adminApp.badge"></div>
       <a class="item" href="#" data-page="adminDash">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19a8 8 0 1 1 16 0"/><path d="M12 19l4-6"/><circle cx="12" cy="19" r="1.2"/></svg>
@@ -75,10 +68,6 @@
       <a class="item" href="#" data-page="customers" id="navCustomers">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.6 3.6-5.5 6.5-5.5s5.5 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.8.7 3 2.5 3.5 5.2"/></svg>
         <span class="label" data-i18n="nav.users"></span><span class="tip" data-i18n="nav.users"></span>
-      </a>
-      <a class="item" href="#" data-page="account">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/></svg>
-        <span class="label" data-i18n="nav.account"></span><span class="tip" data-i18n="nav.account"></span>
       </a>
       </div>
       <div class="divider" role="separator"></div>
