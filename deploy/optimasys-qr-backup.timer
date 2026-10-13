@@ -1,0 +1,11 @@
+# Runs optimasys-qr-backup.service every night at about 03:15 (also after a missed run, e.g. server was off)
+[Unit]
+Description=Optimasys QR nightly backup
+
+[Timer]
+OnCalendar=*-*-* 03:15
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

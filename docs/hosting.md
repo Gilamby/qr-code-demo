@@ -13,7 +13,7 @@ How to run QR Generator on the standard Optimasys setup: **native Node.js 22, sy
 | Persistent data | `DATA_DIR`: the SQLite database (`optimasys.db`), uploaded files (PDF/MP3) and `secret.key` |
 | Health check | `GET /api/health` returns `{"ok":true,…}` (checks the database too) |
 | Logs | stdout/stderr, read with `journalctl -u optimasys-qr` |
-| Ready-made files | `deploy/optimasys-qr.service`, `deploy/nginx-optimasys-qr.conf`, `deploy/deploy.sh` |
+| Ready-made files | `deploy/optimasys-qr.service`, `deploy/optimasys-qr-backup.service` + `.timer`, `deploy/nginx-optimasys-qr.conf`, `deploy/deploy.sh` |
 
 ## 1. Unix account and directories
 
@@ -46,7 +46,7 @@ DATA_KEY=<openssl rand -hex 32>            # encrypts Wi-Fi passwords in the dat
 FILE_SECRET=<openssl rand -hex 32>         # signs file links of password-protected pages
 SMTP_HOST=… SMTP_PORT=587 SMTP_USER=… SMTP_PASS=… MAIL_FROM="Optimasys QR <no-reply@optimasys.com>"
 SUPPORT_EMAIL=support@…                    # team account, created (already verified) at startup if it doesn't exist
-SUPPORT_PASSWORD=…                         # only on the server, at least 8 characters
+SUPPORT_PASSWORD="…"                       # only on the server; quotes if it has spaces; 8+ chars, capital, number, special char
 # ADMIN_EMAILS=a@…,b@…                     # more team members (optional)
 ```
 
@@ -60,7 +60,7 @@ Keep `DATA_KEY` **separate from database backups**: without it, encrypted fields
 
 **SQLite (default).** With `DATABASE_URL` empty, the app uses `DATA_DIR/optimasys.db` with WAL mode, a busy timeout and foreign keys. Tables are created automatically at startup; there is no separate migration step.
 
-- **Backups:** `npm run backup` makes a consistent copy of the database (safe while the app runs) plus `DATA_DIR/files` into `backups/` (keeps the last 14). Run it nightly from a systemd timer or cron as the app user, and copy the result off the server.
+- **Backups:** `deploy/optimasys-qr-backup.timer` runs `scripts/backup.js` every night (≈03:15): a consistent copy of the database (safe while the app runs) plus `DATA_DIR/files`, into `/var/backups/optimasys-qr` (keeps the last 14). Install steps are at the top of `deploy/optimasys-qr-backup.service`. Copy that folder to your central backup, and keep `DATA_KEY` separately.
 - One app process per database file. That is plenty for this app: in tests it handled more than 1,000 scans per second.
 
 **MongoDB (optional, later).** Set `DATABASE_URL=mongodb://…` and restart.

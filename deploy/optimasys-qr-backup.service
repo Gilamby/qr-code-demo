@@ -1,0 +1,32 @@
+# Nightly backup of Optimasys QR (started by optimasys-qr-backup.timer)
+# Makes a consistent copy of the SQLite database (safe while the app runs) plus the uploaded files,
+# into /var/backups/optimasys-qr/optimasys-YYYY-MM-DD-HHMM/. Keeps the last 14.
+# With MongoDB: copies only the files; back up the database with mongodump.
+# Install: copy this file and optimasys-qr-backup.timer to /etc/systemd/system/, then
+#   mkdir -p /var/backups/optimasys-qr && chown optimasys-qr: /var/backups/optimasys-qr && chmod 700 /var/backups/optimasys-qr
+#   systemctl daemon-reload && systemctl enable --now optimasys-qr-backup.timer
+# Run once by hand:  systemctl start optimasys-qr-backup   (log: journalctl -u optimasys-qr-backup)
+# Copy /var/backups/optimasys-qr to another machine too (your central backup), and keep DATA_KEY separately.
+[Unit]
+Description=Optimasys QR nightly backup
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=optimasys-qr
+Group=optimasys-qr
+WorkingDirectory=/srv/optimasys-qr/current
+EnvironmentFile=/srv/optimasys-qr/shared/.env
+Environment=NODE_ENV=production
+Environment=DATA_DIR=/var/lib/optimasys-qr
+Environment=BACKUP_DIR=/var/backups/optimasys-qr
+# Node.js 22 path: check with `which node`
+ExecStart=/usr/bin/node scripts/backup.js
+Nice=10
+IOSchedulingClass=idle
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/optimasys-qr /var/backups/optimasys-qr
