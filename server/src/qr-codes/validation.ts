@@ -49,6 +49,8 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
     if (field.type === 'file') {
       let o = null; try { o = JSON.parse(v); } catch (e) {}
       if (!o || typeof o.n !== 'string' || !o.n.trim() || o.n.length > 120 || !(o.s >= 0 && o.s < 200 * 1048576)) errors.push(field.key + ': invalid file');
+      // Video: altijd eerst los geüpload (POST /api/uploads/video), hier alleen de verwijzing
+      else if (/^video\//.test(field.accept || '') && (o.d != null || typeof o.f !== 'string')) errors.push(field.key + ': upload the video first');
       // Al opgeslagen bestand (bij bewerken): verwijzing naar het bestand op de server
       else if (o.f != null && (typeof o.f !== 'string' || !/^[A-Za-z0-9_-]{10,40}$/.test(o.f))) errors.push(field.key + ': invalid file reference');
       // Het bestand zelf (max. 10 MB) als data-URL; alleen PDF of audio
@@ -81,7 +83,7 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
     content[field.key] = v;
   }
   for (const key of Object.keys(input)) if (!type.fields.some((f) => f.key === key)) errors.push(key + ': unknown field');
-  for (const f of type.fields) if (f.required && !content[f.key]) errors.push(f.key + ': required');
+  for (const f of type.fields) if (f.required && !content[f.key] && !(f.or && content[f.or])) errors.push(f.key + ': required');   // or: het andere veld mag ook
 
   const dv = validateDesign(body.design || {}, errors);
   return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: dv } };

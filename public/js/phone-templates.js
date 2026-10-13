@@ -264,13 +264,17 @@ var PHONE = (function () {
 
     /* ---------- Video: de videopagina met speler ---------- */
     video: function (c, ex) {
-      var d = domain(c.url);
+      // Eigen videobestand: echte speler. src = op de echte pagina het bestand op de server, in de tool het bestand uit deze browser.
+      var own = !ex && FILES.parse(c.file), src = own && (own.url || FILES.local.file || '');
+      var d = own ? '' : domain(c.url);
       return '<div class="ph ph-vid">' + statusBar(true) +
-        '<div class="vd-top">' + ic('back') + '<span>' + v(d, '100px') + '</span>' + ic('share') + '</div>' +
-        '<div class="vd-player"' + (exPhoto('video', ex) ? ' style="background-image:url(' + exPhoto('video', ex) + ')"' : '') + '><span class="vd-play">' + ic('play') + '</span>' +
-          '<div class="vd-bar"><i></i></div><small class="vd-time">0:24 / 1:42</small></div>' +
+        '<div class="vd-top">' + ic('back') + '<span>' + (own ? esc(c.title || own.n) : v(d, '100px')) + '</span>' + ic('share') + '</div>' +
+        (own ? '<div class="vd-player vd-own">' + (src ? '<video src="' + esc(src) + '" playsinline preload="metadata"' + (own.url ? ' controls' : ' muted') + '></video>' : '') +
+            (own.url ? '' : '<span class="vd-play">' + ic('play') + '</span>') + '</div>'
+          : '<div class="vd-player"' + (exPhoto('video', ex) ? ' style="background-image:url(' + exPhoto('video', ex) + ')"' : '') + '><span class="vd-play">' + ic('play') + '</span>' +
+          '<div class="vd-bar"><i></i></div><small class="vd-time">0:24 / 1:42</small></div>') +
         '<div class="vd-info"><h4>' + v(c.title, '75%') + '</h4>' +
-          '<div class="vd-ch"><span class="vd-av">' + (d ? esc(d[0].toUpperCase()) : '') + '</span><b>' + v(d, '90px') + '</b></div>' +
+          (own ? '' : '<div class="vd-ch"><span class="vd-av">' + (d ? esc(d[0].toUpperCase()) : '') + '</span><b>' + v(d, '90px') + '</b></div>') +
           '<p>' + (c.description ? esc(c.description) : '<i class="sk"></i><i class="sk" style="width:80%"></i><i class="sk" style="width:55%"></i>') + '</p></div>' +
         '<div class="vd-btn">' + ic('play') + esc(t('pv.video.watch')) + '</div>' +
       '</div>';

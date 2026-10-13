@@ -256,6 +256,25 @@ var api = (function () {
     },
     // Contactformulier. In de demo wordt er niets verstuurd (dat zegt de pagina er ook bij).
     contact: either(function (d) { return request('POST', 'api/contact', d); }, function () { return Promise.resolve({ ok: true, demo: true }); }),
+    // Video uploaden (groot bestand): rechtstreeks naar de server, met voortgang (0-100). Demo: blijft in deze browser.
+    uploadVideo: function (file, onProgress) {
+      return available().then(function (on) {
+        if (!on) return { n: file.name.slice(0, 120), s: file.size, local: true };
+        return new Promise(function (resolve, reject) {
+          var x = new XMLHttpRequest();
+          x.open('POST', 'api/uploads/video?name=' + encodeURIComponent(file.name.slice(0, 120)));
+          x.setRequestHeader('Content-Type', /^video\/(mp4|quicktime|webm|x-m4v)$/.test(file.type) ? file.type : (/\.mov$/i.test(file.name) ? 'video/quicktime' : /\.webm$/i.test(file.name) ? 'video/webm' : 'video/mp4'));
+          x.upload.onprogress = function (e) { if (e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100)); };
+          x.onload = function () {
+            var data = {}; try { data = JSON.parse(x.responseText); } catch (e) {}
+            if (x.status >= 200 && x.status < 300) return resolve(data);
+            var err = new Error(data.error || 'HTTP ' + x.status); err.status = x.status; err.code = data.error; err.maxMb = data.maxMb; reject(err);
+          };
+          x.onerror = function () { reject(new Error('network')); };
+          x.send(file);
+        });
+      });
+    },
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },
     updateMe:     function (patch) { return request('PATCH', 'api/me', patch); }

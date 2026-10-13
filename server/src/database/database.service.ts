@@ -120,6 +120,8 @@ export abstract class DatabaseService {
 
   /* ---------- Bestanden (PDF, MP3): op schijf, met een willekeurig id als naam ---------- */
   abstract saveFile(f: { userId: string; codeId: string | null; name: string; mime: string; buffer: Buffer }): Promise<string>;
+  /** Bestand dat al op schijf staat (grote upload, zoals video) in de database zetten */
+  abstract addFileRecord(f: { id: string; userId: string; codeId: string | null; name: string; mime: string; size: number }): Promise<void>;
   abstract attachFile(id: string, codeId: string): Promise<unknown>;
   abstract getFile(id: string): Promise<StoredFile | null>;
   /** Bestanden van een code die niet meer gebruikt worden (na bewerken) weghalen */

@@ -353,7 +353,8 @@
     "linkName": "Emri",
     "linkNamePh": "Për shembull: Bluzë rozë nga Zara",
     "linkImage": "Foto ose logo",
-    "optional": "(opsionale)"
+    "optional": "(opsionale)",
+    "videoFile": "Ose ngarko videon tënde"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -450,7 +451,10 @@
     "fileError": "Ky skedar nuk përshtatet. Zgjidh një tjetër.",
     "photos": "Shto foto",
     "photosHint": "Deri në {n} foto. Zvogëlohen automatikisht.",
-    "tooBig": "Ky skedar është shumë i madh (maks. {n} MB)."
+    "tooBig": "Ky skedar është shumë i madh (maks. {n} MB).",
+    "videoHint": "MP4, MOV ose WebM, maks. 100 MB",
+    "uploading": "Duke ngarkuar… {p}%",
+    "videoError": "Ngarkimi nuk u krye. Provo sërish ose zgjidh një skedar më të vogël."
   },
   "hours": {
     "closed": "Mbyllur",
@@ -486,7 +490,7 @@
     "maxScans": "E dobishme për oferta si «100 klientët e parë».",
     "devices": "Lëre bosh për të njëjtën lidhje për të gjithë.",
     "utm": "Shton etiketa UTM në lidhje që të shohësh vizitorët QR në Google Analytics.",
-    "videoUrl": "YouTube, Vimeo ose një lidhje tjetër videoje."
+    "videoUrl": "YouTube, Vimeo ose një lidhje tjetër videoje. Ose ngarko më poshtë videon tënde."
   },
   "more": {
     "title": "Më shumë opsione",

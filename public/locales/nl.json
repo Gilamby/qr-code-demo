@@ -353,7 +353,8 @@
     "linkName": "Naam",
     "linkNamePh": "Bijvoorbeeld: Roze top van Zara",
     "linkImage": "Foto of logo",
-    "optional": "(optioneel)"
+    "optional": "(optioneel)",
+    "videoFile": "Of upload je eigen video"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -450,7 +451,10 @@
     "fileError": "Dit bestand past niet. Kies een ander bestand.",
     "photos": "Foto's toevoegen",
     "photosHint": "Maximaal {n} foto's. Ze worden automatisch verkleind.",
-    "tooBig": "Dit bestand is te groot (max. {n} MB)."
+    "tooBig": "Dit bestand is te groot (max. {n} MB).",
+    "videoHint": "MP4, MOV of WebM, max. 100 MB",
+    "uploading": "Uploaden… {p}%",
+    "videoError": "Uploaden lukte niet. Probeer het opnieuw of kies een kleiner bestand."
   },
   "hours": {
     "closed": "Gesloten",
@@ -486,7 +490,7 @@
     "maxScans": "Handig voor acties zoals \"de eerste 100 klanten\".",
     "devices": "Laat leeg om voor iedereen dezelfde link te gebruiken.",
     "utm": "Voegt automatisch utm-labels toe aan je link, zodat je QR-bezoekers terugziet in Google Analytics.",
-    "videoUrl": "YouTube, Vimeo of een andere videolink."
+    "videoUrl": "YouTube, Vimeo of een andere videolink. Of upload hieronder je eigen video."
   },
   "more": {
     "title": "Meer opties",

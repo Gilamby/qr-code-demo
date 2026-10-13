@@ -353,7 +353,8 @@
     "linkName": "Name",
     "linkNamePh": "Zum Beispiel: Rosa Top von Zara",
     "linkImage": "Foto oder Logo",
-    "optional": "(optional)"
+    "optional": "(optional)",
+    "videoFile": "Oder lade dein eigenes Video hoch"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -450,7 +451,10 @@
     "fileError": "Diese Datei passt nicht. Wähle eine andere Datei.",
     "photos": "Fotos hinzufügen",
     "photosHint": "Bis zu {n} Fotos. Sie werden automatisch verkleinert.",
-    "tooBig": "Diese Datei ist zu groß (max. {n} MB)."
+    "tooBig": "Diese Datei ist zu groß (max. {n} MB).",
+    "videoHint": "MP4, MOV oder WebM, max. 100 MB",
+    "uploading": "Wird hochgeladen… {p} %",
+    "videoError": "Hochladen hat nicht geklappt. Versuche es erneut oder wähle eine kleinere Datei."
   },
   "hours": {
     "closed": "Geschlossen",
@@ -486,7 +490,7 @@
     "maxScans": "Praktisch für Aktionen wie „die ersten 100 Kunden“.",
     "devices": "Leer lassen, um für alle denselben Link zu nutzen.",
     "utm": "Fügt automatisch UTM-Parameter hinzu, damit du QR-Besucher in Google Analytics siehst.",
-    "videoUrl": "YouTube, Vimeo oder ein anderer Videolink."
+    "videoUrl": "YouTube, Vimeo oder ein anderer Videolink. Oder lade unten dein eigenes Video hoch."
   },
   "more": {
     "title": "Weitere Optionen",

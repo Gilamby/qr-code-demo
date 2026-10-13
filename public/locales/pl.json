@@ -353,7 +353,8 @@
     "linkName": "Nazwa",
     "linkNamePh": "Na przykład: Różowy top z Zary",
     "linkImage": "Zdjęcie lub logo",
-    "optional": "(opcjonalnie)"
+    "optional": "(opcjonalnie)",
+    "videoFile": "Lub prześlij własny film"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -450,7 +451,10 @@
     "fileError": "Ten plik nie pasuje. Wybierz inny.",
     "photos": "Dodaj zdjęcia",
     "photosHint": "Maksymalnie {n} zdjęć. Są automatycznie zmniejszane.",
-    "tooBig": "Ten plik jest za duży (maks. {n} MB)."
+    "tooBig": "Ten plik jest za duży (maks. {n} MB).",
+    "videoHint": "MP4, MOV lub WebM, maks. 100 MB",
+    "uploading": "Przesyłanie… {p}%",
+    "videoError": "Nie udało się przesłać. Spróbuj ponownie lub wybierz mniejszy plik."
   },
   "hours": {
     "closed": "Zamknięte",
@@ -486,7 +490,7 @@
     "maxScans": "Przydatne przy akcjach typu „pierwszych 100 klientów”.",
     "devices": "Zostaw puste, aby wszyscy mieli ten sam link.",
     "utm": "Dodaje tagi UTM do linku, by widzieć wejścia z QR w Google Analytics.",
-    "videoUrl": "YouTube, Vimeo lub inny link do filmu."
+    "videoUrl": "YouTube, Vimeo lub inny link do filmu. Albo prześlij poniżej własny film."
   },
   "more": {
     "title": "Więcej opcji",

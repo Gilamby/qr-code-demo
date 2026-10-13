@@ -48,7 +48,7 @@ export class ShortLinksController {
     const q = await this.db.addScan(found.id, describe(found, req));
     const c = q.content;
     res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen
-    if (q.contentType === 'url' && c.url) return res.redirect(rules.targetUrl(q, req.get('user-agent')));
+    if (q.contentType === 'url' && c.url && !(q.typeId === 'video' && c.file)) return res.redirect(rules.targetUrl(q, req.get('user-agent')));   // eigen video: de videopagina met speler
     if (q.contentType === 'message' && c.phone) return res.redirect('https://wa.me/' + c.phone.replace(/\D/g, '') + (c.message ? '?text=' + encodeURIComponent(c.message) : ''));
     // Doorsturen naar wat al bestaat
     const ua = req.get('user-agent') || '';

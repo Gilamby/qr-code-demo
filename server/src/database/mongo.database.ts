@@ -186,6 +186,10 @@ export class MongoDatabase extends DatabaseService {
     await this.sessions.deleteMany({ expiresAt: { $lt: t } });
     await this.resets.deleteMany({ expiresAt: { $lt: t } });
     await this.verifications.deleteMany({ expiresAt: { $lt: t } });
+    // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
+    const loose = (await this.files.find({ codeId: null, createdAt: { $lt: new Date(Date.now() - 864e5).toISOString() } }, { projection: { _id: 1 } }).toArray()).map((d) => d._id);
+    if (loose.length) await this.files.deleteMany({ _id: { $in: loose } });
+    removeFiles(loose);
     // nooit bevestigde aanmeldingen weg; uitgenodigde klanten blijven staan (het team kan opnieuw uitnodigen)
     const old = await this.users.find({ emailVerifiedAt: null, passwordHash: { $ne: INVITED }, createdAt: { $lt: new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString() } }, { projection: { _id: 1 } }).toArray();
     for (const u of old) await this.deleteUser(u._id);
@@ -265,6 +269,9 @@ export class MongoDatabase extends DatabaseService {
     fs.writeFileSync(path.join(FILES_DIR, id), buffer);
     await this.files.insertOne({ _id: id, codeId: codeId || null, userId, name, mime, size: buffer.length, createdAt: now() });
     return id;
+  }
+  async addFileRecord(f: { id: string; userId: string; codeId: string | null; name: string; mime: string; size: number }) {
+    await this.files.insertOne({ _id: f.id, codeId: f.codeId || null, userId: f.userId, name: f.name, mime: f.mime, size: f.size, createdAt: now() });
   }
   attachFile(id: string, codeId: string) { return this.files.updateOne({ _id: id }, { $set: { codeId } }); }
   async getFile(id: string): Promise<StoredFile | null> {

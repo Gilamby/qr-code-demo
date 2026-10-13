@@ -298,5 +298,6 @@ var SocialsEditor = (function () {
 /* ---------- Verplichte velden ---------- */
 function missingRequired(state) {
   var type = getType(state.typeId), c = state.content[type.id] || {};
-  return type.fields.filter(function (f) { return f.required && !(c[f.key] && String(c[f.key]).trim()); }).map(function (f) { return f.key; });
+  var has = function (k) { return !!(c[k] && String(c[k]).trim()); };
+  return type.fields.filter(function (f) { return f.required && !has(f.key) && !(f.or && has(f.or)); }).map(function (f) { return f.key; });   // or: het andere veld mag ook
 }

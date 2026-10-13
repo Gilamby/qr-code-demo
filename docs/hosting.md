@@ -106,7 +106,7 @@ The unit runs as `optimasys-qr`, binds to `127.0.0.1`, can only write to `/var/l
 Copy `deploy/nginx-optimasys-qr.conf` and replace the domain. Two things matter:
 
 - **Real visitor IP:** `real_ip_header CF-Connecting-IP` with Cloudflare's IP ranges. nginx then passes the real IP in `X-Forwarded-For`, and the app trusts only localhost (`TRUST_PROXY=loopback`). The visitor IP is used for country/city in scan statistics and for login rate limits. It is **not** stored.
-- **Upload size:** `client_max_body_size 16m` (logos, PDF and MP3 files).
+- **Upload size:** `client_max_body_size 16m` (logos, PDF and MP3 files), and 110m for `/api/uploads/` (videos up to 100 MB, `VIDEO_MAX_MB`). Cloudflare's free plan accepts uploads up to 100 MB per request.
 
 Cloudflare: SSL mode *Full (strict)* with an Origin Certificate. Do not cache `/api/*` or `/q/*`; caching static files is fine.
 

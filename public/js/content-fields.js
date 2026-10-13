@@ -8,14 +8,17 @@
 var FILES = {
   parse: function (v) { try { var o = JSON.parse(v); return o && o.n ? o : null; } catch (e) { return null; } },
   size: function (b) { b = +b || 0; return b >= 1048576 ? i18n.fmt.num(Math.round(b / 104857.6) / 10) + ' MB' : i18n.fmt.num(Math.max(1, Math.round(b / 1024))) + ' KB'; },
-  list: function (v) { try { var a = JSON.parse(v); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  list: function (v) { try { var a = JSON.parse(v); return Array.isArray(a) ? a : []; } catch (e) { return []; } },
+  // Gekozen bestanden in deze browser (voor de preview, bv. een video die net is geüpload): veldnaam -> object-URL
+  local: {}
 };
 
 var FileUpload = (function () {
   var IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 17v-6M9 14l3-3 3 3"/></svg>';
   function inner(f, o) {
     return '<span class="up-thumb fu-thumb">' + IC + '</span>' +
-      '<span class="up-text"><b>' + (o ? esc(o.n) : t('upload.file')) + '</b><small>' + (o ? FILES.size(o.s) : t(f.accept === 'application/pdf' ? 'upload.pdfHint' : 'upload.audioHint')) + '</small></span>';
+      '<span class="up-text"><b>' + (o ? esc(o.n) : t('upload.file')) + '</b><small>' + (o ? FILES.size(o.s) : t(f.accept === 'application/pdf' ? 'upload.pdfHint' : /^video/.test(f.accept || '') ? 'upload.videoHint' : 'upload.audioHint')) + '</small></span>' +
+      (/^video/.test(f.accept || '') ? '<span class="fu-bar" hidden><i></i></span>' : '');
   }
   function html(f, id, value) {
     var o = FILES.parse(value);
@@ -28,7 +31,25 @@ var FileUpload = (function () {
       var key = box.getAttribute('data-file'), input = box.querySelector('.up-file'), accept = box.getAttribute('data-accept');
       var f = { accept: accept };
       function set(o) { box.classList.toggle('has', !!o); box.querySelector('.fu-in').innerHTML = inner(f, o); onChange(key, o ? JSON.stringify(o) : ''); }
+      function takeVideo(file) {
+        // Video: meteen uploaden (kan groot zijn), met een voortgangsbalk; de preview speelt het bestand uit deze browser
+        var small = box.querySelector('small'), bar = box.querySelector('.fu-bar'), MAX = 100;
+        if (!(/^video\//.test(file.type) || /\.(mp4|mov|m4v|webm)$/i.test(file.name))) { small.textContent = t('upload.fileError'); return; }
+        if (file.size > MAX * 1048576) { small.textContent = t('upload.tooBig', { n: MAX }); return; }
+        box.classList.add('busy'); box.querySelector('b').textContent = file.name; small.textContent = t('upload.uploading', { p: 0 });
+        if (bar) { bar.hidden = false; bar.firstChild.style.width = '0%'; }
+        api.uploadVideo(file, function (p) { small.textContent = t('upload.uploading', { p: p }); if (bar) bar.firstChild.style.width = p + '%'; }).then(function (o) {
+          box.classList.remove('busy');
+          if (FILES.local[key]) URL.revokeObjectURL(FILES.local[key]);
+          FILES.local[key] = URL.createObjectURL(file);
+          set({ n: o.n, s: o.s, f: o.f, local: o.local || undefined });
+        }).catch(function (e) {
+          box.classList.remove('busy'); if (bar) bar.hidden = true;
+          small.textContent = e && e.code === 'too_big' ? t('upload.tooBig', { n: e.maxMb || MAX }) : t('upload.videoError');
+        });
+      }
       function take(file) {
+        if (file && /^video/.test(accept)) return takeVideo(file);
         var ok = file && (accept === 'application/pdf' ? file.type === 'application/pdf' || /\.pdf$/i.test(file.name) : /^audio\//.test(file.type) || /\.(mp3|m4a|wav|ogg)$/i.test(file.name));
         if (!ok) { box.querySelector('small').textContent = t('upload.fileError'); return; }
         if (file.size > 10 * 1048576) { box.querySelector('small').textContent = t('upload.tooBig', { n: 10 }); return; }
@@ -38,7 +59,7 @@ var FileUpload = (function () {
         rd.onerror = function () { box.querySelector('small').textContent = t('upload.fileError'); };
         rd.readAsDataURL(file);
       }
-      box.addEventListener('click', function (e) { if (e.target.closest('.up-remove')) { e.stopPropagation(); input.value = ''; return set(null); } if (e.target !== input) input.click(); });
+      box.addEventListener('click', function (e) { if (box.classList.contains('busy')) return; if (e.target.closest('.up-remove')) { e.stopPropagation(); input.value = ''; if (FILES.local[key]) { URL.revokeObjectURL(FILES.local[key]); delete FILES.local[key]; } return set(null); } if (e.target !== input) input.click(); });
       input.addEventListener('click', function (e) { e.stopPropagation(); });
       input.addEventListener('change', function (e) { e.stopPropagation(); take(input.files[0]); });
       box.addEventListener('dragover', function (e) { e.preventDefault(); box.classList.add('drag'); });

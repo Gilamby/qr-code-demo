@@ -7,6 +7,7 @@
    HelpersModule   health, qr-types, link-check, adres zoeken, e-mailcheck
    VisitorModule   korte links /q/:id: regels, scan tellen, echte pagina
    ========================================================= */
+import { UploadsController } from './qr-codes/uploads.controller';
 import { Module } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { DatabaseModule } from './database/database.module';
@@ -20,7 +21,7 @@ import { ShortLinksController } from './visitor/short-links.controller';
 import { HousekeepingService } from './housekeeping.service';
 import { ErrorFilter } from './common/http';
 
-@Module({ controllers: [QrCodesController], providers: [QrCodesService], imports: [AuthModule] })
+@Module({ controllers: [QrCodesController, UploadsController], providers: [QrCodesService], imports: [AuthModule] })
 export class QrCodesModule {}
 
 @Module({ controllers: [AnalyticsController], imports: [AuthModule] })

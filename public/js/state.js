@@ -39,7 +39,12 @@ var actions = {
   setField: function (key, value) {
     var s = store.get(), c = Object.assign({}, s.content), cur = Object.assign({}, c[s.typeId] || {});
     cur[key] = value; c[s.typeId] = cur; store.set({ content: c, created: false, saved: null, error: null, previewUnlocked: key === 'password' ? false : s.previewUnlocked });
-    if (value) { var el = document.querySelector('[data-field="' + key + '"].invalid'); if (el) el.classList.remove('invalid'); }
+    if (value) {
+      // Ook het "of"-partnerveld is nu in orde (bijv. video: link of eigen bestand)
+      var type = getType(s.typeId);
+      var keys = [key]; ((type && type.fields) || []).forEach(function (f) { if (f.or === key) keys.push(f.key); });
+      keys.forEach(function (k) { var el = document.querySelector('[data-field="' + k + '"].invalid'); if (el) el.classList.remove('invalid'); });
+    }
   },
   setColor: function (target, c) { var s = store.get(), p = { created: false, saved: null, error: null }; p[target === 'ac' ? 'accentColor' : 'pageColor'] = c; p.typeColors = rememberColors(s, target === 'ac' ? s.pageColor : c, target === 'ac' ? c : s.accentColor); store.set(p); },
   setPhoneView: function (v) { store.set({ phoneView: v }); },

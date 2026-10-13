@@ -92,6 +92,13 @@
       $('.mp-bar').addEventListener('click', function (e) { var r = this.getBoundingClientRect(); if (au.duration) au.currentTime = (e.clientX - r.left) / r.width * au.duration; });
       go($('.mp-file'), o.url, o.n);
     },
+    video: function () {
+      // Eigen video (bestand op de server): de knop speelt de video af en scrollt ernaar; anders naar de link
+      var vid = $('.vd-own video'), btn = $('.vd-btn');
+      if (vid && btn) { btn.setAttribute('data-go', ''); btn.addEventListener('click', function () { vid.scrollIntoView({ behavior: 'smooth', block: 'center' }); vid.play().catch(function () {}); }); }
+      else if (btn) go(btn, href(c.url));
+      var s = $('.vd-top .i:last-child'); if (s) { s.setAttribute('data-go', ''); s.addEventListener('click', share); }
+    },
     apps: function () {
       var b = $$('.ap-badge'), urls = []; if (c.ios) urls.push(href(c.ios)); if (c.android) urls.push(href(c.android));
       b.forEach(function (el, i) { go(el, urls[i]); });

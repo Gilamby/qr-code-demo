@@ -353,7 +353,8 @@
     "linkName": "Name",
     "linkNamePh": "For example: Pink top from Zara",
     "linkImage": "Photo or logo",
-    "optional": "(optional)"
+    "optional": "(optional)",
+    "videoFile": "Or upload your own video"
   },
   "panel": {
     "selected": "{type} selected"
@@ -450,7 +451,10 @@
     "fileError": "This file doesn't fit. Choose another file.",
     "photos": "Add photos",
     "photosHint": "Up to {n} photos. They are resized automatically.",
-    "tooBig": "This file is too big (max. {n} MB)."
+    "tooBig": "This file is too big (max. {n} MB).",
+    "videoHint": "MP4, MOV or WebM, max. 100 MB",
+    "uploading": "Uploading… {p}%",
+    "videoError": "Upload failed. Try again or choose a smaller file."
   },
   "hours": {
     "closed": "Closed",
@@ -486,7 +490,7 @@
     "maxScans": "Handy for promotions like \"the first 100 customers\".",
     "devices": "Leave empty to use the same link for everyone.",
     "utm": "Automatically adds UTM tags to your link so you can see QR visitors in Google Analytics.",
-    "videoUrl": "YouTube, Vimeo or any other video link."
+    "videoUrl": "YouTube, Vimeo or another video link. Or upload your own video below."
   },
   "more": {
     "title": "More options",

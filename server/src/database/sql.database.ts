@@ -135,6 +135,10 @@ export class SqlDatabase extends DatabaseService {
     await this.d.run('DELETE FROM sessions WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM password_resets WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM email_verifications WHERE expires_at < ?', [t]);
+    // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
+    const loose = (await this.d.all('SELECT id FROM files WHERE code_id IS NULL AND created_at < ?', [new Date(Date.now() - 864e5).toISOString()])).map((r) => r.id);
+    for (const id of loose) await this.d.run('DELETE FROM files WHERE id = ?', [id]);
+    removeFiles(loose);
     // nooit bevestigde aanmeldingen weg; uitgenodigde klanten blijven staan (het team kan opnieuw uitnodigen)
     await this.d.run('DELETE FROM users WHERE email_verified_at IS NULL AND password_hash <> ? AND created_at < ?', [INVITED, new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString()]);
   }
@@ -202,6 +206,9 @@ export class SqlDatabase extends DatabaseService {
     fs.writeFileSync(path.join(FILES_DIR, id), buffer);
     await this.d.run('INSERT INTO files (id, code_id, user_id, name, mime, size, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [id, codeId || null, userId, name, mime, buffer.length, now()]);
     return id;
+  }
+  async addFileRecord(f: { id: string; userId: string; codeId: string | null; name: string; mime: string; size: number }) {
+    await this.d.run('INSERT INTO files (id, code_id, user_id, name, mime, size, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [f.id, f.codeId || null, f.userId, f.name, f.mime, f.size, now()]);
   }
   attachFile(id: string, codeId: string) { return this.d.run('UPDATE files SET code_id = ? WHERE id = ?', [codeId, id]); }
   async getFile(id: string): Promise<StoredFile | null> { const r = await this.d.get('SELECT * FROM files WHERE id = ?', [id]); return r ? { ...r, size: Number(r.size), path: path.join(FILES_DIR, r.id) } : null; }

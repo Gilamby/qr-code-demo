@@ -55,7 +55,9 @@
       { key: 'socials', type: 'socials', label: 'fields.socials', sample: { t: 'sample.bizSocials' } } ] },
   { id: 'video',     icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg',     contentType: 'url',      previewType: 'card',    color: '#2563eb', theme: ['#2563eb', '#0f172a'],
     fields: [
-      { key: 'url', type: 'url', label: 'fields.videoUrl', required: true, sample: { t: 'sample.videoUrl' }, hint: 'hint.videoUrl' },
+      // Een link (YouTube, Vimeo …) óf een eigen videobestand: één van de twee is genoeg (or)
+      { key: 'url', type: 'url', label: 'fields.videoUrl', required: true, or: 'file', sample: { t: 'sample.videoUrl' }, hint: 'hint.videoUrl' },
+      { key: 'file', type: 'file', accept: 'video/*', label: 'fields.videoFile', or: 'url' },
       { key: 'title', label: 'fields.title', sample: { t: 'pv.video.title' } },
       { key: 'description', label: 'fields.description', sample: { t: 'pv.video.desc' } } ] },
   { id: 'images',    icon: 'img',    image: 'assets/qr-types/images.jpg', previewImage: 'assets/previews/images.jpg',    contentType: 'gallery',  previewType: 'card', color: '#2f9e8f', theme: ['#2f9e8f', '#134e4a'],

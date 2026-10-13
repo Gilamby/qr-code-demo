@@ -353,7 +353,8 @@
     "linkName": "Nom",
     "linkNamePh": "Par exemple : Top rose de Zara",
     "linkImage": "Photo ou logo",
-    "optional": "(facultatif)"
+    "optional": "(facultatif)",
+    "videoFile": "Ou importez votre propre vidéo"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -450,7 +451,10 @@
     "fileError": "Ce fichier ne convient pas. Choisis-en un autre.",
     "photos": "Ajouter des photos",
     "photosHint": "Jusqu'à {n} photos. Elles sont réduites automatiquement.",
-    "tooBig": "Ce fichier est trop volumineux (max. {n} Mo)."
+    "tooBig": "Ce fichier est trop volumineux (max. {n} Mo).",
+    "videoHint": "MP4, MOV ou WebM, 100 Mo max.",
+    "uploading": "Envoi… {p} %",
+    "videoError": "L’envoi a échoué. Réessayez ou choisissez un fichier plus petit."
   },
   "hours": {
     "closed": "Fermé",
@@ -486,7 +490,7 @@
     "maxScans": "Pratique pour des offres comme « les 100 premiers clients ».",
     "devices": "Laisse vide pour utiliser le même lien pour tous.",
     "utm": "Ajoute des balises UTM à ton lien pour voir les visiteurs QR dans Google Analytics.",
-    "videoUrl": "YouTube, Vimeo ou un autre lien vidéo."
+    "videoUrl": "YouTube, Vimeo ou un autre lien vidéo. Ou importez votre propre vidéo ci-dessous."
   },
   "more": {
     "title": "Plus d'options",

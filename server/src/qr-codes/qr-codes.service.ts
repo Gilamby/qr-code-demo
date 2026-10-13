@@ -17,7 +17,7 @@ const fileFields = (typeId: string): string[] => { const t = QR_TYPES.find((x) =
 export const cleanName = (v: unknown) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, 60);
 export const newCodeId = () => crypto.randomBytes(5).toString('base64url');   // bv. "aZ3k9Qp"
 export const missingRequired = (typeId: string, content: Record<string, any>) => {
-  const t = QR_TYPES.find((x) => x.id === typeId); return t.fields.filter((f) => f.required && !content[f.key]).map((f) => f.key + ': required');
+  const t = QR_TYPES.find((x) => x.id === typeId); return t.fields.filter((f) => f.required && !content[f.key] && !(f.or && content[f.or])).map((f) => f.key + ': required');
 };
 
 @Injectable()
