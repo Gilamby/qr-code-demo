@@ -45,10 +45,13 @@ export function removeFiles(ids: string[]) { ids.forEach((id) => { try { fs.unli
 export interface UserRow { id: string; email: string; name: string; password_hash: string; email_verified_at: string | null; created_at: string }
 export type NewQrCode = { id: string; typeId: string; contentType: string; content: Record<string, any>; design?: Record<string, any>; name?: string; createdAt?: string };
 export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean };
-export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string }>;
+export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string }>;
 export type Summary = { codes: number; scans: number; scans30: number; sessions: number };
 /** Een klant in de lijst van het team (pagina Klanten) */
-export type Customer = { id: string; email: string; name: string; createdAt: string; active: boolean; codes: number; inviteUntil: string | null };
+export type Customer = { id: string; email: string; name: string; createdAt: string; active: boolean; codes: number; inviteUntil: string | null;
+  role: string | null; disabledAt: string | null; lastLoginAt: string | null; scans: number };
+/** Scans van het hele platform per dag (beheer-dashboard) */
+export type DayCount = { day: string; scans: number; uniq: number };
 /** Wachtwoord-hash van een account dat is uitgenodigd maar nog geen wachtwoord heeft gekozen (kan nooit inloggen) */
 export const INVITED = 'invited';
 export const INVITE_HOURS = 7 * 24;
@@ -101,6 +104,15 @@ export abstract class DatabaseService {
   abstract cleanup(): Promise<void>;
   /** Alle accounts, nieuwste eerst (alleen voor het team) */
   abstract listCustomers(): Promise<Customer[]>;
+
+  /* ---------- Beheer (alleen voor het team) ---------- */
+  /** Alle QR-codes van iedereen, nieuwste eerst (zonder statistieken) */
+  abstract allQrCodes(): Promise<QrCode[]>;
+  /** Scans van alle codes samen per dag, vanaf 'since' (JJJJ-MM-DD) */
+  abstract scansPerDay(since: string): Promise<DayCount[]>;
+  /** Instellingen van het platform (vertalingen, DeepL-sleutel …): tekst per sleutel */
+  abstract getSetting(key: string): Promise<string | null>;
+  abstract setSetting(key: string, value: string | null): Promise<void>;
 
   /* ---------- QR-codes ---------- */
   abstract listQrCodes(userId: string): Promise<QrCode[]>;

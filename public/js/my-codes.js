@@ -213,5 +213,5 @@ var MyCodes = (function () {
   label();
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; load(); } });
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });
-  return { reload: load, displayName: displayName };
+  return { reload: load, displayName: displayName, qrSvg: function (r, o) { return QRRender.svg(qrData(r), qrDesign(r), o); }, download: download, isStatic: isStatic };   // ook gebruikt door het beheer (admin.js)
 })();

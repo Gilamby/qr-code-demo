@@ -10,6 +10,6 @@ import { AdminController, TeamOnly } from './admin.controller';
 @Module({
   controllers: [AuthController, AccountController, AdminController],
   providers: [AuthService, MailerService, LoggedIn, SupportAccountService, TeamOnly],
-  exports: [AuthService, MailerService, LoggedIn],
+  exports: [AuthService, MailerService, LoggedIn, TeamOnly],
 })
 export class AuthModule {}

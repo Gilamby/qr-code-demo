@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
-  Customer, DatabaseService, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Customer, DatabaseService, DayCount, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -19,7 +19,8 @@ function codeOut(r: any): QrCode {
     name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined };
 }
 function userOut(r: any): User {
-  return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at };
+  return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
+    role: r.role || null, disabledAt: r.disabled_at || null, lastLoginAt: r.last_login_at || null };
 }
 
 const SQL = {
@@ -50,7 +51,7 @@ export class SqlDatabase extends DatabaseService {
   async getUser(id: string): Promise<User> { return userOut(await this.d.get(SQL.userById, [id])); }
   async passwordHashOf(id: string): Promise<string> { return ((await this.d.get(SQL.userById, [id])) || ({} as any)).password_hash; }
   async updateUser(id: string, patch: UserPatch): Promise<User> {
-    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email' };
+    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email', role: 'role', disabledAt: 'disabled_at', lastLoginAt: 'last_login_at' };
     const keys = Object.keys(patch).filter((k) => cols[k]); if (!keys.length) return this.getUser(id);
     await this.d.run('UPDATE users SET ' + keys.map((k) => cols[k] + ' = ?').join(', ') + ', updated_at = ? WHERE id = ?', [...keys.map((k) => patch[k]), now(), id]);
     return this.getUser(id);
@@ -95,6 +96,7 @@ export class SqlDatabase extends DatabaseService {
     const r = await this.d.get('SELECT u.*, s.expires_at AS s_exp FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ?', [hash(token)]);
     if (!r) return null;
     if (r.s_exp < now()) { await this.d.run('DELETE FROM sessions WHERE token_hash = ?', [hash(token)]); return null; }
+    if (r.disabled_at) return null;                                               // uitgezet door het team
     const u = userOut(r);
     if (new Date(r.s_exp).getTime() - Date.now() < (SESSION_DAYS - 1) * 864e5) {             // hooguit één keer per dag verlengen
       const exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString();
@@ -143,8 +145,21 @@ export class SqlDatabase extends DatabaseService {
     await this.d.run('DELETE FROM users WHERE email_verified_at IS NULL AND password_hash <> ? AND created_at < ?', [INVITED, new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString()]);
   }
   async listCustomers(): Promise<Customer[]> {
-    const rows = await this.d.all('SELECT u.id, u.email, u.name, u.created_at, u.email_verified_at, (SELECT COUNT(*) FROM qr_codes q WHERE q.user_id = u.id) AS codes, (SELECT MAX(r.expires_at) FROM password_resets r WHERE r.user_id = u.id) AS invite_until FROM users u ORDER BY u.created_at DESC');
-    return rows.map((r) => ({ id: r.id, email: r.email, name: r.name, createdAt: r.created_at, active: !!r.email_verified_at, codes: Number(r.codes) || 0, inviteUntil: r.email_verified_at ? null : r.invite_until || null }));
+    const rows = await this.d.all('SELECT u.id, u.email, u.name, u.created_at, u.email_verified_at, u.role, u.disabled_at, u.last_login_at, (SELECT COUNT(*) FROM qr_codes q WHERE q.user_id = u.id) AS codes, (SELECT COALESCE(SUM(q.scans), 0) FROM qr_codes q WHERE q.user_id = u.id) AS scans, (SELECT MAX(r.expires_at) FROM password_resets r WHERE r.user_id = u.id) AS invite_until FROM users u ORDER BY u.created_at DESC');
+    return rows.map((r) => ({ id: r.id, email: r.email, name: r.name, createdAt: r.created_at, active: !!r.email_verified_at, codes: Number(r.codes) || 0, inviteUntil: r.email_verified_at ? null : r.invite_until || null,
+      role: r.role || null, disabledAt: r.disabled_at || null, lastLoginAt: r.last_login_at || null, scans: Number(r.scans) || 0 }));
+  }
+
+  /* ---------- Beheer ---------- */
+  async allQrCodes(): Promise<QrCode[]> { return (await this.d.all('SELECT * FROM qr_codes ORDER BY created_at DESC')).map(codeOut); }
+  async scansPerDay(since: string): Promise<DayCount[]> {
+    return (await this.d.all('SELECT day, SUM(scans) AS scans, SUM(uniq) AS uniq FROM scan_stats WHERE day >= ? GROUP BY day ORDER BY day', [since]))
+      .map((r) => ({ day: r.day, scans: Number(r.scans) || 0, uniq: Number(r.uniq) || 0 }));
+  }
+  async getSetting(key: string) { const r = await this.d.get('SELECT value FROM settings WHERE key = ?', [key]); return r ? r.value : null; }
+  async setSetting(key: string, value: string | null) {
+    if (value == null) { await this.d.run('DELETE FROM settings WHERE key = ?', [key]); return; }
+    await this.d.run('INSERT INTO settings (key, value, updated_at) VALUES (?, ?, ?) ON CONFLICT (key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at', [key, value, now()]);
   }
 
   /* ---------- QR-codes ---------- */

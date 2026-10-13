@@ -252,7 +252,8 @@ var api = (function () {
       list:     function ()       { return request('GET', 'api/admin/customers'); },
       add:      function (d)      { return request('POST', 'api/admin/customers', d); },
       reinvite: function (id, d)  { return request('POST', 'api/admin/customers/' + encodeURIComponent(id) + '/invite', d || {}); },
-      remove:   function (id)     { return request('DELETE', 'api/admin/customers/' + encodeURIComponent(id)); }
+      remove:   function (id)     { return request('DELETE', 'api/admin/customers/' + encodeURIComponent(id)); },
+      update:   function (id, d)  { return request('PATCH', 'api/admin/customers/' + encodeURIComponent(id), d); }   // { role } of { disabled }
     },
     // Contactformulier. In de demo wordt er niets verstuurd (dat zegt de pagina er ook bij).
     contact: either(function (d) { return request('POST', 'api/contact', d); }, function () { return Promise.resolve({ ok: true, demo: true }); }),
@@ -282,6 +283,13 @@ var api = (function () {
         return fetch('api/uploads/image?name=' + encodeURIComponent(String(name || 'foto.jpg').slice(0, 120)), { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': blob.type || 'image/jpeg' }, body: blob })
           .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) { var e = new Error(d.error || 'HTTP ' + r.status); e.status = r.status; throw e; } return d; }); });
       });
+    },
+    // Beheer (alleen team): dashboard en alle QR-codes
+    admin: {
+      overview:   function ()      { return request('GET', 'api/admin/overview'); },
+      codes:      function (f)     { var q = Object.keys(f || {}).filter(function (k) { return f[k] !== '' && f[k] != null; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); return request('GET', 'api/admin/codes' + (q ? '?' + q : '')); },
+      patchCode:  function (id, d) { return request('PATCH', 'api/admin/codes/' + encodeURIComponent(id), d); },
+      removeCode: function (id)    { return request('DELETE', 'api/admin/codes/' + encodeURIComponent(id)); }
     },
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },

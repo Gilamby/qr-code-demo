@@ -1,7 +1,8 @@
 /* =========================================================
    Opslag in MongoDB (DATABASE_URL=mongodb://… of mongodb+srv://…).
    Collections (worden bij het opstarten met hun indexen aangemaakt):
-     users               { _id, email, emailLower (uniek), name, passwordHash, background, customBackground, billing {…}, emailVerifiedAt, createdAt, updatedAt }
+     users               { _id, email, emailLower (uniek), name, passwordHash, background, customBackground, billing {…}, emailVerifiedAt, role, disabledAt, lastLoginAt, createdAt, updatedAt }
+     settings            { _id: sleutel, value, updatedAt }   (vertalingen, DeepL-sleutel …)
      sessions            { _id: hash van de sessiecode, userId, createdAt, expiresAt }
      passwordResets      { _id: hash van de code, userId, expiresAt }
      emailVerifications  { _id: hash van de code, userId, expiresAt }
@@ -18,7 +19,7 @@ import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
-  Customer, DatabaseService, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Customer, DatabaseService, DayCount, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -31,7 +32,8 @@ function codeOut(d: Doc): QrCode {
     name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined };
 }
 function userOut(d: Doc): User {
-  return d && { id: d._id, email: d.email, name: d.name, background: d.background, customBackground: d.customBackground || null, createdAt: d.createdAt };
+  return d && { id: d._id, email: d.email, name: d.name, background: d.background, customBackground: d.customBackground || null, createdAt: d.createdAt,
+    role: d.role || null, disabledAt: d.disabledAt || null, lastLoginAt: d.lastLoginAt || null };
 }
 /** Adres zonder wachtwoord, voor in de logs */
 export function safeMongoLabel(url: string) { return String(url).replace(/\/\/[^@/]*@/, '//***@').replace(/\?.*$/, ''); }
@@ -48,13 +50,14 @@ export class MongoDatabase extends DatabaseService {
   private readonly codes: Collection<Doc>;
   private readonly stats: Collection<Doc>;
   private readonly files: Collection<Doc>;
+  private readonly settings: Collection<Doc>;
 
   private constructor(private readonly client: MongoClient, readonly db: Db, url: string) {
     super();
     this.label = safeMongoLabel(url);
     this.users = db.collection('users'); this.sessions = db.collection('sessions');
     this.resets = db.collection('passwordResets'); this.verifications = db.collection('emailVerifications');
-    this.codes = db.collection('qrCodes'); this.stats = db.collection('scanStats'); this.files = db.collection('files');
+    this.codes = db.collection('qrCodes'); this.stats = db.collection('scanStats'); this.files = db.collection('files'); this.settings = db.collection('settings');
   }
 
   /** Verbinden en de indexen aanmaken (mag vaker: bestaat de index al, dan gebeurt er niets) */
@@ -96,7 +99,7 @@ export class MongoDatabase extends DatabaseService {
   async passwordHashOf(id: string): Promise<string> { return ((await this.users.findOne({ _id: id }, { projection: { passwordHash: 1 } })) || ({} as Doc)).passwordHash; }
   async updateUser(id: string, patch: UserPatch): Promise<User> {
     const set: Doc = {};
-    for (const k of ['name', 'background', 'customBackground', 'passwordHash'] as const) if (k in patch) set[k] = patch[k];
+    for (const k of ['name', 'background', 'customBackground', 'passwordHash', 'role', 'disabledAt', 'lastLoginAt'] as const) if (k in patch) set[k] = patch[k];
     if (patch.email !== undefined) { set.email = patch.email.trim(); set.emailLower = set.email.toLowerCase(); }
     if (!Object.keys(set).length) return this.getUser(id);
     set.updatedAt = now();
@@ -146,7 +149,7 @@ export class MongoDatabase extends DatabaseService {
     if (!token) return null;
     const s = await this.sessions.findOne({ _id: hash(token) }); if (!s) return null;
     if (s.expiresAt < now()) { await this.sessions.deleteOne({ _id: s._id }); return null; }
-    const u = userOut(await this.users.findOne({ _id: s.userId })); if (!u) return null;
+    const u = userOut(await this.users.findOne({ _id: s.userId })); if (!u || u.disabledAt) return null;   // uitgezet door het team: niet ingelogd
     if (new Date(s.expiresAt).getTime() - Date.now() < (SESSION_DAYS - 1) * 864e5) {         // hooguit één keer per dag verlengen
       const exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString();
       await this.sessions.updateOne({ _id: s._id }, { $set: { expiresAt: exp } });
@@ -195,11 +198,24 @@ export class MongoDatabase extends DatabaseService {
     for (const u of old) await this.deleteUser(u._id);
   }
   async listCustomers(): Promise<Customer[]> {
-    const users = await this.users.find({}, { projection: { email: 1, name: 1, createdAt: 1, emailVerifiedAt: 1 } }).sort({ createdAt: -1 }).toArray();
-    const counts: Record<string, number> = {}, invites: Record<string, string> = {};
-    for (const r of await this.codes.aggregate([{ $group: { _id: '$userId', n: { $sum: 1 } } }]).toArray()) counts[r._id] = Number(r.n) || 0;
+    const users = await this.users.find({}, { projection: { email: 1, name: 1, createdAt: 1, emailVerifiedAt: 1, role: 1, disabledAt: 1, lastLoginAt: 1 } }).sort({ createdAt: -1 }).toArray();
+    const counts: Record<string, number> = {}, scans: Record<string, number> = {}, invites: Record<string, string> = {};
+    for (const r of await this.codes.aggregate([{ $group: { _id: '$userId', n: { $sum: 1 }, s: { $sum: '$scans' } } }]).toArray()) { counts[r._id] = Number(r.n) || 0; scans[r._id] = Number(r.s) || 0; }
     for (const r of await this.resets.find({}).toArray()) if (!invites[r.userId] || r.expiresAt > invites[r.userId]) invites[r.userId] = r.expiresAt;
-    return users.map((u) => ({ id: u._id, email: u.email, name: u.name, createdAt: u.createdAt, active: !!u.emailVerifiedAt, codes: counts[u._id] || 0, inviteUntil: u.emailVerifiedAt ? null : invites[u._id] || null }));
+    return users.map((u) => ({ id: u._id, email: u.email, name: u.name, createdAt: u.createdAt, active: !!u.emailVerifiedAt, codes: counts[u._id] || 0, inviteUntil: u.emailVerifiedAt ? null : invites[u._id] || null,
+      role: u.role || null, disabledAt: u.disabledAt || null, lastLoginAt: u.lastLoginAt || null, scans: scans[u._id] || 0 }));
+  }
+
+  /* ---------- Beheer ---------- */
+  async allQrCodes(): Promise<QrCode[]> { return (await this.codes.find({}).sort({ createdAt: -1 }).toArray()).map(codeOut); }
+  async scansPerDay(since: string): Promise<DayCount[]> {
+    return (await this.stats.aggregate([{ $match: { day: { $gte: since } } }, { $group: { _id: '$day', scans: { $sum: '$scans' }, uniq: { $sum: '$uniq' } } }, { $sort: { _id: 1 } }]).toArray())
+      .map((r) => ({ day: r._id, scans: Number(r.scans) || 0, uniq: Number(r.uniq) || 0 }));
+  }
+  async getSetting(key: string) { const d = await this.settings.findOne({ _id: key }); return d ? d.value : null; }
+  async setSetting(key: string, value: string | null) {
+    if (value == null) { await this.settings.deleteOne({ _id: key }); return; }
+    await this.settings.updateOne({ _id: key }, { $set: { value, updatedAt: now() } }, { upsert: true });
   }
 
   /* ---------- QR-codes ---------- */

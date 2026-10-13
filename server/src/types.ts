@@ -7,6 +7,11 @@ export interface User {
   background: string;
   customBackground: string | null;
   createdAt: string;
+  /** Beheer: 'admin' (gezet door de super-admin) of null. SUPPORT_EMAIL / ADMIN_EMAILS zijn altijd admin. */
+  role?: string | null;
+  /** Uitgezet door het team: kan niet inloggen (de QR-codes blijven werken) */
+  disabledAt?: string | null;
+  lastLoginAt?: string | null;
   /** Gezet als de sessie net is verlengd: dan moet het cookie ook ververst worden. */
   renewUntil?: string;
 }

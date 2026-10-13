@@ -5,7 +5,7 @@
    (7 dagen geldig) en is daarna meteen ingelogd. Zonder mailserver krijgt het team de link terug om te kopiëren.
    Team = SUPPORT_EMAIL en ADMIN_EMAILS (zie auth.service.ts).
    ========================================================= */
-import { Body, CanActivate, Controller, Delete, ExecutionContext, Get, HttpCode, Injectable, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, CanActivate, Controller, Delete, ExecutionContext, Get, HttpCode, Injectable, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService, INVITE_HOURS, INVITED } from '../database/database.service';
 import { AuthService } from './auth.service';
@@ -32,7 +32,7 @@ export class AdminController {
 
   @Get()
   async list() {
-    return (await this.db.listCustomers()).map((c) => ({ ...c, team: this.auth.isAdmin(c) }));
+    return (await this.db.listCustomers()).map((c) => this.withRole(c));
   }
 
   /** Klant toevoegen en uitnodigen */
@@ -45,7 +45,7 @@ export class AdminController {
     if (await this.db.userByEmail(email)) throw fail(409, 'exists');
     const user = await this.db.createUser({ email, name, passwordHash: INVITED });
     const link = await this.invite(req, user.id, email, String(b.lang || 'en'));
-    return { customer: (await this.db.listCustomers()).find((c) => c.id === user.id), ...link };
+    return { customer: this.withRole((await this.db.listCustomers()).find((c) => c.id === user.id)), ...link };
   }
 
   /** Uitnodiging opnieuw sturen (nieuwe link; de oude werkt dan niet meer) */
@@ -57,13 +57,46 @@ export class AdminController {
     return { ok: true, ...(await this.invite(req, id, u.email, String(b.lang || 'en'))) };
   }
 
-  /** Klant verwijderen (met alle codes, statistieken en bestanden). Niet jezelf en geen team-leden. */
+  /** Rol en status: { role: 'admin' | 'user' } (alleen de super-admin) en/of { disabled: true | false }.
+      Niet jezelf, nooit de super-admin; admins uitzetten mag alleen de super-admin. Uitzetten = meteen overal uitgelogd. */
+  @Patch(':id')
+  async update(@CurrentUser() me: User, @Param('id') id: string, @Body() b: any = {}) {
+    const u = await this.db.getUser(id); if (!u) throw fail(404, 'Not found');
+    if (u.id === me.id) throw fail(403, 'self');
+    if (this.auth.isSuper(u)) throw fail(403, 'super');
+    const patch: { role?: string | null; disabledAt?: string | null } = {};
+    if (b.role !== undefined) {
+      if (!this.auth.isSuper(me)) throw fail(403, 'super_only');
+      if (b.role !== 'admin' && b.role !== 'user') throw fail(400, 'role: admin or user');
+      patch.role = b.role === 'admin' ? 'admin' : null;
+    }
+    if (b.disabled !== undefined) {
+      if (typeof b.disabled !== 'boolean') throw fail(400, 'disabled: true or false');
+      if (this.auth.isAdmin(u) && !this.auth.isSuper(me)) throw fail(403, 'super_only');
+      patch.disabledAt = b.disabled ? (u.disabledAt || new Date().toISOString()) : null;
+    }
+    if (!Object.keys(patch).length) throw fail(400, 'nothing to change');
+    await this.db.updateUser(id, patch);
+    if (patch.disabledAt) await this.db.deleteSessionsOf(id);                    // meteen uitgelogd
+    return this.withRole((await this.db.listCustomers()).find((c) => c.id === id));
+  }
+
+  /** Klant verwijderen (met alle codes, statistieken en bestanden). Niet jezelf, niet de super-admin;
+      een admin alleen door de super-admin (en niet als hij in ADMIN_EMAILS staat). */
   @Delete(':id')
   @HttpCode(204)
   async remove(@CurrentUser() me: User, @Param('id') id: string) {
     const u = await this.db.getUser(id); if (!u) throw fail(404, 'Not found');
-    if (u.id === me.id || this.auth.isAdmin(u)) throw fail(403, 'team_member');
+    if (u.id === me.id || this.auth.isSuper(u)) throw fail(403, 'team_member');
+    if (this.auth.isAdmin(u) && (!this.auth.isSuper(me) || this.auth.isAdmin({ email: u.email }))) throw fail(403, 'team_member');
     await this.db.deleteUser(id);
+  }
+
+  /** Rol voor het scherm: super (vast team-account), admin, of klant. fixed = admin via ADMIN_EMAILS (niet te wijzigen in de app) */
+  private withRole(c: any) {
+    if (!c) return c;
+    const sup = this.auth.isSuper(c), envAdmin = this.auth.isAdmin({ email: c.email });
+    return { ...c, team: this.auth.isAdmin(c), level: sup ? 'super' : this.auth.isAdmin(c) ? 'admin' : 'user', fixed: sup || envAdmin };
   }
 
   private async invite(req: Request, userId: string, email: string, lang: string) {

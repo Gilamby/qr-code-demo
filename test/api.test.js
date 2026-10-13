@@ -237,3 +237,37 @@ test('licentie: zelf aanmelden staat uit, het team nodigt klanten uit', async ()
     assert.equal((await k('GET', '/api/auth/me')).status, 401, 'verwijderde klant is uitgelogd');
   } finally { process.env.ALLOW_SIGNUP = 'true'; }
 });
+
+test('beheer: dashboard, alle QR-codes, rollen en uitzetten', async () => {
+  const team = client();
+  await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  assert.equal((await team('GET', '/api/auth/me')).json.superAdmin, true, 'support-account is super-admin');
+  const b = client(); await signup(b, 'beheer-b@example.com', 'Beheer geheime zin 6!', 'Klant B');
+  const code = await b('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://klant-b.example' }, design: {} });
+  assert.equal(code.status, 201);
+  assert.equal((await b('GET', '/api/admin/overview')).status, 403, 'klant ziet het beheer niet');
+  const ov = await team('GET', '/api/admin/overview');
+  assert.equal(ov.status, 200); assert.equal(ov.json.days.length, 30, '30 dagen in de grafiek'); assert.ok(ov.json.totals.codes >= 1);
+  const list = await team('GET', '/api/admin/codes?q=klant-b');
+  assert.equal(list.json.total, 1); assert.equal(list.json.items[0].owner.email, 'beheer-b@example.com');
+  assert.equal((await team('PATCH', '/api/admin/codes/' + code.json.id, { paused: true })).json.paused, true, 'team pauzeert de code');
+  assert.equal((await fetch(base + '/q/' + code.json.id, { redirect: 'manual' })).status, 503, 'gepauzeerde code werkt even niet');
+  assert.equal((await team('GET', '/api/admin/codes?status=paused&q=klant-b')).json.total, 1);
+  // rollen: alleen de super-admin; admin kan geen rollen wijzigen
+  const rows = (await team('GET', '/api/admin/customers')).json, rb = rows.find((c) => c.email === 'beheer-b@example.com');
+  assert.equal(rb.level, 'user');
+  assert.equal((await team('PATCH', '/api/admin/customers/' + rb.id, { role: 'admin' })).json.level, 'admin');
+  assert.equal((await b('GET', '/api/admin/overview')).status, 200, 'nu admin: ziet het beheer');
+  const sup = rows.find((c) => c.level === 'super');
+  assert.equal((await b('PATCH', '/api/admin/customers/' + sup.id, { disabled: true })).status, 403, 'super-admin is niet uit te zetten');
+  assert.equal((await b('PATCH', '/api/admin/customers/' + rb.id, { role: 'user' })).status, 403, 'niet jezelf');
+  assert.equal((await team('PATCH', '/api/admin/customers/' + rb.id, { role: 'user' })).json.level, 'user');
+  // uitzetten: meteen uitgelogd, kan niet inloggen, code blijft van de klant
+  assert.equal((await team('PATCH', '/api/admin/customers/' + rb.id, { disabled: true })).json.disabledAt != null, true);
+  assert.equal((await b('GET', '/api/auth/me')).status, 401, 'uitgezet = uitgelogd');
+  assert.equal((await client()('POST', '/api/auth/login', { email: 'beheer-b@example.com', password: 'Beheer geheime zin 6!' })).json.error, 'disabled');
+  await team('PATCH', '/api/admin/customers/' + rb.id, { disabled: false });
+  assert.equal((await client()('POST', '/api/auth/login', { email: 'beheer-b@example.com', password: 'Beheer geheime zin 6!' })).status, 200, 'weer aangezet');
+  assert.equal((await team('DELETE', '/api/admin/codes/' + code.json.id)).status, 204);
+  assert.equal((await team('GET', '/api/admin/codes?q=klant-b')).json.total, 0);
+});

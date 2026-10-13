@@ -79,15 +79,21 @@ export class AuthService implements OnModuleDestroy {
   };
 
   /** Wat de app over de ingelogde gebruiker te zien krijgt */
-  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, admin: this.isAdmin(u) }; }
+  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
 
   /* ---------- Team (beheer) ----------
      Team-leden zien de pagina Klanten en kunnen klanten uitnodigen.
      Wie: SUPPORT_EMAIL en de adressen in ADMIN_EMAILS (komma's ertussen). */
-  isAdmin(u: { email?: string } | null) {
+  isAdmin(u: { email?: string; role?: string | null } | null) {
     if (!u || !u.email) return false;
+    if (u.role === 'admin') return true;                                    // admin gemaakt door de super-admin (pagina Gebruikers)
     const list = [process.env.SUPPORT_EMAIL || ''].concat(String(process.env.ADMIN_EMAILS || '').split(',')).map((x) => x.trim().toLowerCase()).filter(Boolean);
     return list.indexOf(String(u.email).toLowerCase()) >= 0;
+  }
+  /** Super-admin: het vaste team-account (SUPPORT_EMAIL). Kan anderen admin maken; kan zelf niet uitgezet of verwijderd worden. */
+  isSuper(u: { email?: string } | null) {
+    const s = String(process.env.SUPPORT_EMAIL || '').trim().toLowerCase();
+    return !!(u && u.email && s && String(u.email).toLowerCase() === s);
   }
   /** Mag iedereen zelf een account maken? Standaard niet: klanten krijgen een account bij hun licentie (ALLOW_SIGNUP=true zet het aan). */
   signupOpen() { return process.env.ALLOW_SIGNUP === 'true'; }

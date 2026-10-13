@@ -81,8 +81,10 @@ export class AuthController {
     const ok = await this.auth.checkPassword(b.password || '', row ? row.password_hash : DUMMY_HASH);
     if (!row || !ok) throw fail(401, 'wrong');
     if (!(await this.db.isVerified(row.id))) throw fail(403, 'unverified');   // eerst e-mail bevestigen
+    const user = await this.db.getUser(row.id);
+    if (user.disabledAt) throw fail(403, 'disabled');                         // uitgezet door het team
     this.auth.setSession(req, res, await this.db.createSession(row.id));
-    return this.auth.me(await this.db.getUser(row.id));
+    return this.auth.me(await this.db.updateUser(row.id, { lastLoginAt: new Date().toISOString() }));
   }
 
   @Post('logout')
@@ -112,6 +114,7 @@ export class AuthController {
     if (this.auth.limited('reset:' + req.ip, 20, 60)) throw fail(429, 'too_many');
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
     const userId = await this.db.useReset(String(b.token || '')); if (!userId) throw fail(400, 'token');
+    if ((await this.db.getUser(userId)).disabledAt) throw fail(403, 'disabled');
     await this.db.updateUser(userId, { passwordHash: await this.auth.hashPassword(b.password) });
     await this.db.markVerified(userId);                                // link uit de mail = e-mailadres is van jou
     await this.db.deleteSessionsOf(userId);                            // overal uitloggen
