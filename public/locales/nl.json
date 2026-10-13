@@ -944,7 +944,13 @@
     "language": "Taal",
     "devices": "Ingelogde apparaten: {n}",
     "logoutOthers": "Uitloggen op andere apparaten",
-    "loggedOutOthers": "Andere apparaten zijn uitgelogd."
+    "loggedOutOthers": "Andere apparaten zijn uitgelogd.",
+    "lead": "Beheer je gegevens, beveiliging en voorkeuren.",
+    "sections": "Onderdelen van Mijn account",
+    "security": "Beveiliging",
+    "profileLead": "Je naam zie je terug in de app. Met je e-mailadres log je in.",
+    "prefsLead": "De taal van de app en van de e-mails die je krijgt.",
+    "devicesTitle": "Apparaten"
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor Optimasys QR",

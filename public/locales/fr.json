@@ -944,7 +944,13 @@
     "language": "Langue",
     "devices": "Appareils connectés : {n}",
     "logoutOthers": "Se déconnecter des autres appareils",
-    "loggedOutOthers": "Les autres appareils ont été déconnectés."
+    "loggedOutOthers": "Les autres appareils ont été déconnectés.",
+    "lead": "Gérez vos informations, votre sécurité et vos préférences.",
+    "sections": "Sections de Mon compte",
+    "security": "Sécurité",
+    "profileLead": "Votre nom s'affiche dans l'application. Vous vous connectez avec votre adresse e-mail.",
+    "prefsLead": "La langue de l'application et des e-mails que vous recevez.",
+    "devicesTitle": "Appareils"
   },
   "mail": {
     "resetSubject": "Nouveau mot de passe pour Optimasys QR",

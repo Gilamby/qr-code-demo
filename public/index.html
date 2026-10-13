@@ -111,16 +111,23 @@
 
     <main class="canvas" id="accountView" hidden>
       <section class="account">
+        <header class="acct-head"><h2 data-i18n="nav.account"></h2><p data-i18n="acct.lead"></p></header>
+        <div class="acct-layout">
+        <div class="glass acct-menu" id="acctMenu" role="tablist" aria-orientation="vertical" data-i18n-aria="acct.sections"></div>
+        <div class="acct-main">
         <div class="glass profile">
           <span class="avatar-lg" id="acctAvatar">OP</span>
-          <div><b id="acctName">Optimasys</b><small id="acctEmail" data-i18n="account.demo"></small></div>
+          <div class="profile-who"><b id="acctName">Optimasys</b><small id="acctEmail" data-i18n="account.demo"></small><small id="acctSince"></small></div>
+          <div class="profile-stats" id="acctStats"></div>
         </div>
-        <div id="acctCards"></div>
-        <div class="glass bg-card" id="bgSection">
+        <div id="acctCards" role="tabpanel"></div>
+        <div class="glass bg-card" id="bgSection" role="tabpanel" hidden>
           <h2 data-i18n="account.background"></h2>
           <p data-i18n="account.backgroundLead"></p>
           <div class="bg-grid" id="bgGrid" role="radiogroup" data-i18n-aria="account.background"></div>
           <p class="bg-error" id="bgError" role="alert" hidden></p>
+        </div>
+        </div>
         </div>
       </section>
     </main>

@@ -944,7 +944,13 @@
     "language": "Język",
     "devices": "Zalogowane urządzenia: {n}",
     "logoutOthers": "Wyloguj na innych urządzeniach",
-    "loggedOutOthers": "Inne urządzenia zostały wylogowane."
+    "loggedOutOthers": "Inne urządzenia zostały wylogowane.",
+    "lead": "Zarządzaj swoimi danymi, bezpieczeństwem i ustawieniami.",
+    "sections": "Sekcje Mojego konta",
+    "security": "Bezpieczeństwo",
+    "profileLead": "Twoje imię jest widoczne w aplikacji. Logujesz się adresem e-mail.",
+    "prefsLead": "Język aplikacji i e-maili, które otrzymujesz.",
+    "devicesTitle": "Urządzenia"
   },
   "mail": {
     "resetSubject": "Nowe hasło do Optimasys QR",

@@ -2008,3 +2008,47 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .auth-mail svg { width: 28px; height: 28px; }
 .auth-card .auth-go + .auth-go { margin-top: 10px; }
 .auth-msg.ok, .acct-msg.ok { background: rgba(34,197,94,.15); color: #4ade80; }
+
+/* Mijn account: menu links, inhoud rechts */
+.account { max-width: 1120px; }
+.acct-head h2 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.acct-head p { margin: 6px 0 0; color: var(--muted); font-size: 15.5px; }
+.acct-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; align-items: start; }
+.acct-main { display: grid; gap: 20px; min-width: 0; }
+.acct-menu { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 4px; padding: 10px; border-radius: 20px; }
+.acct-menu button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 46px; padding: 11px 14px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); font: inherit; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer; transition: background .15s, color .15s; }
+.acct-menu button svg { width: 20px; height: 20px; flex: none; }
+.acct-menu button:hover { background: rgba(255,255,255,.06); color: var(--fg); }
+.acct-menu button[aria-selected="true"] { background: rgba(43,181,240,.16); color: var(--fg); font-weight: 700; }
+.acct-menu button[aria-selected="true"] svg { color: var(--accent); }
+.acct-menu button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.acct-menu-line { height: 1px; margin: 8px 6px; background: rgba(255,255,255,.1); }
+.profile { flex-wrap: wrap; gap: 18px; padding: 22px 26px; }
+.profile .avatar-lg { width: 64px; height: 64px; font-size: 22px; }
+.profile-who { flex: 1 1 220px; min-width: 0; }
+.profile-who b { font-size: 20px; font-weight: 800; }
+.profile .profile-who small { font-size: 15px; overflow-wrap: anywhere; }
+.profile-stats { display: flex; flex-wrap: wrap; gap: 10px; }
+.profile-stats:empty { display: none; }
+.profile-stats .acct-stat { padding: 10px 14px; min-width: 92px; }
+.profile-stats .acct-stat b { font-size: 22px; }
+.profile-stats .acct-stat small { font-size: 13px; }
+.acct > p { margin: 4px 0 20px; }
+.acct-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.acct-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
+.acct-actions .btn { min-height: 46px; justify-content: center; }
+.acct .auth-hint { display: block; margin-top: 10px; }
+.acct .acct-dev { margin-top: 10px; }
+@media (max-width: 860px) {
+  .acct-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .acct-menu { position: static; flex-direction: row; overflow-x: auto; padding: 6px; scrollbar-width: none; }
+  .acct-menu button { width: auto; flex: none; white-space: nowrap; }
+  .acct-menu-line { width: 1px; height: auto; margin: 6px 2px; flex: none; }
+}
+@media (max-width: 640px) {
+  .acct-grid { grid-template-columns: minmax(0, 1fr); }
+  .acct-actions .btn { width: 100%; }
+  .profile { padding: 18px; }
+  .profile-stats { width: 100%; }
+  .profile-stats .acct-stat { flex: 1 1 0; min-width: 0; }
+}

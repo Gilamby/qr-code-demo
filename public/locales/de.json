@@ -944,7 +944,13 @@
     "language": "Sprache",
     "devices": "Angemeldete Geräte: {n}",
     "logoutOthers": "Auf anderen Geräten abmelden",
-    "loggedOutOthers": "Andere Geräte wurden abgemeldet."
+    "loggedOutOthers": "Andere Geräte wurden abgemeldet.",
+    "lead": "Verwalte deine Daten, Sicherheit und Einstellungen.",
+    "sections": "Bereiche von Mein Konto",
+    "security": "Sicherheit",
+    "profileLead": "Dein Name wird in der App angezeigt. Du meldest dich mit deiner E-Mail-Adresse an.",
+    "prefsLead": "Die Sprache der App und der E-Mails, die du bekommst.",
+    "devicesTitle": "Geräte"
   },
   "mail": {
     "resetSubject": "Neues Passwort für Optimasys QR",

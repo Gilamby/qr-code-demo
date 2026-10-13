@@ -1050,7 +1050,13 @@
     "language": "Gjuha",
     "devices": "Pajisje të identifikuara: {n}",
     "logoutOthers": "Dil nga pajisjet e tjera",
-    "loggedOutOthers": "Pajisjet e tjera u nxorën."
+    "loggedOutOthers": "Pajisjet e tjera u nxorën.",
+    "lead": "Menaxho të dhënat, sigurinë dhe preferencat e tua.",
+    "sections": "Seksionet e Llogarisë sime",
+    "security": "Siguria",
+    "profileLead": "Emri yt shfaqet në aplikacion. Hyn me adresën tënde të email-it.",
+    "prefsLead": "Gjuha e aplikacionit dhe e email-eve që merr.",
+    "devicesTitle": "Pajisjet"
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për Optimasys QR",

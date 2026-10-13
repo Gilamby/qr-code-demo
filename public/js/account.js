@@ -1,5 +1,5 @@
 /* ---------- Achtergrondknop: naar Mijn account ---------- */
-document.getElementById('bgBtn').addEventListener('click', function () { window.goToPage('account'); var s = document.getElementById('bgSection'); if (s) s.scrollIntoView({ block: 'start' }); });
+document.getElementById('bgBtn').addEventListener('click', function () { window.goToPage('account'); if (window.openAccountTab) window.openAccountTab('background'); });
 
 /* ---------- Mijn account: achtergrond kiezen ---------- */
 (function () {

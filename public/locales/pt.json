@@ -944,7 +944,13 @@
     "language": "Idioma",
     "devices": "Dispositivos com sessão iniciada: {n}",
     "logoutOthers": "Terminar sessão noutros dispositivos",
-    "loggedOutOthers": "Os outros dispositivos terminaram a sessão."
+    "loggedOutOthers": "Os outros dispositivos terminaram a sessão.",
+    "lead": "Gere os teus dados, a segurança e as preferências.",
+    "sections": "Secções de A minha conta",
+    "security": "Segurança",
+    "profileLead": "O teu nome aparece na app. Inicias sessão com o teu e-mail.",
+    "prefsLead": "O idioma da app e dos e-mails que recebes.",
+    "devicesTitle": "Dispositivos"
   },
   "mail": {
     "resetSubject": "Nova palavra-passe para Optimasys QR",
