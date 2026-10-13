@@ -4,6 +4,8 @@
    - Stap 2/3: alleen wat de gebruiker invult; lege velden = grijze balkjes.
    Nog geen sjabloon voor een type? Dan valt de preview terug op de oude kaart.
    ========================================================= */
+/* Adres-onderdeel leesbaar maken (%20 -> spatie); kapotte codes laten we gewoon staan */
+function decodeURIComponentSafe(x) { try { return decodeURIComponent(x); } catch (e) { return x; } }
 var PHONE = (function () {
   var I = {
     back: '<path d="M15 5l-7 7 7 7"/>',
@@ -211,26 +213,34 @@ var PHONE = (function () {
       '</div>';
     },
 
-    /* ---------- Lijst met links: omslag, profiel, één uitgelichte link en een nette lijst ---------- */
+    /* ---------- Lijst met links: omslag, profiel en een nette lijst (alle links even groot) ----------
+       Per link: eigen naam en foto (optioneel). Zonder naam: een leesbare naam uit het adres. Zonder foto: de eerste letter.
+       Op de echte pagina schuiven de links één voor één in beeld (zie live.css). */
     links: function (c, ex) {
       // Link 1-3 altijd (leeg = skelet), link 4-10 alleen als ze ingevuld zijn
       var keys = ['link1', 'link2', 'link3', 'link4', 'link5', 'link6', 'link7', 'link8', 'link9', 'link10'].filter(function (k, i) { return i < 3 || c[k]; });
-      var clean = function (x) { return String(x || '').replace(/^https?:\/\/(www\.)?/i, '').replace(/\/$/, ''); };
+      var clean = function (x) { return String(x || '').replace(/^https?:\/\/(www\.)?/i, '').split(/[?#]/)[0].replace(/\/$/, ''); };
       var sk = function (w) { return '<i class="sk" style="width:' + w + '"></i>'; };
-      // Eigen naam van de link als die er is, anders een net stukje van het adres (zonder ?utm=… en dergelijke)
-      var label = function (k) { if (c[k + 'Name']) return c[k + 'Name']; var val = clean(c[k]).split(/[?#]/)[0].replace(/\/$/, ''); return /\.[a-z]{2,}/i.test(val) ? (val.split('/').pop() || val) : val; };
+      var dom = function (k) { var val = clean(c[k]); return /\.[a-z]{2,}/i.test(val) ? val.split('/')[0] : ''; };
+      // "top-corsetero-stretch-p06050822.html" -> "Top corsetero stretch"; alleen cijfers -> naam van de website ("Redbrain")
+      var site = function (k) { var d = dom(k).replace(/^(m|shop|store|es|nl|de|fr|en)\./i, ''); var n = d.split('.').slice(-2, -1)[0] || d; return n ? n.charAt(0).toUpperCase() + n.slice(1) : ''; };
+      var label = function (k) {
+        if (c[k + 'Name']) return c[k + 'Name'];
+        var parts = clean(c[k]).split('/'), last = parts.length > 1 ? parts[parts.length - 1] : '';
+        last = decodeURIComponentSafe(last).replace(/\.(html?|php|aspx?)$/i, '').replace(/[-_](p|id|art|sku)?\d{4,}.*$/i, '').replace(/[-_+]+/g, ' ').trim();
+        if (!last || /^\d+$/.test(last) || last.length < 3) return site(k) || clean(c[k]);
+        return last.charAt(0).toUpperCase() + last.slice(1);
+      };
       var img = function (k) { var v = c[k + 'Img']; return /^data:image\/(jpeg|png|webp);base64,/.test(v || '') ? v : ''; };
       var photo = /^data:image\/(jpeg|png|webp);base64,/.test(c.photo || '') ? c.photo : '';
-      var dom = function (k) { var val = clean(c[k]); return /\.[a-z]{2,}/i.test(val) ? val.split('/')[0] : ''; };
-      var first = c[keys[0]];
       return '<div class="ph ph-lk2">' +
         '<div class="lk2-cover"' + (exPhoto('links', ex) ? ' style="background:#2a1d14 url(' + asset('assets/previews/links-cover.jpg') + ') center / cover"' : '') + '>' + statusBar(true) + '<span class="lk2-share">' + ic('share') + '</span></div>' +
         '<div class="lk2-prof"><span class="lk2-av">' + (photo || exPhoto('links', ex) ? '<img decoding="sync" src="' + (photo || exPhoto('links', ex)) + '" alt="">' : (c.title ? esc(initials(c.title)) : ic('user'))) + '</span>' +
           '<h4>' + (c.title ? esc(c.title) : sk('55%')) + '</h4><p>' + (ex ? esc(t('pv.links.sub')) : sk('45%')) + '</p></div>' +
-        '<div class="lk2-feat lk2-row" data-k="' + keys[0] + '"><span class="lk2-img"' + (img(keys[0]) ? ' style="background:#2a1d14 url(' + img(keys[0]) + ') center / cover"' : exPhoto('links', ex) ? ' style="background:#2a1d14 url(' + asset('assets/previews/links-feat.jpg') + ') center 80% / cover"' : '') + '><i>' + ic('fwd') + '</i></span>' +
-          '<span class="lk2-txt"><small>' + esc(t('pv.links.featured')) + '</small><b>' + (first ? esc(label(keys[0])) : sk('60%')) + '</b>' + (dom(keys[0]) ? '<em>' + esc(dom(keys[0])) + '</em>' : '') + '</span></div>' +
-        '<div class="lk2-list">' + keys.slice(1).map(function (k, j) {
-          return '<span class="lk2-row" data-k="' + k + '"><i class="lk2-th t' + (j % 2) + (img(k) ? ' has-img" style="background-image:url(' + img(k) + ')' : '') + '"></i><span><b>' + (c[k] ? esc(label(k)) : sk('55%')) + '</b>' + (dom(k) ? '<small>' + esc(dom(k)) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
+        '<div class="lk2-list">' + keys.map(function (k, j) {
+          var name = c[k] ? label(k) : '';
+          return '<span class="lk2-row" data-k="' + k + '" style="--i:' + j + '"><i class="lk2-th t' + (j % 2) + (img(k) ? ' has-img" style="background-image:url(' + img(k) + ')">' : '">' + (name ? esc(name.charAt(0).toUpperCase()) : '')) + '</i>' +
+            '<span><b>' + (name ? esc(name) : sk('55%')) + '</b>' + (dom(k) ? '<small>' + esc(dom(k)) + '</small>' : '') + '</span>' + ic('fwd') + '</span>';
         }).join('') + '</div>' +
       '</div>';
     },

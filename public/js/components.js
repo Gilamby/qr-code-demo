@@ -134,6 +134,28 @@ var ContentForm = {
         box.querySelectorAll('[data-up]').forEach(function (u) { u.classList.remove('has'); var th = u.querySelector('.up-thumb'); if (th) th.style.backgroundImage = ''; });
       }
     });
+    // Lijst met links: naam van de link vanzelf invullen met de titel van de website (alleen als je zelf nog niets typte)
+    type.fields.filter(function (f) { return type.fields.some(function (x) { return x.sub === f.key && /Name$/.test(x.key); }); }).forEach(function (f) {
+      var url = el.querySelector('[name="' + f.key + '"]'), name = el.querySelector('[name="' + f.key + 'Name"]'), timer = null, seq = 0;
+      if (!url || !name) return;
+      var tidy = function (title) {
+        var s = String(title || '').replace(/\s+/g, ' ').trim();
+        var main = s.split(/\s+\|\s+/)[0]; if (main.length >= 8) s = main;            // "Product | Winkel" -> "Product" (de website staat er al onder)
+        if (s.length > 60) { var first = s.split(/\s+[|\u2013\u2014-]\s+/)[0]; s = first.length >= 8 ? first : s; }
+        return s.length > 60 ? s.slice(0, 59).replace(/\s+\S*$/, '') + '\u2026' : s;
+      };
+      var lookup = function () {
+        var v = url.value.trim(), my = ++seq;
+        if ((name.value.trim() && !name.hasAttribute('data-auto')) || !/^https?:\/\/[^\s/]+\.[a-z]{2,}/i.test(v)) return;
+        api.urlInfo(v).then(function (r) {
+          if (my !== seq || !r || !r.title || (name.value.trim() && !name.hasAttribute('data-auto'))) return;
+          name.value = tidy(r.title); name.setAttribute('data-auto', ''); actions.setField(name.name, name.value);
+        }).catch(function () { /* geen server (demo) of site niet bereikbaar: dan maakt de preview zelf een nette naam */ });
+      };
+      url.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(lookup, 800); });
+      url.addEventListener('change', function () { clearTimeout(timer); lookup(); });
+      name.addEventListener('input', function () { name.removeAttribute('data-auto'); });   // zelf getypt: niet meer overschrijven
+    });
     // Link-check: https toevoegen, typfouten verbeteren, kijken of de site bestaat en de naam invullen
     type.fields.filter(function (f) { return f.check; }).forEach(function (f) { LinkCheck.mount(el, f, type); });
   }

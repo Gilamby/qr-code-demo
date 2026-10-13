@@ -43,3 +43,9 @@ body.live-body::before, body.live-body::after { display: none; }
 .live .gx-dl { position: fixed; z-index: 20; bottom: calc(16px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); }
 .live .gx-hero { height: 420px; }
 .live .ph-sx { min-height: 100vh; }
+
+/* Lijst met links: de links schuiven bij het openen één voor één in beeld; indrukken geeft een klein tikje */
+.live .lk2-list .lk2-row { animation: lk2In .55s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(var(--i, 0) * 80ms + 120ms); cursor: pointer; transition: transform .15s; }
+.live .lk2-list .lk2-row:active { transform: scale(.97); }
+@keyframes lk2In { from { opacity: 0; transform: translateY(16px) scale(.97); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .live .lk2-list .lk2-row { animation: none; } }
