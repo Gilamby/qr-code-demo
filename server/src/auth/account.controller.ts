@@ -86,6 +86,8 @@ export class AccountController {
   @Delete('account')
   @HttpCode(204)
   async remove(@Req() req: Request, @Res({ passthrough: true }) res: Response, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (this.auth.isSuper(user)) throw fail(403, 'super');                // het hoofdaccount van het team blijft altijd bestaan
+    if (this.auth.limited('del:' + user.id, 10, 15)) throw fail(429, 'too_many');
     if (!(await this.auth.checkPassword(b.password || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');
     await this.db.deleteUser(user.id);
     this.auth.clearSession(req, res);

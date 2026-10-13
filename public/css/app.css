@@ -2554,3 +2554,62 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 }
 .acct select[name=timezone] { width: 100%; min-width: 0; max-width: 100%; text-overflow: ellipsis; }
 .acct .auth-in { min-width: 0; }
+
+/* ---------- Account verwijderen: drie stappen ---------- */
+.acct-menu button.acct-tab-danger { color: #f87171; }
+.acct-menu button.acct-tab-danger:hover { background: rgba(239,68,68,.1); color: #fca5a5; }
+.acct-menu button.acct-tab-danger[aria-selected="true"] { background: rgba(239,68,68,.16); color: #fecaca; }
+.acct-menu button.acct-tab-danger[aria-selected="true"] svg { color: #f87171; }
+.del-steps { list-style: none; display: flex; align-items: center; gap: 0; margin: 0 0 24px; padding: 0; counter-reset: s; }
+.del-steps li { display: flex; align-items: center; gap: 10px; flex: 1 1 0; min-width: 0; color: var(--muted); font-size: 14px; font-weight: 600; }
+.del-steps li:not(:last-child)::after { content: ""; flex: 1; height: 2px; margin: 0 10px; border-radius: 2px; background: rgba(255,255,255,.1); }
+.del-steps li.done:not(:last-child)::after { background: rgba(239,68,68,.6); }
+.del-steps li > span { width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; border: 2px solid rgba(255,255,255,.16); }
+.del-steps li > span svg { width: 15px; height: 15px; }
+.del-steps li em { font-style: normal; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.del-steps li.on { color: #fecaca; }
+.del-steps li.on > span { border-color: #ef4444; background: #ef4444; color: #fff; box-shadow: 0 0 0 5px rgba(239,68,68,.18); }
+.del-steps li.done > span { border-color: rgba(239,68,68,.6); background: rgba(239,68,68,.18); color: #fca5a5; }
+.del-hero { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 18px; }
+.del-hero h2 { margin: 0; color: #fecaca; outline: none; }
+.del-hero p { margin: 6px 0 0 !important; }
+.del-ic { width: 52px; height: 52px; flex: none; border-radius: 16px; display: grid; place-items: center; background: rgba(239,68,68,.16); color: #f87171; border: 1px solid rgba(239,68,68,.4); animation: del-pulse 2.4s ease-in-out infinite; }
+.del-ic.ok { background: rgba(43,181,240,.14); color: var(--accent); border-color: rgba(43,181,240,.4); animation: none; }
+.del-ic svg { width: 26px; height: 26px; }
+@keyframes del-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,.35); } 50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); } }
+@media (prefers-reduced-motion: reduce) { .del-ic { animation: none; } }
+.del-lose { list-style: none; margin: 0 0 18px; padding: 6px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; border-radius: 16px; background: rgba(0,0,0,.2); border: 1px solid rgba(239,68,68,.2); }
+.del-lose li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; font-size: 15px; }
+.del-lose li svg { width: 16px; height: 16px; flex: none; color: #f87171; }
+.del-lose li b { color: #fecaca; }
+.del-tip { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; padding: 14px 16px; border-radius: 14px; background: rgba(43,181,240,.08); border: 1px solid rgba(43,181,240,.28); }
+.del-tip > svg { width: 22px; height: 22px; flex: none; color: var(--accent); }
+.del-tip > div { flex: 1 1 240px; min-width: 0; }
+.del-tip b { display: block; }
+.del-tip small { color: var(--muted); font-size: 14px; }
+.del-tip .btn { height: 42px; padding: 0 16px; }
+.del-actions { gap: 10px; flex-wrap: wrap; }
+.del-checks { display: grid; gap: 8px; margin-bottom: 18px; }
+.del-check { display: flex; align-items: flex-start; gap: 12px; padding: 13px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18); cursor: pointer; font-size: 15px; line-height: 1.45; transition: border-color .15s, background .15s; }
+.del-check:hover { border-color: rgba(239,68,68,.45); }
+.del-check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.del-box { width: 22px; height: 22px; flex: none; margin-top: 1px; border-radius: 7px; border: 2px solid rgba(255,255,255,.3); display: grid; place-items: center; transition: background .15s, border-color .15s; }
+.del-box svg { width: 14px; height: 14px; opacity: 0; color: #fff; }
+.del-check input:checked + .del-box { background: #ef4444; border-color: #ef4444; }
+.del-check input:checked + .del-box svg { opacity: 1; }
+.del-check input:focus-visible + .del-box { outline: 2px solid var(--accent); outline-offset: 2px; }
+.del-check:has(input:checked) { border-color: rgba(239,68,68,.5); background: rgba(239,68,68,.08); }
+.del-pw { max-width: 420px; }
+.btn.danger:disabled { opacity: .45; cursor: not-allowed; }
+.del-final .mc-dlg-ic { background: rgba(239,68,68,.18); color: #f87171; }
+.del-final-tag { margin: 0; font-size: 12px !important; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #f87171 !important; }
+.del-final .btn.danger svg { width: 16px; height: 16px; }
+@media (max-width: 640px) {
+  .del-lose { grid-template-columns: minmax(0, 1fr); }
+  .del-steps li em { display: none; }
+  .del-steps li.on em { display: inline; }
+}
+.del-final .mc-dlg-ic svg { width: 24px; height: 24px; }
+.del-final .mc-dlg-btns { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.del-final .mc-dlg-btns .btn { width: 100%; justify-content: center; }
+.del-safe .del-hero h2 { color: var(--fg); } .del-safe .del-hero { margin-bottom: 0; }

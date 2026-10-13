@@ -3,7 +3,9 @@
    Rechts een menu in drie groepen, links het gekozen onderdeel (op de telefoon staat het menu bovenaan):
      Account     Profiel · Beveiliging · Voorkeuren · Achtergrond
      Facturatie  Factuurgegevens · Abonnement en facturen
-     Privacy     Mijn gegevens (downloaden, account verwijderen)
+     Privacy     Mijn gegevens (downloaden) · Account verwijderen
+   Account verwijderen gaat in drie stappen, elk met een waarschuwing:
+     1. wat je kwijtraakt (met jouw echte aantallen)  2. vinkjes + wachtwoord  3. laatste waarschuwing (venster)
    Bovenaan een visitekaartje: profielfoto (klik = wijzigen), naam, rol en status, e-mail, lid sinds en de cijfers.
    Profiel: foto, voornaam/achternaam, e-mail (bevestigd), tijdzone (alle datums volgen die) en de gevarenzone.
    In de online demo (zonder server) werkt alles ook; de gegevens staan dan alleen in deze browser.
@@ -11,7 +13,7 @@
 (function () {
   var box = document.getElementById('acctCards'), menu = document.getElementById('acctMenu'), stats = document.getElementById('acctStats');
   var bgSection = document.getElementById('bgSection'), user = null, sum = null, tab = 'profile';
-  var billing = null, billingLoaded = false, draft = null, bad = [];                 // factuurgegevens: opgeslagen, in bewerking, foute velden
+  var billing = null, billingLoaded = false, draft = null, bad = [], delStep = 1, delErr = '';                 // factuurgegevens: opgeslagen, in bewerking, foute velden
   var SVG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
   var ICON = {
     profile: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/>',
@@ -34,12 +36,14 @@
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
     shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
-    download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>'
+    download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+    'delete': '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
   var GROUPS = [
     ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
     ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav']]],
-    ['acct.groupPrivacy', [['data', 'acct.dataTitle']]]
+    ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
   ];
   var TAB_IDS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
@@ -118,7 +122,7 @@
     menu.innerHTML = GROUPS.map(function (g) {
       return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].map(function (x) {
         var on = x[0] === tab;
-        return '<button type="button" role="tab" id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
+        return '<button type="button" role="tab"' + (x[0] === 'delete' ? ' class="acct-tab-danger"' : '') + ' id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
           (x[0] === 'billing' && billingLoaded && !billing ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
       }).join('');
     }).join('') +
@@ -199,7 +203,7 @@
   function dangerCard(m) {
     return '<div class="glass bg-card acct acct-danger"><div class="acct-danger-head">' + SVG + ICON.warn + '</svg><div><h2>' + t('acct.dangerTitle') + '</h2><p>' + t('acct.dangerLead') + '</p></div></div>' +
       '<div class="acct-danger-row"><div><b>' + t('acct.delete') + '</b><small>' + t('acct.deleteHint') + '</small></div>' +
-      '<button type="button" class="btn danger" data-delete>' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div>' + (m.delete ? '<p class="acct-msg ' + m.delete[1] + '" role="status">' + esc(m.delete[0]) + '</p>' : '') + '</div>';
+      '<button type="button" class="btn danger" data-tab-go="delete">' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div></div>';
   }
   function profilePanel(m, note) {
     var nm = splitName(user.name), tz = user.timezone || '', here = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -220,6 +224,32 @@
       '</div><div class="acct-actions"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + note('name') + '</div>' +
       dangerCard(m);
   }
+  /* ---------- Account verwijderen: stap 1 en 2 op de pagina, stap 3 in een venster ---------- */
+  function deletePanel() {
+    var dots = '<ol class="del-steps" aria-label="' + esc(t('acct.delStepOf', { n: delStep, total: 3 })) + '">' + [1, 2, 3].map(function (i) {
+      return '<li class="' + (i < delStep ? 'done' : i === delStep ? 'on' : '') + '"><span>' + (i < delStep ? SVG + ICON.check + '</svg>' : i) + '</span><em>' + t('acct.delStep' + i) + '</em></li>'; }).join('') + '</ol>';
+    if (user.superAdmin) return '<div class="glass bg-card acct del-card del-safe">' +
+      '<div class="del-hero"><span class="del-ic ok">' + SVG + ICON.shield + '</svg></span><div><h2>' + t('acct.delSuperTitle') + '</h2><p>' + t('acct.delSuperText') + '</p></div></div></div>';
+    if (delStep === 1) {
+      var n = function (v) { return v == null ? '–' : i18n.fmt.num(v); };
+      var lose = [['acct.delLoseCodes', n(sum && sum.codes)], ['acct.delLoseScans', n(sum && sum.scans)], ['acct.delLoseFiles'], ['acct.delLoseBilling'], ['acct.delLosePrinted']];
+      return '<div class="glass bg-card acct acct-danger del-card">' + dots +
+        '<div class="del-hero"><span class="del-ic">' + SVG + ICON.warn + '</svg></span><div><h2>' + t('acct.del1Title') + '</h2><p>' + t('acct.del1Lead') + '</p></div></div>' +
+        '<ul class="del-lose">' + lose.map(function (x) { return '<li>' + SVG + ICON.x + '</svg><span>' + (x[1] != null ? '<b>' + x[1] + '</b> ' : '') + t(x[0]) + '</span></li>'; }).join('') + '</ul>' +
+        '<div class="del-tip">' + SVG + ICON.download + '</svg><div><b>' + t('acct.delTipTitle') + '</b><small>' + t('acct.delTipText') + '</small></div><button type="button" class="btn ghost" data-export>' + t('acct.download') + '</button></div>' +
+        '<div class="acct-actions del-actions"><button type="button" class="btn ghost" data-tab-go="profile">' + t('acct.delKeep') + '</button>' +
+        '<button type="button" class="btn danger" data-del-next>' + t('acct.del1Go') + '</button></div></div>';
+    }
+    var checks = ['acct.delCheck1', 'acct.delCheck2', 'acct.delCheck3'].map(function (k, i) {
+      return '<label class="del-check"><input type="checkbox" name="c' + i + '"><span class="del-box">' + SVG + ICON.check + '</svg></span><span>' + t(k) + '</span></label>'; }).join('');
+    return '<div class="glass bg-card acct acct-danger del-card">' + dots +
+      '<div class="del-hero"><span class="del-ic">' + SVG + ICON.warn + '</svg></span><div><h2>' + t('acct.del2Title') + '</h2><p>' + t('acct.del2Lead') + '</p></div></div>' +
+      '<form data-form="delete" novalidate><div class="del-checks">' + checks + '</div>' +
+      field(t('acct.delPassword'), '<input name="password" type="password" autocomplete="current-password" required>', { icon: 'security', cls: 'del-pw' }) +
+      (delErr ? '<p class="acct-msg bad" role="alert">' + esc(delErr) + '</p>' : '') +
+      '<div class="acct-actions del-actions"><button type="button" class="btn ghost" data-del-back>' + t('acct.delBack') + '</button>' +
+      '<button type="submit" class="btn danger" data-del-go disabled>' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div></form></div>';
+  }
   function panel(m) {
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
     if (tab === 'profile') return profilePanel(m, note);
@@ -232,6 +262,7 @@
       '<div class="acct-dev"><p>' + t('acct.devices', { n: sum ? sum.sessions : 1 }) + '</p>' + (sum && sum.sessions > 1 ? '<button type="button" class="btn ghost" data-logout-others>' + t('acct.logoutOthers') + '</button>' : '') + '</div>' + note('devices') + '</div>';
     if (tab === 'prefs') return '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
       field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>', { icon: 'globe', cls: 'acct-lang' }) + '</div>';
+    if (tab === 'delete') return deletePanel();
     if (tab === 'billing') return billingPanel(m);
     if (tab === 'plan') return planPanel();
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
@@ -248,7 +279,7 @@
     box.innerHTML = isBg ? '' : panel(msg || {});
   }
   function open(id, focus) {
-    tab = id; bad = []; if (id === 'billing' && billingLoaded) draft = startDraft();
+    tab = id; bad = []; delStep = 1; delErr = ''; if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
   }
@@ -279,6 +310,7 @@
         draw({ name: [t('acct.saved'), 'ok'] }); document.dispatchEvent(new CustomEvent('account:changed'));
       }).catch(function (x) { draw({ name: [err(x), 'bad'] }); });
     }
+    if (kind === 'delete') { btn.disabled = false; return lastWarning(f); }
     if (kind === 'password') {
       var prob = PasswordRules.problem(f.password.value);
       if (prob) { btn.disabled = false; return draw({ password: [t(PasswordRules.errorKey('password_' + prob)), 'bad'] }); }
@@ -295,6 +327,12 @@
     }
   });
   box.addEventListener('input', function (e) {
+    var df = e.target.form;
+    if (df && df.getAttribute('data-form') === 'delete') {             // knop pas aan als alles is aangevinkt en het wachtwoord er staat
+      var all = [].every.call(df.querySelectorAll('input[type=checkbox]'), function (c) { return c.checked; });
+      df.querySelector('[data-del-go]').disabled = !(all && df.password.value);
+      return;
+    }
     var f = e.target.form; if (!f || f.getAttribute('data-form') !== 'billing' || !e.target.name) return;
     draft[e.target.name] = e.target.value;
     if (e.target.getAttribute('aria-invalid')) { e.target.removeAttribute('aria-invalid'); var m = document.getElementById('err-' + e.target.name); if (m) m.remove(); bad = bad.filter(function (k) { return k !== e.target.name; }); }
@@ -323,21 +361,32 @@
     e.preventDefault(); readBilling(seg.closest('form')); draft.type = draft.type === 'private' ? 'company' : 'private'; draw();
     var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus();
   });
-  // Account verwijderen: eerst bevestigen met het wachtwoord
+  // Account verwijderen: stap 1 -> 2 op de pagina, stap 3 = laatste waarschuwing in een venster
   box.addEventListener('click', function (e) {
-    if (!e.target.closest('[data-delete]')) return;
-    var d = document.getElementById('mcDialog');
-    d.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic"><svg class="mc-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></span>' +
-      '<h3>' + t('acct.deleteTitle') + '</h3><p>' + t('acct.deleteText') + '</p>' +
-      '<label class="auth-f"><span>' + t('auth.password') + '</span><span class="auth-in"><input type="password" id="delPw" autocomplete="current-password"></span></label><p class="acct-msg bad" id="delMsg" hidden></p>' +
-      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="delGo">' + t('acct.deleteForever') + '</button></div></form>';
-    d.querySelector('#delGo').addEventListener('click', function (ev) {
-      ev.preventDefault();
-      api.account.remove({ password: d.querySelector('#delPw').value }).then(function () { location.replace(location.pathname); })
-        .catch(function (x) { var m = d.querySelector('#delMsg'); m.hidden = false; m.textContent = err(x); });
-    });
-    d.showModal(); d.querySelector('#delPw').focus();
+    if (e.target.closest('[data-del-next]')) { delStep = 2; delErr = ''; draw(); focusDel(); }
+    if (e.target.closest('[data-del-back]')) { delStep = 1; delErr = ''; draw(); focusDel(); }
   });
+  function focusDel() { var h = box.querySelector('.del-hero h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } box.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+  function lastWarning(f) {
+    var pw = f.password.value, d = document.getElementById('mcDialog'), sent = false;
+    delStep = 3; draw();                                                // bolletje 3 aan
+    d.innerHTML = '<form method="dialog" class="mc-dlg del-final"><span class="mc-dlg-ic">' + SVG + ICON.warn + '</svg></span>' +
+      '<p class="del-final-tag">' + t('acct.del3Tag') + '</p><h3>' + t('acct.del3Title') + '</h3><p>' + t('acct.del3Text', { email: '<b>' + esc(user.email) + '</b>' }) + '</p>' +
+      '<div class="mc-dlg-btns"><button class="btn primary" value="cancel" autofocus>' + t('acct.del3No') + '</button><button class="btn danger" value="ok" id="delGo">' + SVG + ICON.trash + '</svg>' + t('acct.del3Yes') + '</button></div></form>';
+    var back = function (msg) { delStep = 2; delErr = msg || ''; draw(); };
+    d.querySelector('#delGo').addEventListener('click', function (ev) {
+      ev.preventDefault(); if (sent) return; sent = true; ev.currentTarget.disabled = true;
+      api.account.remove({ password: pw }).then(function () { location.replace(location.pathname); })
+        .catch(function (x) {
+          sent = false; d.close();
+          back(x && x.code === 'wrong' ? t('acct.wrongCurrent') : x && x.code === 'super' ? t('acct.delSuperText') : err(x));
+          var p = box.querySelector('input[name=password]'); if (p) p.focus();
+        });
+    });
+    d.addEventListener('close', function () { if (delStep === 3 && !sent) back(); }, { once: true });
+    d.showModal();
+  }
+
   /* ---------- Profielfoto: kiezen, slepen, verwijderen ---------- */
   var picker = document.getElementById('acctPhoto');
   function savePhoto(v) {
