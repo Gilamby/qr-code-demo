@@ -70,7 +70,7 @@ Keep `DATA_KEY` **separate from database backups**: without it, encrypted fields
 
 ## 4. Deployment (GitHub → versioned release)
 
-`deploy/deploy.sh [branch|tag|commit]` (default `main`) does this; set `REPO` to the GitHub repository. `APP_DIR`, `RESTART` and `HEALTH_URL` can be overridden. CI/CD can run the same commands instead.
+`deploy/deploy.sh [branch|tag|commit]` does this. By default it deploys branch `optimasys-qr-demo` from https://github.com/Gilamby/qr-code-demo (public, so no key is needed to read it; set `REPO` if the code moves to an Optimasys organisation). `APP_DIR`, `RESTART` and `HEALTH_URL` can be overridden. CI/CD can run the same commands instead.
 
 1. Export the commit into `releases/<sha>` (`git archive`).
 2. `npm ci` installs dependencies, including the build tools.

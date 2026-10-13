@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Reference deployment script: GitHub -> versioned release -> switch symlink -> restart.
-# Run as the application user (optimasys-qr). Usage:  deploy/deploy.sh [branch|tag|commit]   (default: main)
+# Run as the application user (optimasys-qr). Usage:  deploy/deploy.sh [branch|tag|commit]   (default: optimasys-qr-demo)
 # The team's own CI/CD can do the same steps; this script documents what is needed.
 set -euo pipefail
 
 APP_DIR=${APP_DIR:-/srv/optimasys-qr}
-REPO=${REPO:-git@github.com:OWNER/REPO.git}      # set to the real repository
-REF=${1:-main}                                   # branch, tag or commit to deploy
+REPO=${REPO:-https://github.com/Gilamby/qr-code-demo.git}   # public repository: no key needed to read it
+REF=${1:-optimasys-qr-demo}                      # branch, tag or commit to deploy
 KEEP=5                                           # number of releases to keep
 RESTART=${RESTART:-sudo /bin/systemctl restart optimasys-qr}   # allow only this command via sudoers (see docs/hosting.md)
 HEALTH_URL=${HEALTH_URL:-http://127.0.0.1:3000/api/health}
