@@ -14,6 +14,10 @@ var Session = (function () {
   var user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var LOGO = '<img class="logo-mark" src="icons/favicon.svg" alt="">';
+  // Twee omgevingen met hetzelfde inlogscherm: de app voor klanten (/) en het beheer (/admin, alleen voor admins).
+  // Een admin die bij de klanten-app inlogt gaat naar /admin; een klant kan het beheer niet in.
+  var ADMIN = document.body.getAttribute('data-app') === 'admin';
+  function home(u) { return u && u.admin && !ADMIN ? '/admin' : null; }
 
   function field(name, type, label, auto, value) {
     var pw = type === 'password';
@@ -28,19 +32,20 @@ var Session = (function () {
   function draw(msg, kind) {
     if (!msg && flash) { msg = t(flash[0]); kind = flash[1]; }
     var email = (card.querySelector('input[name=email]') || {}).value || prefill || '', name = (card.querySelector('input[name=name]') || {}).value || '';   // ingevulde waarden houden bij een foutmelding
-    var head = '<div class="auth-top"><span class="auth-logo">' + LOGO + '<b>Optimasys <small>QR</small></b></span>' + langPicker() + '</div>';
+    var head = '<div class="auth-top"><span class="auth-logo">' + LOGO + '<b>Optimasys <small>QR</small></b>' + (ADMIN ? '<em class="auth-admin">' + t('adminApp.badge') + '</em>' : '') + '</span>' + langPicker() + '</div>';
     var note = msg ? '<p class="auth-msg ' + (kind || 'bad') + '" role="alert">' + esc(msg) + '</p>' : '';
     var body;
-    var signup = api.isDemo() || !!api.info().signup;                     // zelf een account maken: alleen als dat mag
+    var signup = !ADMIN && (api.isDemo() || !!api.info().signup);         // zelf een account maken: alleen als dat mag (nooit in het beheer)
     if (mode === 'register' && !signup) mode = 'login';
     if (mode === 'login' || mode === 'register') {
-      body = '<h1 id="authTitle">' + t(mode === 'login' ? 'auth.loginTitle' : 'auth.registerTitle') + '</h1><p class="auth-lead">' + t(mode === 'login' ? 'auth.loginLead' : 'auth.registerLead') + '</p>' +
+      body = '<h1 id="authTitle">' + t(mode === 'login' ? (ADMIN ? 'adminApp.loginTitle' : 'auth.loginTitle') : 'auth.registerTitle') + '</h1><p class="auth-lead">' + t(mode === 'login' ? (ADMIN ? 'adminApp.loginLead' : 'auth.loginLead') : 'auth.registerLead') + '</p>' +
         (signup ? '<div class="auth-tabs" role="tablist"><button type="button" role="tab" data-mode="login" aria-selected="' + (mode === 'login') + '">' + t('auth.login') + '</button><button type="button" role="tab" data-mode="register" aria-selected="' + (mode === 'register') + '">' + t('auth.register') + '</button></div>' : '') + note +
         '<form class="auth-form" novalidate>' + (mode === 'register' ? field('name', 'text', t('auth.name'), 'name', name) : '') +
         field('email', 'email', t('auth.email'), 'email', email) + field('password', 'password', t('auth.password'), mode === 'login' ? 'current-password' : 'new-password') +
         '<button class="btn primary auth-go" type="submit">' + t(mode === 'login' ? 'auth.login' : 'auth.createAccount') + '</button></form>' +
         (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>') +
-        (mode === 'login' && !signup ? '<p class="auth-license">' + t('auth.licenseNote') + '</p>' : '');
+        (mode === 'login' && !signup && !ADMIN ? '<p class="auth-license">' + t('auth.licenseNote') + '</p>' : '') +
+        (mode === 'login' && ADMIN ? '<p class="auth-license">' + t('adminApp.onlyAdmins') + '</p>' : '');
     } else if (mode === 'check') {
       // Account gemaakt: eerst e-mail bevestigen
       body = '<span class="auth-mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>' +
@@ -78,7 +83,12 @@ var Session = (function () {
   function show(m) { mode = m || 'login'; view.hidden = false; document.body.classList.add('auth-open'); ready(); draw(); }
   function hide() { view.hidden = true; document.body.classList.remove('auth-open'); }
   // Na inloggen: alles opnieuw laden met de nieuwe sessie (eigen codes, eigen achtergrond)
-  function enter() { location.replace(location.pathname); }
+  function enter(u) {
+    if (ADMIN && u && !u.admin) {                                         // klant probeert het beheer: weer uitloggen
+      return api.auth.logout().catch(function () {}).then(function () { flash = ['adminApp.notAdmin', 'bad']; show('login'); });
+    }
+    location.replace(home(u) || location.pathname);
+  }
 
   card.addEventListener('click', function (e) {
     var m = e.target.closest('[data-mode]'); if (m) { flash = null; if (mode === 'check') prefill = pendingEmail; mode = m.getAttribute('data-mode'); return draw(); }
@@ -104,7 +114,7 @@ var Session = (function () {
       : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang() }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); return null; })
       : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
       : api.auth.reset({ token: resetToken, password: pw });
-    job.then(function (u) { if (u) enter(); }).catch(function (err) {
+    job.then(function (u) { if (u) enter(u); }).catch(function (err) {
       if (err && err.code === 'unverified') { pendingEmail = val('email'); pendingToken = null; mode = 'check'; flash = ['auth.errUnverified', 'bad']; return draw(); }
       draw(errorText(err)); var b = card.querySelector('.auth-go'); if (b) b.disabled = false; });
   });
@@ -124,7 +134,11 @@ var Session = (function () {
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
-    return api.auth.me().then(function (u) { user = u; ready(); listeners.forEach(function (f) { f(u); }); }).catch(function () { show('login'); });
+    return api.auth.me().then(function (u) {
+      if (home(u)) return location.replace(home(u));                     // admin in de klanten-app: naar het beheer
+      if (ADMIN && !u.admin) { flash = ['adminApp.notAdmin', 'bad']; return show('login'); }
+      user = u; ready(); listeners.forEach(function (f) { f(u); });
+    }).catch(function () { show('login'); });
   });
   return { user: function () { return user; }, onUser: function (f) { listeners.push(f); if (user) f(user); }, show: show };
 })();

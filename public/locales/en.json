@@ -1282,5 +1282,23 @@
     "userCounts": "{active} active · {invited} invited · {disabled} deactivated",
     "vsPrev": "vs. previous 30 days",
     "you": "you"
+  },
+  "adminApp": {
+    "badge": "Admin",
+    "menu": "Admin menu",
+    "loginTitle": "Sign in to admin",
+    "loginLead": "For the Optimasys team only.",
+    "onlyAdmins": "Admin accounts are only given by the super admin. Are you a customer? Sign in to the regular app.",
+    "notAdmin": "This account has no access to admin. Customers sign in to the regular app.",
+    "account": "My account",
+    "accountLead": "Your details as an admin.",
+    "superNote": "Super admin: the fixed team account. Only you can make others admin.",
+    "adminNote": "Admin: you manage customers and codes. Only the super admin can change roles.",
+    "nameTitle": "Name",
+    "pwTitle": "Change password",
+    "pwCurrent": "Current password",
+    "pwSave": "Save password",
+    "pwSaved": "Password changed. Other devices have been signed out.",
+    "pwWrong": "Your current password is not correct."
   }
 }

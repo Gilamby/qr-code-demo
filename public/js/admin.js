@@ -138,7 +138,7 @@ var Admin = (function () {
       '<div class="ad-row two">' +
         '<section class="glass ad-card"><div class="ad-card-head"><h3>' + t('adm.top') + '</h3><button type="button" class="link-btn" data-go-page="adminCodes">' + t('adm.seeAll') + ico('arrow') + '</button></div>' +
           (data.top.length ? '<ol class="ad-top">' + data.top.map(function (r, i) {
-            return '<li><span class="ad-rank">' + (i + 1) + '</span><span class="ad-mini-qr">' + MyCodes.qrSvg(r) + '</span><span class="ad-top-who"><b>' + esc(MyCodes.displayName(r)) + '</b><small>' + esc(r.owner ? r.owner.name || r.owner.email : '') + ' · ' + esc(typeName(getType(r.typeId))) + '</small></span><span class="ad-top-n"><b>' + num(r.scans) + '</b><small>' + t('an.scans').toLowerCase() + '</small></span></li>';
+            return '<li><span class="ad-rank">' + (i + 1) + '</span><span class="ad-mini-qr">' + CodeUtil.qrSvg(r) + '</span><span class="ad-top-who"><b>' + esc(CodeUtil.displayName(r)) + '</b><small>' + esc(r.owner ? r.owner.name || r.owner.email : '') + ' · ' + esc(typeName(getType(r.typeId))) + '</small></span><span class="ad-top-n"><b>' + num(r.scans) + '</b><small>' + t('an.scans').toLowerCase() + '</small></span></li>';
           }).join('') + '</ol>' : '<p class="ad-empty">' + t('adm.noScans') + '</p>') + '</section>' +
         '<section class="glass ad-card"><div class="ad-card-head"><h3>' + t('adm.recent') + '</h3><button type="button" class="link-btn" data-go-page="customers">' + t('adm.seeAll') + ico('arrow') + '</button></div>' +
           '<ul class="ad-people">' + data.recentUsers.map(function (u) {
@@ -178,9 +178,9 @@ var Admin = (function () {
     drawList();
   }
   function card(r) {
-    var st = MyCodes.isStatic(r), url = r.shortUrl;
+    var st = CodeUtil.isStatic(r), url = r.shortUrl;
     return '<article class="glass ad-code' + (r.paused ? ' is-paused' : '') + '" data-id="' + esc(r.id) + '">' +
-      '<div class="ad-code-top"><span class="ad-qr">' + MyCodes.qrSvg(r) + '</span><div class="ad-code-who"><h3 title="' + esc(MyCodes.displayName(r)) + '">' + esc(MyCodes.displayName(r)) + '</h3>' + typeChip(r.typeId) +
+      '<div class="ad-code-top"><span class="ad-qr">' + CodeUtil.qrSvg(r) + '</span><div class="ad-code-who"><h3 title="' + esc(CodeUtil.displayName(r)) + '">' + esc(CodeUtil.displayName(r)) + '</h3>' + typeChip(r.typeId) +
         '<span class="ad-code-stats">' + (st ? '<span class="ad-muted">' + t('adm.static') + '</span>' : '<b>' + num(r.scans) + '</b> ' + t('an.scans').toLowerCase() + ' · <span class="ad-muted">' + t('adm.lastScan') + ' ' + (r.lastScanAt ? ago(r.lastScanAt) : t('adm.never')) + '</span>') + '</span></div>' +
         '<i class="ad-pill ' + (r.paused ? 'off' : 'ok') + '">' + (r.paused ? t('adm.sPaused') : t('cust.active')) + '</i></div>' +
       (st ? '' : '<a class="ad-link" href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(url.replace(/^https?:\/\//, '')) + '</a>') +
@@ -213,7 +213,7 @@ var Admin = (function () {
   function findRow(id) { return res && res.items.filter(function (x) { return x.id === id; })[0]; }
   function confirmDelete(r) {
     var d = document.getElementById('mcDialog');
-    d.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + ico('trash', 'mc-i') + '</span><h3>' + t('adm.delTitle', { name: esc(MyCodes.displayName(r)) }) + '</h3><p>' + t('adm.delText', { owner: esc(r.owner ? r.owner.name || r.owner.email : '') }) + '</p>' +
+    d.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + ico('trash', 'mc-i') + '</span><h3>' + t('adm.delTitle', { name: esc(CodeUtil.displayName(r)) }) + '</h3><p>' + t('adm.delText', { owner: esc(r.owner ? r.owner.name || r.owner.email : '') }) + '</p>' +
       '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="adDelGo">' + t('cust.remove') + '</button></div></form>';
     d.querySelector('#adDelGo').addEventListener('click', function (ev) {
       ev.preventDefault();
@@ -237,7 +237,7 @@ var Admin = (function () {
       if (pg && !pg.disabled) { f.page = +pg.getAttribute('data-page'); loadCodes(); return codesBox.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
       var b = e.target.closest('[data-act]'), el = b && b.closest('[data-id]'), r = el && findRow(el.getAttribute('data-id')); if (!r) return;
       var act = b.getAttribute('data-act');
-      if (act === 'dl') return MyCodes.download(r, 'png');
+      if (act === 'dl') return CodeUtil.download(r, 'png');
       if (act === 'copy') { (navigator.clipboard ? navigator.clipboard.writeText(r.shortUrl) : Promise.reject()).then(function () { toast(t('adm.copied')); }, function () { toast(r.shortUrl); }); return; }
       if (act === 'pause') { b.disabled = true; return api.admin.patchCode(r.id, { paused: !r.paused }).then(function (x) { r.paused = x.paused; toast(t(x.paused ? 'adm.paused' : 'adm.resumed')); drawList(); }).catch(function () { b.disabled = false; toast(errMsg()); }); }
       if (act === 'del') return confirmDelete(r);

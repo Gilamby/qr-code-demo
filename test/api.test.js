@@ -270,4 +270,6 @@ test('beheer: dashboard, alle QR-codes, rollen en uitzetten', async () => {
   assert.equal((await client()('POST', '/api/auth/login', { email: 'beheer-b@example.com', password: 'Beheer geheime zin 6!' })).status, 200, 'weer aangezet');
   assert.equal((await team('DELETE', '/api/admin/codes/' + code.json.id)).status, 204);
   assert.equal((await team('GET', '/api/admin/codes?q=klant-b')).json.total, 0);
+  const page = await fetch(base + '/admin'); assert.equal(page.status, 200, 'eigen beheer-omgeving op /admin');
+  assert.ok((await page.text()).includes('data-app="admin"'));
 });

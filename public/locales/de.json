@@ -1282,5 +1282,23 @@
     "userCounts": "{active} aktiv · {invited} eingeladen · {disabled} deaktiviert",
     "vsPrev": "ggü. den 30 Tagen davor",
     "you": "du"
+  },
+  "adminApp": {
+    "badge": "Verwaltung",
+    "menu": "Verwaltungsmenü",
+    "loginTitle": "Bei der Verwaltung anmelden",
+    "loginLead": "Nur für das Optimasys-Team.",
+    "onlyAdmins": "Admin-Konten vergibt nur der Super-Admin. Bist du Kunde? Melde dich in der normalen App an.",
+    "notAdmin": "Dieses Konto hat keinen Zugang zur Verwaltung. Kunden melden sich in der normalen App an.",
+    "account": "Mein Konto",
+    "accountLead": "Deine Daten als Admin.",
+    "superNote": "Super-Admin: das feste Team-Konto. Nur du kannst andere zu Admins machen.",
+    "adminNote": "Admin: Du verwaltest Kunden und Codes. Rollen ändern kann nur der Super-Admin.",
+    "nameTitle": "Name",
+    "pwTitle": "Passwort ändern",
+    "pwCurrent": "Aktuelles Passwort",
+    "pwSave": "Passwort speichern",
+    "pwSaved": "Passwort geändert. Andere Geräte wurden abgemeldet.",
+    "pwWrong": "Dein aktuelles Passwort stimmt nicht."
   }
 }

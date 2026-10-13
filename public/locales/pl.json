@@ -1282,5 +1282,23 @@
     "userCounts": "{active} aktywnych · {invited} zaproszonych · {disabled} wyłączonych",
     "vsPrev": "wobec poprzednich 30 dni",
     "you": "ty"
+  },
+  "adminApp": {
+    "badge": "Administracja",
+    "menu": "Menu administracji",
+    "loginTitle": "Zaloguj się do administracji",
+    "loginLead": "Tylko dla zespołu Optimasys.",
+    "onlyAdmins": "Konta administratora nadaje tylko superadmin. Jesteś klientem? Zaloguj się w zwykłej aplikacji.",
+    "notAdmin": "To konto nie ma dostępu do administracji. Klienci logują się w zwykłej aplikacji.",
+    "account": "Moje konto",
+    "accountLead": "Twoje dane jako administratora.",
+    "superNote": "Superadmin: stałe konto zespołu. Tylko ty możesz nadawać rolę admina.",
+    "adminNote": "Admin: zarządzasz klientami i kodami. Role może zmieniać tylko superadmin.",
+    "nameTitle": "Imię i nazwisko",
+    "pwTitle": "Zmień hasło",
+    "pwCurrent": "Obecne hasło",
+    "pwSave": "Zapisz hasło",
+    "pwSaved": "Hasło zmienione. Inne urządzenia zostały wylogowane.",
+    "pwWrong": "Obecne hasło jest nieprawidłowe."
   }
 }

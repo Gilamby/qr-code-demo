@@ -24,19 +24,8 @@ var MyCodes = (function () {
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
   var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new' }, renaming = null, toastTimer = null;
 
-  // Vaste codes (wifi, vCard) hebben geen link: de inhoud zit in de code zelf. Die tellen geen scans en kunnen niet uit.
-  function isStatic(r) { var tp = getType(r.typeId); return tp && (tp.contentType === 'wifi' || tp.contentType === 'contact'); }
-  function domainOf(u) { return String(u || '').replace(/^https?:\/\//, '').replace(/^www\./, '').split(/[/?#]/)[0]; }
-  // Naam: zelf gekozen, anders iets herkenbaars uit de inhoud, anders het type
-  function displayName(r) {
-    if (r.name) return r.name;
-    var c = r.content || {};
-    var v = c.title || c.name || c.pageName || c.restaurant || c.appName || c.company || c.ssid || (c.username ? '@' + c.username.replace(/^@/, '') : '') || domainOf(c.url) || domainOf(c.menuUrl) || ((FILES.parse(c.menuFile) || FILES.parse(c.file) || {}).n) || '';
-    if (!v && c.file) { try { v = JSON.parse(c.file).n; } catch (e) {} }
-    return v || typeName(getType(r.typeId));
-  }
-  function qrData(r) { return encodeQR({ typeId: r.typeId, content: (function () { var o = {}; o[r.typeId] = r.content || {}; return o; })(), saved: isStatic(r) ? null : r, draftId: r.id }); }
-  function qrDesign(r) { var d = Object.assign({}, QR_DEFAULT_DESIGN, r.design); delete d.pageColor; delete d.accentColor; return safeDesign(d); }
+  // Gedeeld met het beheer: zie code-util.js
+  var isStatic = CodeUtil.isStatic, displayName = CodeUtil.displayName, qrData = CodeUtil.qrData, qrDesign = CodeUtil.qrDesign, download = CodeUtil.download;
 
   /* ---------- Bovenkant: zoeken, type, sorteren ---------- */
   function drawTools() {
@@ -129,19 +118,6 @@ var MyCodes = (function () {
     fallback();
     function fallback() { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) {} ta.remove(); }
   }
-  function fileName(r) { return 'qr-' + (displayName(r).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || r.typeId); }
-  function download(r, format) {
-    var markup = QRRender.svg(qrData(r), qrDesign(r), { width: 1024 }), name = fileName(r);
-    if (format === 'svg') return saveBlob(new Blob([markup], { type: 'image/svg+xml' }), name + '.svg');
-    var img = new Image(), url = URL.createObjectURL(new Blob([markup], { type: 'image/svg+xml' }));
-    img.onload = function () {
-      var cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
-      var cx = cv.getContext('2d'); if (!(r.design || {}).transparent) { cx.fillStyle = '#ffffff'; cx.fillRect(0, 0, cv.width, cv.height); }
-      cx.drawImage(img, 0, 0); URL.revokeObjectURL(url);
-      cv.toBlob(function (b) { saveBlob(b, name + '.png'); }, 'image/png');
-    };
-    img.src = url;
-  }
   function saveBlob(blob, filename) { saveFile(blob, filename); }
   function rename(id, value) {
     var r = find(id); renaming = null;
@@ -213,5 +189,5 @@ var MyCodes = (function () {
   label();
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; load(); } });
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });
-  return { reload: load, displayName: displayName, qrSvg: function (r, o) { return QRRender.svg(qrData(r), qrDesign(r), o); }, download: download, isStatic: isStatic };   // ook gebruikt door het beheer (admin.js)
+  return { reload: load, displayName: displayName };
 })();

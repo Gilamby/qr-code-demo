@@ -43,10 +43,12 @@ export async function createApp(): Promise<NestExpressApplication> {
   }
   if (bundle) {
     app.use((req, res, next) => (req.method === 'GET' && (req.path === '/' || req.path === '/index.html') ? res.set('Cache-Control', 'no-cache').sendFile(path.join(PATHS.build, 'index.html'), { dotfiles: 'allow' }) : next()));
+    app.use((req, res, next) => (req.method === 'GET' && /^\/admin(\/|\.html)?$/.test(req.path) ? res.set('Cache-Control', 'no-cache').sendFile(path.join(PATHS.build, 'admin.html'), { dotfiles: 'allow' }) : next()));
     app.use((req, res, next) => (/^\/(js|shared|vendor)\//.test(req.path) || /^\/css\/(app|live)\.css$/.test(req.path) || req.path === '/manifest.json' ? res.status(404).end() : next()));
     app.use(express.static(PATHS.build, { index: false, maxAge: '365d', immutable: true }));   // namen met hash: mag lang in de cache
     app.use(express.static(PATHS.public, { index: false, maxAge: '1h' }));
   } else {
+    app.use((req, res, next) => (req.method === 'GET' && /^\/admin\/?$/.test(req.path) ? res.sendFile(path.join(PATHS.public, 'admin.html'), { dotfiles: 'allow' }) : next()));   // het beheer: /admin
     app.use(express.static(PATHS.public, { maxAge: 0 }));
     app.use('/shared', express.static(PATHS.shared));
   }

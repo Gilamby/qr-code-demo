@@ -1282,5 +1282,23 @@
     "userCounts": "{active} actief · {invited} uitgenodigd · {disabled} uitgezet",
     "vsPrev": "t.o.v. 30 dagen ervoor",
     "you": "jij"
+  },
+  "adminApp": {
+    "badge": "Beheer",
+    "menu": "Beheermenu",
+    "loginTitle": "Inloggen bij het beheer",
+    "loginLead": "Alleen voor het Optimasys-team.",
+    "onlyAdmins": "Beheer-accounts worden alleen door de super-admin gegeven. Ben je klant? Log in op de gewone app.",
+    "notAdmin": "Dit account heeft geen toegang tot het beheer. Klanten loggen in op de gewone app.",
+    "account": "Mijn account",
+    "accountLead": "Je gegevens als beheerder.",
+    "superNote": "Super-admin: het vaste team-account. Alleen jij kunt anderen admin maken.",
+    "adminNote": "Admin: je beheert klanten en codes. Rollen wijzigen kan alleen de super-admin.",
+    "nameTitle": "Naam",
+    "pwTitle": "Wachtwoord wijzigen",
+    "pwCurrent": "Huidig wachtwoord",
+    "pwSave": "Wachtwoord opslaan",
+    "pwSaved": "Wachtwoord gewijzigd. Andere apparaten zijn uitgelogd.",
+    "pwWrong": "Je huidige wachtwoord klopt niet."
   }
 }

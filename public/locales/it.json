@@ -1282,5 +1282,23 @@
     "userCounts": "{active} attivi · {invited} invitati · {disabled} disattivati",
     "vsPrev": "rispetto ai 30 giorni precedenti",
     "you": "tu"
+  },
+  "adminApp": {
+    "badge": "Amministrazione",
+    "menu": "Menu di amministrazione",
+    "loginTitle": "Accedi all’amministrazione",
+    "loginLead": "Solo per il team Optimasys.",
+    "onlyAdmins": "Gli account admin li assegna solo il super admin. Sei un cliente? Accedi all’app normale.",
+    "notAdmin": "Questo account non ha accesso all’amministrazione. I clienti accedono all’app normale.",
+    "account": "Il mio account",
+    "accountLead": "I tuoi dati da admin.",
+    "superNote": "Super admin: l’account fisso del team. Solo tu puoi rendere admin altre persone.",
+    "adminNote": "Admin: gestisci clienti e codici. Solo il super admin può cambiare i ruoli.",
+    "nameTitle": "Nome",
+    "pwTitle": "Cambia password",
+    "pwCurrent": "Password attuale",
+    "pwSave": "Salva password",
+    "pwSaved": "Password cambiata. Gli altri dispositivi sono stati disconnessi.",
+    "pwWrong": "La password attuale non è corretta."
   }
 }

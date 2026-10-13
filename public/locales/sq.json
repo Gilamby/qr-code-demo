@@ -1388,5 +1388,23 @@
     "userCounts": "{active} aktivë · {invited} të ftuar · {disabled} të çaktivizuar",
     "vsPrev": "krahasuar me 30 ditët e mëparshme",
     "you": "ti"
+  },
+  "adminApp": {
+    "badge": "Administrimi",
+    "menu": "Menuja e administrimit",
+    "loginTitle": "Hyr në administrim",
+    "loginLead": "Vetëm për ekipin e Optimasys.",
+    "onlyAdmins": "Llogaritë admin i jep vetëm super admini. Je klient? Hyr në aplikacionin e zakonshëm.",
+    "notAdmin": "Kjo llogari nuk ka qasje në administrim. Klientët hyjnë në aplikacionin e zakonshëm.",
+    "account": "Llogaria ime",
+    "accountLead": "Të dhënat e tua si admin.",
+    "superNote": "Super admin: llogaria fikse e ekipit. Vetëm ti mund t’i bësh të tjerët admin.",
+    "adminNote": "Admin: menaxhon klientët dhe kodet. Rolet i ndryshon vetëm super admini.",
+    "nameTitle": "Emri",
+    "pwTitle": "Ndrysho fjalëkalimin",
+    "pwCurrent": "Fjalëkalimi aktual",
+    "pwSave": "Ruaj fjalëkalimin",
+    "pwSaved": "Fjalëkalimi u ndryshua. Pajisjet e tjera u nxorën nga llogaria.",
+    "pwWrong": "Fjalëkalimi aktual nuk është i saktë."
   }
 }

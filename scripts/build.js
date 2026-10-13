@@ -30,12 +30,26 @@ html = html.replace(/<!--[\s\S]*?-->\n?/g, '')                                  
   .replace(/<link rel="stylesheet" href="css\/app\.css">/, '<link rel="stylesheet" href="' + cssName + '">');
 fs.writeFileSync(path.join(out, 'index.html'), html);
 
+// 1b) Het beheer (admin.html, adres /admin): eigen bundel met alleen wat het beheer nodig heeft
+let admHtml = fs.readFileSync(path.join(pub, 'admin.html'), 'utf8');
+const admScripts = [...admHtml.matchAll(/<script src="([^"]+)"><\/script>\n?/g)].map((m) => m[1]);
+const admJs = minJs(admScripts.map((s) => '/* ' + s + ' */\n' + read(s)).join('\n;\n'));
+const admCss = minCss(read('css/app.css') + '\n' + read('css/admin.css'));
+const admJsName = 'admin.' + hash(admJs) + '.js', admCssName = 'admin.' + hash(admCss) + '.css';
+fs.writeFileSync(path.join(out, admJsName), admJs); fs.writeFileSync(path.join(out, admCssName), admCss);
+admHtml = admHtml.replace(/<!--[\s\S]*?-->\n?/g, '')
+  .replace(/<script src="[^"]+"><\/script>\n?/g, '')
+  .replace('</body>', '<script src="' + admJsName + '"></script>\n</body>')
+  .replace(/<link rel="stylesheet" href="css\/app\.css">\n?/, '')
+  .replace(/<link rel="stylesheet" href="css\/admin\.css">/, '<link rel="stylesheet" href="' + admCssName + '">');
+fs.writeFileSync(path.join(out, 'admin.html'), admHtml);
+
 // 2) De bezoekerspagina (zelfde lijst als server/live-page.js)
 const LIVE = ['vendor/qrcode.js', 'shared/qr-types.js', 'js/i18n.js', 'js/config.js', 'js/qr-render.js', 'js/preview.js', 'js/business-fields.js', 'js/content-fields.js', 'js/phone-templates.js', 'js/live.js'];
 const live = minJs(LIVE.map(read).join('\n;\n')), liveCss = minCss(read('css/app.css') + '\n' + read('css/live.css'));
 const liveName = 'live.' + hash(live) + '.js', liveCssName = 'live.' + hash(liveCss) + '.css';
 fs.writeFileSync(path.join(out, liveName), live); fs.writeFileSync(path.join(out, liveCssName), liveCss);
 
-fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ app: jsName, css: cssName, live: liveName, liveCss: liveCssName, builtAt: new Date().toISOString() }, null, 2));
+fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ app: jsName, css: cssName, admin: admJsName, adminCss: admCssName, live: liveName, liveCss: liveCssName, builtAt: new Date().toISOString() }, null, 2));
 const kb = (s) => Math.round(Buffer.byteLength(s) / 1024) + ' KB';
 console.log('Klaar: build/' + jsName + ' (' + kb(js) + '), ' + cssName + ' (' + kb(css) + '), ' + liveName + ' (' + kb(live) + ')');

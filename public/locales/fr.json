@@ -1282,5 +1282,23 @@
     "userCounts": "{active} actifs · {invited} invités · {disabled} désactivés",
     "vsPrev": "par rapport aux 30 jours précédents",
     "you": "vous"
+  },
+  "adminApp": {
+    "badge": "Administration",
+    "menu": "Menu d’administration",
+    "loginTitle": "Connexion à l’administration",
+    "loginLead": "Réservé à l’équipe Optimasys.",
+    "onlyAdmins": "Les comptes admin sont attribués uniquement par le super admin. Vous êtes client ? Connectez-vous à l’application habituelle.",
+    "notAdmin": "Ce compte n’a pas accès à l’administration. Les clients se connectent à l’application habituelle.",
+    "account": "Mon compte",
+    "accountLead": "Vos informations d’admin.",
+    "superNote": "Super admin : le compte fixe de l’équipe. Vous seul pouvez nommer d’autres admins.",
+    "adminNote": "Admin : vous gérez les clients et les codes. Seul le super admin peut changer les rôles.",
+    "nameTitle": "Nom",
+    "pwTitle": "Changer le mot de passe",
+    "pwCurrent": "Mot de passe actuel",
+    "pwSave": "Enregistrer le mot de passe",
+    "pwSaved": "Mot de passe modifié. Les autres appareils ont été déconnectés.",
+    "pwWrong": "Votre mot de passe actuel est incorrect."
   }
 }
