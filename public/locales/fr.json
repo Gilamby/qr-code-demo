@@ -1304,6 +1304,7 @@
     "pwWrong": "Votre mot de passe actuel est incorrect.",
     "toAdmin": "Aller à l’administration",
     "app": "App",
-    "switch": "Basculer entre l’app et l’administration"
+    "switch": "Basculer entre l’app et l’administration",
+    "onlyYou": "admins uniquement"
   }
 }

@@ -1304,6 +1304,7 @@
     "pwWrong": "Dein aktuelles Passwort stimmt nicht.",
     "toAdmin": "Zur Verwaltung",
     "app": "App",
-    "switch": "Zwischen App und Verwaltung wechseln"
+    "switch": "Zwischen App und Verwaltung wechseln",
+    "onlyYou": "nur Admins"
   }
 }

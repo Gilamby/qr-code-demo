@@ -1304,6 +1304,7 @@
     "pwWrong": "A palavra-passe atual não está correta.",
     "toAdmin": "Ir para a administração",
     "app": "App",
-    "switch": "Alternar entre a app e a administração"
+    "switch": "Alternar entre a app e a administração",
+    "onlyYou": "só admins"
   }
 }

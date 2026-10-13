@@ -1410,6 +1410,7 @@
     "pwWrong": "Fjalëkalimi aktual nuk është i saktë.",
     "toAdmin": "Shko te administrimi",
     "app": "Aplikacioni",
-    "switch": "Kalo mes aplikacionit dhe administrimit"
+    "switch": "Kalo mes aplikacionit dhe administrimit",
+    "onlyYou": "vetëm admin"
   }
 }

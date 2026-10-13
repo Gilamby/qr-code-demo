@@ -1304,6 +1304,7 @@
     "pwWrong": "Je huidige wachtwoord klopt niet.",
     "toAdmin": "Naar het beheer",
     "app": "App",
-    "switch": "Wisselen tussen app en beheer"
+    "switch": "Wisselen tussen app en beheer",
+    "onlyYou": "alleen admins"
   }
 }

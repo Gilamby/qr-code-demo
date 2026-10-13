@@ -1304,6 +1304,7 @@
     "pwWrong": "Your current password is not correct.",
     "toAdmin": "Go to admin",
     "app": "App",
-    "switch": "Switch between app and admin"
+    "switch": "Switch between app and admin",
+    "onlyYou": "admins only"
   }
 }

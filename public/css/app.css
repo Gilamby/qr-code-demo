@@ -2475,3 +2475,10 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .item.env-go:hover { color: #fff; background: linear-gradient(90deg, rgba(43,181,240,.24), rgba(167,139,250,.24)); }
 .item.env-go[hidden] { display: none; }
 .nav-admin[hidden] { display: none; }
+/* Blok Beheer in het menu: duidelijk apart (schildje, 'alleen admins', lichte rand), maar wel hetzelfde menu */
+.adm-block { margin: 0 2px; padding: 4px 4px 6px; border-radius: 14px; background: linear-gradient(180deg, rgba(43,181,240,.07), rgba(167,139,250,.05)); border: 1px solid rgba(43,181,240,.16); }
+.adm-label { display: flex; align-items: center; gap: 7px; padding: 8px 10px 8px !important; color: #9fdcff !important; }
+.adm-label svg { width: 13px; height: 13px; flex: none; }
+.adm-label em { margin-left: auto; padding: 2px 7px; border-radius: 999px; background: rgba(43,181,240,.14); font-style: normal; font-size: 9.5px; letter-spacing: .06em; color: #9fdcff; }
+.collapsed .adm-block { margin: 0; padding: 4px 0; }
+.collapsed .adm-label { display: none; }
