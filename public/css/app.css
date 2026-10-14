@@ -3365,3 +3365,8 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 .acct-layout > .acct-side { top: 96px; max-height: calc(100vh - 112px); }
 .acct-idc .idc-stats { display: none; }
 @media (max-width: 860px) { .acct-idc .idc-stats { display: grid; } }
+
+/* Gekozen type-kaart (rand + gloed) en hover werden aan de boven-/linkerkant afgeknipt door het scrollvlak:
+   ruimte rondom geven en dat met een negatieve marge weer rechttrekken, zodat de layout gelijk blijft */
+.panel-scroll { padding-top: 10px; margin-top: -10px; padding-left: 10px; margin-left: -10px; }
+@media (max-width: 760px) { .panel-scroll { padding-top: 0; margin-top: 0; padding-left: 0; margin-left: 0; } }
