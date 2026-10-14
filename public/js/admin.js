@@ -256,7 +256,7 @@ var Admin = (function () {
     me = u; var admin = !!(u && u.admin);
     var nav = document.getElementById('navAdmin'); if (nav) nav.hidden = !admin;
     if (!admin) { data = null; res = null; return; }
-    setTimeout(function () { goToPage('adminDash'); }, 0);
+    setTimeout(function () { goToPage(Session.landOn('adminDash')); }, 0);
   });
   document.addEventListener('pagechange', function (e) {
     if (e.detail === 'adminDash') { drawDash(); loadDash(); }

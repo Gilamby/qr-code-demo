@@ -20,7 +20,7 @@
 <div class="app" id="app">
   <aside class="sidebar" id="sidebar" data-i18n-aria="nav.mainMenu">
     <div class="side-top">
-      <a class="logo" href="#" data-page="create" data-i18n-aria="nav.home">
+      <a class="logo" href="#" data-page="home" data-i18n-aria="nav.home">
         <img class="logo-mark" src="icons/favicon.svg" alt="">
         <span class="logo-text">Optimasys <small>QR</small></span>
       </a>
@@ -34,6 +34,10 @@
 
     <nav>
       <div class="group-label" data-i18n="nav.workspace"></div>
+      <a class="item" href="#" data-page="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg>
+        <span class="label" data-i18n="nav.overview"></span><span class="tip" data-i18n="nav.overview"></span>
+      </a>
       <a class="item active" href="#" data-page="create">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
         <span class="label" data-i18n="nav.create"></span><span class="tip" data-i18n="nav.create"></span>
@@ -69,6 +73,10 @@
       <a class="item" href="#" data-page="customers" id="navCustomers">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.6 3.6-5.5 6.5-5.5s5.5 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.8.7 3 2.5 3.5 5.2"/></svg>
         <span class="label" data-i18n="nav.users"></span><span class="tip" data-i18n="nav.users"></span>
+      </a>
+      <a class="item" href="#" data-page="adminSettings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        <span class="label" data-i18n="nav.adminSettings"></span><span class="tip" data-i18n="nav.adminSettings"></span>
       </a>
       </div>
       </div>
@@ -211,6 +219,14 @@
       <section class="help" id="faqPage"></section>
     </main>
 
+    <main class="canvas" id="homeView" hidden>
+      <section class="hm" id="homeBody" aria-live="polite"></section>
+    </main>
+
+    <main class="canvas" id="adminSettingsView" hidden>
+      <section class="ast" id="asBody"></section>
+    </main>
+
     <main class="canvas" id="emptyView" hidden>
       <div class="empty"><p data-i18n="empty.text"></p></div>
     </main>
@@ -253,6 +269,8 @@
 <script src="js/help.js"></script>
 <script src="js/customers.js"></script>
 <script src="js/admin.js"></script>
+<script src="js/home.js"></script>
+<script src="js/admin-settings.js"></script>
 <script src="js/main.js"></script>
 <script src="js/hello.js"></script>
 </body>

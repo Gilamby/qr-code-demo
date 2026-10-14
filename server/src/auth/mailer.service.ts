@@ -9,6 +9,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import { PATHS } from '../config/env';
+import { DatabaseService } from '../database/database.service';
+import { overridesOf } from '../helpers/i18n-overrides';
 
 const LANGS = ['nl', 'en', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'el', 'sq'];
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
@@ -22,7 +24,7 @@ export class MailerService {
   }) : null;
   private readonly text: Record<string, Record<string, string>> = {};
 
-  constructor() {
+  constructor(private readonly db: DatabaseService) {
     for (const l of LANGS) { try { this.text[l] = JSON.parse(fs.readFileSync(path.join(PATHS.locales, l + '.json'), 'utf8')).mail; } catch (e) { /* taal ontbreekt */ } }
   }
 
@@ -46,6 +48,8 @@ export class MailerService {
 
   private async send(kind: Kind, to: string, link: string, lang: string, vars: Record<string, string> = {}) {
     const t: Record<string, string> = { ...this.text.en, ...this.text[lang] };
+    // Teksten die een admin heeft aangepast (Beheer > Instellingen > Vertalingen)
+    try { for (const [k, v] of Object.entries(await overridesOf(this.db, LANGS.includes(lang) ? lang : 'en'))) if (k.startsWith('mail.')) t[k.slice(5)] = v; } catch (e) { /* database even weg: standaardtekst */ }
     for (const k of Object.keys(t)) t[k] = String(t[k]).replace(/\{(\w+)\}/g, (m, v) => (vars[v] != null ? vars[v] : m));
     if (!this.transport) { console.log('[e-mail niet ingesteld] ' + ({ verify: 'Bevestigingslink', reset: 'Wachtwoord-link', invite: 'Uitnodiging', emailChange: 'Nieuw e-mailadres bevestigen', emailChanged: 'Melding e-mail gewijzigd' }[kind]) + ' voor ' + to + ':\n  ' + (link || vars.email || '')); return; }
     await this.transport.sendMail({

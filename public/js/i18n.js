@@ -26,11 +26,32 @@ var i18n = (function () {
     if (s == null) return key;
     return vars ? String(s).replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; }) : s;
   }
+  // Teksten die een admin heeft aangepast (Beheer > Instellingen > Vertalingen) gaan over het bestand heen.
+  // orig = het bestand zelf (nodig om in de vertaal-editor te laten zien wat de standaardtekst is).
+  var orig = {};
+  function put(dict, key, value) {
+    var parts = key.split('.'), o = dict;
+    for (var i = 0; i < parts.length - 1; i++) { if (!o[parts[i]] || typeof o[parts[i]] !== 'object') o[parts[i]] = {}; o = o[parts[i]]; }
+    o[parts[parts.length - 1]] = value;
+  }
   function load(code) {
     if (fetched[code]) return Promise.resolve(dicts[code]);
-    return fetch('locales/' + code + '.json', { cache: 'no-cache' })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) { dicts[code] = d; fetched[code] = true; return d; });
+    var file = fetch('locales/' + code + '.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+    var extra = fetch('api/i18n/' + code, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
+    return Promise.all([file, extra]).then(function (res) {
+      var d = res[0]; orig[code] = JSON.parse(JSON.stringify(d));
+      Object.keys(res[1] || {}).forEach(function (k) { if (typeof res[1][k] === 'string') put(d, k, res[1][k]); });
+      dicts[code] = d; fetched[code] = true; return d;
+    });
+  }
+  /** Voor de vertaal-editor: het originele bestand van een taal (zonder aanpassingen) */
+  function raw(code) { return load(code).then(function () { return orig[code]; }); }
+  /** Na opslaan in de editor: meteen zichtbaar in de app (value null = terug naar het bestand) */
+  function override(code, key, value) {
+    if (!dicts[code]) return;
+    var base = lookup(orig[code], key);
+    put(dicts[code], key, value == null || value === '' ? (base == null ? undefined : base) : value);
+    if (code === current) applyDom();
   }
   function saved() { try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; } }
   function remember(code) { try { localStorage.setItem(STORE_KEY, code); } catch (e) {} }
@@ -113,6 +134,6 @@ var i18n = (function () {
   };
   function render() { document.documentElement.lang = current; applyDom(); listeners.forEach(function (fn) { fn(current); }); }
   function langName() { var c = current; return LANGUAGES.filter(function (l) { return l.code === c; })[0].name; }
-  return { t: t, set: set, render: render, langName: langName, detect: detect, fmt: fmt, setZone: function (z) { zone = z || null; }, lang: function () { return current; }, onChange: function (fn) { listeners.push(fn); } };
+  return { t: t, set: set, render: render, langName: langName, detect: detect, fmt: fmt, raw: raw, override: override, setZone: function (z) { zone = z || null; }, lang: function () { return current; }, onChange: function (fn) { listeners.push(fn); } };
 })();
 var t = i18n.t;

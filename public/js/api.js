@@ -303,6 +303,14 @@ var api = (function () {
       activity: either(function () { return request('GET', 'api/account/activity'); }, function () { return Promise.resolve({ activity: [], demo: true }); }),
       changeEmail: either(function (d) { return request('POST', 'api/account/email', d); }, function () { var e = new Error('demo'); e.code = 'demo'; return Promise.reject(e); })
     },
+    // Vertalingen beheren + DeepL (alleen het team, alleen met server)
+    translations: {
+      all:       function ()        { return request('GET', 'api/admin/translations'); },
+      save:      function (lang, d) { return request('PUT', 'api/admin/translations/' + encodeURIComponent(lang), d); },
+      translate: function (d)       { return request('POST', 'api/admin/translations/translate', d); },
+      setKey:    function (d)       { return request('PUT', 'api/admin/deepl', d); },
+      removeKey: function ()        { return request('DELETE', 'api/admin/deepl'); }
+    },
     // Klanten (alleen voor het team, alleen met server)
     customers: {
       list:     function ()       { return request('GET', 'api/admin/customers'); },

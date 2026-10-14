@@ -360,5 +360,7 @@ var MyCodes = (function () {
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });
   /** Nieuwe code gemaakt vanuit een map: die map (één keer) */
   function folderForNew() { var f = newIn; newIn = null; return f; }
-  return { reload: load, displayName: displayName, folderForNew: folderForNew };
+  /** Vanaf het Overzicht: meteen een map (of 'fav') openen */
+  function showFolder(key) { filter.folder = key; if (loaded) draw(); }
+  return { reload: load, displayName: displayName, folderForNew: folderForNew, showFolder: showFolder };
 })();

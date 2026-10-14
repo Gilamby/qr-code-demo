@@ -40,7 +40,7 @@
   var menuBtn = document.getElementById('menuBtn'), closeMobile = document.getElementById('closeMobile');
   var scrim = document.getElementById('scrim'), mq = window.matchMedia('(max-width: 900px)');
   var KEY = 'optimasys-sidebar-collapsed';
-  var PAGES = { create: 'nav.create', analytics: 'nav.analytics', myCodes: 'nav.myCodes', account: 'nav.account', customers: 'nav.users', adminDash: 'nav.adminDash', adminCodes: 'nav.adminCodes', contact: 'nav.contact', faq: 'nav.faq', logout: 'nav.loggedOut' };
+  var PAGES = { home: 'nav.overview', legal: 'nav.legal', adminSettings: 'nav.adminSettings', create: 'nav.create', analytics: 'nav.analytics', myCodes: 'nav.myCodes', account: 'nav.account', customers: 'nav.users', adminDash: 'nav.adminDash', adminCodes: 'nav.adminCodes', contact: 'nav.contact', faq: 'nav.faq', logout: 'nav.loggedOut' };
   var page = 'create';
   function load() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
   function save(v) { try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
@@ -55,14 +55,10 @@
     document.getElementById('pageTitle').textContent = title;
     document.getElementById('createView').hidden = page !== 'create';
     document.body.classList.toggle('not-create', page !== 'create');
-    document.getElementById('accountView').hidden = page !== 'account';
-    document.getElementById('myCodesView').hidden = page !== 'myCodes';
-    document.getElementById('analyticsView').hidden = page !== 'analytics';
-    document.getElementById('contactView').hidden = page !== 'contact';
-    document.getElementById('faqView').hidden = page !== 'faq';
-    ['adminDash', 'adminCodes', 'customers'].forEach(function (p) { document.getElementById(p + 'View').hidden = page !== p; });
-
-    document.getElementById('emptyView').hidden = ['create', 'account', 'myCodes', 'analytics', 'contact', 'faq', 'adminDash', 'adminCodes', 'customers'].indexOf(page) >= 0;
+    // Elke pagina heeft een eigen <main id="…View">; de rest is verborgen
+    var VIEWS = ['home', 'account', 'myCodes', 'analytics', 'contact', 'faq', 'legal', 'adminDash', 'adminCodes', 'customers', 'adminSettings'];
+    VIEWS.forEach(function (p) { var v = document.getElementById(p + 'View'); if (v) v.hidden = page !== p; });
+    document.getElementById('emptyView').hidden = page === 'create' || VIEWS.indexOf(page) >= 0;
     document.dispatchEvent(new CustomEvent('pagechange', { detail: page }));
     if (window.fitWorkspace) requestAnimationFrame(window.fitWorkspace);
   }

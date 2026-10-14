@@ -11,7 +11,7 @@
    ========================================================= */
 var Session = (function () {
   var view = document.getElementById('authView'), card = view.querySelector('.auth-card');
-  var user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
+  var landing = null, user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var LOGO = '<img class="logo-mark" src="icons/favicon.svg" alt="">';
   // Twee omgevingen met hetzelfde inlogscherm: de app (/) en het beheer (/admin, alleen voor admins).
@@ -139,12 +139,14 @@ var Session = (function () {
       .then(function (r) { note = { ok: true, email: r.email }; prefill = r.email; }, function (x) { note = { ok: false, code: x && x.code }; })) : Promise.resolve();
     return first.then(function () { return api.auth.me(); }).then(function (u) {
       if (ADMIN && !u.admin) { flash = ['adminApp.notAdmin', 'bad']; return show('login'); }
-      user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); });
+      user = u; i18n.setZone(u && u.timezone); landing = note ? 'account' : null; ready(); listeners.forEach(function (f) { f(u); });
       if (note) document.dispatchEvent(new CustomEvent('account:email-note', { detail: note }));
     }).catch(function () {
       if (note) flash = note.ok ? ['acct.emailChangedLogin', 'ok'] : [note.code === 'exists' ? 'acct.emailErrExists' : 'acct.emailErrToken', 'bad'];
       show('login');
     });
   });
-  return { user: function () { return user; }, onUser: function (f) { listeners.push(f); if (user) f(user); }, show: show };
+  /** Waar je na het inloggen begint: normaal de standaard (Overzicht of Dashboard), na een link uit de mail Mijn account */
+  function landOn(def) { return landing || def; }
+  return { landOn: landOn, user: function () { return user; }, onUser: function (f) { listeners.push(f); if (user) f(user); }, show: show };
 })();
