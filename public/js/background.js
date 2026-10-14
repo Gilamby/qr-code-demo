@@ -35,18 +35,15 @@ var BACKGROUNDS = [
   { id: 'aurora',     label: 'bg.aurora',     css: 'radial-gradient(60% 55% at 20% 20%, rgba(0,220,170,.55), transparent 70%), radial-gradient(60% 60% at 82% 28%, rgba(130,80,255,.55), transparent 70%), radial-gradient(55% 55% at 50% 100%, rgba(43,181,240,.45), transparent 70%), #060a12',
     light: 'radial-gradient(60% 55% at 20% 20%, rgba(0,220,170,.22), transparent 70%), radial-gradient(60% 60% at 82% 28%, rgba(130,80,255,.2), transparent 70%), radial-gradient(55% 55% at 50% 100%, rgba(43,181,240,.2), transparent 70%), #f5f7fb' },
   // Bewegend: eigen 3D-animaties (three.js, wallpaper-anim.js). css = stilstaand beeld tijdens het laden of zonder WebGL
-  { id: 'tide',    label: 'bg.tide',    anim: 'tide',    css: 'radial-gradient(80% 50% at 50% 75%, rgba(43,181,240,.22), transparent 70%), #070a12' },
-  { id: 'galaxy',  label: 'bg.galaxy',  anim: 'galaxy',  css: 'radial-gradient(40% 40% at 50% 50%, rgba(207,233,255,.18), transparent 70%), #070a12' },
-  { id: 'ribbons', label: 'bg.ribbons', anim: 'ribbons', css: 'radial-gradient(90% 30% at 50% 45%, rgba(43,181,240,.2), transparent 70%), #070a12' },
-  { id: 'sphere',  label: 'bg.sphere',  anim: 'sphere',  css: 'radial-gradient(40% 50% at 65% 50%, rgba(21,118,201,.25), transparent 70%), #070a12' },
-  { id: 'fluid',   label: 'bg.fluid',   anim: 'fluid',   css: 'radial-gradient(60% 60% at 30% 40%, rgba(21,118,201,.3), transparent 70%), radial-gradient(50% 50% at 75% 70%, rgba(124,140,255,.2), transparent 70%), #070a12' }
+  { id: 'tide',    label: 'bg.tide',    anim: 'tide',    css: 'radial-gradient(80% 50% at 50% 75%, rgba(43,181,240,.22), transparent 70%), #070a12' }
 ];
 var background = (function () {
   var KEY = 'optimasys-background', KEY_CUSTOM = 'optimasys-background-custom', root = document.documentElement, listeners = [];
   var current = 'optimasys', custom = null;
   try { current = localStorage.getItem(KEY) || current; custom = localStorage.getItem(KEY_CUSTOM); } catch (e) {}
   // Oude achtergronden (foto's) zijn vervangen door animaties
-  var LEGACY = { city: 'galaxy', mountains: 'fluid', office: 'sphere', cafe: 'tide', restaurant: 'ribbons', orbit: 'galaxy', network: 'sphere', flow: 'ribbons', waves: 'tide', mist: 'fluid' };
+  // Rustig voor klanten: alleen Golfveld bleef over (feedback 14 okt); oude keuzes gaan daarheen
+  var LEGACY = { city: 'tide', mountains: 'tide', office: 'tide', cafe: 'tide', restaurant: 'tide', orbit: 'tide', network: 'tide', flow: 'tide', waves: 'tide', mist: 'tide', galaxy: 'tide', ribbons: 'tide', sphere: 'tide', fluid: 'tide' };
   var hidden = [];                                               // verborgen standaard-achtergronden (Mijn account)
   var media = [], video = null;
   function mediaOf(id) { return /^media:/.test(id) ? media.filter(function (m) { return 'media:' + m.id === id; })[0] : null; }
