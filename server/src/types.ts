@@ -55,6 +55,8 @@ export interface QrCode {
   moderation?: { hold?: { reason: string; by: string; byName?: string; at: string; lock?: boolean }; flag?: { reason: string; by: string; byName?: string; at: string } } | null;
   /** Alleen bij listWithStats: { dag: { "os|land|stad": [scans, uniek] } } */
   stats?: Record<string, Record<string, [number, number]>>;
+  /** Alleen bij listWithStats: { dag: { uur (0-23, UTC): scans } } — bijgehouden vanaf 14 okt 2026 */
+  hours?: Record<string, Record<string, number>>;
 }
 
 /** Factuurgegevens (Mijn account > Facturatie) */

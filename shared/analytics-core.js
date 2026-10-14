@@ -46,9 +46,36 @@ function overview(codes, query) {
     }
   }
   const sorted = (o) => Object.entries(o).map(([k, s]) => ({ k, s })).sort((a, b) => b.s - a.s || a.k.localeCompare(b.k));
+  const keyOk = (key) => { const [o, cc, city] = key.split('|'); return (!want.os.length || want.os.includes(o)) && (!want.cc.length || want.cc.includes(cc)) && (!want.city.length || want.city.includes(cc + '|' + city)); };
+  // Vorige periode van dezelfde lengte (direct ervoor), met dezelfde filters: om groei of daling te tonen
+  const prevTo = new Date(Date.parse(from + 'T00:00:00Z') - 864e5).toISOString().slice(0, 10);
+  const prevFrom = new Date(Date.parse(from + 'T00:00:00Z') - range.length * 864e5).toISOString().slice(0, 10);
+  let prevScans = 0, prevUnique = 0;
+  for (const q of pick) { const st = statsOf(q); for (const d of days(prevFrom, prevTo)) for (const [key, v] of Object.entries(st[d] || {})) if (keyOk(key)) { prevScans += v[0]; prevUnique += v[1]; } }
+  // Per weekdag (0 = maandag) en per uur van de dag (in de tijdzone van de gebruiker)
+  const weekdays = [0, 0, 0, 0, 0, 0, 0];
+  range.forEach((d) => { weekdays[(new Date(d + 'T12:00:00Z').getUTCDay() + 6) % 7] += series[d].s; });
+  const filtered = want.os.length || want.cc.length || want.city.length;
+  let hours = null, hoursSince = null;
+  if (!filtered) {                                               // uren zijn niet per systeem/land opgeslagen: alleen zonder die filters
+    let fmt = null; try { fmt = query.tz ? new Intl.DateTimeFormat('en-GB', { timeZone: String(query.tz), hour: '2-digit', weekday: 'short', hourCycle: 'h23' }) : null; } catch (e) { fmt = null; }
+    hours = new Array(24).fill(0);
+    for (const q of pick) for (const [d, hs] of Object.entries(q.hours || {})) {
+      if (d < from || d > to) continue;
+      if (!hoursSince || d < hoursSince) hoursSince = d;
+      for (const [h, n] of Object.entries(hs)) {
+        let local = Number(h);
+        if (fmt) { const parts = fmt.formatToParts(new Date(d + 'T' + String(h).padStart(2, '0') + ':30:00Z')); local = Number((parts.find((x) => x.type === 'hour') || { value: h }).value) % 24; }
+        hours[local] += n;
+      }
+    }
+  }
+  const best = range.reduce((b, d) => (series[d].s > (b ? series[b].s : 0) ? d : b), null);
   return {
     from, to,
     totals: { codes: pick.length, scans, unique },
+    insights: { days: range.length, prevFrom, prevTo, prevScans, prevUnique, bestDay: best ? { d: best, s: series[best].s } : null,
+      activeCodes: Object.keys(perCode).length, weekdays, hours, hoursSince, filtered: !!filtered },
     series: range.map((d) => ({ d, s: series[d].s, u: series[d].u })),
     os: sorted(by.os), countries: sorted(by.cc), cities: sorted(by.city), codes: sorted(perCode),
     options: { os: Object.keys(opt.os).sort(), countries: Object.keys(opt.cc).sort(), cities: Object.keys(opt.city).sort() }

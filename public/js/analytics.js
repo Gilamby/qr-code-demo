@@ -47,7 +47,7 @@ var Analytics = (function () {
       default: return { from: '', to: '' };                                 // alles
     }
   }
-  function query() { var r = range(); return { from: r.from, to: r.to, codes: f.codes, os: f.os, cc: f.cc, city: f.city }; }
+  function query() { var r = range(); return { from: r.from, to: r.to, codes: f.codes, os: f.os, cc: f.cc, city: f.city, tz: i18n.fmt.zone() }; }
 
   /* ---------- Namen en labels ---------- */
   function osName(k) { return k === 'other' ? t('an.other') : k; }
@@ -90,6 +90,40 @@ var Analytics = (function () {
         (sub ? '<em class="an-sub">' + esc(sub) + '</em>' : '') + '</span></div>';
     };
     return '<div class="an-tiles">' + tile('codes', tot.codes, t('an.totalCodes')) + tile('scans', tot.scans, t('an.totalScans'), null, t('an.scansSub')) + tile('unique', tot.unique, t('an.totalUnique'), t('an.uniqueTip'), t('an.uniqueSub')) + '</div>';
+  }
+
+  /* ---------- Inzichten: gemiddelde, groei, beste dag, topcode, actieve codes, drukste moment ---------- */
+  var WD = function (i) { return new Date(Date.UTC(2024, 0, 1 + i, 12)).toLocaleDateString(i18n.lang(), { weekday: 'long', timeZone: 'UTC' }); };   // 1 jan 2024 = maandag
+  function maxIdx(a) { var m = -1; a.forEach(function (v, i) { if (v > 0 && (m < 0 || v > a[m])) m = i; }); return m; }
+  function insights(r) {
+    var I = r.insights; if (!I) return '';
+    var n = function (v, dec) { return i18n.fmt.num(Math.round(v * (dec ? 10 : 1)) / (dec ? 10 : 1)); };
+    var growth = !I.prevScans ? (r.totals.scans ? '<span class="an-up">' + t('an.newPeriod') + '</span>' : '<span class="muted">—</span>')
+      : (function () { var p = Math.round((r.totals.scans - I.prevScans) / I.prevScans * 100); return '<span class="' + (p >= 0 ? 'an-up' : 'an-down') + '">' + (p >= 0 ? '+' : '') + i18n.fmt.num(p) + '%</span>'; })();
+    var top = r.codes[0], wd = maxIdx(I.weekdays), hr = I.hours ? maxIdx(I.hours) : -1;
+    var item = function (label, value, sub) { return '<div class="an-ins"><small>' + label + '</small><b>' + value + '</b>' + (sub ? '<em>' + sub + '</em>' : '') + '</div>'; };
+    var few = r.totals.scans < 20;
+    return '<div class="an-card glass an-insights"><div class="an-chead"><h3>' + t('an.insights') + '</h3></div><div class="an-insgrid">' +
+      item(t('an.avgDay'), n(r.totals.scans / I.days, true), t('an.avgUniq', { n: n(r.totals.unique / I.days, true) })) +
+      item(t('an.vsPrev'), growth, t('an.prevWas', { n: i18n.fmt.num(I.prevScans) })) +
+      item(t('an.bestDay'), I.bestDay ? esc(i18n.fmt.date(d(I.bestDay.d), 'long')) : '—', I.bestDay ? t('an.nScans', { n: i18n.fmt.num(I.bestDay.s) }) : '') +
+      item(t('an.topCode'), top ? esc(codeName(top.k)) : '—', top ? t('an.nScans', { n: i18n.fmt.num(top.s) }) : '') +
+      item(t('an.activeCodes'), i18n.fmt.num(I.activeCodes) + ' / ' + i18n.fmt.num(r.totals.codes), t('an.activeSub')) +
+      item(t('an.busiest'), wd >= 0 ? esc(WD(wd)) + (hr >= 0 ? ', ' + String(hr).padStart(2, '0') + ':00' : '') : '—', hr >= 0 ? t('an.busiestSub') : '') +
+      '</div>' + (few ? '<p class="an-few">' + t('an.fewData') + '</p>' : '') + '</div>';
+  }
+  // Wanneer wordt er gescand: per weekdag en per uur (staafjes, met de getallen ook als tekst voor schermlezers)
+  function when(r) {
+    var I = r.insights; if (!I) return '';
+    var bars = function (vals, lbl, cls) {
+      var m = Math.max.apply(null, vals.concat([1]));
+      return '<ol class="an-cols ' + cls + '">' + vals.map(function (v, i) { return '<li title="' + esc(lbl(i, true) + ': ' + i18n.fmt.num(v)) + '"><i style="height:' + (v ? Math.max(4, v / m * 100) : 0) + '%"></i><span>' + esc(lbl(i)) + '</span><b class="sr-only">' + i18n.fmt.num(v) + '</b></li>'; }).join('') + '</ol>';
+    };
+    var hourBox = I.filtered ? '<p class="an-none">' + t('an.hoursFiltered') + '</p>'
+      : !I.hoursSince ? '<p class="an-none">' + t('an.hoursNone') + '</p>'
+      : bars(I.hours, function (i, long) { return long ? String(i).padStart(2, '0') + ':00–' + String(i).padStart(2, '0') + ':59' : (i % 3 ? '' : String(i)); }, 'h24') + (I.hoursSince > r.from ? '<p class="an-note">' + t('an.hoursSince', { date: esc(i18n.fmt.date(d(I.hoursSince), 'long')) }) + '</p>' : '');
+    return '<div class="an-grid2"><div class="an-card glass"><div class="an-chead"><h3>' + t('an.byWeekday') + '</h3></div>' + bars(I.weekdays, function (i, long) { var w = WD(i); return long ? w : w.slice(0, 2); }, 'w7') + '</div>' +
+      '<div class="an-card glass"><div class="an-chead"><h3>' + t('an.byHour') + '</h3><small class="muted">' + esc(i18n.fmt.zone()) + '</small></div>' + hourBox + '</div></div>';
   }
 
   /* ---------- Lijngrafiek ---------- */
@@ -148,19 +182,20 @@ var Analytics = (function () {
     var r = data, rg = { from: r.from, to: r.to };
     document.getElementById('anRange').textContent = rg.from === rg.to ? i18n.fmt.date(d(rg.from), 'long') : i18n.fmt.date(d(rg.from), 'long') + ' – ' + i18n.fmt.date(d(rg.to), 'long');
     var demo = document.getElementById('anDemo'); demo.hidden = !r.demo; demo.textContent = t('an.demoNote');
-    document.getElementById('anFoot').innerHTML = esc(t('an.privacy')) + (r.geo ? ' <a href="https://db-ip.com" target="_blank" rel="noopener">' + esc(t('an.geoBy')) + '</a>' : ' ' + esc(t('an.noGeo')));
+    document.getElementById('anFoot').innerHTML = esc(t('an.geoNote')) + (r.geo ? ' <a href="https://db-ip.com" target="_blank" rel="noopener">' + esc(t('an.geoBy')) + '</a>' : ' ' + esc(t('an.noGeo')));
     if (!Object.keys(names).length) {
       body.innerHTML = '<div class="mc-empty glass">' + ico('scans') + '<h3>' + t('an.emptyTitle') + '</h3><p>' + t('an.emptyText') + '</p><button type="button" class="btn primary" data-an-new>' + t('myCodes.first') + '</button></div>';
       return;
     }
     var tot = r.totals.scans;
-    body.innerHTML = tiles(r.totals) +
+    body.innerHTML = tiles(r.totals) + insights(r) +
       '<div class="an-card glass an-chart"><div class="an-chead"><h3>' + t(group === 'day' ? 'an.chartTitle' : group === 'week' ? 'an.chartWeek' : 'an.chartMonth') + '</h3>' +
         '<div class="an-group" role="radiogroup" aria-label="' + esc(t('an.groupBy')) + '">' + ['day', 'week', 'month'].map(function (g) { return '<button type="button" role="radio" aria-checked="' + (group === g) + '" data-group="' + g + '">' + t('an.g_' + g) + '</button>'; }).join('') + '</div>' +
         '<div class="an-legend"><span><i class="sw s1"></i>' + t('an.scans') + '</span><span><i class="sw s2"></i>' + t('an.unique') + '</span></div></div>' +
         (tot ? '' : '<p class="an-none an-zero">' + t('an.noScans') + '</p>') + '<div class="an-plot"></div>' +
         '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t(group === 'day' ? 'an.date' : 'an.g_' + group) + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
         grouped(r.series).slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(pointLabel(p, 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') + '</tbody></table></div></details></div>' +
+      when(r) +
       '<div class="an-grid4">' + breakdown('os', t('an.byOs'), r.os, tot) + breakdown('cc', t('an.byCountry'), r.countries, tot) + breakdown('city', t('an.byCity'), r.cities, tot) + breakdown('codes', t('an.byCode'), r.codes, tot) + '</div>';
     lineChart(grouped(r.series));
   }

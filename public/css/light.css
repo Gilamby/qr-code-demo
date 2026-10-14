@@ -320,6 +320,9 @@
 :root[data-theme="light"] #acdCheck.ok { color: #15803d; }
 :root[data-theme="light"] #acdCheck.bad { color: #b91c1c; }
 :root[data-theme="light"] .mc-hold { color: #92400e; }
+:root[data-theme="light"] .an-ins { background: rgba(13,19,32,0.03); }
+:root[data-theme="light"] .an-up { color: #15803d; }
+:root[data-theme="light"] .an-down { color: #dc2626; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

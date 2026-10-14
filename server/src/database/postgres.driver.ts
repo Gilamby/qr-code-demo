@@ -91,6 +91,14 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   // 14 okt 2026: mappen voor QR-codes
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS folder_id TEXT');
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS favorite INTEGER NOT NULL DEFAULT 0');
+  // 14 okt 2026: scans per uur (UTC) voor Statistieken > wanneer wordt er gescand
+  await pool.query(`CREATE TABLE IF NOT EXISTS scan_hours (
+  code_id TEXT NOT NULL REFERENCES qr_codes(id) ON DELETE CASCADE,
+  day TEXT NOT NULL,
+  hour INTEGER NOT NULL,
+  scans INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (code_id, day, hour)
+);`);
   // 14 okt 2026: beheer (gepauzeerd door het team, gemarkeerd) + logboek van het beheer
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS moderation TEXT');
   await pool.query(`CREATE TABLE IF NOT EXISTS admin_log (

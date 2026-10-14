@@ -60,6 +60,7 @@ export class MongoDatabase extends DatabaseService {
   private readonly emailChanges: Collection<Doc>;
   private readonly folders: Collection<Doc>;
   private readonly adminLog: Collection<Doc>;
+  private readonly hours: Collection<Doc>;
 
   private constructor(private readonly client: MongoClient, readonly db: Db, url: string) {
     super();
@@ -69,6 +70,7 @@ export class MongoDatabase extends DatabaseService {
     this.codes = db.collection('qrCodes'); this.stats = db.collection('scanStats'); this.files = db.collection('files'); this.settings = db.collection('settings');
     this.activity = db.collection('activity'); this.emailChanges = db.collection('emailChanges'); this.folders = db.collection('folders');
     this.adminLog = db.collection('adminLog');
+    this.hours = db.collection('scanHours');
   }
 
   /** Verbinden en de indexen aanmaken (mag vaker: bestaat de index al, dan gebeurt er niets) */
@@ -83,6 +85,8 @@ export class MongoDatabase extends DatabaseService {
       m.emailChanges.createIndex({ userId: 1 }),
       m.folders.createIndex({ userId: 1 }),
       m.adminLog.createIndex({ at: -1 }),
+      m.hours.createIndex({ codeId: 1, day: 1, hour: 1 }, { unique: true, name: 'code_day_hour' }),
+      m.hours.createIndex({ userId: 1 }),
       m.adminLog.createIndex({ codeId: 1, at: -1 }),
       m.resets.createIndex({ userId: 1 }),
       m.verifications.createIndex({ userId: 1 }),
@@ -127,6 +131,7 @@ export class MongoDatabase extends DatabaseService {
     removeFiles(parseMedia(((await this.users.findOne({ _id: id }, { projection: { media: 1 } })) || ({} as any)).media).map((m: any) => m.id));   // eigen achtergronden
     // eerst alles wat bij het account hoort, als laatste het account zelf (lukt iets niet, dan kan het opnieuw)
     await this.stats.deleteMany({ userId: id });
+    await this.hours.deleteMany({ userId: id });
     await this.files.deleteMany({ userId: id });
     await this.markGone((await this.codes.find({ userId: id }, { projection: { _id: 1 } }).toArray()).map((d) => d._id));
     await this.codes.deleteMany({ userId: id });
@@ -297,6 +302,8 @@ export class MongoDatabase extends DatabaseService {
       const c = byId[r.codeId]; if (!c) continue;
       (c.stats[r.day] = c.stats[r.day] || {})[r.key] = [Number(r.scans), Number(r.uniq)];
     }
+    codes.forEach((c) => { c.hours = {}; });
+    for (const r of await this.hours.find({ userId }).toArray()) { const c = byId[r.codeId]; if (c) (c.hours[r.day] = c.hours[r.day] || {})[String(r.hour)] = Number(r.scans); }
     return codes;
   }
   async getQrCode(id: string): Promise<QrCode> { return codeOut(await this.codes.findOne({ _id: id })); }
@@ -350,6 +357,7 @@ export class MongoDatabase extends DatabaseService {
     const q = await this.codes.findOne({ _id: id }, { projection: { userId: 1 } }); if (!q || q.userId !== userId) return false;
     const files = (await this.files.find({ codeId: id }, { projection: { _id: 1 } }).toArray()).map((d) => d._id);
     await this.stats.deleteMany({ codeId: id });
+    await this.hours.deleteMany({ codeId: id });
     await this.files.deleteMany({ codeId: id });
     await this.codes.deleteOne({ _id: id });
     removeFiles(files);
@@ -366,6 +374,9 @@ export class MongoDatabase extends DatabaseService {
       // twee scans tegelijk op een nieuwe dag: de ander maakte de regel net aan, dus nu gewoon optellen
       if (e instanceof MongoServerError && e.code === DUPLICATE) await this.stats.updateOne(filter, inc); else throw e;
     }
+    const hf = { codeId: id, day, hour: Number(t.slice(11, 13)) };     // scans per uur (UTC)
+    try { await this.hours.updateOne(hf, { $inc: { scans: 1 }, $setOnInsert: { userId: code.userId } }, { upsert: true }); }
+    catch (e) { if (e instanceof MongoServerError && e.code === DUPLICATE) await this.hours.updateOne(hf, { $inc: { scans: 1 } }); else throw e; }
     return codeOut(code);
   }
   async importStats(codeId: string, stats: Record<string, Record<string, [number, number]>>, scans: number, lastScanAt: string | null) {

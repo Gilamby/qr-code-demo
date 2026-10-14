@@ -252,6 +252,9 @@ export class SqlDatabase extends DatabaseService {
     codes.forEach((c) => { c.stats = {}; byId[c.id] = c; });
     (await this.d.all('SELECT s.code_id, s.day, s.key, s.scans, s.uniq FROM scan_stats s JOIN qr_codes q ON q.id = s.code_id WHERE q.user_id = ?', [userId]))
       .forEach((r) => { const c = byId[r.code_id]; if (!c) return; (c.stats[r.day] = c.stats[r.day] || {})[r.key] = [Number(r.scans), Number(r.uniq)]; });
+    codes.forEach((c) => { c.hours = {}; });
+    (await this.d.all('SELECT h.code_id, h.day, h.hour, h.scans FROM scan_hours h JOIN qr_codes q ON q.id = h.code_id WHERE q.user_id = ?', [userId]))
+      .forEach((r) => { const c = byId[r.code_id]; if (!c) return; (c.hours[r.day] = c.hours[r.day] || {})[String(r.hour)] = Number(r.scans); });
     return codes;
   }
   async getQrCode(id: string): Promise<QrCode> { return codeOut(await this.d.get(SQL.code, [id])); }
@@ -291,6 +294,7 @@ export class SqlDatabase extends DatabaseService {
       ['UPDATE qr_codes SET scans = scans + 1, last_scan_at = ? WHERE id = ?', [t, id]],
       ['INSERT INTO scan_stats (code_id, day, key, scans, uniq) VALUES (?, ?, ?, 1, ?) ON CONFLICT (code_id, day, key) DO UPDATE SET scans = scan_stats.scans + 1, uniq = scan_stats.uniq + excluded.uniq',
         [id, day, key, !info || info.unique ? 1 : 0]],
+      ['INSERT INTO scan_hours (code_id, day, hour, scans) VALUES (?, ?, ?, 1) ON CONFLICT (code_id, day, hour) DO UPDATE SET scans = scan_hours.scans + 1', [id, day, Number(t.slice(11, 13))]],
     ]);
     return this.getQrCode(id);
   }
