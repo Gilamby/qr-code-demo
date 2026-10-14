@@ -136,3 +136,13 @@ The developer logs in over SSH as `optimasys-qr` and can:
   - There is no longer a made-up fallback domain.
 - **Fix for testing:** open the *Ports* tab, right-click 3000, then choose *Port Visibility* > *Public*.
 - **Fix for real codes:** set `PUBLIC_URL` to the production domain on the server, so every QR code points there. Codes printed with a Codespaces address stop working when the Codespace stops.
+
+## Keep the app running (without root)
+
+`scripts/start-server.sh` (re)starts the app in the background and waits until it answers. With `check` it only starts the app when it isn't answering. Add both to the user's crontab once, so the app comes back after a server reboot or a crash:
+
+```
+(crontab -l 2>/dev/null; echo "@reboot PATH=$(dirname "$(which node)"):/usr/bin:/bin bash $HOME/qr-app/scripts/start-server.sh"; echo "*/5 * * * * PATH=$(dirname "$(which node)"):/usr/bin:/bin bash $HOME/qr-app/scripts/start-server.sh check") | crontab -
+```
+
+After an update: `cd ~/qr-app && git pull && npm ci && npm run build && bash scripts/start-server.sh`. A systemd service is still the better option when someone with root access can set it up.
