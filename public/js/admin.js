@@ -181,6 +181,15 @@ var Admin = (function () {
     if (e.target.closest('[data-sys-refresh]')) { sys = null; drawSystem(); api.admin.system().then(function (r) { sys = r; drawSystem(); }).catch(function () { sys = { error: true }; drawSystem(); }); }
   });
 
+  /* Beheer in het menu in- en uitklappen (onthouden in deze browser) */
+  (function () {
+    var btn = document.getElementById('admToggle'), items = document.getElementById('admItems'); if (!btn || !items) return;
+    var closed = false; try { closed = localStorage.getItem('nav.adminClosed') === '1'; } catch (e) {}
+    function apply() { btn.setAttribute('aria-expanded', String(!closed)); items.hidden = closed; }
+    btn.addEventListener('click', function () { closed = !closed; try { localStorage.setItem('nav.adminClosed', closed ? '1' : '0'); } catch (e) {} apply(); });
+    apply();
+  })();
+
   /* Knoppen die naar een andere beheerpagina gaan (dashboard) */
   document.addEventListener('click', function (e) {
     var g = e.target.closest('[data-go-page]'); if (!g) return;

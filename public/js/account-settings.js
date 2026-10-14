@@ -122,6 +122,7 @@
   // Je foto ook in het menu (in plaats van het poppetje bij Mijn account)
   function navAvatar() {
     var a = document.querySelector('.sidebar .item[data-page="account"], nav .item[data-page="account"]'); if (!a) return;
+    var nm = document.getElementById('navMeName'); if (nm) nm.textContent = (user && (user.name || user.email)) || '';
     var old = a.querySelector('.nav-av'), ic = a.querySelector('svg');
     if (user && user.avatar) {
       if (!old) { old = document.createElement('img'); old.className = 'nav-av'; old.alt = ''; a.insertBefore(old, a.firstChild); }
@@ -395,11 +396,7 @@
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
     if (tab === 'profile') return profilePanel(m, note);
     if (tab === 'security') return securityPanel(m, note);
-    if (tab === 'prefs') return '<div class="glass bg-card acct"><h2>' + t('theme.title') + '</h2><p>' + t('theme.lead') + '</p>' +
-      '<div class="th-opts" role="radiogroup" aria-label="' + esc(t('theme.title')) + '">' + ['dark', 'light', 'system'].map(function (k) {
-        return '<button type="button" role="radio" class="th-opt th-' + k + '" data-theme-pick="' + k + '" aria-checked="' + (theme.get() === k) + '"><span class="th-mini"><i></i><b></b><b></b><s></s></span><span class="th-name">' + t('theme.' + k) + '</span>' +
-          (k === 'system' ? '<small>' + t('theme.systemHint') + '</small>' : '') + '</button>';
-      }).join('') + '</div></div>' +
+    if (tab === 'prefs') return '' +   // (licht/donker-keuze is weg: de app is altijd donker, je kiest zelf een achtergrond)
       '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
       field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>', { icon: 'globe', cls: 'acct-lang' }) + '</div>';
     if (tab === 'notify') return notifyPanel(m);

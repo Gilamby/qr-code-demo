@@ -3319,3 +3319,49 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .an-summary p { margin: 0; font-size: 16px; line-height: 1.6; }
 .an-summary p b { font-weight: 800; }
 .an-summary .an-few { font-size: 13px; margin-top: 8px; }
+
+/* ---------- Mijn account (feedback 14 okt): naam + menu LINKS en altijd zichtbaar (meescrollend), foto zonder rand ---------- */
+.acct-layout { grid-template-columns: 290px minmax(0, 1fr); }
+.acct-layout > .acct-side { order: 0; position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; scrollbar-width: thin; gap: 12px; }
+.acct-layout > .acct-main { order: 1; }
+.acct-idc { flex-direction: row; flex-wrap: wrap; align-items: center; text-align: left; gap: 4px 14px; padding: 18px; }
+.acct-idc::before { height: 80px; }
+.acct-idc .acct-av { width: 64px; height: 64px; margin: 0; padding: 0; font-size: 22px; background: none; box-shadow: none; }
+.acct-idc .acct-av > span:first-child { border: 0; }
+.acct-idc .acct-av-cam { width: 24px; height: 24px; right: -4px; bottom: -4px; border-width: 2px; }
+.acct-idc .acct-av-cam svg { width: 12px; height: 12px; }
+.idc-who { display: grid; gap: 2px; min-width: 0; flex: 1; }
+.idc-name { font-size: 17px; }
+.idc-mail { font-size: 13px; }
+.acct-idc .acct-badges { width: 100%; justify-content: flex-start; margin: 6px 0 0; }
+.idc-stats { margin-top: 8px; }
+.idc-stats .acct-stat { padding: 7px 4px; }
+.idc-stats .acct-stat b { font-size: 16px; }
+.idc-photo { margin-top: 8px; padding-top: 10px; }
+.idc-photo > small, .idc-since { display: none; }
+.idc-btns .btn { height: 34px; font-size: 13px; }
+.idc-rm { width: 34px; }
+.acct-side .acct-menu { padding: 8px; }
+.acct-side .acct-menu button { min-height: 40px; padding: 8px 12px; font-size: 14.5px; }
+@media (max-width: 1100px) { .acct-layout { grid-template-columns: 260px minmax(0, 1fr); } }
+@media (max-width: 860px) { .acct-layout { grid-template-columns: minmax(0, 1fr); } .acct-layout > .acct-side { position: static; max-height: none; } }
+
+/* ---------- Menu (feedback 14 okt): profiel onderaan, Beheer in- en uitklapbaar ---------- */
+.me-item { margin-top: auto; height: 52px; }
+.me-item + .logout { margin-top: 0; }
+.me-label { display: grid; line-height: 1.2; min-width: 0; }
+.me-label b { font-size: 14px; color: var(--fg); overflow: hidden; text-overflow: ellipsis; }
+.me-label small { font-size: 11.5px; font-weight: 600; color: var(--muted); }
+.me-item .nav-av { width: 30px; height: 30px; box-shadow: none; }
+.me-item > svg { width: 22px; height: 22px; }
+button.adm-label { width: 100%; border: 0; background: none; font: inherit; font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; text-align: left; border-radius: 10px; }
+button.adm-label:hover { background: rgba(43,181,240,.08); }
+button.adm-label:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.adm-chev { width: 14px !important; height: 14px !important; margin-left: 6px; transition: transform .2s; }
+button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
+.adm-items[hidden] { display: none; }
+.collapsed .adm-items[hidden] { display: block; }
+/* blijft onder de bovenbalk staan; tellers staan al op het Overzicht */
+.acct-layout > .acct-side { top: 96px; max-height: calc(100vh - 112px); }
+.acct-idc .idc-stats { display: none; }
+@media (max-width: 860px) { .acct-idc .idc-stats { display: grid; } }
