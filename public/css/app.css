@@ -3431,10 +3431,50 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 .cust-badge.bad::before, .cust-badge.off::before { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.18); }
 /* Gebruikers: e-mail op één regel, acties als compacte icoonknoppen */
 .ad-users .cust-who small, .ad-users .cust-who b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ad-users .cust-acts { flex-wrap: nowrap; justify-content: flex-end; gap: 6px; }
+.ad-users .cust-acts { gap: 6px; }
+@media (min-width: 1101px) { .ad-users .cust-acts { flex-wrap: nowrap; justify-content: flex-end; } }
 .ad-users .cust-acts .btn[data-toggle], .ad-users .cust-acts .btn[data-codes] { font-size: 0; gap: 0; width: 40px; height: 40px; padding: 0; justify-content: center; }
 .ad-users .cust-acts .btn svg { font-size: 14px; }
 @media (min-width: 1101px) { .ad-users .cust-tr { grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, .9fr) minmax(0, .55fr) minmax(0, .55fr) minmax(0, 1.1fr) 140px; } }
 /* Statistieken: filters in een nette raster (4 per rij op een groot scherm, 2 op telefoon) */
 @media (min-width: 761px) { .an-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); } .an-f { min-width: 0; } }
 @media (min-width: 1300px) { .an-filters { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+
+/* =========================================================
+   TELEFOON (≤ 760 px): QR-code maken als een app
+   - boven: het voorbeeld (telefoon, verkleind) — tik erop = groot
+   - onder: de bediening, als een toetsenbord; alleen dat deel scrolt
+   - Terug / Doorgaan staan altijd onderin, binnen bereik van je duim
+   ========================================================= */
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView:not([hidden]) { display: flex; flex-direction: column; position: fixed; top: var(--tbh, 60px); left: 0; right: 0; bottom: 0; z-index: 4; padding: 0 !important; overflow: hidden; }
+  body:not(.pv-open) #createView .fit-outer, body:not(.pv-open) #createView .fit-inner { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  body:not(.pv-open) #createView .workspace { flex: 1 1 auto; min-height: 0; display: flex !important; flex-direction: column; }
+  body:not(.pv-open) #createView .preview { display: flex !important; flex: 0 0 var(--pvh, 36dvh); height: var(--pvh, 36dvh); align-items: flex-start; justify-content: center; overflow: hidden; padding-top: 10px; cursor: zoom-in; }
+  body:not(.pv-open) #createView .preview .phone { transform: scale(var(--pvm, .44)) !important; transform-origin: top center; flex: none; pointer-events: none; }
+  body:not(.pv-open) #createView .preview .pv-toggle { display: none; }
+  body:not(.pv-open) #createView .panel-card { flex: 1 1 auto; min-height: 0; overflow-y: auto !important; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    border-radius: 24px 24px 0 0 !important; margin: 0 !important; padding: 16px 14px 0 !important; background: rgba(14,17,23,.94) !important; border-bottom: 0 !important;
+    box-shadow: 0 -12px 30px -12px rgba(0,0,0,.6); scroll-padding-bottom: 96px; }
+  body:not(.pv-open) #createView .panel-card h2 { font-size: 19px !important; margin: 0 0 12px !important; }
+  body:not(.pv-open) #createView .panel-card .actions { position: sticky !important; bottom: 0 !important; z-index: 30; margin: 14px -14px 0 !important; padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+    background: rgba(14,17,23,.98) !important; border-top: 1px solid rgba(255,255,255,.1) !important; flex-wrap: nowrap; }
+  body:not(.pv-open) #createView .panel-card .actions .btn { height: 48px; flex: 1 1 0; justify-content: center; }
+  body:not(.pv-open) #createView .panel-card .actions .spacer { display: none; }
+  body:not(.pv-open) #createView .panel-card .actions.is-done { flex-wrap: wrap; }
+  /* Soorten QR-code: compacte toetsen, 4 naast elkaar */
+  body:not(.pv-open) #createView .grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 8px !important; }
+  body:not(.pv-open) #createView .qr-card { aspect-ratio: auto !important; min-height: 76px; padding: 10px 4px !important; gap: 6px !important; border-radius: 14px !important; }
+  body:not(.pv-open) #createView .qr-card .title { font-size: 11.5px !important; line-height: 1.15; }
+  body:not(.pv-open) #createView .qr-card svg { width: 24px; height: 24px; }
+  body:not(.pv-open) #createView .qr-card:active { transform: scale(.94); }
+  body:not(.pv-open) .pv-fab { display: none !important; }
+}
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) { body:not(.pv-open) #createView .qr-card:active { transform: none; } }
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .panel, body:not(.pv-open) #createView .panel-scroll { height: auto !important; max-height: none !important; flex: none !important; min-height: 0 !important; }
+}
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .panel-card .actions .btn.ghost { background: #181d25 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  body:not(.pv-open) #createView .panel-card .actions { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; isolation: isolate; }
+}

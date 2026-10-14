@@ -115,6 +115,18 @@
   function size() { var s = Math.min(1, (window.innerHeight - 110) / 740, (window.innerWidth - 24) / 350); document.body.style.setProperty('--pvs', s.toFixed(3)); }
   function open(on) { document.body.classList.toggle('pv-open', on); if (on) { size(); close.focus(); } else fab.focus({ preventScroll: true }); }
   fab.addEventListener('click', function () { open(true); });
+  /* Telefoon: het voorbeeld staat bovenaan, verkleind. Schaal zo dat de hele telefoon in dat vak past; tik = groot */
+  var pv = document.querySelector('#createView .preview');
+  function fitSmall() {
+    if (window.innerWidth > 760) return;
+    var tb = document.querySelector('.topbar'); if (tb && tb.offsetHeight) document.body.style.setProperty('--tbh', Math.round(tb.getBoundingClientRect().bottom > 0 ? tb.offsetHeight : 60) + 'px');
+    var h = Math.round(Math.max(170, Math.min(window.innerHeight * 0.36, 330)));
+    document.body.style.setProperty('--pvh', h + 'px');
+    document.body.style.setProperty('--pvm', ((h - 14) / 726).toFixed(3));
+  }
+  fitSmall(); addEventListener('resize', fitSmall); document.addEventListener('pagechange', function () { setTimeout(fitSmall, 0); });
+  pv.addEventListener('click', function (e) { if (window.innerWidth <= 760 && !document.body.classList.contains('pv-open') && !e.target.closest('.pv-close')) open(true); });
+  pv.setAttribute('title', '');
   /* knop schuift omhoog zodra de Terug/Doorgaan-balk onderin zichtbaar is, zodat hij die nooit bedekt */
   var tick = 0;
   function lift() {
