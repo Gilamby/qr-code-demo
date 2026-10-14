@@ -11,6 +11,7 @@ import { hashPassword } from '../visitor/rules';
 import { validateQrCode } from './validation';
 import { QrCodesService, cleanName, freshCodeId, missingRequired, secretKey } from './qr-codes.service';
 import type { User } from '../types';
+import { planFor } from '../plans';
 
 @Controller('api/qr-codes')
 @UseGuards(LoggedIn)
@@ -32,6 +33,7 @@ export class QrCodesController {
   @Post()
   @HttpCode(201)
   async create(@Req() req: Request, @CurrentUser() user: User, @Body() body: any = {}) {
+    await this.roomLeft(user);
     const { errors, value } = validateQrCode(body);
     if (errors.length) throw fail(400, 'Invalid QR code', { details: errors });
     const key = secretKey(value.typeId);
@@ -49,6 +51,12 @@ export class QrCodesController {
       await this.db.moveToFolder(user.id, [id], body.folderId); saved = await this.db.getQrCode(id);
     }
     return this.codes.out(req, saved);
+  }
+
+  /** Limiet van het abonnement (aantal QR-codes) */
+  private async roomLeft(user: User) {
+    const plan = await planFor(this.db, user.id);
+    if (plan.codes != null && (await this.db.listQrCodes(user.id)).length >= plan.codes) throw fail(403, 'plan_limit', { limit: plan.codes, plan: plan.id });
   }
 
   /** Bewerken: nieuwe inhoud en ontwerp, zelfde link, scans blijven staan */
@@ -97,6 +105,7 @@ export class QrCodesController {
   async duplicate(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string, @Body() b: any = {}) {
     const old = await this.db.getOwnedQrCode(id, user.id);
     if (!old) throw fail(404, 'QR code not found');
+    await this.roomLeft(user);
     const newId = await freshCodeId(this.db), { content, files } = await this.codes.copyFiles(user.id, old.typeId, { ...old.content });
     const saved = await this.db.insertQrCode(user.id, { id: newId, typeId: old.typeId, contentType: old.contentType, content, design: old.design,
       name: cleanName(typeof b.name === 'string' && b.name.trim() ? b.name : (old.name || '')) || undefined });

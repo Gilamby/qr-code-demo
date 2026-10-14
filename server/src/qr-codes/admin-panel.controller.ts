@@ -24,7 +24,7 @@ import { QrCodesService, cleanName, freshCodeId, secretKey } from './qr-codes.se
 import { QR_TYPES, validateQrCode } from './validation';
 import { STATIC, destinationOf, patternSince, problemOf, riskOf, scanPattern } from './moderation';
 import { urlInfo } from '../helpers/url-check';
-import { planOf, usage } from '../plans';
+import { planFor, usage } from '../plans';
 import { fail, recentErrors } from '../common/http';
 import { MailerService } from '../auth/mailer.service';
 import type { QrCode, User } from '../types';
@@ -163,7 +163,7 @@ export class AdminPanelController {
     // Volledige inhoud (ook het wifi-wachtwoord, nodig om de echte QR-code te downloaden): alleen als je de code mag aanpassen
     if (can && q.contentType === 'wifi' && q.content.password) out.content = { ...out.content, password: q.content.password };
     if (req.query.for === 'download') { if (!can && q.contentType === 'wifi') throw fail(403, 'team_code'); await this.log(me, 'download', q, String(req.query.format || '')); }
-    const plan = planOf(ownerUser);
+    const plan = await planFor(this.db, q.userId); void ownerUser;
     out.plan = { id: plan.id, ...usage(plan, owner ? owner.codes : 0) };
     out.log = log;
     out.editable = STATIC.includes(q.contentType) ? [] : (QR_TYPES.find((t) => t.id === q.typeId) || { fields: [] }).fields

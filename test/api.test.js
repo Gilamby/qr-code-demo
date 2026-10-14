@@ -362,3 +362,25 @@ test('eigen achtergronden: foto/video uploaden, kiezen, alleen voor jezelf, verw
   const after = (await u('GET', '/api/me')).json;
   assert.equal(after.background, 'optimasys', 'actieve achtergrond weg: terug naar de standaard'); assert.equal(after.media.length, 1);
 });
+
+test('abonnementen: team kent pakket toe, limiet geldt op de server, klant ziet het', async () => {
+  const team = client();
+  await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const k = client(); await signup(k, 'plan-k@example.com', 'Pakket zin 12!', 'Klant Plan');
+  const id = (await team('GET', '/api/admin/customers')).json.find((c) => c.email === 'plan-k@example.com').id;
+  let p = (await k('GET', '/api/account/plan')).json;
+  assert.equal(p.plan.id, 'free'); assert.equal(p.payments, false); assert.equal(p.plans.length, 3);
+  assert.equal((await team('PATCH', '/api/admin/customers/' + id, { plan: 'nope' })).status, 400);
+  assert.equal((await k('PATCH', '/api/admin/customers/' + id, { plan: 'business' })).status, 403, 'klant kan zichzelf geen pakket geven');
+  const r = await team('PATCH', '/api/admin/customers/' + id, { plan: 'standard' });
+  assert.equal(r.status, 200); assert.equal(r.json.plan, 'standard');
+  const mk = () => k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://plan.example' }, design: {} });
+  let last; for (let i = 0; i < 10; i++) { last = await mk(); assert.equal(last.status, 201); }
+  const over = await mk(); assert.equal(over.status, 403); assert.equal(over.json.error, 'plan_limit');
+  assert.equal((await k('POST', '/api/qr-codes/' + last.json.id + '/duplicate', {})).status, 403, 'kopie telt ook mee');
+  p = (await k('GET', '/api/account/plan')).json; assert.equal(p.usage.state, 'full'); assert.equal(p.usage.limit, 10);
+  const an = (await k('GET', '/api/analytics?from=2000-01-01')).json; assert.ok(an.statsFloor, 'geschiedenis beperkt');
+  assert.ok((await team('GET', '/api/admin/log')).json.some((x) => x.action === 'user_plan'), 'wijziging in logboek');
+  await team('PATCH', '/api/admin/customers/' + id, { plan: 'free' });
+  assert.equal((await mk()).status, 201, 'terug naar testfase = geen limiet');
+});

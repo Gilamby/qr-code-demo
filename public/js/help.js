@@ -161,5 +161,7 @@
     drawContact();
   });
   i18n.onChange(function () { drawContact(); drawFaq(); });
+  // Vanuit een andere pagina (bv. Abonnement): onderwerp en bericht alvast invullen
+  document.addEventListener('contact-preset', function (e) { var d = e.detail || {}; form.topic = d.topic || ''; form.message = d.message || ''; sent = null; bad = []; drawContact(); });
   drawContact(); drawFaq();
 })();

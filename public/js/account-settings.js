@@ -204,11 +204,35 @@
       '<div class="acct-actions">' + (billing ? '<button class="btn ghost" type="button" data-billing-reset>' + t('myCodes.cancel') + '</button>' : '') +
       '<button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + (m.billing ? '<p class="acct-msg ' + m.billing[1] + '" role="status">' + esc(m.billing[0]) + '</p>' : '') + '</div>';
   }
+  var planInfo = null, planBusy = false;
+  function loadPlan() { if (planBusy) return; planBusy = true; api.account.plan().then(function (r) { planBusy = false; planInfo = r; if (tab === 'plan') draw(); }).catch(function () { planBusy = false; planInfo = { error: true }; if (tab === 'plan') draw(); }); }
+  function euro(n) { return n === 0 ? t('plan.freeMonth') : new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); }
+  function planCurrent() {
+    if (!planInfo) { setTimeout(loadPlan, 0); return '<div class="glass bg-card acct"><h2>' + t('acct.planCurrent') + '</h2><p class="acct-note">' + t('plan.loading') + '</p></div>'; }
+    if (planInfo.error) return '<div class="glass bg-card acct"><h2>' + t('acct.planCurrent') + '</h2><p class="acct-msg bad" role="alert">' + t('plan.loadError') + '</p></div>';
+    var p = planInfo.plan, u = planInfo.usage, free = p.id === 'free';
+    var pct = u.limit ? Math.min(100, Math.round(u.used / u.limit * 100)) : 0;
+    var bar = u.limit ? '<div class="pl-use"><div class="pl-use-row"><span>' + t('plan.codesUsed', { used: u.used, limit: u.limit }) + '</span><b>' + pct + '%</b></div>' +
+        '<div class="pl-bar ' + u.state + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + u.limit + '" aria-valuenow="' + u.used + '" aria-label="' + esc(t('plan.codes')) + '"><i style="width:' + pct + '%"></i></div>' +
+        (u.state === 'full' ? '<p class="acct-msg bad" role="status">' + t('plan.full') + '</p>' : u.state === 'near' ? '<p class="acct-msg" role="status">' + t('plan.near') + '</p>' : '') + '</div>'
+      : '<p class="pl-unl">' + t('plan.codesUnlimited', { used: u.used }) + '</p>';
+    var feats = free ? ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(t)
+      : [p.codes ? t('plan.fCodes', { n: p.codes }) : t('acct.planF1'), p.statsDays ? t('plan.fStats', { n: p.statsDays }) : t('plan.fStatsAll'), t('acct.planF2'), t('acct.planF4')];
+    return '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.assignedLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
+      bar + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>' +
+      '<div class="glass bg-card acct"><h2>' + t('plan.choose') + ' <span class="pl-tag">' + t('plan.proposal') + '</span></h2><p class="acct-note">' + t('plan.chooseLead') + '</p><div class="pl-grid">' +
+      planInfo.plans.map(function (x) {
+        var cur = x.id === p.id;
+        return '<div class="pl-card' + (cur ? ' is-cur' : '') + '"><div class="pl-name">' + t('plan.n_' + x.id) + (cur ? '<span class="pl-cur">' + t('plan.current') + '</span>' : '') + '</div>' +
+          '<div class="pl-price"><b>' + euro(x.price) + '</b><small>' + t('plan.perMonth') + '</small></div>' +
+          '<p class="pl-intro">' + (x.intro === 0 ? t('plan.introFree') : t('plan.intro', { price: euro(x.intro) })) + '</p>' +
+          '<ul><li>' + t('plan.fCodes', { n: x.codes }) + '</li><li>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</li><li>' + t('acct.planF4') + '</li></ul>' +
+          (cur ? '' : '<button type="button" class="btn ghost" data-plan-ask="' + x.id + '">' + t('plan.ask') + '</button>') + '</div>';
+      }).join('') + '</div><p class="acct-note">' + t('plan.noPayments') + '</p></div>';
+  }
   function planPanel() {
-    var feats = ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(function (k) { return '<li>' + SVG + ICON.check + '</svg>' + t(k) + '</li>'; }).join('');
     var addr = billing ? [billing.type === 'company' ? billing.companyName : (billing.firstName + ' ' + billing.lastName), billing.address, billing.postalCode + ' ' + billing.city, TEL.name(billing.country)].filter(Boolean).map(esc).join('<br>') : '';
-    return '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t('acct.planFreeLead') + '</p></div><span class="acct-badge">' + t('acct.planFree') + '</span></div>' +
-        '<ul class="acct-feats">' + feats + '</ul><p class="acct-note">' + t('acct.planNote') + '</p></div>' +
+    return planCurrent() +
       '<div class="glass bg-card acct"><h2>' + t('acct.billingTo') + '</h2>' +
         (billing ? '<p class="acct-addr">' + addr + (billing.taxId ? '<br><span>' + t('acct.taxId') + ': ' + esc(billing.taxId) + '</span>' : '') + '</p><button type="button" class="btn ghost" data-tab-go="billing">' + t('acct.billingEdit') + '</button>'
           : '<p>' + t('acct.billingMissing') + '</p><button type="button" class="btn primary" data-tab-go="billing">' + t('acct.billingFill') + '</button>') + '</div>' +
@@ -419,7 +443,7 @@
   }
   function open(id, focus) {
     if (id === 'delete' && !canDelete()) id = 'profile';
-    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') loadSecurity();
+    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') loadSecurity(); if (id === 'plan') loadPlan();
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
@@ -507,6 +531,8 @@
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
+    var ask = e.target.closest('[data-plan-ask]');
+    if (ask) { goToPage('contact'); document.dispatchEvent(new CustomEvent('contact-preset', { detail: { topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + ask.getAttribute('data-plan-ask')) }) } })); return; }
     var ed = e.target.closest('[data-edit]');
     if (ed) {
       editing = ed.getAttribute('data-edit'); sticky = null; draw();
@@ -610,7 +636,7 @@
     if (!d.open) d.showModal(); f.first.focus();
   }
   Session.onUser(function (u) { setTimeout(function () { requireName(u); }, 300); });
-  Session.onUser(function (u) { if (u.theme && u.theme !== theme.get()) theme.set(u.theme, false); user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; draw(); loadSummary(); loadBilling(); });
+  Session.onUser(function (u) { if (u.theme && u.theme !== theme.get()) theme.set(u.theme, false); user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; planInfo = null; draw(); loadSummary(); loadBilling(); });
   // Net op de link in de mail geklikt (nieuw e-mailadres): Mijn account openen met de uitkomst
   document.addEventListener('account:email-note', function (e) {
     var n = e.detail || {}; window.goToPage('account'); open('profile');

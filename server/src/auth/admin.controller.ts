@@ -15,6 +15,7 @@ import { EMAIL } from '../qr-codes/validation';
 import { baseUrl } from '../config/env';
 import { fail } from '../common/http';
 import type { User } from '../types';
+import { PLAN_IDS, planFor } from '../plans';
 
 @Injectable()
 export class TeamOnly implements CanActivate {
@@ -32,7 +33,9 @@ export class AdminController {
 
   @Get()
   async list() {
-    return (await this.db.listCustomers()).map((c) => this.withRole(c));
+    const all = await this.db.listCustomers();
+    const plans = await Promise.all(all.map((c) => planFor(this.db, c.id)));
+    return all.map((c, i) => ({ ...this.withRole(c), plan: plans[i].id }));
   }
 
   /** Klant toevoegen en uitnodigen */
@@ -77,12 +80,19 @@ export class AdminController {
       if (this.auth.isAdmin(u) && !this.auth.isSuper(me)) throw fail(403, 'super_only');
       patch.disabledAt = b.disabled ? (u.disabledAt || new Date().toISOString()) : null;
     }
+    if (b.plan !== undefined) {
+      if (!PLAN_IDS.includes(b.plan)) throw fail(400, 'plan: ' + PLAN_IDS.join(', '));
+      const was = (await planFor(this.db, id)).id;
+      await this.db.setSetting('plan:' + id, b.plan === 'free' ? null : b.plan);
+      if (was !== b.plan) await this.log(me, 'user_plan', id, u.email + ': ' + was + ' → ' + b.plan);
+      if (!Object.keys(patch).length) return { ...this.withRole((await this.db.listCustomers()).find((c) => c.id === id)), plan: b.plan };
+    }
     if (!Object.keys(patch).length) throw fail(400, 'nothing to change');
     await this.db.updateUser(id, patch);
     if (patch.disabledAt) await this.db.deleteSessionsOf(id);                    // meteen uitgelogd
     if (patch.role !== undefined) await this.log(me, 'user_role', id, u.email + ' → ' + (patch.role || 'user'));
     if (patch.disabledAt !== undefined) await this.log(me, patch.disabledAt ? 'user_disable' : 'user_enable', id, u.email);
-    return this.withRole((await this.db.listCustomers()).find((c) => c.id === id));
+    return { ...this.withRole((await this.db.listCustomers()).find((c) => c.id === id)), plan: (await planFor(this.db, id)).id };
   }
 
   /** Klant verwijderen (met alle codes, statistieken en bestanden). Niet jezelf, niet de super-admin;

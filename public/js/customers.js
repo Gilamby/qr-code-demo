@@ -64,6 +64,10 @@
         var roleCell = sup && !self && c.level !== 'super' && !c.fixed
           ? '<label class="ad-rolesel"><span class="sr-only">' + t('adm.role') + '</span><select data-role>' + ['user', 'admin'].map(function (r) { return '<option value="' + r + '"' + (c.level === r ? ' selected' : '') + '>' + t(r === 'admin' ? 'adm.rAdmin' : 'adm.rUser') + '</option>'; }).join('') + '</select></label>'
           : roleBadge(c);
+        var PL = ['free', 'standard', 'pro', 'business'];
+        roleCell += canEdit
+          ? '<label class="ad-rolesel ad-plansel"><span class="sr-only">' + t('plan.title') + '</span><select data-plan title="' + esc(t('plan.title')) + '">' + PL.map(function (p) { return '<option value="' + p + '"' + ((c.plan || 'free') === p ? ' selected' : '') + '>' + t('plan.n_' + p) + '</option>'; }).join('') + '</select></label>'
+          : '<small class="cust-sub">' + t('plan.n_' + (c.plan || 'free')) + '</small>';
         return '<div class="cust-tr' + (c.disabledAt ? ' is-off' : '') + '" role="row" data-id="' + esc(c.id) + '">' +
           '<span role="cell" class="cust-who ad-who">' + Admin.avatar(c.name, c.email) + '<span><b>' + esc(c.name || c.email) + (self ? ' <em class="cust-team">' + t('adm.you') + '</em>' : '') + '</b><small>' + esc(c.email) + '</small></span></span>' +
           '<span role="cell"><span class="cust-lbl">' + t('adm.role') + ': </span>' + roleCell + '</span>' +
@@ -71,8 +75,8 @@
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('acct.codes') + ': </span>' + i18n.fmt.num(c.codes) + '</span>' +
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('an.scans') + ': </span>' + i18n.fmt.num(c.scans || 0) + '</span>' +
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('adm.lastLogin') + ': </span>' + (c.lastLoginAt ? Admin.ago(c.lastLoginAt) : t('adm.never')) + '<small class="cust-sub">' + t('cust.added') + ' ' + date(c.createdAt) + '</small></span>' +
-          '<span role="cell" class="cust-acts">' + (c.codes ? '<button type="button" class="btn ghost" data-codes title="' + esc(t('cust.viewCodes')) + '">' + SVG + ICON.qr + '</svg>' + i18n.fmt.num(c.codes) + '</button>' : '') + (!c.active && !c.disabledAt ? '<button type="button" class="btn ghost" data-reinvite>' + SVG + ICON.mail + '</svg>' + t('cust.reinvite') + '</button>' : '') +
-            (canEdit ? '<button type="button" class="btn ghost ' + (c.disabledAt ? '' : 'warn-ghost') + '" data-toggle>' + SVG + (c.disabledAt ? ICON.on : ICON.off) + '</svg>' + t(c.disabledAt ? 'adm.enable' : 'adm.disable') + '</button>' : '') +
+          '<span role="cell" class="cust-acts">' + (c.codes ? '<button type="button" class="btn ghost" data-codes title="' + esc(t('cust.viewCodes')) + '" aria-label="' + esc(t('cust.viewCodes')) + '">' + SVG + ICON.qr + '</svg>' + i18n.fmt.num(c.codes) + '</button>' : '') + (!c.active && !c.disabledAt ? '<button type="button" class="btn ghost" data-reinvite>' + SVG + ICON.mail + '</svg>' + t('cust.reinvite') + '</button>' : '') +
+            (canEdit ? '<button type="button" class="btn ghost ' + (c.disabledAt ? '' : 'warn-ghost') + '" data-toggle title="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable')) + '" aria-label="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable') + ': ' + (c.name || c.email)) + '">' + SVG + (c.disabledAt ? ICON.on : ICON.off) + '</svg>' + t(c.disabledAt ? 'adm.enable' : 'adm.disable') + '</button>' : '') +
             (canEdit && !c.fixed ? '<button type="button" class="btn ghost danger-ghost cust-del" data-remove aria-label="' + esc(t('cust.remove') + ': ' + (c.name || c.email)) + '" title="' + esc(t('cust.remove')) + '">' + SVG + ICON.trash + '</svg></button>' : '') + '</span>' +
         '</div>';
       }).join('') + '</div>';
@@ -166,6 +170,11 @@
       if (e.target.name === 'lang') form.lang = e.target.value;
       if (e.target.id === 'custStatus') { fStatus = e.target.value; redrawRows(); }
       if (e.target.id === 'custRole') { fRole = e.target.value; redrawRows(); }
+      if (e.target.hasAttribute('data-plan')) {   // abonnement toekennen (zonder betaling)
+        var pid = e.target.closest('[data-id]').getAttribute('data-id'), ps = e.target; ps.disabled = true;
+        api.customers.update(pid, { plan: ps.value }).then(function () { result = { kind: 'ok', text: t('plan.saved') }; load(); draw(); })
+          .catch(function (x) { result = { kind: 'bad', text: errText(x) }; draw(); });
+      }
       if (e.target.hasAttribute('data-role')) {   // alleen de super-admin ziet deze keuze
         var id = e.target.closest('[data-id]').getAttribute('data-id'), sel = e.target; sel.disabled = true;
         api.customers.update(id, { role: sel.value }).then(function () { result = { kind: 'ok', text: t('adm.roleSaved') }; load(); draw(); })

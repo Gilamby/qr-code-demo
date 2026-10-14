@@ -323,6 +323,20 @@
 :root[data-theme="light"] .an-ins { background: rgba(13,19,32,0.03); }
 :root[data-theme="light"] .an-up { color: #15803d; }
 :root[data-theme="light"] .an-down { color: #dc2626; }
+:root[data-theme="light"] .pl-use-row { color: rgba(13,19,32,0.738); }
+:root[data-theme="light"] .pl-bar { background: rgba(13,19,32,0.075); }
+:root[data-theme="light"] .pl-unl { color: rgba(13,19,32,0.675); }
+:root[data-theme="light"] .pl-tag { color: #92400e; }
+:root[data-theme="light"] .pl-card { border: 1px solid rgba(13,19,32,0.108); background: rgba(13,19,32,0.03); }
+:root[data-theme="light"] .pl-cur { color: #0369a1; }
+:root[data-theme="light"] .pl-price small { color: rgba(13,19,32,0.54); }
+:root[data-theme="light"] .pl-intro { color: #15803d; }
+:root[data-theme="light"] .pl-card ul { color: rgba(13,19,32,0.72); }
+:root[data-theme="light"] .cust-badge,
+:root[data-theme="light"] .cust-badge.ok,
+:root[data-theme="light"] .cust-badge.wait,
+:root[data-theme="light"] .cust-badge.bad,
+:root[data-theme="light"] .cust-badge.off { color: rgba(13,19,32,0.765) !important; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

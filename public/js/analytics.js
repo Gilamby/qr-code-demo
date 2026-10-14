@@ -177,7 +177,7 @@ var Analytics = (function () {
     var r = data, rg = { from: r.from, to: r.to };
     document.getElementById('anRange').textContent = rg.from === rg.to ? i18n.fmt.date(d(rg.from), 'long') : i18n.fmt.date(d(rg.from), 'long') + ' – ' + i18n.fmt.date(d(rg.to), 'long');
     var demo = document.getElementById('anDemo'); demo.hidden = !r.demo; demo.textContent = t('an.demoNote');
-    document.getElementById('anFoot').innerHTML = esc(t('an.geoNote')) + (r.geo ? ' <a href="https://db-ip.com" target="_blank" rel="noopener">' + esc(t('an.geoBy')) + '</a>' : ' ' + esc(t('an.noGeo')));
+    document.getElementById('anFoot').innerHTML = (r.statsFloor ? esc(t('plan.statsFloor', { date: new Date(r.statsFloor + 'T00:00:00').toLocaleDateString(i18n.lang()) })) + ' ' : '') + esc(t('an.geoNote')) + (r.geo ? ' <a href="https://db-ip.com" target="_blank" rel="noopener">' + esc(t('an.geoBy')) + '</a>' : ' ' + esc(t('an.noGeo')));
     if (!Object.keys(names).length) {
       body.innerHTML = '<div class="mc-empty glass">' + ico('scans') + '<h3>' + t('an.emptyTitle') + '</h3><p>' + t('an.emptyText') + '</p><button type="button" class="btn primary" data-an-new>' + t('myCodes.first') + '</button></div>';
       return;

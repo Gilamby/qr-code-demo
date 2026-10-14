@@ -293,6 +293,8 @@ var api = (function () {
       password: either(function (d) { return request('POST', 'api/account/password', d); }, demoAuth.account.password),
       remove:   either(function (d) { return request('DELETE', 'api/account', d); }, demoAuth.account.remove),
       summary:  either(function ()  { return request('GET', 'api/account/summary'); }, demoAuth.account.summary),
+      // Abonnement (demo: altijd de testfase)
+      plan:     either(function ()  { return request('GET', 'api/account/plan'); }, function () { return Promise.resolve({ plan: { id: 'free', codes: null, statsDays: null }, usage: { used: 0, limit: null, state: 'ok' }, plans: [], payments: false }); }),
       logoutOthers: either(function () { return request('POST', 'api/account/logout-others', {}); }, demoAuth.account.logoutOthers),
       billing:  either(function ()  { return request('GET', 'api/account/billing'); }, demoAuth.account.billing),
       saveBilling: either(function (b) { return request('PUT', 'api/account/billing', b); }, demoAuth.account.saveBilling),

@@ -195,7 +195,7 @@ var MyCodes = (function () {
       rows.unshift(rec); drawTools(); draw(); toast('myCodes.duplicated');
       var el = list.querySelector('.mc-card[data-id="' + rec.id + '"]');
       if (el) { el.classList.add('fresh'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); setTimeout(function () { el.classList.remove('fresh'); }, 1600); }
-    }).catch(function () { toast('myCodes.failed'); });
+    }).catch(function (e) { toast(e && e.code === 'plan_limit' ? 'plan.limitCreate' : 'myCodes.failed'); });
   }
   function askDelete(r) {
     dialog.innerHTML = '<form method="dialog" class="mc-dlg">' + '<span class="mc-dlg-ic">' + ico('trash') + '</span>' +
