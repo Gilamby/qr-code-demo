@@ -42,8 +42,12 @@ export class QrCodesController {
     const id = typeof body.id === 'string' && /^[A-Za-z0-9_-]{7,12}$/.test(body.id) && !(await this.db.idTaken(body.id)) ? body.id : newCodeId();
     const files = await this.codes.storeFiles(user.id, value.typeId, value.content, null);
     const miss = missingRequired(value.typeId, value.content); if (miss.length) throw fail(400, 'Invalid QR code', { details: miss });
-    const saved = await this.db.insertQrCode(user.id, { id, ...record });
+    let saved = await this.db.insertQrCode(user.id, { id, ...record });
     for (const f of files) await this.db.attachFile(f, id);
+    // Gemaakt vanuit een map in Mijn QR-codes: meteen in die map
+    if (typeof body.folderId === 'string' && (await this.db.listFolders(user.id)).some((f) => f.id === body.folderId)) {
+      await this.db.moveToFolder(user.id, [id], body.folderId); saved = await this.db.getQrCode(id);
+    }
     return this.codes.out(req, saved);
   }
 

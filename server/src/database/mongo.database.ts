@@ -6,6 +6,7 @@
      sessions            { _id: hash van de sessiecode, userId, createdAt, expiresAt, ua, ip, seenAt }
      activity            { _id, userId, kind, at, ip, ua }   (recente activiteit, 90 dagen)
      emailChanges        { _id: hash van de code, userId, email, expiresAt }
+     folders             { _id, userId, name, color, createdAt }   (qrCodes.folderId wijst hiernaar)
      passwordResets      { _id: hash van de code, userId, expiresAt }
      emailVerifications  { _id: hash van de code, userId, expiresAt }
      qrCodes             { _id, userId, typeId, contentType, content {…}, design {…}, name, paused, scans, lastScanAt, createdAt, updatedAt }
@@ -21,7 +22,7 @@ import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
-  Activity, ClientMeta, Customer, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, ClientMeta, Customer, Folder, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -31,7 +32,7 @@ const DUPLICATE = 11000;
 function codeOut(d: Doc): QrCode {
   if (!d) return null;
   return { id: d._id, userId: d.userId, typeId: d.typeId, contentType: d.contentType, content: openContent(d.contentType, d.content || {}), design: d.design || {},
-    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined };
+    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null };
 }
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 function userOut(d: Doc): User {
@@ -57,6 +58,7 @@ export class MongoDatabase extends DatabaseService {
   private readonly settings: Collection<Doc>;
   private readonly activity: Collection<Doc>;
   private readonly emailChanges: Collection<Doc>;
+  private readonly folders: Collection<Doc>;
 
   private constructor(private readonly client: MongoClient, readonly db: Db, url: string) {
     super();
@@ -64,7 +66,7 @@ export class MongoDatabase extends DatabaseService {
     this.users = db.collection('users'); this.sessions = db.collection('sessions');
     this.resets = db.collection('passwordResets'); this.verifications = db.collection('emailVerifications');
     this.codes = db.collection('qrCodes'); this.stats = db.collection('scanStats'); this.files = db.collection('files'); this.settings = db.collection('settings');
-    this.activity = db.collection('activity'); this.emailChanges = db.collection('emailChanges');
+    this.activity = db.collection('activity'); this.emailChanges = db.collection('emailChanges'); this.folders = db.collection('folders');
   }
 
   /** Verbinden en de indexen aanmaken (mag vaker: bestaat de index al, dan gebeurt er niets) */
@@ -77,6 +79,7 @@ export class MongoDatabase extends DatabaseService {
       m.sessions.createIndex({ userId: 1 }),
       m.activity.createIndex({ userId: 1, at: -1 }),
       m.emailChanges.createIndex({ userId: 1 }),
+      m.folders.createIndex({ userId: 1 }),
       m.resets.createIndex({ userId: 1 }),
       m.verifications.createIndex({ userId: 1 }),
       m.codes.createIndex({ userId: 1, createdAt: -1 }),
@@ -126,6 +129,7 @@ export class MongoDatabase extends DatabaseService {
     await this.verifications.deleteMany({ userId: id });
     await this.activity.deleteMany({ userId: id });
     await this.emailChanges.deleteMany({ userId: id });
+    await this.folders.deleteMany({ userId: id });
     await this.users.deleteOne({ _id: id });
     removeFiles(files);
   }
@@ -274,6 +278,30 @@ export class MongoDatabase extends DatabaseService {
   }
   async getQrCode(id: string): Promise<QrCode> { return codeOut(await this.codes.findOne({ _id: id })); }
   async idTaken(id: string) { return !!(await this.codes.findOne({ _id: id }, { projection: { _id: 1 } })); }
+  async listFolders(userId: string): Promise<Folder[]> {
+    return (await this.folders.find({ userId }).sort({ createdAt: 1 }).toArray()).map((d) => ({ id: d._id, name: d.name, color: d.color, createdAt: d.createdAt }));
+  }
+  async createFolder(userId: string, f: { name: string; color: string }) {
+    const id = newId(10), t = now();
+    await this.folders.insertOne({ _id: id, userId, name: f.name, color: f.color, createdAt: t });
+    return { id, name: f.name, color: f.color, createdAt: t };
+  }
+  async updateFolder(userId: string, id: string, patch: { name?: string; color?: string }) {
+    const set: Doc = {};
+    if (patch.name !== undefined) set.name = patch.name;
+    if (patch.color !== undefined) set.color = patch.color;
+    if (Object.keys(set).length) await this.folders.updateOne({ _id: id, userId }, { $set: set });
+    return (await this.listFolders(userId)).find((f) => f.id === id) || null;
+  }
+  async deleteFolder(userId: string, id: string) {
+    if (!(await this.folders.deleteOne({ _id: id, userId })).deletedCount) return false;
+    await this.codes.updateMany({ userId, folderId: id }, { $set: { folderId: null } });
+    return true;
+  }
+  async moveToFolder(userId: string, codeIds: string[], folderId: string | null) {
+    if (!codeIds.length) return 0;
+    return (await this.codes.updateMany({ userId, _id: { $in: codeIds } }, { $set: { folderId } })).modifiedCount;
+  }
   async insertQrCode(userId: string, q: NewQrCode) {
     await this.codes.insertOne({ _id: q.id, userId, typeId: q.typeId, contentType: q.contentType, content: sealContent(q.contentType, q.content), design: q.design || {},
       name: q.name || null, paused: false, scans: 0, lastScanAt: null, createdAt: q.createdAt || now(), updatedAt: null });

@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
-  Activity, ClientMeta, Customer, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, ClientMeta, Customer, Folder, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -18,7 +18,7 @@ const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : n
 function codeOut(r: any): QrCode {
   if (!r) return null;
   return { id: r.id, userId: r.user_id, typeId: r.type_id, contentType: r.content_type, content: openContent(r.content_type, JSON.parse(r.content)), design: JSON.parse(r.design),
-    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined };
+    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null };
 }
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
@@ -199,6 +199,31 @@ export class SqlDatabase extends DatabaseService {
   }
 
   /* ---------- QR-codes ---------- */
+  async listFolders(userId: string): Promise<Folder[]> {
+    return (await this.d.all('SELECT id, name, color, created_at FROM folders WHERE user_id = ? ORDER BY created_at', [userId])).map((r) => ({ id: r.id, name: r.name, color: r.color, createdAt: r.created_at }));
+  }
+  async createFolder(userId: string, f: { name: string; color: string }) {
+    const id = newId(10), t = now();
+    await this.d.run('INSERT INTO folders (id, user_id, name, color, created_at) VALUES (?, ?, ?, ?, ?)', [id, userId, f.name, f.color, t]);
+    return { id, name: f.name, color: f.color, createdAt: t };
+  }
+  async updateFolder(userId: string, id: string, patch: { name?: string; color?: string }) {
+    const sets: string[] = [], vals: unknown[] = [];
+    if (patch.name !== undefined) { sets.push('name = ?'); vals.push(patch.name); }
+    if (patch.color !== undefined) { sets.push('color = ?'); vals.push(patch.color); }
+    if (sets.length) await this.d.run('UPDATE folders SET ' + sets.join(', ') + ' WHERE id = ? AND user_id = ?', [...vals, id, userId]);
+    return (await this.listFolders(userId)).find((f) => f.id === id) || null;
+  }
+  async deleteFolder(userId: string, id: string) {
+    const del = await this.d.run('DELETE FROM folders WHERE id = ? AND user_id = ?', [id, userId]);
+    if (!del.changes) return false;
+    await this.d.run('UPDATE qr_codes SET folder_id = NULL WHERE folder_id = ? AND user_id = ?', [id, userId]);
+    return true;
+  }
+  async moveToFolder(userId: string, codeIds: string[], folderId: string | null) {
+    if (!codeIds.length) return 0;
+    return (await this.d.run('UPDATE qr_codes SET folder_id = ? WHERE user_id = ? AND id IN (' + codeIds.map(() => '?').join(', ') + ')', [folderId, userId, ...codeIds])).changes || 0;
+  }
   async listQrCodes(userId: string): Promise<QrCode[]> { return (await this.d.all(SQL.codesOf, [userId])).map(codeOut); }
   async listWithStats(userId: string): Promise<QrCode[]> {
     const codes = (await this.d.all(SQL.codesOf, [userId])).map(codeOut), byId: Record<string, QrCode> = {};

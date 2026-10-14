@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { QrCodesController } from './qr-codes/qr-codes.controller';
 import { QrCodesService } from './qr-codes/qr-codes.service';
 import { AdminPanelController } from './qr-codes/admin-panel.controller';
+import { FoldersController } from './qr-codes/folders.controller';
 import { AnalyticsController } from './analytics/analytics.controller';
 import { HelpersController, SystemController } from './helpers/helpers.controller';
 import { ContactController } from './helpers/contact.controller';
@@ -22,7 +23,7 @@ import { ShortLinksController } from './visitor/short-links.controller';
 import { HousekeepingService } from './housekeeping.service';
 import { ErrorFilter } from './common/http';
 
-@Module({ controllers: [QrCodesController, UploadsController, AdminPanelController], providers: [QrCodesService], imports: [AuthModule] })
+@Module({ controllers: [QrCodesController, UploadsController, AdminPanelController, FoldersController], providers: [QrCodesService], imports: [AuthModule] })
 export class QrCodesModule {}
 
 @Module({ controllers: [AnalyticsController], imports: [AuthModule] })

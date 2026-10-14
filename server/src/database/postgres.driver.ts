@@ -88,6 +88,16 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   await pool.query('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at TEXT)');
   // 13 okt 2026: apparaten (browser, IP, laatst actief), recente activiteit en e-mail wijzigen
   for (const col of ['ua', 'ip', 'seen_at']) await pool.query('ALTER TABLE sessions ADD COLUMN IF NOT EXISTS ' + col + ' TEXT');
+  // 14 okt 2026: mappen voor QR-codes
+  await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS folder_id TEXT');
+  await pool.query(`CREATE TABLE IF NOT EXISTS folders (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  color TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS folders_user ON folders(user_id);`);
   await pool.query(`CREATE TABLE IF NOT EXISTS activity (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

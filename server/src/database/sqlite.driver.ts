@@ -90,6 +90,16 @@ export function openSqlite(file: string): SqlDriver {
   db.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at TEXT)');
   // 13 okt 2026: apparaten (browser, IP, laatst actief), recente activiteit en e-mail wijzigen
   for (const col of ['ua', 'ip', 'seen_at']) if (!db.prepare("SELECT 1 FROM pragma_table_info('sessions') WHERE name = ?").get(col)) db.exec('ALTER TABLE sessions ADD COLUMN ' + col + ' TEXT');
+  // 14 okt 2026: mappen voor QR-codes
+  if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'folder_id'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN folder_id TEXT');
+  db.exec(`CREATE TABLE IF NOT EXISTS folders (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  color TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS folders_user ON folders(user_id);`);
   db.exec(`CREATE TABLE IF NOT EXISTS activity (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

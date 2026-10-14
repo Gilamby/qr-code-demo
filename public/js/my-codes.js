@@ -1,7 +1,9 @@
 /* =========================================================
    MIJN QR-CODES
    Lijst met al je codes: zoeken, filteren, sorteren.
-   Per code: downloaden, link kopiëren, bewerken, naam wijzigen, aan/uit, verwijderen.
+   Per code: downloaden, link kopiëren, bewerken, naam wijzigen, aan/uit, verplaatsen, verwijderen.
+   Mappen: balk bovenaan (Alle codes · Zonder map · jouw mappen · + Nieuwe map). Een code naar een map slepen
+   of via ⋯ > Verplaatsen naar map. Map weg = de codes blijven bestaan, zonder map.
    Zonder server (online demo) staan de codes in deze browser (zie api.js).
    ========================================================= */
 var MyCodes = (function () {
@@ -16,13 +18,23 @@ var MyCodes = (function () {
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
     scan: '<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/>',
+    folder: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/>',
+    folderPlus: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M12 11v6M9 14h6"/>',
+    move: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M10 14h6M13.5 11.5L16 14l-2.5 2.5"/>',
+    grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+    inbox: '<path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     empty: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>'
   };
   function ico(k) { return '<svg class="mc-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + '</svg>'; }
 
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList'), tools = document.getElementById('mcTools');
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
-  var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new' }, renaming = null, toastTimer = null;
+  var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '' }, renaming = null, toastTimer = null;
+  var folders = [], newIn = null, bar = document.getElementById('mcFolders');   // folder: '' = alle codes, 'none' = zonder map, anders een map-id
+  var COLORS = { cyan: '#22d3ee', blue: '#3b82f6', violet: '#8b5cf6', pink: '#ec4899', red: '#ef4444', orange: '#f97316', amber: '#f59e0b', green: '#22c55e' };
+  function folderOf(id) { return folders.filter(function (f) { return f.id === id; })[0] || null; }
+  function dot(f) { return '<i class="mf-dot" style="--fc:' + (COLORS[f.color] || COLORS.cyan) + '"></i>'; }
 
   // Gedeeld met het beheer: zie code-util.js
   var isStatic = CodeUtil.isStatic, displayName = CodeUtil.displayName, qrData = CodeUtil.qrData, qrDesign = CodeUtil.qrDesign, download = CodeUtil.download;
@@ -38,10 +50,33 @@ var MyCodes = (function () {
         return '<option value="' + k + '"' + (filter.sort === k ? ' selected' : '') + '>' + t('myCodes.sort_' + k) + '</option>'; }).join('') + '</select></label>';
     tools.hidden = !rows.length;
   }
+  /* ---------- Mappen: balk bovenaan ---------- */
+  function drawFolders() {
+    if (filter.folder && filter.folder !== 'none' && !folderOf(filter.folder)) filter.folder = '';
+    var count = function (fn) { return rows.filter(fn).length; };
+    var chip = function (key, label, n, extra) {
+      var on = filter.folder === key;
+      return '<button type="button" class="mf-chip' + (on ? ' on' : '') + '" data-folder="' + esc(key) + '" aria-pressed="' + on + '">' + label + '<span class="mf-n">' + i18n.fmt.num(n) + '</span>' + (extra || '') + '</button>';
+    };
+    var cur = folderOf(filter.folder);
+    bar.innerHTML = '<div class="mf-row" role="toolbar" aria-label="' + esc(t('folders.title')) + '">' +
+        chip('', ico('grid') + '<span>' + t('folders.all') + '</span>', rows.length) +
+        chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', count(function (r) { return !r.folderId; })) +
+        folders.map(function (f) { return chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })); }).join('') +
+        '<button type="button" class="mf-chip mf-add" data-folder-new>' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
+      '</div>' +
+      (cur ? '<div class="mf-head">' + dot(cur) + '<b>' + esc(cur.name) + '</b>' +
+        '<button type="button" class="btn ghost sm" data-folder-edit>' + ico('pen') + '<span>' + t('folders.edit') + '</span></button>' +
+        '<button type="button" class="btn ghost sm mf-del" data-folder-delete>' + ico('trash') + '<span>' + t('folders.delete') + '</span></button></div>' : '') +
+      (folders.length ? '' : '<p class="mf-tip">' + t('folders.tip') + '</p>');
+    bar.hidden = !rows.length && !folders.length;
+  }
   function visible() {
     var q = filter.q.trim().toLowerCase();
     var out = rows.filter(function (r) {
       if (filter.type && r.typeId !== filter.type) return false;
+      if (filter.folder === 'none' && r.folderId) return false;
+      if (filter.folder && filter.folder !== 'none' && r.folderId !== filter.folder) return false;
       if (!q) return true;
       return (displayName(r) + ' ' + typeName(getType(r.typeId)) + ' ' + r.id + ' ' + (r.shortUrl || '')).toLowerCase().indexOf(q) >= 0;
     });
@@ -64,10 +99,12 @@ var MyCodes = (function () {
     var nameHtml = renaming === r.id
       ? '<input class="mc-rename" data-rename value="' + esc(r.name || name) + '" maxlength="60" aria-label="' + esc(t('myCodes.rename')) + '">'
       : '<button type="button" class="mc-name" data-act="rename" title="' + esc(t('myCodes.rename')) + '"><b>' + esc(name) + '</b>' + ico('pen') + '</button>';
-    return '<article class="mc-card glass' + (off ? ' off' : '') + '" data-id="' + esc(r.id) + '">' +
+    var fo = !filter.folder && r.folderId ? folderOf(r.folderId) : null;
+    return '<article class="mc-card glass' + (off ? ' off' : '') + '" data-id="' + esc(r.id) + '" draggable="true">' +
       '<div class="mc-qr" aria-hidden="true">' + QRRender.svg(qrData(r), qrDesign(r)) + '</div>' +
       '<div class="mc-main">' + nameHtml +
-        '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.stamp(r.createdAt, 'short') })) + '</span></div>' +
+        '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.stamp(r.createdAt, 'short') })) + '</span>' +
+          (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
         : '<button type="button" class="mc-scans" data-act="stats" title="' + esc(t('myCodes.viewStats')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
@@ -81,10 +118,12 @@ var MyCodes = (function () {
           '<div class="mc-menu right" role="menu" hidden>' +
             (stat ? '' : (api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="open">' + ico('open') + t('myCodes.open') + '</button>') + '<button type="button" role="menuitem" data-act="copy">' + ico('copy') + t('myCodes.copy') + '</button>') +
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
+            '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
             '<button type="button" role="menuitem" class="danger" data-act="delete">' + ico('trash') + t('myCodes.delete') + '</button></div></div>' +
       '</div></article>';
   }
   function draw() {
+    drawFolders();
     document.getElementById('mcCount').textContent = loaded ? t(rows.length === 1 ? 'myCodes.countOne' : 'myCodes.count', { n: i18n.fmt.num(rows.length) }) : '';
     var demo = document.getElementById('mcDemo'); demo.hidden = !api.isDemo(); demo.textContent = t('myCodes.demoNote');
     if (!rows.length) {
@@ -92,15 +131,18 @@ var MyCodes = (function () {
         '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('myCodes.first') + '</button></div>';
       return;
     }
-    var vis = visible();
+    var vis = visible(), searching = filter.q.trim() || filter.type;
     list.innerHTML = vis.length ? vis.map(card).join('')
+      : !searching && filter.folder ? '<div class="mc-empty small glass">' + ico('folder') + '<h3>' + t(filter.folder === 'none' ? 'folders.noneEmpty' : 'folders.empty') + '</h3><p>' + t(filter.folder === 'none' ? 'folders.noneEmptyText' : 'folders.emptyText') + '</p>' +
+          (filter.folder !== 'none' ? '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('folders.newHere') + '</button>' : '') + '</div>'
       : '<div class="mc-empty small glass"><h3>' + t('myCodes.noneFound') + '</h3><button type="button" class="btn ghost" data-act="clear">' + t('myCodes.clear') + '</button></div>';
     if (renaming) { var inp = list.querySelector('[data-rename]'); if (inp) { inp.focus(); inp.select(); } }
   }
   function message(key) { list.innerHTML = '<p class="muted-msg">' + t(key) + '</p>'; }
   function load() {
     if (!loaded) message('myCodes.loading');
-    return api.listQrCodes().then(function (r) { rows = r || []; loaded = true; drawTools(); draw(); })
+    return Promise.all([api.listQrCodes(), api.folders.list().catch(function () { return { folders: [] }; })])
+      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; loaded = true; drawTools(); draw(); })
       .catch(function () { message('myCodes.error'); });
   }
 
@@ -148,7 +190,111 @@ var MyCodes = (function () {
     api.getQrCode(r.id).then(function (full) { actions.startEdit(full); goToPage('create'); })
       .catch(function () { toast('myCodes.failed'); });
   }
-  function startNew() { actions.startNew(); goToPage('create'); }
+  function startNew() { newIn = filter.folder && filter.folder !== 'none' ? filter.folder : null; actions.startNew(); goToPage('create'); }
+
+  /* ---------- Mappen: maken, wijzigen, verwijderen, verplaatsen ---------- */
+  function folderErr(x) { return x && x.code === 'exists' ? 'folders.errExists' : x && x.code === 'too_many_folders' ? 'folders.errMany' : 'myCodes.failed'; }
+  /** Venster voor een nieuwe map of om een map te wijzigen (naam + kleur). then(folder) na opslaan. */
+  function folderDialog(f, then) {
+    var color = (f && f.color) || 'cyan';
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg mf-dlg" novalidate><span class="mc-dlg-ic mf-ic">' + ico(f ? 'folder' : 'folderPlus') + '</span>' +
+      '<h3>' + t(f ? 'folders.editTitle' : 'folders.newTitle') + '</h3>' +
+      '<label class="auth-f"><span>' + t('folders.name') + '</span><span class="auth-in"><input id="mfName" maxlength="40" value="' + esc(f ? f.name : '') + '" placeholder="' + esc(t('folders.namePh')) + '" autocomplete="off"></span></label>' +
+      '<div class="mf-colors" role="radiogroup" aria-label="' + esc(t('folders.color')) + '"><span>' + t('folders.color') + '</span><div>' +
+        Object.keys(COLORS).map(function (c) { return '<button type="button" role="radio" aria-checked="' + (c === color) + '" aria-label="' + esc(t('folders.c_' + c)) + '" title="' + esc(t('folders.c_' + c)) + '" data-color="' + c + '" style="--fc:' + COLORS[c] + '">' + ico('check') + '</button>'; }).join('') +
+      '</div></div><p class="acct-msg bad" id="mfMsg" hidden></p>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel" formnovalidate>' + t('myCodes.cancel') + '</button><button class="btn primary" value="ok" id="mfGo">' + t(f ? 'folders.save' : 'folders.create') + '</button></div></form>';
+    var inp = dialog.querySelector('#mfName'), msg = dialog.querySelector('#mfMsg');
+    dialog.querySelector('.mf-colors').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-color]'); if (!b) return; color = b.getAttribute('data-color');
+      dialog.querySelectorAll('[data-color]').forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); });
+    });
+    dialog.querySelector('#mfGo').addEventListener('click', function (e) {
+      e.preventDefault(); var name = inp.value.replace(/\s+/g, ' ').trim();
+      if (!name) { msg.hidden = false; msg.textContent = t('folders.errName'); inp.focus(); return; }
+      var go = e.currentTarget; go.disabled = true;
+      (f ? api.folders.update(f.id, { name: name, color: color }) : api.folders.create({ name: name, color: color })).then(function (res) {
+        var nf = res.folder; folders = f ? folders.map(function (x) { return x.id === nf.id ? nf : x; }) : folders.concat([nf]);
+        dialog.close(); if (then) then(nf); else draw();
+        toast(f ? 'folders.saved' : 'folders.created');
+      }).catch(function (x) { go.disabled = false; msg.hidden = false; msg.textContent = t(folderErr(x)); inp.focus(); });
+    });
+    dialog.onclose = null; dialog.returnValue = ''; dialog.showModal(); inp.focus(); inp.select();
+  }
+  function askDeleteFolder(f) {
+    var n = rows.filter(function (r) { return r.folderId === f.id; }).length;
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + ico('trash') + '</span>' +
+      '<h3>' + esc(t('folders.deleteTitle', { name: f.name })) + '</h3><p>' + t(n ? (n === 1 ? 'folders.deleteTextOne' : 'folders.deleteText') : 'folders.deleteTextEmpty', { n: n }) + '</p>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok">' + t('folders.delete') + '</button></div></form>';
+    dialog.onclose = function () {
+      if (dialog.returnValue !== 'ok') return;
+      api.folders.remove(f.id).then(function () {
+        folders = folders.filter(function (x) { return x.id !== f.id; });
+        rows.forEach(function (r) { if (r.folderId === f.id) r.folderId = null; });
+        filter.folder = ''; draw(); toast('folders.deleted');
+      }).catch(function () { toast('myCodes.failed'); });
+    };
+    dialog.returnValue = ''; dialog.showModal(); dialog.querySelector('[value="cancel"]').focus();
+  }
+  function move(ids, folderId) {
+    var before = {}; rows.forEach(function (r) { if (ids.indexOf(r.id) >= 0) { before[r.id] = r.folderId || null; r.folderId = folderId; } });
+    draw();                                                           // meteen zichtbaar; terug als het mislukt
+    api.folders.move({ ids: ids, folderId: folderId }).then(function () {
+      var f = folderOf(folderId); toastText(f ? t('folders.movedTo', { name: f.name }) : t('folders.movedOut'));
+    }).catch(function () { rows.forEach(function (r) { if (r.id in before) r.folderId = before[r.id]; }); draw(); toast('myCodes.failed'); });
+  }
+  /** Kiezen naar welke map een code gaat */
+  function askMove(r) {
+    var opt = function (id, label, on) { return '<button type="button" class="mf-pick' + (on ? ' on' : '') + '" data-pick="' + esc(id) + '"' + (on ? ' aria-current="true"' : '') + '>' + label + (on ? '<em>' + t('folders.current') + '</em>' : '') + '</button>'; };
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg mf-dlg"><span class="mc-dlg-ic mf-ic">' + ico('move') + '</span>' +
+      '<h3>' + esc(t('folders.moveTitle', { name: displayName(r) })) + '</h3>' +
+      '<div class="mf-picks">' + opt('', ico('inbox') + '<span>' + t('folders.none') + '</span>', !r.folderId) +
+        folders.map(function (f) { return opt(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', r.folderId === f.id); }).join('') +
+        '<button type="button" class="mf-pick mf-pick-new" data-pick-new>' + ico('folderPlus') + '<span>' + t('folders.newAndMove') + '</span></button></div>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button></div></form>';
+    dialog.querySelector('.mf-picks').addEventListener('click', function (e) {
+      if (e.target.closest('[data-pick-new]')) { dialog.close(); return folderDialog(null, function (nf) { move([r.id], nf.id); }); }
+      var b = e.target.closest('[data-pick]'); if (!b) return;
+      var to = b.getAttribute('data-pick') || null; dialog.close();
+      if ((r.folderId || null) !== to) move([r.id], to);
+    });
+    dialog.onclose = null; dialog.returnValue = ''; dialog.showModal();
+    var cur = dialog.querySelector('.mf-pick.on') || dialog.querySelector('.mf-pick'); if (cur) cur.focus();
+  }
+  function toastText(text) {
+    toastEl.textContent = text; toastEl.hidden = false; toastEl.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('show'); setTimeout(function () { toastEl.hidden = true; }, 250); }, 2200);
+  }
+
+  bar.addEventListener('click', function (e) {
+    var c = e.target.closest('[data-folder]'); if (c) { filter.folder = c.getAttribute('data-folder'); return draw(); }
+    if (e.target.closest('[data-folder-new]')) return folderDialog(null, function (nf) { filter.folder = nf.id; draw(); });
+    var cur = folderOf(filter.folder);
+    if (cur && e.target.closest('[data-folder-edit]')) return folderDialog(cur);
+    if (cur && e.target.closest('[data-folder-delete]')) return askDeleteFolder(cur);
+  });
+  // Slepen: een code op een map (of op "Zonder map") laten vallen
+  var dragId = null;
+  list.addEventListener('dragstart', function (e) {
+    var c = e.target.closest && e.target.closest('.mc-card'); if (!c || renaming) return;
+    dragId = c.getAttribute('data-id'); c.classList.add('dragging'); bar.classList.add('dropping');
+    try { e.dataTransfer.setData('text/plain', dragId); e.dataTransfer.effectAllowed = 'move'; } catch (x) {}
+  });
+  // Opruimen na het slepen (ook als de kaart intussen opnieuw getekend is en "dragend" niet meer aankomt)
+  function endDrag() { dragId = null; bar.classList.remove('dropping'); list.querySelectorAll('.dragging').forEach(function (x) { x.classList.remove('dragging'); }); bar.querySelectorAll('.over').forEach(function (x) { x.classList.remove('over'); }); }
+  list.addEventListener('dragend', endDrag);
+  document.addEventListener('dragend', endDrag);
+  bar.addEventListener('dragover', function (e) {
+    var c = e.target.closest('[data-folder]'); if (!dragId || !c || c.getAttribute('data-folder') === '') return;
+    e.preventDefault(); bar.querySelectorAll('.over').forEach(function (x) { if (x !== c) x.classList.remove('over'); }); c.classList.add('over');
+  });
+  bar.addEventListener('dragleave', function (e) { var c = e.target.closest('[data-folder]'); if (c && !c.contains(e.relatedTarget)) c.classList.remove('over'); });
+  bar.addEventListener('drop', function (e) {
+    var c = e.target.closest('[data-folder]'); if (!dragId || !c) return; e.preventDefault(); c.classList.remove('over');
+    var key = c.getAttribute('data-folder'), to = key === 'none' ? null : key, r = find(dragId);
+    endDrag();
+    if (r && key !== '' && (r.folderId || null) !== to) move([r.id], to);
+  });
 
   view.addEventListener('click', function (e) {
     if (e.target.closest('[data-mc-new]')) return startNew();
@@ -171,7 +317,9 @@ var MyCodes = (function () {
     if (act === 'toggle') return toggle(r);
     if (act === 'delete') return askDelete(r);
     if (act === 'rename') { renaming = r.id; return draw(); }
+    if (act === 'move') return askMove(r);
   });
+  list.addEventListener('click', function (e) { var f = e.target.closest('.mc-folder[data-folder]'); if (f) { filter.folder = f.getAttribute('data-folder'); draw(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
   list.addEventListener('keydown', function (e) {
     var inp = e.target.closest('[data-rename]');
     if (inp) { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } if (e.key === 'Escape') { renaming = null; draw(); } return; }
@@ -187,7 +335,9 @@ var MyCodes = (function () {
 
   function label() { view.querySelector('.mc-head [data-mc-new]').innerHTML = ico('plus') + t('myCodes.new'); }
   label();
-  document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; load(); } });
+  document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; load(); } else if (e.detail !== 'create') newIn = null; });
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });
-  return { reload: load, displayName: displayName };
+  /** Nieuwe code gemaakt vanuit een map: die map (één keer) */
+  function folderForNew() { var f = newIn; newIn = null; return f; }
+  return { reload: load, displayName: displayName, folderForNew: folderForNew };
 })();

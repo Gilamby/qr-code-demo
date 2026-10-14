@@ -52,6 +52,8 @@ export type ClientMeta = { ua?: string; ip?: string };
 /** Recente activiteit: login, login_failed, password, email, sessions_ended, session_ended */
 export type Activity = { kind: string; at: string; ip: string | null; ua: string | null };
 export const SESSION_ID_LEN = 16;
+/** Map in Mijn QR-codes */
+export type Folder = { id: string; name: string; color: string; createdAt: string };
 export const EMAIL_CHANGE_HOURS = 24;
 export type Summary = { codes: number; scans: number; scans30: number; sessions: number };
 /** Een klant in de lijst van het team (pagina Klanten) */
@@ -132,6 +134,13 @@ export abstract class DatabaseService {
   abstract setSetting(key: string, value: string | null): Promise<void>;
 
   /* ---------- QR-codes ---------- */
+  /* Mappen (Mijn QR-codes). Map weg = de codes blijven, zonder map. */
+  abstract listFolders(userId: string): Promise<Folder[]>;
+  abstract createFolder(userId: string, f: { name: string; color: string }): Promise<Folder>;
+  abstract updateFolder(userId: string, id: string, patch: { name?: string; color?: string }): Promise<Folder | null>;
+  abstract deleteFolder(userId: string, id: string): Promise<boolean>;
+  /** Codes (alleen eigen) in een map zetten; folderId null = uit de map. Geeft het aantal verplaatste codes. */
+  abstract moveToFolder(userId: string, codeIds: string[], folderId: string | null): Promise<number>;
   abstract listQrCodes(userId: string): Promise<QrCode[]>;
   /** Met statistieken (voor /api/analytics): { stats: { dag: { sleutel: [scans, uniek] } } } */
   abstract listWithStats(userId: string): Promise<QrCode[]>;

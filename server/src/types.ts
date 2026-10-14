@@ -36,6 +36,8 @@ export interface QrCode {
   lastScanAt: string | null;
   createdAt: string;
   updatedAt?: string;
+  /** Map in Mijn QR-codes (null = geen map) */
+  folderId?: string | null;
   /** Alleen bij listWithStats: { dag: { "os|land|stad": [scans, uniek] } } */
   stats?: Record<string, Record<string, [number, number]>>;
 }

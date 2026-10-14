@@ -37,7 +37,7 @@ var api = (function () {
 
   /* ---------- Demo-opslag (alleen zonder server) ---------- */
   var local = (function () {
-    var KEY = 'optimasys-demo-codes', memory = null;
+    var KEY = 'optimasys-demo-codes', FKEY = 'optimasys-demo-folders', memory = null, fmem = null;
     function read() {
       if (memory) return memory;
       try { memory = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { memory = []; }
@@ -53,6 +53,11 @@ var api = (function () {
       return r;
     }
     function find(id) { return read().filter(function (q) { return q.id === id; })[0]; }
+    // Mappen in de demo: ook in deze browser
+    function folders() { if (!fmem) { try { fmem = JSON.parse(localStorage.getItem(FKEY) || '[]'); } catch (e) { fmem = []; } if (!Array.isArray(fmem)) fmem = []; } return fmem; }
+    function saveFolders() { try { localStorage.setItem(FKEY, JSON.stringify(fmem)); } catch (e) { /* alleen zolang de pagina open is */ } }
+    function ferr(code, status) { var e = new Error(code); e.code = code; e.status = status; return Promise.reject(e); }
+    function fname(v) { return String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, 40); }
     function notFound() { var e = new Error('QR code not found'); e.status = 404; return Promise.reject(e); }
     function clean(content) { var c = {}; Object.keys(content || {}).forEach(function (k) { var v = content[k]; if (v != null && String(v).trim() !== '') c[k] = String(v).trim(); }); return c; }
     return {
@@ -62,6 +67,7 @@ var api = (function () {
         var tp = getType(d.typeId);
         var q = { id: d.id || newDraftId(), createdAt: new Date().toISOString(), scans: 0, lastScanAt: null, typeId: d.typeId, contentType: tp.contentType, content: clean(d.content), design: d.design || {} };
         if (d.name) q.name = String(d.name).slice(0, 60);
+        if (d.folderId && folders().some(function (f) { return f.id === d.folderId; })) q.folderId = d.folderId;
         read().push(q); write(); return Promise.resolve(out(q));
       },
       update: function (id, d) {
@@ -78,7 +84,32 @@ var api = (function () {
         if (p.paused !== undefined) q.paused = !!p.paused;
         write(); return Promise.resolve(out(q));
       },
-      remove: function (id) { memory = read().filter(function (q) { return q.id !== id; }); write(); return Promise.resolve(null); }
+      remove: function (id) { memory = read().filter(function (q) { return q.id !== id; }); write(); return Promise.resolve(null); },
+      folders: {
+        list: function () { return Promise.resolve({ folders: folders().slice() }); },
+        create: function (d) {
+          var name = fname(d.name); if (!name) return ferr('name', 400);
+          if (folders().some(function (f) { return f.name.toLowerCase() === name.toLowerCase(); })) return ferr('exists', 409);
+          var f = { id: newDraftId(), name: name, color: d.color || 'cyan', createdAt: new Date().toISOString() }; folders().push(f); saveFolders(); return Promise.resolve({ folder: f });
+        },
+        update: function (id, d) {
+          var f = folders().filter(function (x) { return x.id === id; })[0]; if (!f) return ferr('not_found', 404);
+          if (d.name !== undefined) {
+            var name = fname(d.name); if (!name) return ferr('name', 400);
+            if (folders().some(function (x) { return x.id !== id && x.name.toLowerCase() === name.toLowerCase(); })) return ferr('exists', 409);
+            f.name = name;
+          }
+          if (d.color !== undefined) f.color = d.color;
+          saveFolders(); return Promise.resolve({ folder: f });
+        },
+        remove: function (id) {
+          fmem = folders().filter(function (x) { return x.id !== id; }); saveFolders();
+          read().forEach(function (q) { if (q.folderId === id) q.folderId = null; }); write(); return Promise.resolve(null);
+        },
+        move: function (d) {
+          var n = 0; read().forEach(function (q) { if (d.ids.indexOf(q.id) >= 0) { q.folderId = d.folderId || null; n++; } }); write(); return Promise.resolve({ moved: n });
+        }
+      }
     };
   })();
   /* ---------- Demo-statistieken (alleen zonder server) ----------
@@ -219,6 +250,14 @@ var api = (function () {
     updateQrCode: either(function (id, data) { return request('PUT', 'api/qr-codes/' + encodeURIComponent(id), data); }, local.update),
     patchQrCode:  either(function (id, patch) { return request('PATCH', 'api/qr-codes/' + encodeURIComponent(id), patch); }, local.patch),
     deleteQrCode: either(function (id) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id)); }, local.remove),
+    // Mappen in Mijn QR-codes
+    folders: {
+      list:   either(function ()      { return request('GET', 'api/folders'); }, local.folders.list),
+      create: either(function (d)     { return request('POST', 'api/folders', d); }, local.folders.create),
+      update: either(function (id, d) { return request('PATCH', 'api/folders/' + encodeURIComponent(id), d); }, local.folders.update),
+      remove: either(function (id)    { return request('DELETE', 'api/folders/' + encodeURIComponent(id)); }, local.folders.remove),
+      move:   either(function (d)     { return request('POST', 'api/folders/move', d); }, local.folders.move)
+    },
     // Statistieken: { from, to, codes: [], os: [], cc: [], city: [] }
     analytics: either(function (q) { return request('GET', 'api/analytics?' + query(q)); },
       function (q) { return demoCodes().then(function (codes) { return Object.assign(ANALYTICS.overview(codes, flat(q)), { demo: true, geo: true, names: codes.map(function (c) { return { id: c.id, typeId: c.typeId, name: c.name }; }) }); }); }),
