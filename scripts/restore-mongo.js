@@ -21,7 +21,7 @@ if (!/^mongodb(\+srv)?:\/\//.test(url)) { console.error('DATABASE_URL moet mongo
 
 (async () => {
   const client = new MongoClient(url); await client.connect();
-  const db = client.db();
+  const m = /^mongodb(?:\+srv)?:\/\/[^/]+\/([^?]+)/.exec(url), db = client.db(m ? decodeURIComponent(m[1]) : 'optimasys');   // zelfde database als de app
   for (const f of fs.readdirSync(src).filter((x) => x.endsWith('.jsonl.gz'))) {
     const name = f.replace(/\.jsonl\.gz$/, ''), col = db.collection(name);
     if (replace) await col.deleteMany({});
