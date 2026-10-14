@@ -44,7 +44,17 @@ export function removeFiles(ids: string[]) { ids.forEach((id) => { try { fs.unli
 /** Gebruiker zoals userByEmail hem teruggeeft (met wachtwoord-hash, alleen voor inloggen) */
 export interface UserRow { id: string; email: string; name: string; password_hash: string; email_verified_at: string | null; created_at: string }
 export type NewQrCode = { id: string; typeId: string; contentType: string; content: Record<string, any>; design?: Record<string, any>; name?: string; createdAt?: string };
-export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean; favorite?: boolean };
+export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean; favorite?: boolean; moderation?: Moderation | null };
+/** Beheer: gepauzeerd door het team (hold, met reden; lock = klant mag hem niet zelf weer aanzetten) en/of gemarkeerd als verdacht (flag) */
+export type ModNote = { reason: string; by: string; byName?: string; at: string; lock?: boolean };
+export type Moderation = { hold?: ModNote; flag?: ModNote };
+export function parseModeration(v: unknown): Moderation | null { let o: any = null; try { o = typeof v === 'string' ? JSON.parse(v) : v || null; } catch (e) { o = null; } return o && (o.hold || o.flag) ? o : null; }
+/** Logboek van het beheer: wie deed wat met welke code (pauzeren, verwijderen, bewerken, exporteren …) */
+export type AdminLogEntry = { id?: string; at?: string; adminId: string; adminName: string; action: string; codeId?: string | null; ownerId?: string | null; detail?: string | null };
+/** Per code: unieke scans (alles) en scans per dag vanaf een datum (voor verdachte patronen) */
+export type CodeTotals = Record<string, { uniq: number; days: Record<string, [number, number]> }>;
+/** Hoe lang het beheerlog bewaard blijft */
+export const ADMIN_LOG_DAYS = 365;
 export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null; passwordChangedAt: string; theme: string | null; emailPrefs: string | null; lang: string | null }>;
 /** Waar je bent ingelogd (Mijn account > Beveiliging). id = deel van de hash, nooit de sessiecode zelf */
 export type SessionInfo = { id: string; createdAt: string; seenAt: string | null; ua: string | null; ip: string | null; current?: boolean };
@@ -131,6 +141,11 @@ export abstract class DatabaseService {
   abstract allQrCodes(): Promise<QrCode[]>;
   /** Scans van alle codes samen per dag, vanaf 'since' (JJJJ-MM-DD) */
   abstract scansPerDay(since: string): Promise<DayCount[]>;
+  /** Per code: unieke scans totaal + scans per dag vanaf 'since' */
+  abstract codeTotals(since: string): Promise<CodeTotals>;
+  /** Beheerlog: toevoegen en lezen (nieuwste eerst; optioneel alleen van één code) */
+  abstract addAdminLog(e: AdminLogEntry): Promise<void>;
+  abstract listAdminLog(f?: { codeId?: string; limit?: number }): Promise<AdminLogEntry[]>;
   /** Instellingen van het platform (vertalingen, DeepL-sleutel …): tekst per sleutel */
   abstract getSetting(key: string): Promise<string | null>;
   abstract setSetting(key: string, value: string | null): Promise<void>;
@@ -149,7 +164,11 @@ export abstract class DatabaseService {
   /** Openbaar (scannen) */
   abstract getQrCode(id: string): Promise<QrCode | null>;
   async getOwnedQrCode(id: string, userId: string): Promise<QrCode | null> { const q = await this.getQrCode(id); return q && q.userId === userId ? q : null; }
+  /** Bestaat dit id al, of was het ooit van een (verwijderde) code? Een verwijderde link wordt nooit opnieuw uitgegeven. */
   abstract idTaken(id: string): Promise<boolean>;
+  /** Was dit id van een code die is verwijderd? (dan krijgt de bezoeker "verwijderd" te zien) */
+  async wasDeleted(id: string) { return !!(await this.getSetting('gone:' + id)); }
+  protected async markGone(ids: string[]) { for (const id of ids) await this.setSetting('gone:' + id, now()); }
   abstract insertQrCode(userId: string, q: NewQrCode): Promise<QrCode>;
   abstract updateQrCode(id: string, patch: QrPatch): Promise<QrCode>;
   abstract deleteQrCode(id: string, userId: string): Promise<boolean>;

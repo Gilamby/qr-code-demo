@@ -22,7 +22,7 @@ import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
-  Activity, ClientMeta, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, AdminLogEntry, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -32,7 +32,7 @@ const DUPLICATE = 11000;
 function codeOut(d: Doc): QrCode {
   if (!d) return null;
   return { id: d._id, userId: d.userId, typeId: d.typeId, contentType: d.contentType, content: openContent(d.contentType, d.content || {}), design: d.design || {},
-    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite };
+    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite, moderation: parseModeration(d.moderation) };
 }
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 function userOut(d: Doc): User {
@@ -59,6 +59,7 @@ export class MongoDatabase extends DatabaseService {
   private readonly activity: Collection<Doc>;
   private readonly emailChanges: Collection<Doc>;
   private readonly folders: Collection<Doc>;
+  private readonly adminLog: Collection<Doc>;
 
   private constructor(private readonly client: MongoClient, readonly db: Db, url: string) {
     super();
@@ -67,6 +68,7 @@ export class MongoDatabase extends DatabaseService {
     this.resets = db.collection('passwordResets'); this.verifications = db.collection('emailVerifications');
     this.codes = db.collection('qrCodes'); this.stats = db.collection('scanStats'); this.files = db.collection('files'); this.settings = db.collection('settings');
     this.activity = db.collection('activity'); this.emailChanges = db.collection('emailChanges'); this.folders = db.collection('folders');
+    this.adminLog = db.collection('adminLog');
   }
 
   /** Verbinden en de indexen aanmaken (mag vaker: bestaat de index al, dan gebeurt er niets) */
@@ -80,6 +82,8 @@ export class MongoDatabase extends DatabaseService {
       m.activity.createIndex({ userId: 1, at: -1 }),
       m.emailChanges.createIndex({ userId: 1 }),
       m.folders.createIndex({ userId: 1 }),
+      m.adminLog.createIndex({ at: -1 }),
+      m.adminLog.createIndex({ codeId: 1, at: -1 }),
       m.resets.createIndex({ userId: 1 }),
       m.verifications.createIndex({ userId: 1 }),
       m.codes.createIndex({ userId: 1, createdAt: -1 }),
@@ -123,6 +127,7 @@ export class MongoDatabase extends DatabaseService {
     // eerst alles wat bij het account hoort, als laatste het account zelf (lukt iets niet, dan kan het opnieuw)
     await this.stats.deleteMany({ userId: id });
     await this.files.deleteMany({ userId: id });
+    await this.markGone((await this.codes.find({ userId: id }, { projection: { _id: 1 } }).toArray()).map((d) => d._id));
     await this.codes.deleteMany({ userId: id });
     await this.sessions.deleteMany({ userId: id });
     await this.resets.deleteMany({ userId: id });
@@ -235,6 +240,7 @@ export class MongoDatabase extends DatabaseService {
     await this.verifications.deleteMany({ expiresAt: { $lt: t } });
     await this.emailChanges.deleteMany({ expiresAt: { $lt: t } });
     await this.activity.deleteMany({ at: { $lt: new Date(Date.now() - 90 * 864e5).toISOString() } });
+    await this.adminLog.deleteMany({ at: { $lt: new Date(Date.now() - ADMIN_LOG_DAYS * 864e5).toISOString() } });
     // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
     const loose = (await this.files.find({ codeId: null, createdAt: { $lt: new Date(Date.now() - 864e5).toISOString() } }, { projection: { _id: 1 } }).toArray()).map((d) => d._id);
     if (loose.length) await this.files.deleteMany({ _id: { $in: loose } });
@@ -258,6 +264,22 @@ export class MongoDatabase extends DatabaseService {
     return (await this.stats.aggregate([{ $match: { day: { $gte: since } } }, { $group: { _id: '$day', scans: { $sum: '$scans' }, uniq: { $sum: '$uniq' } } }, { $sort: { _id: 1 } }]).toArray())
       .map((r) => ({ day: r._id, scans: Number(r.scans) || 0, uniq: Number(r.uniq) || 0 }));
   }
+  async codeTotals(since: string): Promise<CodeTotals> {
+    const out: CodeTotals = {};
+    for (const r of await this.stats.aggregate([{ $group: { _id: '$codeId', u: { $sum: '$uniq' } } }]).toArray()) out[r._id] = { uniq: Number(r.u) || 0, days: {} };
+    for (const r of await this.stats.aggregate([{ $match: { day: { $gte: since } } }, { $group: { _id: { c: '$codeId', d: '$day' }, s: { $sum: '$scans' }, u: { $sum: '$uniq' } } }]).toArray()) {
+      (out[r._id.c] = out[r._id.c] || { uniq: 0, days: {} }).days[r._id.d] = [Number(r.s) || 0, Number(r.u) || 0];
+    }
+    return out;
+  }
+  async addAdminLog(e: AdminLogEntry) {
+    await this.adminLog.insertOne({ _id: newId(12), at: now(), adminId: e.adminId, adminName: cut(e.adminName, 120), action: e.action, codeId: e.codeId || null, ownerId: e.ownerId || null, detail: cut(e.detail || undefined, 500) });
+  }
+  async listAdminLog(f: { codeId?: string; limit?: number } = {}): Promise<AdminLogEntry[]> {
+    const lim = Math.min(500, Math.max(1, (f.limit || 50) | 0));
+    return (await this.adminLog.find(f.codeId ? { codeId: f.codeId } : {}).sort({ at: -1 }).limit(lim).toArray())
+      .map((r) => ({ id: r._id, at: r.at, adminId: r.adminId, adminName: r.adminName || '', action: r.action, codeId: r.codeId || null, ownerId: r.ownerId || null, detail: r.detail || null }));
+  }
   async getSetting(key: string) { const d = await this.settings.findOne({ _id: key }); return d ? d.value : null; }
   async setSetting(key: string, value: string | null) {
     if (value == null) { await this.settings.deleteOne({ _id: key }); return; }
@@ -277,7 +299,7 @@ export class MongoDatabase extends DatabaseService {
     return codes;
   }
   async getQrCode(id: string): Promise<QrCode> { return codeOut(await this.codes.findOne({ _id: id })); }
-  async idTaken(id: string) { return !!(await this.codes.findOne({ _id: id }, { projection: { _id: 1 } })); }
+  async idTaken(id: string) { return !!(await this.codes.findOne({ _id: id }, { projection: { _id: 1 } })) || this.wasDeleted(id); }
   async listFolders(userId: string): Promise<Folder[]> {
     return (await this.folders.find({ userId }).sort({ createdAt: 1 }).toArray()).map((d) => ({ id: d._id, name: d.name, color: d.color, createdAt: d.createdAt }));
   }
@@ -316,7 +338,8 @@ export class MongoDatabase extends DatabaseService {
     if (patch.design) set.design = patch.design;
     if (patch.name !== undefined) set.name = patch.name || null;
     if (patch.paused !== undefined) set.paused = !!patch.paused;
-    if (Object.keys(set).length) set.updatedAt = now();                 // alleen een sterretje = geen echte wijziging
+    if (Object.keys(set).length) set.updatedAt = now();                 // alleen een sterretje of een markering = geen echte wijziging
+    if (patch.moderation !== undefined) set.moderation = patch.moderation && (patch.moderation.hold || patch.moderation.flag) ? patch.moderation : null;
     if (patch.favorite !== undefined) set.favorite = !!patch.favorite;
     if (!Object.keys(set).length) return this.getQrCode(id);
     await this.codes.updateOne({ _id: id }, { $set: set });
@@ -329,6 +352,7 @@ export class MongoDatabase extends DatabaseService {
     await this.files.deleteMany({ codeId: id });
     await this.codes.deleteOne({ _id: id });
     removeFiles(files);
+    await this.markGone([id]);                                       // deze link wordt nooit opnieuw uitgegeven
     return true;
   }
   async addScan(id: string, info?: { key: string; unique: boolean }) {

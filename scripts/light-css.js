@@ -23,7 +23,7 @@ const INK = '13,19,32';
 const PASTEL = {                                                     // licht op donker → donker op licht
   '#fca5a5': '#b91c1c', '#fecaca': '#991b1b', '#f87171': '#dc2626', '#86efac': '#15803d', '#4ade80': '#15803d', '#22c55e': '#16a34a',
   '#7dd3fc': '#0369a1', '#bae6fd': '#075985', '#e0f2fe': '#075985', '#fbbf24': '#b45309', '#fde68a': '#92400e', '#38bdf8': '#0284c7',
-  '#a5b4fc': '#4338ca', '#c4b5fd': '#6d28d9', '#f9a8d4': '#be185d', '#fdba74': '#c2410c',
+  '#a5b4fc': '#4338ca', '#cbd5e1': '#475569', '#c4b5fd': '#6d28d9', '#f9a8d4': '#be185d', '#fdba74': '#c2410c',
 };
 const DARK_BG = {                                                    // donkere vlakken → lichte vlakken
   '#07090c': '#eef2f7', '#0b0e13': '#f4f6f9', '#090b10': '#ffffff', '#0b1220': '#f4f7fb', '#13171e': '#ffffff', '#151a22': '#ffffff',

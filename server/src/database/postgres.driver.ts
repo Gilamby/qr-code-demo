@@ -91,6 +91,20 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   // 14 okt 2026: mappen voor QR-codes
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS folder_id TEXT');
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS favorite INTEGER NOT NULL DEFAULT 0');
+  // 14 okt 2026: beheer (gepauzeerd door het team, gemarkeerd) + logboek van het beheer
+  await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS moderation TEXT');
+  await pool.query(`CREATE TABLE IF NOT EXISTS admin_log (
+  id TEXT PRIMARY KEY,
+  at TEXT NOT NULL,
+  admin_id TEXT NOT NULL,
+  admin_name TEXT,
+  action TEXT NOT NULL,
+  code_id TEXT,
+  owner_id TEXT,
+  detail TEXT
+);
+CREATE INDEX IF NOT EXISTS admin_log_at ON admin_log(at);
+CREATE INDEX IF NOT EXISTS admin_log_code ON admin_log(code_id, at);`);
   await pool.query(`CREATE TABLE IF NOT EXISTS folders (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

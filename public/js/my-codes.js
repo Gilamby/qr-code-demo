@@ -8,6 +8,8 @@
    ========================================================= */
 var MyCodes = (function () {
   var IC = {
+    lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    pause: '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>',
     search: '<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/>',
     plus: '<path d="M12 5v14M5 12h14"/>',
     dl: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
@@ -113,7 +115,7 @@ var MyCodes = (function () {
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
         : '<button type="button" class="mc-scans" data-act="stats" title="' + esc(t('myCodes.viewStats')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
       '<div class="mc-state">' + (stat ? '<span class="mc-pill on">' + t('myCodes.always') + '</span>'
-        : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" data-act="toggle"><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
+        : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" data-act="toggle"' + (off && r.hold && r.hold.lock ? ' aria-disabled="true" title="' + esc(t('myCodes.heldLocked')) + '"' : '') + '><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
       '<div class="mc-acts">' +
         '<div class="mc-drop"><button type="button" class="btn ghost sm" data-act="dlmenu" aria-haspopup="true" aria-expanded="false">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button>' +
           '<div class="mc-menu" role="menu" hidden><button type="button" role="menuitem" data-act="png">PNG<small>' + t('myCodes.pngHint') + '</small></button><button type="button" role="menuitem" data-act="svg">SVG<small>' + t('myCodes.svgHint') + '</small></button></div></div>' +
@@ -125,7 +127,10 @@ var MyCodes = (function () {
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
             '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
             '<button type="button" role="menuitem" class="danger" data-act="delete">' + ico('trash') + t('myCodes.delete') + '</button></div></div>' +
-      '</div></article>';
+      '</div>' +
+      // Gepauzeerd door het team (met reden): over de hele breedte onder de kaart
+      (off && r.hold ? '<p class="mc-hold">' + ico(r.hold.lock ? 'lock' : 'pause') + '<span><b>' + t('myCodes.heldTitle') + '</b> ' + (r.hold.reason ? esc(r.hold.reason) + '. ' : '') + t(r.hold.lock ? 'myCodes.heldLocked' : 'myCodes.heldOpen') +
+        (r.hold.lock ? ' <button type="button" class="link-btn" data-act="support">' + t('myCodes.heldContact') + '</button>' : '') + '</span></p>' : '') + '</article>';
   }
   function draw() {
     drawFolders();
@@ -174,10 +179,11 @@ var MyCodes = (function () {
     api.patchQrCode(id, { name: value }).then(function (rec) { replace(rec); draw(); toast('myCodes.renamed'); }).catch(function () { draw(); toast('myCodes.failed'); });
   }
   function toggle(r) {
+    if (r.paused && r.hold && r.hold.lock) return toast('myCodes.heldLocked');   // gepauzeerd door het beheer: alleen het team kan hem weer aanzetten
     var next = !r.paused;
     r.paused = next; draw();                                   // meteen zichtbaar; terugzetten als het mislukt
     api.patchQrCode(r.id, { paused: next }).then(function (rec) { replace(rec); draw(); toast(next ? 'myCodes.pausedToast' : 'myCodes.activeToast'); })
-      .catch(function () { r.paused = !next; draw(); toast('myCodes.failed'); });
+      .catch(function (x) { r.paused = !next; draw(); toast(x && x.code === 'admin_hold' ? 'myCodes.heldLocked' : 'myCodes.failed'); });
   }
   function favorite(r) {
     var next = !r.favorite; r.favorite = next; draw();                // meteen zichtbaar; terug als het mislukt
@@ -334,6 +340,7 @@ var MyCodes = (function () {
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });
     if (act === 'toggle') return toggle(r);
+    if (act === 'support') return goToPage('contact');
     if (act === 'delete') return askDelete(r);
     if (act === 'rename') { renaming = r.id; return draw(); }
     if (act === 'move') return askMove(r);

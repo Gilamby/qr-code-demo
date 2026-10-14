@@ -60,7 +60,7 @@ export class ShortLinksController {
 
   private async openCode(req: Request, res: Response, id: string, passwordOk: boolean) {
     const found = await this.db.getQrCode(id);
-    if (!found) return res.status(404).send(rules.notFoundPage(req));
+    if (!found) return res.status(/^[A-Za-z0-9_-]{4,16}$/.test(id) && (await this.db.wasDeleted(id)) ? 410 : 404).send(rules.notFoundPage(req));   // 410 = verwijderd, komt niet terug
     if (found.paused) return res.status(503).set('Retry-After', '3600').send(rules.pausedPage(req));   // tijdelijk uit: niet tellen
     if (rules.isExpired(found)) return res.status(410).send(rules.expiredPage(req));
     const key = secretKey(found.typeId);

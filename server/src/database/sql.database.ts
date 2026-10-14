@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
-  Activity, ClientMeta, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, AdminLogEntry, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -18,7 +18,7 @@ const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : n
 function codeOut(r: any): QrCode {
   if (!r) return null;
   return { id: r.id, userId: r.user_id, typeId: r.type_id, contentType: r.content_type, content: openContent(r.content_type, JSON.parse(r.content)), design: JSON.parse(r.design),
-    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null, favorite: !!Number(r.favorite) };
+    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null, favorite: !!Number(r.favorite), moderation: parseModeration(r.moderation) };
 }
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
@@ -61,7 +61,9 @@ export class SqlDatabase extends DatabaseService {
   }
   async deleteUser(id: string) {
     const files = (await this.d.all('SELECT id FROM files WHERE user_id = ?', [id])).map((r) => r.id);
-    await this.d.run('DELETE FROM users WHERE id = ?', [id]);       // de rest gaat mee (ON DELETE CASCADE)
+    const codes = (await this.d.all('SELECT id FROM qr_codes WHERE user_id = ?', [id])).map((r) => r.id);
+    await this.d.run('DELETE FROM users WHERE id = ?', [id]);
+    await this.markGone(codes);       // de rest gaat mee (ON DELETE CASCADE)
     removeFiles(files);
   }
 
@@ -173,6 +175,7 @@ export class SqlDatabase extends DatabaseService {
     await this.d.run('DELETE FROM email_verifications WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM email_changes WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM activity WHERE at < ?', [new Date(Date.now() - 90 * 864e5).toISOString()]);
+    await this.d.run('DELETE FROM admin_log WHERE at < ?', [new Date(Date.now() - ADMIN_LOG_DAYS * 864e5).toISOString()]);
     // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
     const loose = (await this.d.all('SELECT id FROM files WHERE code_id IS NULL AND created_at < ?', [new Date(Date.now() - 864e5).toISOString()])).map((r) => r.id);
     for (const id of loose) await this.d.run('DELETE FROM files WHERE id = ?', [id]);
@@ -191,6 +194,23 @@ export class SqlDatabase extends DatabaseService {
   async scansPerDay(since: string): Promise<DayCount[]> {
     return (await this.d.all('SELECT day, SUM(scans) AS scans, SUM(uniq) AS uniq FROM scan_stats WHERE day >= ? GROUP BY day ORDER BY day', [since]))
       .map((r) => ({ day: r.day, scans: Number(r.scans) || 0, uniq: Number(r.uniq) || 0 }));
+  }
+  async codeTotals(since: string): Promise<CodeTotals> {
+    const out: CodeTotals = {};
+    for (const r of await this.d.all('SELECT code_id, SUM(uniq) AS u FROM scan_stats GROUP BY code_id')) out[r.code_id] = { uniq: Number(r.u) || 0, days: {} };
+    for (const r of await this.d.all('SELECT code_id, day, SUM(scans) AS s, SUM(uniq) AS u FROM scan_stats WHERE day >= ? GROUP BY code_id, day', [since])) {
+      (out[r.code_id] = out[r.code_id] || { uniq: 0, days: {} }).days[r.day] = [Number(r.s) || 0, Number(r.u) || 0];
+    }
+    return out;
+  }
+  async addAdminLog(e: AdminLogEntry) {
+    await this.d.run('INSERT INTO admin_log (id, at, admin_id, admin_name, action, code_id, owner_id, detail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [newId(12), now(), e.adminId, cut(e.adminName, 120), e.action, e.codeId || null, e.ownerId || null, cut(e.detail || undefined, 500)]);
+  }
+  async listAdminLog(f: { codeId?: string; limit?: number } = {}): Promise<AdminLogEntry[]> {
+    const lim = Math.min(500, Math.max(1, (f.limit || 50) | 0));
+    const rows = f.codeId ? await this.d.all('SELECT * FROM admin_log WHERE code_id = ? ORDER BY at DESC LIMIT ' + lim, [f.codeId]) : await this.d.all('SELECT * FROM admin_log ORDER BY at DESC LIMIT ' + lim);
+    return rows.map((r) => ({ id: r.id, at: r.at, adminId: r.admin_id, adminName: r.admin_name || '', action: r.action, codeId: r.code_id || null, ownerId: r.owner_id || null, detail: r.detail || null }));
   }
   async getSetting(key: string) { const r = await this.d.get('SELECT value FROM settings WHERE key = ?', [key]); return r ? r.value : null; }
   async setSetting(key: string, value: string | null) {
@@ -233,7 +253,7 @@ export class SqlDatabase extends DatabaseService {
     return codes;
   }
   async getQrCode(id: string): Promise<QrCode> { return codeOut(await this.d.get(SQL.code, [id])); }
-  async idTaken(id: string) { return !!(await this.d.get('SELECT 1 AS x FROM qr_codes WHERE id = ?', [id])); }
+  async idTaken(id: string) { return !!(await this.d.get('SELECT 1 AS x FROM qr_codes WHERE id = ?', [id])) || this.wasDeleted(id); }
   async insertQrCode(userId: string, q: NewQrCode) {
     await this.d.run('INSERT INTO qr_codes (id, user_id, type_id, content_type, content, design, name, paused, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)',
       [q.id, userId, q.typeId, q.contentType, JSON.stringify(sealContent(q.contentType, q.content)), JSON.stringify(q.design || {}), q.name || null, q.createdAt || now()]);
@@ -248,7 +268,8 @@ export class SqlDatabase extends DatabaseService {
     if (patch.design) { sets.push('design = ?'); vals.push(JSON.stringify(patch.design)); }
     if (patch.name !== undefined) { sets.push('name = ?'); vals.push(patch.name || null); }
     if (patch.paused !== undefined) { sets.push('paused = ?'); vals.push(patch.paused ? 1 : 0); }
-    const real = sets.length > 0;                                      // alleen een sterretje = geen echte wijziging (Laatst bewerkt blijft)
+    const real = sets.length > 0;                                      // alleen een sterretje of een markering = geen echte wijziging (Laatst bewerkt blijft)
+    if (patch.moderation !== undefined) { sets.push('moderation = ?'); vals.push(patch.moderation && (patch.moderation.hold || patch.moderation.flag) ? JSON.stringify(patch.moderation) : null); }
     if (patch.favorite !== undefined) { sets.push('favorite = ?'); vals.push(patch.favorite ? 1 : 0); }
     if (real) { sets.push('updated_at = ?'); vals.push(now()); }
     if (!sets.length) return this.getQrCode(id);
@@ -259,6 +280,7 @@ export class SqlDatabase extends DatabaseService {
     const q = await this.d.get(SQL.code, [id]); if (!q || q.user_id !== userId) return false;
     const files = (await this.d.all(SQL.filesOfCode, [id])).map((r) => r.id);
     await this.d.run('DELETE FROM qr_codes WHERE id = ?', [id]); removeFiles(files);
+    await this.markGone([id]);                                       // deze link wordt nooit opnieuw uitgegeven
     return true;
   }
   async addScan(id: string, info?: { key: string; unique: boolean }) {

@@ -9,7 +9,7 @@ import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { fail } from '../common/http';
 import { hashPassword } from '../visitor/rules';
 import { validateQrCode } from './validation';
-import { QrCodesService, cleanName, missingRequired, newCodeId, secretKey } from './qr-codes.service';
+import { QrCodesService, cleanName, freshCodeId, missingRequired, secretKey } from './qr-codes.service';
 import type { User } from '../types';
 
 @Controller('api/qr-codes')
@@ -39,7 +39,7 @@ export class QrCodesController {
     const record: any = { ...value };
     if (body.name) record.name = cleanName(body.name);
     // De app reserveert vooraf een eigen id, zodat de QR-code in de preview precies de code is die je krijgt.
-    const id = typeof body.id === 'string' && /^[A-Za-z0-9_-]{7,12}$/.test(body.id) && !(await this.db.idTaken(body.id)) ? body.id : newCodeId();
+    const id = typeof body.id === 'string' && /^[A-Za-z0-9_-]{7,12}$/.test(body.id) && !(await this.db.idTaken(body.id)) ? body.id : await freshCodeId(this.db);
     const files = await this.codes.storeFiles(user.id, value.typeId, value.content, null);
     const miss = missingRequired(value.typeId, value.content); if (miss.length) throw fail(400, 'Invalid QR code', { details: miss });
     let saved = await this.db.insertQrCode(user.id, { id, ...record });
@@ -75,12 +75,19 @@ export class QrCodesController {
   /** Kleine wijziging vanuit Mijn QR-codes: naam of aan/uit */
   @Patch(':id')
   async patch(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string, @Body() b: any = {}) {
-    if (!(await this.db.getOwnedQrCode(id, user.id))) throw fail(404, 'QR code not found');
+    const cur = await this.db.getOwnedQrCode(id, user.id);
+    if (!cur) throw fail(404, 'QR code not found');
     const patch: any = {}, errors: string[] = [];
     if (b.name !== undefined) { if (typeof b.name !== 'string') errors.push('name: must be text'); else patch.name = cleanName(b.name); }
     if (b.paused !== undefined) { if (typeof b.paused !== 'boolean') errors.push('paused: must be true or false'); else patch.paused = b.paused; }
     if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
     if (errors.length || !Object.keys(patch).length) throw fail(400, 'Invalid update', { details: errors.length ? errors : ['nothing to change'] });
+    // Gepauzeerd door het team: weer aanzetten mag alleen als het team dat toestaat (lock = nee)
+    const hold = cur.moderation && cur.moderation.hold;
+    if (patch.paused === false && hold) {
+      if (hold.lock) throw fail(403, 'admin_hold');
+      patch.moderation = cur.moderation.flag ? { flag: cur.moderation.flag } : null;
+    }
     return this.codes.out(req, await this.db.updateQrCode(id, patch));
   }
 
@@ -90,7 +97,7 @@ export class QrCodesController {
   async duplicate(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string, @Body() b: any = {}) {
     const old = await this.db.getOwnedQrCode(id, user.id);
     if (!old) throw fail(404, 'QR code not found');
-    const newId = newCodeId(), { content, files } = await this.codes.copyFiles(user.id, old.typeId, { ...old.content });
+    const newId = await freshCodeId(this.db), { content, files } = await this.codes.copyFiles(user.id, old.typeId, { ...old.content });
     const saved = await this.db.insertQrCode(user.id, { id: newId, typeId: old.typeId, contentType: old.contentType, content, design: old.design,
       name: cleanName(typeof b.name === 'string' && b.name.trim() ? b.name : (old.name || '')) || undefined });
     for (const f of files) await this.db.attachFile(f, newId);

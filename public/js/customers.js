@@ -171,6 +171,8 @@
           .catch(function (x) { result = { kind: 'bad', text: errText(x) }; draw(); });
       }
     });
+    // Vanuit Alle QR-codes: "Eigenaar openen" = deze lijst gefilterd op die persoon
+    document.addEventListener('admin-show-user', function (e) { query = String(e.detail || ''); fStatus = ''; fRole = ''; showForm = false; result = null; draw(); });
     document.addEventListener('admin-add-user', function () { showForm = true; result = null; draw(); setTimeout(function () { var i = box.querySelector('input[name=name]'); if (i) i.focus(); }, 60); });
   }
 

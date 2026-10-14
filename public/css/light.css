@@ -190,6 +190,8 @@
 :root[data-theme="light"] .ad-pill.ok,
 :root[data-theme="light"] .cust-badge.ok { color: #15803d; }
 :root[data-theme="light"] .ad-pill.wait { color: #b45309; }
+:root[data-theme="light"] .ad-pill.off,
+:root[data-theme="light"] .cust-badge.off { color: #475569; }
 :root[data-theme="light"] .ad-search input { background: rgba(255,255,255,0.85); }
 :root[data-theme="light"] .ad-sel select { background: rgba(255,255,255,0.85); }
 :root[data-theme="light"] .ad-seg { background: rgba(255,255,255,0.85); }
@@ -298,6 +300,26 @@
 :root[data-theme="light"] .nf-sw i { background: rgba(13,19,32,0.135); }
 :root[data-theme="light"] .nf-sw i::after { box-shadow: 0 1px 3px rgba(13,19,32,0.105); }
 :root[data-theme="light"] .nf-warn { color: #b45309; }
+:root[data-theme="light"] .ac-f input { background: rgba(255,255,255,0.85); }
+:root[data-theme="light"] .ac-chip:hover svg { color: #dc2626; }
+:root[data-theme="light"] .ac-row:not(.ac-head):hover { background: rgba(13,19,32,0.023); }
+:root[data-theme="light"] .ac-kind { color: #6d28d9; }
+:root[data-theme="light"] .ac-kind.static { color: #475569; }
+:root[data-theme="light"] .ac-warn.bad { color: #b91c1c; }
+:root[data-theme="light"] .ac-warn.warn { color: #b45309; }
+:root[data-theme="light"] .ac-warn.off { color: #475569; }
+:root[data-theme="light"] .ac-bulk { box-shadow: 0 18px 50px -20px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .ac-dlg-f select,
+:root[data-theme="light"] .ac-dlg-f textarea,
+:root[data-theme="light"] .ac-dlg-f input { background: rgba(255,255,255,0.85); }
+:root[data-theme="light"] .ac-drawer { box-shadow: -30px 0 80px -30px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .acd-sec { background: rgba(13,19,32,0.015); }
+:root[data-theme="light"] .acd-risk,
+:root[data-theme="light"] .acd-mod { color: #92400e; }
+:root[data-theme="light"] .acd-mod.bad { color: #991b1b; }
+:root[data-theme="light"] #acdCheck.ok { color: #15803d; }
+:root[data-theme="light"] #acdCheck.bad { color: #b91c1c; }
+:root[data-theme="light"] .mc-hold { color: #92400e; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

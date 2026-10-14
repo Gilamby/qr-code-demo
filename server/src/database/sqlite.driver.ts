@@ -93,6 +93,20 @@ export function openSqlite(file: string): SqlDriver {
   // 14 okt 2026: mappen voor QR-codes
   if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'folder_id'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN folder_id TEXT');
   if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'favorite'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN favorite INTEGER NOT NULL DEFAULT 0');
+  // 14 okt 2026: beheer (gepauzeerd door het team, gemarkeerd) + logboek van het beheer
+  if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'moderation'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN moderation TEXT');
+  db.exec(`CREATE TABLE IF NOT EXISTS admin_log (
+  id TEXT PRIMARY KEY,
+  at TEXT NOT NULL,
+  admin_id TEXT NOT NULL,
+  admin_name TEXT,
+  action TEXT NOT NULL,
+  code_id TEXT,
+  owner_id TEXT,
+  detail TEXT
+);
+CREATE INDEX IF NOT EXISTS admin_log_at ON admin_log(at);
+CREATE INDEX IF NOT EXISTS admin_log_code ON admin_log(code_id, at);`);
   db.exec(`CREATE TABLE IF NOT EXISTS folders (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

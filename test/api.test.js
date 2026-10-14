@@ -106,7 +106,8 @@ test('codes zijn per klant, bestanden op schijf, scannen en statistieken', async
   // verwijderen: bestand weg
   assert.equal((await a('DELETE', '/api/qr-codes/' + id)).status, 204);
   assert.equal(filesOnDisk(), before);
-  assert.equal((await fetch(base + '/q/' + id)).status, 404);
+  assert.equal((await fetch(base + '/q/' + id)).status, 410, 'verwijderd: 410 (komt nooit meer terug)');
+  assert.equal((await fetch(base + '/q/nooitgebruikt')).status, 404);
 });
 
 test('beveiliging', async () => {
@@ -271,4 +272,65 @@ test('beheer: dashboard, alle QR-codes, rollen en uitzetten', async () => {
   assert.equal((await team('DELETE', '/api/admin/codes/' + code.json.id)).status, 204);
   assert.equal((await team('GET', '/api/admin/codes?q=klant-b')).json.total, 0);
   const page = await fetch(base + '/admin', { redirect: 'manual' }); assert.equal(page.status, 302, 'alles op één adres: /admin gaat naar /');
+});
+
+test('beheer > alle QR-codes: rechten, pauzeren met reden, markeren, bewerken, bulk, export, logboek', async () => {
+  const team = client();
+  await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const k = client(); await signup(k, 'mod-k@example.com', 'Moderatie zin 8!', 'Klant K');
+  const a = client(); await signup(a, 'mod-a@example.com', 'Moderatie zin 9!', 'Admin A');
+  const ka = (await team('GET', '/api/admin/customers')).json;
+  await team('PATCH', '/api/admin/customers/' + ka.find((c) => c.email === 'mod-a@example.com').id, { role: 'admin' });
+  const mk = (b) => k('POST', '/api/qr-codes', Object.assign({ design: {} }, b));
+  const site = (await mk({ typeId: 'website', name: 'Site', content: { url: 'https://mod-k.example' } })).json;
+  const fish = (await mk({ typeId: 'website', name: 'Actie', content: { url: 'https://paypal.com.login-secure.xyz/verify' } })).json;
+  const wifi = (await mk({ typeId: 'wifi', name: 'Wifi', content: { ssid: 'Net', password: 'geheim123' } })).json;
+  const own = (await team('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://team.example' }, design: {} })).json;
+
+  // Filters en controle
+  const l = (q) => team('GET', '/api/admin/codes?' + q).then((r) => r.json);
+  assert.equal((await l('q=mod-k@example.com')).total, 3, 'zoeken op e-mail van de klant');
+  assert.equal((await l('q=mod-k@example.com&kind=static')).total, 1, 'filter vast');
+  const risky = await l('q=mod-k@example.com&check=risky');
+  assert.equal(risky.total, 1); assert.ok(risky.items[0].risks.includes('brand'), 'merknaam op ander domein');
+  assert.equal((await l('q=mod-k@example.com&size=10')).pageSize, 10);
+  assert.equal((await l('q=mod-k@example.com&scans=none&kind=dynamic')).total, 2, 'filters combineren');
+
+  // Pauzeren met reden: klant kan niet zelf weer aanzetten, ziet wel de reden
+  const p = await team('PATCH', '/api/admin/codes/' + site.id, { paused: true, reason: 'Misbruik', lock: true });
+  assert.equal(p.json.moderation.hold.reason, 'Misbruik');
+  assert.equal((await fetch(base + '/q/' + site.id, { redirect: 'manual' })).status, 503, 'gepauzeerd = werkt niet');
+  assert.equal((await k('PATCH', '/api/qr-codes/' + site.id, { paused: false })).json.error, 'admin_hold');
+  const seen = (await k('GET', '/api/qr-codes/' + site.id)).json;
+  assert.equal(seen.hold.reason, 'Misbruik'); assert.equal(seen.moderation, undefined, 'markering/beheer-info blijft intern');
+  await team('PATCH', '/api/admin/codes/' + site.id, { paused: true, reason: 'Op verzoek', lock: false });
+  assert.equal((await k('PATCH', '/api/qr-codes/' + site.id, { paused: false })).json.paused, false, 'zonder slot mag de klant hem zelf aanzetten');
+
+  // Markeren, bewerken (geen vaste codes), dupliceren in het account van de klant
+  assert.equal((await team('PATCH', '/api/admin/codes/' + fish.id, { flag: true, reason: 'Phishing' })).json.moderation.flag.reason, 'Phishing');
+  assert.equal((await team('PATCH', '/api/admin/codes/' + site.id, { content: { url: 'geen-link' } })).status, 400);
+  assert.equal((await team('PATCH', '/api/admin/codes/' + site.id, { name: 'Nieuw', content: { url: 'https://nieuw.example' } })).json.dest.value, 'https://nieuw.example');
+  assert.equal((await team('PATCH', '/api/admin/codes/' + wifi.id, { content: { ssid: 'x' } })).status, 400, 'vaste code niet aanpassen');
+  const dup = (await team('POST', '/api/admin/codes/' + site.id + '/duplicate')).json;
+  assert.ok((await k('GET', '/api/qr-codes')).json.some((c) => c.id === dup.id), 'kopie staat bij de klant');
+  assert.equal((await team('GET', '/api/admin/codes/' + wifi.id)).json.content.password, 'geheim123', 'super-admin kan de echte wifi-code downloaden');
+
+  // Rechten: een gewone admin mag klantcodes aanpassen, maar niet die van de super-admin
+  assert.equal((await a('PATCH', '/api/admin/codes/' + own.id, { paused: true })).status, 403);
+  assert.equal((await a('DELETE', '/api/admin/codes/' + own.id)).status, 403);
+  assert.equal((await a('GET', '/api/admin/codes/' + own.id)).json.canEdit, false);
+  assert.equal((await a('PATCH', '/api/admin/codes/' + fish.id, { paused: true })).status, 200);
+  const bulkA = (await a('POST', '/api/admin/codes/bulk', { ids: [own.id, fish.id], action: 'resume' })).json;
+  assert.equal(bulkA.forbidden, 1); assert.equal(bulkA.done, 1);
+
+  // Export (CSV, ook met formule-beveiliging) en logboek
+  const csv = await team('POST', '/api/admin/codes/export', { filters: { q: 'mod-k@example.com' } });
+  assert.match(csv.headers.get('content-type'), /text\/csv/); assert.equal(csv.text.trim().split('\r\n').length, 5, 'kop + 4 codes');
+  const log = (await team('GET', '/api/admin/codes/' + site.id)).json.log.map((x) => x.action);
+  for (const x of ['pause', 'edit', 'duplicate']) assert.ok(log.includes(x), 'logboek: ' + x);
+
+  // Verwijderen: link komt nooit meer terug
+  assert.equal((await team('POST', '/api/admin/codes/bulk', { ids: [dup.id], action: 'delete' })).json.done, 1);
+  assert.equal((await fetch(base + '/q/' + dup.id, { redirect: 'manual' })).status, 410, 'verwijderd = weg');
+  assert.notEqual((await k('POST', '/api/qr-codes', { id: dup.id, typeId: 'website', content: { url: 'https://x.example' }, design: {} })).json.id, dup.id, 'oud id wordt niet opnieuw uitgegeven');
 });

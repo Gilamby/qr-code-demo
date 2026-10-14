@@ -1,9 +1,8 @@
 /* =========================================================
-   BEHEER (alleen voor het team): Dashboard en Alle QR-codes.
+   BEHEER (alleen voor het team): Dashboard.
    Gebruikers staat in customers.js. Server: /api/admin/* (qr-codes/admin-panel.controller.ts).
    - Dashboard: tellers met trend, scans per dag (30 dagen) als grafiek, types, top-codes, nieuwste accounts.
-   - Alle QR-codes: van alle klanten, zoeken, filters, sorteren, pagina's; per code openen, downloaden,
-     link kopiëren, pauzeren/aanzetten en verwijderen.
+   - Alle QR-codes staat in admin-codes.js.
    ========================================================= */
 var Admin = (function () {
   var me = null;
@@ -46,9 +45,6 @@ var Admin = (function () {
     var w = s.replace(/[^\p{L}\p{N}\s]/gu, ' ').split(/\s+/).filter(Boolean), ini = ((w[0] || '?')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase();
     return '<span class="' + (cls || 'ad-av') + '" style="--h:' + HUES[h % HUES.length] + '" aria-hidden="true">' + esc(ini) + '</span>';
   }
-  function owner(o) { return o ? '<span class="ad-owner">' + avatar(o.name, o.email, 'ad-av s') + '<span><b>' + esc(o.name || o.email) + '</b><small>' + esc(o.email) + '</small></span></span>' : ''; }
-  function typeChip(id) { var tp = getType(id); return tp ? '<span class="ad-type">' + svg(tp.icon, 1.8) + esc(typeName(tp)) + '</span>' : ''; }
-  function toast(msg) { var x = document.getElementById('mcToast'); if (!x) return; x.textContent = msg; x.hidden = false; clearTimeout(toast.tm); toast.tm = setTimeout(function () { x.hidden = true; }, 2200); }
   function errMsg() { return t('auth.errGeneral'); }
 
   /* =================== DASHBOARD =================== */
@@ -153,97 +149,6 @@ var Admin = (function () {
     api.admin.overview().then(function (r) { data = r; dashErr = false; drawDash(); }).catch(function () { dashErr = true; drawDash(); });
   }
 
-  /* =================== ALLE QR-CODES =================== */
-  var codesBox = document.getElementById('adminCodesPage'), res = null, codesErr = false, f = { q: '', type: '', status: '', sort: 'new', page: 1 }, seq = 0, typingTm = null;
-  function loadCodes() {
-    if (!me || !me.admin) return;
-    var my = ++seq;
-    api.admin.codes(f).then(function (r) { if (my !== seq) return; res = r; codesErr = false; drawList(); }).catch(function () { if (my === seq) { codesErr = true; drawList(); } });
-  }
-  function seg(name, value, opts) {
-    return '<div class="ad-seg" role="radiogroup" aria-label="' + esc(t('adm.status')) + '">' + opts.map(function (o) { return '<button type="button" role="radio" aria-checked="' + (value === o[0]) + '" data-' + name + '="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>';
-  }
-  function drawCodes() {
-    if (!codesBox || !me || !me.admin) return;
-    var types = (res && res.types) || [];
-    codesBox.innerHTML =
-      '<header class="help-head ad-head"><div><h2>' + t('adm.allCodes') + '</h2><p>' + t('adm.codesLead') + '</p></div></header>' +
-      '<div class="glass ad-card ad-tools">' +
-        '<label class="ad-search">' + ico('search') + '<span class="sr-only">' + t('adm.searchCodes') + '</span><input type="search" id="adQ" value="' + esc(f.q) + '" placeholder="' + esc(t('adm.searchCodes')) + '" autocomplete="off"></label>' +
-        '<label class="ad-sel"><span class="sr-only">' + t('myCodes.type') + '</span><select id="adType"><option value="">' + t('myCodes.allTypes') + '</option>' +
-          QR_TYPES.filter(function (tp) { return types.indexOf(tp.id) >= 0; }).map(function (tp) { return '<option value="' + tp.id + '"' + (f.type === tp.id ? ' selected' : '') + '>' + esc(typeName(tp)) + '</option>'; }).join('') + '</select></label>' +
-        '<label class="ad-sel"><span class="sr-only">' + t('myCodes.sort') + '</span><select id="adSort">' + [['new', t('myCodes.sort_new')], ['old', t('myCodes.sort_old')], ['scans', t('myCodes.sort_scans')], ['recent', t('adm.sortRecent')]].map(function (o) { return '<option value="' + o[0] + '"' + (f.sort === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>' +
-        seg('status', f.status, [['', t('adm.sAll')], ['active', t('cust.active')], ['paused', t('adm.sPaused')]]) +
-      '</div><div id="adList" aria-live="polite"></div>';
-    drawList();
-  }
-  function card(r) {
-    var st = CodeUtil.isStatic(r), url = r.shortUrl;
-    return '<article class="glass ad-code' + (r.paused ? ' is-paused' : '') + '" data-id="' + esc(r.id) + '">' +
-      '<div class="ad-code-top"><span class="ad-qr">' + CodeUtil.qrSvg(r) + '</span><div class="ad-code-who"><h3 title="' + esc(CodeUtil.displayName(r)) + '">' + esc(CodeUtil.displayName(r)) + '</h3>' + typeChip(r.typeId) +
-        '<span class="ad-code-stats">' + (st ? '<span class="ad-muted">' + t('adm.static') + '</span>' : '<b>' + num(r.scans) + '</b> ' + t('an.scans').toLowerCase() + ' · <span class="ad-muted">' + t('adm.lastScan') + ' ' + (r.lastScanAt ? ago(r.lastScanAt) : t('adm.never')) + '</span>') + '</span></div>' +
-        '<i class="ad-pill ' + (r.paused ? 'off' : 'ok') + '">' + (r.paused ? t('adm.sPaused') : t('cust.active')) + '</i></div>' +
-      (st ? '' : '<a class="ad-link" href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(url.replace(/^https?:\/\//, '')) + '</a>') +
-      '<div class="ad-code-meta">' + owner(r.owner) + '<small class="ad-muted">' + date(r.createdAt) + '</small></div>' +
-      '<div class="ad-code-acts">' +
-        (st ? '' : '<a class="ad-act" href="' + esc(url) + '" target="_blank" rel="noopener">' + ico('open') + '<span>' + t('adm.open') + '</span></a>') +
-        '<span class="ad-act-row">' +
-        '<button type="button" class="ad-ibtn" data-act="dl" title="' + esc(t('adm.download')) + '" aria-label="' + esc(t('adm.download')) + '">' + ico('dl') + '</button>' +
-        (st ? '' : '<button type="button" class="ad-ibtn" data-act="copy" title="' + esc(t('adm.copyLink')) + '" aria-label="' + esc(t('adm.copyLink')) + '">' + ico('copy') + '</button>' +
-          '<button type="button" class="ad-ibtn" data-act="pause" title="' + esc(t(r.paused ? 'adm.resume' : 'adm.pause')) + '" aria-label="' + esc(t(r.paused ? 'adm.resume' : 'adm.pause')) + '">' + ico(r.paused ? 'play' : 'pause') + '</button>') +
-        '<button type="button" class="ad-ibtn danger" data-act="del" title="' + esc(t('cust.remove')) + '" aria-label="' + esc(t('cust.remove')) + '">' + ico('trash') + '</button></span></div>' +
-    '</article>';
-  }
-  function pager() {
-    if (!res || res.pages <= 1) return res && res.total ? '<p class="ad-count">' + t('adm.showing', { from: num(1), to: num(res.total), total: num(res.total) }) + '</p>' : '';
-    var from = (res.page - 1) * res.pageSize + 1, to = Math.min(res.total, res.page * res.pageSize), nums = [];
-    for (var i = 1; i <= res.pages; i++) if (i === 1 || i === res.pages || Math.abs(i - res.page) <= 1) nums.push(i); else if (nums[nums.length - 1] !== '…') nums.push('…');
-    return '<nav class="glass ad-pager" aria-label="' + esc(t('adm.pages')) + '"><span>' + t('adm.showing', { from: num(from), to: num(to), total: num(res.total) }) + '</span><span class="ad-pages">' +
-      '<button type="button" class="ad-ibtn" data-page="' + (res.page - 1) + '"' + (res.page <= 1 ? ' disabled' : '') + ' aria-label="' + esc(t('adm.prev')) + '">' + ico('prev') + '</button>' +
-      nums.map(function (n) { return n === '…' ? '<span class="ad-dots">…</span>' : '<button type="button" class="ad-pnum" data-page="' + n + '"' + (n === res.page ? ' aria-current="page"' : '') + '>' + n + '</button>'; }).join('') +
-      '<button type="button" class="ad-ibtn" data-page="' + (res.page + 1) + '"' + (res.page >= res.pages ? ' disabled' : '') + ' aria-label="' + esc(t('adm.next')) + '">' + ico('next') + '</button></span></nav>';
-  }
-  function drawList() {
-    var box = document.getElementById('adList'); if (!box) return;
-    if (codesErr) { box.innerHTML = '<p class="acct-msg bad">' + errMsg() + '</p>'; return; }
-    if (!res) { box.innerHTML = '<div class="ad-grid">' + [1, 2, 3].map(function () { return '<div class="glass ad-code ad-skel"></div>'; }).join('') + '</div>'; return; }
-    if (!res.items.length) { box.innerHTML = '<div class="glass ad-card ad-none">' + ico('qr', 'ad-none-ic') + '<p>' + (res.all ? t('adm.noMatch') : t('adm.noCodes')) + '</p></div>'; return; }
-    box.innerHTML = '<div class="ad-grid">' + res.items.map(card).join('') + '</div>' + pager();
-  }
-  function findRow(id) { return res && res.items.filter(function (x) { return x.id === id; })[0]; }
-  function confirmDelete(r) {
-    var d = document.getElementById('mcDialog');
-    d.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + ico('trash', 'mc-i') + '</span><h3>' + t('adm.delTitle', { name: esc(CodeUtil.displayName(r)) }) + '</h3><p>' + t('adm.delText', { owner: esc(r.owner ? r.owner.name || r.owner.email : '') }) + '</p>' +
-      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="adDelGo">' + t('cust.remove') + '</button></div></form>';
-    d.querySelector('#adDelGo').addEventListener('click', function (ev) {
-      ev.preventDefault();
-      api.admin.removeCode(r.id).then(function () { d.close(); toast(t('adm.deleted')); loadCodes(); }).catch(function () { d.close(); toast(errMsg()); });
-    });
-    d.showModal();
-  }
-  if (codesBox) {
-    codesBox.addEventListener('input', function (e) {
-      if (e.target.id !== 'adQ') return;
-      f.q = e.target.value; f.page = 1; clearTimeout(typingTm); typingTm = setTimeout(loadCodes, 200);
-    });
-    codesBox.addEventListener('change', function (e) {
-      if (e.target.id === 'adType') { f.type = e.target.value; f.page = 1; loadCodes(); }
-      if (e.target.id === 'adSort') { f.sort = e.target.value; f.page = 1; loadCodes(); }
-    });
-    codesBox.addEventListener('click', function (e) {
-      var s = e.target.closest('[data-status]');
-      if (s) { f.status = s.getAttribute('data-status'); f.page = 1; codesBox.querySelectorAll('[data-status]').forEach(function (b) { b.setAttribute('aria-checked', String(b === s)); }); return loadCodes(); }
-      var pg = e.target.closest('[data-page]');
-      if (pg && !pg.disabled) { f.page = +pg.getAttribute('data-page'); loadCodes(); return codesBox.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
-      var b = e.target.closest('[data-act]'), el = b && b.closest('[data-id]'), r = el && findRow(el.getAttribute('data-id')); if (!r) return;
-      var act = b.getAttribute('data-act');
-      if (act === 'dl') return CodeUtil.download(r, 'png');
-      if (act === 'copy') { (navigator.clipboard ? navigator.clipboard.writeText(r.shortUrl) : Promise.reject()).then(function () { toast(t('adm.copied')); }, function () { toast(r.shortUrl); }); return; }
-      if (act === 'pause') { b.disabled = true; return api.admin.patchCode(r.id, { paused: !r.paused }).then(function (x) { r.paused = x.paused; toast(t(x.paused ? 'adm.paused' : 'adm.resumed')); drawList(); }).catch(function () { b.disabled = false; toast(errMsg()); }); }
-      if (act === 'del') return confirmDelete(r);
-    });
-  }
-
   /* Knoppen die naar een andere beheerpagina gaan (dashboard) */
   document.addEventListener('click', function (e) {
     var g = e.target.closest('[data-go-page]'); if (!g) return;
@@ -255,13 +160,12 @@ var Admin = (function () {
   Session.onUser(function (u) {
     me = u; var admin = !!(u && u.admin);
     var nav = document.getElementById('navAdmin'); if (nav) nav.hidden = !admin;
-    if (!admin) { data = null; res = null; return; }
+    if (!admin) { data = null; return; }
     setTimeout(function () { goToPage(Session.landOn('adminDash')); }, 0);
   });
   document.addEventListener('pagechange', function (e) {
     if (e.detail === 'adminDash') { drawDash(); loadDash(); }
-    if (e.detail === 'adminCodes') { drawCodes(); loadCodes(); }
   });
-  i18n.onChange(function () { drawDash(); if (codesBox && !codesBox.closest('[hidden]')) drawCodes(); });
+  i18n.onChange(function () { drawDash(); });
   return { avatar: avatar, ago: ago };
 })();

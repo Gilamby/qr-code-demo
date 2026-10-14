@@ -1,25 +1,41 @@
 /* =========================================================
    BEHEER (alleen voor het team: SUPPORT_EMAIL, ADMIN_EMAILS en wie de super-admin admin heeft gemaakt)
-   GET    /api/admin/overview        tellers, scans per dag (30 dagen), types, top-codes, nieuwste accounts
-   GET    /api/admin/codes           alle QR-codes van iedereen: zoeken, type, status, eigenaar, pagina's
-   PATCH  /api/admin/codes/:id       pauzeren / weer aanzetten
-   DELETE /api/admin/codes/:id       verwijderen (met statistieken en bestanden)
+   GET    /api/admin/overview              tellers, scans per dag (30 dagen), types, top-codes, nieuwste accounts
+   GET    /api/admin/codes                 alle QR-codes van iedereen: zoeken, filters (combineerbaar), sorteren, pagina's
+   GET    /api/admin/codes/:id             één code met alles: eigenaar + abonnement, bestemming, controles, logboek
+   PATCH  /api/admin/codes/:id             { paused, reason, lock } | { flag, reason } | { name, content } (bewerken)
+   POST   /api/admin/codes/:id/duplicate   kopie in het account van de eigenaar
+   GET    /api/admin/codes/:id/check       bestemming controleren (bestaat de website, welke status?)
+   DELETE /api/admin/codes/:id             verwijderen (met statistieken en bestanden; de link komt nooit meer terug)
+   POST   /api/admin/codes/bulk            { ids, action: pause | resume | delete, reason, lock }
+   POST   /api/admin/codes/export          CSV van de gefilterde of geselecteerde codes
+   GET    /api/admin/log                   logboek van het beheer (wie deed wat, wanneer)
+   Rechten: elke admin mag codes van klanten (en zijn eigen) aanpassen. Codes van andere teamleden (admins, super-admin)
+   alleen de super-admin. Bekijken mag iedereen in het team. Elke aanpassing komt in het logboek.
    Klanten zelf (toevoegen, uitnodigen, rol, uitzetten): auth/admin.controller.ts
    ========================================================= */
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, HttpCode, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
-import { DatabaseService } from '../database/database.service';
-import { LoggedIn } from '../auth/auth.guard';
+import { Customer, DatabaseService, Moderation } from '../database/database.service';
+import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { TeamOnly } from '../auth/admin.controller';
 import { AuthService } from '../auth/auth.service';
-import { QrCodesService } from './qr-codes.service';
-import { QR_TYPES } from './validation';
+import { QrCodesService, cleanName, freshCodeId, secretKey } from './qr-codes.service';
+import { QR_TYPES, validateQrCode } from './validation';
+import { STATIC, destinationOf, patternSince, problemOf, riskOf, scanPattern } from './moderation';
+import { urlInfo } from '../helpers/url-check';
+import { planOf, usage } from '../plans';
 import { fail } from '../common/http';
-import type { QrCode } from '../types';
+import type { QrCode, User } from '../types';
 
-const PAGE = 24;
-const STATIC = ['contact', 'wifi'];                   // inhoud zit in de code zelf: geen link, geen scans
+const SIZES = [10, 25, 50, 100];
+const SORTS = ['new', 'old', 'scans', 'recent', 'name', 'updated'];
+const ACTIONS = ['pause', 'resume', 'delete'];
+const MAX_BULK = 500;
+const EDITABLE = [undefined, 'url', 'email', 'tel', 'date', 'number', 'select'];     // velden die het team hier mag aanpassen (geen bestanden/foto's)
 const day = (d: Date) => d.toISOString().slice(0, 10);
+const reasonOf = (v: unknown) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, 300);
+type Owner = { id: string; name: string; email: string; level: 'super' | 'admin' | 'user'; codes: number };
 
 /** Grote afbeeldingen (data-URL's) en wifi-wachtwoorden gaan niet mee naar het overzicht */
 function slim(content: Record<string, any>, contentType: string) {
@@ -31,12 +47,14 @@ function slim(content: Record<string, any>, contentType: string) {
   if (contentType === 'wifi') delete c.password;
   return c;
 }
-/** Waar zoeken we in? Naam, id, type, link en korte teksten uit de inhoud */
-function haystack(q: QrCode, owner: { name: string; email: string } | undefined) {
+/** Waar zoeken we in? Naam, id, type (ook de vertaalde naam via de client), link en korte teksten uit de inhoud, eigenaar */
+function haystack(q: QrCode, owner: Owner | undefined) {
   const c = q.content || {}, parts = [q.id, q.name, q.typeId, owner && owner.name, owner && owner.email];
-  for (const v of Object.values(c)) if (typeof v === 'string' && v.length < 300 && !/^[[{]/.test(v)) parts.push(v);
+  for (const [k, v] of Object.entries(c)) if (typeof v === 'string' && v.length < 300 && !/^[[{]/.test(v) && k !== 'password') parts.push(v);
   return parts.filter(Boolean).join(' ').toLowerCase();
 }
+/** CSV-veld: tussen aanhalingstekens; begint het met = + - @ dan een ' ervoor (anders voert Excel het uit als formule) */
+const csv = (v: unknown) => { let s = v == null ? '' : String(v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
 
 @Controller('api/admin')
 @UseGuards(LoggedIn, TeamOnly)
@@ -68,6 +86,7 @@ export class AdminPanelController {
         admins: users.filter((u) => this.auth.isAdmin(u)).length,
         codes: all.length,
         paused: all.filter((q) => q.paused).length,
+        flagged: all.filter((q) => q.moderation && q.moderation.flag).length,
         scans: all.reduce((n, q) => n + (q.scans || 0), 0),
         scans30: sum(since), scansPrev30: sum(prev, since),
         newUsers30: newSince(users, since), newCodes30: newSince(all, since),
@@ -80,46 +99,258 @@ export class AdminPanelController {
     };
   }
 
+  /* ---------------- Lijst ---------------- */
   @Get('codes')
-  async list(@Req() req: Request, @Query() qs: Record<string, string>) {
-    const [users, all] = await Promise.all([this.db.listCustomers(), this.db.allQrCodes()]);
-    const owners: Record<string, { id: string; name: string; email: string }> = {};
-    users.forEach((u) => { owners[u.id] = { id: u.id, name: u.name, email: u.email }; });
-    const q = String(qs.q || '').trim().toLowerCase(), type = String(qs.type || ''), status = String(qs.status || ''), user = String(qs.user || '');
-    const sort = ['new', 'old', 'scans', 'recent'].includes(qs.sort) ? qs.sort : 'new';
-    let rows = all.filter((c) => (!type || c.typeId === type) && (!user || c.userId === user)
-      && (!status || (status === 'paused' ? c.paused : status === 'active' ? !c.paused : true))
-      && (!q || haystack(c, owners[c.userId]).indexOf(q) >= 0));
-    if (sort === 'old') rows = rows.slice().reverse();
-    if (sort === 'scans') rows = rows.slice().sort((a, b) => b.scans - a.scans);
-    if (sort === 'recent') rows = rows.slice().sort((a, b) => String(b.lastScanAt || '').localeCompare(String(a.lastScanAt || '')));
-    const page = Math.max(1, parseInt(qs.page, 10) || 1), pages = Math.max(1, Math.ceil(rows.length / PAGE));
+  async list(@Req() req: Request, @CurrentUser() me: User, @Query() qs: Record<string, string>) {
+    const { rows, owners, all, totals } = await this.filtered(qs);
+    const size = SIZES.includes(+qs.size) ? +qs.size : 25;
+    const page = Math.max(1, parseInt(qs.page, 10) || 1), pages = Math.max(1, Math.ceil(rows.length / size)), p = Math.min(page, pages);
+    // Klanten met codes (voor het filter "Klant"), met hun aantal codes
+    const people = Object.values(owners).filter((o) => o.codes > 0).sort((a, b) => (a.name || a.email).localeCompare(b.name || b.email));
     return {
-      total: rows.length, all: all.length, page: Math.min(page, pages), pages, pageSize: PAGE,
+      total: rows.length, all: all.length, page: p, pages, pageSize: size,
       types: Array.from(new Set(all.map((c) => c.typeId))),
-      items: rows.slice((Math.min(page, pages) - 1) * PAGE, Math.min(page, pages) * PAGE).map((c) => ({ ...this.row(req, c), owner: owners[c.userId] || null })),
+      owners: people.map((o) => ({ id: o.id, name: o.name, email: o.email, codes: o.codes })),
+      ids: qs.ids === '1' ? rows.slice(0, MAX_BULK).map((c) => c.id) : undefined,
+      items: rows.slice((p - 1) * size, p * size).map((c) => this.item(req, me, c, owners[c.userId], totals)),
     };
   }
 
-  @Patch('codes/:id')
-  async patch(@Req() req: Request, @Param('id') id: string, @Body() b: any = {}) {
+  /* ---------------- Eén code ---------------- */
+  @Get('codes/:id')
+  async one(@Req() req: Request, @CurrentUser() me: User, @Param('id') id: string) {
     const q = await this.db.getQrCode(id); if (!q) throw fail(404, 'Not found');
-    if (typeof b.paused !== 'boolean') throw fail(400, 'paused: true or false');
-    if (STATIC.includes((QR_TYPES.find((t) => t.id === q.typeId) || {}).contentType)) throw fail(400, 'static');
-    return this.row(req, await this.db.updateQrCode(id, { paused: b.paused }));
+    const [owners, totals, log, ownerUser] = await Promise.all([this.owners(), this.db.codeTotals(patternSince()), this.db.listAdminLog({ codeId: id, limit: 30 }), this.db.getUser(q.userId)]);
+    const owner = owners[q.userId], can = this.canTouch(me, owner);
+    const out: any = this.item(req, me, q, owner, totals);
+    // Volledige inhoud (ook het wifi-wachtwoord, nodig om de echte QR-code te downloaden): alleen als je de code mag aanpassen
+    if (can && q.contentType === 'wifi' && q.content.password) out.content = { ...out.content, password: q.content.password };
+    if (req.query.for === 'download') { if (!can && q.contentType === 'wifi') throw fail(403, 'team_code'); await this.log(me, 'download', q, String(req.query.format || '')); }
+    const plan = planOf(ownerUser);
+    out.plan = { id: plan.id, ...usage(plan, owner ? owner.codes : 0) };
+    out.log = log;
+    out.editable = STATIC.includes(q.contentType) ? [] : (QR_TYPES.find((t) => t.id === q.typeId) || { fields: [] }).fields
+      .filter((f: any) => EDITABLE.includes(f.type) && (QR_TYPES as any).active(QR_TYPES.find((t) => t.id === q.typeId), f, q.content)).map((f: any) => f.key);
+    return out;
+  }
+
+  @Patch('codes/:id')
+  async patch(@Req() req: Request, @CurrentUser() me: User, @Param('id') id: string, @Body() b: any = {}) {
+    const q = await this.db.getQrCode(id); if (!q) throw fail(404, 'Not found');
+    const owner = (await this.owners())[q.userId];
+    if (!this.canTouch(me, owner)) throw fail(403, 'team_code');
+    const mod: Moderation = { ...(q.moderation || {}) }, stamp = () => ({ by: me.id, byName: me.name || me.email, at: new Date().toISOString() });
+    // Pauzeren / weer aanzetten
+    if (b.paused !== undefined) {
+      if (typeof b.paused !== 'boolean') throw fail(400, 'paused: true or false');
+      if (STATIC.includes(q.contentType)) throw fail(400, 'static');
+      if (b.paused) mod.hold = { reason: reasonOf(b.reason), lock: b.lock !== false, ...stamp() }; else delete mod.hold;
+      const saved = await this.db.updateQrCode(id, { paused: b.paused, moderation: mod });
+      await this.log(me, b.paused ? 'pause' : 'resume', q, b.paused ? reasonOf(b.reason) : '');
+      return this.item(req, me, saved, owner, await this.db.codeTotals(patternSince()));
+    }
+    // Markeren als verdacht (phishing, misbruik) of de markering weghalen
+    if (b.flag !== undefined) {
+      if (typeof b.flag !== 'boolean') throw fail(400, 'flag: true or false');
+      if (b.flag) mod.flag = { reason: reasonOf(b.reason), ...stamp() }; else delete mod.flag;
+      const saved = await this.db.updateQrCode(id, { moderation: mod });
+      await this.log(me, b.flag ? 'flag' : 'unflag', q, b.flag ? reasonOf(b.reason) : '');
+      return this.item(req, me, saved, owner, await this.db.codeTotals(patternSince()));
+    }
+    // Bewerken: naam en eenvoudige velden (links, teksten, e-mail, telefoon, datum). Bestanden en ontwerp blijven zoals ze zijn.
+    if (b.name === undefined && b.content === undefined) throw fail(400, 'nothing to change');
+    const patch: any = {}, changed: string[] = [];
+    if (b.name !== undefined) { if (typeof b.name !== 'string') throw fail(400, 'name: text'); patch.name = cleanName(b.name); if ((patch.name || '') !== (q.name || '')) changed.push('name'); }
+    if (b.content !== undefined) {
+      const type = QR_TYPES.find((t) => t.id === q.typeId), input = b.content && typeof b.content === 'object' ? b.content : null;
+      if (!input) throw fail(400, 'content: object');
+      // Vaste code (wifi, contact): de inhoud zit in de geprinte QR-code zelf, aanpassen heeft geen zin (en maakt hem anders dan op papier)
+      if (STATIC.includes(q.contentType)) throw fail(400, 'static');
+      const content: Record<string, any> = { ...q.content }, key = secretKey(q.typeId), secret = key ? content[key] : undefined;
+      for (const [k, v] of Object.entries(input)) {
+        const f = type.fields.find((x: any) => x.key === k);
+        if (!f || !EDITABLE.includes(f.type)) throw fail(400, 'Invalid QR code', { details: [k + ': cannot be changed here'] });
+        const nv = v == null ? '' : String(v).trim();
+        if (nv !== String(content[k] == null ? '' : content[k])) changed.push(k);
+        if (nv) content[k] = nv; else delete content[k];
+      }
+      if (key) delete content[key];                                       // gehasht paginawachtwoord: niet opnieuw controleren
+      const { errors, value } = validateQrCode({ typeId: q.typeId, content, design: q.design });
+      if (errors.length) throw fail(400, 'Invalid QR code', { details: errors });
+      if (key && secret) value.content[key] = secret;
+      patch.content = value.content;
+    }
+    if (!changed.length) return this.item(req, me, q, owner, await this.db.codeTotals(patternSince()));
+    const saved = await this.db.updateQrCode(id, patch);
+    await this.log(me, 'edit', q, changed.join(', '));
+    return this.item(req, me, saved, owner, await this.db.codeTotals(patternSince()));
+  }
+
+  @Post('codes/:id/duplicate')
+  @HttpCode(201)
+  async duplicate(@Req() req: Request, @CurrentUser() me: User, @Param('id') id: string) {
+    const old = await this.db.getQrCode(id); if (!old) throw fail(404, 'Not found');
+    const owners = await this.owners(), owner = owners[old.userId];
+    if (!this.canTouch(me, owner)) throw fail(403, 'team_code');
+    const newId = await freshCodeId(this.db), { content, files } = await this.codes.copyFiles(old.userId, old.typeId, { ...old.content });
+    await this.db.insertQrCode(old.userId, { id: newId, typeId: old.typeId, contentType: old.contentType, content, design: old.design, name: cleanName(old.name || '') || undefined });
+    for (const f of files) await this.db.attachFile(f, newId);
+    if (old.folderId) await this.db.moveToFolder(old.userId, [newId], old.folderId);
+    const saved = await this.db.getQrCode(newId);
+    await this.log(me, 'duplicate', old, newId);
+    owner.codes++;
+    return this.item(req, me, saved, owner, {});
+  }
+
+  @Get('codes/:id/check')
+  async check(@CurrentUser() me: User, @Param('id') id: string) {
+    const q = await this.db.getQrCode(id); if (!q) throw fail(404, 'Not found');
+    const d = destinationOf(q);
+    if (!d.value || !/^https?:\/\//i.test(d.value)) return { ok: false, reason: d.kind === 'url' ? 'missing' : 'nolink' };
+    try {
+      const r = await urlInfo(d.value);
+      return { ok: r.ok, status: r.status, finalUrl: r.finalUrl, title: r.title, redirected: r.finalUrl !== d.value };
+    } catch (e) {
+      const m = (e as Error).message;
+      return { ok: false, reason: m === 'private' ? 'private' : m === 'protocol' ? 'invalid' : /abort/i.test(m) ? 'timeout' : 'unreachable' };
+    }
   }
 
   @Delete('codes/:id')
   @HttpCode(204)
-  async remove(@Param('id') id: string) {
+  async remove(@CurrentUser() me: User, @Param('id') id: string) {
     const q = await this.db.getQrCode(id); if (!q) throw fail(404, 'Not found');
+    if (!this.canTouch(me, (await this.owners())[q.userId])) throw fail(403, 'team_code');
     await this.db.deleteQrCode(id, q.userId);
+    await this.log(me, 'delete', q, q.scans + ' scans');
   }
 
+  /* ---------------- Meerdere tegelijk ---------------- */
+  @Post('codes/bulk')
+  @HttpCode(200)
+  async bulk(@CurrentUser() me: User, @Body() b: any = {}) {
+    const ids: string[] = Array.isArray(b.ids) ? Array.from(new Set(b.ids.filter((x: unknown) => typeof x === 'string'))) as string[] : [];
+    if (!ids.length || ids.length > MAX_BULK) throw fail(400, 'ids: 1-' + MAX_BULK);
+    if (!ACTIONS.includes(b.action)) throw fail(400, 'action: ' + ACTIONS.join(' | '));
+    const owners = await this.owners(), reason = reasonOf(b.reason), res = { done: 0, skipped: 0, forbidden: 0, missing: 0 };
+    for (const id of ids) {
+      const q = await this.db.getQrCode(id);
+      if (!q) { res.missing++; continue; }
+      if (!this.canTouch(me, owners[q.userId])) { res.forbidden++; continue; }
+      if (b.action === 'delete') { await this.db.deleteQrCode(id, q.userId); await this.log(me, 'delete', q, 'bulk'); res.done++; continue; }
+      const pause = b.action === 'pause';
+      if (STATIC.includes(q.contentType) || q.paused === pause) { res.skipped++; continue; }     // vaste code, of staat al zo
+      const mod: Moderation = { ...(q.moderation || {}) };
+      if (pause) mod.hold = { reason, lock: b.lock !== false, by: me.id, byName: me.name || me.email, at: new Date().toISOString() }; else delete mod.hold;
+      await this.db.updateQrCode(id, { paused: pause, moderation: mod });
+      await this.log(me, pause ? 'pause' : 'resume', q, (reason ? reason + ' · ' : '') + 'bulk'); res.done++;
+    }
+    return res;
+  }
+
+  /* ---------------- Exporteren (CSV) ---------------- */
+  @Post('codes/export')
+  @HttpCode(200)
+  @Header('Content-Type', 'text/csv; charset=utf-8')
+  async exportCsv(@Req() req: Request, @CurrentUser() me: User, @Body() b: any = {}) {
+    const { rows, owners, totals } = await this.filtered(b.filters || {});
+    const pick = Array.isArray(b.ids) && b.ids.length ? new Set(b.ids.map(String)) : null;
+    const list = pick ? rows.filter((r) => pick.has(r.id)) : rows;
+    const head = ['id', 'name', 'type', 'kind', 'status', 'owner_name', 'owner_email', 'scans', 'unique_scans', 'last_scan', 'created', 'updated', 'destination', 'short_link', 'warnings', 'pause_reason', 'flag_reason'];
+    const lines = list.map((q) => {
+      const it = this.item(req, me, q, owners[q.userId], totals);
+      return [q.id, it.displayName, q.typeId, it.kind, q.paused ? 'paused' : 'active', it.owner && it.owner.name, it.owner && it.owner.email, q.scans, it.uniq, q.lastScanAt || '', q.createdAt, q.updatedAt || '',
+        it.dest.value || '', it.kind === 'static' ? '' : it.shortUrl, [it.problem, ...it.risks, ...it.pattern].filter(Boolean).join(' '),
+        q.moderation && q.moderation.hold ? q.moderation.hold.reason : '', q.moderation && q.moderation.flag ? q.moderation.flag.reason : ''].map(csv).join(',');
+    });
+    await this.log(me, 'export', null, list.length + (pick ? ' selected' : ' filtered'));
+    return '﻿' + [head.join(','), ...lines].join('\r\n') + '\r\n';     // BOM: Excel leest dan é, ü … goed
+  }
+
+  @Get('log')
+  async adminLog(@Query('code') code?: string, @Query('limit') limit?: string) {
+    return this.db.listAdminLog({ codeId: code || undefined, limit: parseInt(limit, 10) || 100 });
+  }
+
+  /* ---------------- Hulpjes ---------------- */
+  /** Alle accounts als eigenaar (met rol en aantal codes) */
+  private async owners(): Promise<Record<string, Owner>> {
+    const out: Record<string, Owner> = {};
+    (await this.db.listCustomers()).forEach((u: Customer) => {
+      out[u.id] = { id: u.id, name: u.name, email: u.email, level: this.auth.isSuper(u) ? 'super' : this.auth.isAdmin(u) ? 'admin' : 'user', codes: u.codes };
+    });
+    return out;
+  }
+  /** Mag deze admin de code van deze eigenaar aanpassen? Super-admin: alles. Admin: klanten en zichzelf, niet andere teamleden. */
+  private canTouch(me: User, owner: Owner | undefined) {
+    if (this.auth.isSuper(me)) return true;
+    if (!owner) return true;                                      // eigenaar bestaat niet meer (zou niet moeten): opruimen mag
+    return owner.id === me.id || owner.level === 'user';
+  }
+  private async log(me: User, action: string, q: QrCode | null, detail = '') {
+    await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action, codeId: q ? q.id : null, ownerId: q ? q.userId : null,
+      detail: [q ? (q.name || '') : '', detail].filter(Boolean).join(' · ') || null }).catch((e) => console.error('Beheerlog:', e.message));
+  }
+
+  /** Alle filters samen (ze werken allemaal tegelijk) */
+  private async filtered(qs: Record<string, any>) {
+    const [owners, all, totals] = await Promise.all([this.owners(), this.db.allQrCodes(), this.db.codeTotals(patternSince())]);
+    const s = (k: string) => String(qs[k] == null ? '' : qs[k]);
+    const q = s('q').trim().toLowerCase(), type = s('type'), status = s('status'), user = s('user'), kind = s('kind'), scans = s('scans'), last = s('last'), check = s('check');
+    const now = Date.now(), daysAgo = (n: number) => new Date(now - n * 864e5).toISOString();
+    const created = /^\d{1,3}$/.test(s('created')) ? daysAgo(+s('created')) : '';
+    const from = /^\d{4}-\d{2}-\d{2}$/.test(s('from')) ? s('from') : '', to = /^\d{4}-\d{2}-\d{2}$/.test(s('to')) ? s('to') : '';
+    const sort = SORTS.includes(s('sort')) ? s('sort') : 'new';
+    const qt = s('qt').split(',').filter((x) => /^[a-z0-9]{1,30}$/i.test(x));        // types waarvan de vertaalde naam past bij de zoekterm (van de app)
+    const isStatic = (c: QrCode) => STATIC.includes(c.contentType);
+    const checks = (c: QrCode) => {
+      const d = destinationOf(c);
+      return { flagged: !!(c.moderation && c.moderation.flag), held: !!(c.moderation && c.moderation.hold), problem: !!problemOf(c, d),
+        risky: !!(d.value && riskOf(d.value).length) || scanPattern((totals[c.id] || { days: {} }).days).length > 0 };
+    };
+    let rows = all.filter((c) => {
+      if (type && c.typeId !== type) return false;
+      if (user && c.userId !== user) return false;
+      if (status === 'paused' && !c.paused) return false;
+      if (status === 'active' && c.paused) return false;
+      if (kind === 'static' && !isStatic(c)) return false;
+      if (kind === 'dynamic' && isStatic(c)) return false;
+      if (created && c.createdAt < created) return false;
+      if (from && c.createdAt.slice(0, 10) < from) return false;
+      if (to && c.createdAt.slice(0, 10) > to) return false;
+      if (scans === 'none' && (c.scans > 0 || isStatic(c))) return false;
+      if (scans === 'some' && !(c.scans > 0)) return false;
+      if (scans === '100' && !(c.scans >= 100)) return false;
+      if (last === 'never' && (c.lastScanAt || isStatic(c))) return false;
+      if (/^\d+$/.test(last) && !(c.lastScanAt && c.lastScanAt >= daysAgo(+last))) return false;
+      if (last === 'old' && !(c.lastScanAt && c.lastScanAt < daysAgo(30))) return false;
+      if (check) { const k = checks(c); if (check === 'attention' ? !(k.flagged || k.problem || k.risky) : !k[check as keyof typeof k]) return false; }
+      if (q && haystack(c, owners[c.userId]).indexOf(q) < 0 && !qt.includes(c.typeId)) return false;
+      return true;
+    });
+    const name = (c: QrCode) => String(c.name || (c.content && (c.content.title || c.content.name || c.content.url)) || c.typeId).toLowerCase();
+    if (sort === 'old') rows = rows.slice().reverse();
+    if (sort === 'scans') rows = rows.slice().sort((a, b) => b.scans - a.scans);
+    if (sort === 'recent') rows = rows.slice().sort((a, b) => String(b.lastScanAt || '').localeCompare(String(a.lastScanAt || '')));
+    if (sort === 'updated') rows = rows.slice().sort((a, b) => String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)));
+    if (sort === 'name') rows = rows.slice().sort((a, b) => name(a).localeCompare(name(b)));
+    return { rows, owners, all, totals };
+  }
+
+  /** Eén code voor het scherm: met eigenaar, soort, unieke scans, bestemming, controles en of je hem mag aanpassen */
+  private item(req: Request, me: User, q: QrCode, owner: Owner | undefined, totals: Record<string, { uniq: number; days: Record<string, [number, number]> }>) {
+    const r = this.row(req, q), d = destinationOf(q), t = totals[q.id];
+    const name = q.name || (q.content && (q.content.title || q.content.name || q.content.ssid)) || '';
+    return { ...r, displayName: name, owner: owner || null, kind: STATIC.includes(q.contentType) ? 'static' : 'dynamic', uniq: t ? t.uniq : 0,
+      dest: { kind: d.kind, value: d.value && d.value.length < 2000 ? d.value : d.value ? d.value.slice(0, 2000) : '' },
+      problem: problemOf(q, d), risks: d.value ? riskOf(d.value) : [], pattern: t ? scanPattern(t.days) : [],
+      moderation: q.moderation || null, canEdit: this.canTouch(me, owner) };
+  }
   private row(req: Request, q: QrCode) {
     const r = this.codes.out(req, q);
     r.content = slim(r.content, q.contentType);
     r.userId = q.userId;
+    delete r.hold;
     return r;
   }
 }

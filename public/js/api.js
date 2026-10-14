@@ -353,8 +353,18 @@ var api = (function () {
     admin: {
       overview:   function ()      { return request('GET', 'api/admin/overview'); },
       codes:      function (f)     { var q = Object.keys(f || {}).filter(function (k) { return f[k] !== '' && f[k] != null; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); return request('GET', 'api/admin/codes' + (q ? '?' + q : '')); },
-      patchCode:  function (id, d) { return request('PATCH', 'api/admin/codes/' + encodeURIComponent(id), d); },
-      removeCode: function (id)    { return request('DELETE', 'api/admin/codes/' + encodeURIComponent(id)); }
+      code:       function (id, q) { return request('GET', 'api/admin/codes/' + encodeURIComponent(id) + (q ? '?' + q : '')); },
+      patchCode:  function (id, d) { return request('PATCH', 'api/admin/codes/' + encodeURIComponent(id), d); },   // { paused, reason, lock } | { flag, reason } | { name, content }
+      duplicateCode: function (id) { return request('POST', 'api/admin/codes/' + encodeURIComponent(id) + '/duplicate', {}); },
+      checkCode:  function (id)    { return request('GET', 'api/admin/codes/' + encodeURIComponent(id) + '/check'); },
+      removeCode: function (id)    { return request('DELETE', 'api/admin/codes/' + encodeURIComponent(id)); },
+      bulk:       function (d)     { return request('POST', 'api/admin/codes/bulk', d); },                         // { ids, action, reason, lock }
+      log:        function (code)  { return request('GET', 'api/admin/log' + (code ? '?code=' + encodeURIComponent(code) : '')); },
+      // CSV als bestand (Blob)
+      exportCodes: function (d)    {
+        return fetch('api/admin/codes/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d || {}) })
+          .then(function (res) { if (!res.ok) { var e = new Error('HTTP ' + res.status); e.status = res.status; throw e; } return res.blob(); });
+      }
     },
     urlInfo:      function (url)   { return request('GET', 'api/url-info?url=' + encodeURIComponent(url)); },
     getMe:        function ()      { return request('GET', 'api/me'); },

@@ -19,6 +19,11 @@ const fileFields = (typeId: string): string[] => { const t = QR_TYPES.find((x) =
 const galleryFields = (typeId: string): string[] => { const t = QR_TYPES.find((x) => x.id === typeId); return t ? t.fields.filter((f) => f.type === 'gallery').map((f) => f.key) : []; };
 export const cleanName = (v: unknown) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, 60);
 export const newCodeId = () => crypto.randomBytes(5).toString('base64url');   // bv. "aZ3k9Qp"
+/** Nieuw id dat nog nooit is gebruikt (ook niet door een verwijderde code: een oude, geprinte QR-code mag nooit bij iemand anders uitkomen) */
+export async function freshCodeId(db: { idTaken(id: string): Promise<boolean> }) {
+  for (let i = 0; i < 20; i++) { const id = newCodeId(); if (!(await db.idTaken(id))) return id; }
+  throw new Error('no free id');
+}
 export const missingRequired = (typeId: string, content: Record<string, any>) => {
   const t = QR_TYPES.find((x) => x.id === typeId); return t.fields.filter((f) => f.required && (QR_TYPES as any).active(t, f, content) && !content[f.key] && !(f.or && content[f.or])).map((f) => f.key + ': required');
 };
@@ -33,6 +38,9 @@ export class QrCodesService {
     const hasPassword = !!(key && content[key]); if (key) delete content[key];
     Object.keys(content).forEach((k) => { if (typeof content[k] === 'string' && content[k].indexOf('"d":"data:') > 0) { try { const o = JSON.parse(content[k]); delete o.d; content[k] = JSON.stringify(o); } catch (e) { /* geen JSON */ } } });
     const r: any = { ...q, content, hasPassword, shortUrl: baseUrl(req) + '/q/' + q.id }; delete r.userId;
+    // De klant ziet alleen dát het team de code heeft gepauzeerd (en waarom); een markering is intern
+    const hold = q.moderation && q.moderation.hold; delete r.moderation;
+    if (hold) r.hold = { reason: hold.reason, at: hold.at, lock: !!hold.lock };
     return r;
   }
 
