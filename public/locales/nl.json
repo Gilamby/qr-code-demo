@@ -1658,9 +1658,7 @@
     "viewAnalytics": "Bekijk statistieken",
     "totalScans": "Scans",
     "favCodes": "Favoriete QR-codes",
-    "viewAll": "Alles bekijken",
-    "live": "Live",
-    "avgDay": "gem. {n} per dag"
+    "viewAll": "Alles bekijken"
   },
   "as": {
     "tabTexts": "Teksten",

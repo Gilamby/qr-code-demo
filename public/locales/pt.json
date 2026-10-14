@@ -1658,9 +1658,7 @@
     "viewAnalytics": "Ver estatísticas",
     "totalScans": "Leituras",
     "favCodes": "Códigos QR favoritos",
-    "viewAll": "Ver tudo",
-    "live": "Ao vivo",
-    "avgDay": "média {n} por dia"
+    "viewAll": "Ver tudo"
   },
   "as": {
     "tabTexts": "Textos",
