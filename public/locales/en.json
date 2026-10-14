@@ -1658,7 +1658,9 @@
     "viewAnalytics": "View analytics",
     "totalScans": "Scans",
     "favCodes": "Favourite QR codes",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "live": "Live",
+    "avgDay": "avg. {n} per day"
   },
   "as": {
     "tabTexts": "Texts",
