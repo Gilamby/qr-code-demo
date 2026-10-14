@@ -1,15 +1,18 @@
 /* =========================================================
    OVERZICHT (dashboard voor klanten) — de startpagina na het inloggen
-   - Begroeting (in je eigen tijdzone) + snelle acties
-   - Vier tegels: QR-codes (aan/uit), scans 30 dagen (met verschil t.o.v. de 30 dagen ervoor), unieke scans, vandaag
-   - Staafgrafiek: scans per dag, laatste 30 dagen (met tooltip en een tabel)
-   - Favorieten, best scannende codes, recente activiteit (codes gemaakt, gescand, account)
+   In één oogopslag (ontwerp van Fabian):
+   - Titel + periode (7 / 30 / 90 dagen) + knop "QR-code maken"
+   - Vier tegels: QR-codes (actief), scans, unieke scans (met verschil t.o.v. de periode ervoor), scans vandaag
+   - Rij 1: scanactiviteit (staafjes, tooltip, tabel) | recente activiteit
+   - Rij 2: favorieten als tabel (code, status, scans) | meest gescand
+   - Onderaan: © Optimasys QR · Privacy en voorwaarden
    - Nog geen codes? Dan een welkom met de eerste stappen.
    Admins beginnen op het Dashboard van Beheer, maar kunnen dit ook openen.
    ========================================================= */
 var Home = (function () {
   var view = document.getElementById('homeView'), body = document.getElementById('homeBody');
-  var codes = null, stats = null, acts = null, me = null, seq = 0;
+  var codes = null, stats = null, statsP = null, acts = null, me = null, seq = 0, period = 30;
+  try { var sp = +localStorage.getItem('home.period'); if ([7, 30, 90].indexOf(sp) >= 0) period = sp; } catch (e) {}
   var SVG = function (p, cls) { return '<svg class="' + (cls || 'hm-i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
   var IC = {
     plus: '<path d="M12 5v14M5 12h14"/>', codes: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/>',
@@ -30,15 +33,16 @@ var Home = (function () {
 
   /* ---------- Gegevens ---------- */
   function load() {
-    var my = ++seq, to = new Date(), from = new Date(Date.now() - 59 * 864e5);
+    var my = ++seq, to = new Date(), from = new Date(Date.now() - (period * 2 - 1) * 864e5);   // ook de periode ervoor (om te vergelijken)
     if (!codes) body.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
     Promise.all([
       api.listQrCodes().catch(function () { return []; }),
       api.analytics({ from: iso(from), to: iso(to), codes: [], os: [], cc: [], city: [] }).catch(function () { return null; }),
+      api.analytics({ from: iso(new Date(Date.now() - (period - 1) * 864e5)), to: iso(to), codes: [], os: [], cc: [], city: [] }).catch(function () { return null; }),
       api.account.activity ? api.account.activity().catch(function () { return { activity: [] }; }) : Promise.resolve({ activity: [] })
     ]).then(function (r) {
       if (my !== seq) return;
-      codes = r[0] || []; stats = r[1]; acts = (r[2] && r[2].activity) || [];
+      codes = r[0] || []; stats = r[1]; statsP = r[2]; acts = (r[3] && r[3].activity) || [];
       draw();
     });
   }
@@ -59,9 +63,9 @@ var Home = (function () {
     var s = (stats && stats.series) || [], by = {};
     s.forEach(function (p) { by[p.d] = p; });
     var out = [], prev = { s: 0, u: 0 };
-    for (var i = 59; i >= 0; i--) {
+    for (var i = period * 2 - 1; i >= 0; i--) {
       var d = iso(new Date(Date.now() - i * 864e5)), p = by[d] || { d: d, s: 0, u: 0 };
-      if (i >= 30) { prev.s += p.s; prev.u += p.u; } else out.push({ d: d, s: p.s, u: p.u });
+      if (i >= period) { prev.s += p.s; prev.u += p.u; } else out.push({ d: d, s: p.s, u: p.u });
     }
     return { days: out, prev: prev };
   }
@@ -72,13 +76,14 @@ var Home = (function () {
       if (!before && !now) return '<em class="hm-trend flat">' + t('home.noChange') + '</em>';
       if (!before) return '<em class="hm-trend t-up">' + ico('up', 'hm-ti') + t('home.new') + '</em>';
       var pct = Math.round((now - before) / before * 100);
-      return '<em class="hm-trend ' + (pct > 0 ? 't-up' : pct < 0 ? 't-down' : 'flat') + '" title="' + esc(t('home.vsPrev')) + '">' + (pct ? ico(pct > 0 ? 'up' : 'down', 'hm-ti') : '') + (pct > 0 ? '+' : '') + pct + '%<span>' + t('home.vsPrevShort') + '</span></em>';
+      return '<em class="hm-trend ' + (pct > 0 ? 't-up' : pct < 0 ? 't-down' : 'flat') + '" title="' + esc(t('home.vsPrevN', { n: period })) + '">' + (pct ? ico(pct > 0 ? 'up' : 'down', 'hm-ti') : '') + (pct > 0 ? '+' : '') + pct + '%<span>' + t('home.vsPrevShortN', { n: period }) + '</span></em>';
     };
     var tile = function (cls, icon, label, value, extra) { return '<div class="hm-tile glass ' + cls + '"><span class="hm-tic">' + ico(icon) + '</span><small>' + label + '</small><b>' + value + '</b>' + (extra || '') + '</div>'; };
+    var active = codes.filter(function (r) { return !r.paused; }).length;
     return '<div class="hm-tiles">' +
-      tile('t-codes', 'codes', t('home.tCodes'), i18n.fmt.num(codes.length), '<em class="hm-trend flat">' + t(off ? 'home.codesOff' : 'home.codesAllOn', { on: i18n.fmt.num(dyn.length - off), off: i18n.fmt.num(off) }) + '</em>') +
-      tile('t-scans', 'scan', t('home.tScans'), i18n.fmt.num(cur.s), trend(cur.s, sr.prev.s)) +
-      tile('t-uniq', 'user', t('home.tUnique'), i18n.fmt.num(cur.u), trend(cur.u, sr.prev.u)) +
+      tile('t-codes', 'codes', t('home.tCodesAll'), i18n.fmt.num(codes.length), '<em class="hm-trend flat"><i class="hm-dot' + (off ? ' warn' : '') + '"></i>' + t('home.activeN', { n: i18n.fmt.num(active) }) + '</em>') +
+      tile('t-scans', 'scan', t('home.tScansAll'), i18n.fmt.num(cur.s), trend(cur.s, sr.prev.s)) +
+      tile('t-uniq', 'user', t('home.tUniqueAll'), i18n.fmt.num(cur.u), trend(cur.u, sr.prev.u)) +
       tile('t-today', 'sun', t('home.tToday'), i18n.fmt.num(today.s), '<em class="hm-trend flat">' + esc(i18n.fmt.date(new Date(), 'day')) + '</em>') + '</div>';
   }
   // Staafgrafiek: één reeks (scans), dus geen legenda: de titel zegt wat het is
@@ -95,9 +100,10 @@ var Home = (function () {
     }).join('');
     var labels = days.map(function (p, i) { return (i % 7 === 0 && i <= n - 4) || i === n - 1 ? '<text class="an-ax" x="' + (L + i * bw + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(i18n.fmt.date(day(p.d), 'dshort')) + '</text>' : ''; }).join('');
     var total = days.reduce(function (a, p) { return a + p.s; }, 0);
-    return '<div class="hm-card glass hm-chart"><div class="hm-head"><h3>' + t('home.chartTitle') + '</h3><button type="button" class="link-btn" data-goto="analytics">' + t('home.allStats') + ico('arrow', 'hm-ti') + '</button></div>' +
+    return '<div class="hm-card glass hm-chart"><div class="hm-head"><h3>' + t('home.scanActivity') + '</h3><button type="button" class="link-btn" data-goto="analytics">' + t('home.viewAnalytics') + ico('arrow', 'hm-ti') + '</button></div>' +
       (total ? '' : '<p class="hm-none">' + t('home.noScans30') + '</p>') +
       '<div class="hm-plot"><svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(t('home.chartTitle')) + '">' + grid + bars + labels + '</svg><div class="an-tt" hidden></div></div>' +
+      '<div class="hm-cfoot"><span><i class="sw s1"></i>' + t('home.totalScans') + '</span></div>' +
       '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t('an.date') + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
       days.slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(i18n.fmt.date(day(p.d), 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') +
       '</tbody></table></div></details></div>';
@@ -107,16 +113,20 @@ var Home = (function () {
       '<span class="hm-cn"><b>' + esc(name(r)) + '</b><small>' + esc(typeName(getType(r.typeId))) + (r.paused ? ' · ' + t('myCodes.offLabel') : '') + '</small></span>' + right + '</button></li>';
   }
   function favorites() {
-    var favs = codes.filter(function (r) { return r.favorite; }).slice(0, 5);
-    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('star', 'hm-hi star') + t('folders.fav') + '</h3>' + (favs.length ? '<button type="button" class="link-btn" data-goto-fav>' + t('home.seeAll') + ico('arrow', 'hm-ti') + '</button>' : '') + '</div>' +
-      (favs.length ? '<ul class="hm-list">' + favs.map(function (r) { return codeRow(r, '<span class="hm-num">' + (isStatic(r) ? '–' : i18n.fmt.num(r.scans || 0)) + '<small>' + t('myCodes.scans') + '</small></span>'); }).join('') + '</ul>'
+    var all = codes.filter(function (r) { return r.favorite; }), favs = all.slice(0, 5);
+    return '<div class="hm-card glass hm-favs"><div class="hm-head"><h3>' + ico('star', 'hm-hi star') + t('home.favCodes') + (all.length ? ' <em class="hm-count">' + i18n.fmt.num(all.length) + '</em>' : '') + '</h3>' + (all.length ? '<button type="button" class="link-btn" data-goto-fav>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button>' : '') + '</div>' +
+      (favs.length ? '<table class="hm-table"><thead><tr><th>' + t('ac.colCode') + '</th><th>' + t('adm.status') + '</th><th class="num">' + t('an.scans') + '</th></tr></thead><tbody>' + favs.map(function (r) {
+          var on = isStatic(r) || !r.paused;
+          return '<tr data-code="' + esc(r.id) + '" tabindex="0"><td><span class="hm-code"><span class="hm-qr" aria-hidden="true">' + QRRender.svg(CodeUtil.qrData(r), CodeUtil.qrDesign(r)) + '</span><span class="hm-cn"><b>' + esc(name(r)) + '</b><small>' + esc(typeName(getType(r.typeId))) + '</small></span></span></td>' +
+            '<td><i class="ad-pill ' + (on ? 'ok' : 'off') + '">' + t(isStatic(r) ? 'ac.alwaysOn' : on ? 'cust.active' : 'adm.sPaused') + '</i></td><td class="num"><b>' + (isStatic(r) ? '–' : i18n.fmt.num(r.scans || 0)) + '</b></td></tr>';
+        }).join('') + '</tbody></table>'
         : '<p class="hm-none">' + t('home.noFavs') + '</p>') + '</div>';
   }
   function top() {
-    var by = {}; ((stats && stats.codes) || []).forEach(function (c) { by[c.k] = c.s; });
+    var by = {}; ((statsP && statsP.codes) || []).forEach(function (c) { by[c.k] = c.s; });   // alleen de gekozen periode
     var list = codes.filter(function (r) { return by[r.id]; }).sort(function (a, b) { return by[b.id] - by[a.id]; }).slice(0, 5);
-    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('trophy', 'hm-hi') + t('home.topTitle') + '</h3></div>' +
-      (list.length ? '<ol class="hm-list hm-rank">' + list.map(function (r) { return codeRow(r, '<span class="hm-num">' + i18n.fmt.num(by[r.id]) + '<small>' + t('home.in60') + '</small></span>'); }).join('') + '</ol>'
+    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('trophy', 'hm-hi') + t('home.topTitle') + '</h3><small class="hm-per">' + t('an.p_' + period) + '</small></div>' +
+      (list.length ? '<ol class="hm-list hm-rank">' + list.map(function (r) { return codeRow(r, '<span class="hm-num">' + i18n.fmt.num(by[r.id]) + '</span>'); }).join('') + '</ol>'
         : '<p class="hm-none">' + t('home.noTop') + '</p>') + '</div>';
   }
   // Recente activiteit: codes gemaakt/bewerkt/gescand + account (inloggen, wachtwoord …), nieuwste eerst
@@ -130,8 +140,8 @@ var Home = (function () {
     var AI = { login: 'check', login_failed: 'warn', password: 'key', email: 'mail', sessions_ended: 'out', session_ended: 'out' };
     acts.forEach(function (a) { ev.push({ at: a.at, icon: AI[a.kind] || 'check', text: t('acct.act_' + a.kind), cls: a.kind === 'login_failed' ? 'bad' : 'acct' }); });
     ev.sort(function (a, b) { return String(b.at).localeCompare(String(a.at)); });
-    ev = ev.slice(0, 8);
-    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('clock', 'hm-hi') + t('home.activity') + '</h3><button type="button" class="link-btn" data-goto-sec>' + t('home.security') + ico('arrow', 'hm-ti') + '</button></div>' +
+    ev = ev.slice(0, 5);
+    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('clock', 'hm-hi') + t('home.activity') + '</h3><button type="button" class="link-btn" data-goto-sec>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button></div>' +
       (ev.length ? '<ol class="hm-feed">' + ev.map(function (e) {
         return '<li class="' + (e.cls || '') + '"><span class="hm-fi">' + ico(e.icon) + '</span><div>' + (e.code ? '<button type="button" class="hm-flink" data-code="' + esc(e.code) + '">' + esc(e.text) + '</button>' : '<b>' + esc(e.text) + '</b>') + '<small>' + esc(ago(e.at)) + '</small></div></li>';
       }).join('') + '</ol>' : '<p class="hm-none">' + t('acct.activityEmpty') + '</p>') + '</div>';
@@ -147,9 +157,12 @@ var Home = (function () {
   function draw() {
     if (!codes) return;
     var sr = series30();
-    body.innerHTML = '<header class="hm-hero"><div><h2>' + esc(greeting()) + '</h2><p>' + t(codes.length ? 'home.lead' : 'home.leadNew') + '</p></div>' + quickActions() + '</header>' +
+    body.innerHTML = '<header class="hm-hero"><div><h2>' + t('nav.overview') + '</h2><p>' + t(codes.length ? 'home.sub' : 'home.leadNew') + '</p></div>' +
+        '<div class="hm-acts"><label class="ad-sel hm-period"><span class="sr-only">' + t('an.period') + '</span><select id="hmPeriod">' + [7, 30, 90].map(function (n) { return '<option value="' + n + '"' + (n === period ? ' selected' : '') + '>' + t('an.p_' + n) + '</option>'; }).join('') + '</select></label>' +
+        '<button type="button" class="btn primary" data-hm-new>' + ico('plus') + t('nav.create') + '</button></div></header>' +
       (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') +
-      (codes.length ? tiles(sr) + '<div class="hm-grid"><div class="hm-col">' + chart(sr) + favorites() + '</div><div class="hm-col">' + activity() + top() + '</div></div>' : welcome() + '<div class="hm-grid one">' + activity() + '</div>');
+      (codes.length ? tiles(sr) + '<div class="hm-rows"><div class="hm-row">' + chart(sr) + activity() + '</div><div class="hm-row">' + favorites() + top() + '</div></div>' : welcome() + '<div class="hm-grid one">' + activity() + '</div>') +
+      '<footer class="hm-foot"><span>© ' + new Date().getFullYear() + ' Optimasys QR</span><button type="button" class="link-btn" data-goto="legal">' + t('nav.legal') + '</button></footer>';
   }
 
   /* ---------- Klikken en tooltip ---------- */
@@ -160,6 +173,12 @@ var Home = (function () {
     if (e.target.closest('[data-goto-fav]')) { goToPage('myCodes'); if (window.MyCodes && MyCodes.showFolder) MyCodes.showFolder('fav'); return; }
     var c = e.target.closest('[data-code]'); if (c) return Analytics.open({ codes: [c.getAttribute('data-code')] });
   });
+  body.addEventListener('change', function (e) {
+    if (e.target.id !== 'hmPeriod') return;
+    period = +e.target.value; try { localStorage.setItem('home.period', String(period)); } catch (x) {}
+    load();
+  });
+  body.addEventListener('keydown', function (e) { var r = e.target.closest && e.target.closest('tr[data-code]'); if (r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); Analytics.open({ codes: [r.getAttribute('data-code')] }); } });
   body.addEventListener('mousemove', function (e) {
     var hit = e.target.closest && e.target.closest('.hm-hit'), box = body.querySelector('.hm-plot'); if (!box) return;
     var tt = box.querySelector('.an-tt');

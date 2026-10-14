@@ -95,22 +95,17 @@ var Analytics = (function () {
   /* ---------- Inzichten: gemiddelde, groei, beste dag, topcode, actieve codes, drukste moment ---------- */
   var WD = function (i) { return new Date(Date.UTC(2024, 0, 1 + i, 12)).toLocaleDateString(i18n.lang(), { weekday: 'long', timeZone: 'UTC' }); };   // 1 jan 2024 = maandag
   function maxIdx(a) { var m = -1; a.forEach(function (v, i) { if (v > 0 && (m < 0 || v > a[m])) m = i; }); return m; }
+  // Eén duidelijke samenvatting in gewone taal (in plaats van losse vakjes)
   function insights(r) {
     var I = r.insights; if (!I) return '';
-    var n = function (v, dec) { return i18n.fmt.num(Math.round(v * (dec ? 10 : 1)) / (dec ? 10 : 1)); };
-    var growth = !I.prevScans ? (r.totals.scans ? '<span class="an-up">' + t('an.newPeriod') + '</span>' : '<span class="muted">—</span>')
-      : (function () { var p = Math.round((r.totals.scans - I.prevScans) / I.prevScans * 100); return '<span class="' + (p >= 0 ? 'an-up' : 'an-down') + '">' + (p >= 0 ? '+' : '') + i18n.fmt.num(p) + '%</span>'; })();
-    var top = r.codes[0], wd = maxIdx(I.weekdays), hr = I.hours ? maxIdx(I.hours) : -1;
-    var item = function (label, value, sub) { return '<div class="an-ins"><small>' + label + '</small><b>' + value + '</b>' + (sub ? '<em>' + sub + '</em>' : '') + '</div>'; };
-    var few = r.totals.scans < 20;
-    return '<div class="an-card glass an-insights"><div class="an-chead"><h3>' + t('an.insights') + '</h3></div><div class="an-insgrid">' +
-      item(t('an.avgDay'), n(r.totals.scans / I.days, true), t('an.avgUniq', { n: n(r.totals.unique / I.days, true) })) +
-      item(t('an.vsPrev'), growth, t('an.prevWas', { n: i18n.fmt.num(I.prevScans) })) +
-      item(t('an.bestDay'), I.bestDay ? esc(i18n.fmt.date(d(I.bestDay.d), 'long')) : '—', I.bestDay ? t('an.nScans', { n: i18n.fmt.num(I.bestDay.s) }) : '') +
-      item(t('an.topCode'), top ? esc(codeName(top.k)) : '—', top ? t('an.nScans', { n: i18n.fmt.num(top.s) }) : '') +
-      item(t('an.activeCodes'), i18n.fmt.num(I.activeCodes) + ' / ' + i18n.fmt.num(r.totals.codes), t('an.activeSub')) +
-      item(t('an.busiest'), wd >= 0 ? esc(WD(wd)) + (hr >= 0 ? ', ' + String(hr).padStart(2, '0') + ':00' : '') : '—', hr >= 0 ? t('an.busiestSub') : '') +
-      '</div>' + (few ? '<p class="an-few">' + t('an.fewData') + '</p>' : '') + '</div>';
+    if (!r.totals.scans) return '<div class="an-card glass an-summary"><p>' + t('an.sumNone') + '</p></div>';
+    var top = r.codes[0], wd = maxIdx(I.weekdays), hr = I.hours ? maxIdx(I.hours) : -1, parts = [];
+    var p = I.prevScans ? Math.round((r.totals.scans - I.prevScans) / I.prevScans * 100) : null;
+    parts.push(t('an.sumMain', { scans: '<b>' + i18n.fmt.num(r.totals.scans) + '</b>', people: '<b>' + i18n.fmt.num(r.totals.unique) + '</b>' }));
+    if (p !== null && p !== 0) parts.push(t(p > 0 ? 'an.sumUp' : 'an.sumDown', { pct: '<b class="' + (p > 0 ? 'an-up' : 'an-down') + '">' + i18n.fmt.num(Math.abs(p)) + '%</b>' }));
+    if (top) parts.push(t('an.sumTop', { name: '<b>' + esc(codeName(top.k)) + '</b>', n: i18n.fmt.num(top.s) }));
+    if (wd >= 0) parts.push(hr >= 0 ? t('an.sumWhen', { day: '<b>' + esc(WD(wd)) + '</b>', hour: '<b>' + String(hr).padStart(2, '0') + ':00</b>' }) : t('an.sumDay', { day: '<b>' + esc(WD(wd)) + '</b>' }));
+    return '<div class="an-card glass an-summary"><p>' + parts.join(' ') + '</p>' + (r.totals.scans < 20 ? '<p class="an-few">' + t('an.fewData') + '</p>' : '') + '</div>';
   }
   // Wanneer wordt er gescand: per weekdag en per uur (staafjes, met de getallen ook als tekst voor schermlezers)
   function when(r) {

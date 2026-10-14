@@ -25,5 +25,11 @@ const dir = path.join(root, 'optimasys-' + stamp);
   const all = fs.readdirSync(root).filter((d) => d.startsWith('optimasys-')).sort();
   all.slice(0, Math.max(0, all.length - 14)).forEach((d) => fs.rmSync(path.join(root, d), { recursive: true, force: true }));
   console.log('Back-up klaar: ' + dir);
+  // Voor het beheer-dashboard: wanneer was de laatste back-up (gelukt of mislukt)
+  await db.setSetting('backup:last', JSON.stringify({ at: new Date().toISOString(), ok: true, files: fs.readdirSync(path.join(dir, 'files')).length, kind: db.kind })).catch(() => {});
   await ctx.close(); process.exit(0);
-})().catch((e) => { console.error('Back-up mislukt:', e.message); process.exit(1); });
+})().catch(async (e) => {
+  console.error('Back-up mislukt:', e.message);
+  try { const ctx = await NestFactory.createApplicationContext(DatabaseModule, { logger: ['error'] }); await ctx.get(DatabaseService).setSetting('backup:failed', JSON.stringify({ at: new Date().toISOString(), message: String(e.message).slice(0, 200) })); await ctx.close(); } catch (x) { /* database ook niet bereikbaar */ }
+  process.exit(1);
+});

@@ -21,7 +21,7 @@
     off: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
     on: '<path d="M12 3v9"/><path d="M6.3 7.3a8 8 0 1 0 11.4 0"/>',
     shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/>',
-    plus: '<path d="M12 5v14M5 12h14"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>'
+    plus: '<path d="M12 5v14M5 12h14"/>', qr: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM19 19h2v2"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
   function date(iso) { return i18n.fmt.stamp(iso, 'short'); }
   function statusKey(c) { return c.disabledAt ? 'disabled' : c.active ? 'active' : 'invited'; }
@@ -71,7 +71,7 @@
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('acct.codes') + ': </span>' + i18n.fmt.num(c.codes) + '</span>' +
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('an.scans') + ': </span>' + i18n.fmt.num(c.scans || 0) + '</span>' +
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('adm.lastLogin') + ': </span>' + (c.lastLoginAt ? Admin.ago(c.lastLoginAt) : t('adm.never')) + '<small class="cust-sub">' + t('cust.added') + ' ' + date(c.createdAt) + '</small></span>' +
-          '<span role="cell" class="cust-acts">' + (!c.active && !c.disabledAt ? '<button type="button" class="btn ghost" data-reinvite>' + SVG + ICON.mail + '</svg>' + t('cust.reinvite') + '</button>' : '') +
+          '<span role="cell" class="cust-acts">' + (c.codes ? '<button type="button" class="btn ghost" data-codes title="' + esc(t('cust.viewCodes')) + '">' + SVG + ICON.qr + '</svg>' + i18n.fmt.num(c.codes) + '</button>' : '') + (!c.active && !c.disabledAt ? '<button type="button" class="btn ghost" data-reinvite>' + SVG + ICON.mail + '</svg>' + t('cust.reinvite') + '</button>' : '') +
             (canEdit ? '<button type="button" class="btn ghost ' + (c.disabledAt ? '' : 'warn-ghost') + '" data-toggle>' + SVG + (c.disabledAt ? ICON.on : ICON.off) + '</svg>' + t(c.disabledAt ? 'adm.enable' : 'adm.disable') + '</button>' : '') +
             (canEdit && !c.fixed ? '<button type="button" class="btn ghost danger-ghost cust-del" data-remove aria-label="' + esc(t('cust.remove') + ': ' + (c.name || c.email)) + '" title="' + esc(t('cust.remove')) + '">' + SVG + ICON.trash + '</svg></button>' : '') + '</span>' +
         '</div>';
@@ -143,6 +143,7 @@
         dd.querySelector('#custOffGo').addEventListener('click', function (ev) { ev.preventDefault(); dd.close(); go(); });
         return dd.showModal();
       }
+      if (e.target.closest('[data-codes]') && c && window.AdminCodes) return AdminCodes.filter({ user: c.id });   // alle QR-codes van deze gebruiker
       if (e.target.closest('[data-reinvite]') && c) {
         e.target.closest('[data-reinvite]').disabled = true;
         return api.customers.reinvite(id, { lang: i18n.lang() }).then(function (r) { result = { kind: 'ok', text: t('cust.sent', { email: c.email }), link: r.link }; load(); draw(); var m = box.querySelector('.cust-add .acct-msg'); if (m) m.scrollIntoView({ block: 'center' }); })

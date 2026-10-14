@@ -352,6 +352,7 @@ var api = (function () {
     // Beheer (alleen team): dashboard en alle QR-codes
     admin: {
       overview:   function ()      { return request('GET', 'api/admin/overview'); },
+      system:     function ()      { return request('GET', 'api/admin/system'); },
       codes:      function (f)     { var q = Object.keys(f || {}).filter(function (k) { return f[k] !== '' && f[k] != null; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); return request('GET', 'api/admin/codes' + (q ? '?' + q : '')); },
       code:       function (id, q) { return request('GET', 'api/admin/codes/' + encodeURIComponent(id) + (q ? '?' + q : '')); },
       patchCode:  function (id, d) { return request('PATCH', 'api/admin/codes/' + encodeURIComponent(id), d); },   // { paused, reason, lock } | { flag, reason } | { name, content }

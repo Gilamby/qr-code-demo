@@ -38,22 +38,24 @@ export class AdminController {
   /** Klant toevoegen en uitnodigen */
   @Post()
   @HttpCode(201)
-  async add(@Req() req: Request, @Body() b: any = {}) {
+  async add(@Req() req: Request, @CurrentUser() me: User, @Body() b: any = {}) {
     const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').replace(/\s+/g, ' ').trim().slice(0, 80);
     const errors = [!name && 'name', (!EMAIL.test(email) || email.length > 254) && 'email'].filter(Boolean);
     if (errors.length) throw fail(400, 'Invalid customer', { details: errors });
     if (await this.db.userByEmail(email)) throw fail(409, 'exists');
     const user = await this.db.createUser({ email, name, passwordHash: INVITED });
     const link = await this.invite(req, user.id, email, String(b.lang || 'en'));
+    await this.log(me, 'user_invite', user.id, email);
     return { customer: this.withRole((await this.db.listCustomers()).find((c) => c.id === user.id)), ...link };
   }
 
   /** Uitnodiging opnieuw sturen (nieuwe link; de oude werkt dan niet meer) */
   @Post(':id/invite')
   @HttpCode(200)
-  async reinvite(@Req() req: Request, @Param('id') id: string, @Body() b: any = {}) {
+  async reinvite(@Req() req: Request, @CurrentUser() me: User, @Param('id') id: string, @Body() b: any = {}) {
     const u = await this.db.getUser(id); if (!u) throw fail(404, 'Not found');
     if (await this.db.isVerified(id)) throw fail(409, 'active');
+    await this.log(me, 'user_reinvite', id, u.email);
     return { ok: true, ...(await this.invite(req, id, u.email, String(b.lang || 'en'))) };
   }
 
@@ -78,6 +80,8 @@ export class AdminController {
     if (!Object.keys(patch).length) throw fail(400, 'nothing to change');
     await this.db.updateUser(id, patch);
     if (patch.disabledAt) await this.db.deleteSessionsOf(id);                    // meteen uitgelogd
+    if (patch.role !== undefined) await this.log(me, 'user_role', id, u.email + ' → ' + (patch.role || 'user'));
+    if (patch.disabledAt !== undefined) await this.log(me, patch.disabledAt ? 'user_disable' : 'user_enable', id, u.email);
     return this.withRole((await this.db.listCustomers()).find((c) => c.id === id));
   }
 
@@ -90,6 +94,12 @@ export class AdminController {
     if (u.id === me.id || this.auth.isSuper(u)) throw fail(403, 'team_member');
     if (this.auth.isAdmin(u) && (!this.auth.isSuper(me) || this.auth.isAdmin({ email: u.email }))) throw fail(403, 'team_member');
     await this.db.deleteUser(id);
+    await this.log(me, 'user_delete', id, u.email);
+  }
+
+  /** Beheerlog (wie deed wat met welk account); nooit wachtwoorden of links */
+  private async log(me: User, action: string, ownerId: string, detail: string) {
+    await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action, codeId: null, ownerId, detail }).catch(() => {});
   }
 
   /** Rol voor het scherm: super (vast team-account), admin, of klant. fixed = admin via ADMIN_EMAILS (niet te wijzigen in de app) */

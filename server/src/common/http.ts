@@ -34,12 +34,21 @@ export class ErrorFilter implements ExceptionFilter {
   }
 }
 
+/** Laatste onverwachte serverfouten (alleen in het geheugen, max. 50): voor de waarschuwingen op het beheer-dashboard.
+ *  Bevat alleen tijd, methode, pad (zonder ?query) en de foutmelding: nooit wachtwoorden, tokens of inhoud. */
+export const recentErrors: { at: string; method: string; path: string; message: string }[] = [];
+function remember(err: any, req: Request) {
+  recentErrors.unshift({ at: new Date().toISOString(), method: req.method, path: String(req.path || '').replace(/[A-Za-z0-9_-]{20,}/g, '…').slice(0, 120), message: String((err && err.message) || err).slice(0, 200) });
+  recentErrors.length = Math.min(recentErrors.length, 50);
+}
+
 /** Fouten van Express-middleware (bv. te groot bestand, kapotte JSON) en onverwachte fouten */
 export function expressError(err: any, req: Request, res: Response, _next: NextFunction) {
   if (res.headersSent) return;
   if (err && err.type === 'entity.too.large') return res.status(413).json({ error: 'Too large (max. 10 MB per file)' });
   if (err && err.type === 'entity.parse.failed') return res.status(400).json({ error: 'Invalid JSON' });
   console.error(err);
+  remember(err, req);
   res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Something went wrong' });
 }
 

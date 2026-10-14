@@ -141,13 +141,45 @@ var Admin = (function () {
             var st = u.disabledAt ? ['off', t('adm.sDisabled')] : u.active ? ['ok', t('cust.active')] : ['wait', t('cust.invited')];
             return '<li>' + avatar(u.name, u.email) + '<span class="ad-top-who"><b>' + esc(u.name || u.email) + '</b><small>' + esc(u.email) + '</small></span><span class="ad-people-r"><i class="ad-pill ' + st[0] + '">' + st[1] + '</i><small>' + ago(u.createdAt) + '</small></span></li>';
           }).join('') + '</ul></section>' +
-      '</div>';
-    wireChart(dash, days);
+      '</div>' +
+      '<div class="ad-row three" id="adSystem"></div>';
+    wireChart(dash, days); drawSystem();
   }
   function loadDash() {
     if (!me || !me.admin) return;
     api.admin.overview().then(function (r) { data = r; dashErr = false; drawDash(); }).catch(function () { dashErr = true; drawDash(); });
+    api.admin.system().then(function (r) { sys = r; drawSystem(); }).catch(function () { sys = { error: true }; drawSystem(); });
   }
+  /* ---------- Systeemstatus, aandachtspunten en recente beheeracties ---------- */
+  var sys = null;
+  function dur(s) { var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60); return d ? t('adm.upD', { d: d, h: h }) : h ? t('adm.upH', { h: h, m: m }) : t('adm.upM', { m: m }); }
+  function drawSystem() {
+    var box = document.getElementById('adSystem'); if (!box) return;
+    if (!sys) { box.innerHTML = '<div class="glass ad-card ad-skel"></div><div class="glass ad-card ad-skel"></div>'; return; }
+    if (sys.error) { box.innerHTML = '<div class="glass ad-card"><p class="acct-msg bad">' + errMsg() + '</p></div>'; return; }
+    var row = function (ok, label, value) { return '<li><i class="ad-dot ' + ok + '"></i><span>' + label + '</span><b>' + value + '</b></li>'; };
+    var bk = sys.backup.last, bf = sys.backup.failed && (!bk || sys.backup.failed.at > bk.at);
+    var status = '<section class="glass ad-card"><div class="ad-card-head"><h3>' + t('adm.system') + '</h3><button type="button" class="link-btn" data-sys-refresh>' + t('ac.refresh') + '</button></div><ul class="ad-sys">' +
+      row(sys.db.ok ? 'ok' : 'bad', t('adm.sysDb'), sys.db.ok ? t('adm.sysOk', { ms: num(sys.db.ms) }) + ' · ' + esc(sys.db.kind) : t('adm.sysDown')) +
+      row('ok', t('adm.sysUp'), dur(sys.uptime)) +
+      row(bf ? 'bad' : bk ? 'ok' : 'warn', t('adm.sysBackup'), bf ? t('adm.sysBackupFailed', { when: ago(sys.backup.failed.at) }) : bk ? ago(bk.at) : t('adm.sysBackupNone')) +
+      row(sys.mail.configured ? 'ok' : 'wait', t('adm.sysMail'), sys.mail.configured ? t('adm.sysOn') : t('adm.sysMailLater')) +
+      row(sys.deepl.configured ? 'ok' : 'wait', 'DeepL', sys.deepl.configured ? t('adm.sysOn') : t('adm.sysOff')) +
+      row(sys.errors.last24h ? 'warn' : 'ok', t('adm.sysErrors'), num(sys.errors.last24h)) +
+      '</ul><p class="ad-sys-codes">' + t('adm.sysCodes', { active: num(sys.codes.active), paused: num(sys.codes.paused), stat: num(sys.codes.static), none: num(sys.codes.withoutScans) }) + '</p></section>';
+    var warn = '<section class="glass ad-card"><div class="ad-card-head"><h3>' + t('adm.attention') + '</h3></div>' + (sys.warnings.length ? '<ul class="ad-warns">' + sys.warnings.map(function (w) {
+      var txt = t('adm.w_' + w.kind, { n: num(w.n || 0) });
+      return '<li class="' + w.level + '">' + (w.go ? '<button type="button" class="ad-wbtn" data-wgo="' + w.go + '">' + txt + ico('arrow') + '</button>' : w.kind === 'invites' ? '<button type="button" class="ad-wbtn" data-go-page="customers">' + txt + ico('arrow') + '</button>' : '<span>' + txt + '</span>') + '</li>';
+    }).join('') + '</ul>' : '<p class="ad-empty">' + t('adm.allGood') + '</p>') + '</section>';
+    var log = '<section class="glass ad-card"><div class="ad-card-head"><h3>' + t('adm.recentActions') + '</h3></div>' + (sys.log.length ? '<ul class="acd-log">' + sys.log.map(function (e) {
+      return '<li><span class="acd-dot ' + esc(e.action) + '"></span><span><b>' + esc(t(/^user_/.test(e.action) ? 'adm.log_' + e.action : 'ac.log_' + e.action)) + '</b> · ' + esc(e.adminName || '') + (e.detail ? '<small>' + esc(e.detail) + '</small>' : '') + '</span><time title="' + esc(i18n.fmt.stamp(e.at, 'time')) + '">' + ago(e.at) + '</time></li>';
+    }).join('') + '</ul>' : '<p class="ad-empty">' + t('ac.noLog') + '</p>') + '</section>';
+    box.innerHTML = status + warn + log;
+  }
+  document.addEventListener('click', function (e) {
+    var w = e.target.closest('[data-wgo]'); if (w && window.AdminCodes) return AdminCodes.filter({ check: w.getAttribute('data-wgo') });
+    if (e.target.closest('[data-sys-refresh]')) { sys = null; drawSystem(); api.admin.system().then(function (r) { sys = r; drawSystem(); }).catch(function () { sys = { error: true }; drawSystem(); }); }
+  });
 
   /* Knoppen die naar een andere beheerpagina gaan (dashboard) */
   document.addEventListener('click', function (e) {

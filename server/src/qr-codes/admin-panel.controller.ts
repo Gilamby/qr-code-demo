@@ -25,7 +25,8 @@ import { QR_TYPES, validateQrCode } from './validation';
 import { STATIC, destinationOf, patternSince, problemOf, riskOf, scanPattern } from './moderation';
 import { urlInfo } from '../helpers/url-check';
 import { planOf, usage } from '../plans';
-import { fail } from '../common/http';
+import { fail, recentErrors } from '../common/http';
+import { MailerService } from '../auth/mailer.service';
 import type { QrCode, User } from '../types';
 
 const SIZES = [10, 25, 50, 100];
@@ -59,7 +60,7 @@ const csv = (v: unknown) => { let s = v == null ? '' : String(v); if (/^[=+\-@\t
 @Controller('api/admin')
 @UseGuards(LoggedIn, TeamOnly)
 export class AdminPanelController {
-  constructor(private readonly db: DatabaseService, private readonly codes: QrCodesService, private readonly auth: AuthService) {}
+  constructor(private readonly db: DatabaseService, private readonly codes: QrCodesService, private readonly auth: AuthService, private readonly mailer: MailerService) {}
 
   @Get('overview')
   async overview(@Req() req: Request) {
@@ -96,6 +97,42 @@ export class AdminPanelController {
       top: all.filter((q) => q.scans > 0).sort((a, b) => b.scans - a.scans).slice(0, 5)
         .map((q) => ({ ...this.row(req, q), owner: owners[q.userId] || null })),
       recentUsers: users.slice(0, 5),
+    };
+  }
+
+  /* ---------------- Systeemstatus en aandachtspunten (dashboard) ---------------- */
+  @Get('system')
+  async system() {
+    const t0 = Date.now(); let dbOk = true; try { await this.db.ping(); } catch (e) { dbOk = false; }
+    const dbMs = Date.now() - t0;
+    const parse = (v: string | null) => { try { return v ? JSON.parse(v) : null; } catch (e) { return null; } };
+    const [users, all, totals, lastBackup, failedBackup, deeplStored, log] = await Promise.all([this.db.listCustomers(), this.db.allQrCodes(), this.db.codeTotals(patternSince()),
+      this.db.getSetting('backup:last').then(parse), this.db.getSetting('backup:failed').then(parse), this.db.getSetting('deepl_key'), this.db.listAdminLog({ limit: 8 })]);
+    const day = new Date(Date.now() - 864e5).toISOString(), errors24 = recentErrors.filter((e) => e.at >= day);
+    let risky = 0, problems = 0;
+    for (const q of all) { const d = destinationOf(q); if (problemOf(q, d)) problems++; if ((d.value && riskOf(d.value).length) || scanPattern((totals[q.id] || { days: {} }).days).length) risky++; }
+    const backupAge = lastBackup ? (Date.now() - new Date(lastBackup.at).getTime()) / 36e5 : null;
+    const expiredInvites = users.filter((u) => !u.active && !u.disabledAt && (!u.inviteUntil || u.inviteUntil < new Date().toISOString())).length;
+    const warnings: { kind: string; level: 'bad' | 'warn' | 'info'; n?: number; go?: string }[] = [];
+    if (!dbOk) warnings.push({ kind: 'db', level: 'bad' });
+    if (errors24.length) warnings.push({ kind: 'errors', level: errors24.length >= 5 ? 'bad' : 'warn', n: errors24.length });
+    if (failedBackup && (!lastBackup || failedBackup.at > lastBackup.at)) warnings.push({ kind: 'backupFailed', level: 'bad' });
+    else if (backupAge == null) warnings.push({ kind: 'backupNone', level: 'warn' });
+    else if (backupAge > 36) warnings.push({ kind: 'backupOld', level: 'warn', n: Math.round(backupAge / 24) });
+    const flagged = all.filter((q) => q.moderation && q.moderation.flag).length;
+    if (flagged) warnings.push({ kind: 'flagged', level: 'bad', n: flagged, go: 'flagged' });
+    if (risky) warnings.push({ kind: 'risky', level: 'warn', n: risky, go: 'risky' });
+    if (problems) warnings.push({ kind: 'problems', level: 'warn', n: problems, go: 'problem' });
+    if (expiredInvites) warnings.push({ kind: 'invites', level: 'info', n: expiredInvites });
+    if (!this.mailer.configured) warnings.push({ kind: 'mail', level: 'info' });
+    return {
+      db: { ok: dbOk, ms: dbMs, kind: this.db.kind }, uptime: Math.round(process.uptime()), node: process.version,
+      mail: { configured: this.mailer.configured }, deepl: { configured: !!(process.env.DEEPL_API_KEY || deeplStored) },
+      backup: { last: lastBackup, failed: failedBackup },
+      errors: { last24h: errors24.length, recent: errors24.slice(0, 5) },
+      codes: { active: all.filter((q) => !q.paused).length, paused: all.filter((q) => q.paused).length, held: all.filter((q) => q.moderation && q.moderation.hold).length,
+        static: all.filter((q) => STATIC.includes(q.contentType)).length, withoutScans: all.filter((q) => !q.scans && !STATIC.includes(q.contentType)).length },
+      warnings, log,
     };
   }
 

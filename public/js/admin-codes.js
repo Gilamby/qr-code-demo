@@ -510,5 +510,7 @@ var AdminCodes = (function () {
   Session.onUser(function (u) { me = u; if (!u || !u.admin) { res = null; clearSel(); } });
   document.addEventListener('pagechange', function (e) { if (e.detail === 'adminCodes') { draw(); load(!!res); } });
   i18n.onChange(function () { if (!box.closest('[hidden]')) draw(); if (drawer.open && detail) drawDrawer(); });
-  return { open: openDrawer };
+  /** Van buitenaf (dashboard, gebruikers): Alle QR-codes openen met een filter, bv. { user: id } of { check: 'flagged' } */
+  function filter(o) { Object.assign(f, DEF, { size: f.size }, o || {}); moreOpen = ADV.some(function (k) { return f[k] !== ''; }); persist(); clearSel(); res = null; goToPage('adminCodes'); }
+  return { open: openDrawer, filter: filter };
 })();
