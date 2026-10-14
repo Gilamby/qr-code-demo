@@ -3375,3 +3375,29 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 .acct-head h2 { font-size: 26px; }
 .acct-head p { margin-top: 4px; }
 .bg-restore { grid-column: 1 / -1; margin: 4px 0 0; }
+
+/* ---------- Telefoon (≤ 560 px): niets breder dan het scherm, tellers 2 naast elkaar ---------- */
+.ad-row > *, .ad-kpis > *, #adminSettingsView *, .ast > * { min-width: 0; }
+.ad-chart-wrap { overflow: hidden; }
+.ad-chart { width: 100%; height: auto; display: block; }
+@media (max-width: 560px) {
+  .hm-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px; }
+  .hm-tile { padding: 14px !important; }
+  .hm-tile b { font-size: 24px !important; }
+  .hm-tile .hm-tic { display: none; }
+  .hm-acts { width: 100%; } .hm-acts .btn { flex: 1; justify-content: center; } .hm-period { flex: 1; } .hm-period select { width: 100%; }
+  .an-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .an-tiles > :last-child { grid-column: 1 / -1; }
+  .ast-langs { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .ast-head h2, .ast-head p { overflow-wrap: anywhere; }
+  .panel-card .actions { flex-wrap: wrap; gap: 10px; }
+  .panel-card .actions .picked { flex: 1 1 100%; }
+  .panel-card .actions .btn { flex: 1; justify-content: center; }
+  .ad-head-acts .ad-live { flex: 1 1 100%; }
+}
+@media (max-width: 900px) { .ad-row, .ad-row.two, .ad-row.three { grid-template-columns: minmax(0, 1fr) !important; } }
+@media (max-width: 560px) { .ad-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+@media (max-width: 900px) { .ad-chart { min-width: 0 !important; } .ad-chart text { font-size: 18px; } }
+.ad-people, .ad-top { grid-template-columns: minmax(0, 1fr); min-width: 0; } .ad-people li, .ad-top li { min-width: 0; }
+/* telefoon: bovenbalk dekkend genoeg zodat tekst eronder niet doorschemert */
+@media (max-width: 760px) { .topbar { background: rgba(12,15,21,.92) !important; } }

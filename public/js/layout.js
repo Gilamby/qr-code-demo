@@ -115,6 +115,21 @@
   function size() { var s = Math.min(1, (window.innerHeight - 110) / 740, (window.innerWidth - 24) / 350); document.body.style.setProperty('--pvs', s.toFixed(3)); }
   function open(on) { document.body.classList.toggle('pv-open', on); if (on) { size(); close.focus(); } else fab.focus({ preventScroll: true }); }
   fab.addEventListener('click', function () { open(true); });
+  /* knop schuift omhoog zodra de Terug/Doorgaan-balk onderin zichtbaar is, zodat hij die nooit bedekt */
+  var tick = 0;
+  function lift() {
+    tick = 0; var lifted = 0, bar = null;
+    document.querySelectorAll('#createView .panel-card .actions').forEach(function (a) { if (a.offsetParent) bar = a; });
+    if (bar && getComputedStyle(fab).display !== 'none') {
+      var r = bar.getBoundingClientRect(), h = window.innerHeight;
+      if (r.top < h - 10 && r.bottom > h - 72) lifted = Math.round(h - Math.max(r.top, 0) + 8);
+    }
+    fab.style.bottom = lifted ? 'calc(' + lifted + 'px + env(safe-area-inset-bottom, 0px))' : '';
+  }
+  function soon() { if (!tick) tick = requestAnimationFrame(lift); }
+  window.addEventListener('scroll', soon, { passive: true }); window.addEventListener('resize', soon);
+  document.addEventListener('click', function () { setTimeout(soon, 60); }, true);
+  setInterval(soon, 800);
   close.addEventListener('click', function () { open(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('pv-open')) open(false); });
   addEventListener('resize', function () { if (document.body.classList.contains('pv-open')) size(); });
