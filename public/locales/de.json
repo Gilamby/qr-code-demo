@@ -1581,5 +1581,15 @@
     "working": "Läuft… {n} von {total}",
     "keyFormat": "Das sieht nicht wie ein DeepL-Schlüssel aus.",
     "error": "Beim Laden ist etwas schiefgegangen."
+  },
+  "theme": {
+    "title": "Darstellung",
+    "lead": "Wähle, wie die App aussieht. Deine Wahl gilt auf all deinen Geräten.",
+    "dark": "Dunkel",
+    "light": "Hell",
+    "system": "System",
+    "systemHint": "Folgt deinem Gerät",
+    "toDark": "Dunkle Darstellung",
+    "toLight": "Helle Darstellung"
   }
 }

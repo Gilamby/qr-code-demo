@@ -1581,5 +1581,15 @@
     "working": "Trwa… {n} z {total}",
     "keyFormat": "To nie wygląda na klucz DeepL.",
     "error": "Coś poszło nie tak podczas ładowania."
+  },
+  "theme": {
+    "title": "Wygląd",
+    "lead": "Wybierz wygląd aplikacji. Wybór obowiązuje na wszystkich Twoich urządzeniach.",
+    "dark": "Ciemny",
+    "light": "Jasny",
+    "system": "Systemowy",
+    "systemHint": "Zgodnie z urządzeniem",
+    "toDark": "Tryb ciemny",
+    "toLight": "Tryb jasny"
   }
 }

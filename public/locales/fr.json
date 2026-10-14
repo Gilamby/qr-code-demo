@@ -1581,5 +1581,15 @@
     "working": "En cours… {n} sur {total}",
     "keyFormat": "Cela ne ressemble pas à une clé DeepL.",
     "error": "Un problème est survenu lors du chargement."
+  },
+  "theme": {
+    "title": "Apparence",
+    "lead": "Choisissez l’apparence de l’app. Votre choix s’applique sur tous vos appareils.",
+    "dark": "Sombre",
+    "light": "Clair",
+    "system": "Système",
+    "systemHint": "Suit votre appareil",
+    "toDark": "Mode sombre",
+    "toLight": "Mode clair"
   }
 }

@@ -1581,5 +1581,15 @@
     "working": "In corso… {n} di {total}",
     "keyFormat": "Questa non sembra una chiave DeepL.",
     "error": "Qualcosa è andato storto durante il caricamento."
+  },
+  "theme": {
+    "title": "Aspetto",
+    "lead": "Scegli come appare l’app. La scelta vale su tutti i tuoi dispositivi.",
+    "dark": "Scuro",
+    "light": "Chiaro",
+    "system": "Sistema",
+    "systemHint": "Segue il dispositivo",
+    "toDark": "Modalità scura",
+    "toLight": "Modalità chiara"
   }
 }

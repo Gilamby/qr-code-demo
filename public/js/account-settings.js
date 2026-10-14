@@ -351,7 +351,12 @@
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
     if (tab === 'profile') return profilePanel(m, note);
     if (tab === 'security') return securityPanel(m, note);
-    if (tab === 'prefs') return '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
+    if (tab === 'prefs') return '<div class="glass bg-card acct"><h2>' + t('theme.title') + '</h2><p>' + t('theme.lead') + '</p>' +
+      '<div class="th-opts" role="radiogroup" aria-label="' + esc(t('theme.title')) + '">' + ['dark', 'light', 'system'].map(function (k) {
+        return '<button type="button" role="radio" class="th-opt th-' + k + '" data-theme-pick="' + k + '" aria-checked="' + (theme.get() === k) + '"><span class="th-mini"><i></i><b></b><b></b><s></s></span><span class="th-name">' + t('theme.' + k) + '</span>' +
+          (k === 'system' ? '<small>' + t('theme.systemHint') + '</small>' : '') + '</button>';
+      }).join('') + '</div></div>' +
+      '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
       field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>', { icon: 'globe', cls: 'acct-lang' }) + '</div>';
     if (tab === 'delete') return deletePanel();
     if (tab === 'billing') return billingPanel(m);
@@ -468,6 +473,7 @@
     }
     if (e.target.closest('[data-edit-cancel]')) { var was = editing; editing = null; draw(); var b2 = box.querySelector('[data-edit="' + was + '"]'); if (b2) b2.focus(); return; }
     var gt = e.target.closest('[data-goto]'); if (gt) { e.preventDefault(); return window.goToPage(gt.getAttribute('data-goto')); }
+    var tp = e.target.closest('[data-theme-pick]'); if (tp) { theme.set(tp.getAttribute('data-theme-pick')); user = Object.assign({}, user, { theme: theme.get() }); return draw(); }
     var es = e.target.closest('[data-end-session]');
     if (es) {
       es.disabled = true;
@@ -535,7 +541,8 @@
   idc.addEventListener('dragleave', function (e) { if (!idc.contains(e.relatedTarget)) idc.classList.remove('over'); });
   idc.addEventListener('drop', function (e) { e.preventDefault(); idc.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
 
-  Session.onUser(function (u) { user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; draw(); loadSummary(); loadBilling(); });
+  theme.onChange(function () { if (user && tab === 'prefs' && !box.hidden) draw(); });
+  Session.onUser(function (u) { if (u.theme && u.theme !== theme.get()) theme.set(u.theme, false); user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; draw(); loadSummary(); loadBilling(); });
   // Net op de link in de mail geklikt (nieuw e-mailadres): Mijn account openen met de uitkomst
   document.addEventListener('account:email-note', function (e) {
     var n = e.detail || {}; window.goToPage('account'); open('profile');

@@ -1581,5 +1581,15 @@
     "working": "Trabajando… {n} de {total}",
     "keyFormat": "Esto no parece una clave de DeepL.",
     "error": "Algo salió mal al cargar."
+  },
+  "theme": {
+    "title": "Apariencia",
+    "lead": "Elige cómo se ve la app. Tu elección se aplica en todos tus dispositivos.",
+    "dark": "Oscuro",
+    "light": "Claro",
+    "system": "Sistema",
+    "systemHint": "Sigue a tu dispositivo",
+    "toDark": "Modo oscuro",
+    "toLight": "Modo claro"
   }
 }

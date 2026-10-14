@@ -1687,5 +1687,15 @@
     "working": "Duke punuar… {n} nga {total}",
     "keyFormat": "Ky nuk duket si çelës DeepL.",
     "error": "Diçka shkoi keq gjatë ngarkimit."
+  },
+  "theme": {
+    "title": "Pamja",
+    "lead": "Zgjidh si duket aplikacioni. Zgjedhja vlen në të gjitha pajisjet e tua.",
+    "dark": "E errët",
+    "light": "E çelët",
+    "system": "Sistemi",
+    "systemHint": "Ndjek pajisjen tënde",
+    "toDark": "Pamje e errët",
+    "toLight": "Pamje e çelët"
   }
 }

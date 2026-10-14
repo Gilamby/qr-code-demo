@@ -79,7 +79,7 @@ export class AuthService implements OnModuleDestroy {
   };
 
   /** Wat de app over de ingelogde gebruiker te zien krijgt */
-  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, avatar: u.avatar || null, timezone: u.timezone || null, verified: u.verified !== false, passwordChangedAt: u.passwordChangedAt || null, emailLocked: this.emailLocked(u), role: this.isSuper(u) ? 'super' : this.isAdmin(u) ? 'admin' : 'user', admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
+  me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, avatar: u.avatar || null, timezone: u.timezone || null, verified: u.verified !== false, passwordChangedAt: u.passwordChangedAt || null, theme: u.theme || null, emailLocked: this.emailLocked(u), role: this.isSuper(u) ? 'super' : this.isAdmin(u) ? 'admin' : 'user', admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
 
   /** Browser en IP van een verzoek (voor Apparaten en Recente activiteit) */
   meta(req: Request) { return { ua: String(req.get('user-agent') || ''), ip: String(req.ip || '') }; }

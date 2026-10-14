@@ -197,6 +197,7 @@ var api = (function () {
             if (d.name !== undefined) c.u.name = c.a.name = String(d.name || '').trim().slice(0, 80);
             if (d.avatar !== undefined) c.u.avatar = c.a.avatar = d.avatar;
             if (d.timezone !== undefined) c.u.timezone = c.a.timezone = d.timezone || null;
+            if (d.theme !== undefined) c.u.theme = c.a.theme = d.theme;
             save(c); put(KEY, c.u); return c.u; }); },
           password: function (d) { return Promise.resolve().then(function () {
             var c = need();

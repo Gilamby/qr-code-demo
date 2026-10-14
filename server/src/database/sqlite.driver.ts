@@ -86,7 +86,7 @@ export function openSqlite(file: string): SqlDriver {
   // Kolom van 13 okt 2026: factuurgegevens (JSON)
   if (!db.prepare("SELECT 1 FROM pragma_table_info('users') WHERE name = 'billing'").get()) db.exec('ALTER TABLE users ADD COLUMN billing TEXT');
   // Kolommen van 13 okt 2026: beheer (rol, uitgezet, laatst ingelogd) + instellingen (vertalingen, DeepL)
-  for (const col of ['role', 'disabled_at', 'last_login_at', 'avatar', 'timezone', 'password_changed_at']) if (!db.prepare("SELECT 1 FROM pragma_table_info('users') WHERE name = ?").get(col)) db.exec('ALTER TABLE users ADD COLUMN ' + col + ' TEXT');
+  for (const col of ['role', 'disabled_at', 'last_login_at', 'avatar', 'timezone', 'password_changed_at', 'theme']) if (!db.prepare("SELECT 1 FROM pragma_table_info('users') WHERE name = ?").get(col)) db.exec('ALTER TABLE users ADD COLUMN ' + col + ' TEXT');
   db.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at TEXT)');
   // 13 okt 2026: apparaten (browser, IP, laatst actief), recente activiteit en e-mail wijzigen
   for (const col of ['ua', 'ip', 'seen_at']) if (!db.prepare("SELECT 1 FROM pragma_table_info('sessions') WHERE name = ?").get(col)) db.exec('ALTER TABLE sessions ADD COLUMN ' + col + ' TEXT');

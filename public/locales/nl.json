@@ -1581,5 +1581,15 @@
     "working": "Bezig… {n} van {total}",
     "keyFormat": "Dit lijkt geen DeepL-sleutel.",
     "error": "Er ging iets mis bij het laden."
+  },
+  "theme": {
+    "title": "Weergave",
+    "lead": "Kies hoe de app eruitziet. Je keuze geldt op al je apparaten.",
+    "dark": "Donker",
+    "light": "Licht",
+    "system": "Systeem",
+    "systemHint": "Volgt je apparaat",
+    "toDark": "Donkere weergave",
+    "toLight": "Lichte weergave"
   }
 }

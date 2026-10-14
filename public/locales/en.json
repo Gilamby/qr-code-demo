@@ -1581,5 +1581,15 @@
     "working": "Working… {n} of {total}",
     "keyFormat": "This doesn’t look like a DeepL key.",
     "error": "Something went wrong while loading."
+  },
+  "theme": {
+    "title": "Appearance",
+    "lead": "Choose how the app looks. Your choice applies on all your devices.",
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System",
+    "systemHint": "Follows your device",
+    "toDark": "Dark mode",
+    "toLight": "Light mode"
   }
 }

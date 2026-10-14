@@ -21,13 +21,15 @@ fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive:
 let html = fs.readFileSync(path.join(pub, 'index.html'), 'utf8');
 const scripts = [...html.matchAll(/<script src="([^"]+)"><\/script>\n?/g)].map((m) => m[1]).filter((s) => !/^https?:/.test(s));
 const js = minJs(scripts.map((s) => '/* ' + s + ' */\n' + read(s)).join('\n;\n'));
-const css = minCss(read('css/app.css'));
+require('./light-css').build(path.join(__dirname, '..'));                 // licht thema opnieuw maken uit app.css
+const css = minCss(read('css/app.css') + '\n' + read('css/light.css'));
 const jsName = 'app.' + hash(js) + '.js', cssName = 'app.' + hash(css) + '.css';
 fs.writeFileSync(path.join(out, jsName), js); fs.writeFileSync(path.join(out, cssName), css);
 html = html.replace(/<!--[\s\S]*?-->\n?/g, '')                                         // geen uitleg in de HTML
   .replace(/<script src="(?!https?:)[^"]+"><\/script>\n?/g, '')
   .replace('</body>', '<script src="' + jsName + '"></script>\n</body>')
-  .replace(/<link rel="stylesheet" href="css\/app\.css">/, '<link rel="stylesheet" href="' + cssName + '">');
+  .replace(/<link rel="stylesheet" href="css\/app\.css">/, '<link rel="stylesheet" href="' + cssName + '">')
+  .replace(/<link rel="stylesheet" href="css\/light\.css">\n?/, '');
 fs.writeFileSync(path.join(out, 'index.html'), html);
 
 // 2) De bezoekerspagina (zelfde lijst als server/live-page.js)

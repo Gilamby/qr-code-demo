@@ -37,7 +37,7 @@ export class AccountController {
 
   @Patch('account')
   async rename(@CurrentUser() user: User, @Body() b: any = {}) {
-    const p: { name?: string; avatar?: string | null; timezone?: string | null } = {};
+    const p: { name?: string; avatar?: string | null; timezone?: string | null; theme?: string | null } = {};
     if (b.name !== undefined) { if (typeof b.name !== 'string' || !b.name.trim()) throw fail(400, 'name'); p.name = b.name.trim().replace(/\s+/g, ' ').slice(0, 80); }
     if (b.avatar !== undefined) {                                       // profielfoto: al verkleind in de browser
       if (b.avatar !== null && !(typeof b.avatar === 'string' && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(b.avatar) && b.avatar.length < 400000)) throw fail(400, 'avatar');
@@ -48,6 +48,7 @@ export class AccountController {
       if (tz) { try { new Intl.DateTimeFormat('en', { timeZone: tz }); } catch { throw fail(400, 'timezone'); } }
       p.timezone = tz && tz.length <= 64 ? tz : null;
     }
+    if (b.theme !== undefined) { if (!['dark', 'light', 'system'].includes(b.theme)) throw fail(400, 'theme'); p.theme = b.theme; }
     if (!Object.keys(p).length) throw fail(400, 'name');
     return this.auth.me(await this.db.updateUser(user.id, p));
   }

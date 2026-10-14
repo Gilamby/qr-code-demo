@@ -1581,5 +1581,15 @@
     "working": "A trabalhar… {n} de {total}",
     "keyFormat": "Isto não parece uma chave DeepL.",
     "error": "Algo correu mal ao carregar."
+  },
+  "theme": {
+    "title": "Aspeto",
+    "lead": "Escolha o aspeto da app. A escolha aplica-se em todos os seus dispositivos.",
+    "dark": "Escuro",
+    "light": "Claro",
+    "system": "Sistema",
+    "systemHint": "Segue o seu dispositivo",
+    "toDark": "Modo escuro",
+    "toLight": "Modo claro"
   }
 }
