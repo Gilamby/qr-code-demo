@@ -3478,3 +3478,17 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
   body:not(.pv-open) #createView .panel-card .actions .btn.ghost { background: #181d25 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
   body:not(.pv-open) #createView .panel-card .actions { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; isolation: isolate; }
 }
+
+/* Telefoon: vraag boven het voorbeeld, kleinere "toetsen" */
+.pv-title { display: none; }
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .preview { flex-direction: column; align-items: center; justify-content: flex-start !important; }
+  body:not(.pv-open) #createView .pv-title { display: block; margin: 0 0 8px; padding: 0 16px; font-size: 17px; font-weight: 700; line-height: 1.25; text-align: center; color: #fff; letter-spacing: -.01em; flex: none;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  body:not(.pv-open) #createView .panel-card h2 { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0 !important; }
+  body:not(.pv-open) #createView .panel-card { padding-top: 12px !important; }
+  body:not(.pv-open) #createView .grid { gap: 6px !important; }
+  body:not(.pv-open) #createView .qr-card { min-height: 50px !important; padding: 5px 2px !important; gap: 3px !important; border-radius: 12px !important; }
+  body:not(.pv-open) #createView .qr-card svg { width: 18px !important; height: 18px !important; }
+  body:not(.pv-open) #createView .qr-card .title { font-size: 10.5px !important; line-height: 1.1; }
+}

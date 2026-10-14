@@ -120,13 +120,19 @@
   function fitSmall() {
     if (window.innerWidth > 760) return;
     var tb = document.querySelector('.topbar'); if (tb && tb.offsetHeight) document.body.style.setProperty('--tbh', Math.round(tb.getBoundingClientRect().bottom > 0 ? tb.offsetHeight : 60) + 'px');
-    var h = Math.round(Math.max(170, Math.min(window.innerHeight * 0.36, 330)));
+    var h = Math.round(Math.max(190, Math.min(window.innerHeight * 0.38, 340)));
     document.body.style.setProperty('--pvh', h + 'px');
-    document.body.style.setProperty('--pvm', ((h - 14) / 726).toFixed(3));
+    document.body.style.setProperty('--pvm', ((h - 14 - 34) / 726).toFixed(3));   // 34 px: de vraag boven de telefoon
   }
   fitSmall(); addEventListener('resize', fitSmall); document.addEventListener('pagechange', function () { setTimeout(fitSmall, 0); });
   pv.addEventListener('click', function (e) { if (window.innerWidth <= 760 && !document.body.classList.contains('pv-open') && !e.target.closest('.pv-close')) open(true); });
   pv.setAttribute('title', '');
+  /* Telefoon: de vraag van de stap ("Wat voor QR-code wil je maken?") boven het voorbeeld, niet in het paneel */
+  var hero = document.getElementById('heroTitle'), pvTitle = document.createElement('p');
+  pvTitle.className = 'pv-title'; pvTitle.setAttribute('aria-hidden', 'true');      // de echte kop (h2) blijft voor schermlezers
+  pv.insertBefore(pvTitle, pv.firstChild);
+  function syncTitle() { if (pvTitle.textContent !== hero.textContent) pvTitle.textContent = hero.textContent; }
+  syncTitle(); new MutationObserver(syncTitle).observe(hero, { childList: true, characterData: true, subtree: true });
   /* knop schuift omhoog zodra de Terug/Doorgaan-balk onderin zichtbaar is, zodat hij die nooit bedekt */
   var tick = 0;
   function lift() {
