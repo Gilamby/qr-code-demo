@@ -82,9 +82,16 @@ var api = (function () {
         var q = find(id); if (!q) return notFound();
         if (p.name !== undefined) q.name = String(p.name).replace(/\s+/g, ' ').trim().slice(0, 60);
         if (p.paused !== undefined) q.paused = !!p.paused;
+        if (p.favorite !== undefined) q.favorite = !!p.favorite;
         write(); return Promise.resolve(out(q));
       },
       remove: function (id) { memory = read().filter(function (q) { return q.id !== id; }); write(); return Promise.resolve(null); },
+      duplicate: function (id, d) {
+        var q = find(id); if (!q) return notFound();
+        var c = JSON.parse(JSON.stringify(q)); c.id = newDraftId(); c.createdAt = new Date().toISOString(); c.updatedAt = null; c.scans = 0; c.lastScanAt = null; c.paused = false; c.favorite = false;
+        if (d && d.name) c.name = String(d.name).slice(0, 60);
+        read().push(c); write(); return Promise.resolve(out(c));
+      },
       folders: {
         list: function () { return Promise.resolve({ folders: folders().slice() }); },
         create: function (d) {
@@ -250,6 +257,7 @@ var api = (function () {
     updateQrCode: either(function (id, data) { return request('PUT', 'api/qr-codes/' + encodeURIComponent(id), data); }, local.update),
     patchQrCode:  either(function (id, patch) { return request('PATCH', 'api/qr-codes/' + encodeURIComponent(id), patch); }, local.patch),
     deleteQrCode: either(function (id) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id)); }, local.remove),
+    duplicateQrCode: either(function (id, d) { return request('POST', 'api/qr-codes/' + encodeURIComponent(id) + '/duplicate', d || {}); }, local.duplicate),
     // Mappen in Mijn QR-codes
     folders: {
       list:   either(function ()      { return request('GET', 'api/folders'); }, local.folders.list),

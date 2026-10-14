@@ -1,7 +1,7 @@
 /* =========================================================
    MIJN QR-CODES
    Lijst met al je codes: zoeken, filteren, sorteren.
-   Per code: downloaden, link kopiëren, bewerken, naam wijzigen, aan/uit, verplaatsen, verwijderen.
+   Per code: favoriet (sterretje), downloaden, link kopiëren, bewerken, naam wijzigen, aan/uit, dupliceren, verplaatsen, verwijderen.
    Mappen: balk bovenaan (Alle codes · Zonder map · jouw mappen · + Nieuwe map). Een code naar een map slepen
    of via ⋯ > Verplaatsen naar map. Map weg = de codes blijven bestaan, zonder map.
    Zonder server (online demo) staan de codes in deze browser (zie api.js).
@@ -24,6 +24,8 @@ var MyCodes = (function () {
     grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     inbox: '<path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    star: '<path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/>',
+    dup: '<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2M14 11v6M11 14h6"/>',
     empty: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>'
   };
   function ico(k) { return '<svg class="mc-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + '</svg>'; }
@@ -52,7 +54,7 @@ var MyCodes = (function () {
   }
   /* ---------- Mappen: balk bovenaan ---------- */
   function drawFolders() {
-    if (filter.folder && filter.folder !== 'none' && !folderOf(filter.folder)) filter.folder = '';
+    if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && !folderOf(filter.folder)) filter.folder = '';
     var count = function (fn) { return rows.filter(fn).length; };
     var chip = function (key, label, n, extra) {
       var on = filter.folder === key;
@@ -61,6 +63,7 @@ var MyCodes = (function () {
     var cur = folderOf(filter.folder);
     bar.innerHTML = '<div class="mf-row" role="toolbar" aria-label="' + esc(t('folders.title')) + '">' +
         chip('', ico('grid') + '<span>' + t('folders.all') + '</span>', rows.length) +
+        chip('fav', '<span class="mf-star">' + ico('star') + '</span><span>' + t('folders.fav') + '</span>', count(function (r) { return r.favorite; })) +
         chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', count(function (r) { return !r.folderId; })) +
         folders.map(function (f) { return chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })); }).join('') +
         '<button type="button" class="mf-chip mf-add" data-folder-new>' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
@@ -75,8 +78,9 @@ var MyCodes = (function () {
     var q = filter.q.trim().toLowerCase();
     var out = rows.filter(function (r) {
       if (filter.type && r.typeId !== filter.type) return false;
+      if (filter.folder === 'fav' && !r.favorite) return false;
       if (filter.folder === 'none' && r.folderId) return false;
-      if (filter.folder && filter.folder !== 'none' && r.folderId !== filter.folder) return false;
+      if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && r.folderId !== filter.folder) return false;
       if (!q) return true;
       return (displayName(r) + ' ' + typeName(getType(r.typeId)) + ' ' + r.id + ' ' + (r.shortUrl || '')).toLowerCase().indexOf(q) >= 0;
     });
@@ -102,7 +106,7 @@ var MyCodes = (function () {
     var fo = !filter.folder && r.folderId ? folderOf(r.folderId) : null;
     return '<article class="mc-card glass' + (off ? ' off' : '') + '" data-id="' + esc(r.id) + '" draggable="true">' +
       '<div class="mc-qr" aria-hidden="true">' + QRRender.svg(qrData(r), qrDesign(r)) + '</div>' +
-      '<div class="mc-main">' + nameHtml +
+      '<div class="mc-main"><div class="mc-namerow"><button type="button" class="mc-star' + (r.favorite ? ' on' : '') + '" data-act="fav" aria-pressed="' + !!r.favorite + '" aria-label="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '" title="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '">' + ico('star') + '</button>' + nameHtml + '</div>' +
         '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.stamp(r.createdAt, 'short') })) + '</span>' +
           (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
         '<div class="mc-link">' + link + '</div></div>' +
@@ -118,6 +122,7 @@ var MyCodes = (function () {
           '<div class="mc-menu right" role="menu" hidden>' +
             (stat ? '' : (api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="open">' + ico('open') + t('myCodes.open') + '</button>') + '<button type="button" role="menuitem" data-act="copy">' + ico('copy') + t('myCodes.copy') + '</button>') +
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
+            '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
             '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
             '<button type="button" role="menuitem" class="danger" data-act="delete">' + ico('trash') + t('myCodes.delete') + '</button></div></div>' +
       '</div></article>';
@@ -133,6 +138,7 @@ var MyCodes = (function () {
     }
     var vis = visible(), searching = filter.q.trim() || filter.type;
     list.innerHTML = vis.length ? vis.map(card).join('')
+      : !searching && filter.folder === 'fav' ? '<div class="mc-empty small glass">' + ico('star') + '<h3>' + t('folders.favEmpty') + '</h3><p>' + t('folders.favEmptyText') + '</p></div>'
       : !searching && filter.folder ? '<div class="mc-empty small glass">' + ico('folder') + '<h3>' + t(filter.folder === 'none' ? 'folders.noneEmpty' : 'folders.empty') + '</h3><p>' + t(filter.folder === 'none' ? 'folders.noneEmptyText' : 'folders.emptyText') + '</p>' +
           (filter.folder !== 'none' ? '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('folders.newHere') + '</button>' : '') + '</div>'
       : '<div class="mc-empty small glass"><h3>' + t('myCodes.noneFound') + '</h3><button type="button" class="btn ghost" data-act="clear">' + t('myCodes.clear') + '</button></div>';
@@ -173,6 +179,18 @@ var MyCodes = (function () {
     api.patchQrCode(r.id, { paused: next }).then(function (rec) { replace(rec); draw(); toast(next ? 'myCodes.pausedToast' : 'myCodes.activeToast'); })
       .catch(function () { r.paused = !next; draw(); toast('myCodes.failed'); });
   }
+  function favorite(r) {
+    var next = !r.favorite; r.favorite = next; draw();                // meteen zichtbaar; terug als het mislukt
+    api.patchQrCode(r.id, { favorite: next }).then(function (rec) { replace(rec); draw(); toast(next ? 'folders.favAdded' : 'folders.favRemoved'); })
+      .catch(function () { r.favorite = !next; draw(); toast('myCodes.failed'); });
+  }
+  function duplicate(r) {
+    api.duplicateQrCode(r.id, { name: t('myCodes.copyOf', { name: displayName(r) }).slice(0, 60) }).then(function (rec) {
+      rows.unshift(rec); drawTools(); draw(); toast('myCodes.duplicated');
+      var el = list.querySelector('.mc-card[data-id="' + rec.id + '"]');
+      if (el) { el.classList.add('fresh'); el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); setTimeout(function () { el.classList.remove('fresh'); }, 1600); }
+    }).catch(function () { toast('myCodes.failed'); });
+  }
   function askDelete(r) {
     dialog.innerHTML = '<form method="dialog" class="mc-dlg">' + '<span class="mc-dlg-ic">' + ico('trash') + '</span>' +
       '<h3>' + esc(t('myCodes.deleteTitle', { name: displayName(r) })) + '</h3><p>' + t(isStatic(r) ? 'myCodes.deleteTextStatic' : 'myCodes.deleteText') + '</p>' +
@@ -190,7 +208,7 @@ var MyCodes = (function () {
     api.getQrCode(r.id).then(function (full) { actions.startEdit(full); goToPage('create'); })
       .catch(function () { toast('myCodes.failed'); });
   }
-  function startNew() { newIn = filter.folder && filter.folder !== 'none' ? filter.folder : null; actions.startNew(); goToPage('create'); }
+  function startNew() { newIn = folderOf(filter.folder) ? filter.folder : null; actions.startNew(); goToPage('create'); }
 
   /* ---------- Mappen: maken, wijzigen, verwijderen, verplaatsen ---------- */
   function folderErr(x) { return x && x.code === 'exists' ? 'folders.errExists' : x && x.code === 'too_many_folders' ? 'folders.errMany' : 'myCodes.failed'; }
@@ -293,6 +311,7 @@ var MyCodes = (function () {
     var c = e.target.closest('[data-folder]'); if (!dragId || !c) return; e.preventDefault(); c.classList.remove('over');
     var key = c.getAttribute('data-folder'), to = key === 'none' ? null : key, r = find(dragId);
     endDrag();
+    if (key === 'fav') { if (r && !r.favorite) favorite(r); return; }
     if (r && key !== '' && (r.folderId || null) !== to) move([r.id], to);
   });
 
@@ -318,6 +337,8 @@ var MyCodes = (function () {
     if (act === 'delete') return askDelete(r);
     if (act === 'rename') { renaming = r.id; return draw(); }
     if (act === 'move') return askMove(r);
+    if (act === 'fav') return favorite(r);
+    if (act === 'duplicate') return duplicate(r);
   });
   list.addEventListener('click', function (e) { var f = e.target.closest('.mc-folder[data-folder]'); if (f) { filter.folder = f.getAttribute('data-folder'); draw(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
   list.addEventListener('keydown', function (e) {

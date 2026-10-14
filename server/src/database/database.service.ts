@@ -44,7 +44,7 @@ export function removeFiles(ids: string[]) { ids.forEach((id) => { try { fs.unli
 /** Gebruiker zoals userByEmail hem teruggeeft (met wachtwoord-hash, alleen voor inloggen) */
 export interface UserRow { id: string; email: string; name: string; password_hash: string; email_verified_at: string | null; created_at: string }
 export type NewQrCode = { id: string; typeId: string; contentType: string; content: Record<string, any>; design?: Record<string, any>; name?: string; createdAt?: string };
-export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean };
+export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean; favorite?: boolean };
 export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null; passwordChangedAt: string }>;
 /** Waar je bent ingelogd (Mijn account > Beveiliging). id = deel van de hash, nooit de sessiecode zelf */
 export type SessionInfo = { id: string; createdAt: string; seenAt: string | null; ua: string | null; ip: string | null; current?: boolean };

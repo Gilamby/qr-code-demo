@@ -448,7 +448,10 @@
     "deleteTextStatic": "Sam kod nadal działa, ale zniknie z Twojej listy. Tego nie można cofnąć.",
     "cancel": "Anuluj",
     "deleted": "Kod QR usunięty",
-    "viewStats": "Zobacz statystyki"
+    "viewStats": "Zobacz statystyki",
+    "duplicate": "Duplikuj",
+    "copyOf": "Kopia: {name}",
+    "duplicated": "Utworzono kopię"
   },
   "appearance": {
     "title": "Kolory",
@@ -932,7 +935,14 @@
     "error": "Nie udało się wczytać statystyk. Spróbuj ponownie.",
     "export": "Eksportuj (CSV)",
     "scansSub": "Za każdym razem, gdy ktoś zeskanuje kod",
-    "uniqueSub": "Różne osoby: ponowne skanowanie liczy się raz dziennie"
+    "uniqueSub": "Różne osoby: ponowne skanowanie liczy się raz dziennie",
+    "groupBy": "Widok",
+    "g_day": "Dzień",
+    "g_week": "Tydzień",
+    "g_month": "Miesiąc",
+    "weekOf": "Tydzień od {date}",
+    "chartWeek": "Skany na tydzień",
+    "chartMonth": "Skany na miesiąc"
   },
   "auth": {
     "loginTitle": "Witaj ponownie",
@@ -1471,6 +1481,13 @@
     "movedOut": "Wyjęto z folderu",
     "moveTitle": "Przenieś „{name}” do",
     "current": "obecny",
-    "newAndMove": "Utwórz nowy folder i przenieś"
+    "newAndMove": "Utwórz nowy folder i przenieś",
+    "fav": "Ulubione",
+    "makeFav": "Dodaj do ulubionych",
+    "unfav": "Usuń z ulubionych",
+    "favEmpty": "Brak ulubionych",
+    "favEmptyText": "Kliknij gwiazdkę przy kodzie, a pojawi się tutaj.",
+    "favAdded": "Dodano do ulubionych",
+    "favRemoved": "Usunięto z ulubionych"
   }
 }

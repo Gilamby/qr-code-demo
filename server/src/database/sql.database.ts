@@ -18,7 +18,7 @@ const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : n
 function codeOut(r: any): QrCode {
   if (!r) return null;
   return { id: r.id, userId: r.user_id, typeId: r.type_id, contentType: r.content_type, content: openContent(r.content_type, JSON.parse(r.content)), design: JSON.parse(r.design),
-    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null };
+    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null, favorite: !!Number(r.favorite) };
 }
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
@@ -248,7 +248,10 @@ export class SqlDatabase extends DatabaseService {
     if (patch.design) { sets.push('design = ?'); vals.push(JSON.stringify(patch.design)); }
     if (patch.name !== undefined) { sets.push('name = ?'); vals.push(patch.name || null); }
     if (patch.paused !== undefined) { sets.push('paused = ?'); vals.push(patch.paused ? 1 : 0); }
-    sets.push('updated_at = ?'); vals.push(now());
+    const real = sets.length > 0;                                      // alleen een sterretje = geen echte wijziging (Laatst bewerkt blijft)
+    if (patch.favorite !== undefined) { sets.push('favorite = ?'); vals.push(patch.favorite ? 1 : 0); }
+    if (real) { sets.push('updated_at = ?'); vals.push(now()); }
+    if (!sets.length) return this.getQrCode(id);
     await this.d.run('UPDATE qr_codes SET ' + sets.join(', ') + ' WHERE id = ?', [...vals, id]);
     return this.getQrCode(id);
   }

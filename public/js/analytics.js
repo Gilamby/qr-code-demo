@@ -2,7 +2,7 @@
    STATISTIEKEN
    - Filters: periode, QR-codes, systeem, land, stad (alles in één rij)
    - Drie tegels: QR-codes, scans, unieke scans
-   - Lijngrafiek scans + unieke scans per dag (met tooltip)
+   - Lijngrafiek scans + unieke scans per dag, week of maand (met tooltip)
    - Verdeling per systeem, land, stad en QR-code (liggende balken: makkelijk te lezen)
    - Exporteren als CSV (Excel)
    Gegevens: api.analytics() → server (/api/analytics) of, in de online demo, voorbeeldcijfers.
@@ -11,7 +11,24 @@ var Analytics = (function () {
   var view = document.getElementById('analyticsView'), body = document.getElementById('anBody'), bar = document.getElementById('anFilters');
   var PERIODS = ['today', 'yesterday', '7', '30', '90', 'all', 'custom'];
   var f = { period: '30', from: '', to: '', codes: [], os: [], cc: [], city: [] };
-  var data = null, names = {}, openDrop = null, expanded = {}, seq = 0;
+  var data = null, names = {}, openDrop = null, expanded = {}, seq = 0, group = 'day';   // group: dag, week of maand
+  /** Dagen samenvoegen tot weken (maandag) of maanden. Unieke scans worden opgeteld per dag. */
+  function grouped(series) {
+    if (group === 'day') return series;
+    var out = [], by = {};
+    series.forEach(function (p) {
+      var dt = d(p.d), key = group === 'month' ? p.d.slice(0, 8) + '01' : iso(new Date(dt.getTime() - ((dt.getDay() + 6) % 7) * 864e5));
+      if (!by[key]) { by[key] = { d: key, s: 0, u: 0 }; out.push(by[key]); }
+      by[key].s += p.s; by[key].u += p.u;
+    });
+    return out;
+  }
+  // Wat er onder de grafiek / in de tooltip / in de tabel staat voor één punt
+  function pointLabel(p, style) {
+    if (group === 'month') return i18n.fmt.month(d(p.d), style !== 'long');
+    if (group === 'week') return style === 'long' ? t('an.weekOf', { date: i18n.fmt.date(d(p.d), 'long') }) : i18n.fmt.date(d(p.d), style === 'axis' ? 'dshort' : 'short');
+    return i18n.fmt.date(d(p.d), style === 'axis' ? 'dshort' : style);
+  }
   var IC = {
     codes: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 14h2v2h-2zM18 18h2v2h-2z"/>',
     scans: '<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/>',
@@ -89,7 +106,7 @@ var Analytics = (function () {
     var path = function (k) { return series.map(function (p, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(p[k]).toFixed(1); }).join(''); };
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + esc(t('an.chartTitle')) + '">' +
       ticks.map(function (v) { return '<line class="an-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="an-ax" x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + i18n.fmt.num(v) + '</text>'; }).join('') +
-      series.map(function (p, i) { return i % every === 0 || i === n - 1 && (n - 1) % every > every / 2 ? '<text class="an-ax" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(i18n.fmt.date(d(p.d), 'dshort')) + '</text>' : ''; }).join('') +
+      series.map(function (p, i) { return i % every === 0 || i === n - 1 && (n - 1) % every > every / 2 ? '<text class="an-ax" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(pointLabel(p, 'axis')) + '</text>' : ''; }).join('') +
       (n > 1 ? '<path class="an-area" d="' + path('s') + 'L' + x(n - 1) + ' ' + y(0) + 'L' + x(0) + ' ' + y(0) + 'Z"/>' +
         '<path class="an-line s1" d="' + path('s') + '"/><path class="an-line s2" d="' + path('u') + '"/>'
         : '<circle class="an-dot s1" cx="' + x(0) + '" cy="' + y(series[0].s) + '" r="5"/><circle class="an-dot s2" cx="' + x(0) + '" cy="' + y(series[0].u) + '" r="5"/>') +
@@ -108,7 +125,7 @@ var Analytics = (function () {
     h1.removeAttribute('hidden'); h1.setAttribute('cx', cx); h1.setAttribute('cy', chart.y(p.s));
     h2.removeAttribute('hidden'); h2.setAttribute('cx', cx); h2.setAttribute('cy', chart.y(p.u));
     tt.hidden = false;
-    tt.innerHTML = '<b>' + esc(i18n.fmt.date(d(p.d), 'long')) + '</b><span><i class="sw s1"></i>' + t('an.scans') + '<em>' + i18n.fmt.num(p.s) + '</em></span><span><i class="sw s2"></i>' + t('an.unique') + '<em>' + i18n.fmt.num(p.u) + '</em></span>';
+    tt.innerHTML = '<b>' + esc(pointLabel(p, 'long')) + '</b><span><i class="sw s1"></i>' + t('an.scans') + '<em>' + i18n.fmt.num(p.s) + '</em></span><span><i class="sw s2"></i>' + t('an.unique') + '<em>' + i18n.fmt.num(p.u) + '</em></span>';
     var left = cx / (svg.viewBox.baseVal.width) * r.width; tt.style.left = Math.min(Math.max(left, 80), r.width - 80) + 'px'; tt.style.top = Math.max(0, chart.y(p.s) / svg.viewBox.baseVal.height * r.height - 70) + 'px';
   }
   function unhover() { var box = body.querySelector('.an-plot'); if (!box) return; box.querySelectorAll('.an-cross,.an-hl').forEach(function (el) { el.setAttribute('hidden', ''); }); var tt = box.querySelector('.an-tt'); if (tt) tt.hidden = true; }
@@ -138,12 +155,14 @@ var Analytics = (function () {
     }
     var tot = r.totals.scans;
     body.innerHTML = tiles(r.totals) +
-      '<div class="an-card glass an-chart"><div class="an-chead"><h3>' + t('an.chartTitle') + '</h3><div class="an-legend"><span><i class="sw s1"></i>' + t('an.scans') + '</span><span><i class="sw s2"></i>' + t('an.unique') + '</span></div></div>' +
+      '<div class="an-card glass an-chart"><div class="an-chead"><h3>' + t(group === 'day' ? 'an.chartTitle' : group === 'week' ? 'an.chartWeek' : 'an.chartMonth') + '</h3>' +
+        '<div class="an-group" role="radiogroup" aria-label="' + esc(t('an.groupBy')) + '">' + ['day', 'week', 'month'].map(function (g) { return '<button type="button" role="radio" aria-checked="' + (group === g) + '" data-group="' + g + '">' + t('an.g_' + g) + '</button>'; }).join('') + '</div>' +
+        '<div class="an-legend"><span><i class="sw s1"></i>' + t('an.scans') + '</span><span><i class="sw s2"></i>' + t('an.unique') + '</span></div></div>' +
         (tot ? '' : '<p class="an-none an-zero">' + t('an.noScans') + '</p>') + '<div class="an-plot"></div>' +
-        '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t('an.date') + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
-        r.series.slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(i18n.fmt.date(d(p.d), 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') + '</tbody></table></div></details></div>' +
+        '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t(group === 'day' ? 'an.date' : 'an.g_' + group) + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
+        grouped(r.series).slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(pointLabel(p, 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') + '</tbody></table></div></details></div>' +
       '<div class="an-grid4">' + breakdown('os', t('an.byOs'), r.os, tot) + breakdown('cc', t('an.byCountry'), r.countries, tot) + breakdown('city', t('an.byCity'), r.cities, tot) + breakdown('codes', t('an.byCode'), r.codes, tot) + '</div>';
-    lineChart(r.series);
+    lineChart(grouped(r.series));
   }
   function load() {
     var my = ++seq;
@@ -180,6 +199,7 @@ var Analytics = (function () {
     if (!e.target.closest('.an-drop') && openDrop) { openDrop = null; drawFilters(); }
     if (e.target.closest('[data-clear]')) { f.codes = []; f.os = []; f.cc = []; f.city = []; return load(); }
     if ((b = e.target.closest('[data-filter]'))) { var k = b.getAttribute('data-filter'); f[k] = [b.getAttribute('data-k')]; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+    if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return draw(); }
     if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return draw(); }
     if (e.target.closest('#anExport')) return exportCsv();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
@@ -187,7 +207,7 @@ var Analytics = (function () {
   view.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openDrop) { var dim = openDrop; openDrop = null; drawFilters(); var btn = bar.querySelector('[data-drop="' + dim + '"]'); if (btn) btn.focus(); } });
   body.addEventListener('pointermove', function (e) { if (e.target.closest('.an-plot')) hover(e); });
   body.addEventListener('pointerleave', unhover, true);
-  addEventListener('resize', function () { if (!view.hidden && data && data.series) lineChart(data.series); });
+  addEventListener('resize', function () { if (!view.hidden && data && data.series) lineChart(grouped(data.series)); });
 
   function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); }
   labels();

@@ -38,6 +38,8 @@ export interface QrCode {
   updatedAt?: string;
   /** Map in Mijn QR-codes (null = geen map) */
   folderId?: string | null;
+  /** Favoriet (sterretje) in Mijn QR-codes */
+  favorite?: boolean;
   /** Alleen bij listWithStats: { dag: { "os|land|stad": [scans, uniek] } } */
   stats?: Record<string, Record<string, [number, number]>>;
 }

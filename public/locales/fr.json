@@ -448,7 +448,10 @@
     "deleteTextStatic": "Le code continue de fonctionner, mais il ne sera plus dans ta liste. Action irréversible.",
     "cancel": "Annuler",
     "deleted": "QR code supprimé",
-    "viewStats": "Voir les statistiques"
+    "viewStats": "Voir les statistiques",
+    "duplicate": "Dupliquer",
+    "copyOf": "Copie de {name}",
+    "duplicated": "Copie créée"
   },
   "appearance": {
     "title": "Couleurs",
@@ -932,7 +935,14 @@
     "error": "Impossible de charger les statistiques. Réessayez.",
     "export": "Exporter (CSV)",
     "scansSub": "Chaque fois que quelqu’un scanne le code",
-    "uniqueSub": "Personnes différentes : un nouveau scan compte 1 fois par jour"
+    "uniqueSub": "Personnes différentes : un nouveau scan compte 1 fois par jour",
+    "groupBy": "Affichage",
+    "g_day": "Jour",
+    "g_week": "Semaine",
+    "g_month": "Mois",
+    "weekOf": "Semaine du {date}",
+    "chartWeek": "Scans par semaine",
+    "chartMonth": "Scans par mois"
   },
   "auth": {
     "loginTitle": "Bon retour",
@@ -1471,6 +1481,13 @@
     "movedOut": "Retiré du dossier",
     "moveTitle": "Déplacer « {name} » vers",
     "current": "actuel",
-    "newAndMove": "Créer un dossier et déplacer"
+    "newAndMove": "Créer un dossier et déplacer",
+    "fav": "Favoris",
+    "makeFav": "Ajouter aux favoris",
+    "unfav": "Retirer des favoris",
+    "favEmpty": "Pas encore de favoris",
+    "favEmptyText": "Cliquez sur l’étoile d’un code pour le retrouver ici.",
+    "favAdded": "Ajouté aux favoris",
+    "favRemoved": "Retiré des favoris"
   }
 }

@@ -20,7 +20,8 @@ const dir = path.join(root, 'optimasys-' + stamp);
   if (db.kind === 'sqlite') await db.backup(path.join(dir, 'optimasys.db'));
   else if (db.kind === 'mongodb') console.log('MongoDB: maak de database-back-up met mongodump (bv. mongodump --uri="$DATABASE_URL" --archive=optimasys.archive) of via de hostingpartij.');
   else console.log('PostgreSQL: maak de database-back-up met pg_dump (bv. pg_dump "$DATABASE_URL" > optimasys.sql) of via de hostingpartij.');
-  for (const f of fs.readdirSync(db.filesDir)) fs.copyFileSync(path.join(db.filesDir, f), path.join(dir, 'files', f));
+  // Bestanden veranderen nooit (elke upload krijgt een nieuw id): een harde link kost geen extra ruimte. Lukt dat niet (andere schijf), dan kopiëren.
+  for (const f of fs.readdirSync(db.filesDir)) { const from = path.join(db.filesDir, f), to = path.join(dir, 'files', f); try { fs.linkSync(from, to); } catch (e) { fs.copyFileSync(from, to); } }
   const all = fs.readdirSync(root).filter((d) => d.startsWith('optimasys-')).sort();
   all.slice(0, Math.max(0, all.length - 14)).forEach((d) => fs.rmSync(path.join(root, d), { recursive: true, force: true }));
   console.log('Back-up klaar: ' + dir);

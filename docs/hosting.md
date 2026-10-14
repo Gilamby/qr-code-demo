@@ -146,3 +146,13 @@ The developer logs in over SSH as `optimasys-qr` and can:
 ```
 
 After an update: `cd ~/qr-app && git pull && npm ci && npm run build && bash scripts/start-server.sh`. A systemd service is still the better option when someone with root access can set it up.
+
+## Nightly backups (without root)
+
+Add one line to the crontab: every night at 03:15 a backup goes to `~/qr-backups` (the last 14 are kept; uploaded files are hard-linked, so they take no extra space).
+
+```
+(crontab -l 2>/dev/null; echo "15 3 * * * cd $HOME/qr-app && PATH=$(dirname "$(which node)"):/usr/bin:/bin BACKUP_DIR=$HOME/qr-backups node scripts/backup.js >> $HOME/qr-backup.log 2>&1") | crontab -
+```
+
+**Restore (SQLite):** stop the app, copy `optimasys.db` from the backup to `DATA_DIR` (same name as the current database file), copy the backup's `files/` to `DATA_DIR/files/`, then `bash scripts/start-server.sh`. The encryption key (`DATA_DIR/secret.key` or `DATA_KEY`) must be the same as when the backup was made: keep a copy of it somewhere safe, apart from the backups.

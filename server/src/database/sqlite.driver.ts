@@ -92,6 +92,7 @@ export function openSqlite(file: string): SqlDriver {
   for (const col of ['ua', 'ip', 'seen_at']) if (!db.prepare("SELECT 1 FROM pragma_table_info('sessions') WHERE name = ?").get(col)) db.exec('ALTER TABLE sessions ADD COLUMN ' + col + ' TEXT');
   // 14 okt 2026: mappen voor QR-codes
   if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'folder_id'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN folder_id TEXT');
+  if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'favorite'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN favorite INTEGER NOT NULL DEFAULT 0');
   db.exec(`CREATE TABLE IF NOT EXISTS folders (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

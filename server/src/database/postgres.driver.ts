@@ -90,6 +90,7 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   for (const col of ['ua', 'ip', 'seen_at']) await pool.query('ALTER TABLE sessions ADD COLUMN IF NOT EXISTS ' + col + ' TEXT');
   // 14 okt 2026: mappen voor QR-codes
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS folder_id TEXT');
+  await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS favorite INTEGER NOT NULL DEFAULT 0');
   await pool.query(`CREATE TABLE IF NOT EXISTS folders (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

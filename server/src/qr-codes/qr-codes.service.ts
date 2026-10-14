@@ -4,7 +4,9 @@
 import { Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import type { Request } from 'express';
-import { DatabaseService } from '../database/database.service';
+import * as fs from 'fs';
+import * as path from 'path';
+import { DatabaseService, newId } from '../database/database.service';
 import { baseUrl } from '../config/env';
 import { QR_TYPES } from './validation';
 import type { QrCode } from '../types';
@@ -32,6 +34,31 @@ export class QrCodesService {
     Object.keys(content).forEach((k) => { if (typeof content[k] === 'string' && content[k].indexOf('"d":"data:') > 0) { try { const o = JSON.parse(content[k]); delete o.d; content[k] = JSON.stringify(o); } catch (e) { /* geen JSON */ } } });
     const r: any = { ...q, content, hasPassword, shortUrl: baseUrl(req) + '/q/' + q.id }; delete r.userId;
     return r;
+  }
+
+  /** Bij dupliceren: elk bestand (PDF, MP3, video, foto's) krijgt een eigen kopie voor de nieuwe code,
+   *  zodat het verwijderen van de ene code de andere niet kapotmaakt. Geeft de nieuwe bestanden terug:
+   *  die worden na het opslaan van de nieuwe code aan die code gekoppeld (attachFile). */
+  async copyFiles(userId: string, typeId: string, content: Record<string, any>) {
+    const made: string[] = [];
+    const copy = async (fileId: string) => {
+      const f = await this.db.getFile(fileId); if (!f || f.user_id !== userId) return null;
+      const id = newId(16);
+      try { fs.copyFileSync(f.path, path.join(this.db.filesDir, id)); } catch (e) { return null; }
+      await this.db.addFileRecord({ id, userId, codeId: null, name: f.name, mime: f.mime, size: f.size });
+      made.push(id); return id;
+    };
+    for (const key of fileFields(typeId)) {
+      if (!content[key]) continue;
+      try { const o = JSON.parse(content[key]); const id = o.f && await copy(o.f); if (id) content[key] = JSON.stringify({ ...o, f: id }); else delete content[key]; } catch (e) { delete content[key]; }
+    }
+    for (const key of galleryFields(typeId)) {
+      if (!content[key]) continue;
+      const out = [];
+      try { for (const x of JSON.parse(content[key])) { if (x && x.f) { const id = await copy(x.f); if (id) out.push({ ...x, f: id }); } } } catch (e) { /* kapotte galerij: overslaan */ }
+      if (out.length) content[key] = JSON.stringify(out); else delete content[key];
+    }
+    return { content, files: made };
   }
 
   /** PDF/MP3 uit de inhoud halen en als bestand op schijf zetten; in de inhoud blijft { n, s, f } over */

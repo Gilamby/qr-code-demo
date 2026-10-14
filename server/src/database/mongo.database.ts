@@ -32,7 +32,7 @@ const DUPLICATE = 11000;
 function codeOut(d: Doc): QrCode {
   if (!d) return null;
   return { id: d._id, userId: d.userId, typeId: d.typeId, contentType: d.contentType, content: openContent(d.contentType, d.content || {}), design: d.design || {},
-    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null };
+    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite };
 }
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 function userOut(d: Doc): User {
@@ -316,7 +316,9 @@ export class MongoDatabase extends DatabaseService {
     if (patch.design) set.design = patch.design;
     if (patch.name !== undefined) set.name = patch.name || null;
     if (patch.paused !== undefined) set.paused = !!patch.paused;
-    set.updatedAt = now();
+    if (Object.keys(set).length) set.updatedAt = now();                 // alleen een sterretje = geen echte wijziging
+    if (patch.favorite !== undefined) set.favorite = !!patch.favorite;
+    if (!Object.keys(set).length) return this.getQrCode(id);
     await this.codes.updateOne({ _id: id }, { $set: set });
     return this.getQrCode(id);
   }

@@ -448,7 +448,10 @@
     "deleteTextStatic": "Der Code selbst funktioniert weiter, steht aber nicht mehr in deiner Liste. Das kannst du nicht rückgängig machen.",
     "cancel": "Abbrechen",
     "deleted": "QR-Code gelöscht",
-    "viewStats": "Statistiken ansehen"
+    "viewStats": "Statistiken ansehen",
+    "duplicate": "Duplizieren",
+    "copyOf": "Kopie von {name}",
+    "duplicated": "Kopie erstellt"
   },
   "appearance": {
     "title": "Farben",
@@ -932,7 +935,14 @@
     "error": "Die Statistiken konnten nicht geladen werden. Bitte versuche es erneut.",
     "export": "Exportieren (CSV)",
     "scansSub": "Jedes Mal, wenn jemand den Code scannt",
-    "uniqueSub": "Verschiedene Personen: wer öfter scannt, zählt 1-mal pro Tag"
+    "uniqueSub": "Verschiedene Personen: wer öfter scannt, zählt 1-mal pro Tag",
+    "groupBy": "Ansicht",
+    "g_day": "Tag",
+    "g_week": "Woche",
+    "g_month": "Monat",
+    "weekOf": "Woche vom {date}",
+    "chartWeek": "Scans pro Woche",
+    "chartMonth": "Scans pro Monat"
   },
   "auth": {
     "loginTitle": "Willkommen zurück",
@@ -1471,6 +1481,13 @@
     "movedOut": "Aus dem Ordner genommen",
     "moveTitle": "„{name}“ verschieben nach",
     "current": "aktuell",
-    "newAndMove": "Neuen Ordner erstellen und verschieben"
+    "newAndMove": "Neuen Ordner erstellen und verschieben",
+    "fav": "Favoriten",
+    "makeFav": "Als Favorit markieren",
+    "unfav": "Kein Favorit mehr",
+    "favEmpty": "Noch keine Favoriten",
+    "favEmptyText": "Klicke auf den Stern bei einem Code, dann erscheint er hier.",
+    "favAdded": "Zu Favoriten hinzugefügt",
+    "favRemoved": "Aus Favoriten entfernt"
   }
 }

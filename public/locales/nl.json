@@ -448,7 +448,10 @@
     "deleteTextStatic": "De code zelf blijft werken, maar hij staat niet meer in je lijst. Dit kun je niet terugdraaien.",
     "cancel": "Annuleren",
     "deleted": "QR-code verwijderd",
-    "viewStats": "Bekijk statistieken"
+    "viewStats": "Bekijk statistieken",
+    "duplicate": "Dupliceren",
+    "copyOf": "Kopie van {name}",
+    "duplicated": "Kopie gemaakt"
   },
   "appearance": {
     "title": "Kleuren",
@@ -932,7 +935,14 @@
     "error": "De statistieken konden niet worden geladen. Probeer het opnieuw.",
     "export": "Exporteren (CSV)",
     "scansSub": "Elke keer dat iemand de code scant",
-    "uniqueSub": "Verschillende mensen: wie vaker scant, telt 1 keer per dag"
+    "uniqueSub": "Verschillende mensen: wie vaker scant, telt 1 keer per dag",
+    "groupBy": "Weergave",
+    "g_day": "Dag",
+    "g_week": "Week",
+    "g_month": "Maand",
+    "weekOf": "Week van {date}",
+    "chartWeek": "Scans per week",
+    "chartMonth": "Scans per maand"
   },
   "auth": {
     "loginTitle": "Welkom terug",
@@ -1471,6 +1481,13 @@
     "movedOut": "Uit de map gehaald",
     "moveTitle": "\"{name}\" verplaatsen naar",
     "current": "nu",
-    "newAndMove": "Nieuwe map maken en verplaatsen"
+    "newAndMove": "Nieuwe map maken en verplaatsen",
+    "fav": "Favorieten",
+    "makeFav": "Favoriet maken",
+    "unfav": "Geen favoriet meer",
+    "favEmpty": "Nog geen favorieten",
+    "favEmptyText": "Klik op het sterretje bij een code, dan staat hij hier.",
+    "favAdded": "Toegevoegd aan favorieten",
+    "favRemoved": "Uit favorieten gehaald"
   }
 }

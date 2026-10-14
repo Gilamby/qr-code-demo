@@ -448,7 +448,10 @@
     "deleteTextStatic": "Kodi vetë vazhdon të punojë, por nuk do të jetë më në listën tënde. Kjo nuk kthehet pas.",
     "cancel": "Anulo",
     "deleted": "Kodi QR u fshi",
-    "viewStats": "Shiko statistikat"
+    "viewStats": "Shiko statistikat",
+    "duplicate": "Dyfisho",
+    "copyOf": "Kopje e {name}",
+    "duplicated": "Kopja u krijua"
   },
   "appearance": {
     "title": "Ngjyrat",
@@ -1038,7 +1041,14 @@
     "error": "Statistikat nuk u ngarkuan. Provo përsëri.",
     "export": "Eksporto (CSV)",
     "scansSub": "Sa herë që dikush skanon kodin",
-    "uniqueSub": "Persona të ndryshëm: kush skanon sërish numërohet 1 herë në ditë"
+    "uniqueSub": "Persona të ndryshëm: kush skanon sërish numërohet 1 herë në ditë",
+    "groupBy": "Pamja",
+    "g_day": "Dita",
+    "g_week": "Java",
+    "g_month": "Muaji",
+    "weekOf": "Java e {date}",
+    "chartWeek": "Skanime në javë",
+    "chartMonth": "Skanime në muaj"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",
@@ -1577,6 +1587,13 @@
     "movedOut": "U hoq nga dosja",
     "moveTitle": "Zhvendos «{name}» te",
     "current": "aktuale",
-    "newAndMove": "Krijo dosje të re dhe zhvendos"
+    "newAndMove": "Krijo dosje të re dhe zhvendos",
+    "fav": "Të preferuarat",
+    "makeFav": "Shto te të preferuarat",
+    "unfav": "Hiq nga të preferuarat",
+    "favEmpty": "Ende pa të preferuara",
+    "favEmptyText": "Kliko yllin pranë një kodi dhe do të shfaqet këtu.",
+    "favAdded": "U shtua te të preferuarat",
+    "favRemoved": "U hoq nga të preferuarat"
   }
 }

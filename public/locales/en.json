@@ -448,7 +448,10 @@
     "deleteTextStatic": "The code itself keeps working, but it won't be in your list any more. You can't undo this.",
     "cancel": "Cancel",
     "deleted": "QR code deleted",
-    "viewStats": "View statistics"
+    "viewStats": "View statistics",
+    "duplicate": "Duplicate",
+    "copyOf": "Copy of {name}",
+    "duplicated": "Copy created"
   },
   "appearance": {
     "title": "Colours",
@@ -932,7 +935,14 @@
     "error": "The statistics could not be loaded. Please try again.",
     "export": "Export (CSV)",
     "scansSub": "Every time someone scans the code",
-    "uniqueSub": "Different people: someone who scans again counts once a day"
+    "uniqueSub": "Different people: someone who scans again counts once a day",
+    "groupBy": "View",
+    "g_day": "Day",
+    "g_week": "Week",
+    "g_month": "Month",
+    "weekOf": "Week of {date}",
+    "chartWeek": "Scans per week",
+    "chartMonth": "Scans per month"
   },
   "auth": {
     "loginTitle": "Welcome back",
@@ -1471,6 +1481,13 @@
     "movedOut": "Removed from folder",
     "moveTitle": "Move \"{name}\" to",
     "current": "current",
-    "newAndMove": "Create new folder and move"
+    "newAndMove": "Create new folder and move",
+    "fav": "Favourites",
+    "makeFav": "Add to favourites",
+    "unfav": "Remove from favourites",
+    "favEmpty": "No favourites yet",
+    "favEmptyText": "Click the star next to a code and it will show up here.",
+    "favAdded": "Added to favourites",
+    "favRemoved": "Removed from favourites"
   }
 }

@@ -79,8 +79,23 @@ export class QrCodesController {
     const patch: any = {}, errors: string[] = [];
     if (b.name !== undefined) { if (typeof b.name !== 'string') errors.push('name: must be text'); else patch.name = cleanName(b.name); }
     if (b.paused !== undefined) { if (typeof b.paused !== 'boolean') errors.push('paused: must be true or false'); else patch.paused = b.paused; }
+    if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
     if (errors.length || !Object.keys(patch).length) throw fail(400, 'Invalid update', { details: errors.length ? errors : ['nothing to change'] });
     return this.codes.out(req, await this.db.updateQrCode(id, patch));
+  }
+
+  /** Kopie maken: zelfde type, inhoud, ontwerp, map en bestanden (gekopieerd), maar een nieuwe link en 0 scans */
+  @Post(':id/duplicate')
+  @HttpCode(201)
+  async duplicate(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string, @Body() b: any = {}) {
+    const old = await this.db.getOwnedQrCode(id, user.id);
+    if (!old) throw fail(404, 'QR code not found');
+    const newId = newCodeId(), { content, files } = await this.codes.copyFiles(user.id, old.typeId, { ...old.content });
+    const saved = await this.db.insertQrCode(user.id, { id: newId, typeId: old.typeId, contentType: old.contentType, content, design: old.design,
+      name: cleanName(typeof b.name === 'string' && b.name.trim() ? b.name : (old.name || '')) || undefined });
+    for (const f of files) await this.db.attachFile(f, newId);
+    if (old.folderId) await this.db.moveToFolder(user.id, [newId], old.folderId);
+    return this.codes.out(req, old.folderId ? await this.db.getQrCode(newId) : saved);
   }
 
   @Delete(':id')

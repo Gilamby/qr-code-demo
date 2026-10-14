@@ -80,6 +80,11 @@ var i18n = (function () {
       return new Intl.DateTimeFormat(current, opt).format(d);
     },
     day: function (d) { return fmt.date(d, 'day'); },
+    // Maand + jaar: "oktober 2026" (short: "okt 2026")
+    month: function (d, short) {
+      var o = own(); if (o) return (short ? o.monthsShort : o.months)[d.getMonth()] + ' ' + d.getFullYear();
+      return new Intl.DateTimeFormat(current, { month: short ? 'short' : 'long', year: 'numeric' }).format(d);
+    },
     // Een echt moment (ISO-tijd, bv. aangemaakt of laatst ingelogd) in de tijdzone uit Mijn account.
     // style: 'short' (8 okt 2026), 'long' (8 oktober 2026) of 'time' (8 okt 2026, 14:32)
     stamp: function (iso, style) {
