@@ -26,7 +26,7 @@ var i18n = (function () {
     if (s == null) return key;
     return vars ? String(s).replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; }) : s;
   }
-  // Teksten die een admin heeft aangepast (Beheer > Instellingen > Vertalingen) gaan over het bestand heen.
+  // Teksten die een admin heeft aangepast (Beheer > Vertalingen) gaan over het bestand heen.
   // orig = het bestand zelf (nodig om in de vertaal-editor te laten zien wat de standaardtekst is).
   var orig = {};
   function put(dict, key, value) {

@@ -1,4 +1,4 @@
-/* Aanpassingen van teksten per taal (Beheer > Instellingen > Vertalingen), opgeslagen als settings 'i18n:<taal>'.
+/* Aanpassingen van teksten per taal (Beheer > Vertalingen), opgeslagen als settings 'i18n:<taal>'.
    Los bestand zonder andere imports, zodat zowel de e-mails als de beheerpagina het kunnen gebruiken. */
 import type { DatabaseService } from '../database/database.service';
 

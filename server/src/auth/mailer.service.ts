@@ -48,7 +48,7 @@ export class MailerService {
       subject: '[Optimasys QR] ' + m.topic + ': ' + m.message.slice(0, 60).replace(/\s+/g, ' '), text: body });
   }
 
-  /** Mailteksten van een taal, met de aanpassingen van admins erover (Beheer > Instellingen > Vertalingen) */
+  /** Mailteksten van een taal, met de aanpassingen van admins erover (Beheer > Vertalingen) */
   private async texts(lang: string) {
     const t: Record<string, string> = { ...this.text.en, ...this.text[lang] };
     try { for (const [k, v] of Object.entries(await overridesOf(this.db, LANGS.includes(lang) ? lang : 'en'))) if (k.startsWith('mail.')) t[k.slice(5)] = v; } catch (e) { /* database even weg: standaardtekst */ }

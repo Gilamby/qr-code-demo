@@ -66,7 +66,9 @@ var AdminSettings = (function () {
       '<div id="asPanel">' + (tab === 'texts' ? textsPanel() : deeplPanel()) + '</div>';
   }
   function textsPanel() {
-    var list = rows(), groups = Array.from(new Set(keys.map(function (k) { return k.split('.')[0]; }))).sort();
+    // Onderdelen met een leesbare naam ("Beheer › Alle QR-codes" i.p.v. "ac"), op naam gesorteerd
+    var gName = function (g) { var n = t('as.grp_' + g); return n === 'as.grp_' + g ? g : n; };
+    var list = rows(), groups = Array.from(new Set(keys.map(function (k) { return k.split('.')[0]; }))).sort(function (a, b) { return gName(a).localeCompare(gName(b), i18n.lang()); });
     var custom = Object.keys(info.overrides[f.lang] || {}).length, missing = keys.filter(function (k) { return status(f.lang, k) === 'missing'; }).length;
     var canAuto = info.deepl.configured && info.deepl.langs.indexOf(f.lang) >= 0;
     var opt = function (v, label, sel) { return '<option value="' + esc(v) + '"' + (v === sel ? ' selected' : '') + '>' + esc(label) + '</option>'; };
@@ -77,7 +79,7 @@ var AdminSettings = (function () {
         '<label class="ast-f"><span>' + t('as.editLang') + '</span><select data-f="lang">' + LANGUAGES.map(function (l) { return opt(l.code, l.name, f.lang); }).join('') + '</select></label>' +
         '<label class="ast-f"><span>' + t('as.refLang') + '</span><select data-f="ref">' + LANGUAGES.filter(function (l) { return l.code !== f.lang; }).map(function (l) { return opt(l.code, l.name, f.ref); }).join('') + '</select></label>' +
         '<label class="ast-f ast-q">' + ico('search') + '<input type="search" data-f="q" value="' + esc(f.q) + '" placeholder="' + esc(t('as.search')) + '" aria-label="' + esc(t('as.search')) + '"></label>' +
-        '<label class="ast-f"><span>' + t('as.section') + '</span><select data-f="group">' + opt('', t('as.allSections'), f.group) + groups.map(function (g) { return opt(g, g, f.group); }).join('') + '</select></label>' +
+        '<label class="ast-f"><span>' + t('as.section') + '</span><select data-f="group">' + opt('', t('as.allSections'), f.group) + groups.map(function (g) { return opt(g, gName(g), f.group); }).join('') + '</select></label>' +
         '<div class="ast-seg" role="radiogroup" aria-label="' + esc(t('as.show')) + '">' + [['', 'as.all', keys.length], ['missing', 'as.missing', missing], ['custom', 'as.custom', custom]].map(function (x) {
           return '<button type="button" role="radio" aria-checked="' + (f.status === x[0]) + '" data-status="' + x[0] + '">' + t(x[1]) + ' <em>' + i18n.fmt.num(x[2]) + '</em></button>'; }).join('') + '</div>' +
       '</div>' +

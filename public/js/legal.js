@@ -3,7 +3,7 @@
    - Pagina in de app (Hulp > Privacy en voorwaarden) met drie tabbladen
    - Ook als venster vanaf het inlogscherm (zonder in te loggen)
    - De teksten staan in de taalbestanden (sleutels legal.*), dus admins kunnen ze aanpassen en
-     vertalen in Beheer > Instellingen > Vertalingen (ook met DeepL).
+     vertalen in Beheer > Vertalingen (ook met DeepL).
    - Opbouw van een tekst: legal.<doc>.title, .updated, .intro en dan s1t/s1, s2t/s2 … (titel + inhoud).
      In de inhoud: lege regel = nieuwe alinea, regel die begint met "- " = opsomming.
      {company} en {email} worden ingevuld met de bedrijfsgegevens uit .env (LEGAL_NAME, LEGAL_EMAIL …).
