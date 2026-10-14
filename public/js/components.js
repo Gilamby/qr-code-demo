@@ -132,6 +132,9 @@ var ContentForm = {
           f.hidden = true; det.querySelector('[data-opt="' + key + '"]').hidden = false;
           f.querySelectorAll('input').forEach(function (i) { if (i.type === 'checkbox') i.checked = false; else i.value = ''; });
           actions.setField(key, ''); count();
+          // Bewerken: het bestaande wachtwoord echt weghalen (anders blijft het oude staan als het veld leeg is)
+          var ed = store.get().editing, pf = type.fields.filter(function (x) { return x.key === key; })[0];
+          if (ed && ed.hasPassword && pf && pf.type === 'password') store.set({ editing: Object.assign({}, ed, { hasPassword: false, dropPassword: true }) });
         }
       });
     }

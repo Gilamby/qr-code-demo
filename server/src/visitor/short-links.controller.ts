@@ -64,7 +64,13 @@ export class ShortLinksController {
     if (found.paused) return res.status(503).set('Retry-After', '3600').send(rules.pausedPage(req));   // tijdelijk uit: niet tellen
     if (rules.isExpired(found)) return res.status(410).send(rules.expiredPage(req));
     const key = secretKey(found.typeId);
-    if (key && found.content[key] && !passwordOk) return res.send(rules.passwordPage(req, req.method === 'POST'));
+    if (key && found.content[key] && !passwordOk) {
+      // Na het juiste wachtwoord stuurt het formulier door naar de bestemming (een andere website).
+      // De browser staat dat alleen toe als form-action dat ook toestaat: hier dus ook http(s)-adressen.
+      const csp = String(res.getHeader('Content-Security-Policy') || '');
+      if (csp) res.set('Content-Security-Policy', csp.replace("form-action 'self'", "form-action 'self' https: http:"));
+      return res.send(rules.passwordPage(req, req.method === 'POST'));
+    }
     const q = await this.db.addScan(found.id, describe(found, req));
     const c = q.content;
     res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen

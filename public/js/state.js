@@ -59,7 +59,7 @@ var actions = {
     var s = store.get(), design = Object.assign({ pageColor: s.pageColor, accentColor: s.accentColor }, s.design), content = s.content[s.typeId] || {};
     store.set({ saving: true, error: null });
     var job = s.editing
-      ? api.updateQrCode(s.editing.id, { content: content, design: design, keepPassword: true })
+      ? api.updateQrCode(s.editing.id, { content: content, design: design, keepPassword: !s.editing.dropPassword })   // × bij wachtwoord = weghalen
       : api.createQrCode({ id: s.draftId, typeId: s.typeId, content: content, design: design, folderId: typeof MyCodes !== 'undefined' ? MyCodes.folderForNew() : null });
     job.then(function (record) {
       store.set({ saving: false, created: true, saved: record, draftId: s.editing ? s.draftId : newDraftId() });   // nieuwe code: de volgende krijgt weer een eigen id

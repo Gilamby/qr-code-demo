@@ -116,11 +116,13 @@ export class TranslationsController {
     const key = String(b.key || '').trim();
     if (!/^[A-Za-z0-9-]{20,80}(:fx)?$/.test(key)) throw fail(400, 'key_format');
     // Even controleren of de sleutel werkt
+    let use = key;
     try {
-      const r = await fetch(this.deeplUrl(key) + '/v2/usage', { headers: { Authorization: 'DeepL-Auth-Key ' + key }, signal: AbortSignal.timeout(8000) });
+      use = await this.workingKey(key);                                 // vergeten ":fx" wordt hier aangevuld
+      const r = await fetch(this.deeplUrl(use) + '/v2/usage', { headers: { Authorization: 'DeepL-Auth-Key ' + use }, signal: AbortSignal.timeout(8000) });
       if (r.status === 403) throw fail(400, 'deepl_key');
     } catch (e) { if (e instanceof HttpException) throw e; /* DeepL even niet bereikbaar: toch opslaan */ }
-    await this.db.setSetting('deepl_key', encrypt(key));
+    await this.db.setSetting('deepl_key', encrypt(use));
     return { configured: true };
   }
   @Delete('api/admin/deepl')
@@ -132,9 +134,26 @@ export class TranslationsController {
   }
 
   private async deeplKey() {
-    if (process.env.DEEPL_API_KEY) return process.env.DEEPL_API_KEY.trim();
-    const v = await this.db.getSetting('deepl_key');
-    try { return v ? decrypt(v) : null; } catch (e) { return null; }
+    let raw: string | null = null;
+    if (process.env.DEEPL_API_KEY) raw = process.env.DEEPL_API_KEY.trim();
+    else { const v = await this.db.getSetting('deepl_key'); try { raw = v ? decrypt(v) : null; } catch (e) { raw = null; } }
+    return raw ? this.workingKey(raw) : null;
+  }
+  /** Gratis DeepL-sleutels eindigen op ":fx". Wordt dat stukje bij het kopiëren vergeten, dan werkt de sleutel niet:
+   *  geeft DeepL "403", dan proberen we één keer de gratis variant (met :fx). Wat werkt, onthouden we (tot de herstart). */
+  private keyCache = new Map<string, string>();
+  private async workingKey(raw: string) {
+    if (/:fx$/.test(raw)) return raw;
+    const known = this.keyCache.get(raw); if (known) return known;
+    try {
+      const pro = await fetch('https://api.deepl.com/v2/usage', { headers: { Authorization: 'DeepL-Auth-Key ' + raw }, signal: AbortSignal.timeout(6000) });
+      if (pro.status === 403) {
+        const free = await fetch('https://api-free.deepl.com/v2/usage', { headers: { Authorization: 'DeepL-Auth-Key ' + raw + ':fx' }, signal: AbortSignal.timeout(6000) });
+        if (free.ok) { this.keyCache.set(raw, raw + ':fx'); return raw + ':fx'; }
+      }
+      if (pro.ok) this.keyCache.set(raw, raw);
+    } catch (e) { /* DeepL niet bereikbaar: de sleutel zoals hij is (de foutmelding komt later) */ }
+    return raw;
   }
   /** Gratis sleutels eindigen op ":fx" en gebruiken een ander adres */
   private deeplUrl(key: string) { return /:fx$/.test(key) ? 'https://api-free.deepl.com' : 'https://api.deepl.com'; }
