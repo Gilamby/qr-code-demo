@@ -392,11 +392,6 @@
     "custom": "Votre photo",
     "upload": "Ajouter une photo ou une vidéo",
     "uploadError": "L’envoi a échoué. Réessayez.",
-    "orbit": "Orbite calme",
-    "network": "Constellation",
-    "flow": "Flux lumineux",
-    "waves": "Vagues de lumière",
-    "mist": "Brume",
     "animated": "Animé",
     "video": "Vidéo",
     "uploading": "Envoi en cours…",
@@ -407,7 +402,14 @@
     "delete": "Supprimer",
     "delTitle": "Supprimer {name} ?",
     "delText": "Cet arrière-plan sera supprimé. C’est irréversible.",
-    "delActive": "C’est votre arrière-plan actuel. Après suppression, vous retrouvez l’arrière-plan Optimasys."
+    "delActive": "C’est votre arrière-plan actuel. Après suppression, vous retrouvez l’arrière-plan Optimasys.",
+    "tide": "Champ de vagues",
+    "galaxy": "Spirale",
+    "ribbons": "Rubans de lumière",
+    "sphere": "Sphère réseau",
+    "fluid": "Fluide",
+    "restore": "Rétablir les arrière-plans standard retirés ({n})",
+    "hideText": "Cet arrière-plan disparaît de votre liste. Vous pourrez le rétablir plus tard."
   },
   "myCodes": {
     "lead": "Tous les codes QR que vous avez créés.",

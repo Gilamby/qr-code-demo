@@ -392,11 +392,6 @@
     "custom": "Fotoja jote",
     "upload": "Shto foto ose video",
     "uploadError": "Ngarkimi dështoi. Provo përsëri.",
-    "orbit": "Orbitë e qetë",
-    "network": "Yllësi",
-    "flow": "Rrjedhë drite",
-    "waves": "Valë drite",
-    "mist": "Mjegull",
     "animated": "Me lëvizje",
     "video": "Video",
     "uploading": "Duke ngarkuar…",
@@ -407,7 +402,14 @@
     "delete": "Fshi",
     "delTitle": "Ta fshijmë {name}?",
     "delText": "Ky sfond do të fshihet. Nuk kthehet mbrapsht.",
-    "delActive": "Ky është sfondi yt aktual. Pas fshirjes kthehesh te sfondi Optimasys."
+    "delActive": "Ky është sfondi yt aktual. Pas fshirjes kthehesh te sfondi Optimasys.",
+    "tide": "Fushë valësh",
+    "galaxy": "Spirale",
+    "ribbons": "Shirita drite",
+    "sphere": "Sferë rrjeti",
+    "fluid": "Lëng",
+    "restore": "Rikthe sfondet standarde të hequra ({n})",
+    "hideText": "Ky sfond zhduket nga lista jote. Mund ta rikthesh më vonë."
   },
   "myCodes": {
     "lead": "Të gjitha kodet QR që ke krijuar.",

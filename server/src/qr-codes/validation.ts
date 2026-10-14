@@ -9,7 +9,9 @@ const { safeDesign } = DESIGN;
 const HEX = /^#[0-9a-f]{6}$/i;
 const MAX_TEXT = 500;
 // Vaste achtergronden + bewegende (orbit, network, flow, waves, mist). city … restaurant: oude namen (worden in de app omgezet naar een animatie).
-const BACKGROUNDS = ['optimasys', 'aurora', 'orbit', 'network', 'flow', 'waves', 'mist', 'city', 'mountains', 'office', 'cafe', 'restaurant', 'custom'];
+export const BACKGROUNDS = ['optimasys', 'aurora', 'tide', 'galaxy', 'ribbons', 'sphere', 'fluid', 'orbit', 'network', 'flow', 'waves', 'mist', 'city', 'mountains', 'office', 'cafe', 'restaurant', 'custom'];
+/** Standaard-achtergronden die je kunt verbergen (alles behalve Optimasys) */
+export const HIDEABLE = ['aurora', 'tide', 'galaxy', 'ribbons', 'sphere', 'fluid'];
 
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
 export const SOCIAL_NETWORKS = ['instagram', 'facebook', 'tiktok', 'linkedin', 'x', 'youtube', 'whatsapp', 'google', 'messenger', 'threads', 'pinterest', 'snapchat', 'telegram', 'signal', 'discord', 'reddit', 'bluesky', 'mastodon', 'twitch', 'kick', 'vimeo', 'spotify', 'applemusic', 'soundcloud', 'podcasts', 'tumblr', 'medium', 'substack', 'patreon', 'behance', 'dribbble', 'github', 'flickr', 'strava', 'xing', 'quora', 'wechat', 'line', 'vk', 'weibo', 'tripadvisor', 'yelp', 'etsy', 'airbnb', 'booking'];
@@ -139,10 +141,14 @@ export function validateDesign(design: any, errors: string[]) {
 }
 
 export function validateMe(body: any) {
-  const errors: string[] = [], value: { background?: string; customBackground?: string | null } = {};
+  const errors: string[] = [], value: { background?: string; customBackground?: string | null; hidden?: string[] } = {};
   if (body.background !== undefined) {
     if (!BACKGROUNDS.includes(body.background) && !/^media:bg[A-Za-z0-9_-]{10,30}$/.test(String(body.background))) errors.push('background: unknown');   // media:<id> = eigen foto/video (gecontroleerd in de controller)
     else value.background = body.background;
+  }
+  if (body.hiddenBackgrounds !== undefined) {
+    if (!Array.isArray(body.hiddenBackgrounds) || body.hiddenBackgrounds.some((x: unknown) => !HIDEABLE.includes(String(x)))) errors.push('hiddenBackgrounds: unknown');
+    else value.hidden = Array.from(new Set(body.hiddenBackgrounds.map(String)));
   }
   if (body.customBackground !== undefined) {
     const v = body.customBackground;

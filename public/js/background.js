@@ -34,19 +34,20 @@ var BACKGROUNDS = [
     light: 'radial-gradient(55% 60% at 18% 12%, rgba(43,181,240,.22), transparent 70%), radial-gradient(55% 60% at 85% 90%, rgba(37,99,235,.14), transparent 70%), linear-gradient(160deg, #f7fbfe, #e8eef6)' },
   { id: 'aurora',     label: 'bg.aurora',     css: 'radial-gradient(60% 55% at 20% 20%, rgba(0,220,170,.55), transparent 70%), radial-gradient(60% 60% at 82% 28%, rgba(130,80,255,.55), transparent 70%), radial-gradient(55% 55% at 50% 100%, rgba(43,181,240,.45), transparent 70%), #060a12',
     light: 'radial-gradient(60% 55% at 20% 20%, rgba(0,220,170,.22), transparent 70%), radial-gradient(60% 60% at 82% 28%, rgba(130,80,255,.2), transparent 70%), radial-gradient(55% 55% at 50% 100%, rgba(43,181,240,.2), transparent 70%), #f5f7fb' },
-  // Bewegend (wallpaper-anim.js). css = stilstaand beeld als er geen animatie kan (of tijdens het laden)
-  { id: 'orbit',   label: 'bg.orbit',   anim: 'orbit',   css: 'radial-gradient(60% 60% at 30% 30%, rgba(150,164,255,.18), transparent 70%), #090b12' },
-  { id: 'network', label: 'bg.network', anim: 'network', css: 'radial-gradient(60% 60% at 70% 30%, rgba(43,181,240,.16), transparent 70%), #090b12' },
-  { id: 'flow',    label: 'bg.flow',    anim: 'flow',    css: 'radial-gradient(70% 60% at 20% 80%, rgba(185,202,255,.16), transparent 70%), #090b12' },
-  { id: 'waves',   label: 'bg.waves',   anim: 'waves',   css: 'radial-gradient(80% 50% at 50% 70%, rgba(43,181,240,.22), transparent 70%), #090b12' },
-  { id: 'mist',    label: 'bg.mist',    anim: 'mist',    css: 'radial-gradient(60% 60% at 30% 40%, rgba(21,118,201,.28), transparent 70%), radial-gradient(50% 50% at 75% 70%, rgba(150,164,255,.2), transparent 70%), #090b12' }
+  // Bewegend: eigen 3D-animaties (three.js, wallpaper-anim.js). css = stilstaand beeld tijdens het laden of zonder WebGL
+  { id: 'tide',    label: 'bg.tide',    anim: 'tide',    css: 'radial-gradient(80% 50% at 50% 75%, rgba(43,181,240,.22), transparent 70%), #070a12' },
+  { id: 'galaxy',  label: 'bg.galaxy',  anim: 'galaxy',  css: 'radial-gradient(40% 40% at 50% 50%, rgba(207,233,255,.18), transparent 70%), #070a12' },
+  { id: 'ribbons', label: 'bg.ribbons', anim: 'ribbons', css: 'radial-gradient(90% 30% at 50% 45%, rgba(43,181,240,.2), transparent 70%), #070a12' },
+  { id: 'sphere',  label: 'bg.sphere',  anim: 'sphere',  css: 'radial-gradient(40% 50% at 65% 50%, rgba(21,118,201,.25), transparent 70%), #070a12' },
+  { id: 'fluid',   label: 'bg.fluid',   anim: 'fluid',   css: 'radial-gradient(60% 60% at 30% 40%, rgba(21,118,201,.3), transparent 70%), radial-gradient(50% 50% at 75% 70%, rgba(124,140,255,.2), transparent 70%), #070a12' }
 ];
 var background = (function () {
   var KEY = 'optimasys-background', KEY_CUSTOM = 'optimasys-background-custom', root = document.documentElement, listeners = [];
   var current = 'optimasys', custom = null;
   try { current = localStorage.getItem(KEY) || current; custom = localStorage.getItem(KEY_CUSTOM); } catch (e) {}
   // Oude achtergronden (foto's) zijn vervangen door animaties
-  var LEGACY = { city: 'orbit', mountains: 'mist', office: 'network', cafe: 'waves', restaurant: 'flow' };
+  var LEGACY = { city: 'galaxy', mountains: 'fluid', office: 'sphere', cafe: 'tide', restaurant: 'ribbons', orbit: 'galaxy', network: 'sphere', flow: 'ribbons', waves: 'tide', mist: 'fluid' };
+  var hidden = [];                                               // verborgen standaard-achtergronden (Mijn account)
   var media = [], video = null;
   function mediaOf(id) { return /^media:/.test(id) ? media.filter(function (m) { return 'media:' + m.id === id; })[0] : null; }
   function mediaUrl(m) { return 'api/account/media/' + encodeURIComponent(m.id); }
@@ -81,7 +82,7 @@ var background = (function () {
     if (!on) return;
     api.getMe().then(function (me) {
       if (me.customBackground) { custom = me.customBackground; try { localStorage.setItem(KEY_CUSTOM, custom); } catch (e) {} }
-      media = me.media || [];
+      media = me.media || []; hidden = me.hiddenBackgrounds || [];
       if (me.background && me.background !== current) { current = me.background; try { localStorage.setItem(KEY, current); } catch (e) {} }
       apply();
     }).catch(function () {});
@@ -89,7 +90,16 @@ var background = (function () {
   apply();
   theme.onChange(function () { apply(); });                          // licht thema: lichte versie van de achtergrond
   // Na inloggen/uitloggen: de lijst met eigen foto's/video's opnieuw ophalen
-  function reload() { return api.getMe().then(function (me) { media = me.media || []; if (me.background) { current = me.background; try { localStorage.setItem(KEY, current); } catch (e) {} } apply(); }).catch(function () {}); }
+  function reload() { return api.getMe().then(function (me) { media = me.media || []; hidden = me.hiddenBackgrounds || []; if (me.background) { current = me.background; try { localStorage.setItem(KEY, current); } catch (e) {} } apply(); }).catch(function () {}); }
   return { get: function () { return LEGACY[current] || current; }, custom: function () { return custom; }, set: set, setCustom: setCustom, cssFor: cssFor, onChange: function (f) { listeners.push(f); },
-    media: function () { return media; }, setMedia: function (list) { media = list || []; apply(); }, mediaUrl: mediaUrl, reload: reload };
+    media: function () { return media; }, setMedia: function (list) { media = list || []; apply(); }, mediaUrl: mediaUrl, reload: reload,
+    hidden: function () { return hidden; },
+    // Standaard-achtergrond verbergen/terughalen (Optimasys kan niet weg). Stond hij aan: terug naar Optimasys.
+    setHidden: function (list) {
+      hidden = list.filter(function (id) { return id !== 'optimasys'; });
+      if (hidden.indexOf(LEGACY[current] || current) >= 0) set('optimasys');
+      api.available().then(function (on) { if (on) api.updateMe({ hiddenBackgrounds: hidden }).catch(function () {}); }); listeners.forEach(function (f) { f(current); });
+    },
+    // Oude eigen foto ("Jouw foto") weghalen
+    removeCustom: function () { custom = null; try { localStorage.removeItem(KEY_CUSTOM); } catch (e) {} if (current === 'custom') set('optimasys'); save({ customBackground: null }); listeners.forEach(function (f) { f(current); }); } };
 })();

@@ -392,11 +392,6 @@
     "custom": "Ihr Foto",
     "upload": "Foto oder Video hinzufügen",
     "uploadError": "Das Hochladen ist fehlgeschlagen. Bitte versuche es erneut.",
-    "orbit": "Stille Umlaufbahn",
-    "network": "Sternbild",
-    "flow": "Lichtstrom",
-    "waves": "Lichtwellen",
-    "mist": "Nebel",
     "animated": "Animiert",
     "video": "Video",
     "uploading": "Wird hochgeladen…",
@@ -407,7 +402,14 @@
     "delete": "Löschen",
     "delTitle": "{name} löschen?",
     "delText": "Dieser Hintergrund ist danach weg. Das lässt sich nicht rückgängig machen.",
-    "delActive": "Das ist dein aktueller Hintergrund. Nach dem Löschen bekommst du wieder den Optimasys-Hintergrund."
+    "delActive": "Das ist dein aktueller Hintergrund. Nach dem Löschen bekommst du wieder den Optimasys-Hintergrund.",
+    "tide": "Wellenfeld",
+    "galaxy": "Spirale",
+    "ribbons": "Lichtbänder",
+    "sphere": "Netzkugel",
+    "fluid": "Fluid",
+    "restore": "Entfernte Standard-Hintergründe wiederherstellen ({n})",
+    "hideText": "Dieser Hintergrund verschwindet aus deiner Liste. Du kannst ihn später wiederherstellen."
   },
   "myCodes": {
     "lead": "Alle QR-Codes, die Sie erstellt haben.",

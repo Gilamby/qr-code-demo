@@ -13,18 +13,18 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
   var TICK = '<span class="tick">' + CHECK + '</span>', shots = {}, busy = 0;
   var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>';
   var X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-  function shot(b) {                                            // stilstaand voorbeeld van een animatie (één keer per thema)
-    var key = b.anim + (theme.resolved() === 'light' ? ':l' : ':d');
-    if (!(key in shots)) shots[key] = window.WallAnim ? WallAnim.snapshot(b.anim, 320, 200) : '';
-    return shots[key] ? 'background-image:url(' + shots[key] + ')' : 'background:' + b.css;
+  function shot(b) {                                            // stilstaand voorbeeld van een animatie (zodra three.js geladen is)
+    var url = window.WallAnim ? WallAnim.snapshot(b.anim, 320, 200) : '';
+    return url ? 'background-image:url(' + url + ')' : 'background:' + b.css;
   }
   function card(id, thumb, label, extra) {
     var cur = background.get();
     return '<div class="bg-opt-wrap"><button type="button" class="bg-opt" role="radio" data-bg="' + esc(id) + '" aria-checked="' + (cur === id) + '"><span class="thumb" style="' + thumb + '">' + (extra || '') + TICK + '</span><span class="name">' + label + '</span></button>' +
-      (/^media:/.test(id) ? '<button type="button" class="bg-del" data-del="' + esc(id.slice(6)) + '" aria-label="' + esc(t('bg.delete')) + '" title="' + esc(t('bg.delete')) + '">' + X + '</button>' : '') + '</div>';
+      (id !== 'optimasys' ? '<button type="button" class="bg-del" data-del="' + esc(id) + '" aria-label="' + esc(t('bg.delete')) + '" title="' + esc(t('bg.delete')) + '">' + X + '</button>' : '') + '</div>';   // alles weg te halen behalve Optimasys
   }
   function render() {
-    var opts = BACKGROUNDS.map(function (b) {
+    var hid = background.hidden();
+    var opts = BACKGROUNDS.filter(function (b) { return hid.indexOf(b.id) < 0; }).map(function (b) {
       return b.anim ? card(b.id, shot(b), t(b.label), '<i class="bg-badge">' + PLAY + t('bg.animated') + '</i>')
         : card(b.id, b.image ? 'background-image:url(' + b.image + ')' : 'background:' + b.css, t(b.label));
     });
@@ -36,10 +36,11 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
     });
     opts.push('<label class="bg-opt upload' + (busy ? ' busy' : '') + '"><span class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><span class="name">' + (busy ? t('bg.uploading') : t('bg.upload')) + '</span>' +
       '<input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple' + (busy ? ' disabled' : '') + '></label>');
-    grid.innerHTML = opts.join('');
+    grid.innerHTML = opts.join('') + (hid.length ? '<p class="bg-restore"><button type="button" class="link-btn" data-restore>' + t('bg.restore', { n: hid.length }) + '</button></p>' : '');
   }
   function showErr(key, vars) { err.textContent = t(key, vars); err.hidden = false; }
   grid.addEventListener('click', function (e) {
+    if (e.target.closest('[data-restore]')) return background.setHidden([]);
     var d = e.target.closest('[data-del]'); if (d) return askDelete(d.getAttribute('data-del'));
     var b = e.target.closest('[data-bg]'); if (b) background.set(b.getAttribute('data-bg'));
   });
@@ -47,20 +48,26 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
   grid.addEventListener('mouseover', function (e) { var v = e.target.closest('.bg-opt') && e.target.closest('.bg-opt').querySelector('video'); if (v && v.paused) v.play().catch(function () {}); });
   grid.addEventListener('mouseout', function (e) { var o = e.target.closest('.bg-opt'); if (o && !o.contains(e.relatedTarget)) { var v = o.querySelector('video'); if (v) v.pause(); } });
 
+  // Weghalen: eigen foto/video (echt weg), "Jouw foto" (oude upload, echt weg) of een standaard-achtergrond (verbergen, terug te zetten)
   function askDelete(id) {
-    var m = background.media().filter(function (x) { return x.id === id; })[0]; if (!m) return;
+    var isMedia = /^media:/.test(id), mid = isMedia ? id.slice(6) : null, m = isMedia ? background.media().filter(function (x) { return x.id === mid; })[0] : null;
+    var b = BACKGROUNDS.filter(function (x) { return x.id === id; })[0];
+    if (isMedia && !m) return;
+    var name = m ? m.name : id === 'custom' ? t('bg.custom') : b ? t(b.label) : id, builtin = !!b;
     var dlg = document.getElementById('mcDialog');
     dlg.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic"><svg class="mc-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></span>' +
-      '<h3>' + t('bg.delTitle', { name: esc(m.name) }) + '</h3><p>' + t(background.get() === 'media:' + id ? 'bg.delActive' : 'bg.delText') + '</p>' +
+      '<h3>' + t('bg.delTitle', { name: esc(name) }) + '</h3><p>' + t(builtin ? 'bg.hideText' : background.get() === id ? 'bg.delActive' : 'bg.delText') + '</p>' +
       '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="bgDelGo">' + t('bg.delete') + '</button></div></form>';
     dlg.querySelector('#bgDelGo').addEventListener('click', function (ev) {
-      ev.preventDefault();
-      fetch('api/account/media/' + encodeURIComponent(id), { method: 'DELETE' }).then(function (r) {
-        dlg.close(); if (!r.ok && r.status !== 404) return showErr('bg.uploadError');
-        var wasActive = background.get() === 'media:' + id;
-        background.setMedia(background.media().filter(function (x) { return x.id !== id; }));
+      ev.preventDefault(); dlg.close();
+      if (builtin) return background.setHidden(background.hidden().concat([id]));
+      if (id === 'custom') return background.removeCustom();
+      fetch('api/account/media/' + encodeURIComponent(mid), { method: 'DELETE' }).then(function (r) {
+        if (!r.ok && r.status !== 404) return showErr('bg.uploadError');
+        var wasActive = background.get() === id;
+        background.setMedia(background.media().filter(function (x) { return x.id !== mid; }));
         if (wasActive) background.set('optimasys');
-      }).catch(function () { dlg.close(); showErr('bg.uploadError'); });
+      }).catch(function () { showErr('bg.uploadError'); });
     });
     dlg.showModal();
   }
@@ -111,5 +118,8 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
       .then(function () { busy--; render(); });
   });
   background.onChange(render); i18n.onChange(render); theme.onChange(render); render();
+  // Voorbeelden van de animaties: three.js laden als je de achtergronden bekijkt, daarna opnieuw tekenen
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-tab="background"], #bgBtn')) WallAnim.ready(render); });
+  if (BACKGROUNDS.some(function (b) { return b.anim && b.id === background.get(); })) WallAnim.ready(render);
   setTimeout(function () { if (window.Session) Session.onUser(function (u) { if (u) background.reload(); }); }, 0);   // session.js laadt na dit bestand
 })();

@@ -352,7 +352,11 @@ test('eigen achtergronden: foto/video uploaden, kiezen, alleen voor jezelf, verw
   assert.equal((await o('PATCH', '/api/me', { background: 'media:' + a.id })).status, 400, 'andermans foto kiezen kan niet');
   assert.equal((await o('GET', '/api/account/media/' + a.id)).status, 404, 'andermans foto bekijken kan niet');
   assert.equal((await u('GET', '/api/account/media/' + a.id)).status, 200);
-  assert.equal((await u('PATCH', '/api/me', { background: 'waves' })).json.background, 'waves', 'bewegende achtergrond');
+  assert.equal((await u('PATCH', '/api/me', { background: 'tide' })).json.background, 'tide', 'bewegende achtergrond');
+  const hid = (await u('PATCH', '/api/me', { hiddenBackgrounds: ['tide', 'aurora'] })).json;
+  assert.deepEqual(hid.hiddenBackgrounds, ['tide', 'aurora']); assert.equal(hid.background, 'optimasys', 'verborgen terwijl hij aan stond: terug naar Optimasys');
+  assert.equal((await u('PATCH', '/api/me', { hiddenBackgrounds: ['optimasys'] })).status, 400, 'Optimasys kan niet weg');
+  assert.deepEqual((await u('PATCH', '/api/me', { hiddenBackgrounds: [] })).json.hiddenBackgrounds, []);
   await u('PATCH', '/api/me', { background: 'media:' + a.id });
   assert.equal((await u('DELETE', '/api/account/media/' + a.id)).status, 204);
   const after = (await u('GET', '/api/me')).json;

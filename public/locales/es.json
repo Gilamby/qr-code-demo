@@ -392,11 +392,6 @@
     "custom": "Tu foto",
     "upload": "Añadir foto o vídeo",
     "uploadError": "No se pudo subir. Inténtalo de nuevo.",
-    "orbit": "Órbita tranquila",
-    "network": "Constelación",
-    "flow": "Flujo de luz",
-    "waves": "Ondas de luz",
-    "mist": "Niebla",
     "animated": "Animado",
     "video": "Vídeo",
     "uploading": "Subiendo…",
@@ -407,7 +402,14 @@
     "delete": "Eliminar",
     "delTitle": "¿Eliminar {name}?",
     "delText": "Este fondo desaparecerá. No se puede deshacer.",
-    "delActive": "Es tu fondo actual. Al eliminarlo vuelves al fondo de Optimasys."
+    "delActive": "Es tu fondo actual. Al eliminarlo vuelves al fondo de Optimasys.",
+    "tide": "Campo de olas",
+    "galaxy": "Espiral",
+    "ribbons": "Cintas de luz",
+    "sphere": "Esfera de red",
+    "fluid": "Fluido",
+    "restore": "Restaurar fondos estándar quitados ({n})",
+    "hideText": "Este fondo desaparece de tu lista. Puedes restaurarlo más tarde."
   },
   "myCodes": {
     "lead": "Todos los códigos QR que has creado.",

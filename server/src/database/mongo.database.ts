@@ -142,6 +142,7 @@ export class MongoDatabase extends DatabaseService {
     await this.emailChanges.deleteMany({ userId: id });
     await this.folders.deleteMany({ userId: id });
     await this.users.deleteOne({ _id: id });
+    await this.setSetting('bghide:' + id, null);
     removeFiles(files);
   }
 

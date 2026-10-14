@@ -65,6 +65,7 @@ export class SqlDatabase extends DatabaseService {
     const media = parseMedia(((await this.d.get('SELECT media FROM users WHERE id = ?', [id])) || ({} as any)).media).map((m: any) => m.id);
     await this.d.run('DELETE FROM users WHERE id = ?', [id]);
     removeFiles(media);                                               // eigen achtergronden (foto's/video's)
+    await this.setSetting('bghide:' + id, null);
     await this.markGone(codes);       // de rest gaat mee (ON DELETE CASCADE)
     removeFiles(files);
   }

@@ -392,11 +392,6 @@
     "custom": "Jouw foto",
     "upload": "Foto of video toevoegen",
     "uploadError": "Uploaden is niet gelukt. Probeer het opnieuw.",
-    "orbit": "Stille baan",
-    "network": "Sterrenbeeld",
-    "flow": "Lichtstroom",
-    "waves": "Lichtgolven",
-    "mist": "Nevel",
     "animated": "Bewegend",
     "video": "Video",
     "uploading": "Bezig met uploaden…",
@@ -407,7 +402,14 @@
     "delete": "Verwijderen",
     "delTitle": "{name} verwijderen?",
     "delText": "Deze achtergrond is daarna weg. Dit kun je niet terugdraaien.",
-    "delActive": "Dit is je huidige achtergrond. Na verwijderen krijg je weer de Optimasys-achtergrond."
+    "delActive": "Dit is je huidige achtergrond. Na verwijderen krijg je weer de Optimasys-achtergrond.",
+    "tide": "Golfveld",
+    "galaxy": "Spiraal",
+    "ribbons": "Lichtlinten",
+    "sphere": "Netwerkbol",
+    "fluid": "Vloeistof",
+    "restore": "Weggehaalde standaard-achtergronden terugzetten ({n})",
+    "hideText": "Deze achtergrond verdwijnt uit je lijst. Je kunt hem later terugzetten."
   },
   "myCodes": {
     "lead": "Alle QR-codes die je hebt gemaakt.",

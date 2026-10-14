@@ -392,11 +392,6 @@
     "custom": "Your photo",
     "upload": "Add photo or video",
     "uploadError": "The upload failed. Please try again.",
-    "orbit": "Quiet orbit",
-    "network": "Constellation",
-    "flow": "Light flow",
-    "waves": "Light waves",
-    "mist": "Mist",
     "animated": "Animated",
     "video": "Video",
     "uploading": "Uploading…",
@@ -407,7 +402,14 @@
     "delete": "Delete",
     "delTitle": "Delete {name}?",
     "delText": "This background will be gone. This cannot be undone.",
-    "delActive": "This is your current background. After deleting you get the Optimasys background again."
+    "delActive": "This is your current background. After deleting you get the Optimasys background again.",
+    "tide": "Wave field",
+    "galaxy": "Spiral",
+    "ribbons": "Light ribbons",
+    "sphere": "Network sphere",
+    "fluid": "Fluid",
+    "restore": "Restore removed standard backgrounds ({n})",
+    "hideText": "This background disappears from your list. You can restore it later."
   },
   "myCodes": {
     "lead": "All QR codes you have created.",

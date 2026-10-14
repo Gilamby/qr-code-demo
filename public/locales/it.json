@@ -392,11 +392,6 @@
     "custom": "La tua foto",
     "upload": "Aggiungi foto o video",
     "uploadError": "Caricamento non riuscito. Riprova.",
-    "orbit": "Orbita quieta",
-    "network": "Costellazione",
-    "flow": "Flusso di luce",
-    "waves": "Onde di luce",
-    "mist": "Nebbia",
     "animated": "Animato",
     "video": "Video",
     "uploading": "Caricamento…",
@@ -407,7 +402,14 @@
     "delete": "Elimina",
     "delTitle": "Eliminare {name}?",
     "delText": "Questo sfondo verrà eliminato. Non si può annullare.",
-    "delActive": "È il tuo sfondo attuale. Dopo l’eliminazione torni allo sfondo Optimasys."
+    "delActive": "È il tuo sfondo attuale. Dopo l’eliminazione torni allo sfondo Optimasys.",
+    "tide": "Campo d’onde",
+    "galaxy": "Spirale",
+    "ribbons": "Nastri di luce",
+    "sphere": "Sfera di rete",
+    "fluid": "Fluido",
+    "restore": "Ripristina gli sfondi standard rimossi ({n})",
+    "hideText": "Questo sfondo sparisce dalla tua lista. Potrai ripristinarlo più tardi."
   },
   "myCodes": {
     "lead": "Tutti i codici QR che hai creato.",

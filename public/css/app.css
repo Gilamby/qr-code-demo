@@ -3374,3 +3374,4 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 .account { margin-top: 8px; gap: 14px; }
 .acct-head h2 { font-size: 26px; }
 .acct-head p { margin-top: 4px; }
+.bg-restore { grid-column: 1 / -1; margin: 4px 0 0; }
