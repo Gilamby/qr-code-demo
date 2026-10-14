@@ -16,7 +16,8 @@
     "migrate:pg": "npm run -s build:server && node scripts/migrate-to-postgres.js",
     "migrate:mongo": "npm run -s build:server && node scripts/migrate-to-mongo.js",
     "build:server": "node scripts/build-server.js",
-    "prestart": "npm run -s build:server"
+    "prestart": "npm run -s build:server",
+    "restore:mongo": "npm run -s build:server && node scripts/restore-mongo.js"
   },
   "engines": {
     "node": ">=20"

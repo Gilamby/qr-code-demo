@@ -66,7 +66,7 @@ Keep `DATA_KEY` **separate from database backups**: without it, encrypted fields
 **MongoDB (optional, later).** Set `DATABASE_URL=mongodb://…` and restart.
 - MongoDB 6.0+, standalone is fine (no transactions used, so no replica set needed). One database and one user with `readWrite` on that database only.
 - Collections and indexes are created automatically at startup.
-- Move existing SQLite data once with `DATABASE_URL=mongodb://… npm run migrate:mongo` (safe to run again). Backups: `mongodump`, plus `DATA_DIR/files`.
+- Move existing SQLite data once with `DATABASE_URL=mongodb://… npm run migrate:mongo` (safe to run again). Backups: `scripts/backup.js` dumps every collection to `mongo/<name>.jsonl.gz` (Extended JSON) plus `DATA_DIR/files`; restore with `npm run restore:mongo -- <backup folder> [--replace]`.
 
 ## 4. Deployment (GitHub → versioned release)
 
