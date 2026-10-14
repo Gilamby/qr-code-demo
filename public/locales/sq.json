@@ -1095,7 +1095,16 @@
     "sumDown": "Kjo është {pct} më pak se periudha e mëparshme.",
     "sumTop": "Shumica e skanimeve erdhën nga {name} ({n}).",
     "sumWhen": "Më e ngarkuara është {day} rreth orës {hour}.",
-    "sumDay": "Dita më e ngarkuar është {day}."
+    "sumDay": "Dita më e ngarkuar është {day}.",
+    "devices": "Pajisja",
+    "browsers": "Shfletuesi",
+    "byDevice": "Sipas pajisjes",
+    "byBrowser": "Sipas shfletuesit",
+    "inApp": "Brenda një aplikacioni (p.sh. Instagram)",
+    "dev_mobile": "Telefon",
+    "dev_tablet": "Tablet",
+    "dev_desktop": "Kompjuter",
+    "dev_unknown": "E panjohur"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",

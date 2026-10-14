@@ -3435,3 +3435,6 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 .ad-users .cust-acts .btn[data-toggle], .ad-users .cust-acts .btn[data-codes] { font-size: 0; gap: 0; width: 40px; height: 40px; padding: 0; justify-content: center; }
 .ad-users .cust-acts .btn svg { font-size: 14px; }
 @media (min-width: 1101px) { .ad-users .cust-tr { grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, .9fr) minmax(0, .55fr) minmax(0, .55fr) minmax(0, 1.1fr) 140px; } }
+/* Statistieken: filters in een nette raster (4 per rij op een groot scherm, 2 op telefoon) */
+@media (min-width: 761px) { .an-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); } .an-f { min-width: 0; } }
+@media (min-width: 1300px) { .an-filters { grid-template-columns: repeat(7, minmax(0, 1fr)); } }

@@ -989,7 +989,16 @@
     "sumDown": "São menos {pct} do que no período anterior.",
     "sumTop": "A maioria das leituras veio de {name} ({n}).",
     "sumWhen": "O momento mais movimentado é {day} por volta das {hour}.",
-    "sumDay": "O dia mais movimentado é {day}."
+    "sumDay": "O dia mais movimentado é {day}.",
+    "devices": "Dispositivo",
+    "browsers": "Navegador",
+    "byDevice": "Por dispositivo",
+    "byBrowser": "Por navegador",
+    "inApp": "Dentro de uma app (ex. Instagram)",
+    "dev_mobile": "Telemóvel",
+    "dev_tablet": "Tablet",
+    "dev_desktop": "Computador",
+    "dev_unknown": "Desconhecido"
   },
   "auth": {
     "loginTitle": "Bem-vindo de volta",

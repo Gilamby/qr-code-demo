@@ -10,7 +10,7 @@
 var Analytics = (function () {
   var view = document.getElementById('analyticsView'), body = document.getElementById('anBody'), bar = document.getElementById('anFilters');
   var PERIODS = ['today', 'yesterday', '7', '30', '90', 'all', 'custom'];
-  var f = { period: '30', from: '', to: '', codes: [], os: [], cc: [], city: [] };
+  var f = { period: '30', from: '', to: '', codes: [], os: [], cc: [], city: [], br: [], dev: [] };
   var data = null, names = {}, openDrop = null, expanded = {}, seq = 0, group = 'day';   // group: dag, week of maand
   /** Dagen samenvoegen tot weken (maandag) of maanden. Unieke scans worden opgeteld per dag. */
   function grouped(series) {
@@ -47,14 +47,16 @@ var Analytics = (function () {
       default: return { from: '', to: '' };                                 // alles
     }
   }
-  function query() { var r = range(); return { from: r.from, to: r.to, codes: f.codes, os: f.os, cc: f.cc, city: f.city, tz: i18n.fmt.zone() }; }
+  function query() { var r = range(); return { from: r.from, to: r.to, codes: f.codes, os: f.os, cc: f.cc, city: f.city, br: f.br, dev: f.dev, tz: i18n.fmt.zone() }; }
 
   /* ---------- Namen en labels ---------- */
   function osName(k) { return k === 'other' ? t('an.other') : k; }
   function ccName(k) { return k ? TEL.flag(k) + ' ' + TEL.name(k) : t('an.unknown'); }
   function cityName(k) { var p = k.split('|'); return p[1] ? p[1] + (p[0] ? ' (' + p[0] + ')' : '') : t('an.unknown'); }
   function codeName(id) { var c = names[id]; return c ? c.label : id; }
-  function label(dim, k) { return dim === 'os' ? osName(k) : dim === 'cc' ? ccName(k) : dim === 'city' ? cityName(k) : codeName(k); }
+  function brName(k) { return k === 'unknown' ? t('an.unknown') : k === 'other' ? t('an.other') : k === 'In-app' ? t('an.inApp') : k; }
+  function devName(k) { return t('an.dev_' + (/^(mobile|tablet|desktop)$/.test(k) ? k : 'unknown')); }
+  function label(dim, k) { return dim === 'br' ? brName(k) : dim === 'dev' ? devName(k) : dim === 'os' ? osName(k) : dim === 'cc' ? ccName(k) : dim === 'city' ? cityName(k) : codeName(k); }
   function d(s) { return new Date(s + 'T12:00:00'); }
 
   /* ---------- Filters ---------- */
@@ -70,14 +72,14 @@ var Analytics = (function () {
       '</div>' : '') + '</div>';
   }
   function drawFilters() {
-    var o = (data && data.options) || { os: [], countries: [], cities: [] };
+    var o = (data && data.options) || { os: [], countries: [], cities: [], browsers: [], devices: [] };
     var codeIds = Object.keys(names);
-    var any = f.codes.length || f.os.length || f.cc.length || f.city.length;
+    var any = f.codes.length || f.os.length || f.cc.length || f.city.length || f.br.length || f.dev.length;
     bar.innerHTML =
       '<label class="an-f"><span class="an-flbl">' + t('an.period') + '</span><select id="anPeriod">' + PERIODS.map(function (p) { return '<option value="' + p + '"' + (f.period === p ? ' selected' : '') + '>' + t('an.p_' + p) + '</option>'; }).join('') + '</select></label>' +
       (f.period === 'custom' ? '<label class="an-f"><span class="an-flbl">' + t('an.from') + '</span><input type="date" id="anFrom" value="' + range().from + '" max="' + iso(new Date()) + '"></label>' +
         '<label class="an-f"><span class="an-flbl">' + t('an.to') + '</span><input type="date" id="anTo" value="' + range().to + '" max="' + iso(new Date()) + '"></label>' : '') +
-      multi('codes', t('an.codes'), codeIds) + multi('os', t('an.os'), o.os) + multi('cc', t('an.countries'), o.countries) + multi('city', t('an.cities'), o.cities) +
+      multi('codes', t('an.codes'), codeIds) + multi('os', t('an.os'), o.os) + multi('cc', t('an.countries'), o.countries) + multi('city', t('an.cities'), o.cities) + multi('dev', t('an.devices'), o.devices || []) + multi('br', t('an.browsers'), o.browsers || []) +
       (any ? '<button type="button" class="link-btn an-clear" data-clear>' + t('an.clear') + '</button>' : '');
   }
 
@@ -191,7 +193,8 @@ var Analytics = (function () {
         '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t(group === 'day' ? 'an.date' : 'an.g_' + group) + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
         grouped(r.series).slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(pointLabel(p, 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') + '</tbody></table></div></details></div>' +
       when(r) +
-      '<div class="an-grid4">' + breakdown('os', t('an.byOs'), r.os, tot) + breakdown('cc', t('an.byCountry'), r.countries, tot) + breakdown('city', t('an.byCity'), r.cities, tot) + breakdown('codes', t('an.byCode'), r.codes, tot) + '</div>';
+      '<div class="an-grid4">' + breakdown('os', t('an.byOs'), r.os, tot) + breakdown('cc', t('an.byCountry'), r.countries, tot) + breakdown('city', t('an.byCity'), r.cities, tot) + breakdown('codes', t('an.byCode'), r.codes, tot) +
+        breakdown('dev', t('an.byDevice'), r.devices || [], tot) + breakdown('br', t('an.byBrowser'), r.browsers || [], tot) + '</div>';
     lineChart(grouped(r.series));
   }
   function load() {
@@ -227,7 +230,7 @@ var Analytics = (function () {
     var b;
     if ((b = e.target.closest('[data-drop]'))) { var dim = b.getAttribute('data-drop'); openDrop = openDrop === dim ? null : dim; drawFilters(); var fst = bar.querySelector('.an-drop input'); if (fst) fst.focus(); return; }
     if (!e.target.closest('.an-drop') && openDrop) { openDrop = null; drawFilters(); }
-    if (e.target.closest('[data-clear]')) { f.codes = []; f.os = []; f.cc = []; f.city = []; return load(); }
+    if (e.target.closest('[data-clear]')) { f.codes = []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; return load(); }
     if ((b = e.target.closest('[data-filter]'))) { var k = b.getAttribute('data-filter'); f[k] = [b.getAttribute('data-k')]; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
     if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return draw(); }
     if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return draw(); }
@@ -245,5 +248,5 @@ var Analytics = (function () {
   i18n.onChange(function () { labels(); if (!view.hidden && data) { drawFilters(); draw(); } });
 
   // Vanuit Mijn QR-codes: meteen de statistieken van één code
-  return { open: function (opts) { f.codes = (opts && opts.codes) || []; f.os = []; f.cc = []; f.city = []; goToPage('analytics'); } };
+  return { open: function (opts) { f.codes = (opts && opts.codes) || []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; goToPage('analytics'); } };
 })();

@@ -989,7 +989,16 @@
     "sumDown": "C’est {pct} de moins que la période précédente.",
     "sumTop": "La plupart des scans viennent de {name} ({n}).",
     "sumWhen": "Le moment le plus actif : {day} vers {hour}.",
-    "sumDay": "Le jour le plus actif : {day}."
+    "sumDay": "Le jour le plus actif : {day}.",
+    "devices": "Appareil",
+    "browsers": "Navigateur",
+    "byDevice": "Par appareil",
+    "byBrowser": "Par navigateur",
+    "inApp": "Dans une app (ex. Instagram)",
+    "dev_mobile": "Téléphone",
+    "dev_tablet": "Tablette",
+    "dev_desktop": "Ordinateur",
+    "dev_unknown": "Inconnu"
   },
   "auth": {
     "loginTitle": "Bon retour",

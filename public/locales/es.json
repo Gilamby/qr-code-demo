@@ -989,7 +989,16 @@
     "sumDown": "Es un {pct} menos que el periodo anterior.",
     "sumTop": "La mayoría de los escaneos fueron de {name} ({n}).",
     "sumWhen": "El momento con más actividad es el {day} hacia las {hour}.",
-    "sumDay": "El día con más actividad es el {day}."
+    "sumDay": "El día con más actividad es el {day}.",
+    "devices": "Dispositivo",
+    "browsers": "Navegador",
+    "byDevice": "Por dispositivo",
+    "byBrowser": "Por navegador",
+    "inApp": "Dentro de una app (p. ej. Instagram)",
+    "dev_mobile": "Móvil",
+    "dev_tablet": "Tableta",
+    "dev_desktop": "Ordenador",
+    "dev_unknown": "Desconocido"
   },
   "auth": {
     "loginTitle": "Bienvenido de nuevo",

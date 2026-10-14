@@ -989,7 +989,16 @@
     "sumDown": "Dat is {pct} minder dan de periode ervoor.",
     "sumTop": "De meeste scans kwamen van {name} ({n}).",
     "sumWhen": "Het drukst is het op {day} rond {hour}.",
-    "sumDay": "Het drukst is het op {day}."
+    "sumDay": "Het drukst is het op {day}.",
+    "devices": "Apparaat",
+    "browsers": "Browser",
+    "byDevice": "Per apparaat",
+    "byBrowser": "Per browser",
+    "inApp": "In een app (bv. Instagram)",
+    "dev_mobile": "Telefoon",
+    "dev_tablet": "Tablet",
+    "dev_desktop": "Computer",
+    "dev_unknown": "Onbekend"
   },
   "auth": {
     "loginTitle": "Welkom terug",

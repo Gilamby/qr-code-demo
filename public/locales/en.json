@@ -989,7 +989,16 @@
     "sumDown": "That is {pct} less than the period before.",
     "sumTop": "Most scans came from {name} ({n}).",
     "sumWhen": "It is busiest on {day} around {hour}.",
-    "sumDay": "It is busiest on {day}."
+    "sumDay": "It is busiest on {day}.",
+    "devices": "Device",
+    "browsers": "Browser",
+    "byDevice": "By device",
+    "byBrowser": "By browser",
+    "inApp": "Inside an app (e.g. Instagram)",
+    "dev_mobile": "Phone",
+    "dev_tablet": "Tablet",
+    "dev_desktop": "Computer",
+    "dev_unknown": "Unknown"
   },
   "auth": {
     "loginTitle": "Welcome back",

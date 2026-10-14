@@ -989,7 +989,16 @@
     "sumDown": "To o {pct} mniej niż w poprzednim okresie.",
     "sumTop": "Najwięcej skanów miał {name} ({n}).",
     "sumWhen": "Największy ruch: {day} około {hour}.",
-    "sumDay": "Największy ruch: {day}."
+    "sumDay": "Największy ruch: {day}.",
+    "devices": "Urządzenie",
+    "browsers": "Przeglądarka",
+    "byDevice": "Wg urządzenia",
+    "byBrowser": "Wg przeglądarki",
+    "inApp": "W aplikacji (np. Instagram)",
+    "dev_mobile": "Telefon",
+    "dev_tablet": "Tablet",
+    "dev_desktop": "Komputer",
+    "dev_unknown": "Nieznane"
   },
   "auth": {
     "loginTitle": "Witaj ponownie",

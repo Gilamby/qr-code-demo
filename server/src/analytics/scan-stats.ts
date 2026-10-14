@@ -68,6 +68,27 @@ export function os(ua: string) {
   return 'other';
 }
 
+/* ---------- Browser en soort apparaat (alleen de naam, geen versie of andere details) ---------- */
+export function browser(ua: string) {
+  ua = String(ua || '');
+  if (/FBAN|FBAV|Instagram|Line\/|Snapchat|TikTok|LinkedInApp|Twitter/i.test(ua)) return 'In-app';   // geopend vanuit een app (bv. Instagram)
+  if (/Edg(e|A|iOS)?\//.test(ua)) return 'Edge';
+  if (/SamsungBrowser/.test(ua)) return 'Samsung Internet';
+  if (/OPR\/|Opera/.test(ua)) return 'Opera';
+  if (/Firefox|FxiOS/.test(ua)) return 'Firefox';
+  if (/Chrome|CriOS|Chromium/.test(ua)) return 'Chrome';
+  if (/Safari/.test(ua)) return 'Safari';
+  return 'other';
+}
+export function device(ua: string) {
+  ua = String(ua || '');
+  if (!ua) return 'unknown';
+  if (/iPad|Tablet|PlayBook|Silk|(Android(?!.*Mobile))/i.test(ua)) return 'tablet';
+  if (/Mobi|iPhone|iPod|Android|Windows Phone/i.test(ua)) return 'mobile';
+  if (/Windows|Macintosh|X11|Linux|CrOS/i.test(ua)) return 'desktop';
+  return 'unknown';
+}
+
 /* ---------- Unieke bezoekers per dag, zonder cookies ---------- */
 let today = '', salt: Buffer = null, seen = new Set<string>();
 function isNew(id: string, ip: string, ua: string) {
@@ -82,7 +103,7 @@ function isNew(id: string, ip: string, ua: string) {
 export function describe(q: QrCode, req: Request) {
   const ip = req.ip || (req.socket && req.socket.remoteAddress) || '', ua = req.get('user-agent') || '';
   const p = place(ip);
-  return { key: [os(ua), p.cc, p.city].join('|'), unique: isNew(q.id, ip, ua) };
+  return { key: [os(ua), p.cc, p.city.replace(/\|/g, ' '), browser(ua), device(ua)].join('|'), unique: isNew(q.id, ip, ua) };
 }
 
 /* ---------- Overzicht en export: gedeeld met de online demo (shared/analytics-core.js) ---------- */

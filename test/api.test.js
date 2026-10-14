@@ -384,3 +384,24 @@ test('abonnementen: team kent pakket toe, limiet geldt op de server, klant ziet 
   await team('PATCH', '/api/admin/customers/' + id, { plan: 'free' });
   assert.equal((await mk()).status, 201, 'terug naar testfase = geen limiet');
 });
+
+test('statistieken: browser en soort apparaat worden geteld (zonder details te bewaren)', async () => {
+  const k = client(); await signup(k, 'dev-k@example.com', 'Apparaat zin 13!', 'Klant Dev');
+  const id = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://dev.example' }, design: {} })).json.id;
+  const UA = {
+    iphoneSafari: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+    androidChrome: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Mobile Safari/537.36',
+    ipad: 'Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+    winEdge: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 Edg/126.0',
+    insta: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 300.0',
+  };
+  for (const ua of Object.values(UA)) await fetch(base + '/q/' + id, { redirect: 'manual', headers: { 'user-agent': ua } });
+  const an = (await k('GET', '/api/analytics?codes=' + id)).json;
+  const m = (rows) => Object.fromEntries(rows.map((r) => [r.k, r.s]));
+  assert.deepEqual(m(an.devices), { mobile: 3, tablet: 1, desktop: 1 });
+  assert.deepEqual(m(an.browsers), { Safari: 2, Chrome: 1, Edge: 1, 'In-app': 1 });
+  assert.equal((await k('GET', '/api/analytics?codes=' + id + '&dev=mobile')).json.totals.scans, 3, 'filter op apparaat');
+  assert.equal((await k('GET', '/api/analytics?codes=' + id + '&br=Edge&dev=desktop')).json.totals.scans, 1, 'filters combineren');
+  const csv = await k('GET', '/api/analytics.csv?codes=' + id);
+  assert.match(csv.text.split('\r\n')[0], /browser,device/, 'export heeft browser en apparaat');
+});
