@@ -268,7 +268,7 @@
     var verified = user.verified !== false ? ' <em class="acct-verified inline">' + SVG + ICON.check + '</svg>' + t('acct.verified') + '</em>' : '';
     var pending = emailPending ? '<div class="ar-pending">' + SVG + ICON.mail + '</svg><div><b>' + t('acct.emailSentTitle') + '</b><small>' + t('acct.emailSentText', { email: '<b>' + esc(emailPending.email) + '</b>' }) + '</small>' +
       (emailPending.link ? '<a class="btn ghost" href="' + esc(emailPending.link) + '">' + t('acct.emailOpenLink') + '</a>' : emailPending.mail === false ? '<small class="ar-warn">' + t('acct.emailNoMail') + '</small>' : '') + '</div></div>' : '';
-    return completeness() +
+    return '' +   // (feedback: geen 'Maak je profiel compleet' meer; voor- en achternaam zijn verplicht, zie requireName)
       '<div class="glass bg-card acct"><h2>' + t('acct.personalTitle') + '</h2><p>' + t('acct.personalLead') + '</p><div class="ar-list">' +
         row('name', t('auth.name'), esc(user.name || '–'), { edit: true, icon: 'person', msg: m.name,
           form: '<form data-form="name" class="acct-grid">' +
@@ -587,6 +587,29 @@
   idc.addEventListener('drop', function (e) { e.preventDefault(); idc.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
 
   theme.onChange(function () { if (user && tab === 'prefs' && !box.hidden) draw(); });
+  /* Verplicht om de app te gebruiken: voor- en achternaam. Ontbreekt die, dan eerst invullen (kan niet weggeklikt worden).
+     Tijdzone: niet gekozen = die van dit apparaat, en die slaan we meteen op (dan klopt hij ook in mails en overzichten). */
+  function requireName(u) {
+    if (api.isDemo() || !u) return;
+    if (!u.timezone) { var here = Intl.DateTimeFormat().resolvedOptions().timeZone; if (here) api.account.update({ timezone: here }).then(function (r) { user = Object.assign({}, user, r, { timezone: here }); if (window.i18n && i18n.setZone) i18n.setZone(here); }).catch(function () {}); }
+    var nm = splitName(u.name); if (nm[0] && nm[1]) return;
+    var d = document.getElementById('mcDialog');
+    d.innerHTML = '<form class="mc-dlg" novalidate><span class="mc-dlg-ic ok">' + SVG.replace('aria-hidden="true"', 'class="mc-i" aria-hidden="true"') + ICON.person + '</svg></span><h3>' + t('acct.needNameTitle') + '</h3><p>' + t('acct.needNameText') + '</p>' +
+      '<div class="acct-grid">' + field(t('acct.firstName'), '<input name="first" value="' + esc(nm[0]) + '" maxlength="40" autocomplete="given-name" required>') + field(t('acct.lastName'), '<input name="last" value="' + esc(nm[1]) + '" maxlength="40" autocomplete="family-name" required>') + '</div>' +
+      '<p class="acct-msg bad" data-msg hidden></p><div class="mc-dlg-btns"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>';
+    var f = d.querySelector('form'), msg = f.querySelector('[data-msg]');
+    var block = function (ev) { ev.preventDefault(); }; d.addEventListener('cancel', block);   // Escape sluit hem niet
+    f.onsubmit = function (ev) {
+      ev.preventDefault();
+      var first = f.first.value.trim(), last = f.last.value.trim();
+      if (!first || !last) { msg.textContent = t('acct.needNameBoth'); msg.hidden = false; (first ? f.last : f.first).focus(); return; }
+      api.account.update({ name: first + ' ' + last }).then(function (r) {
+        user = Object.assign({}, user, r, { name: first + ' ' + last }); d.removeEventListener('cancel', block); d.close(); d.innerHTML = ''; draw(); navAvatar();
+      }).catch(function () { msg.textContent = t('auth.errGeneral'); msg.hidden = false; });
+    };
+    if (!d.open) d.showModal(); f.first.focus();
+  }
+  Session.onUser(function (u) { setTimeout(function () { requireName(u); }, 300); });
   Session.onUser(function (u) { if (u.theme && u.theme !== theme.get()) theme.set(u.theme, false); user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; draw(); loadSummary(); loadBilling(); });
   // Net op de link in de mail geklikt (nieuw e-mailadres): Mijn account openen met de uitkomst
   document.addEventListener('account:email-note', function (e) {

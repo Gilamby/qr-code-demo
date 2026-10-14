@@ -1231,7 +1231,10 @@
     "emailChanged": "Done! Your email address is now {email}.",
     "emailChangedLogin": "Done! Your email address has changed. Sign in with your new address.",
     "photoHintShort": "JPG, PNG or WebP. Drag a photo onto this card.",
-    "cpLeadOne": "1 step to go. Click it to fill it in."
+    "cpLeadOne": "1 step to go. Click it to fill it in.",
+    "needNameTitle": "What’s your name?",
+    "needNameText": "Enter your first and last name to use the app. It appears on your account and on invoices.",
+    "needNameBoth": "Please enter both your first and last name."
   },
   "mail": {
     "resetSubject": "New password for Optimasys QR",

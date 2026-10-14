@@ -1337,7 +1337,10 @@
     "emailChanged": "U krye! Email-i yt tani është {email}.",
     "emailChangedLogin": "U krye! Email-i yt u ndryshua. Hyr me adresën e re.",
     "photoHintShort": "JPG, PNG ose WebP. Tërhiq një foto mbi këtë kartë.",
-    "cpLeadOne": "Edhe 1 hap. Klikoje për ta plotësuar."
+    "cpLeadOne": "Edhe 1 hap. Klikoje për ta plotësuar.",
+    "needNameTitle": "Si quhesh?",
+    "needNameText": "Shkruaj emrin dhe mbiemrin për të përdorur aplikacionin. Shfaqen në llogari dhe në fatura.",
+    "needNameBoth": "Shkruaj edhe emrin edhe mbiemrin."
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për Optimasys QR",

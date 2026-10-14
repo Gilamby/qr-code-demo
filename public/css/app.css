@@ -3370,3 +3370,7 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
    ruimte rondom geven en dat met een negatieve marge weer rechttrekken, zodat de layout gelijk blijft */
 .panel-scroll { padding-top: 10px; margin-top: -10px; padding-left: 10px; margin-left: -10px; }
 @media (max-width: 760px) { .panel-scroll { padding-top: 0; margin-top: 0; padding-left: 0; margin-left: 0; } }
+/* Mijn account: compacter, zodat er meer op één scherm past */
+.account { margin-top: 8px; gap: 14px; }
+.acct-head h2 { font-size: 26px; }
+.acct-head p { margin-top: 4px; }

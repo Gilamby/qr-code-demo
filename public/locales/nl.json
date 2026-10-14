@@ -1231,7 +1231,10 @@
     "emailChanged": "Gelukt! Je e-mailadres is nu {email}.",
     "emailChangedLogin": "Gelukt! Je e-mailadres is gewijzigd. Log in met je nieuwe adres.",
     "photoHintShort": "JPG, PNG of WebP. Sleep een foto op deze kaart.",
-    "cpLeadOne": "Nog 1 stap. Klik erop om het in te vullen."
+    "cpLeadOne": "Nog 1 stap. Klik erop om het in te vullen.",
+    "needNameTitle": "Hoe heet je?",
+    "needNameText": "Vul je voor- en achternaam in om de app te gebruiken. Dit zie je op je account en op facturen.",
+    "needNameBoth": "Vul zowel je voornaam als je achternaam in."
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor Optimasys QR",
