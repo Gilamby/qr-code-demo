@@ -10,6 +10,8 @@ import { AuthService } from './auth.service';
 import { CurrentUser, LoggedIn } from './auth.guard';
 import { EMAIL, validateMe } from '../qr-codes/validation';
 import { MailerService } from './mailer.service';
+import { LANGS } from '../helpers/i18n-overrides';
+import { buildReport, lastPeriod } from '../reports';
 import { baseUrl } from '../config/env';
 import { validateBilling } from './billing';
 import { fail } from '../common/http';
@@ -37,7 +39,7 @@ export class AccountController {
 
   @Patch('account')
   async rename(@CurrentUser() user: User, @Body() b: any = {}) {
-    const p: { name?: string; avatar?: string | null; timezone?: string | null; theme?: string | null } = {};
+    const p: { name?: string; avatar?: string | null; timezone?: string | null; theme?: string | null; emailPrefs?: string; lang?: string } = {};
     if (b.name !== undefined) { if (typeof b.name !== 'string' || !b.name.trim()) throw fail(400, 'name'); p.name = b.name.trim().replace(/\s+/g, ' ').slice(0, 80); }
     if (b.avatar !== undefined) {                                       // profielfoto: al verkleind in de browser
       if (b.avatar !== null && !(typeof b.avatar === 'string' && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(b.avatar) && b.avatar.length < 400000)) throw fail(400, 'avatar');
@@ -48,6 +50,12 @@ export class AccountController {
       if (tz) { try { new Intl.DateTimeFormat('en', { timeZone: tz }); } catch { throw fail(400, 'timezone'); } }
       p.timezone = tz && tz.length <= 64 ? tz : null;
     }
+    if (b.emailPrefs !== undefined) {                                  // E-mailvoorkeuren (Mijn account > Meldingen)
+      const e = b.emailPrefs || {}, cur = user.emailPrefs || { report: 'off', security: true, product: false };
+      if (e.report !== undefined && !['off', 'weekly', 'monthly'].includes(e.report)) throw fail(400, 'emailPrefs');
+      p.emailPrefs = JSON.stringify({ report: e.report !== undefined ? e.report : cur.report, security: e.security !== undefined ? !!e.security : cur.security, product: e.product !== undefined ? !!e.product : cur.product });
+    }
+    if (b.lang !== undefined) { if (!LANGS.includes(b.lang)) throw fail(400, 'lang'); p.lang = b.lang; }
     if (b.theme !== undefined) { if (!['dark', 'light', 'system'].includes(b.theme)) throw fail(400, 'theme'); p.theme = b.theme; }
     if (!Object.keys(p).length) throw fail(400, 'name');
     return this.auth.me(await this.db.updateUser(user.id, p));
@@ -62,6 +70,7 @@ export class AccountController {
     await this.db.updateUser(user.id, { passwordHash: await this.auth.hashPassword(b.password), passwordChangedAt: new Date().toISOString() });
     await this.db.deleteSessionsOf(user.id, req.sid);                  // andere apparaten uitloggen
     await this.db.addActivity(user.id, 'password', this.auth.meta(req));
+    this.mailer.sendSecurity(user, 'password', { time: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC' }).catch(() => {});
     return { ok: true, passwordChangedAt: new Date().toISOString() };
   }
 
@@ -126,6 +135,14 @@ export class AccountController {
     this.mailer.sendEmailChange(email, link, String(b.lang || 'en')).catch((e) => console.error('E-mail versturen mislukt:', e.message));
     // Demo-server zonder mail (SHOW_VERIFY_LINK=true): de link gaat mee, zodat je hem kunt testen
     return { sent: true, email, mail: this.mailer.configured, ...(process.env.SHOW_VERIFY_LINK === 'true' && !this.mailer.configured ? { link } : {}) };
+  }
+
+  /** Voorbeeld van het scanoverzicht (zoals de e-mail eruitziet), ook zonder mailserver */
+  @Get('account/report-preview')
+  async reportPreview(@Req() req: Request, @CurrentUser() user: User) {
+    const period = req.query.period === 'weekly' ? 'weekly' : 'monthly', lang = LANGS.includes(String(req.query.lang)) ? String(req.query.lang) : user.lang || 'en';
+    const data = await buildReport(this.db, user.id, period, lastPeriod(period, new Date()));
+    return this.mailer.renderReport(lang, user, data, baseUrl(req));
   }
 
   /** AVG: al je gegevens downloaden */

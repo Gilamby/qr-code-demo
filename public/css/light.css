@@ -287,6 +287,17 @@
 :root[data-theme="light"] .ast-note.bad { color: #b45309; }
 :root[data-theme="light"] .ast-dic { color: #0369a1; }
 :root[data-theme="light"] .ast-usage i { background: rgba(13,19,32,0.06); }
+:root[data-theme="light"] .lg-tabs { background: rgba(13,19,32,0.038); border: 1px solid rgba(13,19,32,0.09); }
+:root[data-theme="light"] .lg-doc section { border-top: 1px solid rgba(13,19,32,0.072); }
+:root[data-theme="light"] .lg-toc { background: rgba(13,19,32,0.03); border: 1px solid rgba(13,19,32,0.072); }
+:root[data-theme="light"] .lg-draft { color: #b45309; }
+:root[data-theme="light"] .lg-dialog::backdrop { background: rgba(255,255,255,1); }
+:root[data-theme="light"] .nf-list { border: 1px solid rgba(13,19,32,0.09); background: rgba(255,255,255,0.74); }
+:root[data-theme="light"] .nf-row { border-top: 1px solid rgba(13,19,32,0.072); }
+:root[data-theme="light"] .nf-seg { background: rgba(13,19,32,0.038); border: 1px solid rgba(13,19,32,0.09); }
+:root[data-theme="light"] .nf-sw i { background: rgba(13,19,32,0.135); }
+:root[data-theme="light"] .nf-sw i::after { box-shadow: 0 1px 3px rgba(13,19,32,0.105); }
+:root[data-theme="light"] .nf-warn { color: #b45309; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

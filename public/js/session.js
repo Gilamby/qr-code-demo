@@ -65,6 +65,8 @@ var Session = (function () {
         '<button class="btn primary auth-go" type="submit">' + t(invite ? 'auth.inviteGo' : 'auth.savePassword') + '</button></form>';
     }
     if (api.isDemo() && (mode === 'login' || mode === 'register')) body += '<p class="auth-demo">' + t('auth.demoNote') + '</p>';
+    // Privacy, voorwaarden en cookies: ook te lezen zonder in te loggen
+    body += '<nav class="auth-legal" aria-label="' + esc(t('legal.nav')) + '">' + ['privacy', 'terms', 'cookies'].map(function (d) { return '<button type="button" class="link-btn" data-legal="' + d + '">' + t('legal.' + d + '.short') + '</button>'; }).join('<span aria-hidden="true">·</span>') + '</nav>';
     card.innerHTML = head + body;
     var first = card.querySelector('input[name=name], input[name=email]:not([value]), input[name=email][value=""], input[name=password]'); if (first) first.focus();
   }
@@ -90,6 +92,7 @@ var Session = (function () {
   }
 
   card.addEventListener('click', function (e) {
+    var lg = e.target.closest('[data-legal]'); if (lg && window.Legal) return Legal.dialog(lg.getAttribute('data-legal'));
     var m = e.target.closest('[data-mode]'); if (m) { flash = null; if (mode === 'check') prefill = pendingEmail; mode = m.getAttribute('data-mode'); return draw(); }
     if (e.target.closest('[data-resend]')) {
       var rb = e.target.closest('[data-resend]'); rb.disabled = true;

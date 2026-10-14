@@ -33,6 +33,8 @@
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>',
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    notify: '<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+    eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
     camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
@@ -48,7 +50,7 @@
     x: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
   var GROUPS = [
-    ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
+    ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
     ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav']]],
     ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
   ];
@@ -347,6 +349,48 @@
       '<div class="acct-actions del-actions"><button type="button" class="btn ghost" data-del-back>' + t('acct.delBack') + '</button>' +
       '<button type="submit" class="btn danger" data-del-go disabled>' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div></form></div>';
   }
+  /* ---------- Meldingen: e-mailvoorkeuren ---------- */
+  function prefs() { return Object.assign({ report: 'off', security: true, product: false }, user.emailPrefs || {}); }
+  function nextSend(kind) {
+    var d = new Date(); d.setHours(8, 0, 0, 0);
+    if (kind === 'weekly') { var add = (8 - d.getDay()) % 7 || 7; if (new Date().getDay() === 1 && new Date().getHours() < 8) add = 0; d.setDate(d.getDate() + add); }
+    else { if (!(new Date().getDate() === 1 && new Date().getHours() < 8)) { d.setMonth(d.getMonth() + 1); } d.setDate(1); }
+    return i18n.fmt.stamp(d.toISOString(), 'long');
+  }
+  function toggle(key, title, text, on) {
+    return '<label class="nf-row"><span class="nf-txt"><b>' + title + '</b><small>' + text + '</small></span>' +
+      '<span class="nf-sw"><input type="checkbox" data-pref="' + key + '"' + (on ? ' checked' : '') + '><i></i></span></label>';
+  }
+  function notifyPanel(m) {
+    var p = prefs(), mailOn = !!(api.info && api.info().mail);
+    return '<div class="glass bg-card acct"><h2>' + t('notify.title') + '</h2><p>' + t('notify.lead') + '</p>' +
+      (api.isDemo() ? '<p class="acct-demo">' + t('notify.demo') + '</p>' : !mailOn ? '<p class="nf-warn">' + t('notify.noMail') + '</p>' : '') +
+      '<div class="nf-list"><div class="nf-row nf-report"><span class="nf-txt"><b>' + t('notify.report') + '</b><small>' + t('notify.reportText') + '</small>' +
+        (p.report !== 'off' ? '<small class="nf-next">' + t('notify.next', { date: nextSend(p.report) }) + '</small>' : '') + '</span>' +
+        '<div class="nf-seg" role="radiogroup" aria-label="' + esc(t('notify.report')) + '">' + ['off', 'weekly', 'monthly'].map(function (k) {
+          return '<button type="button" role="radio" aria-checked="' + (p.report === k) + '" data-report="' + k + '">' + t('notify.r_' + k) + '</button>'; }).join('') + '</div>' +
+        '<button type="button" class="btn ghost sm nf-prev" data-report-preview>' + SVG + ICON.eye + '</svg>' + t('notify.preview') + '</button></div>' +
+      toggle('security', t('notify.security'), t('notify.securityText'), p.security) +
+      toggle('product', t('notify.product'), t('notify.productText'), p.product) + '</div>' +
+      (m.notify ? '<p class="acct-msg ' + m.notify[1] + '" role="status">' + esc(m.notify[0]) + '</p>' : '') + '</div>';
+  }
+  function savePrefs(patch) {
+    var next = Object.assign(prefs(), patch); user = Object.assign({}, user, { emailPrefs: next }); draw();
+    api.account.update({ emailPrefs: patch }).then(function () { draw({ notify: [t('acct.saved'), 'ok'] }); })
+      .catch(function (x) { draw({ notify: [err(x), 'bad'] }); });
+  }
+  function previewReport() {
+    var period = prefs().report === 'weekly' ? 'weekly' : 'monthly', d = document.getElementById('mcDialog');
+    var show = function (r) {
+      d.innerHTML = '<form method="dialog" class="mc-dlg nf-dlg"><h3>' + t('notify.previewTitle') + '</h3><p class="nf-subj"><b>' + esc(t('notify.subject')) + ':</b> ' + esc(r.subject) + '</p>' +
+        '<iframe class="nf-frame" sandbox="" title="' + esc(t('notify.previewTitle')) + '"></iframe><div class="mc-dlg-btns"><button class="btn primary" value="ok" autofocus>' + t('legal.close') + '</button></div></form>';
+      d.querySelector('iframe').srcdoc = '<!doctype html><meta charset="utf-8"><body style="margin:16px;background:#fff">' + r.html;
+      d.showModal();
+    };
+    if (api.isDemo()) return draw({ notify: [t('notify.demo'), 'bad'] });
+    fetch('api/account/report-preview?period=' + period + '&lang=' + i18n.lang()).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(show)
+      .catch(function () { draw({ notify: [t('myCodes.failed'), 'bad'] }); });
+  }
   function panel(m) {
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
     if (tab === 'profile') return profilePanel(m, note);
@@ -358,6 +402,7 @@
       }).join('') + '</div></div>' +
       '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
       field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>', { icon: 'globe', cls: 'acct-lang' }) + '</div>';
+    if (tab === 'notify') return notifyPanel(m);
     if (tab === 'delete') return deletePanel();
     if (tab === 'billing') return billingPanel(m);
     if (tab === 'plan') return planPanel();
@@ -455,6 +500,7 @@
     if (e.target.getAttribute('aria-invalid')) { e.target.removeAttribute('aria-invalid'); var m = document.getElementById('err-' + e.target.name); if (m) m.remove(); bad = bad.filter(function (k) { return k !== e.target.name; }); }
   });
   box.addEventListener('change', function (e) {
+    if (e.target.matches('[data-pref]')) { var o = {}; o[e.target.getAttribute('data-pref')] = e.target.checked; savePrefs(o); return; }
     if (e.target.id === 'acctLang') i18n.set(e.target.value);
     if (e.target.name === 'timezone') { var h = document.getElementById('acctTzNow'); if (h) h.textContent = t('acct.tzHint', { time: nowIn(e.target.value) }); }
     if (e.target.name === 'country' && draft) draft.country = e.target.value;
@@ -473,6 +519,8 @@
     }
     if (e.target.closest('[data-edit-cancel]')) { var was = editing; editing = null; draw(); var b2 = box.querySelector('[data-edit="' + was + '"]'); if (b2) b2.focus(); return; }
     var gt = e.target.closest('[data-goto]'); if (gt) { e.preventDefault(); return window.goToPage(gt.getAttribute('data-goto')); }
+    var rp = e.target.closest('[data-report]'); if (rp) return savePrefs({ report: rp.getAttribute('data-report') });
+    if (e.target.closest('[data-report-preview]')) return previewReport();
     var tp = e.target.closest('[data-theme-pick]'); if (tp) { theme.set(tp.getAttribute('data-theme-pick')); user = Object.assign({}, user, { theme: theme.get() }); return draw(); }
     var es = e.target.closest('[data-end-session]');
     if (es) {
@@ -552,5 +600,9 @@
   });
   // Elke keer dat je Mijn account opent: verse cijfers
   document.addEventListener('click', function (e) { if (e.target.closest('[data-page="account"], #bgBtn')) loadSummary(); });
-  i18n.onChange(function () { draw(); });
+  i18n.onChange(function () {
+    draw();
+    // Taal ook in je profiel: e-mails die we zelf sturen (zoals het scanoverzicht) komen in jouw taal
+    if (user && !api.isDemo() && user.lang !== i18n.lang()) { user = Object.assign({}, user, { lang: i18n.lang() }); api.account.update({ lang: i18n.lang() }).catch(function () {}); }
+  });
 })();

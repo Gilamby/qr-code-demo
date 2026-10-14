@@ -26,7 +26,10 @@ export class SystemController {
       const qrBase = baseUrl(req), dev = isDevUrl(qrBase);
       // Codespaces: controleren of de poort openbaar is (anders opent een scan de GitHub-inlogpagina)
       const access = dev && !req.query.probe ? await checkCodespaceAccess() : undefined;
-      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: process.env.ALLOW_SIGNUP === 'true' };
+      // Bedrijfsgegevens voor de privacyverklaring en voorwaarden (in .env; wat leeg is, wordt niet getoond)
+      const env = (k: string) => String(process.env[k] || '').trim() || undefined;
+      const legal = { name: env('LEGAL_NAME') || 'Optimasys', address: env('LEGAL_ADDRESS'), kvk: env('LEGAL_KVK'), vat: env('LEGAL_VAT'), email: env('LEGAL_EMAIL') || env('SUPPORT_EMAIL') };
+      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: process.env.ALLOW_SIGNUP === 'true', legal, mail: !!process.env.SMTP_HOST };
     } catch (e) { throw reply(503, { ok: false }); }
   }
 

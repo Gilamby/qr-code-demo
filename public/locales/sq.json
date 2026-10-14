@@ -22,7 +22,8 @@
     "adminCodes": "Të gjitha kodet QR",
     "users": "Përdoruesit",
     "overview": "Përmbledhje",
-    "adminSettings": "Cilësimet"
+    "adminSettings": "Cilësimet",
+    "legal": "Privatësia dhe kushtet"
   },
   "header": {
     "language": "Gjuha",
@@ -1319,7 +1320,26 @@
     "emailChangedSubject": "Email-i yt u ndryshua",
     "emailChangedHello": "Përshëndetje,",
     "emailChangedText": "Email-i i llogarisë sate Optimasys QR sapo u ndryshua në {email}. Tani e tutje hyn me të.",
-    "emailChangedIgnore": "Nuk ishe ti? Kontakto menjëherë support@optimasys.es."
+    "emailChangedIgnore": "Nuk ishe ti? Kontakto menjëherë support@optimasys.es.",
+    "reportSubjectWeek": "Skanimet e tua: {period}",
+    "reportSubjectMonth": "Skanimet e tua: {period}",
+    "reportHello": "Përshëndetje {name},",
+    "reportHelloPlain": "Përshëndetje,",
+    "reportLead": "Ja si janë skanuar kodet e tua QR.",
+    "reportTotal": "Skanime",
+    "reportUnique": "Skanime unike",
+    "reportUp": "{pct}% më shumë se periudha e mëparshme",
+    "reportDown": "{pct}% më pak se periudha e mëparshme",
+    "reportTop": "Më të skanuarat",
+    "reportNone": "Asnjë skanim në këtë periudhë.",
+    "reportButton": "Shiko statistikat",
+    "reportFooter": "E merr këtë email sepse ke aktivizuar përmbledhjen e skanimeve. Mund ta çaktivizosh te Llogaria ime > Njoftimet.",
+    "secLoginSubject": "Hyrje e re në llogarinë tënde",
+    "secLoginText": "Dikush hyri në llogarinë tënde nga një pajisje e re: {device} (IP {ip}) më {time}.",
+    "secPasswordSubject": "Fjalëkalimi u ndryshua",
+    "secPasswordText": "Fjalëkalimi i llogarisë sate u ndryshua më {time}.",
+    "secNotYou": "Nuk ishe ti? Ndrysho menjëherë fjalëkalimin dhe kontrollo te Siguria cilat pajisje janë të lidhura.",
+    "secButton": "Te llogaria ime"
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -1697,5 +1717,45 @@
     "systemHint": "Ndjek pajisjen tënde",
     "toDark": "Pamje e errët",
     "toLight": "Pamje e çelët"
+  },
+  "legal": {
+    "toc": "Përmbajtja",
+    "contact": "Kontakti",
+    "close": "Mbyll",
+    "updated": "Përditësuar më: {date}",
+    "noEmail": "email-i në faqen tonë",
+    "kvk": "NIPT {n}",
+    "vat": "TVSH {n}",
+    "privacy": {
+      "short": "Privatësia",
+      "title": "Politika e privatësisë"
+    },
+    "terms": {
+      "short": "Kushtet",
+      "title": "Kushtet e përdorimit"
+    },
+    "cookies": {
+      "short": "Cookies",
+      "title": "Cookies dhe ruajtja"
+    }
+  },
+  "notify": {
+    "title": "Njoftimet",
+    "lead": "Zgjidh cilat email-e merr nga ne.",
+    "demo": "Në demon online nuk dërgohen email-e.",
+    "noMail": "Ky server ende nuk dërgon email-e. Zgjedhjet ruhen dhe do të punojnë sapo të konfigurohet serveri i postës.",
+    "report": "Përmbledhje e skanimeve",
+    "reportText": "Sa herë janë skanuar kodet e tua, me kodet më të mira.",
+    "next": "Tjetra: {date}",
+    "r_off": "Joaktive",
+    "r_weekly": "Çdo javë",
+    "r_monthly": "Çdo muaj",
+    "preview": "Shiko shembullin",
+    "previewTitle": "Pamje paraprake e email-it",
+    "subject": "Subjekti",
+    "security": "Njoftime sigurie",
+    "securityText": "Kur dikush hyn nga një pajisje e re dhe kur ndryshon fjalëkalimi. E rekomanduar.",
+    "product": "Lajme dhe këshilla",
+    "productText": "Herë pas here, për funksione të reja. Asnjëherë reklama të të tjerëve."
   }
 }

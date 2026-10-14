@@ -156,3 +156,11 @@ Add one line to the crontab: every night at 03:15 a backup goes to `~/qr-backups
 ```
 
 **Restore (SQLite):** stop the app, copy `optimasys.db` from the backup to `DATA_DIR` (same name as the current database file), copy the backup's `files/` to `DATA_DIR/files/`, then `bash scripts/start-server.sh`. The encryption key (`DATA_DIR/secret.key` or `DATA_KEY`) must be the same as when the backup was made: keep a copy of it somewhere safe, apart from the backups.
+
+## Optional settings (.env)
+
+| Setting | What it does |
+|---|---|
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | Sending emails: password reset, invitations, email change, security alerts and the weekly/monthly scan summary. Without these, links are written to the log. |
+| `DEEPL_API_KEY` | Auto-translate in Admin > Settings. The super admin can also paste the key in that page (stored encrypted). |
+| `LEGAL_NAME`, `LEGAL_ADDRESS`, `LEGAL_KVK`, `LEGAL_VAT`, `LEGAL_EMAIL` | Company details shown in the privacy policy, terms and cookie page (Help > Privacy and terms, and on the login screen). Empty = not shown. |

@@ -13,6 +13,7 @@ import { MailerService } from './mailer.service';
 import { EMAIL } from '../qr-codes/validation';
 import { baseUrl } from '../config/env';
 import { fail } from '../common/http';
+import { device, maskIp } from './account.controller';
 
 @Controller('api/auth')
 export class AuthController {
@@ -84,8 +85,13 @@ export class AuthController {
     if (!(await this.db.isVerified(row.id))) throw fail(403, 'unverified');   // eerst e-mail bevestigen
     const user = await this.db.getUser(row.id);
     if (user.disabledAt) throw fail(403, 'disabled');                         // uitgezet door het team
-    this.auth.setSession(req, res, await this.db.createSession(row.id, this.auth.meta(req)));
-    await this.db.addActivity(row.id, 'login', this.auth.meta(req));
+    // Nieuw apparaat (browser + systeem nog nooit gezien bij een geslaagde aanmelding)? Dan een beveiligingsmail.
+    const meta = this.auth.meta(req), dev = (ua: string | null) => { const d = device(ua); return d.browser + '|' + d.os; };
+    const seen = (await this.db.listActivity(row.id, 100)).some((a) => a.kind === 'login' && dev(a.ua) === dev(meta.ua));
+    const hadLogins = (await this.db.listActivity(row.id, 100)).some((a) => a.kind === 'login');
+    this.auth.setSession(req, res, await this.db.createSession(row.id, meta));
+    await this.db.addActivity(row.id, 'login', meta);
+    if (hadLogins && !seen) { const d = device(meta.ua); this.mailer.sendSecurity(user, 'login', { device: [d.browser, d.os].filter(Boolean).join(' / ') || '?', ip: maskIp(meta.ip) || '?', time: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC' }).catch(() => {}); }
     return this.auth.me(await this.db.updateUser(row.id, { lastLoginAt: new Date().toISOString() }));
   }
 
@@ -122,7 +128,9 @@ export class AuthController {
     await this.db.deleteSessionsOf(userId);                            // overal uitloggen
     this.auth.setSession(req, res, await this.db.createSession(userId, this.auth.meta(req)));
     await this.db.addActivity(userId, 'password', this.auth.meta(req));
-    return this.auth.me(await this.db.getUser(userId));
+    const fresh = await this.db.getUser(userId);
+    this.mailer.sendSecurity(fresh, 'password', { time: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC' }).catch(() => {});
+    return this.auth.me(fresh);
   }
 
   /** Link uit de mail naar je nieuwe e-mailadres: vanaf nu log je daarmee in. Het oude adres krijgt een melding. */

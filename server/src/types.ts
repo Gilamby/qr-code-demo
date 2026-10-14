@@ -19,6 +19,10 @@ export interface User {
   verified?: boolean;
   /** Weergave: 'dark', 'light' of 'system' (null = standaard donker) */
   theme?: string | null;
+  /** E-mailvoorkeuren: scanoverzicht (off/weekly/monthly), beveiligingsmeldingen, nieuws */
+  emailPrefs?: { report: 'off' | 'weekly' | 'monthly'; security: boolean; product: boolean };
+  /** Taal van de app (voor e-mails die we zelf versturen, zoals het scanoverzicht) */
+  lang?: string | null;
   /** Laatst wachtwoord gewijzigd (null = nog nooit sinds het account er is) */
   passwordChangedAt?: string | null;
   /** Gezet als de sessie net is verlengd: dan moet het cookie ook ververst worden. */

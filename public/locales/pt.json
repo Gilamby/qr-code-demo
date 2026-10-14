@@ -22,7 +22,8 @@
     "adminCodes": "Todos os códigos QR",
     "users": "Utilizadores",
     "overview": "Visão geral",
-    "adminSettings": "Definições"
+    "adminSettings": "Definições",
+    "legal": "Privacidade e termos"
   },
   "header": {
     "language": "Idioma",
@@ -1213,7 +1214,26 @@
     "emailChangedSubject": "O seu e-mail foi alterado",
     "emailChangedHello": "Olá,",
     "emailChangedText": "O e-mail da sua conta Optimasys QR acabou de ser alterado para {email}. A partir de agora inicia sessão com ele.",
-    "emailChangedIgnore": "Não foi você? Contacte já support@optimasys.es."
+    "emailChangedIgnore": "Não foi você? Contacte já support@optimasys.es.",
+    "reportSubjectWeek": "As suas leituras: {period}",
+    "reportSubjectMonth": "As suas leituras: {period}",
+    "reportHello": "Olá {name},",
+    "reportHelloPlain": "Olá,",
+    "reportLead": "Veja como os seus códigos QR foram lidos.",
+    "reportTotal": "Leituras",
+    "reportUnique": "Leituras únicas",
+    "reportUp": "Mais {pct}% do que o período anterior",
+    "reportDown": "Menos {pct}% do que o período anterior",
+    "reportTop": "Mais lidos",
+    "reportNone": "Sem leituras neste período.",
+    "reportButton": "Ver estatísticas",
+    "reportFooter": "Recebe este e-mail porque ativou o resumo de leituras. Pode desativá-lo em A minha conta > Notificações.",
+    "secLoginSubject": "Novo início de sessão na sua conta",
+    "secLoginText": "Alguém iniciou sessão na sua conta num dispositivo novo: {device} (IP {ip}) em {time}.",
+    "secPasswordSubject": "A sua palavra-passe foi alterada",
+    "secPasswordText": "A palavra-passe da sua conta foi alterada em {time}.",
+    "secNotYou": "Não foi você? Altere já a palavra-passe e veja em Segurança que dispositivos têm sessão iniciada.",
+    "secButton": "Ir para a minha conta"
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",
@@ -1591,5 +1611,45 @@
     "systemHint": "Segue o seu dispositivo",
     "toDark": "Modo escuro",
     "toLight": "Modo claro"
+  },
+  "legal": {
+    "toc": "Índice",
+    "contact": "Contacto",
+    "close": "Fechar",
+    "updated": "Última atualização: {date}",
+    "noEmail": "o e-mail no nosso site",
+    "kvk": "Registo comercial {n}",
+    "vat": "IVA {n}",
+    "privacy": {
+      "short": "Privacidade",
+      "title": "Política de privacidade"
+    },
+    "terms": {
+      "short": "Termos",
+      "title": "Termos e condições"
+    },
+    "cookies": {
+      "short": "Cookies",
+      "title": "Cookies e armazenamento"
+    }
+  },
+  "notify": {
+    "title": "Notificações",
+    "lead": "Escolha que e-mails recebe de nós.",
+    "demo": "Na demonstração online não são enviados e-mails.",
+    "noMail": "Este servidor ainda não envia e-mails. As suas escolhas ficam guardadas e funcionam assim que o servidor de e-mail estiver configurado.",
+    "report": "Resumo de leituras",
+    "reportText": "Quantas vezes os seus códigos foram lidos, com os melhores códigos.",
+    "next": "Próximo: {date}",
+    "r_off": "Desligado",
+    "r_weekly": "Semanal",
+    "r_monthly": "Mensal",
+    "preview": "Ver exemplo",
+    "previewTitle": "Pré-visualização do e-mail",
+    "subject": "Assunto",
+    "security": "Alertas de segurança",
+    "securityText": "Quando alguém inicia sessão num dispositivo novo e quando a palavra-passe muda. Recomendado.",
+    "product": "Novidades e dicas",
+    "productText": "De vez em quando, sobre novas funções. Nunca publicidade de terceiros."
   }
 }

@@ -22,7 +22,8 @@
     "adminCodes": "Tutti i codici QR",
     "users": "Utenti",
     "overview": "Panoramica",
-    "adminSettings": "Impostazioni"
+    "adminSettings": "Impostazioni",
+    "legal": "Privacy e condizioni"
   },
   "header": {
     "language": "Lingua",
@@ -1213,7 +1214,26 @@
     "emailChangedSubject": "La tua email è cambiata",
     "emailChangedHello": "Ciao,",
     "emailChangedText": "L’email del tuo account Optimasys QR è appena stata cambiata in {email}. D’ora in poi accedi con quella.",
-    "emailChangedIgnore": "Non sei stato tu? Contatta subito support@optimasys.es."
+    "emailChangedIgnore": "Non sei stato tu? Contatta subito support@optimasys.es.",
+    "reportSubjectWeek": "Le tue scansioni: {period}",
+    "reportSubjectMonth": "Le tue scansioni: {period}",
+    "reportHello": "Ciao {name},",
+    "reportHelloPlain": "Ciao,",
+    "reportLead": "Ecco come sono stati scansionati i tuoi codici QR.",
+    "reportTotal": "Scansioni",
+    "reportUnique": "Scansioni uniche",
+    "reportUp": "{pct}% in più rispetto al periodo precedente",
+    "reportDown": "{pct}% in meno rispetto al periodo precedente",
+    "reportTop": "I più scansionati",
+    "reportNone": "Nessuna scansione in questo periodo.",
+    "reportButton": "Vedi statistiche",
+    "reportFooter": "Ricevi questa email perché hai attivato il riepilogo delle scansioni. Puoi disattivarlo in Il mio account > Notifiche.",
+    "secLoginSubject": "Nuovo accesso al tuo account",
+    "secLoginText": "Qualcuno ha effettuato l’accesso da un nuovo dispositivo: {device} (IP {ip}) il {time}.",
+    "secPasswordSubject": "La tua password è stata cambiata",
+    "secPasswordText": "La password del tuo account è stata cambiata il {time}.",
+    "secNotYou": "Non sei stato tu? Cambia subito la password e controlla in Sicurezza quali dispositivi sono collegati.",
+    "secButton": "Vai al mio account"
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",
@@ -1591,5 +1611,45 @@
     "systemHint": "Segue il dispositivo",
     "toDark": "Modalità scura",
     "toLight": "Modalità chiara"
+  },
+  "legal": {
+    "toc": "Indice",
+    "contact": "Contatti",
+    "close": "Chiudi",
+    "updated": "Ultimo aggiornamento: {date}",
+    "noEmail": "l’indirizzo email sul nostro sito",
+    "kvk": "Registro imprese {n}",
+    "vat": "P. IVA {n}",
+    "privacy": {
+      "short": "Privacy",
+      "title": "Informativa sulla privacy"
+    },
+    "terms": {
+      "short": "Condizioni",
+      "title": "Condizioni generali"
+    },
+    "cookies": {
+      "short": "Cookie",
+      "title": "Cookie e archiviazione"
+    }
+  },
+  "notify": {
+    "title": "Notifiche",
+    "lead": "Scegli quali email ricevi da noi.",
+    "demo": "Nella demo online non vengono inviate email.",
+    "noMail": "Questo server non invia ancora email. Le tue scelte vengono salvate e funzioneranno quando il server di posta sarà configurato.",
+    "report": "Riepilogo scansioni",
+    "reportText": "Quante volte sono stati scansionati i tuoi codici, con i migliori.",
+    "next": "Prossimo: {date}",
+    "r_off": "Disattivato",
+    "r_weekly": "Settimanale",
+    "r_monthly": "Mensile",
+    "preview": "Vedi esempio",
+    "previewTitle": "Anteprima dell’email",
+    "subject": "Oggetto",
+    "security": "Avvisi di sicurezza",
+    "securityText": "Quando qualcuno accede da un nuovo dispositivo e quando cambia la password. Consigliato.",
+    "product": "Novità e consigli",
+    "productText": "Ogni tanto, sulle nuove funzioni. Mai pubblicità di terzi."
   }
 }

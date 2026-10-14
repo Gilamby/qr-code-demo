@@ -22,7 +22,7 @@ import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
-  Activity, ClientMeta, Customer, Folder, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, ClientMeta, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -38,7 +38,7 @@ const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : n
 function userOut(d: Doc): User {
   return d && { id: d._id, email: d.email, name: d.name, background: d.background, customBackground: d.customBackground || null, createdAt: d.createdAt,
     role: d.role || null, disabledAt: d.disabledAt || null, lastLoginAt: d.lastLoginAt || null,
-    avatar: d.avatar || null, timezone: d.timezone || null, verified: !!d.emailVerifiedAt, passwordChangedAt: d.passwordChangedAt || null, theme: d.theme || null };
+    avatar: d.avatar || null, timezone: d.timezone || null, verified: !!d.emailVerifiedAt, passwordChangedAt: d.passwordChangedAt || null, theme: d.theme || null, emailPrefs: parsePrefs(d.emailPrefs), lang: d.lang || null };
 }
 /** Adres zonder wachtwoord, voor in de logs */
 export function safeMongoLabel(url: string) { return String(url).replace(/\/\/[^@/]*@/, '//***@').replace(/\?.*$/, ''); }
@@ -111,7 +111,7 @@ export class MongoDatabase extends DatabaseService {
   async passwordHashOf(id: string): Promise<string> { return ((await this.users.findOne({ _id: id }, { projection: { passwordHash: 1 } })) || ({} as Doc)).passwordHash; }
   async updateUser(id: string, patch: UserPatch): Promise<User> {
     const set: Doc = {};
-    for (const k of ['name', 'background', 'customBackground', 'passwordHash', 'role', 'disabledAt', 'lastLoginAt', 'avatar', 'timezone', 'passwordChangedAt', 'theme'] as const) if (k in patch) set[k] = patch[k];
+    for (const k of ['name', 'background', 'customBackground', 'passwordHash', 'role', 'disabledAt', 'lastLoginAt', 'avatar', 'timezone', 'passwordChangedAt', 'theme', 'emailPrefs', 'lang'] as const) if (k in patch) set[k] = patch[k];
     if (patch.email !== undefined) { set.email = patch.email.trim(); set.emailLower = set.email.toLowerCase(); }
     if (!Object.keys(set).length) return this.getUser(id);
     set.updatedAt = now();

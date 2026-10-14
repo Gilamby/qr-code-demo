@@ -22,7 +22,8 @@
     "adminCodes": "Tous les QR codes",
     "users": "Utilisateurs",
     "overview": "Aperçu",
-    "adminSettings": "Paramètres"
+    "adminSettings": "Paramètres",
+    "legal": "Confidentialité et conditions"
   },
   "header": {
     "language": "Langue",
@@ -1213,7 +1214,26 @@
     "emailChangedSubject": "Votre adresse e-mail a été modifiée",
     "emailChangedHello": "Bonjour,",
     "emailChangedText": "L’adresse e-mail de votre compte Optimasys QR vient d’être changée en {email}. Vous vous connectez désormais avec celle-ci.",
-    "emailChangedIgnore": "Ce n’était pas vous ? Contactez immédiatement support@optimasys.es."
+    "emailChangedIgnore": "Ce n’était pas vous ? Contactez immédiatement support@optimasys.es.",
+    "reportSubjectWeek": "Vos scans : {period}",
+    "reportSubjectMonth": "Vos scans : {period}",
+    "reportHello": "Bonjour {name},",
+    "reportHelloPlain": "Bonjour,",
+    "reportLead": "Voici comment vos QR codes ont été scannés.",
+    "reportTotal": "Scans",
+    "reportUnique": "Scans uniques",
+    "reportUp": "{pct} % de plus que la période précédente",
+    "reportDown": "{pct} % de moins que la période précédente",
+    "reportTop": "Les plus scannés",
+    "reportNone": "Aucun scan sur cette période.",
+    "reportButton": "Voir les statistiques",
+    "reportFooter": "Vous recevez cet e-mail car vous avez activé le récapitulatif des scans. Vous pouvez le désactiver dans Mon compte > Notifications.",
+    "secLoginSubject": "Nouvelle connexion à votre compte",
+    "secLoginText": "Quelqu’un s’est connecté à votre compte depuis un nouvel appareil : {device} (IP {ip}) le {time}.",
+    "secPasswordSubject": "Votre mot de passe a été modifié",
+    "secPasswordText": "Le mot de passe de votre compte a été modifié le {time}.",
+    "secNotYou": "Ce n’était pas vous ? Changez tout de suite votre mot de passe et vérifiez dans Sécurité les appareils connectés.",
+    "secButton": "Aller à mon compte"
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -1591,5 +1611,45 @@
     "systemHint": "Suit votre appareil",
     "toDark": "Mode sombre",
     "toLight": "Mode clair"
+  },
+  "legal": {
+    "toc": "Sommaire",
+    "contact": "Contact",
+    "close": "Fermer",
+    "updated": "Dernière mise à jour : {date}",
+    "noEmail": "l’adresse e-mail sur notre site",
+    "kvk": "Registre du commerce {n}",
+    "vat": "TVA {n}",
+    "privacy": {
+      "short": "Confidentialité",
+      "title": "Politique de confidentialité"
+    },
+    "terms": {
+      "short": "Conditions",
+      "title": "Conditions générales"
+    },
+    "cookies": {
+      "short": "Cookies",
+      "title": "Cookies et stockage"
+    }
+  },
+  "notify": {
+    "title": "Notifications",
+    "lead": "Choisissez les e-mails que vous recevez de notre part.",
+    "demo": "Aucun e-mail n’est envoyé dans la démo en ligne.",
+    "noMail": "Ce serveur n’envoie pas encore d’e-mails. Vos choix sont enregistrés et fonctionneront dès que le serveur de messagerie sera configuré.",
+    "report": "Récapitulatif des scans",
+    "reportText": "Combien de fois vos codes ont été scannés, avec vos meilleurs codes.",
+    "next": "Prochain : {date}",
+    "r_off": "Désactivé",
+    "r_weekly": "Hebdomadaire",
+    "r_monthly": "Mensuel",
+    "preview": "Voir un exemple",
+    "previewTitle": "Aperçu de l’e-mail",
+    "subject": "Objet",
+    "security": "Alertes de sécurité",
+    "securityText": "Quand quelqu’un se connecte depuis un nouvel appareil et quand votre mot de passe change. Recommandé.",
+    "product": "Actualités et astuces",
+    "productText": "De temps en temps, sur les nouveautés. Jamais de publicité de tiers."
   }
 }

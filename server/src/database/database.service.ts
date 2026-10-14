@@ -45,13 +45,15 @@ export function removeFiles(ids: string[]) { ids.forEach((id) => { try { fs.unli
 export interface UserRow { id: string; email: string; name: string; password_hash: string; email_verified_at: string | null; created_at: string }
 export type NewQrCode = { id: string; typeId: string; contentType: string; content: Record<string, any>; design?: Record<string, any>; name?: string; createdAt?: string };
 export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean; favorite?: boolean };
-export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null; passwordChangedAt: string; theme: string | null }>;
+export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null; passwordChangedAt: string; theme: string | null; emailPrefs: string | null; lang: string | null }>;
 /** Waar je bent ingelogd (Mijn account > Beveiliging). id = deel van de hash, nooit de sessiecode zelf */
 export type SessionInfo = { id: string; createdAt: string; seenAt: string | null; ua: string | null; ip: string | null; current?: boolean };
 export type ClientMeta = { ua?: string; ip?: string };
 /** Recente activiteit: login, login_failed, password, email, sessions_ended, session_ended */
 export type Activity = { kind: string; at: string; ip: string | null; ua: string | null };
 export const SESSION_ID_LEN = 16;
+export const DEFAULT_EMAIL_PREFS = { report: 'off' as const, security: true, product: false };
+export function parsePrefs(v: unknown) { let o: any = {}; try { o = typeof v === 'string' ? JSON.parse(v) : v || {}; } catch (e) { o = {}; } return { ...DEFAULT_EMAIL_PREFS, ...o }; }
 /** Map in Mijn QR-codes */
 export type Folder = { id: string; name: string; color: string; createdAt: string };
 export const EMAIL_CHANGE_HOURS = 24;

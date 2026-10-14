@@ -22,7 +22,8 @@
     "adminCodes": "Wszystkie kody QR",
     "users": "Użytkownicy",
     "overview": "Przegląd",
-    "adminSettings": "Ustawienia"
+    "adminSettings": "Ustawienia",
+    "legal": "Prywatność i warunki"
   },
   "header": {
     "language": "Język",
@@ -1213,7 +1214,26 @@
     "emailChangedSubject": "Twój adres e-mail został zmieniony",
     "emailChangedHello": "Cześć,",
     "emailChangedText": "Adres e-mail Twojego konta Optimasys QR został właśnie zmieniony na {email}. Od teraz logujesz się nim.",
-    "emailChangedIgnore": "To nie Ty? Natychmiast skontaktuj się z support@optimasys.es."
+    "emailChangedIgnore": "To nie Ty? Natychmiast skontaktuj się z support@optimasys.es.",
+    "reportSubjectWeek": "Twoje skany: {period}",
+    "reportSubjectMonth": "Twoje skany: {period}",
+    "reportHello": "Cześć {name},",
+    "reportHelloPlain": "Cześć,",
+    "reportLead": "Tak skanowano Twoje kody QR.",
+    "reportTotal": "Skany",
+    "reportUnique": "Unikalne skany",
+    "reportUp": "O {pct}% więcej niż w poprzednim okresie",
+    "reportDown": "O {pct}% mniej niż w poprzednim okresie",
+    "reportTop": "Najczęściej skanowane",
+    "reportNone": "Brak skanów w tym okresie.",
+    "reportButton": "Zobacz statystyki",
+    "reportFooter": "Otrzymujesz ten e-mail, bo włączyłeś podsumowanie skanów. Możesz je wyłączyć w Moje konto > Powiadomienia.",
+    "secLoginSubject": "Nowe logowanie na Twoje konto",
+    "secLoginText": "Ktoś zalogował się na Twoje konto z nowego urządzenia: {device} (IP {ip}), {time}.",
+    "secPasswordSubject": "Hasło zostało zmienione",
+    "secPasswordText": "Hasło do Twojego konta zostało zmienione: {time}.",
+    "secNotYou": "To nie Ty? Od razu zmień hasło i sprawdź w Bezpieczeństwie, które urządzenia są zalogowane.",
+    "secButton": "Przejdź do konta"
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -1591,5 +1611,45 @@
     "systemHint": "Zgodnie z urządzeniem",
     "toDark": "Tryb ciemny",
     "toLight": "Tryb jasny"
+  },
+  "legal": {
+    "toc": "Spis treści",
+    "contact": "Kontakt",
+    "close": "Zamknij",
+    "updated": "Ostatnia aktualizacja: {date}",
+    "noEmail": "adres e-mail na naszej stronie",
+    "kvk": "KRS {n}",
+    "vat": "NIP {n}",
+    "privacy": {
+      "short": "Prywatność",
+      "title": "Polityka prywatności"
+    },
+    "terms": {
+      "short": "Warunki",
+      "title": "Regulamin"
+    },
+    "cookies": {
+      "short": "Cookies",
+      "title": "Cookies i pamięć"
+    }
+  },
+  "notify": {
+    "title": "Powiadomienia",
+    "lead": "Wybierz, jakie e-maile od nas dostajesz.",
+    "demo": "W wersji demo online e-maile nie są wysyłane.",
+    "noMail": "Ten serwer nie wysyła jeszcze e-maili. Twoje wybory są zapisane i zadziałają po skonfigurowaniu serwera poczty.",
+    "report": "Podsumowanie skanów",
+    "reportText": "Jak często skanowano Twoje kody, z najlepszymi kodami.",
+    "next": "Następne: {date}",
+    "r_off": "Wyłączone",
+    "r_weekly": "Co tydzień",
+    "r_monthly": "Co miesiąc",
+    "preview": "Zobacz przykład",
+    "previewTitle": "Podgląd e-maila",
+    "subject": "Temat",
+    "security": "Alerty bezpieczeństwa",
+    "securityText": "Gdy ktoś zaloguje się z nowego urządzenia i gdy zmieni się hasło. Zalecane.",
+    "product": "Nowości i porady",
+    "productText": "Od czasu do czasu, o nowych funkcjach. Nigdy reklam innych firm."
   }
 }

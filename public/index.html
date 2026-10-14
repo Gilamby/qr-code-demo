@@ -92,6 +92,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17v.01"/></svg>
         <span class="label" data-i18n="nav.faq"></span><span class="tip" data-i18n="nav.faq"></span>
       </a>
+      <a class="item" href="#" data-page="legal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12h6M9 15.5h4M9 8.5h6"/></svg>
+        <span class="label" data-i18n="nav.legal"></span><span class="tip" data-i18n="nav.legal"></span>
+      </a>
       <a class="item logout" href="#" data-page="logout">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M14 17l5-5-5-5M19 12H9"/></svg>
         <span class="label" data-i18n="nav.logout"></span><span class="tip" data-i18n="nav.logout"></span>
@@ -233,6 +237,10 @@
       <section class="ast" id="asBody"></section>
     </main>
 
+    <main class="canvas" id="legalView" hidden>
+      <section class="lg" id="legalBody"></section>
+    </main>
+
     <main class="canvas" id="emptyView" hidden>
       <div class="empty"><p data-i18n="empty.text"></p></div>
     </main>
@@ -277,7 +285,9 @@
 <script src="js/admin.js"></script>
 <script src="js/home.js"></script>
 <script src="js/admin-settings.js"></script>
+<script src="js/legal.js"></script>
 <script src="js/main.js"></script>
 <script src="js/hello.js"></script>
+<dialog class="lg-dialog" id="legalDialog"></dialog>
 </body>
 </html>

@@ -22,7 +22,8 @@
     "adminCodes": "Todos los códigos QR",
     "users": "Usuarios",
     "overview": "Resumen",
-    "adminSettings": "Ajustes"
+    "adminSettings": "Ajustes",
+    "legal": "Privacidad y condiciones"
   },
   "header": {
     "language": "Idioma",
@@ -1213,7 +1214,26 @@
     "emailChangedSubject": "Tu correo ha cambiado",
     "emailChangedHello": "Hola:",
     "emailChangedText": "El correo de tu cuenta de Optimasys QR acaba de cambiar a {email}. A partir de ahora inicias sesión con él.",
-    "emailChangedIgnore": "¿No has sido tú? Contacta enseguida con support@optimasys.es."
+    "emailChangedIgnore": "¿No has sido tú? Contacta enseguida con support@optimasys.es.",
+    "reportSubjectWeek": "Tus escaneos: {period}",
+    "reportSubjectMonth": "Tus escaneos: {period}",
+    "reportHello": "Hola, {name}:",
+    "reportHelloPlain": "Hola:",
+    "reportLead": "Así se han escaneado tus códigos QR.",
+    "reportTotal": "Escaneos",
+    "reportUnique": "Escaneos únicos",
+    "reportUp": "{pct} % más que el periodo anterior",
+    "reportDown": "{pct} % menos que el periodo anterior",
+    "reportTop": "Más escaneados",
+    "reportNone": "Sin escaneos en este periodo.",
+    "reportButton": "Ver estadísticas",
+    "reportFooter": "Recibes este correo porque activaste el resumen de escaneos. Puedes desactivarlo en Mi cuenta > Notificaciones.",
+    "secLoginSubject": "Nuevo inicio de sesión en tu cuenta",
+    "secLoginText": "Alguien inició sesión en tu cuenta desde un dispositivo nuevo: {device} (IP {ip}) el {time}.",
+    "secPasswordSubject": "Tu contraseña ha cambiado",
+    "secPasswordText": "La contraseña de tu cuenta se cambió el {time}.",
+    "secNotYou": "¿No has sido tú? Cambia tu contraseña enseguida y revisa en Seguridad qué dispositivos tienen la sesión iniciada.",
+    "secButton": "Ir a mi cuenta"
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",
@@ -1591,5 +1611,45 @@
     "systemHint": "Sigue a tu dispositivo",
     "toDark": "Modo oscuro",
     "toLight": "Modo claro"
+  },
+  "legal": {
+    "toc": "Contenido",
+    "contact": "Contacto",
+    "close": "Cerrar",
+    "updated": "Última actualización: {date}",
+    "noEmail": "el correo de nuestra web",
+    "kvk": "Registro mercantil {n}",
+    "vat": "IVA {n}",
+    "privacy": {
+      "short": "Privacidad",
+      "title": "Política de privacidad"
+    },
+    "terms": {
+      "short": "Condiciones",
+      "title": "Condiciones generales"
+    },
+    "cookies": {
+      "short": "Cookies",
+      "title": "Cookies y almacenamiento"
+    }
+  },
+  "notify": {
+    "title": "Notificaciones",
+    "lead": "Elige qué correos recibes de nosotros.",
+    "demo": "En la demo en línea no se envían correos.",
+    "noMail": "Este servidor aún no envía correos. Tus opciones se guardan y funcionarán cuando se configure el servidor de correo.",
+    "report": "Resumen de escaneos",
+    "reportText": "Cuántas veces se escanearon tus códigos, con tus mejores códigos.",
+    "next": "Siguiente: {date}",
+    "r_off": "Desactivado",
+    "r_weekly": "Semanal",
+    "r_monthly": "Mensual",
+    "preview": "Ver ejemplo",
+    "previewTitle": "Vista previa del correo",
+    "subject": "Asunto",
+    "security": "Alertas de seguridad",
+    "securityText": "Cuando alguien inicia sesión desde un dispositivo nuevo y cuando cambia tu contraseña. Recomendado.",
+    "product": "Novedades y consejos",
+    "productText": "De vez en cuando, sobre funciones nuevas. Nunca publicidad de terceros."
   }
 }

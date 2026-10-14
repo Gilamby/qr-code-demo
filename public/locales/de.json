@@ -22,7 +22,8 @@
     "adminCodes": "Alle QR-Codes",
     "users": "Benutzer",
     "overview": "Übersicht",
-    "adminSettings": "Einstellungen"
+    "adminSettings": "Einstellungen",
+    "legal": "Datenschutz und AGB"
   },
   "header": {
     "language": "Sprache",
@@ -1213,7 +1214,26 @@
     "emailChangedSubject": "Deine E-Mail-Adresse wurde geändert",
     "emailChangedHello": "Hallo,",
     "emailChangedText": "Die E-Mail-Adresse deines Optimasys-QR-Kontos wurde gerade auf {email} geändert. Ab jetzt meldest du dich damit an.",
-    "emailChangedIgnore": "Warst du das nicht? Melde dich sofort bei support@optimasys.es."
+    "emailChangedIgnore": "Warst du das nicht? Melde dich sofort bei support@optimasys.es.",
+    "reportSubjectWeek": "Deine Scans: {period}",
+    "reportSubjectMonth": "Deine Scans: {period}",
+    "reportHello": "Hallo {name},",
+    "reportHelloPlain": "Hallo,",
+    "reportLead": "So oft wurden deine QR-Codes gescannt.",
+    "reportTotal": "Scans",
+    "reportUnique": "Eindeutige Scans",
+    "reportUp": "{pct}% mehr als im Zeitraum davor",
+    "reportDown": "{pct}% weniger als im Zeitraum davor",
+    "reportTop": "Am meisten gescannt",
+    "reportNone": "Keine Scans in diesem Zeitraum.",
+    "reportButton": "Statistiken ansehen",
+    "reportFooter": "Du bekommst diese E-Mail, weil du die Scan-Übersicht aktiviert hast. Abschalten kannst du sie unter Mein Konto > Benachrichtigungen.",
+    "secLoginSubject": "Neue Anmeldung bei deinem Konto",
+    "secLoginText": "Jemand hat sich auf einem neuen Gerät angemeldet: {device} (IP {ip}) am {time}.",
+    "secPasswordSubject": "Dein Passwort wurde geändert",
+    "secPasswordText": "Das Passwort deines Kontos wurde am {time} geändert.",
+    "secNotYou": "Warst du das nicht? Ändere sofort dein Passwort und prüfe unter Sicherheit, welche Geräte angemeldet sind.",
+    "secButton": "Zu meinem Konto"
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -1591,5 +1611,45 @@
     "systemHint": "Folgt deinem Gerät",
     "toDark": "Dunkle Darstellung",
     "toLight": "Helle Darstellung"
+  },
+  "legal": {
+    "toc": "Inhalt",
+    "contact": "Kontakt",
+    "close": "Schließen",
+    "updated": "Zuletzt aktualisiert: {date}",
+    "noEmail": "die E-Mail-Adresse auf unserer Website",
+    "kvk": "Handelsregister {n}",
+    "vat": "USt-IdNr. {n}",
+    "privacy": {
+      "short": "Datenschutz",
+      "title": "Datenschutzerklärung"
+    },
+    "terms": {
+      "short": "AGB",
+      "title": "Allgemeine Geschäftsbedingungen"
+    },
+    "cookies": {
+      "short": "Cookies",
+      "title": "Cookies und Speicher"
+    }
+  },
+  "notify": {
+    "title": "Benachrichtigungen",
+    "lead": "Wähle, welche E-Mails du von uns bekommst.",
+    "demo": "In der Online-Demo werden keine E-Mails verschickt.",
+    "noMail": "Dieser Server verschickt noch keine E-Mails. Deine Auswahl wird gespeichert und funktioniert, sobald der Mailserver eingerichtet ist.",
+    "report": "Scan-Übersicht",
+    "reportText": "Wie oft deine Codes gescannt wurden, mit deinen Top-Codes.",
+    "next": "Nächste: {date}",
+    "r_off": "Aus",
+    "r_weekly": "Wöchentlich",
+    "r_monthly": "Monatlich",
+    "preview": "Beispiel ansehen",
+    "previewTitle": "Vorschau der E-Mail",
+    "subject": "Betreff",
+    "security": "Sicherheitsmeldungen",
+    "securityText": "Bei Anmeldung auf einem neuen Gerät und wenn sich dein Passwort ändert. Empfohlen.",
+    "product": "Neuigkeiten und Tipps",
+    "productText": "Ab und zu, über neue Funktionen. Nie Werbung von anderen."
   }
 }
