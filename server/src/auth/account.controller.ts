@@ -170,14 +170,15 @@ export class AccountController {
   /* Instellingen van de gebruiker (achtergrond) */
   @Get('me')
   settings(@CurrentUser() user: User) {
-    return { name: user.name, background: user.background, customBackground: user.customBackground };
+    return { name: user.name, background: user.background, customBackground: user.customBackground, media: user.media || [] };
   }
 
   @Patch('me')
   async updateSettings(@CurrentUser() user: User, @Body() b: any = {}) {
     const { errors, value } = validateMe(b || {});
     if (errors.length) throw fail(400, 'Invalid profile update', { details: errors });
+    if (value.background && value.background.startsWith('media:') && !(user.media || []).some((m) => 'media:' + m.id === value.background)) throw fail(400, 'Invalid profile update', { details: ['background: unknown'] });
     const u = await this.db.updateUser(user.id, value);
-    return { name: u.name, background: u.background, customBackground: u.customBackground };
+    return { name: u.name, background: u.background, customBackground: u.customBackground, media: u.media || [] };
   }
 }

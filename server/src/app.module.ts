@@ -8,6 +8,7 @@
    VisitorModule   korte links /q/:id: regels, scan tellen, echte pagina
    ========================================================= */
 import { UploadsController } from './qr-codes/uploads.controller';
+import { MediaController } from './qr-codes/media.controller';
 import { Module } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { DatabaseModule } from './database/database.module';
@@ -24,7 +25,7 @@ import { ShortLinksController } from './visitor/short-links.controller';
 import { HousekeepingService } from './housekeeping.service';
 import { ErrorFilter } from './common/http';
 
-@Module({ controllers: [QrCodesController, UploadsController, AdminPanelController, FoldersController], providers: [QrCodesService], imports: [AuthModule] })
+@Module({ controllers: [QrCodesController, UploadsController, MediaController, AdminPanelController, FoldersController], providers: [QrCodesService], imports: [AuthModule] })
 export class QrCodesModule {}
 
 @Module({ controllers: [AnalyticsController], imports: [AuthModule] })

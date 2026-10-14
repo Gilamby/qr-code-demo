@@ -334,3 +334,27 @@ test('beheer > alle QR-codes: rechten, pauzeren met reden, markeren, bewerken, b
   assert.equal((await fetch(base + '/q/' + dup.id, { redirect: 'manual' })).status, 410, 'verwijderd = weg');
   assert.notEqual((await k('POST', '/api/qr-codes', { id: dup.id, typeId: 'website', content: { url: 'https://x.example' }, design: {} })).json.id, dup.id, 'oud id wordt niet opnieuw uitgegeven');
 });
+
+test('eigen achtergronden: foto/video uploaden, kiezen, alleen voor jezelf, verwijderen', async () => {
+  const u = client(); await signup(u, 'media-u@example.com', 'Media geheime zin 1!', 'Media U');
+  const o = client(); await signup(o, 'media-o@example.com', 'Media geheime zin 2!', 'Media O');
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64');
+  const cookieOf = async (email, password) => (await fetch(base + '/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })).headers.get('set-cookie').split(';')[0];
+  const ck = await cookieOf('media-u@example.com', 'Media geheime zin 1!');
+  const up = (body, type) => fetch(base + '/api/account/media?name=zee', { method: 'POST', headers: { cookie: ck, 'Content-Type': type }, body });
+  assert.equal((await up(Buffer.from('geen foto'), 'image/png')).status, 415, 'inhoud moet echt een foto zijn');
+  assert.equal((await up(Buffer.from('x'), 'text/plain')).status, 415);
+  const a = await (await up(png, 'image/png')).json(), b = await (await up(png, 'image/png')).json();
+  assert.notEqual(a.id, b.id, 'tweede upload overschrijft de eerste niet');
+  const me = (await u('GET', '/api/me')).json;
+  assert.equal(me.media.length, 2); assert.equal(me.background, 'optimasys', 'uploaden zet hem niet meteen aan');
+  assert.equal((await u('PATCH', '/api/me', { background: 'media:' + a.id })).json.background, 'media:' + a.id);
+  assert.equal((await o('PATCH', '/api/me', { background: 'media:' + a.id })).status, 400, 'andermans foto kiezen kan niet');
+  assert.equal((await o('GET', '/api/account/media/' + a.id)).status, 404, 'andermans foto bekijken kan niet');
+  assert.equal((await u('GET', '/api/account/media/' + a.id)).status, 200);
+  assert.equal((await u('PATCH', '/api/me', { background: 'waves' })).json.background, 'waves', 'bewegende achtergrond');
+  await u('PATCH', '/api/me', { background: 'media:' + a.id });
+  assert.equal((await u('DELETE', '/api/account/media/' + a.id)).status, 204);
+  const after = (await u('GET', '/api/me')).json;
+  assert.equal(after.background, 'optimasys', 'actieve achtergrond weg: terug naar de standaard'); assert.equal(after.media.length, 1);
+});

@@ -339,6 +339,21 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 0; background: li
 .bg-opt.upload .thumb svg { width: 26px; height: 26px; }
 .bg-opt input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .bg-error { margin: 14px 0 0; color: var(--warn); font-size: 13.5px; }
+/* Bewegende achtergrond (canvas) en eigen video: achter de app, boven de stilstaande achtergrond */
+.wp-anim, .wp-video { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; display: block; }
+.wp-video { object-fit: cover; filter: brightness(.85); }
+.wp-anim[hidden], .wp-video[hidden] { display: none; }
+.bg-opt-wrap { position: relative; min-width: 0; }
+.bg-opt-wrap .bg-opt { width: 100%; }
+.bg-opt .thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bg-badge { position: absolute; left: 8px; bottom: 8px; z-index: 1; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px 3px 6px; border-radius: 999px; background: rgba(5,7,10,.6); color: #fff; font-style: normal; font-size: 11.5px; font-weight: 700; backdrop-filter: blur(6px); }
+.bg-badge svg { width: 11px; height: 11px; }
+.bg-del { position: absolute; top: 8px; left: 8px; z-index: 2; width: 26px; height: 26px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(5,7,10,.65); color: #fff; cursor: pointer; opacity: 0; transition: opacity .15s, background .15s; }
+.bg-del svg { width: 13px; height: 13px; }
+.bg-opt-wrap:hover .bg-del, .bg-del:focus-visible { opacity: 1; }
+.bg-del:hover { background: #dc2626; }
+@media (hover: none) { .bg-del { opacity: 1; } }
+.bg-opt.upload.busy .thumb { animation: adShine 1.4s infinite; opacity: .7; }
 
 /* ---------- Eén layout voor elk scherm ----------
    Zijbalk vast links, kopbalk plakt bovenaan. Alleen het midden (telefoon + paneel) wordt

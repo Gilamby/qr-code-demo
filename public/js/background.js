@@ -33,23 +33,45 @@ var BACKGROUNDS = [
     light: 'radial-gradient(55% 60% at 18% 12%, rgba(43,181,240,.22), transparent 70%), radial-gradient(55% 60% at 85% 90%, rgba(37,99,235,.14), transparent 70%), linear-gradient(160deg, #f7fbfe, #e8eef6)' },
   { id: 'aurora',     label: 'bg.aurora',     css: 'radial-gradient(60% 55% at 20% 20%, rgba(0,220,170,.55), transparent 70%), radial-gradient(60% 60% at 82% 28%, rgba(130,80,255,.55), transparent 70%), radial-gradient(55% 55% at 50% 100%, rgba(43,181,240,.45), transparent 70%), #060a12',
     light: 'radial-gradient(60% 55% at 20% 20%, rgba(0,220,170,.22), transparent 70%), radial-gradient(60% 60% at 82% 28%, rgba(130,80,255,.2), transparent 70%), radial-gradient(55% 55% at 50% 100%, rgba(43,181,240,.2), transparent 70%), #f5f7fb' },
-  { id: 'city',       label: 'bg.city',       image: 'assets/qr-types/links.jpg' },
-  { id: 'mountains',  label: 'bg.mountains',  image: 'assets/qr-types/images.jpg' },
-  { id: 'office',     label: 'bg.office',     image: 'assets/qr-types/business.jpg' },
-  { id: 'cafe',       label: 'bg.cafe',       image: 'assets/qr-types/wifi.jpg' },
-  { id: 'restaurant', label: 'bg.restaurant', image: 'assets/qr-types/menu.jpg' }
+  // Bewegend (wallpaper-anim.js). css = stilstaand beeld als er geen animatie kan (of tijdens het laden)
+  { id: 'orbit',   label: 'bg.orbit',   anim: 'orbit',   css: 'radial-gradient(60% 60% at 30% 30%, rgba(150,164,255,.18), transparent 70%), #090b12' },
+  { id: 'network', label: 'bg.network', anim: 'network', css: 'radial-gradient(60% 60% at 70% 30%, rgba(43,181,240,.16), transparent 70%), #090b12' },
+  { id: 'flow',    label: 'bg.flow',    anim: 'flow',    css: 'radial-gradient(70% 60% at 20% 80%, rgba(185,202,255,.16), transparent 70%), #090b12' },
+  { id: 'waves',   label: 'bg.waves',   anim: 'waves',   css: 'radial-gradient(80% 50% at 50% 70%, rgba(43,181,240,.22), transparent 70%), #090b12' },
+  { id: 'mist',    label: 'bg.mist',    anim: 'mist',    css: 'radial-gradient(60% 60% at 30% 40%, rgba(21,118,201,.28), transparent 70%), radial-gradient(50% 50% at 75% 70%, rgba(150,164,255,.2), transparent 70%), #090b12' }
 ];
 var background = (function () {
   var KEY = 'optimasys-background', KEY_CUSTOM = 'optimasys-background-custom', root = document.documentElement, listeners = [];
   var current = 'optimasys', custom = null;
   try { current = localStorage.getItem(KEY) || current; custom = localStorage.getItem(KEY_CUSTOM); } catch (e) {}
+  // Oude achtergronden (foto's) zijn vervangen door animaties
+  var LEGACY = { city: 'orbit', mountains: 'mist', office: 'network', cafe: 'waves', restaurant: 'flow' };
+  var media = [], video = null;
+  function mediaOf(id) { return /^media:/.test(id) ? media.filter(function (m) { return 'media:' + m.id === id; })[0] : null; }
+  function mediaUrl(m) { return 'api/account/media/' + encodeURIComponent(m.id); }
   function cssFor(id) {
+    id = LEGACY[id] || id;
     if (id === 'custom' && custom) return { bg: 'url("' + custom + '")', filter: 'blur(4px) brightness(.9)' };
+    var m = mediaOf(id);
+    if (m) return m.kind === 'image' ? { bg: 'url("' + new URL(mediaUrl(m), document.baseURI).href + '")', filter: 'blur(4px) brightness(.9)' } : { bg: 'none', filter: 'none', video: mediaUrl(m) };
     var b = BACKGROUNDS.filter(function (x) { return x.id === id; })[0] || BACKGROUNDS[0];
     var light = theme.resolved() === 'light';
     return b.image ? { bg: 'url("' + new URL(b.image, document.baseURI).href + '")', filter: light ? 'blur(6px) brightness(1.08) saturate(1.05)' : 'blur(5px) brightness(.95) saturate(1.15)' } : { bg: light && b.light ? b.light : b.css, filter: 'none' };
   }
-  function apply() { var c = cssFor(current); root.style.setProperty('--wallpaper', c.bg); root.style.setProperty('--wp-filter', c.filter); listeners.forEach(function (f) { f(current); }); }
+  function apply() {
+    var id = LEGACY[current] || current, c = cssFor(id), b = BACKGROUNDS.filter(function (x) { return x.id === id; })[0];
+    root.style.setProperty('--wallpaper', c.bg); root.style.setProperty('--wp-filter', c.filter);
+    if (window.WallAnim) WallAnim.show(b && b.anim ? b.anim : null);
+    // Eigen video: één <video> achter de app, zonder geluid, in een lus. Kan hij niet laden: de standaard-achtergrond blijft zichtbaar.
+    if (c.video) {
+      if (!video) { video = document.createElement('video'); video.className = 'wp-video'; video.muted = true; video.loop = true; video.autoplay = true; video.playsInline = true; video.setAttribute('aria-hidden', 'true'); document.body.insertBefore(video, document.body.firstChild);
+        video.addEventListener('error', function () { video.hidden = true; root.style.setProperty('--wallpaper', BACKGROUNDS[0].css); }); }
+      if (video.getAttribute('src') !== c.video) video.src = c.video;
+      video.hidden = false; var pl = video.play(); if (pl && pl.catch) pl.catch(function () {});
+    } else if (video) { video.pause(); video.removeAttribute('src'); video.load(); video.hidden = true; }
+    listeners.forEach(function (f) { f(current); });
+  }
+  document.addEventListener('visibilitychange', function () { if (video && !video.hidden) { if (document.hidden) video.pause(); else video.play().catch(function () {}); } });
   function save(patch) { api.available().then(function (on) { if (on) api.updateMe(patch).catch(function () {}); }); }   // profiel op de server
   function set(id) { current = id; try { localStorage.setItem(KEY, id); } catch (e) {} apply(); save({ background: id }); }
   function setCustom(dataUrl) { custom = dataUrl; try { localStorage.setItem(KEY_CUSTOM, dataUrl); } catch (e) {} current = 'custom'; try { localStorage.setItem(KEY, 'custom'); } catch (e) {} apply(); save({ background: 'custom', customBackground: dataUrl }); }
@@ -58,11 +80,15 @@ var background = (function () {
     if (!on) return;
     api.getMe().then(function (me) {
       if (me.customBackground) { custom = me.customBackground; try { localStorage.setItem(KEY_CUSTOM, custom); } catch (e) {} }
+      media = me.media || [];
       if (me.background && me.background !== current) { current = me.background; try { localStorage.setItem(KEY, current); } catch (e) {} }
       apply();
     }).catch(function () {});
   });
   apply();
   theme.onChange(function () { apply(); });                          // licht thema: lichte versie van de achtergrond
-  return { get: function () { return current; }, custom: function () { return custom; }, set: set, setCustom: setCustom, cssFor: cssFor, onChange: function (f) { listeners.push(f); } };
+  // Na inloggen/uitloggen: de lijst met eigen foto's/video's opnieuw ophalen
+  function reload() { return api.getMe().then(function (me) { media = me.media || []; if (me.background) { current = me.background; try { localStorage.setItem(KEY, current); } catch (e) {} } apply(); }).catch(function () {}); }
+  return { get: function () { return LEGACY[current] || current; }, custom: function () { return custom; }, set: set, setCustom: setCustom, cssFor: cssFor, onChange: function (f) { listeners.push(f); },
+    media: function () { return media; }, setMedia: function (list) { media = list || []; apply(); }, mediaUrl: mediaUrl, reload: reload };
 })();

@@ -84,7 +84,7 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   await pool.query(SCHEMA);
   await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified_at TEXT');
   await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS billing TEXT');
-  for (const col of ['role', 'disabled_at', 'last_login_at', 'avatar', 'timezone', 'password_changed_at', 'theme', 'email_prefs', 'lang']) await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS ' + col + ' TEXT');
+  for (const col of ['role', 'disabled_at', 'last_login_at', 'avatar', 'timezone', 'password_changed_at', 'theme', 'email_prefs', 'lang', 'media']) await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS ' + col + ' TEXT');
   await pool.query('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at TEXT)');
   // 13 okt 2026: apparaten (browser, IP, laatst actief), recente activiteit en e-mail wijzigen
   for (const col of ['ua', 'ip', 'seen_at']) await pool.query('ALTER TABLE sessions ADD COLUMN IF NOT EXISTS ' + col + ' TEXT');

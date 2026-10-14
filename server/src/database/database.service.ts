@@ -55,7 +55,7 @@ export type AdminLogEntry = { id?: string; at?: string; adminId: string; adminNa
 export type CodeTotals = Record<string, { uniq: number; days: Record<string, [number, number]> }>;
 /** Hoe lang het beheerlog bewaard blijft */
 export const ADMIN_LOG_DAYS = 365;
-export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null; passwordChangedAt: string; theme: string | null; emailPrefs: string | null; lang: string | null }>;
+export type UserPatch = Partial<{ name: string; background: string; customBackground: string | null; passwordHash: string; email: string; role: string | null; disabledAt: string | null; lastLoginAt: string; avatar: string | null; timezone: string | null; passwordChangedAt: string; theme: string | null; emailPrefs: string | null; lang: string | null; media: string | null }>;
 /** Waar je bent ingelogd (Mijn account > Beveiliging). id = deel van de hash, nooit de sessiecode zelf */
 export type SessionInfo = { id: string; createdAt: string; seenAt: string | null; ua: string | null; ip: string | null; current?: boolean };
 export type ClientMeta = { ua?: string; ip?: string };
@@ -63,6 +63,7 @@ export type ClientMeta = { ua?: string; ip?: string };
 export type Activity = { kind: string; at: string; ip: string | null; ua: string | null };
 export const SESSION_ID_LEN = 16;
 export const DEFAULT_EMAIL_PREFS = { report: 'off' as const, security: true, product: false };
+export function parseMedia(v: unknown) { try { const a = typeof v === 'string' ? JSON.parse(v) : v; return Array.isArray(a) ? a : []; } catch (e) { return []; } }
 export function parsePrefs(v: unknown) { let o: any = {}; try { o = typeof v === 'string' ? JSON.parse(v) : v || {}; } catch (e) { o = {}; } return { ...DEFAULT_EMAIL_PREFS, ...o }; }
 /** Map in Mijn QR-codes */
 export type Folder = { id: string; name: string; color: string; createdAt: string };

@@ -8,7 +8,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
-  Activity, AdminLogEntry, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
   hash, newId, now, openContent, removeFiles, sealContent, since30,
 } from './database.service';
 
@@ -23,7 +23,7 @@ function codeOut(r: any): QrCode {
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
     role: r.role || null, disabledAt: r.disabled_at || null, lastLoginAt: r.last_login_at || null,
-    avatar: r.avatar || null, timezone: r.timezone || null, verified: !!r.email_verified_at, passwordChangedAt: r.password_changed_at || null, theme: r.theme || null, emailPrefs: parsePrefs(r.email_prefs), lang: r.lang || null };
+    avatar: r.avatar || null, timezone: r.timezone || null, verified: !!r.email_verified_at, passwordChangedAt: r.password_changed_at || null, theme: r.theme || null, emailPrefs: parsePrefs(r.email_prefs), lang: r.lang || null, media: parseMedia(r.media) };
 }
 
 const SQL = {
@@ -54,7 +54,7 @@ export class SqlDatabase extends DatabaseService {
   async getUser(id: string): Promise<User> { return userOut(await this.d.get(SQL.userById, [id])); }
   async passwordHashOf(id: string): Promise<string> { return ((await this.d.get(SQL.userById, [id])) || ({} as any)).password_hash; }
   async updateUser(id: string, patch: UserPatch): Promise<User> {
-    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email', role: 'role', disabledAt: 'disabled_at', lastLoginAt: 'last_login_at', avatar: 'avatar', timezone: 'timezone', passwordChangedAt: 'password_changed_at', theme: 'theme', emailPrefs: 'email_prefs', lang: 'lang' };
+    const cols = { name: 'name', background: 'background', customBackground: 'custom_background', passwordHash: 'password_hash', email: 'email', role: 'role', disabledAt: 'disabled_at', lastLoginAt: 'last_login_at', avatar: 'avatar', timezone: 'timezone', passwordChangedAt: 'password_changed_at', theme: 'theme', emailPrefs: 'email_prefs', lang: 'lang', media: 'media' };
     const keys = Object.keys(patch).filter((k) => cols[k]); if (!keys.length) return this.getUser(id);
     await this.d.run('UPDATE users SET ' + keys.map((k) => cols[k] + ' = ?').join(', ') + ', updated_at = ? WHERE id = ?', [...keys.map((k) => patch[k]), now(), id]);
     return this.getUser(id);
@@ -62,7 +62,9 @@ export class SqlDatabase extends DatabaseService {
   async deleteUser(id: string) {
     const files = (await this.d.all('SELECT id FROM files WHERE user_id = ?', [id])).map((r) => r.id);
     const codes = (await this.d.all('SELECT id FROM qr_codes WHERE user_id = ?', [id])).map((r) => r.id);
+    const media = parseMedia(((await this.d.get('SELECT media FROM users WHERE id = ?', [id])) || ({} as any)).media).map((m: any) => m.id);
     await this.d.run('DELETE FROM users WHERE id = ?', [id]);
+    removeFiles(media);                                               // eigen achtergronden (foto's/video's)
     await this.markGone(codes);       // de rest gaat mee (ON DELETE CASCADE)
     removeFiles(files);
   }

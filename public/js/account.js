@@ -1,37 +1,115 @@
 /* ---------- Achtergrondknop: naar Mijn account ---------- */
 document.getElementById('bgBtn').addEventListener('click', function () { window.goToPage('account'); if (window.openAccountTab) window.openAccountTab('background'); });
 
-/* ---------- Mijn account: achtergrond kiezen ---------- */
+/* ---------- Mijn account: achtergrond kiezen ----------
+   - Optimasys en Aurora: vast (kunnen niet weg)
+   - Vijf bewegende achtergronden (wallpaper-anim.js); het kaartje toont een stilstaand beeld + "Bewegend"
+   - Eigen foto's en video's: zoveel als je wilt (max 12), elke upload is een eigen kaartje.
+     Uploaden zet hem niet meteen aan: je kiest zelf. Weghalen vraagt eerst bevestiging;
+     was het de actieve achtergrond, dan gaat hij terug naar Optimasys.
+   - Video's in de kaartjes spelen niet allemaal tegelijk: alleen het eerste beeld (en afspelen als je erop wijst). */
 (function () {
   var grid = document.getElementById('bgGrid'), err = document.getElementById('bgError');
-  var TICK = '<span class="tick">' + CHECK + '</span>';
-  function render() {
+  var TICK = '<span class="tick">' + CHECK + '</span>', shots = {}, busy = 0;
+  var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>';
+  var X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  function shot(b) {                                            // stilstaand voorbeeld van een animatie (één keer per thema)
+    var key = b.anim + (theme.resolved() === 'light' ? ':l' : ':d');
+    if (!(key in shots)) shots[key] = window.WallAnim ? WallAnim.snapshot(b.anim, 320, 200) : '';
+    return shots[key] ? 'background-image:url(' + shots[key] + ')' : 'background:' + b.css;
+  }
+  function card(id, thumb, label, extra) {
     var cur = background.get();
+    return '<div class="bg-opt-wrap"><button type="button" class="bg-opt" role="radio" data-bg="' + esc(id) + '" aria-checked="' + (cur === id) + '"><span class="thumb" style="' + thumb + '">' + (extra || '') + TICK + '</span><span class="name">' + label + '</span></button>' +
+      (/^media:/.test(id) ? '<button type="button" class="bg-del" data-del="' + esc(id.slice(6)) + '" aria-label="' + esc(t('bg.delete')) + '" title="' + esc(t('bg.delete')) + '">' + X + '</button>' : '') + '</div>';
+  }
+  function render() {
     var opts = BACKGROUNDS.map(function (b) {
-      var thumb = b.image ? 'background-image:url(' + b.image + ')' : 'background:' + b.css;
-      return '<button type="button" class="bg-opt" role="radio" data-bg="' + b.id + '" aria-checked="' + (cur === b.id) + '"><span class="thumb" style="' + thumb + '">' + TICK + '</span><span class="name">' + t(b.label) + '</span></button>';
+      return b.anim ? card(b.id, shot(b), t(b.label), '<i class="bg-badge">' + PLAY + t('bg.animated') + '</i>')
+        : card(b.id, b.image ? 'background-image:url(' + b.image + ')' : 'background:' + b.css, t(b.label));
     });
-    if (background.custom()) opts.push('<button type="button" class="bg-opt" role="radio" data-bg="custom" aria-checked="' + (cur === 'custom') + '"><span class="thumb" style="background-image:url(' + background.custom() + ')">' + TICK + '</span><span class="name">' + t('bg.custom') + '</span></button>');
-    opts.push('<label class="bg-opt upload"><span class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><span class="name">' + t('bg.upload') + '</span><input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp"></label>');
+    if (background.custom()) opts.push(card('custom', 'background-image:url(' + background.custom() + ')', t('bg.custom')));
+    background.media().forEach(function (m) {
+      var url = background.mediaUrl(m);
+      opts.push(m.kind === 'image' ? card('media:' + m.id, 'background-image:url(' + url + ')', esc(m.name))
+        : card('media:' + m.id, '', esc(m.name), '<video src="' + url + '#t=0.5" muted loop playsinline preload="metadata"></video><i class="bg-badge">' + PLAY + t('bg.video') + '</i>'));
+    });
+    opts.push('<label class="bg-opt upload' + (busy ? ' busy' : '') + '"><span class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><span class="name">' + (busy ? t('bg.uploading') : t('bg.upload')) + '</span>' +
+      '<input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple' + (busy ? ' disabled' : '') + '></label>');
     grid.innerHTML = opts.join('');
   }
-  grid.addEventListener('click', function (e) { var b = e.target.closest('[data-bg]'); if (b) background.set(b.getAttribute('data-bg')); });
-  grid.addEventListener('change', function (e) {
-    var file = e.target.files && e.target.files[0]; if (!file) return;
-    err.hidden = true;
-    var reader = new FileReader();
-    reader.onload = function () {
-      var img = new Image();
-      img.onload = function () {   // verkleinen zodat het snel laadt en in de opslag past
-        var scale = Math.min(1, 1600 / Math.max(img.width, img.height)), c = document.createElement('canvas');
-        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
-        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        background.setCustom(c.toDataURL('image/jpeg', .82));
-      };
-      img.onerror = function () { err.textContent = t('bg.uploadError'); err.hidden = false; };
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
+  function showErr(key, vars) { err.textContent = t(key, vars); err.hidden = false; }
+  grid.addEventListener('click', function (e) {
+    var d = e.target.closest('[data-del]'); if (d) return askDelete(d.getAttribute('data-del'));
+    var b = e.target.closest('[data-bg]'); if (b) background.set(b.getAttribute('data-bg'));
   });
-  background.onChange(render); i18n.onChange(render); render();
+  // Video's in de kaartjes: alleen afspelen als je erop wijst
+  grid.addEventListener('mouseover', function (e) { var v = e.target.closest('.bg-opt') && e.target.closest('.bg-opt').querySelector('video'); if (v && v.paused) v.play().catch(function () {}); });
+  grid.addEventListener('mouseout', function (e) { var o = e.target.closest('.bg-opt'); if (o && !o.contains(e.relatedTarget)) { var v = o.querySelector('video'); if (v) v.pause(); } });
+
+  function askDelete(id) {
+    var m = background.media().filter(function (x) { return x.id === id; })[0]; if (!m) return;
+    var dlg = document.getElementById('mcDialog');
+    dlg.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic"><svg class="mc-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></span>' +
+      '<h3>' + t('bg.delTitle', { name: esc(m.name) }) + '</h3><p>' + t(background.get() === 'media:' + id ? 'bg.delActive' : 'bg.delText') + '</p>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="bgDelGo">' + t('bg.delete') + '</button></div></form>';
+    dlg.querySelector('#bgDelGo').addEventListener('click', function (ev) {
+      ev.preventDefault();
+      fetch('api/account/media/' + encodeURIComponent(id), { method: 'DELETE' }).then(function (r) {
+        dlg.close(); if (!r.ok && r.status !== 404) return showErr('bg.uploadError');
+        var wasActive = background.get() === 'media:' + id;
+        background.setMedia(background.media().filter(function (x) { return x.id !== id; }));
+        if (wasActive) background.set('optimasys');
+      }).catch(function () { dlg.close(); showErr('bg.uploadError'); });
+    });
+    dlg.showModal();
+  }
+
+  // Foto verkleinen in de browser (max 2400 px, JPEG): sneller laden, minder opslag
+  function shrink(file) {
+    return new Promise(function (ok, bad) {
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        var s = Math.min(1, 2400 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width * s); c.height = Math.round(img.height * s); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url); c.toBlob(function (b) { b ? ok(b) : bad(new Error('img')); }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); bad(new Error('img')); };
+      img.src = url;
+    });
+  }
+  function videoOk(file) {                                     // max. 60 seconden
+    return new Promise(function (ok) {
+      var v = document.createElement('video'), url = URL.createObjectURL(file); v.preload = 'metadata';
+      v.onloadedmetadata = function () { URL.revokeObjectURL(url); ok(!(v.duration > 61)); };
+      v.onerror = function () { URL.revokeObjectURL(url); ok(true); };   // kan de browser hem niet lezen: de server controleert het type
+      v.src = url;
+    });
+  }
+  function uploadOne(file) {
+    var isVideo = /^video\//.test(file.type);
+    if (!/^(image\/(jpeg|png|webp)|video\/(mp4|webm))$/.test(file.type)) return Promise.reject({ key: 'bg.typeError' });
+    if (isVideo && file.size > 50 * 1048576) return Promise.reject({ key: 'bg.tooBig', vars: { mb: 50 } });
+    var body = isVideo ? videoOk(file).then(function (ok) { if (!ok) throw { key: 'bg.tooLong' }; return file; }) : shrink(file);
+    return body.then(function (blob) {
+      return fetch('api/account/media?name=' + encodeURIComponent(file.name.replace(/\.[^.]+$/, '').slice(0, 60)), { method: 'POST', headers: { 'Content-Type': isVideo ? file.type : 'image/jpeg' }, body: blob });
+    }).then(function (r) {
+      if (r.status === 409) throw { key: 'bg.full' };
+      if (r.status === 413) throw { key: 'bg.tooBig', vars: { mb: isVideo ? 50 : 8 } };
+      if (r.status === 415) throw { key: 'bg.typeError' };
+      if (!r.ok) throw { key: 'bg.uploadError' };
+      return r.json();
+    });
+  }
+  grid.addEventListener('change', function (e) {
+    var files = Array.prototype.slice.call((e.target.files || [])); if (!files.length) return;
+    err.hidden = true; busy++; render();
+    // Na elkaar uploaden (niet tegelijk), elke upload komt erbij
+    files.reduce(function (p, f) {
+      return p.then(function () { return uploadOne(f).then(function (item) { background.setMedia([item].concat(background.media())); }); });
+    }, Promise.resolve()).catch(function (x) { showErr((x && x.key) || 'bg.uploadError', x && x.vars); })
+      .then(function () { busy--; render(); });
+  });
+  background.onChange(render); i18n.onChange(render); theme.onChange(render); render();
+  setTimeout(function () { if (window.Session) Session.onUser(function (u) { if (u) background.reload(); }); }, 0);   // session.js laadt na dit bestand
 })();

@@ -21,6 +21,8 @@ export interface User {
   theme?: string | null;
   /** E-mailvoorkeuren: scanoverzicht (off/weekly/monthly), beveiligingsmeldingen, nieuws */
   emailPrefs?: { report: 'off' | 'weekly' | 'monthly'; security: boolean; product: boolean };
+  /** Eigen achtergronden (foto's en video's), nieuwste eerst. Bestand op schijf: <DATA_DIR>/files/<id> */
+  media?: MediaItem[];
   /** Taal van de app (voor e-mails die we zelf versturen, zoals het scanoverzicht) */
   lang?: string | null;
   /** Laatst wachtwoord gewijzigd (null = nog nooit sinds het account er is) */
@@ -28,6 +30,9 @@ export interface User {
   /** Gezet als de sessie net is verlengd: dan moet het cookie ook ververst worden. */
   renewUntil?: string;
 }
+
+/** Eigen achtergrond (Mijn account > Achtergrond) */
+export interface MediaItem { id: string; kind: 'image' | 'video'; mime: string; size: number; name: string; at: string }
 
 export interface QrCode {
   id: string;
