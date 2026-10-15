@@ -3606,3 +3606,6 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 #homeView .hm-tic { width: 46px; height: 46px; border-radius: 14px; }
 #homeView .hm-tic .hm-i { width: 26px; height: 26px; stroke-width: 1.6; }
 #homeView .hm-head .hm-hi { width: 20px; height: 20px; }
+/* Overzicht: iconen zonder vakje eromheen */
+#homeView .hm-tic, #homeView .t-scans .hm-tic, #homeView .t-uniq .hm-tic, #homeView .t-today .hm-tic, #homeView .t-codes .hm-tic { background: none !important; border: 0 !important; box-shadow: none !important; width: 34px; height: 34px; }
+#homeView .hm-tic .hm-i { width: 30px; height: 30px; }
