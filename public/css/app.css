@@ -4100,3 +4100,19 @@ body.an-printing #anRange { display: block; }
   .an-tiles .an-tfoot { grid-area: foot; min-height: 0; }
   .an-tiles .an-spark, .an-tiles .an-meter { display: none; }
 }
+
+/* QR-code maken: stappenbalk iets lager (niet tegen de bovenrand) */
+@media (min-width: 761px) { .topbar .stepper { margin-top: 18px; } body:not(.not-create) .topbar { min-height: 76px !important; } }
+/* Mijn QR-codes: zelfde plek en breedte als Statistieken (direct onder de bovenbalk, volle breedte) */
+@media (min-width: 1101px) {
+  #myCodesView { padding-top: 10px !important; }
+  #myCodesView > .mc { margin-top: 0 !important; max-width: none !important; }
+}
+/* Contact en Veelgestelde vragen: ook zo */
+@media (min-width: 1101px) {
+  #contactView, #faqView { padding-top: 10px !important; }
+  #contactView > .help, #faqView > .help { margin-top: 0 !important; max-width: none !important; }
+}
+/* Zijbalk onderaan: Instellingen (tandwiel), dan je profiel direct boven Uitloggen */
+.set-item { margin-top: auto; }
+.set-item + .me-item { margin-top: 0; }
