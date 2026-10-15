@@ -163,7 +163,7 @@ var Home = (function () {
   function draw() {
     if (!codes) return;
     var sr = series30();
-    body.innerHTML = '<header class="hm-hero"><div><h2>' + t('nav.overview') + '</h2><p>' + t(codes.length ? 'home.sub' : 'home.leadNew') + '</p></div>' +
+    body.innerHTML = '<header class="hm-hero"><div><h2>' + esc(greeting()) + '</h2><p>' + t(codes.length ? 'home.welcomeBack' : 'home.leadNew') + '</p></div>' +
         '<div class="hm-acts"><label class="ad-sel hm-period"><span class="sr-only">' + t('an.period') + '</span><select id="hmPeriod">' + [7, 30, 90].map(function (n) { return '<option value="' + n + '"' + (n === period ? ' selected' : '') + '>' + t('an.p_' + n) + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn primary" data-hm-new>' + ico('plus') + t('nav.create') + '</button></div></header>' +
       (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') +
@@ -177,7 +177,7 @@ var Home = (function () {
     var sec = view.querySelector('.hm'); if (!sec || view.hidden) return;
     sec.style.zoom = '';
     if (window.innerWidth <= 760) return;
-    var top = sec.getBoundingClientRect().top + window.scrollY, h = sec.offsetHeight, avail = window.innerHeight - top - 20;
+    var top = sec.getBoundingClientRect().top + window.scrollY, h = sec.offsetHeight, avail = window.innerHeight - top - 24;
     if (h > avail) sec.style.zoom = Math.max(.75, Math.floor(avail / h * 1000) / 1000);
   }
   addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(fit, 80); });

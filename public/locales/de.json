@@ -1691,7 +1691,8 @@
     "viewAnalytics": "Statistiken ansehen",
     "totalScans": "Scans",
     "favCodes": "Favorisierte QR-Codes",
-    "viewAll": "Alle ansehen"
+    "viewAll": "Alle ansehen",
+    "welcomeBack": "Willkommen zurück. Hier siehst du deine QR-Codes und die letzte Aktivität."
   },
   "as": {
     "tabTexts": "Texte",

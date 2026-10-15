@@ -1691,7 +1691,8 @@
     "viewAnalytics": "Bekijk statistieken",
     "totalScans": "Scans",
     "favCodes": "Favoriete QR-codes",
-    "viewAll": "Alles bekijken"
+    "viewAll": "Alles bekijken",
+    "welcomeBack": "Welkom terug. Hier zie je je QR-codes en de laatste activiteit."
   },
   "as": {
     "tabTexts": "Teksten",

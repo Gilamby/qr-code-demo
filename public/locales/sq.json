@@ -1797,7 +1797,8 @@
     "viewAnalytics": "Shiko statistikat",
     "totalScans": "Skanime",
     "favCodes": "Kodet QR të preferuara",
-    "viewAll": "Shiko të gjitha"
+    "viewAll": "Shiko të gjitha",
+    "welcomeBack": "Mirë se u ktheve. Këtu janë kodet e tua QR dhe aktiviteti i fundit."
   },
   "as": {
     "tabTexts": "Tekstet",
