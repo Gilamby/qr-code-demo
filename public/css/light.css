@@ -374,6 +374,10 @@
 :root[data-theme="light"] .tfa-st { color: rgba(13,19,32,0.765); }
 :root[data-theme="light"] .tfa-key { background: rgba(13,19,32,0.045); }
 :root[data-theme="light"] .maint-bar { color: #92400e; }
+@media (min-width: 1100px) {
+:root[data-theme="light"] #homeView > .hm { box-shadow: 0 0 0 1px rgba(13,19,32,0.144), inset 0 0 0 1px rgba(13,19,32,0.072), 0 40px 90px -30px rgba(13,19,32,0.227) !important; }
+:root[data-theme="light"] #homeView > .hm::before { box-shadow: 0 0 0 1px rgba(13,19,32,0.054); }
+}
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }
