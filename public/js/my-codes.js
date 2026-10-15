@@ -78,7 +78,7 @@ var MyCodes = (function () {
         folders.map(function (f) { return '<span class="mf-wrap">' + chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })) +
           '<button type="button" class="mf-x" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('x') + '</button></span>'; }).join('') +
         '<span class="mf-more" hidden><button type="button" class="mf-chip" data-folder-more aria-haspopup="true" aria-expanded="false"><span>' + t('folders.more') + '</span><span class="mf-n"></span>' + ico('chev') + '</button><div class="mf-menu glass" role="menu" hidden></div></span>' +
-        '<button type="button" class="mf-chip mf-add" data-folder-new>' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
+        '<button type="button" class="mf-chip mf-add" data-folder-new aria-label="' + esc(t('folders.new')) + '">' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
       (cur ? '<div class="mf-head">' + dot(cur) + '<b>' + esc(cur.name) + '</b>' +
         '<button type="button" class="btn ghost sm" data-folder-edit>' + ico('pen') + '<span>' + t('folders.edit') + '</span></button>' +

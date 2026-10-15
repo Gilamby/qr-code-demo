@@ -11,7 +11,7 @@ var Stepper = {
     el.innerHTML = STEPS.map(function (s, i) {
       var st = i < cur || (state.created && i === cur) ? 'done' : i === cur ? 'current' : 'todo';
       return (i ? '<li class="bar' + (i <= cur ? ' done' : '') + '" aria-hidden="true"></li>' : '') +
-        '<li class="s ' + st + '"' + (st === 'current' ? ' aria-current="step"' : '') + '><button type="button" data-step="' + s + '"' + (st === 'done' ? '' : ' tabindex="-1"') + '>' +
+        '<li class="s ' + st + '"' + (st === 'current' ? ' aria-current="step"' : '') + '><button type="button" data-step="' + s + '" aria-label="' + esc(t('steps.' + s) + (st === 'done' ? ' · ' + t('steps.completed') : '')) + '"' + (st === 'done' ? '' : ' tabindex="-1"') + '>' +
         '<span class="mark">' + (st === 'done' ? CHECK : '') + '</span><span class="lbl">' + t('steps.' + s) + '</span>' +
         (st === 'done' ? '<span class="sr"> · ' + t('steps.completed') + '</span>' : '') + '</button></li>';
     }).join('');
@@ -26,9 +26,9 @@ function renderHero(state) {
 
 var TypeGrid = {
   render: function (el, state) {
-    el.innerHTML = '<div class="grid" role="list">' + QR_TYPES.map(function (type) {
+    el.innerHTML = '<div class="grid" role="group" aria-label="' + esc(t('steps.type')) + '">' + QR_TYPES.map(function (type) {
       var on = type.id === state.typeId;
-      return '<button class="qr-card' + (on ? ' selected' : '') + '" type="button" role="listitem" data-type="' + type.id + '" aria-pressed="' + on + '">' +
+      return '<button class="qr-card' + (on ? ' selected' : '') + '" type="button" data-type="' + type.id + '" aria-pressed="' + on + '">' +
         '<span class="ic" aria-hidden="true">' + svg(type.icon, 1.6) + '</span><span class="title">' + typeName(type) + '</span></button>';
     }).join('') + '</div>' + Actions.html(state);
   },

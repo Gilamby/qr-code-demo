@@ -132,13 +132,13 @@
 
   /* ---------- Menu ---------- */
   function drawMenu() {
-    menu.innerHTML = GROUPS.map(function (g) {
+    menu.innerHTML = '<div class="acct-tabs" role="tablist" aria-orientation="vertical" aria-label="' + esc(t('acct.sections')) + '">' + GROUPS.map(function (g) {
       return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].filter(function (x) { return x[0] !== 'delete' || canDelete(); }).map(function (x) {
         var on = x[0] === tab;
         return '<button type="button" role="tab"' + (x[0] === 'delete' ? ' class="acct-tab-danger"' : '') + ' id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
           (x[0] === 'billing' && billingLoaded && !billing && !user.admin ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
       }).join('');
-    }).join('') +
+    }).join('') + '</div>' +
     '<span class="acct-menu-line" aria-hidden="true"></span>' +
     '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>';
   }
