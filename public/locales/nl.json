@@ -1269,7 +1269,9 @@
     "cpLeadOne": "Nog 1 stap. Klik erop om het in te vullen.",
     "needNameTitle": "Hoe heet je?",
     "needNameText": "Vul je voor- en achternaam in om de app te gebruiken. Dit zie je op je account en op facturen.",
-    "needNameBoth": "Vul zowel je voornaam als je achternaam in."
+    "needNameBoth": "Vul zowel je voornaam als je achternaam in.",
+    "act_2fa_on": "Tweestapsverificatie aangezet",
+    "act_2fa_off": "Tweestapsverificatie uitgezet"
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor Optimasys QR",
@@ -2108,5 +2110,34 @@
     "limitCreate": "Je hebt de limiet van je abonnement bereikt. Verwijder een code of vraag een groter pakket aan bij Mijn account > Abonnement.",
     "saved": "Abonnement opgeslagen.",
     "statsFloor": "Je pakket toont statistieken vanaf {date}."
+  },
+  "tfa": {
+    "title": "Tweestapsverificatie",
+    "lead": "Naast je wachtwoord ook een code uit een authenticator-app (bijv. Google of Microsoft Authenticator). Zo kan niemand inloggen met alleen je wachtwoord.",
+    "on": "Aan",
+    "off": "Uit",
+    "turnOn": "Aanzetten",
+    "turnOff": "Uitzetten",
+    "onLead": "Bij het inloggen vragen we de code uit je app. Herstelcodes over: {n}.",
+    "step1": "Open je authenticator-app en scan deze QR-code.",
+    "step2": "Kun je niet scannen? Voer dan deze sleutel in:",
+    "step3": "Typ de 6 cijfers die de app nu toont:",
+    "code": "Code",
+    "confirm": "Bevestigen",
+    "codesTitle": "Je herstelcodes",
+    "codesLead": "Bewaar ze op een veilige plek. Kwijt je je telefoon, dan log je met één van deze codes in (elke code werkt één keer). Je ziet ze maar één keer.",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd.",
+    "download": "Downloaden (.txt)",
+    "done": "Klaar, ik heb ze bewaard",
+    "offPw": "Je wachtwoord",
+    "offDone": "Tweestapsverificatie staat uit.",
+    "errWrong": "Die code klopt niet. Kijk of de tijd op je telefoon goed staat en probeer de nieuwste code.",
+    "errEmpty": "Vul de code in.",
+    "errGeneral": "Dat lukte niet. Probeer het opnieuw.",
+    "errPassword": "Wachtwoord klopt niet.",
+    "loginTitle": "Code uit je app",
+    "loginLead": "Open je authenticator-app en typ de 6 cijfers voor Optimasys QR.",
+    "recoveryHint": "Telefoon kwijt? Typ dan een van je herstelcodes."
   }
 }

@@ -1269,7 +1269,9 @@
     "cpLeadOne": "Queda 1 paso. Haz clic en él para rellenarlo.",
     "needNameTitle": "¿Cómo te llamas?",
     "needNameText": "Escribe tu nombre y apellido para usar la app. Aparecen en tu cuenta y en las facturas.",
-    "needNameBoth": "Escribe tu nombre y tu apellido."
+    "needNameBoth": "Escribe tu nombre y tu apellido.",
+    "act_2fa_on": "Verificación en dos pasos activada",
+    "act_2fa_off": "Verificación en dos pasos desactivada"
   },
   "mail": {
     "resetSubject": "Nueva contraseña para Optimasys QR",
@@ -2056,5 +2058,34 @@
     "limitCreate": "Has alcanzado el límite de tu suscripción. Elimina un código o solicita un plan mayor en Mi cuenta > Suscripción.",
     "saved": "Suscripción guardada.",
     "statsFloor": "Tu plan muestra estadísticas desde el {date}."
+  },
+  "tfa": {
+    "title": "Verificación en dos pasos",
+    "lead": "Además de tu contraseña, un código de una app de autenticación (p. ej. Google o Microsoft Authenticator). Nadie puede entrar solo con tu contraseña.",
+    "on": "Activada",
+    "off": "Desactivada",
+    "turnOn": "Activar",
+    "turnOff": "Desactivar",
+    "onLead": "Al iniciar sesión pedimos el código de tu app. Códigos de recuperación restantes: {n}.",
+    "step1": "Abre tu app de autenticación y escanea este código QR.",
+    "step2": "¿No puedes escanear? Introduce esta clave:",
+    "step3": "Escribe los 6 dígitos que muestra la app:",
+    "code": "Código",
+    "confirm": "Confirmar",
+    "codesTitle": "Tus códigos de recuperación",
+    "codesLead": "Guárdalos en un lugar seguro. Si pierdes el móvil, entra con uno de estos códigos (cada uno funciona una vez). Solo los verás una vez.",
+    "copy": "Copiar",
+    "copied": "Copiado.",
+    "download": "Descargar (.txt)",
+    "done": "Listo, los he guardado",
+    "offPw": "Tu contraseña",
+    "offDone": "La verificación en dos pasos está desactivada.",
+    "errWrong": "Ese código no es correcto. Revisa la hora del móvil y prueba el código más reciente.",
+    "errEmpty": "Introduce el código.",
+    "errGeneral": "No ha funcionado. Inténtalo de nuevo.",
+    "errPassword": "Contraseña incorrecta.",
+    "loginTitle": "Código de tu app",
+    "loginLead": "Abre tu app de autenticación y escribe los 6 dígitos de Optimasys QR.",
+    "recoveryHint": "¿Perdiste el móvil? Escribe uno de tus códigos de recuperación."
   }
 }

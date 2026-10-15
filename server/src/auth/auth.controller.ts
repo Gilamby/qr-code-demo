@@ -6,6 +6,7 @@
    - Te veel pogingen = even wachten (429).
    ========================================================= */
 import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
+import { checkCode, readTotp, useRecovery, writeTotp } from './totp';
 import type { Request, Response } from 'express';
 import { DatabaseService } from '../database/database.service';
 import { AuthService, DUMMY_HASH } from './auth.service';
@@ -85,6 +86,17 @@ export class AuthController {
     if (!(await this.db.isVerified(row.id))) throw fail(403, 'unverified');   // eerst e-mail bevestigen
     const user = await this.db.getUser(row.id);
     if (user.disabledAt) throw fail(403, 'disabled');                         // uitgezet door het team
+    // Tweestapsverificatie aan? Dan ook de code uit de app (of een herstelcode)
+    const totp = await readTotp(this.db, row.id);
+    if (totp && totp.on) {
+      const code = String(b.code || '').trim();
+      if (!code) throw fail(401, '2fa_required');
+      if (!checkCode(totp.secret, code)) {
+        const left = useRecovery(totp, code);
+        if (!left) { await this.db.addActivity(row.id, 'login_failed', this.auth.meta(req)); throw fail(401, '2fa_wrong'); }
+        await writeTotp(this.db, row.id, { ...totp, codes: left });            // herstelcode is daarna op
+      }
+    }
     // Nieuw apparaat (browser + systeem nog nooit gezien bij een geslaagde aanmelding)? Dan een beveiligingsmail.
     const meta = this.auth.meta(req), dev = (ua: string | null) => { const d = device(ua); return d.browser + '|' + d.os; };
     const seen = (await this.db.listActivity(row.id, 100)).some((a) => a.kind === 'login' && dev(a.ua) === dev(meta.ua));

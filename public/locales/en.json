@@ -1269,7 +1269,9 @@
     "cpLeadOne": "1 step to go. Click it to fill it in.",
     "needNameTitle": "What’s your name?",
     "needNameText": "Enter your first and last name to use the app. It appears on your account and on invoices.",
-    "needNameBoth": "Please enter both your first and last name."
+    "needNameBoth": "Please enter both your first and last name.",
+    "act_2fa_on": "Two-step verification turned on",
+    "act_2fa_off": "Two-step verification turned off"
   },
   "mail": {
     "resetSubject": "New password for Optimasys QR",
@@ -2108,5 +2110,34 @@
     "limitCreate": "You have reached the limit of your subscription. Delete a code or request a bigger plan in My account > Subscription.",
     "saved": "Subscription saved.",
     "statsFloor": "Your plan shows statistics from {date}."
+  },
+  "tfa": {
+    "title": "Two-step verification",
+    "lead": "Besides your password, a code from an authenticator app (e.g. Google or Microsoft Authenticator). Nobody can log in with just your password.",
+    "on": "On",
+    "off": "Off",
+    "turnOn": "Turn on",
+    "turnOff": "Turn off",
+    "onLead": "When you log in, we ask for the code from your app. Recovery codes left: {n}.",
+    "step1": "Open your authenticator app and scan this QR code.",
+    "step2": "Can’t scan? Enter this key instead:",
+    "step3": "Type the 6 digits the app shows now:",
+    "code": "Code",
+    "confirm": "Confirm",
+    "codesTitle": "Your recovery codes",
+    "codesLead": "Keep them somewhere safe. If you lose your phone, log in with one of these codes (each works once). You only see them once.",
+    "copy": "Copy",
+    "copied": "Copied.",
+    "download": "Download (.txt)",
+    "done": "Done, I saved them",
+    "offPw": "Your password",
+    "offDone": "Two-step verification is off.",
+    "errWrong": "That code is not right. Check the time on your phone and try the newest code.",
+    "errEmpty": "Enter the code.",
+    "errGeneral": "That didn’t work. Please try again.",
+    "errPassword": "Wrong password.",
+    "loginTitle": "Code from your app",
+    "loginLead": "Open your authenticator app and type the 6 digits for Optimasys QR.",
+    "recoveryHint": "Lost your phone? Type one of your recovery codes."
   }
 }

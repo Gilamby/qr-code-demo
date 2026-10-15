@@ -293,6 +293,11 @@ var api = (function () {
       password: either(function (d) { return request('POST', 'api/account/password', d); }, demoAuth.account.password),
       remove:   either(function (d) { return request('DELETE', 'api/account', d); }, demoAuth.account.remove),
       summary:  either(function ()  { return request('GET', 'api/account/summary'); }, demoAuth.account.summary),
+      // Tweestapsverificatie (alleen met server)
+      twoFactor:        function ()  { return request('GET', 'api/account/2fa'); },
+      twoFactorSetup:   function ()  { return request('POST', 'api/account/2fa/setup', {}); },
+      twoFactorEnable:  function (d) { return request('POST', 'api/account/2fa/enable', d); },
+      twoFactorDisable: function (d) { return request('POST', 'api/account/2fa/disable', d); },
       // Abonnement (demo: altijd de testfase)
       plan:     either(function ()  { return request('GET', 'api/account/plan'); }, function () { return Promise.resolve({ plan: { id: 'free', codes: null, statsDays: null }, usage: { used: 0, limit: null, state: 'ok' }, plans: [], payments: false }); }),
       logoutOthers: either(function () { return request('POST', 'api/account/logout-others', {}); }, demoAuth.account.logoutOthers),

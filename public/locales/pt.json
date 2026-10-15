@@ -1269,7 +1269,9 @@
     "cpLeadOne": "Falta 1 passo. Clique nele para o preencher.",
     "needNameTitle": "Como se chama?",
     "needNameText": "Indique o nome e o apelido para usar a app. Aparecem na sua conta e nas faturas.",
-    "needNameBoth": "Indique o nome e o apelido."
+    "needNameBoth": "Indique o nome e o apelido.",
+    "act_2fa_on": "Verificação em dois passos ativada",
+    "act_2fa_off": "Verificação em dois passos desativada"
   },
   "mail": {
     "resetSubject": "Nova palavra-passe para Optimasys QR",
@@ -2056,5 +2058,34 @@
     "limitCreate": "Atingiu o limite da sua assinatura. Elimine um código ou peça um plano maior em A minha conta > Assinatura.",
     "saved": "Assinatura guardada.",
     "statsFloor": "O seu plano mostra estatísticas desde {date}."
+  },
+  "tfa": {
+    "title": "Verificação em dois passos",
+    "lead": "Além da palavra-passe, um código de uma app de autenticação (ex. Google ou Microsoft Authenticator). Ninguém entra só com a sua palavra-passe.",
+    "on": "Ativada",
+    "off": "Desativada",
+    "turnOn": "Ativar",
+    "turnOff": "Desativar",
+    "onLead": "Ao iniciar sessão pedimos o código da sua app. Códigos de recuperação restantes: {n}.",
+    "step1": "Abra a app de autenticação e leia este código QR.",
+    "step2": "Não consegue ler? Introduza esta chave:",
+    "step3": "Escreva os 6 dígitos que a app mostra:",
+    "code": "Código",
+    "confirm": "Confirmar",
+    "codesTitle": "Os seus códigos de recuperação",
+    "codesLead": "Guarde-os num local seguro. Se perder o telemóvel, entre com um destes códigos (cada um funciona uma vez). Só os vê uma vez.",
+    "copy": "Copiar",
+    "copied": "Copiado.",
+    "download": "Transferir (.txt)",
+    "done": "Pronto, guardei-os",
+    "offPw": "A sua palavra-passe",
+    "offDone": "A verificação em dois passos está desativada.",
+    "errWrong": "Esse código não está certo. Verifique a hora do telemóvel e tente o código mais recente.",
+    "errEmpty": "Introduza o código.",
+    "errGeneral": "Não funcionou. Tente novamente.",
+    "errPassword": "Palavra-passe errada.",
+    "loginTitle": "Código da sua app",
+    "loginLead": "Abra a app de autenticação e escreva os 6 dígitos do Optimasys QR.",
+    "recoveryHint": "Perdeu o telemóvel? Escreva um dos códigos de recuperação."
   }
 }

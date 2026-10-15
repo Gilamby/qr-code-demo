@@ -371,6 +371,8 @@
 @media print {
 :root[data-theme="light"] body.an-printing { background: #f4f6f9 !important; }
 }
+:root[data-theme="light"] .tfa-st { color: rgba(13,19,32,0.765); }
+:root[data-theme="light"] .tfa-key { background: rgba(13,19,32,0.045); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

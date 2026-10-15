@@ -314,7 +314,28 @@
   }
   /* ---------- Beveiliging: wachtwoord, apparaten, recente activiteit ---------- */
   function devName(x) { return x.browser || x.os ? t('acct.devOn', { browser: x.browser || t('acct.devBrowser'), os: x.os || t('acct.devUnknown') }) : t('acct.devUnknownFull'); }
-  var ACT_ICON = { login: 'check', login_failed: 'warn', password: 'key', email: 'mail', sessions_ended: 'out', session_ended: 'out' };
+  var ACT_ICON = { login: 'check', login_failed: 'warn', password: 'key', email: 'mail', sessions_ended: 'out', session_ended: 'out', '2fa_on': 'shield', '2fa_off': 'warn' };
+  /* ---------- Tweestapsverificatie (authenticator-app) ---------- */
+  var tfa = null, tfaSetup = null, tfaCodes = null, tfaOff = false, tfaMsg = null;
+  function loadTfa() { if (api.isDemo()) { tfa = { demo: true }; return; } api.account.twoFactor().then(function (r) { tfa = r; if (tab === 'security') draw(); }).catch(function () { tfa = { error: true }; }); }
+  function tfaCard() {
+    var head = '<div class="glass bg-card acct tfa"><div class="sec-head"><div><h2>' + t('tfa.title') + '</h2><p>' + t('tfa.lead') + '</p></div>' +
+      (tfa && tfa.enabled ? '<span class="tfa-st on">' + t('tfa.on') + '</span>' : tfa && !tfa.demo && !tfa.error ? '<span class="tfa-st">' + t('tfa.off') + '</span>' : '') + '</div>';
+    var msg = tfaMsg ? '<p class="acct-msg ' + tfaMsg[1] + '" role="status">' + esc(tfaMsg[0]) + '</p>' : '';
+    if (!tfa) return head + '<p class="sec-empty">…</p></div>';
+    if (tfa.demo) return head + '<p class="sec-empty">' + t('acct.secDemo') + '</p></div>';
+    if (tfaCodes) return head + '<div class="tfa-codes"><b>' + t('tfa.codesTitle') + '</b><p>' + t('tfa.codesLead') + '</p><ol>' + tfaCodes.map(function (c) { return '<li><code>' + esc(c) + '</code></li>'; }).join('') + '</ol>' +
+      '<div class="acct-actions"><button type="button" class="btn ghost" data-tfa="copy">' + t('tfa.copy') + '</button><button type="button" class="btn ghost" data-tfa="dl">' + t('tfa.download') + '</button><button type="button" class="btn primary" data-tfa="done">' + t('tfa.done') + '</button></div></div>' + msg + '</div>';
+    if (tfa.enabled) return head + '<p>' + t('tfa.onLead', { n: tfa.recoveryLeft }) + '</p>' +
+      (tfaOff ? '<form data-tfa-form="off" class="tfa-form"><label class="auth-f"><span>' + t('tfa.offPw') + '</span><span class="auth-in"><input name="password" type="password" autocomplete="current-password" required></span></label>' +
+        '<div class="acct-actions"><button type="button" class="btn ghost" data-tfa="cancel">' + t('myCodes.cancel') + '</button><button type="submit" class="btn danger">' + t('tfa.turnOff') + '</button></div></form>'
+        : '<div class="acct-actions"><button type="button" class="btn ghost" data-tfa="off">' + t('tfa.turnOff') + '</button></div>') + msg + '</div>';
+    if (tfaSetup) return head + '<div class="tfa-setup"><div class="tfa-qr" aria-hidden="true">' + QRRender.svg(tfaSetup.otpauth, { color: '#0b1220', background: '#ffffff' }) + '</div>' +
+      '<ol class="tfa-steps"><li>' + t('tfa.step1') + '</li><li>' + t('tfa.step2') + '<code class="tfa-key">' + esc(tfaSetup.secret.replace(/(.{4})/g, '$1 ').trim()) + '</code></li><li>' + t('tfa.step3') +
+      '<form data-tfa-form="on" class="tfa-form"><label class="auth-f"><span class="sr-only">' + t('tfa.code') + '</span><span class="auth-in"><input name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456" required></span></label>' +
+      '<div class="acct-actions"><button type="button" class="btn ghost" data-tfa="cancel">' + t('myCodes.cancel') + '</button><button type="submit" class="btn primary">' + t('tfa.confirm') + '</button></div></form></li></ol></div>' + msg + '</div>';
+    return head + '<div class="acct-actions"><button type="button" class="btn primary" data-tfa="start">' + t('tfa.turnOn') + '</button></div>' + msg + '</div>';
+  }
   function securityPanel(m, note) {
     var ago = function (iso) { return window.Admin ? Admin.ago(iso) : i18n.fmt.stamp(iso, 'time'); };
     var pwVal = user.passwordChangedAt ? t('acct.pwChanged', { date: i18n.fmt.stamp(user.passwordChangedAt, 'long') }) : t('acct.pwNever');
@@ -343,7 +364,7 @@
             '<small>' + [devName(a), a.ip ? 'IP ' + esc(a.ip) : '', esc(i18n.fmt.stamp(a.at, 'time'))].filter(Boolean).join(' · ') + '</small></div></li>';
         }).join('') + '</ol>' +
         '<div class="act-tip">' + SVG + ICON.shield + '</svg><span>' + t('acct.activityTip') + '</span><button type="button" class="btn ghost" data-edit="password">' + t('acct.pwChangeNow') + '</button></div>') + '</div>';
-    return pwCard + devCard + actCard;
+    return pwCard + tfaCard() + devCard + actCard;
   }
   function loadSecurity() {
     if (!user) return;
@@ -443,7 +464,7 @@
   }
   function open(id, focus) {
     if (id === 'delete' && !canDelete()) id = 'profile';
-    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') loadSecurity(); if (id === 'plan') loadPlan();
+    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') loadPlan();
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
@@ -465,6 +486,16 @@
   stats.addEventListener('click', function (e) { var go = e.target.closest('[data-goto]'); if (go) { e.preventDefault(); window.goToPage(go.getAttribute('data-goto')); } });
 
   box.addEventListener('submit', function (e) {
+    var tf = e.target.closest('[data-tfa-form]');
+    if (tf) {
+      e.preventDefault(); var inp = tf.querySelector('input'), go = tf.querySelector('[type=submit]'); go.disabled = true; tfaMsg = null;
+      if (tf.getAttribute('data-tfa-form') === 'on') {
+        return api.account.twoFactorEnable({ code: inp.value.replace(/\s+/g, '') }).then(function (r) { tfaSetup = null; tfaCodes = r.recoveryCodes; tfa = { enabled: true, recoveryLeft: r.recoveryCodes.length }; draw(); loadSecurity(); })
+          .catch(function (x) { go.disabled = false; tfaMsg = [t(x && x.code === 'code_wrong' ? 'tfa.errWrong' : x && x.code === 'too_many' ? 'auth.errTooMany' : 'tfa.errGeneral'), 'bad']; draw(); var i = box.querySelector('[data-tfa-form="on"] input'); if (i) i.focus(); });
+      }
+      return api.account.twoFactorDisable({ password: inp.value }).then(function () { tfaOff = false; tfa = { enabled: false }; tfaMsg = [t('tfa.offDone'), 'ok']; draw(); loadSecurity(); })
+        .catch(function (x) { go.disabled = false; tfaMsg = [t(x && x.code === 'wrong' ? 'tfa.errPassword' : 'tfa.errGeneral'), 'bad']; draw(); });
+    }
     e.preventDefault(); sticky = null;
     var f = e.target, kind = f.getAttribute('data-form'), btn = f.querySelector('button[type="submit"]'); btn.disabled = true;
     var saved = function (key, u, extra) { user = Object.assign({}, user, u, extra || {}); editing = null; var o = {}; o[key] = [t('acct.saved'), 'ok']; draw(o); document.dispatchEvent(new CustomEvent('account:changed')); };
@@ -527,6 +558,16 @@
     if (e.target.name === 'country' && draft) draft.country = e.target.value;
   });
   box.addEventListener('click', function (e) {
+    var tb = e.target.closest('[data-tfa]');
+    if (tb) {
+      var k = tb.getAttribute('data-tfa'); tfaMsg = null;
+      if (k === 'start') { tb.disabled = true; return api.account.twoFactorSetup().then(function (r) { tfaSetup = r; draw(); var i = box.querySelector('[data-tfa-form="on"] input'); if (i) i.focus(); }).catch(function () { tfaMsg = [t('tfa.errGeneral'), 'bad']; draw(); }); }
+      if (k === 'cancel') { tfaSetup = null; tfaOff = false; return draw(); }
+      if (k === 'off') { tfaOff = true; draw(); var pi = box.querySelector('[data-tfa-form="off"] input'); if (pi) pi.focus(); return; }
+      if (k === 'copy') { var txt = tfaCodes.join('\n'); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () { tfaMsg = [t('tfa.copied'), 'ok']; draw(); }).catch(function () {}); return; }
+      if (k === 'dl') return saveFile(new Blob(['Optimasys QR — ' + t('tfa.codesTitle') + '\n' + user.email + '\n\n' + tfaCodes.join('\n') + '\n'], { type: 'text/plain' }), 'optimasys-qr-herstelcodes.txt');
+      if (k === 'done') { tfaCodes = null; return draw(); }
+    }
     var seg = e.target.closest('[data-btype]');
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }

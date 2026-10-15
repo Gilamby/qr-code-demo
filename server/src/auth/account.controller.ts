@@ -17,6 +17,7 @@ import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLANS, planFor, usage } from '../plans';
+import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
 /** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
 export function device(ua: string | null) {
@@ -73,6 +74,40 @@ export class AccountController {
     await this.db.addActivity(user.id, 'password', this.auth.meta(req));
     this.mailer.sendSecurity(user, 'password', { time: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC' }).catch(() => {});
     return { ok: true, passwordChangedAt: new Date().toISOString() };
+  }
+
+  /* ---------- Tweestapsverificatie (authenticator-app) ---------- */
+  @Get('account/2fa')
+  async twoFactor(@CurrentUser() user: User) { const t = await readTotp(this.db, user.id); return { enabled: !!(t && t.on), recoveryLeft: t && t.on ? t.codes.length : 0 }; }
+
+  /** Stap 1: nieuw geheim (nog niet aan); de app toont het als QR-code */
+  @Post('account/2fa/setup')
+  @HttpCode(200)
+  async twoFactorSetup(@CurrentUser() user: User) {
+    const cur = await readTotp(this.db, user.id); if (cur && cur.on) throw fail(409, 'already_on');
+    const secret = newSecret(); await writeTotp(this.db, user.id, { secret, on: false, codes: [] });
+    return { secret, otpauth: otpauth(secret, user.email) };
+  }
+  /** Stap 2: code uit de app klopt → aan, met 10 herstelcodes (alleen nu te zien) */
+  @Post('account/2fa/enable')
+  @HttpCode(200)
+  async twoFactorEnable(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (this.auth.limited('2fa:' + user.id, 10, 15)) throw fail(429, 'too_many');
+    const t = await readTotp(this.db, user.id); if (!t || t.on) throw fail(400, 'no_setup');
+    if (!checkCode(t.secret, b.code)) throw fail(400, 'code_wrong');
+    const rc = recoveryCodes(); await writeTotp(this.db, user.id, { secret: t.secret, on: true, codes: rc.hashed });
+    await this.db.addActivity(user.id, '2fa_on', this.auth.meta(req));
+    return { ok: true, recoveryCodes: rc.plain };
+  }
+  /** Uitzetten: alleen met het wachtwoord */
+  @Post('account/2fa/disable')
+  @HttpCode(200)
+  async twoFactorDisable(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (this.auth.limited('pw:' + user.id, 10, 15)) throw fail(429, 'too_many');
+    if (!(await this.auth.checkPassword(b.password || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');
+    await writeTotp(this.db, user.id, null);
+    await this.db.addActivity(user.id, '2fa_off', this.auth.meta(req));
+    return { ok: true };
   }
 
   /** Factuurgegevens: ophalen (null = nog niet ingevuld) en opslaan */

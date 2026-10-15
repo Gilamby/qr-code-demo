@@ -1269,7 +1269,9 @@
     "cpLeadOne": "Został 1 krok. Kliknij go, aby uzupełnić.",
     "needNameTitle": "Jak się nazywasz?",
     "needNameText": "Podaj imię i nazwisko, aby korzystać z aplikacji. Widać je na koncie i na fakturach.",
-    "needNameBoth": "Podaj imię i nazwisko."
+    "needNameBoth": "Podaj imię i nazwisko.",
+    "act_2fa_on": "Włączono weryfikację dwuetapową",
+    "act_2fa_off": "Wyłączono weryfikację dwuetapową"
   },
   "mail": {
     "resetSubject": "Nowe hasło do Optimasys QR",
@@ -2056,5 +2058,34 @@
     "limitCreate": "Osiągnięto limit subskrypcji. Usuń kod lub poproś o większy pakiet w Moje konto > Subskrypcja.",
     "saved": "Subskrypcja zapisana.",
     "statsFloor": "Twój pakiet pokazuje statystyki od {date}."
+  },
+  "tfa": {
+    "title": "Weryfikacja dwuetapowa",
+    "lead": "Oprócz hasła także kod z aplikacji uwierzytelniającej (np. Google lub Microsoft Authenticator). Nikt nie zaloguje się samym hasłem.",
+    "on": "Włączona",
+    "off": "Wyłączona",
+    "turnOn": "Włącz",
+    "turnOff": "Wyłącz",
+    "onLead": "Przy logowaniu prosimy o kod z aplikacji. Pozostałe kody zapasowe: {n}.",
+    "step1": "Otwórz aplikację uwierzytelniającą i zeskanuj ten kod QR.",
+    "step2": "Nie możesz zeskanować? Wpisz ten klucz:",
+    "step3": "Wpisz 6 cyfr, które pokazuje aplikacja:",
+    "code": "Kod",
+    "confirm": "Potwierdź",
+    "codesTitle": "Twoje kody zapasowe",
+    "codesLead": "Przechowuj je bezpiecznie. Gdy zgubisz telefon, zaloguj się jednym z tych kodów (każdy działa raz). Widzisz je tylko raz.",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano.",
+    "download": "Pobierz (.txt)",
+    "done": "Gotowe, zapisałem je",
+    "offPw": "Twoje hasło",
+    "offDone": "Weryfikacja dwuetapowa jest wyłączona.",
+    "errWrong": "Ten kod jest nieprawidłowy. Sprawdź godzinę w telefonie i spróbuj najnowszego kodu.",
+    "errEmpty": "Wpisz kod.",
+    "errGeneral": "Nie udało się. Spróbuj ponownie.",
+    "errPassword": "Nieprawidłowe hasło.",
+    "loginTitle": "Kod z aplikacji",
+    "loginLead": "Otwórz aplikację uwierzytelniającą i wpisz 6 cyfr dla Optimasys QR.",
+    "recoveryHint": "Zgubiony telefon? Wpisz jeden z kodów zapasowych."
   }
 }

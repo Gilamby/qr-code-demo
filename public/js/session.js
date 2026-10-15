@@ -28,7 +28,9 @@ var Session = (function () {
   function langPicker() {
     return '<select class="auth-lang" aria-label="' + esc(t('header.chooseLanguage')) + '">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + l.name + '</option>'; }).join('') + '</select>';
   }
+  var tfa = null;                                                        // e-mail + wachtwoord bewaren tot de 2FA-code er is (alleen in het geheugen)
   function draw(msg, kind) {
+    if (mode !== 'twofa') tfa = null;
     if (!msg && flash) { msg = t(flash[0]); kind = flash[1]; }
     var email = (card.querySelector('input[name=email]') || {}).value || prefill || '', name = (card.querySelector('input[name=name]') || {}).value || '';   // ingevulde waarden houden bij een foutmelding
     var head = '<div class="auth-top"><span class="auth-logo">' + LOGO + '<b>Optimasys <small>QR</small></b>' + (ADMIN ? '<em class="auth-admin">' + t('adminApp.badge') + '</em>' : '') + '</span>' + langPicker() + '</div>';
@@ -45,6 +47,12 @@ var Session = (function () {
         (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>') +
         (mode === 'login' && !signup && !ADMIN ? '<p class="auth-license">' + t('auth.licenseNote') + '</p>' : '') +
         (mode === 'login' && ADMIN ? '<p class="auth-license">' + t('adminApp.onlyAdmins') + '</p>' : '');
+    } else if (mode === 'twofa') {
+      // Tweestapsverificatie: code uit de authenticator-app (of een herstelcode)
+      body = '<h1 id="authTitle">' + t('tfa.loginTitle') + '</h1><p class="auth-lead">' + t('tfa.loginLead') + '</p>' + note +
+        '<form class="auth-form" novalidate><label class="auth-f"><span>' + t('tfa.code') + '</span><span class="auth-in"><input name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="11" required autofocus spellcheck="false"></span></label>' +
+        '<p class="auth-small">' + t('tfa.recoveryHint') + '</p><button class="btn primary auth-go" type="submit">' + t('auth.login') + '</button></form>' +
+        '<button type="button" class="link-btn auth-link" data-mode="login">← ' + t('auth.backToLogin') + '</button>';
     } else if (mode === 'check') {
       // Account gemaakt: eerst e-mail bevestigen
       body = '<span class="auth-mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>' +
@@ -112,11 +120,15 @@ var Session = (function () {
     var np = f.querySelector('[data-pw-rules]'), prob = np && PasswordRules.problem(pw);    // nieuw wachtwoord: eerst zelf controleren
     if (prob) return draw(t(PasswordRules.errorKey('password_' + prob)));
     btn.disabled = true;
-    var job = mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
+    if (mode === 'twofa' && !val('code')) { btn.disabled = false; return draw(t('tfa.errEmpty')); }
+    var job = mode === 'twofa' ? api.auth.login({ email: tfa.email, password: tfa.password, code: val('code') })
+      : mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
       : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang() }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); return null; })
       : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
       : api.auth.reset({ token: resetToken, password: pw });
     job.then(function (u) { if (u) enter(u); }).catch(function (err) {
+      if (err && err.code === '2fa_required' && mode === 'login') { tfa = { email: val('email'), password: pw }; mode = 'twofa'; draw(); var ci = card.querySelector('[name=code]'); if (ci) ci.focus(); return; }
+      if (err && err.code === '2fa_wrong') { draw(t('tfa.errWrong')); var cb = card.querySelector('.auth-go'); if (cb) cb.disabled = false; var ci2 = card.querySelector('[name=code]'); if (ci2) { ci2.value = ''; ci2.focus(); } return; }
       if (err && err.code === 'unverified') { pendingEmail = val('email'); pendingToken = null; mode = 'check'; flash = ['auth.errUnverified', 'bad']; return draw(); }
       draw(errorText(err)); var b = card.querySelector('.auth-go'); if (b) b.disabled = false; });
   });

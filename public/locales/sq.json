@@ -1375,7 +1375,9 @@
     "cpLeadOne": "Edhe 1 hap. Klikoje për ta plotësuar.",
     "needNameTitle": "Si quhesh?",
     "needNameText": "Shkruaj emrin dhe mbiemrin për të përdorur aplikacionin. Shfaqen në llogari dhe në fatura.",
-    "needNameBoth": "Shkruaj edhe emrin edhe mbiemrin."
+    "needNameBoth": "Shkruaj edhe emrin edhe mbiemrin.",
+    "act_2fa_on": "Verifikimi me dy hapa u aktivizua",
+    "act_2fa_off": "Verifikimi me dy hapa u çaktivizua"
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për Optimasys QR",
@@ -2162,5 +2164,34 @@
     "limitCreate": "Ke arritur kufirin e abonimit. Fshi një kod ose kërko një paketë më të madhe te Llogaria ime > Abonimi.",
     "saved": "Abonimi u ruajt.",
     "statsFloor": "Paketa jote shfaq statistika nga {date}."
+  },
+  "tfa": {
+    "title": "Verifikimi me dy hapa",
+    "lead": "Përveç fjalëkalimit, një kod nga një aplikacion vërtetimi (p.sh. Google ose Microsoft Authenticator). Askush nuk hyn vetëm me fjalëkalimin.",
+    "on": "Aktiv",
+    "off": "Joaktiv",
+    "turnOn": "Aktivizo",
+    "turnOff": "Çaktivizo",
+    "onLead": "Gjatë hyrjes kërkojmë kodin nga aplikacioni. Kode rikuperimi të mbetura: {n}.",
+    "step1": "Hap aplikacionin e vërtetimit dhe skano këtë kod QR.",
+    "step2": "Nuk mund të skanosh? Fut këtë çelës:",
+    "step3": "Shkruaj 6 shifrat që tregon aplikacioni:",
+    "code": "Kodi",
+    "confirm": "Konfirmo",
+    "codesTitle": "Kodet e tua të rikuperimit",
+    "codesLead": "Ruaji në vend të sigurt. Nëse humb telefonin, hyr me një nga këto kode (secili punon një herë). I sheh vetëm një herë.",
+    "copy": "Kopjo",
+    "copied": "U kopjua.",
+    "download": "Shkarko (.txt)",
+    "done": "Gati, i ruajta",
+    "offPw": "Fjalëkalimi yt",
+    "offDone": "Verifikimi me dy hapa është joaktiv.",
+    "errWrong": "Ky kod nuk është i saktë. Kontrollo orën e telefonit dhe provo kodin më të ri.",
+    "errEmpty": "Fut kodin.",
+    "errGeneral": "Nuk funksionoi. Provo përsëri.",
+    "errPassword": "Fjalëkalim i gabuar.",
+    "loginTitle": "Kodi nga aplikacioni",
+    "loginLead": "Hap aplikacionin e vërtetimit dhe shkruaj 6 shifrat për Optimasys QR.",
+    "recoveryHint": "Humbe telefonin? Shkruaj një nga kodet e rikuperimit."
   }
 }

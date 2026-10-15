@@ -424,3 +424,26 @@ test('beheer: reden bij uitzetten, uitnodiging intrekken, pakketten op het dashb
   assert.equal((await client()('POST', '/api/auth/reset', { token, password: 'Nieuwe zin 15!x' })).status, 400, 'ingetrokken link werkt niet meer');
   const ov = (await team('GET', '/api/admin/overview')).json; assert.ok(ov.plans && ov.plans.free >= 1, 'telling per pakket');
 });
+
+test('tweestapsverificatie: aanzetten met de app, inloggen met code of herstelcode, uitzetten met wachtwoord', async () => {
+  const { codeAt } = require('../server/dist/auth/totp');
+  const now = () => codeAt(secret, Math.floor(Date.now() / 30000));
+  const u = client(); await signup(u, 'tfa-u@example.com', 'Twee stappen 16!', 'Klant 2FA');
+  assert.equal((await u('GET', '/api/account/2fa')).json.enabled, false);
+  const setup = (await u('POST', '/api/account/2fa/setup', {})).json; var secret = setup.secret;
+  assert.match(setup.otpauth, /^otpauth:\/\/totp\//);
+  assert.equal((await u('POST', '/api/account/2fa/enable', { code: '000000' })).status, 400, 'verkeerde code');
+  const on = await u('POST', '/api/account/2fa/enable', { code: now() });
+  assert.equal(on.status, 200); assert.equal(on.json.recoveryCodes.length, 10);
+  const login = (body) => client()('POST', '/api/auth/login', Object.assign({ email: 'tfa-u@example.com', password: 'Twee stappen 16!' }, body));
+  assert.equal((await login({})).json.error, '2fa_required', 'zonder code geen toegang');
+  assert.equal((await login({ code: '123456' })).json.error, '2fa_wrong');
+  assert.equal((await login({ code: now() })).status, 200, 'met de code uit de app');
+  const rc = on.json.recoveryCodes[0];
+  assert.equal((await login({ code: rc })).status, 200, 'herstelcode werkt');
+  assert.equal((await login({ code: rc })).status, 401, 'herstelcode werkt maar één keer');
+  assert.equal((await u('GET', '/api/account/2fa')).json.recoveryLeft, 9);
+  assert.equal((await u('POST', '/api/account/2fa/disable', { password: 'fout' })).status, 403);
+  assert.equal((await u('POST', '/api/account/2fa/disable', { password: 'Twee stappen 16!' })).status, 200);
+  assert.equal((await login({})).status, 200, 'uit: weer alleen wachtwoord');
+});

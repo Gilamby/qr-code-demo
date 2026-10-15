@@ -1269,7 +1269,9 @@
     "cpLeadOne": "Encore 1 étape. Cliquez dessus pour la remplir.",
     "needNameTitle": "Comment vous appelez-vous ?",
     "needNameText": "Indiquez votre prénom et votre nom pour utiliser l’application. Ils figurent sur votre compte et vos factures.",
-    "needNameBoth": "Indiquez votre prénom et votre nom."
+    "needNameBoth": "Indiquez votre prénom et votre nom.",
+    "act_2fa_on": "Validation en deux étapes activée",
+    "act_2fa_off": "Validation en deux étapes désactivée"
   },
   "mail": {
     "resetSubject": "Nouveau mot de passe pour Optimasys QR",
@@ -2056,5 +2058,34 @@
     "limitCreate": "Vous avez atteint la limite de votre abonnement. Supprimez un code ou demandez une offre supérieure dans Mon compte > Abonnement.",
     "saved": "Abonnement enregistré.",
     "statsFloor": "Votre offre affiche les statistiques à partir du {date}."
+  },
+  "tfa": {
+    "title": "Validation en deux étapes",
+    "lead": "En plus de votre mot de passe, un code d’une application d’authentification (ex. Google ou Microsoft Authenticator). Personne ne peut se connecter avec votre seul mot de passe.",
+    "on": "Activée",
+    "off": "Désactivée",
+    "turnOn": "Activer",
+    "turnOff": "Désactiver",
+    "onLead": "À la connexion, nous demandons le code de votre application. Codes de secours restants : {n}.",
+    "step1": "Ouvrez votre application d’authentification et scannez ce code QR.",
+    "step2": "Impossible de scanner ? Saisissez cette clé :",
+    "step3": "Saisissez les 6 chiffres affichés par l’application :",
+    "code": "Code",
+    "confirm": "Confirmer",
+    "codesTitle": "Vos codes de secours",
+    "codesLead": "Conservez-les en lieu sûr. Si vous perdez votre téléphone, connectez-vous avec l’un de ces codes (chacun fonctionne une fois). Vous ne les voyez qu’une fois.",
+    "copy": "Copier",
+    "copied": "Copié.",
+    "download": "Télécharger (.txt)",
+    "done": "Terminé, je les ai enregistrés",
+    "offPw": "Votre mot de passe",
+    "offDone": "La validation en deux étapes est désactivée.",
+    "errWrong": "Ce code est incorrect. Vérifiez l’heure de votre téléphone et essayez le code le plus récent.",
+    "errEmpty": "Saisissez le code.",
+    "errGeneral": "Cela n’a pas fonctionné. Réessayez.",
+    "errPassword": "Mot de passe incorrect.",
+    "loginTitle": "Code de votre application",
+    "loginLead": "Ouvrez votre application d’authentification et saisissez les 6 chiffres pour Optimasys QR.",
+    "recoveryHint": "Téléphone perdu ? Saisissez l’un de vos codes de secours."
   }
 }

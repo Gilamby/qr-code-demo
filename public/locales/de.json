@@ -1269,7 +1269,9 @@
     "cpLeadOne": "Noch 1 Schritt. Klicke darauf, um ihn auszufüllen.",
     "needNameTitle": "Wie heißt du?",
     "needNameText": "Gib deinen Vor- und Nachnamen ein, um die App zu nutzen. Er erscheint in deinem Konto und auf Rechnungen.",
-    "needNameBoth": "Bitte gib Vor- und Nachnamen ein."
+    "needNameBoth": "Bitte gib Vor- und Nachnamen ein.",
+    "act_2fa_on": "Zwei-Schritt-Verifizierung eingeschaltet",
+    "act_2fa_off": "Zwei-Schritt-Verifizierung ausgeschaltet"
   },
   "mail": {
     "resetSubject": "Neues Passwort für Optimasys QR",
@@ -2056,5 +2058,34 @@
     "limitCreate": "Du hast das Limit deines Abonnements erreicht. Lösche einen Code oder frage unter Mein Konto > Abonnement ein größeres Paket an.",
     "saved": "Abonnement gespeichert.",
     "statsFloor": "Dein Paket zeigt Statistiken ab {date}."
+  },
+  "tfa": {
+    "title": "Zwei-Schritt-Verifizierung",
+    "lead": "Neben deinem Passwort ein Code aus einer Authenticator-App (z. B. Google oder Microsoft Authenticator). So kann sich niemand nur mit deinem Passwort anmelden.",
+    "on": "An",
+    "off": "Aus",
+    "turnOn": "Einschalten",
+    "turnOff": "Ausschalten",
+    "onLead": "Beim Anmelden fragen wir nach dem Code aus deiner App. Verbleibende Wiederherstellungscodes: {n}.",
+    "step1": "Öffne deine Authenticator-App und scanne diesen QR-Code.",
+    "step2": "Scannen nicht möglich? Gib diesen Schlüssel ein:",
+    "step3": "Gib die 6 Ziffern ein, die die App jetzt zeigt:",
+    "code": "Code",
+    "confirm": "Bestätigen",
+    "codesTitle": "Deine Wiederherstellungscodes",
+    "codesLead": "Bewahre sie sicher auf. Verlierst du dein Handy, meldest du dich mit einem dieser Codes an (jeder funktioniert einmal). Du siehst sie nur einmal.",
+    "copy": "Kopieren",
+    "copied": "Kopiert.",
+    "download": "Herunterladen (.txt)",
+    "done": "Fertig, gespeichert",
+    "offPw": "Dein Passwort",
+    "offDone": "Zwei-Schritt-Verifizierung ist aus.",
+    "errWrong": "Dieser Code stimmt nicht. Prüfe die Uhrzeit auf deinem Handy und versuche den neuesten Code.",
+    "errEmpty": "Gib den Code ein.",
+    "errGeneral": "Das hat nicht geklappt. Bitte erneut versuchen.",
+    "errPassword": "Falsches Passwort.",
+    "loginTitle": "Code aus deiner App",
+    "loginLead": "Öffne deine Authenticator-App und gib die 6 Ziffern für Optimasys QR ein.",
+    "recoveryHint": "Handy verloren? Gib einen deiner Wiederherstellungscodes ein."
   }
 }
