@@ -1144,7 +1144,8 @@
     "tab_with": "Me çfarë",
     "tab_when": "Kur",
     "tabsLabel": "Pjesët e statistikave",
-    "peak": "Kulmi"
+    "peak": "Kulmi",
+    "hourShort": "Ora"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",

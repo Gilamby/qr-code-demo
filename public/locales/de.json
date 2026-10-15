@@ -1038,7 +1038,8 @@
     "tab_with": "Womit",
     "tab_when": "Wann",
     "tabsLabel": "Bereiche der Statistik",
-    "peak": "Spitze"
+    "peak": "Spitze",
+    "hourShort": "Stunde"
   },
   "auth": {
     "loginTitle": "Willkommen zurück",

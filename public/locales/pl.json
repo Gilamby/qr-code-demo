@@ -1038,7 +1038,8 @@
     "tab_with": "Czym",
     "tab_when": "Kiedy",
     "tabsLabel": "Części statystyk",
-    "peak": "Szczyt"
+    "peak": "Szczyt",
+    "hourShort": "Godzina"
   },
   "auth": {
     "loginTitle": "Witaj ponownie",

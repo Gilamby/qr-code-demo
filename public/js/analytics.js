@@ -15,7 +15,7 @@ var Analytics = (function () {
   var PERIODS = ['today', 'yesterday', '7', '30', '90', 'all', 'custom'];
   var f = { period: '30', from: '', to: '', codes: [], os: [], cc: [], city: [], br: [], dev: [] };
   var data = null, names = {}, openDrop = null, expanded = {}, seq = 0, group = 'day';   // group: dag, week of maand
-  var tab = 'overview', moreOpen = false, printAll = false;
+  var tab = 'overview', moreOpen = false, printAll = false, whereDim = 'cc', whenDim = 'wd';   // dashboard: land/stad en weekdag/uur wisselen
   var TABS = ['overview', 'where', 'with', 'when'], MORE = ['os', 'cc', 'city', 'dev', 'br'];
   var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   /** Dagen samenvoegen tot weken (maandag) of maanden. Unieke scans worden opgeteld per dag. */
@@ -153,6 +153,12 @@ var Analytics = (function () {
     return '<div class="an-card glass an-summary"><p>' + parts.join(' ') + '</p>' + (r.totals.scans < 20 ? '<p class="an-few">' + t('an.fewData') + '</p>' : '') + '</div>';
   }
   // Wanneer wordt er gescand: per weekdag en per uur (staafjes, met de getallen ook als tekst voor schermlezers)
+  function colBars(vals, lbl, cls) {
+      var m = Math.max.apply(null, vals.concat([1]));
+      return '<ol class="an-cols ' + cls + '">' + vals.map(function (v, i) { return '<li title="' + esc(lbl(i, true) + ': ' + i18n.fmt.num(v)) + '"><i style="height:' + (v ? Math.max(4, v / m * 100) : 0) + '%"></i><span>' + esc(lbl(i)) + '</span><b class="sr-only">' + i18n.fmt.num(v) + '</b></li>'; }).join('') + '</ol>';
+  }
+  var wdLabel = function (i, long) { var w = WD(i); return long ? w : w.slice(0, 2); };
+  var hrLabel = function (i, long) { return long ? String(i).padStart(2, '0') + ':00–' + String(i).padStart(2, '0') + ':59' : (i % 6 ? '' : String(i)); };
   function when(r) {
     var I = r.insights; if (!I) return '';
     var bars = function (vals, lbl, cls) {
@@ -172,7 +178,7 @@ var Analytics = (function () {
   function step(max) { var raw = Math.max(1, max / 4), p = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / p; return Math.max(1, (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p); }
   function lineChart(series) {
     var box = body.querySelector('.an-plot'); if (!box) return;
-    var W = Math.max(280, box.clientWidth), H = W < 520 ? 220 : 280, L = 40, R = 14, T = 12, B = 30, iw = W - L - R, ih = H - T - B;
+    var W = Math.max(280, box.clientWidth), H = printAll ? 280 : W < 520 ? 200 : 230, L = 40, R = 14, T = 12, B = 30, iw = W - L - R, ih = H - T - B;
     var top = Math.max.apply(null, series.map(function (p) { return p.s; }).concat([1])), st = step(top), max = Math.ceil(top / st) * st, n = series.length;
     var x = function (i) { return L + (n === 1 ? iw / 2 : i * iw / (n - 1)); }, y = function (v) { return T + ih - v / max * ih; };
     var ticks = []; for (var v = 0; v <= max + 1e-9; v += st) ticks.push(v);
@@ -295,7 +301,56 @@ var Analytics = (function () {
         : '<div class="an-empty">' + ico('codes', 'an-ei') + '<p>' + t('an.noData') + '</p></div>') + '</div>';
   }
 
-  /* ---------- Tabbladen ---------- */
+  /* ---------- Dashboard: alles in één oogopslag (zoals Overzicht) ---------- */
+  function seg(name, cur, opts) {
+    return '<div class="an-seg" role="radiogroup">' + opts.map(function (o) { return '<button type="button" role="radio" data-' + name + '="' + o[0] + '" aria-checked="' + (cur === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>';
+  }
+  function miniList(dim, rows, total) {
+    rows = ordered(dim, rows);
+    var known = rows.filter(function (r) { return !isUnknown(dim, r.k); });
+    if (!known.length) return '<div class="an-empty sm">' + ico('globe', 'an-ei') + '<p>' + (rows.length ? t('an.unknownOnly', { n: i18n.fmt.num(total) }) : t('an.noData')) + '</p></div>';
+    var max = Math.max.apply(null, known.map(function (r) { return r.s; }));
+    return '<ul class="an-bars an-mini">' + rows.slice(0, 5).map(function (r, i) {
+      var unk = isUnknown(dim, r.k), pct = total ? r.s / total : 0;
+      return '<li' + (unk ? ' class="unk"' : '') + ' style="--i:' + i + '"><button type="button" class="an-row" data-filter="' + dim + '" data-k="' + esc(r.k) + '" title="' + esc(t('an.onlyThis')) + '"><span class="an-name">' + esc(label(dim, r.k)) + '</span>' +
+        '<span class="an-num">' + i18n.fmt.pct(pct).replace(/\s/g, ' ') + '</span><span class="an-track"><i style="width:' + Math.max(2, Math.min(100, r.s / max * 100)).toFixed(1) + '%"></i></span></button></li>';
+    }).join('') + '</ul>';
+  }
+  function whereCard(r) {
+    var tot = r.totals.scans;
+    return '<div class="an-card glass an-dc"><div class="an-chead"><h3>' + ico('globe', 'an-hi') + t('an.tab_where') + '</h3>' + seg('where', whereDim, [['cc', t('an.countries')], ['city', t('an.cities')]]) + '</div>' +
+      miniList(whereDim, whereDim === 'cc' ? r.countries : r.cities, tot) + '</div>';
+  }
+  function whenCard(r) {
+    var I = r.insights || {}, body;
+    if (whenDim === 'wd') body = colBars(I.weekdays || [0, 0, 0, 0, 0, 0, 0], wdLabel, 'w7');
+    else body = I.filtered ? '<p class="an-none">' + t('an.hoursFiltered') + '</p>' : !I.hoursSince ? '<p class="an-none">' + t('an.hoursNone') + '</p>' : colBars(I.hours, hrLabel, 'h24');
+    return '<div class="an-card glass an-dc"><div class="an-chead"><h3>' + ico('clock', 'an-hi') + t('an.tab_when') + '</h3>' + seg('when', whenDim, [['wd', t('an.g_day')], ['hr', t('an.hourShort')]]) + '</div>' + body + '</div>';
+  }
+  function dashboard(r) {
+    var tot = r.totals.scans;
+    return '<div class="an-dash"><div class="an-d1">' + chartCard(r) + ranking(r.codes, tot) + '</div>' +
+      '<div class="an-d2">' + whereCard(r) + donut('os', t('an.os'), r.os, tot, 'phone') + donut('dev', t('an.devices'), r.devices || [], tot, 'desktop') + donut('br', t('an.browsers'), r.browsers || [], tot, 'globe') + whenCard(r) + '</div></div>';
+  }
+  // Alleen dat ene kaartje vervangen (de rest van het dashboard blijft rustig staan)
+  function swapCard(btn, html, focusSel) {
+    var card = btn.closest('.an-dc'); if (!card) return drawTab();
+    var tmp = document.createElement('div'); tmp.innerHTML = html; var nc = tmp.firstChild; card.parentNode.replaceChild(nc, card);
+    var f = nc.querySelector(focusSel); if (f) f.focus();
+  }
+  // Zoals Overzicht: past de pagina niet, dan iets kleiner (minimaal 75%), zodat je alles ziet zonder te scrollen
+  function fit() {
+    var sec = view.querySelector('.an'); if (!sec || view.hidden) return;
+    sec.style.zoom = '';
+    if (window.innerWidth <= 1100 || printAll) return;
+    var top = sec.getBoundingClientRect().top + window.scrollY, h = sec.offsetHeight, avail = window.innerHeight - top - 24;
+    var extra = document.documentElement.scrollHeight - window.innerHeight - Math.max(0, h - avail);   // ruimte onder de bubbel (marge van de pagina)
+    if (extra > 0) avail -= extra;
+    if (h > avail) sec.style.zoom = Math.max(.75, Math.floor(avail / h * 1000) / 1000);
+    if (data && data.series && body.querySelector('.an-plot')) lineChart(grouped(data.series));
+  }
+
+  /* ---------- Tabbladen (alleen nog voor het rapport/PDF: alle details onder elkaar) ---------- */
   function chartCard(r) {
     var tot = r.totals.scans;
     return '<div class="an-card glass an-chart"><div class="an-chead"><h3>' + t(group === 'day' ? 'an.chartTitle' : group === 'week' ? 'an.chartWeek' : 'an.chartMonth') + '</h3>' +
@@ -316,10 +371,10 @@ var Analytics = (function () {
   function drawTab() {
     var box = body.querySelector('#anTab'); if (!box) return;
     if (printAll) box.innerHTML = TABS.map(function (k) { return '<h3 class="an-ptitle">' + t('an.tab_' + k) + '</h3>' + panel(k, data); }).join('');
-    else box.innerHTML = panel(tab, data);
+    else box.innerHTML = dashboard(data);
     box.classList.remove('an-in'); void box.offsetWidth; box.classList.add('an-in');
-    body.querySelectorAll('[data-tab]').forEach(function (b) { var on = b.getAttribute('data-tab') === tab; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; });
-    if (tab === 'overview' || printAll) { lineChart(grouped(data.series)); var pl = body.querySelector('.an-plot'); if (pl && !printAll) pl.classList.add('an-anim'); }
+    lineChart(grouped(data.series)); var pl = body.querySelector('.an-plot'); if (pl && !printAll) { pl.classList.add('an-anim'); setTimeout(function () { pl.classList.remove('an-anim'); }, 1700); }   // één keer, niet bij elke schermwijziging
+    requestAnimationFrame(fit);
   }
 
   /* ---------- Alles tekenen ---------- */
@@ -334,10 +389,7 @@ var Analytics = (function () {
     }
     body.innerHTML = tiles(r) +   // de samenvattingszin is weg: tegels + ranglijst laten hetzelfde zien
 
-      '<div class="an-tabs" role="tablist" aria-label="' + esc(t('an.tabsLabel')) + '">' + TABS.map(function (k) {
-        return '<button type="button" role="tab" id="anTab_' + k + '" aria-controls="anTab" data-tab="' + k + '" aria-label="' + esc(t('an.tab_' + k)) + '">' + ico({ overview: 'scans', where: 'globe', with: 'phone', when: 'clock' }[k], 'an-ti') + '<span>' + t('an.tab_' + k) + '</span></button>';
-      }).join('') + '</div>' +
-      '<div id="anTab" class="an-tabp" role="tabpanel" aria-labelledby="anTab_' + tab + '"></div>';
+      '<div id="anTab" class="an-tabp"></div>';
     drawTab(); countUp();
   }
   function load() {
@@ -374,9 +426,10 @@ var Analytics = (function () {
     if ((b = e.target.closest('[data-drop]'))) { var dim = b.getAttribute('data-drop'); openDrop = openDrop === dim ? null : dim; drawFilters(); var fst = bar.querySelector('.an-drop input'); if (fst) fst.focus(); return; }
     if (!e.target.closest('.an-drop') && openDrop) { openDrop = null; drawFilters(); }
     if (e.target.closest('[data-clear]')) { f.codes = []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; return load(); }
-    if (e.target.closest('[data-more]')) { moreOpen = !moreOpen; openDrop = null; return drawFilters(); }
+    if (e.target.closest('[data-more]')) { moreOpen = !moreOpen; openDrop = null; drawFilters(); return requestAnimationFrame(fit); }
     if ((b = e.target.closest('[data-unpick]'))) { var ud = b.getAttribute('data-unpick'), uk = b.getAttribute('data-k'); f[ud] = f[ud].filter(function (v) { return v !== uk; }); return load(); }
-    if ((b = e.target.closest('[data-tab]'))) { tab = b.getAttribute('data-tab'); return drawTab(); }
+    if ((b = e.target.closest('[data-where]'))) { whereDim = b.getAttribute('data-where'); return swapCard(b, whereCard(data), '[data-where="' + whereDim + '"]'); }
+    if ((b = e.target.closest('[data-when]'))) { whenDim = b.getAttribute('data-when'); return swapCard(b, whenCard(data), '[data-when="' + whenDim + '"]'); }
     if ((b = e.target.closest('[data-filter]'))) { var k = b.getAttribute('data-filter'); f[k] = [b.getAttribute('data-k')]; if (MORE.indexOf(k) >= 0) moreOpen = true; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
     if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return drawTab(); }
     if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return drawTab(); }
@@ -384,15 +437,10 @@ var Analytics = (function () {
     if (e.target.closest('#anReport')) return report();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
   });
-  view.addEventListener('keydown', function (e) {
-    var tb = e.target.closest && e.target.closest('[data-tab]'); if (!tb || !/^(ArrowLeft|ArrowRight|Home|End)$/.test(e.key)) return;
-    e.preventDefault(); var i = TABS.indexOf(tab); i = e.key === 'Home' ? 0 : e.key === 'End' ? TABS.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + TABS.length) % TABS.length;
-    tab = TABS[i]; drawTab(); var nb = body.querySelector('[data-tab="' + tab + '"]'); if (nb) nb.focus();
-  });
   view.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openDrop) { var dim = openDrop; openDrop = null; drawFilters(); var btn = bar.querySelector('[data-drop="' + dim + '"]'); if (btn) btn.focus(); } });
   body.addEventListener('pointermove', function (e) { if (e.target.closest('.an-plot')) hover(e); });
   body.addEventListener('pointerleave', unhover, true);
-  addEventListener('resize', function () { if (!view.hidden && data && data.series && (tab === 'overview' || printAll)) lineChart(grouped(data.series)); });
+  addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(function () { if (!view.hidden && data && data.series) { lineChart(grouped(data.series)); fit(); } }, 80); });
 
   function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); var rp = document.getElementById('anReport'); if (rp) rp.innerHTML = ico('dl') + t('an.report'); }
   /* Rapport: de pagina netjes afdrukken; in het afdrukvenster kies je "Opslaan als PDF" */

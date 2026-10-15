@@ -1038,7 +1038,8 @@
     "tab_with": "Con cosa",
     "tab_when": "Quando",
     "tabsLabel": "Sezioni delle statistiche",
-    "peak": "Picco"
+    "peak": "Picco",
+    "hourShort": "Ora"
   },
   "auth": {
     "loginTitle": "Bentornato",

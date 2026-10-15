@@ -1038,7 +1038,8 @@
     "tab_with": "Con qué",
     "tab_when": "Cuándo",
     "tabsLabel": "Secciones de las estadísticas",
-    "peak": "Pico"
+    "peak": "Pico",
+    "hourShort": "Hora"
   },
   "auth": {
     "loginTitle": "Bienvenido de nuevo",

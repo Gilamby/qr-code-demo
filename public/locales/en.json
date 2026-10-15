@@ -1038,7 +1038,8 @@
     "tab_with": "With what",
     "tab_when": "When",
     "tabsLabel": "Parts of the analytics",
-    "peak": "Peak"
+    "peak": "Peak",
+    "hourShort": "Hour"
   },
   "auth": {
     "loginTitle": "Welcome back",

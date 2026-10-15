@@ -1038,7 +1038,8 @@
     "tab_with": "Waarmee",
     "tab_when": "Wanneer",
     "tabsLabel": "Onderdelen van de statistieken",
-    "peak": "Piek"
+    "peak": "Piek",
+    "hourShort": "Uur"
   },
   "auth": {
     "loginTitle": "Welkom terug",

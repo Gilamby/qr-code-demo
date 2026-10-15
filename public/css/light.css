@@ -421,6 +421,7 @@
 :root[data-theme="light"] .st-ic { background: rgba(13,19,32,0.053); }
 :root[data-theme="light"] .st-row.danger .st-ic { color: #dc2626; }
 :root[data-theme="light"] .st-row.danger b { color: #b91c1c; }
+:root[data-theme="light"] .an-seg { background: rgba(13,19,32,0.045); border: 1px solid rgba(13,19,32,0.09); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

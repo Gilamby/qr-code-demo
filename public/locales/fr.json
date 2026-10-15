@@ -1038,7 +1038,8 @@
     "tab_with": "Avec quoi",
     "tab_when": "Quand",
     "tabsLabel": "Parties des statistiques",
-    "peak": "Pic"
+    "peak": "Pic",
+    "hourShort": "Heure"
   },
   "auth": {
     "loginTitle": "Bon retour",
