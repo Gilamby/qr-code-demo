@@ -4060,3 +4060,5 @@ body.an-printing #anRange { display: block; }
   .an .an-frow2 .an-f { flex: 1 1 180px; }
   .an .an-head .btn { height: 40px; }
 }
+/* Statistieken: de bubbel vult de hele breedte (geen smalle kolom in het midden) */
+@media (min-width: 1101px) { #analyticsView > .an { max-width: none !important; } }
