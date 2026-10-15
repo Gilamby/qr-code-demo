@@ -4062,3 +4062,8 @@ body.an-printing #anRange { display: block; }
 }
 /* Statistieken: de bubbel vult de hele breedte (geen smalle kolom in het midden) */
 @media (min-width: 1101px) { #analyticsView > .an { max-width: none !important; } }
+/* Statistieken: bubbel begint direct onder de bovenbalk (meer hoogte = minder verkleinen) */
+@media (min-width: 1101px) {
+  #analyticsView { padding-top: 10px !important; }
+  #analyticsView > .an { margin-top: 0 !important; }
+}
