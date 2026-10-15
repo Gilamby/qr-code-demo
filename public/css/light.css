@@ -385,6 +385,35 @@
 @media (min-width: 761px) {
 :root[data-theme="light"] body.scrolled .topbar { border-bottom: 1px solid rgba(13,19,32,0.072) !important; }
 }
+:root[data-theme="light"] #analyticsView > .an,
+:root[data-theme="light"] #accountView > .account,
+:root[data-theme="light"] #contactView > .help,
+:root[data-theme="light"] #faqView > .help,
+:root[data-theme="light"] #adminDashView > .help,
+:root[data-theme="light"] #adminCodesView > .help,
+:root[data-theme="light"] #customersView > .help,
+:root[data-theme="light"] #adminSettingsView > .ast,
+:root[data-theme="light"] #legalView > .lg { background: linear-gradient(140deg, rgba(13,19,32,0.128), rgba(13,19,32,0.038) 45%, rgba(13,19,32,0.068)) !important; border-color: rgba(13,19,32,0.216) !important; }
+:root[data-theme="light"] .an-frow2 { border-top: 1px solid rgba(13,19,32,0.09); }
+:root[data-theme="light"] .an-morebtn { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .an-morebtn:hover,
+:root[data-theme="light"] .an-morebtn.on { background: rgba(13,19,32,0.09); border-color: rgba(13,19,32,0.27); }
+:root[data-theme="light"] .an-delta.is-up { color: #15803d; }
+:root[data-theme="light"] .an-delta.is-down { color: #dc2626; }
+:root[data-theme="light"] .an-delta.is-flat { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .an-meter { background: rgba(13,19,32,0.06); }
+:root[data-theme="light"] .an-tabs { background: rgba(13,19,32,0.045); border: 1px solid rgba(13,19,32,0.108); }
+:root[data-theme="light"] .an-tabs button:hover { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .an-bars li.unk .an-track i { background: rgba(13,19,32,0.165); }
+:root[data-theme="light"] .an-dbg { stroke: rgba(13,19,32,0.063); }
+:root[data-theme="light"] button.an-lrow:hover,
+:root[data-theme="light"] button.an-lrow:focus-visible { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .an-rrow:hover,
+:root[data-theme="light"] .an-rrow:focus-visible { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .an-rqr:empty { background: rgba(13,19,32,0.06); }
+:root[data-theme="light"] .an-gr.up { color: #15803d; }
+:root[data-theme="light"] .an-gr.down { color: #dc2626; }
+:root[data-theme="light"] .an-pbox { stroke: rgba(13,19,32,0.162); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

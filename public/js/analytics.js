@@ -1,10 +1,13 @@
 /* =========================================================
    STATISTIEKEN
-   - Filters: periode, QR-codes, systeem, land, stad (alles in één rij)
-   - Drie tegels: QR-codes, scans, unieke scans
-   - Lijngrafiek scans + unieke scans per dag, week of maand (met tooltip)
-   - Verdeling per systeem, land, stad en QR-code (liggende balken: makkelijk te lezen)
-   - Exporteren als CSV (Excel)
+   - Filters: periode + QR-codes altijd zichtbaar; systeem, land, stad, apparaat en browser achter "Filters".
+     Gekozen filters staan als chips eronder (× = weghalen).
+   - Vier tegels: scans, unieke scans (met groei t.o.v. de periode ervoor + mini-grafiekje), actieve codes, beste dag
+   - Tabbladen: Overzicht (grafiek + top QR-codes), Waar (land, stad), Waarmee (systeem, apparaat, browser als
+     donut), Wanneer (weekdag, uur, kalender). Zo past elk deel op één scherm.
+   - "Onbekend" staat altijd onderaan en in grijs
+   - Animaties: cijfers tellen op, balken/donuts groeien, lijn tekent zich (niet bij "minder beweging")
+   - Exporteren als CSV (Excel) en rapport (PDF: alle tabbladen onder elkaar)
    Gegevens: api.analytics() → server (/api/analytics) of, in de online demo, voorbeeldcijfers.
    ========================================================= */
 var Analytics = (function () {
@@ -12,6 +15,9 @@ var Analytics = (function () {
   var PERIODS = ['today', 'yesterday', '7', '30', '90', 'all', 'custom'];
   var f = { period: '30', from: '', to: '', codes: [], os: [], cc: [], city: [], br: [], dev: [] };
   var data = null, names = {}, openDrop = null, expanded = {}, seq = 0, group = 'day';   // group: dag, week of maand
+  var tab = 'overview', moreOpen = false, printAll = false;
+  var TABS = ['overview', 'where', 'with', 'when'], MORE = ['os', 'cc', 'city', 'dev', 'br'];
+  var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   /** Dagen samenvoegen tot weken (maandag) of maanden. Unieke scans worden opgeteld per dag. */
   function grouped(series) {
     if (group === 'day') return series;
@@ -32,8 +38,10 @@ var Analytics = (function () {
   var IC = {
     codes: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 14h2v2h-2zM18 18h2v2h-2z"/>',
     scans: '<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/>',
-    unique: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>',
-    dl: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>', info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>', chev: '<path d="M6 9l6 6 6-6"/>'
+    unique: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>', clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    dl: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>', x: '<path d="M7 7l10 10M17 7L7 17"/>', filter: '<path d="M4 6h16M7 12h10M10 18h4"/>',
+    up: '<path d="M7 14l5-5 5 5"/>', down: '<path d="M7 10l5 5 5-5"/>', globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
+    phone: '<rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/>', tablet: '<rect x="4.5" y="3" width="15" height="18" rx="2.5"/><path d="M11 18h2"/>', desktop: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M9 20h6M12 16v4"/>', info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>', chev: '<path d="M6 9l6 6 6-6"/>'
   };
   function ico(k, cls) { return '<svg class="' + (cls || 'an-i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + '</svg>'; }
   function iso(d) { return d.toISOString().slice(0, 10); }
@@ -74,24 +82,59 @@ var Analytics = (function () {
   function drawFilters() {
     var o = (data && data.options) || { os: [], countries: [], cities: [], browsers: [], devices: [] };
     var codeIds = Object.keys(names);
-    var any = f.codes.length || f.os.length || f.cc.length || f.city.length || f.br.length || f.dev.length;
-    bar.innerHTML =
+    var nMore = MORE.reduce(function (n, k) { return n + f[k].length; }, 0);
+    var chips = [];
+    ['codes'].concat(MORE).forEach(function (dim) { f[dim].forEach(function (k) { chips.push('<button type="button" class="an-chip" data-unpick="' + dim + '" data-k="' + esc(k) + '" aria-label="' + esc(t('an.removeFilter', { name: label(dim, k) })) + '"><span>' + esc(label(dim, k)) + '</span>' + ico('x', 'an-cx') + '</button>'); }); });
+    bar.innerHTML = '<div class="an-frow">' +
       '<label class="an-f"><span class="an-flbl">' + t('an.period') + '</span><select id="anPeriod">' + PERIODS.map(function (p) { return '<option value="' + p + '"' + (f.period === p ? ' selected' : '') + '>' + t('an.p_' + p) + '</option>'; }).join('') + '</select></label>' +
       (f.period === 'custom' ? '<label class="an-f"><span class="an-flbl">' + t('an.from') + '</span><input type="date" id="anFrom" value="' + range().from + '" max="' + iso(new Date()) + '"></label>' +
         '<label class="an-f"><span class="an-flbl">' + t('an.to') + '</span><input type="date" id="anTo" value="' + range().to + '" max="' + iso(new Date()) + '"></label>' : '') +
-      multi('codes', t('an.codes'), codeIds) + multi('os', t('an.os'), o.os) + multi('cc', t('an.countries'), o.countries) + multi('city', t('an.cities'), o.cities) + multi('dev', t('an.devices'), o.devices || []) + multi('br', t('an.browsers'), o.browsers || []) +
-      (any ? '<button type="button" class="link-btn an-clear" data-clear>' + t('an.clear') + '</button>' : '');
+      multi('codes', t('an.codes'), codeIds) +
+      '<button type="button" class="an-morebtn' + (moreOpen ? ' on' : '') + '" data-more aria-expanded="' + moreOpen + '">' + ico('filter') + '<span>' + t('an.filters') + '</span>' + (nMore ? '<b>' + nMore + '</b>' : '') + ico('chev', 'an-chev') + '</button></div>' +
+      (moreOpen ? '<div class="an-frow an-frow2">' + multi('os', t('an.os'), o.os) + multi('cc', t('an.countries'), o.countries) + multi('city', t('an.cities'), o.cities) + multi('dev', t('an.devices'), o.devices || []) + multi('br', t('an.browsers'), o.browsers || []) + '</div>' : '') +
+      (chips.length ? '<div class="an-chips">' + chips.join('') + '<button type="button" class="link-btn an-clear" data-clear>' + t('an.clear') + '</button></div>' : '');
   }
 
   /* ---------- Tegels ---------- */
-  function tiles(tot) {
-    // sub = korte uitleg die altijd zichtbaar is (wat is een scan, wat is een unieke scan)
-    var tile = function (k, n, txt, tip, sub) {
-      return '<div class="an-tile glass an-' + k + '"><span class="an-tic">' + CodeUtil.tileIcon({ codes: 'folder', scans: 'qrscan', unique: 'frame' }[k]) + '</span><span class="an-tl"><small>' + txt +
-        (tip ? ' <button type="button" class="an-tip" aria-label="' + esc(tip) + '" data-tip="' + esc(tip) + '">' + ico('info', 'an-ii') + '</button>' : '') + '</small><b>' + i18n.fmt.num(n) + '</b>' +
-        (sub ? '<em class="an-sub">' + esc(sub) + '</em>' : '') + '</span></div>';
+  // Groei t.o.v. de periode ervoor, als gekleurd label
+  function delta(now, before) {
+    if (!before && !now) return '';
+    if (!before) return '<span class="an-delta is-up">' + ico('up', 'an-di') + t('an.newScans', { n: i18n.fmt.num(now) }) + '</span>';
+    var p = Math.round((now - before) / before * 100);
+    return '<span class="an-delta is-' + (p > 0 ? 'up' : p < 0 ? 'down' : 'flat') + '" title="' + esc(t('an.vsPrev')) + '">' + (p ? ico(p > 0 ? 'up' : 'down', 'an-di') : '') + i18n.fmt.num(Math.abs(p)) + '%<small>' + t('an.vsPrevShort') + '</small></span>';
+  }
+  // Mini-grafiekje onderin een tegel
+  function spark(vals, cls) {
+    if (vals.length < 2) return '';
+    var m = Math.max.apply(null, vals.concat([1])), n = vals.length;
+    var pts = vals.map(function (v, i) { return (i / (n - 1) * 100).toFixed(2) + ' ' + (30 - v / m * 26).toFixed(2); });
+    return '<svg class="an-spark ' + cls + '" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true"><path class="ar" d="M' + pts.join(' L') + ' L100 32 L0 32Z"/><path class="ln" d="M' + pts.join(' L') + '"/></svg>';
+  }
+  function num(n) { return '<b class="an-big" data-count="' + n + '">' + i18n.fmt.num(calm ? n : 0) + '</b>'; }
+  function tiles(r) {
+    var tot = r.totals, I = r.insights || {}, s = r.series || [];
+    var tile = function (k, icon, title, value, foot, extra, tip) {
+      return '<div class="an-tile glass an-' + k + '"><div class="an-ttop"><span class="an-tic">' + CodeUtil.tileIcon(icon) + '</span><small>' + title +
+        (tip ? ' <button type="button" class="an-tip" aria-label="' + esc(tip) + '" data-tip="' + esc(tip) + '">' + ico('info', 'an-ii') + '</button>' : '') + '</small></div>' +
+        value + '<div class="an-tfoot">' + foot + '</div>' + (extra || '') + '</div>';
     };
-    return '<div class="an-tiles">' + tile('codes', tot.codes, t('an.totalCodes')) + tile('scans', tot.scans, t('an.totalScans'), null, t('an.scansSub')) + tile('unique', tot.unique, t('an.totalUnique'), t('an.uniqueTip'), t('an.uniqueSub')) + '</div>';
+    var best = I.bestDay;
+    return '<div class="an-tiles">' +
+      tile('scans', 'qrscan', t('an.totalScans'), num(tot.scans), delta(tot.scans, I.prevScans || 0), spark(s.map(function (p) { return p.s; }), 's1')) +
+      tile('unique', 'frame', t('an.totalUnique'), num(tot.unique), delta(tot.unique, I.prevUnique || 0), spark(s.map(function (p) { return p.u; }), 's2'), t('an.uniqueTip')) +
+      tile('active', 'folder', t('an.activeCodes'), num(I.activeCodes || 0), '<span class="an-tsub">' + t('an.activeOf', { n: i18n.fmt.num(tot.codes) }) + '</span>' +
+        '<span class="an-meter"><i style="width:' + (tot.codes ? Math.round((I.activeCodes || 0) / tot.codes * 100) : 0) + '%"></i></span>') +
+      tile('best', 'star', t('an.bestDay'), best && best.s ? '<b class="an-big an-date">' + esc(i18n.fmt.date(d(best.d), 'dshort')) + '</b>' : '<b class="an-big an-date">–</b>',
+        '<span class="an-tsub">' + (best && best.s ? t('an.nScans', { n: i18n.fmt.num(best.s) }) : t('an.noScansShort')) + '</span>') +
+      '</div>';
+  }
+  // Cijfers optellen van 0 naar de echte waarde (kort, rustig)
+  function countUp() {
+    if (calm) return;
+    body.querySelectorAll('[data-count]').forEach(function (el) {
+      var to = +el.getAttribute('data-count'), t0 = performance.now(), dur = 900;
+      (function tick(now) { var k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = i18n.fmt.num(Math.round(to * e)); if (k < 1) requestAnimationFrame(tick); })(t0);
+    });
   }
 
   /* ---------- Inzichten: gemiddelde, groei, beste dag, topcode, actieve codes, drukste moment ---------- */
@@ -135,11 +178,18 @@ var Analytics = (function () {
     var ticks = []; for (var v = 0; v <= max + 1e-9; v += st) ticks.push(v);
     var every = Math.max(1, Math.ceil(n / (W < 520 ? 4 : 8)));
     var path = function (k) { return series.map(function (p, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(p[k]).toFixed(1); }).join(''); };
+    // Piek: de hoogste dag krijgt een stip met het aantal erboven
+    var peak = function () {
+      var pi = -1; series.forEach(function (p, i) { if (p.s > 0 && (pi < 0 || p.s > series[pi].s)) pi = i; }); if (pi < 0) return '';
+      var px = x(pi), py = y(series[pi].s), lx = Math.min(Math.max(px, L + 34), W - R - 34);
+      return '<g class="an-peak"><circle cx="' + px + '" cy="' + py + '" r="9" class="an-pring"/><circle cx="' + px + '" cy="' + py + '" r="4.5" class="an-pdot"/>' +
+        '<rect x="' + (lx - 32) + '" y="' + Math.max(0, py - 34) + '" width="64" height="22" rx="11" class="an-pbox"/><text x="' + lx + '" y="' + (Math.max(0, py - 34) + 15) + '" class="an-ptxt">' + esc(t('an.peak')) + ' ' + i18n.fmt.num(series[pi].s) + '</text></g>';
+    };
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + esc(t('an.chartTitle')) + '">' +
       ticks.map(function (v) { return '<line class="an-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="an-ax" x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + i18n.fmt.num(v) + '</text>'; }).join('') +
       series.map(function (p, i) { return i % every === 0 || i === n - 1 && (n - 1) % every > every / 2 ? '<text class="an-ax" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(pointLabel(p, 'axis')) + '</text>' : ''; }).join('') +
       (n > 1 ? '<path class="an-area" d="' + path('s') + 'L' + x(n - 1) + ' ' + y(0) + 'L' + x(0) + ' ' + y(0) + 'Z"/>' +
-        '<path class="an-line s1" d="' + path('s') + '"/><path class="an-line s2" d="' + path('u') + '"/>'
+        '<path class="an-line s2" d="' + path('u') + '"/><path class="an-line s1" d="' + path('s') + '"/>' + peak()
         : '<circle class="an-dot s1" cx="' + x(0) + '" cy="' + y(series[0].s) + '" r="5"/><circle class="an-dot s2" cx="' + x(0) + '" cy="' + y(series[0].u) + '" r="5"/>') +
       '<line class="an-cross" x1="0" x2="0" y1="' + T + '" y2="' + (T + ih) + '" hidden/><circle class="an-hl s1" r="5" hidden/><circle class="an-hl s2" r="5" hidden/>' +
       '<rect class="an-hit" x="' + L + '" y="' + T + '" width="' + iw + '" height="' + ih + '" fill="transparent"/></svg>' +
@@ -183,16 +233,93 @@ var Analytics = (function () {
     return '<div class="an-card glass an-cal"><div class="an-chead"><h3>' + t('an.calTitle') + '</h3><span class="an-cal-key" aria-hidden="true">' + t('an.calLess') + '<i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i>' + t('an.calMore') + '</span></div>' +
       '<div class="an-cal-wrap"><div class="an-cal-wd" aria-hidden="true">' + wd + '</div><div class="an-cal-grid" role="img" aria-label="' + esc(t('an.calTitle')) + '">' + cells.join('') + '</div></div></div>';
   }
-  function breakdown(dim, title, rows, total) {
-    var max = rows.length ? rows[0].s : 1, open = expanded[dim], shown = open ? rows : rows.slice(0, 6);
-    return '<div class="an-card glass"><h3>' + title + '</h3>' +
-      (rows.length ? '<ul class="an-bars">' + shown.map(function (r) {
-        var pct = total ? r.s / total * 100 : 0;
-        return '<li><button type="button" class="an-row" data-filter="' + dim + '" data-k="' + esc(r.k) + '" title="' + esc(t('an.onlyThis')) + '"><span class="an-name">' + esc(label(dim, r.k)) + '</span>' +
-          '<span class="an-num">' + (dim === 'codes' && r.p !== undefined ? growth(r.s, r.p) : '') + i18n.fmt.num(r.s) + '<small>' + i18n.fmt.pct(pct / 100).replace(/\s/g, ' ') + '</small></span>' +
-          '<span class="an-track"><i style="width:' + Math.max(2, r.s / max * 100).toFixed(1) + '%"></i></span></button></li>';
+  var UNK = { unknown: 1, other: 1, '': 1 };
+  function isUnknown(dim, k) { return dim === 'city' ? !k.split('|')[1] : dim === 'codes' ? false : !!UNK[k]; }
+  // "Onbekend" en "Overig" altijd onderaan
+  function ordered(dim, rows) { return rows.filter(function (r) { return !isUnknown(dim, r.k); }).concat(rows.filter(function (r) { return isUnknown(dim, r.k); })); }
+  function breakdown(dim, title, rows, total, icon) {
+    rows = ordered(dim, rows);
+    var known = rows.filter(function (r) { return !isUnknown(dim, r.k); });
+    var max = known.length ? Math.max.apply(null, known.map(function (r) { return r.s; })) : (rows[0] ? rows[0].s : 1), open = expanded[dim], shown = open ? rows : rows.slice(0, 6);
+    var head = '<div class="an-chead"><h3>' + (icon ? ico(icon, 'an-hi') : '') + title + '</h3></div>';
+    if (rows.length && !known.length) return '<div class="an-card glass">' + head + '<div class="an-empty">' + ico(icon || 'info', 'an-ei') + '<p>' + t('an.unknownOnly', { n: i18n.fmt.num(total) }) + '</p></div></div>';
+    return '<div class="an-card glass">' + head +
+      (rows.length ? '<ul class="an-bars">' + shown.map(function (r, i) {
+        var pct = total ? r.s / total * 100 : 0, unk = isUnknown(dim, r.k);
+        return '<li' + (unk ? ' class="unk"' : '') + ' style="--i:' + i + '"><button type="button" class="an-row" data-filter="' + dim + '" data-k="' + esc(r.k) + '" title="' + esc(t('an.onlyThis')) + '"><span class="an-name">' + esc(label(dim, r.k)) + '</span>' +
+          '<span class="an-num">' + i18n.fmt.num(r.s) + '<small>' + i18n.fmt.pct(pct / 100).replace(/\s/g, ' ') + '</small></span>' +
+          '<span class="an-track"><i style="width:' + Math.max(2, Math.min(100, r.s / max * 100)).toFixed(1) + '%"></i></span></button></li>';
       }).join('') + '</ul>' + (rows.length > 6 ? '<button type="button" class="link-btn an-more" data-expand="' + dim + '">' + (open ? t('an.less') : t('an.showAll', { n: rows.length })) + '</button>' : '')
-        : '<p class="an-none">' + t('an.noData') + '</p>') + '</div>';
+        : '<div class="an-empty">' + ico(icon || 'info', 'an-ei') + '<p>' + t('an.noData') + '</p></div>') + '</div>';
+  }
+
+  /* ---------- Donut (systeem, apparaat, browser) ---------- */
+  var PAL = ['#3b9cf5', '#22c39a', '#a78bfa', '#f5b544', '#f472b6', '#2dd4bf', '#fb7185'];
+  function donut(dim, title, rows, total, icon) {
+    rows = ordered(dim, rows);
+    var head = '<div class="an-chead"><h3>' + ico(icon, 'an-hi') + title + '</h3></div>';
+    if (!rows.length) return '<div class="an-card glass an-dcard">' + head + '<div class="an-empty">' + ico(icon, 'an-ei') + '<p>' + t('an.noData') + '</p></div></div>';
+    var top = rows.slice(0, 5), rest = rows.slice(5).reduce(function (n, r) { return n + r.s; }, 0);
+    if (rest) top.push({ k: 'other', s: rest, rest: true });
+    var R = 52, C = 2 * Math.PI * R, at = 0, ci = 0;
+    var segs = top.map(function (r) {
+      var unk = isUnknown(dim, r.k) || r.rest, col = unk ? 'rgba(255,255,255,.22)' : PAL[ci++ % PAL.length], len = total ? r.s / total * C : 0;
+      var seg = { r: r, col: col, unk: unk, len: len, off: at }; at += len; return seg;
+    });
+    var gap = segs.length > 1 ? 2 : 0;
+    var svg = '<svg class="an-donut" viewBox="0 0 140 140" role="img" aria-label="' + esc(title) + '"><circle cx="70" cy="70" r="' + R + '" class="an-dbg"/>' +
+      segs.map(function (g, i) { return '<circle cx="70" cy="70" r="' + R + '" class="an-dseg" style="--i:' + i + '" stroke="' + g.col + '" stroke-dasharray="' + Math.max(0, g.len - gap).toFixed(2) + ' ' + C.toFixed(2) + '" stroke-dashoffset="' + (-g.off).toFixed(2) + '"/>'; }).join('') +
+      '<text x="70" y="68" class="an-dnum">' + i18n.fmt.num(total) + '</text><text x="70" y="86" class="an-dlbl">' + esc(t('an.scans').toLowerCase()) + '</text></svg>';
+    var devIco = function (k) { return dim === 'dev' && /^(mobile|tablet|desktop)$/.test(k) ? ico(k === 'mobile' ? 'phone' : k, 'an-li') : ''; };
+    return '<div class="an-card glass an-dcard">' + head + '<div class="an-dwrap">' + svg + '<ul class="an-legend2">' + segs.map(function (g) {
+      var pct = total ? g.r.s / total : 0;
+      return '<li' + (g.unk ? ' class="unk"' : '') + '>' + (g.r.rest ? '<span class="an-lrow">' : '<button type="button" class="an-lrow" data-filter="' + dim + '" data-k="' + esc(g.r.k) + '" title="' + esc(label(dim, g.r.k) + ': ' + t('an.nScans', { n: i18n.fmt.num(g.r.s) }) + ' · ' + t('an.onlyThis')) + '">') +
+        '<i class="an-ldot" style="background:' + g.col + '"></i>' + devIco(g.r.k) + '<span class="an-lname">' + esc(g.r.rest ? t('an.other') : label(dim, g.r.k)) + '</span><b>' + i18n.fmt.pct(pct).replace(/\s/g, ' ') + '</b><small class="sr-only">' + i18n.fmt.num(g.r.s) + '</small>' + (g.r.rest ? '</span>' : '</button>') + '</li>';
+    }).join('') + '</ul></div></div>';
+  }
+
+  /* ---------- Top QR-codes: ranglijst met plaatje, medaille en groei ---------- */
+  function ranking(rows, total) {
+    var open = expanded.rank, shown = open ? rows : rows.slice(0, 5), max = rows.length ? rows[0].s : 1;
+    var medal = ['🥇', '🥈', '🥉'];
+    return '<div class="an-card glass an-rank"><div class="an-chead"><h3>' + ico('codes', 'an-hi') + t('an.topCodes') + '</h3><small class="muted">' + t('an.vsPrevShort') + '</small></div>' +
+      (rows.length ? '<ol class="an-rlist">' + shown.map(function (r, i) {
+        var c = names[r.k], qr = '';
+        try { qr = c && c.code ? CodeUtil.qrSvg(c.code) : ''; } catch (e) { qr = ''; }
+        return '<li style="--i:' + i + '"><button type="button" class="an-rrow" data-filter="codes" data-k="' + esc(r.k) + '" title="' + esc(t('an.onlyThis')) + '">' +
+          '<span class="an-pos' + (i < 3 ? ' m' : '') + '">' + (i < 3 ? medal[i] : i + 1) + '</span>' +
+          '<span class="an-rqr" aria-hidden="true">' + qr + '</span>' +
+          '<span class="an-rmain"><span class="an-rname">' + esc(codeName(r.k)) + '</span><span class="an-track"><i style="width:' + Math.max(2, r.s / max * 100).toFixed(1) + '%"></i></span></span>' +
+          '<span class="an-rnum"><b>' + i18n.fmt.num(r.s) + '</b>' + growth(r.s, r.p || 0) + '</span></button></li>';
+      }).join('') + '</ol>' + (rows.length > 5 ? '<button type="button" class="link-btn an-more" data-expand="rank">' + (open ? t('an.less') : t('an.showAll', { n: rows.length })) + '</button>' : '')
+        : '<div class="an-empty">' + ico('codes', 'an-ei') + '<p>' + t('an.noData') + '</p></div>') + '</div>';
+  }
+
+  /* ---------- Tabbladen ---------- */
+  function chartCard(r) {
+    var tot = r.totals.scans;
+    return '<div class="an-card glass an-chart"><div class="an-chead"><h3>' + t(group === 'day' ? 'an.chartTitle' : group === 'week' ? 'an.chartWeek' : 'an.chartMonth') + '</h3>' +
+      '<div class="an-group" role="radiogroup" aria-label="' + esc(t('an.groupBy')) + '">' + ['day', 'week', 'month'].map(function (g) { return '<button type="button" role="radio" aria-checked="' + (group === g) + '" data-group="' + g + '">' + t('an.g_' + g) + '</button>'; }).join('') + '</div>' +
+      '<div class="an-legend"><span><i class="sw s1"></i>' + t('an.scans') + '</span><span><i class="sw s2"></i>' + t('an.unique') + '</span></div></div>' +
+      (tot ? '' : '<p class="an-none an-zero">' + t('an.noScans') + '</p>') + '<div class="an-plot"></div>' +
+      '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t(group === 'day' ? 'an.date' : 'an.g_' + group) + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
+      grouped(r.series).slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(pointLabel(p, 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') + '</tbody></table></div></details></div>';
+  }
+  function panel(k, r) {
+    var tot = r.totals.scans;
+    if (k === 'overview') return chartCard(r) + ranking(r.codes, tot);
+    if (k === 'where') return '<div class="an-grid2">' + breakdown('cc', t('an.byCountry'), r.countries, tot, 'globe') + breakdown('city', t('an.byCity'), r.cities, tot, 'globe') + '</div>';
+    if (k === 'with') return '<div class="an-grid3">' + donut('os', t('an.byOs'), r.os, tot, 'phone') + donut('dev', t('an.byDevice'), r.devices || [], tot, 'desktop') + donut('br', t('an.byBrowser'), r.browsers || [], tot, 'globe') + '</div>';
+    var hasCal = r.series.length >= 14 && tot;
+    return when(r) + (hasCal ? calendar(r.series) : '');
+  }
+  function drawTab() {
+    var box = body.querySelector('#anTab'); if (!box) return;
+    if (printAll) box.innerHTML = TABS.map(function (k) { return '<h3 class="an-ptitle">' + t('an.tab_' + k) + '</h3>' + panel(k, data); }).join('');
+    else box.innerHTML = panel(tab, data);
+    box.classList.remove('an-in'); void box.offsetWidth; box.classList.add('an-in');
+    body.querySelectorAll('[data-tab]').forEach(function (b) { var on = b.getAttribute('data-tab') === tab; b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; });
+    if (tab === 'overview' || printAll) { lineChart(grouped(data.series)); var pl = body.querySelector('.an-plot'); if (pl && !printAll) pl.classList.add('an-anim'); }
   }
 
   /* ---------- Alles tekenen ---------- */
@@ -205,18 +332,12 @@ var Analytics = (function () {
       body.innerHTML = '<div class="mc-empty glass">' + ico('scans') + '<h3>' + t('an.emptyTitle') + '</h3><p>' + t('an.emptyText') + '</p><button type="button" class="btn primary" data-an-new>' + t('myCodes.first') + '</button></div>';
       return;
     }
-    var tot = r.totals.scans;
-    body.innerHTML = tiles(r.totals) + insights(r) +
-      '<div class="an-card glass an-chart"><div class="an-chead"><h3>' + t(group === 'day' ? 'an.chartTitle' : group === 'week' ? 'an.chartWeek' : 'an.chartMonth') + '</h3>' +
-        '<div class="an-group" role="radiogroup" aria-label="' + esc(t('an.groupBy')) + '">' + ['day', 'week', 'month'].map(function (g) { return '<button type="button" role="radio" aria-checked="' + (group === g) + '" data-group="' + g + '">' + t('an.g_' + g) + '</button>'; }).join('') + '</div>' +
-        '<div class="an-legend"><span><i class="sw s1"></i>' + t('an.scans') + '</span><span><i class="sw s2"></i>' + t('an.unique') + '</span></div></div>' +
-        (tot ? '' : '<p class="an-none an-zero">' + t('an.noScans') + '</p>') + '<div class="an-plot"></div>' +
-        '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t(group === 'day' ? 'an.date' : 'an.g_' + group) + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
-        grouped(r.series).slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(pointLabel(p, 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') + '</tbody></table></div></details></div>' +
-      when(r) + calendar(r.series) +
-      '<div class="an-grid4">' + breakdown('os', t('an.byOs'), r.os, tot) + breakdown('cc', t('an.byCountry'), r.countries, tot) + breakdown('city', t('an.byCity'), r.cities, tot) + breakdown('codes', t('an.byCode'), r.codes, tot) +
-        breakdown('dev', t('an.byDevice'), r.devices || [], tot) + breakdown('br', t('an.byBrowser'), r.browsers || [], tot) + '</div>';
-    lineChart(grouped(r.series));
+    body.innerHTML = tiles(r) + insights(r) +
+      '<div class="an-tabs" role="tablist" aria-label="' + esc(t('an.tabsLabel')) + '">' + TABS.map(function (k) {
+        return '<button type="button" role="tab" id="anTab_' + k + '" aria-controls="anTab" data-tab="' + k + '" aria-label="' + esc(t('an.tab_' + k)) + '">' + ico({ overview: 'scans', where: 'globe', with: 'phone', when: 'clock' }[k], 'an-ti') + '<span>' + t('an.tab_' + k) + '</span></button>';
+      }).join('') + '</div>' +
+      '<div id="anTab" class="an-tabp" role="tabpanel" aria-labelledby="anTab_' + tab + '"></div>';
+    drawTab(); countUp();
   }
   function load() {
     var my = ++seq;
@@ -224,7 +345,7 @@ var Analytics = (function () {
     Promise.all([api.analytics(query()), Object.keys(names).length ? null : api.listQrCodes().catch(function () { return []; })]).then(function (res) {
       if (my !== seq) return;
       data = res[0];
-      if (res[1]) res[1].forEach(function (c) { names[c.id] = { label: MyCodes.displayName(c), typeId: c.typeId }; });
+      if (res[1]) res[1].forEach(function (c) { names[c.id] = { label: MyCodes.displayName(c), typeId: c.typeId, code: c }; });
       (data.names || []).forEach(function (c) { if (!names[c.id]) names[c.id] = { label: c.name || c.id, typeId: c.typeId }; });
       drawFilters(); draw();
     }).catch(function () { if (my === seq) body.innerHTML = '<p class="muted-msg">' + t('an.error') + '</p>'; });
@@ -252,23 +373,31 @@ var Analytics = (function () {
     if ((b = e.target.closest('[data-drop]'))) { var dim = b.getAttribute('data-drop'); openDrop = openDrop === dim ? null : dim; drawFilters(); var fst = bar.querySelector('.an-drop input'); if (fst) fst.focus(); return; }
     if (!e.target.closest('.an-drop') && openDrop) { openDrop = null; drawFilters(); }
     if (e.target.closest('[data-clear]')) { f.codes = []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; return load(); }
-    if ((b = e.target.closest('[data-filter]'))) { var k = b.getAttribute('data-filter'); f[k] = [b.getAttribute('data-k')]; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
-    if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return draw(); }
-    if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return draw(); }
+    if (e.target.closest('[data-more]')) { moreOpen = !moreOpen; openDrop = null; return drawFilters(); }
+    if ((b = e.target.closest('[data-unpick]'))) { var ud = b.getAttribute('data-unpick'), uk = b.getAttribute('data-k'); f[ud] = f[ud].filter(function (v) { return v !== uk; }); return load(); }
+    if ((b = e.target.closest('[data-tab]'))) { tab = b.getAttribute('data-tab'); return drawTab(); }
+    if ((b = e.target.closest('[data-filter]'))) { var k = b.getAttribute('data-filter'); f[k] = [b.getAttribute('data-k')]; if (MORE.indexOf(k) >= 0) moreOpen = true; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+    if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return drawTab(); }
+    if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return drawTab(); }
     if (e.target.closest('#anExport')) return exportCsv();
     if (e.target.closest('#anReport')) return report();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
   });
+  view.addEventListener('keydown', function (e) {
+    var tb = e.target.closest && e.target.closest('[data-tab]'); if (!tb || !/^(ArrowLeft|ArrowRight|Home|End)$/.test(e.key)) return;
+    e.preventDefault(); var i = TABS.indexOf(tab); i = e.key === 'Home' ? 0 : e.key === 'End' ? TABS.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + TABS.length) % TABS.length;
+    tab = TABS[i]; drawTab(); var nb = body.querySelector('[data-tab="' + tab + '"]'); if (nb) nb.focus();
+  });
   view.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openDrop) { var dim = openDrop; openDrop = null; drawFilters(); var btn = bar.querySelector('[data-drop="' + dim + '"]'); if (btn) btn.focus(); } });
   body.addEventListener('pointermove', function (e) { if (e.target.closest('.an-plot')) hover(e); });
   body.addEventListener('pointerleave', unhover, true);
-  addEventListener('resize', function () { if (!view.hidden && data && data.series) lineChart(grouped(data.series)); });
+  addEventListener('resize', function () { if (!view.hidden && data && data.series && (tab === 'overview' || printAll)) lineChart(grouped(data.series)); });
 
   function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); var rp = document.getElementById('anReport'); if (rp) rp.innerHTML = ico('dl') + t('an.report'); }
   /* Rapport: de pagina netjes afdrukken; in het afdrukvenster kies je "Opslaan als PDF" */
   function report() {
-    document.body.classList.add('an-printing');
-    var done = function () { document.body.classList.remove('an-printing'); removeEventListener('afterprint', done); };
+    document.body.classList.add('an-printing'); printAll = true; if (data) drawTab();
+    var done = function () { if (!printAll) return; printAll = false; document.body.classList.remove('an-printing'); removeEventListener('afterprint', done); if (data) drawTab(); };
     addEventListener('afterprint', done);
     setTimeout(function () { window.print(); setTimeout(done, 1000); }, 50);
   }

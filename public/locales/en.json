@@ -1022,7 +1022,21 @@
     "report": "Report (PDF)",
     "calTitle": "Calendar",
     "calLess": "Less",
-    "calMore": "More"
+    "calMore": "More",
+    "filters": "Filters",
+    "removeFilter": "Remove filter {name}",
+    "newScans": "+{n} new",
+    "vsPrevShort": "vs. previous period",
+    "activeOf": "of {n} codes",
+    "noScansShort": "no scans yet",
+    "unknownOnly": "For these {n} scans this is not known (yet).",
+    "topCodes": "Top QR codes",
+    "tab_overview": "Overview",
+    "tab_where": "Where",
+    "tab_with": "With what",
+    "tab_when": "When",
+    "tabsLabel": "Parts of the analytics",
+    "peak": "Peak"
   },
   "auth": {
     "loginTitle": "Welcome back",

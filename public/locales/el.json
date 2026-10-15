@@ -1022,7 +1022,21 @@
     "report": "Αναφορά (PDF)",
     "calTitle": "Ημερολόγιο",
     "calLess": "Λιγότερα",
-    "calMore": "Περισσότερα"
+    "calMore": "Περισσότερα",
+    "filters": "Φίλτρα",
+    "removeFilter": "Αφαίρεση φίλτρου {name}",
+    "newScans": "+{n} νέες",
+    "vsPrevShort": "έναντι προηγ. περιόδου",
+    "activeOf": "από {n} κωδικούς",
+    "noScansShort": "καμία σάρωση ακόμη",
+    "unknownOnly": "Για αυτές τις {n} σαρώσεις δεν είναι (ακόμη) γνωστό.",
+    "topCodes": "Κορυφαίοι κωδικοί QR",
+    "tab_overview": "Επισκόπηση",
+    "tab_where": "Πού",
+    "tab_with": "Με τι",
+    "tab_when": "Πότε",
+    "tabsLabel": "Ενότητες στατιστικών",
+    "peak": "Κορύφωση"
   },
   "auth": {
     "loginTitle": "Καλώς ήρθες ξανά",

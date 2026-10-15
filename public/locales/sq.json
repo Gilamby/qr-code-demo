@@ -1128,7 +1128,21 @@
     "report": "Raport (PDF)",
     "calTitle": "Kalendari",
     "calLess": "Më pak",
-    "calMore": "Më shumë"
+    "calMore": "Më shumë",
+    "filters": "Filtrat",
+    "removeFilter": "Hiq filtrin {name}",
+    "newScans": "+{n} të reja",
+    "vsPrevShort": "kundrejt periudhës së kaluar",
+    "activeOf": "nga {n} kode",
+    "noScansShort": "ende pa skanime",
+    "unknownOnly": "Për këto {n} skanime kjo (ende) nuk dihet.",
+    "topCodes": "Kodet QR kryesore",
+    "tab_overview": "Përmbledhje",
+    "tab_where": "Ku",
+    "tab_with": "Me çfarë",
+    "tab_when": "Kur",
+    "tabsLabel": "Pjesët e statistikave",
+    "peak": "Kulmi"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",

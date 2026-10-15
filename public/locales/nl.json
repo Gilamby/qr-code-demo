@@ -1022,7 +1022,21 @@
     "report": "Rapport (PDF)",
     "calTitle": "Kalender",
     "calLess": "Minder",
-    "calMore": "Meer"
+    "calMore": "Meer",
+    "filters": "Filters",
+    "removeFilter": "Filter {name} weghalen",
+    "newScans": "+{n} nieuw",
+    "vsPrevShort": "vs. vorige periode",
+    "activeOf": "van {n} codes",
+    "noScansShort": "nog geen scans",
+    "unknownOnly": "Voor deze {n} scans is dit (nog) niet bekend.",
+    "topCodes": "Top QR-codes",
+    "tab_overview": "Overzicht",
+    "tab_where": "Waar",
+    "tab_with": "Waarmee",
+    "tab_when": "Wanneer",
+    "tabsLabel": "Onderdelen van de statistieken",
+    "peak": "Piek"
   },
   "auth": {
     "loginTitle": "Welkom terug",

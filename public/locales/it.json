@@ -1022,7 +1022,21 @@
     "report": "Report (PDF)",
     "calTitle": "Calendario",
     "calLess": "Meno",
-    "calMore": "Più"
+    "calMore": "Più",
+    "filters": "Filtri",
+    "removeFilter": "Rimuovi filtro {name}",
+    "newScans": "+{n} nuove",
+    "vsPrevShort": "vs periodo precedente",
+    "activeOf": "su {n} codici",
+    "noScansShort": "ancora nessuna scansione",
+    "unknownOnly": "Per queste {n} scansioni non è (ancora) noto.",
+    "topCodes": "Codici QR migliori",
+    "tab_overview": "Panoramica",
+    "tab_where": "Dove",
+    "tab_with": "Con cosa",
+    "tab_when": "Quando",
+    "tabsLabel": "Sezioni delle statistiche",
+    "peak": "Picco"
   },
   "auth": {
     "loginTitle": "Bentornato",
