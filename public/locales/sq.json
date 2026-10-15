@@ -1388,11 +1388,12 @@
     "emailChangedLogin": "U krye! Email-i yt u ndryshua. Hyr me adresën e re.",
     "photoHintShort": "JPG, PNG ose WebP. Tërhiq një foto mbi këtë kartë.",
     "cpLeadOne": "Edhe 1 hap. Klikoje për ta plotësuar.",
-    "needNameTitle": "Si quhesh?",
-    "needNameText": "Shkruaj emrin dhe mbiemrin për të përdorur aplikacionin. Shfaqen në llogari dhe në fatura.",
+    "needNameTitle": "Si të të thërrasim?",
+    "needNameText": "Emri yt shfaqet në aplikacion dhe në llogari. Emër, nofkë ose diçka tjetër: si të duash.",
     "needNameBoth": "Shkruaj edhe emrin edhe mbiemrin.",
     "act_2fa_on": "Verifikimi me dy hapa u aktivizua",
-    "act_2fa_off": "Verifikimi me dy hapa u çaktivizua"
+    "act_2fa_off": "Verifikimi me dy hapa u çaktivizua",
+    "needNameEmpty": "Shkruaj një emër."
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për Optimasys QR",

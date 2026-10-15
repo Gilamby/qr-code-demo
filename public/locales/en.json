@@ -1282,11 +1282,12 @@
     "emailChangedLogin": "Done! Your email address has changed. Sign in with your new address.",
     "photoHintShort": "JPG, PNG or WebP. Drag a photo onto this card.",
     "cpLeadOne": "1 step to go. Click it to fill it in.",
-    "needNameTitle": "What’s your name?",
-    "needNameText": "Enter your first and last name to use the app. It appears on your account and on invoices.",
+    "needNameTitle": "What should we call you?",
+    "needNameText": "You’ll see your name in the app and in your account. First name, nickname or anything else: your choice.",
     "needNameBoth": "Please enter both your first and last name.",
     "act_2fa_on": "Two-step verification turned on",
-    "act_2fa_off": "Two-step verification turned off"
+    "act_2fa_off": "Two-step verification turned off",
+    "needNameEmpty": "Please enter a name."
   },
   "mail": {
     "resetSubject": "New password for Optimasys QR",

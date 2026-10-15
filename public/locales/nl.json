@@ -1282,11 +1282,12 @@
     "emailChangedLogin": "Gelukt! Je e-mailadres is gewijzigd. Log in met je nieuwe adres.",
     "photoHintShort": "JPG, PNG of WebP. Sleep een foto op deze kaart.",
     "cpLeadOne": "Nog 1 stap. Klik erop om het in te vullen.",
-    "needNameTitle": "Hoe heet je?",
-    "needNameText": "Vul je voor- en achternaam in om de app te gebruiken. Dit zie je op je account en op facturen.",
+    "needNameTitle": "Hoe mogen we je noemen?",
+    "needNameText": "Je naam zie je in de app en in je account. Voornaam, bijnaam of iets anders: kies wat je wilt.",
     "needNameBoth": "Vul zowel je voornaam als je achternaam in.",
     "act_2fa_on": "Tweestapsverificatie aangezet",
-    "act_2fa_off": "Tweestapsverificatie uitgezet"
+    "act_2fa_off": "Tweestapsverificatie uitgezet",
+    "needNameEmpty": "Vul een naam in."
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor Optimasys QR",

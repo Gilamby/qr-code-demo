@@ -267,7 +267,7 @@
   function completeness() {
     var items = [
       ['photo', !!user.avatar, 'acct.cpPhoto', 'data-photo-pick', 'camera'],
-      ['name', !!splitName(user.name)[1], 'acct.cpName', 'data-edit="name"', 'person'],
+      ['name', !!String(user.name || '').trim(), 'acct.cpName', 'data-edit="name"', 'person'],
       ['email', user.verified !== false, 'acct.cpEmail', '', 'mail'],
       ['tz', !!user.timezone, 'acct.cpTz', 'data-edit="tz"', 'clock'],
       user.admin ? null : ['billing', !!billing, 'acct.cpBilling', 'data-tab-go="billing"', 'billing'],   // admin-accounts zijn gratis: geen factuur
@@ -296,8 +296,7 @@
       '<div class="glass bg-card acct"><h2>' + t('acct.personalTitle') + '</h2><p>' + t('acct.personalLead') + '</p><div class="ar-list">' +
         row('name', t('auth.name'), esc(user.name || '–'), { edit: true, icon: 'person', msg: m.name,
           form: '<form data-form="name" class="acct-grid">' +
-            field(t('acct.firstName'), '<input name="first" value="' + esc(nm[0]) + '" maxlength="40" autocomplete="given-name" required>') +
-            field(t('acct.lastName'), '<input name="last" value="' + esc(nm[1]) + '" maxlength="40" autocomplete="family-name">', { optional: true }) +
+            '<div class="acct-wide">' + field(t('auth.name'), '<input name="nick" value="' + esc(user.name || '') + '" maxlength="60" autocomplete="nickname" required>') + '</div>' +
             '<div class="acct-wide">' + btns() + '</div></form>' }) +
         row('email', t('auth.email'), esc(user.email) + verified + pending, { edit: !locked, locked: locked, icon: 'mail', msg: m.email,
           why: locked ? t(user.superAdmin ? 'acct.whyEmailSuper' : 'acct.whyEmailAdmin') : '',
@@ -501,8 +500,8 @@
     var saved = function (key, u, extra) { user = Object.assign({}, user, u, extra || {}); editing = null; var o = {}; o[key] = [t('acct.saved'), 'ok']; draw(o); document.dispatchEvent(new CustomEvent('account:changed')); };
     var failed = function (key) { return function (x) { var o = {}; o[key] = [err(x), 'bad']; btn.disabled = false; draw(o); }; };
     if (kind === 'name') {
-      var name = (f.first.value.trim() + ' ' + f.last.value.trim()).trim();
-      if (!f.first.value.trim()) { btn.disabled = false; f.first.focus(); return; }
+      var name = f.nick.value.replace(/\s+/g, ' ').trim();
+      if (!name) { btn.disabled = false; f.nick.focus(); return; }
       api.account.update({ name: name }).then(function (u) { saved('name', u); }).catch(failed('name'));
     }
     if (kind === 'tz') {
@@ -654,27 +653,27 @@
   idc.addEventListener('drop', function (e) { e.preventDefault(); idc.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
 
   theme.onChange(function () { if (user && tab === 'prefs' && !box.hidden) draw(); });
-  /* Verplicht om de app te gebruiken: voor- en achternaam. Ontbreekt die, dan eerst invullen (kan niet weggeklikt worden).
+  /* Verplicht om de app te gebruiken: een naam (vrij: voornaam, bijnaam, één woord – wat je wilt). Ontbreekt die, dan eerst invullen.
      Tijdzone: niet gekozen = die van dit apparaat, en die slaan we meteen op (dan klopt hij ook in mails en overzichten). */
   function requireName(u) {
     if (api.isDemo() || !u) return;
     if (!u.timezone) { var here = Intl.DateTimeFormat().resolvedOptions().timeZone; if (here) api.account.update({ timezone: here }).then(function (r) { user = Object.assign({}, user, r, { timezone: here }); if (window.i18n && i18n.setZone) i18n.setZone(here); }).catch(function () {}); }
-    var nm = splitName(u.name); if (nm[0] && nm[1]) return;
+    if (String(u.name || '').trim()) return;                                   // elke naam is goed (ook één woord of een bijnaam)
     var d = document.getElementById('mcDialog');
-    d.innerHTML = '<form class="mc-dlg" novalidate><span class="mc-dlg-ic ok">' + SVG.replace('aria-hidden="true"', 'class="mc-i" aria-hidden="true"') + ICON.person + '</svg></span><h3>' + t('acct.needNameTitle') + '</h3><p>' + t('acct.needNameText') + '</p>' +
-      '<div class="acct-grid">' + field(t('acct.firstName'), '<input name="first" value="' + esc(nm[0]) + '" maxlength="40" autocomplete="given-name" required>') + field(t('acct.lastName'), '<input name="last" value="' + esc(nm[1]) + '" maxlength="40" autocomplete="family-name" required>') + '</div>' +
+    d.innerHTML = '<form class="mc-dlg" novalidate><h3>' + t('acct.needNameTitle') + '</h3><p>' + t('acct.needNameText') + '</p>' +
+      field(t('auth.name'), '<input name="nick" value="" maxlength="60" autocomplete="nickname" required>') +
       '<p class="acct-msg bad" data-msg hidden></p><div class="mc-dlg-btns"><button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>';
     var f = d.querySelector('form'), msg = f.querySelector('[data-msg]');
     var block = function (ev) { ev.preventDefault(); }; d.addEventListener('cancel', block);   // Escape sluit hem niet
     f.onsubmit = function (ev) {
       ev.preventDefault();
-      var first = f.first.value.trim(), last = f.last.value.trim();
-      if (!first || !last) { msg.textContent = t('acct.needNameBoth'); msg.hidden = false; (first ? f.last : f.first).focus(); return; }
-      api.account.update({ name: first + ' ' + last }).then(function (r) {
-        user = Object.assign({}, user, r, { name: first + ' ' + last }); d.removeEventListener('cancel', block); d.close(); d.innerHTML = ''; draw(); navAvatar();
+      var name = f.nick.value.replace(/\s+/g, ' ').trim();
+      if (!name) { msg.textContent = t('acct.needNameEmpty'); msg.hidden = false; f.nick.focus(); return; }
+      api.account.update({ name: name }).then(function (r) {
+        user = Object.assign({}, user, r, { name: name }); d.removeEventListener('cancel', block); d.close(); d.innerHTML = ''; draw(); navAvatar();
       }).catch(function () { msg.textContent = t('auth.errGeneral'); msg.hidden = false; });
     };
-    if (!d.open) d.showModal(); f.first.focus();
+    if (!d.open) d.showModal(); f.nick.focus();
   }
   Session.onUser(function (u) { setTimeout(function () { requireName(u); }, 300); });
   Session.onUser(function (u) { if (u.theme && u.theme !== theme.get()) theme.set(u.theme, false); user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; planInfo = null; draw(); loadSummary(); loadBilling(); });

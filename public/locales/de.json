@@ -1282,11 +1282,12 @@
     "emailChangedLogin": "Erledigt! Deine E-Mail-Adresse wurde geändert. Melde dich mit der neuen Adresse an.",
     "photoHintShort": "JPG, PNG oder WebP. Zieh ein Foto auf diese Karte.",
     "cpLeadOne": "Noch 1 Schritt. Klicke darauf, um ihn auszufüllen.",
-    "needNameTitle": "Wie heißt du?",
-    "needNameText": "Gib deinen Vor- und Nachnamen ein, um die App zu nutzen. Er erscheint in deinem Konto und auf Rechnungen.",
+    "needNameTitle": "Wie dürfen wir dich nennen?",
+    "needNameText": "Dein Name erscheint in der App und in deinem Konto. Vorname, Spitzname oder etwas anderes: wie du möchtest.",
     "needNameBoth": "Bitte gib Vor- und Nachnamen ein.",
     "act_2fa_on": "Zwei-Schritt-Verifizierung eingeschaltet",
-    "act_2fa_off": "Zwei-Schritt-Verifizierung ausgeschaltet"
+    "act_2fa_off": "Zwei-Schritt-Verifizierung ausgeschaltet",
+    "needNameEmpty": "Bitte gib einen Namen ein."
   },
   "mail": {
     "resetSubject": "Neues Passwort für Optimasys QR",

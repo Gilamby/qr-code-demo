@@ -3983,3 +3983,8 @@ body.an-printing #anRange { display: block; }
   .auth-art-hint { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { #authScene { transition: none; } .auth-art-hint { display: none; } }
+
+/* Invoervelden mogen nooit breder worden dan hun kolom (bv. voor- en achternaam naast elkaar in een venster) */
+.auth-f { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.auth-in { min-width: 0; }
+.auth-in input, .auth-in select, .auth-in textarea { width: 100%; box-sizing: border-box; }
