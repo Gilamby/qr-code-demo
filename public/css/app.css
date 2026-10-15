@@ -3492,3 +3492,22 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
   body:not(.pv-open) #createView .qr-card svg { width: 18px !important; height: 18px !important; }
   body:not(.pv-open) #createView .qr-card .title { font-size: 10.5px !important; line-height: 1.1; }
 }
+
+/* =========================================================
+   "Bubbel" om elke pagina (zoals bij QR-code maken): titel en inhoud samen in één paneel.
+   Niet bij Mijn QR-codes (eigen ontwerp) en niet bij QR-code maken (heeft hem al).
+   Geen backdrop-filter hier: dat zou vensters en lades (position: fixed) binnen de pagina verschuiven.
+   ========================================================= */
+#homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
+#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg {
+  box-sizing: border-box; max-width: 100%; min-width: 0;
+  border: 1px solid rgba(255,255,255,.24); border-radius: 30px; padding: 40px 40px 34px;
+  background: linear-gradient(140deg, rgba(255,255,255,.13), rgba(255,255,255,.04) 45%, rgba(255,255,255,.07)), rgba(12,16,23,.42);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), inset 0 0 40px rgba(255,255,255,.03), 0 40px 90px -30px rgba(0,0,0,.55);
+}
+@media (max-width: 760px) {
+  #homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
+  #adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg { padding: 20px 14px 18px; border-radius: 22px; }
+}
+
+#contactView > .help, #faqView > .help, #adminDashView > .help, #adminCodesView > .help, #customersView > .help { grid-template-columns: minmax(0, 1fr); }
