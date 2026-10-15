@@ -1,8 +1,8 @@
 /* =========================================================
    OVERZICHT (dashboard voor klanten) — de startpagina na het inloggen
    In één oogopslag (ontwerp van Fabian):
-   - Titel + periode (7 / 30 / 90 dagen) + knop "QR-code maken"
-   - Vier tegels: QR-codes (actief), scans, unieke scans (met verschil t.o.v. de periode ervoor), scans vandaag
+   - Titel + periode (vandaag / 7 / 30 / 90 dagen; vandaag = per uur, vergeleken met gisteren) + knop "QR-code maken"
+   - Vier tegels: QR-codes, scans, unieke scans (met verschil t.o.v. de periode ervoor), scans vandaag
    - Rij 1: scanactiviteit (staafjes, tooltip, tabel) | recente activiteit
    - Rij 2: favorieten als tabel (code, status, scans) | meest gescand
    - Onderaan: © Optimasys QR · Privacy en voorwaarden
@@ -12,7 +12,7 @@
 var Home = (function () {
   var view = document.getElementById('homeView'), body = document.getElementById('homeBody');
   var codes = null, stats = null, statsP = null, acts = null, me = null, seq = 0, period = 30;
-  try { var sp = +localStorage.getItem('home.period'); if ([7, 30, 90].indexOf(sp) >= 0) period = sp; } catch (e) {}
+  try { var sp = +localStorage.getItem('home.period'); if ([1, 7, 30, 90].indexOf(sp) >= 0) period = sp; } catch (e) {}
   var SVG = function (p, cls) { return '<svg class="' + (cls || 'hm-i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
   var IC = {
     plus: '<path d="M12 5v14M5 12h14"/>', codes: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/>',
@@ -44,7 +44,7 @@ var Home = (function () {
     Promise.all([
       api.listQrCodes().catch(function () { return []; }),
       api.analytics({ from: iso(from), to: iso(to), codes: [], os: [], cc: [], city: [] }).catch(function () { return null; }),
-      api.analytics({ from: iso(new Date(Date.now() - (period - 1) * 864e5)), to: iso(to), codes: [], os: [], cc: [], city: [] }).catch(function () { return null; }),
+      api.analytics({ from: iso(new Date(Date.now() - (period - 1) * 864e5)), to: iso(to), codes: [], os: [], cc: [], city: [], tz: i18n.fmt.zone() }).catch(function () { return null; }),
       api.account.activity ? api.account.activity().catch(function () { return { activity: [] }; }) : Promise.resolve({ activity: [] })
     ]).then(function (r) {
       if (my !== seq) return;
@@ -73,24 +73,33 @@ var Home = (function () {
       var d = iso(new Date(Date.now() - i * 864e5)), p = by[d] || { d: d, s: 0, u: 0 };
       if (i >= period) { prev.s += p.s; prev.u += p.u; } else out.push({ d: d, s: p.s, u: p.u });
     }
-    return { days: out, prev: prev };
+    var yd = by[iso(new Date(Date.now() - 864e5))] || { s: 0, u: 0 };
+    var hours = null;
+    if (period === 1) {                                                     // "Vandaag": per uur, dan zie je de dag zelf
+      var hs = (statsP && statsP.insights && statsP.insights.hours) || null;
+      if (hs) hours = hs.map(function (n, h) { return { h: h, s: n, u: n }; });
+    }
+    return { days: hours || out, prev: prev, today: out[out.length - 1] || { s: 0, u: 0 }, yesterday: yd, hourly: !!hours };
   }
   function tiles(sr) {
-    var cur = sr.days.reduce(function (a, p) { a.s += p.s; a.u += p.u; return a; }, { s: 0, u: 0 }), today = sr.days[sr.days.length - 1] || { s: 0 };
+    var cur = sr.days.reduce(function (a, p) { a.s += p.s; a.u += p.u; return a; }, { s: 0, u: 0 }), today = sr.today;
+    if (sr.hourly) cur = { s: (statsP && statsP.totals.scans) || 0, u: (statsP && statsP.totals.unique) || 0 };
     var dyn = codes.filter(function (r) { return !isStatic(r); }), off = dyn.filter(function (r) { return r.paused; }).length;
-    var trend = function (now, before) {
+    var vsLong = period === 1 ? t('home.vsYesterday') : t('home.vsPrevN', { n: period }), vsShort = period === 1 ? t('home.vsYesterdayShort') : t('home.vsPrevShortN', { n: period });
+    var trend = function (now, before, lng, sht) {
+      lng = lng || vsLong; sht = sht || vsShort;
       if (!before && !now) return '<em class="hm-trend flat">' + t('home.noChange') + '</em>';
-      if (!before) return '<em class="hm-trend t-up" title="' + esc(t('home.vsPrevN', { n: period })) + '">' + ico('up', 'hm-ti') + '+' + i18n.fmt.num(now) + '<span>' + t('home.vsPrevShortN', { n: period }) + '</span></em>';   // vorige periode 0: "+37 vs. vorige 30 d." i.p.v. "Nieuw"
+      if (!before) return '<em class="hm-trend t-up" title="' + esc(lng) + '">' + ico('up', 'hm-ti') + '+' + i18n.fmt.num(now) + '<span>' + sht + '</span></em>';   // vorige periode 0: "+37 vs. vorige 30 d." i.p.v. "Nieuw"
       var pct = Math.round((now - before) / before * 100);
-      return '<em class="hm-trend ' + (pct > 0 ? 't-up' : pct < 0 ? 't-down' : 'flat') + '" title="' + esc(t('home.vsPrevN', { n: period })) + '">' + (pct ? ico(pct > 0 ? 'up' : 'down', 'hm-ti') : '') + (pct > 0 ? '+' : '') + pct + '%<span>' + t('home.vsPrevShortN', { n: period }) + '</span></em>';
+      return '<em class="hm-trend ' + (pct > 0 ? 't-up' : pct < 0 ? 't-down' : 'flat') + '" title="' + esc(lng) + '">' + (pct ? ico(pct > 0 ? 'up' : 'down', 'hm-ti') : '') + (pct > 0 ? '+' : '') + pct + '%<span>' + sht + '</span></em>';
     };
     var tile = function (cls, icon, label, value, extra) { return '<div class="hm-tile glass ' + cls + '"><span class="hm-tic">' + ico(icon) + '</span><small>' + label + '</small><b>' + value + '</b>' + (extra || '') + '</div>'; };
     var active = codes.filter(function (r) { return !r.paused; }).length;
     return '<div class="hm-tiles">' +
-      tile('t-codes', 'folder', t('home.tCodesAll'), i18n.fmt.num(codes.length), '<em class="hm-trend flat"><i class="hm-dot' + (off ? ' warn' : '') + '"></i>' + t('home.activeN', { n: i18n.fmt.num(active) }) + '</em>') +
+      tile('t-codes', 'folder', t('home.tCodesAll'), i18n.fmt.num(codes.length)) +
       tile('t-scans', 'qrscan', t('home.tScansAll'), i18n.fmt.num(cur.s), trend(cur.s, sr.prev.s)) +
       tile('t-uniq', 'frame', t('home.tUniqueAll'), i18n.fmt.num(cur.u), trend(cur.u, sr.prev.u)) +
-      tile('t-today', 'sun2', t('home.tToday'), i18n.fmt.num(today.s), '<em class="hm-trend flat">' + esc(i18n.fmt.date(new Date(), 'day')) + '</em>') + '</div>';
+      tile('t-today', 'sun2', t('home.tToday'), i18n.fmt.num(today.s), trend(today.s, sr.yesterday.s, t('home.vsYesterday'), t('home.vsYesterdayShort'))) + '</div>';
   }
   // Staafgrafiek: één reeks (scans), dus geen legenda: de titel zegt wat het is
   function chart(sr) {
@@ -101,17 +110,17 @@ var Home = (function () {
     var bars = days.map(function (p, i) {
       var h = p.s ? Math.max(3, p.s / top * ih) : 0, x = L + i * bw + 1.5, w = Math.max(2, bw - 3), y = T + ih - h, r = Math.min(4, w / 2, h);
       var path = h ? 'M' + x + ' ' + (T + ih) + 'V' + (y + r) + 'Q' + x + ' ' + y + ' ' + (x + r) + ' ' + y + 'H' + (x + w - r) + 'Q' + (x + w) + ' ' + y + ' ' + (x + w) + ' ' + (y + r) + 'V' + (T + ih) + 'Z' : '';
-      return (path ? '<path class="hm-bar' + (i === n - 1 ? ' today' : '') + '" d="' + path + '"/>' : '') +
+      return (path ? '<path class="hm-bar' + (i === n - 1 && !sr.hourly ? ' today' : '') + '" d="' + path + '"/>' : '') +
         '<rect class="hm-hit" data-i="' + i + '" x="' + (L + i * bw) + '" y="' + T + '" width="' + bw + '" height="' + ih + '" fill="transparent"/>';
     }).join('');
-    var labels = days.map(function (p, i) { return (i % 7 === 0 && i <= n - 4) || i === n - 1 ? '<text class="an-ax" x="' + (L + i * bw + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(i18n.fmt.date(day(p.d), 'dshort')) + '</text>' : ''; }).join('');
+    var labels = sr.hourly ? days.map(function (p, i) { return i % 3 === 0 ? '<text class="an-ax" x="' + (L + i * bw + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + String(p.h).padStart(2, '0') + ':00</text>' : ''; }).join('') : days.map(function (p, i) { return (i % 7 === 0 && i <= n - 4) || i === n - 1 ? '<text class="an-ax" x="' + (L + i * bw + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(i18n.fmt.date(day(p.d), 'dshort')) + '</text>' : ''; }).join('');
     var total = days.reduce(function (a, p) { return a + p.s; }, 0);
     return '<div class="hm-card glass hm-chart"><div class="hm-head"><h3>' + t('home.scanActivity') + '</h3><button type="button" class="link-btn" data-goto="analytics">' + t('home.viewAnalytics') + ico('arrow', 'hm-ti') + '</button></div>' +
-      (total ? '' : '<p class="hm-none">' + t('home.noScans30') + '</p>') +
+      (total ? '' : '<p class="hm-none">' + t(period === 30 ? 'home.noScans30' : 'an.noScans') + '</p>') +
       '<div class="hm-plot"><svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(t('home.chartTitle')) + '">' + grid + bars + labels + '</svg><div class="an-tt" hidden></div></div>' +
       '<div class="hm-cfoot"><span><i class="sw s1"></i>' + t('home.totalScans') + '</span></div>' +
       '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t('an.date') + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
-      days.slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(i18n.fmt.date(day(p.d), 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') +
+      days.slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(p.d ? i18n.fmt.date(day(p.d), 'short') : String(p.h).padStart(2, '0') + ':00') + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') +
       '</tbody></table></div></details></div>';
   }
   function codeRow(r, right) {
@@ -131,7 +140,7 @@ var Home = (function () {
   function top() {
     var by = {}; ((statsP && statsP.codes) || []).forEach(function (c) { by[c.k] = c.s; });   // alleen de gekozen periode
     var list = codes.filter(function (r) { return by[r.id]; }).sort(function (a, b) { return by[b.id] - by[a.id]; }).slice(0, 4);
-    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('trophy', 'hm-hi') + t('home.topTitle') + '</h3><small class="hm-per">' + t('an.p_' + period) + '</small></div>' +
+    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('trophy', 'hm-hi') + t('home.topTitle') + '</h3><small class="hm-per">' + t(period === 1 ? 'an.p_today' : 'an.p_' + period) + '</small></div>' +
       (list.length ? '<ol class="hm-list hm-rank">' + list.map(function (r) { return codeRow(r, '<span class="hm-num">' + i18n.fmt.num(by[r.id]) + '</span>'); }).join('') + '</ol>'
         : '<p class="hm-none">' + t('home.noTop') + '</p>') + '</div>';
   }
@@ -164,7 +173,7 @@ var Home = (function () {
     if (!codes) return;
     var sr = series30();
     body.innerHTML = '<header class="hm-hero"><div><h2>' + esc(greeting()) + '</h2><p>' + t(codes.length ? 'home.welcomeBack' : 'home.leadNew') + '</p></div>' +
-        '<div class="hm-acts"><label class="ad-sel hm-period"><span class="sr-only">' + t('an.period') + '</span><select id="hmPeriod">' + [7, 30, 90].map(function (n) { return '<option value="' + n + '"' + (n === period ? ' selected' : '') + '>' + t('an.p_' + n) + '</option>'; }).join('') + '</select></label>' +
+        '<div class="hm-acts"><label class="ad-sel hm-period"><span class="sr-only">' + t('an.period') + '</span><select id="hmPeriod">' + [1, 7, 30, 90].map(function (n) { return '<option value="' + n + '"' + (n === period ? ' selected' : '') + '>' + t(n === 1 ? 'an.p_today' : 'an.p_' + n) + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn primary" data-hm-new>' + ico('plus') + t('nav.create') + '</button></div></header>' +
       (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') +
       (codes.length ? tiles(sr) + '<div class="hm-rows"><div class="hm-row">' + chart(sr) + activity() + '</div><div class="hm-row">' + favorites() + top() + '</div></div>' : welcome() + '<div class="hm-grid one">' + activity() + '</div>') +
@@ -203,7 +212,7 @@ var Home = (function () {
     if (!hit) { tt.hidden = true; return; }
     var i = +hit.getAttribute('data-i'), p = series30().days[i], bars = box.querySelectorAll('.hm-hit');
     tt.hidden = false;
-    tt.innerHTML = '<b>' + esc(i18n.fmt.date(day(p.d), 'long')) + '</b><span><i class="sw s1"></i>' + t('an.scans') + '<em>' + i18n.fmt.num(p.s) + '</em></span><span><i class="sw s2"></i>' + t('an.unique') + '<em>' + i18n.fmt.num(p.u) + '</em></span>';
+    tt.innerHTML = '<b>' + esc(p.d ? i18n.fmt.date(day(p.d), 'long') : String(p.h).padStart(2, '0') + ':00–' + String(p.h).padStart(2, '0') + ':59') + '</b><span><i class="sw s1"></i>' + t('an.scans') + '<em>' + i18n.fmt.num(p.s) + '</em></span><span><i class="sw s2"></i>' + t('an.unique') + '<em>' + i18n.fmt.num(p.u) + '</em></span>';
     var r = box.getBoundingClientRect(), hr = hit.getBoundingClientRect();
     tt.style.left = Math.min(Math.max(hr.left - r.left + hr.width / 2, 80), r.width - 80) + 'px'; tt.style.top = '0px';
     var bar = hit.previousElementSibling; if (bar && bar.classList.contains('hm-bar')) bar.classList.add('on');

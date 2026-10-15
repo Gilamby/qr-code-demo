@@ -1817,7 +1817,9 @@
     "totalScans": "Skanime",
     "favCodes": "Kodet QR të preferuara",
     "viewAll": "Shiko të gjitha",
-    "welcomeBack": "Mirë se u ktheve. Këtu janë kodet e tua QR dhe aktiviteti i fundit."
+    "welcomeBack": "Mirë se u ktheve. Këtu janë kodet e tua QR dhe aktiviteti i fundit.",
+    "vsYesterday": "Krahasuar me dje",
+    "vsYesterdayShort": "kundrejt dje"
   },
   "as": {
     "tabTexts": "Tekstet",
