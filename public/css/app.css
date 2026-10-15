@@ -3948,3 +3948,8 @@ button.an-lrow:hover, button.an-lrow:focus-visible { background: rgba(255,255,25
 body.an-printing .an-tabs { display: none !important; }
 body.an-printing .an-ptitle { display: block; margin: 10px 0 0; font-size: 20px; }
 body.an-printing .an-tabp > * { animation: none !important; }
+
+/* Statistieken: datumregel onder de titel alleen in het rapport (PDF), niet op het scherm */
+#anRange { display: none; }
+body.an-printing #anRange { display: block; }
+@media print { #anRange { display: block; } }
