@@ -1089,7 +1089,8 @@
     "errUpper": "Voeg een hoofdletter toe.",
     "errDigit": "Voeg een cijfer toe.",
     "errSpecial": "Voeg een speciaal teken toe, zoals ! ? @ of #.",
-    "errDisabled": "Dit account is uitgezet door het team. Neem contact op met support."
+    "errDisabled": "Dit account is uitgezet door het team. Neem contact op met support.",
+    "sceneHint": "Klik en houd vast"
   },
   "acct": {
     "profile": "Profiel",

@@ -1089,7 +1089,8 @@
     "errUpper": "Ajoutez une majuscule.",
     "errDigit": "Ajoutez un chiffre.",
     "errSpecial": "Ajoutez un caractère spécial, comme ! ? @ ou #.",
-    "errDisabled": "Ce compte a été désactivé par l’équipe. Contactez le support."
+    "errDisabled": "Ce compte a été désactivé par l’équipe. Contactez le support.",
+    "sceneHint": "Cliquez et maintenez"
   },
   "acct": {
     "profile": "Profil",

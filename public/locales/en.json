@@ -1089,7 +1089,8 @@
     "errUpper": "Add a capital letter.",
     "errDigit": "Add a number.",
     "errSpecial": "Add a special character, like ! ? @ or #.",
-    "errDisabled": "This account has been deactivated by the team. Please contact support."
+    "errDisabled": "This account has been deactivated by the team. Please contact support.",
+    "sceneHint": "Click and hold"
   },
   "acct": {
     "profile": "Profile",

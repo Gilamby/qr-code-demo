@@ -1089,7 +1089,8 @@
     "errUpper": "Añade una mayúscula.",
     "errDigit": "Añade un número.",
     "errSpecial": "Añade un carácter especial, como ! ? @ o #.",
-    "errDisabled": "El equipo ha desactivado esta cuenta. Contacta con soporte."
+    "errDisabled": "El equipo ha desactivado esta cuenta. Contacta con soporte.",
+    "sceneHint": "Haz clic y mantén"
   },
   "acct": {
     "profile": "Perfil",

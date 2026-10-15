@@ -1195,7 +1195,8 @@
     "errUpper": "Shtoni një shkronjë të madhe.",
     "errDigit": "Shtoni një numër.",
     "errSpecial": "Shtoni një shenjë të veçantë, si ! ? @ ose #.",
-    "errDisabled": "Kjo llogari është çaktivizuar nga ekipi. Kontakto mbështetjen."
+    "errDisabled": "Kjo llogari është çaktivizuar nga ekipi. Kontakto mbështetjen.",
+    "sceneHint": "Kliko dhe mbaje"
   },
   "acct": {
     "profile": "Profili",

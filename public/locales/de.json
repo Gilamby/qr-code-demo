@@ -1089,7 +1089,8 @@
     "errUpper": "Füge einen Großbuchstaben hinzu.",
     "errDigit": "Füge eine Ziffer hinzu.",
     "errSpecial": "Füge ein Sonderzeichen hinzu, z. B. ! ? @ oder #.",
-    "errDisabled": "Dieses Konto wurde vom Team deaktiviert. Bitte wende dich an den Support."
+    "errDisabled": "Dieses Konto wurde vom Team deaktiviert. Bitte wende dich an den Support.",
+    "sceneHint": "Klicken und halten"
   },
   "acct": {
     "profile": "Profil",

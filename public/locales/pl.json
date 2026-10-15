@@ -1089,7 +1089,8 @@
     "errUpper": "Dodaj wielką literę.",
     "errDigit": "Dodaj cyfrę.",
     "errSpecial": "Dodaj znak specjalny, np. ! ? @ lub #.",
-    "errDisabled": "To konto zostało wyłączone przez zespół. Skontaktuj się z pomocą."
+    "errDisabled": "To konto zostało wyłączone przez zespół. Skontaktuj się z pomocą.",
+    "sceneHint": "Kliknij i przytrzymaj"
   },
   "acct": {
     "profile": "Profil",

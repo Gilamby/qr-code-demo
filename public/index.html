@@ -15,7 +15,11 @@
 <script>/* thema meteen goed zetten: geen flits */try{var p=localStorage.getItem("optimasys-theme")||"dark";document.documentElement.setAttribute("data-theme",p==="system"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):p==="light"?"light":"dark")}catch(e){}</script>
 </head>
 <body>
-<div class="auth" id="authView" hidden><div class="auth-card glass" role="dialog" aria-modal="true" aria-labelledby="authTitle"></div></div>
+<div class="auth" id="authView" hidden>
+  <!-- Inlogscherm links: interactieve glazen QR-sculptuur (js/login-scene.js laadt anim/login3d.js; alleen computer/tablet) -->
+  <div class="auth-art" aria-hidden="true"><canvas id="authScene"></canvas><p class="auth-art-hint" data-i18n="auth.sceneHint"></p></div>
+  <div class="auth-card glass" role="dialog" aria-modal="true" aria-labelledby="authTitle"></div>
+</div>
 <script>document.body.classList.add('auth-checking');</script>
 <dialog class="mc-dialog glass" id="mcDialog"></dialog>
 <div class="mc-toast" id="mcToast" role="status" hidden></div>
@@ -277,6 +281,7 @@
 <script src="js/account.js"></script>
 <script src="js/password-rules.js"></script>
 <script src="js/session.js"></script>
+<script src="js/login-scene.js"></script>
 <script src="js/account-settings.js"></script>
 <script src="js/code-util.js"></script>
 <script src="js/my-codes.js"></script>
