@@ -24,6 +24,7 @@ var MyCodes = (function () {
     folderPlus: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M12 11v6M9 14h6"/>',
     move: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M10 14h6M13.5 11.5L16 14l-2.5 2.5"/>',
     grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+    x: '<path d="M7 7l10 10M17 7L7 17"/>',
     inbox: '<path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     star: '<path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/>',
@@ -67,7 +68,8 @@ var MyCodes = (function () {
         chip('', ico('grid') + '<span>' + t('folders.all') + '</span>', rows.length) +
         chip('fav', '<span class="mf-star">' + ico('star') + '</span><span>' + t('folders.fav') + '</span>', count(function (r) { return r.favorite; })) +
         chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', count(function (r) { return !r.folderId; })) +
-        folders.map(function (f) { return chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })); }).join('') +
+        folders.map(function (f) { return '<span class="mf-wrap">' + chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })) +
+          '<button type="button" class="mf-x" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('x') + '</button></span>'; }).join('') +
         '<button type="button" class="mf-chip mf-add" data-folder-new>' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
       (cur ? '<div class="mf-head">' + dot(cur) + '<b>' + esc(cur.name) + '</b>' +
@@ -296,6 +298,7 @@ var MyCodes = (function () {
     var cur = folderOf(filter.folder);
     if (cur && e.target.closest('[data-folder-edit]')) return folderDialog(cur);
     if (cur && e.target.closest('[data-folder-delete]')) return askDeleteFolder(cur);
+    var fx = e.target.closest('[data-folder-x]'); if (fx) { var ff = folderOf(fx.getAttribute('data-folder-x')); if (ff) return askDeleteFolder(ff); }
   });
   // Slepen: een code op een map (of op "Zonder map") laten vallen
   var dragId = null;

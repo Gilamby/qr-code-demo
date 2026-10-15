@@ -3511,3 +3511,34 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 }
 
 #contactView > .help, #faqView > .help, #adminDashView > .help, #adminCodesView > .help, #customersView > .help { grid-template-columns: minmax(0, 1fr); }
+
+/* Bubbel = vast scherm (computer/tablet): het paneel vult het scherm, de titel blijft bovenin staan
+   en alleen de inhoud scrolt binnen de bubbel (zoals bij QR-code maken). Telefoon: gewoon meescrollen. */
+@media (min-width: 761px) {
+  #homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
+  #adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg {
+    height: calc(100dvh - 152px); margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important;
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.22) transparent; align-content: start;
+    display: flex !important; flex-direction: column; gap: 20px;
+  }
+  #homeView > .hm > :first-child, #analyticsView > .an > :first-child, #accountView > .account > :first-child, #contactView > .help > :first-child, #faqView > .help > :first-child,
+  #adminDashView > .help > :first-child, #adminCodesView > .help > :first-child, #customersView > .help > :first-child, #adminSettingsView > .ast > :first-child, #legalView > .lg > :first-child {
+    position: sticky; top: 0; z-index: 20; flex: none; margin: 0 -40px !important; padding: 36px 40px 18px !important;
+    background: linear-gradient(180deg, rgba(24,30,40,.98) 70%, rgba(24,30,40,.9)); border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  #homeView > .hm > :last-child, #analyticsView > .an > :last-child, #accountView > .account > :last-child, #contactView > .help > :last-child, #faqView > .help > :last-child,
+  #adminDashView > .help > :last-child, #adminCodesView > .help > :last-child, #customersView > .help > :last-child, #adminSettingsView > .ast > :last-child, #legalView > .lg > :last-child { margin-bottom: 34px !important; }
+  #homeView > .hm > *, #analyticsView > .an > *, #accountView > .account > *, #contactView > .help > *, #faqView > .help > *,
+  #adminDashView > .help > *, #adminCodesView > .help > *, #customersView > .help > *, #adminSettingsView > .ast > *, #legalView > .lg > * { flex-shrink: 0; }
+  /* Mijn account: het menu links blijft staan onder de titel */
+  #accountView .acct-layout > .acct-side { top: 150px; max-height: calc(100dvh - 330px); }
+  #homeView, #analyticsView, #accountView, #contactView, #faqView, #adminDashView, #adminCodesView, #customersView, #adminSettingsView, #legalView { padding-bottom: 0 !important; }
+}
+/* Mijn QR-codes: map verwijderen met het kruisje op de map (bij aanwijzen; op telefoon altijd zichtbaar) */
+.mf-wrap { position: relative; display: inline-flex; flex: none; }
+.mf-x { position: absolute; top: -6px; right: -6px; width: 22px; height: 22px; display: grid; place-items: center; padding: 0; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25); background: #1b2029; color: rgba(255,255,255,.8); cursor: pointer; opacity: 0; transform: scale(.85); transition: opacity .15s, transform .15s, background .15s; z-index: 2; }
+.mf-x svg { width: 12px; height: 12px; }
+.mf-wrap:hover .mf-x, .mf-x:focus-visible, .mf-wrap:focus-within .mf-x { opacity: 1; transform: none; }
+.mf-x:hover { background: #ef4444; border-color: #ef4444; color: #fff; }
+@media (hover: none) { .mf-x { opacity: 1; transform: none; } }
