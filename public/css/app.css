@@ -3762,7 +3762,8 @@ body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke p
    metalen rand, camera bovenin en knopjes aan de zijkant. Het scherm is doorzichtig, zodat je eigen achtergrond erdoor schijnt (past bij elke achtergrond) */
 @media (min-width: 1100px) {
   #homeView > .hm { position: relative; border: 18px solid !important; border-color: #2a303b #161a20 #0d1014 #1f242d !important; border-radius: 46px !important;
-    background: linear-gradient(140deg, rgba(255,255,255,.10), rgba(255,255,255,.03) 45%, rgba(255,255,255,.06)), rgba(12,16,23,.14) !important; background-clip: padding-box !important;
+    background: linear-gradient(140deg, rgba(255,255,255,.17), rgba(255,255,255,.05) 45%, rgba(255,255,255,.09)) !important; background-clip: padding-box !important;
+    -webkit-backdrop-filter: blur(36px) saturate(190%); backdrop-filter: blur(36px) saturate(190%);   /* matglas, zoals het paneel bij QR-code maken */
     box-shadow: 0 0 0 1.5px rgba(255,255,255,.22), 0 0 0 9px rgba(255,255,255,.05), inset 0 0 0 1px rgba(0,0,0,.9), inset 0 0 0 5px #05070a, 0 70px 120px -30px rgba(0,0,0,.9), 0 0 90px -20px rgba(43,181,240,.25) !important; }
   #homeView > .hm::before { content: ""; position: absolute; top: -12px; left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, #4a6078, #0c1118 65%); box-shadow: 0 0 0 1.5px rgba(0,0,0,.7); pointer-events: none; }
