@@ -841,7 +841,8 @@
       "logo": "Logo",
       "colors": "Motif et couleurs",
       "frame": "Cadre",
-      "corners": "Coins"
+      "corners": "Coins",
+      "frameText": "Cadre et texte"
     }
   },
   "dish": {

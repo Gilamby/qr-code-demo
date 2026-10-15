@@ -841,7 +841,8 @@
       "logo": "Logo",
       "colors": "Motivi dhe ngjyrat",
       "frame": "Korniza",
-      "corners": "Qoshet"
+      "corners": "Qoshet",
+      "frameText": "Korniza dhe teksti"
     }
   },
   "dish": {

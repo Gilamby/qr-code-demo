@@ -24,7 +24,7 @@ var DesignPanel = (function () {
   var colorOpen = null, frameGroup = null, themeGroup = 'business';
 
   // Elk onderdeel is een eigen glazen kaart die je in- en uitklapt. Stijlen en Logo staan open (belangrijkst).
-  var openCards = { style: true, logo: true, colors: false, frame: false, corners: false };
+  var openCards = { frame: true, style: true, logo: true, colors: false, corners: false };   // frame + tekst bovenaan: de enige plek voor je eigen tekst
   function card(id, title, body, domId) {
     var on = !!openCards[id];
     return '<section class="dz-card' + (on ? ' open' : '') + '" data-card="' + id + '"' + (domId ? ' id="' + domId + '"' : '') + '>' +
@@ -79,23 +79,24 @@ var DesignPanel = (function () {
         '<div class="dz-sub">' + t('dz.lbl.decor') + '</div>' + tiles('decor', DESIGN_DECOR, function (v) {
           return v ? '<span class="dz-mini">' + QRRender.svg(DESIGN_SAMPLE, { decor: v, color: '#1e293b' }) + '</span>' : '<span class="dz-none"></span>';
         }, 'decor');
-    var frame = '<div class="dz-cats" role="tablist">' + Object.keys(FRAME_GROUPS).map(function (g) {
+    var frame = '<div class="field dz-ftext"><label for="dzFrameText">' + t('dz.lbl.frameText') + '</label><input id="dzFrameText" maxlength="32" data-text="frameText" value="' + esc(d.frameText) + '" placeholder="' + esc(t('dz.text.scan')) + '"></div>' +
+        '<div class="dz-cats" role="tablist">' + Object.keys(FRAME_GROUPS).map(function (g) {
           return '<button type="button" role="tab" data-fgroup="' + g + '" aria-selected="' + (g === grp) + '">' + t('dz.fgroup.' + g) + '</button>';
         }).join('') + '</div>' + Object.keys(FRAME_GROUPS).map(function (g) {
           return '<div class="dz-fgroup" data-fg="' + g + '"' + (g === grp ? '' : ' hidden') + '>' + tiles('frame', FRAME_GROUPS[g], function (v) {
             return v === 'none' ? '<span class="dz-none"></span>' : '<span class="dz-mini">' + QRRender.svg(DESIGN_SAMPLE, { frame: v, frameText: t('dz.text.scan'), frameColor: v === 'chalkboard' ? '#24332c' : v === 'pumpkin' ? '#f97316' : v === 'heart' ? '#e11d48' : '#1e293b' }, { fontScale: 1.25 }) + '</span>';
           }, 'frames') + '</div>';
         }).join('') +
-        '<div class="dz-when" data-when="frame"><div class="field"><label for="dzFrameText">' + t('dz.lbl.frameText') + '</label><input id="dzFrameText" maxlength="32" data-text="frameText" value="' + esc(d.frameText) + '" placeholder="' + esc(t('dz.text.scan')) + '"></div>' +
+        '<div class="dz-when" data-when="frame">' +
         '<div class="dz-seg"><span>' + t('dz.lbl.frameFont') + '</span>' + FRAME_FONTS.map(function (fo) { return '<button type="button" data-d="frameFont" data-v="' + fo + '" class="ff-' + (fo || 'auto') + '">' + t('dz.font.' + (fo || 'auto')) + '</button>'; }).join('') + '</div>' +
         colorRow('frameColor', t('dz.lbl.frameColor')) + '</div>';
     var corners = '<div class="dz-corners"><div><div class="dz-sub">' + t('dz.lbl.outer') + '</div>' + tiles('cornerOuter', DESIGN_OUTER, sw('cornerOuter'), 'corner') + '</div>' +
         '<div><div class="dz-sub">' + t('dz.lbl.inner') + '</div>' + tiles('cornerInner', DESIGN_INNER, sw('cornerInner'), 'corner') + '</div></div>';
 
-    return card('style', t('dz.card.style'), styles) +
+    return card('frame', t('dz.card.frameText'), frame) +
+      card('style', t('dz.card.style'), styles) +
       card('logo', t('dz.card.logo'), logo) +
       card('colors', t('dz.card.colors'), colors) +
-      card('frame', t('dz.card.frame'), frame) +
       card('corners', t('dz.card.corners'), corners);
   }
 
@@ -187,7 +188,7 @@ var DesignPanel = (function () {
       actions.applyDesign(Object.assign({}, d, { gradient: e.target.checked ? 'linear' : '', color2: d.color2 || d.cornerColor || '#2563eb', themeId: '' }));
     });
     el.addEventListener('input', function (e) {
-      var k = e.target.getAttribute('data-text'); if (k) { e.stopPropagation(); actions.setDesign(k, e.target.value.slice(0, 32)); }
+      var k = e.target.getAttribute('data-text'); if (k) { e.stopPropagation(); if (k === 'frameText' && e.target.value.trim() && (store.get().design.frame || 'none') === 'none') actions.setDesign('frame', 'label'); actions.setDesign(k, e.target.value.slice(0, 32)); }
     });
     el.addEventListener('mouseover', function (e) {
       if (store.get().step !== 'design') return;

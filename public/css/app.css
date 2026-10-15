@@ -4007,3 +4007,4 @@ body.an-printing #anRange { display: block; }
 .st-row.danger .st-ic { color: #f87171; background: rgba(248,113,113,.12); }
 .st-row.danger b { color: #fca5a5; }
 @media (max-width: 900px) { .st-grid { grid-template-columns: minmax(0, 1fr); } }
+.dz-ftext { margin-bottom: 14px; }   /* tekst in het frame: als eerste in de kaart */

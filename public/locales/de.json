@@ -841,7 +841,8 @@
       "logo": "Logo",
       "colors": "Muster & Farben",
       "frame": "Rahmen",
-      "corners": "Ecken"
+      "corners": "Ecken",
+      "frameText": "Rahmen und Text"
     }
   },
   "dish": {

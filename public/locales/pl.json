@@ -841,7 +841,8 @@
       "logo": "Logo",
       "colors": "Wzór i kolory",
       "frame": "Ramka",
-      "corners": "Narożniki"
+      "corners": "Narożniki",
+      "frameText": "Ramka i tekst"
     }
   },
   "dish": {

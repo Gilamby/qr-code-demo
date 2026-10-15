@@ -841,7 +841,8 @@
       "logo": "Logo",
       "colors": "Patrón y colores",
       "frame": "Marco",
-      "corners": "Esquinas"
+      "corners": "Esquinas",
+      "frameText": "Marco y texto"
     }
   },
   "dish": {

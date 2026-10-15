@@ -841,7 +841,8 @@
       "logo": "Logo",
       "colors": "Motivo e colori",
       "frame": "Cornice",
-      "corners": "Angoli"
+      "corners": "Angoli",
+      "frameText": "Cornice e testo"
     }
   },
   "dish": {
