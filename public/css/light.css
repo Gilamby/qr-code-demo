@@ -379,6 +379,12 @@
     box-shadow: 0 0 0 1px rgba(13,19,32,0.162), inset 0 0 0 1px rgba(13,19,32,0.315), inset 0 0 0 2px #05070a, 0 70px 120px -30px rgba(13,19,32,0.315), 0 0 90px -20px rgba(43,181,240,.25) !important; }
 :root[data-theme="light"] #homeView > .hm::before { box-shadow: 0 0 0 1.5px rgba(13,19,32,0.245); }
 }
+@media (min-width: 761px) {
+:root[data-theme="light"] .page-title { color: rgba(13,19,32,0.54) !important; }
+}
+@media (min-width: 761px) {
+:root[data-theme="light"] body.scrolled .topbar { border-bottom: 1px solid rgba(13,19,32,0.072) !important; }
+}
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

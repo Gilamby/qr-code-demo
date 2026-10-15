@@ -168,3 +168,13 @@
   if (window.i18n) i18n.onChange(show);
   setTimeout(show, 1500);
 })();
+
+/* ---------- Bovenbalk: doorzichtig bovenaan, glas zodra je scrolt (anders loopt de inhoud er onzichtbaar onder door) ---------- */
+(function () {
+  function check(e) {
+    var t = e && e.target && e.target.scrollTop != null && e.target !== document ? e.target.scrollTop : 0;
+    document.body.classList.toggle('scrolled', (window.scrollY || document.documentElement.scrollTop || 0) > 4 || t > 4);
+  }
+  document.addEventListener('scroll', check, { capture: true, passive: true });
+  document.addEventListener('pagechange', function () { setTimeout(check, 0); });
+})();

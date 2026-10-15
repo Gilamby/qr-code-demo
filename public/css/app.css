@@ -3029,7 +3029,7 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .lg-dialog::backdrop { background: rgba(0,0,0,.55); backdrop-filter: blur(4px); }
 .lg-dlg { position: relative; padding: 28px 30px; max-height: 88vh; overflow: auto; }
 .lg-close { position: sticky; top: 0; float: right; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg); font-size: 22px; line-height: 1; cursor: pointer; z-index: 2; }
-.auth-legal { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 16px; font-size: 13.5px; color: var(--muted); }
+.auth-legal { display: flex; flex-direction: row; flex: none; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 16px; font-size: 13.5px; color: var(--muted); }
 .auth-legal .link-btn { font-size: 13.5px; color: var(--muted); margin: 0; }
 .auth-legal .link-btn:hover { color: var(--accent); }
 @media (max-width: 640px) { .lg-card { padding: 22px 18px; } .lg-toc ol { columns: 1; } }
@@ -3769,4 +3769,16 @@ body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke p
     background: radial-gradient(circle at 35% 35%, #4a6078, #0c1118 65%); box-shadow: 0 0 0 1.5px rgba(0,0,0,.7); pointer-events: none; }
   #homeView > .hm::after { content: ""; position: absolute; top: 70px; right: -14px; width: 3px; height: 40px; border-radius: 0 3px 3px 0;
     background: linear-gradient(90deg, #1c2129, #3a4250); box-shadow: 0 54px 0 0 #2a303b; pointer-events: none; }
+}
+
+/* Bovenbalk (computer): smal en doorzichtig, zodat de aandacht op de pagina zelf ligt — net als de inklapbare zijbalk */
+@media (min-width: 761px) {
+  .topbar { min-height: 58px !important; padding: 0 24px !important; background: transparent !important; border-bottom: 0 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .topbar .sq-btn { width: 36px !important; height: 36px !important; border-radius: 10px !important; }
+  .topbar .sq-btn svg { width: 17px; height: 17px; }
+  .page-title { font-size: 13px !important; color: rgba(255,255,255,.6) !important; }
+}
+@media (min-width: 761px) {
+  body.scrolled .topbar { background: rgba(12,15,21,.86) !important; -webkit-backdrop-filter: blur(22px) saturate(140%) !important; backdrop-filter: blur(22px) saturate(140%) !important; border-bottom: 1px solid rgba(255,255,255,.08) !important; }
+  .topbar { transition: background .25s, border-color .25s; }
 }
