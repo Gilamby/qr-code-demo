@@ -153,3 +153,18 @@
   addEventListener('resize', function () { if (document.body.classList.contains('pv-open')) size(); });
   document.addEventListener('pagechange', function () { document.body.classList.remove('pv-open'); });
 })();
+
+/* ---------- Onderhoudsmodus: balk bovenin (klanten: kunnen even niets wijzigen; team: herinnering dat hij aan staat) ---------- */
+(function () {
+  var bar = document.createElement('div'); bar.className = 'maint-bar'; bar.setAttribute('role', 'status'); bar.hidden = true;
+  var main = document.querySelector('.main'); if (main) main.insertBefore(bar, main.children[1] || null);
+  function show() {
+    var m = (window.api && api.info && api.info().maintenance) || {}, me = window.Session && Session.user ? Session.user() : null;
+    bar.hidden = !m.on || !me;
+    if (!bar.hidden) bar.innerHTML = '<b>' + esc(t(me && me.admin ? 'set.bannerAdmin' : 'set.bannerUser')) + '</b>' + (m.message ? ' <span>' + esc(m.message) + '</span>' : '');
+  }
+  document.addEventListener('maintenance-change', show);
+  document.addEventListener('pagechange', show);
+  if (window.i18n) i18n.onChange(show);
+  setTimeout(show, 1500);
+})();

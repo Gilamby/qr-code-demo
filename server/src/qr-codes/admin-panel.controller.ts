@@ -103,6 +103,34 @@ export class AdminPanelController {
     };
   }
 
+  /* ---------------- Instellingen: bedrijfsgegevens en onderhoud ---------------- */
+  @Get('settings')
+  async getSettings() {
+    const j = async (k: string) => { try { return JSON.parse((await this.db.getSetting(k)) || '{}'); } catch (e) { return {}; } };
+    const env = (k: string) => String(process.env[k] || '').trim();
+    return { company: await j('company'), companyEnv: { name: env('LEGAL_NAME'), address: env('LEGAL_ADDRESS'), kvk: env('LEGAL_KVK'), vat: env('LEGAL_VAT'), email: env('LEGAL_EMAIL') || env('SUPPORT_EMAIL'), phone: env('LEGAL_PHONE'), website: env('LEGAL_WEBSITE') }, maintenance: await j('maintenance') };
+  }
+  @Patch('settings')
+  async saveSettings(@CurrentUser() me: User, @Body() b: any = {}) {
+    if (b.company !== undefined) {
+      const c = b.company || {}, out: Record<string, string> = {}, bad: string[] = [];
+      const LIM: Record<string, number> = { name: 120, address: 240, kvk: 40, vat: 40, email: 254, phone: 40, website: 200 };
+      for (const k of Object.keys(LIM)) { const v = String(c[k] || '').replace(/\s+/g, ' ').trim(); if (v.length > LIM[k]) bad.push(k); else if (v) out[k] = v; }
+      if (out.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(out.email)) bad.push('email');
+      if (out.website && !/^https?:\/\/[^\s]+$/i.test(out.website)) bad.push('website');
+      if (bad.length) throw fail(400, 'Invalid settings', { details: bad });
+      await this.db.setSetting('company', Object.keys(out).length ? JSON.stringify(out) : null);
+      await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action: 'settings_company', codeId: null, ownerId: null, detail: out.name || '' }).catch(() => {});
+    }
+    if (b.maintenance !== undefined) {
+      const on = !!(b.maintenance && b.maintenance.on), message = String((b.maintenance && b.maintenance.message) || '').replace(/\s+/g, ' ').trim().slice(0, 300);
+      await this.db.setSetting('maintenance', on || message ? JSON.stringify({ on, message, by: me.name || me.email, at: new Date().toISOString() }) : null);
+      this.auth.forgetMaintenance();
+      await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action: on ? 'maintenance_on' : 'maintenance_off', codeId: null, ownerId: null, detail: message }).catch(() => {});
+    }
+    return this.getSettings();
+  }
+
   /* ---------------- Systeemstatus en aandachtspunten (dashboard) ---------------- */
   @Get('system')
   async system() {

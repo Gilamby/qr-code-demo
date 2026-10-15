@@ -22,7 +22,7 @@
     "adminCodes": "Todos os códigos QR",
     "users": "Utilizadores",
     "overview": "Visão geral",
-    "adminSettings": "Traduções",
+    "adminSettings": "Definições",
     "legal": "Privacidade e termos"
   },
   "header": {
@@ -1696,7 +1696,7 @@
   "as": {
     "tabTexts": "Textos",
     "tabDeepl": "Tradução automática",
-    "lead": "Edite cada texto da app, por idioma. As alterações ficam logo ativas para todos, também nos e-mails.",
+    "lead": "Textos e traduções, dados da empresa e manutenção. As alterações ficam ativas de imediato.",
     "editLang": "Idioma",
     "refLang": "Comparar com",
     "search": "Procurar texto ou chave",
@@ -2087,5 +2087,37 @@
     "loginTitle": "Código da sua app",
     "loginLead": "Abra a app de autenticação e escreva os 6 dígitos do Optimasys QR.",
     "recoveryHint": "Perdeu o telemóvel? Escreva um dos códigos de recuperação."
+  },
+  "set": {
+    "tabCompany": "Empresa",
+    "tabSystem": "Sistema",
+    "companyTitle": "Dados da empresa",
+    "companyLead": "Estes dados aparecem na política de privacidade e nos termos. Vazio = valor das definições do servidor (cinzento).",
+    "cName": "Nome da empresa",
+    "cAddress": "Morada",
+    "cKvk": "N.º de registo comercial",
+    "cVat": "NIF/IVA",
+    "cEmail": "Endereço de e-mail",
+    "cPhone": "Telefone",
+    "cWebsite": "Site",
+    "companyNote": "Peça revisão jurídica da privacidade e dos termos antes de publicar.",
+    "mTitle": "Modo de manutenção",
+    "mLead": "Ligado, os clientes não podem alterar nada por algum tempo (podem ver). Os códigos QR continuam a funcionar. A equipa pode fazer tudo.",
+    "mOn": "Modo de manutenção ligado",
+    "mMsg": "Mensagem para clientes (opcional)",
+    "mPh": "Ex. Manutenção hoje entre as 22h e as 23h.",
+    "statusTitle": "Estado",
+    "sDeepl": "Tradução automática (DeepL)",
+    "sMail": "Envio de e-mail (SMTP)",
+    "sBackup": "Última cópia de segurança",
+    "sDb": "Base de dados",
+    "sOn": "Configurado",
+    "sOff": "Não configurado",
+    "sMailOff": "Ainda não configurado (mais tarde com o orientador)",
+    "sNever": "Nunca",
+    "errFields": "Verifique: {f}",
+    "errSave": "Não foi possível guardar.",
+    "bannerAdmin": "Modo de manutenção ligado: os clientes não podem alterar nada agora.",
+    "bannerUser": "Manutenção breve: as alterações estão temporariamente indisponíveis. Os seus códigos QR continuam a funcionar."
   }
 }

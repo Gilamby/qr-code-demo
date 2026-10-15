@@ -22,7 +22,7 @@
     "adminCodes": "Të gjitha kodet QR",
     "users": "Përdoruesit",
     "overview": "Përmbledhje",
-    "adminSettings": "Përkthimet",
+    "adminSettings": "Cilësimet",
     "legal": "Privatësia dhe kushtet"
   },
   "header": {
@@ -1802,7 +1802,7 @@
   "as": {
     "tabTexts": "Tekstet",
     "tabDeepl": "Përkthim automatik",
-    "lead": "Ndrysho çdo tekst të aplikacionit, sipas gjuhës. Ndryshimet dalin menjëherë për të gjithë, edhe në email-e.",
+    "lead": "Tekste dhe përkthime, të dhënat e kompanisë dhe mirëmbajtja. Ndryshimet hyjnë menjëherë në fuqi.",
     "editLang": "Gjuha",
     "refLang": "Krahaso me",
     "search": "Kërko tekst ose çelës",
@@ -2193,5 +2193,37 @@
     "loginTitle": "Kodi nga aplikacioni",
     "loginLead": "Hap aplikacionin e vërtetimit dhe shkruaj 6 shifrat për Optimasys QR.",
     "recoveryHint": "Humbe telefonin? Shkruaj një nga kodet e rikuperimit."
+  },
+  "set": {
+    "tabCompany": "Kompania",
+    "tabSystem": "Sistemi",
+    "companyTitle": "Të dhënat e kompanisë",
+    "companyLead": "Këto të dhëna shfaqen në politikën e privatësisë dhe kushtet. Bosh = vlera nga cilësimet e serverit (gri).",
+    "cName": "Emri i kompanisë",
+    "cAddress": "Adresa",
+    "cKvk": "Nr. regjistrimi",
+    "cVat": "Nr. TVSH",
+    "cEmail": "Email",
+    "cPhone": "Telefoni",
+    "cWebsite": "Faqja web",
+    "companyNote": "Kontrollo ligjërisht privatësinë dhe kushtet para publikimit.",
+    "mTitle": "Modaliteti i mirëmbajtjes",
+    "mLead": "Kur është aktiv, klientët nuk mund të ndryshojnë asgjë për pak kohë (mund të shohin). Kodet QR vazhdojnë të funksionojnë. Ekipi mund të bëjë gjithçka.",
+    "mOn": "Mirëmbajtja aktive",
+    "mMsg": "Mesazh për klientët (opsional)",
+    "mPh": "P.sh. Sonte nga 22:00 deri 23:00 mirëmbajtje.",
+    "statusTitle": "Statusi",
+    "sDeepl": "Përkthim automatik (DeepL)",
+    "sMail": "Dërgimi i emailit (SMTP)",
+    "sBackup": "Kopja e fundit rezervë",
+    "sDb": "Baza e të dhënave",
+    "sOn": "I konfiguruar",
+    "sOff": "Jo i konfiguruar",
+    "sMailOff": "Ende jo i konfiguruar (më vonë me mentorin)",
+    "sNever": "Asnjëherë",
+    "errFields": "Kontrollo: {f}",
+    "errSave": "Ruajtja dështoi.",
+    "bannerAdmin": "Mirëmbajtja është aktive: klientët nuk mund të ndryshojnë asgjë tani.",
+    "bannerUser": "Mirëmbajtje e shkurtër: ndryshimet nuk janë të mundshme përkohësisht. Kodet QR funksionojnë."
   }
 }

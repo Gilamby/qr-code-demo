@@ -22,7 +22,7 @@
     "adminCodes": "Tutti i codici QR",
     "users": "Utenti",
     "overview": "Panoramica",
-    "adminSettings": "Traduzioni",
+    "adminSettings": "Impostazioni",
     "legal": "Privacy e condizioni"
   },
   "header": {
@@ -1696,7 +1696,7 @@
   "as": {
     "tabTexts": "Testi",
     "tabDeepl": "Traduzione automatica",
-    "lead": "Modifica ogni testo dell’app, per lingua. Le modifiche sono subito online per tutti, anche nelle email.",
+    "lead": "Testi e traduzioni, dati aziendali e manutenzione. Le modifiche sono subito attive.",
     "editLang": "Lingua",
     "refLang": "Confronta con",
     "search": "Cerca testo o chiave",
@@ -2087,5 +2087,37 @@
     "loginTitle": "Codice dalla tua app",
     "loginLead": "Apri l’app di autenticazione e digita le 6 cifre per Optimasys QR.",
     "recoveryHint": "Telefono perso? Digita uno dei tuoi codici di recupero."
+  },
+  "set": {
+    "tabCompany": "Azienda",
+    "tabSystem": "Sistema",
+    "companyTitle": "Dati aziendali",
+    "companyLead": "Questi dati compaiono nell’informativa privacy e nei termini. Vuoto = valore delle impostazioni del server (grigio).",
+    "cName": "Ragione sociale",
+    "cAddress": "Indirizzo",
+    "cKvk": "N. registro imprese",
+    "cVat": "Partita IVA",
+    "cEmail": "Indirizzo e-mail",
+    "cPhone": "Telefono",
+    "cWebsite": "Sito web",
+    "companyNote": "Fai verificare legalmente privacy e termini prima di andare online.",
+    "mTitle": "Modalità manutenzione",
+    "mLead": "Se attiva, i clienti non possono modificare nulla per un po’ (possono vedere). I codici QR continuano a funzionare. Il team può fare tutto.",
+    "mOn": "Modalità manutenzione attiva",
+    "mMsg": "Messaggio per i clienti (facoltativo)",
+    "mPh": "Es. Manutenzione stasera dalle 22 alle 23.",
+    "statusTitle": "Stato",
+    "sDeepl": "Traduzione automatica (DeepL)",
+    "sMail": "Invio e-mail (SMTP)",
+    "sBackup": "Ultimo backup",
+    "sDb": "Database",
+    "sOn": "Configurato",
+    "sOff": "Non configurato",
+    "sMailOff": "Non ancora configurato (più tardi con il tutor)",
+    "sNever": "Mai",
+    "errFields": "Controlla: {f}",
+    "errSave": "Salvataggio non riuscito.",
+    "bannerAdmin": "Manutenzione attiva: i clienti ora non possono modificare nulla.",
+    "bannerUser": "Breve manutenzione: le modifiche non sono disponibili per poco. I tuoi codici QR funzionano."
   }
 }

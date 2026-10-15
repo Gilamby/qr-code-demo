@@ -22,7 +22,7 @@
     "adminCodes": "All QR codes",
     "users": "Users",
     "overview": "Overview",
-    "adminSettings": "Translations",
+    "adminSettings": "Settings",
     "legal": "Privacy and terms"
   },
   "header": {
@@ -1696,7 +1696,7 @@
   "as": {
     "tabTexts": "Texts",
     "tabDeepl": "Auto-translate",
-    "lead": "Edit every text in the app, per language. Changes go live for everyone straight away, including emails.",
+    "lead": "Texts and translations, company details and maintenance. Changes go live immediately.",
     "editLang": "Language",
     "refLang": "Compare with",
     "search": "Search text or key",
@@ -2139,5 +2139,37 @@
     "loginTitle": "Code from your app",
     "loginLead": "Open your authenticator app and type the 6 digits for Optimasys QR.",
     "recoveryHint": "Lost your phone? Type one of your recovery codes."
+  },
+  "set": {
+    "tabCompany": "Company",
+    "tabSystem": "System",
+    "companyTitle": "Company details",
+    "companyLead": "These details appear in the privacy policy and terms. Empty = the value from the server settings (grey).",
+    "cName": "Company name",
+    "cAddress": "Address",
+    "cKvk": "Chamber of Commerce no.",
+    "cVat": "VAT number",
+    "cEmail": "Email address",
+    "cPhone": "Phone",
+    "cWebsite": "Website",
+    "companyNote": "Have the privacy and terms texts reviewed legally before going live.",
+    "mTitle": "Maintenance mode",
+    "mLead": "When on, customers cannot change anything for a while (they can still view). QR codes keep working when scanned. The team can do everything.",
+    "mOn": "Maintenance mode on",
+    "mMsg": "Message for customers (optional)",
+    "mPh": "E.g. Maintenance tonight between 22:00 and 23:00.",
+    "statusTitle": "Status",
+    "sDeepl": "Automatic translation (DeepL)",
+    "sMail": "Sending email (SMTP)",
+    "sBackup": "Last backup",
+    "sDb": "Database",
+    "sOn": "Set up",
+    "sOff": "Not set up",
+    "sMailOff": "Not set up yet (later with supervisor)",
+    "sNever": "Never",
+    "errFields": "Check: {f}",
+    "errSave": "Could not save.",
+    "bannerAdmin": "Maintenance mode is on: customers cannot change anything right now.",
+    "bannerUser": "Brief maintenance: changes are temporarily unavailable. Your QR codes keep working."
   }
 }

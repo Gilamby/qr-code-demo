@@ -447,3 +447,23 @@ test('tweestapsverificatie: aanzetten met de app, inloggen met code of herstelco
   assert.equal((await u('POST', '/api/account/2fa/disable', { password: 'Twee stappen 16!' })).status, 200);
   assert.equal((await login({})).status, 200, 'uit: weer alleen wachtwoord');
 });
+
+test('instellingen: bedrijfsgegevens in de privacytekst, onderhoudsmodus blokkeert alleen wijzigingen van klanten', async () => {
+  const team = client();
+  await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const k = client(); await signup(k, 'mnt-k@example.com', 'Onderhoud zin 17!', 'Klant M');
+  assert.equal((await k('GET', '/api/admin/settings')).status, 403, 'alleen het team');
+  assert.equal((await team('PATCH', '/api/admin/settings', { company: { email: 'geen-mail' } })).status, 400);
+  await team('PATCH', '/api/admin/settings', { company: { name: 'Optimasys Testbedrijf', kvk: '12345678' } });
+  const h = (await k('GET', '/api/health')).json; assert.equal(h.legal.name, 'Optimasys Testbedrijf'); assert.equal(h.legal.kvk, '12345678');
+  const made = await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://m.example' }, design: {} });
+  await team('PATCH', '/api/admin/settings', { maintenance: { on: true, message: 'Even geduld' } });
+  const blocked = await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://m2.example' }, design: {} });
+  assert.equal(blocked.status, 503); assert.equal(blocked.json.error, 'maintenance'); assert.equal(blocked.json.message, 'Even geduld');
+  assert.equal((await k('GET', '/api/qr-codes')).status, 200, 'bekijken kan nog');
+  assert.equal((await fetch(base + '/q/' + made.json.id, { redirect: 'manual' })).status, 302, 'scannen werkt gewoon');
+  assert.equal((await team('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://t.example' }, design: {} })).status, 201, 'team kan wel');
+  assert.equal((await k('GET', '/api/health')).json.maintenance.on, true);
+  await team('PATCH', '/api/admin/settings', { maintenance: { on: false }, company: {} });
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://m3.example' }, design: {} })).status, 201, 'weer uit');
+});

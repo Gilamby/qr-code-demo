@@ -19,7 +19,7 @@ var AdminSettings = (function () {
     lang: '<path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c-.5 3-3 7-7 8"/><path d="M13 21l4-9 4 9M14.5 18h5"/>',
     key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>', search: '<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/>',
     undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>', spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
-    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>'
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', home: '<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>', tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>'
   };
   var ico = function (k) { return SVG(IC[k]); };
   function langName(c) { var l = LANGUAGES.filter(function (x) { return x.code === c; })[0]; return l ? l.name : c; }
@@ -57,13 +57,14 @@ var AdminSettings = (function () {
 
   /* ---------- Tekenen ---------- */
   function tabs() {
-    return '<div class="ast-tabs" role="tablist">' + [['texts', 'lang', 'as.tabTexts'], ['deepl', 'spark', 'as.tabDeepl']].map(function (x) {
+    return '<div class="ast-tabs" role="tablist">' + [['texts', 'lang', 'as.tabTexts'], ['deepl', 'spark', 'as.tabDeepl'], ['company', 'home', 'set.tabCompany'], ['system', 'tool', 'set.tabSystem']].map(function (x) {
       return '<button type="button" role="tab" aria-selected="' + (tab === x[0]) + '" data-tab="' + x[0] + '">' + ico(x[1]) + t(x[2]) + '</button>'; }).join('') + '</div>';
   }
   function draw() {
     if (!info) return;
     body.innerHTML = '<header class="ast-head"><div><h2>' + t('nav.adminSettings') + '</h2><p>' + t('as.lead') + '</p></div></header>' + tabs() +
-      '<div id="asPanel">' + (tab === 'texts' ? textsPanel() : deeplPanel()) + '</div>';
+      '<div id="asPanel">' + (tab === 'texts' ? textsPanel() : tab === 'deepl' ? deeplPanel() : tab === 'company' ? companyPanel() : systemPanel()) + '</div>';
+    if ((tab === 'company' || tab === 'system') && !sets) loadSets();
   }
   function textsPanel() {
     // Onderdelen met een leesbare naam ("Beheer › Alle QR-codes" i.p.v. "ac"), op naam gesorteerd
@@ -138,6 +139,38 @@ var AdminSettings = (function () {
     return api.translations.translate({ texts: texts, to: f.lang, from: from }).then(function (r) { return r.texts; });
   }
 
+  /* ---------- Bedrijfsgegevens en systeem ---------- */
+  var sets = null, sys = null, setMsg = null;
+  function loadSets() {
+    Promise.all([api.settings.get(), api.admin && api.admin.system ? api.admin.system().catch(function () { return null; }) : Promise.resolve(null)])
+      .then(function (r) { sets = r[0]; sys = r[1]; if (tab === 'company' || tab === 'system') draw(); }).catch(function () { sets = { error: true }; draw(); });
+  }
+  function companyPanel() {
+    if (!sets) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    var c = sets.company || {}, e = sets.companyEnv || {};
+    var F = [['name', 'set.cName', 'organization'], ['address', 'set.cAddress', 'street-address'], ['kvk', 'set.cKvk', 'off'], ['vat', 'set.cVat', 'off'], ['email', 'set.cEmail', 'email'], ['phone', 'set.cPhone', 'tel'], ['website', 'set.cWebsite', 'url']];
+    return '<form class="glass ast-card set-form" data-set="company"><h3>' + t('set.companyTitle') + '</h3><p>' + t('set.companyLead') + '</p><div class="set-grid">' +
+      F.map(function (f) { return '<label class="auth-f"><span>' + t(f[1]) + '</span><span class="auth-in"><input name="' + f[0] + '" autocomplete="' + f[2] + '" value="' + esc(c[f[0]] || '') + '" placeholder="' + esc(e[f[0]] || '') + '"' + (f[0] === 'email' ? ' type="email"' : f[0] === 'website' ? ' type="url"' : '') + '></span></label>'; }).join('') +
+      '</div><p class="set-note">' + t('set.companyNote') + '</p>' + (setMsg && setMsg.k === 'company' ? '<p class="acct-msg ' + setMsg.kind + '" role="status">' + esc(setMsg.text) + '</p>' : '') +
+      '<div class="acct-actions"><button type="submit" class="btn primary">' + t('acct.save') + '</button></div></form>';
+  }
+  function systemPanel() {
+    if (!sets) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    var m = sets.maintenance || {}, row = function (ok, label, val) { return '<li><i class="set-dot ' + (ok ? 'ok' : 'off') + '"></i><b>' + label + '</b><span>' + val + '</span></li>'; };
+    var bk = sys && sys.backup && sys.backup.last;
+    return '<form class="glass ast-card set-form" data-set="maintenance"><h3>' + t('set.mTitle') + '</h3><p>' + t('set.mLead') + '</p>' +
+      '<label class="set-switch"><input type="checkbox" name="on"' + (m.on ? ' checked' : '') + '><span>' + t('set.mOn') + '</span></label>' +
+      '<label class="auth-f"><span>' + t('set.mMsg') + '</span><span class="auth-in"><input name="message" maxlength="300" value="' + esc(m.message || '') + '" placeholder="' + esc(t('set.mPh')) + '"></span></label>' +
+      (setMsg && setMsg.k === 'maintenance' ? '<p class="acct-msg ' + setMsg.kind + '" role="status">' + esc(setMsg.text) + '</p>' : '') +
+      '<div class="acct-actions"><button type="submit" class="btn primary">' + t('acct.save') + '</button></div></form>' +
+      '<div class="glass ast-card"><h3>' + t('set.statusTitle') + '</h3><ul class="set-status">' +
+        row(!!(sys && sys.deepl && sys.deepl.configured), t('set.sDeepl'), t(sys && sys.deepl && sys.deepl.configured ? 'set.sOn' : 'set.sOff')) +
+        row(!!(sys && sys.mail && sys.mail.configured), t('set.sMail'), t(sys && sys.mail && sys.mail.configured ? 'set.sOn' : 'set.sMailOff')) +
+        row(!!bk, t('set.sBackup'), bk ? esc(i18n.fmt.stamp(bk.at || bk, 'long')) : t('set.sNever')) +
+        row(!(sys && sys.db && sys.db.ok === false), t('set.sDb'), esc((sys && sys.db && sys.db.kind) || '–')) +
+      '</ul></div>';
+  }
+
   /* ---------- Gebeurtenissen ---------- */
   body.addEventListener('click', function (e) {
     var b;
@@ -170,6 +203,15 @@ var AdminSettings = (function () {
   });
   function deeplErr(x) { var c = x && x.code; return t(c === 'deepl_key' ? 'as.badKey' : c === 'deepl_quota' ? 'as.quota' : c === 'unsupported_lang' ? 'as.unsupported' : c === 'too_many' ? 'auth.errTooMany' : 'as.unreachable'); }
   body.addEventListener('submit', function (e) {
+    var sf = e.target.closest('[data-set]');
+    if (sf) {
+      e.preventDefault(); var k = sf.getAttribute('data-set'), go = sf.querySelector('[type=submit]'); go.disabled = true;
+      var d = {};
+      if (k === 'company') { d.company = {}; ['name', 'address', 'kvk', 'vat', 'email', 'phone', 'website'].forEach(function (n) { d.company[n] = sf[n].value; }); }
+      else d.maintenance = { on: sf.on.checked, message: sf.message.value };
+      return api.settings.save(d).then(function (r) { sets = r; setMsg = { k: k, kind: 'ok', text: t('acct.saved') }; draw(); })
+        .catch(function (x) { setMsg = { k: k, kind: 'bad', text: t(x && x.details ? 'set.errFields' : 'set.errSave', { f: (x && x.details || []).map(function (f) { return t('set.c' + f.charAt(0).toUpperCase() + f.slice(1)); }).join(', ') }) }; draw(); });
+    }
     var form = e.target.closest('[data-keyform]'); if (!form) return; e.preventDefault();
     var msg = form.querySelector('#asKeyMsg'), btn = form.querySelector('[type=submit]'); btn.disabled = true;
     api.translations.setKey({ key: form.key.value.trim() }).then(function () { return api.translations.all(); }).then(function (r) { info.deepl = r.deepl; draw(); })

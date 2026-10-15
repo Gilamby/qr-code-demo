@@ -19,7 +19,7 @@ var api = (function () {
         if (res.status === 204) return null;
         return res.json().catch(function () { return {}; }).then(function (data) {
           if (!res.ok) {
-            var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details;
+            var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details; if (data.error === 'maintenance') { info.maintenance = { on: true, message: data.message || '' }; setTimeout(function () { document.dispatchEvent(new CustomEvent('maintenance-change')); }, 0); }
             if (res.status === 401 && url.indexOf('api/auth/') !== 0) document.dispatchEvent(new Event('auth:required'));   // sessie verlopen: opnieuw inloggen
             throw err;
           }
@@ -318,6 +318,11 @@ var api = (function () {
       translate: function (d)       { return request('POST', 'api/admin/translations/translate', d); },
       setKey:    function (d)       { return request('PUT', 'api/admin/deepl', d); },
       removeKey: function ()        { return request('DELETE', 'api/admin/deepl'); }
+    },
+    // Beheer > Instellingen: bedrijfsgegevens en onderhoudsmodus
+    settings: {
+      get:  function ()  { return request('GET', 'api/admin/settings'); },
+      save: function (d) { return request('PATCH', 'api/admin/settings', d).then(function (r) { info.maintenance = { on: !!(r.maintenance && r.maintenance.on), message: (r.maintenance && r.maintenance.message) || '' }; info.legal = Object.assign({}, info.legal, r.company || {}); document.dispatchEvent(new CustomEvent('maintenance-change')); return r; }); }
     },
     // Klanten (alleen voor het team, alleen met server)
     customers: {

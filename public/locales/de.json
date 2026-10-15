@@ -22,7 +22,7 @@
     "adminCodes": "Alle QR-Codes",
     "users": "Benutzer",
     "overview": "Übersicht",
-    "adminSettings": "Übersetzungen",
+    "adminSettings": "Einstellungen",
     "legal": "Datenschutz und AGB"
   },
   "header": {
@@ -1696,7 +1696,7 @@
   "as": {
     "tabTexts": "Texte",
     "tabDeepl": "Automatisch übersetzen",
-    "lead": "Passe jeden Text der App pro Sprache an. Änderungen sind sofort für alle live, auch in den E-Mails.",
+    "lead": "Texte und Übersetzungen, Firmendaten und Wartung. Änderungen sind sofort live.",
     "editLang": "Sprache",
     "refLang": "Vergleichen mit",
     "search": "Text oder Schlüssel suchen",
@@ -2087,5 +2087,37 @@
     "loginTitle": "Code aus deiner App",
     "loginLead": "Öffne deine Authenticator-App und gib die 6 Ziffern für Optimasys QR ein.",
     "recoveryHint": "Handy verloren? Gib einen deiner Wiederherstellungscodes ein."
+  },
+  "set": {
+    "tabCompany": "Firma",
+    "tabSystem": "System",
+    "companyTitle": "Firmendaten",
+    "companyLead": "Diese Angaben stehen in der Datenschutzerklärung und den Bedingungen. Leer = Wert aus den Servereinstellungen (grau).",
+    "cName": "Firmenname",
+    "cAddress": "Adresse",
+    "cKvk": "Handelsregisternr.",
+    "cVat": "USt-IdNr.",
+    "cEmail": "E-Mail-Adresse",
+    "cPhone": "Telefon",
+    "cWebsite": "Website",
+    "companyNote": "Lass Datenschutz und Bedingungen vor dem Start juristisch prüfen.",
+    "mTitle": "Wartungsmodus",
+    "mLead": "Wenn an, können Kunden kurz nichts ändern (nur ansehen). QR-Codes funktionieren beim Scannen weiter. Das Team kann alles.",
+    "mOn": "Wartungsmodus an",
+    "mMsg": "Nachricht für Kunden (optional)",
+    "mPh": "Z. B. Heute Abend 22:00–23:00 Wartung.",
+    "statusTitle": "Status",
+    "sDeepl": "Automatisch übersetzen (DeepL)",
+    "sMail": "E-Mail senden (SMTP)",
+    "sBackup": "Letzte Sicherung",
+    "sDb": "Datenbank",
+    "sOn": "Eingerichtet",
+    "sOff": "Nicht eingerichtet",
+    "sMailOff": "Noch nicht eingerichtet (später mit Betreuer)",
+    "sNever": "Noch nie",
+    "errFields": "Prüfen: {f}",
+    "errSave": "Speichern fehlgeschlagen.",
+    "bannerAdmin": "Wartungsmodus ist an: Kunden können gerade nichts ändern.",
+    "bannerUser": "Kurze Wartung: Änderungen sind vorübergehend nicht möglich. Deine QR-Codes funktionieren weiter."
   }
 }

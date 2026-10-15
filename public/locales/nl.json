@@ -22,7 +22,7 @@
     "adminCodes": "Alle QR-codes",
     "users": "Gebruikers",
     "overview": "Overzicht",
-    "adminSettings": "Vertalingen",
+    "adminSettings": "Instellingen",
     "legal": "Privacy en voorwaarden"
   },
   "header": {
@@ -1696,7 +1696,7 @@
   "as": {
     "tabTexts": "Teksten",
     "tabDeepl": "Automatisch vertalen",
-    "lead": "Pas elke tekst van de app aan, per taal. Wijzigingen zijn meteen live voor iedereen, ook in de e-mails.",
+    "lead": "Teksten en vertalingen, bedrijfsgegevens en onderhoud. Wijzigingen gaan meteen live.",
     "editLang": "Taal",
     "refLang": "Vergelijk met",
     "search": "Zoek op tekst of sleutel",
@@ -2139,5 +2139,37 @@
     "loginTitle": "Code uit je app",
     "loginLead": "Open je authenticator-app en typ de 6 cijfers voor Optimasys QR.",
     "recoveryHint": "Telefoon kwijt? Typ dan een van je herstelcodes."
+  },
+  "set": {
+    "tabCompany": "Bedrijf",
+    "tabSystem": "Systeem",
+    "companyTitle": "Bedrijfsgegevens",
+    "companyLead": "Deze gegevens staan in de privacyverklaring en de voorwaarden. Leeg = de waarde uit de serverinstellingen (grijs).",
+    "cName": "Bedrijfsnaam",
+    "cAddress": "Adres",
+    "cKvk": "KvK-nummer",
+    "cVat": "Btw-nummer",
+    "cEmail": "E-mailadres",
+    "cPhone": "Telefoon",
+    "cWebsite": "Website",
+    "companyNote": "Laat de teksten van privacy en voorwaarden nog juridisch nakijken voordat je live gaat.",
+    "mTitle": "Onderhoudsmodus",
+    "mLead": "Staat hij aan, dan kunnen klanten even niets wijzigen (wel bekijken). QR-codes blijven gewoon werken bij het scannen. Het team kan alles.",
+    "mOn": "Onderhoudsmodus aan",
+    "mMsg": "Bericht voor klanten (optioneel)",
+    "mPh": "Bijv. Vanavond tussen 22:00 en 23:00 onderhoud.",
+    "statusTitle": "Status",
+    "sDeepl": "Automatisch vertalen (DeepL)",
+    "sMail": "E-mail versturen (SMTP)",
+    "sBackup": "Laatste back-up",
+    "sDb": "Database",
+    "sOn": "Ingesteld",
+    "sOff": "Niet ingesteld",
+    "sMailOff": "Nog niet ingesteld (later met stagebegeleider)",
+    "sNever": "Nog nooit",
+    "errFields": "Controleer: {f}",
+    "errSave": "Opslaan lukte niet.",
+    "bannerAdmin": "Onderhoudsmodus staat aan: klanten kunnen nu niets wijzigen.",
+    "bannerUser": "Even onderhoud: wijzigen kan tijdelijk niet. Je QR-codes werken gewoon."
   }
 }

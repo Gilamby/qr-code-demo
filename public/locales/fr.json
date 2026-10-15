@@ -22,7 +22,7 @@
     "adminCodes": "Tous les QR codes",
     "users": "Utilisateurs",
     "overview": "Aperçu",
-    "adminSettings": "Traductions",
+    "adminSettings": "Paramètres",
     "legal": "Confidentialité et conditions"
   },
   "header": {
@@ -1696,7 +1696,7 @@
   "as": {
     "tabTexts": "Textes",
     "tabDeepl": "Traduction automatique",
-    "lead": "Modifiez chaque texte de l’app, par langue. Les changements sont en ligne immédiatement pour tous, y compris dans les e-mails.",
+    "lead": "Textes et traductions, coordonnées de l’entreprise et maintenance. Les changements sont appliqués immédiatement.",
     "editLang": "Langue",
     "refLang": "Comparer avec",
     "search": "Rechercher un texte ou une clé",
@@ -2087,5 +2087,37 @@
     "loginTitle": "Code de votre application",
     "loginLead": "Ouvrez votre application d’authentification et saisissez les 6 chiffres pour Optimasys QR.",
     "recoveryHint": "Téléphone perdu ? Saisissez l’un de vos codes de secours."
+  },
+  "set": {
+    "tabCompany": "Entreprise",
+    "tabSystem": "Système",
+    "companyTitle": "Coordonnées de l’entreprise",
+    "companyLead": "Ces informations figurent dans la politique de confidentialité et les conditions. Vide = valeur des réglages serveur (gris).",
+    "cName": "Nom de l’entreprise",
+    "cAddress": "Adresse",
+    "cKvk": "N° d’immatriculation",
+    "cVat": "N° de TVA",
+    "cEmail": "Adresse e-mail",
+    "cPhone": "Téléphone",
+    "cWebsite": "Site web",
+    "companyNote": "Faites relire juridiquement la confidentialité et les conditions avant la mise en ligne.",
+    "mTitle": "Mode maintenance",
+    "mLead": "Activé, les clients ne peuvent rien modifier pendant un moment (consultation possible). Les codes QR continuent de fonctionner. L’équipe peut tout faire.",
+    "mOn": "Mode maintenance activé",
+    "mMsg": "Message pour les clients (facultatif)",
+    "mPh": "Ex. Maintenance ce soir entre 22h et 23h.",
+    "statusTitle": "État",
+    "sDeepl": "Traduction automatique (DeepL)",
+    "sMail": "Envoi d’e-mails (SMTP)",
+    "sBackup": "Dernière sauvegarde",
+    "sDb": "Base de données",
+    "sOn": "Configuré",
+    "sOff": "Non configuré",
+    "sMailOff": "Pas encore configuré (plus tard avec le tuteur)",
+    "sNever": "Jamais",
+    "errFields": "Vérifiez : {f}",
+    "errSave": "Enregistrement impossible.",
+    "bannerAdmin": "Mode maintenance activé : les clients ne peuvent rien modifier.",
+    "bannerUser": "Courte maintenance : les modifications sont temporairement indisponibles. Vos codes QR fonctionnent."
   }
 }

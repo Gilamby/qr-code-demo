@@ -22,7 +22,7 @@
     "adminCodes": "Wszystkie kody QR",
     "users": "Użytkownicy",
     "overview": "Przegląd",
-    "adminSettings": "Tłumaczenia",
+    "adminSettings": "Ustawienia",
     "legal": "Prywatność i warunki"
   },
   "header": {
@@ -1696,7 +1696,7 @@
   "as": {
     "tabTexts": "Teksty",
     "tabDeepl": "Automatyczne tłumaczenie",
-    "lead": "Edytuj każdy tekst aplikacji w każdym języku. Zmiany są od razu widoczne dla wszystkich, także w e-mailach.",
+    "lead": "Teksty i tłumaczenia, dane firmy i konserwacja. Zmiany działają od razu.",
     "editLang": "Język",
     "refLang": "Porównaj z",
     "search": "Szukaj tekstu lub klucza",
@@ -2087,5 +2087,37 @@
     "loginTitle": "Kod z aplikacji",
     "loginLead": "Otwórz aplikację uwierzytelniającą i wpisz 6 cyfr dla Optimasys QR.",
     "recoveryHint": "Zgubiony telefon? Wpisz jeden z kodów zapasowych."
+  },
+  "set": {
+    "tabCompany": "Firma",
+    "tabSystem": "System",
+    "companyTitle": "Dane firmy",
+    "companyLead": "Te dane pojawiają się w polityce prywatności i regulaminie. Puste = wartość z ustawień serwera (szara).",
+    "cName": "Nazwa firmy",
+    "cAddress": "Adres",
+    "cKvk": "Nr rejestrowy",
+    "cVat": "NIP/VAT",
+    "cEmail": "Adres e-mail",
+    "cPhone": "Telefon",
+    "cWebsite": "Strona www",
+    "companyNote": "Przed startem daj prywatność i regulamin do sprawdzenia prawnikowi.",
+    "mTitle": "Tryb konserwacji",
+    "mLead": "Gdy włączony, klienci przez chwilę nic nie zmienią (mogą oglądać). Kody QR dalej działają. Zespół może wszystko.",
+    "mOn": "Tryb konserwacji włączony",
+    "mMsg": "Wiadomość dla klientów (opcjonalnie)",
+    "mPh": "Np. Dziś między 22:00 a 23:00 konserwacja.",
+    "statusTitle": "Stan",
+    "sDeepl": "Automatyczne tłumaczenie (DeepL)",
+    "sMail": "Wysyłka e-mail (SMTP)",
+    "sBackup": "Ostatnia kopia zapasowa",
+    "sDb": "Baza danych",
+    "sOn": "Skonfigurowano",
+    "sOff": "Nie skonfigurowano",
+    "sMailOff": "Jeszcze nie skonfigurowano (później z opiekunem)",
+    "sNever": "Nigdy",
+    "errFields": "Sprawdź: {f}",
+    "errSave": "Nie udało się zapisać.",
+    "bannerAdmin": "Tryb konserwacji włączony: klienci nie mogą teraz nic zmieniać.",
+    "bannerUser": "Krótka konserwacja: zmiany są chwilowo niedostępne. Twoje kody QR działają."
   }
 }

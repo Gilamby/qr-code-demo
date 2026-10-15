@@ -3735,3 +3735,20 @@ body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke p
 .tfa-form input[name=code] { font-size: 20px; letter-spacing: .3em; font-variant-numeric: tabular-nums; }
 .tfa-codes ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 18px; padding-left: 22px; margin: 10px 0 14px; }
 .tfa-codes code { font-size: 15px; letter-spacing: .08em; }
+/* Instellingen: bedrijf en systeem; onderhoudsbalk */
+.set-form { display: grid; gap: 12px; }
+.set-form h3, .ast-card h3 { margin: 0; }
+.set-form > p { margin: 0; color: var(--muted); }
+.set-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; }
+.set-note { font-size: 13px; color: var(--muted); margin: 0; }
+.set-switch { display: inline-flex; align-items: center; gap: 10px; font-weight: 650; cursor: pointer; }
+.set-switch input { width: 20px; height: 20px; accent-color: var(--accent); }
+.set-status { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+.set-status li { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; align-items: center; gap: 10px; font-size: 14.5px; }
+.set-status span { color: var(--muted); }
+.set-dot { width: 9px; height: 9px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.16); }
+.set-dot.ok { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.16); }
+.ast-card { padding: 20px; border-radius: 20px; margin-top: 14px; }
+.maint-bar { margin: 10px 32px 0; padding: 10px 14px; border-radius: 12px; background: rgba(245,158,11,.14); border: 1px solid rgba(245,158,11,.4); color: #fde68a; font-size: 14px; }
+.maint-bar[hidden] { display: none; }
+@media (max-width: 760px) { .set-grid { grid-template-columns: minmax(0, 1fr); } .maint-bar { margin: 8px 10px 0; } }

@@ -74,9 +74,23 @@ export class AuthService implements OnModuleDestroy {
       req.sid = this.cookies(req)[COOKIE] || '';
       req.user = await this.db.sessionUser(req.sid);
       if (req.user && req.user.renewUntil) this.setSession(req, res, { token: req.sid, expires: req.user.renewUntil });
+      // Onderhoudsmodus: klanten kunnen even niets wijzigen (bekijken en scannen werkt gewoon); het team wel
+      if (req.method !== 'GET' && req.method !== 'HEAD' && /^\/api\//.test(req.path) && !/^\/api\/(auth|admin)\//.test(req.path) && !(req.user && this.isAdmin(req.user))) {
+        const m = await this.maintenance();
+        if (m.on) { res.status(503).json({ error: 'maintenance', message: m.message || null }); return; }
+      }
       next();
     } catch (e) { next(e); }
   };
+
+  /** Onderhoudsmodus (settings 'maintenance'), 10 seconden onthouden */
+  private maint = { at: 0, v: { on: false, message: '' } };
+  async maintenance(): Promise<{ on: boolean; message: string }> {
+    if (Date.now() - this.maint.at < 10000) return this.maint.v;
+    let v = { on: false, message: '' }; try { const r = await this.db.getSetting('maintenance'); if (r) v = { on: !!JSON.parse(r).on, message: String(JSON.parse(r).message || '') }; } catch (e) { /* standaard: uit */ }
+    this.maint = { at: Date.now(), v }; return v;
+  }
+  forgetMaintenance() { this.maint.at = 0; }
 
   /** Wat de app over de ingelogde gebruiker te zien krijgt */
   me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, avatar: u.avatar || null, timezone: u.timezone || null, verified: u.verified !== false, passwordChangedAt: u.passwordChangedAt || null, theme: u.theme || null, emailPrefs: u.emailPrefs || { report: 'off', security: true, product: false }, lang: u.lang || null, emailLocked: this.emailLocked(u), role: this.isSuper(u) ? 'super' : this.isAdmin(u) ? 'admin' : 'user', admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
