@@ -4135,3 +4135,27 @@ body.an-printing #anRange { display: block; }
 @media (max-width: 760px) { .ct-globe { width: 72px; height: 72px; } }
 .ct-head { justify-content: flex-start; gap: 14px; }
 .ct-head .ct-globe { order: -1; width: 84px; height: 84px; margin: -10px 0 -10px -8px; }
+
+/* Contact: titel eerst, dan de wereldbol ernaast */
+.ct-head .ct-globe { order: 0; }
+.ct-title { display: flex; align-items: center; gap: 12px; }
+.ct-title .ct-globe { width: 64px; height: 64px; margin: -14px 0; }
+
+/* Contact: speelse 3D-iconen in de kaartjes rechts */
+.h3d { position: relative; display: block; width: 56px; height: 56px; perspective: 260px; margin-bottom: 4px; }
+/* Vraagteken-munt die rond draait en zweeft */
+.h3d-coin { position: absolute; inset: 4px; transform-style: preserve-3d; animation: h3dSpin 4.5s cubic-bezier(.45,.05,.55,.95) infinite, h3dFloat 3s ease-in-out infinite; }
+.h3d-face { position: absolute; inset: 0; border-radius: 50%; display: grid; place-items: center; font: 800 26px/1 var(--font); color: #fff; backface-visibility: hidden;
+  background: radial-gradient(circle at 35% 30%, #9be3ff, #2bb5f0 45%, #0d5c9e 100%); box-shadow: inset 0 -4px 8px rgba(0,0,0,.35), inset 0 3px 6px rgba(255,255,255,.5), 0 0 0 3px rgba(43,181,240,.35); text-shadow: 0 2px 3px rgba(0,0,0,.35); }
+.h3d-face.back { transform: rotateY(180deg); }
+.h3d-shadow { position: absolute; left: 12px; right: 12px; bottom: -6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,.35); filter: blur(3px); animation: h3dShadow 3s ease-in-out infinite; }
+/* Lampje dat aangaat en straalt */
+.h3d-bulb svg { width: 100%; height: 100%; overflow: visible; animation: h3dFloat 3.4s ease-in-out infinite; filter: drop-shadow(0 6px 8px rgba(0,0,0,.35)); }
+.h3d-halo { fill: rgba(255,212,71,.35); filter: blur(6px); transform-origin: 32px 28px; animation: h3dGlow 2.4s ease-in-out infinite; }
+.h3d-rays { opacity: 0; transform-origin: 32px 30px; animation: h3dRays 2.4s ease-in-out infinite; }
+@keyframes h3dSpin { 0%, 15% { transform: rotateY(0); } 50%, 65% { transform: rotateY(180deg); } 100% { transform: rotateY(360deg); } }
+@keyframes h3dFloat { 50% { translate: 0 -4px; } }
+@keyframes h3dShadow { 50% { transform: scaleX(.75); opacity: .6; } }
+@keyframes h3dGlow { 50% { transform: scale(1.25); opacity: .9; } }
+@keyframes h3dRays { 0%, 30% { opacity: 0; transform: scale(.8); } 55% { opacity: 1; transform: scale(1.05); } 100% { opacity: 0; transform: scale(1.1); } }
+@media (prefers-reduced-motion: reduce) { .h3d-coin, .h3d-shadow, .h3d-bulb svg, .h3d-halo, .h3d-rays { animation: none !important; } .h3d-rays { opacity: 1; } }
