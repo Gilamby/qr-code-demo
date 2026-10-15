@@ -362,7 +362,7 @@
 :root[data-theme="light"] .ad-pill.off,
 :root[data-theme="light"] .ad-pill.wait,
 :root[data-theme="light"] .ad-pill.bad { color: rgba(13,19,32,0.765) !important; }
-:root[data-theme="light"] .mc-sel { border: 1.5px solid rgba(13,19,32,0.36); box-shadow: 0 4px 10px -4px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .mc-check { border: 1.5px solid rgba(13,19,32,0.36); box-shadow: 0 4px 10px -4px rgba(13,19,32,0.21); }
 :root[data-theme="light"] .mc-bulk { border: 1px solid rgba(13,19,32,0.144); box-shadow: 0 24px 50px -16px rgba(13,19,32,0.262); }
 :root[data-theme="light"] .an-gr.up { color: #15803d; }
 :root[data-theme="light"] .an-gr.down { color: #dc2626; }
