@@ -80,7 +80,7 @@ var Home = (function () {
     var dyn = codes.filter(function (r) { return !isStatic(r); }), off = dyn.filter(function (r) { return r.paused; }).length;
     var trend = function (now, before) {
       if (!before && !now) return '<em class="hm-trend flat">' + t('home.noChange') + '</em>';
-      if (!before) return '<em class="hm-trend t-up">' + ico('up', 'hm-ti') + t('home.new') + '</em>';
+      if (!before) return '<em class="hm-trend t-up" title="' + esc(t('home.vsPrevN', { n: period })) + '">' + ico('up', 'hm-ti') + '+' + i18n.fmt.num(now) + '<span>' + t('home.vsPrevShortN', { n: period }) + '</span></em>';   // vorige periode 0: "+37 vs. vorige 30 d." i.p.v. "Nieuw"
       var pct = Math.round((now - before) / before * 100);
       return '<em class="hm-trend ' + (pct > 0 ? 't-up' : pct < 0 ? 't-down' : 'flat') + '" title="' + esc(t('home.vsPrevN', { n: period })) + '">' + (pct ? ico(pct > 0 ? 'up' : 'down', 'hm-ti') : '') + (pct > 0 ? '+' : '') + pct + '%<span>' + t('home.vsPrevShortN', { n: period }) + '</span></em>';
     };

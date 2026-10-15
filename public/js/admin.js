@@ -60,12 +60,12 @@ var Admin = (function () {
   }
   function trend(now, before) {
     if (!before && !now) return '';
-    if (!before) return '<span class="ad-trend up">' + ico('up') + t('adm.new') + '</span>';
+    if (!before) return '<span class="ad-trend up" title="' + esc(t('adm.vsPrev')) + '">' + ico('up') + '+' + num(now) + '</span>';   // vorige periode 0: het aantal erbij i.p.v. "nieuw"
     var p = Math.round((now - before) / before * 100);
     return '<span class="ad-trend ' + (p >= 0 ? 'up' : 'down') + '" title="' + esc(t('adm.vsPrev')) + '">' + ico(p >= 0 ? 'up' : 'down') + (p >= 0 ? '+' : '') + num(p) + '%</span>';
   }
   function kpi(k, icon, label, value, sub, extra) {
-    return '<div class="glass ad-kpi ad-kpi-' + k + '"><div class="ad-kpi-top"><span class="ad-kpi-ic">' + ico(icon) + '</span><small>' + label + '</small></div>' +
+    return '<div class="glass ad-kpi ad-kpi-' + k + '"><div class="ad-kpi-top"><span class="ad-kpi-ic">' + CodeUtil.tileIcon({ users: 'users', qr: 'folder', pulse: 'qrscan', scan: 'frame' }[icon] || 'frame') + '</span><small>' + label + '</small></div>' +
       '<b class="ad-kpi-n">' + value + '</b><div class="ad-kpi-sub">' + sub + '</div>' + (extra || '') + '</div>';
   }
   // Grote grafiek: scans en unieke scans per dag, met lijnen, zachte vulling en een tip bij de muis/vinger

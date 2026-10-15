@@ -87,7 +87,7 @@ var Analytics = (function () {
   function tiles(tot) {
     // sub = korte uitleg die altijd zichtbaar is (wat is een scan, wat is een unieke scan)
     var tile = function (k, n, txt, tip, sub) {
-      return '<div class="an-tile glass an-' + k + '"><span class="an-tic">' + ico(k) + '</span><span class="an-tl"><small>' + txt +
+      return '<div class="an-tile glass an-' + k + '"><span class="an-tic">' + CodeUtil.tileIcon({ codes: 'folder', scans: 'qrscan', unique: 'frame' }[k]) + '</span><span class="an-tl"><small>' + txt +
         (tip ? ' <button type="button" class="an-tip" aria-label="' + esc(tip) + '" data-tip="' + esc(tip) + '">' + ico('info', 'an-ii') + '</button>' : '') + '</small><b>' + i18n.fmt.num(n) + '</b>' +
         (sub ? '<em class="an-sub">' + esc(sub) + '</em>' : '') + '</span></div>';
     };

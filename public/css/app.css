@@ -3609,3 +3609,40 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 /* Overzicht: iconen zonder vakje eromheen */
 #homeView .hm-tic, #homeView .t-scans .hm-tic, #homeView .t-uniq .hm-tic, #homeView .t-today .hm-tic, #homeView .t-codes .hm-tic { background: none !important; border: 0 !important; box-shadow: none !important; width: 34px; height: 34px; }
 #homeView .hm-tic .hm-i { width: 30px; height: 30px; }
+
+/* =========================================================
+   Tegel-iconen overal (Overzicht, Statistieken, Dashboard): geen vakje, groter, animatie bij aanwijzen
+   ========================================================= */
+.an-tic, .ad-kpi-ic { background: none !important; border: 0 !important; box-shadow: none !important; }
+.an-tic .hx, .ad-kpi-ic .hx { width: 30px; height: 30px; }
+.an-codes .an-tic, .ad-kpi-codes .ad-kpi-ic { color: #38bdf8 !important; }
+.an-scans .an-tic, .ad-kpi-scans30 .ad-kpi-ic { color: #60a5fa !important; }
+.an-unique .an-tic, .ad-kpi-scans .ad-kpi-ic { color: #34d399 !important; }
+.ad-kpi-users .ad-kpi-ic { color: #a78bfa !important; }
+.hx { overflow: visible; }
+.hx * { transform-box: fill-box; transition: transform .35s cubic-bezier(.3,1.4,.5,1), opacity .25s, fill .25s; }
+.hx .hx-front { fill: currentColor; fill-opacity: .22; transform-origin: 50% 100%; }
+.hx .hx-line { stroke-width: 1.4; opacity: 0; }
+.hx .hx-box { fill: currentColor; fill-opacity: .14; transform-origin: 50% 50%; }
+.hx .hx-base { transform-origin: 50% 50%; }
+.hx .hx-core { fill: currentColor; fill-opacity: .25; transform-origin: 50% 50%; }
+.hx .hx-rays { transform-origin: 50% 50%; }
+.hx .hx-p2 { transform-origin: 0 100%; }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-front { transform: skewX(-14deg) scaleY(.82) translateX(1px); }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-line { opacity: 1; animation: hxScan 1.4s ease-in-out infinite; }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-box { animation: hxFocus 1.2s ease-in-out infinite; }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-base { transform: scaleX(.6); }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-rays { animation: hxSpin 6s linear infinite; }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-core { transform: scale(1.15); }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-p2 { transform: translate(-1px, -1px) rotate(-6deg); }
+:is(.hm-tile, .an-tile, .ad-kpi):hover .hx-p1 { transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) { .hx * { animation: none !important; transition: none !important; } }
+
+/* Status overal als bolletje: groen = actief/aan, oranje = wacht/uitgenodigd, rood = uit/gepauzeerd */
+.ad-pill, .ad-pill.ok, .ad-pill.off, .ad-pill.wait, .ad-pill.bad { display: inline-flex; align-items: center; gap: 7px; padding: 0 !important; background: none !important; border: 0 !important;
+  color: rgba(255,255,255,.85) !important; font-size: 13px; font-weight: 600; }
+.ad-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; flex: none; background: #94a3b8; }
+.ad-pill.ok::before { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.16); }
+.ad-pill.wait::before { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245,158,11,.16); }
+.ad-pill.off::before, .ad-pill.bad::before { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.16); }
+.ad-trend { background: none !important; border: 0 !important; padding: 0 !important; box-shadow: none !important; }
