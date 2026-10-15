@@ -36,6 +36,13 @@ var MyCodes = (function () {
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList'), tools = document.getElementById('mcTools');
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
   var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '' }, renaming = null, toastTimer = null;
+  var picked = {};                                          // geselecteerde codes (id → true)
+  var dlSize = 1024; try { var ds = +localStorage.getItem('mc.dlSize'); if (CodeUtil.sizes.indexOf(ds) >= 0) dlSize = ds; } catch (e) {}
+  var FMT = [['png', 'myCodes.pngHint'], ['jpg', 'myCodes.jpgHint'], ['webp', 'myCodes.webpHint'], ['svg', 'myCodes.svgHint'], ['pdf', 'myCodes.pdfHint']];
+  function dlMenu(bulk) {
+    return '<div class="mc-sizes" role="group" aria-label="' + esc(t('myCodes.size')) + '"><span>' + t('myCodes.size') + '</span>' + CodeUtil.sizes.map(function (z) { return '<button type="button" class="mc-sz' + (z === dlSize ? ' on' : '') + '" data-size="' + z + '" aria-pressed="' + (z === dlSize) + '">' + z + '</button>'; }).join('') + '</div>' +
+      FMT.map(function (f) { return '<button type="button" role="menuitem" data-' + (bulk ? 'bulk-fmt' : 'act="dl" data-fmt') + '="' + f[0] + '">' + f[0].toUpperCase() + '<small>' + t(f[1]) + '</small></button>'; }).join('');
+  }
   var folders = [], newIn = null, bar = document.getElementById('mcFolders');   // folder: '' = alle codes, 'none' = zonder map, anders een map-id
   var COLORS = { cyan: '#22d3ee', blue: '#3b82f6', violet: '#8b5cf6', pink: '#ec4899', red: '#ef4444', orange: '#f97316', amber: '#f59e0b', green: '#22c55e' };
   function folderOf(id) { return folders.filter(function (f) { return f.id === id; })[0] || null; }
@@ -107,7 +114,8 @@ var MyCodes = (function () {
       if (filter.folder === 'none' && r.folderId) return false;
       if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && r.folderId !== filter.folder) return false;
       if (!q) return true;
-      return (displayName(r) + ' ' + typeName(getType(r.typeId)) + ' ' + r.id + ' ' + (r.shortUrl || '')).toLowerCase().indexOf(q) >= 0;
+      var dest = Object.keys(r.content || {}).filter(function (k) { return typeof r.content[k] === 'string' && !/password|secret/i.test(k); }).map(function (k) { return r.content[k]; }).join(' ');   // ook de bestemming (link, telefoon, e-mail …)
+      return (displayName(r) + ' ' + typeName(getType(r.typeId)) + ' ' + r.id + ' ' + (r.shortUrl || '') + ' ' + dest).toLowerCase().indexOf(q) >= 0;
     });
     var by = {
       new: function (a, b) { return b.createdAt.localeCompare(a.createdAt); },
@@ -129,10 +137,12 @@ var MyCodes = (function () {
       ? '<input class="mc-rename" data-rename value="' + esc(r.name || name) + '" maxlength="60" aria-label="' + esc(t('myCodes.rename')) + '">'
       : '<button type="button" class="mc-name" data-act="rename" title="' + esc(t('myCodes.rename')) + '"><b>' + esc(name) + '</b>' + ico('pen') + '</button>';
     var fo = !filter.folder && r.folderId ? folderOf(r.folderId) : null;
-    return '<article class="mc-card glass' + (off ? ' off' : '') + '" data-id="' + esc(r.id) + '" draggable="true">' +
-      '<div class="mc-qr" aria-hidden="true">' + QRRender.svg(qrData(r), qrDesign(r)) + '</div>' +
+    var sel = !!picked[r.id];
+    return '<article class="mc-card glass' + (off ? ' off' : '') + (sel ? ' is-picked' : '') + '" data-id="' + esc(r.id) + '" draggable="true">' +
+      '<div class="mc-qr"><span aria-hidden="true">' + QRRender.svg(qrData(r), qrDesign(r)) + '</span><label class="mc-sel" title="' + esc(t('myCodes.select')) + '"><input type="checkbox" data-sel' + (sel ? ' checked' : '') + ' aria-label="' + esc(t('myCodes.selectOne', { name: name })) + '"><span aria-hidden="true">' + ico('check') + '</span></label></div>' +
       '<div class="mc-main"><div class="mc-namerow"><button type="button" class="mc-star' + (r.favorite ? ' on' : '') + '" data-act="fav" aria-pressed="' + !!r.favorite + '" aria-label="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '" title="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '">' + ico('star') + '</button>' + nameHtml + '</div>' +
         '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.stamp(r.createdAt, 'short') })) + '</span>' +
+          (r.updatedAt && r.updatedAt !== r.createdAt ? '<span class="mc-dot">·</span><span title="' + esc(i18n.fmt.stamp(r.updatedAt, 'long')) + '">' + esc(t('myCodes.edited', { date: i18n.fmt.stamp(r.updatedAt, 'short') })) + '</span>' : '') +
           (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
@@ -141,7 +151,7 @@ var MyCodes = (function () {
         : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" data-act="toggle"' + (off && r.hold && r.hold.lock ? ' aria-disabled="true" title="' + esc(t('myCodes.heldLocked')) + '"' : '') + '><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
       '<div class="mc-acts">' +
         '<div class="mc-drop"><button type="button" class="btn ghost sm" data-act="dlmenu" aria-haspopup="true" aria-expanded="false">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button>' +
-          '<div class="mc-menu" role="menu" hidden><button type="button" role="menuitem" data-act="png">PNG<small>' + t('myCodes.pngHint') + '</small></button><button type="button" role="menuitem" data-act="svg">SVG<small>' + t('myCodes.svgHint') + '</small></button></div></div>' +
+          '<div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(false) + '</div></div>' +
         '<button type="button" class="btn ghost sm" data-act="edit">' + ico('edit') + '<span>' + t('myCodes.edit') + '</span></button>' +
         '<div class="mc-drop"><button type="button" class="mc-ico big" data-act="more" aria-haspopup="true" aria-expanded="false" aria-label="' + esc(t('myCodes.more')) + '" title="' + esc(t('myCodes.more')) + '">' + ico('more') + '</button>' +
           '<div class="mc-menu right" role="menu" hidden>' +
@@ -171,6 +181,63 @@ var MyCodes = (function () {
           (filter.folder !== 'none' ? '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('folders.newHere') + '</button>' : '') + '</div>'
       : '<div class="mc-empty small glass"><h3>' + t('myCodes.noneFound') + '</h3><button type="button" class="btn ghost" data-act="clear">' + t('myCodes.clear') + '</button></div>';
     if (renaming) { var inp = list.querySelector('[data-rename]'); if (inp) { inp.focus(); inp.select(); } }
+    drawBulk();
+  }
+  /* ---------- Meerdere codes tegelijk ---------- */
+  var bulk = document.createElement('div'); bulk.className = 'mc-bulk glass'; bulk.hidden = true; bulk.setAttribute('role', 'region');
+  list.parentNode.appendChild(bulk);
+  function pickedRows() { return rows.filter(function (r) { return picked[r.id]; }); }
+  function drawBulk() {
+    Object.keys(picked).forEach(function (id) { if (!find(id)) delete picked[id]; });
+    var sel = pickedRows(), vis = visible();
+    view.classList.toggle('mc-picking', sel.length > 0);
+    if (!sel.length) { bulk.hidden = true; return; }
+    var allOn = vis.length && vis.every(function (r) { return picked[r.id]; }), dyn = sel.filter(function (r) { return !isStatic(r); });
+    bulk.setAttribute('aria-label', t('myCodes.selected', { n: sel.length }));
+    bulk.innerHTML = '<span class="mc-bn"><b>' + i18n.fmt.num(sel.length) + '</b> ' + t('myCodes.selectedShort') + '</span>' +
+      '<button type="button" class="link-btn" data-bulk="all">' + t(allOn ? 'myCodes.selectNone' : 'myCodes.selectAll', { n: vis.length }) + '</button><span class="mc-bsp"></span>' +
+      '<button type="button" class="btn ghost sm" data-bulk="move">' + ico('move') + '<span>' + t('folders.moveTo') + '</span></button>' +
+      '<div class="mc-drop mc-up"><button type="button" class="btn ghost sm" data-bulk="dl" aria-haspopup="true" aria-expanded="false">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button><div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(true) + '</div></div>' +
+      (dyn.length ? '<button type="button" class="btn ghost sm" data-bulk="pause">' + t('myCodes.bulkPause') + '</button><button type="button" class="btn ghost sm" data-bulk="resume">' + t('myCodes.bulkResume') + '</button>' : '') +
+      '<button type="button" class="btn ghost sm danger-ghost" data-bulk="delete">' + ico('trash') + '<span>' + t('myCodes.delete') + '</span></button>' +
+      '<button type="button" class="mc-ico" data-bulk="clear" aria-label="' + esc(t('myCodes.cancel')) + '" title="' + esc(t('myCodes.cancel')) + '">' + ico('x') + '</button>';
+    bulk.hidden = false;
+  }
+  bulk.addEventListener('click', function (e) {
+    var sz = e.target.closest('[data-size]'); if (sz) { setSize(+sz.getAttribute('data-size')); return; }
+    var f = e.target.closest('[data-bulk-fmt]');
+    if (f) { var list2 = pickedRows(); bulk.querySelector('.mc-menu').hidden = true; toastText(t('myCodes.preparing'));
+      return CodeUtil.downloadMany(list2, f.getAttribute('data-bulk-fmt'), dlSize, 'qr-codes-' + new Date().toISOString().slice(0, 10)).catch(function () { toast('myCodes.failed'); }); }
+    var b = e.target.closest('[data-bulk]'); if (!b) return;
+    var k = b.getAttribute('data-bulk'), sel = pickedRows();
+    if (k === 'dl') { var m = b.nextElementSibling; m.hidden = !m.hidden; b.setAttribute('aria-expanded', String(!m.hidden)); return; }
+    if (k === 'clear') { picked = {}; return draw(); }
+    if (k === 'all') { var vis = visible(), allOn = vis.every(function (r) { return picked[r.id]; }); vis.forEach(function (r) { if (allOn) delete picked[r.id]; else picked[r.id] = true; }); return draw(); }
+    if (k === 'move') return askMove(sel);
+    if (k === 'delete') return askDeleteMany(sel);
+    if (k === 'pause' || k === 'resume') {
+      var next = k === 'pause', todo = sel.filter(function (r) { return !isStatic(r) && !!r.paused !== next && !(r.hold && r.hold.lock); });
+      Promise.all(todo.map(function (r) { return api.patchQrCode(r.id, { paused: next }).then(replace).catch(function () { return null; }); }))
+        .then(function () { draw(); toastText(t(next ? 'myCodes.bulkPaused' : 'myCodes.bulkResumed', { n: todo.length })); });
+    }
+  });
+  document.addEventListener('click', function (e) { if (!bulk.hidden && !e.target.closest('.mc-bulk .mc-drop')) { var m = bulk.querySelector('.mc-menu'); if (m) m.hidden = true; } });
+  function setSize(z) {
+    dlSize = z; try { localStorage.setItem('mc.dlSize', String(z)); } catch (e) {}
+    view.querySelectorAll('.mc-sz').forEach(function (b) { var on = +b.getAttribute('data-size') === z; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+  }
+  function askDeleteMany(sel) {
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg">' + '<span class="mc-dlg-ic">' + ico('trash') + '</span>' +
+      '<h3>' + esc(t('myCodes.bulkDeleteTitle', { n: sel.length })) + '</h3><p>' + t('myCodes.bulkDeleteText') + '</p>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok">' + t('myCodes.delete') + '</button></div></form>';
+    dialog.onclose = function () {
+      if (dialog.returnValue !== 'ok') return;
+      Promise.all(sel.map(function (r) { return api.deleteQrCode(r.id).then(function () { return r.id; }).catch(function () { return null; }); })).then(function (ids) {
+        var gone = ids.filter(Boolean); rows = rows.filter(function (x) { return gone.indexOf(x.id) < 0; }); gone.forEach(function (id) { delete picked[id]; });
+        drawTools(); draw(); toastText(t('myCodes.bulkDeleted', { n: gone.length }));
+      });
+    };
+    dialog.returnValue = ''; dialog.showModal(); dialog.querySelector('[value="cancel"]').focus();
   }
   function message(key) { list.innerHTML = '<p class="muted-msg">' + t(key) + '</p>'; }
   function load() {
@@ -292,18 +359,20 @@ var MyCodes = (function () {
   }
   /** Kiezen naar welke map een code gaat */
   function askMove(r) {
+    var many = Array.isArray(r), ids = many ? r.map(function (x) { return x.id; }) : [r.id];
+    if (many && r.length === 1) { r = r[0]; many = false; }
     var opt = function (id, label, on) { return '<button type="button" class="mf-pick' + (on ? ' on' : '') + '" data-pick="' + esc(id) + '"' + (on ? ' aria-current="true"' : '') + '>' + label + (on ? '<em>' + t('folders.current') + '</em>' : '') + '</button>'; };
     dialog.innerHTML = '<form method="dialog" class="mc-dlg mf-dlg"><span class="mc-dlg-ic mf-ic">' + ico('move') + '</span>' +
-      '<h3>' + esc(t('folders.moveTitle', { name: displayName(r) })) + '</h3>' +
-      '<div class="mf-picks">' + opt('', ico('inbox') + '<span>' + t('folders.none') + '</span>', !r.folderId) +
-        folders.map(function (f) { return opt(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', r.folderId === f.id); }).join('') +
+      '<h3>' + esc(many ? t('myCodes.bulkMoveTitle', { n: ids.length }) : t('folders.moveTitle', { name: displayName(r) })) + '</h3>' +
+      '<div class="mf-picks">' + opt('', ico('inbox') + '<span>' + t('folders.none') + '</span>', !many && !r.folderId) +
+        folders.map(function (f) { return opt(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', !many && r.folderId === f.id); }).join('') +
         '<button type="button" class="mf-pick mf-pick-new" data-pick-new>' + ico('folderPlus') + '<span>' + t('folders.newAndMove') + '</span></button></div>' +
       '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button></div></form>';
     dialog.querySelector('.mf-picks').addEventListener('click', function (e) {
-      if (e.target.closest('[data-pick-new]')) { dialog.close(); return folderDialog(null, function (nf) { move([r.id], nf.id); }); }
+      if (e.target.closest('[data-pick-new]')) { dialog.close(); return folderDialog(null, function (nf) { move(ids, nf.id); }); }
       var b = e.target.closest('[data-pick]'); if (!b) return;
       var to = b.getAttribute('data-pick') || null; dialog.close();
-      if ((r.folderId || null) !== to) move([r.id], to);
+      if (many || (r.folderId || null) !== to) move(ids, to);
     });
     dialog.onclose = null; dialog.returnValue = ''; dialog.showModal();
     var cur = dialog.querySelector('.mf-pick.on') || dialog.querySelector('.mf-pick'); if (cur) cur.focus();
@@ -349,9 +418,11 @@ var MyCodes = (function () {
 
   view.addEventListener('click', function (e) {
     if (e.target.closest('[data-mc-new]')) return startNew();
+    var szb = e.target.closest('.mc-card [data-size]'); if (szb) { e.stopPropagation(); return setSize(+szb.getAttribute('data-size')); }
     var b = e.target.closest('[data-act]');
     if (!b) { if (!e.target.closest('.mc-menu')) closeMenus(); return; }
     var act = b.getAttribute('data-act');
+    if (act === 'dl') { var rr = find(b.closest('[data-id]').getAttribute('data-id')); closeMenus(); return download(rr, b.getAttribute('data-fmt'), dlSize).catch(function () { toast('myCodes.failed'); }); }
     if (act === 'clear') { filter.q = ''; filter.type = ''; drawTools(); return draw(); }
     var el = b.closest('[data-id]'), r = el && find(el.getAttribute('data-id')); if (!r) return;
     if (act === 'dlmenu' || act === 'more') {
@@ -360,7 +431,6 @@ var MyCodes = (function () {
       return;
     }
     closeMenus();
-    if (act === 'png' || act === 'svg') return download(r, act);
     if (act === 'copy') return copy(r.shortUrl);
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'edit') return edit(r);
@@ -372,6 +442,11 @@ var MyCodes = (function () {
     if (act === 'move') return askMove(r);
     if (act === 'fav') return favorite(r);
     if (act === 'duplicate') return duplicate(r);
+  });
+  list.addEventListener('change', function (e) {
+    var cb = e.target.closest('[data-sel]'); if (!cb) return;
+    var id = cb.closest('[data-id]').getAttribute('data-id'); if (cb.checked) picked[id] = true; else delete picked[id];
+    cb.closest('.mc-card').classList.toggle('is-picked', cb.checked); drawBulk();
   });
   list.addEventListener('click', function (e) { var f = e.target.closest('.mc-folder[data-folder]'); if (f) { filter.folder = f.getAttribute('data-folder'); draw(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
   list.addEventListener('keydown', function (e) {
@@ -389,7 +464,7 @@ var MyCodes = (function () {
 
   function label() { view.querySelector('.mc-head [data-mc-new]').innerHTML = ico('plus') + t('myCodes.new'); }
   label();
-  document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; load(); } else if (e.detail !== 'create') newIn = null; });
+  document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; picked = {}; load(); } else if (e.detail !== 'create') newIn = null; });
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });
   /** Nieuwe code gemaakt vanuit een map: die map (één keer) */
   function folderForNew() { var f = newIn; newIn = null; return f; }

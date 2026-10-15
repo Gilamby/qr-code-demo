@@ -3030,7 +3030,7 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .lg-dlg { position: relative; padding: 28px 30px; max-height: 88vh; overflow: auto; }
 .lg-close { position: sticky; top: 0; float: right; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg); font-size: 22px; line-height: 1; cursor: pointer; z-index: 2; }
 .auth-legal { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 16px; font-size: 13.5px; color: var(--muted); }
-.auth-legal .link-btn { font-size: 13.5px; color: var(--muted); }
+.auth-legal .link-btn { font-size: 13.5px; color: var(--muted); margin: 0; }
 .auth-legal .link-btn:hover { color: var(--accent); }
 @media (max-width: 640px) { .lg-card { padding: 22px 18px; } .lg-toc ol { columns: 1; } }
 
@@ -3512,28 +3512,6 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 
 #contactView > .help, #faqView > .help, #adminDashView > .help, #adminCodesView > .help, #customersView > .help { grid-template-columns: minmax(0, 1fr); }
 
-/* Bubbel = vast scherm (computer/tablet): het paneel vult het scherm, de titel blijft bovenin staan
-   en alleen de inhoud scrolt binnen de bubbel (zoals bij QR-code maken). Telefoon: gewoon meescrollen. */
-@media (min-width: 761px) {
-  #homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
-  #adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg {
-    height: calc(100dvh - 152px); margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important;
-    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.22) transparent; align-content: start;
-    display: flex !important; flex-direction: column; gap: 20px;
-  }
-  #homeView > .hm > :first-child, #analyticsView > .an > :first-child, #accountView > .account > :first-child, #contactView > .help > :first-child, #faqView > .help > :first-child,
-  #adminDashView > .help > :first-child, #adminCodesView > .help > :first-child, #customersView > .help > :first-child, #adminSettingsView > .ast > :first-child, #legalView > .lg > :first-child {
-    position: sticky; top: 0; z-index: 20; flex: none; margin: 0 -40px !important; padding: 36px 40px 18px !important;
-    background: linear-gradient(180deg, rgba(24,30,40,.98) 70%, rgba(24,30,40,.9)); border-bottom: 1px solid rgba(255,255,255,.08);
-  }
-  #homeView > .hm > :last-child, #analyticsView > .an > :last-child, #accountView > .account > :last-child, #contactView > .help > :last-child, #faqView > .help > :last-child,
-  #adminDashView > .help > :last-child, #adminCodesView > .help > :last-child, #customersView > .help > :last-child, #adminSettingsView > .ast > :last-child, #legalView > .lg > :last-child { margin-bottom: 34px !important; }
-  #homeView > .hm > *, #analyticsView > .an > *, #accountView > .account > *, #contactView > .help > *, #faqView > .help > *,
-  #adminDashView > .help > *, #adminCodesView > .help > *, #customersView > .help > *, #adminSettingsView > .ast > *, #legalView > .lg > * { flex-shrink: 0; }
-  /* Mijn account: het menu links blijft staan onder de titel */
-  #accountView .acct-layout > .acct-side { top: 150px; max-height: calc(100dvh - 330px); }
-  #homeView, #analyticsView, #accountView, #contactView, #faqView, #adminDashView, #adminCodesView, #customersView, #adminSettingsView, #legalView { padding-bottom: 0 !important; }
-}
 /* Mijn QR-codes: map verwijderen met het kruisje op de map (bij aanwijzen; op telefoon altijd zichtbaar) */
 .mf-wrap { position: relative; display: inline-flex; flex: none; }
 .mf-x { position: absolute; top: -6px; right: -6px; width: 22px; height: 22px; display: grid; place-items: center; padding: 0; border-radius: 50%;
@@ -3646,3 +3624,71 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 .ad-pill.wait::before { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245,158,11,.16); }
 .ad-pill.off::before, .ad-pill.bad::before { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.16); }
 .ad-trend { background: none !important; border: 0 !important; padding: 0 !important; box-shadow: none !important; }
+
+/* Mijn QR-codes: selecteren (vinkje op de QR-afbeelding), balk onderin, downloadformaten en -maten */
+.mc-qr { position: relative; }
+.mc-qr > span { display: grid; place-items: center; width: 100%; height: 100%; }
+.mc-sel { position: absolute; top: -8px; left: -8px; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; cursor: pointer; opacity: 0; transition: opacity .15s, transform .15s; transform: scale(.9);
+  background: #1b2029; border: 1.5px solid rgba(255,255,255,.4); box-shadow: 0 4px 10px -4px rgba(0,0,0,.6); }
+.mc-sel input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.mc-sel span { display: grid; place-items: center; color: #04121f; opacity: 0; pointer-events: none; }
+.mc-sel svg { width: 16px; height: 16px; stroke-width: 3; }
+.mc-card:hover .mc-sel, .mc-sel:focus-within, .mc-picking .mc-sel, .mc-card.is-picked .mc-sel { opacity: 1; transform: none; }
+.mc-sel:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mc-card.is-picked .mc-sel { background: var(--accent); border-color: var(--accent); }
+.mc-card.is-picked .mc-sel span { opacity: 1; }
+.mc-card.is-picked { border-color: color-mix(in srgb, var(--accent) 60%, transparent) !important; box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent) inset; }
+@media (hover: none) { .mc-sel { opacity: 1; transform: none; } }
+.mc-bulk { position: sticky; bottom: 16px; z-index: 30; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; padding: 12px 14px; border-radius: 18px;
+  background: rgba(15,19,27,.96) !important; border: 1px solid rgba(255,255,255,.16); box-shadow: 0 24px 50px -16px rgba(0,0,0,.75); }
+.mc-bulk[hidden] { display: none !important; }
+.mc-bn { font-size: 14.5px; color: var(--muted); } .mc-bn b { color: var(--fg); font-size: 16px; }
+.mc-bsp { flex: 1; }
+.mc-drop.mc-up .mc-menu { top: auto; bottom: calc(100% + 6px); }
+.mc-dlm { min-width: 250px; }
+.mc-sizes { display: flex; align-items: center; gap: 4px; padding: 6px 6px 8px; margin-bottom: 4px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.mc-sizes > span { margin-right: auto; }
+.mc-sz { min-width: 0; height: 26px; padding: 0 7px; border-radius: 8px; border: 1px solid var(--line-strong); background: none; color: var(--muted); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.mc-sz.on { background: var(--accent); border-color: var(--accent); color: #04121f; }
+@media (max-width: 760px) { .mc-bulk { bottom: 8px; padding: 10px; } .mc-bulk .btn span { display: none; } .mc-bsp { display: none; } }
+@media (min-width: 761px) { .mc-bulk { flex-wrap: nowrap; } .mc-bulk .mc-drop { flex: none; } }
+
+/* Overzicht: alles op één scherm, zonder scrollen (computer) */
+@media (min-width: 761px) {
+  #homeView > .hm { padding: 26px 30px 26px; gap: 14px; }
+  #homeView .hm-hero h2 { font-size: 26px; }
+  #homeView .hm-hero p { margin-top: 2px; font-size: 14px; }
+  #homeView .hm-acts .btn, #homeView .hm-period select { height: 40px; }
+  #homeView .hm-tiles { gap: 12px; }
+  #homeView .hm-tile { padding: 12px 16px 12px; gap: 0; }
+  #homeView .hm-tile b { font-size: 26px; }
+  #homeView .hm-tile small { font-size: 13px; }
+  #homeView .hm-rows, #homeView .hm-row { gap: 12px; }
+  #homeView .hm-card { padding: 14px 18px; border-radius: 18px; }
+  #homeView .hm-head { margin-bottom: 6px; }
+  #homeView .hm-head h3 { font-size: 15.5px; }
+  #homeView .hm-cfoot { margin-top: 4px; padding-top: 6px; }
+  #homeView .hm-chart .an-table { margin-top: 2px; }
+  #homeView .hm-feed li { padding: 5px 0; }
+  #homeView .hm-feed li:not(:last-child)::before { top: 36px; bottom: -5px; }
+  #homeView .hm-fi { width: 28px; height: 28px; }
+  #homeView .hm-table th { padding: 5px 6px; }
+  #homeView .hm-table td { padding: 5px 6px; }
+  #homeView .hm-qr { width: 32px; height: 32px; padding: 2px; }
+  #homeView .hm-code { padding: 4px 8px; }
+  #homeView .hm-list { gap: 2px; }
+}
+@media (min-width: 761px) {
+  #homeView { padding-top: 14px !important; padding-bottom: 14px !important; }
+  #homeView > .hm { margin-top: 0 !important; }
+  #homeView .hm-cfoot { display: none; }                         /* één reeks: de titel zegt al wat het is */
+  #homeView .hm-chart .an-table { margin-top: 0; }
+  #homeView .hm-chart .an-table summary { font-size: 13px; }
+  #homeView .hm-head h3 { white-space: nowrap; }
+  #homeView .hm-head .link-btn { white-space: nowrap; font-size: 13px; }
+}
+@media (min-width: 761px) { #homeView { flex: 0 0 auto !important; } }
+body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke pagina 8 px */
+/* Bubbels niet over de hele breedte op grote schermen: gecentreerd, maximaal 1240 px breed */
+#homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
+#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg { max-width: 1240px !important; margin-left: auto !important; margin-right: auto !important; width: 100%; }

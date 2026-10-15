@@ -96,7 +96,7 @@ var Home = (function () {
   function chart(sr) {
     var days = sr.days, max = Math.max.apply(null, days.map(function (p) { return p.s; }).concat([1]));
     var stepv = max <= 4 ? 1 : Math.ceil(max / 4 / Math.pow(10, Math.floor(Math.log10(max / 4)))) * Math.pow(10, Math.floor(Math.log10(max / 4)));
-    var top = Math.ceil(max / stepv) * stepv, W = 720, H = 200, L = 34, R = 6, T = 10, B = 26, iw = W - L - R, ih = H - T - B, n = days.length, bw = iw / n;
+    var top = Math.ceil(max / stepv) * stepv, W = 720, H = 150, L = 34, R = 6, T = 10, B = 26, iw = W - L - R, ih = H - T - B, n = days.length, bw = iw / n;
     var grid = ''; for (var v = 0; v <= top; v += stepv) { var y = T + ih - v / top * ih; grid += '<line class="an-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/><text class="an-ax" x="' + (L - 6) + '" y="' + (y + 4) + '" text-anchor="end">' + i18n.fmt.num(v) + '</text>'; }
     var bars = days.map(function (p, i) {
       var h = p.s ? Math.max(3, p.s / top * ih) : 0, x = L + i * bw + 1.5, w = Math.max(2, bw - 3), y = T + ih - h, r = Math.min(4, w / 2, h);
@@ -119,7 +119,7 @@ var Home = (function () {
       '<span class="hm-cn"><b>' + esc(name(r)) + '</b><small>' + esc(typeName(getType(r.typeId))) + (r.paused ? ' · ' + t('myCodes.offLabel') : '') + '</small></span>' + right + '</button></li>';
   }
   function favorites() {
-    var all = codes.filter(function (r) { return r.favorite; }), favs = all.slice(0, 5);
+    var all = codes.filter(function (r) { return r.favorite; }), favs = all.slice(0, 3);
     return '<div class="hm-card glass hm-favs"><div class="hm-head"><h3>' + ico('star2', 'hm-hi star') + t('home.favCodes') + (all.length ? ' <em class="hm-count">' + i18n.fmt.num(all.length) + '</em>' : '') + '</h3>' + (all.length ? '<button type="button" class="link-btn" data-goto-fav>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button>' : '') + '</div>' +
       (favs.length ? '<table class="hm-table"><thead><tr><th>' + t('ac.colCode') + '</th><th>' + t('adm.status') + '</th><th class="num">' + t('an.scans') + '</th></tr></thead><tbody>' + favs.map(function (r) {
           var on = isStatic(r) || !r.paused;
@@ -130,7 +130,7 @@ var Home = (function () {
   }
   function top() {
     var by = {}; ((statsP && statsP.codes) || []).forEach(function (c) { by[c.k] = c.s; });   // alleen de gekozen periode
-    var list = codes.filter(function (r) { return by[r.id]; }).sort(function (a, b) { return by[b.id] - by[a.id]; }).slice(0, 5);
+    var list = codes.filter(function (r) { return by[r.id]; }).sort(function (a, b) { return by[b.id] - by[a.id]; }).slice(0, 4);
     return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('trophy', 'hm-hi') + t('home.topTitle') + '</h3><small class="hm-per">' + t('an.p_' + period) + '</small></div>' +
       (list.length ? '<ol class="hm-list hm-rank">' + list.map(function (r) { return codeRow(r, '<span class="hm-num">' + i18n.fmt.num(by[r.id]) + '</span>'); }).join('') + '</ol>'
         : '<p class="hm-none">' + t('home.noTop') + '</p>') + '</div>';
@@ -146,7 +146,7 @@ var Home = (function () {
     var AI = { login: 'check', login_failed: 'warn', password: 'key', email: 'mail', sessions_ended: 'out', session_ended: 'out' };
     acts.forEach(function (a) { ev.push({ at: a.at, icon: AI[a.kind] || 'check', text: t('acct.act_' + a.kind), cls: a.kind === 'login_failed' ? 'bad' : 'acct' }); });
     ev.sort(function (a, b) { return String(b.at).localeCompare(String(a.at)); });
-    ev = ev.slice(0, 5);
+    ev = ev.slice(0, 4);
     return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('clock', 'hm-hi') + t('home.activity') + '</h3><button type="button" class="link-btn" data-goto-sec>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button></div>' +
       (ev.length ? '<ol class="hm-feed">' + ev.map(function (e) {
         return '<li class="' + (e.cls || '') + '"><span class="hm-fi">' + ico(e.icon) + '</span><div>' + (e.code ? '<button type="button" class="hm-flink" data-code="' + esc(e.code) + '">' + esc(e.text) + '</button>' : '<b>' + esc(e.text) + '</b>') + '<small>' + esc(ago(e.at)) + '</small></div></li>';
@@ -168,8 +168,19 @@ var Home = (function () {
         '<button type="button" class="btn primary" data-hm-new>' + ico('plus') + t('nav.create') + '</button></div></header>' +
       (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') +
       (codes.length ? tiles(sr) + '<div class="hm-rows"><div class="hm-row">' + chart(sr) + activity() + '</div><div class="hm-row">' + favorites() + top() + '</div></div>' : welcome() + '<div class="hm-grid one">' + activity() + '</div>') +
-      '<footer class="hm-foot"><span>© ' + new Date().getFullYear() + ' Optimasys QR</span><button type="button" class="link-btn" data-goto="legal">' + t('nav.legal') + '</button></footer>';
+      '';   // geen voettekst: alles past zo op één scherm (Privacy staat in de zijbalk)
+    fit();
   }
+
+  /* Alles op één scherm: is het scherm lager, dan wordt het overzicht iets kleiner (niet kleiner dan 75%) */
+  function fit() {
+    var sec = view.querySelector('.hm'); if (!sec || view.hidden) return;
+    sec.style.zoom = '';
+    if (window.innerWidth <= 760) return;
+    var top = sec.getBoundingClientRect().top + window.scrollY, h = sec.offsetHeight, avail = window.innerHeight - top - 20;
+    if (h > avail) sec.style.zoom = Math.max(.75, Math.floor(avail / h * 1000) / 1000);
+  }
+  addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(fit, 80); });
 
   /* ---------- Klikken en tooltip ---------- */
   body.addEventListener('click', function (e) {

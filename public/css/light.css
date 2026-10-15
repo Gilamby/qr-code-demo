@@ -347,28 +347,6 @@
 :root[data-theme="light"] #customersView > .help,
 :root[data-theme="light"] #adminSettingsView > .ast,
 :root[data-theme="light"] #legalView > .lg { border: 1px solid rgba(13,19,32,0.216); background: linear-gradient(140deg, rgba(13,19,32,0.098), rgba(13,19,32,0.03) 45%, rgba(13,19,32,0.053)), rgba(12,16,23,.42); box-shadow: inset 0 1px 0 rgba(13,19,32,0.252), inset 0 0 40px rgba(13,19,32,0.027), 0 40px 90px -30px rgba(13,19,32,0.193); }
-@media (min-width: 761px) {
-:root[data-theme="light"] #homeView > .hm,
-:root[data-theme="light"] #analyticsView > .an,
-:root[data-theme="light"] #accountView > .account,
-:root[data-theme="light"] #contactView > .help,
-:root[data-theme="light"] #faqView > .help,
-:root[data-theme="light"] #adminDashView > .help,
-:root[data-theme="light"] #adminCodesView > .help,
-:root[data-theme="light"] #customersView > .help,
-:root[data-theme="light"] #adminSettingsView > .ast,
-:root[data-theme="light"] #legalView > .lg { scrollbar-color: rgba(13,19,32,0.198) transparent; }
-:root[data-theme="light"] #homeView > .hm > :first-child,
-:root[data-theme="light"] #analyticsView > .an > :first-child,
-:root[data-theme="light"] #accountView > .account > :first-child,
-:root[data-theme="light"] #contactView > .help > :first-child,
-:root[data-theme="light"] #faqView > .help > :first-child,
-:root[data-theme="light"] #adminDashView > .help > :first-child,
-:root[data-theme="light"] #adminCodesView > .help > :first-child,
-:root[data-theme="light"] #customersView > .help > :first-child,
-:root[data-theme="light"] #adminSettingsView > .ast > :first-child,
-:root[data-theme="light"] #legalView > .lg > :first-child { border-bottom: 1px solid rgba(13,19,32,0.072); }
-}
 :root[data-theme="light"] .mf-x { border: 1px solid rgba(13,19,32,0.225); color: rgba(13,19,32,0.72); }
 :root[data-theme="light"] .mf-menu { border: 1px solid rgba(13,19,32,0.126); box-shadow: 0 24px 50px -16px rgba(13,19,32,0.245); }
 :root[data-theme="light"] .mf-mi > [data-folder]:hover,
@@ -384,6 +362,8 @@
 :root[data-theme="light"] .ad-pill.off,
 :root[data-theme="light"] .ad-pill.wait,
 :root[data-theme="light"] .ad-pill.bad { color: rgba(13,19,32,0.765) !important; }
+:root[data-theme="light"] .mc-sel { border: 1.5px solid rgba(13,19,32,0.36); box-shadow: 0 4px 10px -4px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .mc-bulk { border: 1px solid rgba(13,19,32,0.144); box-shadow: 0 24px 50px -16px rgba(13,19,32,0.262); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }
