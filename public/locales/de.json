@@ -23,7 +23,8 @@
     "users": "Benutzer",
     "overview": "Übersicht",
     "adminSettings": "Einstellungen",
-    "legal": "Datenschutz und AGB"
+    "legal": "Datenschutz und AGB",
+    "settings": "Einstellungen"
   },
   "header": {
     "language": "Sprache",
@@ -2136,5 +2137,22 @@
     "errSave": "Speichern fehlgeschlagen.",
     "bannerAdmin": "Wartungsmodus ist an: Kunden können gerade nichts ändern.",
     "bannerUser": "Kurze Wartung: Änderungen sind vorübergehend nicht möglich. Deine QR-Codes funktionieren weiter."
+  },
+  "st": {
+    "lead": "Alles zu deinem Konto, Datenschutz und der App an einem Ort.",
+    "d_profile": "Name, E-Mail-Adresse und Zeitzone",
+    "d_security": "Passwort, Zwei-Schritt-Verifizierung und Geräte",
+    "d_notify": "Welche E-Mails du von uns bekommst",
+    "d_prefs": "Sprache und Darstellung",
+    "d_background": "Der Hintergrund der App",
+    "d_billing": "Firmenname, Adresse und USt-IdNr.",
+    "d_plan": "Dein Abo und deine Rechnungen",
+    "d_privacy": "Wie wir mit deinen Daten umgehen",
+    "d_terms": "Die Bedingungen für die Nutzung der App",
+    "d_cookies": "Welche Cookies und Speicher wir nutzen",
+    "d_data": "Deine Daten ansehen oder herunterladen",
+    "d_delete": "Dein Konto und alle QR-Codes endgültig löschen",
+    "d_contact": "Frage, Problem oder Idee? Schreib uns",
+    "d_faq": "Antworten auf häufige Fragen"
   }
 }

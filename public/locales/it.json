@@ -23,7 +23,8 @@
     "users": "Utenti",
     "overview": "Panoramica",
     "adminSettings": "Impostazioni",
-    "legal": "Privacy e condizioni"
+    "legal": "Privacy e condizioni",
+    "settings": "Impostazioni"
   },
   "header": {
     "language": "Lingua",
@@ -2136,5 +2137,22 @@
     "errSave": "Salvataggio non riuscito.",
     "bannerAdmin": "Manutenzione attiva: i clienti ora non possono modificare nulla.",
     "bannerUser": "Breve manutenzione: le modifiche non sono disponibili per poco. I tuoi codici QR funzionano."
+  },
+  "st": {
+    "lead": "Tutto su account, privacy e app in un unico posto.",
+    "d_profile": "Nome, e-mail e fuso orario",
+    "d_security": "Password, verifica in due passaggi e dispositivi",
+    "d_notify": "Quali e-mail ricevi da noi",
+    "d_prefs": "Lingua e visualizzazione",
+    "d_background": "Lo sfondo dell’app",
+    "d_billing": "Ragione sociale, indirizzo e partita IVA",
+    "d_plan": "Il tuo piano e le fatture",
+    "d_privacy": "Come trattiamo i tuoi dati",
+    "d_terms": "Le condizioni d’uso dell’app",
+    "d_cookies": "Quali cookie e archiviazione usiamo",
+    "d_data": "Visualizza o scarica i tuoi dati",
+    "d_delete": "Elimina definitivamente account e tutti i codici QR",
+    "d_contact": "Una domanda, un problema o un’idea? Scrivici",
+    "d_faq": "Risposte alle domande frequenti"
   }
 }

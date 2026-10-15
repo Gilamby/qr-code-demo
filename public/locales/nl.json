@@ -23,7 +23,8 @@
     "users": "Gebruikers",
     "overview": "Overzicht",
     "adminSettings": "Instellingen",
-    "legal": "Privacy en voorwaarden"
+    "legal": "Privacy en voorwaarden",
+    "settings": "Instellingen"
   },
   "header": {
     "language": "Taal",
@@ -2188,5 +2189,22 @@
     "errSave": "Opslaan lukte niet.",
     "bannerAdmin": "Onderhoudsmodus staat aan: klanten kunnen nu niets wijzigen.",
     "bannerUser": "Even onderhoud: wijzigen kan tijdelijk niet. Je QR-codes werken gewoon."
+  },
+  "st": {
+    "lead": "Alles over je account, privacy en de app op één plek.",
+    "d_profile": "Naam, e-mailadres en tijdzone",
+    "d_security": "Wachtwoord, tweestapsverificatie en apparaten",
+    "d_notify": "Welke e-mails je van ons krijgt",
+    "d_prefs": "Taal en weergave",
+    "d_background": "De achtergrond van de app",
+    "d_billing": "Bedrijfsnaam, adres en btw-nummer",
+    "d_plan": "Je abonnement en facturen",
+    "d_privacy": "Hoe we met je gegevens omgaan",
+    "d_terms": "De afspraken voor het gebruik van de app",
+    "d_cookies": "Welke cookies en opslag we gebruiken",
+    "d_data": "Bekijk of download je gegevens",
+    "d_delete": "Je account en al je QR-codes definitief verwijderen",
+    "d_contact": "Vraag, probleem of idee? Stuur ons een bericht",
+    "d_faq": "Antwoorden op veelgestelde vragen"
   }
 }

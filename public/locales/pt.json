@@ -23,7 +23,8 @@
     "users": "Utilizadores",
     "overview": "Visão geral",
     "adminSettings": "Definições",
-    "legal": "Privacidade e termos"
+    "legal": "Privacidade e termos",
+    "settings": "Definições"
   },
   "header": {
     "language": "Idioma",
@@ -2136,5 +2137,22 @@
     "errSave": "Não foi possível guardar.",
     "bannerAdmin": "Modo de manutenção ligado: os clientes não podem alterar nada agora.",
     "bannerUser": "Manutenção breve: as alterações estão temporariamente indisponíveis. Os seus códigos QR continuam a funcionar."
+  },
+  "st": {
+    "lead": "Tudo sobre a sua conta, privacidade e a app num só lugar.",
+    "d_profile": "Nome, e-mail e fuso horário",
+    "d_security": "Palavra-passe, verificação em dois passos e dispositivos",
+    "d_notify": "Que e-mails recebe de nós",
+    "d_prefs": "Idioma e apresentação",
+    "d_background": "O fundo da app",
+    "d_billing": "Nome da empresa, morada e NIF",
+    "d_plan": "O seu plano e faturas",
+    "d_privacy": "Como tratamos os seus dados",
+    "d_terms": "Os termos de utilização da app",
+    "d_cookies": "Que cookies e armazenamento usamos",
+    "d_data": "Ver ou transferir os seus dados",
+    "d_delete": "Eliminar definitivamente a conta e todos os códigos QR",
+    "d_contact": "Uma pergunta, problema ou ideia? Envie-nos uma mensagem",
+    "d_faq": "Respostas a perguntas frequentes"
   }
 }

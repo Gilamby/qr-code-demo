@@ -23,7 +23,8 @@
     "users": "Përdoruesit",
     "overview": "Përmbledhje",
     "adminSettings": "Cilësimet",
-    "legal": "Privatësia dhe kushtet"
+    "legal": "Privatësia dhe kushtet",
+    "settings": "Cilësimet"
   },
   "header": {
     "language": "Gjuha",
@@ -2242,5 +2243,22 @@
     "errSave": "Ruajtja dështoi.",
     "bannerAdmin": "Mirëmbajtja është aktive: klientët nuk mund të ndryshojnë asgjë tani.",
     "bannerUser": "Mirëmbajtje e shkurtër: ndryshimet nuk janë të mundshme përkohësisht. Kodet QR funksionojnë."
+  },
+  "st": {
+    "lead": "Gjithçka për llogarinë, privatësinë dhe aplikacionin në një vend.",
+    "d_profile": "Emri, email-i dhe zona kohore",
+    "d_security": "Fjalëkalimi, verifikimi me dy hapa dhe pajisjet",
+    "d_notify": "Cilat email-e merr nga ne",
+    "d_prefs": "Gjuha dhe pamja",
+    "d_background": "Sfondi i aplikacionit",
+    "d_billing": "Emri i kompanisë, adresa dhe NIPT",
+    "d_plan": "Plani dhe faturat e tua",
+    "d_privacy": "Si i trajtojmë të dhënat e tua",
+    "d_terms": "Kushtet e përdorimit të aplikacionit",
+    "d_cookies": "Cilat cookies dhe ruajtje përdorim",
+    "d_data": "Shiko ose shkarko të dhënat e tua",
+    "d_delete": "Fshi përgjithmonë llogarinë dhe të gjitha kodet QR",
+    "d_contact": "Pyetje, problem apo ide? Na shkruaj",
+    "d_faq": "Përgjigje për pyetjet e shpeshta"
   }
 }

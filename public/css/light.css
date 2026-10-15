@@ -346,7 +346,8 @@
 :root[data-theme="light"] #adminCodesView > .help,
 :root[data-theme="light"] #customersView > .help,
 :root[data-theme="light"] #adminSettingsView > .ast,
-:root[data-theme="light"] #legalView > .lg { border: 1px solid rgba(13,19,32,0.216); background: linear-gradient(140deg, rgba(13,19,32,0.098), rgba(13,19,32,0.03) 45%, rgba(13,19,32,0.053)), rgba(12,16,23,.42); box-shadow: inset 0 1px 0 rgba(13,19,32,0.252), inset 0 0 40px rgba(13,19,32,0.027), 0 40px 90px -30px rgba(13,19,32,0.193); }
+:root[data-theme="light"] #legalView > .lg,
+:root[data-theme="light"] #settingsView > .help { border: 1px solid rgba(13,19,32,0.216); background: linear-gradient(140deg, rgba(13,19,32,0.098), rgba(13,19,32,0.03) 45%, rgba(13,19,32,0.053)), rgba(12,16,23,.42); box-shadow: inset 0 1px 0 rgba(13,19,32,0.252), inset 0 0 40px rgba(13,19,32,0.027), 0 40px 90px -30px rgba(13,19,32,0.193); }
 :root[data-theme="light"] .mf-x { border: 1px solid rgba(13,19,32,0.225); color: rgba(13,19,32,0.72); }
 :root[data-theme="light"] .mf-menu { border: 1px solid rgba(13,19,32,0.126); box-shadow: 0 24px 50px -16px rgba(13,19,32,0.245); }
 :root[data-theme="light"] .mf-mi > [data-folder]:hover,
@@ -393,7 +394,8 @@
 :root[data-theme="light"] #adminCodesView > .help,
 :root[data-theme="light"] #customersView > .help,
 :root[data-theme="light"] #adminSettingsView > .ast,
-:root[data-theme="light"] #legalView > .lg { background: linear-gradient(140deg, rgba(13,19,32,0.128), rgba(13,19,32,0.038) 45%, rgba(13,19,32,0.068)) !important; border-color: rgba(13,19,32,0.216) !important; }
+:root[data-theme="light"] #legalView > .lg,
+:root[data-theme="light"] #settingsView > .help { background: linear-gradient(140deg, rgba(13,19,32,0.128), rgba(13,19,32,0.038) 45%, rgba(13,19,32,0.068)) !important; border-color: rgba(13,19,32,0.216) !important; }
 :root[data-theme="light"] .an-frow2 { border-top: 1px solid rgba(13,19,32,0.09); }
 :root[data-theme="light"] .an-morebtn { background: rgba(13,19,32,0.045); }
 :root[data-theme="light"] .an-morebtn:hover,
@@ -414,6 +416,11 @@
 :root[data-theme="light"] .an-gr.up { color: #15803d; }
 :root[data-theme="light"] .an-gr.down { color: #dc2626; }
 :root[data-theme="light"] .an-pbox { stroke: rgba(13,19,32,0.162); }
+:root[data-theme="light"] .st-row:hover,
+:root[data-theme="light"] .st-row:focus-visible { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .st-ic { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .st-row.danger .st-ic { color: #dc2626; }
+:root[data-theme="light"] .st-row.danger b { color: #b91c1c; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

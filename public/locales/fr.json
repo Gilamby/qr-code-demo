@@ -23,7 +23,8 @@
     "users": "Utilisateurs",
     "overview": "Aperçu",
     "adminSettings": "Paramètres",
-    "legal": "Confidentialité et conditions"
+    "legal": "Confidentialité et conditions",
+    "settings": "Paramètres"
   },
   "header": {
     "language": "Langue",
@@ -2136,5 +2137,22 @@
     "errSave": "Enregistrement impossible.",
     "bannerAdmin": "Mode maintenance activé : les clients ne peuvent rien modifier.",
     "bannerUser": "Courte maintenance : les modifications sont temporairement indisponibles. Vos codes QR fonctionnent."
+  },
+  "st": {
+    "lead": "Tout sur votre compte, la confidentialité et l’application au même endroit.",
+    "d_profile": "Nom, adresse e-mail et fuseau horaire",
+    "d_security": "Mot de passe, validation en deux étapes et appareils",
+    "d_notify": "Les e-mails que vous recevez de notre part",
+    "d_prefs": "Langue et affichage",
+    "d_background": "L’arrière-plan de l’application",
+    "d_billing": "Nom de l’entreprise, adresse et n° de TVA",
+    "d_plan": "Votre abonnement et vos factures",
+    "d_privacy": "Comment nous traitons vos données",
+    "d_terms": "Les conditions d’utilisation de l’application",
+    "d_cookies": "Les cookies et le stockage que nous utilisons",
+    "d_data": "Consulter ou télécharger vos données",
+    "d_delete": "Supprimer définitivement votre compte et tous vos codes QR",
+    "d_contact": "Une question, un problème ou une idée ? Écrivez-nous",
+    "d_faq": "Réponses aux questions fréquentes"
   }
 }

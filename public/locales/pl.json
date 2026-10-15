@@ -23,7 +23,8 @@
     "users": "Użytkownicy",
     "overview": "Przegląd",
     "adminSettings": "Ustawienia",
-    "legal": "Prywatność i warunki"
+    "legal": "Prywatność i warunki",
+    "settings": "Ustawienia"
   },
   "header": {
     "language": "Język",
@@ -2136,5 +2137,22 @@
     "errSave": "Nie udało się zapisać.",
     "bannerAdmin": "Tryb konserwacji włączony: klienci nie mogą teraz nic zmieniać.",
     "bannerUser": "Krótka konserwacja: zmiany są chwilowo niedostępne. Twoje kody QR działają."
+  },
+  "st": {
+    "lead": "Wszystko o koncie, prywatności i aplikacji w jednym miejscu.",
+    "d_profile": "Imię, e-mail i strefa czasowa",
+    "d_security": "Hasło, weryfikacja dwuetapowa i urządzenia",
+    "d_notify": "Jakie e-maile od nas dostajesz",
+    "d_prefs": "Język i wygląd",
+    "d_background": "Tło aplikacji",
+    "d_billing": "Nazwa firmy, adres i NIP",
+    "d_plan": "Twój plan i faktury",
+    "d_privacy": "Jak traktujemy Twoje dane",
+    "d_terms": "Zasady korzystania z aplikacji",
+    "d_cookies": "Jakich plików cookie i pamięci używamy",
+    "d_data": "Zobacz lub pobierz swoje dane",
+    "d_delete": "Trwale usuń konto i wszystkie kody QR",
+    "d_contact": "Pytanie, problem lub pomysł? Napisz do nas",
+    "d_faq": "Odpowiedzi na częste pytania"
   }
 }
