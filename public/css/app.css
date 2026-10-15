@@ -3692,3 +3692,30 @@ body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke p
 /* Bubbels niet over de hele breedte op grote schermen: gecentreerd, maximaal 1240 px breed */
 #homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
 #adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg { max-width: 1240px !important; margin-left: auto !important; margin-right: auto !important; width: 100%; }
+
+/* Statistieken: groei per QR-code, kalender, rapport afdrukken */
+.an-gr { font-style: normal; font-size: 11.5px; font-weight: 700; margin-right: 8px; color: var(--muted); }
+.an-gr.up { color: #4ade80; } .an-gr.down { color: #f87171; }
+.an-cal-wrap { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.an-cal-wd { display: grid; grid-template-rows: repeat(7, 20px); gap: 4px; font-size: 11px; color: var(--muted); line-height: 20px; }
+.an-cal-grid { display: grid; grid-template-rows: repeat(7, 20px); grid-auto-flow: column; grid-auto-columns: 20px; gap: 4px; }
+.an-cal-grid i, .an-cal-key i { display: block; width: 100%; height: 100%; border-radius: 4px; background: rgba(255,255,255,.06); }
+.an-cal-grid i.pad { background: none; }
+.an-cal-grid i.l1, .an-cal-key i.l1 { background: rgba(56,189,248,.28); }
+.an-cal-grid i.l2, .an-cal-key i.l2 { background: rgba(56,189,248,.5); }
+.an-cal-grid i.l3, .an-cal-key i.l3 { background: rgba(56,189,248,.75); }
+.an-cal-grid i.l4, .an-cal-key i.l4 { background: #38bdf8; }
+.an-cal-key { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; color: var(--muted); }
+.an-cal-key i { width: 11px; height: 11px; flex: none; }
+.an-acts { display: flex; gap: 10px; flex-wrap: wrap; }
+@media print {
+  body.an-printing { background: #0b0e13 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.an-printing .sidebar, body.an-printing .topbar, body.an-printing .scrim, body.an-printing .an-filters, body.an-printing #anExport, body.an-printing #anReport,
+  body.an-printing .an-group, body.an-printing .an-more, body.an-printing .wp-anim, body.an-printing .wp-video, body.an-printing .pv-fab { display: none !important; }
+  body.an-printing .main { margin-left: 0 !important; }
+  body.an-printing .canvas:not(#analyticsView) { display: none !important; }
+  body.an-printing #analyticsView > .an { box-shadow: none !important; max-width: none !important; }
+  body.an-printing .an-card, body.an-printing .an-tile { break-inside: avoid; }
+  body.an-printing details.an-table { display: none; }
+}
+.an-num .an-gr { display: inline !important; border: 0 !important; padding: 0 !important; background: none !important; width: auto !important; height: auto !important; min-width: 0 !important; box-shadow: none !important; }

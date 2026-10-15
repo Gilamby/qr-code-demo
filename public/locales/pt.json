@@ -1018,7 +1018,11 @@
     "dev_mobile": "Telemóvel",
     "dev_tablet": "Tablet",
     "dev_desktop": "Computador",
-    "dev_unknown": "Desconhecido"
+    "dev_unknown": "Desconhecido",
+    "report": "Relatório (PDF)",
+    "calTitle": "Calendário",
+    "calLess": "Menos",
+    "calMore": "Mais"
   },
   "auth": {
     "loginTitle": "Bem-vindo de volta",

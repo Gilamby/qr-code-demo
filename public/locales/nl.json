@@ -1018,7 +1018,11 @@
     "dev_mobile": "Telefoon",
     "dev_tablet": "Tablet",
     "dev_desktop": "Computer",
-    "dev_unknown": "Onbekend"
+    "dev_unknown": "Onbekend",
+    "report": "Rapport (PDF)",
+    "calTitle": "Kalender",
+    "calLess": "Minder",
+    "calMore": "Meer"
   },
   "auth": {
     "loginTitle": "Welkom terug",

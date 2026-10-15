@@ -162,13 +162,34 @@ var Analytics = (function () {
   function unhover() { var box = body.querySelector('.an-plot'); if (!box) return; box.querySelectorAll('.an-cross,.an-hl').forEach(function (el) { el.setAttribute('hidden', ''); }); var tt = box.querySelector('.an-tt'); if (tt) tt.hidden = true; }
 
   /* ---------- Verdelingen (liggende balken) ---------- */
+  // Groei of daling per QR-code t.o.v. de periode ervoor (even lang)
+  function growth(now, before) {
+    if (!before && !now) return '';
+    if (!before) return '<em class="an-gr up" title="' + esc(t('an.vsPrev')) + '">+' + i18n.fmt.num(now) + '</em>';
+    var p = Math.round((now - before) / before * 100);
+    return '<em class="an-gr ' + (p > 0 ? 'up' : p < 0 ? 'down' : '') + '" title="' + esc(t('an.vsPrev')) + '">' + (p > 0 ? '+' : '') + p + '%</em>';
+  }
+  // Kalender: elke dag een vakje, hoe donkerder hoe meer scans (zelfde gegevens als de grafiek)
+  function calendar(series) {
+    if (!series.length || series.length > 400) return '';
+    var max = Math.max.apply(null, series.map(function (p) { return p.s; }).concat([1]));
+    var first = (new Date(series[0].d + 'T12:00:00Z').getUTCDay() + 6) % 7;            // 0 = maandag
+    var cells = []; for (var i = 0; i < first; i++) cells.push('<i class="pad"></i>');
+    series.forEach(function (p) {
+      var lv = p.s ? Math.min(4, 1 + Math.floor(p.s / max * 3.999)) : 0;
+      cells.push('<i class="l' + lv + '" title="' + esc(i18n.fmt.date(d(p.d), 'long') + ': ' + i18n.fmt.num(p.s) + ' ' + t('an.scans').toLowerCase()) + '"></i>');
+    });
+    var wd = [0, 1, 2, 3, 4, 5, 6].map(function (k) { return '<span>' + esc(i18n.fmt.weekday(k, 'short')) + '</span>'; }).join('');
+    return '<div class="an-card glass an-cal"><div class="an-chead"><h3>' + t('an.calTitle') + '</h3><span class="an-cal-key" aria-hidden="true">' + t('an.calLess') + '<i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i>' + t('an.calMore') + '</span></div>' +
+      '<div class="an-cal-wrap"><div class="an-cal-wd" aria-hidden="true">' + wd + '</div><div class="an-cal-grid" role="img" aria-label="' + esc(t('an.calTitle')) + '">' + cells.join('') + '</div></div></div>';
+  }
   function breakdown(dim, title, rows, total) {
     var max = rows.length ? rows[0].s : 1, open = expanded[dim], shown = open ? rows : rows.slice(0, 6);
     return '<div class="an-card glass"><h3>' + title + '</h3>' +
       (rows.length ? '<ul class="an-bars">' + shown.map(function (r) {
         var pct = total ? r.s / total * 100 : 0;
         return '<li><button type="button" class="an-row" data-filter="' + dim + '" data-k="' + esc(r.k) + '" title="' + esc(t('an.onlyThis')) + '"><span class="an-name">' + esc(label(dim, r.k)) + '</span>' +
-          '<span class="an-num">' + i18n.fmt.num(r.s) + '<small>' + i18n.fmt.pct(pct / 100).replace(/\s/g, ' ') + '</small></span>' +
+          '<span class="an-num">' + (dim === 'codes' && r.p !== undefined ? growth(r.s, r.p) : '') + i18n.fmt.num(r.s) + '<small>' + i18n.fmt.pct(pct / 100).replace(/\s/g, ' ') + '</small></span>' +
           '<span class="an-track"><i style="width:' + Math.max(2, r.s / max * 100).toFixed(1) + '%"></i></span></button></li>';
       }).join('') + '</ul>' + (rows.length > 6 ? '<button type="button" class="link-btn an-more" data-expand="' + dim + '">' + (open ? t('an.less') : t('an.showAll', { n: rows.length })) + '</button>' : '')
         : '<p class="an-none">' + t('an.noData') + '</p>') + '</div>';
@@ -192,7 +213,7 @@ var Analytics = (function () {
         (tot ? '' : '<p class="an-none an-zero">' + t('an.noScans') + '</p>') + '<div class="an-plot"></div>' +
         '<details class="an-table"><summary>' + t('an.asTable') + '</summary><div class="an-tw"><table><thead><tr><th>' + t(group === 'day' ? 'an.date' : 'an.g_' + group) + '</th><th>' + t('an.scans') + '</th><th>' + t('an.unique') + '</th></tr></thead><tbody>' +
         grouped(r.series).slice().reverse().filter(function (p) { return p.s; }).map(function (p) { return '<tr><td>' + esc(pointLabel(p, 'short')) + '</td><td>' + i18n.fmt.num(p.s) + '</td><td>' + i18n.fmt.num(p.u) + '</td></tr>'; }).join('') + '</tbody></table></div></details></div>' +
-      when(r) +
+      when(r) + calendar(r.series) +
       '<div class="an-grid4">' + breakdown('os', t('an.byOs'), r.os, tot) + breakdown('cc', t('an.byCountry'), r.countries, tot) + breakdown('city', t('an.byCity'), r.cities, tot) + breakdown('codes', t('an.byCode'), r.codes, tot) +
         breakdown('dev', t('an.byDevice'), r.devices || [], tot) + breakdown('br', t('an.byBrowser'), r.browsers || [], tot) + '</div>';
     lineChart(grouped(r.series));
@@ -235,6 +256,7 @@ var Analytics = (function () {
     if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return draw(); }
     if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return draw(); }
     if (e.target.closest('#anExport')) return exportCsv();
+    if (e.target.closest('#anReport')) return report();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
   });
   view.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openDrop) { var dim = openDrop; openDrop = null; drawFilters(); var btn = bar.querySelector('[data-drop="' + dim + '"]'); if (btn) btn.focus(); } });
@@ -242,7 +264,14 @@ var Analytics = (function () {
   body.addEventListener('pointerleave', unhover, true);
   addEventListener('resize', function () { if (!view.hidden && data && data.series) lineChart(grouped(data.series)); });
 
-  function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); }
+  function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); var rp = document.getElementById('anReport'); if (rp) rp.innerHTML = ico('dl') + t('an.report'); }
+  /* Rapport: de pagina netjes afdrukken; in het afdrukvenster kies je "Opslaan als PDF" */
+  function report() {
+    document.body.classList.add('an-printing');
+    var done = function () { document.body.classList.remove('an-printing'); removeEventListener('afterprint', done); };
+    addEventListener('afterprint', done);
+    setTimeout(function () { window.print(); setTimeout(done, 1000); }, 50);
+  }
   labels();
   document.addEventListener('pagechange', function (e) { if (e.detail === 'analytics') { names = {}; load(); } });
   i18n.onChange(function () { labels(); if (!view.hidden && data) { drawFilters(); draw(); } });

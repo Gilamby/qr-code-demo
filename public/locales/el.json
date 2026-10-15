@@ -1018,7 +1018,11 @@
     "dev_mobile": "Κινητό",
     "dev_tablet": "Tablet",
     "dev_desktop": "Υπολογιστής",
-    "dev_unknown": "Άγνωστο"
+    "dev_unknown": "Άγνωστο",
+    "report": "Αναφορά (PDF)",
+    "calTitle": "Ημερολόγιο",
+    "calLess": "Λιγότερα",
+    "calMore": "Περισσότερα"
   },
   "auth": {
     "loginTitle": "Καλώς ήρθες ξανά",

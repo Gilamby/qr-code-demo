@@ -1124,7 +1124,11 @@
     "dev_mobile": "Telefon",
     "dev_tablet": "Tablet",
     "dev_desktop": "Kompjuter",
-    "dev_unknown": "E panjohur"
+    "dev_unknown": "E panjohur",
+    "report": "Raport (PDF)",
+    "calTitle": "Kalendari",
+    "calLess": "Më pak",
+    "calMore": "Më shumë"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",

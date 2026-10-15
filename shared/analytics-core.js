@@ -57,7 +57,8 @@ function overview(codes, query) {
   const prevTo = new Date(Date.parse(from + 'T00:00:00Z') - 864e5).toISOString().slice(0, 10);
   const prevFrom = new Date(Date.parse(from + 'T00:00:00Z') - range.length * 864e5).toISOString().slice(0, 10);
   let prevScans = 0, prevUnique = 0;
-  for (const q of pick) { const st = statsOf(q); for (const d of days(prevFrom, prevTo)) for (const [key, v] of Object.entries(st[d] || {})) if (keyOk(key)) { prevScans += v[0]; prevUnique += v[1]; } }
+  const prevPer = {};
+  for (const q of pick) { const st = statsOf(q); for (const d of days(prevFrom, prevTo)) for (const [key, v] of Object.entries(st[d] || {})) if (keyOk(key)) { prevScans += v[0]; prevUnique += v[1]; prevPer[q.id] = (prevPer[q.id] || 0) + v[0]; } }
   // Per weekdag (0 = maandag) en per uur van de dag (in de tijdzone van de gebruiker)
   const weekdays = [0, 0, 0, 0, 0, 0, 0];
   range.forEach((d) => { weekdays[(new Date(d + 'T12:00:00Z').getUTCDay() + 6) % 7] += series[d].s; });
@@ -83,7 +84,7 @@ function overview(codes, query) {
     insights: { days: range.length, prevFrom, prevTo, prevScans, prevUnique, bestDay: best ? { d: best, s: series[best].s } : null,
       activeCodes: Object.keys(perCode).length, weekdays, hours, hoursSince, filtered: !!filtered },
     series: range.map((d) => ({ d, s: series[d].s, u: series[d].u })),
-    os: sorted(by.os), countries: sorted(by.cc), cities: sorted(by.city), browsers: sorted(by.br), devices: sorted(by.dev), codes: sorted(perCode),
+    os: sorted(by.os), countries: sorted(by.cc), cities: sorted(by.city), browsers: sorted(by.br), devices: sorted(by.dev), codes: sorted(perCode).map((c) => ({ ...c, p: prevPer[c.k] || 0 })),
     options: { os: Object.keys(opt.os).sort(), countries: Object.keys(opt.cc).sort(), cities: Object.keys(opt.city).sort(), browsers: Object.keys(opt.br).sort(), devices: Object.keys(opt.dev).sort() }
   };
 }
