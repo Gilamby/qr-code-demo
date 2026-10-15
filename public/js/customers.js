@@ -29,7 +29,7 @@
     return c.level === 'super' ? '<i class="ad-role super">' + SVG + ICON.shield + '</svg>' + t('adm.rSuper') + '</i>' : c.level === 'admin' ? '<i class="ad-role admin">' + t('adm.rAdmin') + '</i>' : '<i class="ad-role">' + t('adm.rUser') + '</i>';
   }
   function status(c) {
-    if (c.disabledAt) return ['off', t('adm.sDisabled'), t('adm.since', { date: date(c.disabledAt) })];
+    if (c.disabledAt) return ['off', t('adm.sDisabled'), t('adm.since', { date: date(c.disabledAt) }) + (c.disabledReason ? ' · ' + esc(c.disabledReason) : '')];
     if (c.active) return ['ok', t('cust.active')];
     if (c.inviteUntil && c.inviteUntil > new Date().toISOString()) return ['wait', t('cust.invited'), t('cust.until', { date: date(c.inviteUntil) })];
     return ['bad', t('cust.expired')];
@@ -75,8 +75,9 @@
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('acct.codes') + ': </span>' + i18n.fmt.num(c.codes) + '</span>' +
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('an.scans') + ': </span>' + i18n.fmt.num(c.scans || 0) + '</span>' +
           '<span role="cell" class="cust-muted"><span class="cust-lbl">' + t('adm.lastLogin') + ': </span>' + (c.lastLoginAt ? Admin.ago(c.lastLoginAt) : t('adm.never')) + '<small class="cust-sub">' + t('cust.added') + ' ' + date(c.createdAt) + '</small></span>' +
-          '<span role="cell" class="cust-acts">' + (c.codes ? '<button type="button" class="btn ghost" data-codes title="' + esc(t('cust.viewCodes')) + '" aria-label="' + esc(t('cust.viewCodes')) + '">' + SVG + ICON.qr + '</svg>' + i18n.fmt.num(c.codes) + '</button>' : '') + (!c.active && !c.disabledAt ? '<button type="button" class="btn ghost" data-reinvite>' + SVG + ICON.mail + '</svg>' + t('cust.reinvite') + '</button>' : '') +
-            (canEdit ? '<button type="button" class="btn ghost ' + (c.disabledAt ? '' : 'warn-ghost') + '" data-toggle title="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable')) + '" aria-label="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable') + ': ' + (c.name || c.email)) + '">' + SVG + (c.disabledAt ? ICON.on : ICON.off) + '</svg>' + t(c.disabledAt ? 'adm.enable' : 'adm.disable') + '</button>' : '') +
+          '<span role="cell" class="cust-acts">' + (c.codes ? '<button type="button" class="btn ghost" data-codes title="' + esc(t('cust.viewCodes')) + '" aria-label="' + esc(t('cust.viewCodes')) + '">' + SVG + ICON.qr + '</svg>' + i18n.fmt.num(c.codes) + '</button>' : '') + (!c.active && !c.disabledAt ? '<button type="button" class="btn ghost" data-reinvite title="' + esc(t('cust.reinvite')) + '" aria-label="' + esc(t('cust.reinvite') + ': ' + c.email) + '">' + SVG + ICON.mail + '</svg>' + t('cust.reinvite') + '</button>' : '') +
+            (!c.active && !c.disabledAt && canEdit ? '<button type="button" class="btn ghost warn-ghost" data-revoke title="' + esc(t('cust.revoke')) + '" aria-label="' + esc(t('cust.revoke') + ': ' + c.email) + '">' + SVG + ICON.off + '</svg>' + t('cust.revoke') + '</button>' : '') +
+            (canEdit && (c.active || c.disabledAt) ? '<button type="button" class="btn ghost ' + (c.disabledAt ? '' : 'warn-ghost') + '" data-toggle title="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable')) + '" aria-label="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable') + ': ' + (c.name || c.email)) + '">' + SVG + (c.disabledAt ? ICON.on : ICON.off) + '</svg>' + t(c.disabledAt ? 'adm.enable' : 'adm.disable') + '</button>' : '') +
             (canEdit && !c.fixed ? '<button type="button" class="btn ghost danger-ghost cust-del" data-remove aria-label="' + esc(t('cust.remove') + ': ' + (c.name || c.email)) + '" title="' + esc(t('cust.remove')) + '">' + SVG + ICON.trash + '</svg></button>' : '') + '</span>' +
         '</div>';
       }).join('') + '</div>';
@@ -135,16 +136,17 @@
       if (e.target.closest('[data-showform]')) { showForm = !showForm; if (!showForm) { bad = []; } result = null; draw(); if (showForm) { var i = box.querySelector('input[name=name]'); if (i) i.focus(); } return; }
       if (e.target.closest('[data-toggle]') && c) {
         var turnOff = !c.disabledAt;
-        var go = function () {
-          return api.customers.update(id, { disabled: turnOff }).then(function () { result = { kind: 'ok', text: t(turnOff ? 'adm.disabledMsg' : 'adm.enabledMsg', { email: c.email }) }; load(); draw(); })
+        var go = function (reason) {
+          return api.customers.update(id, turnOff ? { disabled: true, reason: reason || '' } : { disabled: false }).then(function () { result = { kind: 'ok', text: t(turnOff ? 'adm.disabledMsg' : 'adm.enabledMsg', { email: c.email }) }; load(); draw(); })
             .catch(function (x) { result = { kind: 'bad', text: errText(x) }; draw(); });
         };
         if (!turnOff) return go();
         var dd = document.getElementById('mcDialog');
         dd.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + SVG.replace('aria-hidden="true"', 'class="mc-i" aria-hidden="true"') + ICON.off + '</svg></span>' +
           '<h3>' + t('adm.disableTitle', { name: esc(c.name || c.email) }) + '</h3><p>' + t('adm.disableText') + '</p>' +
+          '<label class="auth-f"><span>' + t('adm.reasonLabel') + '</span><span class="auth-in"><input id="custOffWhy" maxlength="200" placeholder="' + esc(t('adm.reasonPh')) + '"></span></label>' +
           '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="custOffGo">' + t('adm.disable') + '</button></div></form>';
-        dd.querySelector('#custOffGo').addEventListener('click', function (ev) { ev.preventDefault(); dd.close(); go(); });
+        dd.querySelector('#custOffGo').addEventListener('click', function (ev) { ev.preventDefault(); var why = dd.querySelector('#custOffWhy').value; dd.close(); go(why); });
         return dd.showModal();
       }
       if (e.target.closest('[data-codes]') && c && window.AdminCodes) return AdminCodes.filter({ user: c.id });   // alle QR-codes van deze gebruiker
@@ -152,6 +154,18 @@
         e.target.closest('[data-reinvite]').disabled = true;
         return api.customers.reinvite(id, { lang: i18n.lang() }).then(function (r) { result = { kind: 'ok', text: t('cust.sent', { email: c.email }), link: r.link }; load(); draw(); var m = box.querySelector('.cust-add .acct-msg'); if (m) m.scrollIntoView({ block: 'center' }); })
           .catch(function (x) { result = { kind: 'bad', text: errText(x) }; draw(); });
+      }
+      if (e.target.closest('[data-revoke]') && c) {     // uitnodiging intrekken = het (nog niet gebruikte) account weg; de link werkt dan niet meer
+        var rd = document.getElementById('mcDialog');
+        rd.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + SVG.replace('aria-hidden="true"', 'class="mc-i" aria-hidden="true"') + ICON.mail + '</svg></span>' +
+          '<h3>' + t('cust.revokeTitle', { email: esc(c.email) }) + '</h3><p>' + t('cust.revokeText') + '</p>' +
+          '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="custRevGo">' + t('cust.revoke') + '</button></div></form>';
+        rd.querySelector('#custRevGo').addEventListener('click', function (ev) {
+          ev.preventDefault();
+          api.customers.remove(id).then(function () { rd.close(); result = { kind: 'ok', text: t('cust.revoked', { email: c.email }) }; load(); draw(); })
+            .catch(function (x) { rd.close(); result = { kind: 'bad', text: errText(x) }; draw(); });
+        });
+        return rd.showModal();
       }
       if (e.target.closest('[data-remove]') && c) {
         var d = document.getElementById('mcDialog');

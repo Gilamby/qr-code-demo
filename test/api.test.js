@@ -405,3 +405,22 @@ test('statistieken: browser en soort apparaat worden geteld (zonder details te b
   const csv = await k('GET', '/api/analytics.csv?codes=' + id);
   assert.match(csv.text.split('\r\n')[0], /browser,device/, 'export heeft browser en apparaat');
 });
+
+test('beheer: reden bij uitzetten, uitnodiging intrekken, pakketten op het dashboard', async () => {
+  const team = client();
+  await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const k = client(); await signup(k, 'why-k@example.com', 'Reden zin 14!', 'Klant Why');
+  const id = (await team('GET', '/api/admin/customers')).json.find((c) => c.email === 'why-k@example.com').id;
+  const off = await team('PATCH', '/api/admin/customers/' + id, { disabled: true, reason: 'Betaling uitgebleven' });
+  assert.equal(off.status, 200); assert.equal(off.json.disabledReason, 'Betaling uitgebleven');
+  assert.equal((await team('GET', '/api/admin/customers')).json.find((c) => c.id === id).disabledReason, 'Betaling uitgebleven');
+  assert.ok((await team('GET', '/api/admin/log')).json.some((x) => x.action === 'user_disable' && /Betaling uitgebleven/.test(x.detail)));
+  await team('PATCH', '/api/admin/customers/' + id, { disabled: false });
+  assert.equal((await team('GET', '/api/admin/customers')).json.find((c) => c.id === id).disabledReason, null, 'aanzetten: reden weg');
+  const inv = await team('POST', '/api/admin/customers', { name: 'Uitgenodigd', email: 'rev-x@example.com' });
+  assert.equal(inv.status, 201);
+  assert.equal((await team('DELETE', '/api/admin/customers/' + inv.json.customer.id)).status, 204, 'intrekken');
+  const token = decodeURIComponent(inv.json.link.split('invite=')[1]);
+  assert.equal((await client()('POST', '/api/auth/reset', { token, password: 'Nieuwe zin 15!x' })).status, 400, 'ingetrokken link werkt niet meer');
+  const ov = (await team('GET', '/api/admin/overview')).json; assert.ok(ov.plans && ov.plans.free >= 1, 'telling per pakket');
+});

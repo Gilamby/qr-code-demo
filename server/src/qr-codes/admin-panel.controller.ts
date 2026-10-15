@@ -78,6 +78,8 @@ export class AdminPanelController {
     const owners: Record<string, { name: string; email: string }> = {};
     users.forEach((u) => { owners[u.id] = { name: u.name, email: u.email }; });
     const newSince = (list: { createdAt: string }[], from: string) => list.filter((x) => x.createdAt.slice(0, 10) >= from).length;
+    const plans: Record<string, number> = {};
+    for (const p of await Promise.all(users.map((u) => planFor(this.db, u.id)))) plans[p.id] = (plans[p.id] || 0) + 1;
     return {
       totals: {
         users: users.length,
@@ -97,6 +99,7 @@ export class AdminPanelController {
       top: all.filter((q) => q.scans > 0).sort((a, b) => b.scans - a.scans).slice(0, 5)
         .map((q) => ({ ...this.row(req, q), owner: owners[q.userId] || null })),
       recentUsers: users.slice(0, 5),
+      plans,
     };
   }
 

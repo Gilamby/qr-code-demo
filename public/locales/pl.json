@@ -1436,7 +1436,11 @@
     "exists": "Konto z tym adresem e-mail już istnieje.",
     "alreadyActive": "Ten klient już aktywował konto.",
     "cantRemove": "Kont zespołu nie można tu usunąć.",
-    "viewCodes": "Kody QR tego użytkownika"
+    "viewCodes": "Kody QR tego użytkownika",
+    "revoke": "Cofnij",
+    "revokeTitle": "Cofnąć zaproszenie dla {email}?",
+    "revokeText": "Link z zaproszeniem przestanie działać. Później możesz wysłać nowe zaproszenie.",
+    "revoked": "Zaproszenie dla {email} cofnięte."
   },
   "menu": {
     "modeLink": "Link do menu",
@@ -1553,7 +1557,9 @@
     "log_user_role": "Zmieniono rolę",
     "log_user_disable": "Wyłączono konto",
     "log_user_enable": "Włączono konto",
-    "log_user_delete": "Usunięto konto"
+    "log_user_delete": "Usunięto konto",
+    "reasonLabel": "Powód (opcjonalnie)",
+    "reasonPh": "Np. brak płatności, nadużycie, na prośbę"
   },
   "adminApp": {
     "badge": "Administracja",

@@ -117,7 +117,8 @@ var Admin = (function () {
         '<button type="button" class="btn ghost" data-go-page="adminCodes">' + ico('qr') + t('adm.allCodes') + '</button>' +
         '<button type="button" class="btn primary" data-go-page="customers" data-add-user>' + ico('plus') + t('adm.invite') + '</button></div></header>' +
       '<div class="ad-kpis">' +
-        kpi('users', 'users', t('adm.kUsers'), num(T.users), t('adm.kUsersSub', { active: num(T.active), invited: num(T.invited) }), mix) +
+        kpi('users', 'users', t('adm.kUsers'), num(T.users), t('adm.kUsersSub', { active: num(T.active), invited: num(T.invited) }) +
+          (data.plans ? '<span class="ad-plans">' + ['free', 'standard', 'pro', 'business'].filter(function (k) { return data.plans[k]; }).map(function (k) { return '<i>' + esc(t('plan.n_' + k)) + ' <b>' + num(data.plans[k]) + '</b></i>'; }).join('') + '</span>' : ''), mix) +
         kpi('codes', 'qr', t('adm.kCodes'), num(T.codes), T.newCodes30 ? t('adm.kNew30', { n: num(T.newCodes30) }) : t('adm.kPaused', { n: num(T.paused) })) +
         kpi('scans30', 'pulse', t('adm.kScans30'), num(T.scans30), trend(T.scans30, T.scansPrev30) + ' <span>' + t('adm.vsPrev') + '</span>', spark(last14)) +
         kpi('scans', 'scan', t('adm.kScans'), num(T.scans), t('adm.kAdmins', { n: num(T.admins) })) +

@@ -26,6 +26,9 @@ export class TeamOnly implements CanActivate {
   }
 }
 
+/** Reden van uitzetten (settings 'disabled:<id>') */
+function reasonOf(v: string | null | undefined) { try { const o = v ? JSON.parse(v) : null; return o && o.reason ? String(o.reason) : null; } catch (e) { return null; } }
+
 @Controller('api/admin/customers')
 @UseGuards(LoggedIn, TeamOnly)
 export class AdminController {
@@ -35,7 +38,8 @@ export class AdminController {
   async list() {
     const all = await this.db.listCustomers();
     const plans = await Promise.all(all.map((c) => planFor(this.db, c.id)));
-    return all.map((c, i) => ({ ...this.withRole(c), plan: plans[i].id }));
+    const why = await Promise.all(all.map((c) => (c.disabledAt ? this.db.getSetting('disabled:' + c.id).catch(() => null) : null)));
+    return all.map((c, i) => ({ ...this.withRole(c), plan: plans[i].id, disabledReason: reasonOf(why[i]) }));
   }
 
   /** Klant toevoegen en uitnodigen */
@@ -75,8 +79,10 @@ export class AdminController {
       if (b.role !== 'admin' && b.role !== 'user') throw fail(400, 'role: admin or user');
       patch.role = b.role === 'admin' ? 'admin' : null;
     }
+    let why = '';
     if (b.disabled !== undefined) {
       if (typeof b.disabled !== 'boolean') throw fail(400, 'disabled: true or false');
+      why = String(b.reason || '').replace(/\s+/g, ' ').trim().slice(0, 200);
       if (this.auth.isAdmin(u) && !this.auth.isSuper(me)) throw fail(403, 'super_only');
       patch.disabledAt = b.disabled ? (u.disabledAt || new Date().toISOString()) : null;
     }
@@ -90,9 +96,10 @@ export class AdminController {
     if (!Object.keys(patch).length) throw fail(400, 'nothing to change');
     await this.db.updateUser(id, patch);
     if (patch.disabledAt) await this.db.deleteSessionsOf(id);                    // meteen uitgelogd
+    if (patch.disabledAt !== undefined) await this.db.setSetting('disabled:' + id, patch.disabledAt && why ? JSON.stringify({ reason: why, by: me.name || me.email, at: new Date().toISOString() }) : null);
     if (patch.role !== undefined) await this.log(me, 'user_role', id, u.email + ' → ' + (patch.role || 'user'));
-    if (patch.disabledAt !== undefined) await this.log(me, patch.disabledAt ? 'user_disable' : 'user_enable', id, u.email);
-    return { ...this.withRole((await this.db.listCustomers()).find((c) => c.id === id)), plan: (await planFor(this.db, id)).id };
+    if (patch.disabledAt !== undefined) await this.log(me, patch.disabledAt ? 'user_disable' : 'user_enable', id, u.email + (patch.disabledAt && why ? ' · ' + why : ''));
+    return { ...this.withRole((await this.db.listCustomers()).find((c) => c.id === id)), plan: (await planFor(this.db, id)).id, disabledReason: patch.disabledAt ? why || null : null };
   }
 
   /** Klant verwijderen (met alle codes, statistieken en bestanden). Niet jezelf, niet de super-admin;

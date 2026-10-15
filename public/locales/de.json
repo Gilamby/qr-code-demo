@@ -1436,7 +1436,11 @@
     "exists": "Es gibt bereits ein Konto mit dieser E-Mail-Adresse.",
     "alreadyActive": "Dieser Kunde hat das Konto bereits aktiviert.",
     "cantRemove": "Team-Konten kannst du hier nicht löschen.",
-    "viewCodes": "QR-Codes dieses Benutzers"
+    "viewCodes": "QR-Codes dieses Benutzers",
+    "revoke": "Zurückziehen",
+    "revokeTitle": "Einladung für {email} zurückziehen?",
+    "revokeText": "Der Einladungslink funktioniert danach nicht mehr. Du kannst später eine neue Einladung senden.",
+    "revoked": "Einladung für {email} zurückgezogen."
   },
   "menu": {
     "modeLink": "Link zu deinem Menü",
@@ -1553,7 +1557,9 @@
     "log_user_role": "Rolle geändert",
     "log_user_disable": "Konto deaktiviert",
     "log_user_enable": "Konto aktiviert",
-    "log_user_delete": "Konto gelöscht"
+    "log_user_delete": "Konto gelöscht",
+    "reasonLabel": "Grund (optional)",
+    "reasonPh": "Z. B. Zahlung ausgeblieben, Missbrauch, auf Wunsch"
   },
   "adminApp": {
     "badge": "Verwaltung",

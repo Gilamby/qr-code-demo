@@ -1436,7 +1436,11 @@
     "exists": "Esiste già un account con questo indirizzo e-mail.",
     "alreadyActive": "Questo cliente ha già attivato l’account.",
     "cantRemove": "Gli account del team non si possono eliminare qui.",
-    "viewCodes": "Codici QR di questo utente"
+    "viewCodes": "Codici QR di questo utente",
+    "revoke": "Revoca",
+    "revokeTitle": "Revocare l’invito per {email}?",
+    "revokeText": "Il link di invito non funzionerà più. Potrai inviare un nuovo invito in seguito.",
+    "revoked": "Invito per {email} revocato."
   },
   "menu": {
     "modeLink": "Link al tuo menu",
@@ -1553,7 +1557,9 @@
     "log_user_role": "Ruolo cambiato",
     "log_user_disable": "Account disattivato",
     "log_user_enable": "Account attivato",
-    "log_user_delete": "Account eliminato"
+    "log_user_delete": "Account eliminato",
+    "reasonLabel": "Motivo (facoltativo)",
+    "reasonPh": "Es. pagamento mancante, abuso, su richiesta"
   },
   "adminApp": {
     "badge": "Amministrazione",

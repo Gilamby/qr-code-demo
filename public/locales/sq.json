@@ -1542,7 +1542,11 @@
     "exists": "Ekziston tashmë një llogari me këtë email.",
     "alreadyActive": "Ky klient e ka aktivizuar tashmë llogarinë.",
     "cantRemove": "Llogaritë e ekipit nuk mund të fshihen këtu.",
-    "viewCodes": "Kodet QR të këtij përdoruesi"
+    "viewCodes": "Kodet QR të këtij përdoruesi",
+    "revoke": "Tërhiq",
+    "revokeTitle": "Të tërhiqet ftesa për {email}?",
+    "revokeText": "Lidhja e ftesës nuk do të funksionojë më. Mund të dërgoni një ftesë të re më vonë.",
+    "revoked": "Ftesa për {email} u tërhoq."
   },
   "menu": {
     "modeLink": "Lidhje te menuja",
@@ -1659,7 +1663,9 @@
     "log_user_role": "Roli u ndryshua",
     "log_user_disable": "Llogaria u çaktivizua",
     "log_user_enable": "Llogaria u aktivizua",
-    "log_user_delete": "Llogaria u fshi"
+    "log_user_delete": "Llogaria u fshi",
+    "reasonLabel": "Arsyeja (opsionale)",
+    "reasonPh": "P.sh. mungesë pagese, abuzim, me kërkesë"
   },
   "adminApp": {
     "badge": "Administrimi",

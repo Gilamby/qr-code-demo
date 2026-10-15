@@ -1436,7 +1436,11 @@
     "exists": "Er bestaat al een account met dit e-mailadres.",
     "alreadyActive": "Deze klant heeft het account al geactiveerd.",
     "cantRemove": "Team-accounts kun je hier niet verwijderen.",
-    "viewCodes": "QR-codes van deze gebruiker"
+    "viewCodes": "QR-codes van deze gebruiker",
+    "revoke": "Intrekken",
+    "revokeTitle": "Uitnodiging voor {email} intrekken?",
+    "revokeText": "De uitnodigingslink werkt daarna niet meer. Je kunt later een nieuwe uitnodiging sturen.",
+    "revoked": "Uitnodiging voor {email} ingetrokken."
   },
   "menu": {
     "modeLink": "Link naar je menu",
@@ -1553,7 +1557,9 @@
     "log_user_role": "Rol gewijzigd",
     "log_user_disable": "Account uitgezet",
     "log_user_enable": "Account aangezet",
-    "log_user_delete": "Account verwijderd"
+    "log_user_delete": "Account verwijderd",
+    "reasonLabel": "Reden (optioneel)",
+    "reasonPh": "Bijv. betaling uitgebleven, misbruik, op verzoek"
   },
   "adminApp": {
     "badge": "Beheer",

@@ -1436,7 +1436,11 @@
     "exists": "An account with this email address already exists.",
     "alreadyActive": "This customer has already activated the account.",
     "cantRemove": "Team accounts can’t be deleted here.",
-    "viewCodes": "QR codes of this user"
+    "viewCodes": "QR codes of this user",
+    "revoke": "Revoke",
+    "revokeTitle": "Revoke the invitation for {email}?",
+    "revokeText": "The invitation link will stop working. You can send a new invitation later.",
+    "revoked": "Invitation for {email} revoked."
   },
   "menu": {
     "modeLink": "Link to your menu",
@@ -1553,7 +1557,9 @@
     "log_user_role": "Role changed",
     "log_user_disable": "Account turned off",
     "log_user_enable": "Account turned on",
-    "log_user_delete": "Account deleted"
+    "log_user_delete": "Account deleted",
+    "reasonLabel": "Reason (optional)",
+    "reasonPh": "E.g. payment missing, abuse, on request"
   },
   "adminApp": {
     "badge": "Admin",

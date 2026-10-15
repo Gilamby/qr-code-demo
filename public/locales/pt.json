@@ -1436,7 +1436,11 @@
     "exists": "Já existe uma conta com este e-mail.",
     "alreadyActive": "Este cliente já ativou a conta.",
     "cantRemove": "As contas da equipa não podem ser eliminadas aqui.",
-    "viewCodes": "Códigos QR deste utilizador"
+    "viewCodes": "Códigos QR deste utilizador",
+    "revoke": "Revogar",
+    "revokeTitle": "Revogar o convite de {email}?",
+    "revokeText": "A ligação do convite deixa de funcionar. Pode enviar um novo convite mais tarde.",
+    "revoked": "Convite de {email} revogado."
   },
   "menu": {
     "modeLink": "Ligação para o menu",
@@ -1553,7 +1557,9 @@
     "log_user_role": "Função alterada",
     "log_user_disable": "Conta desativada",
     "log_user_enable": "Conta ativada",
-    "log_user_delete": "Conta eliminada"
+    "log_user_delete": "Conta eliminada",
+    "reasonLabel": "Motivo (opcional)",
+    "reasonPh": "Ex. falta de pagamento, abuso, a pedido"
   },
   "adminApp": {
     "badge": "Administração",
