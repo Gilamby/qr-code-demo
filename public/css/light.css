@@ -370,6 +370,12 @@
 :root[data-theme="light"] #legalView > .lg > :first-child { border-bottom: 1px solid rgba(13,19,32,0.072); }
 }
 :root[data-theme="light"] .mf-x { border: 1px solid rgba(13,19,32,0.225); color: rgba(13,19,32,0.72); }
+:root[data-theme="light"] .mf-menu { border: 1px solid rgba(13,19,32,0.126); box-shadow: 0 24px 50px -16px rgba(13,19,32,0.245); }
+:root[data-theme="light"] .mf-mi > [data-folder]:hover,
+:root[data-theme="light"] .mf-mi > [data-folder]:focus-visible { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .mf-mx { color: rgba(13,19,32,0.495); }
+:root[data-theme="light"] .mf-mx:hover,
+:root[data-theme="light"] .mf-mx:focus-visible { color: #dc2626; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

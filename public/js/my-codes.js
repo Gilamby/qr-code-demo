@@ -24,7 +24,7 @@ var MyCodes = (function () {
     folderPlus: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M12 11v6M9 14h6"/>',
     move: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M10 14h6M13.5 11.5L16 14l-2.5 2.5"/>',
     grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
-    x: '<path d="M7 7l10 10M17 7L7 17"/>',
+    x: '<path d="M7 7l10 10M17 7L7 17"/>', chev: '<path d="M6 9l6 6 6-6"/>',
     inbox: '<path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     star: '<path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/>',
@@ -61,7 +61,7 @@ var MyCodes = (function () {
     var count = function (fn) { return rows.filter(fn).length; };
     var chip = function (key, label, n, extra) {
       var on = filter.folder === key;
-      return '<button type="button" class="mf-chip' + (on ? ' on' : '') + '" data-folder="' + esc(key) + '" aria-pressed="' + on + '">' + label + '<span class="mf-n">' + i18n.fmt.num(n) + '</span>' + (extra || '') + '</button>';
+      return '<button type="button" class="mf-chip' + (on ? ' on' : '') + '" data-folder="' + esc(key) + '" aria-pressed="' + on + '" title="' + esc(String(label).replace(/<[^>]*>/g, '')) + '">' + label + '<span class="mf-n">' + i18n.fmt.num(n) + '</span>' + (extra || '') + '</button>';
     };
     var cur = folderOf(filter.folder);
     bar.innerHTML = '<div class="mf-row" role="toolbar" aria-label="' + esc(t('folders.title')) + '">' +
@@ -70,6 +70,7 @@ var MyCodes = (function () {
         chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', count(function (r) { return !r.folderId; })) +
         folders.map(function (f) { return '<span class="mf-wrap">' + chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })) +
           '<button type="button" class="mf-x" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('x') + '</button></span>'; }).join('') +
+        '<span class="mf-more" hidden><button type="button" class="mf-chip" data-folder-more aria-haspopup="true" aria-expanded="false"><span>' + t('folders.more') + '</span><span class="mf-n"></span>' + ico('chev') + '</button><div class="mf-menu glass" role="menu" hidden></div></span>' +
         '<button type="button" class="mf-chip mf-add" data-folder-new>' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
       (cur ? '<div class="mf-head">' + dot(cur) + '<b>' + esc(cur.name) + '</b>' +
@@ -77,7 +78,27 @@ var MyCodes = (function () {
         '<button type="button" class="btn ghost sm mf-del" data-folder-delete>' + ico('trash') + '<span>' + t('folders.delete') + '</span></button></div>' : '') +
       (folders.length ? '' : '<p class="mf-tip">' + t('folders.tip') + '</p>');
     bar.hidden = !rows.length && !folders.length;
+    fitFolders();
   }
+  /* Mappen als tabbladen: passen ze niet op één rij, dan gaan de laatste naar "Meer ▾" (de gekozen map blijft altijd zichtbaar) */
+  function fitFolders() {
+    var row = bar.querySelector('.mf-row'), more = row && row.querySelector('.mf-more'); if (!more || bar.hidden) return;
+    var wraps = [].slice.call(row.querySelectorAll('.mf-wrap')), menu = more.querySelector('.mf-menu');
+    wraps.forEach(function (w) { w.hidden = false; }); more.hidden = true; menu.hidden = true;
+    if (row.scrollWidth <= row.clientWidth + 1) return;
+    more.hidden = false;
+    for (var i = wraps.length - 1; i >= 0 && row.scrollWidth > row.clientWidth + 1; i--) { if (!wraps[i].querySelector('.mf-chip.on')) wraps[i].hidden = true; }
+    var hid = wraps.filter(function (w) { return w.hidden; });
+    more.querySelector('.mf-n').textContent = i18n.fmt.num(hid.length);
+    menu.innerHTML = hid.map(function (w) {
+      var f = folderOf(w.querySelector('[data-folder]').getAttribute('data-folder')), n = rows.filter(function (r) { return r.folderId === f.id; }).length;
+      return '<div class="mf-mi"><button type="button" role="menuitem" data-folder="' + esc(f.id) + '">' + dot(f) + '<span>' + esc(f.name) + '</span><span class="mf-n">' + i18n.fmt.num(n) + '</span></button>' +
+        '<button type="button" class="mf-mx" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('trash') + '</button></div>';
+    }).join('');
+  }
+  var fitTick = 0;
+  addEventListener('resize', function () { clearTimeout(fitTick); fitTick = setTimeout(fitFolders, 80); });
+  document.addEventListener('click', function (e) { var m = bar.querySelector('.mf-menu'); if (m && !m.hidden && !e.target.closest('.mf-more')) { m.hidden = true; bar.querySelector('[data-folder-more]').setAttribute('aria-expanded', 'false'); } });
   function visible() {
     var q = filter.q.trim().toLowerCase();
     var out = rows.filter(function (r) {
@@ -293,6 +314,8 @@ var MyCodes = (function () {
   }
 
   bar.addEventListener('click', function (e) {
+    var mb = e.target.closest('[data-folder-more]');
+    if (mb) { var mm = bar.querySelector('.mf-menu'); mm.hidden = !mm.hidden; mb.setAttribute('aria-expanded', String(!mm.hidden)); return; }
     var c = e.target.closest('[data-folder]'); if (c) { filter.folder = c.getAttribute('data-folder'); return draw(); }
     if (e.target.closest('[data-folder-new]')) return folderDialog(null, function (nf) { filter.folder = nf.id; draw(); });
     var cur = folderOf(filter.folder);

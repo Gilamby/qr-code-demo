@@ -1603,7 +1603,8 @@
     "favEmpty": "Ancora nessun preferito",
     "favEmptyText": "Clicca sulla stella di un codice e lo trovi qui.",
     "favAdded": "Aggiunto ai preferiti",
-    "favRemoved": "Rimosso dai preferiti"
+    "favRemoved": "Rimosso dai preferiti",
+    "more": "Altro"
   },
   "home": {
     "night": "Buonanotte, {name}",
