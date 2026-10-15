@@ -332,7 +332,8 @@ var Analytics = (function () {
       body.innerHTML = '<div class="mc-empty glass">' + ico('scans') + '<h3>' + t('an.emptyTitle') + '</h3><p>' + t('an.emptyText') + '</p><button type="button" class="btn primary" data-an-new>' + t('myCodes.first') + '</button></div>';
       return;
     }
-    body.innerHTML = tiles(r) + insights(r) +
+    body.innerHTML = tiles(r) +   // de samenvattingszin is weg: tegels + ranglijst laten hetzelfde zien
+
       '<div class="an-tabs" role="tablist" aria-label="' + esc(t('an.tabsLabel')) + '">' + TABS.map(function (k) {
         return '<button type="button" role="tab" id="anTab_' + k + '" aria-controls="anTab" data-tab="' + k + '" aria-label="' + esc(t('an.tab_' + k)) + '">' + ico({ overview: 'scans', where: 'globe', with: 'phone', when: 'clock' }[k], 'an-ti') + '<span>' + t('an.tab_' + k) + '</span></button>';
       }).join('') + '</div>' +
