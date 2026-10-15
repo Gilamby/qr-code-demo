@@ -3499,7 +3499,7 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
    Geen backdrop-filter hier: dat zou vensters en lades (position: fixed) binnen de pagina verschuiven.
    ========================================================= */
 #homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
-#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help {
+#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help, #myCodesView > .mc {
   box-sizing: border-box; max-width: 100%; min-width: 0;
   border: 1px solid rgba(255,255,255,.24); border-radius: 30px; padding: 40px 40px 34px;
   background: linear-gradient(140deg, rgba(255,255,255,.13), rgba(255,255,255,.04) 45%, rgba(255,255,255,.07)), rgba(12,16,23,.42);
@@ -3507,7 +3507,7 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 }
 @media (max-width: 760px) {
   #homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
-  #adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help { padding: 20px 14px 18px; border-radius: 22px; }
+  #adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help, #myCodesView > .mc { padding: 20px 14px 18px; border-radius: 22px; }
 }
 
 #contactView > .help, #faqView > .help, #adminDashView > .help, #adminCodesView > .help, #customersView > .help { grid-template-columns: minmax(0, 1fr); }
@@ -3691,7 +3691,7 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
 body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke pagina 8 px */
 /* Bubbels niet over de hele breedte op grote schermen: gecentreerd, maximaal 1240 px breed */
 #homeView > .hm, #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
-#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help { max-width: 1240px !important; margin-left: auto !important; margin-right: auto !important; width: 100%; }
+#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help, #myCodesView > .mc { max-width: 1240px !important; margin-left: auto !important; margin-right: auto !important; width: 100%; }
 
 /* Statistieken: groei per QR-code, kalender, rapport afdrukken */
 .an-gr { font-style: normal; font-size: 11.5px; font-weight: 700; margin-right: 8px; color: var(--muted); }
@@ -3786,13 +3786,13 @@ body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke p
 /* Glas zoals het paneel bij QR-code maken, op alle pagina's (helder matglas: je achtergrond schijnt wazig door).
    De vervaging zit op een ::before-laag i.p.v. op de bubbel zelf: zo blijven vensters/lades (position: fixed) binnen de pagina gewoon op hun plek. */
 #analyticsView > .an, #accountView > .account, #contactView > .help, #faqView > .help,
-#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help {
+#adminDashView > .help, #adminCodesView > .help, #customersView > .help, #adminSettingsView > .ast, #legalView > .lg, #settingsView > .help, #myCodesView > .mc {
   position: relative; isolation: isolate;
   background: linear-gradient(140deg, rgba(255,255,255,.17), rgba(255,255,255,.05) 45%, rgba(255,255,255,.09)) !important;
   border-color: rgba(255,255,255,.24) !important;
 }
 #analyticsView > .an::before, #accountView > .account::before, #contactView > .help::before, #faqView > .help::before,
-#adminDashView > .help::before, #adminCodesView > .help::before, #customersView > .help::before, #adminSettingsView > .ast::before, #legalView > .lg::before, #settingsView > .help::before {
+#adminDashView > .help::before, #adminCodesView > .help::before, #customersView > .help::before, #adminSettingsView > .ast::before, #legalView > .lg::before, #settingsView > .help::before, #myCodesView > .mc::before {
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
   -webkit-backdrop-filter: blur(36px) saturate(190%); backdrop-filter: blur(36px) saturate(190%);
 }
@@ -4067,3 +4067,7 @@ body.an-printing #anRange { display: block; }
   #analyticsView { padding-top: 10px !important; }
   #analyticsView > .an { margin-top: 0 !important; }
 }
+/* Downloadmenu: maat-knopjes altijd netjes (tekst in het midden van het blauwe vlak) */
+.mc-sizes .mc-sz { display: inline-flex !important; align-items: center; justify-content: center; width: auto !important; height: 28px !important; min-height: 0 !important; padding: 0 9px !important; margin: 0 !important; line-height: 1 !important; font-size: 12.5px !important; border-radius: 8px !important; }
+.mc-sizes .mc-sz:not(.on) { border: 1px solid var(--line-strong) !important; background: none !important; color: var(--muted) !important; }
+.mc-sizes .mc-sz.on { background: var(--accent) !important; border: 1px solid var(--accent) !important; color: #04121f !important; }
