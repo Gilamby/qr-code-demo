@@ -22,7 +22,13 @@ var Home = (function () {
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', up: '<path d="M7 14l5-5 5 5"/>', down: '<path d="M7 10l5 5 5-5"/>',
     key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>', mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
     warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>', out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>', check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
-    pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>', arrow: '<path d="M9 6l6 6-6 6"/>'
+    pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>', arrow: '<path d="M9 6l6 6-6 6"/>',
+    // Tegels van het overzicht (eigen iconen, met een kleine animatie bij aanwijzen; zie .hx-* in app.css)
+    folder: '<path class="hx-back" d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.3l2 2.2h8.7A1.5 1.5 0 0 1 21 8.7V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18z"/><path class="hx-front" d="M3 10.2h18V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18z"/>',
+    qrscan: '<path d="M3.5 8V5A1.5 1.5 0 0 1 5 3.5h3M16 3.5h3A1.5 1.5 0 0 1 20.5 5v3M20.5 16v3a1.5 1.5 0 0 1-1.5 1.5h-3M8 20.5H5A1.5 1.5 0 0 1 3.5 19v-3"/><rect x="7" y="7" width="4" height="4" rx=".6"/><rect x="13" y="7" width="4" height="4" rx=".6"/><rect x="7" y="13" width="4" height="4" rx=".6"/><path d="M13.5 13.5h1.5v1.5h-1.5zM16 16h1v1h-1zM13.5 16.5h.5"/><line class="hx-line" x1="2.5" x2="21.5" y1="12" y2="12"/>',
+    frame: '<path d="M3.5 8V5A1.5 1.5 0 0 1 5 3.5h3M16 3.5h3A1.5 1.5 0 0 1 20.5 5v3M20.5 16v3a1.5 1.5 0 0 1-1.5 1.5h-3M8 20.5H5A1.5 1.5 0 0 1 3.5 19v-3"/><rect class="hx-box" x="7.5" y="7" width="9" height="8" rx="1"/><path class="hx-base" d="M5 18h14"/>',
+    sun2: '<circle class="hx-core" cx="12" cy="12" r="3.6"/><g class="hx-rays"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g>',
+    star2: '<path class="hx-star" d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z"/>'
   };
   var ico = function (k, cls) { return SVG(IC[k], cls); };
   function iso(d) { return d.toISOString().slice(0, 10); }
@@ -81,10 +87,10 @@ var Home = (function () {
     var tile = function (cls, icon, label, value, extra) { return '<div class="hm-tile glass ' + cls + '"><span class="hm-tic">' + ico(icon) + '</span><small>' + label + '</small><b>' + value + '</b>' + (extra || '') + '</div>'; };
     var active = codes.filter(function (r) { return !r.paused; }).length;
     return '<div class="hm-tiles">' +
-      tile('t-codes', 'codes', t('home.tCodesAll'), i18n.fmt.num(codes.length), '<em class="hm-trend flat"><i class="hm-dot' + (off ? ' warn' : '') + '"></i>' + t('home.activeN', { n: i18n.fmt.num(active) }) + '</em>') +
-      tile('t-scans', 'scan', t('home.tScansAll'), i18n.fmt.num(cur.s), trend(cur.s, sr.prev.s)) +
-      tile('t-uniq', 'user', t('home.tUniqueAll'), i18n.fmt.num(cur.u), trend(cur.u, sr.prev.u)) +
-      tile('t-today', 'sun', t('home.tToday'), i18n.fmt.num(today.s), '<em class="hm-trend flat">' + esc(i18n.fmt.date(new Date(), 'day')) + '</em>') + '</div>';
+      tile('t-codes', 'folder', t('home.tCodesAll'), i18n.fmt.num(codes.length), '<em class="hm-trend flat"><i class="hm-dot' + (off ? ' warn' : '') + '"></i>' + t('home.activeN', { n: i18n.fmt.num(active) }) + '</em>') +
+      tile('t-scans', 'qrscan', t('home.tScansAll'), i18n.fmt.num(cur.s), trend(cur.s, sr.prev.s)) +
+      tile('t-uniq', 'frame', t('home.tUniqueAll'), i18n.fmt.num(cur.u), trend(cur.u, sr.prev.u)) +
+      tile('t-today', 'sun2', t('home.tToday'), i18n.fmt.num(today.s), '<em class="hm-trend flat">' + esc(i18n.fmt.date(new Date(), 'day')) + '</em>') + '</div>';
   }
   // Staafgrafiek: één reeks (scans), dus geen legenda: de titel zegt wat het is
   function chart(sr) {
@@ -114,7 +120,7 @@ var Home = (function () {
   }
   function favorites() {
     var all = codes.filter(function (r) { return r.favorite; }), favs = all.slice(0, 5);
-    return '<div class="hm-card glass hm-favs"><div class="hm-head"><h3>' + ico('star', 'hm-hi star') + t('home.favCodes') + (all.length ? ' <em class="hm-count">' + i18n.fmt.num(all.length) + '</em>' : '') + '</h3>' + (all.length ? '<button type="button" class="link-btn" data-goto-fav>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button>' : '') + '</div>' +
+    return '<div class="hm-card glass hm-favs"><div class="hm-head"><h3>' + ico('star2', 'hm-hi star') + t('home.favCodes') + (all.length ? ' <em class="hm-count">' + i18n.fmt.num(all.length) + '</em>' : '') + '</h3>' + (all.length ? '<button type="button" class="link-btn" data-goto-fav>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button>' : '') + '</div>' +
       (favs.length ? '<table class="hm-table"><thead><tr><th>' + t('ac.colCode') + '</th><th>' + t('adm.status') + '</th><th class="num">' + t('an.scans') + '</th></tr></thead><tbody>' + favs.map(function (r) {
           var on = isStatic(r) || !r.paused;
           return '<tr data-code="' + esc(r.id) + '" tabindex="0"><td><span class="hm-code"><span class="hm-qr" aria-hidden="true">' + QRRender.svg(CodeUtil.qrData(r), CodeUtil.qrDesign(r)) + '</span><span class="hm-cn"><b>' + esc(name(r)) + '</b><small>' + esc(typeName(getType(r.typeId))) + '</small></span></span></td>' +

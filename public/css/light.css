@@ -376,6 +376,7 @@
 :root[data-theme="light"] .mf-mx { color: rgba(13,19,32,0.495); }
 :root[data-theme="light"] .mf-mx:hover,
 :root[data-theme="light"] .mf-mx:focus-visible { color: #dc2626; }
+:root[data-theme="light"] #homeView .hm-favs:hover .hx-star { fill: #b45309; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

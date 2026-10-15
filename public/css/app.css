@@ -3571,3 +3571,38 @@ button.adm-label[aria-expanded="false"] .adm-chev { transform: rotate(-90deg); }
   .mf-row > .mf-wrap { min-width: 96px; }
   .mf-menu { min-width: 220px; max-width: calc(100vw - 40px); }
 }
+
+/* Overzicht: iconen in de tegels en bij Favorieten, met een kleine animatie bij aanwijzen */
+#homeView .hm-tic svg, #homeView .hm-hi { overflow: visible; }
+#homeView .hm-tic svg *, #homeView .hm-hi * { transform-box: fill-box; transition: transform .35s cubic-bezier(.3,1.4,.5,1), opacity .25s, fill .25s; }
+/* Map: klep gaat open */
+#homeView .hx-front { fill: currentColor; fill-opacity: .22; transform-origin: 50% 100%; }
+#homeView .t-codes:hover .hx-front { transform: skewX(-14deg) scaleY(.82) translateX(1px); }
+/* QR-code: scanlijn gaat op en neer */
+#homeView .hx-line { stroke-width: 1.4; opacity: 0; }
+#homeView .t-scans:hover .hx-line { opacity: 1; animation: hxScan 1.4s ease-in-out infinite; }
+@keyframes hxScan { 0%, 100% { transform: translateY(-7px); } 50% { transform: translateY(7px); } }
+/* Kader: vierkant "focust" (iets kleiner en weer terug) */
+#homeView .hx-box { fill: currentColor; fill-opacity: .14; transform-origin: 50% 50%; }
+#homeView .t-uniq:hover .hx-box { animation: hxFocus 1.2s ease-in-out infinite; }
+#homeView .t-uniq:hover .hx-base { transform: scaleX(.6); }
+#homeView .hx-base { transform-origin: 50% 50%; }
+@keyframes hxFocus { 50% { transform: scale(.78); fill-opacity: .3; } }
+/* Zon: stralen draaien langzaam */
+#homeView .hx-core { fill: currentColor; fill-opacity: .25; transform-origin: 50% 50%; }
+#homeView .hx-rays { transform-origin: 50% 50%; }
+#homeView .t-today:hover .hx-rays { animation: hxSpin 6s linear infinite; }
+#homeView .t-today:hover .hx-core { transform: scale(1.15); }
+@keyframes hxSpin { to { transform: rotate(360deg); } }
+/* Ster: draait en vult zich */
+#homeView .hx-star { transform-origin: 50% 55%; fill: transparent; }
+#homeView .hm-hi.star { fill: none !important; }
+#homeView .hm-favs:hover .hx-star { transform: rotate(72deg) scale(1.15); fill: #fbbf24; }
+#homeView .hm-tic { transition: transform .25s, background .25s; }
+#homeView .hm-tile:hover .hm-tic { transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) {
+  #homeView .hm-tic svg *, #homeView .hm-hi * { animation: none !important; transition: none !important; }
+}
+#homeView .hm-tic { width: 46px; height: 46px; border-radius: 14px; }
+#homeView .hm-tic .hm-i { width: 26px; height: 26px; stroke-width: 1.6; }
+#homeView .hm-head .hm-hi { width: 20px; height: 20px; }
