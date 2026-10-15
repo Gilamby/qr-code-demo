@@ -308,8 +308,7 @@
           form: '<form data-form="tz">' + field(t('acct.timezone'), '<select name="timezone">' + opts + '</select>', { icon: 'clock', hint: '<span id="acctTzNow">' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</span>' }) + btns() + '</form>' }) +
         row('role', t('acct.role'), '<span class="acct-chip role-' + role + '">' + (role !== 'user' ? SVG + ICON.shield + '</svg>' : '') + t('acct.role_' + role) + '</span>', { locked: true, icon: 'shield',
           why: t(role === 'super' ? 'acct.whyRoleSuper' : 'acct.whyRole') }) +
-      '</div></div>' +
-      dangerCard(m);
+      '</div></div>';   // Account verwijderen staat niet meer onder je gegevens: zie Privacy > Mijn gegevens / Account verwijderen
   }
   /* ---------- Beveiliging: wachtwoord, apparaten, recente activiteit ---------- */
   function devName(x) { return x.browser || x.os ? t('acct.devOn', { browser: x.browser || t('acct.devBrowser'), os: x.os || t('acct.devUnknown') }) : t('acct.devUnknownFull'); }
