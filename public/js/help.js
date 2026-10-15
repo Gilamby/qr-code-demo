@@ -54,7 +54,7 @@
         '<button class="btn primary" type="submit"' + (busy ? ' disabled' : '') + '>' + SVG + ICON.send + '</svg>' + t('contact.send') + '</button></div>' +
         (failMsg ? '<p class="acct-msg bad" role="alert">' + esc(failMsg) + '</p>' : '') + '</form>';
     }
-    contactBox.innerHTML = '<header class="help-head"><h2>' + t('nav.contact') + '</h2><p>' + t('contact.lead') + '</p></header><div class="help-grid">' + main + side + '</div>';
+    contactBox.innerHTML = '<header class="help-head ct-head"><div><h2>' + t('nav.contact') + '</h2><p>' + t('contact.lead') + '</p></div>' + '<div class="ct-globe" aria-hidden="true"><svg viewBox="0 0 120 120">' +'<defs><radialGradient id="ctG" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#7fd6ff"/><stop offset=".55" stop-color="#2bb5f0"/><stop offset="1" stop-color="#0d4f86"/></radialGradient></defs>' +'<circle class="ct-glow" cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="34" fill="url(#ctG)"/>' +'<g class="ct-lines" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"><ellipse class="m1" cx="60" cy="60" rx="34" ry="34"/><ellipse class="m2" cx="60" cy="60" rx="20" ry="34"/><ellipse class="m3" cx="60" cy="60" rx="6" ry="34"/>' +'<path d="M27 48h66M26 60h68M27 72h66"/></g>' +'<g class="ct-orbit"><g class="ct-plane" transform="translate(60 12)"><path d="M-9 2 9-6 3 9 0 3z" fill="#fff"/><path d="M0 3 9-6" stroke="#2bb5f0" stroke-width="1.2"/></g></g>' +'<circle class="ct-ping" cx="74" cy="50" r="3"/><circle cx="74" cy="50" r="2.6" fill="#fff"/></svg></div>' + '</header><div class="help-grid">' + main + side + '</div>';
   }
   function checkContact() {
     var e = [];

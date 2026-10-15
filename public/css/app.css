@@ -4116,3 +4116,22 @@ body.an-printing #anRange { display: block; }
 /* Zijbalk onderaan: Instellingen (tandwiel), dan je profiel direct boven Uitloggen */
 .set-item { margin-top: auto; }
 .set-item + .me-item { margin-top: 0; }
+
+/* Contact: draaiende wereldbol met een papieren vliegtuigje dat eromheen vliegt (Optimasys, overal bereikbaar) */
+.ct-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.ct-globe { width: 104px; height: 104px; flex: none; margin: -12px 0 -12px; }
+.ct-globe svg { width: 100%; height: 100%; overflow: visible; }
+.ct-glow { fill: rgba(43,181,240,.25); filter: blur(8px); animation: ctBreath 3.2s ease-in-out infinite; transform-origin: 60px 60px; }
+.ct-lines .m1 { animation: ctSpin 6s linear infinite; }
+.ct-lines .m2 { animation: ctSpin 6s linear infinite -2s; }
+.ct-lines .m3 { animation: ctSpin 6s linear infinite -4s; }
+.ct-orbit { animation: ctOrbit 7s linear infinite; transform-origin: 60px 60px; }
+.ct-ping { fill: none; stroke: #fff; stroke-width: 1.5; transform-origin: 74px 50px; animation: ctPing 2.4s ease-out infinite; }
+@keyframes ctSpin { 0% { rx: 34px; } 50% { rx: 0px; } 100% { rx: 34px; } }
+@keyframes ctOrbit { to { transform: rotate(360deg); } }
+@keyframes ctBreath { 50% { transform: scale(1.08); opacity: .7; } }
+@keyframes ctPing { from { transform: scale(1); opacity: 1; } to { transform: scale(4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ct-glow, .ct-lines *, .ct-orbit, .ct-ping { animation: none !important; } }
+@media (max-width: 760px) { .ct-globe { width: 72px; height: 72px; } }
+.ct-head { justify-content: flex-start; gap: 14px; }
+.ct-head .ct-globe { order: -1; width: 84px; height: 84px; margin: -10px 0 -10px -8px; }
