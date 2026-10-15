@@ -383,7 +383,7 @@
 :root[data-theme="light"] .page-title { color: rgba(13,19,32,0.54) !important; }
 }
 @media (min-width: 761px) {
-:root[data-theme="light"] body.scrolled .topbar { border-bottom: 1px solid rgba(13,19,32,0.072) !important; }
+:root[data-theme="light"] body.scrolled .topbar { background: linear-gradient(180deg, rgba(13,19,32,0.075), rgba(13,19,32,0.03)) !important; border-bottom: 1px solid rgba(13,19,32,0.108) !important; }
 }
 :root[data-theme="light"] #analyticsView > .an,
 :root[data-theme="light"] #accountView > .account,

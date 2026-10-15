@@ -3779,7 +3779,7 @@ body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke p
   .page-title { font-size: 13px !important; color: rgba(255,255,255,.6) !important; }
 }
 @media (min-width: 761px) {
-  body.scrolled .topbar { background: rgba(12,15,21,.86) !important; -webkit-backdrop-filter: blur(22px) saturate(140%) !important; backdrop-filter: blur(22px) saturate(140%) !important; border-bottom: 1px solid rgba(255,255,255,.08) !important; }
+  body.scrolled .topbar { background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)) !important; -webkit-backdrop-filter: blur(28px) saturate(180%) !important; backdrop-filter: blur(28px) saturate(180%) !important; border-bottom: 1px solid rgba(255,255,255,.12) !important; }   /* helder matglas bij scrollen, geen zwarte balk */
   .topbar { transition: background .25s, border-color .25s; }
 }
 
@@ -3985,6 +3985,6 @@ body.an-printing #anRange { display: block; }
 @media (prefers-reduced-motion: reduce) { #authScene { transition: none; } .auth-art-hint { display: none; } }
 
 /* Invoervelden mogen nooit breder worden dan hun kolom (bv. voor- en achternaam naast elkaar in een venster) */
-.auth-f { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.auth-f { grid-template-columns: minmax(0, 1fr); min-width: 0; align-content: start; }   /* label en veld altijd bovenaan, ook als het buurveld een hulptekst heeft */
 .auth-in { min-width: 0; }
 .auth-in input, .auth-in select, .auth-in textarea { width: 100%; box-sizing: border-box; }
