@@ -178,7 +178,7 @@ var Analytics = (function () {
   function step(max) { var raw = Math.max(1, max / 4), p = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / p; return Math.max(1, (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p); }
   function lineChart(series) {
     var box = body.querySelector('.an-plot'); if (!box) return;
-    var W = Math.max(280, box.clientWidth), H = printAll ? 280 : W < 520 ? 200 : 230, L = 40, R = 14, T = 12, B = 30, iw = W - L - R, ih = H - T - B;
+    var W = Math.max(280, box.clientWidth), H = printAll ? 280 : W < 520 ? 200 : 270, L = 40, R = 14, T = 12, B = 30, iw = W - L - R, ih = H - T - B;
     var top = Math.max.apply(null, series.map(function (p) { return p.s; }).concat([1])), st = step(top), max = Math.ceil(top / st) * st, n = series.length;
     var x = function (i) { return L + (n === 1 ? iw / 2 : i * iw / (n - 1)); }, y = function (v) { return T + ih - v / max * ih; };
     var ticks = []; for (var v = 0; v <= max + 1e-9; v += st) ticks.push(v);
