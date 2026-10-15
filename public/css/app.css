@@ -4071,3 +4071,11 @@ body.an-printing #anRange { display: block; }
 .mc-sizes .mc-sz { display: inline-flex !important; align-items: center; justify-content: center; width: auto !important; height: 28px !important; min-height: 0 !important; padding: 0 9px !important; margin: 0 !important; line-height: 1 !important; font-size: 12.5px !important; border-radius: 8px !important; }
 .mc-sizes .mc-sz:not(.on) { border: 1px solid var(--line-strong) !important; background: none !important; color: var(--muted) !important; }
 .mc-sizes .mc-sz.on { background: var(--accent) !important; border: 1px solid var(--accent) !important; color: #04121f !important; }
+
+/* Bovenbalk (computer): altijd onzichtbaar, ook bij scrollen. Hij scrolt gewoon mee (geen balk over de inhoud).
+   De paginanaam staat al groot in de bubbel, dus bovenin alleen nog voor schermlezers. */
+@media (min-width: 761px) {
+  .topbar { position: relative !important; }
+  body.scrolled .topbar { background: transparent !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; border-bottom: 0 !important; }
+  .page-title { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
