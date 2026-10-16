@@ -2158,5 +2158,22 @@
     "d_delete": "Dein Konto und alle QR-Codes endgültig löschen",
     "d_contact": "Frage, Problem oder Idee? Schreib uns",
     "d_faq": "Antworten auf häufige Fragen"
+  },
+  "legacy": {
+    "menu": "Link existing QR code",
+    "menuEdit": "Change linked QR code",
+    "badge": "Existing code",
+    "badgeTip": "Printed QR code from another app: {url}",
+    "title": "Link an existing QR code",
+    "lead": "For a QR code already printed from another app. This code then shows and downloads exactly that QR code, and scans run through this app.",
+    "step1": "Address inside the old QR code",
+    "step1Hint": "Scan the printed code and see which address opens first, or copy the short link from the old app (e.g. https://qr-code.io/…).",
+    "step2": "In the old app, set the destination to this link:",
+    "step3": "Scan the old code: you reach the right page through this app and the scan counts here.",
+    "unlink": "Unlink",
+    "saved": "Existing QR code linked",
+    "removed": "Link removed",
+    "bad": "Enter a valid web address (with https://).",
+    "self": "That is this code’s own link. Enter the address from the old QR code."
   }
 }

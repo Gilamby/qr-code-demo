@@ -40,7 +40,7 @@ function encodeQR(state) {
     }
     // Dynamisch: elke QR-code krijgt een eigen korte link (uniek, telt scans, inhoud later aan te passen).
     // Het id wordt vooraf gereserveerd, dus wat je in de preview ziet is precies de code die je krijgt.
-    default: return state.saved ? state.saved.shortUrl : shortLink(state.draftId);
+    default: return state.saved ? (state.saved.legacyUrl || state.saved.shortUrl) : shortLink(state.draftId);   // gekoppelde bestaande QR-code: precies die inhoud
   }
 }
 function contrastRatio(a, b) {

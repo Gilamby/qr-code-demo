@@ -12,22 +12,24 @@ import { validateQrCode } from './validation';
 import { QrCodesService, cleanName, freshCodeId, missingRequired, secretKey } from './qr-codes.service';
 import type { User } from '../types';
 import { planFor } from '../plans';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('api/qr-codes')
 @UseGuards(LoggedIn)
 export class QrCodesController {
-  constructor(private readonly db: DatabaseService, private readonly codes: QrCodesService) {}
+  constructor(private readonly db: DatabaseService, private readonly codes: QrCodesService, private readonly auth: AuthService) {}
 
   @Get()
   async list(@Req() req: Request, @CurrentUser() user: User) {
-    return (await this.db.listQrCodes(user.id)).map((q) => this.codes.out(req, q));
+    const m = await this.codes.legacyMap(user.id);
+    return Promise.all((await this.db.listQrCodes(user.id)).map((q) => this.codes.outFull(req, q, m)));
   }
 
   @Get(':id')
   async one(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string) {
     const q = await this.db.getOwnedQrCode(id, user.id);
     if (!q) throw fail(404, 'QR code not found');
-    return this.codes.out(req, q);
+    return this.codes.outFull(req, q);
   }
 
   @Post()
@@ -77,7 +79,7 @@ export class QrCodesController {
     await this.db.pruneFiles(old.id, files);                          // vervangen bestanden opruimen
     const patch: any = { content: value.content, design: value.design };
     if (body.name !== undefined) patch.name = cleanName(body.name);
-    return this.codes.out(req, await this.db.updateQrCode(old.id, patch));
+    return this.codes.outFull(req, await this.db.updateQrCode(old.id, patch));
   }
 
   /** Kleine wijziging vanuit Mijn QR-codes: naam of aan/uit */
@@ -89,14 +91,23 @@ export class QrCodesController {
     if (b.name !== undefined) { if (typeof b.name !== 'string') errors.push('name: must be text'); else patch.name = cleanName(b.name); }
     if (b.paused !== undefined) { if (typeof b.paused !== 'boolean') errors.push('paused: must be true or false'); else patch.paused = b.paused; }
     if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
-    if (errors.length || !Object.keys(patch).length) throw fail(400, 'Invalid update', { details: errors.length ? errors : ['nothing to change'] });
+    let legacy: string | null | undefined;
+    if (b.legacyUrl !== undefined) {                                 // bestaande QR-code uit een andere app koppelen: alleen het team
+      if (!this.auth.isAdmin(user)) errors.push('legacyUrl: team only');
+      else if (b.legacyUrl === null || b.legacyUrl === '') legacy = null;
+      else if (typeof b.legacyUrl !== 'string' || !/^https?:\/\/[^\s]{3,}$/i.test(b.legacyUrl.trim()) || b.legacyUrl.length > 500) errors.push('legacyUrl: must be a web address');
+      else if (/\/q\/[A-Za-z0-9_-]+\/?$/.test(b.legacyUrl.trim()) && b.legacyUrl.trim().indexOf('/q/' + id) >= 0) errors.push('legacyUrl: that is this code itself');
+      else legacy = b.legacyUrl.trim();
+    }
+    if (errors.length || (!Object.keys(patch).length && legacy === undefined)) throw fail(400, 'Invalid update', { details: errors.length ? errors : ['nothing to change'] });
+    if (legacy !== undefined) { await this.codes.setLegacy(user.id, id, legacy); if (!Object.keys(patch).length) return this.codes.outFull(req, cur); }
     // Gepauzeerd door het team: weer aanzetten mag alleen als het team dat toestaat (lock = nee)
     const hold = cur.moderation && cur.moderation.hold;
     if (patch.paused === false && hold) {
       if (hold.lock) throw fail(403, 'admin_hold');
       patch.moderation = cur.moderation.flag ? { flag: cur.moderation.flag } : null;
     }
-    return this.codes.out(req, await this.db.updateQrCode(id, patch));
+    return this.codes.outFull(req, await this.db.updateQrCode(id, patch));
   }
 
   /** Kopie maken: zelfde type, inhoud, ontwerp, map en bestanden (gekopieerd), maar een nieuwe link en 0 scans */
@@ -118,5 +129,6 @@ export class QrCodesController {
   @HttpCode(204)
   async remove(@CurrentUser() user: User, @Param('id') id: string) {
     if (!(await this.db.deleteQrCode(id, user.id))) throw fail(404, 'QR code not found');
+    await this.codes.setLegacy(user.id, id, null);
   }
 }

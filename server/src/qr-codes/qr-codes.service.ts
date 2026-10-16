@@ -32,6 +32,23 @@ export const missingRequired = (typeId: string, content: Record<string, any>) =>
 export class QrCodesService {
   constructor(private readonly db: DatabaseService) {}
 
+  /* ---------- Bestaande QR-code (uit een andere app) gekoppeld aan een code hier ----------
+     legacyUrl = het adres dat in de oude, al geprinte QR-code zit. De app toont en downloadt dan precies die QR-code
+     (zelfde inhoud = zelfde code), terwijl de oude app doorstuurt naar onze korte link. Per gebruiker één instelling. */
+  async legacyMap(userId: string): Promise<Record<string, string>> {
+    try { const v = await this.db.getSetting('legacy:' + userId); const m = v ? JSON.parse(v) : {}; return m && typeof m === 'object' ? m : {}; } catch (e) { return {}; }
+  }
+  async setLegacy(userId: string, codeId: string, url: string | null) {
+    const m = await this.legacyMap(userId); if (url) m[codeId] = url; else delete m[codeId];
+    await this.db.setSetting('legacy:' + userId, Object.keys(m).length ? JSON.stringify(m) : null);
+  }
+  /** out() + het gekoppelde oude adres (als dat er is) */
+  async outFull(req: Request, q: QrCode, map?: Record<string, string>) {
+    const r: any = this.out(req, q), m = map || await this.legacyMap(q.userId);
+    if (m[q.id]) r.legacyUrl = m[q.id];
+    return r;
+  }
+
   /** Naar buiten: nooit het (gehashte) wachtwoord, nooit het bestand zelf; wel de korte link */
   out(req: Request, q: QrCode) {
     const content = { ...q.content }, key = secretKey(q.typeId);

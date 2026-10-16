@@ -17,6 +17,7 @@ var MyCodes = (function () {
     copy: '<rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>',
     more: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
     open: '<path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>',
+    chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
     scan: '<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/>',
@@ -146,6 +147,7 @@ var MyCodes = (function () {
       '<div class="mc-main"><div class="mc-namerow"><button type="button" class="mc-star' + (r.favorite ? ' on' : '') + '" data-act="fav" aria-pressed="' + !!r.favorite + '" aria-label="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '" title="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '">' + ico('star') + '</button>' + nameHtml + '</div>' +
         '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.stamp(r.createdAt, 'short') })) + '</span>' +
           (r.updatedAt && r.updatedAt !== r.createdAt ? '<span class="mc-dot">·</span><span title="' + esc(i18n.fmt.stamp(r.updatedAt, 'long')) + '">' + esc(t('myCodes.edited', { date: i18n.fmt.stamp(r.updatedAt, 'short') })) + '</span>' : '') +
+          (r.legacyUrl ? '<span class="mc-legacy" title="' + esc(t('legacy.badgeTip', { url: r.legacyUrl })) + '">' + ico('chain') + t('legacy.badge') + '</span>' : '') +
           (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
@@ -162,6 +164,7 @@ var MyCodes = (function () {
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
             '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
+            (!stat && isTeam() ? '<button type="button" role="menuitem" data-act="legacy">' + ico('chain') + t(r.legacyUrl ? 'legacy.menuEdit' : 'legacy.menu') + '</button>' : '') +
             '<button type="button" role="menuitem" class="danger" data-act="delete">' + ico('trash') + t('myCodes.delete') + '</button></div></div>' +
       '</div>' +
       // Gepauzeerd door het team (met reden): over de hele breedte onder de kaart
@@ -361,6 +364,35 @@ var MyCodes = (function () {
     }).catch(function () { rows.forEach(function (r) { if (r.id in before) r.folderId = before[r.id]; }); draw(); toast('myCodes.failed'); });
   }
   /** Kiezen naar welke map een code gaat */
+  function isTeam() { var u = window.Session && Session.user ? Session.user() : null; return !!(u && u.admin) && !api.isDemo(); }
+  /* Bestaande QR-code (uit een andere app, al geprint) koppelen: deze code toont en downloadt dan precies die QR-code.
+     De oude app moet doorsturen naar onze korte link; zo lopen de scans via ons en blijft de geprinte code werken. Alleen voor het team. */
+  function askLegacy(r) {
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg lg-dlg"><h3>' + esc(t('legacy.title')) + '</h3><p>' + t('legacy.lead') + '</p>' +
+      '<ol class="lg-steps"><li><b>' + t('legacy.step1') + '</b><small>' + t('legacy.step1Hint') + '</small>' +
+        '<input name="old" type="url" inputmode="url" spellcheck="false" maxlength="500" placeholder="https://…" value="' + esc(r.legacyUrl || '') + '"></li>' +
+      '<li><b>' + t('legacy.step2') + '</b><span class="lg-link"><code>' + esc(r.shortUrl) + '</code><button type="button" class="btn ghost sm" data-lg-copy>' + ico('copy') + '<span>' + t('myCodes.copy') + '</span></button></span></li>' +
+      '<li><b>' + t('legacy.step3') + '</b></li></ol>' +
+      '<p class="acct-msg bad" data-lg-msg hidden></p>' +
+      '<div class="mc-dlg-btns">' + (r.legacyUrl ? '<button type="button" class="btn ghost" data-lg-off>' + t('legacy.unlink') + '</button>' : '') +
+        '<button class="btn ghost" value="cancel" formnovalidate>' + t('myCodes.cancel') + '</button><button type="button" class="btn primary" data-lg-save>' + t('acct.save') + '</button></div></form>';
+    var f = dialog.querySelector('form'), msg = f.querySelector('[data-lg-msg]');
+    var save = function (url) {
+      api.patchQrCode(r.id, { legacyUrl: url }).then(function (rec) { replace(rec); dialog.close(); draw(); toast(url ? 'legacy.saved' : 'legacy.removed'); })
+        .catch(function () { msg.textContent = t('legacy.bad'); msg.hidden = false; f.old.focus(); });
+    };
+    f.addEventListener('click', function (e) {
+      if (e.target.closest('[data-lg-copy]')) return copy(r.shortUrl);
+      if (e.target.closest('[data-lg-off]')) return save(null);
+      if (e.target.closest('[data-lg-save]')) {
+        var v = f.old.value.trim();
+        if (!/^https?:\/\/\S{3,}$/i.test(v)) { msg.textContent = t('legacy.bad'); msg.hidden = false; return f.old.focus(); }
+        if (v.replace(/\/$/, '') === r.shortUrl.replace(/\/$/, '')) { msg.textContent = t('legacy.self'); msg.hidden = false; return f.old.focus(); }
+        save(v);
+      }
+    });
+    dialog.onclose = null; dialog.returnValue = ''; dialog.showModal(); f.old.focus();
+  }
   function askMove(r) {
     var many = Array.isArray(r), ids = many ? r.map(function (x) { return x.id; }) : [r.id];
     if (many && r.length === 1) { r = r[0]; many = false; }
@@ -443,6 +475,7 @@ var MyCodes = (function () {
     if (act === 'delete') return askDelete(r);
     if (act === 'rename') { renaming = r.id; return draw(); }
     if (act === 'move') return askMove(r);
+    if (act === 'legacy') return askLegacy(r);
     if (act === 'fav') return favorite(r);
     if (act === 'duplicate') return duplicate(r);
   });

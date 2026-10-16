@@ -2210,5 +2210,22 @@
     "d_delete": "Je account en al je QR-codes definitief verwijderen",
     "d_contact": "Vraag, probleem of idee? Stuur ons een bericht",
     "d_faq": "Antwoorden op veelgestelde vragen"
+  },
+  "legacy": {
+    "menu": "Bestaande QR-code koppelen",
+    "menuEdit": "Gekoppelde QR-code wijzigen",
+    "badge": "Bestaande code",
+    "badgeTip": "Geprinte QR-code uit een andere app: {url}",
+    "title": "Bestaande QR-code koppelen",
+    "lead": "Voor een QR-code die al geprint is in een andere app. Deze code toont en downloadt dan precies die QR-code, en de scans lopen via deze app.",
+    "step1": "Adres dat in de oude QR-code zit",
+    "step1Hint": "Scan de geprinte code en kijk welk adres eerst opent, of kopieer de korte link uit de oude app (bijv. https://qr-code.io/…).",
+    "step2": "Zet in de oude app de bestemming op deze link:",
+    "step3": "Scan de oude code: je komt via deze app op de juiste pagina en de scan telt hier mee.",
+    "unlink": "Ontkoppelen",
+    "saved": "Bestaande QR-code gekoppeld",
+    "removed": "Koppeling verwijderd",
+    "bad": "Vul een geldig webadres in (met https://).",
+    "self": "Dat is de link van deze code zelf. Vul het adres uit de oude QR-code in."
   }
 }
