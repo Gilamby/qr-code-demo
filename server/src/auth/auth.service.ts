@@ -99,9 +99,11 @@ export class AuthService implements OnModuleDestroy {
   meta(req: Request) { return { ua: String(req.get('user-agent') || ''), ip: String(req.ip || '') }; }
   /** E-mail staat vast in de serverinstellingen (SUPPORT_EMAIL / ADMIN_EMAILS): wijzigen zou de rechten kapotmaken */
   emailLocked(u: { email?: string }) {
-    const list = [process.env.SUPPORT_EMAIL || ''].concat(String(process.env.ADMIN_EMAILS || '').split(',')).map((x) => x.trim().toLowerCase()).filter(Boolean);
-    return list.indexOf(String(u.email || '').toLowerCase()) >= 0;
+    return this.envTeam().indexOf(String(u.email || '').toLowerCase()) >= 0;
   }
+  /** Alle adressen die in .env staan: SUPPORT_EMAIL, SUPER_ADMIN_EMAILS en ADMIN_EMAILS */
+  private envTeam() { return [process.env.SUPPORT_EMAIL || ''].concat(this.superList(), String(process.env.ADMIN_EMAILS || '').split(',')).map((x) => x.trim().toLowerCase()).filter(Boolean); }
+  private superList() { return [process.env.SUPPORT_EMAIL || ''].concat(String(process.env.SUPER_ADMIN_EMAILS || '').split(',')).map((x) => x.trim().toLowerCase()).filter(Boolean); }
 
   /* ---------- Team (beheer) ----------
      Team-leden zien de pagina Klanten en kunnen klanten uitnodigen.
@@ -109,13 +111,12 @@ export class AuthService implements OnModuleDestroy {
   isAdmin(u: { email?: string; role?: string | null } | null) {
     if (!u || !u.email) return false;
     if (u.role === 'admin') return true;                                    // admin gemaakt door de super-admin (pagina Gebruikers)
-    const list = [process.env.SUPPORT_EMAIL || ''].concat(String(process.env.ADMIN_EMAILS || '').split(',')).map((x) => x.trim().toLowerCase()).filter(Boolean);
-    return list.indexOf(String(u.email).toLowerCase()) >= 0;
+    return this.envTeam().indexOf(String(u.email).toLowerCase()) >= 0;
   }
-  /** Super-admin: het vaste team-account (SUPPORT_EMAIL). Kan anderen admin maken; kan zelf niet uitgezet of verwijderd worden. */
+  /** Super-admin: het vaste team-account (SUPPORT_EMAIL) en wie in SUPER_ADMIN_EMAILS staat (komma's ertussen).
+      Kan anderen admin maken; kan zelf niet uitgezet of verwijderd worden. */
   isSuper(u: { email?: string } | null) {
-    const s = String(process.env.SUPPORT_EMAIL || '').trim().toLowerCase();
-    return !!(u && u.email && s && String(u.email).toLowerCase() === s);
+    return !!(u && u.email && this.superList().indexOf(String(u.email).toLowerCase()) >= 0);
   }
   /** Mag iedereen zelf een account maken? Standaard niet: klanten krijgen een account bij hun licentie (ALLOW_SIGNUP=true zet het aan). */
   signupOpen() { return process.env.ALLOW_SIGNUP === 'true'; }
