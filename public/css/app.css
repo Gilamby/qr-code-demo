@@ -4180,3 +4180,15 @@ body.an-printing #anRange { display: block; }
 @keyframes hicFil { 0%, 35% { opacity: .5; } 50%, 75% { opacity: 1; } 100% { opacity: .5; } }
 @keyframes hicRays { 0%, 35% { opacity: 0; transform: scale(.8); } 50%, 75% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.05); } }
 @media (prefers-reduced-motion: reduce) { .hic * { animation: none !important; } .hic-rays, .hic-dots { opacity: 1; } }
+
+/* Bugfixes uit de controle-ronde */
+.mf-row.tight .mf-add > span:not(.sr-only), .mf-row.tight .mf-more > .mf-mlbl { display: none; }
+.mf-row.tight .mf-add { padding: 0 12px; }
+.mf-row.wrap { flex-wrap: wrap !important; }
+@media (min-width: 761px) { .ac-table { overflow-x: auto !important; } .ac-table .ac-row { min-width: 900px; } }
+.ast-tabs { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.ast-tabs button { flex: none; }
+.cust-tr .cust-who { min-width: 0; overflow: hidden; }
+.cust-tr .cust-who b, .cust-tr .cust-who small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; overflow-wrap: normal; }
+/* Mijn QR-codes, tablet/smalle computer: gegevens onder elkaar, geen losse puntjes, datum niet afgebroken */
+@media (max-width: 1180px) { .mc-meta { display: grid; gap: 2px; justify-items: start; } .mc-meta .mc-dot { display: none; } .mc-meta > * { white-space: nowrap; } }

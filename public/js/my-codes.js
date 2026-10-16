@@ -91,10 +91,13 @@ var MyCodes = (function () {
   function fitFolders() {
     var row = bar.querySelector('.mf-row'), more = row && row.querySelector('.mf-more'); if (!more || bar.hidden) return;
     var wraps = [].slice.call(row.querySelectorAll('.mf-wrap')), menu = more.querySelector('.mf-menu');
-    wraps.forEach(function (w) { w.hidden = false; }); more.hidden = true; menu.hidden = true;
+    wraps.forEach(function (w) { w.hidden = false; }); more.hidden = true; menu.hidden = true; row.classList.remove('tight', 'wrap');
     if (row.scrollWidth <= row.clientWidth + 1) return;
     more.hidden = false;
     for (var i = wraps.length - 1; i >= 0 && row.scrollWidth > row.clientWidth + 1; i--) { if (!wraps[i].querySelector('.mf-chip.on')) wraps[i].hidden = true; }
+    // Past het nog steeds niet (smal scherm, alle mappen al in "Meer")? Dan knoppen alleen met icoon, en als laatste redmiddel twee regels
+    if (row.scrollWidth > row.clientWidth + 1) row.classList.add('tight');
+    if (row.scrollWidth > row.clientWidth + 1) row.classList.add('wrap');
     var hid = wraps.filter(function (w) { return w.hidden; });
     more.querySelector('.mf-n').textContent = i18n.fmt.num(hid.length);
     menu.innerHTML = hid.map(function (w) {
