@@ -6,7 +6,7 @@
    - Raakt de inlogfunctie zelf niet aan (session.js)
    ========================================================= */
 (function () {
-  var SCENE_VERSION = '41669a91a1';
+  var SCENE_VERSION = '594b1def4a';
   var view = document.getElementById('authView'), canvas = document.getElementById('authScene'), art = canvas && canvas.parentNode;
   if (!view || !canvas || !window.matchMedia) return;
   var wide = matchMedia('(min-width: 761px)'), running = false, loading = null;

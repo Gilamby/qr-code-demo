@@ -81,6 +81,12 @@ function start(canvas) {
     specularIntensity: 1, specularColor: new Color('#e6f6ff'), envMapIntensity: 2.4, iridescence: 0.35, iridescenceIOR: 1.3,
     emissive: new Color('#1a7fc4'), emissiveIntensity: 0.1,
   });
+  // Glas met "transmission" heeft een extra render-doel met kommagetallen nodig. Kan de videokaart/browser dat niet
+  // (sommige desktops, Brave, oudere drivers), dan zou je alleen de gloed zien en géén QR-code. Dan doorzichtig glas zonder transmission.
+  const gl = renderer.getContext(), canFloat = !!(gl && (gl.getExtension('EXT_color_buffer_half_float') || gl.getExtension('EXT_color_buffer_float') || gl.getExtension('OES_texture_half_float')));
+  if (!canFloat || /[?&]glass=simple\b/.test(location.search)) {
+    mat.transmission = 0; mat.transparent = true; mat.opacity = 0.72; mat.depthWrite = false; mat.roughness = 0.12; mat.envMapIntensity = 2.6; mat.emissiveIntensity = 0.35;
+  }
   const pieces = []; const r = rng(77), dummy = new Object3D(), off = (N - 1) / 2;
   cells.forEach((c) => { const k = Math.floor(r() * 4); pieces.push({ c, rz: k * Math.PI / 2 }, { c, rz: (k + 2) * Math.PI / 2 }); });
   const mesh = new InstancedMesh(geo, mat, pieces.length);
@@ -140,7 +146,10 @@ function start(canvas) {
   /* ---------- Grootte: sculptuur past altijd mooi in het vlak ---------- */
   const SIZE = N * CELL;
   function resize() {
-    const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1; renderer.setSize(w, h, false); camera.aspect = w / h;
+    const w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
+    // Grote/brede schermen: max. ±3,5 miljoen pixels tekenen (zwakkere videokaarten haken anders af)
+    renderer.setPixelRatio(Math.max(0.5, Math.min(window.devicePixelRatio || 1, 1.75, Math.sqrt(3.5e6 / (w * h)))));
+    renderer.setSize(w, h, false); camera.aspect = w / h;
     const fill = 0.6, vfov = camera.fov * Math.PI / 180, need = SIZE / fill;
     const distH = need / 2 / Math.tan(vfov / 2), distW = need / camera.aspect / 2 / Math.tan(vfov / 2);
     camera.position.z = Math.max(distH, distW) + 1.5; camera.updateProjectionMatrix();
