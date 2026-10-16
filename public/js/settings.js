@@ -71,14 +71,11 @@
 
 /* Upgrade-kaartje in de zijbalk: rustig, niet opdringerig. Laat het huidige pakket en het gebruik zien; klik = Abonnement. */
 (function () {
-  var card = document.getElementById('upCard'), sub = document.getElementById('upSub'), info = null;
+  var card = document.getElementById('upCard'), info = null;
   if (!card) return;
   function show() {
     var p = info && info.plan;
     if (!p || p.id === 'business' || (window.api && api.isDemo && api.isDemo())) { card.hidden = true; return; }
-    var u = info.usage || {};
-    sub.textContent = t('plan.n_' + p.id) + (u.limit ? ' · ' + i18n.fmt.num(u.used) + '/' + i18n.fmt.num(u.limit) : '');
-    card.classList.toggle('warn', u.state === 'near' || u.state === 'full');
     card.hidden = false;
   }
   function load() { if (!window.api || !api.account || !api.account.plan) return; api.account.plan().then(function (r) { info = r; show(); }).catch(function () { card.hidden = true; }); }

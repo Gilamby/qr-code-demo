@@ -2241,7 +2241,7 @@
     "isStatic": "Ce code contient un texte fixe, pas une adresse web. Il fonctionne toujours sans application ; recréez-le ici avec le même contenu."
   },
   "up": {
-    "title": "Passez à l’offre supérieure",
+    "title": "Changer d’offre",
     "cta": "Mettre à niveau"
   }
 }

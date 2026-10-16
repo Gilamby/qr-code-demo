@@ -4235,20 +4235,7 @@ body.an-printing #anRange { display: block; }
 .acct-setbtn { display: inline-flex; align-items: center; gap: 8px; height: 42px; text-decoration: none; }
 .acct-setbtn svg { width: 18px; height: 18px; }
 
-/* Zijbalk: Upgrade-kaartje boven je profiel */
-.up-card { margin: auto 10px 8px; display: grid; grid-template-columns: 32px minmax(0, 1fr); grid-template-areas: "ic txt" "go go"; gap: 4px 10px; padding: 12px; border-radius: 14px; text-decoration: none; color: var(--fg);
-  background: linear-gradient(135deg, rgba(43,181,240,.18), rgba(124,92,255,.16)); border: 1px solid rgba(120,180,255,.25); transition: transform .2s, box-shadow .2s; }
-.up-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px rgba(43,181,240,.5); }
-.up-card[hidden] { display: none; }
-.up-card + .me-item { margin-top: 0 !important; }
-.up-ic { grid-area: ic; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.1); color: #fbbf24; }
-.up-ic svg { width: 18px; height: 18px; animation: upTwinkle 3.5s ease-in-out infinite; }
-.up-txt { grid-area: txt; display: grid; min-width: 0; }
-.up-txt b { font-size: 14px; } .up-txt small { font-size: 12.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.up-go { grid-area: go; margin-top: 6px; height: 32px; border-radius: 9px; display: grid; place-items: center; font-size: 13px; font-weight: 800; color: #04121f; background: var(--accent); }
-.up-card.warn { border-color: rgba(251,191,36,.5); }
-@keyframes upTwinkle { 0%, 80%, 100% { transform: scale(1) rotate(0); } 88% { transform: scale(1.2) rotate(15deg); } }
-@media (prefers-reduced-motion: reduce) { .up-ic svg { animation: none; } }
-/* Ingeklapte zijbalk: alleen het sterretje */
-.app.collapsed .up-card { grid-template-columns: 1fr; grid-template-areas: "ic"; padding: 6px; margin: auto 8px 6px; justify-items: center; background: none; border-color: transparent; }
-.app.collapsed .up-txt, .app.collapsed .up-go { display: none; }
+/* Zijbalk: rustige regel "Upgrade plan" boven je profiel */
+.up-item { margin-top: auto; color: var(--accent) !important; }
+.up-item[hidden] { display: none !important; }
+.up-item + .me-item { margin-top: 0 !important; }

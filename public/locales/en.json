@@ -2241,7 +2241,7 @@
     "isStatic": "This code holds fixed text, not a web address. It always works without an app; create it again here with the same content."
   },
   "up": {
-    "title": "Upgrade your plan",
+    "title": "Upgrade plan",
     "cta": "Upgrade"
   }
 }

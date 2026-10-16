@@ -2241,7 +2241,7 @@
     "isStatic": "Deze code bevat geen webadres maar vaste tekst. Die werkt altijd zonder app; maak hem hier opnieuw aan met dezelfde inhoud."
   },
   "up": {
-    "title": "Upgrade je pakket",
+    "title": "Upgrade plan",
     "cta": "Upgraden"
   }
 }
