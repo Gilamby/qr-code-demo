@@ -17,6 +17,7 @@ var MyCodes = (function () {
     copy: '<rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>',
     more: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
     open: '<path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>',
+    qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
     chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
@@ -364,13 +365,35 @@ var MyCodes = (function () {
     }).catch(function () { rows.forEach(function (r) { if (r.id in before) r.folderId = before[r.id]; }); draw(); toast('myCodes.failed'); });
   }
   /** Kiezen naar welke map een code gaat */
-  function isTeam() { var u = window.Session && Session.user ? Session.user() : null; return !!(u && u.admin) && !api.isDemo(); }
+  function isTeam() { return !api.isDemo(); }   // iedereen die overstapt van een andere QR-app (naam is historisch)
   /* Bestaande QR-code (uit een andere app, al geprint) koppelen: deze code toont en downloadt dan precies die QR-code.
      De oude app moet doorsturen naar onze korte link; zo lopen de scans via ons en blijft de geprinte code werken. Alleen voor het team. */
+  // QR-code uit een afbeelding lezen: BarcodeDetector als de browser dat kan, anders jsQR (pas geladen als het nodig is)
+  var jsqrLoad = null;
+  function loadJsQr() {
+    if (window.jsQRmod) return Promise.resolve(window.jsQRmod.default || window.jsQRmod);
+    return jsqrLoad || (jsqrLoad = new Promise(function (ok, bad) { var sc = document.createElement('script'); sc.src = 'vendor/jsqr.min.js'; sc.onload = function () { ok(window.jsQRmod.default || window.jsQRmod); }; sc.onerror = function () { jsqrLoad = null; bad(); }; document.head.appendChild(sc); }));
+  }
+  function readQr(file) {
+    return new Promise(function (ok, bad) {
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function () {
+        var scale = Math.min(1, 1600 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        var viaJs = function () { return loadJsQr().then(function (jsQR) { var d = x.getImageData(0, 0, c.width, c.height), res = jsQR(d.data, d.width, d.height, { inversionAttempts: 'attemptBoth' }); return res ? res.data : ''; }); };
+        var p = window.BarcodeDetector ? new BarcodeDetector({ formats: ['qr_code'] }).detect(c).then(function (r) { return r[0] ? r[0].rawValue : viaJs(); }, viaJs) : viaJs();
+        p.then(ok, bad);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); bad(); };
+      img.src = url;
+    });
+  }
   function askLegacy(r) {
     dialog.innerHTML = '<form method="dialog" class="mc-dlg lg-dlg"><h3>' + esc(t('legacy.title')) + '</h3><p>' + t('legacy.lead') + '</p>' +
       '<ol class="lg-steps"><li><b>' + t('legacy.step1') + '</b><small>' + t('legacy.step1Hint') + '</small>' +
-        '<input name="old" type="url" inputmode="url" spellcheck="false" maxlength="500" placeholder="https://…" value="' + esc(r.legacyUrl || '') + '"></li>' +
+        '<span class="lg-row"><input name="old" type="url" inputmode="url" spellcheck="false" maxlength="500" placeholder="https://…" value="' + esc(r.legacyUrl || '') + '">' +
+        '<label class="btn ghost sm lg-scan">' + ico('qr') + '<span>' + t('legacy.fromImage') + '</span><input type="file" accept="image/*" data-lg-img hidden></label></span></li>' +
       '<li><b>' + t('legacy.step2') + '</b><span class="lg-link"><code>' + esc(r.shortUrl) + '</code><button type="button" class="btn ghost sm" data-lg-copy>' + ico('copy') + '<span>' + t('myCodes.copy') + '</span></button></span></li>' +
       '<li><b>' + t('legacy.step3') + '</b></li></ol>' +
       '<p class="acct-msg bad" data-lg-msg hidden></p>' +
@@ -381,6 +404,16 @@ var MyCodes = (function () {
       api.patchQrCode(r.id, { legacyUrl: url }).then(function (rec) { replace(rec); dialog.close(); draw(); toast(url ? 'legacy.saved' : 'legacy.removed'); })
         .catch(function () { msg.textContent = t('legacy.bad'); msg.hidden = false; f.old.focus(); });
     };
+    // Foto of schermafbeelding van de bestaande QR-code: we lezen het adres eruit (in de browser; de foto wordt niet geüpload)
+    f.querySelector('[data-lg-img]').addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
+      msg.hidden = true;
+      readQr(file).then(function (text) {
+        if (!text) { msg.textContent = t('legacy.noQr'); msg.hidden = false; return; }
+        if (!/^https?:\/\//i.test(text)) { msg.textContent = t(/^WIFI:/i.test(text) ? 'legacy.isWifi' : 'legacy.isStatic'); msg.hidden = false; return; }
+        f.old.value = text; f.old.focus();
+      }).catch(function () { msg.textContent = t('legacy.noQr'); msg.hidden = false; });
+    });
     f.addEventListener('click', function (e) {
       if (e.target.closest('[data-lg-copy]')) return copy(r.shortUrl);
       if (e.target.closest('[data-lg-off]')) return save(null);

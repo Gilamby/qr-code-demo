@@ -92,9 +92,8 @@ export class QrCodesController {
     if (b.paused !== undefined) { if (typeof b.paused !== 'boolean') errors.push('paused: must be true or false'); else patch.paused = b.paused; }
     if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
     let legacy: string | null | undefined;
-    if (b.legacyUrl !== undefined) {                                 // bestaande QR-code uit een andere app koppelen: alleen het team
-      if (!this.auth.isAdmin(user)) errors.push('legacyUrl: team only');
-      else if (b.legacyUrl === null || b.legacyUrl === '') legacy = null;
+    if (b.legacyUrl !== undefined) {                                 // bestaande QR-code uit een andere app koppelen (overstappen zonder nieuwe codes te printen)
+      if (b.legacyUrl === null || b.legacyUrl === '') legacy = null;
       else if (typeof b.legacyUrl !== 'string' || !/^https?:\/\/[^\s]{3,}$/i.test(b.legacyUrl.trim()) || b.legacyUrl.length > 500) errors.push('legacyUrl: must be a web address');
       else if (/\/q\/[A-Za-z0-9_-]+\/?$/.test(b.legacyUrl.trim()) && b.legacyUrl.trim().indexOf('/q/' + id) >= 0) errors.push('legacyUrl: that is this code itself');
       else legacy = b.legacyUrl.trim();

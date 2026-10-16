@@ -4204,3 +4204,8 @@ body.an-printing #anRange { display: block; }
 .lg-steps input:focus { outline: none; border-color: var(--accent); }
 .lg-link { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .lg-link code { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 9px 10px; border-radius: 10px; background: rgba(0,0,0,.25); font-size: 13.5px; }
+.lg-row { display: flex; gap: 8px; align-items: stretch; }
+.lg-row input { flex: 1; min-width: 0; }
+.lg-scan { flex: none; height: 46px !important; cursor: pointer; }
+.lg-scan svg { width: 18px; height: 18px; }
+.lg-dlg .mc-dlg-btns { flex-wrap: wrap; }

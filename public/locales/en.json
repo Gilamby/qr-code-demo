@@ -2212,20 +2212,24 @@
     "d_faq": "Answers to frequently asked questions"
   },
   "legacy": {
-    "menu": "Link existing QR code",
-    "menuEdit": "Change linked QR code",
-    "badge": "Existing code",
+    "menu": "Move existing QR code",
+    "menuEdit": "Change moved QR code",
+    "badge": "Moved",
     "badgeTip": "Printed QR code from another app: {url}",
-    "title": "Link an existing QR code",
-    "lead": "For a QR code already printed from another app. This code then shows and downloads exactly that QR code, and scans run through this app.",
-    "step1": "Address inside the old QR code",
-    "step1Hint": "Scan the printed code and see which address opens first, or copy the short link from the old app (e.g. https://qr-code.io/…).",
-    "step2": "In the old app, set the destination to this link:",
-    "step3": "Scan the old code: you reach the right page through this app and the scan counts here.",
+    "title": "Move an existing QR code",
+    "lead": "Switching from another QR app? You don’t need to reprint anything. This code shows and downloads exactly your existing QR code, and scans run through this app from now on.",
+    "step1": "Address inside your existing QR code",
+    "step1Hint": "Add a photo or screenshot of the QR code, or paste the short link from your old app.",
+    "step2": "In your old app, set the destination to this link:",
+    "step3": "Scan your existing code: you reach the right page through this app and the scan counts here. Keep your old app active while the printed codes are in use.",
     "unlink": "Unlink",
-    "saved": "Existing QR code linked",
+    "saved": "Existing QR code moved",
     "removed": "Link removed",
     "bad": "Enter a valid web address (with https://).",
-    "self": "That is this code’s own link. Enter the address from the old QR code."
+    "self": "That is this code’s own link. Enter the address from your existing QR code.",
+    "fromImage": "From photo",
+    "noQr": "No QR code found. Try a sharper photo, taken straight on.",
+    "isWifi": "This is a Wi-Fi code. It always works, even without an app: create a Wi-Fi code here with the same network name and password.",
+    "isStatic": "This code holds fixed text, not a web address. It always works without an app; create it again here with the same content."
   }
 }
