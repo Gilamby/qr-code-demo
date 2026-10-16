@@ -2239,10 +2239,32 @@
     "fromImage": "From photo",
     "noQr": "No QR code found. Try a sharper photo, taken straight on.",
     "isWifi": "This is a Wi-Fi code. It always works, even without an app: create a Wi-Fi code here with the same network name and password.",
-    "isStatic": "This code holds fixed text, not a web address. It always works without an app; create it again here with the same content."
+    "isStatic": "This code holds fixed text, not a web address. It always works without an app; create it again here with the same content.",
+    "dropTitle": "Drag a photo or screenshot of your QR code here",
+    "dropHint": "or click to choose one · pasting with Ctrl+V works too",
+    "orLink": "Or paste the link that’s in your QR code",
+    "found": "QR code read",
+    "notImage": "That’s not an image. Drag a photo or screenshot of your QR code."
   },
   "up": {
     "title": "Upgrade plan",
     "cta": "Upgrade"
+  },
+  "imp": {
+    "button": "Move an existing QR code",
+    "lead": "Already have QR codes from another app, maybe even printed? Move them here. The QR code itself stays exactly the same, so you don’t need to reprint anything.",
+    "step1": "Your existing QR code",
+    "step2": "Where should it go?",
+    "step2Hint": "The website people land on when they scan. You can always change this later.",
+    "name": "Name (just for you)",
+    "namePh": "E.g. Table menu",
+    "go": "Move it over",
+    "badDest": "Enter a valid link, e.g. https://yoursite.com",
+    "doneTitle": "Almost done: one more step",
+    "doneLead": "Your code is now in My QR Codes. In your old QR app, set this QR code’s destination to this link:",
+    "doneNote": "Until you do, the code still goes to the old destination. After that, every scan runs through us and you change everything here. Keep your old app active while the printed codes are in use.",
+    "done": "Done",
+    "banner": "Already have a QR code, maybe printed?",
+    "bannerGo": "Move it here"
   }
 }

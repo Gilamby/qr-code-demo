@@ -184,7 +184,8 @@ var MyCodes = (function () {
     var demo = document.getElementById('mcDemo'); demo.hidden = !api.isDemo(); demo.textContent = t('myCodes.demoNote');
     if (!rows.length) {
       list.innerHTML = '<div class="mc-empty glass">' + ico('empty') + '<h3>' + t('myCodes.emptyTitle') + '</h3><p>' + t('myCodes.emptyText') + '</p>' +
-        '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('myCodes.first') + '</button></div>';
+        '<span class="mc-empty-btns"><button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('myCodes.first') + '</button>' +
+        (isTeam() ? '<button type="button" class="btn ghost" data-import>' + ico('qr') + t('imp.button') + '</button>' : '') + '</span></div>';
       return;
     }
     var vis = visible(), searching = filter.q.trim() || filter.type;
@@ -256,7 +257,7 @@ var MyCodes = (function () {
   function load() {
     if (!loaded) message('myCodes.loading');
     return Promise.all([api.listQrCodes(), api.folders.list().catch(function () { return { folders: [] }; })])
-      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; loaded = true; drawTools(); draw(); })
+      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; loaded = true; label(); drawTools(); draw(); })
       .catch(function () { message('myCodes.error'); });
   }
 
@@ -399,11 +400,84 @@ var MyCodes = (function () {
       img.src = url;
     });
   }
+  /* Vak voor je bestaande QR-code: foto/screenshot slepen, plakken (Ctrl+V) of kiezen, of de link zelf invullen.
+     De foto wordt in de browser gelezen en niet geüpload. */
+  function pickerHtml(val) {
+    return '<div class="lg-drop" data-drop data-paste><label class="lg-dz">' + ico('scan') +
+        '<span><b data-lg-dzt>' + t('legacy.dropTitle') + '</b><small>' + t('legacy.dropHint') + '</small></span>' +
+        '<input type="file" accept="image/*" data-lg-img hidden></label></div>' +
+      '<span class="lg-or">' + t('legacy.orLink') + '</span>' +
+      '<input name="old" type="url" inputmode="url" spellcheck="false" maxlength="500" placeholder="https://…" value="' + esc(val || '') + '">';
+  }
+  function wirePicker(f, msg) {
+    var dz = f.querySelector('.lg-drop'), dzt = f.querySelector('[data-lg-dzt]');
+    var bad = function (key) { dz.classList.remove('ok'); dzt.textContent = t('legacy.dropTitle'); msg.textContent = t(key); msg.hidden = false; };
+    dz.addEventListener('dropreject', function () { bad('legacy.notImage'); });
+    f.querySelector('[data-lg-img]').addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
+      msg.hidden = true;
+      if (!/^image\//.test(file.type)) return bad('legacy.notImage');
+      dz.classList.add('busy');
+      readQr(file).then(function (text) {
+        dz.classList.remove('busy');
+        if (!text) return bad('legacy.noQr');
+        if (!/^https?:\/\//i.test(text)) return bad(/^WIFI:/i.test(text) ? 'legacy.isWifi' : 'legacy.isStatic');
+        f.old.value = text; dz.classList.add('ok'); dzt.textContent = t('legacy.found');
+        f.dispatchEvent(new CustomEvent('qrread'));
+      }).catch(function () { dz.classList.remove('busy'); bad('legacy.noQr'); });
+    });
+    f.old.addEventListener('input', function () { dz.classList.remove('ok'); dzt.textContent = t('legacy.dropTitle'); });
+  }
+  /* Bestaande QR-code overzetten als NIEUWE code (de duidelijke plek: knop bovenaan Mijn QR-codes en bij QR-code maken).
+     1) je bestaande code (foto of link)  2) waar hij naartoe moet  → we maken een website-code die precies je oude QR-code toont
+     3) daarna: in je oude app de bestemming op onze korte link zetten. */
+  function askImport() {
+    if (api.isDemo()) return;
+    var made = null;   // al aangemaakt (bij een fout in stap 2 niet nog een keer maken)
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg lg-dlg imp-dlg" novalidate><span class="mc-dlg-ic mf-ic">' + ico('qr') + '</span><h3>' + esc(t('imp.button')) + '</h3><p>' + t('imp.lead') + '</p>' +
+      '<ol class="lg-steps"><li><b>' + t('imp.step1') + '</b>' + pickerHtml('') + '</li>' +
+      '<li><b>' + t('imp.step2') + '</b><small>' + t('imp.step2Hint') + '</small><input name="dest" type="url" inputmode="url" spellcheck="false" maxlength="2000" placeholder="https://…"></li>' +
+      '<li><b>' + t('imp.name') + '</b><input name="nm" type="text" maxlength="80" placeholder="' + esc(t('imp.namePh')) + '"></li></ol>' +
+      '<p class="acct-msg bad" data-lg-msg hidden role="alert"></p>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel" formnovalidate>' + t('myCodes.cancel') + '</button><button type="button" class="btn primary" data-imp-go>' + t('imp.go') + '</button></div></form>';
+    var f = dialog.querySelector('form'), msg = f.querySelector('[data-lg-msg]'), go = f.querySelector('[data-imp-go]');
+    wirePicker(f, msg);
+    f.addEventListener('qrread', function () { if (!f.dest.value) f.dest.focus(); });
+    var err = function (key, el) { msg.textContent = t(key); msg.hidden = false; go.disabled = false; if (el) el.focus(); };
+    var done = function (rec) {
+      dialog.querySelector('form').innerHTML = '<span class="mc-dlg-ic mf-ic">' + ico('check') + '</span><h3>' + t('imp.doneTitle') + '</h3><p>' + t('imp.doneLead') + '</p>' +
+        '<span class="lg-link imp-link"><code>' + esc(rec.shortUrl) + '</code><button type="button" class="btn primary sm" data-lg-copy>' + ico('copy') + '<span>' + t('myCodes.copy') + '</span></button></span>' +
+        '<p class="imp-note">' + t('imp.doneNote') + '</p><div class="mc-dlg-btns"><button class="btn primary" value="ok">' + t('imp.done') + '</button></div>';
+      dialog.querySelector('[data-lg-copy]').addEventListener('click', function () { copy(rec.shortUrl); });
+      load();
+    };
+    go.addEventListener('click', function () {
+      msg.hidden = true;
+      var old = f.old.value.trim(), dest = f.dest.value.trim(), nm = f.nm.value.trim();
+      if (!/^https?:\/\/\S{3,}$/i.test(old)) return err('legacy.bad', f.old);
+      if (!/^https?:\/\/[^\s/]+\.[^\s]+$/i.test(dest)) return err('imp.badDest', f.dest);
+      go.disabled = true;
+      var step = made ? Promise.resolve(made) : api.createQrCode({ id: newDraftId(), typeId: 'website', content: { url: dest }, design: Object.assign({}, QR_DEFAULT_DESIGN), name: nm || undefined, folderId: folderOf(filter.folder) ? filter.folder : null })
+        .then(function (rec) { made = rec; return rec; });
+      step.then(function (rec) {
+        if (old.replace(/\/$/, '') === rec.shortUrl.replace(/\/$/, '')) throw { self: true };
+        return api.patchQrCode(rec.id, { legacyUrl: old });
+      }).then(done).catch(function (e) {
+        if (e && e.self) return err('legacy.self', f.old);
+        if (e && e.code === 'plan_limit') return err('plan.limitCreate');
+        err(made ? 'legacy.bad' : 'imp.badDest', made ? f.old : f.dest);
+      });
+    });
+    dialog.onclose = null; dialog.returnValue = ''; dialog.showModal();
+  }
+  // Knoppen elders in de app (bv. bij QR-code maken) met data-import openen dit venster
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('[data-import]')) return;
+    e.preventDefault(); goToPage('myCodes'); askImport();
+  });
   function askLegacy(r) {
     dialog.innerHTML = '<form method="dialog" class="mc-dlg lg-dlg"><h3>' + esc(t('legacy.title')) + '</h3><p>' + t('legacy.lead') + '</p>' +
-      '<ol class="lg-steps"><li><b>' + t('legacy.step1') + '</b><small>' + t('legacy.step1Hint') + '</small>' +
-        '<span class="lg-row"><input name="old" type="url" inputmode="url" spellcheck="false" maxlength="500" placeholder="https://…" value="' + esc(r.legacyUrl || '') + '">' +
-        '<label class="btn ghost sm lg-scan">' + ico('qr') + '<span>' + t('legacy.fromImage') + '</span><input type="file" accept="image/*" data-lg-img hidden></label></span></li>' +
+      '<ol class="lg-steps"><li><b>' + t('legacy.step1') + '</b>' + pickerHtml(r.legacyUrl) + '</li>' +
       '<li><b>' + t('legacy.step2') + '</b><span class="lg-link"><code>' + esc(r.shortUrl) + '</code><button type="button" class="btn ghost sm" data-lg-copy>' + ico('copy') + '<span>' + t('myCodes.copy') + '</span></button></span></li>' +
       '<li><b>' + t('legacy.step3') + '</b></li></ol>' +
       '<p class="acct-msg bad" data-lg-msg hidden></p>' +
@@ -414,16 +488,7 @@ var MyCodes = (function () {
       api.patchQrCode(r.id, { legacyUrl: url }).then(function (rec) { replace(rec); dialog.close(); draw(); toast(url ? 'legacy.saved' : 'legacy.removed'); })
         .catch(function () { msg.textContent = t('legacy.bad'); msg.hidden = false; f.old.focus(); });
     };
-    // Foto of schermafbeelding van de bestaande QR-code: we lezen het adres eruit (in de browser; de foto wordt niet geüpload)
-    f.querySelector('[data-lg-img]').addEventListener('change', function (e) {
-      var file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
-      msg.hidden = true;
-      readQr(file).then(function (text) {
-        if (!text) { msg.textContent = t('legacy.noQr'); msg.hidden = false; return; }
-        if (!/^https?:\/\//i.test(text)) { msg.textContent = t(/^WIFI:/i.test(text) ? 'legacy.isWifi' : 'legacy.isStatic'); msg.hidden = false; return; }
-        f.old.value = text; f.old.focus();
-      }).catch(function () { msg.textContent = t('legacy.noQr'); msg.hidden = false; });
-    });
+    wirePicker(f, msg);
     f.addEventListener('click', function (e) {
       if (e.target.closest('[data-lg-copy]')) return copy(r.shortUrl);
       if (e.target.closest('[data-lg-off]')) return save(null);
@@ -571,7 +636,10 @@ var MyCodes = (function () {
   });
   document.addEventListener('click', function (e) { if (!view.hidden && !e.target.closest('.mc-drop')) closeMenus(); });
 
-  function label() { view.querySelector('.mc-head [data-mc-new]').innerHTML = ico('plus') + t('myCodes.new'); }
+  function label() {
+    view.querySelector('.mc-head [data-mc-new]').innerHTML = ico('plus') + t('myCodes.new');
+    var ib = view.querySelector('.mc-head [data-import]'); if (ib) { ib.innerHTML = ico('qr') + '<span>' + t('imp.button') + '</span>'; ib.hidden = !isTeam(); }
+  }
   label();
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; picked = {}; load(); } else if (e.detail !== 'create') newIn = null; });
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });

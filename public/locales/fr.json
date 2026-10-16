@@ -2239,10 +2239,32 @@
     "fromImage": "Depuis une photo",
     "noQr": "Aucun code QR trouvé. Essayez une photo plus nette, prise de face.",
     "isWifi": "C’est un code Wi-Fi. Il fonctionne toujours, même sans application : créez ici un code Wi-Fi avec le même nom de réseau et mot de passe.",
-    "isStatic": "Ce code contient un texte fixe, pas une adresse web. Il fonctionne toujours sans application ; recréez-le ici avec le même contenu."
+    "isStatic": "Ce code contient un texte fixe, pas une adresse web. Il fonctionne toujours sans application ; recréez-le ici avec le même contenu.",
+    "dropTitle": "Glissez ici une photo ou une capture de votre code QR",
+    "dropHint": "ou cliquez pour en choisir une · coller avec Ctrl+V fonctionne aussi",
+    "orLink": "Ou collez le lien contenu dans votre code QR",
+    "found": "Code QR lu",
+    "notImage": "Ce n’est pas une image. Glissez une photo ou une capture de votre code QR."
   },
   "up": {
     "title": "Changer d’offre",
     "cta": "Mettre à niveau"
+  },
+  "imp": {
+    "button": "Transférer un code QR existant",
+    "lead": "Vous avez déjà des codes QR d’une autre application, peut-être imprimés ? Transférez-les ici. Le code QR reste exactement le même, rien à réimprimer.",
+    "step1": "Votre code QR existant",
+    "step2": "Où doit-il mener ?",
+    "step2Hint": "Le site sur lequel on arrive en scannant. Vous pourrez toujours le modifier plus tard.",
+    "name": "Nom (pour vous uniquement)",
+    "namePh": "Ex. Menu de table",
+    "go": "Transférer",
+    "badDest": "Saisissez un lien valide, ex. https://votresite.fr",
+    "doneTitle": "Presque fini : encore une étape",
+    "doneLead": "Votre code est maintenant dans Mes codes QR. Dans votre ancienne application, définissez la destination de ce code QR sur ce lien :",
+    "doneNote": "D’ici là, le code mène encore à l’ancienne destination. Ensuite, tous les scans passent par nous et vous modifiez tout ici. Gardez l’ancienne application active tant que les codes imprimés sont utilisés.",
+    "done": "Terminé",
+    "banner": "Vous avez déjà un code QR, par ex. imprimé ?",
+    "bannerGo": "Transférez-le ici"
   }
 }

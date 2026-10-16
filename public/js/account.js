@@ -10,6 +10,7 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
    - Video's in de kaartjes spelen niet allemaal tegelijk: alleen het eerste beeld (en afspelen als je erop wijst). */
 (function () {
   var grid = document.getElementById('bgGrid'), err = document.getElementById('bgError');
+  if (grid) grid.setAttribute('data-drop', '');   // foto's of video's erop slepen = uploaden
   var TICK = '<span class="tick">' + CHECK + '</span>', shots = {}, busy = 0;
   var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>';
   var X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';

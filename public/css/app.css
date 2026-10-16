@@ -4261,3 +4261,32 @@ body.an-printing #anRange { display: block; }
 .mc-folder .mf-dot { width: 13px !important; height: 13px !important; }
 /* Vaste filters (Alle, Favorieten, Zonder map, Nieuwe map) vierkant; mappen blijven rond, zo zie je het verschil */
 .mf-row > .mf-chip, .mf-row > .mf-more > .mf-chip { border-radius: 11px; }
+
+/* ---------- Bestaande QR-code overzetten ---------- */
+.mc-head-btns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.mc-head-btns [hidden] { display: none !important; }
+.mc-empty-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.mc-dialog:has(.lg-dlg) { width: min(580px, calc(100vw - 32px)); }
+.imp-dlg .lg-steps li > input, .lg-steps li > input[name="old"] { width: 100%; }
+.lg-drop { margin-top: 8px; }
+.lg-dz { display: flex; align-items: center; gap: 14px; min-height: 92px; padding: 16px 18px; border: 2px dashed rgba(43,181,240,.45); border-radius: 16px; background: rgba(43,181,240,.06); cursor: pointer; text-align: left; transition: border-color .15s, background .15s, transform .15s; }
+.lg-dz > svg { width: 34px; height: 34px; flex: none; color: var(--accent); }
+.lg-dz b { display: block; font-size: 15px; }
+.lg-dz small { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; }
+.lg-dz:hover, .lg-drop.drag .lg-dz { border-color: var(--accent); background: rgba(43,181,240,.14); }
+.lg-drop.drag .lg-dz { transform: scale(1.015); }
+.lg-drop.busy .lg-dz { opacity: .6; cursor: progress; }
+.lg-drop.ok .lg-dz { border-style: solid; border-color: #22c55e; background: rgba(34,197,94,.1); }
+.lg-drop.ok .lg-dz > svg { color: #22c55e; }
+.lg-or { display: block; margin: 12px 0 6px; font-size: 13px; color: var(--muted); }
+.imp-link { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 4px; }
+.imp-link code { flex: 1 1 220px; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); font-size: 15px; word-break: break-all; }
+.imp-note { color: var(--muted); font-size: 14px; }
+.imp-banner { display: flex; align-items: center; gap: 14px; width: 100%; margin-top: 14px; padding: 14px 16px; border-radius: 16px; border: 1px dashed rgba(43,181,240,.45); background: rgba(43,181,240,.06); color: var(--fg); font: inherit; text-align: left; cursor: pointer; transition: border-color .15s, background .15s; }
+.imp-banner .ic { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 12px; background: rgba(43,181,240,.15); color: var(--accent); }
+.imp-banner .ic svg { width: 22px; height: 22px; }
+.imp-banner b { display: block; font-size: 15px; }
+.imp-banner small { display: block; margin-top: 2px; color: var(--accent); font-size: 14px; font-weight: 650; }
+.imp-banner:hover, .imp-banner:focus-visible { border-color: var(--accent); background: rgba(43,181,240,.12); outline: none; }
+/* Achtergrond: foto's of video's op de kaartjes slepen */
+#bgGrid.drag { outline: 2px dashed var(--accent); outline-offset: 6px; border-radius: 16px; }

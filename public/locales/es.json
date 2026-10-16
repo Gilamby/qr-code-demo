@@ -2239,10 +2239,32 @@
     "fromImage": "Desde foto",
     "noQr": "No se encontró ningún código QR. Prueba con una foto más nítida y de frente.",
     "isWifi": "Es un código wifi. Siempre funciona, incluso sin app: crea aquí un código Wifi con el mismo nombre de red y contraseña.",
-    "isStatic": "Este código contiene texto fijo, no una dirección web. Siempre funciona sin app; vuelve a crearlo aquí con el mismo contenido."
+    "isStatic": "Este código contiene texto fijo, no una dirección web. Siempre funciona sin app; vuelve a crearlo aquí con el mismo contenido.",
+    "dropTitle": "Arrastra aquí una foto o captura de tu código QR",
+    "dropHint": "o haz clic para elegir una · también puedes pegar con Ctrl+V",
+    "orLink": "O pega el enlace que contiene tu código QR",
+    "found": "Código QR leído",
+    "notImage": "Eso no es una imagen. Arrastra una foto o captura de tu código QR."
   },
   "up": {
     "title": "Mejorar plan",
     "cta": "Mejorar"
+  },
+  "imp": {
+    "button": "Transferir un código QR existente",
+    "lead": "¿Ya tienes códigos QR de otra app, quizá impresos? Transfiérelos aquí. El código QR sigue siendo exactamente el mismo, no hace falta reimprimir nada.",
+    "step1": "Tu código QR existente",
+    "step2": "¿A dónde debe llevar?",
+    "step2Hint": "La web a la que llega la gente al escanear. Puedes cambiarlo cuando quieras.",
+    "name": "Nombre (solo para ti)",
+    "namePh": "Ej. Carta de mesa",
+    "go": "Transferir",
+    "badDest": "Introduce un enlace válido, ej. https://tusitio.es",
+    "doneTitle": "Casi listo: un paso más",
+    "doneLead": "Tu código ya está en Mis códigos QR. En tu antigua app de QR, pon como destino de este código este enlace:",
+    "doneNote": "Hasta entonces, el código sigue yendo al destino antiguo. Después, todos los escaneos pasan por nosotros y lo cambias todo aquí. Mantén activa la app antigua mientras se usen los códigos impresos.",
+    "done": "Listo",
+    "banner": "¿Ya tienes un código QR, p. ej. impreso?",
+    "bannerGo": "Transfiérelo aquí"
   }
 }

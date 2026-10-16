@@ -30,7 +30,10 @@ var TypeGrid = {
       var on = type.id === state.typeId;
       return '<button class="qr-card' + (on ? ' selected' : '') + '" type="button" data-type="' + type.id + '" aria-pressed="' + on + '">' +
         '<span class="ic" aria-hidden="true">' + svg(type.icon, 1.6) + '</span><span class="title">' + typeName(type) + '</span></button>';
-    }).join('') + '</div>' + Actions.html(state);
+    }).join('') + '</div>' +
+      // Al een QR-code uit een andere app (bv. al geprint)? Duidelijke weg naar overzetten
+      (window.api && !api.isDemo() ? '<button type="button" class="imp-banner" data-import><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/></svg></span><span><b>' + t('imp.banner') + '</b><small>' + t('imp.bannerGo') + ' →</small></span></button>' : '') +
+      Actions.html(state);
   },
   update: function (el, state) { el.querySelectorAll('.qr-card').forEach(function (b) { var on = b.getAttribute('data-type') === state.typeId; b.classList.toggle('selected', on); b.setAttribute('aria-pressed', String(on)); }); }
 };

@@ -2345,10 +2345,32 @@
     "fromImage": "Nga foto",
     "noQr": "Nuk u gjet kod QR. Provo një foto më të qartë, nga përpara.",
     "isWifi": "Ky është kod Wi-Fi. Funksionon gjithmonë, edhe pa aplikacion: krijo këtu një kod Wifi me të njëjtin emër rrjeti dhe fjalëkalim.",
-    "isStatic": "Ky kod përmban tekst fiks, jo adresë uebi. Funksionon gjithmonë pa aplikacion; krijoje sërish këtu me të njëjtën përmbajtje."
+    "isStatic": "Ky kod përmban tekst fiks, jo adresë uebi. Funksionon gjithmonë pa aplikacion; krijoje sërish këtu me të njëjtën përmbajtje.",
+    "dropTitle": "Tërhiq këtu një foto ose pamje ekrani të kodit tënd QR",
+    "dropHint": "ose kliko për të zgjedhur · mund ta ngjitësh edhe me Ctrl+V",
+    "orLink": "Ose ngjit lidhjen që ndodhet në kodin tënd QR",
+    "found": "Kodi QR u lexua",
+    "notImage": "Kjo nuk është imazh. Tërhiq një foto ose pamje ekrani të kodit QR."
   },
   "up": {
     "title": "Përmirëso planin",
     "cta": "Përmirëso"
+  },
+  "imp": {
+    "button": "Transfero një kod QR ekzistues",
+    "lead": "Ke tashmë kode QR nga një aplikacion tjetër, ndoshta të printuara? Transferoji këtu. Vetë kodi QR mbetet krejt i njëjtë, s’ke nevojë të printosh asgjë nga e para.",
+    "step1": "Kodi yt QR ekzistues",
+    "step2": "Ku duhet të çojë?",
+    "step2Hint": "Faqja ku arrijnë njerëzit kur skanojnë. Mund ta ndryshosh gjithmonë më vonë.",
+    "name": "Emri (vetëm për ty)",
+    "namePh": "P.sh. Menuja e tavolinës",
+    "go": "Transfero",
+    "badDest": "Shkruaj një lidhje të vlefshme, p.sh. https://faqjajote.al",
+    "doneTitle": "Pothuajse gati: edhe një hap",
+    "doneLead": "Kodi yt tani është te Kodet e mia QR. Në aplikacionin e vjetër QR vendos si destinacion të këtij kodi këtë lidhje:",
+    "doneNote": "Deri atëherë, kodi të çon ende te destinacioni i vjetër. Pas kësaj, të gjitha skanimet kalojnë përmes nesh dhe ndryshon gjithçka këtu. Mbaje aktiv aplikacionin e vjetër për sa kohë përdoren kodet e printuara.",
+    "done": "Gati",
+    "banner": "Ke tashmë një kod QR, p.sh. të printuar?",
+    "bannerGo": "Transferoje këtu"
   }
 }

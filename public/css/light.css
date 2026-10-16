@@ -435,6 +435,8 @@
 :root[data-theme="light"] .auth-fb svg { filter: drop-shadow(0 0 18px rgba(43,181,240,.55)) drop-shadow(0 30px 40px rgba(13,19,32,.5)); }
 }
 :root[data-theme="light"] .mf-folders { border-top: 1px solid rgba(13,19,32,0.072); }
+:root[data-theme="light"] .lg-drop.ok .lg-dz > svg { color: #16a34a; }
+:root[data-theme="light"] .imp-link code { background: rgba(13,19,32,0.045); border: 1px solid rgba(13,19,32,0.108); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

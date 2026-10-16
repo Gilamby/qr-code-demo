@@ -2239,10 +2239,32 @@
     "fromImage": "Uit foto",
     "noQr": "Geen QR-code gevonden. Probeer een scherpere foto, recht van voren.",
     "isWifi": "Dit is een wifi-code. Die werkt altijd, ook zonder app: maak hier een Wifi-code met dezelfde netwerknaam en hetzelfde wachtwoord.",
-    "isStatic": "Deze code bevat geen webadres maar vaste tekst. Die werkt altijd zonder app; maak hem hier opnieuw aan met dezelfde inhoud."
+    "isStatic": "Deze code bevat geen webadres maar vaste tekst. Die werkt altijd zonder app; maak hem hier opnieuw aan met dezelfde inhoud.",
+    "dropTitle": "Sleep een foto of screenshot van je QR-code hierheen",
+    "dropHint": "of klik om er een te kiezen · plakken met Ctrl+V kan ook",
+    "orLink": "Of plak de link die in je QR-code zit",
+    "found": "QR-code gelezen",
+    "notImage": "Dat is geen afbeelding. Sleep een foto of screenshot van je QR-code."
   },
   "up": {
     "title": "Upgrade plan",
     "cta": "Upgraden"
+  },
+  "imp": {
+    "button": "Bestaande QR-code overzetten",
+    "lead": "Heb je al QR-codes uit een andere app, misschien al geprint? Zet ze hier over. De QR-code zelf blijft precies hetzelfde, je hoeft niets opnieuw te printen.",
+    "step1": "Je bestaande QR-code",
+    "step2": "Waar moet hij naartoe?",
+    "step2Hint": "De website waar mensen op uitkomen als ze scannen. Dit kun je later altijd wijzigen.",
+    "name": "Naam (alleen voor jezelf)",
+    "namePh": "Bijv. Menukaart tafel",
+    "go": "Overzetten",
+    "badDest": "Vul een geldige link in, bijv. https://jouwsite.nl",
+    "doneTitle": "Bijna klaar: nog één stap",
+    "doneLead": "Je code staat nu bij Mijn QR-codes. Zet in je oude QR-app de bestemming van deze QR-code op deze link:",
+    "doneNote": "Tot je dat doet, gaat de code nog naar de oude bestemming. Daarna lopen alle scans via ons en pas je alles hier aan. Laat je oude app actief zolang de geprinte codes in gebruik zijn.",
+    "done": "Klaar",
+    "banner": "Heb je al een QR-code, bijv. al geprint?",
+    "bannerGo": "Zet hem hier over"
   }
 }

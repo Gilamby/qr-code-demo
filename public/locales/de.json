@@ -2239,10 +2239,32 @@
     "fromImage": "Aus Foto",
     "noQr": "Kein QR-Code gefunden. Versuche ein schärferes Foto von vorne.",
     "isWifi": "Das ist ein WLAN-Code. Er funktioniert immer, auch ohne App: erstelle hier einen WLAN-Code mit gleichem Netzwerknamen und Passwort.",
-    "isStatic": "Dieser Code enthält festen Text, keine Webadresse. Er funktioniert immer ohne App; erstelle ihn hier mit demselben Inhalt neu."
+    "isStatic": "Dieser Code enthält festen Text, keine Webadresse. Er funktioniert immer ohne App; erstelle ihn hier mit demselben Inhalt neu.",
+    "dropTitle": "Zieh ein Foto oder einen Screenshot deines QR-Codes hierher",
+    "dropHint": "oder klicke, um eins auszuwählen · Einfügen mit Strg+V geht auch",
+    "orLink": "Oder füge den Link ein, der in deinem QR-Code steckt",
+    "found": "QR-Code gelesen",
+    "notImage": "Das ist kein Bild. Zieh ein Foto oder einen Screenshot deines QR-Codes hierher."
   },
   "up": {
     "title": "Plan upgraden",
     "cta": "Upgraden"
+  },
+  "imp": {
+    "button": "Bestehenden QR-Code übernehmen",
+    "lead": "Du hast schon QR-Codes aus einer anderen App, vielleicht schon gedruckt? Übernimm sie hier. Der QR-Code selbst bleibt genau gleich, du musst nichts neu drucken.",
+    "step1": "Dein bestehender QR-Code",
+    "step2": "Wohin soll er führen?",
+    "step2Hint": "Die Website, auf der man beim Scannen landet. Das kannst du später jederzeit ändern.",
+    "name": "Name (nur für dich)",
+    "namePh": "z. B. Speisekarte Tisch",
+    "go": "Übernehmen",
+    "badDest": "Gib einen gültigen Link ein, z. B. https://deineseite.de",
+    "doneTitle": "Fast fertig: noch ein Schritt",
+    "doneLead": "Dein Code ist jetzt unter Meine QR-Codes. Stell in deiner alten QR-App das Ziel dieses QR-Codes auf diesen Link:",
+    "doneNote": "Bis dahin führt der Code noch zum alten Ziel. Danach laufen alle Scans über uns und du änderst alles hier. Lass deine alte App aktiv, solange die gedruckten Codes genutzt werden.",
+    "done": "Fertig",
+    "banner": "Du hast schon einen QR-Code, z. B. gedruckt?",
+    "bannerGo": "Hier übernehmen"
   }
 }

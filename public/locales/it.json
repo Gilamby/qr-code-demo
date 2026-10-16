@@ -2239,10 +2239,32 @@
     "fromImage": "Da foto",
     "noQr": "Nessun codice QR trovato. Prova con una foto più nitida, scattata di fronte.",
     "isWifi": "È un codice Wi-Fi. Funziona sempre, anche senza app: crea qui un codice Wifi con lo stesso nome di rete e password.",
-    "isStatic": "Questo codice contiene testo fisso, non un indirizzo web. Funziona sempre senza app; ricrealo qui con lo stesso contenuto."
+    "isStatic": "Questo codice contiene testo fisso, non un indirizzo web. Funziona sempre senza app; ricrealo qui con lo stesso contenuto.",
+    "dropTitle": "Trascina qui una foto o uno screenshot del tuo codice QR",
+    "dropHint": "oppure clicca per sceglierne una · puoi anche incollare con Ctrl+V",
+    "orLink": "Oppure incolla il link contenuto nel tuo codice QR",
+    "found": "Codice QR letto",
+    "notImage": "Non è un’immagine. Trascina una foto o uno screenshot del tuo codice QR."
   },
   "up": {
     "title": "Migliora piano",
     "cta": "Aggiorna"
+  },
+  "imp": {
+    "button": "Trasferisci un codice QR esistente",
+    "lead": "Hai già codici QR di un’altra app, magari stampati? Trasferiscili qui. Il codice QR resta identico, non devi ristampare nulla.",
+    "step1": "Il tuo codice QR esistente",
+    "step2": "Dove deve portare?",
+    "step2Hint": "Il sito su cui si arriva scansionando. Puoi sempre cambiarlo dopo.",
+    "name": "Nome (solo per te)",
+    "namePh": "Es. Menù tavolo",
+    "go": "Trasferisci",
+    "badDest": "Inserisci un link valido, es. https://tuosito.it",
+    "doneTitle": "Quasi fatto: ancora un passaggio",
+    "doneLead": "Il tuo codice ora è in I miei codici QR. Nella vecchia app QR imposta la destinazione di questo codice su questo link:",
+    "doneNote": "Finché non lo fai, il codice porta ancora alla vecchia destinazione. Poi tutte le scansioni passano da noi e modifichi tutto qui. Tieni attiva la vecchia app finché i codici stampati sono in uso.",
+    "done": "Fatto",
+    "banner": "Hai già un codice QR, ad es. stampato?",
+    "bannerGo": "Trasferiscilo qui"
   }
 }

@@ -2239,10 +2239,32 @@
     "fromImage": "Da foto",
     "noQr": "Nenhum código QR encontrado. Experimente uma foto mais nítida, tirada de frente.",
     "isWifi": "É um código Wi-Fi. Funciona sempre, mesmo sem app: crie aqui um código Wifi com o mesmo nome de rede e palavra-passe.",
-    "isStatic": "Este código contém texto fixo, não um endereço web. Funciona sempre sem app; crie-o de novo aqui com o mesmo conteúdo."
+    "isStatic": "Este código contém texto fixo, não um endereço web. Funciona sempre sem app; crie-o de novo aqui com o mesmo conteúdo.",
+    "dropTitle": "Arraste para aqui uma foto ou captura do seu código QR",
+    "dropHint": "ou clique para escolher · também pode colar com Ctrl+V",
+    "orLink": "Ou cole o link que está no seu código QR",
+    "found": "Código QR lido",
+    "notImage": "Isso não é uma imagem. Arraste uma foto ou captura do seu código QR."
   },
   "up": {
     "title": "Melhorar plano",
     "cta": "Atualizar"
+  },
+  "imp": {
+    "button": "Transferir um código QR existente",
+    "lead": "Já tem códigos QR de outra app, talvez impressos? Transfira-os para aqui. O código QR fica exatamente igual, não precisa de reimprimir nada.",
+    "step1": "O seu código QR existente",
+    "step2": "Para onde deve levar?",
+    "step2Hint": "O site onde as pessoas chegam ao ler o código. Pode alterar sempre mais tarde.",
+    "name": "Nome (só para si)",
+    "namePh": "Ex.: Menu da mesa",
+    "go": "Transferir",
+    "badDest": "Introduza um link válido, ex.: https://oseusite.pt",
+    "doneTitle": "Quase pronto: só mais um passo",
+    "doneLead": "O seu código já está em Os meus códigos QR. Na sua antiga app de QR, defina o destino deste código para este link:",
+    "doneNote": "Até lá, o código continua a ir para o destino antigo. Depois, todas as leituras passam por nós e altera tudo aqui. Mantenha a app antiga ativa enquanto os códigos impressos estiverem em uso.",
+    "done": "Concluído",
+    "banner": "Já tem um código QR, p. ex. impresso?",
+    "bannerGo": "Transfira-o aqui"
   }
 }

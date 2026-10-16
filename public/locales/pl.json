@@ -2239,10 +2239,32 @@
     "fromImage": "Ze zdjęcia",
     "noQr": "Nie znaleziono kodu QR. Spróbuj ostrzejszego zdjęcia zrobionego na wprost.",
     "isWifi": "To kod Wi-Fi. Działa zawsze, także bez aplikacji: utwórz tu kod Wifi z tą samą nazwą sieci i hasłem.",
-    "isStatic": "Ten kod zawiera stały tekst, nie adres internetowy. Działa zawsze bez aplikacji; utwórz go tu ponownie z tą samą treścią."
+    "isStatic": "Ten kod zawiera stały tekst, nie adres internetowy. Działa zawsze bez aplikacji; utwórz go tu ponownie z tą samą treścią.",
+    "dropTitle": "Przeciągnij tu zdjęcie lub zrzut ekranu swojego kodu QR",
+    "dropHint": "albo kliknij, aby wybrać · możesz też wkleić przez Ctrl+V",
+    "orLink": "Albo wklej link, który jest w Twoim kodzie QR",
+    "found": "Kod QR odczytany",
+    "notImage": "To nie jest obraz. Przeciągnij zdjęcie lub zrzut ekranu kodu QR."
   },
   "up": {
     "title": "Ulepsz plan",
     "cta": "Ulepsz"
+  },
+  "imp": {
+    "button": "Przenieś istniejący kod QR",
+    "lead": "Masz już kody QR z innej aplikacji, może wydrukowane? Przenieś je tutaj. Sam kod QR zostaje dokładnie taki sam, nic nie musisz drukować od nowa.",
+    "step1": "Twój istniejący kod QR",
+    "step2": "Dokąd ma prowadzić?",
+    "step2Hint": "Strona, na którą trafiają ludzie po zeskanowaniu. Możesz to zawsze zmienić później.",
+    "name": "Nazwa (tylko dla Ciebie)",
+    "namePh": "Np. Menu na stolik",
+    "go": "Przenieś",
+    "badDest": "Wpisz poprawny link, np. https://twojastrona.pl",
+    "doneTitle": "Prawie gotowe: jeszcze jeden krok",
+    "doneLead": "Twój kod jest już w Moich kodach QR. W starej aplikacji QR ustaw cel tego kodu na ten link:",
+    "doneNote": "Do tego czasu kod prowadzi jeszcze do starego celu. Potem wszystkie skany idą przez nas i wszystko zmieniasz tutaj. Zostaw starą aplikację aktywną, dopóki używasz wydrukowanych kodów.",
+    "done": "Gotowe",
+    "banner": "Masz już kod QR, np. wydrukowany?",
+    "bannerGo": "Przenieś go tutaj"
   }
 }
