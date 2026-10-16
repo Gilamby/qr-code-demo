@@ -52,7 +52,8 @@ var MyCodes = (function () {
   var folders = [], newIn = null, bar = document.getElementById('mcFolders');   // folder: '' = alle codes, 'none' = zonder map, anders een map-id
   var COLORS = { cyan: '#22d3ee', blue: '#3b82f6', violet: '#8b5cf6', pink: '#ec4899', red: '#ef4444', orange: '#f97316', amber: '#f59e0b', green: '#22c55e' };
   function folderOf(id) { return folders.filter(function (f) { return f.id === id; })[0] || null; }
-  function dot(f) { return '<i class="mf-dot" style="--fc:' + (COLORS[f.color] || COLORS.cyan) + '"></i>'; }
+  // Kleur van de map als klein, gevuld mapje (geen gloed eromheen)
+  function dot(f) { return '<svg class="mf-dot" style="--fc:' + (COLORS[f.color] || COLORS.cyan) + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 6.5A2 2 0 0 1 4.5 4.5h4.6l2.2 2.3h8.2a2 2 0 0 1 2 2v9.7a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2z"/></svg>'; }
 
   // Gedeeld met het beheer: zie code-util.js
   var isStatic = CodeUtil.isStatic, displayName = CodeUtil.displayName, qrData = CodeUtil.qrData, qrDesign = CodeUtil.qrDesign, download = CodeUtil.download;

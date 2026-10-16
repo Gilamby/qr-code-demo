@@ -4254,3 +4254,10 @@ body.an-printing #anRange { display: block; }
 .mf-folders > .mf-wrap { flex: none !important; min-width: 0 !important; }
 .mf-folders > .mf-wrap[hidden] { display: inline-flex !important; }
 .mf-row .mf-add { margin-left: auto; }
+
+/* Mapkleur: een gevuld mapje, zonder gloedrand */
+.mf-dot { width: 16px !important; height: 16px !important; border-radius: 0 !important; background: none !important; box-shadow: none !important; fill: var(--fc); display: inline-block; flex: none; }
+.mf-head .mf-dot { width: 20px !important; height: 20px !important; }
+.mc-folder .mf-dot { width: 13px !important; height: 13px !important; }
+/* Vaste filters (Alle, Favorieten, Zonder map, Nieuwe map) vierkant; mappen blijven rond, zo zie je het verschil */
+.mf-row > .mf-chip, .mf-row > .mf-more > .mf-chip { border-radius: 11px; }
