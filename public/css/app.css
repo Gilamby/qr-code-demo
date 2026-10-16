@@ -4224,3 +4224,8 @@ body.an-printing #anRange { display: block; }
 /* Mijn QR-codes: ook frames die buiten hun vak tekenen (label, kerstlabel, enz.) blijven binnen het witte vierkant; vinkje blijft zichtbaar */
 .mc-qr > span { overflow: hidden; border-radius: 6px; }
 .mc-qr > span > svg, .hm-qr > svg, .ac-qr > svg, .ad-qr > svg, .an-rqr > svg { overflow: hidden !important; }
+/* Downloadmenu: Afdrukken en Delen onder de bestandsformaten */
+.mc-dlx { border-top: 1px solid var(--line); margin-top: 4px; padding-top: 4px; display: grid; }
+.mc-dlx button { display: flex !important; align-items: center; gap: 10px; }
+.mc-dlx button svg { width: 18px; height: 18px; flex: none; color: var(--accent); }
+.mc-dlx button span { display: grid; text-align: left; }

@@ -494,7 +494,13 @@
     "bulkMoveTitle": "Przenieś kody QR ({n}) do",
     "preparing": "Tworzenie ZIP…",
     "copyDest": "Kopiuj cel",
-    "ownPage": "Własna strona"
+    "ownPage": "Własna strona",
+    "epsHint": "Dla drukarni i Illustratora",
+    "print": "Drukuj",
+    "printHint": "Od razu do drukarki",
+    "share": "Udostępnij",
+    "shareHint": "Przez e-mail, WhatsApp, AirDrop…",
+    "shareFallback": "Udostępnianie nie jest tu dostępne: pobrano PNG."
   },
   "appearance": {
     "title": "Kolory",

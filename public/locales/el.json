@@ -494,7 +494,13 @@
     "bulkMoveTitle": "Μετακίνηση {n} κωδικών QR σε",
     "preparing": "Δημιουργία ZIP…",
     "copyDest": "Αντιγραφή προορισμού",
-    "ownPage": "Δική σας σελίδα"
+    "ownPage": "Δική σας σελίδα",
+    "epsHint": "Για τυπογραφεία και Illustrator",
+    "print": "Εκτύπωση",
+    "printHint": "Κατευθείαν στον εκτυπωτή",
+    "share": "Κοινοποίηση",
+    "shareHint": "Μέσω email, WhatsApp, AirDrop…",
+    "shareFallback": "Η κοινοποίηση δεν είναι διαθέσιμη εδώ: το PNG κατέβηκε."
   },
   "appearance": {
     "title": "Χρώματα",

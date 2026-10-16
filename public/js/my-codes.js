@@ -18,6 +18,8 @@ var MyCodes = (function () {
     more: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
     open: '<path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>',
     qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
+    print: '<path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7" rx="1"/>',
+    share: '<path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
     chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
@@ -40,10 +42,12 @@ var MyCodes = (function () {
   var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '' }, renaming = null, toastTimer = null;
   var picked = {};                                          // geselecteerde codes (id → true)
   var dlSize = 1024; try { var ds = +localStorage.getItem('mc.dlSize'); if (CodeUtil.sizes.indexOf(ds) >= 0) dlSize = ds; } catch (e) {}
-  var FMT = [['png', 'myCodes.pngHint'], ['jpg', 'myCodes.jpgHint'], ['webp', 'myCodes.webpHint'], ['svg', 'myCodes.svgHint'], ['pdf', 'myCodes.pdfHint']];
+  var FMT = [['png', 'myCodes.pngHint'], ['jpg', 'myCodes.jpgHint'], ['webp', 'myCodes.webpHint'], ['svg', 'myCodes.svgHint'], ['pdf', 'myCodes.pdfHint'], ['eps', 'myCodes.epsHint']];
   function dlMenu(bulk) {
     return '<div class="mc-sizes" role="group" aria-label="' + esc(t('myCodes.size')) + '"><span>' + t('myCodes.size') + '</span>' + CodeUtil.sizes.map(function (z) { return '<button type="button" class="mc-sz' + (z === dlSize ? ' on' : '') + '" data-size="' + z + '" aria-pressed="' + (z === dlSize) + '">' + z + '</button>'; }).join('') + '</div>' +
-      FMT.map(function (f) { return '<button type="button" role="menuitem" data-' + (bulk ? 'bulk-fmt' : 'act="dl" data-fmt') + '="' + f[0] + '">' + f[0].toUpperCase() + '<small>' + t(f[1]) + '</small></button>'; }).join('');
+      FMT.map(function (f) { return '<button type="button" role="menuitem" data-' + (bulk ? 'bulk-fmt' : 'act="dl" data-fmt') + '="' + f[0] + '">' + f[0].toUpperCase() + '<small>' + t(f[1]) + '</small></button>'; }).join('') +
+      (bulk ? '' : '<div class="mc-dlx"><button type="button" role="menuitem" data-act="print">' + ico('print') + '<span>' + t('myCodes.print') + '<small>' + t('myCodes.printHint') + '</small></span></button>' +
+        '<button type="button" role="menuitem" data-act="share">' + ico('share') + '<span>' + t('myCodes.share') + '<small>' + t('myCodes.shareHint') + '</small></span></button></div>');
   }
   var folders = [], newIn = null, bar = document.getElementById('mcFolders');   // folder: '' = alle codes, 'none' = zonder map, anders een map-id
   var COLORS = { cyan: '#22d3ee', blue: '#3b82f6', violet: '#8b5cf6', pink: '#ec4899', red: '#ef4444', orange: '#f97316', amber: '#f59e0b', green: '#22c55e' };
@@ -504,6 +508,8 @@ var MyCodes = (function () {
     }
     closeMenus();
     if (act === 'copy') return copy(r.shortUrl);
+    if (act === 'print') { closeMenus(); return CodeUtil.print(r).catch(function () { toast('myCodes.failed'); }); }
+    if (act === 'share') { closeMenus(); return CodeUtil.share(r).then(function (done) { if (!done) { download(r, 'png', dlSize); toast('myCodes.shareFallback'); } }).catch(function () { toast('myCodes.failed'); }); }
     if (act === 'copydest') return copy(destVal(r) || r.shortUrl);
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'edit') return edit(r);

@@ -494,7 +494,13 @@
     "bulkMoveTitle": "Move {n} QR codes to",
     "preparing": "Creating ZIP…",
     "copyDest": "Copy destination",
-    "ownPage": "Own page"
+    "ownPage": "Own page",
+    "epsHint": "For print shops and Illustrator",
+    "print": "Print",
+    "printHint": "Straight to the printer",
+    "share": "Share",
+    "shareHint": "Via email, WhatsApp, AirDrop …",
+    "shareFallback": "Sharing isn’t available here: the PNG was downloaded."
   },
   "appearance": {
     "title": "Colours",

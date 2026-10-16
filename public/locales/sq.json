@@ -494,7 +494,13 @@
     "bulkMoveTitle": "Zhvendos {n} kode QR te",
     "preparing": "Po krijohet ZIP…",
     "copyDest": "Kopjo destinacionin",
-    "ownPage": "Faqe e vetë"
+    "ownPage": "Faqe e vetë",
+    "epsHint": "Për shtypshkronja dhe Illustrator",
+    "print": "Printo",
+    "printHint": "Drejt e te printeri",
+    "share": "Ndaj",
+    "shareHint": "Me email, WhatsApp, AirDrop…",
+    "shareFallback": "Ndarja nuk është e mundur këtu: PNG u shkarkua."
   },
   "appearance": {
     "title": "Ngjyrat",

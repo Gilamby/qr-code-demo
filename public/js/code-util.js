@@ -22,7 +22,7 @@ var CodeUtil = (function () {
   function qrSvg(r, opts) { return QRRender.svg(qrData(r), qrDesign(r), opts); }
   function fileName(r) { return 'qr-' + (displayName(r).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || r.typeId); }
   /* ---------- Downloaden: PNG, JPG, WebP, SVG, PDF (A4, om af te drukken) in verschillende maten ---------- */
-  var FORMATS = ['png', 'jpg', 'webp', 'svg', 'pdf'];
+  var FORMATS = ['png', 'jpg', 'webp', 'svg', 'pdf', 'eps'];
   var SIZES = [512, 1024, 2048, 4096];
   function raster(r, size, type) {
     return new Promise(function (ok, bad) {
@@ -59,12 +59,46 @@ var CodeUtil = (function () {
       return new Blob(parts, { type: 'application/pdf' });
     });
   }
+  // EPS (voor drukkerijen, Illustrator): PostScript Level 2 met de QR-code als JPEG erin (DCTDecode), 12,7 cm breed
+  function epsFrom(jpeg, w, h, title) {
+    return jpeg.arrayBuffer().then(function (buf) {
+      var b = new Uint8Array(buf), hex = '', H = '0123456789abcdef', lines = [];
+      for (var i = 0; i < b.length; i++) { hex += H[b[i] >> 4] + H[b[i] & 15]; if (hex.length >= 78) { lines.push(hex); hex = ''; } }
+      if (hex) lines.push(hex);
+      var PW = 360, PH = Math.round(360 * h / w), name = String(title || '').replace(/[^\x20-\x7e]/g, '').replace(/[()\\]/g, '').slice(0, 60);
+      var head = '%!PS-Adobe-3.0 EPSF-3.0\n%%BoundingBox: 0 0 ' + PW + ' ' + PH + '\n%%HiResBoundingBox: 0 0 ' + PW + ' ' + PH + '\n%%Title: (' + name + ')\n%%Creator: Optimasys QR\n%%LanguageLevel: 2\n%%Pages: 1\n%%EndComments\n' +
+        'gsave\n' + PW + ' ' + PH + ' scale\n/DeviceRGB setcolorspace\n<< /ImageType 1 /Width ' + w + ' /Height ' + h + ' /BitsPerComponent 8 /Decode [0 1 0 1 0 1] /ImageMatrix [' + w + ' 0 0 -' + h + ' 0 ' + h + '] /DataSource currentfile /ASCIIHexDecode filter /DCTDecode filter >> image\n';
+      return new Blob([head, lines.join('\n'), '>\ngrestore\nshowpage\n%%EOF\n'], { type: 'application/postscript' });
+    });
+  }
+  /** Afdrukken: de QR-code (met naam) in een eigen afdrukvenster, gecentreerd op het papier */
+  function print(r) {
+    return raster(r, 2048, 'image/png').then(function (x) {
+      var url = URL.createObjectURL(x.blob), f = document.createElement('iframe');
+      f.setAttribute('aria-hidden', 'true'); f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+      document.body.appendChild(f);
+      var d = f.contentDocument; d.open();
+      d.write('<!doctype html><html><head><meta charset="utf-8"><title>' + esc(displayName(r)) + '</title><style>@page{margin:18mm}html,body{margin:0;height:100%}body{display:flex;flex-direction:column;align-items:center;justify-content:center;font:600 16pt system-ui,sans-serif;color:#111}img{width:120mm;height:auto}p{margin:0 0 8mm}</style></head><body><p>' + esc(displayName(r)) + '</p><img src="' + url + '" alt=""></body></html>');
+      d.close();
+      var img = d.querySelector('img'), go = function () { setTimeout(function () { f.contentWindow.focus(); f.contentWindow.print(); setTimeout(function () { URL.revokeObjectURL(url); f.remove(); }, 60000); }, 50); };
+      if (img.complete) go(); else img.onload = go;
+    });
+  }
+  /** Delen (telefoon/Mac): het QR-plaatje via het deelmenu van het apparaat. Kan dat niet, dan false (de app downloadt dan). */
+  function share(r) {
+    return raster(r, 1024, 'image/png').then(function (x) {
+      var file = new File([x.blob], fileName(r) + '.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) return navigator.share({ files: [file], title: displayName(r) }).then(function () { return true; }, function (e) { return e && e.name === 'AbortError' ? true : false; });
+      return false;
+    });
+  }
   /** Bestand van één code maken: { blob, name } */
   function render(r, format, size) {
     format = FORMATS.indexOf(format) >= 0 ? format : 'png'; size = SIZES.indexOf(+size) >= 0 ? +size : 1024;
     var name = fileName(r);
     if (format === 'svg') return Promise.resolve({ blob: new Blob([qrSvg(r, { width: size })], { type: 'image/svg+xml' }), name: name + '.svg' });
     if (format === 'pdf') return raster(r, Math.max(size, 2048), 'image/jpeg').then(function (x) { return pdfFrom(x.blob, x.w, x.h, displayName(r)); }).then(function (b) { return { blob: b, name: name + '.pdf' }; });
+    if (format === 'eps') return raster(r, Math.max(size, 2048), 'image/jpeg').then(function (x) { return epsFrom(x.blob, x.w, x.h, displayName(r)); }).then(function (b) { return { blob: b, name: name + '.eps' }; });
     var type = { png: 'image/png', jpg: 'image/jpeg', webp: 'image/webp' }[format];
     return raster(r, size, type).then(function (x) { return { blob: x.blob, name: name + '.' + format }; });
   }
@@ -103,5 +137,5 @@ var CodeUtil = (function () {
     users: '<g class="hx-p1"><circle cx="9" cy="8" r="3.4"/><path d="M2.8 19.5c.9-3.4 3.3-5.3 6.2-5.3s5.3 1.9 6.2 5.3"/></g><g class="hx-p2"><circle cx="16.8" cy="9" r="2.6"/><path d="M16.6 14.3c2.3.2 4 1.9 4.6 4.6"/></g>'
   };
   function tileIcon(k) { return '<svg class="hm-i hx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (TILE[k] || '') + '</svg>'; }
-  return { isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
+  return { isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, print: print, share: share, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
 })();

@@ -494,7 +494,13 @@
     "bulkMoveTitle": "Sposta {n} codici QR in",
     "preparing": "Creazione ZIP…",
     "copyDest": "Copia destinazione",
-    "ownPage": "Pagina propria"
+    "ownPage": "Pagina propria",
+    "epsHint": "Per tipografie e Illustrator",
+    "print": "Stampa",
+    "printHint": "Direttamente alla stampante",
+    "share": "Condividi",
+    "shareHint": "Via e-mail, WhatsApp, AirDrop…",
+    "shareFallback": "Qui non si può condividere: il PNG è stato scaricato."
   },
   "appearance": {
     "title": "Colori",

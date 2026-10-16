@@ -494,7 +494,13 @@
     "bulkMoveTitle": "{n} QR-codes verplaatsen naar",
     "preparing": "ZIP wordt gemaakt…",
     "copyDest": "Bestemming kopiëren",
-    "ownPage": "Eigen pagina"
+    "ownPage": "Eigen pagina",
+    "epsHint": "Voor drukkerij en Illustrator",
+    "print": "Afdrukken",
+    "printHint": "Meteen naar de printer",
+    "share": "Delen",
+    "shareHint": "Via mail, WhatsApp, AirDrop …",
+    "shareFallback": "Delen kan hier niet: de PNG is gedownload."
   },
   "appearance": {
     "title": "Kleuren",
