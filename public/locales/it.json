@@ -1663,7 +1663,8 @@
     "favEmptyText": "Clicca sulla stella di un codice e lo trovi qui.",
     "favAdded": "Aggiunto ai preferiti",
     "favRemoved": "Rimosso dai preferiti",
-    "more": "Altro"
+    "more": "Altro",
+    "dragHint": "Trascina per cambiare l’ordine"
   },
   "home": {
     "night": "Buonanotte, {name}",

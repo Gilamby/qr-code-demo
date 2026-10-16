@@ -4239,3 +4239,18 @@ body.an-printing #anRange { display: block; }
 .up-item { margin-top: auto; color: var(--accent) !important; }
 .up-item[hidden] { display: none !important; }
 .up-item + .me-item { margin-top: 0 !important; }
+/* Mappen verslepen */
+.mf-wrap[draggable="true"] { cursor: grab; }
+.mf-wrap.mf-dragging { opacity: .45; }
+/* Mappen: altijd de volledige naam (geen "…"); wat niet past gaat onder "Meer" */
+.mf-row > .mf-wrap { flex: none !important; min-width: 0 !important; }
+.mf-wrap > .mf-chip { width: auto !important; overflow: visible !important; }
+.mf-wrap > .mf-chip > span:not(.mf-n) { overflow: visible !important; text-overflow: clip !important; }
+.mf-menu { min-width: 260px; max-width: min(420px, 90vw); }
+.mf-mi > [data-folder] span:not(.mf-n) { white-space: normal !important; overflow: visible !important; overflow-wrap: anywhere; }
+/* Mappen: eigen regel onder Alle codes / Favorieten / Zonder map — volledige namen, lopen door, te verslepen */
+.mf-folders { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 4px; padding: 10px 2px 2px; border-top: 1px solid rgba(255,255,255,.08); }
+.mf-lbl { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.mf-folders > .mf-wrap { flex: none !important; min-width: 0 !important; }
+.mf-folders > .mf-wrap[hidden] { display: inline-flex !important; }
+.mf-row .mf-add { margin-left: auto; }

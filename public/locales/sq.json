@@ -1769,7 +1769,8 @@
     "favEmptyText": "Kliko yllin pranë një kodi dhe do të shfaqet këtu.",
     "favAdded": "U shtua te të preferuarat",
     "favRemoved": "U hoq nga të preferuarat",
-    "more": "Më shumë"
+    "more": "Më shumë",
+    "dragHint": "Tërhiqe për të ndryshuar renditjen"
   },
   "home": {
     "night": "Natën e mirë, {name}",

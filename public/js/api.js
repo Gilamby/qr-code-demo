@@ -94,6 +94,7 @@ var api = (function () {
       },
       folders: {
         list: function () { return Promise.resolve({ folders: folders().slice() }); },
+        order: function (ids) { var all = folders(), by = {}; all.forEach(function (f) { by[f.id] = f; }); var next = ids.map(function (id) { return by[id]; }).filter(Boolean); all.forEach(function (f) { if (next.indexOf(f) < 0) next.push(f); }); all.length = 0; next.forEach(function (f) { all.push(f); }); saveFolders(); return Promise.resolve({ folders: all.slice() }); },
         create: function (d) {
           var name = fname(d.name); if (!name) return ferr('name', 400);
           if (folders().some(function (f) { return f.name.toLowerCase() === name.toLowerCase(); })) return ferr('exists', 409);
@@ -265,7 +266,8 @@ var api = (function () {
       create: either(function (d)     { return request('POST', 'api/folders', d); }, local.folders.create),
       update: either(function (id, d) { return request('PATCH', 'api/folders/' + encodeURIComponent(id), d); }, local.folders.update),
       remove: either(function (id)    { return request('DELETE', 'api/folders/' + encodeURIComponent(id)); }, local.folders.remove),
-      move:   either(function (d)     { return request('POST', 'api/folders/move', d); }, local.folders.move)
+      move:   either(function (d)     { return request('POST', 'api/folders/move', d); }, local.folders.move),
+      order:  either(function (ids)   { return request('PUT', 'api/folders/order', { ids: ids }); }, local.folders.order)
     },
     // Statistieken: { from, to, codes: [], os: [], cc: [], city: [] }
     analytics: either(function (q) { return request('GET', 'api/analytics?' + query(q)); },

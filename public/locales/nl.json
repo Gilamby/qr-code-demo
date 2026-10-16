@@ -1663,7 +1663,8 @@
     "favEmptyText": "Klik op het sterretje bij een code, dan staat hij hier.",
     "favAdded": "Toegevoegd aan favorieten",
     "favRemoved": "Uit favorieten gehaald",
-    "more": "Meer"
+    "more": "Meer",
+    "dragHint": "Sleep om de volgorde te veranderen"
   },
   "home": {
     "night": "Goedenacht, {name}",

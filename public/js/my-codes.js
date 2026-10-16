@@ -81,11 +81,12 @@ var MyCodes = (function () {
         chip('', ico('grid') + '<span>' + t('folders.all') + '</span>', rows.length) +
         chip('fav', '<span class="mf-star">' + ico('star') + '</span><span>' + t('folders.fav') + '</span>', count(function (r) { return r.favorite; })) +
         chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', count(function (r) { return !r.folderId; })) +
-        folders.map(function (f) { return '<span class="mf-wrap">' + chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })) +
-          '<button type="button" class="mf-x" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('x') + '</button></span>'; }).join('') +
-        '<span class="mf-more" hidden><button type="button" class="mf-chip" data-folder-more aria-haspopup="true" aria-expanded="false"><span>' + t('folders.more') + '</span><span class="mf-n"></span>' + ico('chev') + '</button><div class="mf-menu glass" role="menu" hidden></div></span>' +
         '<button type="button" class="mf-chip mf-add" data-folder-new aria-label="' + esc(t('folders.new')) + '">' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
+      // Mappen op een eigen regel: volledige namen, lopen door naar een volgende regel, te verslepen
+      (folders.length ? '<div class="mf-folders"><span class="mf-lbl">' + t('folders.title') + '</span>' +
+        folders.map(function (f) { return '<span class="mf-wrap" draggable="true" data-fid="' + esc(f.id) + '" title="' + esc(t('folders.dragHint')) + '">' + chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })) +
+          '<button type="button" class="mf-x" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('x') + '</button></span>'; }).join('') + '</div>' : '') +
       (cur ? '<div class="mf-head">' + dot(cur) + '<b>' + esc(cur.name) + '</b>' +
         '<button type="button" class="btn ghost sm" data-folder-edit>' + ico('pen') + '<span>' + t('folders.edit') + '</span></button>' +
         '<button type="button" class="btn ghost sm mf-del" data-folder-delete>' + ico('trash') + '<span>' + t('folders.delete') + '</span></button></div>' : '') +
@@ -479,6 +480,33 @@ var MyCodes = (function () {
   function endDrag() { dragId = null; bar.classList.remove('dropping'); list.querySelectorAll('.dragging').forEach(function (x) { x.classList.remove('dragging'); }); bar.querySelectorAll('.over').forEach(function (x) { x.classList.remove('over'); }); }
   list.addEventListener('dragend', endDrag);
   document.addEventListener('dragend', endDrag);
+  /* Mappen zelf verslepen (volgorde zoals jij wilt; wordt bewaard) */
+  var dragFid = null;
+  bar.addEventListener('dragstart', function (e) {
+    var w = e.target.closest && e.target.closest('.mf-wrap[data-fid]'); if (!w) return;
+    dragFid = w.getAttribute('data-fid'); w.classList.add('mf-dragging');
+    try { e.dataTransfer.setData('text/x-folder', dragFid); e.dataTransfer.effectAllowed = 'move'; } catch (x) {}
+  });
+  bar.addEventListener('dragover', function (e) {
+    if (!dragFid) return;
+    var w = e.target.closest('.mf-wrap[data-fid]'), src = bar.querySelector('.mf-wrap[data-fid="' + dragFid + '"]'); if (!w || !src) return;
+    e.preventDefault(); if (w === src) return;
+    var r = w.getBoundingClientRect(), after = e.clientX > r.left + r.width / 2;
+    w.parentNode.insertBefore(src, after ? w.nextSibling : w);
+  });
+  function endFolderDrag(save) {
+    if (!dragFid) return; var src = bar.querySelector('.mf-dragging'); if (src) src.classList.remove('mf-dragging'); dragFid = null;
+    if (!save) return;
+    var ids = [].slice.call(bar.querySelectorAll('.mf-folders .mf-wrap[data-fid]')).map(function (w) { return w.getAttribute('data-fid'); });
+    var rest = folders.filter(function (f) { return ids.indexOf(f.id) < 0; }).map(function (f) { return f.id; });   // verborgen onder "Meer"
+    ids = ids.concat(rest);
+    if (ids.join() === folders.map(function (f) { return f.id; }).join()) return;
+    var by = {}; folders.forEach(function (f) { by[f.id] = f; }); folders = ids.map(function (id) { return by[id]; }).filter(Boolean);
+    api.folders.order(ids).catch(function () { toast('myCodes.failed'); });
+    drawFolders();
+  }
+  bar.addEventListener('drop', function (e) { if (dragFid) { e.preventDefault(); endFolderDrag(true); } });
+  bar.addEventListener('dragend', function () { endFolderDrag(true); });
   bar.addEventListener('dragover', function (e) {
     var c = e.target.closest('[data-folder]'); if (!dragId || !c || c.getAttribute('data-folder') === '') return;
     e.preventDefault(); bar.querySelectorAll('.over').forEach(function (x) { if (x !== c) x.classList.remove('over'); }); c.classList.add('over');

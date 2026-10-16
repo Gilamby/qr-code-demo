@@ -1663,7 +1663,8 @@
     "favEmptyText": "Kliknij gwiazdkę przy kodzie, a pojawi się tutaj.",
     "favAdded": "Dodano do ulubionych",
     "favRemoved": "Usunięto z ulubionych",
-    "more": "Więcej"
+    "more": "Więcej",
+    "dragHint": "Przeciągnij, aby zmienić kolejność"
   },
   "home": {
     "night": "Dobranoc, {name}",
