@@ -2239,5 +2239,9 @@
     "noQr": "Nessun codice QR trovato. Prova con una foto più nitida, scattata di fronte.",
     "isWifi": "È un codice Wi-Fi. Funziona sempre, anche senza app: crea qui un codice Wifi con lo stesso nome di rete e password.",
     "isStatic": "Questo codice contiene testo fisso, non un indirizzo web. Funziona sempre senza app; ricrealo qui con lo stesso contenuto."
+  },
+  "up": {
+    "title": "Passa a un piano superiore",
+    "cta": "Aggiorna"
   }
 }

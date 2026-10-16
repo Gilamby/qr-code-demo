@@ -2239,5 +2239,9 @@
     "noQr": "Nie znaleziono kodu QR. Spróbuj ostrzejszego zdjęcia zrobionego na wprost.",
     "isWifi": "To kod Wi-Fi. Działa zawsze, także bez aplikacji: utwórz tu kod Wifi z tą samą nazwą sieci i hasłem.",
     "isStatic": "Ten kod zawiera stały tekst, nie adres internetowy. Działa zawsze bez aplikacji; utwórz go tu ponownie z tą samą treścią."
+  },
+  "up": {
+    "title": "Ulepsz swój plan",
+    "cta": "Ulepsz"
   }
 }

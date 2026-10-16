@@ -2239,5 +2239,9 @@
     "noQr": "Geen QR-code gevonden. Probeer een scherpere foto, recht van voren.",
     "isWifi": "Dit is een wifi-code. Die werkt altijd, ook zonder app: maak hier een Wifi-code met dezelfde netwerknaam en hetzelfde wachtwoord.",
     "isStatic": "Deze code bevat geen webadres maar vaste tekst. Die werkt altijd zonder app; maak hem hier opnieuw aan met dezelfde inhoud."
+  },
+  "up": {
+    "title": "Upgrade je pakket",
+    "cta": "Upgraden"
   }
 }

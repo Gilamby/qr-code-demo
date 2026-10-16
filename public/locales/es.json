@@ -2239,5 +2239,9 @@
     "noQr": "No se encontró ningún código QR. Prueba con una foto más nítida y de frente.",
     "isWifi": "Es un código wifi. Siempre funciona, incluso sin app: crea aquí un código Wifi con el mismo nombre de red y contraseña.",
     "isStatic": "Este código contiene texto fijo, no una dirección web. Siempre funciona sin app; vuelve a crearlo aquí con el mismo contenido."
+  },
+  "up": {
+    "title": "Mejora tu plan",
+    "cta": "Mejorar"
   }
 }

@@ -62,9 +62,28 @@
   });
   // De privacy-pagina heeft geen eigen knop meer in de zijbalk: "Instellingen" blijft dan oplichten
   document.addEventListener('pagechange', function (e) {
-    if (e.detail === 'settings') { draw(); return; }
-    if (e.detail === 'legal') { var it = document.querySelector('.item[data-page="settings"]'); if (it) it.classList.add('active'); }
+    if (e.detail === 'settings') { draw(); var ac = document.querySelector('.item[data-page="account"]'); if (ac) ac.classList.add('active'); return; }   // Instellingen hoort bij Mijn account
+    if (e.detail === 'legal') { var it = document.querySelector('.item[data-page="account"]'); if (it) it.classList.add('active'); }
     else fromSettings = false;
   });
   if (window.i18n) i18n.onChange(function () { if (!view.hidden) draw(); });
+})();
+
+/* Upgrade-kaartje in de zijbalk: rustig, niet opdringerig. Laat het huidige pakket en het gebruik zien; klik = Abonnement. */
+(function () {
+  var card = document.getElementById('upCard'), sub = document.getElementById('upSub'), info = null;
+  if (!card) return;
+  function show() {
+    var p = info && info.plan;
+    if (!p || p.id === 'business' || (window.api && api.isDemo && api.isDemo())) { card.hidden = true; return; }
+    var u = info.usage || {};
+    sub.textContent = t('plan.n_' + p.id) + (u.limit ? ' · ' + i18n.fmt.num(u.used) + '/' + i18n.fmt.num(u.limit) : '');
+    card.classList.toggle('warn', u.state === 'near' || u.state === 'full');
+    card.hidden = false;
+  }
+  function load() { if (!window.api || !api.account || !api.account.plan) return; api.account.plan().then(function (r) { info = r; show(); }).catch(function () { card.hidden = true; }); }
+  card.addEventListener('click', function (e) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); });
+  if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(load, 400); });
+  document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes' || e.detail === 'home') load(); });
+  if (window.i18n) i18n.onChange(show);
 })();

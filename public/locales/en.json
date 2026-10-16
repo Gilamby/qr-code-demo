@@ -2239,5 +2239,9 @@
     "noQr": "No QR code found. Try a sharper photo, taken straight on.",
     "isWifi": "This is a Wi-Fi code. It always works, even without an app: create a Wi-Fi code here with the same network name and password.",
     "isStatic": "This code holds fixed text, not a web address. It always works without an app; create it again here with the same content."
+  },
+  "up": {
+    "title": "Upgrade your plan",
+    "cta": "Upgrade"
   }
 }

@@ -2345,5 +2345,9 @@
     "noQr": "Nuk u gjet kod QR. Provo një foto më të qartë, nga përpara.",
     "isWifi": "Ky është kod Wi-Fi. Funksionon gjithmonë, edhe pa aplikacion: krijo këtu një kod Wifi me të njëjtin emër rrjeti dhe fjalëkalim.",
     "isStatic": "Ky kod përmban tekst fiks, jo adresë uebi. Funksionon gjithmonë pa aplikacion; krijoje sërish këtu me të njëjtën përmbajtje."
+  },
+  "up": {
+    "title": "Përmirëso planin",
+    "cta": "Përmirëso"
   }
 }

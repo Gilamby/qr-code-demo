@@ -2239,5 +2239,9 @@
     "noQr": "Kein QR-Code gefunden. Versuche ein schärferes Foto von vorne.",
     "isWifi": "Das ist ein WLAN-Code. Er funktioniert immer, auch ohne App: erstelle hier einen WLAN-Code mit gleichem Netzwerknamen und Passwort.",
     "isStatic": "Dieser Code enthält festen Text, keine Webadresse. Er funktioniert immer ohne App; erstelle ihn hier mit demselben Inhalt neu."
+  },
+  "up": {
+    "title": "Paket upgraden",
+    "cta": "Upgraden"
   }
 }
