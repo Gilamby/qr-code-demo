@@ -26,9 +26,9 @@ import { PATHS } from '../config/env';
 import { fail } from '../common/http';
 import { LANGS, overridesOf } from './i18n-overrides';
 
-// DeepL-taalcodes (doeltaal). Albanees kent DeepL (nog) niet: dan een nette melding.
-const DEEPL_TARGET: Record<string, string> = { en: 'EN-GB', nl: 'NL', fr: 'FR', es: 'ES', it: 'IT', de: 'DE', pt: 'PT-PT', pl: 'PL', el: 'EL' };
-const DEEPL_SOURCE: Record<string, string> = { en: 'EN', nl: 'NL', fr: 'FR', es: 'ES', it: 'IT', de: 'DE', pt: 'PT', pl: 'PL', el: 'EL' };
+// DeepL-taalcodes (doeltaal). Albanees en Catalaans staan er niet in: dan een nette melding.
+const DEEPL_TARGET: Record<string, string> = { en: 'EN-GB', nl: 'NL', fr: 'FR', es: 'ES', it: 'IT', de: 'DE', pt: 'PT-PT', pl: 'PL', el: 'EL', bg: 'BG', da: 'DA', fi: 'FI', lv: 'LV', nb: 'NB', ro: 'RO', sk: 'SK', sv: 'SV' };
+const DEEPL_SOURCE: Record<string, string> = { en: 'EN', nl: 'NL', fr: 'FR', es: 'ES', it: 'IT', de: 'DE', pt: 'PT', pl: 'PL', el: 'EL', bg: 'BG', da: 'DA', fi: 'FI', lv: 'LV', nb: 'NB', ro: 'RO', sk: 'SK', sv: 'SV' };
 
 /** Alle bestaande sleutels (uit het Engelse bestand): alleen die mogen aangepast worden */
 let known: Set<string> = null;

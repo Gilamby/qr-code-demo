@@ -10,11 +10,10 @@ import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import { PATHS } from '../config/env';
 import { DatabaseService } from '../database/database.service';
-import { overridesOf } from '../helpers/i18n-overrides';
+import { overridesOf, LANGS } from '../helpers/i18n-overrides';
 import type { ReportData } from '../reports';
 import type { User } from '../types';
 
-const LANGS = ['nl', 'en', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'el', 'sq'];
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
 type Kind = 'verify' | 'reset' | 'invite' | 'emailChange' | 'emailChanged';
 
@@ -60,7 +59,7 @@ export class MailerService {
   /** Scanoverzicht: onderwerp + HTML (ook gebruikt voor het voorbeeld in Mijn account) */
   async renderReport(lang: string, user: User, d: ReportData, base?: string) {
     const t = await this.texts(lang), v = (s: string, vars: Record<string, string | number>) => String(s || '').replace(/\{(\w+)\}/g, (m, k) => (vars[k] != null ? String(vars[k]) : m));
-    const loc = LANGS.includes(lang) && lang !== 'sq' ? lang : 'en', num = (n: number) => new Intl.NumberFormat(loc).format(n);
+    const loc = LANGS.includes(lang) && Intl.NumberFormat.supportedLocalesOf([lang]).length ? lang : 'en', num = (n: number) => new Intl.NumberFormat(loc).format(n);
     const fmt = (s: string, o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(loc, { ...o, timeZone: 'UTC' }).format(new Date(s + 'T12:00:00Z'));
     const label = d.period === 'monthly' ? fmt(d.range.from, { month: 'long', year: 'numeric' }) : fmt(d.range.from, { day: 'numeric', month: 'short' }) + ' – ' + fmt(d.range.to, { day: 'numeric', month: 'short', year: 'numeric' });
     const pct = d.prevTotal ? Math.round((d.total - d.prevTotal) / d.prevTotal * 100) : null;

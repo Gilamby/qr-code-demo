@@ -8,7 +8,16 @@ var LANGUAGES = [
   { code: 'pt', name: 'Português' },
   { code: 'pl', name: 'Polski' },
   { code: 'el', name: 'Ελληνικά' },
-  { code: 'sq', name: 'Shqip' }
+  { code: 'sq', name: 'Shqip' },
+  { code: 'bg', name: 'Български' },
+  { code: 'ca', name: 'Català' },
+  { code: 'da', name: 'Dansk' },
+  { code: 'fi', name: 'Suomi' },
+  { code: 'lv', name: 'Latviešu' },
+  { code: 'nb', name: 'Norsk' },
+  { code: 'ro', name: 'Română' },
+  { code: 'sk', name: 'Slovenčina' },
+  { code: 'sv', name: 'Svenska' }
 ];
 
 var i18n = (function () {

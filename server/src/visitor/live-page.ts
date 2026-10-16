@@ -7,7 +7,7 @@ import type { Request } from 'express';
 import { fileToken } from './rules';
 import type { QrCode } from '../types';
 
-const LANGS = ['nl', 'en', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'el', 'sq'];
+import { fromAcceptLanguage } from '../helpers/i18n-overrides';
 const esc = (s: unknown) => String(s == null ? '' : s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
 const HEX = /^#[0-9a-f]{6}$/i;
 
@@ -17,8 +17,7 @@ export function useBundle(m: { live: string; liveCss: string }) { bundle = m; }
 
 /** Taal van de bezoeker (uit de browser), anders Engels */
 export function visitorLang(req: Request) {
-  const list = String(req.get('accept-language') || '').split(',').map((x) => x.trim().slice(0, 2).toLowerCase());
-  return list.find((l) => LANGS.includes(l)) || 'en';
+  return fromAcceptLanguage(req.get('accept-language'));
 }
 function luminance(hex: string) {
   const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));

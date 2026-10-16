@@ -4,6 +4,7 @@
    en sleutels voor bestanden van beveiligde pagina's.
    ========================================================= */
 import * as crypto from 'crypto';
+import { LANGS, fromAcceptLanguage } from '../helpers/i18n-overrides';
 import * as fs from 'fs';
 import * as path from 'path';
 import type { Request } from 'express';
@@ -48,10 +49,9 @@ export function targetUrl(q: QrCode, userAgent = '') {
 /* ---------- Kleine pagina's voor de bezoeker (wachtwoord, verlopen) ---------- */
 // Teksten in de taal van de bezoeker (uit public/locales/*.json, sleutel "visit")
 const LOCALES: Record<string, Record<string, string>> = {};
-['nl', 'en', 'de', 'es', 'fr', 'it', 'pl', 'pt', 'el', 'sq'].forEach((l) => { try { LOCALES[l] = JSON.parse(fs.readFileSync(path.join(PATHS.locales, l + '.json'), 'utf8')).visit; } catch (e) { /* taal ontbreekt */ } });
+LANGS.forEach((l) => { try { LOCALES[l] = JSON.parse(fs.readFileSync(path.join(PATHS.locales, l + '.json'), 'utf8')).visit; } catch (e) { /* taal ontbreekt */ } });
 export function lang(req: Request) {
-  const list = String(req.get('accept-language') || '').split(',').map((x) => x.trim().slice(0, 2).toLowerCase());
-  return list.find((l) => LOCALES[l]) || 'en';
+  return fromAcceptLanguage(req.get('accept-language'), (l) => !!LOCALES[l]);
 }
 const text = (req: Request) => Object.assign({}, LOCALES.en, LOCALES[lang(req)]);
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
