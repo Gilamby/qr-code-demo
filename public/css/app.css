@@ -4221,3 +4221,6 @@ body.an-printing #anRange { display: block; }
 }
 /* Heel brede schermen (ultrawide): pagina's niet eindeloos uitrekken, mooi in het midden */
 @media (min-width: 2200px) { #analyticsView > .an, #myCodesView > .mc, #contactView > .help, #faqView > .help { max-width: 1900px !important; } }
+/* Mijn QR-codes: ook frames die buiten hun vak tekenen (label, kerstlabel, enz.) blijven binnen het witte vierkant; vinkje blijft zichtbaar */
+.mc-qr > span { overflow: hidden; border-radius: 6px; }
+.mc-qr > span > svg, .hm-qr > svg, .ac-qr > svg, .ad-qr > svg, .an-rqr > svg { overflow: hidden !important; }
