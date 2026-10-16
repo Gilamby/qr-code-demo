@@ -100,7 +100,6 @@ var AdminCodes = (function () {
     box.innerHTML =
       '<header class="help-head ad-head"><div><h2>' + t('adm.allCodes') + '</h2><p>' + t('ac.lead') + '</p></div>' +
         '<div class="ad-head-acts"><span class="ac-upd" aria-live="polite"></span>' +
-        '<button type="button" class="ad-ibtn" data-refresh title="' + attr(t('ac.refresh')) + '" aria-label="' + attr(t('ac.refresh')) + '">' + ico('refresh') + '</button>' +
         '<button type="button" class="btn ghost" data-export>' + ico('csv') + t('ac.exportAll') + '</button></div></header>' +
       '<div id="acTools"></div><div id="acList"></div><div id="acBulk"></div>';
     drawTools(); drawList(); setBusy();
