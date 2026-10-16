@@ -492,7 +492,9 @@
     "bulkDeleteText": "Die Links funktionieren danach nicht mehr und die Statistiken sind weg. Das kann nicht rückgängig gemacht werden.",
     "bulkDeleted": "{n} QR-Codes gelöscht",
     "bulkMoveTitle": "{n} QR-Codes verschieben nach",
-    "preparing": "ZIP wird erstellt…"
+    "preparing": "ZIP wird erstellt…",
+    "copyDest": "Ziel kopieren",
+    "ownPage": "Eigene Seite"
   },
   "appearance": {
     "title": "Farben",

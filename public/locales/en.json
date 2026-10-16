@@ -492,7 +492,9 @@
     "bulkDeleteText": "Their links will stop working and the statistics will be gone. This cannot be undone.",
     "bulkDeleted": "{n} QR codes deleted",
     "bulkMoveTitle": "Move {n} QR codes to",
-    "preparing": "Creating ZIP…"
+    "preparing": "Creating ZIP…",
+    "copyDest": "Copy destination",
+    "ownPage": "Own page"
   },
   "appearance": {
     "title": "Colours",

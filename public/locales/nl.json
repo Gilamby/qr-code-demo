@@ -492,7 +492,9 @@
     "bulkDeleteText": "De links werken daarna niet meer en de statistieken zijn weg. Dit kun je niet terugdraaien.",
     "bulkDeleted": "{n} QR-codes verwijderd",
     "bulkMoveTitle": "{n} QR-codes verplaatsen naar",
-    "preparing": "ZIP wordt gemaakt…"
+    "preparing": "ZIP wordt gemaakt…",
+    "copyDest": "Bestemming kopiëren",
+    "ownPage": "Eigen pagina"
   },
   "appearance": {
     "title": "Kleuren",

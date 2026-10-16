@@ -492,7 +492,9 @@
     "bulkDeleteText": "Linki przestaną działać, a statystyki znikną. Tego nie można cofnąć.",
     "bulkDeleted": "Usunięto kody QR: {n}",
     "bulkMoveTitle": "Przenieś kody QR ({n}) do",
-    "preparing": "Tworzenie ZIP…"
+    "preparing": "Tworzenie ZIP…",
+    "copyDest": "Kopiuj cel",
+    "ownPage": "Własna strona"
   },
   "appearance": {
     "title": "Kolory",

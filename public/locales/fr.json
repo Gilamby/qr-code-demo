@@ -492,7 +492,9 @@
     "bulkDeleteText": "Leurs liens ne fonctionneront plus et les statistiques seront perdues. Action irréversible.",
     "bulkDeleted": "{n} codes QR supprimés",
     "bulkMoveTitle": "Déplacer {n} codes QR vers",
-    "preparing": "Création du ZIP…"
+    "preparing": "Création du ZIP…",
+    "copyDest": "Copier la destination",
+    "ownPage": "Page propre"
   },
   "appearance": {
     "title": "Couleurs",

@@ -492,7 +492,9 @@
     "bulkDeleteText": "I link smetteranno di funzionare e le statistiche andranno perse. Non si può annullare.",
     "bulkDeleted": "{n} codici QR eliminati",
     "bulkMoveTitle": "Sposta {n} codici QR in",
-    "preparing": "Creazione ZIP…"
+    "preparing": "Creazione ZIP…",
+    "copyDest": "Copia destinazione",
+    "ownPage": "Pagina propria"
   },
   "appearance": {
     "title": "Colori",

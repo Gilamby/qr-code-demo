@@ -492,7 +492,9 @@
     "bulkDeleteText": "As ligações deixam de funcionar e as estatísticas desaparecem. Não é possível anular.",
     "bulkDeleted": "{n} códigos QR eliminados",
     "bulkMoveTitle": "Mover {n} códigos QR para",
-    "preparing": "A criar ZIP…"
+    "preparing": "A criar ZIP…",
+    "copyDest": "Copiar destino",
+    "ownPage": "Página própria"
   },
   "appearance": {
     "title": "Cores",

@@ -135,9 +135,9 @@ var MyCodes = (function () {
   function card(r) {
     var tp = getType(r.typeId), stat = isStatic(r), off = !!r.paused, name = displayName(r);
     var link = stat ? '<span class="mc-static">' + t('myCodes.static') + '</span>'
-      : (api.isDemo() ? '<span class="mc-url">' + esc(r.shortUrl.replace(/^https?:\/\//, '')) + '</span>'          // demo: de link bestaat nog niet echt
-        : '<a href="' + esc(r.shortUrl) + '" target="_blank" rel="noopener">' + esc(r.shortUrl.replace(/^https?:\/\//, '')) + '</a>') +
-        '<button type="button" class="mc-ico" data-act="copy" aria-label="' + esc(t('myCodes.copy')) + '" title="' + esc(t('myCodes.copy')) + '">' + ico('copy') + '</button>';
+      : (api.isDemo() ? '<span class="mc-url">' + esc(destText(r)) + '</span>'          // demo: de link bestaat nog niet echt
+        : '<a href="' + esc(destHref(r)) + '" target="_blank" rel="noopener" title="' + esc(destText(r, true)) + '">' + esc(destText(r)) + '</a>') +
+        '<button type="button" class="mc-ico" data-act="copydest" aria-label="' + esc(t('myCodes.copyDest')) + '" title="' + esc(t('myCodes.copyDest')) + '">' + ico('copy') + '</button>';
     var nameHtml = renaming === r.id
       ? '<input class="mc-rename" data-rename value="' + esc(r.name || name) + '" maxlength="60" aria-label="' + esc(t('myCodes.rename')) + '">'
       : '<button type="button" class="mc-name" data-act="rename" title="' + esc(t('myCodes.rename')) + '"><b>' + esc(name) + '</b>' + ico('pen') + '</button>';
@@ -365,6 +365,10 @@ var MyCodes = (function () {
     }).catch(function () { rows.forEach(function (r) { if (r.id in before) r.folderId = before[r.id]; }); draw(); toast('myCodes.failed'); });
   }
   /** Kiezen naar welke map een code gaat */
+  // Wat onder de naam staat: de bestemming die je hebt ingevuld (zoals in het beheer), niet onze korte link
+  function destVal(r) { return (r.dest && r.dest.value) || ''; }
+  function destText(r, full) { var v = destVal(r); if (!v) return t('myCodes.ownPage'); return full ? v : v.replace(/^https?:\/\/(www\.)?/, ''); }   // eigen pagina (menu, coupon …): geen externe link
+  function destHref(r) { var v = destVal(r); return /^https?:\/\//i.test(v) ? v : r.shortUrl; }
   function isTeam() { return !api.isDemo(); }   // iedereen die overstapt van een andere QR-app (naam is historisch)
   /* Bestaande QR-code (uit een andere app, al geprint) koppelen: deze code toont en downloadt dan precies die QR-code.
      De oude app moet doorsturen naar onze korte link; zo lopen de scans via ons en blijft de geprinte code werken. Alleen voor het team. */
@@ -500,6 +504,7 @@ var MyCodes = (function () {
     }
     closeMenus();
     if (act === 'copy') return copy(r.shortUrl);
+    if (act === 'copydest') return copy(destVal(r) || r.shortUrl);
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });

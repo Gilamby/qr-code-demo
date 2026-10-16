@@ -9,6 +9,7 @@ import * as path from 'path';
 import { DatabaseService, newId } from '../database/database.service';
 import { baseUrl } from '../config/env';
 import { QR_TYPES } from './validation';
+import { destinationOf } from './moderation';
 import type { QrCode } from '../types';
 
 /** Wachtwoord van de pagina (veld met type 'password'). Het wifi-wachtwoord is gewone inhoud (versleuteld opgeslagen). */
@@ -55,6 +56,7 @@ export class QrCodesService {
     const hasPassword = !!(key && content[key]); if (key) delete content[key];
     Object.keys(content).forEach((k) => { if (typeof content[k] === 'string' && content[k].indexOf('"d":"data:') > 0) { try { const o = JSON.parse(content[k]); delete o.d; content[k] = JSON.stringify(o); } catch (e) { /* geen JSON */ } } });
     const r: any = { ...q, content, hasPassword, shortUrl: baseUrl(req) + '/q/' + q.id }; delete r.userId;
+    const d = destinationOf(q); r.dest = { kind: d.kind, value: d.value || '' };   // waar de code naartoe gaat (zoals in het beheer)
     // De klant ziet alleen dát het team de code heeft gepauzeerd (en waarom); een markering is intern
     const hold = q.moderation && q.moderation.hold; delete r.moderation;
     if (hold) r.hold = { reason: hold.reason, at: hold.at, lock: !!hold.lock };

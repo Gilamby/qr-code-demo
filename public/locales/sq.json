@@ -492,7 +492,9 @@
     "bulkDeleteText": "Lidhjet nuk do të funksionojnë më dhe statistikat do të humbasin. Nuk mund të zhbëhet.",
     "bulkDeleted": "{n} kode QR u fshinë",
     "bulkMoveTitle": "Zhvendos {n} kode QR te",
-    "preparing": "Po krijohet ZIP…"
+    "preparing": "Po krijohet ZIP…",
+    "copyDest": "Kopjo destinacionin",
+    "ownPage": "Faqe e vetë"
   },
   "appearance": {
     "title": "Ngjyrat",
