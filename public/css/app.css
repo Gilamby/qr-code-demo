@@ -4159,3 +4159,24 @@ body.an-printing #anRange { display: block; }
 @keyframes h3dGlow { 50% { transform: scale(1.25); opacity: .9; } }
 @keyframes h3dRays { 0%, 30% { opacity: 0; transform: scale(.8); } 55% { opacity: 1; transform: scale(1.05); } 100% { opacity: 0; transform: scale(1.1); } }
 @media (prefers-reduced-motion: reduce) { .h3d-coin, .h3d-shadow, .h3d-bulb svg, .h3d-halo, .h3d-rays { animation: none !important; } .h3d-rays { opacity: 1; } }
+
+/* Contact: lijn-iconen (zelfde stijl als de rest van de app), elk met een eigen animatie */
+.hic { display: block; width: 48px; height: 48px; margin-bottom: 4px; }
+.hic svg { width: 100%; height: 100%; overflow: visible; }
+.hic-q { color: var(--accent); }
+.hic-q .hic-bubble { animation: hicTalk 3.6s ease-in-out infinite; transform-origin: 14px 40px; }
+.hic-q .hic-mark { animation: hicHop 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.hic-q .hic-dots { opacity: 0; animation: hicPop 3.6s ease-in-out infinite; }
+.hic-bulb { color: #fbbf24; }
+.hic-bulb .hic-glass { fill: rgba(251,191,36,0); animation: hicFill 3s ease-in-out infinite; }
+.hic-bulb .hic-fil { animation: hicFil 3s ease-in-out infinite; }
+.hic-bulb .hic-rays { transform-origin: 24px 23px; animation: hicRays 3s ease-in-out infinite; }
+.help-card:hover .hic-q .hic-mark { animation-duration: 1.2s; }
+.help-card:hover .hic-bulb .hic-glass { fill: rgba(251,191,36,.25); }
+@keyframes hicTalk { 0%, 100% { transform: rotate(0); } 8% { transform: rotate(-4deg); } 16% { transform: rotate(3deg); } 24% { transform: rotate(0); } }
+@keyframes hicHop { 0%, 30%, 100% { transform: translateY(0) scale(1); } 40% { transform: translateY(-4px) scale(1.08, .95); } 50% { transform: translateY(0) scale(1); } 56% { transform: translateY(-1.5px); } 62% { transform: translateY(0); } }
+@keyframes hicPop { 0%, 38% { opacity: 0; transform: scale(.6); } 46%, 60% { opacity: 1; transform: scale(1); } 72%, 100% { opacity: 0; } }
+@keyframes hicFill { 0%, 35% { fill: rgba(251,191,36,0); } 50%, 75% { fill: rgba(251,191,36,.3); } 100% { fill: rgba(251,191,36,0); } }
+@keyframes hicFil { 0%, 35% { opacity: .5; } 50%, 75% { opacity: 1; } 100% { opacity: .5; } }
+@keyframes hicRays { 0%, 35% { opacity: 0; transform: scale(.8); } 50%, 75% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.05); } }
+@media (prefers-reduced-motion: reduce) { .hic * { animation: none !important; } .hic-rays, .hic-dots { opacity: 1; } }
