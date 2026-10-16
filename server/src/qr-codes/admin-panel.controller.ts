@@ -108,7 +108,7 @@ export class AdminPanelController {
   async getSettings() {
     const j = async (k: string) => { try { return JSON.parse((await this.db.getSetting(k)) || '{}'); } catch (e) { return {}; } };
     const env = (k: string) => String(process.env[k] || '').trim();
-    return { company: await j('company'), companyEnv: { name: env('LEGAL_NAME'), address: env('LEGAL_ADDRESS'), kvk: env('LEGAL_KVK'), vat: env('LEGAL_VAT'), email: env('LEGAL_EMAIL') || env('SUPPORT_EMAIL'), phone: env('LEGAL_PHONE'), website: env('LEGAL_WEBSITE') }, maintenance: await j('maintenance') };
+    return { company: await j('company'), companyEnv: { name: env('LEGAL_NAME'), address: env('LEGAL_ADDRESS'), kvk: env('LEGAL_KVK'), vat: env('LEGAL_VAT'), email: env('LEGAL_EMAIL'), phone: env('LEGAL_PHONE'), website: env('LEGAL_WEBSITE') }, maintenance: await j('maintenance') };
   }
   @Patch('settings')
   async saveSettings(@CurrentUser() me: User, @Body() b: any = {}) {
