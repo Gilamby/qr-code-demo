@@ -4209,3 +4209,13 @@ body.an-printing #anRange { display: block; }
 .lg-scan { flex: none; height: 46px !important; cursor: pointer; }
 .lg-scan svg { width: 18px; height: 18px; }
 .lg-dlg .mc-dlg-btns { flex-wrap: wrap; }
+
+/* Inlogscherm: 2D-reserve als er geen 3D getekend kan worden (bv. Brave) — zwevende, glanzende QR-code */
+.auth-fb { display: none; }
+@media (min-width: 761px) {
+  .auth-fb { display: grid; position: absolute; inset: 0; place-items: center; pointer-events: none; }
+  .auth-fb svg { width: min(52%, 420px); height: auto; filter: drop-shadow(0 0 18px rgba(43,181,240,.55)) drop-shadow(0 30px 40px rgba(0,0,0,.5)); animation: fbFloat 6s ease-in-out infinite; opacity: .92; }
+  .auth-art.on .auth-fb { opacity: 0; transition: opacity .6s; }
+  @keyframes fbFloat { 0%, 100% { transform: perspective(900px) rotateY(-10deg) rotateX(4deg) translateY(0); } 50% { transform: perspective(900px) rotateY(10deg) rotateX(-3deg) translateY(-10px); } }
+  @media (prefers-reduced-motion: reduce) { .auth-fb svg { animation: none; } }
+}

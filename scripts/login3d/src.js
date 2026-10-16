@@ -49,13 +49,13 @@ let S = null;   // de lopende scène (één tegelijk)
 function start(canvas) {
   stop();
   let renderer;
-  try { renderer = new WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' }); } catch (e) { return false; }
+  try { renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) { return false; }
   const calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
   renderer.toneMapping = ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; renderer.outputColorSpace = SRGBColorSpace;
-  renderer.setClearColor(NAVY, 1);
+  renderer.setClearColor(NAVY, 0);   // doorzichtig: tekent de browser niets (bv. Brave blokkeert WebGL), dan blijft de 2D-reserve erachter zichtbaar
 
-  const scene = new Scene(); scene.background = NAVY.clone();
+  const scene = new Scene();   // geen achtergrondkleur: de gloed-laag hieronder bedekt het hele beeld zodra er echt getekend wordt
   const pmrem = new PMREMGenerator(renderer), envRT = pmrem.fromScene(new RoomEnvironment(), 0.04); scene.environment = envRT.texture; pmrem.dispose();
   const camera = new PerspectiveCamera(34, 1, 0.1, 100); camera.position.set(0, 0, 16);
 
@@ -187,7 +187,10 @@ function start(canvas) {
     write();
     pmat.uniforms.uTime.value = clock;
   }
-  function render() { renderer.render(scene, camera); }
+  let dead = false;
+  const fail = () => { if (dead) return; dead = true; cancelAnimationFrame(raf); try { window.dispatchEvent(new CustomEvent('loginscene-fail')); } catch (e) {} };
+  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); fail(); });
+  function render() { if (dead) return; try { renderer.render(scene, camera); } catch (e) { fail(); } }
   function loop(now) {
     raf = requestAnimationFrame(loop);
     if (document.hidden) { last = now; return; }
@@ -203,6 +206,7 @@ function start(canvas) {
     test(cmd) { if (cmd.pause) { cancelAnimationFrame(raf); raf = 0; } if (cmd.pointer) { const ev = { clientX: cmd.pointer[0], clientY: cmd.pointer[1], button: 0, pointerId: 1 }; if (cmd.down) onDown(ev); else onMove(ev); }
       if (cmd.up) onUp(); for (let i = 0; i < (cmd.steps || 0); i++) step(1 / 60); render(); },
     stop() {
+    dead = true;
     cancelAnimationFrame(raf); if (ro) ro.disconnect(); else window.removeEventListener('resize', resize);
     canvas.removeEventListener('pointermove', onMove); canvas.removeEventListener('pointerdown', onDown); canvas.removeEventListener('pointerup', onUp);
     canvas.removeEventListener('pointercancel', onUp); canvas.removeEventListener('pointerleave', onLeave); window.removeEventListener('blur', onUp);

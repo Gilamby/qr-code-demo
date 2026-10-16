@@ -6,10 +6,16 @@
    - Raakt de inlogfunctie zelf niet aan (session.js)
    ========================================================= */
 (function () {
-  var SCENE_VERSION = '4e7b77fe75';
+  var SCENE_VERSION = '41669a91a1';
   var view = document.getElementById('authView'), canvas = document.getElementById('authScene'), art = canvas && canvas.parentNode;
   if (!view || !canvas || !window.matchMedia) return;
   var wide = matchMedia('(min-width: 761px)'), running = false, loading = null;
+  /* 2D-reserve: een zwevende QR-code (gewoon SVG) achter de 3D-laag. Zichtbaar als de browser geen WebGL tekent
+     (bv. Brave met strenge bescherming, oude computers) of als de 3D-scène onderweg stopt. */
+  var fb = document.createElement('div'); fb.className = 'auth-fb'; fb.setAttribute('aria-hidden', 'true');
+  art.insertBefore(fb, canvas);
+  function drawFallback() { if (fb.firstChild || !window.QRRender) return; try { fb.innerHTML = QRRender.svg('https://optimasys.com', { color: '#cfeeff', transparent: true }); } catch (e) { fb.innerHTML = ''; } }
+  window.addEventListener('loginscene-fail', function () { if (running) { art.classList.remove('on'); art.classList.add('no-3d'); } });
   function webgl() { try { var c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } }
   function load() {
     if (window.LoginScene) return Promise.resolve();
@@ -24,7 +30,7 @@
   function sync() {
     var want = !view.hidden && wide.matches;
     if (want && !running) {
-      running = true;
+      running = true; drawFallback();
       if (!webgl()) { art.classList.add('no-3d'); return; }
       load().then(function () {
         if (!running) return;
