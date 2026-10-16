@@ -139,10 +139,10 @@ The developer logs in over SSH as `optimasys-qr` and can:
 
 ## Keep the app running (without root)
 
-`scripts/start-server.sh` (re)starts the app in the background and waits until it answers. With `check` it only starts the app when it isn't answering. Add both to the user's crontab once, so the app comes back after a server reboot or a crash:
+`scripts/start-server.sh` (re)starts the app in the background and waits until it answers. With `check` it only starts the app when it isn't answering. The app runs under a watchdog (`scripts/run-forever.sh`): if it crashes it is back within 2 seconds. Add both lines to the user's crontab once: after a server reboot the app starts by itself, and every minute `check` restarts everything if the app stopped answering (e.g. hung):
 
 ```
-(crontab -l 2>/dev/null; echo "@reboot PATH=$(dirname "$(which node)"):/usr/bin:/bin bash $HOME/qr-app/scripts/start-server.sh"; echo "*/5 * * * * PATH=$(dirname "$(which node)"):/usr/bin:/bin bash $HOME/qr-app/scripts/start-server.sh check") | crontab -
+(crontab -l 2>/dev/null; echo "@reboot PATH=$(dirname "$(which node)"):/usr/bin:/bin bash $HOME/qr-app/scripts/start-server.sh"; echo "* * * * * PATH=$(dirname "$(which node)"):/usr/bin:/bin bash $HOME/qr-app/scripts/start-server.sh check") | crontab -
 ```
 
 After an update: `cd ~/qr-app && git pull && npm ci && npm run build && bash scripts/start-server.sh`. A systemd service is still the better option when someone with root access can set it up.

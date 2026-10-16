@@ -61,6 +61,11 @@ export async function createApp(): Promise<NestExpressApplication> {
   return app;
 }
 
+/* Nooit stil omvallen: een vergeten fout in een belofte wordt gelogd en de server draait door.
+   Een echte crash (uncaughtException) wordt gelogd en de server stopt; scripts/run-forever.sh start hem binnen 2 seconden opnieuw. */
+process.on('unhandledRejection', (e: any) => console.error(new Date().toISOString() + ' Onverwerkte fout (server draait door):', e && e.stack || e));
+process.on('uncaughtException', (e: any) => { console.error(new Date().toISOString() + ' Crash:', e && e.stack || e); process.exit(1); });
+
 async function main() {
   let app: NestExpressApplication;
   try { app = await createApp(); } catch (e) {
