@@ -84,7 +84,7 @@ var Session = (function () {
       .catch(function () { flash = ['auth.errVerifyToken', 'bad']; show('login'); });
   }
   function errorText(e) {
-    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken' };
+    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', email_alias: 'auth.errAlias' };
     return t(map[e && e.code] || PasswordRules.errorKey(e && e.code) || 'auth.errGeneral');
   }
   function ready() { document.body.classList.remove('auth-checking'); }

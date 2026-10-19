@@ -1114,7 +1114,9 @@
     "errDigit": "Pridaj číslicu.",
     "errSpecial": "Pridaj špeciálny znak, napríklad ! ? @ alebo #.",
     "errDisabled": "Tento účet deaktivoval tím. Kontaktuj podporu.",
-    "sceneHint": "Klikni a podrž"
+    "sceneHint": "Klikni a podrž",
+    "errDisposable": "Použi vlastnú e-mailovú adresu. Dočasné schránky nie je možné použiť.",
+    "errAlias": "S touto e-mailovou adresou (inak napísanou) už existuje účet. Prihlás sa ním."
   },
   "acct": {
     "profile": "Profil",

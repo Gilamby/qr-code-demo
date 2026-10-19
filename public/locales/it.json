@@ -1114,7 +1114,9 @@
     "errDigit": "Aggiungi un numero.",
     "errSpecial": "Aggiungi un carattere speciale, come ! ? @ o #.",
     "errDisabled": "Questo account è stato disattivato dal team. Contatta l’assistenza.",
-    "sceneHint": "Clicca e tieni premuto"
+    "sceneHint": "Clicca e tieni premuto",
+    "errDisposable": "Usa il tuo indirizzo e-mail. Le caselle temporanee non sono accettate.",
+    "errAlias": "Esiste già un account con questo indirizzo (scritto in modo diverso). Accedi con quello."
   },
   "acct": {
     "profile": "Profilo",

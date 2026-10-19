@@ -563,3 +563,13 @@ test('zelf registreren: account bestaat, maar codes maken kan pas na betalen', a
   await team('POST', '/api/admin/customers/' + c.id + '/subscription', { action: 'paid', interval: 'month' });
   assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://a.example' }, design: {} })).status, 201, 'na betalen wel');
 });
+
+test('aanmelden: wegwerp-adressen en varianten van hetzelfde adres worden geweigerd', async () => {
+  const c = client();
+  assert.equal((await c('POST', '/api/auth/register', { email: 'iemand@mailinator.com', password: 'Proef periode zin 12!' })).json.error, 'email_disposable');
+  assert.equal((await c('POST', '/api/auth/register', { email: 'x@abc.yopmail.com', password: 'Proef periode zin 12!' })).json.error, 'email_disposable', 'ook subdomeinen');
+  await signup(client(), 'jan.devries@gmail.com', 'Proef periode zin 12!', 'Jan');
+  assert.equal((await c('POST', '/api/auth/register', { email: 'jandevries+2@gmail.com', password: 'Proef periode zin 12!' })).json.error, 'email_alias');
+  assert.equal((await c('POST', '/api/auth/register', { email: 'jan.de.vries@googlemail.com', password: 'Proef periode zin 12!' })).json.error, 'email_alias');
+  assert.equal((await c('POST', '/api/auth/register', { email: 'jan.devries@outlook.com', password: 'Proef periode zin 12!' })).status, 201, 'ander domein: gewoon toegestaan');
+});

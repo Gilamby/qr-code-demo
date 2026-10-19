@@ -1114,7 +1114,9 @@
     "errDigit": "Lisää numero.",
     "errSpecial": "Lisää erikoismerkki, kuten ! ? @ tai #.",
     "errDisabled": "Tiimi on poistanut tämän tilin käytöstä. Ota yhteyttä tukeen.",
-    "sceneHint": "Napsauta ja pidä pohjassa"
+    "sceneHint": "Napsauta ja pidä pohjassa",
+    "errDisposable": "Käytä omaa sähköpostiosoitettasi. Tilapäisiä postilaatikoita ei voi käyttää.",
+    "errAlias": "Tällä sähköpostiosoitteella (eri tavalla kirjoitettuna) on jo tili. Kirjaudu sillä."
   },
   "acct": {
     "profile": "Profiili",

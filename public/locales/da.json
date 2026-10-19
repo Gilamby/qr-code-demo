@@ -1114,7 +1114,9 @@
     "errDigit": "Tilføj et tal.",
     "errSpecial": "Tilføj et specialtegn, fx ! ? @ eller #.",
     "errDisabled": "Denne konto er deaktiveret af teamet. Kontakt support.",
-    "sceneHint": "Klik og hold"
+    "sceneHint": "Klik og hold",
+    "errDisposable": "Brug din egen e-mailadresse. Midlertidige postkasser kan ikke bruges.",
+    "errAlias": "Der findes allerede en konto med denne e-mailadresse (skrevet anderledes). Log ind med den."
   },
   "acct": {
     "profile": "Profil",

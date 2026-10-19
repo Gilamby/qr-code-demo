@@ -5,6 +5,7 @@
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
    - Te veel pogingen = even wachten (429).
    ========================================================= */
+import { isDisposable, canonicalEmail } from './email-rules';
 import { saveSub, emptySub } from '../subscription';
 import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
 import { checkCode, readTotp, useRecovery, writeTotp } from './totp';
@@ -34,8 +35,11 @@ export class AuthController {
     const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').trim().slice(0, 80), lang = String(b.lang || 'en');
     if (this.auth.limited('reg:' + req.ip, 50, 60) || this.auth.limited('reg:' + email, 3, 60)) throw fail(429, 'too_many');
     if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
+    if (isDisposable(email)) throw fail(400, 'email_disposable');             // tijdelijke mailbox: geen account
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
     const existing = await this.db.userByEmail(email);
+    // Variant van een adres dat al een account heeft (jan.devries+2@gmail.com = jandevries@gmail.com): geen tweede account
+    if (!existing) { const c = canonicalEmail(email); if ((await this.db.listCustomers()).some((u) => u.email !== email && canonicalEmail(u.email) === c)) throw fail(409, 'email_alias'); }
     let token: string = null;
     if (!existing) {
       const user = await this.db.createUser({ email, name, passwordHash: await this.auth.hashPassword(b.password) });

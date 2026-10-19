@@ -1114,7 +1114,9 @@
     "errDigit": "Füge eine Ziffer hinzu.",
     "errSpecial": "Füge ein Sonderzeichen hinzu, z. B. ! ? @ oder #.",
     "errDisabled": "Dieses Konto wurde vom Team deaktiviert. Bitte wende dich an den Support.",
-    "sceneHint": "Klicken und halten"
+    "sceneHint": "Klicken und halten",
+    "errDisposable": "Bitte nutze deine eigene E-Mail-Adresse. Wegwerf-Postfächer sind nicht möglich.",
+    "errAlias": "Es gibt schon ein Konto mit dieser E-Mail-Adresse (anders geschrieben). Melde dich damit an."
   },
   "acct": {
     "profile": "Profil",
