@@ -89,8 +89,8 @@
       "desc": "Ndaj kanalet e tua sociale"
     },
     "whatsapp": {
-      "name": "WhatsApp",
-      "desc": "Merr mesazhe në WhatsApp"
+      "name": "WhatsApp / SMS",
+      "desc": "Merr mesazhe WhatsApp ose SMS"
     },
     "mp3": {
       "name": "MP3",
@@ -111,10 +111,6 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Lidhu me një rrjet Wi-Fi"
-    },
-    "sms": {
-      "name": "SMS",
-      "desc": "Merr mesazhe SMS"
     }
   },
   "pv": {
@@ -387,8 +383,8 @@
     "scanNone": "Vetëm tekst",
     "couponUrl": "Buton për dyqanin online ose faqen e rezervimeve",
     "buttonLabel": "Teksti i butonit",
-    "smsText": "Teksti i mesazhit",
-    "starts": "Aktiv nga"
+    "starts": "Aktiv nga",
+    "msgChannel": "Si duhet të të kontaktojnë njerëzit?"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -1289,7 +1285,7 @@
     "planFree": "Falas",
     "planFreeLead": "Po e përdorni Optimasys QR falas gjatë fazës së testimit.",
     "planF1": "Kode QR pa kufi",
-    "planF2": "Të 17 llojet e kodeve QR",
+    "planF2": "Të 16 llojet e kodeve QR",
     "planF3": "Statistika sipas shtetit, qytetit dhe sistemit",
     "planF4": "Dizajni, ngjyrat dhe logoja juaj",
     "planNote": "Planet me pagesë nuk ekzistojnë ende.",
@@ -1557,7 +1553,7 @@
     },
     "a": {
       "make": "Te Krijo kod QR zgjidhni një lloj, për shembull Faqe interneti. Pastaj plotësoni përmbajtjen dhe zgjidhni një dizajn. E shihni menjëherë si duket në telefon.\nGati? Shkarkojeni kodin si PNG ose SVG. Do ta gjeni edhe te Kodet e mia QR.",
-      "types": "Ka 17 lloje, nga një faqe interneti ose PDF deri te një menu, kupon ose Wi-Fi. I shihni të gjitha në hapin e parë të Krijo kod QR.",
+      "types": "Ka 16 lloje, nga një faqe interneti ose PDF deri te një menu, kupon ose Wi-Fi. I shihni të gjitha në hapin e parë të Krijo kod QR.",
       "edit": "Po. Te shumica e llojeve, kodi QR përmban një lidhje të shkurtër. Nëse ndryshoni përmbajtjen, kodi mbetet i njëjtë dhe nuk duhet të printoni sërish.\nPërjashtim: Wi-Fi dhe vCard. Përmbajtja e tyre është brenda vetë kodit, prandaj pas një ndryshimi përdorni kodin e ri.",
       "format": "PNG është një imazh i zakonshëm, i dobishëm për faqe interneti, email, Word dhe PowerPoint.\nSVG mbetet gjithmonë i qartë, sado i madh të jetë. Zgjidhni SVG për shtyp: fletëpalosje, postera dhe paketime.",
       "scanFix": "Sigurohuni që ka kontrast të mjaftueshëm mes kodit dhe sfondit: e errët mbi të çelët funksionon më mirë. Printojeni kodin të paktën 2 × 2 cm, më të madh nëse skanohet nga larg.\nMbajeni logon të vogël dhe lini hapësirë rreth kodit. Testojeni gjithmonë kodin me telefonin tuaj para se ta printoni.",
@@ -2456,5 +2452,11 @@
     "choose": "Zgjidh abonimin",
     "unpaidMsg": "Llogaria jote është gati. Zgjidh një abonim më poshtë; pastaj mund të krijosh menjëherë kode QR.",
     "admUnpaid": "Ende pa paguar"
+  },
+  "msg": {
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Hap një bisedë në WhatsApp",
+    "sms": "SMS",
+    "smsHint": "Hap një SMS me numrin dhe tekstin tënd"
   }
 }

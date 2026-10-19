@@ -89,8 +89,8 @@
       "desc": "Zdieľať svoje sociálne kanály"
     },
     "whatsapp": {
-      "name": "WhatsApp",
-      "desc": "Prijímať správy na WhatsApp"
+      "name": "WhatsApp / SMS",
+      "desc": "Prijímaj správy cez WhatsApp alebo SMS"
     },
     "mp3": {
       "name": "MP3",
@@ -111,10 +111,6 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Pripojiť sa k sieti Wi-Fi"
-    },
-    "sms": {
-      "name": "SMS",
-      "desc": "Prijímaj SMS správy"
     }
   },
   "pv": {
@@ -387,8 +383,8 @@
     "scanNone": "Iba text",
     "couponUrl": "Tlačidlo do e-shopu alebo na rezervačnú stránku",
     "buttonLabel": "Text tlačidla",
-    "smsText": "Text správy",
-    "starts": "Aktívny od"
+    "starts": "Aktívny od",
+    "msgChannel": "Ako ťa majú ľudia kontaktovať?"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -1183,7 +1179,7 @@
     "planFree": "Zadarmo",
     "planFreeLead": "Počas testovacej fázy používaš Optimasys QR zadarmo.",
     "planF1": "Neobmedzený počet QR kódov",
-    "planF2": "Všetkých 17 typov QR kódov",
+    "planF2": "Všetkých 16 typov QR kódov",
     "planF3": "Štatistiky podľa krajiny, mesta a systému",
     "planF4": "Vlastný dizajn, farby a logo",
     "planNote": "Platené predplatné zatiaľ nie je dostupné.",
@@ -1451,7 +1447,7 @@
     },
     "a": {
       "make": "V časti Vytvoriť QR kód vyber typ, napríklad Webová stránka. Potom vyplň obsah a vyber dizajn. Hneď vidíš, ako to vyzerá v telefóne.\nHotovo? Stiahni si kód ako PNG alebo SVG. Nájdeš ho aj v Moje QR kódy.",
-      "types": "Je ich 17, od webovej stránky či PDF po menu, kupón alebo Wi-Fi. Všetky ich vidíš v prvom kroku Vytvoriť QR kód.",
+      "types": "Je ich 16, od webovej stránky či PDF po menu, kupón alebo Wi-Fi. Všetky ich vidíš v prvom kroku Vytvoriť QR kód.",
       "edit": "Áno. Väčšina typov vloží do QR kódu krátky odkaz. Keď zmeníš obsah, kód zostane rovnaký a nemusíš nič tlačiť znova.\nVýnimka: Wi-Fi a vCard. Ich obsah je priamo v kóde, takže po zmene použiješ nový kód.",
       "format": "PNG je bežný obrázok. Praktický pre weby, e-mail, Word a PowerPoint.\nSVG zostane vždy ostrý, nech ho zväčšíš akokoľvek. Na tlač, napríklad letáky, plagáty a obaly, vyber SVG.",
       "scanFix": "Daj pozor na dostatočný kontrast medzi kódom a pozadím: najlepšie funguje tmavé na svetlom. Tlač kód aspoň 2 × 2 cm, a väčší, ak ľudia skenujú z väčšej diaľky.\nLogo nechaj malé a okolo kódu nechaj trochu miesta. Pred tlačou kód vždy otestuj vlastným telefónom.",
@@ -2350,5 +2346,11 @@
     "choose": "Vybrať predplatné",
     "unpaidMsg": "Tvoj účet je pripravený. Vyber si nižšie predplatné; potom môžeš hneď vytvárať QR kódy.",
     "admUnpaid": "Zatiaľ nezaplatené"
+  },
+  "msg": {
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Otvorí chat vo WhatsAppe",
+    "sms": "SMS",
+    "smsHint": "Otvorí SMS s tvojím číslom a textom"
   }
 }

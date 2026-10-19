@@ -89,8 +89,8 @@
       "desc": "Partager vos réseaux sociaux"
     },
     "whatsapp": {
-      "name": "WhatsApp",
-      "desc": "Recevoir des messages WhatsApp"
+      "name": "WhatsApp / SMS",
+      "desc": "Recevez des messages WhatsApp ou des SMS"
     },
     "mp3": {
       "name": "MP3",
@@ -111,10 +111,6 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Se connecter à un réseau Wi-Fi"
-    },
-    "sms": {
-      "name": "SMS",
-      "desc": "Recevez des SMS"
     }
   },
   "pv": {
@@ -387,8 +383,8 @@
     "scanNone": "Texte seulement",
     "couponUrl": "Bouton vers votre boutique ou page de réservation",
     "buttonLabel": "Texte du bouton",
-    "smsText": "Texte du message",
-    "starts": "Actif à partir du"
+    "starts": "Actif à partir du",
+    "msgChannel": "Comment les gens doivent-ils vous joindre ?"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -1183,7 +1179,7 @@
     "planFree": "Gratuit",
     "planFreeLead": "Vous utilisez Optimasys QR gratuitement pendant la phase de test.",
     "planF1": "codes QR illimités",
-    "planF2": "Les 17 types de codes QR",
+    "planF2": "Les 16 types de codes QR",
     "planF3": "Statistiques par pays, ville et système",
     "planF4": "Votre design, vos couleurs et votre logo",
     "planNote": "Les abonnements payants ne sont pas encore disponibles.",
@@ -1451,7 +1447,7 @@
     },
     "a": {
       "make": "Dans Créer un code QR, choisissez un type, par exemple Site web. Remplissez ensuite le contenu et choisissez un design. Vous voyez tout de suite le rendu sur un téléphone.\nTerminé ? Téléchargez votre code en PNG ou SVG. Vous le retrouverez aussi dans Mes codes QR.",
-      "types": "Il y a 17 types, d’un site web ou d’un PDF à un menu, un coupon ou le Wi-Fi. Vous les voyez tous à la première étape de Créer un code QR.",
+      "types": "Il y a 16 types, d’un site web ou d’un PDF à un menu, un coupon ou le Wi-Fi. Vous les voyez tous à la première étape de Créer un code QR.",
       "edit": "Oui. Pour la plupart des types, le code QR contient un lien court. Si vous modifiez le contenu, le code reste le même et vous n’avez rien à réimprimer.\nException : Wi-Fi et vCard. Leur contenu est dans le code lui-même ; après une modification, utilisez donc le nouveau code.",
       "format": "Le PNG est une image classique, pratique pour les sites web, les e-mails, Word et PowerPoint.\nLe SVG reste toujours net, quelle que soit la taille. Choisissez le SVG pour l’impression : flyers, affiches, emballages.",
       "scanFix": "Prévoyez assez de contraste entre le code et le fond : foncé sur clair fonctionne le mieux. Imprimez le code au moins en 2 × 2 cm, plus grand si on le scanne de loin.\nGardez le logo petit et laissez de l’espace autour du code. Testez toujours votre code avec votre propre téléphone avant de l’imprimer.",
@@ -2350,5 +2346,11 @@
     "choose": "Choisir un abonnement",
     "unpaidMsg": "Votre compte est prêt. Choisissez un abonnement ci-dessous ; vous pourrez ensuite créer des QR codes tout de suite.",
     "admUnpaid": "Pas encore payé"
+  },
+  "msg": {
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Ouvre une discussion WhatsApp",
+    "sms": "SMS",
+    "smsHint": "Ouvre un SMS avec votre numéro et votre texte"
   }
 }

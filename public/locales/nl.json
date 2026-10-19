@@ -89,8 +89,8 @@
       "desc": "Deel je sociale kanalen"
     },
     "whatsapp": {
-      "name": "WhatsApp",
-      "desc": "Ontvang WhatsApp-berichten"
+      "name": "WhatsApp / SMS",
+      "desc": "Ontvang WhatsApp-berichten of sms'jes"
     },
     "mp3": {
       "name": "MP3",
@@ -111,10 +111,6 @@
     "wifi": {
       "name": "Wifi",
       "desc": "Verbind met een wifi-netwerk"
-    },
-    "sms": {
-      "name": "SMS",
-      "desc": "Laat mensen je een sms sturen"
     }
   },
   "pv": {
@@ -387,8 +383,8 @@
     "scanNone": "Alleen tekst",
     "couponUrl": "Knop naar je webshop of boekingspagina",
     "buttonLabel": "Tekst op de knop",
-    "smsText": "Tekst van het bericht",
-    "starts": "Actief vanaf"
+    "starts": "Actief vanaf",
+    "msgChannel": "Hoe willen mensen je bereiken?"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -1183,7 +1179,7 @@
     "planFree": "Gratis",
     "planFreeLead": "Je gebruikt Optimasys QR gratis tijdens de testfase.",
     "planF1": "Onbeperkt QR-codes maken",
-    "planF2": "Alle 17 soorten QR-codes",
+    "planF2": "Alle 16 soorten QR-codes",
     "planF3": "Statistieken per land, stad en systeem",
     "planF4": "Eigen ontwerp, kleuren en logo",
     "planNote": "Betaalde abonnementen zijn er nog niet.",
@@ -1451,7 +1447,7 @@
     },
     "a": {
       "make": "Kies bij QR-code maken een soort, bijvoorbeeld Website. Vul daarna de inhoud in en kies een ontwerp. Je ziet meteen hoe het eruitziet op een telefoon.\nKlaar? Download je code als PNG of SVG. Je vindt hem daarna ook terug bij Mijn QR-codes.",
-      "types": "Er zijn 17 soorten, van een website of PDF tot een menukaart, coupon of wifi. Je ziet ze allemaal in de eerste stap van QR-code maken.",
+      "types": "Er zijn 16 soorten, van een website of PDF tot een menukaart, coupon of wifi. Je ziet ze allemaal in de eerste stap van QR-code maken.",
       "edit": "Ja. Bij de meeste soorten staat er een korte link in de QR-code. Pas je de inhoud aan, dan blijft de code hetzelfde en hoef je niets opnieuw te printen.\nUitzondering: Wifi en vCard. Daar staat de inhoud in de code zelf. Na een wijziging gebruik je dus de nieuwe code.",
       "format": "PNG is een gewone afbeelding. Handig voor websites, e-mail, Word en PowerPoint.\nSVG blijft altijd scherp, hoe groot je hem ook maakt. Kies SVG voor drukwerk, zoals flyers, posters en verpakkingen.",
       "scanFix": "Zorg voor genoeg verschil tussen de code en de achtergrond: donker op licht werkt het best. Print de code minstens 2 bij 2 cm, en groter als mensen van verder weg scannen.\nHoud een logo klein en laat wat ruimte rond de code. Test je code altijd met je eigen telefoon voordat je hem laat drukken.",
@@ -2350,5 +2346,11 @@
     "choose": "Abonnement kiezen",
     "unpaidMsg": "Je account is klaar. Kies hieronder een abonnement; daarna kun je meteen QR-codes maken.",
     "admUnpaid": "Nog niet betaald"
+  },
+  "msg": {
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Opent een chat in WhatsApp",
+    "sms": "SMS",
+    "smsHint": "Opent een sms met je nummer en tekst"
   }
 }

@@ -89,8 +89,8 @@
       "desc": "Del de sosiale kanalene dine"
     },
     "whatsapp": {
-      "name": "WhatsApp",
-      "desc": "Få meldinger på WhatsApp"
+      "name": "WhatsApp / SMS",
+      "desc": "Motta WhatsApp-meldinger eller SMS"
     },
     "mp3": {
       "name": "MP3",
@@ -111,10 +111,6 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Koble til et Wi-Fi-nettverk"
-    },
-    "sms": {
-      "name": "SMS",
-      "desc": "Motta SMS-meldinger"
     }
   },
   "pv": {
@@ -387,8 +383,8 @@
     "scanNone": "Bare tekst",
     "couponUrl": "Knapp til nettbutikken eller bookingsiden din",
     "buttonLabel": "Knappetekst",
-    "smsText": "Meldingstekst",
-    "starts": "Aktiv fra"
+    "starts": "Aktiv fra",
+    "msgChannel": "Hvordan skal folk nå deg?"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -1183,7 +1179,7 @@
     "planFree": "Gratis",
     "planFreeLead": "Du bruker Optimasys QR gratis i testfasen.",
     "planF1": "Ubegrenset antall QR-koder",
-    "planF2": "Alle 17 typer QR-koder",
+    "planF2": "Alle 16 typer QR-koder",
     "planF3": "Statistikk etter land, by og system",
     "planF4": "Eget design, egne farger og egen logo",
     "planNote": "Betalte abonnementer er ikke tilgjengelige ennå.",
@@ -1451,7 +1447,7 @@
     },
     "a": {
       "make": "I Lag QR-kode velger du en type, for eksempel Nettside. Fyll deretter ut innholdet og velg et design. Du ser med en gang hvordan det ser ut på en telefon.\nFerdig? Last ned koden din som PNG eller SVG. Du finner den også i Mine QR-koder.",
-      "types": "Det finnes 17 typer, fra en nettside eller PDF til en meny, kupong eller Wi-Fi. Du ser alle i første steg av Lag QR-kode.",
+      "types": "Det finnes 16 typer, fra en nettside eller PDF til en meny, kupong eller Wi-Fi. Du ser alle i første steg av Lag QR-kode.",
       "edit": "Ja. De fleste typene legger en kort lenke i QR-koden. Hvis du endrer innholdet, forblir koden den samme, og du trenger ikke skrive ut noe på nytt.\nUnntak: Wi-Fi og vCard. Innholdet ligger i selve koden, så etter en endring bruker du den nye koden.",
       "format": "PNG er et vanlig bilde. Praktisk for nettsider, e-post, Word og PowerPoint.\nSVG er alltid skarp, uansett hvor stor du gjør den. Velg SVG til trykk, som flygeblader, plakater og emballasje.",
       "scanFix": "Sørg for god kontrast mellom koden og bakgrunnen: mørkt på lyst virker best. Skriv ut koden i minst 2 x 2 cm, og større hvis folk skanner fra lengre avstand.\nHold en logo liten og la det være litt plass rundt koden. Test alltid koden med din egen telefon før du skriver den ut.",
@@ -2350,5 +2346,11 @@
     "choose": "Velg abonnement",
     "unpaidMsg": "Kontoen din er klar. Velg et abonnement nedenfor; så kan du lage QR-koder med en gang.",
     "admUnpaid": "Ikke betalt ennå"
+  },
+  "msg": {
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Åpner en chat i WhatsApp",
+    "sms": "SMS",
+    "smsHint": "Åpner en SMS med nummeret og teksten din"
   }
 }

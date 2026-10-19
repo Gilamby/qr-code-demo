@@ -78,8 +78,8 @@ export class ShortLinksController {
     const c = q.content;
     res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen
     if (q.contentType === 'url' && c.url && !(q.typeId === 'video' && c.file)) return res.redirect(rules.targetUrl(q, req.get('user-agent')));   // eigen video: de videopagina met speler
-    // SMS: berichtenprogramma openen met nummer en tekst ("?&body=" werkt op iPhone én Android)
-    if (q.contentType === 'sms' && c.phone) return res.redirect('sms:' + c.phone.replace(/[^\d+]/g, '') + (c.message ? '?&body=' + encodeURIComponent(c.message) : ''));
+    // WhatsApp of SMS. SMS: berichtenprogramma openen met nummer en tekst ("?&body=" werkt op iPhone én Android)
+    if (q.contentType === 'message' && c.channel === 'sms' && c.phone) return res.redirect('sms:' + c.phone.replace(/[^\d+]/g, '') + (c.message ? '?&body=' + encodeURIComponent(c.message) : ''));
     if (q.contentType === 'message' && c.phone) return res.redirect('https://wa.me/' + c.phone.replace(/\D/g, '') + (c.message ? '?text=' + encodeURIComponent(c.message) : ''));
     // Doorsturen naar wat al bestaat
     const ua = req.get('user-agent') || '';

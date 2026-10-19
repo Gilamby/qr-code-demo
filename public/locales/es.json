@@ -89,8 +89,8 @@
       "desc": "Comparte tus redes sociales"
     },
     "whatsapp": {
-      "name": "WhatsApp",
-      "desc": "Recibe mensajes de WhatsApp"
+      "name": "WhatsApp / SMS",
+      "desc": "Recibe mensajes de WhatsApp o SMS"
     },
     "mp3": {
       "name": "MP3",
@@ -111,10 +111,6 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Conéctate a una red wifi"
-    },
-    "sms": {
-      "name": "SMS",
-      "desc": "Recibe mensajes SMS"
     }
   },
   "pv": {
@@ -387,8 +383,8 @@
     "scanNone": "Solo texto",
     "couponUrl": "Botón a tu tienda online o página de reservas",
     "buttonLabel": "Texto del botón",
-    "smsText": "Texto del mensaje",
-    "starts": "Activo desde"
+    "starts": "Activo desde",
+    "msgChannel": "¿Cómo deben contactarte?"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -1183,7 +1179,7 @@
     "planFree": "Gratis",
     "planFreeLead": "Usas Optimasys QR gratis durante la fase de prueba.",
     "planF1": "Códigos QR ilimitados",
-    "planF2": "Los 17 tipos de códigos QR",
+    "planF2": "Los 16 tipos de códigos QR",
     "planF3": "Estadísticas por país, ciudad y sistema",
     "planF4": "Tu propio diseño, colores y logotipo",
     "planNote": "Aún no hay planes de pago.",
@@ -1451,7 +1447,7 @@
     },
     "a": {
       "make": "En Crear código QR, elige un tipo, por ejemplo Sitio web. Después rellena el contenido y elige un diseño. Ves enseguida cómo queda en un móvil.\n¿Listo? Descarga tu código en PNG o SVG. También lo encontrarás en Mis códigos QR.",
-      "types": "Hay 17 tipos, desde un sitio web o un PDF hasta un menú, un cupón o el wifi. Los ves todos en el primer paso de Crear código QR.",
+      "types": "Hay 16 tipos, desde un sitio web o un PDF hasta un menú, un cupón o el wifi. Los ves todos en el primer paso de Crear código QR.",
       "edit": "Sí. En la mayoría de los tipos, el código QR lleva un enlace corto. Si cambias el contenido, el código sigue igual y no hace falta volver a imprimir.\nExcepción: wifi y vCard. Su contenido va dentro del propio código, así que tras un cambio usas el código nuevo.",
       "format": "PNG es una imagen normal. Útil para webs, correo, Word y PowerPoint.\nSVG siempre se ve nítido, por grande que sea. Elige SVG para imprenta: folletos, carteles y envases.",
       "scanFix": "Asegúrate de que haya contraste entre el código y el fondo: oscuro sobre claro funciona mejor. Imprime el código de al menos 2 × 2 cm, y más grande si se escanea de lejos.\nUsa un logotipo pequeño y deja espacio alrededor del código. Prueba siempre el código con tu propio móvil antes de imprimirlo.",
@@ -2350,5 +2346,11 @@
     "choose": "Elegir un plan",
     "unpaidMsg": "Tu cuenta está lista. Elige un plan abajo; después podrás crear códigos QR enseguida.",
     "admUnpaid": "Aún no pagado"
+  },
+  "msg": {
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Abre un chat en WhatsApp",
+    "sms": "SMS",
+    "smsHint": "Abre un SMS con tu número y tu texto"
   }
 }

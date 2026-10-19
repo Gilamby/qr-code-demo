@@ -89,8 +89,8 @@
       "desc": "Kopīgot savus sociālos kanālus"
     },
     "whatsapp": {
-      "name": "WhatsApp",
-      "desc": "Saņemt WhatsApp ziņas"
+      "name": "WhatsApp / SMS",
+      "desc": "Saņem WhatsApp ziņas vai īsziņas"
     },
     "mp3": {
       "name": "MP3",
@@ -111,10 +111,6 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Pieslēgties Wi-Fi tīklam"
-    },
-    "sms": {
-      "name": "SMS",
-      "desc": "Saņem īsziņas"
     }
   },
   "pv": {
@@ -387,8 +383,8 @@
     "scanNone": "Tikai teksts",
     "couponUrl": "Poga uz interneta veikalu vai rezervēšanas lapu",
     "buttonLabel": "Pogas teksts",
-    "smsText": "Ziņas teksts",
-    "starts": "Aktīvs no"
+    "starts": "Aktīvs no",
+    "msgChannel": "Kā cilvēkiem ar tevi sazināties?"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -1183,7 +1179,7 @@
     "planFree": "Bezmaksas",
     "planFreeLead": "Testēšanas posmā tu izmanto Optimasys QR bez maksas.",
     "planF1": "Neierobežots QR kodu skaits",
-    "planF2": "Visi 17 QR kodu veidi",
+    "planF2": "Visi 16 QR kodu veidi",
     "planF3": "Statistika pēc valsts, pilsētas un sistēmas",
     "planF4": "Savs dizains, krāsas un logotips",
     "planNote": "Maksas plāni vēl nav pieejami.",
@@ -1451,7 +1447,7 @@
     },
     "a": {
       "make": "Sadaļā “Izveidot QR kodu” izvēlies veidu, piemēram, “Tīmekļa vietne”. Pēc tam aizpildi saturu un izvēlies dizainu. Uzreiz redzēsi, kā tas izskatās tālrunī.\nGatavs? Lejupielādē kodu PNG vai SVG formātā. To atradīsi arī sadaļā “Mani QR kodi”.",
-      "types": "Ir 17 veidi, sākot ar vietni vai PDF un beidzot ar ēdienkarti, kuponu vai Wi-Fi. Visus tos redzēsi sadaļas “Izveidot QR kodu” pirmajā solī.",
+      "types": "Ir 16 veidi, sākot ar vietni vai PDF un beidzot ar ēdienkarti, kuponu vai Wi-Fi. Visus tos redzēsi sadaļas “Izveidot QR kodu” pirmajā solī.",
       "edit": "Jā. Lielākā daļa veidu QR kodā ievieto īsu saiti. Ja maini saturu, kods paliek tas pats, un nekas nav jādrukā no jauna.\nIzņēmums: Wi-Fi un vCard. To saturs ir pašā kodā, tāpēc pēc izmaiņām izmanto jauno kodu.",
       "format": "PNG ir parasts attēls. Ērti vietnēm, e-pastam, Word un PowerPoint.\nSVG vienmēr paliek ass, lai cik lielu to padarītu. Izvēlies SVG drukai, piemēram, skrejlapām, plakātiem un iepakojumiem.",
       "scanFix": "Parūpējies par pietiekamu kontrastu starp kodu un fonu: tumšs uz gaiša darbojas vislabāk. Izdrukā kodu vismaz 2 × 2 cm, un lielāku, ja to skenē no tālākas distances.\nLogotipu turi mazu un atstāj ap kodu nedaudz brīvas vietas. Pirms drukāšanas vienmēr pārbaudi kodu ar savu tālruni.",
@@ -2350,5 +2346,11 @@
     "choose": "Izvēlēties abonementu",
     "unpaidMsg": "Tavs konts ir gatavs. Izvēlies abonementu zemāk; pēc tam vari uzreiz veidot QR kodus.",
     "admUnpaid": "Vēl nav apmaksāts"
+  },
+  "msg": {
+    "whatsapp": "WhatsApp",
+    "whatsappHint": "Atver tērzēšanu WhatsApp",
+    "sms": "SMS",
+    "smsHint": "Atver īsziņu ar tavu numuru un tekstu"
   }
 }

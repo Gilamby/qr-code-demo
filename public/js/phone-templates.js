@@ -166,6 +166,7 @@ var PHONE = (function () {
 
     /* ---------- WhatsApp: precies het chatscherm dat opent ---------- */
     whatsapp: function (c, ex) {
+      if (c.channel === 'sms') return this.sms(c);                       // gekozen: SMS
       var msgs = ex
         ? '<div class="wa-in">' + esc(t('pv.whatsapp.m1')) + '<time>' + liveClock(-6) + '</time></div>' +
           '<div class="wa-out">' + esc(c.message) + '<time>' + liveClock(-4) + ' <em>✓✓</em></time></div>' +

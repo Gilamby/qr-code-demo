@@ -530,13 +530,15 @@ test('overgezette code: einddatum oude QR-app, herinnering 60 en 14 dagen ervoor
   assert.equal(r.json.legacyUrl, undefined); assert.equal(r.json.legacyUntil, undefined, 'ontkoppeld: datum weg');
 });
 
-test('SMS-code: scan opent het berichtenprogramma met nummer en tekst', async () => {
+test('WhatsApp / SMS: bij SMS opent het berichtenprogramma met nummer en tekst', async () => {
   const k = client(); await signup(k, 'sms-k@example.com', 'Sms code zin 12!', 'Klant Sms');
-  const r = await k('POST', '/api/qr-codes', { typeId: 'sms', content: { phone: '+31 6 1234 5678', message: 'Hallo daar' }, design: {} });
+  const r = await k('POST', '/api/qr-codes', { typeId: 'whatsapp', content: { channel: 'sms', phone: '+31 6 1234 5678', message: 'Hallo daar' }, design: {} });
   assert.equal(r.status, 201);
   const s = await fetch(base + '/q/' + r.json.id, { redirect: 'manual' });
   assert.equal(s.status, 302); assert.equal(s.headers.get('location'), 'sms:+31612345678?&body=Hallo%20daar');
-  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'sms', content: { message: 'zonder nummer' }, design: {} })).status, 400, 'nummer verplicht');
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'whatsapp', content: { channel: 'sms', message: 'zonder nummer' }, design: {} })).status, 400, 'nummer verplicht');
+  const w = (await k('POST', '/api/qr-codes', { typeId: 'whatsapp', content: { phone: '+31 6 1234 5678' }, design: {} })).json;
+  assert.match((await fetch(base + '/q/' + w.id, { redirect: 'manual' })).headers.get('location'), /^https:\/\/wa\.me\/31612345678/, 'zonder keuze: WhatsApp');
 });
 
 test('startdatum en maximum aantal scans (KB Q224)', async () => {
