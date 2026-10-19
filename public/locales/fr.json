@@ -912,7 +912,9 @@
     "expiredText": "Ce code n’est plus valable. Contacte le propriétaire.",
     "paused": "Ce QR code est désactivé",
     "pausedText": "Le propriétaire a désactivé ce code pour le moment. Réessaie plus tard.",
-    "notFound": "QR code introuvable"
+    "notFound": "QR code introuvable",
+    "inactive": "Ce code QR n’est pas actif",
+    "inactiveText": "Ce code est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "edit": {
     "title": "Modifier : {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Votre mot de passe a été modifié",
     "secPasswordText": "Le mot de passe de votre compte a été modifié le {time}.",
     "secNotYou": "Ce n’était pas vous ? Changez tout de suite votre mot de passe et vérifiez dans Sécurité les appareils connectés.",
-    "secButton": "Aller à mon compte"
+    "secButton": "Aller à mon compte",
+    "lapseStartSubject": "Votre abonnement Optimasys QR a expiré",
+    "lapseStartText": "Votre abonnement a expiré, vos codes QR ne fonctionnent donc pas pour le moment. Renouvelez avant le {date} pour tout conserver. Ensuite, tous vos codes QR seront supprimés.",
+    "lapseWeekSubject": "Plus que 7 jours pour garder vos codes QR",
+    "lapseWeekText": "Votre abonnement n’a toujours pas été renouvelé. Vos codes QR seront supprimés le {date}. Renouvelez maintenant pour qu’ils fonctionnent à nouveau.",
+    "lapseDaySubject": "Dernier jour : vos codes QR seront bientôt supprimés",
+    "lapseDayText": "Vos codes QR seront supprimés le {date}. Renouvelez votre abonnement aujourd’hui pour les garder.",
+    "lapseDeletedSubject": "Vos codes QR ont été supprimés",
+    "lapseDeletedText": "Votre abonnement n’ayant pas été renouvelé, vos codes QR et leurs statistiques ont été supprimés. Votre compte existe toujours : souscrivez un abonnement pour créer de nouveaux codes.",
+    "lapseButton": "Renouveler l’abonnement"
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -2266,5 +2277,30 @@
     "done": "Terminé",
     "banner": "Vous avez déjà un code QR, par ex. imprimé ?",
     "bannerGo": "Transférez-le ici"
+  },
+  "sub": {
+    "period": "Période de facturation",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "yearSave": "2 mois offerts",
+    "perYear": "par an",
+    "paidUntil": "Payé jusqu’au {date}",
+    "graceRule": "En cas de retard de paiement, vous avez {n} jours pour payer avant la suppression de vos codes QR. Ce délai est divisé par deux à chaque retard (3 jours minimum).",
+    "graceMsg": "Votre abonnement a expiré. Vos codes QR ne fonctionnent pas et vous ne pouvez rien modifier. Renouvelez avant le {date}, sinon tous vos codes QR seront supprimés.",
+    "endedMsg": "Votre abonnement a expiré et vos codes QR ont été supprimés. Souscrivez un abonnement pour créer de nouveaux codes.",
+    "barGrace": "Abonnement expiré : vos codes QR ne fonctionnent pas. Renouvelez avant le {date}.",
+    "barEnded": "Abonnement expiré : vos codes QR ont été supprimés.",
+    "renew": "Renouveler",
+    "admPaid": "Payé jusqu’au {date}",
+    "admGrace": "Non payé · suppression le {date}",
+    "admEnded": "Non payé · codes supprimés",
+    "admNone": "Pas de période de facturation",
+    "admButton": "Paiement",
+    "admTitle": "Paiement de {name}",
+    "admMarkPaid": "Marquer comme payé (+1 période)",
+    "admEnd": "Ou définir la date de fin",
+    "admNote": "Tant que les paiements ne passent pas par Stripe, l’équipe définit ici la période payée.",
+    "admNoPeriod": "Pas de période de facturation",
+    "admSaved": "Paiement enregistré."
   }
 }

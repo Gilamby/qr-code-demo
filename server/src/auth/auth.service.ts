@@ -5,6 +5,7 @@
      Je blijft ingelogd tot je uitlogt: 1 jaar, en elke dag dat je de app gebruikt schuift dat op.
      In de database staat alleen een hash van die code. Noodzakelijke cookie: geen cookiebanner nodig.
    ========================================================= */
+import { isBlocked } from '../subscription';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { promisify } from 'util';
@@ -78,6 +79,11 @@ export class AuthService implements OnModuleDestroy {
       if (req.method !== 'GET' && req.method !== 'HEAD' && /^\/api\//.test(req.path) && !/^\/api\/(auth|admin)\//.test(req.path) && !(req.user && this.isAdmin(req.user))) {
         const m = await this.maintenance();
         if (m.on) { res.status(503).json({ error: 'maintenance', message: m.message || null }); return; }
+      }
+      // Abonnement niet betaald: codes niet wijzigen of maken en geen statistieken (bekijken van de lijst en Mijn account blijven werken)
+      if (req.user && !this.isAdmin(req.user) && isBlocked(req.user.id) &&
+          ((req.method !== 'GET' && req.method !== 'HEAD' && /^\/api\/(qr-codes|folders|uploads)(\/|$)/.test(req.path)) || /^\/api\/analytics/.test(req.path))) {
+        res.status(402).json({ error: 'subscription_lapsed' }); return;
       }
       next();
     } catch (e) { next(e); }

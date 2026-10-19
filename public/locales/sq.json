@@ -960,7 +960,9 @@
     "expiredText": "Ky kod nuk është më i vlefshëm. Kontakto pronarin.",
     "paused": "Ky kod QR është i fikur",
     "pausedText": "Pronari e ka fikur përkohësisht këtë kod. Provo më vonë.",
-    "notFound": "Kodi QR nuk u gjet"
+    "notFound": "Kodi QR nuk u gjet",
+    "inactive": "Ky kod QR nuk është aktiv",
+    "inactiveText": "Ky kod nuk është i disponueshëm përkohësisht. Provo përsëri më vonë."
   },
   "edit": {
     "title": "Duke ndryshuar: {name}",
@@ -1448,7 +1450,16 @@
     "secPasswordSubject": "Fjalëkalimi u ndryshua",
     "secPasswordText": "Fjalëkalimi i llogarisë sate u ndryshua më {time}.",
     "secNotYou": "Nuk ishe ti? Ndrysho menjëherë fjalëkalimin dhe kontrollo te Siguria cilat pajisje janë të lidhura.",
-    "secButton": "Te llogaria ime"
+    "secButton": "Te llogaria ime",
+    "lapseStartSubject": "Abonimi yt në Optimasys QR ka skaduar",
+    "lapseStartText": "Abonimi yt ka skaduar, prandaj kodet e tua QR tani nuk funksionojnë. Rinovoje para {date} për të ruajtur gjithçka. Pas kësaj, të gjitha kodet e tua QR do të fshihen.",
+    "lapseWeekSubject": "Edhe 7 ditë për të ruajtur kodet QR",
+    "lapseWeekText": "Abonimi yt ende nuk është rinovuar. Kodet e tua QR do të fshihen më {date}. Rinovoje tani dhe ato do të funksionojnë menjëherë.",
+    "lapseDaySubject": "Dita e fundit: kodet e tua QR do të fshihen së shpejti",
+    "lapseDayText": "Kodet e tua QR do të fshihen më {date}. Rinovoje sot abonimin për t’i ruajtur.",
+    "lapseDeletedSubject": "Kodet e tua QR u fshinë",
+    "lapseDeletedText": "Meqë abonimi nuk u rinovua, kodet e tua QR dhe statistikat e tyre u fshinë. Llogaria jote ekziston ende: merr një abonim për të krijuar kode të reja.",
+    "lapseButton": "Rinovo abonimin"
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -2372,5 +2383,30 @@
     "done": "Gati",
     "banner": "Ke tashmë një kod QR, p.sh. të printuar?",
     "bannerGo": "Transferoje këtu"
+  },
+  "sub": {
+    "period": "Periudha e pagesës",
+    "monthly": "Mujore",
+    "yearly": "Vjetore",
+    "yearSave": "2 muaj falas",
+    "perYear": "në vit",
+    "paidUntil": "Paguar deri më {date}",
+    "graceRule": "Nëse paguan me vonesë, ke {n} ditë për të paguar para se kodet e tua QR të fshihen. Kjo kohë përgjysmohet sa herë paguan me vonesë (minimumi 3 ditë).",
+    "graceMsg": "Abonimi yt ka skaduar. Kodet e tua QR nuk funksionojnë dhe nuk mund të ndryshosh asgjë. Rinovoje para {date}, përndryshe të gjitha kodet e tua QR do të fshihen.",
+    "endedMsg": "Abonimi yt ka skaduar dhe kodet e tua QR u fshinë. Merr një abonim për të krijuar kode të reja.",
+    "barGrace": "Abonimi skadoi: kodet e tua QR nuk funksionojnë. Rinovoje para {date}.",
+    "barEnded": "Abonimi skadoi: kodet e tua QR u fshinë.",
+    "renew": "Rinovo",
+    "admPaid": "Paguar deri më {date}",
+    "admGrace": "Pa paguar · fshihet më {date}",
+    "admEnded": "Pa paguar · kodet u fshinë",
+    "admNone": "Pa periudhë pagese",
+    "admButton": "Pagesa",
+    "admTitle": "Pagesa e {name}",
+    "admMarkPaid": "Shëno si të paguar (+1 periudhë)",
+    "admEnd": "Ose vendos vetë datën e mbarimit",
+    "admNote": "Derisa pagesat të kalojnë përmes Stripe, ekipi vendos këtu periudhën e paguar.",
+    "admNoPeriod": "Pa periudhë pagese",
+    "admSaved": "Pagesa u ruajt."
   }
 }

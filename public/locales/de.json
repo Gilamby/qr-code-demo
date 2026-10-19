@@ -912,7 +912,9 @@
     "expiredText": "Dieser Code ist nicht mehr gültig. Bitte wende dich an den Inhaber.",
     "paused": "Dieser QR-Code ist ausgeschaltet",
     "pausedText": "Der Inhaber hat diesen Code vorübergehend ausgeschaltet. Bitte versuche es später erneut.",
-    "notFound": "QR-Code nicht gefunden"
+    "notFound": "QR-Code nicht gefunden",
+    "inactive": "Dieser QR-Code ist nicht aktiv",
+    "inactiveText": "Dieser Code ist vorübergehend nicht verfügbar. Bitte versuch es später erneut."
   },
   "edit": {
     "title": "Bearbeiten: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Dein Passwort wurde geändert",
     "secPasswordText": "Das Passwort deines Kontos wurde am {time} geändert.",
     "secNotYou": "Warst du das nicht? Ändere sofort dein Passwort und prüfe unter Sicherheit, welche Geräte angemeldet sind.",
-    "secButton": "Zu meinem Konto"
+    "secButton": "Zu meinem Konto",
+    "lapseStartSubject": "Dein Optimasys-QR-Abo ist abgelaufen",
+    "lapseStartText": "Dein Abo ist abgelaufen, deshalb funktionieren deine QR-Codes gerade nicht. Verlängere vor dem {date}, um alles zu behalten. Danach werden alle deine QR-Codes gelöscht.",
+    "lapseWeekSubject": "Noch 7 Tage, um deine QR-Codes zu behalten",
+    "lapseWeekText": "Dein Abo wurde noch nicht verlängert. Deine QR-Codes werden am {date} gelöscht. Verlängere jetzt, dann funktionieren sie sofort wieder.",
+    "lapseDaySubject": "Letzter Tag: deine QR-Codes werden bald gelöscht",
+    "lapseDayText": "Deine QR-Codes werden am {date} gelöscht. Verlängere heute dein Abo, um sie zu behalten.",
+    "lapseDeletedSubject": "Deine QR-Codes wurden gelöscht",
+    "lapseDeletedText": "Da dein Abo nicht verlängert wurde, wurden deine QR-Codes und ihre Statistiken gelöscht. Dein Konto besteht weiter: Schließ ein Abo ab, um neue Codes zu erstellen.",
+    "lapseButton": "Abo verlängern"
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2266,5 +2277,30 @@
     "done": "Fertig",
     "banner": "Du hast schon einen QR-Code, z. B. gedruckt?",
     "bannerGo": "Hier übernehmen"
+  },
+  "sub": {
+    "period": "Abrechnungszeitraum",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "yearSave": "2 Monate gratis",
+    "perYear": "pro Jahr",
+    "paidUntil": "Bezahlt bis {date}",
+    "graceRule": "Zahlst du zu spät, hast du {n} Tage Zeit, bevor deine QR-Codes gelöscht werden. Diese Frist halbiert sich bei jeder verspäteten Zahlung (mindestens 3 Tage).",
+    "graceMsg": "Dein Abo ist abgelaufen. Deine QR-Codes funktionieren nicht und du kannst nichts ändern. Verlängere vor dem {date}, sonst werden alle deine QR-Codes gelöscht.",
+    "endedMsg": "Dein Abo ist abgelaufen und deine QR-Codes wurden gelöscht. Schließ ein Abo ab, um neue Codes zu erstellen.",
+    "barGrace": "Abo abgelaufen: deine QR-Codes funktionieren nicht. Verlängere vor dem {date}.",
+    "barEnded": "Abo abgelaufen: deine QR-Codes wurden gelöscht.",
+    "renew": "Verlängern",
+    "admPaid": "Bezahlt bis {date}",
+    "admGrace": "Nicht bezahlt · Löschung am {date}",
+    "admEnded": "Nicht bezahlt · Codes gelöscht",
+    "admNone": "Kein Abrechnungszeitraum",
+    "admButton": "Zahlung",
+    "admTitle": "Zahlung von {name}",
+    "admMarkPaid": "Als bezahlt markieren (+1 Zeitraum)",
+    "admEnd": "Oder Enddatum selbst festlegen",
+    "admNote": "Solange Zahlungen nicht über Stripe laufen, legt das Team hier den bezahlten Zeitraum fest.",
+    "admNoPeriod": "Kein Abrechnungszeitraum",
+    "admSaved": "Zahlung gespeichert."
   }
 }

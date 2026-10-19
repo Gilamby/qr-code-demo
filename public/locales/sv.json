@@ -912,7 +912,9 @@
     "expiredText": "Den här koden gäller inte längre. Kontakta ägaren.",
     "paused": "Den här QR-koden är avstängd",
     "pausedText": "Ägaren har stängt av koden tills vidare. Försök igen senare.",
-    "notFound": "QR-koden hittades inte"
+    "notFound": "QR-koden hittades inte",
+    "inactive": "Den här QR-koden är inte aktiv",
+    "inactiveText": "Den här koden är tillfälligt otillgänglig. Försök igen senare."
   },
   "edit": {
     "title": "Redigerar: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Ditt lösenord har bytts",
     "secPasswordText": "Lösenordet för ditt konto byttes {time}.",
     "secNotYou": "Var det inte du? Byt lösenord direkt och kontrollera under Säkerhet vilka enheter som är inloggade.",
-    "secButton": "Gå till Mitt konto"
+    "secButton": "Gå till Mitt konto",
+    "lapseStartSubject": "Ditt Optimasys QR-abonnemang har gått ut",
+    "lapseStartText": "Ditt abonnemang har gått ut, därför fungerar dina QR-koder inte just nu. Förnya före {date} för att behålla allt. Därefter raderas alla dina QR-koder.",
+    "lapseWeekSubject": "7 dagar kvar att behålla dina QR-koder",
+    "lapseWeekText": "Ditt abonnemang har fortfarande inte förnyats. Dina QR-koder raderas {date}. Förnya nu så fungerar de direkt igen.",
+    "lapseDaySubject": "Sista dagen: dina QR-koder raderas snart",
+    "lapseDayText": "Dina QR-koder raderas {date}. Förnya ditt abonnemang i dag för att behålla dem.",
+    "lapseDeletedSubject": "Dina QR-koder har raderats",
+    "lapseDeletedText": "Eftersom ditt abonnemang inte förnyades har dina QR-koder och deras statistik raderats. Ditt konto finns kvar: teckna ett abonnemang för att skapa nya koder.",
+    "lapseButton": "Förnya abonnemang"
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",
@@ -2266,5 +2277,30 @@
     "done": "Klar",
     "banner": "Har du redan en QR-kod, kanske tryckt?",
     "bannerGo": "Flytta hit den"
+  },
+  "sub": {
+    "period": "Betalningsperiod",
+    "monthly": "Månadsvis",
+    "yearly": "Årsvis",
+    "yearSave": "2 månader gratis",
+    "perYear": "per år",
+    "paidUntil": "Betalt till {date}",
+    "graceRule": "Betalar du för sent har du {n} dagar på dig att betala innan dina QR-koder raderas. Tiden halveras varje gång du betalar för sent (minst 3 dagar).",
+    "graceMsg": "Ditt abonnemang har gått ut. Dina QR-koder fungerar inte och du kan inte ändra något. Förnya före {date}, annars raderas alla dina QR-koder.",
+    "endedMsg": "Ditt abonnemang har gått ut och dina QR-koder har raderats. Teckna ett abonnemang för att skapa nya koder.",
+    "barGrace": "Abonnemanget har gått ut: dina QR-koder fungerar inte. Förnya före {date}.",
+    "barEnded": "Abonnemanget har gått ut: dina QR-koder har raderats.",
+    "renew": "Förnya",
+    "admPaid": "Betalt till {date}",
+    "admGrace": "Ej betalt · raderas {date}",
+    "admEnded": "Ej betalt · koder raderade",
+    "admNone": "Ingen betalningsperiod",
+    "admButton": "Betalning",
+    "admTitle": "Betalning för {name}",
+    "admMarkPaid": "Markera som betalt (+1 period)",
+    "admEnd": "Eller ange slutdatum själv",
+    "admNote": "Tills betalningar går via Stripe anger teamet den betalda perioden här.",
+    "admNoPeriod": "Ingen betalningsperiod",
+    "admSaved": "Betalning sparad."
   }
 }

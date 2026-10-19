@@ -912,7 +912,9 @@
     "expiredText": "Ten kod nie jest już ważny. Skontaktuj się z właścicielem.",
     "paused": "Ten kod QR jest wyłączony",
     "pausedText": "Właściciel tymczasowo wyłączył ten kod. Spróbuj ponownie później.",
-    "notFound": "Nie znaleziono kodu QR"
+    "notFound": "Nie znaleziono kodu QR",
+    "inactive": "Ten kod QR jest nieaktywny",
+    "inactiveText": "Ten kod jest chwilowo niedostępny. Spróbuj ponownie później."
   },
   "edit": {
     "title": "Edycja: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Hasło zostało zmienione",
     "secPasswordText": "Hasło do Twojego konta zostało zmienione: {time}.",
     "secNotYou": "To nie Ty? Od razu zmień hasło i sprawdź w Bezpieczeństwie, które urządzenia są zalogowane.",
-    "secButton": "Przejdź do konta"
+    "secButton": "Przejdź do konta",
+    "lapseStartSubject": "Twoja subskrypcja Optimasys QR wygasła",
+    "lapseStartText": "Twoja subskrypcja wygasła, dlatego Twoje kody QR teraz nie działają. Odnów ją przed {date}, aby wszystko zachować. Potem wszystkie Twoje kody QR zostaną usunięte.",
+    "lapseWeekSubject": "Zostało 7 dni, aby zachować kody QR",
+    "lapseWeekText": "Twoja subskrypcja nadal nie została odnowiona. Twoje kody QR zostaną usunięte {date}. Odnów ją teraz, a od razu znów zadziałają.",
+    "lapseDaySubject": "Ostatni dzień: Twoje kody QR wkrótce zostaną usunięte",
+    "lapseDayText": "Twoje kody QR zostaną usunięte {date}. Odnów dziś subskrypcję, aby je zachować.",
+    "lapseDeletedSubject": "Twoje kody QR zostały usunięte",
+    "lapseDeletedText": "Ponieważ subskrypcja nie została odnowiona, Twoje kody QR i ich statystyki zostały usunięte. Twoje konto nadal istnieje: wykup subskrypcję, aby tworzyć nowe kody.",
+    "lapseButton": "Odnów subskrypcję"
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2266,5 +2277,30 @@
     "done": "Gotowe",
     "banner": "Masz już kod QR, np. wydrukowany?",
     "bannerGo": "Przenieś go tutaj"
+  },
+  "sub": {
+    "period": "Okres rozliczeniowy",
+    "monthly": "Miesięcznie",
+    "yearly": "Rocznie",
+    "yearSave": "2 miesiące gratis",
+    "perYear": "rocznie",
+    "paidUntil": "Opłacone do {date}",
+    "graceRule": "Jeśli zapłacisz z opóźnieniem, masz {n} dni na zapłatę, zanim Twoje kody QR zostaną usunięte. Ten czas skraca się o połowę przy każdym opóźnieniu (minimum 3 dni).",
+    "graceMsg": "Twoja subskrypcja wygasła. Twoje kody QR nie działają i nie możesz niczego zmieniać. Odnów ją przed {date}, inaczej wszystkie Twoje kody QR zostaną usunięte.",
+    "endedMsg": "Twoja subskrypcja wygasła, a Twoje kody QR zostały usunięte. Wykup subskrypcję, aby tworzyć nowe kody.",
+    "barGrace": "Subskrypcja wygasła: Twoje kody QR nie działają. Odnów przed {date}.",
+    "barEnded": "Subskrypcja wygasła: Twoje kody QR zostały usunięte.",
+    "renew": "Odnów",
+    "admPaid": "Opłacone do {date}",
+    "admGrace": "Nieopłacone · usunięcie {date}",
+    "admEnded": "Nieopłacone · kody usunięte",
+    "admNone": "Brak okresu rozliczeniowego",
+    "admButton": "Płatność",
+    "admTitle": "Płatność: {name}",
+    "admMarkPaid": "Oznacz jako opłacone (+1 okres)",
+    "admEnd": "Albo ustaw datę końca",
+    "admNote": "Dopóki płatności nie idą przez Stripe, zespół ustawia tu opłacony okres.",
+    "admNoPeriod": "Brak okresu rozliczeniowego",
+    "admSaved": "Płatność zapisana."
   }
 }

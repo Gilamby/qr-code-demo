@@ -437,6 +437,12 @@
 :root[data-theme="light"] .mf-folders { border-top: 1px solid rgba(13,19,32,0.072); }
 :root[data-theme="light"] .lg-drop.ok .lg-dz > svg { color: #16a34a; }
 :root[data-theme="light"] .imp-link code { background: rgba(13,19,32,0.045); border: 1px solid rgba(13,19,32,0.108); }
+:root[data-theme="light"] .pl-period { background: rgba(13,19,32,0.045); border: 1px solid rgba(13,19,32,0.09); }
+:root[data-theme="light"] .sub-line.ok { color: #15803d; }
+:root[data-theme="light"] .sub-st.grace,
+:root[data-theme="light"] .sub-st.ended { color: #dc2626; }
+:root[data-theme="light"] .sub-st.active { color: #15803d; }
+:root[data-theme="light"] .sub-bar { color: #991b1b !important; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

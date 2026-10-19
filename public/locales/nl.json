@@ -912,7 +912,9 @@
     "expiredText": "Deze code is niet meer geldig. Neem contact op met de eigenaar.",
     "paused": "Deze QR-code staat even uit",
     "pausedText": "De eigenaar heeft deze code tijdelijk uitgezet. Probeer het later opnieuw.",
-    "notFound": "QR-code niet gevonden"
+    "notFound": "QR-code niet gevonden",
+    "inactive": "Deze QR-code is niet actief",
+    "inactiveText": "Deze code is tijdelijk niet beschikbaar. Probeer het later opnieuw."
   },
   "edit": {
     "title": "Bewerken: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Je wachtwoord is gewijzigd",
     "secPasswordText": "Het wachtwoord van je account is gewijzigd op {time}.",
     "secNotYou": "Was jij dit niet? Wijzig dan meteen je wachtwoord en kijk bij Beveiliging welke apparaten zijn ingelogd.",
-    "secButton": "Naar mijn account"
+    "secButton": "Naar mijn account",
+    "lapseStartSubject": "Je abonnement bij Optimasys QR is verlopen",
+    "lapseStartText": "Je abonnement is verlopen, daarom werken je QR-codes nu niet. Verleng vóór {date} om alles te behouden. Daarna worden al je QR-codes verwijderd.",
+    "lapseWeekSubject": "Nog 7 dagen om je QR-codes te behouden",
+    "lapseWeekText": "Je abonnement is nog steeds niet verlengd. Je QR-codes worden verwijderd op {date}. Verleng nu, dan werken ze meteen weer.",
+    "lapseDaySubject": "Laatste kans: je QR-codes worden bijna verwijderd",
+    "lapseDayText": "Je QR-codes worden verwijderd op {date}. Verleng vandaag je abonnement om ze te behouden.",
+    "lapseDeletedSubject": "Je QR-codes zijn verwijderd",
+    "lapseDeletedText": "Omdat je abonnement niet is verlengd, zijn je QR-codes en hun statistieken verwijderd. Je account bestaat nog: neem een abonnement om nieuwe codes te maken.",
+    "lapseButton": "Abonnement verlengen"
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2266,5 +2277,30 @@
     "done": "Klaar",
     "banner": "Heb je al een QR-code, bijv. al geprint?",
     "bannerGo": "Zet hem hier over"
+  },
+  "sub": {
+    "period": "Betaalperiode",
+    "monthly": "Per maand",
+    "yearly": "Per jaar",
+    "yearSave": "2 maanden gratis",
+    "perYear": "per jaar",
+    "paidUntil": "Betaald tot {date}",
+    "graceRule": "Betaal je een keer te laat, dan heb je {n} dagen om te betalen voordat je QR-codes worden verwijderd. Die tijd halveert elke keer dat je te laat betaalt (minimaal 3 dagen).",
+    "graceMsg": "Je abonnement is verlopen. Je QR-codes werken niet en je kunt niets wijzigen. Verleng vóór {date}, anders worden al je QR-codes verwijderd.",
+    "endedMsg": "Je abonnement is verlopen en je QR-codes zijn verwijderd. Neem een abonnement om nieuwe codes te maken.",
+    "barGrace": "Abonnement verlopen: je QR-codes werken niet. Verleng vóór {date}.",
+    "barEnded": "Abonnement verlopen: je QR-codes zijn verwijderd.",
+    "renew": "Verlengen",
+    "admPaid": "Betaald tot {date}",
+    "admGrace": "Niet betaald · verwijderd op {date}",
+    "admEnded": "Niet betaald · codes verwijderd",
+    "admNone": "Geen betaalperiode",
+    "admButton": "Betaling",
+    "admTitle": "Betaling van {name}",
+    "admMarkPaid": "Markeer als betaald (+1 periode)",
+    "admEnd": "Of zet de einddatum zelf",
+    "admNote": "Zolang betalen nog niet via Stripe loopt, zet het team hier de betaalde periode.",
+    "admNoPeriod": "Geen betaalperiode",
+    "admSaved": "Betaling opgeslagen."
   }
 }

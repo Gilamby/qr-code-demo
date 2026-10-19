@@ -17,6 +17,7 @@ import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLANS, planFor, usage } from '../plans';
+import { subFor, publicSub } from '../subscription';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
 /** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
@@ -131,7 +132,7 @@ export class AccountController {
   @Get('account/plan')
   async plan(@CurrentUser() user: User) {
     const plan = await planFor(this.db, user.id), codes = (await this.db.listQrCodes(user.id)).length;
-    return { plan, usage: usage(plan, codes), plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: false };
+    return { plan, usage: usage(plan, codes), plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: false, sub: publicSub(await subFor(this.db, user.id)) };
   }
 
   /** Uitloggen op alle andere apparaten (deze blijft ingelogd) */

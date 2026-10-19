@@ -912,7 +912,9 @@
     "expiredText": "Aquest codi ja no és vàlid. Contacta amb el propietari.",
     "paused": "Aquest codi QR està desactivat",
     "pausedText": "El propietari ha desactivat aquest codi de moment. Torna-ho a provar més tard.",
-    "notFound": "No s'ha trobat el codi QR"
+    "notFound": "No s'ha trobat el codi QR",
+    "inactive": "Aquest codi QR no està actiu",
+    "inactiveText": "Aquest codi no està disponible temporalment. Torna-ho a provar més tard."
   },
   "edit": {
     "title": "S'està editant: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "S'ha canviat la teva contrasenya",
     "secPasswordText": "La contrasenya del teu compte s'ha canviat a les {time}.",
     "secNotYou": "No has estat tu? Canvia la contrasenya de seguida i comprova a Seguretat quins dispositius tenen la sessió iniciada.",
-    "secButton": "Ves al meu compte"
+    "secButton": "Ves al meu compte",
+    "lapseStartSubject": "La teva subscripció a Optimasys QR ha caducat",
+    "lapseStartText": "La teva subscripció ha caducat, per això ara els teus codis QR no funcionen. Renova-la abans del {date} per conservar-ho tot. Després, s'eliminaran tots els teus codis QR.",
+    "lapseWeekSubject": "Queden 7 dies per conservar els teus codis QR",
+    "lapseWeekText": "La teva subscripció encara no s'ha renovat. Els teus codis QR s'eliminaran el {date}. Renova-la ara i tornaran a funcionar de seguida.",
+    "lapseDaySubject": "Últim dia: els teus codis QR s'eliminaran aviat",
+    "lapseDayText": "Els teus codis QR s'eliminaran el {date}. Renova avui la subscripció per conservar-los.",
+    "lapseDeletedSubject": "S'han eliminat els teus codis QR",
+    "lapseDeletedText": "Com que la subscripció no s'ha renovat, s'han eliminat els teus codis QR i les seves estadístiques. El teu compte encara existeix: contracta una subscripció per crear codis nous.",
+    "lapseButton": "Renova la subscripció"
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2266,5 +2277,30 @@
     "done": "Fet",
     "banner": "Ja tens un codi QR, potser imprès?",
     "bannerGo": "Trasllada'l aquí"
+  },
+  "sub": {
+    "period": "Període de facturació",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "yearSave": "2 mesos gratis",
+    "perYear": "l'any",
+    "paidUntil": "Pagat fins al {date}",
+    "graceRule": "Si pagues tard, tens {n} dies per pagar abans que s'eliminin els teus codis QR. Aquest termini es redueix a la meitat cada vegada que pagues tard (mínim 3 dies).",
+    "graceMsg": "La teva subscripció ha caducat. Els teus codis QR no funcionen i no pots canviar res. Renova-la abans del {date} o s'eliminaran tots els teus codis QR.",
+    "endedMsg": "La teva subscripció ha caducat i s'han eliminat els teus codis QR. Contracta una subscripció per crear codis nous.",
+    "barGrace": "Subscripció caducada: els teus codis QR no funcionen. Renova-la abans del {date}.",
+    "barEnded": "Subscripció caducada: s'han eliminat els teus codis QR.",
+    "renew": "Renova",
+    "admPaid": "Pagat fins al {date}",
+    "admGrace": "No pagat · s'elimina el {date}",
+    "admEnded": "No pagat · codis eliminats",
+    "admNone": "Sense període de pagament",
+    "admButton": "Pagament",
+    "admTitle": "Pagament de {name}",
+    "admMarkPaid": "Marca com a pagat (+1 període)",
+    "admEnd": "O fixa tu la data de fi",
+    "admNote": "Mentre els pagaments no passin per Stripe, l'equip fixa aquí el període pagat.",
+    "admNoPeriod": "Sense període de pagament",
+    "admSaved": "Pagament desat."
   }
 }

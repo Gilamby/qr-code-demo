@@ -16,6 +16,7 @@ import { baseUrl } from '../config/env';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLAN_IDS, planFor } from '../plans';
+import { subFor, saveSub, renew, emptySub, publicSub } from '../subscription';
 
 @Injectable()
 export class TeamOnly implements CanActivate {
@@ -39,7 +40,31 @@ export class AdminController {
     const all = await this.db.listCustomers();
     const plans = await Promise.all(all.map((c) => planFor(this.db, c.id)));
     const why = await Promise.all(all.map((c) => (c.disabledAt ? this.db.getSetting('disabled:' + c.id).catch(() => null) : null)));
-    return all.map((c, i) => ({ ...this.withRole(c), plan: plans[i].id, disabledReason: reasonOf(why[i]) }));
+    const subs = await Promise.all(all.map((c) => subFor(this.db, c.id)));
+    return all.map((c, i) => ({ ...this.withRole(c), plan: plans[i].id, disabledReason: reasonOf(why[i]), sub: publicSub(subs[i]) }));
+  }
+
+  /** Betaalperiode (tot Stripe dit automatisch doet): { action: 'paid', interval } = een maand/jaar erbij,
+      { action: 'set', periodEnd: 'YYYY-MM-DD' | null, interval } = einddatum zelf zetten (null = geen betaalperiode, testfase). */
+  @Post(':id/subscription')
+  @HttpCode(200)
+  async subscription(@CurrentUser() me: User, @Param('id') id: string, @Body() b: any = {}) {
+    const u = await this.db.getUser(id); if (!u) throw fail(404, 'Not found');
+    if (this.auth.isAdmin(u)) throw fail(403, 'team');
+    const interval = b.interval === 'year' ? 'year' : 'month';
+    let s = (await subFor(this.db, id)) || emptySub(interval);
+    if (b.action === 'paid') s = renew(s, interval);
+    else if (b.action === 'set') {
+      if (b.periodEnd === null || b.periodEnd === '') s = { ...s, interval, periodEnd: null, graceUntil: null, notified: [], deletedAt: null };
+      else {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(String(b.periodEnd)) || isNaN(Date.parse(b.periodEnd + 'T23:59:59Z'))) throw fail(400, 'periodEnd: YYYY-MM-DD');
+        const end = new Date(b.periodEnd + 'T23:59:59Z').toISOString();
+        s = { ...s, interval, periodEnd: end, ...(Date.parse(end) > Date.now() ? { graceUntil: null, notified: [], deletedAt: null } : {}) };
+      }
+    } else throw fail(400, 'action: paid or set');
+    await saveSub(this.db, id, s);
+    await this.log(me, 'user_sub', id, u.email + ': ' + (b.action === 'paid' ? 'betaald (' + interval + ')' : 'einde ' + (s.periodEnd ? s.periodEnd.slice(0, 10) : '—')) );
+    return publicSub(s);
   }
 
   /** Klant toevoegen en uitnodigen */

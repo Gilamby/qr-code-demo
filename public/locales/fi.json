@@ -912,7 +912,9 @@
     "expiredText": "Tämä koodi ei ole enää voimassa. Ota yhteyttä omistajaan.",
     "paused": "Tämä QR-koodi on pois päältä",
     "pausedText": "Omistaja on toistaiseksi kytkenyt tämän koodin pois päältä. Yritä myöhemmin uudelleen.",
-    "notFound": "QR-koodia ei löytynyt"
+    "notFound": "QR-koodia ei löytynyt",
+    "inactive": "Tämä QR-koodi ei ole aktiivinen",
+    "inactiveText": "Tämä koodi ei ole tilapäisesti käytettävissä. Yritä myöhemmin uudelleen."
   },
   "edit": {
     "title": "Muokataan: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Salasanasi vaihdettiin",
     "secPasswordText": "Tilisi salasana vaihdettiin {time}.",
     "secNotYou": "Etkö se ollut sinä? Vaihda salasanasi heti ja tarkista Tietoturva-kohdasta, mitkä laitteet ovat kirjautuneina.",
-    "secButton": "Siirry tililleni"
+    "secButton": "Siirry tililleni",
+    "lapseStartSubject": "Optimasys QR -tilauksesi on päättynyt",
+    "lapseStartText": "Tilauksesi on päättynyt, joten QR-koodisi eivät nyt toimi. Uusi tilaus ennen {date}, niin säilytät kaiken. Sen jälkeen kaikki QR-koodisi poistetaan.",
+    "lapseWeekSubject": "7 päivää aikaa säilyttää QR-koodisi",
+    "lapseWeekText": "Tilaustasi ei ole vieläkään uusittu. QR-koodisi poistetaan {date}. Uusi nyt, niin ne toimivat heti taas.",
+    "lapseDaySubject": "Viimeinen päivä: QR-koodisi poistetaan pian",
+    "lapseDayText": "QR-koodisi poistetaan {date}. Uusi tilauksesi tänään säilyttääksesi ne.",
+    "lapseDeletedSubject": "QR-koodisi on poistettu",
+    "lapseDeletedText": "Koska tilaustasi ei uusittu, QR-koodisi ja niiden tilastot on poistettu. Tilisi on yhä olemassa: tee tilaus luodaksesi uusia koodeja.",
+    "lapseButton": "Uusi tilaus"
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2266,5 +2277,30 @@
     "done": "Valmis",
     "banner": "Onko sinulla jo QR-koodi, ehkä tulostettuna?",
     "bannerGo": "Siirrä se tänne"
+  },
+  "sub": {
+    "period": "Laskutuskausi",
+    "monthly": "Kuukausittain",
+    "yearly": "Vuosittain",
+    "yearSave": "2 kuukautta ilmaiseksi",
+    "perYear": "vuodessa",
+    "paidUntil": "Maksettu {date} asti",
+    "graceRule": "Jos maksat myöhässä, sinulla on {n} päivää aikaa maksaa ennen kuin QR-koodisi poistetaan. Aika puolittuu joka kerta, kun maksat myöhässä (vähintään 3 päivää).",
+    "graceMsg": "Tilauksesi on päättynyt. QR-koodisi eivät toimi etkä voi muuttaa mitään. Uusi tilaus ennen {date}, muuten kaikki QR-koodisi poistetaan.",
+    "endedMsg": "Tilauksesi on päättynyt ja QR-koodisi on poistettu. Tee tilaus luodaksesi uusia koodeja.",
+    "barGrace": "Tilaus päättyi: QR-koodisi eivät toimi. Uusi ennen {date}.",
+    "barEnded": "Tilaus päättyi: QR-koodisi on poistettu.",
+    "renew": "Uusi",
+    "admPaid": "Maksettu {date} asti",
+    "admGrace": "Maksamatta · poistetaan {date}",
+    "admEnded": "Maksamatta · koodit poistettu",
+    "admNone": "Ei laskutuskautta",
+    "admButton": "Maksu",
+    "admTitle": "Maksu: {name}",
+    "admMarkPaid": "Merkitse maksetuksi (+1 kausi)",
+    "admEnd": "Tai aseta päättymispäivä itse",
+    "admNote": "Kunnes maksut kulkevat Stripen kautta, tiimi asettaa maksetun kauden tässä.",
+    "admNoPeriod": "Ei laskutuskautta",
+    "admSaved": "Maksu tallennettu."
   }
 }

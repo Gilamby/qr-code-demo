@@ -912,7 +912,9 @@
     "expiredText": "Šis kods vairs nav derīgs. Sazinies ar īpašnieku.",
     "paused": "Šis QR kods ir izslēgts",
     "pausedText": "Īpašnieks pagaidām ir izslēdzis šo kodu. Mēģini vēlāk vēlreiz.",
-    "notFound": "QR kods nav atrasts"
+    "notFound": "QR kods nav atrasts",
+    "inactive": "Šis QR kods nav aktīvs",
+    "inactiveText": "Šis kods īslaicīgi nav pieejams. Mēģini vēlāk vēlreiz."
   },
   "edit": {
     "title": "Rediģē: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Tava parole tika nomainīta",
     "secPasswordText": "Tava konta parole tika nomainīta {time}.",
     "secNotYou": "Tas nebiji tu? Nekavējoties nomaini paroli un sadaļā “Drošība” pārbaudi, kuras ierīces ir pieteiktas.",
-    "secButton": "Uz manu kontu"
+    "secButton": "Uz manu kontu",
+    "lapseStartSubject": "Tavs Optimasys QR abonements ir beidzies",
+    "lapseStartText": "Tavs abonements ir beidzies, tāpēc tavi QR kodi pašlaik nedarbojas. Atjauno to līdz {date}, lai visu saglabātu. Pēc tam visi tavi QR kodi tiks dzēsti.",
+    "lapseWeekSubject": "Atlikušas 7 dienas, lai saglabātu QR kodus",
+    "lapseWeekText": "Tavs abonements joprojām nav atjaunots. Tavi QR kodi tiks dzēsti {date}. Atjauno to tagad, un tie uzreiz atkal darbosies.",
+    "lapseDaySubject": "Pēdējā diena: tavi QR kodi drīz tiks dzēsti",
+    "lapseDayText": "Tavi QR kodi tiks dzēsti {date}. Atjauno abonementu šodien, lai tos saglabātu.",
+    "lapseDeletedSubject": "Tavi QR kodi ir dzēsti",
+    "lapseDeletedText": "Tā kā abonements netika atjaunots, tavi QR kodi un to statistika ir dzēsti. Tavs konts joprojām pastāv: noformē abonementu, lai veidotu jaunus kodus.",
+    "lapseButton": "Atjaunot abonementu"
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",
@@ -2266,5 +2277,30 @@
     "done": "Gatavs",
     "banner": "Tev jau ir QR kods, varbūt izdrukāts?",
     "bannerGo": "Pārvieto to šurp"
+  },
+  "sub": {
+    "period": "Norēķinu periods",
+    "monthly": "Ik mēnesi",
+    "yearly": "Ik gadu",
+    "yearSave": "2 mēneši bez maksas",
+    "perYear": "gadā",
+    "paidUntil": "Apmaksāts līdz {date}",
+    "graceRule": "Ja maksā ar nokavēšanos, tev ir {n} dienas laika samaksāt, pirms tavi QR kodi tiek dzēsti. Šis laiks samazinās uz pusi katru reizi, kad maksā par vēlu (vismaz 3 dienas).",
+    "graceMsg": "Tavs abonements ir beidzies. Tavi QR kodi nedarbojas, un tu neko nevari mainīt. Atjauno to līdz {date}, citādi visi tavi QR kodi tiks dzēsti.",
+    "endedMsg": "Tavs abonements ir beidzies, un tavi QR kodi ir dzēsti. Noformē abonementu, lai veidotu jaunus kodus.",
+    "barGrace": "Abonements beidzies: tavi QR kodi nedarbojas. Atjauno līdz {date}.",
+    "barEnded": "Abonements beidzies: tavi QR kodi ir dzēsti.",
+    "renew": "Atjaunot",
+    "admPaid": "Apmaksāts līdz {date}",
+    "admGrace": "Nav apmaksāts · dzēšana {date}",
+    "admEnded": "Nav apmaksāts · kodi dzēsti",
+    "admNone": "Nav norēķinu perioda",
+    "admButton": "Maksājums",
+    "admTitle": "Maksājums: {name}",
+    "admMarkPaid": "Atzīmēt kā apmaksātu (+1 periods)",
+    "admEnd": "Vai iestati beigu datumu pats",
+    "admNote": "Kamēr maksājumi neiet caur Stripe, komanda šeit iestata apmaksāto periodu.",
+    "admNoPeriod": "Nav norēķinu perioda",
+    "admSaved": "Maksājums saglabāts."
   }
 }

@@ -68,6 +68,7 @@
         roleCell += canEdit
           ? '<label class="ad-rolesel ad-plansel"><span class="sr-only">' + t('plan.title') + '</span><select data-plan title="' + esc(t('plan.title')) + '">' + PL.map(function (p) { return '<option value="' + p + '"' + ((c.plan || 'free') === p ? ' selected' : '') + '>' + t('plan.n_' + p) + '</option>'; }).join('') + '</select></label>'
           : '<small class="cust-sub">' + t('plan.n_' + (c.plan || 'free')) + '</small>';
+        if (c.level === 'user') roleCell += subCell(c, canEdit);
         return '<div class="cust-tr' + (c.disabledAt ? ' is-off' : '') + '" role="row" data-id="' + esc(c.id) + '">' +
           '<span role="cell" class="cust-who ad-who">' + Admin.avatar(c.name, c.email) + '<span><b>' + esc(c.name || c.email) + (self ? ' <em class="cust-team">' + t('adm.you') + '</em>' : '') + '</b><small>' + esc(c.email) + '</small></span></span>' +
           '<span role="cell"><span class="cust-lbl">' + t('adm.role') + ': </span>' + roleCell + '</span>' +
@@ -81,6 +82,36 @@
             (canEdit && !c.fixed ? '<button type="button" class="btn ghost danger-ghost cust-del" data-remove aria-label="' + esc(t('cust.remove') + ': ' + (c.name || c.email)) + '" title="' + esc(t('cust.remove')) + '">' + SVG + ICON.trash + '</svg></button>' : '') + '</span>' +
         '</div>';
       }).join('') + '</div>';
+  }
+  // Betaalstatus per klant (tot Stripe dit doet zet het team de periode: knop Betaling)
+  function subCell(c, canEdit) {
+    var sb = c.sub || { state: 'none' }, txt = sb.state === 'active' ? t('sub.admPaid', { date: i18n.fmt.stamp(sb.periodEnd, 'short') })
+      : sb.state === 'grace' ? t('sub.admGrace', { date: i18n.fmt.stamp(sb.graceUntil, 'short') }) : sb.state === 'ended' ? t('sub.admEnded') : t('sub.admNone');
+    return '<small class="cust-sub sub-st ' + sb.state + '">' + esc(txt) + '</small>' + (canEdit ? '<button type="button" class="link-btn sub-edit" data-sub>' + t('sub.admButton') + '</button>' : '');
+  }
+  function subDialog(c) {
+    var d = document.getElementById('mcDialog'), sb = c.sub || { state: 'none' };
+    var end = sb.periodEnd ? sb.periodEnd.slice(0, 10) : '';
+    d.innerHTML = '<form method="dialog" class="mc-dlg sub-dlg"><h3>' + esc(t('sub.admTitle', { name: c.name || c.email })) + '</h3>' +
+      '<p class="sub-st ' + sb.state + '">' + esc(subCell(c, false).replace(/<[^>]+>/g, '')) + '</p>' +
+      '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '"><button type="button" role="radio" aria-checked="' + (sb.interval !== 'year') + '" data-iv="month">' + t('sub.monthly') + '</button><button type="button" role="radio" aria-checked="' + (sb.interval === 'year') + '" data-iv="year">' + t('sub.yearly') + '</button></div>' +
+      '<button type="button" class="btn primary" data-paid>' + t('sub.admMarkPaid') + '</button>' +
+      '<label class="auth-f"><span>' + t('sub.admEnd') + '</span><span class="auth-in"><input type="date" name="end" value="' + esc(end) + '"></span></label>' +
+      '<p class="acct-note">' + t('sub.admNote') + '</p><p class="acct-msg bad" data-err hidden></p>' +
+      '<div class="mc-dlg-btns"><button type="button" class="btn ghost" data-none>' + t('sub.admNoPeriod') + '</button><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button type="button" class="btn primary" data-saveend>' + t('acct.save') + '</button></div></form>';
+    var f = d.querySelector('form'), iv = sb.interval === 'year' ? 'year' : 'month', err = f.querySelector('[data-err]');
+    var go = function (body) {
+      body.interval = iv;
+      api.customers.sub(c.id, body).then(function () { d.close(); result = { kind: 'ok', text: t('sub.admSaved') }; load(); draw(); })
+        .catch(function (x) { err.textContent = x && x.code === 'team' ? t('cust.cantRemove') : t('auth.errGeneral'); err.hidden = false; });
+    };
+    f.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-iv]'); if (b) { iv = b.getAttribute('data-iv'); f.querySelectorAll('[data-iv]').forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); }); return; }
+      if (e.target.closest('[data-paid]')) return go({ action: 'paid' });
+      if (e.target.closest('[data-none]')) return go({ action: 'set', periodEnd: null });
+      if (e.target.closest('[data-saveend]')) { if (!f.end.value) { err.textContent = t('acct.errRequired'); err.hidden = false; return; } go({ action: 'set', periodEnd: f.end.value }); }
+    });
+    d.onclose = null; d.showModal();
   }
   function counts() {
     if (!list) return '';
@@ -127,6 +158,7 @@
       }).catch(function (x) { busy = false; bad = (x && x.details) || []; result = { kind: 'bad', text: errText(x) }; draw(); });
     });
     box.addEventListener('click', function (e) {
+      var sbBtn = e.target.closest('[data-sub]'); if (sbBtn) { var sid = sbBtn.closest('[data-id]').getAttribute('data-id'); subDialog(list.filter(function (x) { return x.id === sid; })[0]); return; }
       var row = e.target.closest('[data-id]'), id = row && row.getAttribute('data-id'), c = id && list && list.filter(function (x) { return x.id === id; })[0];
       if (e.target.closest('[data-copy]')) {
         var inp = box.querySelector('.cust-copy input'); inp.select();

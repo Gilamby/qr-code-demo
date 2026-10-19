@@ -467,3 +467,34 @@ test('instellingen: bedrijfsgegevens in de privacytekst, onderhoudsmodus blokkee
   await team('PATCH', '/api/admin/settings', { maintenance: { on: false }, company: {} });
   assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://m3.example' }, design: {} })).status, 201, 'weer uit');
 });
+
+test('abonnement verlopen: codes werken niet, niets wijzigen, betalen zet alles terug, na de bedenktijd weg', async () => {
+  const { HousekeepingService } = require('../server/dist/housekeeping.service');
+  const lapse = []; app.get(MailerService).sendLapse = async (u, kind) => { lapse.push(kind); };
+  const team = client(); await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const k = client(); await signup(k, 'sub-k@example.com', 'Abonnement zin 12!', 'Klant Sub');
+  const id = (await team('GET', '/api/admin/customers')).json.find((c) => c.email === 'sub-k@example.com').id;
+  const code = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://sub.example' }, design: {} })).json;
+  const scan = () => fetch(base + '/q/' + code.id, { redirect: 'manual' });
+  assert.equal((await k('POST', '/api/admin/customers/' + id + '/subscription', { action: 'paid' })).status, 403, 'klant kan zichzelf niet op betaald zetten');
+  let r = await team('POST', '/api/admin/customers/' + id + '/subscription', { action: 'paid', interval: 'month' });
+  assert.equal(r.status, 200); assert.equal(r.json.state, 'active');
+  assert.equal((await scan()).status, 302, 'betaald: code werkt');
+  const yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
+  r = await team('POST', '/api/admin/customers/' + id + '/subscription', { action: 'set', periodEnd: yesterday });
+  assert.equal(r.json.state, 'grace');
+  const s1 = await scan(); assert.equal(s1.status, 503, 'niet betaald: code werkt niet'); assert.match(await s1.text(), /not active|niet actief/i);
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://x.example' }, design: {} })).json.error, 'subscription_lapsed');
+  assert.equal((await k('GET', '/api/analytics')).status, 402, 'geen statistieken');
+  assert.equal((await k('GET', '/api/qr-codes')).status, 200, 'lijst bekijken mag');
+  const plan = (await k('GET', '/api/account/plan')).json; assert.equal(plan.sub.state, 'grace'); assert.ok(plan.sub.graceUntil);
+  const hk = app.get(HousekeepingService);
+  await hk.subscriptions(); assert.deepEqual(lapse, ['start'], 'mail bij het begin');
+  await team('POST', '/api/admin/customers/' + id + '/subscription', { action: 'paid' });
+  assert.equal((await scan()).status, 302, 'betaald in de bedenktijd: werkt weer');
+  await team('POST', '/api/admin/customers/' + id + '/subscription', { action: 'set', periodEnd: yesterday });
+  await hk.subscriptions(Date.now() + 15 * 864e5);
+  assert.equal((await k('GET', '/api/qr-codes')).json.length, 0, 'tweede keer: bedenktijd 15 dagen, daarna verwijderd');
+  assert.ok(lapse.includes('deleted'));
+  assert.equal((await scan()).status, 410, 'code bestaat niet meer');
+});

@@ -912,7 +912,9 @@
     "expiredText": "This code is no longer valid. Please contact the owner.",
     "paused": "This QR code is switched off",
     "pausedText": "The owner has switched this code off for now. Please try again later.",
-    "notFound": "QR code not found"
+    "notFound": "QR code not found",
+    "inactive": "This QR code is not active",
+    "inactiveText": "This code is temporarily unavailable. Please try again later."
   },
   "edit": {
     "title": "Editing: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Your password was changed",
     "secPasswordText": "The password of your account was changed at {time}.",
     "secNotYou": "Wasn’t this you? Change your password right away and check under Security which devices are signed in.",
-    "secButton": "Go to my account"
+    "secButton": "Go to my account",
+    "lapseStartSubject": "Your Optimasys QR subscription has expired",
+    "lapseStartText": "Your subscription has expired, so your QR codes are not working right now. Renew before {date} to keep everything. After that, all your QR codes will be deleted.",
+    "lapseWeekSubject": "7 days left to keep your QR codes",
+    "lapseWeekText": "Your subscription has still not been renewed. Your QR codes will be deleted on {date}. Renew now to make them work again.",
+    "lapseDaySubject": "Last day: your QR codes will be deleted soon",
+    "lapseDayText": "Your QR codes will be deleted on {date}. Renew your subscription today to keep them.",
+    "lapseDeletedSubject": "Your QR codes have been deleted",
+    "lapseDeletedText": "Because your subscription was not renewed, your QR codes and their statistics have been deleted. Your account still exists: take out a subscription to create new codes.",
+    "lapseButton": "Renew subscription"
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2266,5 +2277,30 @@
     "done": "Done",
     "banner": "Already have a QR code, maybe printed?",
     "bannerGo": "Move it here"
+  },
+  "sub": {
+    "period": "Billing period",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "yearSave": "2 months free",
+    "perYear": "per year",
+    "paidUntil": "Paid until {date}",
+    "graceRule": "If a payment is late, you have {n} days to pay before your QR codes are deleted. This period halves each time a payment is late (minimum 3 days).",
+    "graceMsg": "Your subscription has expired. Your QR codes are not working and you can't change anything. Renew before {date}, otherwise all your QR codes will be deleted.",
+    "endedMsg": "Your subscription has expired and your QR codes have been deleted. Take out a subscription to create new codes.",
+    "barGrace": "Subscription expired: your QR codes are not working. Renew before {date}.",
+    "barEnded": "Subscription expired: your QR codes have been deleted.",
+    "renew": "Renew",
+    "admPaid": "Paid until {date}",
+    "admGrace": "Not paid · deleted on {date}",
+    "admEnded": "Not paid · codes deleted",
+    "admNone": "No billing period",
+    "admButton": "Payment",
+    "admTitle": "Payment for {name}",
+    "admMarkPaid": "Mark as paid (+1 period)",
+    "admEnd": "Or set the end date yourself",
+    "admNote": "Until payments run through Stripe, the team sets the paid period here.",
+    "admNoPeriod": "No billing period",
+    "admSaved": "Payment saved."
   }
 }

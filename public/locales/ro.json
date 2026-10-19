@@ -912,7 +912,9 @@
     "expiredText": "Acest cod nu mai este valabil. Contactează proprietarul.",
     "paused": "Acest cod QR este oprit",
     "pausedText": "Proprietarul a oprit deocamdată acest cod. Încearcă din nou mai târziu.",
-    "notFound": "Codul QR nu a fost găsit"
+    "notFound": "Codul QR nu a fost găsit",
+    "inactive": "Acest cod QR nu este activ",
+    "inactiveText": "Acest cod nu este disponibil momentan. Încearcă din nou mai târziu."
   },
   "edit": {
     "title": "Editezi: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Parola ta a fost schimbată",
     "secPasswordText": "Parola contului tău a fost schimbată la {time}.",
     "secNotYou": "Nu ai fost tu? Schimbă-ți imediat parola și verifică la Securitate ce dispozitive sunt conectate.",
-    "secButton": "Mergi la contul meu"
+    "secButton": "Mergi la contul meu",
+    "lapseStartSubject": "Abonamentul tău Optimasys QR a expirat",
+    "lapseStartText": "Abonamentul tău a expirat, de aceea codurile tale QR nu funcționează acum. Reînnoiește-l înainte de {date} ca să păstrezi totul. După aceea, toate codurile tale QR vor fi șterse.",
+    "lapseWeekSubject": "Mai ai 7 zile ca să-ți păstrezi codurile QR",
+    "lapseWeekText": "Abonamentul tău încă nu a fost reînnoit. Codurile tale QR vor fi șterse pe {date}. Reînnoiește acum și vor funcționa imediat din nou.",
+    "lapseDaySubject": "Ultima zi: codurile tale QR vor fi șterse curând",
+    "lapseDayText": "Codurile tale QR vor fi șterse pe {date}. Reînnoiește azi abonamentul ca să le păstrezi.",
+    "lapseDeletedSubject": "Codurile tale QR au fost șterse",
+    "lapseDeletedText": "Pentru că abonamentul nu a fost reînnoit, codurile tale QR și statisticile lor au fost șterse. Contul tău există în continuare: ia un abonament ca să creezi coduri noi.",
+    "lapseButton": "Reînnoiește abonamentul"
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2266,5 +2277,30 @@
     "done": "Gata",
     "banner": "Ai deja un cod QR, poate tipărit?",
     "bannerGo": "Mută-l aici"
+  },
+  "sub": {
+    "period": "Perioada de facturare",
+    "monthly": "Lunar",
+    "yearly": "Anual",
+    "yearSave": "2 luni gratuit",
+    "perYear": "pe an",
+    "paidUntil": "Plătit până la {date}",
+    "graceRule": "Dacă plătești cu întârziere, ai {n} zile să plătești înainte ca codurile tale QR să fie șterse. Acest timp se înjumătățește la fiecare întârziere (minimum 3 zile).",
+    "graceMsg": "Abonamentul tău a expirat. Codurile tale QR nu funcționează și nu poți modifica nimic. Reînnoiește-l înainte de {date}, altfel toate codurile tale QR vor fi șterse.",
+    "endedMsg": "Abonamentul tău a expirat și codurile tale QR au fost șterse. Ia un abonament ca să creezi coduri noi.",
+    "barGrace": "Abonament expirat: codurile tale QR nu funcționează. Reînnoiește înainte de {date}.",
+    "barEnded": "Abonament expirat: codurile tale QR au fost șterse.",
+    "renew": "Reînnoiește",
+    "admPaid": "Plătit până la {date}",
+    "admGrace": "Neplătit · ștergere pe {date}",
+    "admEnded": "Neplătit · coduri șterse",
+    "admNone": "Fără perioadă de plată",
+    "admButton": "Plată",
+    "admTitle": "Plata pentru {name}",
+    "admMarkPaid": "Marchează ca plătit (+1 perioadă)",
+    "admEnd": "Sau setează data de final",
+    "admNote": "Până când plățile trec prin Stripe, echipa setează aici perioada plătită.",
+    "admNoPeriod": "Fără perioadă de plată",
+    "admSaved": "Plata a fost salvată."
   }
 }

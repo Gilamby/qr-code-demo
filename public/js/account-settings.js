@@ -204,7 +204,7 @@
       '<div class="acct-actions">' + (billing ? '<button class="btn ghost" type="button" data-billing-reset>' + t('myCodes.cancel') + '</button>' : '') +
       '<button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + (m.billing ? '<p class="acct-msg ' + m.billing[1] + '" role="status">' + esc(m.billing[0]) + '</p>' : '') + '</div>';
   }
-  var planInfo = null, planBusy = false;
+  var planInfo = null, planBusy = false, planYear = false;   // planYear: prijzen per jaar tonen
   function loadPlan() { if (planBusy) return; planBusy = true; api.account.plan().then(function (r) { planBusy = false; planInfo = r; if (tab === 'plan') draw(); }).catch(function () { planBusy = false; planInfo = { error: true }; if (tab === 'plan') draw(); }); }
   function euro(n) { return n === 0 ? t('plan.freeMonth') : new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); }
   function planCurrent() {
@@ -219,16 +219,25 @@
     var feats = free ? ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(t)
       : [p.codes ? t('plan.fCodes', { n: p.codes }) : t('acct.planF1'), p.statsDays ? t('plan.fStats', { n: p.statsDays }) : t('plan.fStatsAll'), t('acct.planF2'), t('acct.planF4')];
     return '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.assignedLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
-      bar + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>' +
-      '<div class="glass bg-card acct"><h2>' + t('plan.choose') + ' <span class="pl-tag">' + t('plan.proposal') + '</span></h2><p class="acct-note">' + t('plan.chooseLead') + '</p><div class="pl-grid">' +
+      bar + subLine(planInfo.sub) + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>' +
+      '<div class="glass bg-card acct"><h2>' + t('plan.choose') + ' <span class="pl-tag">' + t('plan.proposal') + '</span></h2><p class="acct-note">' + t('plan.chooseLead') + '</p>' +
+      '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '"><button type="button" role="radio" aria-checked="' + !planYear + '" data-plan-year="0">' + t('sub.monthly') + '</button><button type="button" role="radio" aria-checked="' + planYear + '" data-plan-year="1">' + t('sub.yearly') + ' <em>' + t('sub.yearSave') + '</em></button></div><div class="pl-grid">' +
       planInfo.plans.map(function (x) {
         var cur = x.id === p.id;
         return '<div class="pl-card' + (cur ? ' is-cur' : '') + '"><div class="pl-name">' + t('plan.n_' + x.id) + (cur ? '<span class="pl-cur">' + t('plan.current') + '</span>' : '') + '</div>' +
-          '<div class="pl-price"><b>' + euro(x.price) + '</b><small>' + t('plan.perMonth') + '</small></div>' +
+          '<div class="pl-price"><b>' + euro(planYear ? x.priceYear : x.price) + '</b><small>' + t(planYear ? 'sub.perYear' : 'plan.perMonth') + '</small></div>' +
           '<p class="pl-intro">' + (x.intro === 0 ? t('plan.introFree') : t('plan.intro', { price: euro(x.intro) })) + '</p>' +
           '<ul><li>' + t('plan.fCodes', { n: x.codes }) + '</li><li>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</li><li>' + t('acct.planF4') + '</li></ul>' +
           (cur ? '' : '<button type="button" class="btn ghost" data-plan-ask="' + x.id + '">' + t('plan.ask') + '</button>') + '</div>';
       }).join('') + '</div><p class="acct-note">' + t('plan.noPayments') + '</p></div>';
+  }
+  // Betaalstatus: betaald tot …, of niet betaald (codes uit, verwijderd op …), plus hoeveel bedenktijd je de volgende keer hebt
+  function subLine(sb) {
+    if (!sb || sb.state === 'none') return '';
+    var d = function (x) { return i18n.fmt.stamp(x, 'long'); };
+    if (sb.state === 'active') return '<p class="sub-line ok">' + t('sub.paidUntil', { date: d(sb.periodEnd) }) + '</p><p class="acct-note">' + t('sub.graceRule', { n: i18n.fmt.num(sb.nextGraceDays) }) + '</p>';
+    if (sb.state === 'grace') return '<p class="acct-msg bad" role="alert">' + t('sub.graceMsg', { date: i18n.fmt.stamp(sb.graceUntil, 'time') }) + '</p>';
+    return '<p class="acct-msg bad" role="alert">' + t('sub.endedMsg') + '</p>';
   }
   function planPanel() {
     var addr = billing ? [billing.type === 'company' ? billing.companyName : (billing.firstName + ' ' + billing.lastName), billing.address, billing.postalCode + ' ' + billing.city, TEL.name(billing.country)].filter(Boolean).map(esc).join('<br>') : '';
@@ -570,6 +579,7 @@
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
+    var py = e.target.closest('[data-plan-year]'); if (py) { planYear = py.getAttribute('data-plan-year') === '1'; draw(); return; }
     var ask = e.target.closest('[data-plan-ask]');
     if (ask) { goToPage('contact'); document.dispatchEvent(new CustomEvent('contact-preset', { detail: { topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + ask.getAttribute('data-plan-ask')) }) } })); return; }
     var ed = e.target.closest('[data-edit]');

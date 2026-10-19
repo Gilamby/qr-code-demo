@@ -912,7 +912,9 @@
     "expiredText": "Denne kode er ikke længere gyldig. Kontakt ejeren.",
     "paused": "Denne QR-kode er slået fra",
     "pausedText": "Ejeren har slået denne kode fra indtil videre. Prøv igen senere.",
-    "notFound": "QR-koden blev ikke fundet"
+    "notFound": "QR-koden blev ikke fundet",
+    "inactive": "Denne QR-kode er ikke aktiv",
+    "inactiveText": "Denne kode er midlertidigt utilgængelig. Prøv igen senere."
   },
   "edit": {
     "title": "Redigerer: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Din adgangskode er ændret",
     "secPasswordText": "Adgangskoden til din konto blev ændret kl. {time}.",
     "secNotYou": "Var det ikke dig? Skift din adgangskode med det samme, og tjek under Sikkerhed, hvilke enheder der er logget ind.",
-    "secButton": "Gå til min konto"
+    "secButton": "Gå til min konto",
+    "lapseStartSubject": "Dit Optimasys QR-abonnement er udløbet",
+    "lapseStartText": "Dit abonnement er udløbet, så dine QR-koder virker ikke lige nu. Forny inden {date} for at beholde det hele. Derefter slettes alle dine QR-koder.",
+    "lapseWeekSubject": "7 dage tilbage til at beholde dine QR-koder",
+    "lapseWeekText": "Dit abonnement er stadig ikke fornyet. Dine QR-koder slettes {date}. Forny nu, så virker de med det samme igen.",
+    "lapseDaySubject": "Sidste dag: dine QR-koder slettes snart",
+    "lapseDayText": "Dine QR-koder slettes {date}. Forny dit abonnement i dag for at beholde dem.",
+    "lapseDeletedSubject": "Dine QR-koder er slettet",
+    "lapseDeletedText": "Da dit abonnement ikke blev fornyet, er dine QR-koder og deres statistik slettet. Din konto findes stadig: tag et abonnement for at lave nye koder.",
+    "lapseButton": "Forny abonnement"
   },
   "contact": {
     "lead": "Et spørgsmål, et problem eller en idé? Send os en besked.",
@@ -2266,5 +2277,30 @@
     "done": "Færdig",
     "banner": "Har du allerede en QR-kode, måske trykt?",
     "bannerGo": "Flyt den hertil"
+  },
+  "sub": {
+    "period": "Betalingsperiode",
+    "monthly": "Månedlig",
+    "yearly": "Årlig",
+    "yearSave": "2 måneder gratis",
+    "perYear": "om året",
+    "paidUntil": "Betalt til {date}",
+    "graceRule": "Betaler du for sent, har du {n} dage til at betale, før dine QR-koder slettes. Fristen halveres hver gang, du betaler for sent (mindst 3 dage).",
+    "graceMsg": "Dit abonnement er udløbet. Dine QR-koder virker ikke, og du kan ikke ændre noget. Forny inden {date}, ellers slettes alle dine QR-koder.",
+    "endedMsg": "Dit abonnement er udløbet, og dine QR-koder er slettet. Tag et abonnement for at lave nye koder.",
+    "barGrace": "Abonnement udløbet: dine QR-koder virker ikke. Forny inden {date}.",
+    "barEnded": "Abonnement udløbet: dine QR-koder er slettet.",
+    "renew": "Forny",
+    "admPaid": "Betalt til {date}",
+    "admGrace": "Ikke betalt · slettes {date}",
+    "admEnded": "Ikke betalt · koder slettet",
+    "admNone": "Ingen betalingsperiode",
+    "admButton": "Betaling",
+    "admTitle": "Betaling for {name}",
+    "admMarkPaid": "Markér som betalt (+1 periode)",
+    "admEnd": "Eller angiv selv slutdatoen",
+    "admNote": "Indtil betalinger går gennem Stripe, angiver teamet her den betalte periode.",
+    "admNoPeriod": "Ingen betalingsperiode",
+    "admSaved": "Betaling gemt."
   }
 }

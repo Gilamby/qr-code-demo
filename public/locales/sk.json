@@ -912,7 +912,9 @@
     "expiredText": "Tento kód už neplatí. Kontaktuj vlastníka.",
     "paused": "Tento QR kód je vypnutý",
     "pausedText": "Vlastník tento kód zatiaľ vypol. Skús to neskôr.",
-    "notFound": "QR kód sa nenašiel"
+    "notFound": "QR kód sa nenašiel",
+    "inactive": "Tento QR kód nie je aktívny",
+    "inactiveText": "Tento kód je dočasne nedostupný. Skús to znova neskôr."
   },
   "edit": {
     "title": "Úprava: {name}",
@@ -1342,7 +1344,16 @@
     "secPasswordSubject": "Tvoje heslo bolo zmenené",
     "secPasswordText": "Heslo tvojho účtu bolo zmenené o {time}.",
     "secNotYou": "Nebol si to ty? Okamžite si zmeň heslo a v časti Zabezpečenie skontroluj, ktoré zariadenia sú prihlásené.",
-    "secButton": "Prejsť na môj účet"
+    "secButton": "Prejsť na môj účet",
+    "lapseStartSubject": "Tvoje predplatné Optimasys QR vypršalo",
+    "lapseStartText": "Tvoje predplatné vypršalo, preto tvoje QR kódy teraz nefungujú. Obnov ho do {date}, aby si si všetko zachoval. Potom sa všetky tvoje QR kódy odstránia.",
+    "lapseWeekSubject": "Zostáva 7 dní na záchranu tvojich QR kódov",
+    "lapseWeekText": "Tvoje predplatné stále nie je obnovené. Tvoje QR kódy sa odstránia {date}. Obnov ho teraz a hneď budú znova fungovať.",
+    "lapseDaySubject": "Posledný deň: tvoje QR kódy sa čoskoro odstránia",
+    "lapseDayText": "Tvoje QR kódy sa odstránia {date}. Obnov predplatné ešte dnes, aby si si ich zachoval.",
+    "lapseDeletedSubject": "Tvoje QR kódy boli odstránené",
+    "lapseDeletedText": "Keďže predplatné nebolo obnovené, tvoje QR kódy a ich štatistiky boli odstránené. Tvoj účet stále existuje: zaplať predplatné a vytváraj nové kódy.",
+    "lapseButton": "Obnoviť predplatné"
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2266,5 +2277,30 @@
     "done": "Hotovo",
     "banner": "Už máš QR kód, možno aj vytlačený?",
     "bannerGo": "Presuň ho sem"
+  },
+  "sub": {
+    "period": "Fakturačné obdobie",
+    "monthly": "Mesačne",
+    "yearly": "Ročne",
+    "yearSave": "2 mesiace zadarmo",
+    "perYear": "ročne",
+    "paidUntil": "Zaplatené do {date}",
+    "graceRule": "Ak zaplatíš neskoro, máš {n} dní na zaplatenie, kým sa tvoje QR kódy odstránia. Táto lehota sa pri každom oneskorení skráti na polovicu (minimálne 3 dni).",
+    "graceMsg": "Tvoje predplatné vypršalo. Tvoje QR kódy nefungujú a nemôžeš nič meniť. Obnov ho do {date}, inak sa všetky tvoje QR kódy odstránia.",
+    "endedMsg": "Tvoje predplatné vypršalo a tvoje QR kódy boli odstránené. Zaplať predplatné a vytváraj nové kódy.",
+    "barGrace": "Predplatné vypršalo: tvoje QR kódy nefungujú. Obnov ho do {date}.",
+    "barEnded": "Predplatné vypršalo: tvoje QR kódy boli odstránené.",
+    "renew": "Obnoviť",
+    "admPaid": "Zaplatené do {date}",
+    "admGrace": "Nezaplatené · odstránenie {date}",
+    "admEnded": "Nezaplatené · kódy odstránené",
+    "admNone": "Bez fakturačného obdobia",
+    "admButton": "Platba",
+    "admTitle": "Platba: {name}",
+    "admMarkPaid": "Označiť ako zaplatené (+1 obdobie)",
+    "admEnd": "Alebo nastav dátum konca",
+    "admNote": "Kým platby nejdú cez Stripe, tím tu nastavuje zaplatené obdobie.",
+    "admNoPeriod": "Bez fakturačného obdobia",
+    "admSaved": "Platba uložená."
   }
 }

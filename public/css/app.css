@@ -4290,3 +4290,21 @@ body.an-printing #anRange { display: block; }
 .imp-banner:hover, .imp-banner:focus-visible { border-color: var(--accent); background: rgba(43,181,240,.12); outline: none; }
 /* Achtergrond: foto's of video's op de kaartjes slepen */
 #bgGrid.drag { outline: 2px dashed var(--accent); outline-offset: 6px; border-radius: 16px; }
+
+/* ---------- Abonnement: maand/jaar, betaalstatus, balk bij niet betaald ---------- */
+.pl-period { display: inline-flex; gap: 4px; padding: 4px; margin: 6px 0 14px; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+.pl-period button { border: 0; background: none; color: var(--muted); font: inherit; font-size: 14px; font-weight: 650; padding: 8px 14px; border-radius: 9px; cursor: pointer; }
+.pl-period button[aria-checked="true"] { background: var(--accent); color: var(--accent-ink, #04121f); }
+.pl-period em { font-style: normal; font-size: 12px; opacity: .85; margin-left: 4px; }
+.sub-line { margin: 10px 0 2px; font-weight: 650; }
+.sub-line.ok { color: #4ade80; }
+.sub-st.grace, .sub-st.ended { color: #f87171; }
+.sub-st.active { color: #4ade80; }
+.sub-edit { display: block; margin-top: 2px; font-size: 12.5px; }
+.mc-dialog:has(.sub-dlg) { width: min(480px, calc(100vw - 32px)); }
+.sub-dlg { text-align: left; }
+.sub-dlg .pl-period { justify-self: start; }
+.sub-dlg .btn.primary[data-paid] { justify-self: start; }
+.sub-bar { background: rgba(239,68,68,.16) !important; border-color: rgba(239,68,68,.45) !important; }
+.sub-bar a { color: inherit; font-weight: 700; text-decoration: underline; margin-left: 6px; }
+.sub-bar { color: #fecaca !important; }

@@ -71,6 +71,8 @@ export function passwordPage(req: Request, wrong: boolean) {
     '<input type="text" name="username" autocomplete="username" value="" style="position:absolute;left:-9999px" tabindex="-1" aria-hidden="true"><input type="password" name="password" autocomplete="current-password" autofocus required>' + (wrong ? '<div class="err">' + esc(t.wrong) + '</div>' : '') + '<button>' + esc(t.open) + '</button></form>', lang(req));
 }
 export function expiredPage(req: Request) { const t = text(req); return page(t.expired, '<div class="ic">⌛</div><h1>' + esc(t.expired) + '</h1><p>' + esc(t.expiredText) + '</p>', lang(req)); }
+/** Abonnement van de eigenaar niet betaald: code tijdelijk niet actief (zonder te zeggen waarom) */
+export function inactivePage(req: Request) { const t = text(req); return page(t.inactive || t.paused, '<div class="ic">⏸</div><h1>' + esc(t.inactive || t.paused) + '</h1><p>' + esc(t.inactiveText || t.pausedText) + '</p>', lang(req)); }
 export function pausedPage(req: Request) { const t = text(req); return page(t.paused, '<div class="ic">⏸</div><h1>' + esc(t.paused) + '</h1><p>' + esc(t.pausedText) + '</p>', lang(req)); }
 export function notFoundPage(req: Request) { const t = text(req); return page(t.notFound, '<div class="ic">?</div><h1>' + esc(t.notFound) + '</h1>', lang(req)); }
 

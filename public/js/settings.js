@@ -78,9 +78,23 @@
     if (!p || p.id === 'business' || (window.api && api.isDemo && api.isDemo())) { card.hidden = true; return; }
     card.hidden = false;
   }
-  function load() { if (!window.api || !api.account || !api.account.plan) return; api.account.plan().then(function (r) { info = r; show(); }).catch(function () { card.hidden = true; }); }
+  function load() { if (!window.api || !api.account || !api.account.plan) return; api.account.plan().then(function (r) { info = r; show(); banner(); }).catch(function () { card.hidden = true; }); }
+  /* Balk bovenin als het abonnement niet betaald is: codes werken niet, tot wanneer je nog kunt betalen */
+  var bar = document.createElement('div'); bar.className = 'maint-bar sub-bar'; bar.setAttribute('role', 'alert'); bar.hidden = true;
+  var main = document.querySelector('.main'); if (main) main.insertBefore(bar, main.children[1] || null);
+  function banner() {
+    var sb = info && info.sub, st = sb && sb.state;
+    bar.hidden = !(st === 'grace' || st === 'ended');
+    if (bar.hidden) return;
+    bar.innerHTML = '<b>' + esc(st === 'grace' ? t('sub.barGrace', { date: i18n.fmt.stamp(sb.graceUntil, 'time') }) : t('sub.barEnded')) + '</b> <a href="#" data-sub-go>' + esc(t('sub.renew')) + '</a>';
+  }
+  bar.addEventListener('click', function (e) { if (e.target.closest('[data-sub-go]')) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); } });
+  document.addEventListener('sub-lapsed', load);
+  // Link uit de mail: ?go=plan opent na het inloggen meteen Abonnement
+  var goPlan = /[?&]go=plan\b/.test(location.search);
+  if (window.Session && Session.onUser) Session.onUser(function () { if (!goPlan) return; goPlan = false; history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); }, 600); });
   card.addEventListener('click', function (e) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); });
   if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(load, 400); });
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes' || e.detail === 'home') load(); });
-  if (window.i18n) i18n.onChange(show);
+  if (window.i18n) i18n.onChange(function () { show(); banner(); });
 })();
