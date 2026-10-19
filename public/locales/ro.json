@@ -387,7 +387,8 @@
     "scanNone": "Doar text",
     "couponUrl": "Buton către magazinul online sau pagina de rezervări",
     "buttonLabel": "Textul butonului",
-    "smsText": "Textul mesajului"
+    "smsText": "Textul mesajului",
+    "starts": "Activ de la"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -584,7 +585,8 @@
     "igUser": "Cu sau fără @. Poți lipi și linkul profilului mai jos.",
     "menuUrl": "De exemplu, propria pagină cu meniul sau un site de comenzi. Oaspeții ajung direct acolo.",
     "couponCode": "Codul pe care îl folosesc clienții. Atenție: configurează același cod în casa de marcat sau în magazinul online. Această aplicație nu verifică dacă un cod a fost deja folosit.",
-    "couponUrl": "Opțional. Clienții folosesc codul acolo la plată."
+    "couponUrl": "Opțional. Clienții folosesc codul acolo la plată.",
+    "starts": "Înainte de această dată, vizitatorul vede „Acest cod QR nu este încă activ”. Util dacă tipărești înainte de începerea campaniei."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -924,7 +926,9 @@
     "pausedText": "Proprietarul a oprit deocamdată acest cod. Încearcă din nou mai târziu.",
     "notFound": "Codul QR nu a fost găsit",
     "inactive": "Acest cod QR nu este activ",
-    "inactiveText": "Acest cod nu este disponibil momentan. Încearcă din nou mai târziu."
+    "inactiveText": "Acest cod nu este disponibil momentan. Încearcă din nou mai târziu.",
+    "notYet": "Acest cod QR nu este încă activ",
+    "notYetText": "Acest cod QR funcționează de la {date}. Încearcă din nou atunci."
   },
   "edit": {
     "title": "Editezi: {name}",

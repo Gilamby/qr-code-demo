@@ -387,7 +387,8 @@
     "scanNone": "Tylko tekst",
     "couponUrl": "Przycisk do sklepu internetowego lub strony rezerwacji",
     "buttonLabel": "Tekst na przycisku",
-    "smsText": "Treść wiadomości"
+    "smsText": "Treść wiadomości",
+    "starts": "Aktywny od"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -584,7 +585,8 @@
     "igUser": "Z @ lub bez. Możesz też wkleić poniżej link do profilu.",
     "menuUrl": "Na przykład Twoja strona z menu, Pyszne.pl lub inna strona zamówień. Goście trafią tam od razu.",
     "couponCode": "Kod, którego używają klienci. Uwaga: ustaw ten sam kod w kasie lub sklepie internetowym. Ta aplikacja nie sprawdza, czy kod został już użyty.",
-    "couponUrl": "Opcjonalnie. Klienci używają tam kodu przy płatności."
+    "couponUrl": "Opcjonalnie. Klienci używają tam kodu przy płatności.",
+    "starts": "Przed tą datą odwiedzający zobaczy „Ten kod QR nie jest jeszcze aktywny”. Przydatne, jeśli drukujesz przed startem akcji."
   },
   "more": {
     "title": "Więcej opcji",
@@ -924,7 +926,9 @@
     "pausedText": "Właściciel tymczasowo wyłączył ten kod. Spróbuj ponownie później.",
     "notFound": "Nie znaleziono kodu QR",
     "inactive": "Ten kod QR jest nieaktywny",
-    "inactiveText": "Ten kod jest chwilowo niedostępny. Spróbuj ponownie później."
+    "inactiveText": "Ten kod jest chwilowo niedostępny. Spróbuj ponownie później.",
+    "notYet": "Ten kod QR nie jest jeszcze aktywny",
+    "notYetText": "Ten kod QR działa od {date}. Spróbuj ponownie wtedy."
   },
   "edit": {
     "title": "Edycja: {name}",

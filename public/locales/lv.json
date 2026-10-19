@@ -387,7 +387,8 @@
     "scanNone": "Tikai teksts",
     "couponUrl": "Poga uz interneta veikalu vai rezervēšanas lapu",
     "buttonLabel": "Pogas teksts",
-    "smsText": "Ziņas teksts"
+    "smsText": "Ziņas teksts",
+    "starts": "Aktīvs no"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -584,7 +585,8 @@
     "igUser": "Ar @ vai bez. Profila saiti vari ielīmēt arī zemāk.",
     "menuUrl": "Piemēram, tava ēdienkartes lapa vai pasūtīšanas vietne. Viesi nonāk tieši tur.",
     "couponCode": "Kods, ko izmanto klienti. Uzmanību: iestati to pašu kodu savā kases sistēmā vai interneta veikalā. Šī lietotne nepārbauda, vai kods jau ir izmantots.",
-    "couponUrl": "Nav obligāti. Klienti tur izmanto kodu, norēķinoties."
+    "couponUrl": "Nav obligāti. Klienti tur izmanto kodu, norēķinoties.",
+    "starts": "Pirms šī datuma apmeklētājs redz \"Šis QR kods vēl nav aktīvs\". Ērti, ja drukā pirms akcijas sākuma."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -924,7 +926,9 @@
     "pausedText": "Īpašnieks pagaidām ir izslēdzis šo kodu. Mēģini vēlāk vēlreiz.",
     "notFound": "QR kods nav atrasts",
     "inactive": "Šis QR kods nav aktīvs",
-    "inactiveText": "Šis kods īslaicīgi nav pieejams. Mēģini vēlāk vēlreiz."
+    "inactiveText": "Šis kods īslaicīgi nav pieejams. Mēģini vēlāk vēlreiz.",
+    "notYet": "Šis QR kods vēl nav aktīvs",
+    "notYetText": "Šis QR kods darbojas no {date}. Mēģini vēlreiz tad."
   },
   "edit": {
     "title": "Rediģē: {name}",

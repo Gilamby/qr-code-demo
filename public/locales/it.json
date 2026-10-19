@@ -387,7 +387,8 @@
     "scanNone": "Solo testo",
     "couponUrl": "Pulsante verso il tuo negozio online o pagina di prenotazione",
     "buttonLabel": "Testo del pulsante",
-    "smsText": "Testo del messaggio"
+    "smsText": "Testo del messaggio",
+    "starts": "Attivo dal"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -584,7 +585,8 @@
     "igUser": "Con o senza @. Puoi anche incollare qui sotto il link del profilo.",
     "menuUrl": "Per esempio la tua pagina del menu o un sito per ordinare. Gli ospiti ci arrivano subito.",
     "couponCode": "Il codice che usano i clienti. Attenzione: imposta lo stesso codice anche in cassa o nel negozio online. Questa app non controlla se un codice è già stato usato.",
-    "couponUrl": "Facoltativo. I clienti usano lì il codice al pagamento."
+    "couponUrl": "Facoltativo. I clienti usano lì il codice al pagamento.",
+    "starts": "Prima di questa data il visitatore vede \"Questo QR code non è ancora attivo\". Utile se stampi prima dell'inizio della campagna."
   },
   "more": {
     "title": "Altre opzioni",
@@ -924,7 +926,9 @@
     "pausedText": "Il proprietario ha disattivato questo codice per ora. Riprova più tardi.",
     "notFound": "Codice QR non trovato",
     "inactive": "Questo codice QR non è attivo",
-    "inactiveText": "Questo codice non è disponibile al momento. Riprova più tardi."
+    "inactiveText": "Questo codice non è disponibile al momento. Riprova più tardi.",
+    "notYet": "Questo QR code non è ancora attivo",
+    "notYetText": "Questo QR code funziona dal {date}. Riprova allora."
   },
   "edit": {
     "title": "Modifica: {name}",

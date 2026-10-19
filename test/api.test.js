@@ -531,3 +531,15 @@ test('SMS-code: scan opent het berichtenprogramma met nummer en tekst', async ()
   assert.equal(s.status, 302); assert.equal(s.headers.get('location'), 'sms:+31612345678?&body=Hallo%20daar');
   assert.equal((await k('POST', '/api/qr-codes', { typeId: 'sms', content: { message: 'zonder nummer' }, design: {} })).status, 400, 'nummer verplicht');
 });
+
+test('startdatum en maximum aantal scans (KB Q224)', async () => {
+  const k = client(); await signup(k, 'start-k@example.com', 'Start datum zin 12!', 'Klant Start');
+  const later = new Date(Date.now() + 5 * 864e5).toISOString().slice(0, 10);
+  const a = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://later.example', starts: later }, design: {} })).json;
+  const s = await fetch(base + '/q/' + a.id, { redirect: 'manual' });
+  assert.equal(s.status, 503, 'nog niet begonnen'); assert.match(await s.text(), /active yet|nog niet actief/i);
+  const b = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://max.example', maxScans: '1' }, design: {} })).json;
+  assert.equal((await fetch(base + '/q/' + b.id, { redirect: 'manual' })).status, 302, 'eerste scan werkt');
+  assert.equal((await fetch(base + '/q/' + b.id, { redirect: 'manual' })).status, 410, 'daarna verlopen');
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://x.example', maxScans: '0' }, design: {} })).status, 400, 'minimaal 1');
+});

@@ -30,6 +30,8 @@ export function isExpired(q: QrCode, today = new Date().toISOString().slice(0, 1
   if (c.maxScans && q.scans >= Number(c.maxScans)) return true;
   return false;
 }
+/** Startdatum (KB Q224): vóór die dag werkt de code nog niet */
+export function notYet(q: QrCode, today = new Date().toISOString().slice(0, 10)) { const c = q.content || {}; return !!(c.starts && today < c.starts); }
 export function targetUrl(q: QrCode, userAgent = '') {
   const c = q.content || {};
   let url = c.url;
@@ -73,6 +75,11 @@ export function passwordPage(req: Request, wrong: boolean) {
 export function expiredPage(req: Request) { const t = text(req); return page(t.expired, '<div class="ic">⌛</div><h1>' + esc(t.expired) + '</h1><p>' + esc(t.expiredText) + '</p>', lang(req)); }
 /** Abonnement van de eigenaar niet betaald: code tijdelijk niet actief (zonder te zeggen waarom) */
 export function inactivePage(req: Request) { const t = text(req); return page(t.inactive || t.paused, '<div class="ic">⏸</div><h1>' + esc(t.inactive || t.paused) + '</h1><p>' + esc(t.inactiveText || t.pausedText) + '</p>', lang(req)); }
+export function notYetPage(req: Request, from: string) {
+  const t = text(req), l = lang(req);
+  let d = from; try { d = new Intl.DateTimeFormat(l, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(from + 'T00:00:00Z')); } catch (e) { /* zoals het is */ }
+  return page(t.notYet || t.paused, '<div class="ic">🗓</div><h1>' + esc(t.notYet || t.paused) + '</h1><p>' + esc(String(t.notYetText || '').replace('{date}', d)) + '</p>', l);
+}
 export function pausedPage(req: Request) { const t = text(req); return page(t.paused, '<div class="ic">⏸</div><h1>' + esc(t.paused) + '</h1><p>' + esc(t.pausedText) + '</p>', lang(req)); }
 export function notFoundPage(req: Request) { const t = text(req); return page(t.notFound, '<div class="ic">?</div><h1>' + esc(t.notFound) + '</h1>', lang(req)); }
 

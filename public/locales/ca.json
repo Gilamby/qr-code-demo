@@ -387,7 +387,8 @@
     "scanNone": "Només text",
     "couponUrl": "Botó a la botiga en línia o a la pàgina de reserves",
     "buttonLabel": "Text del botó",
-    "smsText": "Text del missatge"
+    "smsText": "Text del missatge",
+    "starts": "Actiu des del"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -584,7 +585,8 @@
     "igUser": "Amb @ o sense. També pots enganxar l'enllaç del perfil a sota.",
     "menuUrl": "Per exemple, la teva pròpia pàgina de la carta o un web de comandes. Els clients hi van directament.",
     "couponCode": "El codi que fan servir els clients. Atenció: configura el mateix codi a la caixa o a la botiga en línia. Aquesta aplicació no comprova si un codi ja s'ha fet servir.",
-    "couponUrl": "Opcional. Els clients hi fan servir el codi en pagar."
+    "couponUrl": "Opcional. Els clients hi fan servir el codi en pagar.",
+    "starts": "Abans d'aquesta data, el visitant veu \"Aquest codi QR encara no està actiu\". Útil si imprimeixes abans que comenci la campanya."
   },
   "more": {
     "title": "Més opcions",
@@ -924,7 +926,9 @@
     "pausedText": "El propietari ha desactivat aquest codi de moment. Torna-ho a provar més tard.",
     "notFound": "No s'ha trobat el codi QR",
     "inactive": "Aquest codi QR no està actiu",
-    "inactiveText": "Aquest codi no està disponible temporalment. Torna-ho a provar més tard."
+    "inactiveText": "Aquest codi no està disponible temporalment. Torna-ho a provar més tard.",
+    "notYet": "Aquest codi QR encara no està actiu",
+    "notYetText": "Aquest codi QR funciona a partir del {date}. Torna-ho a provar llavors."
   },
   "edit": {
     "title": "S'està editant: {name}",

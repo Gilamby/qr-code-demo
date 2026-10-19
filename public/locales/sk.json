@@ -387,7 +387,8 @@
     "scanNone": "Iba text",
     "couponUrl": "Tlačidlo do e-shopu alebo na rezervačnú stránku",
     "buttonLabel": "Text tlačidla",
-    "smsText": "Text správy"
+    "smsText": "Text správy",
+    "starts": "Aktívny od"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -584,7 +585,8 @@
     "igUser": "S @ alebo bez. Odkaz na profil môžeš vložiť aj nižšie.",
     "menuUrl": "Napríklad tvoja vlastná stránka s menu alebo objednávková stránka. Hostia idú priamo tam.",
     "couponCode": "Kód, ktorý zákazníci použijú. Pozor: nastav rovnaký kód v pokladni alebo e-shope. Táto aplikácia nekontroluje, či už bol kód použitý.",
-    "couponUrl": "Nepovinné. Zákazníci tam kód použijú pri platbe."
+    "couponUrl": "Nepovinné. Zákazníci tam kód použijú pri platbe.",
+    "starts": "Pred týmto dátumom návštevník uvidí „Tento QR kód ešte nie je aktívny“. Užitočné, ak tlačíš pred začiatkom akcie."
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -924,7 +926,9 @@
     "pausedText": "Vlastník tento kód zatiaľ vypol. Skús to neskôr.",
     "notFound": "QR kód sa nenašiel",
     "inactive": "Tento QR kód nie je aktívny",
-    "inactiveText": "Tento kód je dočasne nedostupný. Skús to znova neskôr."
+    "inactiveText": "Tento kód je dočasne nedostupný. Skús to znova neskôr.",
+    "notYet": "Tento QR kód ešte nie je aktívny",
+    "notYetText": "Tento QR kód funguje od {date}. Skús to znova potom."
   },
   "edit": {
     "title": "Úprava: {name}",

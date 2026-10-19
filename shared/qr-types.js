@@ -51,7 +51,9 @@
       { key: 'title', label: 'fields.qrName', sample: { t: 'pv.website.title' }, hint: 'hint.qrName' },
       // Meer opties (dichtgeklapt): worden toegepast bij het scannen, zie server/links.js
       { key: 'password', type: 'password', label: 'fields.password', advanced: true, hint: 'hint.password' },
+      { key: 'starts', type: 'date', label: 'fields.starts', advanced: true, hint: 'hint.starts' },
       { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
+      { key: 'maxScans', type: 'number', min: 1, max: 1000000, label: 'fields.maxScans', advanced: true, hint: 'hint.maxScans' },
       { key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utm' } ] },
   { id: 'pdf', page: false, icon: 'pdf',    image: 'assets/qr-types/pdf.jpg', previewImage: 'assets/previews/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b', theme: ['#c0392b', '#1f2937'],
     fields: [

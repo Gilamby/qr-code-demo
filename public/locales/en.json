@@ -387,7 +387,8 @@
     "scanNone": "Text only",
     "couponUrl": "Button to your web shop or booking page",
     "buttonLabel": "Button text",
-    "smsText": "Message text"
+    "smsText": "Message text",
+    "starts": "Active from"
   },
   "panel": {
     "selected": "{type} selected"
@@ -584,7 +585,8 @@
     "igUser": "With or without @. You can also paste the profile link below.",
     "menuUrl": "For example your own menu page or an ordering site. Guests go straight there.",
     "couponCode": "The code customers use. Note: set up the same code in your till or web shop. This app does not check whether a code was already used.",
-    "couponUrl": "Optional. Customers use the code there at checkout."
+    "couponUrl": "Optional. Customers use the code there at checkout.",
+    "starts": "Before this date the visitor sees \"This QR code isn't active yet\". Handy if you print before the campaign starts."
   },
   "more": {
     "title": "More options",
@@ -924,7 +926,9 @@
     "pausedText": "The owner has switched this code off for now. Please try again later.",
     "notFound": "QR code not found",
     "inactive": "This QR code is not active",
-    "inactiveText": "This code is temporarily unavailable. Please try again later."
+    "inactiveText": "This code is temporarily unavailable. Please try again later.",
+    "notYet": "This QR code isn't active yet",
+    "notYetText": "This QR code works from {date}. Please try again then."
   },
   "edit": {
     "title": "Editing: {name}",

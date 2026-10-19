@@ -65,6 +65,7 @@ export class ShortLinksController {
     if (isBlocked(found.userId)) return res.status(503).set('Retry-After', '3600').send(rules.inactivePage(req));   // abonnement niet betaald: niet tellen
     if (found.paused) return res.status(503).set('Retry-After', '3600').send(rules.pausedPage(req));   // tijdelijk uit: niet tellen
     if (rules.isExpired(found)) return res.status(410).send(rules.expiredPage(req));
+    if (rules.notYet(found)) return res.status(503).send(rules.notYetPage(req, found.content.starts));   // nog niet begonnen: niet tellen
     const key = secretKey(found.typeId);
     if (key && found.content[key] && !passwordOk) {
       // Na het juiste wachtwoord stuurt het formulier door naar de bestemming (een andere website).

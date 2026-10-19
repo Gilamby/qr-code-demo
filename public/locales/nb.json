@@ -387,7 +387,8 @@
     "scanNone": "Bare tekst",
     "couponUrl": "Knapp til nettbutikken eller bookingsiden din",
     "buttonLabel": "Knappetekst",
-    "smsText": "Meldingstekst"
+    "smsText": "Meldingstekst",
+    "starts": "Aktiv fra"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -584,7 +585,8 @@
     "igUser": "Med eller uten @. Du kan også lime inn lenken til profilen nedenfor.",
     "menuUrl": "For eksempel din egen menyside eller en bestillingsside. Gjestene kommer rett dit.",
     "couponCode": "Koden kundene bruker. Merk: legg inn den samme koden i kassesystemet eller nettbutikken din. Denne appen sjekker ikke om en kode allerede er brukt.",
-    "couponUrl": "Valgfritt. Kundene bruker koden der i kassen."
+    "couponUrl": "Valgfritt. Kundene bruker koden der i kassen.",
+    "starts": "Før denne datoen ser besøkende «Denne QR-koden er ikke aktiv ennå». Nyttig hvis du skriver ut før kampanjen starter."
   },
   "more": {
     "title": "Flere alternativer",
@@ -924,7 +926,9 @@
     "pausedText": "Eieren har slått av denne koden inntil videre. Prøv igjen senere.",
     "notFound": "Fant ikke QR-koden",
     "inactive": "Denne QR-koden er ikke aktiv",
-    "inactiveText": "Denne koden er midlertidig utilgjengelig. Prøv igjen senere."
+    "inactiveText": "Denne koden er midlertidig utilgjengelig. Prøv igjen senere.",
+    "notYet": "Denne QR-koden er ikke aktiv ennå",
+    "notYetText": "Denne QR-koden virker fra {date}. Prøv igjen da."
   },
   "edit": {
     "title": "Redigerer: {name}",

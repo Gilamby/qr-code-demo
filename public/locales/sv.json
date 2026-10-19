@@ -387,7 +387,8 @@
     "scanNone": "Bara text",
     "couponUrl": "Knapp till din webbutik eller bokningssida",
     "buttonLabel": "Knapptext",
-    "smsText": "Meddelandetext"
+    "smsText": "Meddelandetext",
+    "starts": "Aktiv från"
   },
   "panel": {
     "selected": "{type} vald"
@@ -584,7 +585,8 @@
     "igUser": "Med eller utan @. Du kan också klistra in länken till profilen nedan.",
     "menuUrl": "Till exempel din egen menysida eller en beställningssajt. Gästerna kommer direkt dit.",
     "couponCode": "Koden som kunderna använder. Obs: lägg in samma kod i ditt kassasystem eller din webbutik. Appen kontrollerar inte om en kod redan har använts.",
-    "couponUrl": "Valfritt. Kunderna använder koden där i kassan."
+    "couponUrl": "Valfritt. Kunderna använder koden där i kassan.",
+    "starts": "Före detta datum ser besökaren ”Den här QR-koden är inte aktiv än”. Praktiskt om du skriver ut innan kampanjen startar."
   },
   "more": {
     "title": "Fler alternativ",
@@ -924,7 +926,9 @@
     "pausedText": "Ägaren har stängt av koden tills vidare. Försök igen senare.",
     "notFound": "QR-koden hittades inte",
     "inactive": "Den här QR-koden är inte aktiv",
-    "inactiveText": "Den här koden är tillfälligt otillgänglig. Försök igen senare."
+    "inactiveText": "Den här koden är tillfälligt otillgänglig. Försök igen senare.",
+    "notYet": "Den här QR-koden är inte aktiv än",
+    "notYetText": "Den här QR-koden fungerar från {date}. Försök igen då."
   },
   "edit": {
     "title": "Redigerar: {name}",

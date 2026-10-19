@@ -170,6 +170,8 @@ var MyCodes = (function () {
         '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.stamp(r.createdAt, 'short') })) + '</span>' +
           (r.updatedAt && r.updatedAt !== r.createdAt ? '<span class="mc-dot">·</span><span title="' + esc(i18n.fmt.stamp(r.updatedAt, 'long')) + '">' + esc(t('myCodes.edited', { date: i18n.fmt.stamp(r.updatedAt, 'short') })) + '</span>' : '') +
           (r.legacyUrl ? '<span class="mc-legacy" title="' + esc(t('legacy.badgeTip', { url: r.legacyUrl })) + '">' + ico('chain') + t('legacy.badge') + '</span>' + untilPill(r) : '') +
+          // Startdatum in de toekomst: de code werkt nog niet
+          (r.content && r.content.starts && r.content.starts > new Date().toISOString().slice(0, 10) ? '<span class="mc-until soon">' + ico('pause') + esc(t('fields.starts') + ' ' + i18n.fmt.date(new Date(r.content.starts + 'T00:00:00'), 'long')) + '</span>' : '') +
           (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'

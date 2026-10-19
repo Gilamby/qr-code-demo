@@ -387,7 +387,8 @@
     "scanNone": "Vetëm tekst",
     "couponUrl": "Buton për dyqanin online ose faqen e rezervimeve",
     "buttonLabel": "Teksti i butonit",
-    "smsText": "Teksti i mesazhit"
+    "smsText": "Teksti i mesazhit",
+    "starts": "Aktiv nga"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -584,7 +585,8 @@
     "igUser": "Me ose pa @. Mund ta ngjitësh edhe më poshtë lidhjen e profilit.",
     "menuUrl": "Për shembull faqja jote e menusë ose një faqe porosish. Mysafirët shkojnë drejt aty.",
     "couponCode": "Kodi që përdorin klientët. Kujdes: vendos të njëjtin kod edhe në arkë ose në dyqanin online. Ky aplikacion nuk kontrollon nëse një kod është përdorur.",
-    "couponUrl": "Opsionale. Klientët e përdorin kodin atje kur paguajnë."
+    "couponUrl": "Opsionale. Klientët e përdorin kodin atje kur paguajnë.",
+    "starts": "Para kësaj date vizitori sheh \"Ky kod QR nuk është ende aktiv\". E dobishme nëse printon para se të fillojë fushata."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -972,7 +974,9 @@
     "pausedText": "Pronari e ka fikur përkohësisht këtë kod. Provo më vonë.",
     "notFound": "Kodi QR nuk u gjet",
     "inactive": "Ky kod QR nuk është aktiv",
-    "inactiveText": "Ky kod nuk është i disponueshëm përkohësisht. Provo përsëri më vonë."
+    "inactiveText": "Ky kod nuk është i disponueshëm përkohësisht. Provo përsëri më vonë.",
+    "notYet": "Ky kod QR nuk është ende aktiv",
+    "notYetText": "Ky kod QR funksionon nga {date}. Provo sërish atëherë."
   },
   "edit": {
     "title": "Duke ndryshuar: {name}",

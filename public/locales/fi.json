@@ -387,7 +387,8 @@
     "scanNone": "Vain teksti",
     "couponUrl": "Painike verkkokauppaan tai varaussivulle",
     "buttonLabel": "Painikkeen teksti",
-    "smsText": "Viestin teksti"
+    "smsText": "Viestin teksti",
+    "starts": "Voimassa alkaen"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -584,7 +585,8 @@
     "igUser": "@-merkin kanssa tai ilman. Voit myös liittää profiilin linkin alle.",
     "menuUrl": "Esimerkiksi oma ruokalistasivusi tai tilaussivusto. Vieraat pääsevät suoraan sinne.",
     "couponCode": "Koodi, jota asiakkaat käyttävät. Huomaa: lisää sama koodi kassajärjestelmääsi tai verkkokauppaasi. Tämä sovellus ei tarkista, onko koodi jo käytetty.",
-    "couponUrl": "Valinnainen. Asiakkaat käyttävät koodia siellä kassalla."
+    "couponUrl": "Valinnainen. Asiakkaat käyttävät koodia siellä kassalla.",
+    "starts": "Ennen tätä päivää kävijä näkee \"Tämä QR-koodi ei ole vielä käytössä\". Kätevä, jos tulostat ennen kampanjan alkua."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -924,7 +926,9 @@
     "pausedText": "Omistaja on toistaiseksi kytkenyt tämän koodin pois päältä. Yritä myöhemmin uudelleen.",
     "notFound": "QR-koodia ei löytynyt",
     "inactive": "Tämä QR-koodi ei ole aktiivinen",
-    "inactiveText": "Tämä koodi ei ole tilapäisesti käytettävissä. Yritä myöhemmin uudelleen."
+    "inactiveText": "Tämä koodi ei ole tilapäisesti käytettävissä. Yritä myöhemmin uudelleen.",
+    "notYet": "Tämä QR-koodi ei ole vielä käytössä",
+    "notYetText": "Tämä QR-koodi toimii {date} alkaen. Yritä silloin uudelleen."
   },
   "edit": {
     "title": "Muokataan: {name}",

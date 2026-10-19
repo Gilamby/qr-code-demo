@@ -387,7 +387,8 @@
     "scanNone": "Nur Text",
     "couponUrl": "Button zu deinem Webshop oder deiner Buchungsseite",
     "buttonLabel": "Text auf dem Button",
-    "smsText": "Nachrichtentext"
+    "smsText": "Nachrichtentext",
+    "starts": "Aktiv ab"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -584,7 +585,8 @@
     "igUser": "Mit oder ohne @. Du kannst unten auch den Link zum Profil einfügen.",
     "menuUrl": "Zum Beispiel deine eigene Menüseite, Lieferando oder eine andere Bestellseite. Gäste landen direkt dort.",
     "couponCode": "Der Code, den Kunden verwenden. Achtung: Richte denselben Code auch in deiner Kasse oder deinem Webshop ein. Diese App prüft nicht, ob ein Code schon benutzt wurde.",
-    "couponUrl": "Optional. Kunden nutzen den Code dort beim Bezahlen."
+    "couponUrl": "Optional. Kunden nutzen den Code dort beim Bezahlen.",
+    "starts": "Vor diesem Datum sieht der Besucher „Dieser QR-Code ist noch nicht aktiv“. Praktisch, wenn du druckst, bevor die Aktion beginnt."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -924,7 +926,9 @@
     "pausedText": "Der Inhaber hat diesen Code vorübergehend ausgeschaltet. Bitte versuche es später erneut.",
     "notFound": "QR-Code nicht gefunden",
     "inactive": "Dieser QR-Code ist nicht aktiv",
-    "inactiveText": "Dieser Code ist vorübergehend nicht verfügbar. Bitte versuch es später erneut."
+    "inactiveText": "Dieser Code ist vorübergehend nicht verfügbar. Bitte versuch es später erneut.",
+    "notYet": "Dieser QR-Code ist noch nicht aktiv",
+    "notYetText": "Dieser QR-Code funktioniert ab {date}. Versuche es dann noch einmal."
   },
   "edit": {
     "title": "Bearbeiten: {name}",

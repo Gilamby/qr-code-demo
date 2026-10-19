@@ -387,7 +387,8 @@
     "scanNone": "Só texto",
     "couponUrl": "Botão para a loja online ou página de reservas",
     "buttonLabel": "Texto do botão",
-    "smsText": "Texto da mensagem"
+    "smsText": "Texto da mensagem",
+    "starts": "Ativo a partir de"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -584,7 +585,8 @@
     "igUser": "Com ou sem @. Também pode colar abaixo a ligação do perfil.",
     "menuUrl": "Por exemplo a sua página de menu ou um site de encomendas. Os clientes vão diretamente para lá.",
     "couponCode": "O código que os clientes usam. Atenção: configure o mesmo código na caixa ou loja online. Esta app não verifica se um código já foi usado.",
-    "couponUrl": "Opcional. Os clientes usam lá o código ao pagar."
+    "couponUrl": "Opcional. Os clientes usam lá o código ao pagar.",
+    "starts": "Antes desta data, o visitante vê \"Este código QR ainda não está ativo\". Útil se imprimires antes de a campanha começar."
   },
   "more": {
     "title": "Mais opções",
@@ -924,7 +926,9 @@
     "pausedText": "O proprietário desligou este código por agora. Tenta mais tarde.",
     "notFound": "Código QR não encontrado",
     "inactive": "Este código QR não está ativo",
-    "inactiveText": "Este código está temporariamente indisponível. Tente novamente mais tarde."
+    "inactiveText": "Este código está temporariamente indisponível. Tente novamente mais tarde.",
+    "notYet": "Este código QR ainda não está ativo",
+    "notYetText": "Este código QR funciona a partir de {date}. Tenta novamente nessa altura."
   },
   "edit": {
     "title": "A editar: {name}",
