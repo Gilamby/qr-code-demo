@@ -2288,7 +2288,8 @@
     "noPayments": "Asgjë nuk tarifohet tani: pagesa online nuk është ende e disponueshme.",
     "limitCreate": "Ke arritur kufirin e abonimit. Fshi një kod ose kërko një paketë më të madhe te Llogaria ime > Abonimi.",
     "saved": "Abonimi u ruajt.",
-    "statsFloor": "Paketa jote shfaq statistika nga {date}."
+    "statsFloor": "Paketa jote shfaq statistika nga {date}.",
+    "trial": "Provo falas {n} ditë"
   },
   "tfa": {
     "title": "Verifikimi me dy hapa",
@@ -2435,7 +2436,7 @@
     "period": "Periudha e pagesës",
     "monthly": "Mujore",
     "yearly": "Vjetore",
-    "yearSave": "2 muaj falas",
+    "yearSave": "Viti 1: 2 muaj falas",
     "perYear": "në vit",
     "paidUntil": "Paguar deri më {date}",
     "graceRule": "Nëse paguan me vonesë, ke {n} ditë për të paguar para se kodet e tua QR të fshihen. Kjo kohë përgjysmohet sa herë paguan me vonesë (minimumi 3 ditë).",
@@ -2458,7 +2459,8 @@
     "barUnpaid": "Mirë se erdhe! Zgjidh një abonim për të krijuar kodin tënd të parë QR.",
     "choose": "Zgjidh abonimin",
     "unpaidMsg": "Llogaria jote është gati. Zgjidh një abonim më poshtë; pastaj mund të krijosh menjëherë kode QR.",
-    "admUnpaid": "Ende pa paguar"
+    "admUnpaid": "Ende pa paguar",
+    "yearThen": "vitin e parë, pastaj {price} në vit"
   },
   "msg": {
     "whatsapp": "WhatsApp",

@@ -2182,7 +2182,8 @@
     "noPayments": "Ahora no se cobra nada: el pago en línea aún no está disponible.",
     "limitCreate": "Has alcanzado el límite de tu suscripción. Elimina un código o solicita un plan mayor en Mi cuenta > Suscripción.",
     "saved": "Suscripción guardada.",
-    "statsFloor": "Tu plan muestra estadísticas desde el {date}."
+    "statsFloor": "Tu plan muestra estadísticas desde el {date}.",
+    "trial": "Prueba gratis {n} días"
   },
   "tfa": {
     "title": "Verificación en dos pasos",
@@ -2329,7 +2330,7 @@
     "period": "Periodo de facturación",
     "monthly": "Mensual",
     "yearly": "Anual",
-    "yearSave": "2 meses gratis",
+    "yearSave": "1.er año: 2 meses gratis",
     "perYear": "al año",
     "paidUntil": "Pagado hasta el {date}",
     "graceRule": "Si pagas tarde, tienes {n} días para pagar antes de que se eliminen tus códigos QR. Este plazo se reduce a la mitad cada vez que pagas tarde (mínimo 3 días).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "¡Bienvenido! Elige un plan para crear tu primer código QR.",
     "choose": "Elegir un plan",
     "unpaidMsg": "Tu cuenta está lista. Elige un plan abajo; después podrás crear códigos QR enseguida.",
-    "admUnpaid": "Aún no pagado"
+    "admUnpaid": "Aún no pagado",
+    "yearThen": "el primer año, después {price} al año"
   },
   "msg": {
     "whatsapp": "WhatsApp",

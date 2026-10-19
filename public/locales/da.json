@@ -2182,7 +2182,8 @@
     "noPayments": "Der opkræves intet nu: onlinebetaling er ikke tilgængelig endnu.",
     "limitCreate": "Du har nået grænsen for dit abonnement. Slet en kode, eller anmod om et større abonnement under Min konto > Abonnement.",
     "saved": "Abonnement gemt.",
-    "statsFloor": "Dit abonnement viser statistik fra {date}."
+    "statsFloor": "Dit abonnement viser statistik fra {date}.",
+    "trial": "Prøv gratis i {n} dage"
   },
   "tfa": {
     "title": "Totrinsbekræftelse",
@@ -2329,7 +2330,7 @@
     "period": "Betalingsperiode",
     "monthly": "Månedlig",
     "yearly": "Årlig",
-    "yearSave": "2 måneder gratis",
+    "yearSave": "1. år: 2 måneder gratis",
     "perYear": "om året",
     "paidUntil": "Betalt til {date}",
     "graceRule": "Betaler du for sent, har du {n} dage til at betale, før dine QR-koder slettes. Fristen halveres hver gang, du betaler for sent (mindst 3 dage).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Velkommen! Vælg et abonnement for at lave din første QR-kode.",
     "choose": "Vælg abonnement",
     "unpaidMsg": "Din konto er klar. Vælg et abonnement nedenfor; så kan du straks lave QR-koder.",
-    "admUnpaid": "Ikke betalt endnu"
+    "admUnpaid": "Ikke betalt endnu",
+    "yearThen": "første år, derefter {price} om året"
   },
   "msg": {
     "whatsapp": "WhatsApp",

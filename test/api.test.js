@@ -382,10 +382,10 @@ test('abonnementen: team kent pakket toe, limiet geldt op de server, klant ziet 
   const r = await team('PATCH', '/api/admin/customers/' + id, { plan: 'standard' });
   assert.equal(r.status, 200); assert.equal(r.json.plan, 'standard');
   const mk = () => k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://plan.example' }, design: {} });
-  let last; for (let i = 0; i < 10; i++) { last = await mk(); assert.equal(last.status, 201); }
+  let last; for (let i = 0; i < 5; i++) { last = await mk(); assert.equal(last.status, 201); }
   const over = await mk(); assert.equal(over.status, 403); assert.equal(over.json.error, 'plan_limit');
   assert.equal((await k('POST', '/api/qr-codes/' + last.json.id + '/duplicate', {})).status, 403, 'kopie telt ook mee');
-  p = (await k('GET', '/api/account/plan')).json; assert.equal(p.usage.state, 'full'); assert.equal(p.usage.limit, 10);
+  p = (await k('GET', '/api/account/plan')).json; assert.equal(p.usage.state, 'full'); assert.equal(p.usage.limit, 5);
   const an = (await k('GET', '/api/analytics?from=2000-01-01')).json; assert.ok(an.statsFloor, 'geschiedenis beperkt');
   assert.ok((await team('GET', '/api/admin/log')).json.some((x) => x.action === 'user_plan'), 'wijziging in logboek');
   await team('PATCH', '/api/admin/customers/' + id, { plan: 'free' });

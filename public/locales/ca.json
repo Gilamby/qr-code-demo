@@ -2182,7 +2182,8 @@
     "noPayments": "Ara no es cobra res: el pagament en línia encara no està disponible.",
     "limitCreate": "Has arribat al límit de la teva subscripció. Elimina un codi o sol·licita un pla més gran a El meu compte > Subscripció.",
     "saved": "Subscripció desada.",
-    "statsFloor": "El teu pla mostra estadístiques des del {date}."
+    "statsFloor": "El teu pla mostra estadístiques des del {date}.",
+    "trial": "Prova gratis {n} dies"
   },
   "tfa": {
     "title": "Verificació en dos passos",
@@ -2329,7 +2330,7 @@
     "period": "Període de facturació",
     "monthly": "Mensual",
     "yearly": "Anual",
-    "yearSave": "2 mesos gratis",
+    "yearSave": "1r any: 2 mesos gratis",
     "perYear": "l'any",
     "paidUntil": "Pagat fins al {date}",
     "graceRule": "Si pagues tard, tens {n} dies per pagar abans que s'eliminin els teus codis QR. Aquest termini es redueix a la meitat cada vegada que pagues tard (mínim 3 dies).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Benvingut! Tria un pla per crear el teu primer codi QR.",
     "choose": "Tria un pla",
     "unpaidMsg": "El teu compte està a punt. Tria un pla a continuació; després podràs crear codis QR de seguida.",
-    "admUnpaid": "Encara no pagat"
+    "admUnpaid": "Encara no pagat",
+    "yearThen": "el primer any, després {price} l'any"
   },
   "msg": {
     "whatsapp": "WhatsApp",

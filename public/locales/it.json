@@ -2182,7 +2182,8 @@
     "noPayments": "Per ora non viene addebitato nulla: il pagamento online non è ancora disponibile.",
     "limitCreate": "Hai raggiunto il limite del tuo abbonamento. Elimina un codice o richiedi un piano più grande in Il mio account > Abbonamento.",
     "saved": "Abbonamento salvato.",
-    "statsFloor": "Il tuo piano mostra statistiche dal {date}."
+    "statsFloor": "Il tuo piano mostra statistiche dal {date}.",
+    "trial": "Prova gratis per {n} giorni"
   },
   "tfa": {
     "title": "Verifica in due passaggi",
@@ -2329,7 +2330,7 @@
     "period": "Periodo di fatturazione",
     "monthly": "Mensile",
     "yearly": "Annuale",
-    "yearSave": "2 mesi gratis",
+    "yearSave": "1° anno: 2 mesi gratis",
     "perYear": "all’anno",
     "paidUntil": "Pagato fino al {date}",
     "graceRule": "Se paghi in ritardo, hai {n} giorni per pagare prima che i tuoi codici QR vengano eliminati. Questo tempo si dimezza a ogni ritardo (minimo 3 giorni).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Benvenuto! Scegli un abbonamento per creare il tuo primo QR code.",
     "choose": "Scegli un abbonamento",
     "unpaidMsg": "Il tuo account è pronto. Scegli un abbonamento qui sotto; poi potrai creare subito i QR code.",
-    "admUnpaid": "Non ancora pagato"
+    "admUnpaid": "Non ancora pagato",
+    "yearThen": "il primo anno, poi {price} all'anno"
   },
   "msg": {
     "whatsapp": "WhatsApp",

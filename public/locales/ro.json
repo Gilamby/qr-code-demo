@@ -2182,7 +2182,8 @@
     "noPayments": "Acum nu se percepe nimic: plata online nu este încă disponibilă.",
     "limitCreate": "Ai atins limita abonamentului tău. Șterge un cod sau solicită un abonament mai mare în Contul meu > Abonament.",
     "saved": "Abonament salvat.",
-    "statsFloor": "Abonamentul tău afișează statistici începând cu {date}."
+    "statsFloor": "Abonamentul tău afișează statistici începând cu {date}.",
+    "trial": "Încearcă gratuit {n} zile"
   },
   "tfa": {
     "title": "Verificare în doi pași",
@@ -2329,7 +2330,7 @@
     "period": "Perioada de facturare",
     "monthly": "Lunar",
     "yearly": "Anual",
-    "yearSave": "2 luni gratuit",
+    "yearSave": "Anul 1: 2 luni gratuite",
     "perYear": "pe an",
     "paidUntil": "Plătit până la {date}",
     "graceRule": "Dacă plătești cu întârziere, ai {n} zile să plătești înainte ca codurile tale QR să fie șterse. Acest timp se înjumătățește la fiecare întârziere (minimum 3 zile).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Bun venit! Alege un abonament ca să creezi primul tău cod QR.",
     "choose": "Alege un abonament",
     "unpaidMsg": "Contul tău este gata. Alege un abonament mai jos; apoi poți crea imediat coduri QR.",
-    "admUnpaid": "Neplătit încă"
+    "admUnpaid": "Neplătit încă",
+    "yearThen": "în primul an, apoi {price} pe an"
   },
   "msg": {
     "whatsapp": "WhatsApp",

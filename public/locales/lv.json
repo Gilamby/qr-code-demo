@@ -2182,7 +2182,8 @@
     "noPayments": "Pašlaik nekas netiek iekasēts: maksāšana tiešsaistē vēl nav pieejama.",
     "limitCreate": "Tu esi sasniedzis sava abonementa limitu. Izdzēs kādu kodu vai pieprasi lielāku plānu sadaļā “Mans konts” > “Abonements”.",
     "saved": "Abonements saglabāts.",
-    "statsFloor": "Tavs plāns rāda statistiku no {date}."
+    "statsFloor": "Tavs plāns rāda statistiku no {date}.",
+    "trial": "{n} dienas bez maksas"
   },
   "tfa": {
     "title": "Divpakāpju verifikācija",
@@ -2329,7 +2330,7 @@
     "period": "Norēķinu periods",
     "monthly": "Ik mēnesi",
     "yearly": "Ik gadu",
-    "yearSave": "2 mēneši bez maksas",
+    "yearSave": "1. gads: 2 mēneši bez maksas",
     "perYear": "gadā",
     "paidUntil": "Apmaksāts līdz {date}",
     "graceRule": "Ja maksā ar nokavēšanos, tev ir {n} dienas laika samaksāt, pirms tavi QR kodi tiek dzēsti. Šis laiks samazinās uz pusi katru reizi, kad maksā par vēlu (vismaz 3 dienas).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Laipni lūdzam! Izvēlies abonementu, lai izveidotu savu pirmo QR kodu.",
     "choose": "Izvēlēties abonementu",
     "unpaidMsg": "Tavs konts ir gatavs. Izvēlies abonementu zemāk; pēc tam vari uzreiz veidot QR kodus.",
-    "admUnpaid": "Vēl nav apmaksāts"
+    "admUnpaid": "Vēl nav apmaksāts",
+    "yearThen": "pirmajā gadā, pēc tam {price} gadā"
   },
   "msg": {
     "whatsapp": "WhatsApp",

@@ -4,12 +4,14 @@
    Betalen komt later (aanbieder en sleutels volgen); de prijzen zijn een voorstel.
    Opslag: settings 'plan:<userId>'. Geen waarde = 'free' (testfase, geen limieten).
    ========================================================= */
-export type Plan = { id: string; codes: number | null; statsDays: number | null; intro: number | null; price: number | null; priceYear: number | null; users: number | null };   // users: hoeveel mensen (eigenaar + teamleden), null = onbeperkt
+// Prijzen (besluit Fabian, 19 okt): tussen goedkoop en de grote QR-diensten in. Iedereen begint met 14 dagen gratis proberen.
+// Per jaar: het eerste jaar 2 maanden gratis (priceYear), daarna de gewone jaarprijs (priceYearAfter = 12 × maand).
+export type Plan = { id: string; codes: number | null; statsDays: number | null; price: number | null; priceYear: number | null; priceYearAfter: number | null; users: number | null; trialDays: number | null };   // users: eigenaar + teamleden, null = onbeperkt
 export const PLANS: Record<string, Plan> = {
-  free:     { id: 'free',     codes: null, statsDays: null, intro: null, price: null, priceYear: null, users: 1 },   // testfase
-  standard: { id: 'standard', codes: 10,   statsDays: 30,   intro: 0,    price: 0.99, priceYear: 9.9, users: 1 },   // 1e maand gratis; jaar = 10 maanden (voorstel)
-  pro:      { id: 'pro',      codes: 100,  statsDays: 365,  intro: 4.99, price: 9.99, priceYear: 99.9, users: 3 },
-  business: { id: 'business', codes: null, statsDays: null, intro: 7.5,  price: 14.99, priceYear: 149.9, users: null },
+  free:     { id: 'free',     codes: null, statsDays: null, price: null,  priceYear: null,  priceYearAfter: null,   users: 1,    trialDays: null },   // testfase
+  standard: { id: 'standard', codes: 5,    statsDays: 30,   price: 4.99,  priceYear: 49.9,  priceYearAfter: 59.88,  users: 1,    trialDays: 14 },
+  pro:      { id: 'pro',      codes: 50,   statsDays: 365,  price: 12.99, priceYear: 129.9, priceYearAfter: 155.88, users: 3,    trialDays: 14 },
+  business: { id: 'business', codes: null, statsDays: null, price: 24.99, priceYear: 249.9, priceYearAfter: 299.88, users: null, trialDays: 14 },
 };
 export const PLAN_IDS = Object.keys(PLANS);
 type Settings = { getSetting(k: string): Promise<string | null | undefined> };

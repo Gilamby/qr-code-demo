@@ -2182,7 +2182,8 @@
     "noPayments": "Nada é cobrado agora: o pagamento online ainda não está disponível.",
     "limitCreate": "Atingiu o limite da sua assinatura. Elimine um código ou peça um plano maior em A minha conta > Assinatura.",
     "saved": "Assinatura guardada.",
-    "statsFloor": "O seu plano mostra estatísticas desde {date}."
+    "statsFloor": "O seu plano mostra estatísticas desde {date}.",
+    "trial": "Experimenta grátis {n} dias"
   },
   "tfa": {
     "title": "Verificação em dois passos",
@@ -2329,7 +2330,7 @@
     "period": "Período de faturação",
     "monthly": "Mensal",
     "yearly": "Anual",
-    "yearSave": "2 meses grátis",
+    "yearSave": "1.º ano: 2 meses grátis",
     "perYear": "por ano",
     "paidUntil": "Pago até {date}",
     "graceRule": "Se pagar com atraso, tem {n} dias para pagar antes de os seus códigos QR serem eliminados. Este prazo é reduzido para metade a cada atraso (mínimo 3 dias).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Bem-vindo! Escolhe um plano para criar o teu primeiro código QR.",
     "choose": "Escolher um plano",
     "unpaidMsg": "A tua conta está pronta. Escolhe um plano abaixo; depois podes criar códigos QR de imediato.",
-    "admUnpaid": "Ainda não pago"
+    "admUnpaid": "Ainda não pago",
+    "yearThen": "no primeiro ano, depois {price} por ano"
   },
   "msg": {
     "whatsapp": "WhatsApp",

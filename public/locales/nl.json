@@ -2182,7 +2182,8 @@
     "noPayments": "Er wordt nu niets afgeschreven: online betalen is nog niet beschikbaar.",
     "limitCreate": "Je hebt de limiet van je abonnement bereikt. Verwijder een code of vraag een groter pakket aan bij Mijn account > Abonnement.",
     "saved": "Abonnement opgeslagen.",
-    "statsFloor": "Je pakket toont statistieken vanaf {date}."
+    "statsFloor": "Je pakket toont statistieken vanaf {date}.",
+    "trial": "{n} dagen gratis proberen"
   },
   "tfa": {
     "title": "Tweestapsverificatie",
@@ -2329,7 +2330,7 @@
     "period": "Betaalperiode",
     "monthly": "Per maand",
     "yearly": "Per jaar",
-    "yearSave": "2 maanden gratis",
+    "yearSave": "1e jaar 2 maanden gratis",
     "perYear": "per jaar",
     "paidUntil": "Betaald tot {date}",
     "graceRule": "Betaal je een keer te laat, dan heb je {n} dagen om te betalen voordat je QR-codes worden verwijderd. Die tijd halveert elke keer dat je te laat betaalt (minimaal 3 dagen).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Welkom! Kies een abonnement om je eerste QR-code te maken.",
     "choose": "Abonnement kiezen",
     "unpaidMsg": "Je account is klaar. Kies hieronder een abonnement; daarna kun je meteen QR-codes maken.",
-    "admUnpaid": "Nog niet betaald"
+    "admUnpaid": "Nog niet betaald",
+    "yearThen": "eerste jaar, daarna {price} per jaar"
   },
   "msg": {
     "whatsapp": "WhatsApp",

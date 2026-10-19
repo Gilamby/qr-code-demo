@@ -2182,7 +2182,8 @@
     "noPayments": "Teraz sa nič neúčtuje: online platba zatiaľ nie je dostupná.",
     "limitCreate": "Dosiahol si limit svojho predplatného. Odstráň kód alebo požiadaj o väčšie predplatné v Môj účet > Predplatné.",
     "saved": "Predplatné uložené.",
-    "statsFloor": "Tvoje predplatné zobrazuje štatistiky od {date}."
+    "statsFloor": "Tvoje predplatné zobrazuje štatistiky od {date}.",
+    "trial": "{n} dní zadarmo"
   },
   "tfa": {
     "title": "Dvojstupňové overenie",
@@ -2329,7 +2330,7 @@
     "period": "Fakturačné obdobie",
     "monthly": "Mesačne",
     "yearly": "Ročne",
-    "yearSave": "2 mesiace zadarmo",
+    "yearSave": "1. rok: 2 mesiace zadarmo",
     "perYear": "ročne",
     "paidUntil": "Zaplatené do {date}",
     "graceRule": "Ak zaplatíš neskoro, máš {n} dní na zaplatenie, kým sa tvoje QR kódy odstránia. Táto lehota sa pri každom oneskorení skráti na polovicu (minimálne 3 dni).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Vitaj! Vyber si predplatné a vytvor svoj prvý QR kód.",
     "choose": "Vybrať predplatné",
     "unpaidMsg": "Tvoj účet je pripravený. Vyber si nižšie predplatné; potom môžeš hneď vytvárať QR kódy.",
-    "admUnpaid": "Zatiaľ nezaplatené"
+    "admUnpaid": "Zatiaľ nezaplatené",
+    "yearThen": "prvý rok, potom {price} ročne"
   },
   "msg": {
     "whatsapp": "WhatsApp",

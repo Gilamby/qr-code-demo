@@ -2182,7 +2182,8 @@
     "noPayments": "Ingenting debiteras nu: onlinebetalning är inte tillgänglig än.",
     "limitCreate": "Du har nått gränsen för ditt abonnemang. Ta bort en kod eller begär ett större abonnemang i Mitt konto > Abonnemang.",
     "saved": "Abonnemanget har sparats.",
-    "statsFloor": "Ditt abonnemang visar statistik från {date}."
+    "statsFloor": "Ditt abonnemang visar statistik från {date}.",
+    "trial": "Prova gratis i {n} dagar"
   },
   "tfa": {
     "title": "Tvåstegsverifiering",
@@ -2329,7 +2330,7 @@
     "period": "Betalningsperiod",
     "monthly": "Månadsvis",
     "yearly": "Årsvis",
-    "yearSave": "2 månader gratis",
+    "yearSave": "År 1: 2 månader gratis",
     "perYear": "per år",
     "paidUntil": "Betalt till {date}",
     "graceRule": "Betalar du för sent har du {n} dagar på dig att betala innan dina QR-koder raderas. Tiden halveras varje gång du betalar för sent (minst 3 dagar).",
@@ -2352,7 +2353,8 @@
     "barUnpaid": "Välkommen! Välj ett abonnemang för att skapa din första QR-kod.",
     "choose": "Välj abonnemang",
     "unpaidMsg": "Ditt konto är klart. Välj ett abonnemang nedan; sedan kan du skapa QR-koder direkt.",
-    "admUnpaid": "Inte betalt än"
+    "admUnpaid": "Inte betalt än",
+    "yearThen": "första året, sedan {price} per år"
   },
   "msg": {
     "whatsapp": "WhatsApp",
