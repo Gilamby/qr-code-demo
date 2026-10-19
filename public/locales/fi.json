@@ -1637,6 +1637,7 @@
     "noneEmptyText": "Kaikki koodisi ovat kansioissa. Siistiä!",
     "newHere": "Uusi koodi tähän kansioon",
     "moveTo": "Siirrä kansioon",
+    "moveOut": "Poista kansiosta",
     "newTitle": "Uusi kansio",
     "editTitle": "Muokkaa kansiota",
     "name": "Nimi",

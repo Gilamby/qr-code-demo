@@ -1637,6 +1637,7 @@
     "noneEmptyText": "Todos os seus códigos estão numa pasta. Muito arrumado!",
     "newHere": "Novo código nesta pasta",
     "moveTo": "Mover para pasta",
+    "moveOut": "Retirar da pasta",
     "newTitle": "Nova pasta",
     "editTitle": "Editar pasta",
     "name": "Nome",

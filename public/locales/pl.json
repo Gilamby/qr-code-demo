@@ -1637,6 +1637,7 @@
     "noneEmptyText": "Wszystkie Twoje kody są w folderach. Porządek!",
     "newHere": "Nowy kod w tym folderze",
     "moveTo": "Przenieś do folderu",
+    "moveOut": "Usuń z folderu",
     "newTitle": "Nowy folder",
     "editTitle": "Edytuj folder",
     "name": "Nazwa",

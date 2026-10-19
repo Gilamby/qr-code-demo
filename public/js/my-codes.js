@@ -27,6 +27,7 @@ var MyCodes = (function () {
     folder: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/>',
     folderPlus: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M12 11v6M9 14h6"/>',
     move: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M10 14h6M13.5 11.5L16 14l-2.5 2.5"/>',
+    moveOut: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/><path d="M9.5 14h6"/>',
     grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     x: '<path d="M7 7l10 10M17 7L7 17"/>', chev: '<path d="M6 9l6 6 6-6"/>',
     inbox: '<path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
@@ -171,6 +172,7 @@ var MyCodes = (function () {
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
             '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
+            (r.folderId ? '<button type="button" role="menuitem" data-act="moveout">' + ico('moveOut') + t('folders.moveOut') + '</button>' : '') +
             (!stat && isTeam() ? '<button type="button" role="menuitem" data-act="legacy">' + ico('chain') + t(r.legacyUrl ? 'legacy.menuEdit' : 'legacy.menu') + '</button>' : '') +
             '<button type="button" role="menuitem" class="danger" data-act="delete">' + ico('trash') + t('myCodes.delete') + '</button></div></div>' +
       '</div>' +
@@ -211,6 +213,7 @@ var MyCodes = (function () {
     bulk.innerHTML = '<span class="mc-bn"><b>' + i18n.fmt.num(sel.length) + '</b> ' + t('myCodes.selectedShort') + '</span>' +
       '<button type="button" class="link-btn" data-bulk="all">' + t(allOn ? 'myCodes.selectNone' : 'myCodes.selectAll', { n: vis.length }) + '</button><span class="mc-bsp"></span>' +
       '<button type="button" class="btn ghost sm" data-bulk="move">' + ico('move') + '<span>' + t('folders.moveTo') + '</span></button>' +
+      (sel.some(function (r) { return r.folderId; }) ? '<button type="button" class="btn ghost sm" data-bulk="moveout">' + ico('moveOut') + '<span>' + t('folders.moveOut') + '</span></button>' : '') +
       '<div class="mc-drop mc-up"><button type="button" class="btn ghost sm" data-bulk="dl" aria-haspopup="true" aria-expanded="false">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button><div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(true) + '</div></div>' +
       (dyn.length ? '<button type="button" class="btn ghost sm" data-bulk="pause">' + t('myCodes.bulkPause') + '</button><button type="button" class="btn ghost sm" data-bulk="resume">' + t('myCodes.bulkResume') + '</button>' : '') +
       '<button type="button" class="btn ghost sm danger-ghost" data-bulk="delete">' + ico('trash') + '<span>' + t('myCodes.delete') + '</span></button>' +
@@ -228,6 +231,7 @@ var MyCodes = (function () {
     if (k === 'clear') { picked = {}; return draw(); }
     if (k === 'all') { var vis = visible(), allOn = vis.every(function (r) { return picked[r.id]; }); vis.forEach(function (r) { if (allOn) delete picked[r.id]; else picked[r.id] = true; }); return draw(); }
     if (k === 'move') return askMove(sel);
+    if (k === 'moveout') return move(sel.filter(function (r) { return r.folderId; }).map(function (r) { return r.id; }), null);
     if (k === 'delete') return askDeleteMany(sel);
     if (k === 'pause' || k === 'resume') {
       var next = k === 'pause', todo = sel.filter(function (r) { return !isStatic(r) && !!r.paused !== next && !(r.hold && r.hold.lock); });
@@ -613,6 +617,7 @@ var MyCodes = (function () {
     if (act === 'delete') return askDelete(r);
     if (act === 'rename') { renaming = r.id; return draw(); }
     if (act === 'move') return askMove(r);
+    if (act === 'moveout') return move([r.id], null);
     if (act === 'legacy') return askLegacy(r);
     if (act === 'fav') return favorite(r);
     if (act === 'duplicate') return duplicate(r);

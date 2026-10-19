@@ -1637,6 +1637,7 @@
     "noneEmptyText": "Tous vos codes sont dans un dossier. Bien rangé !",
     "newHere": "Nouveau code dans ce dossier",
     "moveTo": "Déplacer vers un dossier",
+    "moveOut": "Retirer du dossier",
     "newTitle": "Nouveau dossier",
     "editTitle": "Modifier le dossier",
     "name": "Nom",

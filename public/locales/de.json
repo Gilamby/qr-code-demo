@@ -1637,6 +1637,7 @@
     "noneEmptyText": "Alle deine Codes sind in einem Ordner. Schön ordentlich!",
     "newHere": "Neuer Code in diesem Ordner",
     "moveTo": "In Ordner verschieben",
+    "moveOut": "Aus Ordner entfernen",
     "newTitle": "Neuer Ordner",
     "editTitle": "Ordner bearbeiten",
     "name": "Name",

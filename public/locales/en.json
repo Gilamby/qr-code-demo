@@ -1637,6 +1637,7 @@
     "noneEmptyText": "All your codes are in a folder. Nice and tidy!",
     "newHere": "New code in this folder",
     "moveTo": "Move to folder",
+    "moveOut": "Remove from folder",
     "newTitle": "New folder",
     "editTitle": "Edit folder",
     "name": "Name",

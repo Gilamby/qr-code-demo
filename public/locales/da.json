@@ -1637,6 +1637,7 @@
     "noneEmptyText": "Alle dine koder ligger i en mappe. Pænt og ryddeligt!",
     "newHere": "Ny kode i denne mappe",
     "moveTo": "Flyt til mappe",
+    "moveOut": "Fjern fra mappe",
     "newTitle": "Ny mappe",
     "editTitle": "Redigér mappe",
     "name": "Navn",
