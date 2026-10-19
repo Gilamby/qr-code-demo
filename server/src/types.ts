@@ -104,6 +104,8 @@ declare global {
     interface Request {
       /** Ingelogde gebruiker (of null), gezet door de sessie-middleware */
       user?: User | null;
+      /** Teamlid dat namens de eigenaar werkt (req.user is dan de eigenaar) */
+      member?: User | null;
       /** Ruwe sessiecode uit het cookie */
       sid?: string;
     }

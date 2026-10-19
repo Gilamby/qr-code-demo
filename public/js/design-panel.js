@@ -204,7 +204,9 @@ var DesignPanel = (function () {
 
   // Downloaden als PNG (1024 px) of SVG.
   function download(format) {
-    var s = store.get(), data = encodeQR(s), name = 'qr-' + (s.typeId || 'code');
+    var s = store.get(), data = encodeQR(s);
+    // Bestandsnaam = naam van de QR-code (zoals in Mijn QR-codes)
+    var name = CodeUtil.fileName({ name: (s.editing && s.editing.name) || (s.saved && s.saved.name) || '', typeId: s.typeId, content: (s.content && s.content[s.typeId]) || {} });
     var markup = QRRender.svg(data, s.design, { width: 1024 });
     if (format === 'svg') return save(new Blob([markup], { type: 'image/svg+xml' }), name + '.svg');
     var img = new Image(), url = URL.createObjectURL(new Blob([markup], { type: 'image/svg+xml' }));

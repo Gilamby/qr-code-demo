@@ -20,7 +20,8 @@ var CodeUtil = (function () {
   function qrData(r) { return encodeQR({ typeId: r.typeId, content: (function () { var o = {}; o[r.typeId] = r.content || {}; return o; })(), saved: isStatic(r) ? null : r, draftId: r.id }); }
   function qrDesign(r) { var d = Object.assign({}, QR_DEFAULT_DESIGN, r.design); delete d.pageColor; delete d.accentColor; return safeDesign(d); }
   function qrSvg(r, opts) { return QRRender.svg(qrData(r), qrDesign(r), opts); }
-  function fileName(r) { return 'qr-' + (displayName(r).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || r.typeId); }
+  // Bestandsnaam = de naam van de QR-code, zoals hij in de app heet (alleen tekens die een bestandsnaam niet mag, gaan eruit)
+  function fileName(r) { return displayName(r).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 80) || ('QR ' + (r.typeId || 'code')); }
   /* ---------- Downloaden: PNG, JPG, WebP, SVG, PDF (A4, om af te drukken) in verschillende maten ---------- */
   var FORMATS = ['png', 'jpg', 'webp', 'svg', 'pdf', 'eps'];
   var SIZES = [512, 1024, 2048, 4096];
@@ -137,5 +138,5 @@ var CodeUtil = (function () {
     users: '<g class="hx-p1"><circle cx="9" cy="8" r="3.4"/><path d="M2.8 19.5c.9-3.4 3.3-5.3 6.2-5.3s5.3 1.9 6.2 5.3"/></g><g class="hx-p2"><circle cx="16.8" cy="9" r="2.6"/><path d="M16.6 14.3c2.3.2 4 1.9 4.6 4.6"/></g>'
   };
   function tileIcon(k) { return '<svg class="hm-i hx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (TILE[k] || '') + '</svg>'; }
-  return { isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, print: print, share: share, zip: zip, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
+  return { isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, print: print, share: share, zip: zip, fileName: fileName, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
 })();

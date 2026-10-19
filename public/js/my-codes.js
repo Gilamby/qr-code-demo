@@ -231,11 +231,11 @@ var MyCodes = (function () {
     bulk.setAttribute('aria-label', t('myCodes.selected', { n: sel.length }));
     bulk.innerHTML = '<span class="mc-bn"><b>' + i18n.fmt.num(sel.length) + '</b> ' + t('myCodes.selectedShort') + '</span>' +
       '<button type="button" class="link-btn" data-bulk="all">' + t(allOn ? 'myCodes.selectNone' : 'myCodes.selectAll', { n: vis.length }) + '</button><span class="mc-bsp"></span>' +
-      '<button type="button" class="btn ghost sm" data-bulk="move">' + ico('move') + '<span>' + t('folders.moveTo') + '</span></button>' +
-      (sel.some(function (r) { return r.folderId; }) ? '<button type="button" class="btn ghost sm" data-bulk="moveout">' + ico('moveOut') + '<span>' + t('folders.moveOut') + '</span></button>' : '') +
-      '<div class="mc-drop mc-up"><button type="button" class="btn ghost sm" data-bulk="dl" aria-haspopup="true" aria-expanded="false">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button><div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(true) + '</div></div>' +
+      '<button type="button" class="btn ghost sm" data-bulk="move" title="' + esc(t('folders.moveTo')) + '">' + ico('move') + '<span>' + t('folders.moveTo') + '</span></button>' +
+      (sel.some(function (r) { return r.folderId; }) ? '<button type="button" class="btn ghost sm" data-bulk="moveout" title="' + esc(t('folders.moveOut')) + '">' + ico('moveOut') + '<span>' + t('folders.moveOut') + '</span></button>' : '') +
+      '<div class="mc-drop mc-up"><button type="button" class="btn ghost sm" data-bulk="dl" aria-haspopup="true" aria-expanded="false" title="' + esc(t('myCodes.download')) + '">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button><div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(true) + '</div></div>' +
       (dyn.length ? '<button type="button" class="btn ghost sm" data-bulk="pause">' + t('myCodes.bulkPause') + '</button><button type="button" class="btn ghost sm" data-bulk="resume">' + t('myCodes.bulkResume') + '</button>' : '') +
-      '<button type="button" class="btn ghost sm danger-ghost" data-bulk="delete">' + ico('trash') + '<span>' + t('myCodes.delete') + '</span></button>' +
+      '<button type="button" class="btn ghost sm danger-ghost" data-bulk="delete" title="' + esc(t('myCodes.delete')) + '">' + ico('trash') + '<span>' + t('myCodes.delete') + '</span></button>' +
       '<button type="button" class="mc-ico" data-bulk="clear" aria-label="' + esc(t('myCodes.cancel')) + '" title="' + esc(t('myCodes.cancel')) + '">' + ico('x') + '</button>';
     bulk.hidden = false;
   }
@@ -731,5 +731,5 @@ var MyCodes = (function () {
   function folderForNew() { var f = newIn; newIn = null; return f; }
   /** Vanaf het Overzicht: meteen een map (of 'fav') openen */
   function showFolder(key) { filter.folder = key; if (loaded) draw(); }
-  return { reload: load, displayName: displayName, folderForNew: folderForNew, showFolder: showFolder };
+  return { reload: load, rows: function () { return rows; }, displayName: displayName, folderForNew: folderForNew, showFolder: showFolder };
 })();

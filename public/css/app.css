@@ -4366,3 +4366,31 @@ body.an-printing #anRange { display: block; }
 .sms-send { width: 30px; height: 30px; border-radius: 50%; background: #34c759; color: #fff; display: grid; place-items: center; flex: none; }
 .sms-send .i { width: 16px; height: 16px; }
 .sub-bar.sub-info { background: rgba(43,181,240,.14) !important; border-color: rgba(43,181,240,.45) !important; color: var(--fg) !important; }
+
+/* Team (Pro en Business) */
+.team-form { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1.3fr) minmax(130px,1fr) auto; gap: 10px; align-items: end; margin: 12px 0 6px; }
+@media (max-width: 760px) { .team-form { grid-template-columns: 1fr; } }
+.team-list { display: grid; gap: 8px; margin-top: 14px; }
+.team-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); flex-wrap: wrap; }
+.team-row > span { flex: 1 1 200px; min-width: 0; }
+.team-row b { display: block; font-size: 14.5px; }
+.team-row small { color: var(--muted); font-size: 12.5px; word-break: break-all; }
+.team-row select { height: 36px; border-radius: 10px; border: 1px solid rgba(255,255,255,.16); background: rgba(0,0,0,.2); color: var(--fg); padding: 0 8px; font: inherit; }
+.team-link { display: block; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.06); word-break: break-all; font-size: 13px; }
+.team-log { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+.team-log li { font-size: 14px; }
+.team-log li small { display: block; color: var(--muted); font-size: 12px; }
+.team-log em { font-style: normal; color: var(--accent); }
+/* Kijker: niets maken of wijzigen */
+body.team-viewer [data-mc-new], body.team-viewer .item[data-page="create"], body.team-viewer [data-act="edit"], body.team-viewer [data-act="delete"], body.team-viewer [data-act="toggle"], body.team-viewer [data-folder-new], body.team-viewer [data-import] { display: none !important; }
+
+/* Smalle vensters (bv. half scherm): niets mag breder worden dan het scherm (zoals YouTube: alles schuift netjes mee) */
+#myCodesView, #myCodesView > *, .mc-head, .mf-bar, .mf-folders { min-width: 0; max-width: 100%; }
+.mf-row { flex-wrap: wrap !important; }
+.mc-head > div:first-child { min-width: 0; }
+.mc-bulk { flex-wrap: wrap !important; }
+.mc-bulk .btn, .mc-bulk .link-btn, .mc-bulk .mc-bn { white-space: nowrap; }
+@media (max-width: 1200px) {
+  .mc-bulk .btn svg + span { display: none; }            /* knoppen met een icoon: alleen het icoon (tekst als tooltip) */
+  .mc-bulk .btn { padding: 0 12px; }
+}

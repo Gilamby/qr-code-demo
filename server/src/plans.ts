@@ -4,12 +4,12 @@
    Betalen komt later (aanbieder en sleutels volgen); de prijzen zijn een voorstel.
    Opslag: settings 'plan:<userId>'. Geen waarde = 'free' (testfase, geen limieten).
    ========================================================= */
-export type Plan = { id: string; codes: number | null; statsDays: number | null; intro: number | null; price: number | null; priceYear: number | null };
+export type Plan = { id: string; codes: number | null; statsDays: number | null; intro: number | null; price: number | null; priceYear: number | null; users: number | null };   // users: hoeveel mensen (eigenaar + teamleden), null = onbeperkt
 export const PLANS: Record<string, Plan> = {
-  free:     { id: 'free',     codes: null, statsDays: null, intro: null, price: null, priceYear: null },   // testfase
-  standard: { id: 'standard', codes: 10,   statsDays: 30,   intro: 0,    price: 0.99, priceYear: 9.9 },   // 1e maand gratis; jaar = 10 maanden (voorstel)
-  pro:      { id: 'pro',      codes: 100,  statsDays: 365,  intro: 4.99, price: 9.99, priceYear: 99.9 },
-  business: { id: 'business', codes: null, statsDays: null, intro: 7.5,  price: 14.99, priceYear: 149.9 },
+  free:     { id: 'free',     codes: null, statsDays: null, intro: null, price: null, priceYear: null, users: 1 },   // testfase
+  standard: { id: 'standard', codes: 10,   statsDays: 30,   intro: 0,    price: 0.99, priceYear: 9.9, users: 1 },   // 1e maand gratis; jaar = 10 maanden (voorstel)
+  pro:      { id: 'pro',      codes: 100,  statsDays: 365,  intro: 4.99, price: 9.99, priceYear: 99.9, users: 3 },
+  business: { id: 'business', codes: null, statsDays: null, intro: 7.5,  price: 14.99, priceYear: 149.9, users: null },
 };
 export const PLAN_IDS = Object.keys(PLANS);
 type Settings = { getSetting(k: string): Promise<string | null | undefined> };

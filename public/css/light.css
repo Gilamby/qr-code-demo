@@ -453,6 +453,9 @@
 :root[data-theme="light"] .mc-due > svg { color: #b45309; }
 :root[data-theme="light"] .mc-due.over > svg { color: #dc2626; }
 :root[data-theme="light"] .imp-until input { border: 1px solid rgba(13,19,32,0.144); background: rgba(255,255,255,0.8); }
+:root[data-theme="light"] .team-row { border: 1px solid rgba(13,19,32,0.09); background: rgba(13,19,32,0.023); }
+:root[data-theme="light"] .team-row select { border: 1px solid rgba(13,19,32,0.144); background: rgba(255,255,255,0.8); }
+:root[data-theme="light"] .team-link { background: rgba(13,19,32,0.045); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

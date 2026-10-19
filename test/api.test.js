@@ -573,3 +573,46 @@ test('aanmelden: wegwerp-adressen en varianten van hetzelfde adres worden geweig
   assert.equal((await c('POST', '/api/auth/register', { email: 'jan.de.vries@googlemail.com', password: 'Proef periode zin 12!' })).json.error, 'email_alias');
   assert.equal((await c('POST', '/api/auth/register', { email: 'jan.devries@outlook.com', password: 'Proef periode zin 12!' })).status, 201, 'ander domein: gewoon toegestaan');
 });
+
+test('team (Pro en Business): uitnodigen, samen codes beheren, kijker kan niets wijzigen, verwijderen', async () => {
+  const team = client(); await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const o = client(); await signup(o, 'baas@bedrijf.example', 'Baas bedrijf zin 12!', 'Baas');
+  const oid = (await team('GET', '/api/admin/customers')).json.find((c) => c.email === 'baas@bedrijf.example').id;
+  // Standard: geen team; Pro: 3 mensen (eigenaar + 2)
+  await team('PATCH', '/api/admin/customers/' + oid, { plan: 'standard' });
+  assert.equal((await o('GET', '/api/team')).json.canTeam, false);
+  assert.equal((await o('POST', '/api/team', { email: 'anna@bedrijf.example', role: 'editor' })).status, 403, 'Standard: alleen jijzelf');
+  await team('PATCH', '/api/admin/customers/' + oid, { plan: 'pro' });
+  assert.equal((await o('GET', '/api/team')).json.seats, 3);
+  assert.equal((await o('GET', '/api/team')).json.canTeam, true);
+  const code = (await o('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://bedrijf.example' }, design: {}, name: 'Flyer' })).json;
+  // uitnodigen: bewerker en kijker
+  const inv = await o('POST', '/api/team', { email: 'anna@bedrijf.example', name: 'Anna', role: 'editor' });
+  assert.equal(inv.status, 201); assert.ok(inv.json.link.includes('?invite='));
+  assert.equal((await o('POST', '/api/team', { email: 'baas@bedrijf.example', role: 'editor' })).status, 409, 'bestaand account niet');
+  const inv2 = await o('POST', '/api/team', { email: 'kees@bedrijf.example', name: 'Kees', role: 'viewer' });
+  assert.equal((await o('POST', '/api/team', { email: 'piet@bedrijf.example', role: 'viewer' })).json.error, 'seats', 'Pro: vol bij 3');
+  const accept = async (link, pw) => { const c = client(); await c('POST', '/api/auth/reset', { token: decodeURIComponent(link.split('invite=')[1]), password: pw }); return c; };
+  const anna = await accept(inv.json.link, 'Anna geheime zin 12!'), kees = await accept(inv2.json.link, 'Kees geheime zin 12!');
+  assert.deepEqual((await anna('GET', '/api/team')).json.member.role, 'editor');
+  // zelfde codes
+  assert.deepEqual((await anna('GET', '/api/qr-codes')).json.map((c) => c.id), [code.id], 'lid ziet de codes van het team');
+  const made = await anna('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://anna.example' }, design: {}, name: 'Van Anna' });
+  assert.equal(made.status, 201);
+  assert.equal((await o('GET', '/api/qr-codes')).json.length, 2, 'eigenaar ziet de code van Anna');
+  assert.equal((await kees('GET', '/api/qr-codes')).json.length, 2, 'kijker ziet alles');
+  assert.equal((await kees('DELETE', '/api/qr-codes/' + code.id)).json.error, 'viewer', 'kijker kan niets wijzigen');
+  assert.equal((await kees('GET', '/api/analytics')).status, 200, 'kijker ziet statistieken');
+  // wie deed wat
+  await new Promise((r) => setTimeout(r, 50));
+  const log = (await o('GET', '/api/team/log')).json.log;
+  assert.ok(log.some((e) => e.byName === 'Anna' && e.action === 'created'), 'Anna maakte een code');
+  // rol wijzigen en verwijderen
+  assert.equal((await o('PATCH', '/api/team/' + log.find((e) => e.byName === 'Anna').by, { role: 'viewer' })).status, 200);
+  assert.equal((await anna('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://x.example' }, design: {} })).json.error, 'viewer', 'nu kijker');
+  assert.equal((await anna('POST', '/api/team', { email: 'z@bedrijf.example' })).status, 403, 'lid kan geen leden uitnodigen');
+  const annaId = (await o('GET', '/api/team')).json.members.find((m) => m.email === 'anna@bedrijf.example').userId;
+  assert.equal((await o('DELETE', '/api/team/' + annaId)).status, 204);
+  assert.equal((await anna('GET', '/api/qr-codes')).status, 401, 'verwijderd lid is uitgelogd');
+  assert.equal((await o('GET', '/api/qr-codes')).json.length, 2, 'codes van het team blijven');
+});

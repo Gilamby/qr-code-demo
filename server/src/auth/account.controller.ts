@@ -3,6 +3,7 @@
    Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond, factuurgegevens,
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
+import { cleanupTeam } from './team.controller';
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { DatabaseService } from '../database/database.service';
@@ -207,6 +208,7 @@ export class AccountController {
     if (this.auth.isSuper(user)) throw fail(403, 'super');                // het hoofdaccount van het team blijft altijd bestaan
     if (this.auth.limited('del:' + user.id, 10, 15)) throw fail(429, 'too_many');
     if (!(await this.auth.checkPassword(b.password || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');
+    await cleanupTeam(this.db, user.id);                                    // team: leden weg (eigenaar) of uit het team (lid)
     await this.db.deleteUser(user.id);
     this.auth.clearSession(req, res);
   }

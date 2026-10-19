@@ -6,9 +6,10 @@ import { MailerService } from './mailer.service';
 import { LoggedIn } from './auth.guard';
 import { SupportAccountService } from './support-account.service';
 import { AdminController, TeamOnly } from './admin.controller';
+import { TeamController } from './team.controller';
 
 @Module({
-  controllers: [AuthController, AccountController, AdminController],
+  controllers: [AuthController, AccountController, AdminController, TeamController],
   providers: [AuthService, MailerService, LoggedIn, SupportAccountService, TeamOnly],
   exports: [AuthService, MailerService, LoggedIn, TeamOnly],
 })

@@ -19,7 +19,7 @@ var api = (function () {
         if (res.status === 204) return null;
         return res.json().catch(function () { return {}; }).then(function (data) {
           if (!res.ok) {
-            var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details; if (data.error === 'subscription_lapsed') setTimeout(function () { document.dispatchEvent(new CustomEvent('sub-lapsed')); }, 0); if (data.error === 'maintenance') { info.maintenance = { on: true, message: data.message || '' }; setTimeout(function () { document.dispatchEvent(new CustomEvent('maintenance-change')); }, 0); }
+            var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details; if (data.error === 'subscription_lapsed') setTimeout(function () { document.dispatchEvent(new CustomEvent('sub-lapsed')); }, 0); if (data.error === 'viewer') setTimeout(function () { document.dispatchEvent(new CustomEvent('team-viewer')); }, 0); if (data.error === 'maintenance') { info.maintenance = { on: true, message: data.message || '' }; setTimeout(function () { document.dispatchEvent(new CustomEvent('maintenance-change')); }, 0); }
             if (res.status === 401 && url.indexOf('api/auth/') !== 0) document.dispatchEvent(new Event('auth:required'));   // sessie verlopen: opnieuw inloggen
             throw err;
           }
@@ -288,6 +288,15 @@ var api = (function () {
       forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),
       reset:    function (d) { return request('POST', 'api/auth/reset', d); },
       emailChange: function (d) { return request('POST', 'api/auth/email-change', d); }
+    },
+    // Team (Pro en Business): collega's in hetzelfde account (alleen met server)
+    team: {
+      get:      function ()      { return request('GET', 'api/team'); },
+      log:      function ()      { return request('GET', 'api/team/log'); },
+      invite:   function (d)     { return request('POST', 'api/team', d); },
+      role:     function (id, r) { return request('PATCH', 'api/team/' + encodeURIComponent(id), { role: r }); },
+      reinvite: function (id, d) { return request('POST', 'api/team/' + encodeURIComponent(id) + '/invite', d || {}); },
+      remove:   function (id)    { return request('DELETE', 'api/team/' + encodeURIComponent(id)); }
     },
     // Mijn account. Zonder server (online demo): alles in deze browser, zelfde antwoorden.
     account: {

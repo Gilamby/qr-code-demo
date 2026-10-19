@@ -15,7 +15,7 @@ import type { ReportData } from '../reports';
 import type { User } from '../types';
 
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
-type Kind = 'verify' | 'reset' | 'invite' | 'emailChange' | 'emailChanged';
+type Kind = 'verify' | 'reset' | 'invite' | 'teamInvite' | 'emailChange' | 'emailChanged';
 
 @Injectable()
 export class MailerService {
@@ -33,6 +33,8 @@ export class MailerService {
   sendVerify(to: string, link: string, lang: string) { return this.send('verify', to, link, lang); }
   sendReset(to: string, link: string, lang: string) { return this.send('reset', to, link, lang); }
   sendInvite(to: string, link: string, lang: string) { return this.send('invite', to, link, lang); }
+  /** Uitnodiging voor een team (Business): {name} = wie uitnodigt */
+  sendTeamInvite(to: string, link: string, lang: string, name: string) { return this.send('teamInvite', to, link, lang, { name }); }
   /** Link naar het nieuwe adres om de wijziging te bevestigen */
   sendEmailChange(to: string, link: string, lang: string) { return this.send('emailChange', to, link, lang); }
   /** Melding naar het oude adres (geen knop): niet jij? neem contact op */

@@ -5,6 +5,7 @@
      Je blijft ingelogd tot je uitlogt: 1 jaar, en elke dag dat je de app gebruikt schuift dat op.
      In de database staat alleen een hash van die code. Noodzakelijke cookie: geen cookiebanner nodig.
    ========================================================= */
+import { memberOf, hasTeam, actionOf, addTeamLog } from '../team';
 import { isBlocked } from '../subscription';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import * as crypto from 'crypto';
@@ -75,6 +76,23 @@ export class AuthService implements OnModuleDestroy {
       req.sid = this.cookies(req)[COOKIE] || '';
       req.user = await this.db.sessionUser(req.sid);
       if (req.user && req.user.renewUntil) this.setSession(req, res, { token: req.sid, expires: req.user.renewUntil });
+      // Team (Business): een teamlid werkt in het account van de eigenaar (codes, mappen, uploads, statistieken).
+      // Eigen profiel, wachtwoord en 2-stapsverificatie blijven van het lid zelf. Kijkers kunnen niets wijzigen.
+      if (req.user && /^\/api\/(qr-codes|folders|uploads|analytics|account\/media)(\/|\.|$)/.test(req.path)) {
+        const m = await memberOf(this.db, req.user.id);
+        if (m) {
+          if (m.role === 'viewer' && req.method !== 'GET' && req.method !== 'HEAD') { res.status(403).json({ error: 'viewer' }); return; }
+          const owner = await this.db.getUser(m.ownerId);
+          if (!owner) { res.status(403).json({ error: 'team_gone' }); return; }
+          req.member = req.user; req.user = owner;
+        }
+        // Wie deed wat: wijzigingen in een account met een team bijhouden (van de eigenaar én van de leden)
+        const act = req.method !== 'GET' && actionOf(req.method, req.path);
+        if (act && (req.member || await hasTeam(this.db, req.user.id))) {
+          const by = req.member || req.user, ownerId = req.user.id;
+          res.on('finish', () => { if (res.statusCode < 400) addTeamLog(this.db, ownerId, { at: new Date().toISOString(), by: by.id, byName: by.name || by.email, action: act.action, codeId: act.codeId }).catch(() => {}); });
+        }
+      }
       // Onderhoudsmodus: klanten kunnen even niets wijzigen (bekijken en scannen werkt gewoon); het team wel
       if (req.method !== 'GET' && req.method !== 'HEAD' && /^\/api\//.test(req.path) && !/^\/api\/(auth|admin)\//.test(req.path) && !(req.user && this.isAdmin(req.user))) {
         const m = await this.maintenance();
