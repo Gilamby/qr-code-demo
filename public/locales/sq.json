@@ -111,6 +111,10 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Lidhu me një rrjet Wi-Fi"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Merr mesazhe SMS"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Pamje",
       "qr": "Kodi QR",
       "needed": "Plotëso fillimisht fushat e detyrueshme"
+    },
+    "sms": {
+      "msg": "Përshëndetje! Do të doja më shumë informacion.",
+      "new": "Mesazh i ri",
+      "send": "Dërgo SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Barkod",
     "scanNone": "Vetëm tekst",
     "couponUrl": "Buton për dyqanin online ose faqen e rezervimeve",
-    "buttonLabel": "Teksti i butonit"
+    "buttonLabel": "Teksti i butonit",
+    "smsText": "Teksti i mesazhit"
   },
   "panel": {
     "selected": "U zgjodh: {type}"

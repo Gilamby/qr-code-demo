@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Connecta't a una xarxa Wi-Fi"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Rep missatges SMS"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Vista prèvia",
       "qr": "Codi QR",
       "needed": "Primer omple els camps obligatoris"
+    },
+    "sms": {
+      "msg": "Hola! M'agradaria més informació.",
+      "new": "Missatge nou",
+      "send": "Envia SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Codi de barres",
     "scanNone": "Només text",
     "couponUrl": "Botó a la botiga en línia o a la pàgina de reserves",
-    "buttonLabel": "Text del botó"
+    "buttonLabel": "Text del botó",
+    "smsText": "Text del missatge"
   },
   "panel": {
     "selected": "{type} seleccionat"

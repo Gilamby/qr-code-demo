@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Yhdistä Wi-Fi-verkkoon"
+    },
+    "sms": {
+      "name": "Tekstiviesti",
+      "desc": "Vastaanota tekstiviestejä"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Esikatselu",
       "qr": "QR-koodi",
       "needed": "Täytä ensin pakolliset kentät"
+    },
+    "sms": {
+      "msg": "Hei! Haluaisin lisätietoja.",
+      "new": "Uusi viesti",
+      "send": "Lähetä tekstiviesti"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Viivakoodi",
     "scanNone": "Vain teksti",
     "couponUrl": "Painike verkkokauppaan tai varaussivulle",
-    "buttonLabel": "Painikkeen teksti"
+    "buttonLabel": "Painikkeen teksti",
+    "smsText": "Viestin teksti"
   },
   "panel": {
     "selected": "{type} valittu"

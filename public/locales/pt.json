@@ -111,6 +111,10 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Ligue-se a uma rede Wi-Fi"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Receba mensagens SMS"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Pré-visualização",
       "qr": "Código QR",
       "needed": "Preenche primeiro os campos obrigatórios"
+    },
+    "sms": {
+      "msg": "Olá! Gostaria de mais informações.",
+      "new": "Nova mensagem",
+      "send": "Enviar SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Código de barras",
     "scanNone": "Só texto",
     "couponUrl": "Botão para a loja online ou página de reservas",
-    "buttonLabel": "Texto do botão"
+    "buttonLabel": "Texto do botão",
+    "smsText": "Texto da mensagem"
   },
   "panel": {
     "selected": "{type} selecionado"

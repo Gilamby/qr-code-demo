@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Opret forbindelse til et Wi-Fi-netværk"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Modtag sms-beskeder"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Forhåndsvisning",
       "qr": "QR-kode",
       "needed": "Udfyld først de påkrævede felter"
+    },
+    "sms": {
+      "msg": "Hej! Jeg vil gerne have mere information.",
+      "new": "Ny besked",
+      "send": "Send sms"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Stregkode",
     "scanNone": "Kun tekst",
     "couponUrl": "Knap til din webshop eller bookingside",
-    "buttonLabel": "Knappens tekst"
+    "buttonLabel": "Knappens tekst",
+    "smsText": "Beskedtekst"
   },
   "panel": {
     "selected": "{type} valgt"

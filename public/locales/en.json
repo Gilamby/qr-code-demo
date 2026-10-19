@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Connect to a Wi-Fi network"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Let people send you a text message"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Preview",
       "qr": "QR code",
       "needed": "Fill in the required fields first"
+    },
+    "sms": {
+      "msg": "Hi! I'd like more information.",
+      "new": "New message",
+      "send": "Send SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Barcode",
     "scanNone": "Text only",
     "couponUrl": "Button to your web shop or booking page",
-    "buttonLabel": "Button text"
+    "buttonLabel": "Button text",
+    "smsText": "Message text"
   },
   "panel": {
     "selected": "{type} selected"

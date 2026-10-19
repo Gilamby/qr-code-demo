@@ -111,6 +111,10 @@
     "wifi": {
       "name": "Wifi",
       "desc": "Verbind met een wifi-netwerk"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Laat mensen je een sms sturen"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Voorbeeld",
       "qr": "QR-code",
       "needed": "Vul eerst de verplichte velden in"
+    },
+    "sms": {
+      "msg": "Hallo! Ik wil graag meer informatie.",
+      "new": "Nieuw bericht",
+      "send": "Verstuur sms"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Streepjescode",
     "scanNone": "Alleen tekst",
     "couponUrl": "Knop naar je webshop of boekingspagina",
-    "buttonLabel": "Tekst op de knop"
+    "buttonLabel": "Tekst op de knop",
+    "smsText": "Tekst van het bericht"
   },
   "panel": {
     "selected": "{type} geselecteerd"

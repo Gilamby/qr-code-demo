@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Pieslēgties Wi-Fi tīklam"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Saņem īsziņas"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Priekšskatījums",
       "qr": "QR kods",
       "needed": "Vispirms aizpildi obligātos laukus"
+    },
+    "sms": {
+      "msg": "Sveiki! Es vēlētos vairāk informācijas.",
+      "new": "Jauna ziņa",
+      "send": "Sūtīt SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Svītrkods",
     "scanNone": "Tikai teksts",
     "couponUrl": "Poga uz interneta veikalu vai rezervēšanas lapu",
-    "buttonLabel": "Pogas teksts"
+    "buttonLabel": "Pogas teksts",
+    "smsText": "Ziņas teksts"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"

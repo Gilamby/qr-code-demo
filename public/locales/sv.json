@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Anslut till ett Wi-Fi-nätverk"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Ta emot sms"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Förhandsvisning",
       "qr": "QR-kod",
       "needed": "Fyll först i de obligatoriska fälten"
+    },
+    "sms": {
+      "msg": "Hej! Jag skulle vilja ha mer information.",
+      "new": "Nytt meddelande",
+      "send": "Skicka sms"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Streckkod",
     "scanNone": "Bara text",
     "couponUrl": "Knapp till din webbutik eller bokningssida",
-    "buttonLabel": "Knapptext"
+    "buttonLabel": "Knapptext",
+    "smsText": "Meddelandetext"
   },
   "panel": {
     "selected": "{type} vald"

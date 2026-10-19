@@ -4351,3 +4351,17 @@ body.an-printing #anRange { display: block; }
 .imp-until input { max-width: 220px; height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.16); background: rgba(0,0,0,.2); color: var(--fg); font: inherit; color-scheme: dark; }
 .imp-until small { font-weight: 500; color: var(--muted); }
 .lg-dlg > .imp-until { margin: 0 0 12px; }
+
+/* SMS (voorbeeld in de telefoon) */
+.ph-sms { background: #fff; display: flex; flex-direction: column; }
+.sms-head { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 12px 12px; border-bottom: 1px solid #e5e5ea; color: #111; position: relative; }
+.sms-head > .i:first-child { position: absolute; left: 10px; top: 14px; color: #0a84ff; }
+.sms-av { width: 44px; height: 44px; border-radius: 50%; background: #c7c7cc; display: grid; place-items: center; overflow: hidden; }
+.sms-av .i { width: 34px; height: 34px; margin-top: 10px; stroke-width: 0; fill: #fff; }
+.sms-head b { font-size: 13px; font-weight: 600; }
+.sms-body { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding-top: 14px; }
+.sms-body small { font-size: 11px; color: #8e8e93; }
+.sms-bar { display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px 26px; }
+.sms-input { flex: 1; min-height: 34px; padding: 7px 12px; border: 1px solid #d1d1d6; border-radius: 18px; font-size: 14px; line-height: 1.35; color: #111; word-wrap: break-word; }
+.sms-send { width: 30px; height: 30px; border-radius: 50%; background: #34c759; color: #fff; display: grid; place-items: center; flex: none; }
+.sms-send .i { width: 16px; height: 16px; }

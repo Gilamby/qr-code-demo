@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Conectare la o rețea Wi-Fi"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Primește mesaje SMS"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Previzualizare",
       "qr": "Cod QR",
       "needed": "Completează mai întâi câmpurile obligatorii"
+    },
+    "sms": {
+      "msg": "Bună! Aș dori mai multe informații.",
+      "new": "Mesaj nou",
+      "send": "Trimite SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Cod de bare",
     "scanNone": "Doar text",
     "couponUrl": "Buton către magazinul online sau pagina de rezervări",
-    "buttonLabel": "Textul butonului"
+    "buttonLabel": "Textul butonului",
+    "smsText": "Textul mesajului"
   },
   "panel": {
     "selected": "{type} selectat"

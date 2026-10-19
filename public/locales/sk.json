@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Pripojiť sa k sieti Wi-Fi"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Prijímaj SMS správy"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Náhľad",
       "qr": "QR kód",
       "needed": "Najprv vyplň povinné polia"
+    },
+    "sms": {
+      "msg": "Dobrý deň! Chcel by som viac informácií.",
+      "new": "Nová správa",
+      "send": "Odoslať SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Čiarový kód",
     "scanNone": "Iba text",
     "couponUrl": "Tlačidlo do e-shopu alebo na rezervačnú stránku",
-    "buttonLabel": "Text tlačidla"
+    "buttonLabel": "Text tlačidla",
+    "smsText": "Text správy"
   },
   "panel": {
     "selected": "Vybraté: {type}"

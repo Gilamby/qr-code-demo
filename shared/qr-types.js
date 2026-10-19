@@ -112,6 +112,9 @@
       { key: 'socials', type: 'socials', label: 'fields.socials', required: true, sample: { t: 'sample.socials' } } ] },
   { id: 'whatsapp', page: false,  icon: 'wa',     image: 'assets/qr-types/whatsapp.jpg', previewImage: 'assets/previews/whatsapp.jpg',  contentType: 'message',  previewType: 'card',    color: '#00a884', theme: ['#00a884', '#075e54'],
     fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', required: true, sample: { t: 'sample.waPhone' } }, { key: 'message', label: 'fields.message', sample: { t: 'pv.whatsapp.m2' } } ] },
+  // SMS (KB Q48–49): opent het berichtenprogramma met nummer en tekst al ingevuld. Dynamisch: via onze korte link (scans tellen, later te wijzigen)
+  { id: 'sms', page: false, icon: 'sms', contentType: 'sms', previewType: 'card', color: '#34c759', theme: ['#34c759', '#0a84ff'],
+    fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', required: true, sample: { t: 'sample.waPhone' } }, { key: 'message', label: 'fields.smsText', sample: { t: 'pv.sms.msg' } } ] },
   { id: 'mp3',       icon: 'mp3',    image: 'assets/qr-types/mp3.jpg', previewImage: 'assets/previews/mp3.jpg',       contentType: 'file',     previewType: 'card',    color: '#8b5cf6', theme: ['#8b5cf6', '#ec4899'],
     fields: [
       { key: 'file', type: 'file', accept: 'audio/*', label: 'fields.audioFile', required: true, sample: { t: 'sample.mp3File' } },

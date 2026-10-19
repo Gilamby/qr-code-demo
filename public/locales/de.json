@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WLAN",
       "desc": "Mit einem WLAN verbinden"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Lass dir eine SMS schicken"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Vorschau",
       "qr": "QR-Code",
       "needed": "Fülle zuerst die Pflichtfelder aus"
+    },
+    "sms": {
+      "msg": "Hallo! Ich hätte gern mehr Informationen.",
+      "new": "Neue Nachricht",
+      "send": "SMS senden"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Strichcode",
     "scanNone": "Nur Text",
     "couponUrl": "Button zu deinem Webshop oder deiner Buchungsseite",
-    "buttonLabel": "Text auf dem Button"
+    "buttonLabel": "Text auf dem Button",
+    "smsText": "Nachrichtentext"
   },
   "panel": {
     "selected": "{type} ausgewählt"

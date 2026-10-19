@@ -111,6 +111,10 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Koble til et Wi-Fi-nettverk"
+    },
+    "sms": {
+      "name": "SMS",
+      "desc": "Motta SMS-meldinger"
     }
   },
   "pv": {
@@ -282,6 +286,11 @@
       "preview": "Forhåndsvisning",
       "qr": "QR-kode",
       "needed": "Fyll først ut de obligatoriske feltene"
+    },
+    "sms": {
+      "msg": "Hei! Jeg vil gjerne ha mer informasjon.",
+      "new": "Ny melding",
+      "send": "Send SMS"
     }
   },
   "hero": {
@@ -377,7 +386,8 @@
     "scanBarcode": "Strekkode",
     "scanNone": "Bare tekst",
     "couponUrl": "Knapp til nettbutikken eller bookingsiden din",
-    "buttonLabel": "Knappetekst"
+    "buttonLabel": "Knappetekst",
+    "smsText": "Meldingstekst"
   },
   "panel": {
     "selected": "{type} valgt"

@@ -155,6 +155,15 @@ var PHONE = (function () {
 
   return {
     statusBar: statusBar,
+    /* ---------- SMS: het berichtenscherm dat opent, met nummer en tekst al ingevuld ---------- */
+    sms: function (c) {
+      return '<div class="ph ph-sms">' + statusBar() +
+        '<div class="sms-head">' + ic('back') + '<span class="sms-av">' + ic('user') + '</span><b>' + v(c.phone, '110px') + '</b></div>' +
+        '<div class="sms-body"><small>' + esc(t('pv.sms.new')) + '</small></div>' +
+        '<div class="sms-bar"><div class="sms-input">' + (c.message ? esc(c.message) : '<i class="sk" style="width:70%"></i>') + '</div><b class="sms-send">' + ic('send') + '</b></div>' +
+      '</div>';
+    },
+
     /* ---------- WhatsApp: precies het chatscherm dat opent ---------- */
     whatsapp: function (c, ex) {
       var msgs = ex
