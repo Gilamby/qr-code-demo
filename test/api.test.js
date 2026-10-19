@@ -502,7 +502,10 @@ test('abonnement verlopen: codes werken niet, niets wijzigen, betalen zet alles 
 test('overgezette code: einddatum oude QR-app, herinnering 60 en 14 dagen ervoor en op de dag zelf', async () => {
   const { HousekeepingService } = require('../server/dist/housekeeping.service');
   const sent = []; app.get(MailerService).sendLegacyDue = async (u, name, url, until, over) => { sent.push(over ? 'over' : 'soon'); };
-  const k = client(); await signup(k, 'legacy-k@example.com', 'Oude app zin 12!', 'Klant Oud');
+  const c = client(); await signup(c, 'legacy-k@example.com', 'Oude app zin 12!', 'Klant Oud');
+  const own = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://dest.example' }, design: {} })).json;
+  assert.equal((await c('PATCH', '/api/qr-codes/' + own.id, { legacyUrl: 'https://scan.page/abc' })).status, 403, 'overzetten: alleen het team');
+  const k = client(); await k('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
   const code = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://dest.example' }, design: {}, name: 'Flyer' })).json;
   assert.equal((await k('PATCH', '/api/qr-codes/' + code.id, { legacyUntil: 'morgen' })).status, 400, 'geen geldige datum');
   const until = new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10);

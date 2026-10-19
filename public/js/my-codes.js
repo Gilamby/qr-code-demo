@@ -409,7 +409,9 @@ var MyCodes = (function () {
   function destVal(r) { return (r.dest && r.dest.value) || ''; }
   function destText(r, full) { var v = destVal(r); if (!v) return t('myCodes.ownPage'); return full ? v : v.replace(/^https?:\/\/(www\.)?/, ''); }   // eigen pagina (menu, coupon …): geen externe link
   function destHref(r) { var v = destVal(r); return /^https?:\/\//i.test(v) ? v : r.shortUrl; }
-  function isTeam() { return !api.isDemo(); }   // iedereen die overstapt van een andere QR-app (naam is historisch)
+  // Overzetten uit een andere QR-app: alleen het team. Klanten komen er niet mee van hun oude abonnement af (de geprinte code
+  // gaat altijd eerst langs de oude app), dus voor hen zou het vooral verwarring geven.
+  function isTeam() { var me = window.Session && Session.user ? Session.user() : null; return !api.isDemo() && !!(me && me.admin); }
   /* Bestaande QR-code (uit een andere app, al geprint) koppelen: deze code toont en downloadt dan precies die QR-code.
      De oude app moet doorsturen naar onze korte link; zo lopen de scans via ons en blijft de geprinte code werken. Alleen voor het team. */
   // QR-code uit een afbeelding lezen: BarcodeDetector als de browser dat kan, anders jsQR (pas geladen als het nodig is)

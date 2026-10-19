@@ -92,6 +92,9 @@ export class QrCodesController {
     if (b.paused !== undefined) { if (typeof b.paused !== 'boolean') errors.push('paused: must be true or false'); else patch.paused = b.paused; }
     if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
     let legacy: string | null | undefined;
+    // Overzetten uit een andere QR-app: alleen het team. Een klant komt er niet mee van zijn oude abonnement af
+    // (de geprinte code gaat altijd eerst langs de oude app), dus voor klanten zou het vooral verwarring en klachten geven.
+    if ((b.legacyUrl || b.legacyUntil) && !this.auth.isAdmin(user)) throw fail(403, 'team_only');
     if (b.legacyUrl !== undefined) {                                 // bestaande QR-code uit een andere app koppelen (overstappen zonder nieuwe codes te printen)
       if (b.legacyUrl === null || b.legacyUrl === '') legacy = null;
       else if (typeof b.legacyUrl !== 'string' || !/^https?:\/\/[^\s]{3,}$/i.test(b.legacyUrl.trim()) || b.legacyUrl.length > 500) errors.push('legacyUrl: must be a web address');
