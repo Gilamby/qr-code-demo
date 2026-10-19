@@ -53,8 +53,8 @@ var MyCodes = (function () {
   var folders = [], newIn = null, bar = document.getElementById('mcFolders');   // folder: '' = alle codes, 'none' = zonder map, anders een map-id
   var COLORS = { cyan: '#22d3ee', blue: '#3b82f6', violet: '#8b5cf6', pink: '#ec4899', red: '#ef4444', orange: '#f97316', amber: '#f59e0b', green: '#22c55e' };
   function folderOf(id) { return folders.filter(function (f) { return f.id === id; })[0] || null; }
-  // Kleur van de map als klein, gevuld mapje (geen gloed eromheen)
-  function dot(f) { return '<svg class="mf-dot" style="--fc:' + (COLORS[f.color] || COLORS.cyan) + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 6.5A2 2 0 0 1 4.5 4.5h4.6l2.2 2.3h8.2a2 2 0 0 1 2 2v9.7a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2z"/></svg>'; }
+  // Mapje-icoon: één rustige kleur voor alle mappen (kleuren kiezen is weggehaald: voegde niets toe en maakte het druk)
+  function dot(f) { return '<svg class="mf-dot" style="--fc:' + COLORS.cyan + '" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 6.5A2 2 0 0 1 4.5 4.5h4.6l2.2 2.3h8.2a2 2 0 0 1 2 2v9.7a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2z"/></svg>'; }
 
   // Gedeeld met het beheer: zie code-util.js
   var isStatic = CodeUtil.isStatic, displayName = CodeUtil.displayName, qrData = CodeUtil.qrData, qrDesign = CodeUtil.qrDesign, download = CodeUtil.download;
@@ -345,24 +345,17 @@ var MyCodes = (function () {
   function folderErr(x) { return x && x.code === 'exists' ? 'folders.errExists' : x && x.code === 'too_many_folders' ? 'folders.errMany' : 'myCodes.failed'; }
   /** Venster voor een nieuwe map of om een map te wijzigen (naam + kleur). then(folder) na opslaan. */
   function folderDialog(f, then) {
-    var color = (f && f.color) || 'cyan';
     dialog.innerHTML = '<form method="dialog" class="mc-dlg mf-dlg" novalidate><span class="mc-dlg-ic mf-ic">' + ico(f ? 'folder' : 'folderPlus') + '</span>' +
       '<h3>' + t(f ? 'folders.editTitle' : 'folders.newTitle') + '</h3>' +
       '<label class="auth-f"><span>' + t('folders.name') + '</span><span class="auth-in"><input id="mfName" maxlength="40" value="' + esc(f ? f.name : '') + '" placeholder="' + esc(t('folders.namePh')) + '" autocomplete="off"></span></label>' +
-      '<div class="mf-colors" role="radiogroup" aria-label="' + esc(t('folders.color')) + '"><span>' + t('folders.color') + '</span><div>' +
-        Object.keys(COLORS).map(function (c) { return '<button type="button" role="radio" aria-checked="' + (c === color) + '" aria-label="' + esc(t('folders.c_' + c)) + '" title="' + esc(t('folders.c_' + c)) + '" data-color="' + c + '" style="--fc:' + COLORS[c] + '">' + ico('check') + '</button>'; }).join('') +
-      '</div></div><p class="acct-msg bad" id="mfMsg" hidden></p>' +
+      '<p class="acct-msg bad" id="mfMsg" hidden></p>' +
       '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel" formnovalidate>' + t('myCodes.cancel') + '</button><button class="btn primary" value="ok" id="mfGo">' + t(f ? 'folders.save' : 'folders.create') + '</button></div></form>';
     var inp = dialog.querySelector('#mfName'), msg = dialog.querySelector('#mfMsg');
-    dialog.querySelector('.mf-colors').addEventListener('click', function (e) {
-      var b = e.target.closest('[data-color]'); if (!b) return; color = b.getAttribute('data-color');
-      dialog.querySelectorAll('[data-color]').forEach(function (x) { x.setAttribute('aria-checked', String(x === b)); });
-    });
     dialog.querySelector('#mfGo').addEventListener('click', function (e) {
       e.preventDefault(); var name = inp.value.replace(/\s+/g, ' ').trim();
       if (!name) { msg.hidden = false; msg.textContent = t('folders.errName'); inp.focus(); return; }
       var go = e.currentTarget; go.disabled = true;
-      (f ? api.folders.update(f.id, { name: name, color: color }) : api.folders.create({ name: name, color: color })).then(function (res) {
+      (f ? api.folders.update(f.id, { name: name }) : api.folders.create({ name: name })).then(function (res) {
         var nf = res.folder; folders = f ? folders.map(function (x) { return x.id === nf.id ? nf : x; }) : folders.concat([nf]);
         dialog.close(); if (then) then(nf); else draw();
         toast(f ? 'folders.saved' : 'folders.created');
