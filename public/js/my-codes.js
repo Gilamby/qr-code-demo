@@ -169,7 +169,7 @@ var MyCodes = (function () {
       '<div class="mc-main"><div class="mc-namerow"><button type="button" class="mc-star' + (r.favorite ? ' on' : '') + '" data-act="fav" aria-pressed="' + !!r.favorite + '" aria-label="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '" title="' + esc(t(r.favorite ? 'folders.unfav' : 'folders.makeFav')) + '">' + ico('star') + '</button>' + nameHtml + '</div>' +
         '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('myCodes.made', { date: i18n.fmt.stamp(r.createdAt, 'short') })) + '</span>' +
           (r.updatedAt && r.updatedAt !== r.createdAt ? '<span class="mc-dot">·</span><span title="' + esc(i18n.fmt.stamp(r.updatedAt, 'long')) + '">' + esc(t('myCodes.edited', { date: i18n.fmt.stamp(r.updatedAt, 'short') })) + '</span>' : '') +
-          (r.legacyUrl ? '<span class="mc-legacy" title="' + esc(t('legacy.badgeTip', { url: r.legacyUrl })) + '">' + ico('chain') + t('legacy.badge') + '</span>' : '') +
+          (r.legacyUrl ? '<span class="mc-legacy" title="' + esc(t('legacy.badgeTip', { url: r.legacyUrl })) + '">' + ico('chain') + t('legacy.badge') + '</span>' + untilPill(r) : '') +
           (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
@@ -205,11 +205,14 @@ var MyCodes = (function () {
       return;
     }
     var vis = visible(), searching = filter.q.trim() || filter.type;
-    list.innerHTML = vis.length ? vis.map(card).join('')
+    var due = rows.filter(function (r) { var n = untilDays(r); return n != null && n <= 60; });
+    var dueHtml = due.length ? '<div class="mc-due' + (due.some(function (r) { return untilDays(r) <= 0; }) ? ' over' : '') + '" role="alert">' + ico('lock') + '<span><b>' + esc(t('legacy.bannerTitle', { n: due.length })) + '</b> ' + esc(t('legacy.bannerText')) +
+      ' <span class="mc-due-list">' + due.map(function (r) { return esc(displayName(r)) + ' (' + esc(untilDate(r)) + ')'; }).join(', ') + '</span></span></div>' : '';
+    list.innerHTML = dueHtml + (vis.length ? vis.map(card).join('')
       : !searching && filter.folder === 'fav' ? '<div class="mc-empty small glass">' + ico('star') + '<h3>' + t('folders.favEmpty') + '</h3><p>' + t('folders.favEmptyText') + '</p></div>'
       : !searching && filter.folder ? '<div class="mc-empty small glass">' + ico('folder') + '<h3>' + t(filter.folder === 'none' ? 'folders.noneEmpty' : 'folders.empty') + '</h3><p>' + t(filter.folder === 'none' ? 'folders.noneEmptyText' : 'folders.emptyText') + '</p>' +
           (filter.folder !== 'none' ? '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('folders.newHere') + '</button>' : '') + '</div>'
-      : '<div class="mc-empty small glass"><h3>' + t('myCodes.noneFound') + '</h3><button type="button" class="btn ghost" data-act="clear">' + t('myCodes.clear') + '</button></div>';
+      : '<div class="mc-empty small glass"><h3>' + t('myCodes.noneFound') + '</h3><button type="button" class="btn ghost" data-act="clear">' + t('myCodes.clear') + '</button></div>');
     if (renaming) { var inp = list.querySelector('[data-rename]'); if (inp) { inp.focus(); inp.select(); } }
     drawBulk();
   }
@@ -391,6 +394,18 @@ var MyCodes = (function () {
   }
   /** Kiezen naar welke map een code gaat */
   // Wat onder de naam staat: de bestemming die je hebt ingevuld (zoals in het beheer), niet onze korte link
+  /* Overgezette code: tot wanneer loopt het account bij de oude QR-app? (daarna werkt de geprinte code niet meer) */
+  function untilDays(r) { if (!r.legacyUrl || !r.legacyUntil) return null; var d = new Date(r.legacyUntil + 'T00:00:00'); return Math.ceil((d - new Date()) / 864e5); }
+  function untilDate(r) { return i18n.fmt.date(new Date(r.legacyUntil + 'T00:00:00'), 'long'); }
+  function untilPill(r) {
+    var n = untilDays(r); if (n == null) return '';
+    var cls = n <= 0 ? ' over' : n <= 60 ? ' soon' : '', key = n <= 0 ? 'legacy.untilOver' : n <= 60 ? 'legacy.untilSoon' : 'legacy.untilOk';
+    return '<span class="mc-until' + cls + '" title="' + esc(t('legacy.untilTip')) + '">' + ico('lock') + esc(t(key, { date: untilDate(r) })) + '</span>';
+  }
+  function untilField(val) {
+    var today = new Date(); today.setHours(12);
+    return '<label class="imp-until"><span>' + t('legacy.until') + '</span><input type="date" name="until" value="' + esc(val || '') + '" min="' + today.toISOString().slice(0, 10) + '"><small>' + t('legacy.untilHint') + '</small></label>';
+  }
   function destVal(r) { return (r.dest && r.dest.value) || ''; }
   function destText(r, full) { var v = destVal(r); if (!v) return t('myCodes.ownPage'); return full ? v : v.replace(/^https?:\/\/(www\.)?/, ''); }   // eigen pagina (menu, coupon …): geen externe link
   function destHref(r) { var v = destVal(r); return /^https?:\/\//i.test(v) ? v : r.shortUrl; }
@@ -466,7 +481,8 @@ var MyCodes = (function () {
        Dynamisch: de geprinte code blijft afhangen van het oude account. Dat moet de klant zien en bevestigen,
        anders zegt hij het oude account op en werkt de geprinte code ineens niet meer. */
     var kind = null, checked = '', checkNo = 0;
-    function hostOf(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
+    var BRAND = { 'scan.page': 'qr-code.io' };                       // kort-linkdomein → naam van de dienst die de klant kent
+    function hostOf(u) { try { var h = new URL(u).hostname.replace(/^www\./, ''); return BRAND[h] || h; } catch (e) { return ''; } }
     function showCheck() {
       var old = f.old.value.trim(), host = hostOf(old);
       if (!host) { box.hidden = true; kind = null; return; }
@@ -477,7 +493,7 @@ var MyCodes = (function () {
       } else {
         box.className = 'imp-check warn'; go.disabled = false;
         box.innerHTML = '<b>' + ico('lock') + t('imp.warnTitle') + '</b><p>' + esc(t('imp.warn', { host: host })) + '</p>' +
-          '<label class="imp-ack"><input type="checkbox" data-imp-ack><span>' + esc(t('imp.ack', { host: host })) + '</span></label>';
+          '<label class="imp-ack"><input type="checkbox" data-imp-ack><span>' + esc(t('imp.ack', { host: host })) + '</span></label>' + untilField('');
       }
       box.hidden = false;
     }
@@ -522,7 +538,9 @@ var MyCodes = (function () {
         .then(function (rec) { made = rec; return rec; });
       step.then(function (rec) {
         if (old.replace(/\/$/, '') === rec.shortUrl.replace(/\/$/, '')) throw { self: true };
-        return api.patchQrCode(rec.id, { legacyUrl: old });
+        var u = f.querySelector('[name=until]'), body = { legacyUrl: old };
+        if (u && u.value) body.legacyUntil = u.value;
+        return api.patchQrCode(rec.id, body);
       }).then(done).catch(function (e) {
         if (e && e.self) return err('legacy.self', f.old);
         if (e && e.code === 'plan_limit') return err('plan.limitCreate');
@@ -540,13 +558,15 @@ var MyCodes = (function () {
     dialog.innerHTML = '<form method="dialog" class="mc-dlg lg-dlg"><h3>' + esc(t('legacy.title')) + '</h3><p>' + t('legacy.lead') + '</p>' +
       '<ol class="lg-steps"><li><b>' + t('legacy.step1') + '</b>' + pickerHtml(r.legacyUrl) + '</li>' +
       '<li><b>' + t('legacy.step2') + '</b><span class="lg-link"><code>' + esc(r.shortUrl) + '</code><button type="button" class="btn ghost sm" data-lg-copy>' + ico('copy') + '<span>' + t('myCodes.copy') + '</span></button></span></li>' +
-      '<li><b>' + t('legacy.step3') + '</b></li></ol>' +
+      '<li><b>' + t('legacy.step3') + '</b></li></ol>' + untilField(r.legacyUntil) +
       '<p class="acct-msg bad" data-lg-msg hidden></p>' +
       '<div class="mc-dlg-btns">' + (r.legacyUrl ? '<button type="button" class="btn ghost" data-lg-off>' + t('legacy.unlink') + '</button>' : '') +
         '<button class="btn ghost" value="cancel" formnovalidate>' + t('myCodes.cancel') + '</button><button type="button" class="btn primary" data-lg-save>' + t('acct.save') + '</button></div></form>';
     var f = dialog.querySelector('form'), msg = f.querySelector('[data-lg-msg]');
     var save = function (url) {
-      api.patchQrCode(r.id, { legacyUrl: url }).then(function (rec) { replace(rec); dialog.close(); draw(); toast(url ? 'legacy.saved' : 'legacy.removed'); })
+      var u = f.querySelector('[name=until]'), body = { legacyUrl: url };
+      if (url) body.legacyUntil = u && u.value ? u.value : null;
+      api.patchQrCode(r.id, body).then(function (rec) { replace(rec); dialog.close(); draw(); toast(url ? 'legacy.saved' : 'legacy.removed'); })
         .catch(function () { msg.textContent = t('legacy.bad'); msg.hidden = false; f.old.focus(); });
     };
     wirePicker(f, msg);

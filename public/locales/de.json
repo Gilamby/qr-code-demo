@@ -1353,7 +1353,12 @@
     "lapseDayText": "Deine QR-Codes werden am {date} gelöscht. Verlängere heute dein Abo, um sie zu behalten.",
     "lapseDeletedSubject": "Deine QR-Codes wurden gelöscht",
     "lapseDeletedText": "Da dein Abo nicht verlängert wurde, wurden deine QR-Codes und ihre Statistiken gelöscht. Dein Konto besteht weiter: Schließ ein Abo ab, um neue Codes zu erstellen.",
-    "lapseButton": "Abo verlängern"
+    "lapseButton": "Abo verlängern",
+    "legacySoonSubject": "Dein gedruckter QR-Code „{code}“ funktioniert bald nicht mehr",
+    "legacySoonText": "Am {date} läuft dein Konto bei {host} ab. Der gedruckte QR-Code „{code}“ läuft zuerst über {host}, deshalb funktioniert er ab diesem Tag nicht mehr, auch nicht über uns. Ersetze den gedruckten Code vor diesem Datum durch den Code aus Meine QR-Codes oder verlängere dein Konto bei {host}.",
+    "legacyOverSubject": "Dein gedruckter QR-Code „{code}“ funktioniert nicht mehr",
+    "legacyOverText": "Dein Konto bei {host} ist am {date} abgelaufen. Deshalb funktioniert der gedruckte QR-Code „{code}“ nicht mehr. Ersetze ihn durch den Code aus Meine QR-Codes oder verlängere dein Konto bei {host}.",
+    "legacyButton": "Zu Meine QR-Codes"
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2259,7 +2264,15 @@
     "dropHint": "oder klicke, um eins auszuwählen · Einfügen mit Strg+V geht auch",
     "orLink": "Oder füge den Link ein, der in deinem QR-Code steckt",
     "found": "QR-Code gelesen",
-    "notImage": "Das ist kein Bild. Zieh ein Foto oder einen Screenshot deines QR-Codes hierher."
+    "notImage": "Das ist kein Bild. Zieh ein Foto oder einen Screenshot deines QR-Codes hierher.",
+    "until": "Bis wann läuft dein Konto bei der alten QR-App?",
+    "untilHint": "Optional, aber sinnvoll. 2 Monate und 2 Wochen vorher bekommst du hier und per E-Mail eine Erinnerung.",
+    "untilOk": "Altes Konto bis {date}",
+    "untilSoon": "Altes Konto läuft am {date} ab",
+    "untilOver": "Altes Konto abgelaufen ({date}): gedruckter Code funktioniert nicht mehr",
+    "untilTip": "Nach diesem Datum funktioniert der gedruckte Code nicht mehr, weil er zuerst über deine alte QR-App läuft. Ersetze ihn rechtzeitig durch unseren Code oder verlängere das Konto.",
+    "bannerTitle": "Gedruckte Codes funktionieren bald nicht mehr ({n})",
+    "bannerText": "Das Konto bei der alten QR-App läuft ab. Ersetze diese gedruckten Codes vor diesem Datum durch unseren Code oder verlängere das Konto."
   },
   "up": {
     "title": "Plan upgraden",

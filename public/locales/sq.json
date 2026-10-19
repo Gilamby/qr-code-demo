@@ -1459,7 +1459,12 @@
     "lapseDayText": "Kodet e tua QR do të fshihen më {date}. Rinovoje sot abonimin për t’i ruajtur.",
     "lapseDeletedSubject": "Kodet e tua QR u fshinë",
     "lapseDeletedText": "Meqë abonimi nuk u rinovua, kodet e tua QR dhe statistikat e tyre u fshinë. Llogaria jote ekziston ende: merr një abonim për të krijuar kode të reja.",
-    "lapseButton": "Rinovo abonimin"
+    "lapseButton": "Rinovo abonimin",
+    "legacySoonSubject": "Kodi yt QR i printuar \"{code}\" së shpejti nuk do të funksionojë",
+    "legacySoonText": "Më {date} skadon llogaria jote te {host}. Kodi QR i printuar \"{code}\" kalon fillimisht përmes {host}, prandaj nga ajo ditë nuk do të funksionojë më, as përmes nesh. Zëvendësoje kodin e printuar para asaj date me kodin nga Kodet e mia QR ose rinovo llogarinë te {host}.",
+    "legacyOverSubject": "Kodi yt QR i printuar \"{code}\" nuk funksionon më",
+    "legacyOverText": "Llogaria jote te {host} skadoi më {date}. Prandaj kodi QR i printuar \"{code}\" nuk funksionon më. Zëvendësoje me kodin nga Kodet e mia QR ose rinovo llogarinë te {host}.",
+    "legacyButton": "Shko te Kodet e mia QR"
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -2365,7 +2370,15 @@
     "dropHint": "ose kliko për të zgjedhur · mund ta ngjitësh edhe me Ctrl+V",
     "orLink": "Ose ngjit lidhjen që ndodhet në kodin tënd QR",
     "found": "Kodi QR u lexua",
-    "notImage": "Kjo nuk është imazh. Tërhiq një foto ose pamje ekrani të kodit QR."
+    "notImage": "Kjo nuk është imazh. Tërhiq një foto ose pamje ekrani të kodit QR.",
+    "until": "Deri kur është aktive llogaria jote në aplikacionin e vjetër QR?",
+    "untilHint": "Opsionale, por e mençur. Do të marrësh një kujtesë këtu dhe me email 2 muaj dhe 2 javë përpara.",
+    "untilOk": "Llogaria e vjetër deri më {date}",
+    "untilSoon": "Llogaria e vjetër skadon më {date}",
+    "untilOver": "Llogaria e vjetër ka skaduar ({date}): kodi i printuar nuk funksionon më",
+    "untilTip": "Pas kësaj date kodi i printuar nuk funksionon më, sepse kalon fillimisht përmes aplikacionit tënd të vjetër QR. Zëvendësoje me kohë me kodin tonë ose rinovo atë llogari.",
+    "bannerTitle": "Disa kode të printuara së shpejti nuk do të funksionojnë ({n})",
+    "bannerText": "Llogaria në aplikacionin e vjetër QR po skadon. Zëvendësoji këto kode të printuara me kodin tonë para asaj date ose rinovo atë llogari."
   },
   "up": {
     "title": "Përmirëso planin",

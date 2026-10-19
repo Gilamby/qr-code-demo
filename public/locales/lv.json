@@ -1353,7 +1353,12 @@
     "lapseDayText": "Tavi QR kodi tiks dzēsti {date}. Atjauno abonementu šodien, lai tos saglabātu.",
     "lapseDeletedSubject": "Tavi QR kodi ir dzēsti",
     "lapseDeletedText": "Tā kā abonements netika atjaunots, tavi QR kodi un to statistika ir dzēsti. Tavs konts joprojām pastāv: noformē abonementu, lai veidotu jaunus kodus.",
-    "lapseButton": "Atjaunot abonementu"
+    "lapseButton": "Atjaunot abonementu",
+    "legacySoonSubject": "Tavs izdrukātais QR kods \"{code}\" drīz vairs nedarbosies",
+    "legacySoonText": "{date} beidzas tavs konts {host}. Izdrukātais QR kods \"{code}\" vispirms iet caur {host}, tāpēc no šīs dienas tas vairs nedarbosies, arī caur mums. Aizstāj izdrukāto kodu pirms šī datuma ar kodu no sadaļas Mani QR kodi vai pagarini savu kontu {host}.",
+    "legacyOverSubject": "Tavs izdrukātais QR kods \"{code}\" vairs nedarbojas",
+    "legacyOverText": "Tavs konts {host} beidzās {date}. Tāpēc izdrukātais QR kods \"{code}\" vairs nedarbojas. Aizstāj to ar kodu no sadaļas Mani QR kodi vai pagarini savu kontu {host}.",
+    "legacyButton": "Uz Mani QR kodi"
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",
@@ -2259,7 +2264,15 @@
     "dropHint": "vai noklikšķini, lai izvēlētos · darbojas arī ielīmēšana ar Ctrl+V",
     "orLink": "Vai ielīmē saiti, kas ir tavā QR kodā",
     "found": "QR kods nolasīts",
-    "notImage": "Tas nav attēls. Ievelc sava QR koda fotoattēlu vai ekrānuzņēmumu."
+    "notImage": "Tas nav attēls. Ievelc sava QR koda fotoattēlu vai ekrānuzņēmumu.",
+    "until": "Līdz kuram datumam ir aktīvs tavs konts vecajā QR lietotnē?",
+    "untilHint": "Nav obligāti, bet ieteicams. Atgādinājumu saņemsi šeit un e-pastā 2 mēnešus un 2 nedēļas iepriekš.",
+    "untilOk": "Vecais konts līdz {date}",
+    "untilSoon": "Vecais konts beidzas {date}",
+    "untilOver": "Vecais konts beidzies ({date}): izdrukātais kods vairs nedarbojas",
+    "untilTip": "Pēc šī datuma izdrukātais kods vairs nedarbojas, jo tas vispirms iet caur tavu veco QR lietotni. Laikus aizstāj to ar mūsu kodu vai pagarini šo kontu.",
+    "bannerTitle": "Izdrukāti kodi drīz vairs nedarbosies ({n})",
+    "bannerText": "Konts vecajā QR lietotnē beidzas. Aizstāj šos izdrukātos kodus ar mūsu kodu pirms šī datuma vai pagarini kontu."
   },
   "up": {
     "title": "Uzlabot plānu",

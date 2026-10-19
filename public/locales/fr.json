@@ -1353,7 +1353,12 @@
     "lapseDayText": "Vos codes QR seront supprimés le {date}. Renouvelez votre abonnement aujourd’hui pour les garder.",
     "lapseDeletedSubject": "Vos codes QR ont été supprimés",
     "lapseDeletedText": "Votre abonnement n’ayant pas été renouvelé, vos codes QR et leurs statistiques ont été supprimés. Votre compte existe toujours : souscrivez un abonnement pour créer de nouveaux codes.",
-    "lapseButton": "Renouveler l’abonnement"
+    "lapseButton": "Renouveler l’abonnement",
+    "legacySoonSubject": "Votre QR code imprimé « {code} » va bientôt cesser de fonctionner",
+    "legacySoonText": "Le {date}, votre compte chez {host} expire. Le QR code imprimé « {code} » passe d'abord par {host} : à partir de ce jour, il ne fonctionnera plus, même via nous. Remplacez le code imprimé avant cette date par le code de Mes QR codes, ou prolongez votre compte chez {host}.",
+    "legacyOverSubject": "Votre QR code imprimé « {code} » ne fonctionne plus",
+    "legacyOverText": "Votre compte chez {host} a expiré le {date}. C'est pourquoi le QR code imprimé « {code} » ne fonctionne plus. Remplacez-le par le code de Mes QR codes, ou prolongez votre compte chez {host}.",
+    "legacyButton": "Aller à Mes QR codes"
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -2259,7 +2264,15 @@
     "dropHint": "ou cliquez pour en choisir une · coller avec Ctrl+V fonctionne aussi",
     "orLink": "Ou collez le lien contenu dans votre code QR",
     "found": "Code QR lu",
-    "notImage": "Ce n’est pas une image. Glissez une photo ou une capture de votre code QR."
+    "notImage": "Ce n’est pas une image. Glissez une photo ou une capture de votre code QR.",
+    "until": "Jusqu'à quand votre compte de l'ancienne app QR est-il actif ?",
+    "untilHint": "Facultatif, mais utile. Vous recevrez un rappel ici et par e-mail 2 mois et 2 semaines avant.",
+    "untilOk": "Ancien compte jusqu'au {date}",
+    "untilSoon": "L'ancien compte expire le {date}",
+    "untilOver": "Ancien compte expiré ({date}) : le code imprimé ne fonctionne plus",
+    "untilTip": "Après cette date, le code imprimé ne fonctionne plus, car il passe d'abord par votre ancienne app QR. Remplacez-le à temps par notre code, ou prolongez ce compte.",
+    "bannerTitle": "Des codes imprimés vont bientôt cesser de fonctionner ({n})",
+    "bannerText": "Le compte de l'ancienne app QR arrive à échéance. Remplacez ces codes imprimés par notre code avant cette date, ou prolongez ce compte."
   },
   "up": {
     "title": "Changer d’offre",

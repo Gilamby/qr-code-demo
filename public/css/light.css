@@ -443,6 +443,16 @@
 :root[data-theme="light"] .sub-st.ended { color: #dc2626; }
 :root[data-theme="light"] .sub-st.active { color: #15803d; }
 :root[data-theme="light"] .sub-bar { color: #991b1b !important; }
+:root[data-theme="light"] .mf-find { border: 1px solid rgba(13,19,32,0.126); background: rgba(255,255,255,0.78); }
+:root[data-theme="light"] .imp-check { border: 1px solid rgba(13,19,32,0.108); background: rgba(13,19,32,0.03); }
+:root[data-theme="light"] .imp-check.warn b { color: #b45309; }
+:root[data-theme="light"] .imp-check.stop b { color: #dc2626; }
+:root[data-theme="light"] .mc-until { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .mc-until.soon { color: #b45309; }
+:root[data-theme="light"] .mc-until.over { color: #dc2626; }
+:root[data-theme="light"] .mc-due > svg { color: #b45309; }
+:root[data-theme="light"] .mc-due.over > svg { color: #dc2626; }
+:root[data-theme="light"] .imp-until input { border: 1px solid rgba(13,19,32,0.144); background: rgba(255,255,255,0.8); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

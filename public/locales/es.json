@@ -1353,7 +1353,12 @@
     "lapseDayText": "Tus códigos QR se eliminarán el {date}. Renueva hoy tu suscripción para conservarlos.",
     "lapseDeletedSubject": "Tus códigos QR se han eliminado",
     "lapseDeletedText": "Como tu suscripción no se renovó, tus códigos QR y sus estadísticas se han eliminado. Tu cuenta sigue existiendo: contrata una suscripción para crear códigos nuevos.",
-    "lapseButton": "Renovar suscripción"
+    "lapseButton": "Renovar suscripción",
+    "legacySoonSubject": "Tu código QR impreso \"{code}\" dejará de funcionar pronto",
+    "legacySoonText": "El {date} vence tu cuenta en {host}. El código QR impreso \"{code}\" pasa primero por {host}, así que desde ese día dejará de funcionar, también a través de nosotros. Sustituye el código impreso antes de esa fecha por el código de Mis códigos QR o renueva tu cuenta en {host}.",
+    "legacyOverSubject": "Tu código QR impreso \"{code}\" ya no funciona",
+    "legacyOverText": "Tu cuenta en {host} venció el {date}. Por eso el código QR impreso \"{code}\" ya no funciona. Sustitúyelo por el código de Mis códigos QR o renueva tu cuenta en {host}.",
+    "legacyButton": "Ir a Mis códigos QR"
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",
@@ -2259,7 +2264,15 @@
     "dropHint": "o haz clic para elegir una · también puedes pegar con Ctrl+V",
     "orLink": "O pega el enlace que contiene tu código QR",
     "found": "Código QR leído",
-    "notImage": "Eso no es una imagen. Arrastra una foto o captura de tu código QR."
+    "notImage": "Eso no es una imagen. Arrastra una foto o captura de tu código QR.",
+    "until": "¿Hasta cuándo está activa tu cuenta en la antigua app de QR?",
+    "untilHint": "Opcional, pero recomendable. Recibirás un recordatorio aquí y por correo 2 meses y 2 semanas antes.",
+    "untilOk": "Cuenta antigua hasta el {date}",
+    "untilSoon": "La cuenta antigua vence el {date}",
+    "untilOver": "Cuenta antigua vencida ({date}): el código impreso ya no funciona",
+    "untilTip": "Después de esta fecha el código impreso deja de funcionar, porque pasa primero por tu antigua app de QR. Sustitúyelo a tiempo por nuestro código o renueva esa cuenta.",
+    "bannerTitle": "Códigos impresos dejarán de funcionar pronto ({n})",
+    "bannerText": "La cuenta de la antigua app de QR está por vencer. Sustituye estos códigos impresos por nuestro código antes de esa fecha o renueva esa cuenta."
   },
   "up": {
     "title": "Mejorar plan",

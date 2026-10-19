@@ -1353,7 +1353,12 @@
     "lapseDayText": "Je QR-codes worden verwijderd op {date}. Verleng vandaag je abonnement om ze te behouden.",
     "lapseDeletedSubject": "Je QR-codes zijn verwijderd",
     "lapseDeletedText": "Omdat je abonnement niet is verlengd, zijn je QR-codes en hun statistieken verwijderd. Je account bestaat nog: neem een abonnement om nieuwe codes te maken.",
-    "lapseButton": "Abonnement verlengen"
+    "lapseButton": "Abonnement verlengen",
+    "legacySoonSubject": "Je geprinte QR-code \"{code}\" werkt binnenkort niet meer",
+    "legacySoonText": "Op {date} loopt je account bij {host} af. De geprinte QR-code \"{code}\" gaat eerst langs {host}, dus vanaf die dag werkt hij niet meer, ook niet via ons. Vervang de geprinte code vóór die datum door de code uit Mijn QR-codes, of verleng je account bij {host}.",
+    "legacyOverSubject": "Je geprinte QR-code \"{code}\" werkt niet meer",
+    "legacyOverText": "Je account bij {host} is op {date} afgelopen. Daarom werkt de geprinte QR-code \"{code}\" niet meer. Vervang hem door de code uit Mijn QR-codes, of verleng je account bij {host}.",
+    "legacyButton": "Naar Mijn QR-codes"
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2259,7 +2264,15 @@
     "dropHint": "of klik om er een te kiezen · plakken met Ctrl+V kan ook",
     "orLink": "Of plak de link die in je QR-code zit",
     "found": "QR-code gelezen",
-    "notImage": "Dat is geen afbeelding. Sleep een foto of screenshot van je QR-code."
+    "notImage": "Dat is geen afbeelding. Sleep een foto of screenshot van je QR-code.",
+    "until": "Tot wanneer loopt je account bij de oude QR-app?",
+    "untilHint": "Optioneel, maar slim. 2 maanden en 2 weken van tevoren krijg je een herinnering hier en per e-mail.",
+    "untilOk": "Oud account t/m {date}",
+    "untilSoon": "Oud account loopt af op {date}",
+    "untilOver": "Oud account verlopen ({date}): geprinte code werkt niet meer",
+    "untilTip": "Na deze datum werkt de geprinte code niet meer, want hij gaat eerst langs je oude QR-app. Vervang hem op tijd door de code van ons, of verleng dat account.",
+    "bannerTitle": "Geprinte codes werken binnenkort niet meer ({n})",
+    "bannerText": "Het account bij de oude QR-app loopt af. Vervang deze geprinte codes vóór die datum door de code van ons, of verleng dat account."
   },
   "up": {
     "title": "Upgrade plan",

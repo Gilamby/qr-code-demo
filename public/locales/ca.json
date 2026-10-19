@@ -1353,7 +1353,12 @@
     "lapseDayText": "Els teus codis QR s'eliminaran el {date}. Renova avui la subscripció per conservar-los.",
     "lapseDeletedSubject": "S'han eliminat els teus codis QR",
     "lapseDeletedText": "Com que la subscripció no s'ha renovat, s'han eliminat els teus codis QR i les seves estadístiques. El teu compte encara existeix: contracta una subscripció per crear codis nous.",
-    "lapseButton": "Renova la subscripció"
+    "lapseButton": "Renova la subscripció",
+    "legacySoonSubject": "El teu codi QR imprès \"{code}\" deixarà de funcionar aviat",
+    "legacySoonText": "El {date} caduca el teu compte a {host}. El codi QR imprès \"{code}\" passa primer per {host}, així que a partir d'aquell dia deixarà de funcionar, també a través nostre. Substitueix el codi imprès abans d'aquesta data pel codi de Els meus codis QR o renova el teu compte a {host}.",
+    "legacyOverSubject": "El teu codi QR imprès \"{code}\" ja no funciona",
+    "legacyOverText": "El teu compte a {host} va caducar el {date}. Per això el codi QR imprès \"{code}\" ja no funciona. Substitueix-lo pel codi de Els meus codis QR o renova el teu compte a {host}.",
+    "legacyButton": "Ves a Els meus codis QR"
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2259,7 +2264,15 @@
     "dropHint": "o fes clic per triar-ne una · també pots enganxar amb Ctrl+V",
     "orLink": "O enganxa l'enllaç que hi ha al teu codi QR",
     "found": "Codi QR llegit",
-    "notImage": "Això no és una imatge. Arrossega una foto o una captura de pantalla del teu codi QR."
+    "notImage": "Això no és una imatge. Arrossega una foto o una captura de pantalla del teu codi QR.",
+    "until": "Fins quan està actiu el teu compte a l'antiga app de QR?",
+    "untilHint": "Opcional, però recomanable. Rebràs un recordatori aquí i per correu 2 mesos i 2 setmanes abans.",
+    "untilOk": "Compte antic fins al {date}",
+    "untilSoon": "El compte antic caduca el {date}",
+    "untilOver": "Compte antic caducat ({date}): el codi imprès ja no funciona",
+    "untilTip": "Després d'aquesta data el codi imprès deixa de funcionar, perquè passa primer per la teva antiga app de QR. Substitueix-lo a temps pel nostre codi o renova aquest compte.",
+    "bannerTitle": "Alguns codis impresos deixaran de funcionar aviat ({n})",
+    "bannerText": "El compte de l'antiga app de QR està a punt de caducar. Substitueix aquests codis impresos pel nostre codi abans d'aquesta data o renova aquest compte."
   },
   "up": {
     "title": "Millora el pla",

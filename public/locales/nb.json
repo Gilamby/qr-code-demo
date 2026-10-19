@@ -1353,7 +1353,12 @@
     "lapseDayText": "QR-kodene dine slettes {date}. Forny abonnementet i dag for å beholde dem.",
     "lapseDeletedSubject": "QR-kodene dine er slettet",
     "lapseDeletedText": "Fordi abonnementet ikke ble fornyet, er QR-kodene og statistikken deres slettet. Kontoen din finnes fortsatt: ta et abonnement for å lage nye koder.",
-    "lapseButton": "Forny abonnementet"
+    "lapseButton": "Forny abonnementet",
+    "legacySoonSubject": "Den utskrevne QR-koden din \"{code}\" slutter snart å virke",
+    "legacySoonText": "{date} utløper kontoen din hos {host}. Den utskrevne QR-koden \"{code}\" går først via {host}, så fra den dagen slutter den å virke, også via oss. Bytt ut den utskrevne koden før den datoen med koden fra Mine QR-koder, eller forleng kontoen din hos {host}.",
+    "legacyOverSubject": "Den utskrevne QR-koden din \"{code}\" virker ikke lenger",
+    "legacyOverText": "Kontoen din hos {host} utløp {date}. Derfor virker ikke den utskrevne QR-koden \"{code}\" lenger. Bytt den ut med koden fra Mine QR-koder, eller forleng kontoen din hos {host}.",
+    "legacyButton": "Gå til Mine QR-koder"
   },
   "contact": {
     "lead": "Et spørsmål, et problem eller en idé? Send oss en melding.",
@@ -2259,7 +2264,15 @@
     "dropHint": "eller klikk for å velge et · du kan også lime inn med Ctrl+V",
     "orLink": "Eller lim inn lenken som ligger i QR-koden din",
     "found": "QR-kode lest",
-    "notImage": "Det er ikke et bilde. Dra et bilde eller skjermbilde av QR-koden din hit."
+    "notImage": "Det er ikke et bilde. Dra et bilde eller skjermbilde av QR-koden din hit.",
+    "until": "Til når er kontoen din i den gamle QR-appen aktiv?",
+    "untilHint": "Valgfritt, men lurt. Du får en påminnelse her og på e-post 2 måneder og 2 uker før.",
+    "untilOk": "Gammel konto til {date}",
+    "untilSoon": "Gammel konto utløper {date}",
+    "untilOver": "Gammel konto utløpt ({date}): den utskrevne koden virker ikke lenger",
+    "untilTip": "Etter denne datoen slutter den utskrevne koden å virke, fordi den først går via den gamle QR-appen din. Bytt den ut i tide med vår kode, eller forleng kontoen.",
+    "bannerTitle": "Utskrevne koder slutter snart å virke ({n})",
+    "bannerText": "Kontoen i den gamle QR-appen utløper. Bytt ut disse utskrevne kodene med vår kode før den datoen, eller forleng kontoen."
   },
   "up": {
     "title": "Oppgrader abonnement",

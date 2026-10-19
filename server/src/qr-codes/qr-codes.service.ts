@@ -43,10 +43,27 @@ export class QrCodesService {
     const m = await this.legacyMap(userId); if (url) m[codeId] = url; else delete m[codeId];
     await this.db.setSetting('legacy:' + userId, Object.keys(m).length ? JSON.stringify(m) : null);
   }
-  /** out() + het gekoppelde oude adres (als dat er is) */
-  async outFull(req: Request, q: QrCode, map?: Record<string, string>) {
+  /* Tot wanneer loopt het account bij de oude app? Daarna werkt de geprinte code niet meer (hij gaat eerst langs die app).
+     Per gebruiker: codeId → { until: 'YYYY-MM-DD', sent: ['60','14','over'] } (verstuurde herinneringen). */
+  async untilMap(userId: string): Promise<Record<string, { until: string; sent: string[] }>> {
+    try { const v = await this.db.getSetting('legacyUntil:' + userId); const m = v ? JSON.parse(v) : {}; return m && typeof m === 'object' ? m : {}; } catch (e) { return {}; }
+  }
+  async saveUntil(userId: string, m: Record<string, { until: string; sent: string[] }>) {
+    await this.db.setSetting('legacyUntil:' + userId, Object.keys(m).length ? JSON.stringify(m) : null);
+  }
+  async setUntil(userId: string, codeId: string, until: string | null) {
+    const m = await this.untilMap(userId);
+    if (until) m[codeId] = { until, sent: m[codeId] && m[codeId].until === until ? m[codeId].sent || [] : [] }; else delete m[codeId];
+    await this.saveUntil(userId, m);
+  }
+  /** out() + het gekoppelde oude adres (als dat er is) en tot wanneer het oude account loopt */
+  async outFull(req: Request, q: QrCode, map?: Record<string, string>, until?: Record<string, { until: string }>) {
     const r: any = this.out(req, q), m = map || await this.legacyMap(q.userId);
-    if (m[q.id]) r.legacyUrl = m[q.id];
+    if (m[q.id]) {
+      r.legacyUrl = m[q.id];
+      const u = until || await this.untilMap(q.userId);
+      if (u[q.id]) r.legacyUntil = u[q.id].until;
+    }
     return r;
   }
 

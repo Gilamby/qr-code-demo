@@ -21,8 +21,8 @@ export class QrCodesController {
 
   @Get()
   async list(@Req() req: Request, @CurrentUser() user: User) {
-    const m = await this.codes.legacyMap(user.id);
-    return Promise.all((await this.db.listQrCodes(user.id)).map((q) => this.codes.outFull(req, q, m)));
+    const m = await this.codes.legacyMap(user.id), u = await this.codes.untilMap(user.id);
+    return Promise.all((await this.db.listQrCodes(user.id)).map((q) => this.codes.outFull(req, q, m, u)));
   }
 
   @Get(':id')
@@ -98,8 +98,17 @@ export class QrCodesController {
       else if (/\/q\/[A-Za-z0-9_-]+\/?$/.test(b.legacyUrl.trim()) && b.legacyUrl.trim().indexOf('/q/' + id) >= 0) errors.push('legacyUrl: that is this code itself');
       else legacy = b.legacyUrl.trim();
     }
-    if (errors.length || (!Object.keys(patch).length && legacy === undefined)) throw fail(400, 'Invalid update', { details: errors.length ? errors : ['nothing to change'] });
-    if (legacy !== undefined) { await this.codes.setLegacy(user.id, id, legacy); if (!Object.keys(patch).length) return this.codes.outFull(req, cur); }
+    let until: string | null | undefined;
+    if (b.legacyUntil !== undefined) {                               // tot wanneer loopt het account bij de oude app (voor herinneringen)
+      if (b.legacyUntil === null || b.legacyUntil === '') until = null;
+      else if (typeof b.legacyUntil !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(b.legacyUntil) || isNaN(Date.parse(b.legacyUntil))) errors.push('legacyUntil: must be a date (YYYY-MM-DD)');
+      else until = b.legacyUntil;
+    }
+    if (legacy === null) until = null;                               // ontkoppeld: geen herinnering meer
+    if (errors.length || (!Object.keys(patch).length && legacy === undefined && until === undefined)) throw fail(400, 'Invalid update', { details: errors.length ? errors : ['nothing to change'] });
+    if (legacy !== undefined) await this.codes.setLegacy(user.id, id, legacy);
+    if (until !== undefined) await this.codes.setUntil(user.id, id, until);
+    if ((legacy !== undefined || until !== undefined) && !Object.keys(patch).length) return this.codes.outFull(req, cur);
     // Gepauzeerd door het team: weer aanzetten mag alleen als het team dat toestaat (lock = nee)
     const hold = cur.moderation && cur.moderation.hold;
     if (patch.paused === false && hold) {

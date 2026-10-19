@@ -498,3 +498,24 @@ test('abonnement verlopen: codes werken niet, niets wijzigen, betalen zet alles 
   assert.ok(lapse.includes('deleted'));
   assert.equal((await scan()).status, 410, 'code bestaat niet meer');
 });
+
+test('overgezette code: einddatum oude QR-app, herinnering 60 en 14 dagen ervoor en op de dag zelf', async () => {
+  const { HousekeepingService } = require('../server/dist/housekeeping.service');
+  const sent = []; app.get(MailerService).sendLegacyDue = async (u, name, url, until, over) => { sent.push(over ? 'over' : 'soon'); };
+  const k = client(); await signup(k, 'legacy-k@example.com', 'Oude app zin 12!', 'Klant Oud');
+  const code = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://dest.example' }, design: {}, name: 'Flyer' })).json;
+  assert.equal((await k('PATCH', '/api/qr-codes/' + code.id, { legacyUntil: 'morgen' })).status, 400, 'geen geldige datum');
+  const until = new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10);
+  let r = await k('PATCH', '/api/qr-codes/' + code.id, { legacyUrl: 'https://scan.page/abc', legacyUntil: until });
+  assert.equal(r.status, 200); assert.equal(r.json.legacyUntil, until);
+  assert.equal((await k('GET', '/api/qr-codes')).json.find((c) => c.id === code.id).legacyUntil, until, 'ook in de lijst');
+  const hk = app.get(HousekeepingService), day = 864e5;
+  await hk.legacyReminders(); assert.deepEqual(sent, [], 'nog ruim op tijd: niets');
+  await hk.legacyReminders(Date.now() + 31 * day); assert.deepEqual(sent, ['soon'], '60 dagen ervoor');
+  await hk.legacyReminders(Date.now() + 32 * day); assert.deepEqual(sent, ['soon'], 'niet elke dag opnieuw');
+  await hk.legacyReminders(Date.now() + 80 * day); assert.deepEqual(sent, ['soon', 'soon'], '14 dagen ervoor');
+  await hk.legacyReminders(Date.now() + 91 * day); assert.deepEqual(sent, ['soon', 'soon', 'over'], 'op de dag zelf');
+  await hk.legacyReminders(Date.now() + 95 * day); assert.equal(sent.length, 3, 'daarna niets meer');
+  r = await k('PATCH', '/api/qr-codes/' + code.id, { legacyUrl: null });
+  assert.equal(r.json.legacyUrl, undefined); assert.equal(r.json.legacyUntil, undefined, 'ontkoppeld: datum weg');
+});

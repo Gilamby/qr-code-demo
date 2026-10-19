@@ -1353,7 +1353,12 @@
     "lapseDayText": "Dina QR-koder raderas {date}. Förnya ditt abonnemang i dag för att behålla dem.",
     "lapseDeletedSubject": "Dina QR-koder har raderats",
     "lapseDeletedText": "Eftersom ditt abonnemang inte förnyades har dina QR-koder och deras statistik raderats. Ditt konto finns kvar: teckna ett abonnemang för att skapa nya koder.",
-    "lapseButton": "Förnya abonnemang"
+    "lapseButton": "Förnya abonnemang",
+    "legacySoonSubject": "Din utskrivna QR-kod \"{code}\" slutar snart fungera",
+    "legacySoonText": "Den {date} upphör ditt konto hos {host}. Den utskrivna QR-koden \"{code}\" går först via {host}, så från den dagen slutar den fungera, även via oss. Byt ut den utskrivna koden före det datumet mot koden från Mina QR-koder eller förläng ditt konto hos {host}.",
+    "legacyOverSubject": "Din utskrivna QR-kod \"{code}\" fungerar inte längre",
+    "legacyOverText": "Ditt konto hos {host} upphörde den {date}. Därför fungerar den utskrivna QR-koden \"{code}\" inte längre. Byt ut den mot koden från Mina QR-koder eller förläng ditt konto hos {host}.",
+    "legacyButton": "Gå till Mina QR-koder"
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",
@@ -2259,7 +2264,15 @@
     "dropHint": "eller klicka för att välja en · det går också att klistra in med Ctrl+V",
     "orLink": "Eller klistra in länken som finns i din QR-kod",
     "found": "QR-koden har lästs",
-    "notImage": "Det är ingen bild. Dra hit ett foto eller en skärmbild av din QR-kod."
+    "notImage": "Det är ingen bild. Dra hit ett foto eller en skärmbild av din QR-kod.",
+    "until": "Till när är ditt konto i den gamla QR-appen aktivt?",
+    "untilHint": "Valfritt, men smart. Du får en påminnelse här och via e-post 2 månader och 2 veckor innan.",
+    "untilOk": "Gammalt konto till {date}",
+    "untilSoon": "Gammalt konto upphör {date}",
+    "untilOver": "Gammalt konto har upphört ({date}): den utskrivna koden fungerar inte längre",
+    "untilTip": "Efter detta datum slutar den utskrivna koden att fungera, eftersom den först går via din gamla QR-app. Byt ut den i tid mot vår kod eller förläng kontot.",
+    "bannerTitle": "Utskrivna koder slutar snart fungera ({n})",
+    "bannerText": "Kontot i den gamla QR-appen upphör. Byt ut de här utskrivna koderna mot vår kod före det datumet eller förläng kontot."
   },
   "up": {
     "title": "Uppgradera abonnemang",

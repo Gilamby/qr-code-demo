@@ -1353,7 +1353,12 @@
     "lapseDayText": "Tvoje QR kódy sa odstránia {date}. Obnov predplatné ešte dnes, aby si si ich zachoval.",
     "lapseDeletedSubject": "Tvoje QR kódy boli odstránené",
     "lapseDeletedText": "Keďže predplatné nebolo obnovené, tvoje QR kódy a ich štatistiky boli odstránené. Tvoj účet stále existuje: zaplať predplatné a vytváraj nové kódy.",
-    "lapseButton": "Obnoviť predplatné"
+    "lapseButton": "Obnoviť predplatné",
+    "legacySoonSubject": "Tvoj vytlačený QR kód „{code}“ čoskoro prestane fungovať",
+    "legacySoonText": "{date} vyprší tvoj účet na {host}. Vytlačený QR kód „{code}“ ide najprv cez {host}, takže od toho dňa prestane fungovať, aj cez nás. Nahraď vytlačený kód pred týmto dátumom kódom z Moje QR kódy alebo predĺž svoj účet na {host}.",
+    "legacyOverSubject": "Tvoj vytlačený QR kód „{code}“ už nefunguje",
+    "legacyOverText": "Tvoj účet na {host} vypršal {date}. Preto vytlačený QR kód „{code}“ už nefunguje. Nahraď ho kódom z Moje QR kódy alebo predĺž svoj účet na {host}.",
+    "legacyButton": "Prejsť na Moje QR kódy"
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2259,7 +2264,15 @@
     "dropHint": "alebo klikni a vyber · funguje aj vloženie cez Ctrl+V",
     "orLink": "Alebo vlož odkaz, ktorý je v tvojom QR kóde",
     "found": "QR kód načítaný",
-    "notImage": "Toto nie je obrázok. Pretiahni fotku alebo snímku obrazovky svojho QR kódu."
+    "notImage": "Toto nie je obrázok. Pretiahni fotku alebo snímku obrazovky svojho QR kódu.",
+    "until": "Dokedy je aktívny tvoj účet v starej QR aplikácii?",
+    "untilHint": "Nepovinné, ale užitočné. Pripomienku dostaneš tu aj e-mailom 2 mesiace a 2 týždne vopred.",
+    "untilOk": "Starý účet do {date}",
+    "untilSoon": "Starý účet vyprší {date}",
+    "untilOver": "Starý účet vypršal ({date}): vytlačený kód už nefunguje",
+    "untilTip": "Po tomto dátume vytlačený kód prestane fungovať, pretože ide najprv cez tvoju starú QR aplikáciu. Včas ho nahraď naším kódom alebo predĺž ten účet.",
+    "bannerTitle": "Vytlačené kódy čoskoro prestanú fungovať ({n})",
+    "bannerText": "Účet v starej QR aplikácii vyprší. Nahraď tieto vytlačené kódy naším kódom pred týmto dátumom alebo predĺž účet."
   },
   "up": {
     "title": "Vylepšiť predplatné",

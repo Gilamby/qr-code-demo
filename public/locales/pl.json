@@ -1353,7 +1353,12 @@
     "lapseDayText": "Twoje kody QR zostaną usunięte {date}. Odnów dziś subskrypcję, aby je zachować.",
     "lapseDeletedSubject": "Twoje kody QR zostały usunięte",
     "lapseDeletedText": "Ponieważ subskrypcja nie została odnowiona, Twoje kody QR i ich statystyki zostały usunięte. Twoje konto nadal istnieje: wykup subskrypcję, aby tworzyć nowe kody.",
-    "lapseButton": "Odnów subskrypcję"
+    "lapseButton": "Odnów subskrypcję",
+    "legacySoonSubject": "Twój wydrukowany kod QR „{code}” wkrótce przestanie działać",
+    "legacySoonText": "{date} wygasa twoje konto w {host}. Wydrukowany kod QR „{code}” przechodzi najpierw przez {host}, więc od tego dnia przestanie działać, także przez nas. Zastąp wydrukowany kod przed tą datą kodem z Moich kodów QR albo przedłuż konto w {host}.",
+    "legacyOverSubject": "Twój wydrukowany kod QR „{code}” już nie działa",
+    "legacyOverText": "Twoje konto w {host} wygasło {date}. Dlatego wydrukowany kod QR „{code}” już nie działa. Zastąp go kodem z Moich kodów QR albo przedłuż konto w {host}.",
+    "legacyButton": "Przejdź do Moich kodów QR"
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2259,7 +2264,15 @@
     "dropHint": "albo kliknij, aby wybrać · możesz też wkleić przez Ctrl+V",
     "orLink": "Albo wklej link, który jest w Twoim kodzie QR",
     "found": "Kod QR odczytany",
-    "notImage": "To nie jest obraz. Przeciągnij zdjęcie lub zrzut ekranu kodu QR."
+    "notImage": "To nie jest obraz. Przeciągnij zdjęcie lub zrzut ekranu kodu QR.",
+    "until": "Do kiedy jest aktywne twoje konto w starej aplikacji QR?",
+    "untilHint": "Opcjonalne, ale warto. Przypomnienie dostaniesz tutaj i e-mailem 2 miesiące i 2 tygodnie wcześniej.",
+    "untilOk": "Stare konto do {date}",
+    "untilSoon": "Stare konto wygasa {date}",
+    "untilOver": "Stare konto wygasło ({date}): wydrukowany kod już nie działa",
+    "untilTip": "Po tej dacie wydrukowany kod przestanie działać, bo przechodzi najpierw przez twoją starą aplikację QR. Zastąp go na czas naszym kodem albo przedłuż to konto.",
+    "bannerTitle": "Wydrukowane kody wkrótce przestaną działać ({n})",
+    "bannerText": "Konto w starej aplikacji QR wygasa. Zastąp te wydrukowane kody naszym kodem przed tą datą albo przedłuż to konto."
   },
   "up": {
     "title": "Ulepsz plan",

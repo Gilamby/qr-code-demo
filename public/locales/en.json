@@ -1353,7 +1353,12 @@
     "lapseDayText": "Your QR codes will be deleted on {date}. Renew your subscription today to keep them.",
     "lapseDeletedSubject": "Your QR codes have been deleted",
     "lapseDeletedText": "Because your subscription was not renewed, your QR codes and their statistics have been deleted. Your account still exists: take out a subscription to create new codes.",
-    "lapseButton": "Renew subscription"
+    "lapseButton": "Renew subscription",
+    "legacySoonSubject": "Your printed QR code \"{code}\" will stop working soon",
+    "legacySoonText": "On {date} your account at {host} ends. The printed QR code \"{code}\" goes through {host} first, so from that day it stops working, also through us. Replace the printed code before that date with the code from My QR Codes, or renew your account at {host}.",
+    "legacyOverSubject": "Your printed QR code \"{code}\" no longer works",
+    "legacyOverText": "Your account at {host} ended on {date}. That's why the printed QR code \"{code}\" no longer works. Replace it with the code from My QR Codes, or renew your account at {host}.",
+    "legacyButton": "Go to My QR Codes"
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2259,7 +2264,15 @@
     "dropHint": "or click to choose one · pasting with Ctrl+V works too",
     "orLink": "Or paste the link that’s in your QR code",
     "found": "QR code read",
-    "notImage": "That’s not an image. Drag a photo or screenshot of your QR code."
+    "notImage": "That’s not an image. Drag a photo or screenshot of your QR code.",
+    "until": "Until when is your account at the old QR app active?",
+    "untilHint": "Optional, but smart. You'll get a reminder here and by email 2 months and 2 weeks before.",
+    "untilOk": "Old account until {date}",
+    "untilSoon": "Old account ends on {date}",
+    "untilOver": "Old account expired ({date}): printed code no longer works",
+    "untilTip": "After this date the printed code stops working, because it goes through your old QR app first. Replace it in time with our code, or renew that account.",
+    "bannerTitle": "Printed codes will stop working soon ({n})",
+    "bannerText": "The account at the old QR app is ending. Replace these printed codes with our code before that date, or renew that account."
   },
   "up": {
     "title": "Upgrade plan",

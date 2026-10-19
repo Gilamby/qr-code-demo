@@ -1353,7 +1353,12 @@
     "lapseDayText": "QR-koodisi poistetaan {date}. Uusi tilauksesi tänään säilyttääksesi ne.",
     "lapseDeletedSubject": "QR-koodisi on poistettu",
     "lapseDeletedText": "Koska tilaustasi ei uusittu, QR-koodisi ja niiden tilastot on poistettu. Tilisi on yhä olemassa: tee tilaus luodaksesi uusia koodeja.",
-    "lapseButton": "Uusi tilaus"
+    "lapseButton": "Uusi tilaus",
+    "legacySoonSubject": "Tulostettu QR-koodisi \"{code}\" lakkaa pian toimimasta",
+    "legacySoonText": "{date} tilisi palvelussa {host} päättyy. Tulostettu QR-koodi \"{code}\" kulkee ensin palvelun {host} kautta, joten siitä päivästä alkaen se ei toimi, ei myöskään meidän kauttamme. Vaihda tulostettu koodi ennen sitä päivää koodiin kohdasta Omat QR-koodit tai jatka tiliäsi palvelussa {host}.",
+    "legacyOverSubject": "Tulostettu QR-koodisi \"{code}\" ei enää toimi",
+    "legacyOverText": "Tilisi palvelussa {host} päättyi {date}. Siksi tulostettu QR-koodi \"{code}\" ei enää toimi. Vaihda se koodiin kohdasta Omat QR-koodit tai jatka tiliäsi palvelussa {host}.",
+    "legacyButton": "Siirry kohtaan Omat QR-koodit"
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2259,7 +2264,15 @@
     "dropHint": "tai valitse napsauttamalla · myös liittäminen Ctrl+V:llä toimii",
     "orLink": "Tai liitä QR-koodisi sisältämä linkki",
     "found": "QR-koodi luettu",
-    "notImage": "Tämä ei ole kuva. Vedä tähän QR-koodisi kuva tai kuvakaappaus."
+    "notImage": "Tämä ei ole kuva. Vedä tähän QR-koodisi kuva tai kuvakaappaus.",
+    "until": "Mihin asti tilisi vanhassa QR-sovelluksessa on voimassa?",
+    "untilHint": "Valinnainen, mutta kannattaa. Saat muistutuksen täällä ja sähköpostilla 2 kuukautta ja 2 viikkoa ennen.",
+    "untilOk": "Vanha tili {date} asti",
+    "untilSoon": "Vanha tili päättyy {date}",
+    "untilOver": "Vanha tili päättyi ({date}): tulostettu koodi ei enää toimi",
+    "untilTip": "Tämän päivän jälkeen tulostettu koodi lakkaa toimimasta, koska se kulkee ensin vanhan QR-sovelluksesi kautta. Vaihda se ajoissa meidän koodiimme tai jatka tiliä.",
+    "bannerTitle": "Tulostetut koodit lakkaavat pian toimimasta ({n})",
+    "bannerText": "Tili vanhassa QR-sovelluksessa on päättymässä. Vaihda nämä tulostetut koodit meidän koodiimme ennen sitä päivää tai jatka tiliä."
   },
   "up": {
     "title": "Päivitä tilaus",

@@ -1353,7 +1353,12 @@
     "lapseDayText": "Codurile tale QR vor fi șterse pe {date}. Reînnoiește azi abonamentul ca să le păstrezi.",
     "lapseDeletedSubject": "Codurile tale QR au fost șterse",
     "lapseDeletedText": "Pentru că abonamentul nu a fost reînnoit, codurile tale QR și statisticile lor au fost șterse. Contul tău există în continuare: ia un abonament ca să creezi coduri noi.",
-    "lapseButton": "Reînnoiește abonamentul"
+    "lapseButton": "Reînnoiește abonamentul",
+    "legacySoonSubject": "Codul tău QR tipărit „{code}” va înceta curând să funcționeze",
+    "legacySoonText": "Pe {date} expiră contul tău la {host}. Codul QR tipărit „{code}” trece mai întâi prin {host}, așa că din acea zi nu va mai funcționa, nici prin noi. Înlocuiește codul tipărit înainte de acea dată cu codul din Codurile mele QR sau prelungește-ți contul la {host}.",
+    "legacyOverSubject": "Codul tău QR tipărit „{code}” nu mai funcționează",
+    "legacyOverText": "Contul tău la {host} a expirat pe {date}. De aceea codul QR tipărit „{code}” nu mai funcționează. Înlocuiește-l cu codul din Codurile mele QR sau prelungește-ți contul la {host}.",
+    "legacyButton": "Mergi la Codurile mele QR"
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2259,7 +2264,15 @@
     "dropHint": "sau dă clic ca să alegi una · funcționează și lipirea cu Ctrl+V",
     "orLink": "Sau lipește linkul din codul tău QR",
     "found": "Cod QR citit",
-    "notImage": "Aceasta nu este o imagine. Trage o fotografie sau o captură de ecran a codului tău QR."
+    "notImage": "Aceasta nu este o imagine. Trage o fotografie sau o captură de ecran a codului tău QR.",
+    "until": "Până când este activ contul tău în vechea aplicație QR?",
+    "untilHint": "Opțional, dar util. Vei primi un memento aici și pe e-mail cu 2 luni și 2 săptămâni înainte.",
+    "untilOk": "Contul vechi până la {date}",
+    "untilSoon": "Contul vechi expiră pe {date}",
+    "untilOver": "Contul vechi a expirat ({date}): codul tipărit nu mai funcționează",
+    "untilTip": "După această dată codul tipărit nu mai funcționează, pentru că trece mai întâi prin vechea ta aplicație QR. Înlocuiește-l la timp cu codul nostru sau prelungește acel cont.",
+    "bannerTitle": "Coduri tipărite vor înceta curând să funcționeze ({n})",
+    "bannerText": "Contul din vechea aplicație QR expiră. Înlocuiește aceste coduri tipărite cu codul nostru înainte de acea dată sau prelungește contul."
   },
   "up": {
     "title": "Trece la un abonament superior",

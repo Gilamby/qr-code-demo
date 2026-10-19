@@ -110,6 +110,23 @@ export class MailerService {
         (kind !== 'deleted' ? '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.lapseButton || 'Renew') + '</a></p>' : '') + '</div>' });
   }
 
+  /** Overgezette QR-code: het account bij de oude QR-app loopt (bijna) af, dan werkt de geprinte code niet meer */
+  async sendLegacyDue(user: User, codeName: string, oldUrl: string, until: string, over: boolean) {
+    const t = await this.texts(user.lang || 'en'), K = over ? 'legacyOver' : 'legacySoon';
+    const loc = LANGS.includes(user.lang) && Intl.DateTimeFormat.supportedLocalesOf([user.lang]).length ? user.lang : 'en';
+    const date = new Intl.DateTimeFormat(loc, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(until + 'T00:00:00Z'));
+    let host = oldUrl; try { host = new URL(oldUrl).hostname.replace(/^www\./, ''); } catch (e) { /* zoals het is */ }
+    host = ({ 'scan.page': 'qr-code.io' } as Record<string, string>)[host] || host;
+    const name = String(user.name || '').trim().split(/\s+/)[0] || '';
+    const fill = (x: any) => String(x || '').replace(/\{date\}/g, date).replace(/\{host\}/g, host).replace(/\{code\}/g, codeName || host);
+    const body = fill(t[K + 'Text']), hello = name ? String(t.reportHello || 'Hello {name},').replace('{name}', name) : t.reportHelloPlain || 'Hello,';
+    const link = (this.base() || '') + '/?go=myCodes';
+    if (!this.transport) { console.log('[e-mail niet ingesteld] Oude QR-app (' + (over ? 'verlopen' : 'bijna') + ') voor ' + user.email + ': ' + body); return; }
+    await this.transport.sendMail({ from: this.from(), to: user.email, subject: fill(t[K + 'Subject']), text: hello + '\n\n' + body + '\n\n' + link,
+      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px"><p>' + esc(hello) + '</p><p>' + esc(body) + '</p>' +
+        '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(fill(t.legacyButton) || 'My QR codes') + '</a></p></div>' });
+  }
+
   private async send(kind: Kind, to: string, link: string, lang: string, vars: Record<string, string> = {}) {
     const t = await this.texts(lang);
     for (const k of Object.keys(t)) t[k] = String(t[k]).replace(/\{(\w+)\}/g, (m, v) => (vars[v] != null ? vars[v] : m));
