@@ -9,7 +9,7 @@ export const PLANS: Record<string, Plan> = {
   free:     { id: 'free',     codes: null, statsDays: null, intro: null, price: null, priceYear: null },   // testfase
   standard: { id: 'standard', codes: 10,   statsDays: 30,   intro: 0,    price: 0.99, priceYear: 9.9 },   // 1e maand gratis; jaar = 10 maanden (voorstel)
   pro:      { id: 'pro',      codes: 100,  statsDays: 365,  intro: 4.99, price: 9.99, priceYear: 99.9 },
-  business: { id: 'business', codes: 1000, statsDays: null, intro: 7.5,  price: 14.99, priceYear: 149.9 },
+  business: { id: 'business', codes: null, statsDays: null, intro: 7.5,  price: 14.99, priceYear: 149.9 },
 };
 export const PLAN_IDS = Object.keys(PLANS);
 type Settings = { getSetting(k: string): Promise<string | null | undefined> };

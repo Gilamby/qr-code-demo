@@ -230,7 +230,7 @@
         return '<div class="pl-card' + (cur ? ' is-cur' : '') + '"><div class="pl-name">' + t('plan.n_' + x.id) + (cur ? '<span class="pl-cur">' + t('plan.current') + '</span>' : '') + '</div>' +
           '<div class="pl-price"><b>' + euro(planYear ? x.priceYear : x.price) + '</b><small>' + t(planYear ? 'sub.perYear' : 'plan.perMonth') + '</small></div>' +
           '<p class="pl-intro">' + (x.intro === 0 ? t('plan.introFree') : t('plan.intro', { price: euro(x.intro) })) + '</p>' +
-          '<ul><li>' + t('plan.fCodes', { n: x.codes }) + '</li><li>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</li><li>' + t('acct.planF4') + '</li></ul>' +
+          '<ul><li>' + (x.codes ? t('plan.fCodes', { n: x.codes }) : t('acct.planF1')) + '</li><li>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</li><li>' + t('acct.planF4') + '</li></ul>' +
           (cur ? '' : '<button type="button" class="btn ghost" data-plan-ask="' + x.id + '">' + t('plan.ask') + '</button>') + '</div>';
       }).join('') + '</div><p class="acct-note">' + t('plan.noPayments') + '</p></div>';
   }
