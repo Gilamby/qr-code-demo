@@ -616,3 +616,15 @@ test('team (Pro en Business): uitnodigen, samen codes beheren, kijker kan niets 
   assert.equal((await anna('GET', '/api/qr-codes')).status, 401, 'verwijderd lid is uitgelogd');
   assert.equal((await o('GET', '/api/qr-codes')).json.length, 2, 'codes van het team blijven');
 });
+
+test('map hernoemen: de codes blijven in de map', async () => {
+  const k = client(); await signup(k, 'map-k@example.com', 'Map hernoemen zin 12!', 'Map');
+  const f = (await k('POST', '/api/folders', { name: 'Oud' })).json.folder;
+  const c = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://m.example' }, design: {} })).json;
+  await k('POST', '/api/folders/move', { ids: [c.id], folderId: f.id });
+  const r = await k('PATCH', '/api/folders/' + f.id, { name: 'Nieuw' });
+  assert.equal(r.status, 200); assert.equal(r.json.folder.id, f.id, 'zelfde map');
+  assert.equal((await k('GET', '/api/qr-codes')).json.find((x) => x.id === c.id).folderId, f.id, 'code zit nog in de map');
+  const r2 = await k('PATCH', '/api/folders/' + f.id, { name: 'Nieuw 2', color: 'red' });
+  assert.equal((await k('GET', '/api/qr-codes')).json.find((x) => x.id === c.id).folderId, f.id, 'ook met kleur (oude app)');
+});
