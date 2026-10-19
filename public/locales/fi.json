@@ -1049,7 +1049,8 @@
     "tab_when": "Milloin",
     "tabsLabel": "Tilastojen osat",
     "peak": "Huippu",
-    "hourShort": "Tunti"
+    "hourShort": "Tunti",
+    "excel": "Vie (Excel)"
   },
   "auth": {
     "loginTitle": "Tervetuloa takaisin",
@@ -1367,11 +1368,10 @@
     "topic": "Aihe",
     "chooseTopic": "Valitse aihe",
     "topics": {
-      "question": "Kysymys",
-      "problem": "Jokin ei toimi",
-      "idea": "Idea tai toive",
-      "billing": "Tilaus tai lasku",
-      "other": "Jokin muu"
+      "problem": "Virheet ja tekniset ongelmat",
+      "billing": "Lasku ja maksu",
+      "idea": "Palaute tai ehdotukset",
+      "other": "Muu"
     },
     "message": "Viesti",
     "messagePlaceholder": "Kerro mahdollisimman tarkasti, mistä on kyse.",
@@ -1398,8 +1398,9 @@
     "filter": "Aihe",
     "cats": {
       "all": "Kaikki",
-      "start": "Alkuun pääseminen",
-      "codes": "QR-koodit",
+      "basics": "Peruskäsitteet",
+      "design": "Suunnittelu ja luominen",
+      "scan": "Skannaus ja tulostus",
       "stats": "Skannaukset ja tilastot",
       "account": "Tili ja tilaus"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Mihin syötän laskutustietoni?",
       "data": "Miten lataan tietoni tai poistan tilini?",
       "price": "Mitä Optimasys QR maksaa?",
-      "unique": "Mitä eroa on skannauksilla ja yksilöllisillä skannauksilla?"
+      "unique": "Mitä eroa on skannauksilla ja yksilöllisillä skannauksilla?",
+      "dynamic": "Mikä on dynaaminen QR-koodi?",
+      "size": "Kuinka suureksi QR-koodi kannattaa tulostaa?"
     },
     "a": {
       "make": "Valitse kohdassa Luo QR-koodi tyyppi, esimerkiksi Verkkosivu. Täytä sitten sisältö ja valitse ulkoasu. Näet heti, miltä se näyttää puhelimessa.\nValmista? Lataa koodisi PNG- tai SVG-muodossa. Löydät sen myös kohdasta Omat QR-koodit.",
@@ -1445,7 +1448,9 @@
       "billing": "Siirry kohtaan Oma tili > Laskutustiedot. Valitse Yritys tai Yksityishenkilö ja täytä tietosi. ALV-numero on valinnainen.",
       "data": "Kohdassa Oma tili > Omat tiedot voit ladata kaikki sinusta tallentamamme tiedot. Siellä voit myös poistaa tilisi.\nHuomaa: tämä poistaa kaikki QR-koodisi, tiedostosi ja tilastosi, ja tulostetut koodit lakkaavat toimimasta.",
       "price": "Optimasys QR on ilmainen testivaiheen aikana. Näet tilauksesi kohdassa Oma tili > Tilaus ja laskut.",
-      "unique": "Skannaukset: joka kerta, kun joku skannaa QR-koodisi, se lasketaan. Jos yksi henkilö skannaa kolme kertaa, se on 3 skannausta.\nYksilölliset skannaukset: kuinka moni eri henkilö on skannannut. Jokainen lasketaan vain kerran päivässä QR-koodia kohden. Saman henkilön kolme skannausta samana päivänä ovat siis 1 yksilöllinen skannaus.\nEsimerkki: 10 asiakasta skannaa ruokalistasi, ja 2 heistä skannaa sen myöhemmin uudelleen. Näet silloin 12 skannausta ja 10 yksilöllistä skannausta.\nTunnistamme henkilön ilman evästeitä ja tallentamatta IP-osoitteita, vain tilapäisenä päiväkohtaisena laskurina."
+      "unique": "Skannaukset: joka kerta, kun joku skannaa QR-koodisi, se lasketaan. Jos yksi henkilö skannaa kolme kertaa, se on 3 skannausta.\nYksilölliset skannaukset: kuinka moni eri henkilö on skannannut. Jokainen lasketaan vain kerran päivässä QR-koodia kohden. Saman henkilön kolme skannausta samana päivänä ovat siis 1 yksilöllinen skannaus.\nEsimerkki: 10 asiakasta skannaa ruokalistasi, ja 2 heistä skannaa sen myöhemmin uudelleen. Näet silloin 12 skannausta ja 10 yksilöllistä skannausta.\nTunnistamme henkilön ilman evästeitä ja tallentamatta IP-osoitteita, vain tilapäisenä päiväkohtaisena laskurina.",
+      "dynamic": "Dynaaminen QR-koodi sisältää lyhyen linkin meille. Siksi voit aina vaihtaa kohteen, myös tulostuksen jälkeen, ja me laskemme skannaukset.\nWi-Fi ja vCard ovat tarkoituksella staattisia: ne toimivat ilman internetiä, mutta eivät laske skannauksia eikä niitä voi muuttaa tulostuksen jälkeen.",
+      "size": "Vähintään noin 2 × 2 cm läheltä skannattavaksi. Nyrkkisääntö: koodi on noin kymmenesosa skannausetäisyydestä (3 metrin päästä siis noin 30 cm).\nJätä koodin ympärille tyhjä reunus ja testaa aina kahdella puhelimella ennen tulostusta."
     }
   },
   "cust": {

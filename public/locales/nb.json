@@ -1049,7 +1049,8 @@
     "tab_when": "Når",
     "tabsLabel": "Deler av statistikken",
     "peak": "Topp",
-    "hourShort": "Time"
+    "hourShort": "Time",
+    "excel": "Eksporter (Excel)"
   },
   "auth": {
     "loginTitle": "Velkommen tilbake",
@@ -1367,11 +1368,10 @@
     "topic": "Emne",
     "chooseTopic": "Velg et emne",
     "topics": {
-      "question": "Spørsmål",
-      "problem": "Noe virker ikke",
-      "idea": "Idé eller ønske",
-      "billing": "Abonnement eller faktura",
-      "other": "Noe annet"
+      "problem": "Feil og tekniske problemer",
+      "billing": "Faktura og betaling",
+      "idea": "Tilbakemelding eller forslag",
+      "other": "Annet"
     },
     "message": "Melding",
     "messagePlaceholder": "Fortell oss så nøyaktig du kan hva det gjelder.",
@@ -1398,8 +1398,9 @@
     "filter": "Emne",
     "cats": {
       "all": "Alle",
-      "start": "Kom i gang",
-      "codes": "QR-koder",
+      "basics": "Grunnbegreper",
+      "design": "Design og oppretting",
+      "scan": "Skanning og utskrift",
       "stats": "Skanninger og statistikk",
       "account": "Konto og abonnement"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Hvor legger jeg inn fakturaopplysningene mine?",
       "data": "Hvordan laster jeg ned dataene mine eller sletter kontoen min?",
       "price": "Hva koster Optimasys QR?",
-      "unique": "Hva er forskjellen mellom skanninger og unike skanninger?"
+      "unique": "Hva er forskjellen mellom skanninger og unike skanninger?",
+      "dynamic": "Hva er en dynamisk QR-kode?",
+      "size": "Hvor stor bør jeg skrive ut QR-koden?"
     },
     "a": {
       "make": "I Lag QR-kode velger du en type, for eksempel Nettside. Fyll deretter ut innholdet og velg et design. Du ser med en gang hvordan det ser ut på en telefon.\nFerdig? Last ned koden din som PNG eller SVG. Du finner den også i Mine QR-koder.",
@@ -1445,7 +1448,9 @@
       "billing": "Gå til Min konto > Fakturaopplysninger. Velg Bedrift eller Privatperson og fyll ut opplysningene dine. MVA-nummer er valgfritt.",
       "data": "I Min konto > Mine data kan du laste ned alt vi lagrer om deg. Der kan du også slette kontoen din.\nMerk: dette sletter alle QR-kodene, filene og statistikken din, og trykte koder slutter å virke.",
       "price": "Optimasys QR er gratis i testfasen. Du ser abonnementet ditt i Min konto > Abonnement og fakturaer.",
-      "unique": "Skanninger: hver gang noen skanner QR-koden din, telles det. Hvis én person skanner tre ganger, er det 3 skanninger.\nUnike skanninger: hvor mange ulike personer som har skannet. Hver person telles bare én gang per dag per QR-kode. De tre skanningene fra samme person på én dag er altså 1 unik skanning.\nEksempel: 10 kunder skanner menyen din, og 2 av dem skanner den igjen senere. Da ser du 12 skanninger og 10 unike skanninger.\nVi gjenkjenner en person uten informasjonskapsler og uten å lagre IP-adresser, bare som en midlertidig telling per dag."
+      "unique": "Skanninger: hver gang noen skanner QR-koden din, telles det. Hvis én person skanner tre ganger, er det 3 skanninger.\nUnike skanninger: hvor mange ulike personer som har skannet. Hver person telles bare én gang per dag per QR-kode. De tre skanningene fra samme person på én dag er altså 1 unik skanning.\nEksempel: 10 kunder skanner menyen din, og 2 av dem skanner den igjen senere. Da ser du 12 skanninger og 10 unike skanninger.\nVi gjenkjenner en person uten informasjonskapsler og uten å lagre IP-adresser, bare som en midlertidig telling per dag.",
+      "dynamic": "En dynamisk QR-kode inneholder en kort lenke til oss. Derfor kan du alltid endre destinasjonen, også etter utskrift, og vi teller skanningene.\nWi-Fi og vCard er bevisst statiske: de virker uten internett, men teller ikke skanninger og kan ikke endres etter utskrift.",
+      "size": "Minst omtrent 2 × 2 cm for skanning på nært hold. Tommelfingerregel: koden er omtrent en tidel av skanneavstanden (omtrent 30 cm på 3 meter).\nLa det være en tom kant rundt koden, og test alltid med to telefoner før utskrift."
     }
   },
   "cust": {

@@ -1049,7 +1049,8 @@
     "tab_when": "Cuándo",
     "tabsLabel": "Secciones de las estadísticas",
     "peak": "Pico",
-    "hourShort": "Hora"
+    "hourShort": "Hora",
+    "excel": "Exportar (Excel)"
   },
   "auth": {
     "loginTitle": "Bienvenido de nuevo",
@@ -1367,11 +1368,10 @@
     "topic": "Asunto",
     "chooseTopic": "Elige un asunto",
     "topics": {
-      "question": "Pregunta",
-      "problem": "Algo no funciona",
-      "idea": "Idea o deseo",
-      "billing": "Plan o factura",
-      "other": "Otra cosa"
+      "problem": "Errores y problemas técnicos",
+      "billing": "Factura y pago",
+      "idea": "Comentarios o sugerencias",
+      "other": "Otro"
     },
     "message": "Mensaje",
     "messagePlaceholder": "Cuéntanos con el mayor detalle posible de qué se trata.",
@@ -1398,8 +1398,9 @@
     "filter": "Tema",
     "cats": {
       "all": "Todo",
-      "start": "Primeros pasos",
-      "codes": "Códigos QR",
+      "basics": "Conceptos básicos",
+      "design": "Diseñar y crear",
+      "scan": "Escanear e imprimir",
       "stats": "Escaneos y estadísticas",
       "account": "Cuenta y plan"
     },
@@ -1430,7 +1431,9 @@
       "billing": "¿Dónde introduzco mis datos de facturación?",
       "data": "¿Cómo descargo mis datos o elimino mi cuenta?",
       "price": "¿Cuánto cuesta Optimasys QR?",
-      "unique": "¿Qué diferencia hay entre escaneos y escaneos únicos?"
+      "unique": "¿Qué diferencia hay entre escaneos y escaneos únicos?",
+      "dynamic": "¿Qué es un código QR dinámico?",
+      "size": "¿De qué tamaño imprimo mi código QR?"
     },
     "a": {
       "make": "En Crear código QR, elige un tipo, por ejemplo Sitio web. Después rellena el contenido y elige un diseño. Ves enseguida cómo queda en un móvil.\n¿Listo? Descarga tu código en PNG o SVG. También lo encontrarás en Mis códigos QR.",
@@ -1445,7 +1448,9 @@
       "billing": "Ve a Mi cuenta > Datos de facturación. Elige Empresa o Particular y rellena tus datos. El NIF/CIF es opcional.",
       "data": "En Mi cuenta > Mis datos descargas todo lo que guardamos sobre ti. Allí también puedes eliminar tu cuenta.\nAtención: se borran todos tus códigos QR, archivos y estadísticas, y los códigos impresos dejan de funcionar.",
       "price": "Durante la fase de prueba, Optimasys QR es gratis. Tu plan aparece en Mi cuenta > Plan y facturas.",
-      "unique": "Escaneos: cada vez que alguien escanea tu código QR, cuenta. Si una persona escanea tres veces, son 3 escaneos.\nEscaneos únicos: cuántas personas distintas han escaneado. Cada persona cuenta solo una vez al día por código QR. Esos tres escaneos de la misma persona en un día son 1 escaneo único.\nEjemplo: 10 clientes escanean tu menú y 2 de ellos lo vuelven a escanear más tarde. Verás 12 escaneos y 10 escaneos únicos.\nReconocemos a una persona sin cookies y sin guardar direcciones IP, solo como un recuento temporal por día."
+      "unique": "Escaneos: cada vez que alguien escanea tu código QR, cuenta. Si una persona escanea tres veces, son 3 escaneos.\nEscaneos únicos: cuántas personas distintas han escaneado. Cada persona cuenta solo una vez al día por código QR. Esos tres escaneos de la misma persona en un día son 1 escaneo único.\nEjemplo: 10 clientes escanean tu menú y 2 de ellos lo vuelven a escanear más tarde. Verás 12 escaneos y 10 escaneos únicos.\nReconocemos a una persona sin cookies y sin guardar direcciones IP, solo como un recuento temporal por día.",
+      "dynamic": "Un código QR dinámico contiene un enlace corto hacia nosotros. Por eso siempre puedes cambiar el destino, incluso después de imprimirlo, y contamos los escaneos.\nWi-Fi y vCard son estáticos a propósito: funcionan sin internet, pero no cuentan escaneos y no se pueden cambiar después de imprimirlos.",
+      "size": "Al menos unos 2 × 2 cm para escanear de cerca. Regla práctica: el código mide una décima parte de la distancia de escaneo (unos 30 cm a 3 metros).\nDeja un margen vacío alrededor del código y prueba siempre con dos teléfonos antes de imprimir."
     }
   },
   "cust": {

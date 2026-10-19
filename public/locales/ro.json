@@ -1049,7 +1049,8 @@
     "tab_when": "Când",
     "tabsLabel": "Secțiunile statisticilor",
     "peak": "Vârf",
-    "hourShort": "Oră"
+    "hourShort": "Oră",
+    "excel": "Exportă (Excel)"
   },
   "auth": {
     "loginTitle": "Bine ai revenit",
@@ -1367,10 +1368,9 @@
     "topic": "Subiect",
     "chooseTopic": "Alege un subiect",
     "topics": {
-      "question": "Întrebare",
-      "problem": "Ceva nu funcționează",
-      "idea": "Idee sau dorință",
-      "billing": "Abonament sau factură",
+      "problem": "Erori și probleme tehnice",
+      "billing": "Factură și plată",
+      "idea": "Feedback sau sugestii",
       "other": "Altceva"
     },
     "message": "Mesaj",
@@ -1398,8 +1398,9 @@
     "filter": "Subiect",
     "cats": {
       "all": "Toate",
-      "start": "Primii pași",
-      "codes": "Coduri QR",
+      "basics": "Noțiuni de bază",
+      "design": "Design și creare",
+      "scan": "Scanare și tipărire",
       "stats": "Scanări și statistici",
       "account": "Cont și abonament"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Unde îmi introduc datele de facturare?",
       "data": "Cum îmi descarc datele sau îmi șterg contul?",
       "price": "Cât costă Optimasys QR?",
-      "unique": "Care este diferența dintre scanări și scanări unice?"
+      "unique": "Care este diferența dintre scanări și scanări unice?",
+      "dynamic": "Ce este un cod QR dinamic?",
+      "size": "Cât de mare să tipăresc codul QR?"
     },
     "a": {
       "make": "În Creează cod QR, alege un tip, de exemplu Site web. Apoi completează conținutul și alege un design. Vezi imediat cum arată pe un telefon.\nGata? Descarcă codul ca PNG sau SVG. Îl găsești și în Codurile mele QR.",
@@ -1445,7 +1448,9 @@
       "billing": "Mergi la Contul meu > Date de facturare. Alege Companie sau Persoană fizică și completează-ți datele. Codul TVA este opțional.",
       "data": "În Contul meu > Datele mele poți descărca tot ce stocăm despre tine. Tot acolo îți poți șterge contul.\nAtenție: astfel se șterg toate codurile tale QR, fișierele și statisticile, iar codurile tipărite nu vor mai funcționa.",
       "price": "Optimasys QR este gratuit în faza de testare. Îți vezi abonamentul în Contul meu > Abonament și facturi.",
-      "unique": "Scanări: de fiecare dată când cineva îți scanează codul QR, se numără. Dacă o persoană scanează de trei ori, sunt 3 scanări.\nScanări unice: câte persoane diferite au scanat. Fiecare persoană se numără o singură dată pe zi pentru fiecare cod QR. Deci acele trei scanări ale aceleiași persoane într-o zi înseamnă 1 scanare unică.\nExemplu: 10 clienți îți scanează meniul, iar 2 dintre ei îl scanează din nou mai târziu. Vezi atunci 12 scanări și 10 scanări unice.\nRecunoaștem o persoană fără cookie-uri și fără să stocăm adrese IP, doar ca numărătoare temporară pe zi."
+      "unique": "Scanări: de fiecare dată când cineva îți scanează codul QR, se numără. Dacă o persoană scanează de trei ori, sunt 3 scanări.\nScanări unice: câte persoane diferite au scanat. Fiecare persoană se numără o singură dată pe zi pentru fiecare cod QR. Deci acele trei scanări ale aceleiași persoane într-o zi înseamnă 1 scanare unică.\nExemplu: 10 clienți îți scanează meniul, iar 2 dintre ei îl scanează din nou mai târziu. Vezi atunci 12 scanări și 10 scanări unice.\nRecunoaștem o persoană fără cookie-uri și fără să stocăm adrese IP, doar ca numărătoare temporară pe zi.",
+      "dynamic": "Un cod QR dinamic conține un link scurt către noi. De aceea poți schimba oricând destinația, chiar și după tipărire, iar noi numărăm scanările.\nWi-Fi și vCard sunt intenționat statice: funcționează fără internet, dar nu numără scanările și nu pot fi schimbate după tipărire.",
+      "size": "Cel puțin aproximativ 2 × 2 cm pentru scanare de aproape. Regulă practică: codul are aproximativ o zecime din distanța de scanare (cam 30 cm la 3 metri).\nLasă o margine goală în jurul codului și testează mereu cu două telefoane înainte de tipărire."
     }
   },
   "cust": {

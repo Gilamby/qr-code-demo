@@ -21,7 +21,7 @@
   };
 
   /* ---------- Contact ---------- */
-  var TOPICS = ['question', 'problem', 'idea', 'billing', 'other'];
+  var TOPICS = ['problem', 'billing', 'idea', 'other'];   // zoals de KB (Q179)
   var form = { name: '', email: '', topic: '', message: '' }, bad = [], sent = null, busy = false, failMsg = '';
   function contactField(k, label, input, hint) {
     var isBad = bad.indexOf(k) >= 0;
@@ -88,13 +88,16 @@
 
   /* ---------- Veelgestelde vragen ---------- */
   // [id, onderwerp, knop (tekst, waarheen)]
+  // Onderwerpen zoals de KB (Q183): basisbegrippen, ontwerpen en maken, scannen en printen; plus statistieken en account
   var FAQ = [
-    ['make', 'start', ['faq.go.create', 'create']],
-    ['types', 'start'],
-    ['edit', 'codes', ['faq.go.myCodes', 'myCodes']],
-    ['format', 'codes'],
-    ['scanFix', 'codes'],
-    ['pause', 'codes', ['faq.go.myCodes', 'myCodes']],
+    ['types', 'basics'],
+    ['dynamic', 'basics'],
+    ['edit', 'basics', ['faq.go.myCodes', 'myCodes']],
+    ['make', 'design', ['faq.go.create', 'create']],
+    ['format', 'design'],
+    ['pause', 'design', ['faq.go.myCodes', 'myCodes']],
+    ['scanFix', 'scan'],
+    ['size', 'scan'],
     ['stats', 'stats', ['faq.go.analytics', 'analytics']],
     ['unique', 'stats', ['faq.go.analytics', 'analytics']],
     ['privacy', 'stats'],
@@ -103,7 +106,7 @@
     ['data', 'account', ['faq.go.data', 'account:data']],
     ['price', 'account', ['faq.go.plan', 'account:plan']]
   ];
-  var CATS = ['all', 'start', 'codes', 'stats', 'account'];
+  var CATS = ['all', 'basics', 'design', 'scan', 'stats', 'account'];
   var cat = 'all', query = '', openIds = {};
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
   function matches(item) {

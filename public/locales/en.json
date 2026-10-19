@@ -1049,7 +1049,8 @@
     "tab_when": "When",
     "tabsLabel": "Parts of the analytics",
     "peak": "Peak",
-    "hourShort": "Hour"
+    "hourShort": "Hour",
+    "excel": "Export (Excel)"
   },
   "auth": {
     "loginTitle": "Welcome back",
@@ -1064,9 +1065,9 @@
     "newPassword": "New password",
     "pwRule": "At least 8 characters, with a capital letter, a number and a special character.",
     "createAccount": "Create account",
-    "forgot": "Forgot password?",
+    "forgot": "Lost password?",
     "privacyNote": "We only use your email address to log you in. No marketing.",
-    "forgotTitle": "Forgot password",
+    "forgotTitle": "Lost password",
     "forgotLead": "Enter your email address. You’ll get a link to choose a new password.",
     "sendLink": "Send the link",
     "backToLogin": "Back to log in",
@@ -1367,11 +1368,10 @@
     "topic": "Topic",
     "chooseTopic": "Choose a topic",
     "topics": {
-      "question": "Question",
-      "problem": "Something doesn’t work",
-      "idea": "Idea or wish",
-      "billing": "Plan or invoice",
-      "other": "Something else"
+      "problem": "Bugs & technical issues",
+      "billing": "Invoice and payment",
+      "idea": "Feedback or suggestions",
+      "other": "Other"
     },
     "message": "Message",
     "messagePlaceholder": "Tell us as precisely as you can what it’s about.",
@@ -1398,8 +1398,9 @@
     "filter": "Topic",
     "cats": {
       "all": "All",
-      "start": "Getting started",
-      "codes": "QR codes",
+      "basics": "Basic concepts",
+      "design": "Designing and creating",
+      "scan": "Scanning and printing",
       "stats": "Scans and analytics",
       "account": "Account and plan"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Where do I enter my billing details?",
       "data": "How do I download my data or delete my account?",
       "price": "How much does Optimasys QR cost?",
-      "unique": "What is the difference between scans and unique scans?"
+      "unique": "What is the difference between scans and unique scans?",
+      "dynamic": "What is a dynamic QR code?",
+      "size": "How big should I print my QR code?"
     },
     "a": {
       "make": "In Create QR Code, choose a type, for example Website. Then fill in the content and choose a design. You immediately see how it looks on a phone.\nDone? Download your code as PNG or SVG. You’ll also find it in My QR Codes.",
@@ -1445,7 +1448,9 @@
       "billing": "Go to My Account > Billing details. Choose Company or Private person and fill in your details. A VAT number is optional.",
       "data": "In My Account > My data you can download everything we store about you. You can also delete your account there.\nNote: this erases all your QR codes, files and analytics, and printed codes stop working.",
       "price": "Optimasys QR is free during the test phase. You can see your plan in My Account > Plan and invoices.",
-      "unique": "Scans: every time someone scans your QR code, it counts. If one person scans three times, that is 3 scans.\nUnique scans: how many different people scanned. Each person counts only once a day per QR code. So those three scans by the same person on one day are 1 unique scan.\nExample: 10 customers scan your menu, and 2 of them scan it again later. You then see 12 scans and 10 unique scans.\nWe recognise a person without cookies and without storing IP addresses, only as a temporary count per day."
+      "unique": "Scans: every time someone scans your QR code, it counts. If one person scans three times, that is 3 scans.\nUnique scans: how many different people scanned. Each person counts only once a day per QR code. So those three scans by the same person on one day are 1 unique scan.\nExample: 10 customers scan your menu, and 2 of them scan it again later. You then see 12 scans and 10 unique scans.\nWe recognise a person without cookies and without storing IP addresses, only as a temporary count per day.",
+      "dynamic": "A dynamic QR code contains a short link to us. That's why you can always change the destination, even after printing, and we count the scans.\nWi-Fi and vCard are deliberately static: they work without internet, but don't count scans and can't be changed after printing.",
+      "size": "At least about 2 × 2 cm for close-range scanning. Rule of thumb: the code is about a tenth of the scanning distance (so about 30 cm at 3 metres).\nLeave an empty margin around the code and always test with two phones before printing."
     }
   },
   "cust": {

@@ -1049,7 +1049,8 @@
     "tab_when": "Kedy",
     "tabsLabel": "Časti štatistík",
     "peak": "Špička",
-    "hourShort": "Hodina"
+    "hourShort": "Hodina",
+    "excel": "Exportovať (Excel)"
   },
   "auth": {
     "loginTitle": "Vitaj späť",
@@ -1367,11 +1368,10 @@
     "topic": "Téma",
     "chooseTopic": "Vyber tému",
     "topics": {
-      "question": "Otázka",
-      "problem": "Niečo nefunguje",
-      "idea": "Nápad alebo želanie",
-      "billing": "Predplatné alebo faktúra",
-      "other": "Niečo iné"
+      "problem": "Chyby a technické problémy",
+      "billing": "Faktúra a platba",
+      "idea": "Spätná väzba alebo návrhy",
+      "other": "Iné"
     },
     "message": "Správa",
     "messagePlaceholder": "Napíš nám čo najpresnejšie, o čo ide.",
@@ -1398,8 +1398,9 @@
     "filter": "Téma",
     "cats": {
       "all": "Všetko",
-      "start": "Začíname",
-      "codes": "QR kódy",
+      "basics": "Základné pojmy",
+      "design": "Návrh a tvorba",
+      "scan": "Skenovanie a tlač",
       "stats": "Skeny a štatistiky",
       "account": "Účet a predplatné"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Kde zadám fakturačné údaje?",
       "data": "Ako si stiahnem svoje údaje alebo odstránim účet?",
       "price": "Koľko stojí Optimasys QR?",
-      "unique": "Aký je rozdiel medzi skenmi a unikátnymi skenmi?"
+      "unique": "Aký je rozdiel medzi skenmi a unikátnymi skenmi?",
+      "dynamic": "Čo je dynamický QR kód?",
+      "size": "Aký veľký mám vytlačiť QR kód?"
     },
     "a": {
       "make": "V časti Vytvoriť QR kód vyber typ, napríklad Webová stránka. Potom vyplň obsah a vyber dizajn. Hneď vidíš, ako to vyzerá v telefóne.\nHotovo? Stiahni si kód ako PNG alebo SVG. Nájdeš ho aj v Moje QR kódy.",
@@ -1445,7 +1448,9 @@
       "billing": "Choď do Môj účet > Fakturačné údaje. Vyber Firma alebo Súkromná osoba a vyplň svoje údaje. IČ DPH je nepovinné.",
       "data": "V Môj účet > Moje údaje si môžeš stiahnuť všetko, čo o tebe uchovávame. Tam môžeš aj odstrániť svoj účet.\nPozor: tým sa vymažú všetky tvoje QR kódy, súbory a štatistiky a vytlačené kódy prestanú fungovať.",
       "price": "Počas testovacej fázy je Optimasys QR zadarmo. Svoje predplatné vidíš v Môj účet > Predplatné a faktúry.",
-      "unique": "Skeny: počíta sa každé naskenovanie tvojho QR kódu. Ak jeden človek naskenuje kód trikrát, sú to 3 skeny.\nUnikátne skeny: koľko rôznych ľudí skenovalo. Každý človek sa počíta len raz denne pre každý QR kód. Tie tri skeny jedného človeka v jeden deň sú teda 1 unikátny sken.\nPríklad: 10 zákazníkov naskenuje tvoje menu a 2 z nich ho neskôr naskenujú znova. Potom vidíš 12 skenov a 10 unikátnych skenov.\nČloveka rozpoznáme bez cookies a bez ukladania IP adries, len ako dočasný počet za deň."
+      "unique": "Skeny: počíta sa každé naskenovanie tvojho QR kódu. Ak jeden človek naskenuje kód trikrát, sú to 3 skeny.\nUnikátne skeny: koľko rôznych ľudí skenovalo. Každý človek sa počíta len raz denne pre každý QR kód. Tie tri skeny jedného človeka v jeden deň sú teda 1 unikátny sken.\nPríklad: 10 zákazníkov naskenuje tvoje menu a 2 z nich ho neskôr naskenujú znova. Potom vidíš 12 skenov a 10 unikátnych skenov.\nČloveka rozpoznáme bez cookies a bez ukladania IP adries, len ako dočasný počet za deň.",
+      "dynamic": "Dynamický QR kód obsahuje krátky odkaz na nás. Preto môžeš cieľ kedykoľvek zmeniť, aj po vytlačení, a my počítame skeny.\nWi-Fi a vCard sú zámerne statické: fungujú bez internetu, ale nepočítajú skeny a po vytlačení sa nedajú zmeniť.",
+      "size": "Aspoň približne 2 × 2 cm na skenovanie zblízka. Pravidlo: kód má asi desatinu vzdialenosti skenovania (pri 3 metroch teda asi 30 cm).\nNechaj okolo kódu prázdny okraj a pred tlačou ho vždy otestuj dvoma telefónmi."
     }
   },
   "cust": {

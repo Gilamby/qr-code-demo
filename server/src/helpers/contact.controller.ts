@@ -12,7 +12,7 @@ import { EMAIL } from '../qr-codes/validation';
 import { fail } from '../common/http';
 import type { User } from '../types';
 
-export const CONTACT_TOPICS = ['question', 'problem', 'idea', 'billing', 'other'];
+export const CONTACT_TOPICS = ['problem', 'billing', 'idea', 'other'];   // zoals de KB (Q179): Bugs & technical issues, Invoice and payment, Feedback or suggestions, Other
 
 @Controller('api')
 @UseGuards(LoggedIn)

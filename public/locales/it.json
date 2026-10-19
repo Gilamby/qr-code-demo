@@ -1049,7 +1049,8 @@
     "tab_when": "Quando",
     "tabsLabel": "Sezioni delle statistiche",
     "peak": "Picco",
-    "hourShort": "Ora"
+    "hourShort": "Ora",
+    "excel": "Esporta (Excel)"
   },
   "auth": {
     "loginTitle": "Bentornato",
@@ -1367,10 +1368,9 @@
     "topic": "Argomento",
     "chooseTopic": "Scegli un argomento",
     "topics": {
-      "question": "Domanda",
-      "problem": "Qualcosa non funziona",
-      "idea": "Idea o desiderio",
-      "billing": "Piano o fattura",
+      "problem": "Bug e problemi tecnici",
+      "billing": "Fattura e pagamento",
+      "idea": "Feedback o suggerimenti",
       "other": "Altro"
     },
     "message": "Messaggio",
@@ -1398,8 +1398,9 @@
     "filter": "Argomento",
     "cats": {
       "all": "Tutto",
-      "start": "Per iniziare",
-      "codes": "Codici QR",
+      "basics": "Concetti di base",
+      "design": "Progettare e creare",
+      "scan": "Scansionare e stampare",
       "stats": "Scansioni e statistiche",
       "account": "Account e piano"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Dove inserisco i dati di fatturazione?",
       "data": "Come scarico i miei dati o elimino il mio account?",
       "price": "Quanto costa Optimasys QR?",
-      "unique": "Qual è la differenza tra scansioni e scansioni uniche?"
+      "unique": "Qual è la differenza tra scansioni e scansioni uniche?",
+      "dynamic": "Che cos'è un QR code dinamico?",
+      "size": "Quanto grande devo stampare il mio QR code?"
     },
     "a": {
       "make": "In Crea codice QR scegli un tipo, per esempio Sito web. Poi compila il contenuto e scegli un design. Vedi subito come appare su un telefono.\nFatto? Scarica il codice in PNG o SVG. Lo ritrovi anche in I miei codici QR.",
@@ -1445,7 +1448,9 @@
       "billing": "Vai su Il mio account > Dati di fatturazione. Scegli Azienda o Privato e compila i tuoi dati. La partita IVA è facoltativa.",
       "data": "In Il mio account > I miei dati scarichi tutto ciò che conserviamo su di te. Lì puoi anche eliminare il tuo account.\nAttenzione: verranno cancellati tutti i codici QR, i file e le statistiche, e i codici stampati smetteranno di funzionare.",
       "price": "Durante la fase di prova Optimasys QR è gratuito. Il tuo piano è in Il mio account > Piano e fatture.",
-      "unique": "Scansioni: ogni volta che qualcuno scansiona il tuo codice QR, conta. Se una persona scansiona tre volte, sono 3 scansioni.\nScansioni uniche: quante persone diverse hanno scansionato. Ogni persona conta una sola volta al giorno per codice QR. Quelle tre scansioni della stessa persona in un giorno sono quindi 1 scansione unica.\nEsempio: 10 clienti scansionano il tuo menu e 2 di loro lo scansionano di nuovo più tardi. Vedrai 12 scansioni e 10 scansioni uniche.\nRiconosciamo una persona senza cookie e senza salvare indirizzi IP, solo come conteggio temporaneo giornaliero."
+      "unique": "Scansioni: ogni volta che qualcuno scansiona il tuo codice QR, conta. Se una persona scansiona tre volte, sono 3 scansioni.\nScansioni uniche: quante persone diverse hanno scansionato. Ogni persona conta una sola volta al giorno per codice QR. Quelle tre scansioni della stessa persona in un giorno sono quindi 1 scansione unica.\nEsempio: 10 clienti scansionano il tuo menu e 2 di loro lo scansionano di nuovo più tardi. Vedrai 12 scansioni e 10 scansioni uniche.\nRiconosciamo una persona senza cookie e senza salvare indirizzi IP, solo come conteggio temporaneo giornaliero.",
+      "dynamic": "Un QR code dinamico contiene un link breve verso di noi. Per questo puoi sempre cambiare la destinazione, anche dopo la stampa, e contiamo le scansioni.\nWi-Fi e vCard sono volutamente statici: funzionano senza internet, ma non contano le scansioni e non si possono modificare dopo la stampa.",
+      "size": "Almeno circa 2 × 2 cm per una scansione da vicino. Regola pratica: il codice è circa un decimo della distanza di scansione (quindi circa 30 cm a 3 metri).\nLascia un margine vuoto intorno al codice e prova sempre con due telefoni prima di stampare."
     }
   },
   "cust": {

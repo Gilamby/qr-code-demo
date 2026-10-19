@@ -1049,7 +1049,8 @@
     "tab_when": "Kad",
     "tabsLabel": "Statistikas sadaļas",
     "peak": "Maksimums",
-    "hourShort": "Stunda"
+    "hourShort": "Stunda",
+    "excel": "Eksportēt (Excel)"
   },
   "auth": {
     "loginTitle": "Sveicināts atpakaļ",
@@ -1367,11 +1368,10 @@
     "topic": "Tēma",
     "chooseTopic": "Izvēlies tēmu",
     "topics": {
-      "question": "Jautājums",
-      "problem": "Kaut kas nedarbojas",
-      "idea": "Ideja vai vēlme",
-      "billing": "Plāns vai rēķins",
-      "other": "Kas cits"
+      "problem": "Kļūdas un tehniskas problēmas",
+      "billing": "Rēķins un maksājums",
+      "idea": "Atsauksmes vai ieteikumi",
+      "other": "Cits"
     },
     "message": "Ziņa",
     "messagePlaceholder": "Pastāsti pēc iespējas precīzāk, par ko ir runa.",
@@ -1398,8 +1398,9 @@
     "filter": "Tēma",
     "cats": {
       "all": "Visi",
-      "start": "Darba sākšana",
-      "codes": "QR kodi",
+      "basics": "Pamatjēdzieni",
+      "design": "Dizains un izveide",
+      "scan": "Skenēšana un drukāšana",
       "stats": "Skenējumi un statistika",
       "account": "Konts un plāns"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Kur ievadīt norēķinu datus?",
       "data": "Kā lejupielādēt savus datus vai dzēst kontu?",
       "price": "Cik maksā Optimasys QR?",
-      "unique": "Kāda ir atšķirība starp skenējumiem un unikālajiem skenējumiem?"
+      "unique": "Kāda ir atšķirība starp skenējumiem un unikālajiem skenējumiem?",
+      "dynamic": "Kas ir dinamisks QR kods?",
+      "size": "Cik lielu drukāt savu QR kodu?"
     },
     "a": {
       "make": "Sadaļā “Izveidot QR kodu” izvēlies veidu, piemēram, “Tīmekļa vietne”. Pēc tam aizpildi saturu un izvēlies dizainu. Uzreiz redzēsi, kā tas izskatās tālrunī.\nGatavs? Lejupielādē kodu PNG vai SVG formātā. To atradīsi arī sadaļā “Mani QR kodi”.",
@@ -1445,7 +1448,9 @@
       "billing": "Atver “Mans konts” > “Norēķinu dati”. Izvēlies “Uzņēmums” vai “Privātpersona” un aizpildi datus. PVN numurs nav obligāts.",
       "data": "Sadaļā “Mans konts” > “Mani dati” vari lejupielādēt visu, ko par tevi glabājam. Tur vari arī dzēst savu kontu.\nUzmanību: tas izdzēš visus tavus QR kodus, failus un statistiku, un izdrukātie kodi pārstāj darboties.",
       "price": "Testēšanas posmā Optimasys QR ir bez maksas. Savu plānu vari redzēt sadaļā “Mans konts” > “Plāns un rēķini”.",
-      "unique": "Skenējumi: katru reizi, kad kāds noskenē tavu QR kodu, tas tiek skaitīts. Ja viens cilvēks skenē trīs reizes, tie ir 3 skenējumi.\nUnikālie skenējumi: cik dažādu cilvēku ir skenējuši. Katrs cilvēks tiek skaitīts tikai reizi dienā katram QR kodam. Tātad šie trīs viena cilvēka skenējumi vienā dienā ir 1 unikālais skenējums.\nPiemērs: 10 klienti noskenē tavu ēdienkarti, un 2 no viņiem vēlāk to noskenē vēlreiz. Tad redzēsi 12 skenējumus un 10 unikālos skenējumus.\nCilvēku atpazīstam bez sīkdatnēm un neglabājot IP adreses, tikai kā īslaicīgu skaitītāju dienas ietvaros."
+      "unique": "Skenējumi: katru reizi, kad kāds noskenē tavu QR kodu, tas tiek skaitīts. Ja viens cilvēks skenē trīs reizes, tie ir 3 skenējumi.\nUnikālie skenējumi: cik dažādu cilvēku ir skenējuši. Katrs cilvēks tiek skaitīts tikai reizi dienā katram QR kodam. Tātad šie trīs viena cilvēka skenējumi vienā dienā ir 1 unikālais skenējums.\nPiemērs: 10 klienti noskenē tavu ēdienkarti, un 2 no viņiem vēlāk to noskenē vēlreiz. Tad redzēsi 12 skenējumus un 10 unikālos skenējumus.\nCilvēku atpazīstam bez sīkdatnēm un neglabājot IP adreses, tikai kā īslaicīgu skaitītāju dienas ietvaros.",
+      "dynamic": "Dinamisks QR kods satur īsu saiti uz mums. Tāpēc vari vienmēr mainīt galamērķi, arī pēc drukāšanas, un mēs skaitām skenēšanas.\nWi-Fi un vCard ir apzināti statiski: tie darbojas bez interneta, bet neskaita skenēšanas un pēc drukāšanas tos nevar mainīt.",
+      "size": "Vismaz aptuveni 2 × 2 cm skenēšanai no tuva attāluma. Īkšķa likums: kods ir apmēram desmitā daļa no skenēšanas attāluma (3 metru attālumā aptuveni 30 cm).\nAtstāj tukšu malu ap kodu un pirms drukāšanas vienmēr pārbaudi ar diviem telefoniem."
     }
   },
   "cust": {

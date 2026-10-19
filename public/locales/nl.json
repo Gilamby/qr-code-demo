@@ -1049,7 +1049,8 @@
     "tab_when": "Wanneer",
     "tabsLabel": "Onderdelen van de statistieken",
     "peak": "Piek",
-    "hourShort": "Uur"
+    "hourShort": "Uur",
+    "excel": "Exporteren (Excel)"
   },
   "auth": {
     "loginTitle": "Welkom terug",
@@ -1367,11 +1368,10 @@
     "topic": "Onderwerp",
     "chooseTopic": "Kies een onderwerp",
     "topics": {
-      "question": "Vraag",
-      "problem": "Iets werkt niet",
-      "idea": "Idee of wens",
-      "billing": "Abonnement of factuur",
-      "other": "Iets anders"
+      "problem": "Bugs en technische problemen",
+      "billing": "Factuur en betaling",
+      "idea": "Feedback of suggesties",
+      "other": "Anders"
     },
     "message": "Bericht",
     "messagePlaceholder": "Vertel zo precies mogelijk waar het om gaat.",
@@ -1398,8 +1398,9 @@
     "filter": "Onderwerp",
     "cats": {
       "all": "Alles",
-      "start": "Beginnen",
-      "codes": "QR-codes",
+      "basics": "Basisbegrippen",
+      "design": "Ontwerpen en maken",
+      "scan": "Scannen en printen",
       "stats": "Scans en statistieken",
       "account": "Account en abonnement"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Waar vul ik mijn factuurgegevens in?",
       "data": "Hoe download ik mijn gegevens of verwijder ik mijn account?",
       "price": "Wat kost Optimasys QR?",
-      "unique": "Wat is het verschil tussen scans en unieke scans?"
+      "unique": "Wat is het verschil tussen scans en unieke scans?",
+      "dynamic": "Wat is een dynamische QR-code?",
+      "size": "Hoe groot moet ik mijn QR-code printen?"
     },
     "a": {
       "make": "Kies bij QR-code maken een soort, bijvoorbeeld Website. Vul daarna de inhoud in en kies een ontwerp. Je ziet meteen hoe het eruitziet op een telefoon.\nKlaar? Download je code als PNG of SVG. Je vindt hem daarna ook terug bij Mijn QR-codes.",
@@ -1445,7 +1448,9 @@
       "billing": "Ga naar Mijn account > Factuurgegevens. Kies Bedrijf of Particulier en vul je gegevens in. Een btw-nummer is niet verplicht.",
       "data": "Bij Mijn account > Mijn gegevens download je alles wat we van je bewaren. Daar kun je ook je account verwijderen.\nLet op: dan worden al je QR-codes, bestanden en statistieken gewist, en werken geprinte codes niet meer.",
       "price": "Tijdens de testfase is Optimasys QR gratis. Je abonnement zie je bij Mijn account > Abonnement en facturen.",
-      "unique": "Scans: elke keer dat iemand je QR-code scant, telt het. Scant één persoon drie keer, dan zijn dat 3 scans.\nUnieke scans: hoeveel verschillende mensen hebben gescand. Elke persoon telt maar één keer per dag per QR-code. Die drie scans van dezelfde persoon op één dag zijn dus 1 unieke scan.\nVoorbeeld: 10 klanten scannen je menu, en 2 van hen scannen later nog eens. Dan zie je 12 scans en 10 unieke scans.\nWe herkennen een persoon zonder cookies en zonder IP-adressen te bewaren, alleen als een tijdelijke telling per dag."
+      "unique": "Scans: elke keer dat iemand je QR-code scant, telt het. Scant één persoon drie keer, dan zijn dat 3 scans.\nUnieke scans: hoeveel verschillende mensen hebben gescand. Elke persoon telt maar één keer per dag per QR-code. Die drie scans van dezelfde persoon op één dag zijn dus 1 unieke scan.\nVoorbeeld: 10 klanten scannen je menu, en 2 van hen scannen later nog eens. Dan zie je 12 scans en 10 unieke scans.\nWe herkennen een persoon zonder cookies en zonder IP-adressen te bewaren, alleen als een tijdelijke telling per dag.",
+      "dynamic": "Een dynamische QR-code bevat een korte link naar ons. Daardoor kun je de bestemming altijd wijzigen, ook na het printen, en tellen we de scans.\nWi-Fi en vCard zijn bij ons bewust statisch: ze werken zonder internet, maar tellen geen scans en zijn na het printen niet meer te wijzigen.",
+      "size": "Minstens ongeveer 2 × 2 cm om van dichtbij te scannen. Vuistregel: de code is ongeveer een tiende van de afstand waarop mensen scannen (op 3 meter afstand dus zo'n 30 cm).\nLaat een lege rand rond de code en test altijd met twee telefoons voordat je laat printen."
     }
   },
   "cust": {

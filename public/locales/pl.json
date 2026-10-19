@@ -1049,7 +1049,8 @@
     "tab_when": "Kiedy",
     "tabsLabel": "Części statystyk",
     "peak": "Szczyt",
-    "hourShort": "Godzina"
+    "hourShort": "Godzina",
+    "excel": "Eksportuj (Excel)"
   },
   "auth": {
     "loginTitle": "Witaj ponownie",
@@ -1367,11 +1368,10 @@
     "topic": "Temat",
     "chooseTopic": "Wybierz temat",
     "topics": {
-      "question": "Pytanie",
-      "problem": "Coś nie działa",
-      "idea": "Pomysł lub życzenie",
-      "billing": "Plan lub faktura",
-      "other": "Coś innego"
+      "problem": "Błędy i problemy techniczne",
+      "billing": "Faktura i płatność",
+      "idea": "Opinie lub sugestie",
+      "other": "Inne"
     },
     "message": "Wiadomość",
     "messagePlaceholder": "Opisz jak najdokładniej, o co chodzi.",
@@ -1398,8 +1398,9 @@
     "filter": "Temat",
     "cats": {
       "all": "Wszystko",
-      "start": "Pierwsze kroki",
-      "codes": "Kody QR",
+      "basics": "Podstawy",
+      "design": "Projektowanie i tworzenie",
+      "scan": "Skanowanie i drukowanie",
       "stats": "Skany i statystyki",
       "account": "Konto i plan"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Gdzie wpisać dane do faktury?",
       "data": "Jak pobrać swoje dane lub usunąć konto?",
       "price": "Ile kosztuje Optimasys QR?",
-      "unique": "Czym różnią się skany od unikalnych skanów?"
+      "unique": "Czym różnią się skany od unikalnych skanów?",
+      "dynamic": "Czym jest dynamiczny kod QR?",
+      "size": "Jak duży powinien być wydrukowany kod QR?"
     },
     "a": {
       "make": "W Utwórz kod QR wybierz rodzaj, na przykład Strona internetowa. Następnie uzupełnij treść i wybierz wygląd. Od razu widzisz, jak to wygląda na telefonie.\nGotowe? Pobierz kod jako PNG lub SVG. Znajdziesz go też w Moje kody QR.",
@@ -1445,7 +1448,9 @@
       "billing": "Przejdź do Moje konto > Dane do faktury. Wybierz Firma lub Osoba prywatna i uzupełnij dane. NIP nie jest wymagany.",
       "data": "W Moje konto > Moje dane pobierzesz wszystko, co o Tobie przechowujemy. Tam możesz też usunąć konto.\nUwaga: usunięte zostaną wszystkie kody QR, pliki i statystyki, a wydrukowane kody przestaną działać.",
       "price": "W fazie testów Optimasys QR jest darmowy. Swój plan zobaczysz w Moje konto > Plan i faktury.",
-      "unique": "Skany: każde zeskanowanie Twojego kodu QR się liczy. Jeśli jedna osoba zeskanuje trzy razy, to 3 skany.\nUnikalne skany: ile różnych osób zeskanowało kod. Każda osoba liczy się tylko raz dziennie na kod QR. Te trzy skany tej samej osoby w jednym dniu to więc 1 unikalny skan.\nPrzykład: 10 klientów skanuje Twoje menu, a 2 z nich skanują je później ponownie. Zobaczysz 12 skanów i 10 unikalnych skanów.\nRozpoznajemy osobę bez plików cookie i bez zapisywania adresów IP, tylko jako tymczasowe liczenie na dzień."
+      "unique": "Skany: każde zeskanowanie Twojego kodu QR się liczy. Jeśli jedna osoba zeskanuje trzy razy, to 3 skany.\nUnikalne skany: ile różnych osób zeskanowało kod. Każda osoba liczy się tylko raz dziennie na kod QR. Te trzy skany tej samej osoby w jednym dniu to więc 1 unikalny skan.\nPrzykład: 10 klientów skanuje Twoje menu, a 2 z nich skanują je później ponownie. Zobaczysz 12 skanów i 10 unikalnych skanów.\nRozpoznajemy osobę bez plików cookie i bez zapisywania adresów IP, tylko jako tymczasowe liczenie na dzień.",
+      "dynamic": "Dynamiczny kod QR zawiera krótki link do nas. Dzięki temu zawsze możesz zmienić cel, nawet po wydrukowaniu, a my liczymy skany.\nKody Wi-Fi i vCard są celowo statyczne: działają bez internetu, ale nie liczą skanów i nie można ich zmienić po wydrukowaniu.",
+      "size": "Co najmniej około 2 × 2 cm do skanowania z bliska. Zasada: kod ma około jednej dziesiątej odległości skanowania (czyli około 30 cm przy 3 metrach).\nZostaw pusty margines wokół kodu i zawsze przetestuj go dwoma telefonami przed drukiem."
     }
   },
   "cust": {

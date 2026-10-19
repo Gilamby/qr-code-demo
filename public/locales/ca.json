@@ -1049,7 +1049,8 @@
     "tab_when": "Quan",
     "tabsLabel": "Parts de les estadístiques",
     "peak": "Pic",
-    "hourShort": "Hora"
+    "hourShort": "Hora",
+    "excel": "Exporta (Excel)"
   },
   "auth": {
     "loginTitle": "Hola de nou",
@@ -1367,11 +1368,10 @@
     "topic": "Tema",
     "chooseTopic": "Tria un tema",
     "topics": {
-      "question": "Pregunta",
-      "problem": "Alguna cosa no funciona",
-      "idea": "Idea o suggeriment",
-      "billing": "Pla o factura",
-      "other": "Una altra cosa"
+      "problem": "Errors i problemes tècnics",
+      "billing": "Factura i pagament",
+      "idea": "Comentaris o suggeriments",
+      "other": "Altres"
     },
     "message": "Missatge",
     "messagePlaceholder": "Explica'ns amb tant detall com puguis de què es tracta.",
@@ -1398,8 +1398,9 @@
     "filter": "Tema",
     "cats": {
       "all": "Totes",
-      "start": "Primers passos",
-      "codes": "Codis QR",
+      "basics": "Conceptes bàsics",
+      "design": "Dissenyar i crear",
+      "scan": "Escanejar i imprimir",
       "stats": "Escanejos i estadístiques",
       "account": "Compte i pla"
     },
@@ -1430,7 +1431,9 @@
       "billing": "On introdueixo les dades de facturació?",
       "data": "Com baixo les meves dades o elimino el compte?",
       "price": "Quant costa Optimasys QR?",
-      "unique": "Quina diferència hi ha entre escanejos i escanejos únics?"
+      "unique": "Quina diferència hi ha entre escanejos i escanejos únics?",
+      "dynamic": "Què és un codi QR dinàmic?",
+      "size": "De quina mida imprimeixo el meu codi QR?"
     },
     "a": {
       "make": "A Crea un codi QR, tria un tipus, per exemple Lloc web. Després omple el contingut i tria un disseny. Veuràs de seguida com queda en un mòbil.\nJa està? Baixa el codi en PNG o SVG. També el trobaràs a Els meus codis QR.",
@@ -1445,7 +1448,9 @@
       "billing": "Ves a El meu compte > Dades de facturació. Tria Empresa o Particular i omple les teves dades. El número d'IVA és opcional.",
       "data": "A El meu compte > Les meves dades pots baixar tot el que desem sobre tu. També hi pots eliminar el compte.\nAtenció: això esborra tots els teus codis QR, fitxers i estadístiques, i els codis impresos deixen de funcionar.",
       "price": "Optimasys QR és gratuït durant la fase de proves. Pots veure el teu pla a El meu compte > Pla i factures.",
-      "unique": "Escanejos: cada vegada que algú escaneja el teu codi QR, compta. Si una persona l'escaneja tres vegades, són 3 escanejos.\nEscanejos únics: quantes persones diferents l'han escanejat. Cada persona compta només un cop al dia per codi QR. Així, aquests tres escanejos de la mateixa persona en un dia són 1 escaneig únic.\nExemple: 10 clients escanegen la teva carta i 2 d'ells la tornen a escanejar més tard. Llavors veus 12 escanejos i 10 escanejos únics.\nReconeixem una persona sense galetes i sense desar adreces IP, només com a recompte temporal per dia."
+      "unique": "Escanejos: cada vegada que algú escaneja el teu codi QR, compta. Si una persona l'escaneja tres vegades, són 3 escanejos.\nEscanejos únics: quantes persones diferents l'han escanejat. Cada persona compta només un cop al dia per codi QR. Així, aquests tres escanejos de la mateixa persona en un dia són 1 escaneig únic.\nExemple: 10 clients escanegen la teva carta i 2 d'ells la tornen a escanejar més tard. Llavors veus 12 escanejos i 10 escanejos únics.\nReconeixem una persona sense galetes i sense desar adreces IP, només com a recompte temporal per dia.",
+      "dynamic": "Un codi QR dinàmic conté un enllaç curt cap a nosaltres. Per això sempre pots canviar la destinació, fins i tot després d'imprimir-lo, i comptem els escanejos.\nWi-Fi i vCard són estàtics a propòsit: funcionen sense internet, però no compten escanejos i no es poden canviar després d'imprimir-los.",
+      "size": "Com a mínim uns 2 × 2 cm per escanejar de prop. Regla pràctica: el codi fa una desena part de la distància d'escaneig (uns 30 cm a 3 metres).\nDeixa un marge buit al voltant del codi i prova sempre amb dos telèfons abans d'imprimir."
     }
   },
   "cust": {

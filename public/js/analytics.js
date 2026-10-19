@@ -411,6 +411,46 @@ var Analytics = (function () {
     });
   }
 
+  /* Export naar Excel (.xlsx): dezelfde gegevens als de CSV, als echt Excel-bestand (KB Q101, Q110).
+     Klein, zonder extra bibliotheek: CSV lezen en een minimaal werkboek in een ZIP zetten. */
+  function parseCsv(text) {
+    var rows = [], row = [], cell = '', q = false;
+    text = text.replace(/^\uFEFF/, '');
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; continue; }
+      if (ch === '"') q = true;
+      else if (ch === ',' || ch === ';') { row.push(cell); cell = ''; }
+      else if (ch === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+      else if (ch !== '\r') cell += ch;
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+  function xlsx(rows) {
+    var x = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+    var col = function (n) { var s = ''; n++; while (n) { var m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; };
+    var sheet = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>' +
+      rows.map(function (r, ri) { return '<row r="' + (ri + 1) + '">' + r.map(function (v, ci) { var ref = col(ci) + (ri + 1);
+        return ri && /^-?\d+(\.\d+)?$/.test(v) ? '<c r="' + ref + '"><v>' + v + '</v></c>' : '<c r="' + ref + '" t="inlineStr"><is><t xml:space="preserve">' + x(v) + '</t></is></c>'; }).join('') + '</row>'; }).join('') +
+      '</sheetData></worksheet>';
+    var f = function (name, text) { return { name: name, blob: new Blob([text], { type: 'application/xml' }) }; };
+    return CodeUtil.zip([
+      f('[Content_Types].xml', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>'),
+      f('_rels/.rels', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'),
+      f('xl/workbook.xml', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Scans" sheetId="1" r:id="rId1"/></sheets></workbook>'),
+      f('xl/_rels/workbook.xml.rels', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>'),
+      f('xl/worksheets/sheet1.xml', sheet)
+    ]).then(function (b) { return new Blob([b], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }); });
+  }
+  function exportXlsx() {
+    api.analyticsCsv(query()).then(function (r) {
+      return r.url ? fetch(r.url, { credentials: 'same-origin' }).then(function (x) { if (!x.ok) throw new Error(); return x.text(); }) : r.text;
+    }).then(function (text) { return xlsx(parseCsv(text)); })
+      .then(function (b) { saveFile(b, 'statistieken-' + (range().from || 'alles') + '.xlsx'); })
+      .catch(function () {});
+  }
+
   /* ---------- Bediening ---------- */
   view.addEventListener('change', function (e) {
     var el = e.target;
@@ -434,6 +474,7 @@ var Analytics = (function () {
     if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return drawTab(); }
     if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return drawTab(); }
     if (e.target.closest('#anExport')) return exportCsv();
+    if (e.target.closest('#anXlsx')) return exportXlsx();
     if (e.target.closest('#anReport')) return report();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
   });
@@ -442,7 +483,7 @@ var Analytics = (function () {
   body.addEventListener('pointerleave', unhover, true);
   addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(function () { if (!view.hidden && data && data.series) { lineChart(grouped(data.series)); fit(); } }, 80); });
 
-  function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); var rp = document.getElementById('anReport'); if (rp) rp.innerHTML = ico('dl') + t('an.report'); }
+  function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); var xb = document.getElementById('anXlsx'); if (xb) xb.innerHTML = ico('dl') + t('an.excel'); var rp = document.getElementById('anReport'); if (rp) rp.innerHTML = ico('dl') + t('an.report'); }
   /* Rapport: de pagina netjes afdrukken; in het afdrukvenster kies je "Opslaan als PDF" */
   function report() {
     document.body.classList.add('an-printing'); printAll = true; if (data) drawTab();

@@ -1049,7 +1049,8 @@
     "tab_when": "Quand",
     "tabsLabel": "Parties des statistiques",
     "peak": "Pic",
-    "hourShort": "Heure"
+    "hourShort": "Heure",
+    "excel": "Exporter (Excel)"
   },
   "auth": {
     "loginTitle": "Bon retour",
@@ -1367,11 +1368,10 @@
     "topic": "Sujet",
     "chooseTopic": "Choisir un sujet",
     "topics": {
-      "question": "Question",
-      "problem": "Quelque chose ne marche pas",
-      "idea": "Idée ou souhait",
-      "billing": "Abonnement ou facture",
-      "other": "Autre chose"
+      "problem": "Bugs et problèmes techniques",
+      "billing": "Facture et paiement",
+      "idea": "Avis ou suggestions",
+      "other": "Autre"
     },
     "message": "Message",
     "messagePlaceholder": "Expliquez le plus précisément possible de quoi il s’agit.",
@@ -1398,8 +1398,9 @@
     "filter": "Sujet",
     "cats": {
       "all": "Tout",
-      "start": "Bien démarrer",
-      "codes": "codes QR",
+      "basics": "Notions de base",
+      "design": "Concevoir et créer",
+      "scan": "Scanner et imprimer",
       "stats": "Scans et statistiques",
       "account": "Compte et abonnement"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Où saisir mes informations de facturation ?",
       "data": "Comment télécharger mes données ou supprimer mon compte ?",
       "price": "Combien coûte Optimasys QR ?",
-      "unique": "Quelle est la différence entre scans et scans uniques ?"
+      "unique": "Quelle est la différence entre scans et scans uniques ?",
+      "dynamic": "Qu'est-ce qu'un QR code dynamique ?",
+      "size": "Quelle taille pour imprimer mon QR code ?"
     },
     "a": {
       "make": "Dans Créer un code QR, choisissez un type, par exemple Site web. Remplissez ensuite le contenu et choisissez un design. Vous voyez tout de suite le rendu sur un téléphone.\nTerminé ? Téléchargez votre code en PNG ou SVG. Vous le retrouverez aussi dans Mes codes QR.",
@@ -1445,7 +1448,9 @@
       "billing": "Allez dans Mon compte > Informations de facturation. Choisissez Entreprise ou Particulier et remplissez vos informations. Le numéro de TVA est facultatif.",
       "data": "Dans Mon compte > Mes données, téléchargez tout ce que nous conservons sur vous. Vous pouvez aussi y supprimer votre compte.\nAttention : tous vos codes QR, fichiers et statistiques sont alors effacés, et les codes imprimés ne fonctionnent plus.",
       "price": "Optimasys QR est gratuit pendant la phase de test. Votre abonnement s’affiche dans Mon compte > Abonnement et factures.",
-      "unique": "Scans : chaque fois que quelqu’un scanne votre QR code, cela compte. Si une personne scanne trois fois, cela fait 3 scans.\nScans uniques : combien de personnes différentes ont scanné. Chaque personne compte une seule fois par jour et par QR code. Ces trois scans de la même personne le même jour font donc 1 scan unique.\nExemple : 10 clients scannent votre menu et 2 d’entre eux le scannent encore plus tard. Vous voyez alors 12 scans et 10 scans uniques.\nNous reconnaissons une personne sans cookies et sans conserver d’adresse IP, uniquement sous forme de comptage temporaire par jour."
+      "unique": "Scans : chaque fois que quelqu’un scanne votre QR code, cela compte. Si une personne scanne trois fois, cela fait 3 scans.\nScans uniques : combien de personnes différentes ont scanné. Chaque personne compte une seule fois par jour et par QR code. Ces trois scans de la même personne le même jour font donc 1 scan unique.\nExemple : 10 clients scannent votre menu et 2 d’entre eux le scannent encore plus tard. Vous voyez alors 12 scans et 10 scans uniques.\nNous reconnaissons une personne sans cookies et sans conserver d’adresse IP, uniquement sous forme de comptage temporaire par jour.",
+      "dynamic": "Un QR code dynamique contient un lien court vers nous. Vous pouvez donc toujours changer la destination, même après l'impression, et nous comptons les scans.\nLes codes Wi-Fi et vCard sont volontairement statiques : ils fonctionnent sans internet, mais ne comptent pas les scans et ne peuvent plus être modifiés après l'impression.",
+      "size": "Au moins environ 2 × 2 cm pour un scan de près. Règle simple : le code fait environ un dixième de la distance de scan (donc environ 30 cm à 3 mètres).\nLaissez une marge vide autour du code et testez toujours avec deux téléphones avant d'imprimer."
     }
   },
   "cust": {

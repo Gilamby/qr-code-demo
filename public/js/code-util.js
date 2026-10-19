@@ -137,5 +137,5 @@ var CodeUtil = (function () {
     users: '<g class="hx-p1"><circle cx="9" cy="8" r="3.4"/><path d="M2.8 19.5c.9-3.4 3.3-5.3 6.2-5.3s5.3 1.9 6.2 5.3"/></g><g class="hx-p2"><circle cx="16.8" cy="9" r="2.6"/><path d="M16.6 14.3c2.3.2 4 1.9 4.6 4.6"/></g>'
   };
   function tileIcon(k) { return '<svg class="hm-i hx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (TILE[k] || '') + '</svg>'; }
-  return { isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, print: print, share: share, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
+  return { isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, print: print, share: share, zip: zip, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
 })();

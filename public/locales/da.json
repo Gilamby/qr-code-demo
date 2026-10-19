@@ -1049,7 +1049,8 @@
     "tab_when": "Hvornår",
     "tabsLabel": "Dele af statistikken",
     "peak": "Top",
-    "hourShort": "Time"
+    "hourShort": "Time",
+    "excel": "Eksportér (Excel)"
   },
   "auth": {
     "loginTitle": "Velkommen tilbage",
@@ -1367,11 +1368,10 @@
     "topic": "Emne",
     "chooseTopic": "Vælg et emne",
     "topics": {
-      "question": "Spørgsmål",
-      "problem": "Noget virker ikke",
-      "idea": "Idé eller ønske",
-      "billing": "Abonnement eller faktura",
-      "other": "Noget andet"
+      "problem": "Fejl og tekniske problemer",
+      "billing": "Faktura og betaling",
+      "idea": "Feedback eller forslag",
+      "other": "Andet"
     },
     "message": "Besked",
     "messagePlaceholder": "Fortæl os så præcist som muligt, hvad det drejer sig om.",
@@ -1398,8 +1398,9 @@
     "filter": "Emne",
     "cats": {
       "all": "Alle",
-      "start": "Kom godt i gang",
-      "codes": "QR-koder",
+      "basics": "Grundbegreber",
+      "design": "Design og oprettelse",
+      "scan": "Scanning og print",
       "stats": "Scanninger og statistik",
       "account": "Konto og abonnement"
     },
@@ -1430,7 +1431,9 @@
       "billing": "Hvor indtaster jeg mine faktureringsoplysninger?",
       "data": "Hvordan downloader jeg mine data eller sletter min konto?",
       "price": "Hvad koster Optimasys QR?",
-      "unique": "Hvad er forskellen på scanninger og unikke scanninger?"
+      "unique": "Hvad er forskellen på scanninger og unikke scanninger?",
+      "dynamic": "Hvad er en dynamisk QR-kode?",
+      "size": "Hvor stor skal jeg printe min QR-kode?"
     },
     "a": {
       "make": "I Opret QR-kode vælger du en type, fx Hjemmeside. Derefter udfylder du indholdet og vælger et design. Du ser med det samme, hvordan det ser ud på en telefon.\nFærdig? Download din kode som PNG eller SVG. Du finder den også under Mine QR-koder.",
@@ -1445,7 +1448,9 @@
       "billing": "Gå til Min konto > Faktureringsoplysninger. Vælg Virksomhed eller Privatperson, og udfyld dine oplysninger. Momsnummer er valgfrit.",
       "data": "Under Min konto > Mine data kan du downloade alt, vi gemmer om dig. Der kan du også slette din konto.\nBemærk: det sletter alle dine QR-koder, filer og al statistik, og trykte koder holder op med at virke.",
       "price": "Optimasys QR er gratis i testfasen. Du kan se dit abonnement under Min konto > Abonnement og fakturaer.",
-      "unique": "Scanninger: hver gang nogen scanner din QR-kode, tæller det. Scanner én person tre gange, er det 3 scanninger.\nUnikke scanninger: hvor mange forskellige personer der har scannet. Hver person tæller kun én gang om dagen pr. QR-kode. De tre scanninger fra samme person på én dag er altså 1 unik scanning.\nEksempel: 10 kunder scanner dit menukort, og 2 af dem scanner det igen senere. Så ser du 12 scanninger og 10 unikke scanninger.\nVi genkender en person uden cookies og uden at gemme IP-adresser, kun som en midlertidig optælling pr. dag."
+      "unique": "Scanninger: hver gang nogen scanner din QR-kode, tæller det. Scanner én person tre gange, er det 3 scanninger.\nUnikke scanninger: hvor mange forskellige personer der har scannet. Hver person tæller kun én gang om dagen pr. QR-kode. De tre scanninger fra samme person på én dag er altså 1 unik scanning.\nEksempel: 10 kunder scanner dit menukort, og 2 af dem scanner det igen senere. Så ser du 12 scanninger og 10 unikke scanninger.\nVi genkender en person uden cookies og uden at gemme IP-adresser, kun som en midlertidig optælling pr. dag.",
+      "dynamic": "En dynamisk QR-kode indeholder et kort link til os. Derfor kan du altid ændre destinationen, også efter print, og vi tæller scanningerne.\nWi-Fi og vCard er bevidst statiske: de virker uden internet, men tæller ikke scanninger og kan ikke ændres efter print.",
+      "size": "Mindst cirka 2 × 2 cm til scanning tæt på. Tommelfingerregel: koden er cirka en tiendedel af scanningsafstanden (cirka 30 cm ved 3 meter).\nLad en tom kant være om koden, og test altid med to telefoner før print."
     }
   },
   "cust": {
