@@ -488,7 +488,7 @@ var MyCodes = (function () {
       checked = old; kind = null; var no = ++checkNo, host = hostOf(old);
       box.className = 'imp-check'; box.innerHTML = '<p>' + t('imp.checking') + '</p>'; box.hidden = false; go.disabled = true;
       // Bekende QR-diensten zijn altijd dynamisch; anders kijken of de link doorstuurt naar een ander domein
-      var known = /(^|\.)(qr-code\.io|qrco\.de|qr\.io|qrfy\.com|me-qr\.com|qrcodechimp\.com|l\.ead\.me|scnv\.io|qr\.codes|qrs\.ly|uqr\.me|qr1\.be|bit\.ly|tinyurl\.com|rebrand\.ly|ow\.ly|flowcode\.com|qr\.link|qrgo\.page)$/i.test(host);
+      var known = /(^|\.)(qr-code\.io|scan\.page|qrco\.de|qr\.io|qrfy\.com|me-qr\.com|qrcodechimp\.com|l\.ead\.me|scnv\.io|qr\.codes|qrs\.ly|uqr\.me|qr1\.be|bit\.ly|tinyurl\.com|rebrand\.ly|ow\.ly|flowcode\.com|qr\.link|qrgo\.page)$/i.test(host);
       (known ? Promise.resolve(null) : api.urlInfo(old).catch(function () { return null; })).then(function (info) {
         if (no !== checkNo) return;
         var to = info && info.ok && info.finalUrl ? hostOf(info.finalUrl) : '';
