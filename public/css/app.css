@@ -4322,3 +4322,17 @@ body.an-printing #anRange { display: block; }
 .mf-find { display: inline-flex; align-items: center; gap: 6px; flex: 0 1 220px; height: 34px; margin: 0; padding: 0 12px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(0,0,0,.18); }
 .mf-find svg { width: 15px; height: 15px; color: var(--muted); flex: none; }
 .mf-find input { flex: 1; min-width: 0; border: 0; background: none; color: var(--fg); font: inherit; font-size: 14px; outline: none; }
+
+/* Overzetten: controle statisch (tegenhouden) of dynamisch (oude account blijft nodig, bevestigen) */
+.imp-check { margin: 4px 0 6px; padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); font-size: 14px; }
+.imp-check p { margin: 6px 0 0; color: var(--fg); line-height: 1.5; }
+.imp-check > p:first-child { margin: 0; color: var(--muted); }
+.imp-check b { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+.imp-check b svg { width: 18px; height: 18px; flex: none; }
+.imp-check.warn { border-color: rgba(245,158,11,.55); background: rgba(245,158,11,.10); }
+.imp-check.warn b { color: #fbbf24; }
+.imp-check.stop { border-color: rgba(239,68,68,.55); background: rgba(239,68,68,.10); }
+.imp-check.stop b { color: #f87171; }
+.imp-check .btn { margin-top: 10px; }
+.imp-ack { display: flex; align-items: flex-start; gap: 10px; margin-top: 10px; font-weight: 700; cursor: pointer; }
+.imp-ack input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: #f59e0b; }

@@ -456,11 +456,50 @@ var MyCodes = (function () {
       '<ol class="lg-steps"><li><b>' + t('imp.step1') + '</b>' + pickerHtml('') + '</li>' +
       '<li><b>' + t('imp.step2') + '</b><small>' + t('imp.step2Hint') + '</small><input name="dest" type="url" inputmode="url" spellcheck="false" maxlength="2000" placeholder="https://…"></li>' +
       '<li><b>' + t('imp.name') + '</b><input name="nm" type="text" maxlength="80" placeholder="' + esc(t('imp.namePh')) + '"></li></ol>' +
+      '<div class="imp-check" data-imp-check hidden></div>' +
       '<p class="acct-msg bad" data-lg-msg hidden role="alert"></p>' +
       '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel" formnovalidate>' + t('myCodes.cancel') + '</button><button type="button" class="btn primary" data-imp-go>' + t('imp.go') + '</button></div></form>';
-    var f = dialog.querySelector('form'), msg = f.querySelector('[data-lg-msg]'), go = f.querySelector('[data-imp-go]');
+    var f = dialog.querySelector('form'), msg = f.querySelector('[data-lg-msg]'), go = f.querySelector('[data-imp-go]'), box = f.querySelector('[data-imp-check]');
     wirePicker(f, msg);
-    f.addEventListener('qrread', function () { if (!f.dest.value) f.dest.focus(); });
+    /* Controle: loopt de geprinte code via een QR-dienst (dynamisch) of staat de website er direct in (statisch)?
+       Statisch: overzetten kan niet (de code gaat nooit langs ons), dus tegenhouden.
+       Dynamisch: de geprinte code blijft afhangen van het oude account. Dat moet de klant zien en bevestigen,
+       anders zegt hij het oude account op en werkt de geprinte code ineens niet meer. */
+    var kind = null, checked = '', checkNo = 0;
+    function hostOf(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
+    function showCheck() {
+      var old = f.old.value.trim(), host = hostOf(old);
+      if (!host) { box.hidden = true; kind = null; return; }
+      if (kind === 'static') {
+        box.className = 'imp-check stop'; go.disabled = true;
+        box.innerHTML = '<b>' + ico('x') + t('imp.staticTitle') + '</b><p>' + esc(t('imp.static', { host: host })) + '</p>' +
+          '<button type="button" class="btn ghost sm" data-imp-new>' + ico('plus') + '<span>' + t('imp.staticNew') + '</span></button>';
+      } else {
+        box.className = 'imp-check warn'; go.disabled = false;
+        box.innerHTML = '<b>' + ico('lock') + t('imp.warnTitle') + '</b><p>' + esc(t('imp.warn', { host: host })) + '</p>' +
+          '<label class="imp-ack"><input type="checkbox" data-imp-ack><span>' + esc(t('imp.ack', { host: host })) + '</span></label>';
+      }
+      box.hidden = false;
+    }
+    function check() {
+      var old = f.old.value.trim();
+      if (!/^https?:\/\/\S{3,}$/i.test(old)) { box.hidden = true; kind = null; checked = ''; go.disabled = false; return; }
+      if (old === checked) return;
+      checked = old; kind = null; var no = ++checkNo, host = hostOf(old);
+      box.className = 'imp-check'; box.innerHTML = '<p>' + t('imp.checking') + '</p>'; box.hidden = false; go.disabled = true;
+      // Bekende QR-diensten zijn altijd dynamisch; anders kijken of de link doorstuurt naar een ander domein
+      var known = /(^|\.)(qr-code\.io|qrco\.de|qr\.io|qrfy\.com|me-qr\.com|qrcodechimp\.com|l\.ead\.me|scnv\.io|qr\.codes|qrs\.ly|uqr\.me|qr1\.be|bit\.ly|tinyurl\.com|rebrand\.ly|ow\.ly|flowcode\.com|qr\.link|qrgo\.page)$/i.test(host);
+      (known ? Promise.resolve(null) : api.urlInfo(old).catch(function () { return null; })).then(function (info) {
+        if (no !== checkNo) return;
+        var to = info && info.ok && info.finalUrl ? hostOf(info.finalUrl) : '';
+        kind = !known && to && to === host ? 'static' : 'dynamic';   // niet te controleren: voor de zekerheid als dynamisch (met waarschuwing)
+        showCheck();
+      });
+    }
+    f.addEventListener('qrread', function () { check(); if (!f.dest.value) f.dest.focus(); });
+    f.old.addEventListener('change', check);
+    f.old.addEventListener('blur', check);
+    box.addEventListener('click', function (e) { if (e.target.closest('[data-imp-new]')) { dialog.close(); startNew(); } });
     var err = function (key, el) { msg.textContent = t(key); msg.hidden = false; go.disabled = false; if (el) el.focus(); };
     var done = function (rec) {
       dialog.querySelector('form').innerHTML = '<span class="mc-dlg-ic mf-ic">' + ico('check') + '</span><h3>' + t('imp.doneTitle') + '</h3><p>' + t('imp.doneLead') + '</p>' +
@@ -474,6 +513,10 @@ var MyCodes = (function () {
       var old = f.old.value.trim(), dest = f.dest.value.trim(), nm = f.nm.value.trim();
       if (!/^https?:\/\/\S{3,}$/i.test(old)) return err('legacy.bad', f.old);
       if (!/^https?:\/\/[^\s/]+\.[^\s]+$/i.test(dest)) return err('imp.badDest', f.dest);
+      if (old !== checked || !kind) { check(); return; }                          // eerst de controle afmaken
+      if (kind === 'static') return;
+      var ack = f.querySelector('[data-imp-ack]');
+      if (!ack || !ack.checked) { msg.textContent = t('imp.needAck'); msg.hidden = false; if (ack) ack.focus(); return; }
       go.disabled = true;
       var step = made ? Promise.resolve(made) : api.createQrCode({ id: newDraftId(), typeId: 'website', content: { url: dest }, design: Object.assign({}, QR_DEFAULT_DESIGN), name: nm || undefined, folderId: folderOf(filter.folder) ? filter.folder : null })
         .then(function (rec) { made = rec; return rec; });
