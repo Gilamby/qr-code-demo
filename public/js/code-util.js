@@ -21,7 +21,7 @@ var CodeUtil = (function () {
   function qrDesign(r) { var d = Object.assign({}, QR_DEFAULT_DESIGN, r.design); delete d.pageColor; delete d.accentColor; return safeDesign(d); }
   function qrSvg(r, opts) { return QRRender.svg(qrData(r), qrDesign(r), opts); }
   // Bestandsnaam = de naam van de QR-code, zoals hij in de app heet (alleen tekens die een bestandsnaam niet mag, gaan eruit)
-  function fileName(r) { return displayName(r).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 80) || ('QR ' + (r.typeId || 'code')); }
+  function fileName(r) { return displayName(r).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, ' ').trim().replace(/\s+/g, '_').slice(0, 80) || ('QR_' + (r.typeId || 'code')); }   // spaties worden underscores (wens Geert)
   /* ---------- Downloaden: PNG, JPG, WebP, SVG, PDF (A4, om af te drukken) in verschillende maten ---------- */
   var FORMATS = ['png', 'jpg', 'webp', 'svg', 'pdf', 'eps'];
   var SIZES = [512, 1024, 2048, 4096];
