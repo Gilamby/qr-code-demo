@@ -13,6 +13,7 @@ var Team = (function () {
     busy = true;
     Promise.all([api.team.get(), api.team.log().catch(function () { return { log: [] }; })]).then(function (r) {
       busy = false; info = r[0]; log = r[1].log || []; apply(); redraw();
+      document.dispatchEvent(new CustomEvent('team-loaded'));          // Mijn account: tab Team tonen of verbergen
     }).catch(function () { busy = false; info = { error: true }; redraw(); });
   }
   // Lid van een team: banner en (bij kijker) geen maak-knoppen
@@ -86,5 +87,5 @@ var Team = (function () {
   document.addEventListener('team-viewer', function () { alert(t('team.viewerBlocked')); });
   setTimeout(function () { if (window.Session && Session.onUser) Session.onUser(function () { info = null; log = null; load(); }); }, 0);
   if (window.i18n) i18n.onChange(apply);
-  return { html: html, load: function () { info = null; load(); }, ensure: function () { if (!info) load(); }, member: function () { return info && info.member; } };
+  return { html: html, load: function () { info = null; load(); }, ensure: function () { if (!info) load(); }, visible: function () { return !!(info && (info.member || info.canTeam || (info.members && info.members.length))); }, member: function () { return info && info.member; } };
 })();

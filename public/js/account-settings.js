@@ -60,7 +60,7 @@
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
   function isMember() { return !!(window.Team && Team.member()); }
-  function shown(id) { return (id !== 'delete' || canDelete()) && !(isMember() && (id === 'billing' || id === 'plan')) && !(id === 'team' && user && user.admin); }
+  function shown(id) { return (id !== 'delete' || canDelete()) && !(isMember() && (id === 'billing' || id === 'plan')) && !(id === 'team' && (user && user.admin || !(window.Team && Team.visible()))); }   // Team: alleen bij Pro/Business of als je lid bent
   function tabIds() { return ALL_TABS.filter(shown); }
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
@@ -487,6 +487,7 @@
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
   }
   window.openAccountTab = function (id) { open(id); };
+  document.addEventListener('team-loaded', function () { if (user && menu.innerHTML) drawMenu(); });
 
   function err(e) { return e && e.code === 'wrong' ? t('acct.wrongCurrent') : e && PasswordRules.errorKey(e.code) ? t(PasswordRules.errorKey(e.code)) : e && e.code === 'too_many' ? t('auth.errTooMany') : t('auth.errGeneral'); }
   function readBilling(f) { BILLING_KEYS.forEach(function (k) { if (f.elements[k]) draft[k] = f.elements[k].value; }); }
