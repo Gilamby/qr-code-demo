@@ -1183,7 +1183,7 @@
     "planFree": "Gratuït",
     "planFreeLead": "Fas servir Optimasys QR gratuïtament durant la fase de proves.",
     "planF1": "Codis QR il·limitats",
-    "planF2": "Els 16 tipus de codis QR",
+    "planF2": "Els 17 tipus de codis QR",
     "planF3": "Estadístiques per país, ciutat i sistema",
     "planF4": "Disseny, colors i logotip propis",
     "planNote": "Els plans de pagament encara no estan disponibles.",
@@ -1451,7 +1451,7 @@
     },
     "a": {
       "make": "A Crea un codi QR, tria un tipus, per exemple Lloc web. Després omple el contingut i tria un disseny. Veuràs de seguida com queda en un mòbil.\nJa està? Baixa el codi en PNG o SVG. També el trobaràs a Els meus codis QR.",
-      "types": "Hi ha 16 tipus, des d'un lloc web o un PDF fins a una carta, un cupó o la Wi-Fi. Els veuràs tots al primer pas de Crea un codi QR.",
+      "types": "Hi ha 17 tipus, des d'un lloc web o un PDF fins a una carta, un cupó o la Wi-Fi. Els veuràs tots al primer pas de Crea un codi QR.",
       "edit": "Sí. La majoria de tipus posen un enllaç curt al codi QR. Si canvies el contingut, el codi continua igual i no cal tornar a imprimir res.\nExcepció: Wi-Fi i vCard. El seu contingut és dins del mateix codi, així que després d'un canvi fas servir el codi nou.",
       "format": "PNG és una imatge normal. Pràctic per a webs, correu, Word i PowerPoint.\nSVG sempre es veu nítid, per gran que el facis. Tria SVG per imprimir, com ara fullets, cartells i envasos.",
       "scanFix": "Assegura't que hi hagi prou contrast entre el codi i el fons: fosc sobre clar és el que funciona millor. Imprimeix el codi com a mínim de 2 per 2 cm, i més gran si l'escanegen de més lluny.\nFes el logotip petit i deixa una mica d'espai al voltant del codi. Prova sempre el codi amb el teu mòbil abans d'imprimir-lo.",
@@ -2345,6 +2345,10 @@
     "admEnd": "O fixa tu la data de fi",
     "admNote": "Mentre els pagaments no passin per Stripe, l'equip fixa aquí el període pagat.",
     "admNoPeriod": "Sense període de pagament",
-    "admSaved": "Pagament desat."
+    "admSaved": "Pagament desat.",
+    "barUnpaid": "Benvingut! Tria un pla per crear el teu primer codi QR.",
+    "choose": "Tria un pla",
+    "unpaidMsg": "El teu compte està a punt. Tria un pla a continuació; després podràs crear codis QR de seguida.",
+    "admUnpaid": "Encara no pagat"
   }
 }

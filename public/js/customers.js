@@ -86,7 +86,7 @@
   // Betaalstatus per klant (tot Stripe dit doet zet het team de periode: knop Betaling)
   function subCell(c, canEdit) {
     var sb = c.sub || { state: 'none' }, txt = sb.state === 'active' ? t('sub.admPaid', { date: i18n.fmt.stamp(sb.periodEnd, 'short') })
-      : sb.state === 'grace' ? t('sub.admGrace', { date: i18n.fmt.stamp(sb.graceUntil, 'short') }) : sb.state === 'ended' ? t('sub.admEnded') : t('sub.admNone');
+      : sb.state === 'grace' ? t('sub.admGrace', { date: i18n.fmt.stamp(sb.graceUntil, 'short') }) : sb.state === 'ended' ? t('sub.admEnded') : sb.state === 'unpaid' ? t('sub.admUnpaid') : t('sub.admNone');
     return '<small class="cust-sub sub-st ' + sb.state + '">' + esc(txt) + '</small>' + (canEdit ? '<button type="button" class="link-btn sub-edit" data-sub>' + t('sub.admButton') + '</button>' : '');
   }
   function subDialog(c) {

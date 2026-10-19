@@ -84,12 +84,19 @@
   var main = document.querySelector('.main'); if (main) main.insertBefore(bar, main.children[1] || null);
   function banner() {
     var sb = info && info.sub, st = sb && sb.state;
-    bar.hidden = !(st === 'grace' || st === 'ended');
+    bar.hidden = !(st === 'grace' || st === 'ended' || st === 'unpaid');
+    bar.classList.toggle('sub-info', st === 'unpaid');                // welkom, nog geen abonnement: geen rode alarmbalk
     if (bar.hidden) return;
+    if (st === 'unpaid') { bar.innerHTML = '<b>' + esc(t('sub.barUnpaid')) + '</b> <a href="#" data-sub-go>' + esc(t('sub.choose')) + '</a>'; return; }
     bar.innerHTML = '<b>' + esc(st === 'grace' ? t('sub.barGrace', { date: i18n.fmt.stamp(sb.graceUntil, 'time') }) : t('sub.barEnded')) + '</b> <a href="#" data-sub-go>' + esc(t('sub.renew')) + '</a>';
   }
   bar.addEventListener('click', function (e) { if (e.target.closest('[data-sub-go]')) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); } });
   document.addEventListener('sub-lapsed', load);
+  // Nog geen abonnement: QR-code maken leidt naar Abonnement kiezen (anders vul je alles in en kun je niet opslaan)
+  document.addEventListener('pagechange', function (e) {
+    if (e.detail !== 'create' || !info || !info.sub || info.sub.state !== 'unpaid') return;
+    setTimeout(function () { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); }, 0);
+  });
   // Link uit de mail: ?go=plan opent na het inloggen meteen Abonnement
   var goPlan = /[?&]go=plan\b/.test(location.search);
   var goCodes = /[?&]go=myCodes\b/.test(location.search);           // herinnering oude QR-app: meteen naar Mijn QR-codes

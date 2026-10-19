@@ -1183,7 +1183,7 @@
     "planFree": "Kostenlos",
     "planFreeLead": "Du nutzt Optimasys QR während der Testphase kostenlos.",
     "planF1": "Unbegrenzt QR-Codes erstellen",
-    "planF2": "Alle 16 Arten von QR-Codes",
+    "planF2": "Alle 17 Arten von QR-Codes",
     "planF3": "Statistiken nach Land, Stadt und System",
     "planF4": "Eigenes Design, Farben und Logo",
     "planNote": "Kostenpflichtige Tarife gibt es noch nicht.",
@@ -1451,7 +1451,7 @@
     },
     "a": {
       "make": "Wähle bei QR-Code erstellen eine Art, zum Beispiel Website. Fülle dann den Inhalt aus und wähle ein Design. Du siehst sofort, wie es auf einem Handy aussieht.\nFertig? Lade deinen Code als PNG oder SVG herunter. Du findest ihn danach auch unter Meine QR-Codes.",
-      "types": "Es gibt 16 Arten, von einer Website oder PDF bis zu einer Speisekarte, einem Gutschein oder WLAN. Du siehst sie alle im ersten Schritt von QR-Code erstellen.",
+      "types": "Es gibt 17 Arten, von einer Website oder PDF bis zu einer Speisekarte, einem Gutschein oder WLAN. Du siehst sie alle im ersten Schritt von QR-Code erstellen.",
       "edit": "Ja. Bei den meisten Arten steht ein kurzer Link im QR-Code. Änderst du den Inhalt, bleibt der Code gleich und du musst nichts neu drucken.\nAusnahme: WLAN und vCard. Dort steht der Inhalt im Code selbst. Nach einer Änderung nutzt du also den neuen Code.",
       "format": "PNG ist ein normales Bild. Praktisch für Websites, E-Mail, Word und PowerPoint.\nSVG bleibt immer scharf, egal wie groß. Wähle SVG für Drucksachen wie Flyer, Poster und Verpackungen.",
       "scanFix": "Sorge für genug Kontrast zwischen Code und Hintergrund: dunkel auf hell funktioniert am besten. Drucke den Code mindestens 2 × 2 cm groß, größer, wenn aus der Entfernung gescannt wird.\nHalte ein Logo klein und lass etwas Platz um den Code. Teste deinen Code immer mit deinem eigenen Handy, bevor du ihn drucken lässt.",
@@ -2345,6 +2345,10 @@
     "admEnd": "Oder Enddatum selbst festlegen",
     "admNote": "Solange Zahlungen nicht über Stripe laufen, legt das Team hier den bezahlten Zeitraum fest.",
     "admNoPeriod": "Kein Abrechnungszeitraum",
-    "admSaved": "Zahlung gespeichert."
+    "admSaved": "Zahlung gespeichert.",
+    "barUnpaid": "Willkommen! Wähle ein Abo, um deinen ersten QR-Code zu erstellen.",
+    "choose": "Abo wählen",
+    "unpaidMsg": "Dein Konto ist bereit. Wähle unten ein Abo; danach kannst du sofort QR-Codes erstellen.",
+    "admUnpaid": "Noch nicht bezahlt"
   }
 }

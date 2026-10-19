@@ -1183,7 +1183,7 @@
     "planFree": "Gratis",
     "planFreeLead": "Du bruger Optimasys QR gratis i testfasen.",
     "planF1": "Ubegrænset antal QR-koder",
-    "planF2": "Alle 16 typer QR-koder",
+    "planF2": "Alle 17 typer QR-koder",
     "planF3": "Statistik efter land, by og system",
     "planF4": "Dit eget design, farver og logo",
     "planNote": "Betalte abonnementer er ikke tilgængelige endnu.",
@@ -1451,7 +1451,7 @@
     },
     "a": {
       "make": "I Opret QR-kode vælger du en type, fx Hjemmeside. Derefter udfylder du indholdet og vælger et design. Du ser med det samme, hvordan det ser ud på en telefon.\nFærdig? Download din kode som PNG eller SVG. Du finder den også under Mine QR-koder.",
-      "types": "Der er 16 typer, fra en hjemmeside eller PDF til et menukort, en kupon eller Wi-Fi. Du ser dem alle i første trin af Opret QR-kode.",
+      "types": "Der er 17 typer, fra en hjemmeside eller PDF til et menukort, en kupon eller Wi-Fi. Du ser dem alle i første trin af Opret QR-kode.",
       "edit": "Ja. De fleste typer lægger et kort link i QR-koden. Ændrer du indholdet, forbliver koden den samme, og du behøver ikke at trykke noget igen.\nUndtagelse: Wi-Fi og vCard. Deres indhold ligger i selve koden, så efter en ændring bruger du den nye kode.",
       "format": "PNG er et almindeligt billede. Praktisk til hjemmesider, e-mail, Word og PowerPoint.\nSVG forbliver altid skarp, uanset hvor stor du gør den. Vælg SVG til tryk, fx flyers, plakater og emballage.",
       "scanFix": "Sørg for nok kontrast mellem koden og baggrunden: mørk på lys virker bedst. Print koden mindst 2 × 2 cm, og større, hvis folk scanner længere væk fra.\nHold et logo lille, og lad der være lidt plads omkring koden. Test altid din kode med din egen telefon, før du trykker den.",
@@ -2345,6 +2345,10 @@
     "admEnd": "Eller angiv selv slutdatoen",
     "admNote": "Indtil betalinger går gennem Stripe, angiver teamet her den betalte periode.",
     "admNoPeriod": "Ingen betalingsperiode",
-    "admSaved": "Betaling gemt."
+    "admSaved": "Betaling gemt.",
+    "barUnpaid": "Velkommen! Vælg et abonnement for at lave din første QR-kode.",
+    "choose": "Vælg abonnement",
+    "unpaidMsg": "Din konto er klar. Vælg et abonnement nedenfor; så kan du straks lave QR-koder.",
+    "admUnpaid": "Ikke betalt endnu"
   }
 }

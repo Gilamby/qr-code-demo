@@ -5,6 +5,7 @@
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
    - Te veel pogingen = even wachten (429).
    ========================================================= */
+import { saveSub, emptySub } from '../subscription';
 import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
 import { checkCode, readTotp, useRecovery, writeTotp } from './totp';
 import type { Request, Response } from 'express';
@@ -38,6 +39,7 @@ export class AuthController {
     let token: string = null;
     if (!existing) {
       const user = await this.db.createUser({ email, name, passwordHash: await this.auth.hashPassword(b.password) });
+      await saveSub(this.db, user.id, { ...emptySub(), mustPay: true });   // zelf geregistreerd: eerst een abonnement, dan pas codes maken
       token = await this.sendVerifyMail(req, user.id, email, lang);
     } else if (!(await this.db.isVerified(existing.id))) token = await this.sendVerifyMail(req, existing.id, email, lang);   // nog niet bevestigd: nieuwe link
     return { verify: true, email, ...this.demoToken(token) };

@@ -1183,7 +1183,7 @@
     "planFree": "Gratuit",
     "planFreeLead": "Folosești Optimasys QR gratuit în faza de testare.",
     "planF1": "Coduri QR nelimitate",
-    "planF2": "Toate cele 16 tipuri de coduri QR",
+    "planF2": "Toate cele 17 tipuri de coduri QR",
     "planF3": "Statistici pe țară, oraș și sistem",
     "planF4": "Design, culori și logo proprii",
     "planNote": "Abonamentele plătite nu sunt încă disponibile.",
@@ -1451,7 +1451,7 @@
     },
     "a": {
       "make": "În Creează cod QR, alege un tip, de exemplu Site web. Apoi completează conținutul și alege un design. Vezi imediat cum arată pe un telefon.\nGata? Descarcă codul ca PNG sau SVG. Îl găsești și în Codurile mele QR.",
-      "types": "Sunt 16 tipuri, de la site web sau PDF până la meniu, cupon sau Wi-Fi. Le vezi pe toate în primul pas din Creează cod QR.",
+      "types": "Sunt 17 tipuri, de la site web sau PDF până la meniu, cupon sau Wi-Fi. Le vezi pe toate în primul pas din Creează cod QR.",
       "edit": "Da. La majoritatea tipurilor, codul QR conține un link scurt. Dacă modifici conținutul, codul rămâne același și nu trebuie să tipărești nimic din nou.\nExcepție: Wi-Fi și vCard. Conținutul lor se află în codul însuși, așa că după o modificare folosești noul cod.",
       "format": "PNG este o imagine obișnuită. Practic pentru site-uri, e-mail, Word și PowerPoint.\nSVG rămâne mereu clar, oricât de mare l-ai face. Alege SVG pentru tipar, de exemplu fluturași, afișe și ambalaje.",
       "scanFix": "Asigură-te că există suficient contrast între cod și fundal: închis pe deschis funcționează cel mai bine. Tipărește codul la cel puțin 2 × 2 cm și mai mare dacă oamenii scanează de mai departe.\nPăstrează logoul mic și lasă puțin spațiu în jurul codului. Testează-ți mereu codul cu propriul telefon înainte de tipărire.",
@@ -2345,6 +2345,10 @@
     "admEnd": "Sau setează data de final",
     "admNote": "Până când plățile trec prin Stripe, echipa setează aici perioada plătită.",
     "admNoPeriod": "Fără perioadă de plată",
-    "admSaved": "Plata a fost salvată."
+    "admSaved": "Plata a fost salvată.",
+    "barUnpaid": "Bun venit! Alege un abonament ca să creezi primul tău cod QR.",
+    "choose": "Alege un abonament",
+    "unpaidMsg": "Contul tău este gata. Alege un abonament mai jos; apoi poți crea imediat coduri QR.",
+    "admUnpaid": "Neplătit încă"
   }
 }

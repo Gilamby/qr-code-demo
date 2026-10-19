@@ -1183,7 +1183,7 @@
     "planFree": "Free",
     "planFreeLead": "You’re using Optimasys QR for free during the test phase.",
     "planF1": "Unlimited QR codes",
-    "planF2": "All 16 types of QR codes",
+    "planF2": "All 17 types of QR codes",
     "planF3": "Analytics by country, city and system",
     "planF4": "Your own design, colours and logo",
     "planNote": "Paid plans are not available yet.",
@@ -1451,7 +1451,7 @@
     },
     "a": {
       "make": "In Create QR Code, choose a type, for example Website. Then fill in the content and choose a design. You immediately see how it looks on a phone.\nDone? Download your code as PNG or SVG. You’ll also find it in My QR Codes.",
-      "types": "There are 16 types, from a website or PDF to a menu, coupon or Wi-Fi. You see them all in the first step of Create QR Code.",
+      "types": "There are 17 types, from a website or PDF to a menu, coupon or Wi-Fi. You see them all in the first step of Create QR Code.",
       "edit": "Yes. Most types put a short link in the QR code. If you change the content, the code stays the same and you don’t need to print anything again.\nException: Wi-Fi and vCard. Their content is inside the code itself, so after a change you use the new code.",
       "format": "PNG is a normal image. Handy for websites, email, Word and PowerPoint.\nSVG always stays sharp, however large you make it. Choose SVG for print, such as flyers, posters and packaging.",
       "scanFix": "Make sure there is enough contrast between the code and the background: dark on light works best. Print the code at least 2 by 2 cm, and larger if people scan from further away.\nKeep a logo small and leave some space around the code. Always test your code with your own phone before printing.",
@@ -2345,6 +2345,10 @@
     "admEnd": "Or set the end date yourself",
     "admNote": "Until payments run through Stripe, the team sets the paid period here.",
     "admNoPeriod": "No billing period",
-    "admSaved": "Payment saved."
+    "admSaved": "Payment saved.",
+    "barUnpaid": "Welcome! Choose a plan to create your first QR code.",
+    "choose": "Choose a plan",
+    "unpaidMsg": "Your account is ready. Choose a plan below; then you can start creating QR codes right away.",
+    "admUnpaid": "Not paid yet"
   }
 }

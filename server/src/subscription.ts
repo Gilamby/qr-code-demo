@@ -9,6 +9,7 @@
      nooit korter dan 3 dagen. Na 12 maanden zonder te laat betalen begint de teller weer bij 30 dagen.
    - Waarschuwingsmails: bij het begin, 7 dagen voor het einde (als er zoveel tijd is) en 1 dag voor het einde.
    Zonder betaalperiode (testfase, gratis) en voor het team geldt dit niet.
+   Zelf geregistreerd (mustPay): het account bestaat, maar codes maken kan pas na het kiezen en betalen van een abonnement.
    De periode zet nu het team (Beheer > Gebruikers > Betaald); straks doet Stripe dat automatisch.
    Opslag: settings 'sub:<userId>' (JSON).
    ========================================================= */
@@ -24,8 +25,9 @@ export interface Sub {
   lastLapseAt: string | null;    // begin van de laatste keer te laat
   notified: string[];            // verstuurde waarschuwingen in deze bedenktijd: start, week, day
   deletedAt: string | null;      // codes verwijderd na de bedenktijd
+  mustPay?: boolean;             // zelf geregistreerd: eerst een abonnement kiezen en betalen, dan pas codes maken
 }
-export type SubState = 'none' | 'active' | 'grace' | 'ended';
+export type SubState = 'none' | 'unpaid' | 'active' | 'grace' | 'ended';
 
 export const emptySub = (interval: Interval = 'month'): Sub => ({ interval, periodEnd: null, graceUntil: null, lapses: 0, lastLapseAt: null, notified: [], deletedAt: null });
 
@@ -39,6 +41,7 @@ export function nextLapse(s: Sub, at: number): number {
 
 /** Staat op een moment: none (geen betaalperiode), active, grace (codes werken niet, nog te redden), ended (codes verwijderd) */
 export function stateOf(s: Sub | null, now = Date.now()): SubState {
+  if (s && !s.periodEnd && s.mustPay) return 'unpaid';           // nog nooit betaald
   if (!s || !s.periodEnd) return 'none';
   if (now < Date.parse(s.periodEnd)) return 'active';
   if (s.deletedAt) return 'ended';
@@ -58,7 +61,7 @@ export function renew(s: Sub, interval: Interval, now = Date.now()): Sub {
   const from = s.periodEnd && Date.parse(s.periodEnd) > now ? new Date(s.periodEnd) : new Date(now);
   const end = new Date(from);
   if (interval === 'year') end.setUTCFullYear(end.getUTCFullYear() + 1); else end.setUTCMonth(end.getUTCMonth() + 1);
-  return { ...s, interval, periodEnd: end.toISOString(), graceUntil: null, notified: [], deletedAt: null };
+  return { ...s, interval, periodEnd: end.toISOString(), graceUntil: null, notified: [], deletedAt: null, mustPay: false };
 }
 
 /** Wat moet het opruimen nu doen? Pure functie: geeft de nieuwe staat en de acties terug (getest in test/). */
@@ -92,7 +95,11 @@ export async function saveSub(db: Settings, userId: string, s: Sub | null) {
 // Per klant met een betaalperiode: tot wanneer is betaald. Geblokkeerd zodra dat moment voorbij is (meteen, niet pas bij het volgende opruimen).
 const paidUntil = new Map<string, number>();
 export function isBlocked(userId: string, now = Date.now()) { const t = paidUntil.get(userId); return t != null && now >= t; }
-function track(userId: string, s: Sub | null) { if (s && s.periodEnd) paidUntil.set(userId, Date.parse(s.periodEnd)); else paidUntil.delete(userId); }
+function track(userId: string, s: Sub | null) {
+  if (s && s.periodEnd) paidUntil.set(userId, Date.parse(s.periodEnd));
+  else if (s && s.mustPay) paidUntil.set(userId, 0);                  // nog niet betaald: geblokkeerd
+  else paidUntil.delete(userId);
+}
 /** Bij het starten en elk uur: lijst opnieuw opbouwen */
 export function rebuildBlocked(entries: Array<[string, Sub | null]>) { paidUntil.clear(); for (const [id, s] of entries) track(id, s); }
 

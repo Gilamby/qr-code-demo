@@ -4365,3 +4365,4 @@ body.an-printing #anRange { display: block; }
 .sms-input { flex: 1; min-height: 34px; padding: 7px 12px; border: 1px solid #d1d1d6; border-radius: 18px; font-size: 14px; line-height: 1.35; color: #111; word-wrap: break-word; }
 .sms-send { width: 30px; height: 30px; border-radius: 50%; background: #34c759; color: #fff; display: grid; place-items: center; flex: none; }
 .sms-send .i { width: 16px; height: 16px; }
+.sub-bar.sub-info { background: rgba(43,181,240,.14) !important; border-color: rgba(43,181,240,.45) !important; color: var(--fg) !important; }

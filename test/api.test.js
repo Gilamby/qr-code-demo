@@ -36,9 +36,15 @@ function client() {
   };
 }
 // Account maken + bevestigen + inloggen (zoals een echte klant)
-async function signup(c, email, password, name) {
+async function markPaid(email) {
+  const { DatabaseService } = require('../server/dist/database/database.service'), { saveSub } = require('../server/dist/subscription');
+  const db = app.get(DatabaseService), u = await db.userByEmail(email); await saveSub(db, u.id, null);
+}
+// Zelf registreren = eerst betalen. In de tests is een klant standaard al betaald (unpaid: true = net geregistreerd, nog niet betaald).
+async function signup(c, email, password, name, opts = {}) {
   await c('POST', '/api/auth/register', { email, password, name });
   await c('POST', '/api/auth/verify', { token: tokenFor(email) });
+  if (!opts.unpaid) await markPaid(email);
   return c('POST', '/api/auth/login', { email, password });
 }
 const pdf = (s) => JSON.stringify({ n: 'test.pdf', s: s.length, d: 'data:application/pdf;base64,' + Buffer.from(s).toString('base64') });
@@ -61,6 +67,7 @@ test('inloggen en accounts (met e-mailbevestiging)', async () => {
   const tok = tokenFor('a@example.com');
   assert.equal((await a('POST', '/api/auth/verify', { token: tok })).json.email, 'a@example.com');
   assert.equal((await a('POST', '/api/auth/verify', { token: tok })).status, 400, 'link werkt maar één keer');
+  await markPaid('a@example.com');
   assert.equal((await a('GET', '/api/auth/me')).status, 401, 'bevestigen logt niet vanzelf in');
   const dup = await client()('POST', '/api/auth/register', { email: 'A@example.com', password: 'Nog een zin hier 6!' });
   assert.equal(dup.status, 201, 'bestaand adres: zelfde antwoord (niet te zien wie een account heeft)');
@@ -542,4 +549,15 @@ test('startdatum en maximum aantal scans (KB Q224)', async () => {
   assert.equal((await fetch(base + '/q/' + b.id, { redirect: 'manual' })).status, 302, 'eerste scan werkt');
   assert.equal((await fetch(base + '/q/' + b.id, { redirect: 'manual' })).status, 410, 'daarna verlopen');
   assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://x.example', maxScans: '0' }, design: {} })).status, 400, 'minimaal 1');
+});
+
+test('zelf registreren: account bestaat, maar codes maken kan pas na betalen', async () => {
+  const k = client(); await signup(k, 'nieuw-k@example.com', 'Nieuwe klant zin 12!', 'Nieuw', { unpaid: true });
+  assert.equal((await k('GET', '/api/account/plan')).json.sub.state, 'unpaid');
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://a.example' }, design: {} })).json.error, 'subscription_lapsed', 'nog geen code maken');
+  const team = client(); await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const c = (await team('GET', '/api/admin/customers')).json.find((x) => x.email === 'nieuw-k@example.com');
+  assert.equal(c.sub.state, 'unpaid', 'team ziet: nog niet betaald');
+  await team('POST', '/api/admin/customers/' + c.id + '/subscription', { action: 'paid', interval: 'month' });
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://a.example' }, design: {} })).status, 201, 'na betalen wel');
 });

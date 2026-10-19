@@ -1183,7 +1183,7 @@
     "planFree": "Darmowy",
     "planFreeLead": "Korzystasz z Optimasys QR za darmo w fazie testów.",
     "planF1": "Bez limitu kodów QR",
-    "planF2": "Wszystkie 16 rodzajów kodów QR",
+    "planF2": "Wszystkie 17 rodzajów kodów QR",
     "planF3": "Statystyki według kraju, miasta i systemu",
     "planF4": "Własny wygląd, kolory i logo",
     "planNote": "Płatnych planów jeszcze nie ma.",
@@ -1451,7 +1451,7 @@
     },
     "a": {
       "make": "W Utwórz kod QR wybierz rodzaj, na przykład Strona internetowa. Następnie uzupełnij treść i wybierz wygląd. Od razu widzisz, jak to wygląda na telefonie.\nGotowe? Pobierz kod jako PNG lub SVG. Znajdziesz go też w Moje kody QR.",
-      "types": "Jest 16 rodzajów, od strony internetowej czy PDF po menu, kupon lub Wi-Fi. Wszystkie zobaczysz w pierwszym kroku Utwórz kod QR.",
+      "types": "Jest 17 rodzajów, od strony internetowej czy PDF po menu, kupon lub Wi-Fi. Wszystkie zobaczysz w pierwszym kroku Utwórz kod QR.",
       "edit": "Tak. W większości rodzajów kod QR zawiera krótki link. Gdy zmienisz treść, kod zostaje ten sam i nie trzeba niczego drukować ponownie.\nWyjątek: Wi-Fi i vCard. Ich treść jest w samym kodzie, więc po zmianie używasz nowego kodu.",
       "format": "PNG to zwykły obraz. Przydatny na strony, w e-mailach, Wordzie i PowerPoincie.\nSVG zawsze pozostaje ostry, niezależnie od rozmiaru. Wybierz SVG do druku: ulotek, plakatów i opakowań.",
       "scanFix": "Zadbaj o kontrast między kodem a tłem: ciemne na jasnym działa najlepiej. Drukuj kod w rozmiarze co najmniej 2 × 2 cm, większym, jeśli skanuje się go z daleka.\nUżyj małego logo i zostaw trochę miejsca wokół kodu. Zawsze sprawdź kod swoim telefonem przed drukiem.",
@@ -2345,6 +2345,10 @@
     "admEnd": "Albo ustaw datę końca",
     "admNote": "Dopóki płatności nie idą przez Stripe, zespół ustawia tu opłacony okres.",
     "admNoPeriod": "Brak okresu rozliczeniowego",
-    "admSaved": "Płatność zapisana."
+    "admSaved": "Płatność zapisana.",
+    "barUnpaid": "Witaj! Wybierz abonament, aby utworzyć swój pierwszy kod QR.",
+    "choose": "Wybierz abonament",
+    "unpaidMsg": "Twoje konto jest gotowe. Wybierz abonament poniżej; potem od razu możesz tworzyć kody QR.",
+    "admUnpaid": "Jeszcze nie opłacono"
   }
 }

@@ -211,6 +211,9 @@
     if (!planInfo) { setTimeout(loadPlan, 0); return '<div class="glass bg-card acct"><h2>' + t('acct.planCurrent') + '</h2><p class="acct-note">' + t('plan.loading') + '</p></div>'; }
     if (planInfo.error) return '<div class="glass bg-card acct"><h2>' + t('acct.planCurrent') + '</h2><p class="acct-msg bad" role="alert">' + t('plan.loadError') + '</p></div>';
     var p = planInfo.plan, u = planInfo.usage, free = p.id === 'free';
+    // Zelf geregistreerd, nog niet betaald: geen "gratis testfase", maar meteen naar het kiezen van een abonnement
+    var unpaidNow = planInfo.sub && planInfo.sub.state === 'unpaid';
+    var head = unpaidNow ? '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t('sub.unpaidMsg') + '</p></div><span class="acct-badge">' + t('sub.admUnpaid') + '</span></div></div>' : null;
     var pct = u.limit ? Math.min(100, Math.round(u.used / u.limit * 100)) : 0;
     var bar = u.limit ? '<div class="pl-use"><div class="pl-use-row"><span>' + t('plan.codesUsed', { used: u.used, limit: u.limit }) + '</span><b>' + pct + '%</b></div>' +
         '<div class="pl-bar ' + u.state + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + u.limit + '" aria-valuenow="' + u.used + '" aria-label="' + esc(t('plan.codes')) + '"><i style="width:' + pct + '%"></i></div>' +
@@ -218,12 +221,12 @@
       : '<p class="pl-unl">' + t('plan.codesUnlimited', { used: u.used }) + '</p>';
     var feats = free ? ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(t)
       : [p.codes ? t('plan.fCodes', { n: p.codes }) : t('acct.planF1'), p.statsDays ? t('plan.fStats', { n: p.statsDays }) : t('plan.fStatsAll'), t('acct.planF2'), t('acct.planF4')];
-    return '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.assignedLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
-      bar + subLine(planInfo.sub) + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>' +
+    return (head || '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.assignedLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
+      bar + subLine(planInfo.sub) + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>') +
       '<div class="glass bg-card acct"><h2>' + t('plan.choose') + ' <span class="pl-tag">' + t('plan.proposal') + '</span></h2><p class="acct-note">' + t('plan.chooseLead') + '</p>' +
       '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '"><button type="button" role="radio" aria-checked="' + !planYear + '" data-plan-year="0">' + t('sub.monthly') + '</button><button type="button" role="radio" aria-checked="' + planYear + '" data-plan-year="1">' + t('sub.yearly') + ' <em>' + t('sub.yearSave') + '</em></button></div><div class="pl-grid">' +
       planInfo.plans.map(function (x) {
-        var cur = x.id === p.id;
+        var unpaid = planInfo.sub && planInfo.sub.state === 'unpaid', cur = x.id === p.id && !unpaid;   // nog niet betaald: nog geen "huidig" pakket
         return '<div class="pl-card' + (cur ? ' is-cur' : '') + '"><div class="pl-name">' + t('plan.n_' + x.id) + (cur ? '<span class="pl-cur">' + t('plan.current') + '</span>' : '') + '</div>' +
           '<div class="pl-price"><b>' + euro(planYear ? x.priceYear : x.price) + '</b><small>' + t(planYear ? 'sub.perYear' : 'plan.perMonth') + '</small></div>' +
           '<p class="pl-intro">' + (x.intro === 0 ? t('plan.introFree') : t('plan.intro', { price: euro(x.intro) })) + '</p>' +
@@ -234,6 +237,7 @@
   // Betaalstatus: betaald tot …, of niet betaald (codes uit, verwijderd op …), plus hoeveel bedenktijd je de volgende keer hebt
   function subLine(sb) {
     if (!sb || sb.state === 'none') return '';
+    if (sb.state === 'unpaid') return '<p class="acct-msg" role="status">' + t('sub.unpaidMsg') + '</p>';
     var d = function (x) { return i18n.fmt.stamp(x, 'long'); };
     if (sb.state === 'active') return '<p class="sub-line ok">' + t('sub.paidUntil', { date: d(sb.periodEnd) }) + '</p><p class="acct-note">' + t('sub.graceRule', { n: i18n.fmt.num(sb.nextGraceDays) }) + '</p>';
     if (sb.state === 'grace') return '<p class="acct-msg bad" role="alert">' + t('sub.graceMsg', { date: i18n.fmt.stamp(sb.graceUntil, 'time') }) + '</p>';

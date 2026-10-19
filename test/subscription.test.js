@@ -51,3 +51,12 @@ test('korte bedenktijd: geen weekmail, wel startmail', () => {
   assert.deepStrictEqual(r.actions, ['mail:start']);
   assert.strictEqual(Date.parse(r.sub.graceUntil) - (T0 + 30 * D), 3 * D);
 });
+
+test('zelf geregistreerd: eerst betalen, dan pas codes', () => {
+  const s = { ...S.emptySub(), mustPay: true };
+  assert.strictEqual(S.stateOf(s), 'unpaid');
+  assert.deepStrictEqual(S.tick(s).actions, [], 'geen mails of verwijderen');
+  S.rebuildBlocked([['u1', s]]); assert.strictEqual(S.isBlocked('u1'), true);
+  const paid = S.renew(s, 'month'); assert.strictEqual(S.stateOf(paid), 'active'); assert.strictEqual(paid.mustPay, false);
+  S.rebuildBlocked([['u1', paid]]); assert.strictEqual(S.isBlocked('u1'), false);
+});

@@ -1183,7 +1183,7 @@
     "planFree": "Gratuito",
     "planFreeLead": "Usi Optimasys QR gratuitamente durante la fase di prova.",
     "planF1": "Codici QR illimitati",
-    "planF2": "Tutti i 16 tipi di codici QR",
+    "planF2": "Tutti i 17 tipi di codici QR",
     "planF3": "Statistiche per paese, città e sistema",
     "planF4": "Il tuo design, colori e logo",
     "planNote": "I piani a pagamento non sono ancora disponibili.",
@@ -1451,7 +1451,7 @@
     },
     "a": {
       "make": "In Crea codice QR scegli un tipo, per esempio Sito web. Poi compila il contenuto e scegli un design. Vedi subito come appare su un telefono.\nFatto? Scarica il codice in PNG o SVG. Lo ritrovi anche in I miei codici QR.",
-      "types": "Ci sono 16 tipi, da un sito web o un PDF a un menu, un coupon o il Wi-Fi. Li vedi tutti nel primo passaggio di Crea codice QR.",
+      "types": "Ci sono 17 tipi, da un sito web o un PDF a un menu, un coupon o il Wi-Fi. Li vedi tutti nel primo passaggio di Crea codice QR.",
       "edit": "Sì. Per la maggior parte dei tipi, il codice QR contiene un link breve. Se cambi il contenuto, il codice resta uguale e non devi ristampare nulla.\nEccezione: Wi-Fi e vCard. Il loro contenuto è nel codice stesso, quindi dopo una modifica usi il nuovo codice.",
       "format": "Il PNG è un’immagine normale, comoda per siti web, e-mail, Word e PowerPoint.\nL’SVG resta sempre nitido, qualunque sia la dimensione. Scegli SVG per la stampa: volantini, poster e confezioni.",
       "scanFix": "Assicurati che ci sia contrasto tra il codice e lo sfondo: scuro su chiaro funziona meglio. Stampa il codice almeno 2 × 2 cm, più grande se viene scansionato da lontano.\nTieni il logo piccolo e lascia spazio intorno al codice. Prova sempre il codice con il tuo telefono prima di stamparlo.",
@@ -2345,6 +2345,10 @@
     "admEnd": "Oppure imposta tu la data di fine",
     "admNote": "Finché i pagamenti non passano da Stripe, il team imposta qui il periodo pagato.",
     "admNoPeriod": "Nessun periodo di pagamento",
-    "admSaved": "Pagamento salvato."
+    "admSaved": "Pagamento salvato.",
+    "barUnpaid": "Benvenuto! Scegli un abbonamento per creare il tuo primo QR code.",
+    "choose": "Scegli un abbonamento",
+    "unpaidMsg": "Il tuo account è pronto. Scegli un abbonamento qui sotto; poi potrai creare subito i QR code.",
+    "admUnpaid": "Non ancora pagato"
   }
 }
