@@ -1676,7 +1676,10 @@
     "favAdded": "Toegevoegd aan favorieten",
     "favRemoved": "Uit favorieten gehaald",
     "more": "Meer",
-    "dragHint": "Sleep om de volgorde te veranderen"
+    "dragHint": "Sleep om de volgorde te veranderen",
+    "moreN": "+{n} meer",
+    "less": "Minder tonen",
+    "find": "Map zoeken"
   },
   "home": {
     "night": "Goedenacht, {name}",

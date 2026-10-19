@@ -1676,7 +1676,10 @@
     "favAdded": "Føjet til favoritter",
     "favRemoved": "Fjernet fra favoritter",
     "more": "Mere",
-    "dragHint": "Træk for at ændre rækkefølgen"
+    "dragHint": "Træk for at ændre rækkefølgen",
+    "moreN": "+{n} mere",
+    "less": "Vis mindre",
+    "find": "Søg mappe"
   },
   "home": {
     "night": "Godnat, {name}",

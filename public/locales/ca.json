@@ -1676,7 +1676,10 @@
     "favAdded": "Afegit als preferits",
     "favRemoved": "Tret dels preferits",
     "more": "Més",
-    "dragHint": "Arrossega per canviar l'ordre"
+    "dragHint": "Arrossega per canviar l'ordre",
+    "moreN": "+{n} més",
+    "less": "Mostra'n menys",
+    "find": "Cerca una carpeta"
   },
   "home": {
     "night": "Bona nit, {name}",

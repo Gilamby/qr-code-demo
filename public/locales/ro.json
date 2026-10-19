@@ -1676,7 +1676,10 @@
     "favAdded": "Adăugat la favorite",
     "favRemoved": "Eliminat din favorite",
     "more": "Mai mult",
-    "dragHint": "Trage ca să schimbi ordinea"
+    "dragHint": "Trage ca să schimbi ordinea",
+    "moreN": "+{n} în plus",
+    "less": "Arată mai puțin",
+    "find": "Caută dosar"
   },
   "home": {
     "night": "Noapte bună, {name}",

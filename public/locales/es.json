@@ -1676,7 +1676,10 @@
     "favAdded": "Añadido a favoritos",
     "favRemoved": "Quitado de favoritos",
     "more": "Más",
-    "dragHint": "Arrastra para cambiar el orden"
+    "dragHint": "Arrastra para cambiar el orden",
+    "moreN": "+{n} más",
+    "less": "Mostrar menos",
+    "find": "Buscar carpeta"
   },
   "home": {
     "night": "Buenas noches, {name}",

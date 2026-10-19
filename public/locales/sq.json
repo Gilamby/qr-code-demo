@@ -1782,7 +1782,10 @@
     "favAdded": "U shtua te të preferuarat",
     "favRemoved": "U hoq nga të preferuarat",
     "more": "Më shumë",
-    "dragHint": "Tërhiqe për të ndryshuar renditjen"
+    "dragHint": "Tërhiqe për të ndryshuar renditjen",
+    "moreN": "+{n} të tjera",
+    "less": "Shfaq më pak",
+    "find": "Kërko dosje"
   },
   "home": {
     "night": "Natën e mirë, {name}",

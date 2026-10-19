@@ -1676,7 +1676,10 @@
     "favAdded": "Lisätty suosikkeihin",
     "favRemoved": "Poistettu suosikeista",
     "more": "Lisää",
-    "dragHint": "Vedä muuttaaksesi järjestystä"
+    "dragHint": "Vedä muuttaaksesi järjestystä",
+    "moreN": "+{n} lisää",
+    "less": "Näytä vähemmän",
+    "find": "Etsi kansio"
   },
   "home": {
     "night": "Hyvää yötä, {name}",

@@ -78,17 +78,23 @@ var MyCodes = (function () {
       var on = filter.folder === key;
       return '<button type="button" class="mf-chip' + (on ? ' on' : '') + '" data-folder="' + esc(key) + '" aria-pressed="' + on + '" title="' + esc(String(label).replace(/<[^>]*>/g, '')) + '">' + label + '<span class="mf-n">' + i18n.fmt.num(n) + '</span>' + (extra || '') + '</button>';
     };
-    var cur = folderOf(filter.folder);
+    var cur = folderOf(filter.folder), noneN = count(function (r) { return !r.folderId; });
+    var many = folders.length > 8;
     bar.innerHTML = '<div class="mf-row" role="toolbar" aria-label="' + esc(t('folders.title')) + '">' +
         chip('', ico('grid') + '<span>' + t('folders.all') + '</span>', rows.length) +
         chip('fav', '<span class="mf-star">' + ico('star') + '</span><span>' + t('folders.fav') + '</span>', count(function (r) { return r.favorite; })) +
-        chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', count(function (r) { return !r.folderId; })) +
+        // "Zonder map" alleen als het iets toevoegt: niet als alle codes zonder map zijn (dan is het hetzelfde als "Alle codes")
+        (noneN && noneN < rows.length || filter.folder === 'none' ? chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', noneN) : '') +
         '<button type="button" class="mf-chip mf-add" data-folder-new aria-label="' + esc(t('folders.new')) + '">' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
       // Mappen op een eigen regel: volledige namen, lopen door naar een volgende regel, te verslepen
-      (folders.length ? '<div class="mf-folders"><span class="mf-lbl">' + t('folders.title') + '</span>' +
-        folders.map(function (f) { return '<span class="mf-wrap" draggable="true" data-fid="' + esc(f.id) + '" title="' + esc(t('folders.dragHint')) + '">' + chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', count(function (r) { return r.folderId === f.id; })) +
-          '<button type="button" class="mf-x" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('x') + '</button></span>'; }).join('') + '</div>' : '') +
+      // Mappen op een eigen regel. Dicht: één regel plus "+N meer". Open: alles, met zoeken bij veel mappen. Lege mappen zachter en zonder 0.
+      (folders.length ? '<div class="mf-folders' + (foldOpen ? ' open' : '') + '"><span class="mf-lbl">' + t('folders.title') + '</span>' +
+        (foldOpen && many ? '<label class="mf-find">' + ico('search') + '<input type="search" data-folder-find value="' + esc(foldQ) + '" placeholder="' + esc(t('folders.find')) + '" aria-label="' + esc(t('folders.find')) + '"></label>' : '') +
+        folders.map(function (f) { var n = count(function (r) { return r.folderId === f.id; });
+          return '<span class="mf-wrap' + (n ? '' : ' mf-empty') + '" draggable="true" data-fid="' + esc(f.id) + '" data-name="' + esc(f.name.toLowerCase()) + '" title="' + esc(t('folders.dragHint')) + '">' + chip(f.id, dot(f) + '<span>' + esc(f.name) + '</span>', n) +
+          '<button type="button" class="mf-x" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('x') + '</button></span>'; }).join('') +
+        '<button type="button" class="mf-toggle" data-folder-toggle aria-expanded="' + foldOpen + '"></button></div>' : '') +
       (cur ? '<div class="mf-head">' + dot(cur) + '<b>' + esc(cur.name) + '</b>' +
         '<button type="button" class="btn ghost sm" data-folder-edit>' + ico('pen') + '<span>' + t('folders.edit') + '</span></button>' +
         '<button type="button" class="btn ghost sm mf-del" data-folder-delete>' + ico('trash') + '<span>' + t('folders.delete') + '</span></button></div>' : '') +
@@ -96,27 +102,35 @@ var MyCodes = (function () {
     bar.hidden = !rows.length && !folders.length;
     fitFolders();
   }
-  /* Mappen als tabbladen: passen ze niet op één rij, dan gaan de laatste naar "Meer ▾" (de gekozen map blijft altijd zichtbaar) */
+  /* Dicht: mappen die niet op de eerste regel passen verbergen, met "+N meer" erachter (de gekozen map blijft altijd zichtbaar).
+     Tijdens het slepen van een code zijn alle mappen zichtbaar, zodat je hem op elke map kunt neerzetten. */
+  var foldOpen = false, foldQ = ''; try { foldOpen = localStorage.getItem('mc.foldOpen') === '1'; } catch (e) {}
   function fitFolders() {
-    var row = bar.querySelector('.mf-row'), more = row && row.querySelector('.mf-more'); if (!more || bar.hidden) return;
-    var wraps = [].slice.call(row.querySelectorAll('.mf-wrap')), menu = more.querySelector('.mf-menu');
-    wraps.forEach(function (w) { w.hidden = false; }); more.hidden = true; menu.hidden = true; row.classList.remove('tight', 'wrap');
-    if (row.scrollWidth <= row.clientWidth + 1) return;
-    more.hidden = false;
-    for (var i = wraps.length - 1; i >= 0 && row.scrollWidth > row.clientWidth + 1; i--) { if (!wraps[i].querySelector('.mf-chip.on')) wraps[i].hidden = true; }
-    // Past het nog steeds niet (smal scherm, alle mappen al in "Meer")? Dan knoppen alleen met icoon, en als laatste redmiddel twee regels
-    if (row.scrollWidth > row.clientWidth + 1) row.classList.add('tight');
-    if (row.scrollWidth > row.clientWidth + 1) row.classList.add('wrap');
-    var hid = wraps.filter(function (w) { return w.hidden; });
-    more.querySelector('.mf-n').textContent = i18n.fmt.num(hid.length);
-    menu.innerHTML = hid.map(function (w) {
-      var f = folderOf(w.querySelector('[data-folder]').getAttribute('data-folder')), n = rows.filter(function (r) { return r.folderId === f.id; }).length;
-      return '<div class="mf-mi"><button type="button" role="menuitem" data-folder="' + esc(f.id) + '">' + dot(f) + '<span>' + esc(f.name) + '</span><span class="mf-n">' + i18n.fmt.num(n) + '</span></button>' +
-        '<button type="button" class="mf-mx" data-folder-x="' + esc(f.id) + '" aria-label="' + esc(t('folders.delete') + ': ' + f.name) + '" title="' + esc(t('folders.delete')) + '">' + ico('trash') + '</button></div>';
-    }).join('');
+    var box = bar.querySelector('.mf-folders'); if (!box || bar.hidden) return;
+    var wraps = [].slice.call(box.querySelectorAll('.mf-wrap')), tg = box.querySelector('[data-folder-toggle]');
+    wraps.forEach(function (w) { w.classList.remove('mf-cut'); });
+    if (foldOpen) {
+      var q = foldQ.trim().toLowerCase();
+      wraps.forEach(function (w) { if (q && w.getAttribute('data-name').indexOf(q) < 0) w.classList.add('mf-cut'); });
+      tg.hidden = false; tg.textContent = t('folders.less'); return;
+    }
+    tg.hidden = true;
+    var top = wraps.length ? wraps[0].offsetTop : 0, over = function (el) { return el.offsetTop > top + 4; };
+    if (!wraps.some(over)) return;
+    tg.hidden = false;
+    var label = function () { var n = wraps.filter(function (w) { return w.classList.contains('mf-cut'); }).length; tg.textContent = t('folders.moreN', { n: i18n.fmt.num(n) }); };
+    wraps.forEach(function (w) { if (over(w)) w.classList.add('mf-cut'); }); label();
+    // Ruimte maken voor de knop en voor de gekozen map
+    var sel = wraps.filter(function (w) { return w.querySelector('.mf-chip.on'); })[0];
+    if (sel) sel.classList.remove('mf-cut');
+    for (var i = wraps.length - 1; i >= 0 && (over(tg) || (sel && over(sel))); i--) {
+      if (wraps[i] !== sel && !wraps[i].classList.contains('mf-cut')) { wraps[i].classList.add('mf-cut'); label(); }
+    }
   }
   var fitTick = 0;
   addEventListener('resize', function () { clearTimeout(fitTick); fitTick = setTimeout(fitFolders, 80); });
+  // Ook als de breedte van de balk later pas verandert (menu in- of uitklappen, overgang naar mobiel)
+  var fitW = 0; if (window.ResizeObserver) new ResizeObserver(function () { var w = bar.clientWidth; if (w && w !== fitW) { fitW = w; clearTimeout(fitTick); fitTick = setTimeout(fitFolders, 30); } }).observe(bar);
   document.addEventListener('click', function (e) { var m = bar.querySelector('.mf-menu'); if (m && !m.hidden && !e.target.closest('.mf-more')) { m.hidden = true; bar.querySelector('[data-folder-more]').setAttribute('aria-expanded', 'false'); } });
   function visible() {
     var q = filter.q.trim().toLowerCase();
@@ -532,6 +546,10 @@ var MyCodes = (function () {
   bar.addEventListener('click', function (e) {
     var mb = e.target.closest('[data-folder-more]');
     if (mb) { var mm = bar.querySelector('.mf-menu'); mm.hidden = !mm.hidden; mb.setAttribute('aria-expanded', String(!mm.hidden)); return; }
+    if (e.target.closest('[data-folder-toggle]')) {
+      foldOpen = !foldOpen; foldQ = ''; try { localStorage.setItem('mc.foldOpen', foldOpen ? '1' : '0'); } catch (x) {}
+      drawFolders(); var fi = bar.querySelector('[data-folder-find]'); if (fi) fi.focus(); return;
+    }
     var c = e.target.closest('[data-folder]'); if (c) { filter.folder = c.getAttribute('data-folder'); return draw(); }
     if (e.target.closest('[data-folder-new]')) return folderDialog(null, function (nf) { filter.folder = nf.id; draw(); });
     var cur = folderOf(filter.folder);
@@ -539,6 +557,7 @@ var MyCodes = (function () {
     if (cur && e.target.closest('[data-folder-delete]')) return askDeleteFolder(cur);
     var fx = e.target.closest('[data-folder-x]'); if (fx) { var ff = folderOf(fx.getAttribute('data-folder-x')); if (ff) return askDeleteFolder(ff); }
   });
+  bar.addEventListener('input', function (e) { if (e.target.matches('[data-folder-find]')) { foldQ = e.target.value; fitFolders(); } });
   // Slepen: een code op een map (of op "Zonder map") laten vallen
   var dragId = null;
   list.addEventListener('dragstart', function (e) {

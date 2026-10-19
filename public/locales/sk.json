@@ -1676,7 +1676,10 @@
     "favAdded": "Pridané do obľúbených",
     "favRemoved": "Odstránené z obľúbených",
     "more": "Viac",
-    "dragHint": "Pretiahni a zmeň poradie"
+    "dragHint": "Pretiahni a zmeň poradie",
+    "moreN": "+{n} ďalších",
+    "less": "Zobraziť menej",
+    "find": "Hľadať priečinok"
   },
   "home": {
     "night": "Dobrú noc, {name}",

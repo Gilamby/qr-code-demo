@@ -1676,7 +1676,10 @@
     "favAdded": "Lagt til i favoritter",
     "favRemoved": "Fjernet fra favoritter",
     "more": "Mer",
-    "dragHint": "Dra for å endre rekkefølgen"
+    "dragHint": "Dra for å endre rekkefølgen",
+    "moreN": "+{n} til",
+    "less": "Vis mindre",
+    "find": "Søk etter mappe"
   },
   "home": {
     "night": "God natt, {name}",

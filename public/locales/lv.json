@@ -1676,7 +1676,10 @@
     "favAdded": "Pievienots izlasei",
     "favRemoved": "Noņemts no izlases",
     "more": "Vairāk",
-    "dragHint": "Velc, lai mainītu secību"
+    "dragHint": "Velc, lai mainītu secību",
+    "moreN": "+{n} vēl",
+    "less": "Rādīt mazāk",
+    "find": "Meklēt mapi"
   },
   "home": {
     "night": "Labu nakti, {name}!",

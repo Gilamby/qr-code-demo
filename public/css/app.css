@@ -4309,3 +4309,16 @@ body.an-printing #anRange { display: block; }
 .sub-bar { background: rgba(239,68,68,.16) !important; border-color: rgba(239,68,68,.45) !important; }
 .sub-bar a { color: inherit; font-weight: 700; text-decoration: underline; margin-left: 6px; }
 .sub-bar { color: #fecaca !important; }
+
+/* Mappen: dicht = één regel met "+N meer"; lege mappen zachter en zonder 0 */
+.mf-folders > .mf-wrap.mf-cut { display: none !important; }
+.mf-bar.dropping .mf-folders > .mf-wrap.mf-cut { display: inline-flex !important; }
+.mf-folders > .mf-wrap.mf-empty > .mf-chip { opacity: .62; border-style: dashed; }
+.mf-folders > .mf-wrap.mf-empty > .mf-chip:hover, .mf-folders > .mf-wrap.mf-empty > .mf-chip.on { opacity: 1; }
+.mf-folders > .mf-wrap.mf-empty .mf-n { display: none; }
+.mf-toggle { flex: none; height: 34px; padding: 0 12px; border: 0; border-radius: 999px; background: none; color: var(--accent); font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+.mf-toggle:hover, .mf-toggle:focus-visible { background: var(--hover); outline: none; }
+.mf-toggle[hidden] { display: none; }
+.mf-find { display: inline-flex; align-items: center; gap: 6px; flex: 0 1 220px; height: 34px; margin: 0; padding: 0 12px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(0,0,0,.18); }
+.mf-find svg { width: 15px; height: 15px; color: var(--muted); flex: none; }
+.mf-find input { flex: 1; min-width: 0; border: 0; background: none; color: var(--fg); font: inherit; font-size: 14px; outline: none; }
