@@ -176,6 +176,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE TABLE \`settings_locales\` (
   	\`seo_title\` text,
   	\`seo_description\` text,
+  	\`nav_why\` text,
+  	\`nav_offer\` text,
   	\`nav_generator\` text,
   	\`nav_story\` text,
   	\`nav_how\` text,
@@ -251,6 +253,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`home_trust_items_order_idx\` ON \`home_trust_items\` (\`_order\`);`)
   await db.run(sql`CREATE INDEX \`home_trust_items_parent_id_idx\` ON \`home_trust_items\` (\`_parent_id\`);`)
   await db.run(sql`CREATE INDEX \`home_trust_items_locale_idx\` ON \`home_trust_items\` (\`_locale\`);`)
+  await db.run(sql`CREATE TABLE \`home_dive_items\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`_locale\` text NOT NULL,
+  	\`id\` text PRIMARY KEY NOT NULL,
+  	\`key\` text,
+  	\`title\` text,
+  	\`text\` text,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`home_dive_items_order_idx\` ON \`home_dive_items\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`home_dive_items_parent_id_idx\` ON \`home_dive_items\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`home_dive_items_locale_idx\` ON \`home_dive_items\` (\`_locale\`);`)
   await db.run(sql`CREATE TABLE \`home_story_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -356,6 +372,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`trust_cta\` text,
   	\`trust_cta2\` text,
   	\`trust_note\` text,
+  	\`dive_chapter\` text,
+  	\`dive_eyebrow\` text,
+  	\`dive_title\` text,
+  	\`dive_text\` text,
+  	\`dive_cta\` text,
+  	\`dive_cta2\` text,
+  	\`dive_note\` text,
   	\`story_chapter\` text,
   	\`story_eyebrow\` text,
   	\`story_title\` text,
@@ -515,6 +538,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`settings_locales\`;`)
   await db.run(sql`DROP TABLE \`home_hero_items\`;`)
   await db.run(sql`DROP TABLE \`home_trust_items\`;`)
+  await db.run(sql`DROP TABLE \`home_dive_items\`;`)
   await db.run(sql`DROP TABLE \`home_story_items\`;`)
   await db.run(sql`DROP TABLE \`home_how_items\`;`)
   await db.run(sql`DROP TABLE \`home_features_items\`;`)

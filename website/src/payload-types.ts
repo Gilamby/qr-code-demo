@@ -476,6 +476,8 @@ export interface Setting {
     description?: string | null;
   };
   nav?: {
+    why?: string | null;
+    offer?: string | null;
     generator?: string | null;
     story?: string | null;
     how?: string | null;
@@ -551,6 +553,23 @@ export interface Home {
       | null;
   };
   trust?: {
+    chapter?: string | null;
+    eyebrow?: string | null;
+    title?: string | null;
+    text?: string | null;
+    cta?: string | null;
+    cta2?: string | null;
+    note?: string | null;
+    items?:
+      | {
+          key?: string | null;
+          title?: string | null;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  dive?: {
     chapter?: string | null;
     eyebrow?: string | null;
     title?: string | null;
@@ -741,6 +760,8 @@ export interface SettingsSelect<T extends boolean = true> {
   nav?:
     | T
     | {
+        why?: T;
+        offer?: T;
         generator?: T;
         story?: T;
         how?: T;
@@ -826,6 +847,25 @@ export interface HomeSelect<T extends boolean = true> {
             };
       };
   trust?:
+    | T
+    | {
+        chapter?: T;
+        eyebrow?: T;
+        title?: T;
+        text?: T;
+        cta?: T;
+        cta2?: T;
+        note?: T;
+        items?:
+          | T
+          | {
+              key?: T;
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  dive?:
     | T
     | {
         chapter?: T;

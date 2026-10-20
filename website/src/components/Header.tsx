@@ -6,9 +6,9 @@ import { LogoMark } from './QR'
 import Icon from './icons'
 
 type Nav = Record<string, string>
-/* Het menu = de onderdelen van de homepage, in dezelfde volgorde. Het onderdeel waar je bent licht op.
+/* Het menu zoals op elke website: Waarom wij · Wat we bieden · Prijzen · Vragen · Contact. Zelfde volgorde als de pagina. Het onderdeel waar je bent licht op.
    "Inloggen" staat er altijd, ook op de telefoon (bestaande klanten eerst). */
-const SECTIONS = ['generator', 'story', 'how', 'features', 'pricing', 'faq']
+const SECTIONS = ['why', 'offer', 'pricing', 'faq']
 
 export default function Header({ lang, nav, appUrl, signup }: { lang: string; nav: Nav; appUrl: string; signup: string }) {
   const [open, setOpen] = useState(false)

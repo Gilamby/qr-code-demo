@@ -3,6 +3,7 @@ import { getHome, getPricing, getFaqs, getSettings, appUrl, signupUrl } from '@/
 import type { Locale } from '@/lib/locales'
 import Generator from '@/components/Generator'
 import Story from '@/components/Story'
+import Dive from '@/components/dive/Dive'
 import HowVideo from '@/components/HowVideo'
 import PricingCards from '@/components/PricingCards'
 import Icon from '@/components/icons'
@@ -14,14 +15,15 @@ const Lines = ({ t }: { t?: string }) => <>{String(t || '').split('\n').map((l, 
 const Eyebrow = ({ t }: { t?: string }) => t ? <p className="chapter mono">{t}</p> : null
 const TRUST_ICON: Record<string, string> = { watermark: 'watermark', ads: 'noad', scans: 'infinity', edit: 'edit', privacy: 'shield', languages: 'languages' }
 
-/* Eén logische volgorde, dezelfde als het menu bovenin:
-   generator → waarom wij → toepassingen (verhaal) → zo werkt het (filmpje) → functies → prijzen → vragen + contact → afsluiter. */
+/* Eén logische volgorde. Menu: Waarom wij (#why) · Wat we bieden (#offer) · Prijzen · Vragen · Contact.
+   generator → waarom wij → duik (wat gebeurt er als je scant) → voorbeelden (verhaal) → zo werkt het (filmpje) → functies → prijzen → vragen + contact → afsluiter. */
 export default async function Home({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params
   const [h, pr, faqs, s] = await Promise.all([getHome(lang), getPricing(lang), getFaqs(lang), getSettings(lang)])
   const app = appUrl(s), signup = signupUrl(s, 'pro', 'month', lang)
   const it = (sec: any): Item[] => (sec?.items || []).map((x: any) => ({ key: x.key, title: x.title, text: x.text }))
-  const { hero, trust, story, how, features, pricing, faq, final } = h
+  const { hero, trust, dive, story, how, features, pricing, faq, final } = h
+  const SITE = process.env.SITE_URL || 'https://qr-codex.com'
   const homeFaqs = faqs.filter((f) => f.home).slice(0, 6)
   const plans = (pr.plans || []).map((p: any) => ({ ...p, items: p.items || [] }))
   const mail = (s as any).contactEmail || 'support@optimasys.es'
@@ -42,7 +44,8 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
         </div>
       </section>
 
-      {/* ---------- WAAROM WIJ ---------- */}
+      {/* ---------- WAAROM WIJ: geen kleine lettertjes, wat een QR-code doet (3D), voorbeelden ---------- */}
+      <div id="why">
       <section className="trust" aria-labelledby="trust-t">
         <div className="wrap">
           <div className="trust-head"><Eyebrow t={trust?.eyebrow} /><h2 className="h2" id="trust-t">{trust?.title}</h2></div>
@@ -54,6 +57,13 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
         </div>
       </section>
 
+      {/* ---------- WAT GEBEURT ER ALS JE SCANT (3D, over te slaan) ---------- */}
+      <section className="dive-intro">
+        <div className="wrap"><Eyebrow t={dive?.eyebrow} /><h2 className="h1">{dive?.title}</h2></div>
+      </section>
+      <Dive url={SITE + '/' + lang} phases={it(dive).filter((x) => /^p\d/.test(x.key))} places={it(dive).filter((x) => !/^p\d/.test(x.key))}
+        cta={dive?.cta || ''} skip={dive?.cta2 || ''} note={dive?.note || ''} nextId="story" signup={signup} />
+
       {/* ---------- TOEPASSINGEN: vier scènes, telefoon scant, dan het overzicht ---------- */}
       <div id="story" className="story-wrap">
         <div className="wrap story-intro">
@@ -64,6 +74,10 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
         <Story items={it(story)} cta={story?.cta || ''} skip={story?.cta2 || ''} signup={signup} nextId="how" lang={lang} />
       </div>
 
+      </div>
+
+      {/* ---------- WAT WE BIEDEN: zo werkt het + functies ---------- */}
+      <div id="offer">
       {/* ---------- ZO WERKT HET: de app als filmpje ---------- */}
       <section className="light how-sec" id="how">
         <div className="wrap">
@@ -92,6 +106,8 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
           </div>
         </div>
       </section>
+
+      </div>
 
       {/* ---------- PRIJZEN ---------- */}
       <section className="light pricing-sec" id="pricing">

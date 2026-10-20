@@ -5,7 +5,7 @@ import { revalidateAll } from '../lib/revalidate'
 /* De homepage is opgebouwd uit hoofdstukken. Elk hoofdstuk heeft dezelfde velden:
    kopje, titel, tekst, knoppen en een lijst met regels (bij elke regel staat een vaste "sleutel" die de website gebruikt). */
 export const SECTIONS: [string, string][] = [
-  ['hero', 'Bovenaan: generator'], ['trust', 'Waarom wij'], ['story', 'Toepassingen (verhaal)'], ['how', 'Zo werkt het (filmpje)'],
+  ['hero', 'Bovenaan: generator'], ['trust', 'Waarom wij'], ['dive', 'Wat gebeurt er als je scant (3D)'], ['story', 'Toepassingen (verhaal)'], ['how', 'Zo werkt het (filmpje)'],
   ['features', 'Functies'], ['pricing', 'Prijzen (kort)'], ['faq', 'Vragen en contact'], ['final', 'Afsluiter'],
 ]
 

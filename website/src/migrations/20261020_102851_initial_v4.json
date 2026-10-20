@@ -1169,6 +1169,20 @@
           "notNull": false,
           "autoincrement": false
         },
+        "nav_why": {
+          "name": "nav_why",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nav_offer": {
+          "name": "nav_offer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "nav_generator": {
           "name": "nav_generator",
           "type": "text",
@@ -1675,6 +1689,101 @@
         "home_trust_items_parent_id_fk": {
           "name": "home_trust_items_parent_id_fk",
           "tableFrom": "home_trust_items",
+          "tableTo": "home",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "home_dive_items": {
+      "name": "home_dive_items",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_locale": {
+          "name": "_locale",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "home_dive_items_order_idx": {
+          "name": "home_dive_items_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "home_dive_items_parent_id_idx": {
+          "name": "home_dive_items_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        },
+        "home_dive_items_locale_idx": {
+          "name": "home_dive_items_locale_idx",
+          "columns": [
+            "_locale"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "home_dive_items_parent_id_fk": {
+          "name": "home_dive_items_parent_id_fk",
+          "tableFrom": "home_dive_items",
           "tableTo": "home",
           "columnsFrom": [
             "_parent_id"
@@ -2387,6 +2496,55 @@
         },
         "trust_note": {
           "name": "trust_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dive_chapter": {
+          "name": "dive_chapter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dive_eyebrow": {
+          "name": "dive_eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dive_title": {
+          "name": "dive_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dive_text": {
+          "name": "dive_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dive_cta": {
+          "name": "dive_cta",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dive_cta2": {
+          "name": "dive_cta2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dive_note": {
+          "name": "dive_note",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -3351,6 +3509,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "201b0bfe-6f45-4be2-94ef-509fe169fa4d",
+  "id": "72e43128-c394-4f68-870e-9e54f0ce23ad",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

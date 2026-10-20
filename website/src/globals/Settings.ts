@@ -13,7 +13,7 @@ export const Settings: GlobalConfig = {
     { name: 'contentVersion', type: 'number', admin: { hidden: true } },
     { name: 'contactEmail', label: 'E-mailadres support (leeg = niet tonen)', type: 'email' },
     group('seo', 'Zoekmachines', [L('title', 'Titel'), L('description', 'Omschrijving', true)]),
-    group('nav', 'Menu', [L('generator', 'Generator'), L('story', 'Toepassingen'), L('how', 'Zo werkt het'), L('features', 'Functies'), L('solutions', 'Oplossingen'), L('pricing', 'Prijzen'), L('faq', 'Vragen'), L('contact', 'Contact'),
+    group('nav', 'Menu', [L('why', 'Waarom wij'), L('offer', 'Wat we bieden'), L('generator', 'Generator'), L('story', 'Toepassingen'), L('how', 'Zo werkt het'), L('features', 'Functies'), L('solutions', 'Oplossingen'), L('pricing', 'Prijzen'), L('faq', 'Vragen'), L('contact', 'Contact'),
       L('login', 'Inloggen'), L('tryFree', 'Knop QR-code maken'), L('menu', 'Menu (mobiel)'), L('close', 'Sluiten')]),
     group('footer', 'Voettekst', [L('tagline', 'Zin onder het logo', true), L('product', 'Kop product'), L('company', 'Kop bedrijf'), L('legal', 'Kop juridisch'),
       L('cancel', 'Abonnement opzeggen'), L('language', 'Taal'), L('rights', 'Rechten')]),
