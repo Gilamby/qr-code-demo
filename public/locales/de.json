@@ -630,7 +630,18 @@
     "back": "Zurück",
     "done": "Geschafft! Dein Paket ist aktiv.",
     "trialUntil": "Kostenlos bis {date}",
-    "enter": "Zur App"
+    "enter": "Zur App",
+    "backApp": "Zurück zur App",
+    "changeTitle": "Wähle das passende Paket",
+    "changeLead": "Mehr Codes, längere Statistiken oder dein Team dazu. Du kannst jederzeit wechseln.",
+    "now": "Du hast jetzt {plan} · {period}",
+    "current": "Dein Paket",
+    "choosePlan": "Weiter mit {plan}",
+    "reassure": "Keine versteckten Kosten. Jederzeit kündigen oder wechseln.",
+    "then": "Danach",
+    "payNow": "{price} bezahlen",
+    "safe": "Sichere Zahlung",
+    "changed": "Dein Paket wurde geändert"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Bitte gib Vor- und Nachnamen ein.",
     "act_2fa_on": "Zwei-Schritt-Verifizierung eingeschaltet",
     "act_2fa_off": "Zwei-Schritt-Verifizierung ausgeschaltet",
-    "needNameEmpty": "Bitte gib einen Namen ein."
+    "needNameEmpty": "Bitte gib einen Namen ein.",
+    "act_plan_chosen": "Paket gewählt",
+    "act_plan_changed": "Paket geändert"
   },
   "mail": {
     "resetSubject": "Neues Passwort für QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Du hast das Limit deines Abonnements erreicht. Lösche einen Code oder frage unter Mein Konto > Abonnement ein größeres Paket an.",
     "saved": "Abonnement gespeichert.",
     "statsFloor": "Dein Paket zeigt Statistiken ab {date}.",
-    "trial": "{n} Tage kostenlos testen"
+    "trial": "{n} Tage kostenlos testen",
+    "moreTitle": "Mehr nötig?",
+    "moreLead": "Alle Pakete im Vergleich – wechsle, wann du willst.",
+    "seePlans": "Pakete ansehen",
+    "currentLead": "Dein aktuelles Paket."
   },
   "tfa": {
     "title": "Zwei-Schritt-Verifizierung",

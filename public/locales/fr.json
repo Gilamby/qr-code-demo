@@ -630,7 +630,18 @@
     "back": "Retour",
     "done": "C’est fait ! Votre offre est active.",
     "trialUntil": "Gratuit jusqu’au {date}",
-    "enter": "Aller à l’app"
+    "enter": "Aller à l’app",
+    "backApp": "Retour à l’app",
+    "changeTitle": "Choisissez la formule qui vous convient",
+    "changeLead": "Plus de codes, des statistiques plus longues ou votre équipe. Vous pouvez changer à tout moment.",
+    "now": "Vous avez maintenant {plan} · {period}",
+    "current": "Votre formule",
+    "choosePlan": "Continuer avec {plan}",
+    "reassure": "Aucun coût caché. Résiliez ou changez à tout moment.",
+    "then": "Ensuite",
+    "payNow": "Payer {price}",
+    "safe": "Paiement sécurisé",
+    "changed": "Votre formule a été modifiée"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Indiquez votre prénom et votre nom.",
     "act_2fa_on": "Validation en deux étapes activée",
     "act_2fa_off": "Validation en deux étapes désactivée",
-    "needNameEmpty": "Saisissez un nom."
+    "needNameEmpty": "Saisissez un nom.",
+    "act_plan_chosen": "Formule choisie",
+    "act_plan_changed": "Formule modifiée"
   },
   "mail": {
     "resetSubject": "Nouveau mot de passe pour QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Vous avez atteint la limite de votre abonnement. Supprimez un code ou demandez une offre supérieure dans Mon compte > Abonnement.",
     "saved": "Abonnement enregistré.",
     "statsFloor": "Votre offre affiche les statistiques à partir du {date}.",
-    "trial": "Essai gratuit de {n} jours"
+    "trial": "Essai gratuit de {n} jours",
+    "moreTitle": "Besoin de plus ?",
+    "moreLead": "Comparez toutes les formules et changez quand vous voulez.",
+    "seePlans": "Voir les formules",
+    "currentLead": "Votre formule actuelle."
   },
   "tfa": {
     "title": "Validation en deux étapes",

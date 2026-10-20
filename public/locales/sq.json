@@ -630,7 +630,18 @@
     "back": "Mbrapa",
     "done": "U krye! Paketa jote është aktive.",
     "trialUntil": "Falas deri më {date}",
-    "enter": "Shko te aplikacioni"
+    "enter": "Shko te aplikacioni",
+    "backApp": "Kthehu te aplikacioni",
+    "changeTitle": "Zgjidh paketën që të përshtatet",
+    "changeLead": "Më shumë kode, statistika më të gjata ose ekipi yt. Mund ta ndryshosh kurdo.",
+    "now": "Tani ke {plan} · {period}",
+    "current": "Paketa jote",
+    "choosePlan": "Vazhdo me {plan}",
+    "reassure": "Pa kosto të fshehura. Anulo ose ndrysho kurdo.",
+    "then": "Pastaj",
+    "payNow": "Paguaj {price}",
+    "safe": "Pagesë e sigurt",
+    "changed": "Paketa jote u ndryshua"
   },
   "dz": {
     "lbl": {
@@ -1442,7 +1453,9 @@
     "needNameBoth": "Shkruaj edhe emrin edhe mbiemrin.",
     "act_2fa_on": "Verifikimi me dy hapa u aktivizua",
     "act_2fa_off": "Verifikimi me dy hapa u çaktivizua",
-    "needNameEmpty": "Shkruaj një emër."
+    "needNameEmpty": "Shkruaj një emër.",
+    "act_plan_chosen": "Paketa u zgjodh",
+    "act_plan_changed": "Paketa u ndryshua"
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për QR-Codex",
@@ -2340,7 +2353,11 @@
     "limitCreate": "Ke arritur kufirin e abonimit. Fshi një kod ose kërko një paketë më të madhe te Llogaria ime > Abonimi.",
     "saved": "Abonimi u ruajt.",
     "statsFloor": "Paketa jote shfaq statistika nga {date}.",
-    "trial": "Provo falas {n} ditë"
+    "trial": "Provo falas {n} ditë",
+    "moreTitle": "Të duhet më shumë?",
+    "moreLead": "Krahaso të gjitha paketat dhe ndrysho kur të duash.",
+    "seePlans": "Shiko paketat",
+    "currentLead": "Paketa jote aktuale."
   },
   "tfa": {
     "title": "Verifikimi me dy hapa",

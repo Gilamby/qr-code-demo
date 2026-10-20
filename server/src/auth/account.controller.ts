@@ -18,7 +18,7 @@ import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLANS, planFor, usage } from '../plans';
-import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval } from '../subscription';
+import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
@@ -151,21 +151,23 @@ export class AccountController {
     return { ok: true, version: TERMS_VERSION };
   }
 
-  /** DEMO-afrekenen (zolang Stripe er nog niet is; alleen met DEMO_CHECKOUT=true in .env).
-   *  Alleen voor een nieuwe klant die nog nooit betaald heeft: pakket kiezen → "betaald" → de app in.
-   *  Daarna zie je het pakket-scherm nooit meer. Zoals straks bij Stripe: 14 dagen gratis, daarna de eerste periode. */
+  /** DEMO-afrekenen (zolang Stripe er nog niet is; alleen met DEMO_CHECKOUT=true in .env). Er wordt niets afgeschreven.
+   *  - Nieuwe klant (nog nooit betaald): pakket kiezen → 14 dagen gratis, daarna de eerste periode → de app in.
+   *  - Bestaande klant: ander pakket of andere periode → gaat meteen in (nieuwe periode vanaf vandaag, geen proefperiode).
+   *  Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar). */
   @Post('account/checkout-demo')
   @HttpCode(200)
   async checkoutDemo(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
     if (process.env.DEMO_CHECKOUT !== 'true') throw fail(403, 'off');
     const planId = String(b.plan || ''), interval = toInterval(b.period);
     if (!['standard', 'pro', 'business'].includes(planId)) throw fail(400, 'plan');
-    const sub = await subFor(this.db, user.id);
-    if (stateOf(sub) !== 'unpaid') throw fail(409, 'done');                       // maar één keer, en nooit voor wie al betaalt
-    const trial = (PLANS[planId].trialDays || 0) * DAY;
+    if (this.auth.isAdmin(user) || (req as any).member) throw fail(403, 'team');
+    const sub = await subFor(this.db, user.id), st = stateOf(sub), first = st === 'unpaid';
+    if (!first && st === 'active' && (await planFor(this.db, user.id)).id === planId && (sub && sub.interval) === interval) throw fail(409, 'same');   // niets te wijzigen
+    const trial = first ? (PLANS[planId].trialDays || 0) * DAY : 0;                 // proefperiode alleen de eerste keer
     await this.db.setSetting('plan:' + user.id, planId);
-    await saveSub(this.db, user.id, renew({ ...sub, mustPay: false }, interval, Date.now() + trial));
-    await this.db.addActivity(user.id, 'plan_chosen', this.auth.meta(req));
+    await saveSub(this.db, user.id, renew({ ...(sub || emptySub(interval)), periodEnd: null, mustPay: false, graceUntil: null, deletedAt: null }, interval, Date.now() + trial));
+    await this.db.addActivity(user.id, first ? 'plan_chosen' : 'plan_changed', this.auth.meta(req));
     return { ok: true, sub: publicSub(await subFor(this.db, user.id)) };
   }
 

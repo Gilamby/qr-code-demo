@@ -630,7 +630,18 @@
     "back": "Späť",
     "done": "Hotovo! Váš balík je aktívny.",
     "trialUntil": "Zadarmo do {date}",
-    "enter": "Do aplikácie"
+    "enter": "Do aplikácie",
+    "backApp": "Späť do aplikácie",
+    "changeTitle": "Vyber si balík, ktorý ti sedí",
+    "changeLead": "Viac kódov, dlhšie štatistiky alebo tvoj tím. Zmeniť môžeš kedykoľvek.",
+    "now": "Teraz máš {plan} · {period}",
+    "current": "Tvoj balík",
+    "choosePlan": "Pokračovať s {plan}",
+    "reassure": "Žiadne skryté poplatky. Zruš alebo zmeň kedykoľvek.",
+    "then": "Potom",
+    "payNow": "Zaplatiť {price}",
+    "safe": "Bezpečná platba",
+    "changed": "Tvoj balík bol zmenený"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Zadaj meno aj priezvisko.",
     "act_2fa_on": "Dvojstupňové overenie zapnuté",
     "act_2fa_off": "Dvojstupňové overenie vypnuté",
-    "needNameEmpty": "Zadaj meno."
+    "needNameEmpty": "Zadaj meno.",
+    "act_plan_chosen": "Balík vybraný",
+    "act_plan_changed": "Balík zmenený"
   },
   "mail": {
     "resetSubject": "Nové heslo pre QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Dosiahol si limit svojho predplatného. Odstráň kód alebo požiadaj o väčšie predplatné v Môj účet > Predplatné.",
     "saved": "Predplatné uložené.",
     "statsFloor": "Tvoje predplatné zobrazuje štatistiky od {date}.",
-    "trial": "{n} dní zadarmo"
+    "trial": "{n} dní zadarmo",
+    "moreTitle": "Potrebuješ viac?",
+    "moreLead": "Porovnaj všetky balíky a meň, kedy chceš.",
+    "seePlans": "Pozrieť balíky",
+    "currentLead": "Tvoj aktuálny balík."
   },
   "tfa": {
     "title": "Dvojstupňové overenie",

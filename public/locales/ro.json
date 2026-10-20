@@ -630,7 +630,18 @@
     "back": "Înapoi",
     "done": "Gata! Pachetul tău este activ.",
     "trialUntil": "Gratuit până la {date}",
-    "enter": "Mergi la aplicație"
+    "enter": "Mergi la aplicație",
+    "backApp": "Înapoi la aplicație",
+    "changeTitle": "Alege pachetul potrivit",
+    "changeLead": "Mai multe coduri, statistici mai lungi sau echipa ta. Poți schimba oricând.",
+    "now": "Acum ai {plan} · {period}",
+    "current": "Pachetul tău",
+    "choosePlan": "Continuă cu {plan}",
+    "reassure": "Fără costuri ascunse. Anulezi sau schimbi oricând.",
+    "then": "Apoi",
+    "payNow": "Plătește {price}",
+    "safe": "Plată sigură",
+    "changed": "Pachetul tău a fost schimbat"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Introdu atât prenumele, cât și numele.",
     "act_2fa_on": "Verificarea în doi pași a fost activată",
     "act_2fa_off": "Verificarea în doi pași a fost dezactivată",
-    "needNameEmpty": "Introdu un nume."
+    "needNameEmpty": "Introdu un nume.",
+    "act_plan_chosen": "Pachet ales",
+    "act_plan_changed": "Pachet schimbat"
   },
   "mail": {
     "resetSubject": "Parolă nouă pentru QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Ai atins limita abonamentului tău. Șterge un cod sau solicită un abonament mai mare în Contul meu > Abonament.",
     "saved": "Abonament salvat.",
     "statsFloor": "Abonamentul tău afișează statistici începând cu {date}.",
-    "trial": "Încearcă gratuit {n} zile"
+    "trial": "Încearcă gratuit {n} zile",
+    "moreTitle": "Ai nevoie de mai mult?",
+    "moreLead": "Compară toate pachetele și schimbă oricând vrei.",
+    "seePlans": "Vezi pachetele",
+    "currentLead": "Pachetul tău actual."
   },
   "tfa": {
     "title": "Verificare în doi pași",

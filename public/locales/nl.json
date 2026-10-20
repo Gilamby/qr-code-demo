@@ -630,7 +630,18 @@
     "back": "Terug",
     "done": "Gelukt! Je pakket staat aan.",
     "trialUntil": "Gratis tot {date}",
-    "enter": "Naar de app"
+    "enter": "Naar de app",
+    "backApp": "Terug naar de app",
+    "changeTitle": "Kies het pakket dat bij je past",
+    "changeLead": "Meer codes, langere statistieken of je team erbij. Je kunt altijd weer wisselen.",
+    "now": "Je hebt nu {plan} · {period}",
+    "current": "Je pakket",
+    "choosePlan": "Verder met {plan}",
+    "reassure": "Geen verborgen kosten. Altijd opzeggen of wisselen.",
+    "then": "Daarna",
+    "payNow": "Betaal {price}",
+    "safe": "Veilig betalen",
+    "changed": "Je pakket is gewijzigd"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Vul zowel je voornaam als je achternaam in.",
     "act_2fa_on": "Tweestapsverificatie aangezet",
     "act_2fa_off": "Tweestapsverificatie uitgezet",
-    "needNameEmpty": "Vul een naam in."
+    "needNameEmpty": "Vul een naam in.",
+    "act_plan_chosen": "Pakket gekozen",
+    "act_plan_changed": "Pakket gewijzigd"
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Je hebt de limiet van je abonnement bereikt. Verwijder een code of vraag een groter pakket aan bij Mijn account > Abonnement.",
     "saved": "Abonnement opgeslagen.",
     "statsFloor": "Je pakket toont statistieken vanaf {date}.",
-    "trial": "{n} dagen gratis proberen"
+    "trial": "{n} dagen gratis proberen",
+    "moreTitle": "Meer nodig?",
+    "moreLead": "Bekijk alle pakketten naast elkaar en wissel wanneer je wilt.",
+    "seePlans": "Bekijk pakketten",
+    "currentLead": "Je huidige pakket."
   },
   "tfa": {
     "title": "Tweestapsverificatie",

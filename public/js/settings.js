@@ -90,7 +90,7 @@
     if (st === 'unpaid') { bar.innerHTML = '<b>' + esc(t('sub.barUnpaid')) + '</b> <a href="#" data-sub-go>' + esc(t('sub.choose')) + '</a>'; return; }
     bar.innerHTML = '<b>' + esc(st === 'grace' ? t('sub.barGrace', { date: i18n.fmt.stamp(sb.graceUntil, 'time') }) : t('sub.barEnded')) + '</b> <a href="#" data-sub-go>' + esc(t('sub.renew')) + '</a>';
   }
-  bar.addEventListener('click', function (e) { if (e.target.closest('[data-sub-go]')) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); } });
+  bar.addEventListener('click', function (e) { if (e.target.closest('[data-sub-go]')) { e.preventDefault(); if (window.Plans) Plans.open(); } });
   document.addEventListener('sub-lapsed', load);
   // Nog geen abonnement: QR-code maken leidt naar Abonnement kiezen (anders vul je alles in en kun je niet opslaan)
   document.addEventListener('pagechange', function (e) {
@@ -106,7 +106,7 @@
     if (goCodes) { goCodes = false; history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('myCodes'); }, 600); return; }
     if (wanted()) goPlan = true;
     if (!goPlan) return; goPlan = false; if (/[?&]go=/.test(location.search)) history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); }, 600); });
-  card.addEventListener('click', function (e) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); });
+  card.addEventListener('click', function (e) { e.preventDefault(); if (window.Plans) Plans.open(); else { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); } });   // rustige pakketten-pagina
   if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(load, 400); });
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes' || e.detail === 'home') load(); });
   if (window.i18n) i18n.onChange(function () { show(); banner(); });

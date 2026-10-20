@@ -4442,3 +4442,15 @@ body.paywall-open { overflow: hidden; }
 .auth-terms .link-btn { font-size: inherit; padding: 0; text-decoration: underline; }
 .tg-inner { max-width: 520px; }
 .tg-inner form { display: grid; gap: 18px; margin-top: 8px; }
+
+/* Pakketten-pagina: rustig en uitnodigend */
+.pw-close { height: 40px; }
+.pw-now { margin: -8px 0 18px; padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,.06); color: var(--muted); font-size: 14px; }
+.pw-card[disabled] { cursor: default; opacity: .7; transform: none; }
+.pw-pop.cur { background: rgba(255,255,255,.14); color: var(--fg); }
+.pw-card .pl-price b { font-size: 30px; letter-spacing: -.02em; }
+.pw-sum .pw-list { margin: 6px 0 4px; }
+.pw-safe { margin: 0; color: var(--muted); font-size: 13px; text-align: center; }
+.pl-more { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.pl-more h2 { margin: 0 0 4px; }
+.pl-more .acct-note { margin: 0; }

@@ -630,7 +630,18 @@
     "back": "Back",
     "done": "Done! Your plan is active.",
     "trialUntil": "Free until {date}",
-    "enter": "Go to the app"
+    "enter": "Go to the app",
+    "backApp": "Back to the app",
+    "changeTitle": "Choose the plan that fits you",
+    "changeLead": "More codes, longer statistics or your team on board. You can switch again at any time.",
+    "now": "You now have {plan} · {period}",
+    "current": "Your plan",
+    "choosePlan": "Continue with {plan}",
+    "reassure": "No hidden costs. Cancel or switch anytime.",
+    "then": "After that",
+    "payNow": "Pay {price}",
+    "safe": "Secure payment",
+    "changed": "Your plan has been changed"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Please enter both your first and last name.",
     "act_2fa_on": "Two-step verification turned on",
     "act_2fa_off": "Two-step verification turned off",
-    "needNameEmpty": "Please enter a name."
+    "needNameEmpty": "Please enter a name.",
+    "act_plan_chosen": "Plan chosen",
+    "act_plan_changed": "Plan changed"
   },
   "mail": {
     "resetSubject": "New password for QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "You have reached the limit of your subscription. Delete a code or request a bigger plan in My account > Subscription.",
     "saved": "Subscription saved.",
     "statsFloor": "Your plan shows statistics from {date}.",
-    "trial": "Try free for {n} days"
+    "trial": "Try free for {n} days",
+    "moreTitle": "Need more?",
+    "moreLead": "See all plans side by side and switch whenever you like.",
+    "seePlans": "See plans",
+    "currentLead": "Your current plan."
   },
   "tfa": {
     "title": "Two-step verification",

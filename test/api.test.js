@@ -671,6 +671,10 @@ test('demo-afrekenen: alleen met DEMO_CHECKOUT, alleen voor een nieuwe klant, é
   const plan = (await c('GET', '/api/account/plan')).json; assert.equal(plan.plan.id, 'pro');
   assert.ok(Date.parse(plan.sub.periodEnd) > Date.now() + 370 * 864e5, '14 dagen proef + een jaar');
   assert.equal((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://na-betalen.example' }, design: {} })).status, 201, 'nu kan hij codes maken');
-  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'business' })).status, 409, 'maar één keer');
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'year' })).status, 409, 'zelfde pakket en periode: niets te doen');
+  const up = await c('POST', '/api/account/checkout-demo', { plan: 'business', period: 'quarter' });
+  assert.equal(up.status, 200, 'wisselen naar een ander pakket');
+  const after = (await c('GET', '/api/account/plan')).json; assert.equal(after.plan.id, 'business'); assert.equal(after.sub.interval, 'quarter');
+  const days = (Date.parse(after.sub.periodEnd) - Date.now()) / 864e5; assert.ok(days > 85 && days < 95, 'wisselen: meteen een kwartaal, geen proefperiode');
   delete process.env.DEMO_CHECKOUT;
 });

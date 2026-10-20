@@ -630,7 +630,18 @@
     "back": "Takaisin",
     "done": "Valmis! Pakettisi on käytössä.",
     "trialUntil": "Ilmainen {date} asti",
-    "enter": "Sovellukseen"
+    "enter": "Sovellukseen",
+    "backApp": "Takaisin sovellukseen",
+    "changeTitle": "Valitse sinulle sopiva paketti",
+    "changeLead": "Lisää koodeja, pidemmät tilastot tai tiimisi mukaan. Voit vaihtaa milloin vain.",
+    "now": "Sinulla on nyt {plan} · {period}",
+    "current": "Pakettisi",
+    "choosePlan": "Jatka paketilla {plan}",
+    "reassure": "Ei piilokuluja. Peru tai vaihda milloin vain.",
+    "then": "Sen jälkeen",
+    "payNow": "Maksa {price}",
+    "safe": "Turvallinen maksu",
+    "changed": "Pakettisi on vaihdettu"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Syötä sekä etu- että sukunimi.",
     "act_2fa_on": "Kaksivaiheinen tunnistautuminen otettu käyttöön",
     "act_2fa_off": "Kaksivaiheinen tunnistautuminen poistettu käytöstä",
-    "needNameEmpty": "Syötä nimi."
+    "needNameEmpty": "Syötä nimi.",
+    "act_plan_chosen": "Paketti valittu",
+    "act_plan_changed": "Paketti vaihdettu"
   },
   "mail": {
     "resetSubject": "Uusi salasana QR-Codex:ään",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Olet saavuttanut tilauksesi rajan. Poista koodi tai pyydä suurempaa tilausta kohdassa Oma tili > Tilaus.",
     "saved": "Tilaus tallennettu.",
     "statsFloor": "Tilauksesi näyttää tilastot {date} alkaen.",
-    "trial": "Kokeile ilmaiseksi {n} päivää"
+    "trial": "Kokeile ilmaiseksi {n} päivää",
+    "moreTitle": "Tarvitsetko enemmän?",
+    "moreLead": "Vertaa kaikkia paketteja ja vaihda milloin haluat.",
+    "seePlans": "Katso paketit",
+    "currentLead": "Nykyinen pakettisi."
   },
   "tfa": {
     "title": "Kaksivaiheinen tunnistautuminen",

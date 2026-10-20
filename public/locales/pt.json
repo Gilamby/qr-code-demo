@@ -630,7 +630,18 @@
     "back": "Voltar",
     "done": "Feito! O seu plano está ativo.",
     "trialUntil": "Grátis até {date}",
-    "enter": "Ir para a app"
+    "enter": "Ir para a app",
+    "backApp": "Voltar à app",
+    "changeTitle": "Escolha o plano certo para si",
+    "changeLead": "Mais códigos, estatísticas mais longas ou a sua equipa. Pode mudar sempre que quiser.",
+    "now": "Agora tem {plan} · {period}",
+    "current": "O seu plano",
+    "choosePlan": "Continuar com {plan}",
+    "reassure": "Sem custos ocultos. Cancele ou mude quando quiser.",
+    "then": "Depois",
+    "payNow": "Pagar {price}",
+    "safe": "Pagamento seguro",
+    "changed": "O seu plano foi alterado"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Indique o nome e o apelido.",
     "act_2fa_on": "Verificação em dois passos ativada",
     "act_2fa_off": "Verificação em dois passos desativada",
-    "needNameEmpty": "Introduza um nome."
+    "needNameEmpty": "Introduza um nome.",
+    "act_plan_chosen": "Plano escolhido",
+    "act_plan_changed": "Plano alterado"
   },
   "mail": {
     "resetSubject": "Nova palavra-passe para QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Atingiu o limite da sua assinatura. Elimine um código ou peça um plano maior em A minha conta > Assinatura.",
     "saved": "Assinatura guardada.",
     "statsFloor": "O seu plano mostra estatísticas desde {date}.",
-    "trial": "Experimenta grátis {n} dias"
+    "trial": "Experimenta grátis {n} dias",
+    "moreTitle": "Precisa de mais?",
+    "moreLead": "Compare todos os planos e mude quando quiser.",
+    "seePlans": "Ver planos",
+    "currentLead": "O seu plano atual."
   },
   "tfa": {
     "title": "Verificação em dois passos",

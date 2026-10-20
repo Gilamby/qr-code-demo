@@ -630,7 +630,18 @@
     "back": "Volver",
     "done": "¡Listo! Tu plan está activo.",
     "trialUntil": "Gratis hasta el {date}",
-    "enter": "Ir a la app"
+    "enter": "Ir a la app",
+    "backApp": "Volver a la app",
+    "changeTitle": "Elige el plan que te encaja",
+    "changeLead": "Más códigos, estadísticas más largas o tu equipo. Puedes cambiar cuando quieras.",
+    "now": "Ahora tienes {plan} · {period}",
+    "current": "Tu plan",
+    "choosePlan": "Continuar con {plan}",
+    "reassure": "Sin costes ocultos. Cancela o cambia cuando quieras.",
+    "then": "Después",
+    "payNow": "Pagar {price}",
+    "safe": "Pago seguro",
+    "changed": "Tu plan ha cambiado"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Escribe tu nombre y tu apellido.",
     "act_2fa_on": "Verificación en dos pasos activada",
     "act_2fa_off": "Verificación en dos pasos desactivada",
-    "needNameEmpty": "Introduce un nombre."
+    "needNameEmpty": "Introduce un nombre.",
+    "act_plan_chosen": "Plan elegido",
+    "act_plan_changed": "Plan cambiado"
   },
   "mail": {
     "resetSubject": "Nueva contraseña para QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Has alcanzado el límite de tu suscripción. Elimina un código o solicita un plan mayor en Mi cuenta > Suscripción.",
     "saved": "Suscripción guardada.",
     "statsFloor": "Tu plan muestra estadísticas desde el {date}.",
-    "trial": "Prueba gratis {n} días"
+    "trial": "Prueba gratis {n} días",
+    "moreTitle": "¿Necesitas más?",
+    "moreLead": "Compara todos los planes y cambia cuando quieras.",
+    "seePlans": "Ver planes",
+    "currentLead": "Tu plan actual."
   },
   "tfa": {
     "title": "Verificación en dos pasos",

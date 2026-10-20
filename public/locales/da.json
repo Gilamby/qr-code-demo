@@ -630,7 +630,18 @@
     "back": "Tilbage",
     "done": "Færdig! Din pakke er aktiv.",
     "trialUntil": "Gratis indtil {date}",
-    "enter": "Til appen"
+    "enter": "Til appen",
+    "backApp": "Tilbage til appen",
+    "changeTitle": "Vælg den pakke, der passer dig",
+    "changeLead": "Flere koder, længere statistik eller dit team med. Du kan altid skifte igen.",
+    "now": "Du har nu {plan} · {period}",
+    "current": "Din pakke",
+    "choosePlan": "Fortsæt med {plan}",
+    "reassure": "Ingen skjulte omkostninger. Opsig eller skift når som helst.",
+    "then": "Derefter",
+    "payNow": "Betal {price}",
+    "safe": "Sikker betaling",
+    "changed": "Din pakke er ændret"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Indtast både fornavn og efternavn.",
     "act_2fa_on": "Totrinsbekræftelse slået til",
     "act_2fa_off": "Totrinsbekræftelse slået fra",
-    "needNameEmpty": "Indtast et navn."
+    "needNameEmpty": "Indtast et navn.",
+    "act_plan_chosen": "Pakke valgt",
+    "act_plan_changed": "Pakke ændret"
   },
   "mail": {
     "resetSubject": "Ny adgangskode til QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Du har nået grænsen for dit abonnement. Slet en kode, eller anmod om et større abonnement under Min konto > Abonnement.",
     "saved": "Abonnement gemt.",
     "statsFloor": "Dit abonnement viser statistik fra {date}.",
-    "trial": "Prøv gratis i {n} dage"
+    "trial": "Prøv gratis i {n} dage",
+    "moreTitle": "Brug for mere?",
+    "moreLead": "Se alle pakker side om side og skift, når du vil.",
+    "seePlans": "Se pakker",
+    "currentLead": "Din nuværende pakke."
   },
   "tfa": {
     "title": "Totrinsbekræftelse",

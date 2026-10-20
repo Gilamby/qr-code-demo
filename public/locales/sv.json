@@ -630,7 +630,18 @@
     "back": "Tillbaka",
     "done": "Klart! Ditt paket är aktivt.",
     "trialUntil": "Gratis till {date}",
-    "enter": "Till appen"
+    "enter": "Till appen",
+    "backApp": "Tillbaka till appen",
+    "changeTitle": "Välj det paket som passar dig",
+    "changeLead": "Fler koder, längre statistik eller ditt team med. Du kan byta när du vill.",
+    "now": "Du har nu {plan} · {period}",
+    "current": "Ditt paket",
+    "choosePlan": "Fortsätt med {plan}",
+    "reassure": "Inga dolda kostnader. Säg upp eller byt när du vill.",
+    "then": "Därefter",
+    "payNow": "Betala {price}",
+    "safe": "Säker betalning",
+    "changed": "Ditt paket har ändrats"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Ange både förnamn och efternamn.",
     "act_2fa_on": "Tvåstegsverifiering påslagen",
     "act_2fa_off": "Tvåstegsverifiering avstängd",
-    "needNameEmpty": "Ange ett namn."
+    "needNameEmpty": "Ange ett namn.",
+    "act_plan_chosen": "Paket valt",
+    "act_plan_changed": "Paket ändrat"
   },
   "mail": {
     "resetSubject": "Nytt lösenord för QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Du har nått gränsen för ditt abonnemang. Ta bort en kod eller begär ett större abonnemang i Mitt konto > Abonnemang.",
     "saved": "Abonnemanget har sparats.",
     "statsFloor": "Ditt abonnemang visar statistik från {date}.",
-    "trial": "Prova gratis i {n} dagar"
+    "trial": "Prova gratis i {n} dagar",
+    "moreTitle": "Behöver du mer?",
+    "moreLead": "Jämför alla paket och byt när du vill.",
+    "seePlans": "Se paket",
+    "currentLead": "Ditt nuvarande paket."
   },
   "tfa": {
     "title": "Tvåstegsverifiering",

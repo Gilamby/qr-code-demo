@@ -630,7 +630,18 @@
     "back": "Atpakaļ",
     "done": "Gatavs! Jūsu pakete ir aktīva.",
     "trialUntil": "Bez maksas līdz {date}",
-    "enter": "Uz lietotni"
+    "enter": "Uz lietotni",
+    "backApp": "Atpakaļ uz lietotni",
+    "changeTitle": "Izvēlies sev piemērotu paketi",
+    "changeLead": "Vairāk kodu, garāka statistika vai tava komanda. Mainīt vari jebkurā laikā.",
+    "now": "Tagad tev ir {plan} · {period}",
+    "current": "Tava pakete",
+    "choosePlan": "Turpināt ar {plan}",
+    "reassure": "Nekādu slēptu izmaksu. Atsaki vai maini jebkurā laikā.",
+    "then": "Pēc tam",
+    "payNow": "Maksāt {price}",
+    "safe": "Droša maksāšana",
+    "changed": "Tava pakete ir mainīta"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Ievadi gan vārdu, gan uzvārdu.",
     "act_2fa_on": "Divpakāpju verifikācija ieslēgta",
     "act_2fa_off": "Divpakāpju verifikācija izslēgta",
-    "needNameEmpty": "Ievadi vārdu."
+    "needNameEmpty": "Ievadi vārdu.",
+    "act_plan_chosen": "Pakete izvēlēta",
+    "act_plan_changed": "Pakete mainīta"
   },
   "mail": {
     "resetSubject": "Jauna parole QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Tu esi sasniedzis sava abonementa limitu. Izdzēs kādu kodu vai pieprasi lielāku plānu sadaļā “Mans konts” > “Abonements”.",
     "saved": "Abonements saglabāts.",
     "statsFloor": "Tavs plāns rāda statistiku no {date}.",
-    "trial": "{n} dienas bez maksas"
+    "trial": "{n} dienas bez maksas",
+    "moreTitle": "Vajag vairāk?",
+    "moreLead": "Salīdzini visas paketes un maini, kad vēlies.",
+    "seePlans": "Skatīt paketes",
+    "currentLead": "Tava pašreizējā pakete."
   },
   "tfa": {
     "title": "Divpakāpju verifikācija",

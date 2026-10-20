@@ -630,7 +630,18 @@
     "back": "Wstecz",
     "done": "Gotowe! Twój pakiet jest aktywny.",
     "trialUntil": "Za darmo do {date}",
-    "enter": "Przejdź do aplikacji"
+    "enter": "Przejdź do aplikacji",
+    "backApp": "Wróć do aplikacji",
+    "changeTitle": "Wybierz pakiet dla siebie",
+    "changeLead": "Więcej kodów, dłuższe statystyki lub Twój zespół. Możesz zmienić w każdej chwili.",
+    "now": "Masz teraz {plan} · {period}",
+    "current": "Twój pakiet",
+    "choosePlan": "Dalej z {plan}",
+    "reassure": "Bez ukrytych kosztów. Rezygnuj lub zmieniaj kiedy chcesz.",
+    "then": "Potem",
+    "payNow": "Zapłać {price}",
+    "safe": "Bezpieczna płatność",
+    "changed": "Twój pakiet został zmieniony"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Podaj imię i nazwisko.",
     "act_2fa_on": "Włączono weryfikację dwuetapową",
     "act_2fa_off": "Wyłączono weryfikację dwuetapową",
-    "needNameEmpty": "Wpisz imię lub nazwę."
+    "needNameEmpty": "Wpisz imię lub nazwę.",
+    "act_plan_chosen": "Wybrano pakiet",
+    "act_plan_changed": "Zmieniono pakiet"
   },
   "mail": {
     "resetSubject": "Nowe hasło do QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Osiągnięto limit subskrypcji. Usuń kod lub poproś o większy pakiet w Moje konto > Subskrypcja.",
     "saved": "Subskrypcja zapisana.",
     "statsFloor": "Twój pakiet pokazuje statystyki od {date}.",
-    "trial": "{n} dni za darmo"
+    "trial": "{n} dni za darmo",
+    "moreTitle": "Potrzebujesz więcej?",
+    "moreLead": "Porównaj wszystkie pakiety i zmieniaj, kiedy chcesz.",
+    "seePlans": "Zobacz pakiety",
+    "currentLead": "Twój obecny pakiet."
   },
   "tfa": {
     "title": "Weryfikacja dwuetapowa",

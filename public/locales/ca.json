@@ -630,7 +630,18 @@
     "back": "Enrere",
     "done": "Fet! El teu pla està actiu.",
     "trialUntil": "Gratis fins al {date}",
-    "enter": "Ves a l’app"
+    "enter": "Ves a l’app",
+    "backApp": "Torna a l’app",
+    "changeTitle": "Tria el pla que t’encaixa",
+    "changeLead": "Més codis, estadístiques més llargues o el teu equip. Pots canviar quan vulguis.",
+    "now": "Ara tens {plan} · {period}",
+    "current": "El teu pla",
+    "choosePlan": "Continua amb {plan}",
+    "reassure": "Sense costos ocults. Cancel·la o canvia quan vulguis.",
+    "then": "Després",
+    "payNow": "Paga {price}",
+    "safe": "Pagament segur",
+    "changed": "El teu pla ha canviat"
   },
   "dz": {
     "lbl": {
@@ -1336,7 +1347,9 @@
     "needNameBoth": "Introdueix el nom i els cognoms.",
     "act_2fa_on": "Verificació en dos passos activada",
     "act_2fa_off": "Verificació en dos passos desactivada",
-    "needNameEmpty": "Introdueix un nom."
+    "needNameEmpty": "Introdueix un nom.",
+    "act_plan_chosen": "Pla triat",
+    "act_plan_changed": "Pla canviat"
   },
   "mail": {
     "resetSubject": "Contrasenya nova per a QR-Codex",
@@ -2234,7 +2247,11 @@
     "limitCreate": "Has arribat al límit de la teva subscripció. Elimina un codi o sol·licita un pla més gran a El meu compte > Subscripció.",
     "saved": "Subscripció desada.",
     "statsFloor": "El teu pla mostra estadístiques des del {date}.",
-    "trial": "Prova gratis {n} dies"
+    "trial": "Prova gratis {n} dies",
+    "moreTitle": "Necessites més?",
+    "moreLead": "Compara tots els plans i canvia quan vulguis.",
+    "seePlans": "Veure els plans",
+    "currentLead": "El teu pla actual."
   },
   "tfa": {
     "title": "Verificació en dos passos",

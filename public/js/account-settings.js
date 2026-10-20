@@ -223,7 +223,7 @@ window.PlanPeriod = {
       '<div class="acct-actions">' + (billing ? '<button class="btn ghost" type="button" data-billing-reset>' + t('myCodes.cancel') + '</button>' : '') +
       '<button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + (m.billing ? '<p class="acct-msg ' + m.billing[1] + '" role="status">' + esc(m.billing[0]) + '</p>' : '') + '</div>';
   }
-  var planInfo = null, planBusy = false, planPeriod = 'month';   // welke prijzen tonen: month / quarter / year
+  var planInfo = null, planBusy = false;
   function loadPlan() { if (planBusy) return; planBusy = true; api.account.plan().then(function (r) { planBusy = false; planInfo = r; if (tab === 'plan') draw(); }).catch(function () { planBusy = false; planInfo = { error: true }; if (tab === 'plan') draw(); }); }
   function euro(n) { return n === 0 ? t('plan.freeMonth') : new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); }
   function planCurrent() {
@@ -240,19 +240,11 @@ window.PlanPeriod = {
       : '<p class="pl-unl">' + t('plan.codesUnlimited', { used: u.used }) + '</p>';
     var feats = free ? ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(t)
       : [p.codes ? t('plan.fCodes', { n: p.codes }) : t('acct.planF1'), p.statsDays ? t('plan.fStats', { n: p.statsDays }) : t('plan.fStatsAll'), t('acct.planF2'), t('acct.planF4')];
-    return (head || '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.assignedLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
+    return (head || '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.currentLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
       bar + subLine(planInfo.sub) + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>') +
-      '<div class="glass bg-card acct"><h2>' + t('plan.choose') + ' <span class="pl-tag">' + t('plan.proposal') + '</span></h2><p class="acct-note">' + t('plan.chooseLead') + '</p>' +
-      PlanPeriod.toggle(planPeriod, 'data-plan-period', true) + '<div class="pl-grid">' +
-      planInfo.plans.map(function (x) {
-        var unpaid = planInfo.sub && planInfo.sub.state === 'unpaid', cur = x.id === p.id && !unpaid;   // nog niet betaald: nog geen "huidig" pakket
-        return '<div class="pl-card' + (cur ? ' is-cur' : '') + '"><div class="pl-name">' + t('plan.n_' + x.id) + (cur ? '<span class="pl-cur">' + t('plan.current') + '</span>' : '') + '</div>' +
-          '<div class="pl-price"><b>' + euro(PlanPeriod.price(x, planPeriod)) + '</b><small>' + PlanPeriod.per(planPeriod) + '</small></div>' +
-          (planPeriod === 'year' && x.priceYearAfter ? '<p class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</p>' : '') +
-          (x.trialDays ? '<p class="pl-intro">' + t('plan.trial', { n: x.trialDays }) + '</p>' : '') +
-          '<ul><li>' + (x.codes ? t('plan.fCodes', { n: x.codes }) : t('acct.planF1')) + '</li><li>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</li><li>' + (x.users === 1 ? t('team.fUsers1') : x.users ? t('team.fUsers', { n: x.users }) : t('team.fUsersAll')) + '</li><li>' + t('acct.planF4') + '</li></ul>' +
-          (cur ? '' : '<button type="button" class="btn ghost" data-plan-ask="' + x.id + '">' + t('plan.ask') + '</button>') + '</div>';
-      }).join('') + '</div><p class="acct-note">' + t('plan.noPayments') + '</p></div>';
+      (window.Team && Team.member && Team.member() ? '' :
+      '<div class="glass bg-card acct pl-more"><div><h2>' + t('plan.moreTitle') + '</h2><p class="acct-note">' + t('plan.moreLead') + '</p></div>' +
+      '<button type="button" class="btn primary" data-open-plans>' + t('plan.seePlans') + ' →</button></div>');
   }
   // Betaalstatus: betaald tot …, of niet betaald (codes uit, verwijderd op …), plus hoeveel bedenktijd je de volgende keer hebt
   function subLine(sb) {
@@ -606,7 +598,7 @@ window.PlanPeriod = {
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
-    var py = e.target.closest('[data-plan-period]'); if (py) { planPeriod = PlanPeriod.norm(py.getAttribute('data-plan-period')); draw(); return; }
+    if (e.target.closest('[data-open-plans]') && window.Plans) { Plans.open(); return; }
     var ask = e.target.closest('[data-plan-ask]');
     if (ask) { goToPage('contact'); document.dispatchEvent(new CustomEvent('contact-preset', { detail: { topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + ask.getAttribute('data-plan-ask')) }) } })); return; }
     var ed = e.target.closest('[data-edit]');

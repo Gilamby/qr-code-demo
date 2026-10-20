@@ -465,6 +465,8 @@
 :root[data-theme="light"] .pw-sum { background: rgba(13,19,32,0.03); border: 1px solid var(--line, rgba(13,19,32,0.09)); }
 :root[data-theme="light"] .pw-row { border-top: 1px solid var(--line, rgba(13,19,32,0.09)); }
 :root[data-theme="light"] .pw-check { color: #15803d; }
+:root[data-theme="light"] .pw-now { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .pw-pop.cur { background: rgba(13,19,32,0.105); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }
