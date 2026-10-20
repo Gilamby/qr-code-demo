@@ -4565,10 +4565,11 @@ body.paywall-open { overflow: hidden; }
 
 /* Bevestiging na betalen: zelfde witte kaart als de betaalpagina, als een bon */
 .pw-rc { width: 100%; max-width: 520px; margin-top: 8px; padding: 32px; border-radius: 20px; background: #ffffff; color: #1a1f36; text-align: left; box-shadow: 0 30px 80px -30px #000000; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box; }
-.pw-rc-head { display: flex; gap: 14px; align-items: flex-start; }
-.pw-rc-ok { width: 36px; height: 36px; border-radius: 50%; background: #e7f6ec; color: #15803d; display: grid; place-items: center; flex: none; }
-.pw-rc-ok svg { width: 20px; height: 20px; }
-.pw-rc-head h1 { font-size: 22px; letter-spacing: -.01em; margin: 4px 0 4px; color: #1a1f36; }
+.pw-rc-head { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding-top: 6px; }
+.pw-rc-ok { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(145deg, #34d399, #16a34a); color: #ffffff; display: grid; place-items: center; flex: none; margin-bottom: 12px; box-shadow: 0 0 0 7px #e8f8ee, 0 10px 24px -8px #16a34a; }
+.pw-rc-ok svg { width: 28px; height: 28px; }
+.pw-rc-amt { font-size: 34px; letter-spacing: -.02em; color: #1a1f36; margin: 2px 0 2px; }
+.pw-rc-head h1 { font-size: 18px; font-weight: 600; letter-spacing: 0; margin: 0; color: #3c4257; }
 .pw-rc-head p { margin: 0; color: #6b7385; font-size: 14.5px; line-height: 1.45; }
 .pw-rc-rows { border-top: 1px solid #e6e9ef; }
 .pw-rc-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid #e6e9ef; font-size: 14.5px; }

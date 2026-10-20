@@ -137,12 +137,11 @@ var Plans = (function () {
     var row = function (k, v) { return '<div class="pw-rc-row"><span>' + esc(k) + '</span><b>' + esc(v) + '</b></div>'; };
     box.innerHTML = '<div class="pw-inner">' + top() +
       '<div class="pw-rc">' +
-        '<div class="pw-rc-head"><span class="pw-rc-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
-          '<div><h1 id="pwTitle">' + esc(t(trial ? 'pw.rcTrial' : 'pw.rcPaid')) + '</h1><p>' + esc(t('pw.rcLead', { plan: t('plan.n_' + chosen) })) + '</p></div></div>' +
+        '<div class="pw-rc-head"><span class="pw-rc-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4L18 8"/></svg></span>' +
+          '<h1 id="pwTitle">' + esc(t(trial ? 'pw.rcTrial' : 'pw.rcPaid')) + '</h1><b class="pw-rc-amt">' + euro(trial ? 0 : first) + '</b><p>' + esc(t('pw.rcLead', { plan: t('plan.n_' + chosen) })) + '</p></div>' +
         '<div class="pw-rc-rows">' +
           row(t('pw.rcPlan'), 'QR-Codex ' + t('plan.n_' + chosen)) +
           row(t('pw.rcPeriod'), PlanPeriod.label(period)) +
-          row(t('pw.rcToday'), euro(trial ? 0 : first)) +
           (date ? row(t('pw.rcNext'), euro(next) + ' · ' + date) : '') +
           (demo() ? row(t('pw.method'), mName(method)) : '') +
           (u.email ? row(t('pw.email'), u.email) : '') +
