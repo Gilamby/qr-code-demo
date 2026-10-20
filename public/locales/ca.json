@@ -507,7 +507,13 @@
     "printHint": "Directament a la impressora",
     "share": "Comparteix",
     "shareHint": "Per correu, WhatsApp, AirDrop…",
-    "shareFallback": "Aquí no es pot compartir: s'ha baixat el PNG."
+    "shareFallback": "Aquí no es pot compartir: s'ha baixat el PNG.",
+    "planPaused": "En pausa pel teu pla",
+    "planPausedTip": "Torna a funcionar si millores el pla o compres un codi QR extra",
+    "planBar": "{n} codis QR estan en pausa pel teu pla.",
+    "planBarOne": "1 codi QR està en pausa pel teu pla.",
+    "planBarText": "Es conserven. Millora el pla o compra un codi QR extra per reactivar-los.",
+    "planBarBtn": "Reactiva"
   },
   "appearance": {
     "title": "Colors",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 codi QR",
     "bought": "Codi QR afegit",
     "boughtLead": "Ja pots crear el següent codi QR.",
-    "goOn": "Continua"
+    "goOn": "Continua",
+    "keepTitle": "Tria quins {n} codis QR continuen funcionant",
+    "keepLead": "{plan} permet {limit} codis QR. Ara en tens {used} d'actius.",
+    "keepSafe": "No s'esborra res. Els altres codis es posen en pausa. Si millores el pla o compres un codi QR extra, tornen a funcionar.",
+    "keepCount": "{n} de {max} triats",
+    "keepOff": "{n} es posaran en pausa",
+    "keepScans": "{n} escanejos",
+    "keepOn": "Continua actiu",
+    "keepPaused": "En pausa",
+    "keepGo": "Continua a {plan}",
+    "lessWarn": "{plan} inclou {limit} codis QR. En tens {used}. Ara tries quins continuen actius. La resta es posa en pausa, no s'esborra.",
+    "payPaused": "{n} codis QR es posaran en pausa. Es conserven."
   },
   "dz": {
     "lbl": {

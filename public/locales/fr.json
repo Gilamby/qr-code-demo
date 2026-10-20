@@ -507,7 +507,13 @@
     "printHint": "Directement vers l’imprimante",
     "share": "Partager",
     "shareHint": "Par e-mail, WhatsApp, AirDrop…",
-    "shareFallback": "Le partage n’est pas disponible ici : le PNG a été téléchargé."
+    "shareFallback": "Le partage n’est pas disponible ici : le PNG a été téléchargé.",
+    "planPaused": "En pause à cause de votre offre",
+    "planPausedTip": "Fonctionne à nouveau après une mise à niveau ou l'achat d'un QR code en plus",
+    "planBar": "{n} QR codes sont en pause à cause de votre offre.",
+    "planBarOne": "1 QR code est en pause à cause de votre offre.",
+    "planBarText": "Ils sont conservés. Passez à une offre supérieure ou achetez un QR code en plus pour les réactiver.",
+    "planBarBtn": "Réactiver"
   },
   "appearance": {
     "title": "Couleurs",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 code QR",
     "bought": "Code QR ajouté",
     "boughtLead": "Vous pouvez créer votre prochain code QR.",
-    "goOn": "Continuer"
+    "goOn": "Continuer",
+    "keepTitle": "Choisissez les {n} QR codes qui restent actifs",
+    "keepLead": "{plan} permet {limit} QR codes. Vous en avez {used} actifs.",
+    "keepSafe": "Rien n'est supprimé. Les autres codes sont mis en pause. Passez à une offre supérieure ou achetez un QR code en plus, et ils fonctionnent à nouveau.",
+    "keepCount": "{n} sur {max} choisis",
+    "keepOff": "{n} seront mis en pause",
+    "keepScans": "{n} scans",
+    "keepOn": "Reste actif",
+    "keepPaused": "En pause",
+    "keepGo": "Continuer vers {plan}",
+    "lessWarn": "{plan} comprend {limit} QR codes. Vous en avez {used}. Vous choisirez ensuite ceux qui restent actifs. Les autres sont mis en pause, pas supprimés.",
+    "payPaused": "{n} QR codes seront mis en pause. Ils sont conservés."
   },
   "dz": {
     "lbl": {

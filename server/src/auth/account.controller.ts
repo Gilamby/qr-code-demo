@@ -20,6 +20,7 @@ import type { User } from '../types';
 import { PLANS, planFor, usage, bgAllowed, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
+import { planPausedIds, fitToPlan, activeCount } from '../plan-limit';
 import { stripeOn, readRecord, stripe, demoCheckoutOn } from '../billing/stripe';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
@@ -134,8 +135,9 @@ export class AccountController {
   /** Abonnement: huidig pakket, gebruik en de pakketten (prijzen = voorstel, betalen kan nog niet) */
   @Get('account/plan')
   async plan(@CurrentUser() user: User) {
-    const plan = await planFor(this.db, user.id), codes = (await this.db.listQrCodes(user.id)).length;
-    return { plan, usage: usage(plan, codes), extraPrice: EXTRA_PRICE, plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!(await readRecord(this.db, user.id)).customer, sub: publicSub(await subFor(this.db, user.id)) };
+    const plan = await planFor(this.db, user.id), all = await this.db.listQrCodes(user.id), codes = all.filter((q) => !q.paused).length;
+    const planPaused = (await planPausedIds(this.db, user.id)).filter((id) => all.some((q) => q.id === id && q.paused));
+    return { plan, usage: { ...usage(plan, codes), total: all.length, planPaused }, extraPrice: EXTRA_PRICE, plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!(await readRecord(this.db, user.id)).customer, sub: publicSub(await subFor(this.db, user.id)) };
   }
 
   /** Akkoord met de voorwaarden (18+, Terms, Privacy). Wie via Google/Microsoft een account kreeg, of een account van het team,
@@ -168,6 +170,7 @@ export class AccountController {
     const trial = first ? (PLANS[planId].trialDays || 0) * DAY : 0;                 // proefperiode alleen de eerste keer
     await this.db.setSetting('plan:' + user.id, planId);
     await saveSub(this.db, user.id, renew({ ...(sub || emptySub(interval)), periodEnd: null, mustPay: false, graceUntil: null, deletedAt: null }, interval, Date.now() + trial));
+    await fitToPlan(this.db, user.id, Array.isArray(b.keep) ? b.keep.map(String) : null);   // minder codes: de gekozen blijven aan, de rest gepauzeerd
     await this.db.addActivity(user.id, first ? 'plan_chosen' : 'plan_changed', this.auth.meta(req));
     return { ok: true, sub: publicSub(await subFor(this.db, user.id)) };
   }
@@ -183,9 +186,10 @@ export class AccountController {
     const now = Number(await this.db.getSetting('extra:' + user.id)) || 0;
     if (now + n > EXTRA_MAX) throw fail(400, 'too_many');
     await this.db.setSetting('extra:' + user.id, String(now + n));
+    await fitToPlan(this.db, user.id);                                         // door het pakket gepauzeerde codes kunnen weer aan
     await this.db.addActivity(user.id, 'extra_bought', this.auth.meta(req));
     const p2 = await planFor(this.db, user.id);
-    return { ok: true, extra: now + n, usage: usage(p2, (await this.db.listQrCodes(user.id)).length) };
+    return { ok: true, extra: now + n, usage: usage(p2, await activeCount(this.db, user.id)) };
   }
 
   /** Uitloggen op alle andere apparaten (deze blijft ingelogd) */

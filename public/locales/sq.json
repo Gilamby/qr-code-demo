@@ -507,7 +507,13 @@
     "printHint": "Drejt e te printeri",
     "share": "Ndaj",
     "shareHint": "Me email, WhatsApp, AirDrop…",
-    "shareFallback": "Ndarja nuk është e mundur këtu: PNG u shkarkua."
+    "shareFallback": "Ndarja nuk është e mundur këtu: PNG u shkarkua.",
+    "planPaused": "Në pauzë për shkak të planit",
+    "planPausedTip": "Funksionon përsëri kur kaloni në plan më të lartë ose blini një kod QR shtesë",
+    "planBar": "{n} kode QR janë në pauzë për shkak të planit.",
+    "planBarOne": "1 kod QR është në pauzë për shkak të planit.",
+    "planBarText": "Janë ruajtur. Kaloni në plan më të lartë ose blini një kod QR shtesë për t'i aktivizuar përsëri.",
+    "planBarBtn": "Aktivizo përsëri"
   },
   "appearance": {
     "title": "Ngjyrat",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 kod QR më shumë",
     "bought": "Kodi QR u shtua",
     "boughtLead": "Tani mund të krijosh kodin tënd të radhës QR.",
-    "goOn": "Vazhdo"
+    "goOn": "Vazhdo",
+    "keepTitle": "Zgjidhni cilat {n} kode QR vazhdojnë të funksionojnë",
+    "keepLead": "{plan} lejon {limit} kode QR. Tani keni {used} aktive.",
+    "keepSafe": "Asgjë nuk fshihet. Kodet e tjera vihen në pauzë. Nëse kaloni në plan më të lartë ose blini një kod QR shtesë, funksionojnë përsëri.",
+    "keepCount": "{n} nga {max} të zgjedhura",
+    "keepOff": "{n} do të vihen në pauzë",
+    "keepScans": "{n} skanime",
+    "keepOn": "Mbetet aktiv",
+    "keepPaused": "Në pauzë",
+    "keepGo": "Vazhdo te {plan}",
+    "lessWarn": "{plan} përfshin {limit} kode QR. Keni {used}. Tani zgjidhni cilat mbeten aktive. Të tjerat vihen në pauzë, nuk fshihen.",
+    "payPaused": "{n} kode QR do të vihen në pauzë. Ruhen."
   },
   "dz": {
     "lbl": {

@@ -507,7 +507,13 @@
     "printHint": "Tieši uz printeri",
     "share": "Kopīgot",
     "shareHint": "Ar e-pastu, WhatsApp, AirDrop …",
-    "shareFallback": "Kopīgošana šeit nav pieejama: PNG fails tika lejupielādēts."
+    "shareFallback": "Kopīgošana šeit nav pieejama: PNG fails tika lejupielādēts.",
+    "planPaused": "Apturēts jūsu plāna dēļ",
+    "planPausedTip": "Atkal darbojas pēc jaunināšanas vai papildu QR koda iegādes",
+    "planBar": "{n} QR kodi ir apturēti jūsu plāna dēļ.",
+    "planBarOne": "1 QR kods ir apturēts jūsu plāna dēļ.",
+    "planBarText": "Tie ir saglabāti. Jauniniet plānu vai nopērciet papildu QR kodu, lai tos atkal ieslēgtu.",
+    "planBarBtn": "Ieslēgt atkal"
   },
   "appearance": {
     "title": "Krāsas",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 QR kods klāt",
     "bought": "QR kods pievienots",
     "boughtLead": "Tagad vari izveidot nākamo QR kodu.",
-    "goOn": "Turpināt"
+    "goOn": "Turpināt",
+    "keepTitle": "Izvēlieties, kuri {n} QR kodi turpina darboties",
+    "keepLead": "{plan} atļauj {limit} QR kodus. Jums tagad ir {used} aktīvi.",
+    "keepSafe": "Nekas netiek dzēsts. Pārējie kodi tiek apturēti. Ja jaunināsiet plānu vai nopirksiet papildu QR kodu, tie atkal darbosies.",
+    "keepCount": "Izvēlēti {n} no {max}",
+    "keepOff": "{n} tiks apturēti",
+    "keepScans": "{n} skenējumi",
+    "keepOn": "Paliek ieslēgts",
+    "keepPaused": "Apturēts",
+    "keepGo": "Turpināt uz {plan}",
+    "lessWarn": "{plan} ietver {limit} QR kodus. Jums ir {used}. Tūlīt izvēlēsieties, kuri paliek ieslēgti. Pārējie tiek apturēti, nevis dzēsti.",
+    "payPaused": "{n} QR kodi tiks apturēti. Tie tiek saglabāti."
   },
   "dz": {
     "lbl": {

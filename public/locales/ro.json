@@ -507,7 +507,13 @@
     "printHint": "Direct la imprimantă",
     "share": "Distribuie",
     "shareHint": "Prin e-mail, WhatsApp, AirDrop …",
-    "shareFallback": "Distribuirea nu este disponibilă aici: fișierul PNG a fost descărcat."
+    "shareFallback": "Distribuirea nu este disponibilă aici: fișierul PNG a fost descărcat.",
+    "planPaused": "Pe pauză din cauza abonamentului",
+    "planPausedTip": "Funcționează din nou după upgrade sau după ce cumpărați un cod QR în plus",
+    "planBar": "{n} coduri QR sunt pe pauză din cauza abonamentului.",
+    "planBarOne": "1 cod QR este pe pauză din cauza abonamentului.",
+    "planBarText": "Sunt păstrate. Faceți upgrade sau cumpărați un cod QR în plus ca să le reactivați.",
+    "planBarBtn": "Reactivează"
   },
   "appearance": {
     "title": "Culori",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 cod QR în plus",
     "bought": "Cod QR adăugat",
     "boughtLead": "Acum poți crea următorul cod QR.",
-    "goOn": "Continuă"
+    "goOn": "Continuă",
+    "keepTitle": "Alegeți care {n} coduri QR continuă să funcționeze",
+    "keepLead": "{plan} permite {limit} coduri QR. Acum aveți {used} active.",
+    "keepSafe": "Nu se șterge nimic. Celelalte coduri sunt puse pe pauză. Dacă faceți upgrade sau cumpărați un cod QR în plus, funcționează din nou.",
+    "keepCount": "{n} din {max} alese",
+    "keepOff": "{n} vor fi puse pe pauză",
+    "keepScans": "{n} scanări",
+    "keepOn": "Rămâne activ",
+    "keepPaused": "Pe pauză",
+    "keepGo": "Continuă la {plan}",
+    "lessWarn": "{plan} include {limit} coduri QR. Aveți {used}. Imediat alegeți care rămân active. Restul sunt puse pe pauză, nu șterse.",
+    "payPaused": "{n} coduri QR vor fi puse pe pauză. Sunt păstrate."
   },
   "dz": {
     "lbl": {

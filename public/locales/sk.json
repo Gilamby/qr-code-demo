@@ -507,7 +507,13 @@
     "printHint": "Priamo do tlačiarne",
     "share": "Zdieľať",
     "shareHint": "E-mailom, cez WhatsApp, AirDrop …",
-    "shareFallback": "Zdieľanie tu nie je dostupné: súbor PNG sa stiahol."
+    "shareFallback": "Zdieľanie tu nie je dostupné: súbor PNG sa stiahol.",
+    "planPaused": "Pozastavený balíkom",
+    "planPausedTip": "Znova funguje po prechode na vyšší balík alebo dokúpení QR kódu",
+    "planBar": "{n} QR kódov je pozastavených balíkom.",
+    "planBarOne": "1 QR kód je pozastavený balíkom.",
+    "planBarText": "Sú uložené. Prejdite na vyšší balík alebo dokúpte QR kód, aby ste ich znova zapli.",
+    "planBarBtn": "Znova zapnúť"
   },
   "appearance": {
     "title": "Farby",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 QR kód navyše",
     "bought": "QR kód pridaný",
     "boughtLead": "Teraz môžeš vytvoriť ďalší QR kód.",
-    "goOn": "Pokračovať"
+    "goOn": "Pokračovať",
+    "keepTitle": "Vyberte, ktorých {n} QR kódov bude ďalej fungovať",
+    "keepLead": "{plan} umožňuje {limit} QR kódov. Teraz máte {used} aktívnych.",
+    "keepSafe": "Nič sa nevymaže. Ostatné kódy sa pozastavia. Keď prejdete na vyšší balík alebo dokúpite QR kód, znova budú fungovať.",
+    "keepCount": "Vybrané {n} z {max}",
+    "keepOff": "{n} sa pozastaví",
+    "keepScans": "{n} skenov",
+    "keepOn": "Zostáva zapnutý",
+    "keepPaused": "Pozastavený",
+    "keepGo": "Pokračovať na {plan}",
+    "lessWarn": "{plan} obsahuje {limit} QR kódov. Máte {used}. Hneď vyberiete, ktoré zostanú zapnuté. Ostatné sa pozastavia, nevymažú.",
+    "payPaused": "{n} QR kódov sa pozastaví. Zostanú uložené."
   },
   "dz": {
     "lbl": {

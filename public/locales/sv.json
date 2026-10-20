@@ -507,7 +507,13 @@
     "printHint": "Direkt till skrivaren",
     "share": "Dela",
     "shareHint": "Via e-post, WhatsApp, AirDrop …",
-    "shareFallback": "Delning är inte tillgänglig här: PNG-filen laddades ned."
+    "shareFallback": "Delning är inte tillgänglig här: PNG-filen laddades ned.",
+    "planPaused": "Pausad av ditt paket",
+    "planPausedTip": "Fungerar igen när du uppgraderar eller köper en extra QR-kod",
+    "planBar": "{n} QR-koder är pausade av ditt paket.",
+    "planBarOne": "1 QR-kod är pausad av ditt paket.",
+    "planBarText": "De är sparade. Uppgradera eller köp en extra QR-kod för att slå på dem igen.",
+    "planBarBtn": "Slå på igen"
   },
   "appearance": {
     "title": "Färger",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 QR-kod till",
     "bought": "QR-kod tillagd",
     "boughtLead": "Du kan nu skapa din nästa QR-kod.",
-    "goOn": "Fortsätt"
+    "goOn": "Fortsätt",
+    "keepTitle": "Välj vilka {n} QR-koder som fortsätter fungera",
+    "keepLead": "{plan} har plats för {limit} QR-koder. Du har {used} aktiva nu.",
+    "keepSafe": "Inget raderas. De andra koderna pausas. Uppgraderar du senare eller köper en extra QR-kod fungerar de igen.",
+    "keepCount": "{n} av {max} valda",
+    "keepOff": "{n} pausas",
+    "keepScans": "{n} skanningar",
+    "keepOn": "Förblir aktiv",
+    "keepPaused": "Pausad",
+    "keepGo": "Fortsätt till {plan}",
+    "lessWarn": "{plan} har {limit} QR-koder. Du har {used}. Du väljer nu vilka som förblir aktiva. Resten pausas, raderas inte.",
+    "payPaused": "{n} QR-koder pausas. De sparas."
   },
   "dz": {
     "lbl": {

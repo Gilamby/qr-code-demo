@@ -474,6 +474,11 @@
 :root[data-theme="light"] .up-x:hover { background: rgba(13,19,32,0.06); }
 :root[data-theme="light"] .up-feats { background: rgba(13,19,32,0.03); }
 :root[data-theme="light"] .up-lock.done { color: #15803d; }
+:root[data-theme="light"] .pw-less { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .pw-keep-row { border: 1px solid var(--line, rgba(13,19,32,0.09)); background: rgba(13,19,32,0.023); }
+:root[data-theme="light"] .pw-keep-st { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .mc-due.mc-planbar { border-color: var(--line, rgba(13,19,32,0.126)); background: rgba(13,19,32,0.038); }
+:root[data-theme="light"] .mc-until.mc-planoff { border-color: var(--line, rgba(13,19,32,0.126)); background: rgba(13,19,32,0.038); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

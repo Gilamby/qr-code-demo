@@ -507,7 +507,13 @@
     "printHint": "Od razu do drukarki",
     "share": "Udostępnij",
     "shareHint": "Przez e-mail, WhatsApp, AirDrop…",
-    "shareFallback": "Udostępnianie nie jest tu dostępne: pobrano PNG."
+    "shareFallback": "Udostępnianie nie jest tu dostępne: pobrano PNG.",
+    "planPaused": "Wstrzymany przez pakiet",
+    "planPausedTip": "Zadziała znów po podniesieniu pakietu lub dokupieniu kodu QR",
+    "planBar": "{n} kodów QR jest wstrzymanych przez pakiet.",
+    "planBarOne": "1 kod QR jest wstrzymany przez pakiet.",
+    "planBarText": "Są zachowane. Podnieś pakiet lub dokup kod QR, aby je znów włączyć.",
+    "planBarBtn": "Włącz ponownie"
   },
   "appearance": {
     "title": "Kolory",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 kod QR więcej",
     "bought": "Dodano kod QR",
     "boughtLead": "Możesz teraz utworzyć kolejny kod QR.",
-    "goOn": "Dalej"
+    "goOn": "Dalej",
+    "keepTitle": "Wybierz, które {n} kodów QR nadal działa",
+    "keepLead": "{plan} pozwala na {limit} kodów QR. Masz teraz {used} aktywnych.",
+    "keepSafe": "Nic nie zostanie usunięte. Pozostałe kody zostaną wstrzymane. Gdy podniesiesz pakiet lub dokupisz kod QR, znów zadziałają.",
+    "keepCount": "Wybrano {n} z {max}",
+    "keepOff": "{n} zostanie wstrzymanych",
+    "keepScans": "{n} skanów",
+    "keepOn": "Pozostaje aktywny",
+    "keepPaused": "Wstrzymany",
+    "keepGo": "Dalej do {plan}",
+    "lessWarn": "{plan} obejmuje {limit} kodów QR. Masz {used}. Za chwilę wybierzesz, które zostają aktywne. Reszta zostanie wstrzymana, nie usunięta.",
+    "payPaused": "{n} kodów QR zostanie wstrzymanych. Zostaną zachowane."
   },
   "dz": {
     "lbl": {

@@ -702,3 +702,36 @@ test('demo-afrekenen: standaard aan zonder Stripe, uit met DEMO_CHECKOUT=false',
   const days = (Date.parse(after.sub.periodEnd) - Date.now()) / 864e5; assert.ok(days > 85 && days < 95, 'wisselen: meteen een kwartaal, geen proefperiode');
   delete process.env.DEMO_CHECKOUT;
 });
+
+test('downgraden: niets wordt verwijderd, de klant kiest wat aan blijft, de rest wordt gepauzeerd; upgraden zet ze weer aan', async () => {
+  const c = client(); await signup(c, 'downgrade@example.com', 'Minder codes zin 4!', 'Down', { unpaid: true });
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'month' })).status, 200);
+  const { DatabaseService } = require('../server/dist/database/database.service');
+  const db = app.get(DatabaseService);
+  const ids = [];
+  for (let i = 0; i < 8; i++) ids.push((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://down' + i + '.example' }, design: {} })).json.id);
+  const wifi = (await c('POST', '/api/qr-codes', { typeId: 'wifi', content: { ssid: 'Zaak', password: 'geheim12345', security: 'WPA' } })).json.id;
+  for (let i = 0; i < 9; i++) await db.addScan(ids[7]);          // de meest gescande
+  for (let i = 0; i < 4; i++) await db.addScan(ids[6]);
+  // Naar Standard (5): wifi blijft altijd aan (telt mee), klant kiest 3, de 4e plek gaat naar de meest gescande
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'standard', period: 'month', keep: [ids[0], ids[1], ids[2]] })).status, 200);
+  let list = (await c('GET', '/api/qr-codes')).json, on = list.filter((q) => !q.paused).map((q) => q.id).sort();
+  assert.equal(list.length, 9, 'niets verwijderd');
+  assert.deepEqual(on, [ids[0], ids[1], ids[2], ids[7], wifi].sort(), 'gekozen + wifi + meest gescande');
+  let plan = (await c('GET', '/api/account/plan')).json;
+  assert.equal(plan.usage.used, 5); assert.equal(plan.usage.limit, 5); assert.equal(plan.usage.planPaused.length, 4);
+  // Zelf weer aanzetten kan niet als het vol is
+  const r = await c('PATCH', '/api/qr-codes/' + ids[6], { paused: false });
+  assert.equal(r.status, 403); assert.equal(r.json.error, 'plan_limit');
+  // QR-code erbij gekocht: de meest gescande gepauzeerde gaat vanzelf weer aan
+  assert.equal((await c('POST', '/api/account/extra-demo', { n: 1 })).status, 200);
+  assert.equal((await c('GET', '/api/qr-codes')).json.find((q) => q.id === ids[6]).paused, false);
+  // Een code zelf uitzetten maakt ruimte: dan mag een andere weer aan
+  assert.equal((await c('PATCH', '/api/qr-codes/' + ids[0], { paused: true })).status, 200);
+  assert.equal((await c('PATCH', '/api/qr-codes/' + ids[3], { paused: false })).status, 200);
+  // Upgraden naar Business (onbeperkt): alles wat door het pakket uit stond, weer aan; zelf uitgezet blijft uit
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'business', period: 'month' })).status, 200);
+  list = (await c('GET', '/api/qr-codes')).json;
+  assert.deepEqual(list.filter((q) => q.paused).map((q) => q.id), [ids[0]], 'alleen de zelf gepauzeerde staat nog uit');
+  assert.equal((await c('GET', '/api/account/plan')).json.usage.planPaused.length, 0);
+});

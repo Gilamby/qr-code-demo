@@ -507,7 +507,13 @@
     "printHint": "Meteen naar de printer",
     "share": "Delen",
     "shareHint": "Via mail, WhatsApp, AirDrop …",
-    "shareFallback": "Delen kan hier niet: de PNG is gedownload."
+    "shareFallback": "Delen kan hier niet: de PNG is gedownload.",
+    "planPaused": "Gepauzeerd door je pakket",
+    "planPausedTip": "Werkt weer als je upgradet of een QR-code erbij koopt",
+    "planBar": "{n} QR-codes zijn gepauzeerd door je pakket.",
+    "planBarOne": "1 QR-code is gepauzeerd door je pakket.",
+    "planBarText": "Ze zijn bewaard. Upgrade of koop een QR-code erbij om ze weer aan te zetten.",
+    "planBarBtn": "Weer aanzetten"
   },
   "appearance": {
     "title": "Kleuren",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 QR-code erbij",
     "bought": "QR-code toegevoegd",
     "boughtLead": "Je kunt nu je volgende QR-code maken.",
-    "goOn": "Verder"
+    "goOn": "Verder",
+    "keepTitle": "Kies welke {n} QR-codes blijven werken",
+    "keepLead": "{plan} heeft ruimte voor {limit} QR-codes. Je hebt er nu {used} aan.",
+    "keepSafe": "Niets wordt verwijderd. De andere codes worden gepauzeerd. Upgrade je later of koop je een QR-code erbij? Dan werken ze weer.",
+    "keepCount": "{n} van {max} gekozen",
+    "keepOff": "{n} worden gepauzeerd",
+    "keepScans": "{n} scans",
+    "keepOn": "Blijft aan",
+    "keepPaused": "Gepauzeerd",
+    "keepGo": "Verder naar {plan}",
+    "lessWarn": "{plan} heeft {limit} QR-codes. Je hebt er {used}. Je kiest zo welke aan blijven. De rest wordt gepauzeerd, niet verwijderd.",
+    "payPaused": "{n} QR-codes worden gepauzeerd. Ze blijven bewaard."
   },
   "dz": {
     "lbl": {

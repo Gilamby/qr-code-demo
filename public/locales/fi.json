@@ -507,7 +507,13 @@
     "printHint": "Suoraan tulostimelle",
     "share": "Jaa",
     "shareHint": "Sähköpostilla, WhatsAppilla, AirDropilla …",
-    "shareFallback": "Jakaminen ei ole mahdollista täällä: PNG-tiedosto ladattiin."
+    "shareFallback": "Jakaminen ei ole mahdollista täällä: PNG-tiedosto ladattiin.",
+    "planPaused": "Keskeytetty paketin vuoksi",
+    "planPausedTip": "Toimii taas, kun päivität paketin tai ostat lisä-QR-koodin",
+    "planBar": "{n} QR-koodia on keskeytetty paketin vuoksi.",
+    "planBarOne": "1 QR-koodi on keskeytetty paketin vuoksi.",
+    "planBarText": "Ne on säilytetty. Päivitä paketti tai osta lisä-QR-koodi ottaaksesi ne taas käyttöön.",
+    "planBarBtn": "Ota taas käyttöön"
   },
   "appearance": {
     "title": "Värit",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 QR-koodi lisää",
     "bought": "QR-koodi lisätty",
     "boughtLead": "Voit nyt tehdä seuraavan QR-koodisi.",
-    "goOn": "Jatka"
+    "goOn": "Jatka",
+    "keepTitle": "Valitse, mitkä {n} QR-koodia toimivat edelleen",
+    "keepLead": "{plan} sallii {limit} QR-koodia. Sinulla on nyt {used} käytössä.",
+    "keepSafe": "Mitään ei poisteta. Muut koodit keskeytetään. Kun päivität paketin tai ostat lisä-QR-koodin, ne toimivat taas.",
+    "keepCount": "{n}/{max} valittu",
+    "keepOff": "{n} keskeytetään",
+    "keepScans": "{n} skannausta",
+    "keepOn": "Pysyy päällä",
+    "keepPaused": "Keskeytetty",
+    "keepGo": "Jatka: {plan}",
+    "lessWarn": "{plan} sisältää {limit} QR-koodia. Sinulla on {used}. Valitset seuraavaksi, mitkä pysyvät päällä. Loput keskeytetään, ei poisteta.",
+    "payPaused": "{n} QR-koodia keskeytetään. Ne säilytetään."
   },
   "dz": {
     "lbl": {

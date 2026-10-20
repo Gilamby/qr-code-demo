@@ -153,6 +153,8 @@ var MyCodes = (function () {
   }
 
   /* ---------- De lijst ---------- */
+  // Door het pakket gepauzeerd (minder codes na downgraden): bewaard, weer aan na upgraden of een QR-code erbij
+  function planPaused(r) { var i = window.PlanGate && PlanGate.info(); return !!(r.paused && i && i.usage && (i.usage.planPaused || []).indexOf(r.id) >= 0); }
   function card(r) {
     var tp = getType(r.typeId), stat = isStatic(r), off = !!r.paused, name = displayName(r);
     var link = stat ? '<span class="mc-static">' + t('myCodes.static') + '</span>'
@@ -172,6 +174,7 @@ var MyCodes = (function () {
           (r.legacyUrl ? '<span class="mc-legacy" title="' + esc(t('legacy.badgeTip', { url: r.legacyUrl })) + '">' + ico('chain') + t('legacy.badge') + '</span>' + untilPill(r) : '') +
           // Startdatum in de toekomst: de code werkt nog niet
           (r.content && r.content.starts && r.content.starts > new Date().toISOString().slice(0, 10) ? '<span class="mc-until soon">' + ico('pause') + esc(t('fields.starts') + ' ' + i18n.fmt.date(new Date(r.content.starts + 'T00:00:00'), 'long')) + '</span>' : '') +
+          (planPaused(r) ? '<span class="mc-until soon mc-planoff" title="' + esc(t('myCodes.planPausedTip')) + '">' + ico('pause') + esc(t('myCodes.planPaused')) + '</span>' : '') +
           (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
@@ -210,6 +213,9 @@ var MyCodes = (function () {
     var due = rows.filter(function (r) { var n = untilDays(r); return n != null && n <= 60; });
     var dueHtml = due.length ? '<div class="mc-due' + (due.some(function (r) { return untilDays(r) <= 0; }) ? ' over' : '') + '" role="alert">' + ico('lock') + '<span><b>' + esc(t('legacy.bannerTitle', { n: due.length })) + '</b> ' + esc(t('legacy.bannerText')) +
       ' <span class="mc-due-list">' + due.map(function (r) { return esc(displayName(r)) + ' (' + esc(untilDate(r)) + ')'; }).join(', ') + '</span></span></div>' : '';
+    var pp = rows.filter(planPaused).length;
+    if (pp) dueHtml += '<div class="mc-due mc-planbar" role="status">' + ico('pause') + '<span><b>' + esc(t(pp === 1 ? 'myCodes.planBarOne' : 'myCodes.planBar', { n: pp })) + '</b> ' + esc(t('myCodes.planBarText')) + '</span>' +
+      '<button type="button" class="btn primary sm" data-gate-open="" data-gate-reason="limit">' + esc(t('myCodes.planBarBtn')) + '</button></div>';
     list.innerHTML = dueHtml + (vis.length ? vis.map(card).join('')
       : !searching && filter.folder === 'fav' ? '<div class="mc-empty small glass">' + ico('star') + '<h3>' + t('folders.favEmpty') + '</h3><p>' + t('folders.favEmptyText') + '</p></div>'
       : !searching && filter.folder ? '<div class="mc-empty small glass">' + ico('folder') + '<h3>' + t(filter.folder === 'none' ? 'folders.noneEmpty' : 'folders.empty') + '</h3><p>' + t(filter.folder === 'none' ? 'folders.noneEmptyText' : 'folders.emptyText') + '</p>' +
@@ -254,8 +260,10 @@ var MyCodes = (function () {
     if (k === 'delete') return askDeleteMany(sel);
     if (k === 'pause' || k === 'resume') {
       var next = k === 'pause', todo = sel.filter(function (r) { return !isStatic(r) && !!r.paused !== next && !(r.hold && r.hold.lock); });
-      Promise.all(todo.map(function (r) { return api.patchQrCode(r.id, { paused: next }).then(replace).catch(function () { return null; }); }))
-        .then(function () { draw(); toastText(t(next ? 'myCodes.bulkPaused' : 'myCodes.bulkResumed', { n: todo.length })); });
+      // Na elkaar (niet tegelijk): bij aanzetten telt de limiet van het pakket per code
+      var ok = 0, full = false;
+      todo.reduce(function (p, r) { return p.then(function () { if (full) return; return api.patchQrCode(r.id, { paused: next }).then(function (rec) { replace(rec); ok++; }).catch(function (x) { if (x && x.code === 'plan_limit') full = true; }); }); }, Promise.resolve())
+        .then(function () { if (window.PlanGate) PlanGate.load(); draw(); toastText(t(next ? 'myCodes.bulkPaused' : 'myCodes.bulkResumed', { n: ok })); if (full && window.PlanGate) PlanGate.upgrade(null, 'limit'); });
     }
   });
   document.addEventListener('click', function (e) { if (!bulk.hidden && !e.target.closest('.mc-bulk .mc-drop')) { var m = bulk.querySelector('.mc-menu'); if (m) m.hidden = true; } });
@@ -309,8 +317,8 @@ var MyCodes = (function () {
     if (r.paused && r.hold && r.hold.lock) return toast('myCodes.heldLocked');   // gepauzeerd door het beheer: alleen het team kan hem weer aanzetten
     var next = !r.paused;
     r.paused = next; draw();                                   // meteen zichtbaar; terugzetten als het mislukt
-    api.patchQrCode(r.id, { paused: next }).then(function (rec) { replace(rec); draw(); toast(next ? 'myCodes.pausedToast' : 'myCodes.activeToast'); })
-      .catch(function (x) { r.paused = !next; draw(); toast(x && x.code === 'admin_hold' ? 'myCodes.heldLocked' : 'myCodes.failed'); });
+    api.patchQrCode(r.id, { paused: next }).then(function (rec) { replace(rec); if (window.PlanGate) PlanGate.load(); draw(); toast(next ? 'myCodes.pausedToast' : 'myCodes.activeToast'); })
+      .catch(function (x) { r.paused = !next; draw(); if (x && x.code === 'plan_limit' && window.PlanGate) return PlanGate.upgrade(null, 'limit'); toast(x && x.code === 'admin_hold' ? 'myCodes.heldLocked' : 'myCodes.failed'); });
   }
   function favorite(r) {
     var next = !r.favorite; r.favorite = next; draw();                // meteen zichtbaar; terug als het mislukt
@@ -728,6 +736,8 @@ var MyCodes = (function () {
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; picked = {}; load(); } else if (e.detail !== 'create') newIn = null; });
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });
   /** Nieuwe code gemaakt vanuit een map: die map (één keer) */
+  document.addEventListener('plan-info', function () { if (loaded) draw(); });
+  document.addEventListener('plan-changed', function () { if (loaded) load(); });   // QR-code erbij gekocht: een gepauzeerde code kan weer aan
   function folderForNew() { var f = newIn; newIn = null; return f; }
   /** Vanaf het Overzicht: meteen een map (of 'fav') openen */
   function showFolder(key) { filter.folder = key; if (loaded) draw(); }

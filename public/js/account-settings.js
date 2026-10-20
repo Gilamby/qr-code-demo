@@ -355,6 +355,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     var bar = u.limit ? '<div class="pl-use"><div class="pl-use-row"><span>' + t('plan.codesUsed', { used: u.used, limit: u.limit }) + '</span><b>' + pct + '%</b></div>' +
         '<div class="pl-bar ' + u.state + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + u.limit + '" aria-valuenow="' + u.used + '" aria-label="' + esc(t('plan.codes')) + '"><i style="width:' + pct + '%"></i></div>' +
         (p.extra ? '<p class="acct-note">' + esc(t('plan.extraNote', { n: p.extra })) + '</p>' : '') +
+        (u.planPaused && u.planPaused.length ? '<p class="acct-note pl-paused">' + esc(t(u.planPaused.length === 1 ? 'myCodes.planBarOne' : 'myCodes.planBar', { n: u.planPaused.length })) + ' ' + esc(t('myCodes.planBarText')) + '</p>' : '') +
         (p.id !== 'free' && (api.info().demoCheckout || api.info().stripe) ? '<button type="button" class="btn ghost sm pl-buy" data-gate-open="" data-gate-reason="limit">+ ' + esc(t('plan.buyExtra')) + '</button>' : '') + '</div>'
       : '<p class="pl-unl">' + t('plan.codesUnlimited', { used: u.used }) + '</p>';
     var feats = free ? ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(t)

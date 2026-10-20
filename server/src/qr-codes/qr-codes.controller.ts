@@ -12,6 +12,7 @@ import { validateQrCode } from './validation';
 import { QrCodesService, cleanName, freshCodeId, missingRequired, secretKey } from './qr-codes.service';
 import type { User } from '../types';
 import { planFor, typeAllowed } from '../plans';
+import { activeCount, forgetPlanPaused } from '../plan-limit';
 import { AuthService } from '../auth/auth.service';
 
 @Controller('api/qr-codes')
@@ -64,7 +65,7 @@ export class QrCodesController {
   /** Limiet van het abonnement (aantal QR-codes) */
   private async roomLeft(user: User) {
     const plan = await planFor(this.db, user.id);
-    if (plan.codes != null && (await this.db.listQrCodes(user.id)).length >= plan.codes) throw fail(403, 'plan_limit', { limit: plan.codes, plan: plan.id });
+    if (plan.codes != null && (await activeCount(this.db, user.id)) >= plan.codes) throw fail(403, 'plan_limit', { limit: plan.codes, plan: plan.id });   // alleen actieve codes tellen
   }
 
   /** Bewerken: nieuwe inhoud en ontwerp, zelfde link, scans blijven staan */
@@ -97,6 +98,11 @@ export class QrCodesController {
     const patch: any = {}, errors: string[] = [];
     if (b.name !== undefined) { if (typeof b.name !== 'string') errors.push('name: must be text'); else patch.name = cleanName(b.name); }
     if (b.paused !== undefined) { if (typeof b.paused !== 'boolean') errors.push('paused: must be true or false'); else patch.paused = b.paused; }
+    if (b.paused === false && cur.paused) {                                  // weer aanzetten: past het binnen het pakket?
+      const plan = await planFor(this.db, user.id);
+      if (plan.codes != null && (await activeCount(this.db, user.id)) >= plan.codes) throw fail(403, 'plan_limit', { limit: plan.codes, plan: plan.id });
+    }
+    if (b.paused !== undefined) await forgetPlanPaused(this.db, user.id, [id]);
     if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
     let legacy: string | null | undefined;
     // Overzetten uit een andere QR-app: alleen het team. Een klant komt er niet mee van zijn oude abonnement af

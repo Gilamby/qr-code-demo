@@ -16,6 +16,7 @@ import { baseUrl } from '../config/env';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLAN_IDS, planFor } from '../plans';
+import { fitToPlan } from '../plan-limit';
 import { subFor, saveSub, renew, emptySub, publicSub, toInterval } from '../subscription';
 
 @Injectable()
@@ -115,6 +116,7 @@ export class AdminController {
       if (!PLAN_IDS.includes(b.plan)) throw fail(400, 'plan: ' + PLAN_IDS.join(', '));
       const was = (await planFor(this.db, id)).id;
       await this.db.setSetting('plan:' + id, b.plan === 'free' ? null : b.plan);
+      await fitToPlan(this.db, id);                                              // minder ruimte: minst gescande codes gepauzeerd (niet weg)
       if (was !== b.plan) await this.log(me, 'user_plan', id, u.email + ': ' + was + ' → ' + b.plan);
       if (!Object.keys(patch).length) return { ...this.withRole((await this.db.listCustomers()).find((c) => c.id === id)), plan: b.plan };
     }

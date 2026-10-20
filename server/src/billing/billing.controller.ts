@@ -21,6 +21,7 @@ import { baseUrl } from '../config/env';
 import type { User } from '../types';
 import { PLANS, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscription';
+import { fitToPlan } from '../plan-limit';
 import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature } from './stripe';
 
 @Controller('api/billing')
@@ -93,6 +94,7 @@ export class BillingController {
     try {
       const { customer } = await this.customerFor(user), base = baseUrl(req);
       const meta = { uid: user.id, plan: planId, period: interval };
+      await this.db.setSetting('keep:' + user.id, Array.isArray(b.keep) ? JSON.stringify(b.keep.map(String).slice(0, 500)) : null);   // welke codes aan blijven bij minder ruimte
       const coupon = interval === 'year' ? await this.yearCoupon(planId) : null;
       const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
       const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
@@ -163,9 +165,13 @@ export class BillingController {
     if (s.status === 'active' || s.status === 'trialing') periodEnd = end;
     else if (s.status === 'past_due' || s.status === 'unpaid' || s.status === 'incomplete') periodEnd = Math.min(end || now, now);   // niet betaald: codes stoppen
     else periodEnd = Math.min(cur.periodEnd ? Date.parse(cur.periodEnd) : now, now, end || now);  // canceled / incomplete_expired
+    const before = await this.db.getSetting('plan:' + uid);
     if (isPlanId(s.metadata.plan)) await this.db.setSetting('plan:' + uid, s.metadata.plan);
     const xp = await this.db.getSetting('stripe:extraProduct');                 // losse QR-codes in dit abonnement
     if (xp && s.items && s.items.data) { const n = s.items.data.filter((i: any) => i.price && i.price.product === xp).reduce((a: number, i: any) => a + (i.quantity || 0), 0); await this.db.setSetting('extra:' + uid, n ? String(n) : null); }
+    // Ander pakket of andere hoeveelheid: codes laten passen (gekozen codes blijven aan, de rest gepauzeerd; meer ruimte = weer aan)
+    let keep: string[] | null = null; try { keep = JSON.parse((await this.db.getSetting('keep:' + uid)) || 'null'); } catch { keep = null; }
+    if (before !== s.metadata.plan || keep) { await fitToPlan(this.db, uid, keep); await this.db.setSetting('keep:' + uid, null); } else await fitToPlan(this.db, uid);
     const paid = periodEnd > now;
     await saveSub(this.db, uid, { ...cur, interval: toInterval(s.metadata.period), periodEnd: new Date(periodEnd).toISOString(), mustPay: false,
       ...(paid ? { graceUntil: null, notified: [], deletedAt: null } : {}) });

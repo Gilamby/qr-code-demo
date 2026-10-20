@@ -507,7 +507,13 @@
     "printHint": "Straight to the printer",
     "share": "Share",
     "shareHint": "Via email, WhatsApp, AirDrop …",
-    "shareFallback": "Sharing isn’t available here: the PNG was downloaded."
+    "shareFallback": "Sharing isn’t available here: the PNG was downloaded.",
+    "planPaused": "Paused by your plan",
+    "planPausedTip": "Works again when you upgrade or buy an extra QR code",
+    "planBar": "{n} QR codes are paused by your plan.",
+    "planBarOne": "1 QR code is paused by your plan.",
+    "planBarText": "They are kept. Upgrade or buy an extra QR code to turn them back on.",
+    "planBarBtn": "Turn back on"
   },
   "appearance": {
     "title": "Colours",
@@ -664,7 +670,18 @@
     "buyOne": "+ 1 extra QR code",
     "bought": "QR code added",
     "boughtLead": "You can make your next QR code now.",
-    "goOn": "Continue"
+    "goOn": "Continue",
+    "keepTitle": "Choose which {n} QR codes keep working",
+    "keepLead": "{plan} has room for {limit} QR codes. You have {used} active now.",
+    "keepSafe": "Nothing is deleted. The other codes are paused. Upgrade later or buy an extra QR code, and they work again.",
+    "keepCount": "{n} of {max} chosen",
+    "keepOff": "{n} will be paused",
+    "keepScans": "{n} scans",
+    "keepOn": "Stays on",
+    "keepPaused": "Paused",
+    "keepGo": "Continue to {plan}",
+    "lessWarn": "{plan} has {limit} QR codes. You have {used}. You'll choose which stay on next. The rest is paused, not deleted.",
+    "payPaused": "{n} QR codes will be paused. They are kept."
   },
   "dz": {
     "lbl": {
