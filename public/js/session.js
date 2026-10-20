@@ -170,7 +170,7 @@ var Session = (function () {
   if (fromSite) {
     var wl = qp('lang'), wp = qp('plan'), wper = qp('period');
     if (wl && window.LANGUAGES && LANGUAGES.some(function (l) { return l.code === wl; })) i18n.set(wl);
-    if (/^(standard|pro|business)$/.test(wp)) { try { localStorage.setItem('optimasys-want', JSON.stringify({ plan: wp, period: wper === 'year' ? 'year' : 'month', at: Date.now() })); } catch (e) {} }
+    if (/^(standard|pro|business)$/.test(wp)) { try { localStorage.setItem('optimasys-want', JSON.stringify({ plan: wp, period: wper === 'year' || wper === 'quarter' ? wper : 'month', at: Date.now() })); } catch (e) {} }
     history.replaceState(null, '', location.pathname);
   }
   var g2 = location.search.match(/[?&]g2fa=([A-Za-z0-9_-]+)/);

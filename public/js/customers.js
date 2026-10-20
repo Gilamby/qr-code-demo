@@ -94,12 +94,12 @@
     var end = sb.periodEnd ? sb.periodEnd.slice(0, 10) : '';
     d.innerHTML = '<form method="dialog" class="mc-dlg sub-dlg"><h3>' + esc(t('sub.admTitle', { name: c.name || c.email })) + '</h3>' +
       '<p class="sub-st ' + sb.state + '">' + esc(subCell(c, false).replace(/<[^>]+>/g, '')) + '</p>' +
-      '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '"><button type="button" role="radio" aria-checked="' + (sb.interval !== 'year') + '" data-iv="month">' + t('sub.monthly') + '</button><button type="button" role="radio" aria-checked="' + (sb.interval === 'year') + '" data-iv="year">' + t('sub.yearly') + '</button></div>' +
+      PlanPeriod.toggle(PlanPeriod.norm(sb.interval), 'data-iv', false) +
       '<button type="button" class="btn primary" data-paid>' + t('sub.admMarkPaid') + '</button>' +
       '<label class="auth-f"><span>' + t('sub.admEnd') + '</span><span class="auth-in"><input type="date" name="end" value="' + esc(end) + '"></span></label>' +
       '<p class="acct-note">' + t('sub.admNote') + '</p><p class="acct-msg bad" data-err hidden></p>' +
       '<div class="mc-dlg-btns"><button type="button" class="btn ghost" data-none>' + t('sub.admNoPeriod') + '</button><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button type="button" class="btn primary" data-saveend>' + t('acct.save') + '</button></div></form>';
-    var f = d.querySelector('form'), iv = sb.interval === 'year' ? 'year' : 'month', err = f.querySelector('[data-err]');
+    var f = d.querySelector('form'), iv = PlanPeriod.norm(sb.interval), err = f.querySelector('[data-err]');
     var go = function (body) {
       body.interval = iv;
       api.customers.sub(c.id, body).then(function () { d.close(); result = { kind: 'ok', text: t('sub.admSaved') }; load(); draw(); })

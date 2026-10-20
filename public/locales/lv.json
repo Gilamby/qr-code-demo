@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Norēķinu periods",
     "monthly": "Ik mēnesi",
+    "quarterly": "Ceturksnī",
     "yearly": "Ik gadu",
     "yearSave": "1. gads: 2 mēneši bez maksas",
+    "quarterSave": "10% atlaide",
     "perYear": "gadā",
+    "perQuarter": "ceturksnī",
     "paidUntil": "Apmaksāts līdz {date}",
     "graceRule": "Ja abonements beidzas, jūsu QR kodi uzreiz pārstāj darboties, bet mēs tos glabājam 30 dienas. Atjaunojiet to šajā laikā, un viss atkal darbojas, arī izdrukātie kodi. Pēc 30 dienām tie tiek dzēsti.",
     "graceMsg": "Tavs abonements ir beidzies. Tavi QR kodi nedarbojas, un tu neko nevari mainīt. Atjauno to līdz {date}, citādi visi tavi QR kodi tiks dzēsti.",

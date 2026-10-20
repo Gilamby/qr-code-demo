@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Perioada de facturare",
     "monthly": "Lunar",
+    "quarterly": "Trimestrial",
     "yearly": "Anual",
     "yearSave": "Anul 1: 2 luni gratuite",
+    "quarterSave": "10% reducere",
     "perYear": "pe an",
+    "perQuarter": "pe trimestru",
     "paidUntil": "Plătit până la {date}",
     "graceRule": "Dacă abonamentul se încheie, codurile QR nu mai funcționează imediat, dar le păstrăm 30 de zile. Reînnoiește în acest timp și totul funcționează din nou, inclusiv codurile tipărite. După 30 de zile sunt șterse.",
     "graceMsg": "Abonamentul tău a expirat. Codurile tale QR nu funcționează și nu poți modifica nimic. Reînnoiește-l înainte de {date}, altfel toate codurile tale QR vor fi șterse.",

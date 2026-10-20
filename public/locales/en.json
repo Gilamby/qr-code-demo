@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Billing period",
     "monthly": "Monthly",
+    "quarterly": "Quarterly",
     "yearly": "Yearly",
     "yearSave": "1st year: 2 months free",
+    "quarterSave": "10% off",
     "perYear": "per year",
+    "perQuarter": "per quarter",
     "paidUntil": "Paid until {date}",
     "graceRule": "If your subscription ends, your QR codes stop working straight away, but we keep them for 30 days. Renew within that time and everything works again, including your printed codes. After 30 days they are deleted.",
     "graceMsg": "Your subscription has expired. Your QR codes are not working and you can't change anything. Renew before {date}, otherwise all your QR codes will be deleted.",

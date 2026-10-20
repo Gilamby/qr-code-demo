@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Betalingsperiode",
     "monthly": "Månedlig",
+    "quarterly": "Kvartalsvis",
     "yearly": "Årlig",
     "yearSave": "1. år: 2 måneder gratis",
+    "quarterSave": "10% rabat",
     "perYear": "om året",
+    "perQuarter": "pr. kvartal",
     "paidUntil": "Betalt til {date}",
     "graceRule": "Hvis dit abonnement slutter, holder dine QR-koder op med at virke med det samme, men vi gemmer dem i 30 dage. Forny inden da, så virker alt igen, også dine trykte koder. Efter 30 dage slettes de.",
     "graceMsg": "Dit abonnement er udløbet. Dine QR-koder virker ikke, og du kan ikke ændre noget. Forny inden {date}, ellers slettes alle dine QR-koder.",

@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Abrechnungszeitraum",
     "monthly": "Monatlich",
+    "quarterly": "Vierteljährlich",
     "yearly": "Jährlich",
     "yearSave": "1. Jahr: 2 Monate gratis",
+    "quarterSave": "10% Rabatt",
     "perYear": "pro Jahr",
+    "perQuarter": "pro Quartal",
     "paidUntil": "Bezahlt bis {date}",
     "graceRule": "Endet dein Abo, funktionieren deine QR-Codes sofort nicht mehr, aber wir bewahren sie 30 Tage auf. Verlängerst du in dieser Zeit, funktioniert alles wieder, auch deine gedruckten Codes. Nach 30 Tagen werden sie gelöscht.",
     "graceMsg": "Dein Abo ist abgelaufen. Deine QR-Codes funktionieren nicht und du kannst nichts ändern. Verlängere vor dem {date}, sonst werden alle deine QR-Codes gelöscht.",

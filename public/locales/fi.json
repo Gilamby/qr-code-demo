@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Laskutuskausi",
     "monthly": "Kuukausittain",
+    "quarterly": "Neljännesvuosittain",
     "yearly": "Vuosittain",
     "yearSave": "1. vuosi: 2 kuukautta ilmaiseksi",
+    "quarterSave": "10% alennus",
     "perYear": "vuodessa",
+    "perQuarter": "neljännesvuodessa",
     "paidUntil": "Maksettu {date} asti",
     "graceRule": "Jos tilauksesi päättyy, QR-koodisi lakkaavat toimimasta heti, mutta säilytämme ne 30 päivää. Uusi tilaus sinä aikana, niin kaikki toimii taas, myös tulostetut koodit. 30 päivän jälkeen ne poistetaan.",
     "graceMsg": "Tilauksesi on päättynyt. QR-koodisi eivät toimi etkä voi muuttaa mitään. Uusi tilaus ennen {date}, muuten kaikki QR-koodisi poistetaan.",

@@ -54,3 +54,9 @@ test('zelf geregistreerd: eerst betalen, dan pas codes', () => {
   const paid = S.renew(s, 'month'); assert.strictEqual(S.stateOf(paid), 'active'); assert.strictEqual(paid.mustPay, false);
   S.rebuildBlocked([['u1', paid]]); assert.strictEqual(S.isBlocked('u1'), false);
 });
+
+test('per kwartaal: de periode loopt 3 maanden', () => {
+  const s = S.renew(S.emptySub(), 'quarter', Date.parse('2026-01-15T00:00:00Z'));
+  assert.strictEqual(s.interval, 'quarter'); assert.strictEqual(s.periodEnd, '2026-04-15T00:00:00.000Z');
+  assert.strictEqual(S.toInterval('quarter'), 'quarter'); assert.strictEqual(S.toInterval('onzin'), 'month');
+});

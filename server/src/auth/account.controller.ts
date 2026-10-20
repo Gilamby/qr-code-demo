@@ -18,7 +18,7 @@ import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLANS, planFor, usage } from '../plans';
-import { subFor, publicSub, saveSub, renew, stateOf, DAY } from '../subscription';
+import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
@@ -158,7 +158,7 @@ export class AccountController {
   @HttpCode(200)
   async checkoutDemo(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
     if (process.env.DEMO_CHECKOUT !== 'true') throw fail(403, 'off');
-    const planId = String(b.plan || ''), interval = b.period === 'year' ? 'year' : 'month';
+    const planId = String(b.plan || ''), interval = toInterval(b.period);
     if (!['standard', 'pro', 'business'].includes(planId)) throw fail(400, 'plan');
     const sub = await subFor(this.db, user.id);
     if (stateOf(sub) !== 'unpaid') throw fail(409, 'done');                       // maar één keer, en nooit voor wie al betaalt

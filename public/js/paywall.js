@@ -8,7 +8,7 @@
    Niet voor het team, niet voor teamleden (het abonnement is van de eigenaar) en niet voor de online demo.
    ========================================================= */
 (function () {
-  var box = null, info = null, year = false, chosen = 'pro', sent = false, step = 'choose', done = null, busy = false;
+  var box = null, info = null, period = 'month', chosen = 'pro', sent = false, step = 'choose', done = null, busy = false;
   function euro(n) { try { return new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); } catch (e) { return '€' + Number(n).toFixed(2); } }
   function needed() {
     var u = Session.user();
@@ -23,14 +23,14 @@
       '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
       '<button type="button" class="link-btn" data-pw-logout>' + esc(t('nav.logout')) + '</button></div>' +
       '<h1 id="pwTitle">' + esc(t('pw.title')) + '</h1><p class="pw-lead">' + esc(t('pw.lead')) + '</p>' +
-      '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '"><button type="button" role="radio" aria-checked="' + !year + '" data-pw-year="0">' + t('sub.monthly') + '</button><button type="button" role="radio" aria-checked="' + year + '" data-pw-year="1">' + t('sub.yearly') + ' <em>' + t('sub.yearSave') + '</em></button></div>' +
+      PlanPeriod.toggle(period, 'data-pw-period', true) +
       '<div class="pw-grid" role="radiogroup" aria-label="' + esc(t('pw.title')) + '">' + plans.map(function (x) {
         var on = x.id === chosen;
         return '<button type="button" role="radio" aria-checked="' + on + '" class="pw-card' + (on ? ' on' : '') + '" data-pw-plan="' + x.id + '">' +
           (x.id === 'pro' ? '<span class="pw-pop">' + esc(t('pw.popular')) + '</span>' : '') +
           '<span class="pl-name">' + t('plan.n_' + x.id) + '</span>' +
-          '<span class="pl-price"><b>' + euro(year ? x.priceYear : x.price) + '</b><small>' + t(year ? 'sub.perYear' : 'plan.perMonth') + '</small></span>' +
-          (year && x.priceYearAfter ? '<span class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</span>' : '') +
+          '<span class="pl-price"><b>' + euro(PlanPeriod.price(x, period)) + '</b><small>' + PlanPeriod.per(period) + '</small></span>' +
+          (period === 'year' && x.priceYearAfter ? '<span class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</span>' : '') +
           '<span class="pw-list"><span>' + (x.codes ? t('plan.fCodes', { n: x.codes }) : t('acct.planF1')) + '</span><span>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</span><span>' + (x.users === 1 ? t('team.fUsers1') : x.users ? t('team.fUsers', { n: x.users }) : t('team.fUsersAll')) + '</span></span>' +
           '</button>';
       }).join('') + '</div>' +
@@ -40,7 +40,7 @@
   }
   // DEMO-afrekenen (zoals straks de betaalpagina van Stripe, maar er wordt niets afgeschreven)
   function drawPay(x) {
-    var price = year ? x.priceYear : x.price, per = t(year ? 'sub.perYear' : 'plan.perMonth');
+    var price = PlanPeriod.price(x, period), per = PlanPeriod.per(period);
     var top = '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
       '<button type="button" class="link-btn" data-pw-logout>' + esc(t('nav.logout')) + '</button></div>';
     if (step === 'done') {
@@ -51,7 +51,7 @@
     }
     box.innerHTML = '<div class="pw-inner">' + top + '<h1 id="pwTitle">' + esc(t('pw.payTitle')) + '</h1>' +
       '<p class="pw-demo" role="note">' + esc(t('pw.demo')) + '</p>' +
-      '<div class="pw-pay"><div class="pw-sum"><b>' + esc(t('plan.n_' + x.id)) + '</b><span>' + esc(t(year ? 'sub.yearly' : 'sub.monthly')) + '</span>' +
+      '<div class="pw-pay"><div class="pw-sum"><b>' + esc(t('plan.n_' + x.id)) + '</b><span>' + esc(PlanPeriod.label(period)) + '</span>' +
         '<div class="pw-row"><span>' + esc(t('pw.today')) + '</span><b>' + euro(0) + '</b></div>' +
         '<div class="pw-row"><span>' + esc(t('pw.after')) + '</span><b>' + euro(price) + ' ' + esc(per) + '</b></div></div>' +
       '<form class="pw-card-form" data-pw-form><label class="auth-f"><span>' + esc(t('pw.card')) + '</span><span class="auth-in"><input value="4242 4242 4242 4242" readonly></span></label>' +
@@ -61,7 +61,7 @@
   }
   function pay() {
     if (busy) return; busy = true; drawPay((info.plans || []).filter(function (p) { return p.id === chosen; })[0]);
-    api.account.checkoutDemo({ plan: chosen, period: year ? 'year' : 'month' }).then(function () { busy = false; step = 'done'; draw(); })
+    api.account.checkoutDemo({ plan: chosen, period: period }).then(function () { busy = false; step = 'done'; draw(); })
       .catch(function () { busy = false; step = 'choose'; draw(); });
   }
   function open() { draw(); document.body.classList.add('paywall-open'); var f = box.querySelector('[aria-checked="true"]'); if (f) f.focus(); }
@@ -71,14 +71,14 @@
     if (window.TermsGate && TermsGate.waiting()) return;                 // eerst akkoord met de voorwaarden (terms-gate.js)
     api.account.plan().then(function (r) {
       info = r;
-      var w = window.wantedPlan; if (w) { chosen = w.plan || chosen; year = w.period === 'year'; }
+      var w = window.wantedPlan; if (w) { chosen = w.plan || chosen; period = PlanPeriod.norm(w.period); }
       if (needed()) open(); else close();
     }).catch(function () {});
   }
   document.addEventListener('click', function (e) {
     if (!box || !box.contains(e.target)) return;
     var p = e.target.closest('[data-pw-plan]'); if (p) { chosen = p.getAttribute('data-pw-plan'); return draw(); }
-    var y = e.target.closest('[data-pw-year]'); if (y) { year = y.getAttribute('data-pw-year') === '1'; return draw(); }
+    var y = e.target.closest('[data-pw-period]'); if (y) { period = PlanPeriod.norm(y.getAttribute('data-pw-period')); return draw(); }
     if (e.target.closest('[data-pw-logout]')) { api.auth.logout().catch(function () {}).then(function () { location.replace(location.pathname); }); return; }
     if (e.target.closest('[data-pw-back]')) { step = 'choose'; return draw(); }
     if (e.target.closest('[data-pw-enter]')) { location.replace(location.pathname); return; }
@@ -86,7 +86,7 @@
     if (e.target.closest('[data-pw-go]')) {
       // Nog geen Stripe: aanvraag naar het team. (Met Stripe: hier naar de betaalpagina.)
       var u = Session.user() || {};
-      api.contact({ name: u.name || u.email, email: u.email, topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + chosen) }) + ' (' + t(year ? 'sub.yearly' : 'sub.monthly') + ')' })
+      api.contact({ name: u.name || u.email, email: u.email, topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + chosen) }) + ' (' + PlanPeriod.label(period) + ')' })
         .then(function () { sent = true; draw(); }, function () { sent = true; draw(); });
     }
   });

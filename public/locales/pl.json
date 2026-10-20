@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Okres rozliczeniowy",
     "monthly": "Miesięcznie",
+    "quarterly": "Kwartalnie",
     "yearly": "Rocznie",
     "yearSave": "1. rok: 2 miesiące gratis",
+    "quarterSave": "10% zniżki",
     "perYear": "rocznie",
+    "perQuarter": "na kwartał",
     "paidUntil": "Opłacone do {date}",
     "graceRule": "Gdy subskrypcja się skończy, Twoje kody QR od razu przestają działać, ale przechowujemy je przez 30 dni. Odnów ją w tym czasie, a wszystko znów zadziała, także wydrukowane kody. Po 30 dniach zostaną usunięte.",
     "graceMsg": "Twoja subskrypcja wygasła. Twoje kody QR nie działają i nie możesz niczego zmieniać. Odnów ją przed {date}, inaczej wszystkie Twoje kody QR zostaną usunięte.",

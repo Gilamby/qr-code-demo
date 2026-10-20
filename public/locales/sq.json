@@ -2484,9 +2484,12 @@
   "sub": {
     "period": "Periudha e pagesës",
     "monthly": "Mujore",
+    "quarterly": "Tremujore",
     "yearly": "Vjetore",
     "yearSave": "Viti 1: 2 muaj falas",
+    "quarterSave": "10% zbritje",
     "perYear": "në vit",
+    "perQuarter": "në tremujor",
     "paidUntil": "Paguar deri më {date}",
     "graceRule": "Nëse abonimi përfundon, kodet tuaja QR ndalojnë së punuari menjëherë, por i ruajmë për 30 ditë. Rinovojeni brenda kësaj kohe dhe gjithçka funksionon përsëri, edhe kodet e printuara. Pas 30 ditësh ato fshihen.",
     "graceMsg": "Abonimi yt ka skaduar. Kodet e tua QR nuk funksionojnë dhe nuk mund të ndryshosh asgjë. Rinovoje para {date}, përndryshe të gjitha kodet e tua QR do të fshihen.",

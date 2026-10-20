@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Període de facturació",
     "monthly": "Mensual",
+    "quarterly": "Trimestral",
     "yearly": "Anual",
     "yearSave": "1r any: 2 mesos gratis",
+    "quarterSave": "10% de descompte",
     "perYear": "l'any",
+    "perQuarter": "per trimestre",
     "paidUntil": "Pagat fins al {date}",
     "graceRule": "Si la teva subscripció acaba, els teus codis QR deixen de funcionar de seguida, però els guardem 30 dies. Si renoves en aquest termini, tot torna a funcionar, també els codis impresos. Després de 30 dies s’eliminen.",
     "graceMsg": "La teva subscripció ha caducat. Els teus codis QR no funcionen i no pots canviar res. Renova-la abans del {date} o s'eliminaran tots els teus codis QR.",

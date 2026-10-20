@@ -16,7 +16,7 @@ import { baseUrl } from '../config/env';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLAN_IDS, planFor } from '../plans';
-import { subFor, saveSub, renew, emptySub, publicSub } from '../subscription';
+import { subFor, saveSub, renew, emptySub, publicSub, toInterval } from '../subscription';
 
 @Injectable()
 export class TeamOnly implements CanActivate {
@@ -51,7 +51,7 @@ export class AdminController {
   async subscription(@CurrentUser() me: User, @Param('id') id: string, @Body() b: any = {}) {
     const u = await this.db.getUser(id); if (!u) throw fail(404, 'Not found');
     if (this.auth.isAdmin(u)) throw fail(403, 'team');
-    const interval = b.interval === 'year' ? 'year' : 'month';
+    const interval = toInterval(b.interval);
     let s = (await subFor(this.db, id)) || emptySub(interval);
     if (b.action === 'paid') s = renew(s, interval);
     else if (b.action === 'set') {

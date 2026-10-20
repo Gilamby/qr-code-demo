@@ -14,7 +14,8 @@
 export const DAY = 864e5;
 export const RETAIN = 30 * DAY, RESET_AFTER = 365 * DAY;    // hoe lang we codes bewaren na het verlopen (Terms punt 5: 30 dagen)
 
-export type Interval = 'month' | 'year';
+export type Interval = 'month' | 'quarter' | 'year';
+export const toInterval = (v: unknown): Interval => (v === 'year' ? 'year' : v === 'quarter' ? 'quarter' : 'month');
 export interface Sub {
   interval: Interval;
   periodEnd: string | null;      // tot wanneer is betaald
@@ -58,7 +59,7 @@ export function graceEnd(s: Sub): number | null {
 export function renew(s: Sub, interval: Interval, now = Date.now()): Sub {
   const from = s.periodEnd && Date.parse(s.periodEnd) > now ? new Date(s.periodEnd) : new Date(now);
   const end = new Date(from);
-  if (interval === 'year') end.setUTCFullYear(end.getUTCFullYear() + 1); else end.setUTCMonth(end.getUTCMonth() + 1);
+  if (interval === 'year') end.setUTCFullYear(end.getUTCFullYear() + 1); else end.setUTCMonth(end.getUTCMonth() + (interval === 'quarter' ? 3 : 1));
   return { ...s, interval, periodEnd: end.toISOString(), graceUntil: null, notified: [], deletedAt: null, mustPay: false };
 }
 

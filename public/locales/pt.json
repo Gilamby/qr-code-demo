@@ -2378,9 +2378,12 @@
   "sub": {
     "period": "Período de faturação",
     "monthly": "Mensal",
+    "quarterly": "Trimestral",
     "yearly": "Anual",
     "yearSave": "1.º ano: 2 meses grátis",
+    "quarterSave": "10% de desconto",
     "perYear": "por ano",
+    "perQuarter": "por trimestre",
     "paidUntil": "Pago até {date}",
     "graceRule": "Se a tua subscrição terminar, os teus códigos QR deixam logo de funcionar, mas guardamo-los durante 30 dias. Renova nesse prazo e tudo volta a funcionar, incluindo os códigos impressos. Após 30 dias são eliminados.",
     "graceMsg": "A sua subscrição expirou. Os seus códigos QR não funcionam e não pode alterar nada. Renove antes de {date}, caso contrário todos os seus códigos QR serão eliminados.",

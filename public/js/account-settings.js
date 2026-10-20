@@ -1,3 +1,18 @@
+/* Betaalperiodes (Terms punt 4): per maand, per kwartaal, per jaar. Gedeeld met het pakket-scherm en het beheer. */
+window.PlanPeriod = {
+  list: ['month', 'quarter', 'year'],
+  norm: function (p) { return p === 'year' || p === 'quarter' ? p : 'month'; },
+  price: function (x, p) { return p === 'year' ? x.priceYear : p === 'quarter' ? x.priceQuarter : x.price; },
+  per: function (p) { return t(p === 'year' ? 'sub.perYear' : p === 'quarter' ? 'sub.perQuarter' : 'plan.perMonth'); },
+  label: function (p) { return t(p === 'year' ? 'sub.yearly' : p === 'quarter' ? 'sub.quarterly' : 'sub.monthly'); },
+  /** Keuzeknoppen; attr = data-attribuut met de periode, save = korting erbij tonen */
+  toggle: function (cur, attr, save) {
+    return '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '">' + this.list.map(function (p) {
+      var extra = save && p === 'year' ? ' <em>' + t('sub.yearSave') + '</em>' : save && p === 'quarter' ? ' <em>' + t('sub.quarterSave') + '</em>' : '';
+      return '<button type="button" role="radio" aria-checked="' + (p === cur) + '" ' + attr + '="' + p + '">' + PlanPeriod.label(p) + extra + '</button>';
+    }).join('') + '</div>';
+  },
+};
 /* =========================================================
    MIJN ACCOUNT
    Rechts een menu in drie groepen, links het gekozen onderdeel (op de telefoon staat het menu bovenaan):
@@ -208,7 +223,7 @@
       '<div class="acct-actions">' + (billing ? '<button class="btn ghost" type="button" data-billing-reset>' + t('myCodes.cancel') + '</button>' : '') +
       '<button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + (m.billing ? '<p class="acct-msg ' + m.billing[1] + '" role="status">' + esc(m.billing[0]) + '</p>' : '') + '</div>';
   }
-  var planInfo = null, planBusy = false, planYear = false;   // planYear: prijzen per jaar tonen
+  var planInfo = null, planBusy = false, planPeriod = 'month';   // welke prijzen tonen: month / quarter / year
   function loadPlan() { if (planBusy) return; planBusy = true; api.account.plan().then(function (r) { planBusy = false; planInfo = r; if (tab === 'plan') draw(); }).catch(function () { planBusy = false; planInfo = { error: true }; if (tab === 'plan') draw(); }); }
   function euro(n) { return n === 0 ? t('plan.freeMonth') : new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); }
   function planCurrent() {
@@ -228,12 +243,12 @@
     return (head || '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.assignedLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
       bar + subLine(planInfo.sub) + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>') +
       '<div class="glass bg-card acct"><h2>' + t('plan.choose') + ' <span class="pl-tag">' + t('plan.proposal') + '</span></h2><p class="acct-note">' + t('plan.chooseLead') + '</p>' +
-      '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '"><button type="button" role="radio" aria-checked="' + !planYear + '" data-plan-year="0">' + t('sub.monthly') + '</button><button type="button" role="radio" aria-checked="' + planYear + '" data-plan-year="1">' + t('sub.yearly') + ' <em>' + t('sub.yearSave') + '</em></button></div><div class="pl-grid">' +
+      PlanPeriod.toggle(planPeriod, 'data-plan-period', true) + '<div class="pl-grid">' +
       planInfo.plans.map(function (x) {
         var unpaid = planInfo.sub && planInfo.sub.state === 'unpaid', cur = x.id === p.id && !unpaid;   // nog niet betaald: nog geen "huidig" pakket
         return '<div class="pl-card' + (cur ? ' is-cur' : '') + '"><div class="pl-name">' + t('plan.n_' + x.id) + (cur ? '<span class="pl-cur">' + t('plan.current') + '</span>' : '') + '</div>' +
-          '<div class="pl-price"><b>' + euro(planYear ? x.priceYear : x.price) + '</b><small>' + t(planYear ? 'sub.perYear' : 'plan.perMonth') + '</small></div>' +
-          (planYear && x.priceYearAfter ? '<p class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</p>' : '') +
+          '<div class="pl-price"><b>' + euro(PlanPeriod.price(x, planPeriod)) + '</b><small>' + PlanPeriod.per(planPeriod) + '</small></div>' +
+          (planPeriod === 'year' && x.priceYearAfter ? '<p class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</p>' : '') +
           (x.trialDays ? '<p class="pl-intro">' + t('plan.trial', { n: x.trialDays }) + '</p>' : '') +
           '<ul><li>' + (x.codes ? t('plan.fCodes', { n: x.codes }) : t('acct.planF1')) + '</li><li>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</li><li>' + (x.users === 1 ? t('team.fUsers1') : x.users ? t('team.fUsers', { n: x.users }) : t('team.fUsersAll')) + '</li><li>' + t('acct.planF4') + '</li></ul>' +
           (cur ? '' : '<button type="button" class="btn ghost" data-plan-ask="' + x.id + '">' + t('plan.ask') + '</button>') + '</div>';
@@ -591,7 +606,7 @@
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
-    var py = e.target.closest('[data-plan-year]'); if (py) { planYear = py.getAttribute('data-plan-year') === '1'; draw(); return; }
+    var py = e.target.closest('[data-plan-period]'); if (py) { planPeriod = PlanPeriod.norm(py.getAttribute('data-plan-period')); draw(); return; }
     var ask = e.target.closest('[data-plan-ask]');
     if (ask) { goToPage('contact'); document.dispatchEvent(new CustomEvent('contact-preset', { detail: { topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + ask.getAttribute('data-plan-ask')) }) } })); return; }
     var ed = e.target.closest('[data-edit]');

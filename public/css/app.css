@@ -4295,7 +4295,7 @@ body.an-printing #anRange { display: block; }
 #bgGrid.drag { outline: 2px dashed var(--accent); outline-offset: 6px; border-radius: 16px; }
 
 /* ---------- Abonnement: maand/jaar, betaalstatus, balk bij niet betaald ---------- */
-.pl-period { display: inline-flex; gap: 4px; padding: 4px; margin: 6px 0 14px; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+.pl-period { display: inline-flex; flex-wrap: wrap; max-width: 100%; gap: 4px; padding: 4px; margin: 6px 0 14px; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
 .pl-period button { border: 0; background: none; color: var(--muted); font: inherit; font-size: 14px; font-weight: 650; padding: 8px 14px; border-radius: 9px; cursor: pointer; }
 .pl-period button[aria-checked="true"] { background: var(--accent); color: var(--accent-ink, #04121f); }
 .pl-period em { font-style: normal; font-size: 12px; opacity: .85; margin-left: 4px; }
