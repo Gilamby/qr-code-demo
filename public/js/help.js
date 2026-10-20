@@ -101,6 +101,7 @@
     ['stats', 'stats', ['faq.go.analytics', 'analytics']],
     ['unique', 'stats', ['faq.go.analytics', 'analytics']],
     ['privacy', 'stats'],
+    ['location', 'stats'],
     ['password', 'account', ['faq.go.security', 'account:security']],
     ['billing', 'account', ['faq.go.billing', 'account:billing']],
     ['data', 'account', ['faq.go.data', 'account:data']],
