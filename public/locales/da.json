@@ -599,22 +599,12 @@
     "wrongSite": "Dette er ikke et link til {site}. Kopiér linket til den rigtige side."
   },
   "pw": {
-    "show": "Vis adgangskode",
-    "hide": "Skjul adgangskode",
-    "generate": "Lav en stærk adgangskode",
-    "save": "Gem på mine enheder",
-    "generated": "Stærk adgangskode oprettet. Gem den på dine enheder med det samme.",
-    "saved": "✓ Gemt i din adgangskodeadministrator. Den findes nu på alle enheder med samme konto.",
-    "copied": "Kopieret. På iPhone/Mac tilbyder Safari at gemme den i iCloud-nøglering; eller indsæt den i appen Adgangskoder.",
-    "copyFail": "Kunne ikke kopiere. Markér adgangskoden, og kopiér den selv.",
-    "empty": "Indtast først en adgangskode.",
-    "rules": "Krav til adgangskoden",
-    "rule": {
-      "len": "Mindst 8 tegn",
-      "upper": "1 stort bogstav",
-      "digit": "1 tal",
-      "special": "1 specialtegn (fx ! ? @ #)"
-    }
+    "title": "Vælg din pakke",
+    "lead": "Alle pakker er gratis i 14 dage. Du betaler først efter prøveperioden og kan altid opsige.",
+    "start": "Start 14 dage gratis",
+    "soon": "Onlinebetaling kommer snart. Vælg din pakke, så aktiverer vores team din konto.",
+    "sent": "Anmodning sendt. Du får en e-mail, så snart din konto er aktiv.",
+    "popular": "Mest valgt"
   },
   "dz": {
     "lbl": {

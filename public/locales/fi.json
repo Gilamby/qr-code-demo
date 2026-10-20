@@ -599,22 +599,12 @@
     "wrongSite": "Tämä ei ole linkki palveluun {site}. Kopioi oikean sivun linkki."
   },
   "pw": {
-    "show": "Näytä salasana",
-    "hide": "Piilota salasana",
-    "generate": "Luo vahva salasana",
-    "save": "Tallenna laitteisiini",
-    "generated": "Vahva salasana luotu. Tallenna se heti laitteisiisi.",
-    "saved": "✓ Tallennettu salasanojen hallintaan. Se on nyt kaikissa laitteissa, joissa on sama tili.",
-    "copied": "Kopioitu. iPhonessa/Macissa Safari tarjoutuu tallentamaan sen iCloud-avainnippuun; tai liitä se Salasanat-appiin.",
-    "copyFail": "Kopiointi epäonnistui. Valitse salasana ja kopioi se itse.",
-    "empty": "Syötä ensin salasana.",
-    "rules": "Salasanan vaatimukset",
-    "rule": {
-      "len": "Vähintään 8 merkkiä",
-      "upper": "1 iso kirjain",
-      "digit": "1 numero",
-      "special": "1 erikoismerkki (kuten ! ? @ #)"
-    }
+    "title": "Valitse pakettisi",
+    "lead": "Jokainen paketti on ilmainen 14 päivää. Maksat vasta kokeilun jälkeen ja voit perua milloin vain.",
+    "start": "Aloita 14 päivää ilmaiseksi",
+    "soon": "Verkkomaksu tulee pian. Valitse paketti, niin tiimimme aktivoi tilisi.",
+    "sent": "Pyyntö lähetetty. Saat sähköpostin, kun tilisi on aktiivinen.",
+    "popular": "Suosituin"
   },
   "dz": {
     "lbl": {

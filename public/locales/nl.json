@@ -599,22 +599,12 @@
     "wrongSite": "Dit is geen link naar {site}. Kopieer de link van de juiste pagina."
   },
   "pw": {
-    "show": "Wachtwoord tonen",
-    "hide": "Wachtwoord verbergen",
-    "generate": "Sterk wachtwoord maken",
-    "save": "Bewaren op mijn apparaten",
-    "generated": "Sterk wachtwoord gemaakt. Bewaar het meteen op je apparaten.",
-    "saved": "✓ Bewaard in je wachtwoordmanager. Het staat nu op al je apparaten met hetzelfde account.",
-    "copied": "Gekopieerd. Op iPhone/Mac: Safari biedt aan het te bewaren in iCloud-sleutelhanger; of plak het in de Wachtwoorden-app.",
-    "copyFail": "Kopiëren lukte niet. Selecteer het wachtwoord en kopieer het zelf.",
-    "empty": "Vul eerst een wachtwoord in.",
-    "rules": "Eisen voor het wachtwoord",
-    "rule": {
-      "len": "Minstens 8 tekens",
-      "upper": "1 hoofdletter",
-      "digit": "1 cijfer",
-      "special": "1 speciaal teken (zoals ! ? @ #)"
-    }
+    "title": "Kies je pakket",
+    "lead": "Elk pakket is 14 dagen gratis. Je betaalt pas na de proefperiode en kunt altijd opzeggen.",
+    "start": "Start 14 dagen gratis",
+    "soon": "Online betalen komt binnenkort. Kies je pakket, dan zet ons team je account aan.",
+    "sent": "Aanvraag verstuurd. Je krijgt een e-mail zodra je account aan staat.",
+    "popular": "Meest gekozen"
   },
   "dz": {
     "lbl": {

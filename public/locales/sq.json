@@ -599,22 +599,12 @@
     "wrongSite": "Kjo nuk është një lidhje për {site}. Kopjo lidhjen e faqes së duhur."
   },
   "pw": {
-    "show": "Shfaq fjalëkalimin",
-    "hide": "Fshih fjalëkalimin",
-    "generate": "Krijo fjalëkalim të fortë",
-    "save": "Ruaje në pajisjet e mia",
-    "generated": "U krijua fjalëkalim i fortë. Ruaje menjëherë në pajisjet e tua.",
-    "saved": "✓ U ruajt në menaxherin e fjalëkalimeve, në të gjitha pajisjet me të njëjtën llogari.",
-    "copied": "U kopjua. Në iPhone/Mac Safari ofron ta ruajë në iCloud Keychain; ose ngjite te aplikacioni Fjalëkalimet.",
-    "copyFail": "Kopjimi dështoi. Zgjidh fjalëkalimin dhe kopjoje.",
-    "empty": "Shkruaj fillimisht një fjalëkalim.",
-    "rules": "Kërkesat për fjalëkalimin",
-    "rule": {
-      "len": "Të paktën 8 shenja",
-      "upper": "1 shkronjë e madhe",
-      "digit": "1 numër",
-      "special": "1 shenjë e veçantë (si ! ? @ #)"
-    }
+    "title": "Zgjidh paketën",
+    "lead": "Çdo paketë është falas për 14 ditë. Paguan vetëm pas provës dhe mund ta anulosh kur të duash.",
+    "start": "Fillo 14 ditë falas",
+    "soon": "Pagesa online vjen së shpejti. Zgjidh paketën dhe ekipi ynë aktivizon llogarinë tënde.",
+    "sent": "Kërkesa u dërgua. Do të marrësh një email sapo llogaria të jetë aktive.",
+    "popular": "Më e zgjedhura"
   },
   "dz": {
     "lbl": {

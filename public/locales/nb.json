@@ -599,22 +599,12 @@
     "wrongSite": "Dette er ikke en lenke til {site}. Kopier lenken til riktig side."
   },
   "pw": {
-    "show": "Vis passord",
-    "hide": "Skjul passord",
-    "generate": "Lag et sterkt passord",
-    "save": "Lagre på enhetene mine",
-    "generated": "Sterkt passord laget. Lagre det på enhetene dine med en gang.",
-    "saved": "✓ Lagret i passordbehandleren. Det finnes nå på alle enheter med samme konto.",
-    "copied": "Kopiert. På iPhone/Mac tilbyr Safari å lagre det i iCloud-nøkkelring; eller lim det inn i Passord-appen.",
-    "copyFail": "Kunne ikke kopiere. Merk passordet og kopier det selv.",
-    "empty": "Skriv inn et passord først.",
-    "rules": "Krav til passordet",
-    "rule": {
-      "len": "Minst 8 tegn",
-      "upper": "1 stor bokstav",
-      "digit": "1 tall",
-      "special": "1 spesialtegn (som ! ? @ #)"
-    }
+    "title": "Velg pakken din",
+    "lead": "Alle pakker er gratis i 14 dager. Du betaler først etter prøveperioden og kan si opp når som helst.",
+    "start": "Start 14 dager gratis",
+    "soon": "Nettbetaling kommer snart. Velg pakke, så aktiverer teamet vårt kontoen din.",
+    "sent": "Forespørsel sendt. Du får en e-post så snart kontoen din er aktiv.",
+    "popular": "Mest valgt"
   },
   "dz": {
     "lbl": {

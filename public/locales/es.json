@@ -599,22 +599,12 @@
     "wrongSite": "Esto no es un enlace a {site}. Copia el enlace de la página correcta."
   },
   "pw": {
-    "show": "Mostrar contraseña",
-    "hide": "Ocultar contraseña",
-    "generate": "Crear contraseña segura",
-    "save": "Guardar en mis dispositivos",
-    "generated": "Contraseña segura creada. Guárdala ya en tus dispositivos.",
-    "saved": "✓ Guardada en tu gestor de contraseñas, en todos tus dispositivos con la misma cuenta.",
-    "copied": "Copiada. En iPhone/Mac, Safari ofrece guardarla en el llavero de iCloud; o pégala en la app Contraseñas.",
-    "copyFail": "No se pudo copiar. Selecciona la contraseña y cópiala.",
-    "empty": "Primero escribe una contraseña.",
-    "rules": "Requisitos de la contraseña",
-    "rule": {
-      "len": "Al menos 8 caracteres",
-      "upper": "1 mayúscula",
-      "digit": "1 número",
-      "special": "1 carácter especial (como ! ? @ #)"
-    }
+    "title": "Elige tu plan",
+    "lead": "Todos los planes son gratis durante 14 días. Solo pagas después de la prueba y puedes cancelar cuando quieras.",
+    "start": "Empieza 14 días gratis",
+    "soon": "El pago online llegará pronto. Elige tu plan y nuestro equipo activará tu cuenta.",
+    "sent": "Solicitud enviada. Recibirás un correo cuando tu cuenta esté activa.",
+    "popular": "El más elegido"
   },
   "dz": {
     "lbl": {

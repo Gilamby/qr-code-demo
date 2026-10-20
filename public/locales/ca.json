@@ -599,22 +599,12 @@
     "wrongSite": "Aquest no és un enllaç a {site}. Copia l'enllaç de la pàgina correcta."
   },
   "pw": {
-    "show": "Mostra la contrasenya",
-    "hide": "Amaga la contrasenya",
-    "generate": "Crea una contrasenya segura",
-    "save": "Desa als meus dispositius",
-    "generated": "S'ha creat una contrasenya segura. Desa-la de seguida als teus dispositius.",
-    "saved": "✓ Desada al gestor de contrasenyes. Ara és a tots els dispositius amb el mateix compte.",
-    "copied": "Copiada. A l'iPhone/Mac, Safari s'ofereix a desar-la a Clauer d'iCloud; o enganxa-la a l'app Contrasenyes.",
-    "copyFail": "No s'ha pogut copiar. Selecciona la contrasenya i copia-la tu mateix.",
-    "empty": "Primer introdueix una contrasenya.",
-    "rules": "Requisits de la contrasenya",
-    "rule": {
-      "len": "Com a mínim 8 caràcters",
-      "upper": "1 majúscula",
-      "digit": "1 número",
-      "special": "1 caràcter especial (com ! ? @ #)"
-    }
+    "title": "Tria el teu pla",
+    "lead": "Tots els plans són gratuïts durant 14 dies. Només pagues després de la prova i pots cancel·lar quan vulguis.",
+    "start": "Comença 14 dies gratis",
+    "soon": "El pagament en línia arribarà aviat. Tria el pla i el nostre equip activarà el teu compte.",
+    "sent": "Sol·licitud enviada. Rebràs un correu quan el teu compte estigui actiu.",
+    "popular": "El més triat"
   },
   "dz": {
     "lbl": {

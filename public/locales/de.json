@@ -599,22 +599,12 @@
     "wrongSite": "Das ist kein Link zu {site}. Kopiere den Link der richtigen Seite."
   },
   "pw": {
-    "show": "Passwort anzeigen",
-    "hide": "Passwort verbergen",
-    "generate": "Starkes Passwort erstellen",
-    "save": "Auf meinen Geräten speichern",
-    "generated": "Starkes Passwort erstellt. Speichere es gleich auf deinen Geräten.",
-    "saved": "✓ Im Passwortmanager gespeichert – jetzt auf allen Geräten mit demselben Konto.",
-    "copied": "Kopiert. Auf iPhone/Mac bietet Safari an, es im iCloud-Schlüsselbund zu sichern; oder füge es in die Passwörter-App ein.",
-    "copyFail": "Kopieren fehlgeschlagen. Markiere das Passwort und kopiere es selbst.",
-    "empty": "Gib zuerst ein Passwort ein.",
-    "rules": "Anforderungen an das Passwort",
-    "rule": {
-      "len": "Mindestens 8 Zeichen",
-      "upper": "1 Großbuchstabe",
-      "digit": "1 Ziffer",
-      "special": "1 Sonderzeichen (z. B. ! ? @ #)"
-    }
+    "title": "Wähle dein Paket",
+    "lead": "Jedes Paket ist 14 Tage kostenlos. Du zahlst erst nach der Testphase und kannst jederzeit kündigen.",
+    "start": "14 Tage kostenlos starten",
+    "soon": "Online-Zahlung kommt bald. Wähle dein Paket, dann schaltet unser Team dein Konto frei.",
+    "sent": "Anfrage gesendet. Du bekommst eine E-Mail, sobald dein Konto aktiv ist.",
+    "popular": "Am beliebtesten"
   },
   "dz": {
     "lbl": {

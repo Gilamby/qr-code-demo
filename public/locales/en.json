@@ -599,22 +599,12 @@
     "wrongSite": "This is not a link to {site}. Copy the link of the right page."
   },
   "pw": {
-    "show": "Show password",
-    "hide": "Hide password",
-    "generate": "Create strong password",
-    "save": "Save to my devices",
-    "generated": "Strong password created. Save it to your devices right away.",
-    "saved": "✓ Saved in your password manager. It is now on all devices with the same account.",
-    "copied": "Copied. On iPhone/Mac, Safari offers to save it in iCloud Keychain; or paste it into the Passwords app.",
-    "copyFail": "Couldn't copy. Select the password and copy it yourself.",
-    "empty": "Enter a password first.",
-    "rules": "Password requirements",
-    "rule": {
-      "len": "At least 8 characters",
-      "upper": "1 capital letter",
-      "digit": "1 number",
-      "special": "1 special character (like ! ? @ #)"
-    }
+    "title": "Choose your plan",
+    "lead": "Every plan is free for 14 days. You only pay after the trial and can cancel anytime.",
+    "start": "Start 14 days free",
+    "soon": "Online payment is coming soon. Choose your plan and our team will activate your account.",
+    "sent": "Request sent. You'll get an email as soon as your account is active.",
+    "popular": "Most popular"
   },
   "dz": {
     "lbl": {

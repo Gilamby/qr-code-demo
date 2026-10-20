@@ -599,22 +599,12 @@
     "wrongSite": "Šī nav saite uz {site}. Nokopē pareizās lapas saiti."
   },
   "pw": {
-    "show": "Rādīt paroli",
-    "hide": "Slēpt paroli",
-    "generate": "Izveidot drošu paroli",
-    "save": "Saglabāt manās ierīcēs",
-    "generated": "Droša parole izveidota. Uzreiz saglabā to savās ierīcēs.",
-    "saved": "✓ Saglabāta paroļu pārvaldniekā. Tagad tā ir visās ierīcēs ar to pašu kontu.",
-    "copied": "Nokopēts. iPhone/Mac ierīcēs Safari piedāvā to saglabāt iCloud Keychain; vai ielīmē to lietotnē “Paroles”.",
-    "copyFail": "Neizdevās nokopēt. Atlasi paroli un nokopē to pats.",
-    "empty": "Vispirms ievadi paroli.",
-    "rules": "Paroles prasības",
-    "rule": {
-      "len": "Vismaz 8 rakstzīmes",
-      "upper": "1 lielais burts",
-      "digit": "1 cipars",
-      "special": "1 speciālā rakstzīme (piem. ! ? @ #)"
-    }
+    "title": "Izvēlieties paketi",
+    "lead": "Katra pakete ir bez maksas 14 dienas. Maksājat tikai pēc izmēģinājuma un varat atteikties jebkurā laikā.",
+    "start": "Sākt 14 dienas bez maksas",
+    "soon": "Maksājumi tiešsaistē drīzumā. Izvēlieties paketi, un mūsu komanda aktivizēs jūsu kontu.",
+    "sent": "Pieprasījums nosūtīts. Saņemsiet e-pastu, tiklīdz konts būs aktīvs.",
+    "popular": "Populārākā"
   },
   "dz": {
     "lbl": {

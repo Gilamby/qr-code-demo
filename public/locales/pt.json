@@ -599,22 +599,12 @@
     "wrongSite": "Isto não é uma ligação para {site}. Copie a ligação da página certa."
   },
   "pw": {
-    "show": "Mostrar palavra-passe",
-    "hide": "Ocultar palavra-passe",
-    "generate": "Criar palavra-passe forte",
-    "save": "Guardar nos meus dispositivos",
-    "generated": "Palavra-passe forte criada. Guarda-a já nos teus dispositivos.",
-    "saved": "✓ Guardada no gestor de palavras-passe, em todos os dispositivos com a mesma conta.",
-    "copied": "Copiada. No iPhone/Mac, o Safari oferece guardá-la no Porta-chaves iCloud; ou cola-a na app Palavras-passe.",
-    "copyFail": "Não foi possível copiar. Seleciona a palavra-passe e copia-a.",
-    "empty": "Escreve primeiro uma palavra-passe.",
-    "rules": "Requisitos da palavra-passe",
-    "rule": {
-      "len": "Pelo menos 8 caracteres",
-      "upper": "1 letra maiúscula",
-      "digit": "1 número",
-      "special": "1 carácter especial (como ! ? @ #)"
-    }
+    "title": "Escolha o seu plano",
+    "lead": "Todos os planos são grátis durante 14 dias. Só paga depois do teste e pode cancelar quando quiser.",
+    "start": "Começar 14 dias grátis",
+    "soon": "O pagamento online chega em breve. Escolha o plano e a nossa equipa ativa a sua conta.",
+    "sent": "Pedido enviado. Receberá um e-mail quando a sua conta estiver ativa.",
+    "popular": "O mais escolhido"
   },
   "dz": {
     "lbl": {

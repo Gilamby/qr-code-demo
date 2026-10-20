@@ -599,22 +599,12 @@
     "wrongSite": "Acesta nu este un link către {site}. Copiază linkul paginii corecte."
   },
   "pw": {
-    "show": "Arată parola",
-    "hide": "Ascunde parola",
-    "generate": "Creează o parolă puternică",
-    "save": "Salvează pe dispozitivele mele",
-    "generated": "Parolă puternică creată. Salveaz-o imediat pe dispozitivele tale.",
-    "saved": "✓ Salvată în managerul de parole. Acum este pe toate dispozitivele cu același cont.",
-    "copied": "Copiat. Pe iPhone/Mac, Safari se oferă s-o salveze în Portchei iCloud; sau lipește-o în aplicația Parole.",
-    "copyFail": "Nu s-a putut copia. Selectează parola și copiaz-o singur.",
-    "empty": "Introdu mai întâi o parolă.",
-    "rules": "Cerințe pentru parolă",
-    "rule": {
-      "len": "Cel puțin 8 caractere",
-      "upper": "1 literă mare",
-      "digit": "1 cifră",
-      "special": "1 caracter special (de ex. ! ? @ #)"
-    }
+    "title": "Alege pachetul",
+    "lead": "Fiecare pachet este gratuit 14 zile. Plătești doar după perioada de probă și poți anula oricând.",
+    "start": "Începe 14 zile gratuit",
+    "soon": "Plata online vine în curând. Alege pachetul și echipa noastră îți activează contul.",
+    "sent": "Cerere trimisă. Vei primi un e-mail când contul tău este activ.",
+    "popular": "Cel mai ales"
   },
   "dz": {
     "lbl": {

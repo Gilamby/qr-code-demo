@@ -599,22 +599,12 @@
     "wrongSite": "To nie jest link do {site}. Skopiuj link właściwej strony."
   },
   "pw": {
-    "show": "Pokaż hasło",
-    "hide": "Ukryj hasło",
-    "generate": "Utwórz silne hasło",
-    "save": "Zapisz na moich urządzeniach",
-    "generated": "Utworzono silne hasło. Zapisz je od razu na swoich urządzeniach.",
-    "saved": "✓ Zapisano w menedżerze haseł – na wszystkich urządzeniach z tym samym kontem.",
-    "copied": "Skopiowano. Na iPhone/Mac Safari zaproponuje zapis w pęku kluczy iCloud; lub wklej je do aplikacji Hasła.",
-    "copyFail": "Nie udało się skopiować. Zaznacz hasło i skopiuj je.",
-    "empty": "Najpierw wpisz hasło.",
-    "rules": "Wymagania dotyczące hasła",
-    "rule": {
-      "len": "Co najmniej 8 znaków",
-      "upper": "1 wielka litera",
-      "digit": "1 cyfra",
-      "special": "1 znak specjalny (np. ! ? @ #)"
-    }
+    "title": "Wybierz pakiet",
+    "lead": "Każdy pakiet jest bezpłatny przez 14 dni. Płacisz dopiero po okresie próbnym i możesz zrezygnować w każdej chwili.",
+    "start": "Zacznij 14 dni za darmo",
+    "soon": "Płatności online już wkrótce. Wybierz pakiet, a nasz zespół aktywuje Twoje konto.",
+    "sent": "Prośba wysłana. Dostaniesz e-mail, gdy konto będzie aktywne.",
+    "popular": "Najczęściej wybierany"
   },
   "dz": {
     "lbl": {

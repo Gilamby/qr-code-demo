@@ -599,22 +599,12 @@
     "wrongSite": "Toto nie je odkaz na {site}. Skopíruj odkaz správnej stránky."
   },
   "pw": {
-    "show": "Zobraziť heslo",
-    "hide": "Skryť heslo",
-    "generate": "Vytvoriť silné heslo",
-    "save": "Uložiť do mojich zariadení",
-    "generated": "Silné heslo je vytvorené. Hneď si ho ulož do zariadení.",
-    "saved": "✓ Uložené v správcovi hesiel. Teraz je na všetkých zariadeniach s rovnakým účtom.",
-    "copied": "Skopírované. Na iPhone/Mac ponúkne Safari uloženie do Kľúčenky iCloud; alebo ho vlož do apky Heslá.",
-    "copyFail": "Kopírovanie zlyhalo. Označ heslo a skopíruj ho sám.",
-    "empty": "Najprv zadaj heslo.",
-    "rules": "Požiadavky na heslo",
-    "rule": {
-      "len": "Aspoň 8 znakov",
-      "upper": "1 veľké písmeno",
-      "digit": "1 číslica",
-      "special": "1 špeciálny znak (napr. ! ? @ #)"
-    }
+    "title": "Vyberte si balík",
+    "lead": "Každý balík je 14 dní zadarmo. Platíte až po skúšobnom období a môžete kedykoľvek zrušiť.",
+    "start": "Začať 14 dní zadarmo",
+    "soon": "Online platba čoskoro. Vyberte balík a náš tím aktivuje váš účet.",
+    "sent": "Žiadosť odoslaná. Keď bude účet aktívny, dostanete e-mail.",
+    "popular": "Najobľúbenejší"
   },
   "dz": {
     "lbl": {

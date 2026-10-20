@@ -458,6 +458,9 @@
 :root[data-theme="light"] .team-link { background: rgba(13,19,32,0.045); }
 :root[data-theme="light"] .auth-or::before,
 :root[data-theme="light"] .auth-or::after { background: var(--line, rgba(13,19,32,0.09)); }
+:root[data-theme="light"] .paywall { background: radial-gradient(900px 600px at 70% 10%, rgba(43,181,240,.14), transparent 60%), var(--bg, #f4f6f9); }
+:root[data-theme="light"] .pw-card { border: 1px solid var(--line, rgba(13,19,32,0.09)); background: rgba(13,19,32,0.023); }
+:root[data-theme="light"] .pw-card:hover { border-color: rgba(13,19,32,0.225); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

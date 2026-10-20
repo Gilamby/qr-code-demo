@@ -599,22 +599,12 @@
     "wrongSite": "Det här är ingen länk till {site}. Kopiera länken till rätt sida."
   },
   "pw": {
-    "show": "Visa lösenord",
-    "hide": "Dölj lösenord",
-    "generate": "Skapa ett starkt lösenord",
-    "save": "Spara på mina enheter",
-    "generated": "Starkt lösenord skapat. Spara det på dina enheter direkt.",
-    "saved": "✓ Sparat i lösenordshanteraren. Det finns nu på alla enheter med samma konto.",
-    "copied": "Kopierat. På iPhone/Mac erbjuder Safari att spara det i iCloud-nyckelringen; eller klistra in det i appen Lösenord.",
-    "copyFail": "Det gick inte att kopiera. Markera lösenordet och kopiera det själv.",
-    "empty": "Ange ett lösenord först.",
-    "rules": "Krav på lösenordet",
-    "rule": {
-      "len": "Minst 8 tecken",
-      "upper": "1 versal",
-      "digit": "1 siffra",
-      "special": "1 specialtecken (som ! ? @ #)"
-    }
+    "title": "Välj ditt paket",
+    "lead": "Alla paket är gratis i 14 dagar. Du betalar först efter provperioden och kan säga upp när du vill.",
+    "start": "Starta 14 dagar gratis",
+    "soon": "Onlinebetalning kommer snart. Välj paket så aktiverar vårt team ditt konto.",
+    "sent": "Förfrågan skickad. Du får ett mejl när ditt konto är aktivt.",
+    "popular": "Mest valt"
   },
   "dz": {
     "lbl": {

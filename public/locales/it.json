@@ -599,22 +599,12 @@
     "wrongSite": "Questo non è un link a {site}. Copia il link della pagina giusta."
   },
   "pw": {
-    "show": "Mostra password",
-    "hide": "Nascondi password",
-    "generate": "Crea password sicura",
-    "save": "Salva sui miei dispositivi",
-    "generated": "Password sicura creata. Salvala subito sui tuoi dispositivi.",
-    "saved": "✓ Salvata nel gestore password, su tutti i dispositivi con lo stesso account.",
-    "copied": "Copiata. Su iPhone/Mac Safari propone di salvarla nel portachiavi iCloud; oppure incollala nell'app Password.",
-    "copyFail": "Copia non riuscita. Seleziona la password e copiala.",
-    "empty": "Inserisci prima una password.",
-    "rules": "Requisiti della password",
-    "rule": {
-      "len": "Almeno 8 caratteri",
-      "upper": "1 lettera maiuscola",
-      "digit": "1 numero",
-      "special": "1 carattere speciale (come ! ? @ #)"
-    }
+    "title": "Scegli il tuo piano",
+    "lead": "Ogni piano è gratuito per 14 giorni. Paghi solo dopo la prova e puoi disdire quando vuoi.",
+    "start": "Inizia 14 giorni gratis",
+    "soon": "Il pagamento online arriverà presto. Scegli il piano e il nostro team attiverà il tuo account.",
+    "sent": "Richiesta inviata. Riceverai un’e-mail appena il tuo account sarà attivo.",
+    "popular": "Il più scelto"
   },
   "dz": {
     "lbl": {
