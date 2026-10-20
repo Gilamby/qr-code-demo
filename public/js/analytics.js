@@ -92,7 +92,7 @@ var Analytics = (function () {
     var chips = [];
     ['codes'].concat(MORE).forEach(function (dim) { f[dim].forEach(function (k) { chips.push('<button type="button" class="an-chip" data-unpick="' + dim + '" data-k="' + esc(k) + '" aria-label="' + esc(t('an.removeFilter', { name: label(dim, k) })) + '"><span>' + esc(label(dim, k)) + '</span>' + ico('x', 'an-cx') + '</button>'); }); });
     bar.innerHTML = '<div class="an-frow">' +
-      '<label class="an-f"><span class="an-flbl">' + t('an.period') + '</span><select id="anPeriod">' + PERIODS.map(function (p) { var lk = periodLocked(p); return '<option value="' + p + '"' + (f.period === p ? ' selected' : '') + '>' + t('an.p_' + p) + (lk ? ' 🔒 ' + t('pw.lockFrom', { plan: t('plan.n_' + lk) }) : '') + '</option>'; }).join('') + '</select></label>' +
+      '<label class="an-f"><span class="an-flbl">' + t('an.period') + '</span><select id="anPeriod">' + PERIODS.map(function (p) { var lk = periodLocked(p); return '<option value="' + p + '"' + (f.period === p ? ' selected' : '') + '>' + t('an.p_' + p) + (lk ? ' ⚡ ' + t('pw.lockFrom', { plan: t('plan.n_' + lk) }) : '') + '</option>'; }).join('') + '</select></label>' +
       (f.period === 'custom' ? '<label class="an-f"><span class="an-flbl">' + t('an.from') + '</span><input type="date" id="anFrom" value="' + range().from + '" max="' + iso(new Date()) + '"></label>' +
         '<label class="an-f"><span class="an-flbl">' + t('an.to') + '</span><input type="date" id="anTo" value="' + range().to + '" max="' + iso(new Date()) + '"></label>' : '') +
       multi('codes', t('an.codes'), codeIds) +

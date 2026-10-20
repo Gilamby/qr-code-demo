@@ -16,7 +16,7 @@ window.PlanPeriod = {
 /* Wat zit in je pakket? Vergrendelde dingen tonen een slotje met "vanaf Pro/Business" en openen de pakketten-pagina.
    De server controleert het ook (plan_type, plan_media, plan_bg, plan_limit). Team en online demo: alles open. */
 window.PlanGate = (function () {
-  var info = null, LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  var info = null, LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z"/></svg>';   // bliksem = upgrade (zelfde als 'Upgrade plan' in de zijbalk)
   function plan() { var u = window.Session && Session.user && Session.user(); if (!info || !u || u.admin || (api.isDemo && api.isDemo())) return null; return info.plan; }
   function load() {
     if (!window.api || !api.account || !api.account.plan) return;
