@@ -658,7 +658,13 @@
     "processingLead": "This takes a few seconds. Please keep this page open.",
     "payError": "Payment could not be started. Please try again in a moment.",
     "upgradeTo": "Upgrade to {plan}",
-    "allPlans": "See all plans"
+    "allPlans": "See all plans",
+    "fullTitle": "Your QR codes are used up",
+    "fullLead": "You've used all {n} QR codes of {plan}. Add one more, or upgrade for more room.",
+    "buyOne": "+ 1 extra QR code",
+    "bought": "QR code added",
+    "boughtLead": "You can make your next QR code now.",
+    "goOn": "Continue"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Two-step verification turned off",
     "needNameEmpty": "Please enter a name.",
     "act_plan_chosen": "Plan chosen",
-    "act_plan_changed": "Plan changed"
+    "act_plan_changed": "Plan changed",
+    "act_extra_bought": "Extra QR code bought"
   },
   "mail": {
     "resetSubject": "New password for QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Your current plan.",
     "manageTitle": "Manage subscription",
     "manageLead": "Invoices, payment details and cancelling.",
-    "manage": "Manage"
+    "manage": "Manage",
+    "buyExtra": "Buy an extra QR code",
+    "extraNote": "Including {n} extra"
   },
   "tfa": {
     "title": "Two-step verification",

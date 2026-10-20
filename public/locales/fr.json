@@ -658,7 +658,13 @@
     "processingLead": "Cela prend quelques secondes. Gardez cette page ouverte.",
     "payError": "Impossible de lancer le paiement. Réessayez dans un instant.",
     "upgradeTo": "Passer à {plan}",
-    "allPlans": "Voir toutes les formules"
+    "allPlans": "Voir toutes les formules",
+    "fullTitle": "Vos codes QR sont épuisés",
+    "fullLead": "Vous avez utilisé les {n} codes QR de {plan}. Ajoutez-en un, ou passez à une formule supérieure.",
+    "buyOne": "+ 1 code QR",
+    "bought": "Code QR ajouté",
+    "boughtLead": "Vous pouvez créer votre prochain code QR.",
+    "goOn": "Continuer"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Validation en deux étapes désactivée",
     "needNameEmpty": "Saisissez un nom.",
     "act_plan_chosen": "Formule choisie",
-    "act_plan_changed": "Formule modifiée"
+    "act_plan_changed": "Formule modifiée",
+    "act_extra_bought": "Acheter un code QR en plus"
   },
   "mail": {
     "resetSubject": "Nouveau mot de passe pour QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Votre formule actuelle.",
     "manageTitle": "Gérer l’abonnement",
     "manageLead": "Factures, moyen de paiement et résiliation.",
-    "manage": "Gérer"
+    "manage": "Gérer",
+    "buyExtra": "Acheter un code QR en plus",
+    "extraNote": "Dont {n} en plus"
   },
   "tfa": {
     "title": "Validation en deux étapes",

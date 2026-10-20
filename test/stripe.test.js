@@ -25,6 +25,9 @@ global.fetch = async (url, o = {}) => {
   const ok = (j) => ({ ok: true, status: 200, json: async () => j });
   if (p === 'customers') return ok({ id: 'cus_' + (++seq) });
   if (p === 'coupons') return ok({ id: 'co_' + (++seq) });
+  if (p === 'products') return ok({ id: 'prod_extra' });
+  if (p === 'subscription_items') { const s = subs[body.get('subscription')]; const it = { id: 'si_' + (++seq), quantity: +body.get('quantity'), price: { product: body.get('price_data[product]') } }; s.items = { data: [...((s.items && s.items.data) || []), it] }; return ok(it); }
+  if (/^subscription_items\//.test(p)) { const id = p.split('/')[1]; for (const s of Object.values(subs)) for (const it of ((s.items && s.items.data) || [])) if (it.id === id) it.quantity = +body.get('quantity'); return ok({ id }); }
   if (p === 'checkout/sessions') return ok({ id: 'cs_' + (++seq), url: 'https://checkout.stripe.com/c/pay/cs_' + seq });
   if (p === 'billing_portal/sessions') return ok({ url: 'https://billing.stripe.com/p/session/x' });
   if (/^subscriptions\//.test(p)) { const id = p.split('/')[1]; if (o.method === 'DELETE') subs[id] = { ...subs[id], status: 'canceled' }; return ok(subs[id] || {}); }
@@ -104,12 +107,21 @@ test('Stripe: afrekenen, webhook, opzeggen, mislukte betaling, wisselen', async 
   await hook({ type: 'customer.subscription.updated', data: { object: { ...subs.sub_1, status: 'active', current_period_end: sec(Date.now() + 365 * day) } } });
   assert.equal((await c('GET', '/api/account/plan')).json.sub.state, 'active');
 
+  // 5b. Eén QR-code erbij (Pro per jaar): extra regel in het abonnement, limiet 51
+  assert.equal((await c('POST', '/api/billing/extra', { n: 1 })).status, 200);
+  const si = calls.filter((x) => x.path === 'subscription_items').pop().body;
+  assert.equal(si.get('price_data[recurring][interval]'), 'year'); assert.equal(si.get('price_data[unit_amount]'), '990');
+  assert.equal((await c('GET', '/api/account/plan')).json.usage.limit, 51);
+  await c('POST', '/api/billing/extra', { n: 1 });
+  assert.equal((await c('GET', '/api/account/plan')).json.usage.limit, 52, 'tweede keer: aantal omhoog');
+
   // 6. Wisselen naar Business per kwartaal: geen nieuwe proef, oud abonnement stopt
   await c('POST', '/api/billing/checkout', { plan: 'business', period: 'quarter' });
   const cs2 = calls.filter((x) => x.path === 'checkout/sessions').pop().body;
   assert.equal(cs2.get('subscription_data[trial_period_days]'), null, 'geen tweede proefperiode');
   assert.equal(cs2.get('line_items[0][price_data][recurring][interval_count]'), '3');
   assert.equal(cs2.get('line_items[0][price_data][unit_amount]'), '6749');
+  assert.equal(cs2.get('line_items[1][quantity]'), null, 'Business is onbeperkt: geen losse codes mee');
   subs.sub_2 = { id: 'sub_2', customer: 'cus_1', status: 'active', current_period_end: sec(Date.now() + 90 * day), cancel_at_period_end: false, metadata: { uid: u.id, plan: 'business', period: 'quarter' } };
   await hook({ type: 'checkout.session.completed', data: { object: { mode: 'subscription', subscription: 'sub_2', customer: 'cus_1', client_reference_id: u.id } } });
   assert.ok(calls.some((x) => x.method === 'DELETE' && x.path === 'subscriptions/sub_1'), 'oude abonnement gestopt');

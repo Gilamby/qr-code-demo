@@ -17,7 +17,7 @@ import { baseUrl } from '../config/env';
 import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
-import { PLANS, planFor, usage, bgAllowed } from '../plans';
+import { PLANS, planFor, usage, bgAllowed, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { stripeOn, readRecord, stripe, demoCheckoutOn } from '../billing/stripe';
@@ -135,7 +135,7 @@ export class AccountController {
   @Get('account/plan')
   async plan(@CurrentUser() user: User) {
     const plan = await planFor(this.db, user.id), codes = (await this.db.listQrCodes(user.id)).length;
-    return { plan, usage: usage(plan, codes), plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!(await readRecord(this.db, user.id)).customer, sub: publicSub(await subFor(this.db, user.id)) };
+    return { plan, usage: usage(plan, codes), extraPrice: EXTRA_PRICE, plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!(await readRecord(this.db, user.id)).customer, sub: publicSub(await subFor(this.db, user.id)) };
   }
 
   /** Akkoord met de voorwaarden (18+, Terms, Privacy). Wie via Google/Microsoft een account kreeg, of een account van het team,
@@ -170,6 +170,22 @@ export class AccountController {
     await saveSub(this.db, user.id, renew({ ...(sub || emptySub(interval)), periodEnd: null, mustPay: false, graceUntil: null, deletedAt: null }, interval, Date.now() + trial));
     await this.db.addActivity(user.id, first ? 'plan_chosen' : 'plan_changed', this.auth.meta(req));
     return { ok: true, sub: publicSub(await subFor(this.db, user.id)) };
+  }
+
+  /** DEMO: losse QR-code(s) erbij kopen (er wordt niets afgeschreven). Met Stripe: POST /api/billing/extra. */
+  @Post('account/extra-demo')
+  @HttpCode(200)
+  async extraDemo(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (!demoCheckoutOn()) throw fail(403, 'off');
+    if (this.auth.isAdmin(user) || (req as any).member) throw fail(403, 'team');
+    const n = Math.min(10, Math.max(1, Math.floor(Number(b.n) || 1))), plan = await planFor(this.db, user.id);
+    if (plan.codes == null || plan.id === 'free') throw fail(400, 'no_limit');                       // onbeperkt of testfase: niet nodig
+    const now = Number(await this.db.getSetting('extra:' + user.id)) || 0;
+    if (now + n > EXTRA_MAX) throw fail(400, 'too_many');
+    await this.db.setSetting('extra:' + user.id, String(now + n));
+    await this.db.addActivity(user.id, 'extra_bought', this.auth.meta(req));
+    const p2 = await planFor(this.db, user.id);
+    return { ok: true, extra: now + n, usage: usage(p2, (await this.db.listQrCodes(user.id)).length) };
   }
 
   /** Uitloggen op alle andere apparaten (deze blijft ingelogd) */

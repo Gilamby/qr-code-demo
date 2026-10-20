@@ -658,7 +658,13 @@
     "processingLead": "Triga uns segons. Mantén aquesta pàgina oberta.",
     "payError": "No s’ha pogut iniciar el pagament. Torna-ho a provar d’aquí a una estona.",
     "upgradeTo": "Passa a {plan}",
-    "allPlans": "Veure tots els plans"
+    "allPlans": "Veure tots els plans",
+    "fullTitle": "Se t’han acabat els codis QR",
+    "fullLead": "Has fet servir els {n} codis QR de {plan}. Afegeix-ne un o passa a un pla més gran.",
+    "buyOne": "+ 1 codi QR",
+    "bought": "Codi QR afegit",
+    "boughtLead": "Ja pots crear el següent codi QR.",
+    "goOn": "Continua"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Verificació en dos passos desactivada",
     "needNameEmpty": "Introdueix un nom.",
     "act_plan_chosen": "Pla triat",
-    "act_plan_changed": "Pla canviat"
+    "act_plan_changed": "Pla canviat",
+    "act_extra_bought": "Comprar un codi QR extra"
   },
   "mail": {
     "resetSubject": "Contrasenya nova per a QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "El teu pla actual.",
     "manageTitle": "Gestionar la subscripció",
     "manageLead": "Factures, dades de pagament i cancel·lació.",
-    "manage": "Gestionar"
+    "manage": "Gestionar",
+    "buyExtra": "Comprar un codi QR extra",
+    "extraNote": "Inclou {n} extra"
   },
   "tfa": {
     "title": "Verificació en dos passos",

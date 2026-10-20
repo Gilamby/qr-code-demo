@@ -658,7 +658,13 @@
     "processingLead": "Dit duurt een paar seconden. Houd deze pagina open.",
     "payError": "Betalen lukte niet. Probeer het zo nog eens.",
     "upgradeTo": "Upgrade naar {plan}",
-    "allPlans": "Alle pakketten bekijken"
+    "allPlans": "Alle pakketten bekijken",
+    "fullTitle": "Je QR-codes zijn op",
+    "fullLead": "Je hebt alle {n} QR-codes van {plan} gebruikt. Koop er één bij, of upgrade voor meer ruimte.",
+    "buyOne": "+ 1 QR-code erbij",
+    "bought": "QR-code toegevoegd",
+    "boughtLead": "Je kunt nu je volgende QR-code maken.",
+    "goOn": "Verder"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Tweestapsverificatie uitgezet",
     "needNameEmpty": "Vul een naam in.",
     "act_plan_chosen": "Pakket gekozen",
-    "act_plan_changed": "Pakket gewijzigd"
+    "act_plan_changed": "Pakket gewijzigd",
+    "act_extra_bought": "QR-code erbij gekocht"
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Je huidige pakket.",
     "manageTitle": "Abonnement beheren",
     "manageLead": "Facturen, betaalgegevens en opzeggen.",
-    "manage": "Beheren"
+    "manage": "Beheren",
+    "buyExtra": "QR-code erbij kopen",
+    "extraNote": "Inclusief {n} extra"
   },
   "tfa": {
     "title": "Tweestapsverificatie",

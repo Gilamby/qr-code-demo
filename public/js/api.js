@@ -315,6 +315,8 @@ var api = (function () {
       terms: function () { return request('GET', 'api/account/terms'); },
       stripeCheckout: function (d) { return request('POST', 'api/billing/checkout', d); },
       stripePortal: function () { return request('POST', 'api/billing/portal'); },
+      extraDemo: function (d) { return request('POST', 'api/account/extra-demo', d || { n: 1 }); },
+      stripeExtra: function (d) { return request('POST', 'api/billing/extra', d || { n: 1 }); },
       acceptTerms: function () { return request('POST', 'api/account/terms', { accept: true }); },
       plan:     either(function ()  { return request('GET', 'api/account/plan'); }, function () { return Promise.resolve({ plan: { id: 'free', codes: null, statsDays: null }, usage: { used: 0, limit: null, state: 'ok' }, plans: [], payments: false }); }),
       logoutOthers: either(function () { return request('POST', 'api/account/logout-others', {}); }, demoAuth.account.logoutOthers),

@@ -56,6 +56,7 @@ window.PlanGate = (function () {
 })();
 /* Venster "Upgrade naar Pro/Business": rustig, één duidelijke knop. Daarna meteen afrekenen (demo of Stripe). */
 function upgradeDialog(min, reason) {
+  if (reason === 'limit') return fullDialog();
   var info = PlanGate.info(), ORDER = ['standard', 'pro', 'business'];
   var cur = info && info.plan && info.sub && info.sub.state !== 'unpaid' ? info.plan.id : null;
   if (!min || (cur && ORDER.indexOf(min) <= ORDER.indexOf(cur))) min = ORDER[Math.max(ORDER.indexOf(cur) + 1, 1)] || 'business';   // altijd één stap hoger
@@ -81,6 +82,53 @@ function upgradeDialog(min, reason) {
   });
   var go = d.querySelector('[data-up-go]'); if (go) go.focus();
 }
+/* Venster "Je QR-codes zijn op": één QR-code erbij kopen, of upgraden. Daarna kun je meteen verder. */
+function fullDialog() {
+  var info = PlanGate.info(), ORDER = ['standard', 'pro', 'business'];
+  if (!info) { PlanGate.load(); return; }
+  var p = info.plan, cur = p && info.sub && info.sub.state !== 'unpaid' ? p.id : null, next = ORDER[Math.max(ORDER.indexOf(cur) + 1, 1)] || 'business';
+  var iv = PlanPeriod.norm(info.sub && info.sub.interval), xp = info.extraPrice ? info.extraPrice[iv] : 0.99;
+  var money = function (n) { return new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); };
+  var canBuy = p && p.codes != null && p.id !== 'free' && (api.info().demoCheckout || api.info().stripe);
+  var d = document.createElement('div'); d.className = 'up-dlg'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'fullT');
+  d.innerHTML = '<div class="up-card glass"><button type="button" class="up-x" data-up-close aria-label="' + esc(t('legal.close')) + '">×</button>' +
+    '<span class="up-lock">' + PlanGate.lock + '</span>' +
+    '<h2 id="fullT">' + esc(t('pw.fullTitle')) + '</h2>' +
+    '<p>' + esc(t('pw.fullLead', { n: info.usage ? info.usage.limit : '', plan: t('plan.n_' + (cur || 'standard')) })) + '</p>' +
+    (canBuy ? '<button type="button" class="btn primary up-go" data-buy-one>' + esc(t('pw.buyOne')) + '</button><small class="up-price">' + esc(money(xp) + ' ' + PlanPeriod.per(iv)) + '</small>' : '') +
+    (cur !== 'business' ? '<button type="button" class="btn ' + (canBuy ? 'ghost' : 'primary') + ' up-go" data-up-next>' + esc(t('pw.upgradeTo', { plan: t('plan.n_' + next) })) + '</button>' : '') +
+    '<p class="acct-msg bad" data-full-err hidden></p>' +
+    '<button type="button" class="link-btn" data-up-all>' + esc(t('pw.allPlans')) + '</button></div>';
+  document.body.appendChild(d);
+  var close = function () { d.remove(); document.removeEventListener('keydown', k); };
+  var k = function (e) { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', k);
+  d.addEventListener('click', function (e) {
+    if (e.target === d || e.target.closest('[data-up-close]')) return close();
+    if (e.target.closest('[data-up-next]')) { close(); if (window.Plans) Plans.open(next, 'limit', true); return; }
+    if (e.target.closest('[data-up-all]')) { close(); if (window.Plans) Plans.open(next, 'limit'); return; }
+    var b = e.target.closest('[data-buy-one]'); if (!b) return;
+    b.disabled = true;
+    (api.info().stripe ? api.account.stripeExtra({ n: 1 }) : api.account.extraDemo({ n: 1 })).then(function () {
+      d.querySelector('.up-card').innerHTML = '<span class="up-lock done">✓</span><h2>' + esc(t('pw.bought')) + '</h2><p>' + esc(t('pw.boughtLead')) + '</p>' +
+        '<button type="button" class="btn primary up-go" data-up-close>' + esc(t('pw.goOn')) + '</button>';
+      PlanGate.load(); document.dispatchEvent(new CustomEvent('plan-changed'));
+    }, function () { b.disabled = false; var er = d.querySelector('[data-full-err]'); er.textContent = t('pw.payError'); er.hidden = false; });
+  });
+  var f = d.querySelector('.up-go'); if (f) f.focus();
+}
+/* Naar "QR-code maken" terwijl je codes op zijn: meteen het venster (niet pas na het invullen) */
+document.addEventListener('pagechange', function (e) {
+  if (e.detail !== 'create' || !window.PlanGate) return;
+  var u = window.Session && Session.user && Session.user(); if (!u || u.admin || (api.isDemo && api.isDemo())) return;
+  if (window.store && store.get && store.get().editing) return;
+  PlanGate.load();
+  document.addEventListener('plan-info', function once() {
+    document.removeEventListener('plan-info', once);
+    var i = PlanGate.info();
+    if (i && i.usage && i.usage.state === 'full' && i.sub && i.sub.state !== 'unpaid') fullDialog();
+  });
+});
 /* Knop met data-gate-open="pro" (en data-gate-reason) opent het upgrade-venster */
 document.addEventListener('click', function (e) { var g = e.target.closest('[data-gate-open]'); if (g) { e.preventDefault(); PlanGate.upgrade(g.getAttribute('data-gate-open'), g.getAttribute('data-gate-reason')); } });
 /* =========================================================
@@ -306,7 +354,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     var pct = u.limit ? Math.min(100, Math.round(u.used / u.limit * 100)) : 0;
     var bar = u.limit ? '<div class="pl-use"><div class="pl-use-row"><span>' + t('plan.codesUsed', { used: u.used, limit: u.limit }) + '</span><b>' + pct + '%</b></div>' +
         '<div class="pl-bar ' + u.state + '" role="progressbar" aria-valuemin="0" aria-valuemax="' + u.limit + '" aria-valuenow="' + u.used + '" aria-label="' + esc(t('plan.codes')) + '"><i style="width:' + pct + '%"></i></div>' +
-        (u.state === 'full' ? '<p class="acct-msg bad" role="status">' + t('plan.full') + '</p>' : u.state === 'near' ? '<p class="acct-msg" role="status">' + t('plan.near') + '</p>' : '') + '</div>'
+        (p.extra ? '<p class="acct-note">' + esc(t('plan.extraNote', { n: p.extra })) + '</p>' : '') +
+        (p.id !== 'free' && (api.info().demoCheckout || api.info().stripe) ? '<button type="button" class="btn ghost sm pl-buy" data-gate-open="" data-gate-reason="limit">+ ' + esc(t('plan.buyExtra')) + '</button>' : '') + '</div>'
       : '<p class="pl-unl">' + t('plan.codesUnlimited', { used: u.used }) + '</p>';
     var feats = free ? ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(t)
       : [p.codes ? t('plan.fCodes', { n: p.codes }) : t('acct.planF1'), p.statsDays ? t('plan.fStats', { n: p.statsDays }) : t('plan.fStatsAll'), t('acct.planF2'), t('acct.planF4')];

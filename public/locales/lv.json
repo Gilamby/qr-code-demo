@@ -658,7 +658,13 @@
     "processingLead": "Tas aizņem dažas sekundes. Neaizver lapu.",
     "payError": "Maksājumu neizdevās sākt. Pēc brīža mēģini vēlreiz.",
     "upgradeTo": "Pāriet uz {plan}",
-    "allPlans": "Skatīt visas paketes"
+    "allPlans": "Skatīt visas paketes",
+    "fullTitle": "Tavi QR kodi ir beigušies",
+    "fullLead": "Tu esi izmantojis visus {n} {plan} QR kodus. Nopērc vienu klāt vai pārej uz lielāku paketi.",
+    "buyOne": "+ 1 QR kods klāt",
+    "bought": "QR kods pievienots",
+    "boughtLead": "Tagad vari izveidot nākamo QR kodu.",
+    "goOn": "Turpināt"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Divpakāpju verifikācija izslēgta",
     "needNameEmpty": "Ievadi vārdu.",
     "act_plan_chosen": "Pakete izvēlēta",
-    "act_plan_changed": "Pakete mainīta"
+    "act_plan_changed": "Pakete mainīta",
+    "act_extra_bought": "Nopirkt papildu QR kodu"
   },
   "mail": {
     "resetSubject": "Jauna parole QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Tava pašreizējā pakete.",
     "manageTitle": "Pārvaldīt abonementu",
     "manageLead": "Rēķini, maksājuma dati un atteikšana.",
-    "manage": "Pārvaldīt"
+    "manage": "Pārvaldīt",
+    "buyExtra": "Nopirkt papildu QR kodu",
+    "extraNote": "Ieskaitot {n} papildu"
   },
   "tfa": {
     "title": "Divpakāpju verifikācija",

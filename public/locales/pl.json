@@ -658,7 +658,13 @@
     "processingLead": "To potrwa kilka sekund. Nie zamykaj tej strony.",
     "payError": "Nie udało się rozpocząć płatności. Spróbuj ponownie za chwilę.",
     "upgradeTo": "Przejdź na {plan}",
-    "allPlans": "Zobacz wszystkie pakiety"
+    "allPlans": "Zobacz wszystkie pakiety",
+    "fullTitle": "Twoje kody QR się skończyły",
+    "fullLead": "Wykorzystałeś wszystkie {n} kody QR w pakiecie {plan}. Dokup jeden lub przejdź na większy pakiet.",
+    "buyOne": "+ 1 kod QR więcej",
+    "bought": "Dodano kod QR",
+    "boughtLead": "Możesz teraz utworzyć kolejny kod QR.",
+    "goOn": "Dalej"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Wyłączono weryfikację dwuetapową",
     "needNameEmpty": "Wpisz imię lub nazwę.",
     "act_plan_chosen": "Wybrano pakiet",
-    "act_plan_changed": "Zmieniono pakiet"
+    "act_plan_changed": "Zmieniono pakiet",
+    "act_extra_bought": "Dokup kod QR"
   },
   "mail": {
     "resetSubject": "Nowe hasło do QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Twój obecny pakiet.",
     "manageTitle": "Zarządzaj subskrypcją",
     "manageLead": "Faktury, dane płatności i rezygnacja.",
-    "manage": "Zarządzaj"
+    "manage": "Zarządzaj",
+    "buyExtra": "Dokup kod QR",
+    "extraNote": "W tym {n} dodatkowe"
   },
   "tfa": {
     "title": "Weryfikacja dwuetapowa",

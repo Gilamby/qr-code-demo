@@ -661,20 +661,25 @@ test('akkoord met de voorwaarden: verplicht bij registreren, anders één keer i
   assert.equal((await client()('GET', '/api/account/terms')).status, 401, 'alleen ingelogd');
 });
 
-test('pakket bepaalt wat kan: Standard = basis-soorten, standaard-achtergrond, geen eigen foto of video', async () => {
+test('pakket bepaalt wat kan: Standard = 5 codes (+ losse erbij), alle soorten, standaard-achtergrond, geen eigen foto of video', async () => {
   const c = client(); await signup(c, 'standaard@example.com', 'Standaard pakket zin 6!', 'Std');
   const { DatabaseService } = require('../server/dist/database/database.service');
   const db = app.get(DatabaseService), u = await db.userByEmail('standaard@example.com'); await db.setSetting('plan:' + u.id, 'standard');
   assert.equal((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://basis.example' }, design: {} })).status, 201, 'website mag');
-  const v = await c('POST', '/api/qr-codes', { typeId: 'video', content: { url: 'https://video.example/x.mp4' }, design: {} });
-  assert.equal(v.status, 403); assert.equal(v.json.error, 'plan_type');
+  assert.equal((await c('POST', '/api/qr-codes', { typeId: 'video', content: { url: 'https://video.example/x.mp4' }, design: {} })).status, 201, 'alle soorten mogen');
+  for (const n of ['drie', 'vier', 'vijf']) assert.equal((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://' + n + '.example' }, design: {} })).status, 201);
+  const vol = await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://zes.example' }, design: {} });
+  assert.equal(vol.status, 403); assert.equal(vol.json.error, 'plan_limit', 'Standard: 5 codes');
+  const x = await c('POST', '/api/account/extra-demo', { n: 1 });
+  assert.equal(x.status, 200); assert.equal(x.json.usage.limit, 6, 'een QR-code erbij gekocht');
+  assert.equal((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://zes.example' }, design: {} })).status, 201, 'nu past hij');
   assert.equal((await c('PATCH', '/api/me', { background: 'aurora' })).json.error, 'plan_bg');
   assert.equal((await c('PATCH', '/api/me', { background: 'optimasys' })).status, 200);
   const jpg = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0, 0x10, 0x4a, 0x46, 0x49, 0x46, 0, 1]);
   const up = await fetch(base + '/api/account/media?name=x', { method: 'POST', headers: { 'Content-Type': 'image/jpeg', cookie: c.cookie() }, body: jpg });
   assert.equal(up.status, 403, 'eigen foto pas vanaf Pro');
   await db.setSetting('plan:' + u.id, 'pro');
-  assert.equal((await c('POST', '/api/qr-codes', { typeId: 'video', content: { url: 'https://video.example/x.mp4' }, design: {} })).status, 201, 'Pro: alle soorten');
+  assert.equal((await c('GET', '/api/account/plan')).json.usage.limit, 51, 'Pro: 50 + de gekochte extra');
   assert.equal((await c('PATCH', '/api/me', { background: 'aurora' })).status, 200, 'Pro: meer achtergronden');
 });
 

@@ -19,7 +19,7 @@ import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { fail } from '../common/http';
 import { baseUrl } from '../config/env';
 import type { User } from '../types';
-import { PLANS } from '../plans';
+import { PLANS, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscription';
 import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature } from './stripe';
 
@@ -45,6 +45,41 @@ export class BillingController {
     await this.db.setSetting(key, c.id); return c.id;
   }
 
+  /** Product "Extra QR-code" bij Stripe (één keer aangemaakt en onthouden): zo herkennen we extra codes in een abonnement */
+  private async extraProduct() {
+    const have = await this.db.getSetting('stripe:extraProduct'); if (have) return have;
+    const p = await stripe('POST', 'products', { name: 'QR-Codex extra QR-code' });
+    await this.db.setSetting('stripe:extraProduct', p.id); return p.id;
+  }
+  private extraLine(product: string, interval: 'month' | 'quarter' | 'year', quantity: number) {
+    return { quantity, price_data: { currency: 'eur', product, unit_amount: Math.round(EXTRA_PRICE[interval] * 100), recurring: recurringOf(interval) } };
+  }
+
+  /** Losse QR-code(s) erbij: komt als extra regel in het lopende abonnement (Stripe verrekent het deel van deze periode) */
+  @Post('extra')
+  @UseGuards(LoggedIn)
+  @HttpCode(200)
+  async extra(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (!stripeOn()) throw fail(403, 'off');
+    if (this.auth.isAdmin(user) || (req as any).member) throw fail(403, 'team');
+    const rec = await readRecord(this.db, user.id); if (!rec.subscription) throw fail(409, 'no_subscription');
+    const n = Math.min(10, Math.max(1, Math.floor(Number(b.n) || 1)));
+    try {
+      const sub = await stripe('GET', 'subscriptions/' + rec.subscription), product = await this.extraProduct();
+      const item = ((sub.items && sub.items.data) || []).find((i: any) => i.price && i.price.product === product);
+      const now = item ? item.quantity : 0; if (now + n > EXTRA_MAX) throw fail(400, 'too_many');
+      if (item) await stripe('POST', 'subscription_items/' + item.id, { quantity: now + n, proration_behavior: 'create_prorations' });
+      else await stripe('POST', 'subscription_items', { subscription: rec.subscription, ...this.extraLine(product, toInterval(sub.metadata && sub.metadata.period), n), proration_behavior: 'create_prorations' });
+      await this.apply(await stripe('GET', 'subscriptions/' + rec.subscription));
+      await this.db.addActivity(user.id, 'extra_bought', this.auth.meta(req)).catch(() => {});
+      return { ok: true };
+    } catch (e: any) {
+      if (e && typeof e.getStatus === 'function') throw e;
+      console.error('Stripe extra code mislukt:', e.message);
+      throw fail(502, 'stripe');
+    }
+  }
+
   @Post('checkout')
   @UseGuards(LoggedIn)
   @HttpCode(200)
@@ -59,9 +94,11 @@ export class BillingController {
       const { customer } = await this.customerFor(user), base = baseUrl(req);
       const meta = { uid: user.id, plan: planId, period: interval };
       const coupon = interval === 'year' ? await this.yearCoupon(planId) : null;
+      const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
+      const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
       const session = await stripe('POST', 'checkout/sessions', {
         mode: 'subscription', customer, client_reference_id: user.id, locale: 'auto', payment_method_collection: 'always',
-        line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), product_data: { name: planName(planId) } } }],
+        line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), product_data: { name: planName(planId) } } }, ...extraLines],
         subscription_data: { metadata: meta, trial_period_days: first && plan.trialDays ? plan.trialDays : undefined },
         discounts: coupon ? [{ coupon }] : undefined,
         metadata: meta,
@@ -127,6 +164,8 @@ export class BillingController {
     else if (s.status === 'past_due' || s.status === 'unpaid' || s.status === 'incomplete') periodEnd = Math.min(end || now, now);   // niet betaald: codes stoppen
     else periodEnd = Math.min(cur.periodEnd ? Date.parse(cur.periodEnd) : now, now, end || now);  // canceled / incomplete_expired
     if (isPlanId(s.metadata.plan)) await this.db.setSetting('plan:' + uid, s.metadata.plan);
+    const xp = await this.db.getSetting('stripe:extraProduct');                 // losse QR-codes in dit abonnement
+    if (xp && s.items && s.items.data) { const n = s.items.data.filter((i: any) => i.price && i.price.product === xp).reduce((a: number, i: any) => a + (i.quantity || 0), 0); await this.db.setSetting('extra:' + uid, n ? String(n) : null); }
     const paid = periodEnd > now;
     await saveSub(this.db, uid, { ...cur, interval: toInterval(s.metadata.period), periodEnd: new Date(periodEnd).toISOString(), mustPay: false,
       ...(paid ? { graceUntil: null, notified: [], deletedAt: null } : {}) });

@@ -658,7 +658,13 @@
     "processingLead": "Das dauert ein paar Sekunden. Bitte lass diese Seite geöffnet.",
     "payError": "Die Zahlung konnte nicht gestartet werden. Versuche es gleich noch einmal.",
     "upgradeTo": "Upgrade auf {plan}",
-    "allPlans": "Alle Pakete ansehen"
+    "allPlans": "Alle Pakete ansehen",
+    "fullTitle": "Deine QR-Codes sind aufgebraucht",
+    "fullLead": "Du hast alle {n} QR-Codes von {plan} genutzt. Kauf einen dazu oder upgrade für mehr Platz.",
+    "buyOne": "+ 1 QR-Code dazu",
+    "bought": "QR-Code hinzugefügt",
+    "boughtLead": "Du kannst jetzt deinen nächsten QR-Code erstellen.",
+    "goOn": "Weiter"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Zwei-Schritt-Verifizierung ausgeschaltet",
     "needNameEmpty": "Bitte gib einen Namen ein.",
     "act_plan_chosen": "Paket gewählt",
-    "act_plan_changed": "Paket geändert"
+    "act_plan_changed": "Paket geändert",
+    "act_extra_bought": "Extra QR-Code kaufen"
   },
   "mail": {
     "resetSubject": "Neues Passwort für QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Dein aktuelles Paket.",
     "manageTitle": "Abo verwalten",
     "manageLead": "Rechnungen, Zahlungsdaten und Kündigen.",
-    "manage": "Verwalten"
+    "manage": "Verwalten",
+    "buyExtra": "Extra QR-Code kaufen",
+    "extraNote": "Inklusive {n} extra"
   },
   "tfa": {
     "title": "Zwei-Schritt-Verifizierung",

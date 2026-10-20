@@ -658,7 +658,13 @@
     "processingLead": "Det tar noen sekunder. Hold siden åpen.",
     "payError": "Betalingen kunne ikke startes. Prøv igjen om litt.",
     "upgradeTo": "Oppgrader til {plan}",
-    "allPlans": "Se alle pakker"
+    "allPlans": "Se alle pakker",
+    "fullTitle": "QR-kodene dine er brukt opp",
+    "fullLead": "Du har brukt alle {n} QR-kodene i {plan}. Kjøp én til, eller oppgrader for mer plass.",
+    "buyOne": "+ 1 QR-kode til",
+    "bought": "QR-kode lagt til",
+    "boughtLead": "Du kan nå lage din neste QR-kode.",
+    "goOn": "Fortsett"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Totrinnsbekreftelse slått av",
     "needNameEmpty": "Skriv inn et navn.",
     "act_plan_chosen": "Pakke valgt",
-    "act_plan_changed": "Pakke endret"
+    "act_plan_changed": "Pakke endret",
+    "act_extra_bought": "Kjøp en ekstra QR-kode"
   },
   "mail": {
     "resetSubject": "Nytt passord for QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Din nåværende pakke.",
     "manageTitle": "Administrer abonnement",
     "manageLead": "Fakturaer, betalingsopplysninger og oppsigelse.",
-    "manage": "Administrer"
+    "manage": "Administrer",
+    "buyExtra": "Kjøp en ekstra QR-kode",
+    "extraNote": "Inkl. {n} ekstra"
   },
   "tfa": {
     "title": "Totrinnsbekreftelse",

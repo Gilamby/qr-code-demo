@@ -658,7 +658,13 @@
     "processingLead": "Zgjat disa sekonda. Mbaje faqen të hapur.",
     "payError": "Pagesa nuk mund të niste. Provo përsëri pas pak.",
     "upgradeTo": "Kalo te {plan}",
-    "allPlans": "Shiko të gjitha paketat"
+    "allPlans": "Shiko të gjitha paketat",
+    "fullTitle": "Kodet e tua QR mbaruan",
+    "fullLead": "Ke përdorur të gjitha {n} kodet QR të {plan}. Bli një më shumë ose kalo në një paketë më të madhe.",
+    "buyOne": "+ 1 kod QR më shumë",
+    "bought": "Kodi QR u shtua",
+    "boughtLead": "Tani mund të krijosh kodin tënd të radhës QR.",
+    "goOn": "Vazhdo"
   },
   "dz": {
     "lbl": {
@@ -1472,7 +1478,8 @@
     "act_2fa_off": "Verifikimi me dy hapa u çaktivizua",
     "needNameEmpty": "Shkruaj një emër.",
     "act_plan_chosen": "Paketa u zgjodh",
-    "act_plan_changed": "Paketa u ndryshua"
+    "act_plan_changed": "Paketa u ndryshua",
+    "act_extra_bought": "Bli një kod QR shtesë"
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për QR-Codex",
@@ -2380,7 +2387,9 @@
     "currentLead": "Paketa jote aktuale.",
     "manageTitle": "Menaxho abonimin",
     "manageLead": "Fatura, të dhëna pagese dhe anulim.",
-    "manage": "Menaxho"
+    "manage": "Menaxho",
+    "buyExtra": "Bli një kod QR shtesë",
+    "extraNote": "Përfshirë {n} shtesë"
   },
   "tfa": {
     "title": "Verifikimi me dy hapa",

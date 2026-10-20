@@ -473,6 +473,7 @@
 :root[data-theme="light"] .pw-spin { border: 4px solid rgba(13,19,32,0.108); }
 :root[data-theme="light"] .up-x:hover { background: rgba(13,19,32,0.06); }
 :root[data-theme="light"] .up-feats { background: rgba(13,19,32,0.03); }
+:root[data-theme="light"] .up-lock.done { color: #15803d; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

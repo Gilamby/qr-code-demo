@@ -658,7 +658,13 @@
     "processingLead": "Ci vuole qualche secondo. Tieni aperta questa pagina.",
     "payError": "Impossibile avviare il pagamento. Riprova tra poco.",
     "upgradeTo": "Passa a {plan}",
-    "allPlans": "Vedi tutti i piani"
+    "allPlans": "Vedi tutti i piani",
+    "fullTitle": "I tuoi codici QR sono finiti",
+    "fullLead": "Hai usato tutti i {n} codici QR di {plan}. Aggiungine uno o passa a un piano più grande.",
+    "buyOne": "+ 1 codice QR",
+    "bought": "Codice QR aggiunto",
+    "boughtLead": "Ora puoi creare il prossimo codice QR.",
+    "goOn": "Continua"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Verifica in due passaggi disattivata",
     "needNameEmpty": "Inserisci un nome.",
     "act_plan_chosen": "Piano scelto",
-    "act_plan_changed": "Piano cambiato"
+    "act_plan_changed": "Piano cambiato",
+    "act_extra_bought": "Acquista un codice QR extra"
   },
   "mail": {
     "resetSubject": "Nuova password per QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Il tuo piano attuale.",
     "manageTitle": "Gestisci abbonamento",
     "manageLead": "Fatture, dati di pagamento e disdetta.",
-    "manage": "Gestisci"
+    "manage": "Gestisci",
+    "buyExtra": "Acquista un codice QR extra",
+    "extraNote": "Inclusi {n} extra"
   },
   "tfa": {
     "title": "Verifica in due passaggi",

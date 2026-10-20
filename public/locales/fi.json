@@ -658,7 +658,13 @@
     "processingLead": "Tämä kestää muutaman sekunnin. Pidä sivu auki.",
     "payError": "Maksua ei voitu aloittaa. Yritä hetken päästä uudelleen.",
     "upgradeTo": "Päivitä pakettiin {plan}",
-    "allPlans": "Katso kaikki paketit"
+    "allPlans": "Katso kaikki paketit",
+    "fullTitle": "QR-koodisi ovat loppuneet",
+    "fullLead": "Olet käyttänyt kaikki {n} paketin {plan} QR-koodia. Osta yksi lisää tai päivitä isompaan.",
+    "buyOne": "+ 1 QR-koodi lisää",
+    "bought": "QR-koodi lisätty",
+    "boughtLead": "Voit nyt tehdä seuraavan QR-koodisi.",
+    "goOn": "Jatka"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Kaksivaiheinen tunnistautuminen poistettu käytöstä",
     "needNameEmpty": "Syötä nimi.",
     "act_plan_chosen": "Paketti valittu",
-    "act_plan_changed": "Paketti vaihdettu"
+    "act_plan_changed": "Paketti vaihdettu",
+    "act_extra_bought": "Osta lisä-QR-koodi"
   },
   "mail": {
     "resetSubject": "Uusi salasana QR-Codex:ään",
@@ -2274,7 +2281,9 @@
     "currentLead": "Nykyinen pakettisi.",
     "manageTitle": "Hallitse tilausta",
     "manageLead": "Laskut, maksutiedot ja peruutus.",
-    "manage": "Hallitse"
+    "manage": "Hallitse",
+    "buyExtra": "Osta lisä-QR-koodi",
+    "extraNote": "Sisältää {n} lisää"
   },
   "tfa": {
     "title": "Kaksivaiheinen tunnistautuminen",

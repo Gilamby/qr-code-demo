@@ -658,7 +658,13 @@
     "processingLead": "Trvá to pár sekúnd. Nechaj túto stránku otvorenú.",
     "payError": "Platbu sa nepodarilo spustiť. Skús to o chvíľu znova.",
     "upgradeTo": "Prejsť na {plan}",
-    "allPlans": "Pozrieť všetky balíky"
+    "allPlans": "Pozrieť všetky balíky",
+    "fullTitle": "Tvoje QR kódy sa minuli",
+    "fullLead": "Využil si všetkých {n} QR kódov balíka {plan}. Dokúp jeden alebo prejdi na väčší balík.",
+    "buyOne": "+ 1 QR kód navyše",
+    "bought": "QR kód pridaný",
+    "boughtLead": "Teraz môžeš vytvoriť ďalší QR kód.",
+    "goOn": "Pokračovať"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Dvojstupňové overenie vypnuté",
     "needNameEmpty": "Zadaj meno.",
     "act_plan_chosen": "Balík vybraný",
-    "act_plan_changed": "Balík zmenený"
+    "act_plan_changed": "Balík zmenený",
+    "act_extra_bought": "Dokúpiť QR kód"
   },
   "mail": {
     "resetSubject": "Nové heslo pre QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Tvoj aktuálny balík.",
     "manageTitle": "Spravovať predplatné",
     "manageLead": "Faktúry, platobné údaje a zrušenie.",
-    "manage": "Spravovať"
+    "manage": "Spravovať",
+    "buyExtra": "Dokúpiť QR kód",
+    "extraNote": "Vrátane {n} navyše"
   },
   "tfa": {
     "title": "Dvojstupňové overenie",

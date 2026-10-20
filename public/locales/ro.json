@@ -658,7 +658,13 @@
     "processingLead": "Durează câteva secunde. Păstrează pagina deschisă.",
     "payError": "Plata nu a putut fi pornită. Încearcă din nou peste puțin timp.",
     "upgradeTo": "Treci la {plan}",
-    "allPlans": "Vezi toate pachetele"
+    "allPlans": "Vezi toate pachetele",
+    "fullTitle": "Codurile QR s-au terminat",
+    "fullLead": "Ai folosit toate cele {n} coduri QR din {plan}. Mai cumpără unul sau treci la un pachet mai mare.",
+    "buyOne": "+ 1 cod QR în plus",
+    "bought": "Cod QR adăugat",
+    "boughtLead": "Acum poți crea următorul cod QR.",
+    "goOn": "Continuă"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Verificarea în doi pași a fost dezactivată",
     "needNameEmpty": "Introdu un nume.",
     "act_plan_chosen": "Pachet ales",
-    "act_plan_changed": "Pachet schimbat"
+    "act_plan_changed": "Pachet schimbat",
+    "act_extra_bought": "Cumpără un cod QR în plus"
   },
   "mail": {
     "resetSubject": "Parolă nouă pentru QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Pachetul tău actual.",
     "manageTitle": "Gestionează abonamentul",
     "manageLead": "Facturi, date de plată și anulare.",
-    "manage": "Gestionează"
+    "manage": "Gestionează",
+    "buyExtra": "Cumpără un cod QR în plus",
+    "extraNote": "Inclusiv {n} în plus"
   },
   "tfa": {
     "title": "Verificare în doi pași",

@@ -658,7 +658,13 @@
     "processingLead": "Det tar några sekunder. Håll sidan öppen.",
     "payError": "Betalningen kunde inte startas. Försök igen om en stund.",
     "upgradeTo": "Uppgradera till {plan}",
-    "allPlans": "Se alla paket"
+    "allPlans": "Se alla paket",
+    "fullTitle": "Dina QR-koder är slut",
+    "fullLead": "Du har använt alla {n} QR-koder i {plan}. Köp en till, eller uppgradera för mer utrymme.",
+    "buyOne": "+ 1 QR-kod till",
+    "bought": "QR-kod tillagd",
+    "boughtLead": "Du kan nu skapa din nästa QR-kod.",
+    "goOn": "Fortsätt"
   },
   "dz": {
     "lbl": {
@@ -1366,7 +1372,8 @@
     "act_2fa_off": "Tvåstegsverifiering avstängd",
     "needNameEmpty": "Ange ett namn.",
     "act_plan_chosen": "Paket valt",
-    "act_plan_changed": "Paket ändrat"
+    "act_plan_changed": "Paket ändrat",
+    "act_extra_bought": "Köp en extra QR-kod"
   },
   "mail": {
     "resetSubject": "Nytt lösenord för QR-Codex",
@@ -2274,7 +2281,9 @@
     "currentLead": "Ditt nuvarande paket.",
     "manageTitle": "Hantera abonnemang",
     "manageLead": "Fakturor, betaluppgifter och uppsägning.",
-    "manage": "Hantera"
+    "manage": "Hantera",
+    "buyExtra": "Köp en extra QR-kod",
+    "extraNote": "Inkl. {n} extra"
   },
   "tfa": {
     "title": "Tvåstegsverifiering",
