@@ -2382,7 +2382,7 @@
     "yearSave": "1. år: 2 måneder gratis",
     "perYear": "om året",
     "paidUntil": "Betalt til {date}",
-    "graceRule": "Udløber dit abonnement, holder dine QR-koder straks op med at virke, men vi gemmer dem i 12 måneder. Fornyer du inden da, virker alt igen, også dine trykte koder. Efter 12 måneder slettes de.",
+    "graceRule": "Hvis dit abonnement slutter, holder dine QR-koder op med at virke med det samme, men vi gemmer dem i 30 dage. Forny inden da, så virker alt igen, også dine trykte koder. Efter 30 dage slettes de.",
     "graceMsg": "Dit abonnement er udløbet. Dine QR-koder virker ikke, og du kan ikke ændre noget. Forny inden {date}, ellers slettes alle dine QR-koder.",
     "endedMsg": "Dit abonnement er udløbet, og dine QR-koder er slettet. Tag et abonnement for at lave nye koder.",
     "barGrace": "Abonnement udløbet: dine QR-koder virker ikke. Forny inden {date}.",

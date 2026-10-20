@@ -2382,7 +2382,7 @@
     "yearSave": "1. Jahr: 2 Monate gratis",
     "perYear": "pro Jahr",
     "paidUntil": "Bezahlt bis {date}",
-    "graceRule": "Endet dein Abo, funktionieren deine QR-Codes sofort nicht mehr, aber wir bewahren sie 12 Monate auf. Verlängerst du in dieser Zeit, funktioniert alles wieder, auch deine gedruckten Codes. Nach 12 Monaten werden sie gelöscht.",
+    "graceRule": "Endet dein Abo, funktionieren deine QR-Codes sofort nicht mehr, aber wir bewahren sie 30 Tage auf. Verlängerst du in dieser Zeit, funktioniert alles wieder, auch deine gedruckten Codes. Nach 30 Tagen werden sie gelöscht.",
     "graceMsg": "Dein Abo ist abgelaufen. Deine QR-Codes funktionieren nicht und du kannst nichts ändern. Verlängere vor dem {date}, sonst werden alle deine QR-Codes gelöscht.",
     "endedMsg": "Dein Abo ist abgelaufen und deine QR-Codes wurden gelöscht. Schließ ein Abo ab, um neue Codes zu erstellen.",
     "barGrace": "Abo abgelaufen: deine QR-Codes funktionieren nicht. Verlängere vor dem {date}.",

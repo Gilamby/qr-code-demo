@@ -2382,7 +2382,7 @@
     "yearSave": "1r any: 2 mesos gratis",
     "perYear": "l'any",
     "paidUntil": "Pagat fins al {date}",
-    "graceRule": "Si la teva subscripció acaba, els teus codis QR deixen de funcionar de seguida, però els conservem 12 mesos. Si renoves en aquest temps, tot torna a funcionar, també els codis impresos. Passats 12 mesos s’eliminen.",
+    "graceRule": "Si la teva subscripció acaba, els teus codis QR deixen de funcionar de seguida, però els guardem 30 dies. Si renoves en aquest termini, tot torna a funcionar, també els codis impresos. Després de 30 dies s’eliminen.",
     "graceMsg": "La teva subscripció ha caducat. Els teus codis QR no funcionen i no pots canviar res. Renova-la abans del {date} o s'eliminaran tots els teus codis QR.",
     "endedMsg": "La teva subscripció ha caducat i s'han eliminat els teus codis QR. Contracta una subscripció per crear codis nous.",
     "barGrace": "Subscripció caducada: els teus codis QR no funcionen. Renova-la abans del {date}.",

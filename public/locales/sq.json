@@ -2488,7 +2488,7 @@
     "yearSave": "Viti 1: 2 muaj falas",
     "perYear": "në vit",
     "paidUntil": "Paguar deri më {date}",
-    "graceRule": "Nëse abonimi përfundon, kodet e tua QR ndalojnë menjëherë së punuari, por i ruajmë për 12 muaj. Nëse e rinovon brenda kësaj kohe, gjithçka funksionon përsëri, edhe kodet e printuara. Pas 12 muajsh ato fshihen.",
+    "graceRule": "Nëse abonimi përfundon, kodet tuaja QR ndalojnë së punuari menjëherë, por i ruajmë për 30 ditë. Rinovojeni brenda kësaj kohe dhe gjithçka funksionon përsëri, edhe kodet e printuara. Pas 30 ditësh ato fshihen.",
     "graceMsg": "Abonimi yt ka skaduar. Kodet e tua QR nuk funksionojnë dhe nuk mund të ndryshosh asgjë. Rinovoje para {date}, përndryshe të gjitha kodet e tua QR do të fshihen.",
     "endedMsg": "Abonimi yt ka skaduar dhe kodet e tua QR u fshinë. Merr një abonim për të krijuar kode të reja.",
     "barGrace": "Abonimi skadoi: kodet e tua QR nuk funksionojnë. Rinovoje para {date}.",

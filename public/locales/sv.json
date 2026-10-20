@@ -2382,7 +2382,7 @@
     "yearSave": "År 1: 2 månader gratis",
     "perYear": "per år",
     "paidUntil": "Betalt till {date}",
-    "graceRule": "Om din prenumeration upphör slutar dina QR-koder att fungera direkt, men vi sparar dem i 12 månader. Förnyar du inom den tiden fungerar allt igen, även dina tryckta koder. Efter 12 månader raderas de.",
+    "graceRule": "Om ditt abonnemang upphör slutar dina QR-koder fungera direkt, men vi sparar dem i 30 dagar. Förnya inom den tiden så fungerar allt igen, även dina tryckta koder. Efter 30 dagar raderas de.",
     "graceMsg": "Ditt abonnemang har gått ut. Dina QR-koder fungerar inte och du kan inte ändra något. Förnya före {date}, annars raderas alla dina QR-koder.",
     "endedMsg": "Ditt abonnemang har gått ut och dina QR-koder har raderats. Teckna ett abonnemang för att skapa nya koder.",
     "barGrace": "Abonnemanget har gått ut: dina QR-koder fungerar inte. Förnya före {date}.",

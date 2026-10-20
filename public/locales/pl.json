@@ -2382,7 +2382,7 @@
     "yearSave": "1. rok: 2 miesiące gratis",
     "perYear": "rocznie",
     "paidUntil": "Opłacone do {date}",
-    "graceRule": "Gdy subskrypcja się skończy, Twoje kody QR od razu przestają działać, ale przechowujemy je przez 12 miesięcy. Jeśli odnowisz w tym czasie, wszystko znów działa, także wydrukowane kody. Po 12 miesiącach zostają usunięte.",
+    "graceRule": "Gdy subskrypcja się skończy, Twoje kody QR od razu przestają działać, ale przechowujemy je przez 30 dni. Odnów ją w tym czasie, a wszystko znów zadziała, także wydrukowane kody. Po 30 dniach zostaną usunięte.",
     "graceMsg": "Twoja subskrypcja wygasła. Twoje kody QR nie działają i nie możesz niczego zmieniać. Odnów ją przed {date}, inaczej wszystkie Twoje kody QR zostaną usunięte.",
     "endedMsg": "Twoja subskrypcja wygasła, a Twoje kody QR zostały usunięte. Wykup subskrypcję, aby tworzyć nowe kody.",
     "barGrace": "Subskrypcja wygasła: Twoje kody QR nie działają. Odnów przed {date}.",

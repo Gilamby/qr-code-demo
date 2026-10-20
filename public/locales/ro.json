@@ -2382,7 +2382,7 @@
     "yearSave": "Anul 1: 2 luni gratuite",
     "perYear": "pe an",
     "paidUntil": "Plătit până la {date}",
-    "graceRule": "Dacă abonamentul expiră, codurile tale QR nu mai funcționează imediat, dar le păstrăm 12 luni. Dacă reînnoiești în acest timp, totul funcționează din nou, inclusiv codurile tipărite. După 12 luni sunt șterse.",
+    "graceRule": "Dacă abonamentul se încheie, codurile QR nu mai funcționează imediat, dar le păstrăm 30 de zile. Reînnoiește în acest timp și totul funcționează din nou, inclusiv codurile tipărite. După 30 de zile sunt șterse.",
     "graceMsg": "Abonamentul tău a expirat. Codurile tale QR nu funcționează și nu poți modifica nimic. Reînnoiește-l înainte de {date}, altfel toate codurile tale QR vor fi șterse.",
     "endedMsg": "Abonamentul tău a expirat și codurile tale QR au fost șterse. Ia un abonament ca să creezi coduri noi.",
     "barGrace": "Abonament expirat: codurile tale QR nu funcționează. Reînnoiește înainte de {date}.",

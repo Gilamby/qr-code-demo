@@ -2382,7 +2382,7 @@
     "yearSave": "1. rok: 2 mesiace zadarmo",
     "perYear": "ročne",
     "paidUntil": "Zaplatené do {date}",
-    "graceRule": "Ak predplatné skončí, vaše QR kódy hneď prestanú fungovať, no uchováme ich 12 mesiacov. Ak počas tejto doby predplatné obnovíte, všetko opäť funguje, aj vytlačené kódy. Po 12 mesiacoch sa vymažú.",
+    "graceRule": "Ak sa predplatné skončí, vaše QR kódy hneď prestanú fungovať, ale uchováme ich 30 dní. Ak ho v tomto čase obnovíte, všetko bude znova fungovať, aj vytlačené kódy. Po 30 dňoch sa vymažú.",
     "graceMsg": "Tvoje predplatné vypršalo. Tvoje QR kódy nefungujú a nemôžeš nič meniť. Obnov ho do {date}, inak sa všetky tvoje QR kódy odstránia.",
     "endedMsg": "Tvoje predplatné vypršalo a tvoje QR kódy boli odstránené. Zaplať predplatné a vytváraj nové kódy.",
     "barGrace": "Predplatné vypršalo: tvoje QR kódy nefungujú. Obnov ho do {date}.",

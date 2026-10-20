@@ -2382,7 +2382,7 @@
     "yearSave": "1.º ano: 2 meses grátis",
     "perYear": "por ano",
     "paidUntil": "Pago até {date}",
-    "graceRule": "Se a sua subscrição terminar, os seus códigos QR deixam de funcionar de imediato, mas guardamo-los durante 12 meses. Se renovar nesse período, tudo volta a funcionar, incluindo os códigos impressos. Após 12 meses, são eliminados.",
+    "graceRule": "Se a tua subscrição terminar, os teus códigos QR deixam logo de funcionar, mas guardamo-los durante 30 dias. Renova nesse prazo e tudo volta a funcionar, incluindo os códigos impressos. Após 30 dias são eliminados.",
     "graceMsg": "A sua subscrição expirou. Os seus códigos QR não funcionam e não pode alterar nada. Renove antes de {date}, caso contrário todos os seus códigos QR serão eliminados.",
     "endedMsg": "A sua subscrição expirou e os seus códigos QR foram eliminados. Subscreva um plano para criar novos códigos.",
     "barGrace": "Subscrição expirada: os seus códigos QR não funcionam. Renove antes de {date}.",

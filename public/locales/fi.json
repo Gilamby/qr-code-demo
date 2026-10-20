@@ -2382,7 +2382,7 @@
     "yearSave": "1. vuosi: 2 kuukautta ilmaiseksi",
     "perYear": "vuodessa",
     "paidUntil": "Maksettu {date} asti",
-    "graceRule": "Jos tilauksesi päättyy, QR-koodisi lakkaavat toimimasta heti, mutta säilytämme ne 12 kuukautta. Jos uusit tilauksen sinä aikana, kaikki toimii taas, myös painetut koodisi. 12 kuukauden jälkeen ne poistetaan.",
+    "graceRule": "Jos tilauksesi päättyy, QR-koodisi lakkaavat toimimasta heti, mutta säilytämme ne 30 päivää. Uusi tilaus sinä aikana, niin kaikki toimii taas, myös tulostetut koodit. 30 päivän jälkeen ne poistetaan.",
     "graceMsg": "Tilauksesi on päättynyt. QR-koodisi eivät toimi etkä voi muuttaa mitään. Uusi tilaus ennen {date}, muuten kaikki QR-koodisi poistetaan.",
     "endedMsg": "Tilauksesi on päättynyt ja QR-koodisi on poistettu. Tee tilaus luodaksesi uusia koodeja.",
     "barGrace": "Tilaus päättyi: QR-koodisi eivät toimi. Uusi ennen {date}.",

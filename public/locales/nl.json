@@ -2382,7 +2382,7 @@
     "yearSave": "1e jaar 2 maanden gratis",
     "perYear": "per jaar",
     "paidUntil": "Betaald tot {date}",
-    "graceRule": "Verloopt je abonnement, dan werken je QR-codes meteen niet meer, maar we bewaren ze 12 maanden. Verleng je in die tijd, dan werkt alles weer, ook je geprinte codes. Na 12 maanden worden ze verwijderd.",
+    "graceRule": "Verloopt je abonnement, dan werken je QR-codes meteen niet meer, maar we bewaren ze 30 dagen. Verleng je in die tijd, dan werkt alles weer, ook je geprinte codes. Na 30 dagen worden ze verwijderd.",
     "graceMsg": "Je abonnement is verlopen. Je QR-codes werken niet en je kunt niets wijzigen. Verleng vóór {date}, anders worden al je QR-codes verwijderd.",
     "endedMsg": "Je abonnement is verlopen en je QR-codes zijn verwijderd. Neem een abonnement om nieuwe codes te maken.",
     "barGrace": "Abonnement verlopen: je QR-codes werken niet. Verleng vóór {date}.",

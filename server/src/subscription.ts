@@ -1,10 +1,10 @@
 /* =========================================================
    ABONNEMENT: BETAALPERIODE, BEDENKTIJD EN VERWIJDEREN
-   Regels (besluit Geert/Fabian, 20-10-2026; vervangt de halverende bedenktijd van 19-10):
+   Regels (Terms of Service van Geert, 20-10-2026, punt 5):
    - Loopt de betaalde periode af zonder nieuwe betaling, dan werken de QR-codes meteen niet meer
      (bezoeker ziet "niet actief", klant kan niets wijzigen of bekijken). Ze worden NIET meteen verwijderd.
-   - Betaalt de klant binnen 12 maanden, dan werkt alles weer, ook de geprinte codes.
-   - Na 12 maanden worden alle QR-codes (en bestanden) van de klant verwijderd (niet langer bewaren: AVG).
+   - Betaalt de klant binnen 30 dagen, dan werkt alles weer, ook de geprinte codes.
+   - Na 30 dagen worden alle QR-codes (en bestanden) van de klant verwijderd (niet langer bewaren: AVG).
    - Waarschuwingsmails: bij het begin, 7 dagen en 1 dag voor het verwijderen.
    Zonder betaalperiode (testfase, gratis) en voor het team geldt dit niet.
    Zelf geregistreerd (mustPay): het account bestaat, maar codes maken kan pas na het kiezen en betalen van een abonnement.
@@ -12,7 +12,7 @@
    Opslag: settings 'sub:<userId>' (JSON).
    ========================================================= */
 export const DAY = 864e5;
-export const RETAIN = 365 * DAY, RESET_AFTER = 365 * DAY;   // hoe lang we codes bewaren na het verlopen
+export const RETAIN = 30 * DAY, RESET_AFTER = 365 * DAY;    // hoe lang we codes bewaren na het verlopen (Terms punt 5: 30 dagen)
 
 export type Interval = 'month' | 'year';
 export interface Sub {
@@ -29,7 +29,7 @@ export type SubState = 'none' | 'unpaid' | 'active' | 'grace' | 'ended';
 
 export const emptySub = (interval: Interval = 'month'): Sub => ({ interval, periodEnd: null, graceUntil: null, lapses: 0, lastLapseAt: null, notified: [], deletedAt: null });
 
-/** Hoe lang de codes bewaard blijven na het verlopen (altijd 12 maanden; n = hoeveelste keer te laat, alleen nog voor de statistiek) */
+/** Hoe lang de codes bewaard blijven na het verlopen (altijd 30 dagen; n = hoeveelste keer te laat, alleen nog voor de statistiek) */
 export function graceMs(_n: number): number { return RETAIN; }
 
 /** Hoeveelste keer te laat is dit? Na 12 maanden zonder te laat betalen telt het weer als de eerste keer. */

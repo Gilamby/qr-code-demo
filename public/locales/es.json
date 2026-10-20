@@ -2382,7 +2382,7 @@
     "yearSave": "1.er año: 2 meses gratis",
     "perYear": "al año",
     "paidUntil": "Pagado hasta el {date}",
-    "graceRule": "Si tu suscripción termina, tus códigos QR dejan de funcionar al instante, pero los guardamos 12 meses. Si renuevas en ese plazo, todo vuelve a funcionar, también tus códigos impresos. Después de 12 meses se eliminan.",
+    "graceRule": "Si tu suscripción termina, tus códigos QR dejan de funcionar al instante, pero los guardamos 30 días. Si renuevas en ese plazo, todo vuelve a funcionar, también tus códigos impresos. Después de 30 días se eliminan.",
     "graceMsg": "Tu suscripción ha caducado. Tus códigos QR no funcionan y no puedes cambiar nada. Renueva antes del {date} o se eliminarán todos tus códigos QR.",
     "endedMsg": "Tu suscripción ha caducado y tus códigos QR se han eliminado. Contrata una suscripción para crear códigos nuevos.",
     "barGrace": "Suscripción caducada: tus códigos QR no funcionan. Renueva antes del {date}.",

@@ -2382,7 +2382,7 @@
     "yearSave": "1re année : 2 mois offerts",
     "perYear": "par an",
     "paidUntil": "Payé jusqu’au {date}",
-    "graceRule": "Si votre abonnement prend fin, vos QR codes cessent immédiatement de fonctionner, mais nous les conservons 12 mois. Si vous renouvelez pendant cette période, tout fonctionne à nouveau, y compris vos codes imprimés. Après 12 mois, ils sont supprimés.",
+    "graceRule": "Si votre abonnement prend fin, vos QR codes cessent immédiatement de fonctionner, mais nous les conservons 30 jours. Renouvelez dans ce délai et tout fonctionne à nouveau, y compris vos codes imprimés. Après 30 jours, ils sont supprimés.",
     "graceMsg": "Votre abonnement a expiré. Vos codes QR ne fonctionnent pas et vous ne pouvez rien modifier. Renouvelez avant le {date}, sinon tous vos codes QR seront supprimés.",
     "endedMsg": "Votre abonnement a expiré et vos codes QR ont été supprimés. Souscrivez un abonnement pour créer de nouveaux codes.",
     "barGrace": "Abonnement expiré : vos codes QR ne fonctionnent pas. Renouvelez avant le {date}.",

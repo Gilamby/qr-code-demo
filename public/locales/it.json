@@ -2382,7 +2382,7 @@
     "yearSave": "1° anno: 2 mesi gratis",
     "perYear": "all’anno",
     "paidUntil": "Pagato fino al {date}",
-    "graceRule": "Se l’abbonamento scade, i tuoi codici QR smettono subito di funzionare, ma li conserviamo per 12 mesi. Se rinnovi entro questo periodo, tutto torna a funzionare, anche i codici stampati. Dopo 12 mesi vengono eliminati.",
+    "graceRule": "Se l’abbonamento termina, i tuoi QR code smettono subito di funzionare, ma li conserviamo per 30 giorni. Rinnova entro quel periodo e tutto torna a funzionare, anche i codici stampati. Dopo 30 giorni vengono eliminati.",
     "graceMsg": "Il tuo abbonamento è scaduto. I tuoi codici QR non funzionano e non puoi modificare nulla. Rinnova entro il {date}, altrimenti tutti i tuoi codici QR verranno eliminati.",
     "endedMsg": "Il tuo abbonamento è scaduto e i tuoi codici QR sono stati eliminati. Sottoscrivi un abbonamento per creare nuovi codici.",
     "barGrace": "Abbonamento scaduto: i tuoi codici QR non funzionano. Rinnova entro il {date}.",
