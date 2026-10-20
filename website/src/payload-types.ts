@@ -477,6 +477,8 @@ export interface Setting {
   };
   nav?: {
     generator?: string | null;
+    story?: string | null;
+    how?: string | null;
     features?: string | null;
     solutions?: string | null;
     pricing?: string | null;
@@ -565,6 +567,23 @@ export interface Home {
         }[]
       | null;
   };
+  story?: {
+    chapter?: string | null;
+    eyebrow?: string | null;
+    title?: string | null;
+    text?: string | null;
+    cta?: string | null;
+    cta2?: string | null;
+    note?: string | null;
+    items?:
+      | {
+          key?: string | null;
+          title?: string | null;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   how?: {
     chapter?: string | null;
     eyebrow?: string | null;
@@ -583,74 +602,6 @@ export interface Home {
       | null;
   };
   features?: {
-    chapter?: string | null;
-    eyebrow?: string | null;
-    title?: string | null;
-    text?: string | null;
-    cta?: string | null;
-    cta2?: string | null;
-    note?: string | null;
-    items?:
-      | {
-          key?: string | null;
-          title?: string | null;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  become?: {
-    chapter?: string | null;
-    eyebrow?: string | null;
-    title?: string | null;
-    text?: string | null;
-    cta?: string | null;
-    cta2?: string | null;
-    note?: string | null;
-    items?:
-      | {
-          key?: string | null;
-          title?: string | null;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  track?: {
-    chapter?: string | null;
-    eyebrow?: string | null;
-    title?: string | null;
-    text?: string | null;
-    cta?: string | null;
-    cta2?: string | null;
-    note?: string | null;
-    items?:
-      | {
-          key?: string | null;
-          title?: string | null;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  solutions?: {
-    chapter?: string | null;
-    eyebrow?: string | null;
-    title?: string | null;
-    text?: string | null;
-    cta?: string | null;
-    cta2?: string | null;
-    note?: string | null;
-    items?:
-      | {
-          key?: string | null;
-          title?: string | null;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  dive?: {
     chapter?: string | null;
     eyebrow?: string | null;
     title?: string | null;
@@ -791,6 +742,8 @@ export interface SettingsSelect<T extends boolean = true> {
     | T
     | {
         generator?: T;
+        story?: T;
+        how?: T;
         features?: T;
         solutions?: T;
         pricing?: T;
@@ -891,6 +844,25 @@ export interface HomeSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  story?:
+    | T
+    | {
+        chapter?: T;
+        eyebrow?: T;
+        title?: T;
+        text?: T;
+        cta?: T;
+        cta2?: T;
+        note?: T;
+        items?:
+          | T
+          | {
+              key?: T;
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
   how?:
     | T
     | {
@@ -911,82 +883,6 @@ export interface HomeSelect<T extends boolean = true> {
             };
       };
   features?:
-    | T
-    | {
-        chapter?: T;
-        eyebrow?: T;
-        title?: T;
-        text?: T;
-        cta?: T;
-        cta2?: T;
-        note?: T;
-        items?:
-          | T
-          | {
-              key?: T;
-              title?: T;
-              text?: T;
-              id?: T;
-            };
-      };
-  become?:
-    | T
-    | {
-        chapter?: T;
-        eyebrow?: T;
-        title?: T;
-        text?: T;
-        cta?: T;
-        cta2?: T;
-        note?: T;
-        items?:
-          | T
-          | {
-              key?: T;
-              title?: T;
-              text?: T;
-              id?: T;
-            };
-      };
-  track?:
-    | T
-    | {
-        chapter?: T;
-        eyebrow?: T;
-        title?: T;
-        text?: T;
-        cta?: T;
-        cta2?: T;
-        note?: T;
-        items?:
-          | T
-          | {
-              key?: T;
-              title?: T;
-              text?: T;
-              id?: T;
-            };
-      };
-  solutions?:
-    | T
-    | {
-        chapter?: T;
-        eyebrow?: T;
-        title?: T;
-        text?: T;
-        cta?: T;
-        cta2?: T;
-        note?: T;
-        items?:
-          | T
-          | {
-              key?: T;
-              title?: T;
-              text?: T;
-              id?: T;
-            };
-      };
-  dive?:
     | T
     | {
         chapter?: T;

@@ -5,8 +5,8 @@ import { revalidateAll } from '../lib/revalidate'
 /* De homepage is opgebouwd uit hoofdstukken. Elk hoofdstuk heeft dezelfde velden:
    kopje, titel, tekst, knoppen en een lijst met regels (bij elke regel staat een vaste "sleutel" die de website gebruikt). */
 export const SECTIONS: [string, string][] = [
-  ['hero', 'Bovenaan: generator'], ['trust', 'Waarom wij'], ['how', 'Zo werkt het'], ['features', 'Functies'], ['become', '16 soorten'],
-  ['track', 'Statistieken'], ['solutions', 'Oplossingen'], ['dive', 'Beleving (3D)'], ['pricing', 'Prijzen (kort)'], ['faq', 'Vragen'], ['final', 'Afsluiter'],
+  ['hero', 'Bovenaan: generator'], ['trust', 'Waarom wij'], ['story', 'Toepassingen (verhaal)'], ['how', 'Zo werkt het (filmpje)'],
+  ['features', 'Functies'], ['pricing', 'Prijzen (kort)'], ['faq', 'Vragen en contact'], ['final', 'Afsluiter'],
 ]
 
 const section = (name: string, label: string): Field => ({

@@ -1176,6 +1176,20 @@
           "notNull": false,
           "autoincrement": false
         },
+        "nav_story": {
+          "name": "nav_story",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nav_how": {
+          "name": "nav_how",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "nav_features": {
           "name": "nav_features",
           "type": "text",
@@ -1676,6 +1690,101 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "home_story_items": {
+      "name": "home_story_items",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_locale": {
+          "name": "_locale",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "home_story_items_order_idx": {
+          "name": "home_story_items_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "home_story_items_parent_id_idx": {
+          "name": "home_story_items_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        },
+        "home_story_items_locale_idx": {
+          "name": "home_story_items_locale_idx",
+          "columns": [
+            "_locale"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "home_story_items_parent_id_fk": {
+          "name": "home_story_items_parent_id_fk",
+          "tableFrom": "home_story_items",
+          "tableTo": "home",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "home_how_items": {
       "name": "home_how_items",
       "columns": {
@@ -1851,386 +1960,6 @@
         "home_features_items_parent_id_fk": {
           "name": "home_features_items_parent_id_fk",
           "tableFrom": "home_features_items",
-          "tableTo": "home",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "home_become_items": {
-      "name": "home_become_items",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "key": {
-          "name": "key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "text": {
-          "name": "text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "home_become_items_order_idx": {
-          "name": "home_become_items_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "home_become_items_parent_id_idx": {
-          "name": "home_become_items_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        },
-        "home_become_items_locale_idx": {
-          "name": "home_become_items_locale_idx",
-          "columns": [
-            "_locale"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "home_become_items_parent_id_fk": {
-          "name": "home_become_items_parent_id_fk",
-          "tableFrom": "home_become_items",
-          "tableTo": "home",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "home_track_items": {
-      "name": "home_track_items",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "key": {
-          "name": "key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "text": {
-          "name": "text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "home_track_items_order_idx": {
-          "name": "home_track_items_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "home_track_items_parent_id_idx": {
-          "name": "home_track_items_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        },
-        "home_track_items_locale_idx": {
-          "name": "home_track_items_locale_idx",
-          "columns": [
-            "_locale"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "home_track_items_parent_id_fk": {
-          "name": "home_track_items_parent_id_fk",
-          "tableFrom": "home_track_items",
-          "tableTo": "home",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "home_solutions_items": {
-      "name": "home_solutions_items",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "key": {
-          "name": "key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "text": {
-          "name": "text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "home_solutions_items_order_idx": {
-          "name": "home_solutions_items_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "home_solutions_items_parent_id_idx": {
-          "name": "home_solutions_items_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        },
-        "home_solutions_items_locale_idx": {
-          "name": "home_solutions_items_locale_idx",
-          "columns": [
-            "_locale"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "home_solutions_items_parent_id_fk": {
-          "name": "home_solutions_items_parent_id_fk",
-          "tableFrom": "home_solutions_items",
-          "tableTo": "home",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "home_dive_items": {
-      "name": "home_dive_items",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "key": {
-          "name": "key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "text": {
-          "name": "text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "home_dive_items_order_idx": {
-          "name": "home_dive_items_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "home_dive_items_parent_id_idx": {
-          "name": "home_dive_items_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        },
-        "home_dive_items_locale_idx": {
-          "name": "home_dive_items_locale_idx",
-          "columns": [
-            "_locale"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "home_dive_items_parent_id_fk": {
-          "name": "home_dive_items_parent_id_fk",
-          "tableFrom": "home_dive_items",
           "tableTo": "home",
           "columnsFrom": [
             "_parent_id"
@@ -2663,6 +2392,55 @@
           "notNull": false,
           "autoincrement": false
         },
+        "story_chapter": {
+          "name": "story_chapter",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "story_eyebrow": {
+          "name": "story_eyebrow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "story_title": {
+          "name": "story_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "story_text": {
+          "name": "story_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "story_cta": {
+          "name": "story_cta",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "story_cta2": {
+          "name": "story_cta2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "story_note": {
+          "name": "story_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "how_chapter": {
           "name": "how_chapter",
           "type": "text",
@@ -2756,202 +2534,6 @@
         },
         "features_note": {
           "name": "features_note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_chapter": {
-          "name": "become_chapter",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_eyebrow": {
-          "name": "become_eyebrow",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_title": {
-          "name": "become_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_text": {
-          "name": "become_text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_cta": {
-          "name": "become_cta",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_cta2": {
-          "name": "become_cta2",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_note": {
-          "name": "become_note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "track_chapter": {
-          "name": "track_chapter",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "track_eyebrow": {
-          "name": "track_eyebrow",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "track_title": {
-          "name": "track_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "track_text": {
-          "name": "track_text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "track_cta": {
-          "name": "track_cta",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "track_cta2": {
-          "name": "track_cta2",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "track_note": {
-          "name": "track_note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "solutions_chapter": {
-          "name": "solutions_chapter",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "solutions_eyebrow": {
-          "name": "solutions_eyebrow",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "solutions_title": {
-          "name": "solutions_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "solutions_text": {
-          "name": "solutions_text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "solutions_cta": {
-          "name": "solutions_cta",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "solutions_cta2": {
-          "name": "solutions_cta2",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "solutions_note": {
-          "name": "solutions_note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_chapter": {
-          "name": "dive_chapter",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_eyebrow": {
-          "name": "dive_eyebrow",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_title": {
-          "name": "dive_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_text": {
-          "name": "dive_text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_cta": {
-          "name": "dive_cta",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_cta2": {
-          "name": "dive_cta2",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_note": {
-          "name": "dive_note",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -3769,6 +3351,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "901a885f-a6eb-402c-816b-11aad9b2681b",
+  "id": "201b0bfe-6f45-4be2-94ef-509fe169fa4d",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

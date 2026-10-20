@@ -8,7 +8,7 @@ import Icon from './icons'
 type Nav = Record<string, string>
 /* Het menu = de onderdelen van de homepage, in dezelfde volgorde. Het onderdeel waar je bent licht op.
    "Inloggen" staat er altijd, ook op de telefoon (bestaande klanten eerst). */
-const SECTIONS = ['generator', 'features', 'solutions', 'pricing', 'faq']
+const SECTIONS = ['generator', 'story', 'how', 'features', 'pricing', 'faq']
 
 export default function Header({ lang, nav, appUrl, signup }: { lang: string; nav: Nav; appUrl: string; signup: string }) {
   const [open, setOpen] = useState(false)
@@ -47,6 +47,7 @@ export default function Header({ lang, nav, appUrl, signup }: { lang: string; na
         </Link>
         <nav className="main-nav" aria-label="Main">
           {SECTIONS.map((id) => <a key={id} href={href(id)} className={active === id ? 'on' : ''} aria-current={active === id ? 'true' : undefined}>{nav[id] || id}</a>)}
+          <Link href={`/${lang}/contact`} className={path.includes('/contact') ? 'on' : ''}>{nav.contact}</Link>
         </nav>
         <div className="header-actions">
           <a className="btn btn-ghost btn-sm login-btn" href={appUrl}>{nav.login}</a>

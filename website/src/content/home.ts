@@ -1,11 +1,11 @@
 /* Starttekst van de homepage per onderdeel (Engels, Nederlands, Spaans). Daarna aan te passen in /admin → Homepage.
-   Volgorde op de pagina: generator → waarom wij → zo werkt het → functies → soorten → statistieken → oplossingen
-   → beleving (3D) → prijzen → vragen → afsluiter. Het menu bovenin springt naar dezelfde onderdelen. */
+   Volgorde op de pagina: generator → waarom wij → toepassingen (verhaal) → zo werkt het (filmpje) → functies
+   → prijzen → vragen + contact → afsluiter. Het menu bovenin springt naar dezelfde onderdelen. */
 type Item = { key: string; title: string; text?: string }
 type Section = { chapter?: string; eyebrow?: string; title?: string; text?: string; cta?: string; cta2?: string; note?: string; items?: Item[] }
 const i = (key: string, title: string, text = ''): Item => ({ key, title, text })
 
-export const HOME_VERSION = 3
+export const HOME_VERSION = 4
 
 export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
   en: {
@@ -25,8 +25,16 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('scans', 'Unlimited scans', 'No scan limits on any plan.'), i('edit', 'Change after printing', 'New link, same printed code.'),
         i('privacy', 'Privacy first', 'We never store IP addresses. No tracking cookies.'), i('languages', '19 languages', 'For you and for the people who scan.'),
       ] },
+    story: { eyebrow: 'Uses', title: 'Where a QR code works for you.', text: 'Four everyday examples. Scroll to see what happens when someone scans.', cta: 'Start 14 days free', cta2: 'Skip',
+      items: [
+        i('restaurant', 'Restaurant', 'The code on the table opens today’s menu.|Menu'), i('poster', 'Event poster', 'Scan the poster and buy your tickets.|Website'),
+        i('packaging', 'Packaging', 'The box opens the how-to video.|Video'), i('card', 'Business card', 'Your details go straight into their phone.|vCard'),
+        i('l:end', 'And you see what works.', 'Every scan counted per code, per day and per device. So you know which table, poster or box does best.'),
+        i('l:scans', 'scans'), i('l:scan', 'Scanning…'), i('l:made', 'Made with Optimasys QR'),
+      ] },
     how: { eyebrow: 'How it works', title: 'Three steps in the real app.', text: 'This is what you get after signing up. No design skills needed.',
       items: [
+        i('l:type', 'Type'), i('l:content', 'Content'), i('l:design', 'Design'), i('l:next', 'Continue'), i('l:save', 'Save'), i('l:done', 'Done! Your QR code is ready.'), i('l:link', 'Link to your menu'), i('l:codes', 'My QR codes'), i('l:scans', 'scans'), i('l:download', 'Download'), i('l:play', 'Play'), i('l:pause', 'Pause'),
         i('type', 'Choose a type', 'Sixteen kinds of QR code. The phone shows what your visitors will see.'),
         i('content', 'Add your content', 'A link, a menu, your WiFi details or a PDF. You can change it all later.'),
         i('design', 'Make it yours', 'Colours, dot shapes, corners, your logo and a frame with text. Ready-made styles for every kind of business.'),
@@ -40,38 +48,8 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('team', 'Teamwork', 'Invite colleagues as editor or viewer and see who did what. On Pro and Business.'),
         i('formats', 'Print-ready', 'PNG, SVG, PDF and EPS. Sharp on a business card and on a billboard.'),
       ] },
-    become: { eyebrow: '16 types', title: 'One code, sixteen uses.', text: 'Pick a type and watch the same modules rebuild into what your visitors will open.', cta: 'Create this type',
-      items: [
-        i('website', 'Website', 'Any web page. Change the link whenever you want, the printed code stays the same.'),
-        i('menu', 'Menu', 'Link your menu, upload a PDF or build it in the app with dishes and prices.'),
-        i('video', 'Video', 'One scan and the video plays. Perfect for manuals, launches and events.'),
-        i('wifi', 'WiFi', 'Guests are online in one scan. No more spelling out the password.'),
-        i('vcard', 'vCard', 'Your contact details, straight into their phone’s address book.'),
-        i('social', 'Social media', 'Instagram, Facebook, TikTok and more, on one page.'),
-      ] },
-    track: { eyebrow: 'Statistics', title: 'See what works.', text: 'When, where and on which device people scan. Compare codes and find out which poster, flyer or table works best.',
-      items: [i('scans', 'Scans'), i('unique', 'Unique scans'), i('devices', 'Devices'), i('sample', 'Sample data'), i('days', 'Mon,Tue,Wed,Thu,Fri,Sat,Sun'), i('real', 'The real statistics screen')] },
-    solutions: { eyebrow: 'Solutions', title: 'Where businesses use it.', text: 'A QR code on its own is just a square. What happens after the scan is what matters.', note: 'Tap a card to see what happens after the scan',
-      items: [
-        i('restaurant', 'Restaurants', 'A table tent opens today’s menu.|Menu'), i('poster', 'Events', 'A poster opens the tickets.|Website'),
-        i('card', 'Business cards', 'Your card saves itself in their phone.|vCard'), i('packaging', 'Packaging', 'The box opens the manual video.|Video'),
-        i('retail', 'Shops', 'The shop window gives a 15% coupon.|Coupon'), i('hotel', 'Hotels', 'The room card connects to WiFi.|WiFi'),
-        i('l:after', 'After the scan'), i('l:create', 'Create this'),
-      ] },
-    dive: { eyebrow: 'Experience', title: 'What happens when you scan?', cta: 'Create with Optimasys QR', cta2: 'Skip', note: 'Drag to look around',
-      items: [
-        i('p1', 'QR codes are everywhere.', 'On tables, posters, packaging and business cards.'),
-        i('p2', 'Each one is a grid of modules.', 'Black and white squares. Together they hold one address.'),
-        i('p3', 'Scan it, and you go through the code…', '…to wherever the owner decided.'),
-        i('p4', 'You decide what it opens.', 'A website, a menu, a video, WiFi or your social media. And you can change it at any time.'),
-        i('website', 'Website', 'Send people to any page, and change it after printing.'),
-        i('menu', 'Menu', 'A digital menu on every table.'),
-        i('video', 'Video', 'Play a video straight away.'),
-        i('wifi', 'WiFi', 'Guests join without typing a password.'),
-        i('social', 'Social media', 'All your channels on one page.'),
-      ] },
     pricing: { eyebrow: 'Pricing', title: 'Honest prices.', text: 'Every plan 14 days free. Pay yearly and get 2 months free in the first year.', cta: 'Compare all plans' },
-    faq: { eyebrow: 'Questions', title: 'Frequently asked questions', cta: 'All questions' },
+    faq: { eyebrow: 'Questions', title: 'Frequently asked questions', cta: 'All questions', cta2: 'Contact us', note: 'Something not working, or a question we didn’t answer? We’re happy to help.' },
     final: { eyebrow: 'Get started', title: 'Optimasys QR', text: 'Create. Customize. Manage. Track.', cta: 'Start 14 days free', cta2: 'Log in', note: 'From €4.99 a month · cancel anytime' },
   },
 
@@ -92,8 +70,16 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('scans', 'Onbeperkt scans', 'Geen scanlimiet, bij geen enkel pakket.'), i('edit', 'Wijzigen na het printen', 'Nieuwe link, dezelfde geprinte code.'),
         i('privacy', 'Privacy voorop', 'We slaan nooit IP-adressen op. Geen volgcookies.'), i('languages', '19 talen', 'Voor jou en voor wie scant.'),
       ] },
+    story: { eyebrow: 'Toepassingen', title: 'Waar een QR-code voor je werkt.', text: 'Vier voorbeelden uit de praktijk. Scroll en zie wat er gebeurt als iemand scant.', cta: 'Start 14 dagen gratis', cta2: 'Overslaan',
+      items: [
+        i('restaurant', 'Restaurant', 'De code op tafel opent de menukaart van vandaag.|Menukaart'), i('poster', 'Evenementposter', 'Scan de poster en koop je tickets.|Website'),
+        i('packaging', 'Verpakking', 'De doos opent de video-handleiding.|Video'), i('card', 'Visitekaartje', 'Je gegevens staan meteen in hun telefoon.|vCard'),
+        i('l:end', 'En jij ziet wat werkt.', 'Elke scan geteld per code, per dag en per apparaat. Zo weet je welke tafel, poster of doos het best werkt.'),
+        i('l:scans', 'scans'), i('l:scan', 'Scannen…'), i('l:made', 'Gemaakt met Optimasys QR'),
+      ] },
     how: { eyebrow: 'Zo werkt het', title: 'Drie stappen in de echte app.', text: 'Dit krijg je na het aanmelden. Geen ontwerpkennis nodig.',
       items: [
+        i('l:type', 'Soort'), i('l:content', 'Inhoud'), i('l:design', 'Ontwerp'), i('l:next', 'Verder'), i('l:save', 'Opslaan'), i('l:done', 'Klaar! Je QR-code staat klaar.'), i('l:link', 'Link naar je menukaart'), i('l:codes', 'Mijn QR-codes'), i('l:scans', 'scans'), i('l:download', 'Downloaden'), i('l:play', 'Afspelen'), i('l:pause', 'Pauze'),
         i('type', 'Kies een soort', 'Zestien soorten QR-codes. De telefoon laat zien wat je bezoekers zien.'),
         i('content', 'Vul de inhoud in', 'Een link, een menukaart, je wifi-gegevens of een PDF. Alles kun je later wijzigen.'),
         i('design', 'Maak hem van jou', 'Kleuren, puntvormen, hoeken, je logo en een frame met tekst. Kant-en-klare stijlen voor elk soort bedrijf.'),
@@ -107,38 +93,8 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('team', 'Samenwerken', 'Nodig collega’s uit als bewerker of kijker en zie wie wat deed. Bij Pro en Business.'),
         i('formats', 'Klaar voor de drukker', 'PNG, SVG, PDF en EPS. Scherp op een visitekaartje én op een billboard.'),
       ] },
-    become: { eyebrow: '16 soorten', title: 'Eén code, zestien toepassingen.', text: 'Kies een soort en kijk hoe dezelfde blokjes zich ombouwen tot wat je bezoekers openen.', cta: 'Maak deze soort',
-      items: [
-        i('website', 'Website', 'Elke webpagina. Wijzig de link wanneer je wilt, de geprinte code blijft hetzelfde.'),
-        i('menu', 'Menukaart', 'Link je kaart, upload een PDF of bouw hem in de app met gerechten en prijzen.'),
-        i('video', 'Video', 'Eén scan en de video speelt. Ideaal voor handleidingen, lanceringen en evenementen.'),
-        i('wifi', 'Wifi', 'Gasten zijn in één scan online. Nooit meer het wachtwoord spellen.'),
-        i('vcard', 'vCard', 'Je contactgegevens meteen in het adresboek van hun telefoon.'),
-        i('social', 'Social media', 'Instagram, Facebook, TikTok en meer, op één pagina.'),
-      ] },
-    track: { eyebrow: 'Statistieken', title: 'Zie wat werkt.', text: 'Wanneer, waar en met welk apparaat er gescand wordt. Vergelijk codes en ontdek welke poster, flyer of tafel het best werkt.',
-      items: [i('scans', 'Scans'), i('unique', 'Unieke scans'), i('devices', 'Apparaten'), i('sample', 'Voorbeeldgegevens'), i('days', 'ma,di,wo,do,vr,za,zo'), i('real', 'Het echte statistiekenscherm')] },
-    solutions: { eyebrow: 'Oplossingen', title: 'Waar bedrijven het gebruiken.', text: 'Een QR-code alleen is maar een vierkantje. Wat er na de scan gebeurt, daar draait het om.', note: 'Tik op een kaart om te zien wat er na de scan gebeurt',
-      items: [
-        i('restaurant', 'Restaurants', 'Een tafelstandaard opent de kaart van vandaag.|Menukaart'), i('poster', 'Evenementen', 'Een poster opent de tickets.|Website'),
-        i('card', 'Visitekaartjes', 'Je kaartje zet zichzelf in hun telefoon.|vCard'), i('packaging', 'Verpakkingen', 'De doos opent de video-handleiding.|Video'),
-        i('retail', 'Winkels', 'De etalage geeft een coupon van 15%.|Coupon'), i('hotel', 'Hotels', 'De kamerkaart verbindt met de wifi.|Wifi'),
-        i('l:after', 'Na de scan'), i('l:create', 'Maak dit'),
-      ] },
-    dive: { eyebrow: 'Beleving', title: 'Wat gebeurt er als je scant?', cta: 'Maak dit met Optimasys QR', cta2: 'Overslaan', note: 'Sleep om rond te kijken',
-      items: [
-        i('p1', 'QR-codes zijn overal.', 'Op tafels, posters, verpakkingen en visitekaartjes.'),
-        i('p2', 'Elke code is een raster van blokjes.', 'Zwarte en witte vierkantjes. Samen vormen ze één adres.'),
-        i('p3', 'Scan hem, en je gaat door de code heen…', '…naar wat de eigenaar heeft gekozen.'),
-        i('p4', 'Jij kiest wat hij opent.', 'Een website, menukaart, video, wifi of je social media. En je kunt het altijd wijzigen.'),
-        i('website', 'Website', 'Stuur mensen naar elke pagina, en wijzig hem na het printen.'),
-        i('menu', 'Menukaart', 'Een digitale kaart op elke tafel.'),
-        i('video', 'Video', 'Meteen een video afspelen.'),
-        i('wifi', 'Wifi', 'Gasten zijn online zonder wachtwoord te typen.'),
-        i('social', 'Social media', 'Al je kanalen op één pagina.'),
-      ] },
     pricing: { eyebrow: 'Prijzen', title: 'Eerlijke prijzen.', text: 'Elk pakket 14 dagen gratis. Jaarlijks betalen: het eerste jaar 2 maanden gratis.', cta: 'Vergelijk alle pakketten' },
-    faq: { eyebrow: 'Vragen', title: 'Veelgestelde vragen', cta: 'Alle vragen' },
+    faq: { eyebrow: 'Vragen', title: 'Veelgestelde vragen', cta: 'Alle vragen', cta2: 'Neem contact op', note: 'Werkt er iets niet, of staat je vraag er niet bij? We helpen je graag.' },
     final: { eyebrow: 'Begin vandaag', title: 'Optimasys QR', text: 'Maken. Ontwerpen. Beheren. Meten.', cta: 'Start 14 dagen gratis', cta2: 'Inloggen', note: 'Vanaf €4,99 per maand · altijd opzegbaar' },
   },
 
@@ -159,8 +115,16 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('scans', 'Escaneos ilimitados', 'Sin límite de escaneos en ningún plan.'), i('edit', 'Cambia después de imprimir', 'Nuevo enlace, mismo código impreso.'),
         i('privacy', 'Privacidad primero', 'Nunca guardamos direcciones IP. Sin cookies de seguimiento.'), i('languages', '19 idiomas', 'Para ti y para quien escanea.'),
       ] },
+    story: { eyebrow: 'Usos', title: 'Dónde trabaja un código QR para ti.', text: 'Cuatro ejemplos del día a día. Desplázate y mira qué pasa cuando alguien escanea.', cta: 'Empieza 14 días gratis', cta2: 'Saltar',
+      items: [
+        i('restaurant', 'Restaurante', 'El código de la mesa abre el menú del día.|Menú'), i('poster', 'Cartel de evento', 'Escanea el cartel y compra tus entradas.|Sitio web'),
+        i('packaging', 'Envase', 'La caja abre el vídeo de instrucciones.|Vídeo'), i('card', 'Tarjeta de visita', 'Tus datos, directos a su móvil.|vCard'),
+        i('l:end', 'Y tú ves qué funciona.', 'Cada escaneo contado por código, por día y por dispositivo. Así sabes qué mesa, cartel o caja funciona mejor.'),
+        i('l:scans', 'escaneos'), i('l:scan', 'Escaneando…'), i('l:made', 'Hecho con Optimasys QR'),
+      ] },
     how: { eyebrow: 'Cómo funciona', title: 'Tres pasos en la app real.', text: 'Esto es lo que tienes al registrarte. Sin conocimientos de diseño.',
       items: [
+        i('l:type', 'Tipo'), i('l:content', 'Contenido'), i('l:design', 'Diseño'), i('l:next', 'Continuar'), i('l:save', 'Guardar'), i('l:done', '¡Listo! Tu código QR está preparado.'), i('l:link', 'Enlace a tu menú'), i('l:codes', 'Mis códigos QR'), i('l:scans', 'escaneos'), i('l:download', 'Descargar'), i('l:play', 'Reproducir'), i('l:pause', 'Pausa'),
         i('type', 'Elige un tipo', 'Dieciséis tipos de código QR. El móvil muestra lo que verán tus visitantes.'),
         i('content', 'Añade el contenido', 'Un enlace, una carta, los datos de tu Wi-Fi o un PDF. Todo se puede cambiar después.'),
         i('design', 'Hazlo tuyo', 'Colores, formas de puntos, esquinas, tu logo y un marco con texto. Estilos listos para cada negocio.'),
@@ -174,45 +138,15 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('team', 'En equipo', 'Invita a compañeros como editor o lector y mira quién hizo qué. En Pro y Business.'),
         i('formats', 'Listo para imprenta', 'PNG, SVG, PDF y EPS. Nítido en una tarjeta y en una valla.'),
       ] },
-    become: { eyebrow: '16 tipos', title: 'Un código, dieciséis usos.', text: 'Elige un tipo y mira cómo los mismos módulos se convierten en lo que abrirán tus visitantes.', cta: 'Crea este tipo',
-      items: [
-        i('website', 'Sitio web', 'Cualquier página. Cambia el enlace cuando quieras; el código impreso sigue igual.'),
-        i('menu', 'Menú', 'Enlaza tu carta, sube un PDF o créala en la app con platos y precios.'),
-        i('video', 'Vídeo', 'Un escaneo y el vídeo empieza. Ideal para manuales, lanzamientos y eventos.'),
-        i('wifi', 'Wi-Fi', 'Tus clientes se conectan en un escaneo. Se acabó deletrear la contraseña.'),
-        i('vcard', 'vCard', 'Tus datos de contacto, directos a la agenda de su móvil.'),
-        i('social', 'Redes sociales', 'Instagram, Facebook, TikTok y más, en una página.'),
-      ] },
-    track: { eyebrow: 'Estadísticas', title: 'Mira qué funciona.', text: 'Cuándo, dónde y con qué dispositivo se escanea. Compara códigos y descubre qué cartel, folleto o mesa funciona mejor.',
-      items: [i('scans', 'Escaneos'), i('unique', 'Escaneos únicos'), i('devices', 'Dispositivos'), i('sample', 'Datos de ejemplo'), i('days', 'lu,ma,mi,ju,vi,sá,do'), i('real', 'La pantalla real de estadísticas')] },
-    solutions: { eyebrow: 'Soluciones', title: 'Dónde lo usan las empresas.', text: 'Un código QR solo es un cuadrado. Lo que importa es lo que pasa después del escaneo.', note: 'Toca una tarjeta para ver qué pasa después del escaneo',
-      items: [
-        i('restaurant', 'Restaurantes', 'Un expositor de mesa abre el menú del día.|Menú'), i('poster', 'Eventos', 'Un cartel abre las entradas.|Sitio web'),
-        i('card', 'Tarjetas de visita', 'Tu tarjeta se guarda sola en su móvil.|vCard'), i('packaging', 'Envases', 'La caja abre el vídeo de instrucciones.|Vídeo'),
-        i('retail', 'Tiendas', 'El escaparate regala un cupón del 15 %.|Cupón'), i('hotel', 'Hoteles', 'La tarjeta de la habitación conecta al Wi-Fi.|Wi-Fi'),
-        i('l:after', 'Después del escaneo'), i('l:create', 'Crea esto'),
-      ] },
-    dive: { eyebrow: 'Experiencia', title: '¿Qué pasa cuando escaneas?', cta: 'Créalo con Optimasys QR', cta2: 'Saltar', note: 'Arrastra para mirar alrededor',
-      items: [
-        i('p1', 'Hay códigos QR en todas partes.', 'En mesas, carteles, envases y tarjetas de visita.'),
-        i('p2', 'Cada uno es una cuadrícula de módulos.', 'Cuadrados blancos y negros. Juntos guardan una dirección.'),
-        i('p3', 'Lo escaneas y atraviesas el código…', '…hacia lo que eligió su dueño.'),
-        i('p4', 'Tú eliges qué abre.', 'Una web, un menú, un vídeo, el Wi-Fi o tus redes. Y puedes cambiarlo cuando quieras.'),
-        i('website', 'Sitio web', 'Lleva a cualquier página, y cámbiala después de imprimir.'),
-        i('menu', 'Menú', 'Una carta digital en cada mesa.'),
-        i('video', 'Vídeo', 'Reproduce un vídeo al instante.'),
-        i('wifi', 'Wi-Fi', 'Tus clientes se conectan sin escribir la contraseña.'),
-        i('social', 'Redes sociales', 'Todos tus canales en una página.'),
-      ] },
     pricing: { eyebrow: 'Precios', title: 'Precios honestos.', text: 'Todos los planes con 14 días gratis. Pago anual: 2 meses gratis el primer año.', cta: 'Compara todos los planes' },
-    faq: { eyebrow: 'Preguntas', title: 'Preguntas frecuentes', cta: 'Todas las preguntas' },
+    faq: { eyebrow: 'Preguntas', title: 'Preguntas frecuentes', cta: 'Todas las preguntas', cta2: 'Contáctanos', note: '¿Algo no funciona o tu pregunta no está aquí? Te ayudamos encantados.' },
     final: { eyebrow: 'Empieza hoy', title: 'Optimasys QR', text: 'Crea. Diseña. Gestiona. Mide.', cta: 'Empieza 14 días gratis', cta2: 'Iniciar sesión', note: 'Desde 4,99 € al mes · cancela cuando quieras' },
   },
 }
 
 /* Menu bovenin = de onderdelen van de homepage (zelfde namen, zelfde volgorde) */
 export const NAV: Record<'en' | 'nl' | 'es', Record<string, string>> = {
-  en: { generator: 'Generator', features: 'Features', solutions: 'Solutions', pricing: 'Pricing', faq: 'FAQ', contact: 'Contact', login: 'Log in', tryFree: 'Start free trial', menu: 'Menu', close: 'Close' },
-  nl: { generator: 'Generator', features: 'Functies', solutions: 'Oplossingen', pricing: 'Prijzen', faq: 'Vragen', contact: 'Contact', login: 'Inloggen', tryFree: 'Gratis proberen', menu: 'Menu', close: 'Sluiten' },
-  es: { generator: 'Generador', features: 'Funciones', solutions: 'Soluciones', pricing: 'Precios', faq: 'Preguntas', contact: 'Contacto', login: 'Iniciar sesión', tryFree: 'Prueba gratis', menu: 'Menú', close: 'Cerrar' },
+  en: { generator: 'Generator', story: 'Uses', how: 'How it works', features: 'Features', solutions: 'Solutions', pricing: 'Pricing', faq: 'FAQ', contact: 'Contact', login: 'Log in', tryFree: 'Start free trial', menu: 'Menu', close: 'Close' },
+  nl: { generator: 'Generator', story: 'Toepassingen', how: 'Zo werkt het', features: 'Functies', solutions: 'Oplossingen', pricing: 'Prijzen', faq: 'Vragen', contact: 'Contact', login: 'Inloggen', tryFree: 'Gratis proberen', menu: 'Menu', close: 'Sluiten' },
+  es: { generator: 'Generador', story: 'Usos', how: 'Cómo funciona', features: 'Funciones', solutions: 'Soluciones', pricing: 'Precios', faq: 'Preguntas', contact: 'Contacto', login: 'Iniciar sesión', tryFree: 'Prueba gratis', menu: 'Menú', close: 'Cerrar' },
 }
