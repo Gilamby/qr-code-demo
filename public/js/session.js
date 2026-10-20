@@ -123,7 +123,8 @@ var Session = (function () {
     if (prob) return draw(t(PasswordRules.errorKey('password_' + prob)));
     btn.disabled = true;
     if (mode === 'twofa' && !val('code')) { btn.disabled = false; return draw(t('tfa.errEmpty')); }
-    var job = mode === 'twofa' ? api.auth.login({ email: tfa.email, password: tfa.password, code: val('code') })
+    var job = mode === 'twofa' && tfa && tfa.google ? api.auth.google2fa({ token: tfa.google, code: val('code') })
+      : mode === 'twofa' ? api.auth.login({ email: tfa.email, password: tfa.password, code: val('code') })
       : mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
       : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang() }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); return null; })
       : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
@@ -155,9 +156,12 @@ var Session = (function () {
     if (/^(standard|pro|business)$/.test(wp)) { try { localStorage.setItem('optimasys-want', JSON.stringify({ plan: wp, period: wper === 'year' ? 'year' : 'month', at: Date.now() })); } catch (e) {} }
     history.replaceState(null, '', location.pathname);
   }
+  var g2 = location.search.match(/[?&]g2fa=([A-Za-z0-9_-]+)/);
+  if (g2) { history.replaceState(null, '', location.pathname); }
   var gerr = location.search.match(/[?&]gerr=([a-z_0-9]+)/);
   if (gerr) { history.replaceState(null, '', location.pathname); flash = [{ signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', email_disposable: 'auth.errDisposable', too_many: 'auth.errTooMany', '2fa': 'auth.g2fa' }[gerr[1]] || 'auth.gErr', 'bad']; }
   api.available().then(function (online) {
+    if (g2) { tfa = { google: g2[1] }; show('twofa'); return; }
     if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);

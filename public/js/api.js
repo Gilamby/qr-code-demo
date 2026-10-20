@@ -287,6 +287,7 @@ var api = (function () {
       logout:   either(function ()  { return request('POST', 'api/auth/logout', {}); }, demoAuth.logout),
       forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),
       reset:    function (d) { return request('POST', 'api/auth/reset', d); },
+      google2fa: function (d) { return request('POST', 'api/auth/google/2fa', d); },
       emailChange: function (d) { return request('POST', 'api/auth/email-change', d); }
     },
     // Team (Pro en Business): collega's in hetzelfde account (alleen met server)

@@ -630,3 +630,11 @@ test('map hernoemen: de codes blijven in de map', async () => {
   const r2 = await k('PATCH', '/api/folders/' + f.id, { name: 'Nieuw 2', color: 'red' });
   assert.equal((await k('GET', '/api/qr-codes')).json.find((x) => x.id === c.id).folderId, f.id, 'ook met kleur (oude app)');
 });
+
+test('inloggen met Google: uit zonder sleutels; tweede stap met een onbekende code faalt', async () => {
+  const c = client();
+  const r = await fetch(base + '/api/auth/google', { redirect: 'manual' });
+  assert.equal(r.status, 302); assert.match(r.headers.get('location'), /gerr=off/);
+  assert.equal((await c('POST', '/api/auth/google/2fa', { token: 'onzin', code: '123456' })).status, 400);
+  assert.equal((await c('GET', '/api/health')).json.google, false, 'geen Google-knop zonder sleutels');
+});
