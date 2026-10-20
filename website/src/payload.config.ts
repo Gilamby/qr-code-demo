@@ -10,14 +10,16 @@ import { Pricing } from './globals/Pricing'
 import { Settings } from './globals/Settings'
 import { LOCALES, DEFAULT_LOCALE } from './lib/locales'
 import { seed } from './content/seed'
+import { migrations } from './migrations'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 const uri = process.env.DATABASE_URI || ''
 
-/* Database: op de server MongoDB (Atlas). Alleen om lokaal te testen zonder MongoDB: een SQLite-bestand. */
+/* Database: MongoDB (Atlas) als DATABASE_URI met mongodb begint. Anders een SQLite-bestand (website.db in deze map):
+   werkt ook op de server zolang er nog geen MongoDB is. De tabellen worden bij het starten vanzelf aangemaakt (migrations). */
 function database() {
   if (/^mongodb(\+srv)?:\/\//.test(uri)) return mongooseAdapter({ url: uri })
-  return sqliteAdapter({ client: { url: uri || 'file:./website.db' }, push: true })
+  return sqliteAdapter({ client: { url: uri || 'file:./website.db' }, push: true, prodMigrations: migrations })
 }
 
 if (process.env.NODE_ENV === 'production' && !process.env.PAYLOAD_SECRET) throw new Error('PAYLOAD_SECRET ontbreekt in .env')

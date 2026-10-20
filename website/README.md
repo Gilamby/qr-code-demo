@@ -25,14 +25,15 @@ in die taal en gaat na het inloggen meteen naar Abonnement. Stripe (betalen) kom
 
 ## Op de server zetten (eerste keer)
 
-Nodig: Node.js 20.9 of nieuwer, en een eigen MongoDB-database (mag in hetzelfde Atlas-cluster als de app, maar met een andere naam, bv. `qrcodex-website`).
+Nodig: Node.js 20.9 of nieuwer. Een database hoeft nog niet: zonder `DATABASE_URI` gebruikt de website een
+SQLite-bestand (`website.db`). Later zet je daar de MongoDB van de server in (bv. `mongodb://127.0.0.1:27017/qrcodex-website`);
+de teksten worden dan opnieuw ingevuld (wat je in het beheer had aangepast, moet je dan opnieuw doen).
 
 ```bash
 cd ~/qr-app/website
-cp .env.example .env
-nano .env            # DATABASE_URI, PAYLOAD_SECRET (openssl rand -hex 32), ADMIN_EMAIL, ADMIN_PASSWORD
 npm ci
-npm run build
+npm run build        # maakt zelf .env aan met een geheime sleutel
+nano .env            # ADMIN_EMAIL en ADMIN_PASSWORD invullen (jouw inlog voor /admin)
 bash scripts/start.sh
 ```
 

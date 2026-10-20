@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev -p 3200",
-    "build": "next build",
-    "start": "next start -p ${PORT:-3200}",
+    "build": "node scripts/env.mjs && next build",
+    "start": "node scripts/env.mjs && next start -p ${PORT:-3200}",
     "payload": "payload",
     "generate:importmap": "payload generate:importmap"
   },
