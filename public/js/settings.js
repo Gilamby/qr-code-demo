@@ -99,10 +99,13 @@
   });
   // Link uit de mail: ?go=plan opent na het inloggen meteen Abonnement
   var goPlan = /[?&]go=plan\b/.test(location.search);
+  // Pakket gekozen op de website (zie session.js): na het inloggen meteen naar Abonnement (max. 1 dag bewaard)
+  function wanted() { try { var w = JSON.parse(localStorage.getItem('optimasys-want') || 'null'); localStorage.removeItem('optimasys-want'); if (w && Date.now() - w.at < 864e5) { window.wantedPlan = w; return true; } } catch (e) {} return false; }
   var goCodes = /[?&]go=myCodes\b/.test(location.search);           // herinnering oude QR-app: meteen naar Mijn QR-codes
   if (window.Session && Session.onUser) Session.onUser(function () {
     if (goCodes) { goCodes = false; history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('myCodes'); }, 600); return; }
-    if (!goPlan) return; goPlan = false; history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); }, 600); });
+    if (wanted()) goPlan = true;
+    if (!goPlan) return; goPlan = false; if (/[?&]go=/.test(location.search)) history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); }, 600); });
   card.addEventListener('click', function (e) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); });
   if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(load, 400); });
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes' || e.detail === 'home') load(); });

@@ -13,3 +13,9 @@ build/
 server/data/secret.key
 *.key
 server/dist/
+website/node_modules/
+website/.next/
+website/.env
+website/*.db
+website/*.db-*
+website/tsconfig.tsbuildinfo

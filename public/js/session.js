@@ -144,7 +144,17 @@ var Session = (function () {
 
   // Starten
   var m = location.search.match(/[?&](reset|invite)=([^&]+)/);
+  // Vanaf de website (qr-codex.com): ?signup&plan=pro&period=year&lang=nl → taal zetten, gekozen pakket onthouden
+  // (ook na de bevestigingslink in een nieuw tabblad) en meteen het scherm "Account maken" tonen.
+  var fromSite = /[?&]signup\b/.test(location.search), qp = function (k) { var r = location.search.match(new RegExp('[?&]' + k + '=([a-z]+)')); return r ? r[1] : ''; };
+  if (fromSite) {
+    var wl = qp('lang'), wp = qp('plan'), wper = qp('period');
+    if (wl && window.LANGUAGES && LANGUAGES.some(function (l) { return l.code === wl; })) i18n.set(wl);
+    if (/^(standard|pro|business)$/.test(wp)) { try { localStorage.setItem('optimasys-want', JSON.stringify({ plan: wp, period: wper === 'year' ? 'year' : 'month', at: Date.now() })); } catch (e) {} }
+    history.replaceState(null, '', location.pathname);
+  }
   api.available().then(function (online) {
+    if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
