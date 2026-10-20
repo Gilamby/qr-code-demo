@@ -695,7 +695,18 @@
     "startTrial": "Sākt izmēģinājumu",
     "subscribe": "Abonēt",
     "fineTrial": "Pēc 14 dienām jūs maksājat automātiski. Atteikties var jebkurā laikā, arī izmēģinājuma laikā.",
-    "fine": "Jūs maksājat {price}. Atteikties var jebkurā laikā."
+    "fine": "Jūs maksājat {price}. Atteikties var jebkurā laikā.",
+    "rcPaid": "Maksājums veiksmīgs",
+    "rcTrial": "Izmēģinājums ir sācies",
+    "rcLead": "{plan} ir aktīvs. Varat turpināt uzreiz.",
+    "rcPlan": "Plāns",
+    "rcPeriod": "Norēķinu periods",
+    "rcToday": "Samaksāts šodien",
+    "rcNext": "Nākamais maksājums",
+    "rcPaused": "Apturēti",
+    "rcPausedVal": "{n} QR kodi",
+    "rcManage": "Mainiet vai atceliet jebkurā laikā sadaļā {where}.",
+    "rcDemo": "Demo: nekas netika iekasēts."
   },
   "dz": {
     "lbl": {

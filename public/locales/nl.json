@@ -695,7 +695,18 @@
     "startTrial": "Proefperiode starten",
     "subscribe": "Abonneren",
     "fineTrial": "Na 14 dagen betaal je automatisch. Opzeggen kan altijd, ook tijdens de proefperiode.",
-    "fine": "Je betaalt {price}. Opzeggen kan altijd."
+    "fine": "Je betaalt {price}. Opzeggen kan altijd.",
+    "rcPaid": "Betaling gelukt",
+    "rcTrial": "Je proefperiode is gestart",
+    "rcLead": "{plan} staat aan. Je kunt meteen verder.",
+    "rcPlan": "Pakket",
+    "rcPeriod": "Betaalperiode",
+    "rcToday": "Vandaag betaald",
+    "rcNext": "Volgende betaling",
+    "rcPaused": "Gepauzeerd",
+    "rcPausedVal": "{n} QR-codes",
+    "rcManage": "Wijzigen of opzeggen kan altijd via {where}.",
+    "rcDemo": "Demo: er is niets afgeschreven."
   },
   "dz": {
     "lbl": {

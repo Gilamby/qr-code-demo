@@ -695,7 +695,18 @@
     "startTrial": "Comença la prova",
     "subscribe": "Subscriu-te",
     "fineTrial": "Després de 14 dies pagues automàticament. Cancel·la quan vulguis, també durant la prova.",
-    "fine": "Pagues {price}. Cancel·la quan vulguis."
+    "fine": "Pagues {price}. Cancel·la quan vulguis.",
+    "rcPaid": "Pagament fet",
+    "rcTrial": "La teva prova ha començat",
+    "rcLead": "{plan} està actiu. Pots continuar ara mateix.",
+    "rcPlan": "Pla",
+    "rcPeriod": "Període de facturació",
+    "rcToday": "Pagat avui",
+    "rcNext": "Proper pagament",
+    "rcPaused": "En pausa",
+    "rcPausedVal": "{n} codis QR",
+    "rcManage": "Canvia o cancel·la quan vulguis a {where}.",
+    "rcDemo": "Demo: no s'ha cobrat res."
   },
   "dz": {
     "lbl": {

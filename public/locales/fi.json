@@ -695,7 +695,18 @@
     "startTrial": "Aloita kokeilu",
     "subscribe": "Tilaa",
     "fineTrial": "14 päivän jälkeen maksat automaattisesti. Voit perua milloin vain, myös kokeilun aikana.",
-    "fine": "Maksat {price}. Voit perua milloin vain."
+    "fine": "Maksat {price}. Voit perua milloin vain.",
+    "rcPaid": "Maksu onnistui",
+    "rcTrial": "Kokeilujaksosi alkoi",
+    "rcLead": "{plan} on käytössä. Voit jatkaa heti.",
+    "rcPlan": "Paketti",
+    "rcPeriod": "Laskutusjakso",
+    "rcToday": "Maksettu tänään",
+    "rcNext": "Seuraava maksu",
+    "rcPaused": "Keskeytetty",
+    "rcPausedVal": "{n} QR-koodia",
+    "rcManage": "Muuta tai peru milloin vain kohdassa {where}.",
+    "rcDemo": "Demo: mitään ei veloitettu."
   },
   "dz": {
     "lbl": {

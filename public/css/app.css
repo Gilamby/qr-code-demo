@@ -4562,3 +4562,16 @@ body.paywall-open { overflow: hidden; }
 .pw-co-back { align-self: center; }
 .pw-spin.sm { width: 16px; height: 16px; border-width: 2px; }
 @media (max-width: 760px) { .pw-co { grid-template-columns: 1fr; } .pw-co-sum { border-right: 0; border-bottom: 1px solid #e6e9ef; } .pw-co-sum, .pw-co-form { padding: 22px; } }
+
+/* Bevestiging na betalen: zelfde witte kaart als de betaalpagina, als een bon */
+.pw-rc { width: 100%; max-width: 520px; margin-top: 8px; padding: 32px; border-radius: 20px; background: #ffffff; color: #1a1f36; text-align: left; box-shadow: 0 30px 80px -30px #000000; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box; }
+.pw-rc-head { display: flex; gap: 14px; align-items: flex-start; }
+.pw-rc-ok { width: 36px; height: 36px; border-radius: 50%; background: #e7f6ec; color: #15803d; display: grid; place-items: center; flex: none; }
+.pw-rc-ok svg { width: 20px; height: 20px; }
+.pw-rc-head h1 { font-size: 22px; letter-spacing: -.01em; margin: 4px 0 4px; color: #1a1f36; }
+.pw-rc-head p { margin: 0; color: #6b7385; font-size: 14.5px; line-height: 1.45; }
+.pw-rc-rows { border-top: 1px solid #e6e9ef; }
+.pw-rc-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid #e6e9ef; font-size: 14.5px; }
+.pw-rc-row span { color: #6b7385; }
+.pw-rc-row b { font-weight: 600; color: #1a1f36; text-align: right; overflow-wrap: anywhere; }
+@media (max-width: 560px) { .pw-rc { padding: 22px; } }

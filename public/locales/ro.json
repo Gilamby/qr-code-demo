@@ -695,7 +695,18 @@
     "startTrial": "Începeți perioada de probă",
     "subscribe": "Abonare",
     "fineTrial": "După 14 zile plătiți automat. Puteți anula oricând, și în perioada de probă.",
-    "fine": "Plătiți {price}. Puteți anula oricând."
+    "fine": "Plătiți {price}. Puteți anula oricând.",
+    "rcPaid": "Plată reușită",
+    "rcTrial": "Perioada de probă a început",
+    "rcLead": "{plan} este activ. Puteți continua imediat.",
+    "rcPlan": "Abonament",
+    "rcPeriod": "Perioadă de facturare",
+    "rcToday": "Plătit azi",
+    "rcNext": "Următoarea plată",
+    "rcPaused": "Pe pauză",
+    "rcPausedVal": "{n} coduri QR",
+    "rcManage": "Schimbați sau anulați oricând în {where}.",
+    "rcDemo": "Demo: nu s-a încasat nimic."
   },
   "dz": {
     "lbl": {

@@ -695,7 +695,18 @@
     "startTrial": "Testphase starten",
     "subscribe": "Abonnieren",
     "fineTrial": "Nach 14 Tagen zahlen Sie automatisch. Jederzeit kündbar, auch in der Testphase.",
-    "fine": "Sie zahlen {price}. Jederzeit kündbar."
+    "fine": "Sie zahlen {price}. Jederzeit kündbar.",
+    "rcPaid": "Zahlung erfolgreich",
+    "rcTrial": "Ihre Testphase hat begonnen",
+    "rcLead": "{plan} ist aktiv. Sie können sofort weitermachen.",
+    "rcPlan": "Paket",
+    "rcPeriod": "Abrechnungszeitraum",
+    "rcToday": "Heute bezahlt",
+    "rcNext": "Nächste Zahlung",
+    "rcPaused": "Pausiert",
+    "rcPausedVal": "{n} QR-Codes",
+    "rcManage": "Ändern oder kündigen jederzeit unter {where}.",
+    "rcDemo": "Demo: Es wurde nichts abgebucht."
   },
   "dz": {
     "lbl": {

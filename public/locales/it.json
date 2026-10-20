@@ -695,7 +695,18 @@
     "startTrial": "Inizia la prova",
     "subscribe": "Abbonati",
     "fineTrial": "Dopo 14 giorni paghi automaticamente. Puoi disdire quando vuoi, anche durante la prova.",
-    "fine": "Paghi {price}. Puoi disdire quando vuoi."
+    "fine": "Paghi {price}. Puoi disdire quando vuoi.",
+    "rcPaid": "Pagamento riuscito",
+    "rcTrial": "La tua prova è iniziata",
+    "rcLead": "{plan} è attivo. Puoi continuare subito.",
+    "rcPlan": "Piano",
+    "rcPeriod": "Periodo di fatturazione",
+    "rcToday": "Pagato oggi",
+    "rcNext": "Prossimo pagamento",
+    "rcPaused": "In pausa",
+    "rcPausedVal": "{n} codici QR",
+    "rcManage": "Modifica o disdici quando vuoi in {where}.",
+    "rcDemo": "Demo: non è stato addebitato nulla."
   },
   "dz": {
     "lbl": {

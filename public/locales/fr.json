@@ -695,7 +695,18 @@
     "startTrial": "Démarrer l'essai",
     "subscribe": "S'abonner",
     "fineTrial": "Après 14 jours, vous payez automatiquement. Résiliable à tout moment, même pendant l'essai.",
-    "fine": "Vous payez {price}. Résiliable à tout moment."
+    "fine": "Vous payez {price}. Résiliable à tout moment.",
+    "rcPaid": "Paiement réussi",
+    "rcTrial": "Votre essai a commencé",
+    "rcLead": "{plan} est actif. Vous pouvez continuer tout de suite.",
+    "rcPlan": "Offre",
+    "rcPeriod": "Période de facturation",
+    "rcToday": "Payé aujourd'hui",
+    "rcNext": "Prochain paiement",
+    "rcPaused": "En pause",
+    "rcPausedVal": "{n} QR codes",
+    "rcManage": "Modifiez ou résiliez à tout moment dans {where}.",
+    "rcDemo": "Démo : rien n'a été débité."
   },
   "dz": {
     "lbl": {

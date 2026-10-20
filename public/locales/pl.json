@@ -695,7 +695,18 @@
     "startTrial": "Rozpocznij okres próbny",
     "subscribe": "Subskrybuj",
     "fineTrial": "Po 14 dniach płacisz automatycznie. Możesz zrezygnować w każdej chwili, także w okresie próbnym.",
-    "fine": "Płacisz {price}. Możesz zrezygnować w każdej chwili."
+    "fine": "Płacisz {price}. Możesz zrezygnować w każdej chwili.",
+    "rcPaid": "Płatność zakończona",
+    "rcTrial": "Okres próbny się rozpoczął",
+    "rcLead": "{plan} jest aktywny. Możesz od razu kontynuować.",
+    "rcPlan": "Pakiet",
+    "rcPeriod": "Okres rozliczeniowy",
+    "rcToday": "Zapłacono dziś",
+    "rcNext": "Następna płatność",
+    "rcPaused": "Wstrzymane",
+    "rcPausedVal": "{n} kodów QR",
+    "rcManage": "Zmień lub zrezygnuj w każdej chwili w {where}.",
+    "rcDemo": "Demo: nic nie zostało pobrane."
   },
   "dz": {
     "lbl": {

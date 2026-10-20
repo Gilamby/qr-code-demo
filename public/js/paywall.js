@@ -128,15 +128,33 @@ var Plans = (function () {
         '<button type="button" class="link-btn pw-co-back" data-pw-back>' + esc(t('pw.back')) + '</button>' +
       '</form></div></div>';
   }
+  // Bevestiging: rustig en zakelijk, zoals na betalen op een echte website (geen animatie)
+  var pausedN = 0;
   function drawDone() {
-    var sub = result && result.sub, until = sub && sub.periodEnd ? i18n.fmt.stamp(sub.periodEnd, 'long') : '';
-    box.innerHTML = '<div class="pw-inner">' + top() + '<div class="pw-done"><span class="pw-check" aria-hidden="true">✓</span>' +
-      '<h1 id="pwTitle">' + esc(t(mode === 'change' ? 'pw.changed' : 'pw.done')) + '</h1>' +
-      '<p class="pw-lead">' + esc(t('plan.n_' + chosen)) + ' · ' + esc(PlanPeriod.label(period)) + '<br>' + esc(t(mode === 'change' ? 'sub.paidUntil' : 'pw.trialUntil', { date: until })) + (demo() ? '<br>' + esc(t('pw.method') + ': ' + mName(method) + ' (demo)') : '') + '</p>' +
-      '<button type="button" class="btn primary pw-go" data-pw-enter>' + esc(t('pw.enter')) + '</button></div></div>';
+    var sub = result && result.sub, x = plans().filter(function (p) { return p.id === chosen; })[0] || {}, trial = mode === 'must', u = Session.user() || {};
+    var first = PlanPeriod.price(x, period), next = !trial && period === 'year' && x.priceYearAfter ? x.priceYearAfter : first;
+    var date = sub && sub.periodEnd ? i18n.fmt.stamp(sub.periodEnd, 'long') : '';
+    var row = function (k, v) { return '<div class="pw-rc-row"><span>' + esc(k) + '</span><b>' + esc(v) + '</b></div>'; };
+    box.innerHTML = '<div class="pw-inner">' + top() +
+      '<div class="pw-rc">' +
+        '<div class="pw-rc-head"><span class="pw-rc-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
+          '<div><h1 id="pwTitle">' + esc(t(trial ? 'pw.rcTrial' : 'pw.rcPaid')) + '</h1><p>' + esc(t('pw.rcLead', { plan: t('plan.n_' + chosen) })) + '</p></div></div>' +
+        '<div class="pw-rc-rows">' +
+          row(t('pw.rcPlan'), 'QR-Codex ' + t('plan.n_' + chosen)) +
+          row(t('pw.rcPeriod'), PlanPeriod.label(period)) +
+          row(t('pw.rcToday'), euro(trial ? 0 : first)) +
+          (date ? row(t('pw.rcNext'), euro(next) + ' · ' + date) : '') +
+          (demo() ? row(t('pw.method'), mName(method)) : '') +
+          (u.email ? row(t('pw.email'), u.email) : '') +
+          (pausedN ? row(t('pw.rcPaused'), t('pw.rcPausedVal', { n: pausedN })) : '') +
+        '</div>' +
+        '<button type="button" class="pw-co-go" data-pw-enter>' + esc(t('pw.enter')) + '</button>' +
+        '<p class="pw-co-fine">' + esc(t('pw.rcManage', { where: t('nav.account') + ' → ' + t('acct.planNav') })) + '</p>' +
+        (demo() ? '<p class="pw-co-safe">' + esc(t('pw.rcDemo')) + '</p>' : '') +
+      '</div></div>';
   }
   function pay() {
-    if (busy) return; busy = true; drawPay();
+    if (busy) return; busy = true; pausedN = needKeep() ? activeDyn().length - keep.length : 0; drawPay();
     api.account.checkoutDemo({ plan: chosen, period: period, keep: needKeep() ? keep : undefined }).then(function (r) { busy = false; result = r; step = 'done'; draw(); })
       .catch(function () { busy = false; step = 'choose'; draw(); });
   }

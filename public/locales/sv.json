@@ -695,7 +695,18 @@
     "startTrial": "Starta provperiod",
     "subscribe": "Prenumerera",
     "fineTrial": "Efter 14 dagar betalar du automatiskt. Kan alltid sägas upp, även under provperioden.",
-    "fine": "Du betalar {price}. Kan alltid sägas upp."
+    "fine": "Du betalar {price}. Kan alltid sägas upp.",
+    "rcPaid": "Betalningen lyckades",
+    "rcTrial": "Din provperiod har startat",
+    "rcLead": "{plan} är aktivt. Du kan fortsätta direkt.",
+    "rcPlan": "Paket",
+    "rcPeriod": "Betalningsperiod",
+    "rcToday": "Betalt i dag",
+    "rcNext": "Nästa betalning",
+    "rcPaused": "Pausade",
+    "rcPausedVal": "{n} QR-koder",
+    "rcManage": "Ändra eller säg upp när som helst under {where}.",
+    "rcDemo": "Demo: inget har dragits."
   },
   "dz": {
     "lbl": {

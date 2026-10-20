@@ -695,7 +695,18 @@
     "startTrial": "Start prøveperiode",
     "subscribe": "Abonner",
     "fineTrial": "Efter 14 dage betaler du automatisk. Kan altid opsiges, også i prøveperioden.",
-    "fine": "Du betaler {price}. Kan altid opsiges."
+    "fine": "Du betaler {price}. Kan altid opsiges.",
+    "rcPaid": "Betaling gennemført",
+    "rcTrial": "Din prøveperiode er startet",
+    "rcLead": "{plan} er aktiv. Du kan fortsætte med det samme.",
+    "rcPlan": "Pakke",
+    "rcPeriod": "Betalingsperiode",
+    "rcToday": "Betalt i dag",
+    "rcNext": "Næste betaling",
+    "rcPaused": "På pause",
+    "rcPausedVal": "{n} QR-koder",
+    "rcManage": "Skift eller opsig når som helst under {where}.",
+    "rcDemo": "Demo: der er ikke trukket noget."
   },
   "dz": {
     "lbl": {

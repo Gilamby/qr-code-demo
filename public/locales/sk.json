@@ -695,7 +695,18 @@
     "startTrial": "Spustiť skúšobné obdobie",
     "subscribe": "Predplatiť",
     "fineTrial": "Po 14 dňoch platíte automaticky. Zrušiť môžete kedykoľvek, aj počas skúšobného obdobia.",
-    "fine": "Platíte {price}. Zrušiť môžete kedykoľvek."
+    "fine": "Platíte {price}. Zrušiť môžete kedykoľvek.",
+    "rcPaid": "Platba úspešná",
+    "rcTrial": "Skúšobné obdobie sa začalo",
+    "rcLead": "{plan} je aktívny. Môžete hneď pokračovať.",
+    "rcPlan": "Balík",
+    "rcPeriod": "Fakturačné obdobie",
+    "rcToday": "Zaplatené dnes",
+    "rcNext": "Ďalšia platba",
+    "rcPaused": "Pozastavené",
+    "rcPausedVal": "{n} QR kódov",
+    "rcManage": "Zmeniť alebo zrušiť môžete kedykoľvek v {where}.",
+    "rcDemo": "Demo: nič sa nestrhlo."
   },
   "dz": {
     "lbl": {

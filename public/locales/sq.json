@@ -695,7 +695,18 @@
     "startTrial": "Fillo provën",
     "subscribe": "Abonohu",
     "fineTrial": "Pas 14 ditësh paguani automatikisht. Mund ta anuloni kurdo, edhe gjatë provës.",
-    "fine": "Paguani {price}. Mund ta anuloni kurdo."
+    "fine": "Paguani {price}. Mund ta anuloni kurdo.",
+    "rcPaid": "Pagesa u krye",
+    "rcTrial": "Prova juaj filloi",
+    "rcLead": "{plan} është aktiv. Mund të vazhdoni menjëherë.",
+    "rcPlan": "Plani",
+    "rcPeriod": "Periudha e faturimit",
+    "rcToday": "Paguar sot",
+    "rcNext": "Pagesa e ardhshme",
+    "rcPaused": "Në pauzë",
+    "rcPausedVal": "{n} kode QR",
+    "rcManage": "Ndryshoni ose anuloni kurdo te {where}.",
+    "rcDemo": "Demo: nuk u tërhoq asgjë."
   },
   "dz": {
     "lbl": {

@@ -695,7 +695,18 @@
     "startTrial": "Start trial",
     "subscribe": "Subscribe",
     "fineTrial": "After 14 days you pay automatically. Cancel any time, also during the trial.",
-    "fine": "You pay {price}. Cancel any time."
+    "fine": "You pay {price}. Cancel any time.",
+    "rcPaid": "Payment successful",
+    "rcTrial": "Your trial has started",
+    "rcLead": "{plan} is active. You can carry on right away.",
+    "rcPlan": "Plan",
+    "rcPeriod": "Billing period",
+    "rcToday": "Paid today",
+    "rcNext": "Next payment",
+    "rcPaused": "Paused",
+    "rcPausedVal": "{n} QR codes",
+    "rcManage": "Change or cancel any time in {where}.",
+    "rcDemo": "Demo: nothing was charged."
   },
   "dz": {
     "lbl": {

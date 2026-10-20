@@ -695,7 +695,18 @@
     "startTrial": "Empezar prueba",
     "subscribe": "Suscribirse",
     "fineTrial": "Tras 14 días pagas automáticamente. Cancela cuando quieras, también durante la prueba.",
-    "fine": "Pagas {price}. Cancela cuando quieras."
+    "fine": "Pagas {price}. Cancela cuando quieras.",
+    "rcPaid": "Pago realizado",
+    "rcTrial": "Tu prueba ha empezado",
+    "rcLead": "{plan} está activo. Puedes seguir ahora mismo.",
+    "rcPlan": "Plan",
+    "rcPeriod": "Periodo de facturación",
+    "rcToday": "Pagado hoy",
+    "rcNext": "Próximo pago",
+    "rcPaused": "Pausados",
+    "rcPausedVal": "{n} códigos QR",
+    "rcManage": "Cambia o cancela cuando quieras en {where}.",
+    "rcDemo": "Demo: no se ha cobrado nada."
   },
   "dz": {
     "lbl": {
