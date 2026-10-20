@@ -1118,8 +1118,11 @@
     "errDisposable": "Bruk din egen e-postadresse. Midlertidige postkasser kan ikke brukes.",
     "errAlias": "Det finnes allerede en konto med denne e-postadressen (skrevet annerledes). Logg inn med den.",
     "google": "Fortsett med Google",
+    "microsoft": "Fortsett med Microsoft",
     "or": "eller",
     "gErr": "Innlogging med Google mislyktes. Prøv igjen, eller logg inn med e-postadressen din.",
+    "mErr": "Innlogging med Microsoft mislyktes. Prøv igjen, eller logg inn med e-postadressen din.",
+    "mUnverified": "Vi kan ikke bekrefte e-postadressen til denne jobbkontoen. Logg inn med e-post og passord.",
     "g2fa": "Totrinnsbekreftelse er på for denne kontoen: logg inn med passord og kode."
   },
   "acct": {

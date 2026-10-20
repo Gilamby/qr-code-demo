@@ -1118,8 +1118,11 @@
     "errDisposable": "Gebruik je eigen e-mailadres. Tijdelijke mailboxen kunnen we niet gebruiken.",
     "errAlias": "Er is al een account met dit e-mailadres (in een andere schrijfwijze). Log daarmee in.",
     "google": "Doorgaan met Google",
+    "microsoft": "Doorgaan met Microsoft",
     "or": "of",
     "gErr": "Inloggen met Google lukte niet. Probeer het opnieuw of log in met je e-mailadres.",
+    "mErr": "Inloggen met Microsoft lukte niet. Probeer het opnieuw of log in met je e-mailadres.",
+    "mUnverified": "We kunnen het e-mailadres van dit werkaccount niet controleren. Log in met je e-mailadres en wachtwoord.",
     "g2fa": "Tweestapsverificatie staat aan voor dit account: log in met je wachtwoord en code."
   },
   "acct": {

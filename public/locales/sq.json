@@ -1224,8 +1224,11 @@
     "errDisposable": "Përdor adresën tënde të email-it. Kutitë e përkohshme nuk pranohen.",
     "errAlias": "Ekziston tashmë një llogari me këtë email (shkruar ndryshe). Hyr me atë.",
     "google": "Vazhdo me Google",
+    "microsoft": "Vazhdo me Microsoft",
     "or": "ose",
     "gErr": "Hyrja me Google nuk funksionoi. Provo përsëri ose hyr me adresën e email-it.",
+    "mErr": "Hyrja me Microsoft nuk funksionoi. Provo përsëri ose hyr me adresën e email-it.",
+    "mUnverified": "Nuk mund ta verifikojmë email-in e kësaj llogarie pune. Hyni me email dhe fjalëkalim.",
     "g2fa": "Kjo llogari ka të aktivizuar verifikimin me dy hapa: hyr me fjalëkalimin dhe kodin."
   },
   "acct": {

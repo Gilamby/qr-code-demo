@@ -1118,8 +1118,11 @@
     "errDisposable": "Fes servir el teu propi correu. No s'admeten bústies temporals.",
     "errAlias": "Ja hi ha un compte amb aquest correu (escrit d'una altra manera). Inicia la sessió amb aquell.",
     "google": "Continua amb Google",
+    "microsoft": "Continua amb Microsoft",
     "or": "o",
     "gErr": "No s’ha pogut iniciar la sessió amb Google. Torna-ho a provar o entra amb el teu correu.",
+    "mErr": "No s’ha pogut iniciar la sessió amb Microsoft. Torna-ho a provar o entra amb el teu correu.",
+    "mUnverified": "No podem verificar el correu d’aquest compte de feina. Inicia la sessió amb el correu i la contrasenya.",
     "g2fa": "Aquest compte té la verificació en dos passos activada: entra amb la contrasenya i el codi."
   },
   "acct": {

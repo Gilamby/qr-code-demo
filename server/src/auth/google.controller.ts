@@ -21,6 +21,8 @@ export const googleOn = () => !!(process.env.GOOGLE_CLIENT_ID && process.env.GOO
 const COOKIE = 'g_state';
 // Google gelukt, maar tweestapsverificatie staat aan: kort bewaren wie dit is, tot de code is ingevuld (5 minuten, één keer)
 const pending = new Map<string, { userId: string; exp: number }>();
+/** Ook gebruikt door inloggen met Microsoft: na de externe login nog de code uit de authenticator-app vragen */
+export function startSecondStep(userId: string) { const t = crypto.randomBytes(24).toString('base64url'); pending.set(t, { userId, exp: Date.now() + 5 * 60e3 }); return t; }
 
 @Controller('api/auth/google')
 export class GoogleController {
@@ -66,8 +68,7 @@ export class GoogleController {
       const totp = await readTotp(this.db, row.id);
       if (!(await this.db.isVerified(row.id))) await this.db.markVerified(row.id);   // Google heeft het adres bevestigd
       if (totp && totp.on) {
-        const t = crypto.randomBytes(24).toString('base64url'); pending.set(t, { userId: row.id, exp: Date.now() + 5 * 60e3 })
-        return res.redirect('/?g2fa=' + t);                                            // de app vraagt nu om de code
+        return res.redirect('/?g2fa=' + startSecondStep(row.id));                                            // de app vraagt nu om de code
       }
       await this.enter(req, res, row.id)
       res.redirect('/');

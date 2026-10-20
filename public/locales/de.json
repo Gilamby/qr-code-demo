@@ -1118,8 +1118,11 @@
     "errDisposable": "Bitte nutze deine eigene E-Mail-Adresse. Wegwerf-Postfächer sind nicht möglich.",
     "errAlias": "Es gibt schon ein Konto mit dieser E-Mail-Adresse (anders geschrieben). Melde dich damit an.",
     "google": "Weiter mit Google",
+    "microsoft": "Weiter mit Microsoft",
     "or": "oder",
     "gErr": "Die Anmeldung mit Google hat nicht funktioniert. Versuche es erneut oder melde dich mit deiner E-Mail-Adresse an.",
+    "mErr": "Die Anmeldung mit Microsoft hat nicht funktioniert. Versuche es erneut oder melde dich mit deiner E-Mail-Adresse an.",
+    "mUnverified": "Wir können die E-Mail-Adresse dieses Arbeitskontos nicht bestätigen. Melde dich mit E-Mail und Passwort an.",
     "g2fa": "Für dieses Konto ist die Zwei-Schritt-Verifizierung aktiv: Melde dich mit Passwort und Code an."
   },
   "acct": {

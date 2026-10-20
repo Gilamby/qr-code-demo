@@ -1118,8 +1118,11 @@
     "errDisposable": "Please use your own email address. Temporary mailboxes can't be used.",
     "errAlias": "There's already an account with this email address (written differently). Please log in with that one.",
     "google": "Continue with Google",
+    "microsoft": "Continue with Microsoft",
     "or": "or",
     "gErr": "Signing in with Google didn't work. Try again or log in with your email address.",
+    "mErr": "Signing in with Microsoft didn't work. Try again or log in with your email address.",
+    "mUnverified": "We can’t confirm the email address of this work account. Log in with your email and password instead.",
     "g2fa": "Two-step verification is on for this account: log in with your password and code."
   },
   "acct": {

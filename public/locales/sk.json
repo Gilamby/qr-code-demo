@@ -1118,8 +1118,11 @@
     "errDisposable": "Použi vlastnú e-mailovú adresu. Dočasné schránky nie je možné použiť.",
     "errAlias": "S touto e-mailovou adresou (inak napísanou) už existuje účet. Prihlás sa ním.",
     "google": "Pokračovať cez Google",
+    "microsoft": "Pokračovať cez Microsoft",
     "or": "alebo",
     "gErr": "Prihlásenie cez Google sa nepodarilo. Skúste to znova alebo sa prihláste e-mailom.",
+    "mErr": "Prihlásenie cez Microsoft sa nepodarilo. Skúste to znova alebo sa prihláste e-mailom.",
+    "mUnverified": "E-mailovú adresu tohto pracovného účtu nevieme overiť. Prihláste sa e-mailom a heslom.",
     "g2fa": "Toto konto má zapnuté dvojstupňové overenie: prihláste sa heslom a kódom."
   },
   "acct": {

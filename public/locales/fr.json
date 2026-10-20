@@ -1118,8 +1118,11 @@
     "errDisposable": "Utilisez votre propre adresse e-mail. Les boîtes mail temporaires ne sont pas acceptées.",
     "errAlias": "Un compte existe déjà avec cette adresse e-mail (écrite autrement). Connectez-vous avec celle-ci.",
     "google": "Continuer avec Google",
+    "microsoft": "Continuer avec Microsoft",
     "or": "ou",
     "gErr": "La connexion avec Google n’a pas fonctionné. Réessayez ou connectez-vous avec votre adresse e-mail.",
+    "mErr": "La connexion avec Microsoft n’a pas fonctionné. Réessayez ou connectez-vous avec votre adresse e-mail.",
+    "mUnverified": "Nous ne pouvons pas vérifier l’adresse e-mail de ce compte professionnel. Connectez-vous avec votre e-mail et votre mot de passe.",
     "g2fa": "La validation en deux étapes est activée pour ce compte : connectez-vous avec votre mot de passe et le code."
   },
   "acct": {

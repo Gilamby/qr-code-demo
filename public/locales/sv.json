@@ -1118,8 +1118,11 @@
     "errDisposable": "Använd din egen e-postadress. Tillfälliga brevlådor kan inte användas.",
     "errAlias": "Det finns redan ett konto med den här e-postadressen (skriven på annat sätt). Logga in med det.",
     "google": "Fortsätt med Google",
+    "microsoft": "Fortsätt med Microsoft",
     "or": "eller",
     "gErr": "Inloggningen med Google misslyckades. Försök igen eller logga in med din e-postadress.",
+    "mErr": "Inloggningen med Microsoft misslyckades. Försök igen eller logga in med din e-postadress.",
+    "mUnverified": "Vi kan inte bekräfta e-postadressen för det här jobbkontot. Logga in med e-post och lösenord.",
     "g2fa": "Tvåstegsverifiering är på för det här kontot: logga in med lösenord och kod."
   },
   "acct": {

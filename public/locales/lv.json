@@ -1118,8 +1118,11 @@
     "errDisposable": "Lūdzu, izmanto savu e-pasta adresi. Pagaidu pastkastes nevar izmantot.",
     "errAlias": "Ar šo e-pasta adresi (citādi rakstītu) jau ir konts. Piesakies ar to.",
     "google": "Turpināt ar Google",
+    "microsoft": "Turpināt ar Microsoft",
     "or": "vai",
     "gErr": "Pieteikšanās ar Google neizdevās. Mēģiniet vēlreiz vai piesakieties ar e-pasta adresi.",
+    "mErr": "Pieteikšanās ar Microsoft neizdevās. Mēģiniet vēlreiz vai piesakieties ar e-pasta adresi.",
+    "mUnverified": "Mēs nevaram apstiprināt šī darba konta e-pastu. Piesakieties ar e-pastu un paroli.",
     "g2fa": "Šim kontam ir ieslēgta divpakāpju verifikācija: piesakieties ar paroli un kodu."
   },
   "acct": {

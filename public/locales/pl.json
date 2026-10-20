@@ -1118,8 +1118,11 @@
     "errDisposable": "Użyj własnego adresu e-mail. Tymczasowe skrzynki nie są akceptowane.",
     "errAlias": "Istnieje już konto z tym adresem e-mail (zapisanym inaczej). Zaloguj się na nie.",
     "google": "Kontynuuj z Google",
+    "microsoft": "Kontynuuj z Microsoft",
     "or": "lub",
     "gErr": "Logowanie przez Google nie powiodło się. Spróbuj ponownie lub zaloguj się adresem e-mail.",
+    "mErr": "Logowanie przez Microsoft nie powiodło się. Spróbuj ponownie lub zaloguj się adresem e-mail.",
+    "mUnverified": "Nie możemy potwierdzić adresu e-mail tego konta służbowego. Zaloguj się e-mailem i hasłem.",
     "g2fa": "Na tym koncie włączona jest weryfikacja dwuetapowa: zaloguj się hasłem i kodem."
   },
   "acct": {

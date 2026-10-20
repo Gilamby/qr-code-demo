@@ -1118,8 +1118,11 @@
     "errDisposable": "Folosește propria adresă de e-mail. Căsuțele temporare nu sunt acceptate.",
     "errAlias": "Există deja un cont cu această adresă (scrisă altfel). Autentifică-te cu acela.",
     "google": "Continuă cu Google",
+    "microsoft": "Continuă cu Microsoft",
     "or": "sau",
     "gErr": "Conectarea cu Google nu a reușit. Încearcă din nou sau conectează-te cu adresa de e-mail.",
+    "mErr": "Conectarea cu Microsoft nu a reușit. Încearcă din nou sau conectează-te cu adresa de e-mail.",
+    "mUnverified": "Nu putem confirma adresa de e-mail a acestui cont de serviciu. Conectează-te cu e-mailul și parola.",
     "g2fa": "Acest cont are verificarea în doi pași activă: conectează-te cu parola și codul."
   },
   "acct": {

@@ -1118,8 +1118,11 @@
     "errDisposable": "Usa o teu próprio e-mail. Não é possível usar caixas de correio temporárias.",
     "errAlias": "Já existe uma conta com este e-mail (escrito de outra forma). Inicia sessão com essa.",
     "google": "Continuar com o Google",
+    "microsoft": "Continuar com o Microsoft",
     "or": "ou",
     "gErr": "Não foi possível entrar com o Google. Tente novamente ou entre com o seu e-mail.",
+    "mErr": "Não foi possível entrar com o Microsoft. Tente novamente ou entre com o seu e-mail.",
+    "mUnverified": "Não conseguimos confirmar o e-mail desta conta profissional. Inicia sessão com o teu e-mail e palavra-passe.",
     "g2fa": "Esta conta tem a verificação em dois passos ativa: entre com a sua palavra-passe e o código."
   },
   "acct": {

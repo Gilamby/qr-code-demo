@@ -1118,8 +1118,11 @@
     "errDisposable": "Käytä omaa sähköpostiosoitettasi. Tilapäisiä postilaatikoita ei voi käyttää.",
     "errAlias": "Tällä sähköpostiosoitteella (eri tavalla kirjoitettuna) on jo tili. Kirjaudu sillä.",
     "google": "Jatka Googlella",
+    "microsoft": "Jatka Microsoft-tilillä",
     "or": "tai",
     "gErr": "Kirjautuminen Googlella ei onnistunut. Yritä uudelleen tai kirjaudu sähköpostiosoitteellasi.",
+    "mErr": "Kirjautuminen Microsoft-tilillä ei onnistunut. Yritä uudelleen tai kirjaudu sähköpostiosoitteellasi.",
+    "mUnverified": "Emme voi vahvistaa tämän työtilin sähköpostiosoitetta. Kirjaudu sähköpostilla ja salasanalla.",
     "g2fa": "Tilillä on kaksivaiheinen vahvistus: kirjaudu salasanalla ja koodilla."
   },
   "acct": {

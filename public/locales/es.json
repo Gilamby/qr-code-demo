@@ -1118,8 +1118,11 @@
     "errDisposable": "Usa tu propio correo. No se admiten buzones temporales.",
     "errAlias": "Ya existe una cuenta con este correo (escrito de otra forma). Inicia sesión con ella.",
     "google": "Continuar con Google",
+    "microsoft": "Continuar con Microsoft",
     "or": "o",
     "gErr": "No se pudo iniciar sesión con Google. Inténtalo de nuevo o entra con tu correo.",
+    "mErr": "No se pudo iniciar sesión con Microsoft. Inténtalo de nuevo o entra con tu correo.",
+    "mUnverified": "No podemos verificar el correo de esta cuenta de trabajo. Inicia sesión con tu correo y contraseña.",
     "g2fa": "Esta cuenta tiene la verificación en dos pasos activada: entra con tu contraseña y el código."
   },
   "acct": {

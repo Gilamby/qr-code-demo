@@ -639,6 +639,15 @@ test('inloggen met Google: uit zonder sleutels; tweede stap met een onbekende co
   assert.equal((await c('GET', '/api/health')).json.google, false, 'geen Google-knop zonder sleutels');
 });
 
+test('inloggen met Microsoft: uit zonder sleutels', async () => {
+  const c = client();
+  const r = await fetch(base + '/api/auth/microsoft', { redirect: 'manual' });
+  assert.equal(r.status, 302); assert.match(r.headers.get('location'), /merr=off/);
+  const cb = await fetch(base + '/api/auth/microsoft/callback?code=x&state=y', { redirect: 'manual' });
+  assert.match(cb.headers.get('location'), /merr=off/);
+  assert.equal((await c('GET', '/api/health')).json.microsoft, false, 'geen Microsoft-knop zonder sleutels');
+});
+
 test('demo-afrekenen: alleen met DEMO_CHECKOUT, alleen voor een nieuwe klant, één keer', async () => {
   const c = client(); await signup(c, 'demo-pay@example.com', 'Demo betalen zin 3!', 'Demo', { unpaid: true });
   assert.equal((await c('GET', '/api/account/plan')).json.sub.state, 'unpaid');

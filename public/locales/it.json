@@ -1118,8 +1118,11 @@
     "errDisposable": "Usa il tuo indirizzo e-mail. Le caselle temporanee non sono accettate.",
     "errAlias": "Esiste già un account con questo indirizzo (scritto in modo diverso). Accedi con quello.",
     "google": "Continua con Google",
+    "microsoft": "Continua con Microsoft",
     "or": "oppure",
     "gErr": "L’accesso con Google non è riuscito. Riprova o accedi con il tuo indirizzo e-mail.",
+    "mErr": "L’accesso con Microsoft non è riuscito. Riprova o accedi con il tuo indirizzo e-mail.",
+    "mUnverified": "Non possiamo verificare l’email di questo account di lavoro. Accedi con email e password.",
     "g2fa": "Per questo account è attiva la verifica in due passaggi: accedi con password e codice."
   },
   "acct": {
