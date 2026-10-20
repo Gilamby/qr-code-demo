@@ -681,7 +681,21 @@
     "keepPaused": "Pe pauză",
     "keepGo": "Continuă la {plan}",
     "lessWarn": "{plan} include {limit} coduri QR. Aveți {used}. Imediat alegeți care rămân active. Restul sunt puse pe pauză, nu șterse.",
-    "payPaused": "{n} coduri QR vor fi puse pe pauză. Sunt păstrate."
+    "payPaused": "{n} coduri QR vor fi puse pe pauză. Sunt păstrate.",
+    "stripeDemo": "Demo: așa veți plăti prin Stripe. Nu se încasează nimic.",
+    "coTrial": "Încercați {plan} gratuit 14 zile",
+    "coSub": "Abonare la {plan}",
+    "email": "E-mail",
+    "method": "Metodă de plată",
+    "mCard": "Card",
+    "paypalNote": "Vă conectați la PayPal și confirmați acolo. Apoi totul merge automat.",
+    "idealBank": "Alegeți banca",
+    "idealNote": "Confirmați în aplicația băncii. Apoi plata se face automat.",
+    "bancontactNote": "Confirmați cu aplicația Bancontact. Apoi plata se face automat.",
+    "startTrial": "Începeți perioada de probă",
+    "subscribe": "Abonare",
+    "fineTrial": "După 14 zile plătiți automat. Puteți anula oricând, și în perioada de probă.",
+    "fine": "Plătiți {price}. Puteți anula oricând."
   },
   "dz": {
     "lbl": {

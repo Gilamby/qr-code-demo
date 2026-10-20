@@ -681,7 +681,21 @@
     "keepPaused": "En pause",
     "keepGo": "Continuer vers {plan}",
     "lessWarn": "{plan} comprend {limit} QR codes. Vous en avez {used}. Vous choisirez ensuite ceux qui restent actifs. Les autres sont mis en pause, pas supprimés.",
-    "payPaused": "{n} QR codes seront mis en pause. Ils sont conservés."
+    "payPaused": "{n} QR codes seront mis en pause. Ils sont conservés.",
+    "stripeDemo": "Démo : voici comment le paiement via Stripe fonctionnera. Rien n'est débité.",
+    "coTrial": "Essayer {plan} gratuitement pendant 14 jours",
+    "coSub": "S'abonner à {plan}",
+    "email": "E-mail",
+    "method": "Moyen de paiement",
+    "mCard": "Carte",
+    "paypalNote": "Vous vous connectez à PayPal et confirmez là-bas. Ensuite, c'est automatique.",
+    "idealBank": "Choisissez votre banque",
+    "idealNote": "Vous confirmez dans l'app de votre banque. Ensuite, le prélèvement est automatique.",
+    "bancontactNote": "Vous confirmez avec l'app Bancontact. Ensuite, le prélèvement est automatique.",
+    "startTrial": "Démarrer l'essai",
+    "subscribe": "S'abonner",
+    "fineTrial": "Après 14 jours, vous payez automatiquement. Résiliable à tout moment, même pendant l'essai.",
+    "fine": "Vous payez {price}. Résiliable à tout moment."
   },
   "dz": {
     "lbl": {

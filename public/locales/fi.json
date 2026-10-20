@@ -681,7 +681,21 @@
     "keepPaused": "Keskeytetty",
     "keepGo": "Jatka: {plan}",
     "lessWarn": "{plan} sisältää {limit} QR-koodia. Sinulla on {used}. Valitset seuraavaksi, mitkä pysyvät päällä. Loput keskeytetään, ei poisteta.",
-    "payPaused": "{n} QR-koodia keskeytetään. Ne säilytetään."
+    "payPaused": "{n} QR-koodia keskeytetään. Ne säilytetään.",
+    "stripeDemo": "Demo: näin maksat Stripen kautta. Mitään ei veloiteta.",
+    "coTrial": "Kokeile {plan}-pakettia ilmaiseksi 14 päivää",
+    "coSub": "Tilaa {plan}",
+    "email": "Sähköposti",
+    "method": "Maksutapa",
+    "mCard": "Kortti",
+    "paypalNote": "Kirjaudut PayPaliin ja vahvistat siellä. Sen jälkeen kaikki käy automaattisesti.",
+    "idealBank": "Valitse pankkisi",
+    "idealNote": "Vahvistat pankkisovelluksessa. Sen jälkeen veloitus on automaattinen.",
+    "bancontactNote": "Vahvistat Bancontact-sovelluksella. Sen jälkeen veloitus on automaattinen.",
+    "startTrial": "Aloita kokeilu",
+    "subscribe": "Tilaa",
+    "fineTrial": "14 päivän jälkeen maksat automaattisesti. Voit perua milloin vain, myös kokeilun aikana.",
+    "fine": "Maksat {price}. Voit perua milloin vain."
   },
   "dz": {
     "lbl": {

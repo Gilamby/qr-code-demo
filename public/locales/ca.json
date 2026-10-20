@@ -681,7 +681,21 @@
     "keepPaused": "En pausa",
     "keepGo": "Continua a {plan}",
     "lessWarn": "{plan} inclou {limit} codis QR. En tens {used}. Ara tries quins continuen actius. La resta es posa en pausa, no s'esborra.",
-    "payPaused": "{n} codis QR es posaran en pausa. Es conserven."
+    "payPaused": "{n} codis QR es posaran en pausa. Es conserven.",
+    "stripeDemo": "Demo: així pagaràs amb Stripe. No es cobra res.",
+    "coTrial": "Prova {plan} gratis 14 dies",
+    "coSub": "Subscriu-te a {plan}",
+    "email": "Correu electrònic",
+    "method": "Mètode de pagament",
+    "mCard": "Targeta",
+    "paypalNote": "Inicies sessió a PayPal i hi confirmes. Després és automàtic.",
+    "idealBank": "Tria el teu banc",
+    "idealNote": "Confirmes a l'app del teu banc. Després es cobra automàticament.",
+    "bancontactNote": "Confirmes amb l'app de Bancontact. Després es cobra automàticament.",
+    "startTrial": "Comença la prova",
+    "subscribe": "Subscriu-te",
+    "fineTrial": "Després de 14 dies pagues automàticament. Cancel·la quan vulguis, també durant la prova.",
+    "fine": "Pagues {price}. Cancel·la quan vulguis."
   },
   "dz": {
     "lbl": {

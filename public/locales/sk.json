@@ -681,7 +681,21 @@
     "keepPaused": "Pozastavený",
     "keepGo": "Pokračovať na {plan}",
     "lessWarn": "{plan} obsahuje {limit} QR kódov. Máte {used}. Hneď vyberiete, ktoré zostanú zapnuté. Ostatné sa pozastavia, nevymažú.",
-    "payPaused": "{n} QR kódov sa pozastaví. Zostanú uložené."
+    "payPaused": "{n} QR kódov sa pozastaví. Zostanú uložené.",
+    "stripeDemo": "Demo: takto budete platiť cez Stripe. Nič sa nestrhne.",
+    "coTrial": "Vyskúšajte {plan} 14 dní zadarmo",
+    "coSub": "Predplatiť {plan}",
+    "email": "E-mail",
+    "method": "Spôsob platby",
+    "mCard": "Karta",
+    "paypalNote": "Prihlásite sa do PayPal a tam potvrdíte. Potom to ide automaticky.",
+    "idealBank": "Vyberte banku",
+    "idealNote": "Potvrdíte v aplikácii banky. Potom sa platba strháva automaticky.",
+    "bancontactNote": "Potvrdíte v aplikácii Bancontact. Potom sa platba strháva automaticky.",
+    "startTrial": "Spustiť skúšobné obdobie",
+    "subscribe": "Predplatiť",
+    "fineTrial": "Po 14 dňoch platíte automaticky. Zrušiť môžete kedykoľvek, aj počas skúšobného obdobia.",
+    "fine": "Platíte {price}. Zrušiť môžete kedykoľvek."
   },
   "dz": {
     "lbl": {

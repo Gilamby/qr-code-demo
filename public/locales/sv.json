@@ -681,7 +681,21 @@
     "keepPaused": "Pausad",
     "keepGo": "Fortsätt till {plan}",
     "lessWarn": "{plan} har {limit} QR-koder. Du har {used}. Du väljer nu vilka som förblir aktiva. Resten pausas, raderas inte.",
-    "payPaused": "{n} QR-koder pausas. De sparas."
+    "payPaused": "{n} QR-koder pausas. De sparas.",
+    "stripeDemo": "Demo: så betalar du via Stripe. Inget dras.",
+    "coTrial": "Prova {plan} gratis i 14 dagar",
+    "coSub": "Prenumerera på {plan}",
+    "email": "E-post",
+    "method": "Betalningsmetod",
+    "mCard": "Kort",
+    "paypalNote": "Du loggar in hos PayPal och bekräftar där. Sedan går det automatiskt.",
+    "idealBank": "Välj din bank",
+    "idealNote": "Du bekräftar i bankappen. Sedan dras beloppet automatiskt.",
+    "bancontactNote": "Du bekräftar med Bancontact-appen. Sedan dras beloppet automatiskt.",
+    "startTrial": "Starta provperiod",
+    "subscribe": "Prenumerera",
+    "fineTrial": "Efter 14 dagar betalar du automatiskt. Kan alltid sägas upp, även under provperioden.",
+    "fine": "Du betalar {price}. Kan alltid sägas upp."
   },
   "dz": {
     "lbl": {

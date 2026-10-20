@@ -681,7 +681,21 @@
     "keepPaused": "Apturēts",
     "keepGo": "Turpināt uz {plan}",
     "lessWarn": "{plan} ietver {limit} QR kodus. Jums ir {used}. Tūlīt izvēlēsieties, kuri paliek ieslēgti. Pārējie tiek apturēti, nevis dzēsti.",
-    "payPaused": "{n} QR kodi tiks apturēti. Tie tiek saglabāti."
+    "payPaused": "{n} QR kodi tiks apturēti. Tie tiek saglabāti.",
+    "stripeDemo": "Demo: tā jūs maksāsiet caur Stripe. Nekas netiek iekasēts.",
+    "coTrial": "Izmēģiniet {plan} 14 dienas bez maksas",
+    "coSub": "Abonēt {plan}",
+    "email": "E-pasts",
+    "method": "Maksājuma veids",
+    "mCard": "Karte",
+    "paypalNote": "Jūs piesakāties PayPal un apstiprināt tur. Pēc tam viss notiek automātiski.",
+    "idealBank": "Izvēlieties banku",
+    "idealNote": "Jūs apstiprināt bankas lietotnē. Pēc tam maksa tiek iekasēta automātiski.",
+    "bancontactNote": "Jūs apstiprināt ar Bancontact lietotni. Pēc tam maksa tiek iekasēta automātiski.",
+    "startTrial": "Sākt izmēģinājumu",
+    "subscribe": "Abonēt",
+    "fineTrial": "Pēc 14 dienām jūs maksājat automātiski. Atteikties var jebkurā laikā, arī izmēģinājuma laikā.",
+    "fine": "Jūs maksājat {price}. Atteikties var jebkurā laikā."
   },
   "dz": {
     "lbl": {

@@ -681,7 +681,21 @@
     "keepPaused": "Gepauzeerd",
     "keepGo": "Verder naar {plan}",
     "lessWarn": "{plan} heeft {limit} QR-codes. Je hebt er {used}. Je kiest zo welke aan blijven. De rest wordt gepauzeerd, niet verwijderd.",
-    "payPaused": "{n} QR-codes worden gepauzeerd. Ze blijven bewaard."
+    "payPaused": "{n} QR-codes worden gepauzeerd. Ze blijven bewaard.",
+    "stripeDemo": "Demo: zo betaal je straks via Stripe. Er wordt niets afgeschreven.",
+    "coTrial": "14 dagen gratis proberen: {plan}",
+    "coSub": "Abonnement op {plan}",
+    "email": "E-mail",
+    "method": "Betaalmethode",
+    "mCard": "Kaart",
+    "paypalNote": "Je logt in bij PayPal en bevestigt daar. Daarna gaat het vanzelf.",
+    "idealBank": "Kies je bank",
+    "idealNote": "Je bevestigt in de app van je bank. Daarna wordt het automatisch afgeschreven.",
+    "bancontactNote": "Je bevestigt met de Bancontact-app. Daarna wordt het automatisch afgeschreven.",
+    "startTrial": "Proefperiode starten",
+    "subscribe": "Abonneren",
+    "fineTrial": "Na 14 dagen betaal je automatisch. Opzeggen kan altijd, ook tijdens de proefperiode.",
+    "fine": "Je betaalt {price}. Opzeggen kan altijd."
   },
   "dz": {
     "lbl": {

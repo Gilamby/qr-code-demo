@@ -85,27 +85,54 @@ var Plans = (function () {
       (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : '') +
       '<p class="pw-note">' + esc(t('pw.reassure')) + '</p></div>';
   }
-  // Afrekenen (DEMO: zoals straks de betaalpagina van Stripe, maar er wordt niets afgeschreven)
+  // Afrekenen (DEMO): zoals straks de betaalpagina van Stripe, met PayPal, iDEAL, Bancontact of kaart. Er wordt niets afgeschreven.
+  var method = 'paypal', BANKS = ['ABN AMRO', 'ING', 'Rabobank', 'ASN Bank', 'bunq', 'Knab', 'SNS', 'Triodos Bank', 'Revolut'];
+  var MICO = {
+    paypal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>',
+    ideal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 10v8M10 10v8M14 10v8M19 10v8M3 21h18M12 3l9 5H3z"/></svg>',
+    bancontact: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
+    card: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>'
+  };
+  function mName(m) { return m === 'card' ? t('pw.mCard') : { paypal: 'PayPal', ideal: 'iDEAL', bancontact: 'Bancontact' }[m]; }
+  function methodBody(m) {
+    if (m === 'paypal') return '<p class="pw-co-note">' + esc(t('pw.paypalNote')) + '</p>';
+    if (m === 'ideal') return '<label class="pw-co-f"><span>' + esc(t('pw.idealBank')) + '</span><select>' + BANKS.map(function (b) { return '<option>' + esc(b) + '</option>'; }).join('') + '</select></label><p class="pw-co-note">' + esc(t('pw.idealNote')) + '</p>';
+    if (m === 'bancontact') return '<p class="pw-co-note">' + esc(t('pw.bancontactNote')) + '</p>';
+    return '<label class="pw-co-f"><span>' + esc(t('pw.card')) + '</span><input value="4242 4242 4242 4242" readonly></label>' +
+      '<div class="pw-two"><label class="pw-co-f"><span>MM/JJ</span><input value="12/34" readonly></label><label class="pw-co-f"><span>CVC</span><input value="123" readonly></label></div>';
+  }
   function drawPay() {
     var x = plans().filter(function (p) { return p.id === chosen; })[0], price = PlanPeriod.price(x, period), per = PlanPeriod.per(period);
-    var trial = mode === 'must';                                         // nieuwe klant: eerst 14 dagen gratis; wisselen: meteen
-    box.innerHTML = '<div class="pw-inner">' + top() + '<h1 id="pwTitle">' + esc(t('pw.payTitle')) + '</h1>' +
-      '<p class="pw-demo" role="note">' + esc(t('pw.demo')) + '</p>' +
-      '<div class="pw-pay"><div class="pw-sum"><b>' + esc(t('plan.n_' + x.id)) + '</b><span>' + esc(PlanPeriod.label(period)) + '</span>' + feats(x) +
-        '<div class="pw-row"><span>' + esc(t('pw.today')) + '</span><b>' + euro(trial ? 0 : price) + '</b></div>' +
-        '<div class="pw-row"><span>' + esc(t(trial ? 'pw.after' : 'pw.then')) + '</span><b>' + euro(price) + ' ' + esc(per) + '</b></div>' +
-        (needKeep() ? '<p class="pw-less">' + esc(t('pw.payPaused', { n: activeDyn().length - keep.length })) + '</p>' : '') + '</div>' +
-      '<form class="pw-card-form" data-pw-form><label class="auth-f"><span>' + esc(t('pw.card')) + '</span><span class="auth-in"><input value="4242 4242 4242 4242" readonly></span></label>' +
-        '<div class="pw-two"><label class="auth-f"><span>MM/JJ</span><span class="auth-in"><input value="12/34" readonly></span></label><label class="auth-f"><span>CVC</span><span class="auth-in"><input value="123" readonly></span></label></div>' +
-        '<button type="submit" class="btn primary pw-go"' + (busy ? ' disabled' : '') + '>' + esc(trial ? t('pw.confirm') : t('pw.payNow', { price: euro(price) })) + '</button>' +
-        '<p class="pw-safe">🔒 ' + esc(t('pw.safe')) + '</p>' +
-        '<button type="button" class="link-btn" data-pw-back>' + esc(t('pw.back')) + '</button></form></div></div>';
+    var trial = mode === 'must', u = Session.user() || {};                // nieuwe klant: eerst 14 dagen gratis; wisselen: meteen
+    box.innerHTML = '<div class="pw-inner">' + top() +
+      '<p class="pw-demo" role="note">' + esc(t('pw.stripeDemo')) + '</p>' +
+      '<div class="pw-co"><div class="pw-co-sum">' +
+        '<span class="pw-co-small">' + esc(t(trial ? 'pw.coTrial' : 'pw.coSub', { plan: t('plan.n_' + x.id) })) + '</span>' +
+        '<b class="pw-co-big">' + euro(trial ? 0 : price) + '</b>' +
+        '<span class="pw-co-small">' + esc(trial ? t('pw.after') + ': ' + euro(price) + ' ' + per : PlanPeriod.label(period)) + '</span>' +
+        '<div class="pw-co-line"><span>QR-Codex ' + esc(t('plan.n_' + x.id)) + '<small>' + esc(PlanPeriod.label(period)) + '</small></span><b>' + euro(price) + '</b></div>' +
+        (needKeep() ? '<p class="pw-co-warn">' + esc(t('pw.payPaused', { n: activeDyn().length - keep.length })) + '</p>' : '') +
+        '<div class="pw-co-line tot"><span>' + esc(t('pw.today')) + '</span><b>' + euro(trial ? 0 : price) + '</b></div>' +
+      '</div>' +
+      '<form class="pw-co-form" data-pw-form>' +
+        '<label class="pw-co-f"><span>' + esc(t('pw.email')) + '</span><input value="' + esc(u.email || '') + '" readonly></label>' +
+        '<div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div class="pw-co-methods" role="radiogroup" aria-label="' + esc(t('pw.method')) + '">' +
+        ['paypal', 'ideal', 'bancontact', 'card'].map(function (m) {
+          var on = m === method;
+          return '<div class="pw-co-m' + (on ? ' on' : '') + '"><button type="button" role="radio" aria-checked="' + on + '" data-pw-method="' + m + '"><i class="pw-co-dot"></i><span class="pw-co-ico">' + MICO[m] + '</span>' + esc(mName(m)) + '</button>' +
+            (on ? '<div class="pw-co-body">' + methodBody(m) + '</div>' : '') + '</div>';
+        }).join('') + '</div></div>' +
+        '<button type="submit" class="pw-co-go"' + (busy ? ' disabled' : '') + '>' + (busy ? '<span class="pw-spin sm" aria-hidden="true"></span>' : '') + esc(t(trial ? 'pw.startTrial' : 'pw.subscribe')) + '</button>' +
+        '<p class="pw-co-fine">' + esc(t(trial ? 'pw.fineTrial' : 'pw.fine', { price: euro(price) + ' ' + per })) + '</p>' +
+        '<p class="pw-co-safe">🔒 ' + esc(t('pw.safe')) + '</p>' +
+        '<button type="button" class="link-btn pw-co-back" data-pw-back>' + esc(t('pw.back')) + '</button>' +
+      '</form></div></div>';
   }
   function drawDone() {
     var sub = result && result.sub, until = sub && sub.periodEnd ? i18n.fmt.stamp(sub.periodEnd, 'long') : '';
     box.innerHTML = '<div class="pw-inner">' + top() + '<div class="pw-done"><span class="pw-check" aria-hidden="true">✓</span>' +
       '<h1 id="pwTitle">' + esc(t(mode === 'change' ? 'pw.changed' : 'pw.done')) + '</h1>' +
-      '<p class="pw-lead">' + esc(t('plan.n_' + chosen)) + ' · ' + esc(PlanPeriod.label(period)) + '<br>' + esc(t(mode === 'change' ? 'sub.paidUntil' : 'pw.trialUntil', { date: until })) + '</p>' +
+      '<p class="pw-lead">' + esc(t('plan.n_' + chosen)) + ' · ' + esc(PlanPeriod.label(period)) + '<br>' + esc(t(mode === 'change' ? 'sub.paidUntil' : 'pw.trialUntil', { date: until })) + (demo() ? '<br>' + esc(t('pw.method') + ': ' + mName(method) + ' (demo)') : '') + '</p>' +
       '<button type="button" class="btn primary pw-go" data-pw-enter>' + esc(t('pw.enter')) + '</button></div></div>';
   }
   function pay() {
@@ -148,6 +175,7 @@ var Plans = (function () {
   document.addEventListener('click', function (e) {
     if (!box || !box.contains(e.target)) return;
     var p = e.target.closest('[data-pw-plan]'); if (p && !p.disabled) { chosen = p.getAttribute('data-pw-plan'); return draw(); }
+    var mt = e.target.closest('[data-pw-method]'); if (mt) { method = mt.getAttribute('data-pw-method'); return draw(); }
     var y = e.target.closest('[data-pw-period]'); if (y) { period = PlanPeriod.norm(y.getAttribute('data-pw-period')); return draw(); }
     if (e.target.closest('[data-pw-logout]')) { api.auth.logout().catch(function () {}).then(function () { location.replace(location.pathname); }); return; }
     if (e.target.closest('[data-pw-close]')) return close();

@@ -681,7 +681,21 @@
     "keepPaused": "Në pauzë",
     "keepGo": "Vazhdo te {plan}",
     "lessWarn": "{plan} përfshin {limit} kode QR. Keni {used}. Tani zgjidhni cilat mbeten aktive. Të tjerat vihen në pauzë, nuk fshihen.",
-    "payPaused": "{n} kode QR do të vihen në pauzë. Ruhen."
+    "payPaused": "{n} kode QR do të vihen në pauzë. Ruhen.",
+    "stripeDemo": "Demo: kështu do të paguani përmes Stripe. Nuk tërhiqet asgjë.",
+    "coTrial": "Provoni {plan} falas për 14 ditë",
+    "coSub": "Abonohu në {plan}",
+    "email": "Email",
+    "method": "Mënyra e pagesës",
+    "mCard": "Kartë",
+    "paypalNote": "Hyni në PayPal dhe konfirmoni atje. Pastaj ecën automatikisht.",
+    "idealBank": "Zgjidhni bankën",
+    "idealNote": "Konfirmoni në aplikacionin e bankës. Pastaj tërhiqet automatikisht.",
+    "bancontactNote": "Konfirmoni me aplikacionin Bancontact. Pastaj tërhiqet automatikisht.",
+    "startTrial": "Fillo provën",
+    "subscribe": "Abonohu",
+    "fineTrial": "Pas 14 ditësh paguani automatikisht. Mund ta anuloni kurdo, edhe gjatë provës.",
+    "fine": "Paguani {price}. Mund ta anuloni kurdo."
   },
   "dz": {
     "lbl": {
