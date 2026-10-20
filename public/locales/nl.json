@@ -656,7 +656,9 @@
     "viaStripe": "Veilig betalen via Stripe. Altijd opzegbaar.",
     "processing": "We verwerken je betaling…",
     "processingLead": "Dit duurt een paar seconden. Houd deze pagina open.",
-    "payError": "Betalen lukte niet. Probeer het zo nog eens."
+    "payError": "Betalen lukte niet. Probeer het zo nog eens.",
+    "upgradeTo": "Upgrade naar {plan}",
+    "allPlans": "Alle pakketten bekijken"
   },
   "dz": {
     "lbl": {

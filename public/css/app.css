@@ -4424,7 +4424,7 @@ body.paywall-open { overflow: hidden; }
 .pw-go { min-width: 280px; height: 54px; justify-content: center; font-size: 16px; }
 .pw-note { color: var(--muted); font-size: 13px; max-width: 480px; margin-top: 14px; }
 @media (max-width: 760px) { .pw-grid { grid-template-columns: 1fr; } }
-.pw-demo { padding: 10px 16px; border-radius: 12px; background: rgba(250,204,21,.12); color: #fde68a; font-size: 14px; margin: 0 0 22px; }
+.pw-demo { padding: 8px 14px; border-radius: 12px; background: rgba(255,255,255,.06); color: var(--muted); font-size: 13px; margin: 0 0 22px; }
 .pw-pay { width: 100%; max-width: 760px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
 .pw-sum { padding: 24px; border-radius: 20px; background: rgba(255,255,255,.04); border: 1px solid var(--line, rgba(255,255,255,.1)); display: flex; flex-direction: column; gap: 8px; }
 .pw-sum > b { font-size: 22px; } .pw-sum > span { color: var(--muted); }
@@ -4455,34 +4455,47 @@ body.paywall-open { overflow: hidden; }
 .pl-more h2 { margin: 0 0 4px; }
 .pl-more .acct-note { margin: 0; }
 
-/* Vergrendeld (niet in je pakket): slotje + 'vanaf Pro/Business' */
-.lock-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 99px; background: rgba(250,204,21,.14); color: #fcd34d; font-size: 11px; font-weight: 750; letter-spacing: .01em; white-space: nowrap; vertical-align: middle; }
-.lock-badge svg { width: 11px; height: 11px; }
-.qr-card.locked { position: relative; opacity: .62; }
-.qr-card.locked:hover { opacity: .9; }
+/* Vergrendeld (niet in je pakket): rustig grijs slotje, klik = "Upgrade naar Pro/Business" */
+.lock-badge { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,.1); color: var(--fg); vertical-align: middle; flex: none; }
+.lock-badge svg { width: 12px; height: 12px; }
+.qr-card.locked { position: relative; opacity: .5; }
+.qr-card.locked:hover { opacity: .85; }
 .qr-card.locked .lock-badge { position: absolute; top: 8px; right: 8px; }
-.bg-opt-wrap.locked .thumb { filter: grayscale(.6) brightness(.6); }
-.bg-opt-wrap.locked .name { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-.bg-opt.upload[data-bg-lock] .thumb { display: grid; place-items: center; color: #fcd34d; }
-.bg-opt.upload[data-bg-lock] .thumb svg { width: 26px; height: 26px; }
+.bg-opt-wrap.locked .thumb { filter: grayscale(.7) brightness(.55); }
+.bg-opt-wrap.locked .name { display: flex; align-items: center; gap: 6px; }
+.bg-opt.upload[data-bg-lock] .thumb { display: grid; place-items: center; color: var(--muted); }
+.bg-opt.upload[data-bg-lock] .thumb svg { width: 24px; height: 24px; }
 .bg-lock-note { grid-column: 1 / -1; margin: 4px 0 0; }
 .bg-lock-note .link-btn, .an-lock { display: inline-flex; align-items: center; gap: 6px; }
-.bg-lock-note svg, .an-lock svg { width: 14px; height: 14px; color: #fcd34d; }
+.bg-lock-note svg, .an-lock svg { width: 14px; height: 14px; }
 .pg-feats { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 7px; font-size: 14px; text-align: left; }
 .pg-feats li { display: flex; gap: 8px; align-items: flex-start; }
 .pg-feats .pg-ok { color: var(--accent); font-weight: 800; width: 14px; flex: none; }
 .pg-feats .pg-lk { width: 14px; flex: none; color: var(--muted); }
 .pg-feats .pg-lk svg { width: 13px; height: 13px; margin-top: 3px; }
-.pg-feats li.pg-off { color: var(--muted); opacity: .75; }
-.pg-feats li.pg-off small { color: #fcd34d; font-weight: 700; margin-left: 4px; }
+.pg-feats li.pg-off { color: var(--muted); opacity: .6; }
 .pg-feats.two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; margin-top: 14px; }
 @media (max-width: 640px) { .pg-feats.two { grid-template-columns: 1fr; } }
-.pw-reason { display: inline-flex; align-items: center; gap: 8px; margin: -6px 0 18px; padding: 10px 16px; border-radius: 12px; background: rgba(250,204,21,.12); color: #fde68a; font-size: 14px; }
+.pw-reason { display: inline-flex; align-items: center; gap: 8px; margin: -6px 0 18px; padding: 8px 14px; border-radius: 12px; background: rgba(255,255,255,.06); color: var(--fg); font-size: 14px; }
 .pw-reason svg { width: 16px; height: 16px; flex: none; }
 .lock-card { display: flex; gap: 18px; align-items: flex-start; }
-.lock-card .lock-ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: rgba(250,204,21,.12); color: #fcd34d; flex: none; }
+.lock-card .lock-ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: rgba(255,255,255,.08); color: var(--fg); flex: none; }
 .lock-card .lock-ic svg { width: 22px; height: 22px; }
 .lock-card h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
 .pw-spin { width: 56px; height: 56px; border-radius: 50%; border: 4px solid rgba(255,255,255,.12); border-top-color: var(--accent); animation: pwspin 1s linear infinite; margin-bottom: 8px; }
 @keyframes pwspin { to { transform: rotate(360deg); } }
+
+/* Venster "Upgrade naar Pro" */
+.up-dlg { position: fixed; inset: 0; z-index: 950; display: grid; place-items: center; padding: 20px; background: rgba(3,6,12,.6); backdrop-filter: blur(6px); animation: upfade .2s ease; }
+@keyframes upfade { from { opacity: 0; } }
+.up-card { position: relative; width: min(420px, 100%); padding: 32px 28px 22px; border-radius: 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+.up-card h2 { margin: 6px 0 0; font-size: 24px; letter-spacing: -.02em; }
+.up-card p { margin: 0; color: var(--muted); }
+.up-lock { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: rgba(43,181,240,.14); color: var(--accent); }
+.up-lock svg { width: 24px; height: 24px; }
+.up-x { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 10px; border: 0; background: transparent; color: var(--muted); font-size: 22px; cursor: pointer; }
+.up-x:hover { background: rgba(255,255,255,.08); color: var(--fg); }
+.up-feats { align-self: stretch; margin: 8px 0 6px; padding: 14px 16px; border-radius: 14px; background: rgba(255,255,255,.04); }
+.up-go { width: 100%; height: 50px; justify-content: center; margin-top: 4px; }
+.up-price { color: var(--muted); font-size: 13px; margin-top: -2px; }

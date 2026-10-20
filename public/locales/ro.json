@@ -656,7 +656,9 @@
     "viaStripe": "Plată sigură prin Stripe. Poți anula oricând.",
     "processing": "Îți procesăm plata…",
     "processingLead": "Durează câteva secunde. Păstrează pagina deschisă.",
-    "payError": "Plata nu a putut fi pornită. Încearcă din nou peste puțin timp."
+    "payError": "Plata nu a putut fi pornită. Încearcă din nou peste puțin timp.",
+    "upgradeTo": "Treci la {plan}",
+    "allPlans": "Vezi toate pachetele"
   },
   "dz": {
     "lbl": {

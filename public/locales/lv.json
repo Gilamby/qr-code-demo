@@ -656,7 +656,9 @@
     "viaStripe": "Droša maksāšana caur Stripe. Vari atteikt jebkurā laikā.",
     "processing": "Apstrādājam tavu maksājumu…",
     "processingLead": "Tas aizņem dažas sekundes. Neaizver lapu.",
-    "payError": "Maksājumu neizdevās sākt. Pēc brīža mēģini vēlreiz."
+    "payError": "Maksājumu neizdevās sākt. Pēc brīža mēģini vēlreiz.",
+    "upgradeTo": "Pāriet uz {plan}",
+    "allPlans": "Skatīt visas paketes"
   },
   "dz": {
     "lbl": {

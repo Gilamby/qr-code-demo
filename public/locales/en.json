@@ -656,7 +656,9 @@
     "viaStripe": "Secure payment via Stripe. You can cancel anytime.",
     "processing": "Processing your payment…",
     "processingLead": "This takes a few seconds. Please keep this page open.",
-    "payError": "Payment could not be started. Please try again in a moment."
+    "payError": "Payment could not be started. Please try again in a moment.",
+    "upgradeTo": "Upgrade to {plan}",
+    "allPlans": "See all plans"
   },
   "dz": {
     "lbl": {

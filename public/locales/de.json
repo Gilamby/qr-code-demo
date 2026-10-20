@@ -656,7 +656,9 @@
     "viaStripe": "Sicher bezahlen mit Stripe. Jederzeit kündbar.",
     "processing": "Deine Zahlung wird verarbeitet…",
     "processingLead": "Das dauert ein paar Sekunden. Bitte lass diese Seite geöffnet.",
-    "payError": "Die Zahlung konnte nicht gestartet werden. Versuche es gleich noch einmal."
+    "payError": "Die Zahlung konnte nicht gestartet werden. Versuche es gleich noch einmal.",
+    "upgradeTo": "Upgrade auf {plan}",
+    "allPlans": "Alle Pakete ansehen"
   },
   "dz": {
     "lbl": {

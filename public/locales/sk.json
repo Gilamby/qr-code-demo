@@ -656,7 +656,9 @@
     "viaStripe": "Bezpečná platba cez Stripe. Zrušiť môžeš kedykoľvek.",
     "processing": "Spracúvame tvoju platbu…",
     "processingLead": "Trvá to pár sekúnd. Nechaj túto stránku otvorenú.",
-    "payError": "Platbu sa nepodarilo spustiť. Skús to o chvíľu znova."
+    "payError": "Platbu sa nepodarilo spustiť. Skús to o chvíľu znova.",
+    "upgradeTo": "Prejsť na {plan}",
+    "allPlans": "Pozrieť všetky balíky"
   },
   "dz": {
     "lbl": {

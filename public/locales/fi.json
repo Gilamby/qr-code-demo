@@ -656,7 +656,9 @@
     "viaStripe": "Turvallinen maksu Stripen kautta. Voit perua milloin vain.",
     "processing": "Käsittelemme maksuasi…",
     "processingLead": "Tämä kestää muutaman sekunnin. Pidä sivu auki.",
-    "payError": "Maksua ei voitu aloittaa. Yritä hetken päästä uudelleen."
+    "payError": "Maksua ei voitu aloittaa. Yritä hetken päästä uudelleen.",
+    "upgradeTo": "Päivitä pakettiin {plan}",
+    "allPlans": "Katso kaikki paketit"
   },
   "dz": {
     "lbl": {

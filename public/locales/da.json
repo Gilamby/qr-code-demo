@@ -656,7 +656,9 @@
     "viaStripe": "Sikker betaling via Stripe. Kan altid opsiges.",
     "processing": "Vi behandler din betaling…",
     "processingLead": "Det tager et par sekunder. Hold siden åben.",
-    "payError": "Betalingen kunne ikke startes. Prøv igen om lidt."
+    "payError": "Betalingen kunne ikke startes. Prøv igen om lidt.",
+    "upgradeTo": "Opgrader til {plan}",
+    "allPlans": "Se alle pakker"
   },
   "dz": {
     "lbl": {

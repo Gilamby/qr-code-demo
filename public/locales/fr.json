@@ -656,7 +656,9 @@
     "viaStripe": "Paiement sécurisé via Stripe. Résiliable à tout moment.",
     "processing": "Traitement de votre paiement…",
     "processingLead": "Cela prend quelques secondes. Gardez cette page ouverte.",
-    "payError": "Impossible de lancer le paiement. Réessayez dans un instant."
+    "payError": "Impossible de lancer le paiement. Réessayez dans un instant.",
+    "upgradeTo": "Passer à {plan}",
+    "allPlans": "Voir toutes les formules"
   },
   "dz": {
     "lbl": {

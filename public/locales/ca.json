@@ -656,7 +656,9 @@
     "viaStripe": "Pagament segur amb Stripe. Cancel·la quan vulguis.",
     "processing": "Processant el pagament…",
     "processingLead": "Triga uns segons. Mantén aquesta pàgina oberta.",
-    "payError": "No s’ha pogut iniciar el pagament. Torna-ho a provar d’aquí a una estona."
+    "payError": "No s’ha pogut iniciar el pagament. Torna-ho a provar d’aquí a una estona.",
+    "upgradeTo": "Passa a {plan}",
+    "allPlans": "Veure tots els plans"
   },
   "dz": {
     "lbl": {

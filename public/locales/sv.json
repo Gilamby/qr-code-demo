@@ -656,7 +656,9 @@
     "viaStripe": "Säker betalning via Stripe. Kan sägas upp när som helst.",
     "processing": "Vi behandlar din betalning…",
     "processingLead": "Det tar några sekunder. Håll sidan öppen.",
-    "payError": "Betalningen kunde inte startas. Försök igen om en stund."
+    "payError": "Betalningen kunde inte startas. Försök igen om en stund.",
+    "upgradeTo": "Uppgradera till {plan}",
+    "allPlans": "Se alla paket"
   },
   "dz": {
     "lbl": {

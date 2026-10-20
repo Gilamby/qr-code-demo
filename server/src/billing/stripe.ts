@@ -13,6 +13,9 @@ import type { Interval } from '../subscription';
 
 export const STRIPE_VERSION = '2024-06-20';
 export const stripeOn = () => !!process.env.STRIPE_SECRET_KEY;
+/** Demo-betaling (er wordt niets afgeschreven): standaard aan zolang Stripe er niet is. Uitzetten: DEMO_CHECKOUT=false.
+ *  Zodra STRIPE_SECRET_KEY er staat, is de demo vanzelf uit. */
+export const demoCheckoutOn = () => !stripeOn() && process.env.DEMO_CHECKOUT !== 'false';
 export type StripeRecord = { customer?: string; subscription?: string; cancelMailed?: string | null };
 type Settings = { getSetting(k: string): Promise<string | null | undefined>; setSetting(k: string, v: string | null): Promise<void> };
 

@@ -20,7 +20,7 @@ import type { User } from '../types';
 import { PLANS, planFor, usage, bgAllowed } from '../plans';
 import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
-import { stripeOn, readRecord, stripe } from '../billing/stripe';
+import { stripeOn, readRecord, stripe, demoCheckoutOn } from '../billing/stripe';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
 /** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
@@ -152,14 +152,14 @@ export class AccountController {
     return { ok: true, version: TERMS_VERSION };
   }
 
-  /** DEMO-afrekenen (zolang Stripe er nog niet is; alleen met DEMO_CHECKOUT=true in .env). Er wordt niets afgeschreven.
+  /** DEMO-afrekenen (standaard aan zolang Stripe er nog niet is; uit met DEMO_CHECKOUT=false). Er wordt niets afgeschreven.
    *  - Nieuwe klant (nog nooit betaald): pakket kiezen → 14 dagen gratis, daarna de eerste periode → de app in.
    *  - Bestaande klant: ander pakket of andere periode → gaat meteen in (nieuwe periode vanaf vandaag, geen proefperiode).
    *  Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar). */
   @Post('account/checkout-demo')
   @HttpCode(200)
   async checkoutDemo(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
-    if (process.env.DEMO_CHECKOUT !== 'true') throw fail(403, 'off');
+    if (!demoCheckoutOn()) throw fail(403, 'off');
     const planId = String(b.plan || ''), interval = toInterval(b.period);
     if (!['standard', 'pro', 'business'].includes(planId)) throw fail(400, 'plan');
     if (this.auth.isAdmin(user) || (req as any).member) throw fail(403, 'team');

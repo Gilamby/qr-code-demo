@@ -656,7 +656,9 @@
     "viaStripe": "Pagamento sicuro con Stripe. Disdici quando vuoi.",
     "processing": "Elaborazione del pagamento…",
     "processingLead": "Ci vuole qualche secondo. Tieni aperta questa pagina.",
-    "payError": "Impossibile avviare il pagamento. Riprova tra poco."
+    "payError": "Impossibile avviare il pagamento. Riprova tra poco.",
+    "upgradeTo": "Passa a {plan}",
+    "allPlans": "Vedi tutti i piani"
   },
   "dz": {
     "lbl": {

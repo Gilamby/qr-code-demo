@@ -30,9 +30,10 @@ window.PlanGate = (function () {
     bgOk: function (what) { var p = plan(); if (!p || !p.bg) return true; return what === 'video' ? p.bg === 'all' : p.bg !== 'basic'; },
     statsDays: function () { var p = plan(); return p ? p.statsDays : null; },
     lock: LOCK,
-    badge: function (min) { return '<span class="lock-badge">' + LOCK + esc(t('pw.lockFrom', { plan: t('plan.n_' + min) })) + '</span>'; },
-    /** Pakketten-pagina openen met een reden ("Dit soort QR-code zit in Pro en Business") */
-    upgrade: function (min, reason) { if (window.Plans) Plans.open(min, reason); },
+    /** Rustig slotje (alleen het icoon); de naam van het pakket staat in de tooltip */
+    badge: function (min) { var l = esc(t('pw.lockFrom', { plan: t('plan.n_' + min) })); return '<span class="lock-badge" title="' + l + '" aria-label="' + l + '">' + LOCK + '</span>'; },
+    /** Klik op iets vergrendelds: klein venster "Upgrade naar Pro" (of Business), met de reden */
+    upgrade: function (min, reason) { upgradeDialog(min, reason); },
     /** Wat zit er in een pakket, als lijstje: { ok, text, min } (min = vanaf welk pakket, bij een slotje) */
     features: function (x) {
       var f = [];
@@ -48,13 +49,39 @@ window.PlanGate = (function () {
     },
     featuresHtml: function (x, cls) {
       return '<ul class="' + (cls || 'pg-feats') + '">' + this.features(x).map(function (r) {
-        return '<li class="' + (r.ok ? 'pg-on' : 'pg-off') + '">' + (r.ok ? '<span class="pg-ok" aria-hidden="true">✓</span>' : '<span class="pg-lk">' + LOCK + '</span>') + '<span>' + esc(r.text) +
-          (r.ok ? '' : ' <small>' + esc(t('pw.lockFrom', { plan: t('plan.n_' + r.min) })) + '</small>') + '</span></li>';
+        return '<li class="' + (r.ok ? 'pg-on' : 'pg-off') + '">' + (r.ok ? '<span class="pg-ok" aria-hidden="true">✓</span>' : '<span class="pg-lk">' + LOCK + '</span>') + '<span>' + esc(r.text) + '</span></li>';
       }).join('') + '</ul>';
     },
   };
 })();
-/* Knop met data-gate-open="pro" (en data-gate-reason) opent de pakketten-pagina */
+/* Venster "Upgrade naar Pro/Business": rustig, één duidelijke knop. Daarna meteen afrekenen (demo of Stripe). */
+function upgradeDialog(min, reason) {
+  var info = PlanGate.info(), ORDER = ['standard', 'pro', 'business'];
+  var cur = info && info.plan && info.sub && info.sub.state !== 'unpaid' ? info.plan.id : null;
+  if (!min || (cur && ORDER.indexOf(min) <= ORDER.indexOf(cur))) min = ORDER[Math.max(ORDER.indexOf(cur) + 1, 1)] || 'business';   // altijd één stap hoger
+  var p = info && (info.plans || []).filter(function (x) { return x.id === min; })[0];
+  var price = p ? new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(p.price) : '';
+  var d = document.createElement('div'); d.className = 'up-dlg'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'upDlgT');
+  d.innerHTML = '<div class="up-card glass"><button type="button" class="up-x" data-up-close aria-label="' + esc(t('legal.close')) + '">×</button>' +
+    '<span class="up-lock">' + PlanGate.lock + '</span>' +
+    '<h2 id="upDlgT">' + esc(t('pw.upgradeTo', { plan: t('plan.n_' + min) })) + '</h2>' +
+    (reason ? '<p>' + esc(t('pw.reason_' + reason)) + '</p>' : '') +
+    (p ? PlanGate.featuresHtml(p, 'pg-feats up-feats') : '') +
+    '<button type="button" class="btn primary up-go" data-up-go>' + esc(t('pw.upgradeTo', { plan: t('plan.n_' + min) })) + '</button>' +
+    (price ? '<small class="up-price">' + esc(price) + ' ' + esc(t('plan.perMonth')) + '</small>' : '') +
+    '<button type="button" class="link-btn" data-up-all>' + esc(t('pw.allPlans')) + '</button></div>';
+  document.body.appendChild(d);
+  var close = function () { d.remove(); document.removeEventListener('keydown', esc1); };
+  var esc1 = function (e) { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', esc1);
+  d.addEventListener('click', function (e) {
+    if (e.target === d || e.target.closest('[data-up-close]')) return close();
+    if (e.target.closest('[data-up-go]')) { close(); if (window.Plans) Plans.open(min, reason, true); }
+    if (e.target.closest('[data-up-all]')) { close(); if (window.Plans) Plans.open(min, reason); }
+  });
+  var go = d.querySelector('[data-up-go]'); if (go) go.focus();
+}
+/* Knop met data-gate-open="pro" (en data-gate-reason) opent het upgrade-venster */
 document.addEventListener('click', function (e) { var g = e.target.closest('[data-gate-open]'); if (g) { e.preventDefault(); PlanGate.upgrade(g.getAttribute('data-gate-open'), g.getAttribute('data-gate-reason')); } });
 /* =========================================================
    MIJN ACCOUNT

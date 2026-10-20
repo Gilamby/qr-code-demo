@@ -678,12 +678,12 @@ test('pakket bepaalt wat kan: Standard = basis-soorten, standaard-achtergrond, g
   assert.equal((await c('PATCH', '/api/me', { background: 'aurora' })).status, 200, 'Pro: meer achtergronden');
 });
 
-test('demo-afrekenen: alleen met DEMO_CHECKOUT, alleen voor een nieuwe klant, één keer', async () => {
+test('demo-afrekenen: standaard aan zonder Stripe, uit met DEMO_CHECKOUT=false', async () => {
   const c = client(); await signup(c, 'demo-pay@example.com', 'Demo betalen zin 3!', 'Demo', { unpaid: true });
   assert.equal((await c('GET', '/api/account/plan')).json.sub.state, 'unpaid');
+  process.env.DEMO_CHECKOUT = 'false';
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'year' })).status, 403, 'uit met DEMO_CHECKOUT=false');
   delete process.env.DEMO_CHECKOUT;
-  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'year' })).status, 403, 'uit zonder DEMO_CHECKOUT');
-  process.env.DEMO_CHECKOUT = 'true';
   assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'gratis' })).status, 400);
   const r = await c('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'year' });
   assert.equal(r.status, 200); assert.equal(r.json.sub.state, 'active');

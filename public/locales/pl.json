@@ -656,7 +656,9 @@
     "viaStripe": "Bezpieczna płatność przez Stripe. Możesz zrezygnować w każdej chwili.",
     "processing": "Przetwarzamy Twoją płatność…",
     "processingLead": "To potrwa kilka sekund. Nie zamykaj tej strony.",
-    "payError": "Nie udało się rozpocząć płatności. Spróbuj ponownie za chwilę."
+    "payError": "Nie udało się rozpocząć płatności. Spróbuj ponownie za chwilę.",
+    "upgradeTo": "Przejdź na {plan}",
+    "allPlans": "Zobacz wszystkie pakiety"
   },
   "dz": {
     "lbl": {

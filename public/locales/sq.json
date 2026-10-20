@@ -656,7 +656,9 @@
     "viaStripe": "Pagesë e sigurt përmes Stripe. Mund ta anulosh kurdo.",
     "processing": "Po përpunojmë pagesën tënde…",
     "processingLead": "Zgjat disa sekonda. Mbaje faqen të hapur.",
-    "payError": "Pagesa nuk mund të niste. Provo përsëri pas pak."
+    "payError": "Pagesa nuk mund të niste. Provo përsëri pas pak.",
+    "upgradeTo": "Kalo te {plan}",
+    "allPlans": "Shiko të gjitha paketat"
   },
   "dz": {
     "lbl": {

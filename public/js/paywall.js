@@ -21,6 +21,8 @@ var Plans = (function () {
   function curPlan() { return info && info.sub && info.sub.state !== 'unpaid' && info.plan ? info.plan.id : null; }
   function curPeriod() { return info && info.sub && info.sub.interval; }
   function isCurrent(id) { return mode === 'change' && id === curPlan() && PlanPeriod.norm(curPeriod()) === period && info.sub.state === 'active'; }
+  var ORDER = ['standard', 'pro', 'business'];
+  function upFrom(id) { var c = curPlan(); return !!c && ORDER.indexOf(id) > ORDER.indexOf(c); }
   function plans() { return (info.plans || []).filter(function (p) { return p.price != null; }); }
   function top() {
     return '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
@@ -47,9 +49,8 @@ var Plans = (function () {
           '<span class="pl-price"><b>' + euro(PlanPeriod.price(x, period)) + '</b><small>' + PlanPeriod.per(period) + '</small></span>' +
           (period === 'year' && x.priceYearAfter ? '<span class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</span>' : '') + feats(x) + '</button>';
       }).join('') + '</div>' +
-      (sent ? '<p class="acct-msg ok" role="status">' + esc(t('pw.sent')) + '</p>'
-        : '<button type="button" class="btn primary pw-go" data-pw-go' + (busy ? ' disabled' : '') + '>' + esc(mode === 'change' ? t('pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
-          (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : demo() ? '' : '<p class="pw-note">' + esc(t('pw.soon')) + '</p>')) +
+      '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
+      (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : '') +
       '<p class="pw-note">' + esc(t('pw.reassure')) + '</p></div>';
   }
   // Afrekenen (DEMO: zoals straks de betaalpagina van Stripe, maar er wordt niets afgeschreven)
@@ -94,14 +95,16 @@ var Plans = (function () {
     }).catch(function () {});
   }
   /** Zelf openen: een ander pakket of andere betaalperiode kiezen */
-  function open(planId, why) {
+  function open(planId, why, direct) {
     if (blocked()) { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
     api.account.plan().then(function (r) {
       info = r; mode = needed() ? 'must' : 'change'; step = 'choose'; sent = false; result = null; reason = why || null;
       if (curPeriod()) period = PlanPeriod.norm(curPeriod());
       var cur = curPlan(), order = ['standard', 'pro', 'business'];
       chosen = planId || (cur && order[order.indexOf(cur) + 1]) || 'pro';                // standaard: één stap omhoog
+      if (direct && demo()) step = 'pay';                                                // "Upgrade naar Pro": meteen afrekenen
       show();
+      if (direct && stripeOn()) { var g = box.querySelector('[data-pw-go]'); if (g) g.click(); }
     }).catch(function () {});
   }
   document.addEventListener('click', function (e) {
@@ -119,12 +122,6 @@ var Plans = (function () {
       return;
     }
     if (e.target.closest('[data-pw-go]') && step === 'choose' && demo()) { step = 'pay'; return draw(); }
-    if (e.target.closest('[data-pw-go]')) {
-      // Geen demo en nog geen Stripe: aanvraag naar het team. (Met Stripe: hier naar de betaalpagina.)
-      var u = Session.user() || {};
-      api.contact({ name: u.name || u.email, email: u.email, topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + chosen) }) + ' (' + PlanPeriod.label(period) + ')' })
-        .then(function () { sent = true; draw(); }, function () { sent = true; draw(); });
-    }
   });
   document.addEventListener('keydown', function (e) { if (box && mode === 'change' && e.key === 'Escape') close(); });
   document.addEventListener('submit', function (e) { if (box && e.target.closest('[data-pw-form]')) { e.preventDefault(); pay(); } });
