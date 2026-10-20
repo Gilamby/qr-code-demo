@@ -35,7 +35,7 @@ var Session = (function () {
     if (mode !== 'twofa') tfa = null;
     if (!msg && flash) { msg = t(flash[0]); kind = flash[1]; }
     var email = (card.querySelector('input[name=email]') || {}).value || prefill || '', name = (card.querySelector('input[name=name]') || {}).value || '';   // ingevulde waarden houden bij een foutmelding
-    var head = '<div class="auth-top"><span class="auth-logo">' + LOGO + '<b>Optimasys <small>QR</small></b>' + (ADMIN ? '<em class="auth-admin">' + t('adminApp.badge') + '</em>' : '') + '</span>' + langPicker() + '</div>';
+    var head = '<div class="auth-top"><span class="auth-logo">' + LOGO + '<b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em>' + (ADMIN ? '<em class="auth-admin">' + t('adminApp.badge') + '</em>' : '') + '</span>' + langPicker() + '</div>';
     var note = msg ? '<p class="auth-msg ' + (kind || 'bad') + '" role="alert">' + esc(msg) + '</p>' : '';
     var body;
     var signup = !ADMIN && (api.isDemo() || !!api.info().signup);         // zelf een account maken: alleen als dat mag (nooit in het beheer)

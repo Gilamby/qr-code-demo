@@ -45,8 +45,8 @@ export class MailerService {
     const to = process.env.CONTACT_EMAIL || (process.env.MAIL_FROM || '').replace(/^.*<|>.*$/g, '');
     const body = 'Van: ' + m.name + ' <' + m.email + '>\nAccount: ' + m.account + '\nOnderwerp: ' + m.topic + '\n\n' + m.message;
     if (!this.transport || !to) { console.log('[e-mail niet ingesteld] Contactformulier:\n' + body.replace(/^/gm, '  ')); return; }
-    await this.transport.sendMail({ from: process.env.MAIL_FROM || 'Optimasys QR <no-reply@optimasys.com>', to, replyTo: m.name + ' <' + m.email + '>',
-      subject: '[Optimasys QR] ' + m.topic + ': ' + m.message.slice(0, 60).replace(/\s+/g, ' '), text: body });
+    await this.transport.sendMail({ from: process.env.MAIL_FROM || 'QR-Codex <no-reply@optimasys.com>', to, replyTo: m.name + ' <' + m.email + '>',
+      subject: '[QR-Codex] ' + m.topic + ': ' + m.message.slice(0, 60).replace(/\s+/g, ' '), text: body });
   }
 
   /** Mailteksten van een taal, met de aanpassingen van admins erover (Beheer > Vertalingen) */
@@ -55,7 +55,7 @@ export class MailerService {
     try { for (const [k, v] of Object.entries(await overridesOf(this.db, LANGS.includes(lang) ? lang : 'en'))) if (k.startsWith('mail.')) t[k.slice(5)] = v; } catch (e) { /* database even weg: standaardtekst */ }
     return t;
   }
-  private from() { return process.env.MAIL_FROM || 'Optimasys QR <no-reply@optimasys.com>'; }
+  private from() { return process.env.MAIL_FROM || 'QR-Codex <no-reply@optimasys.com>'; }
   private base() { return String(process.env.PUBLIC_URL || '').replace(/\/$/, ''); }
 
   /** Scanoverzicht: onderwerp + HTML (ook gebruikt voor het voorbeeld in Mijn account) */
@@ -70,7 +70,7 @@ export class MailerService {
     const link = (base || this.base() || '') + '/';
     const tile = (n: string, l: string) => '<td style="padding:14px 16px;background:#f1f6fb;border-radius:12px;width:50%"><div style="font-size:28px;font-weight:800;color:#0d1320">' + n + '</div><div style="font-size:13px;color:#5a6577">' + esc(l) + '</div></td>';
     const html = '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:520px">' +
-      '<p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">Optimasys QR</p>' +
+      '<p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">QR-Codex</p>' +
       '<h1 style="font-size:22px;margin:0 0 4px">' + esc(subject) + '</h1>' +
       '<p style="margin:0 0 16px;color:#5a6577">' + esc(v(name ? t.reportHello : t.reportHelloPlain, { name })) + '<br>' + esc(t.reportLead) + '</p>' +
       '<table role="presentation" style="width:100%;border-spacing:8px 0;margin:0 -8px 12px"><tr>' + tile(num(d.total), t.reportTotal) + tile(num(d.unique), t.reportUnique) + '</tr></table>' +
@@ -134,7 +134,7 @@ export class MailerService {
     for (const k of Object.keys(t)) t[k] = String(t[k]).replace(/\{(\w+)\}/g, (m, v) => (vars[v] != null ? vars[v] : m));
     if (!this.transport) { console.log('[e-mail niet ingesteld] ' + ({ verify: 'Bevestigingslink', reset: 'Wachtwoord-link', invite: 'Uitnodiging', emailChange: 'Nieuw e-mailadres bevestigen', emailChanged: 'Melding e-mail gewijzigd' }[kind]) + ' voor ' + to + ':\n  ' + (link || vars.email || '')); return; }
     await this.transport.sendMail({
-      from: process.env.MAIL_FROM || 'Optimasys QR <no-reply@optimasys.com>', to, subject: t[kind + 'Subject'],
+      from: process.env.MAIL_FROM || 'QR-Codex <no-reply@optimasys.com>', to, subject: t[kind + 'Subject'],
       text: (t[kind + 'Hello'] || t.resetHello) + '\n\n' + t[kind + 'Text'] + '\n' + (link ? link + '\n' : '') + '\n' + t[kind + 'Ignore'],
       html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px">' +
         '<p>' + esc(t[kind + 'Hello'] || t.resetHello) + '</p><p>' + esc(t[kind + 'Text']) + '</p>' +

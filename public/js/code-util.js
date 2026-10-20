@@ -67,7 +67,7 @@ var CodeUtil = (function () {
       for (var i = 0; i < b.length; i++) { hex += H[b[i] >> 4] + H[b[i] & 15]; if (hex.length >= 78) { lines.push(hex); hex = ''; } }
       if (hex) lines.push(hex);
       var PW = 360, PH = Math.round(360 * h / w), name = String(title || '').replace(/[^\x20-\x7e]/g, '').replace(/[()\\]/g, '').slice(0, 60);
-      var head = '%!PS-Adobe-3.0 EPSF-3.0\n%%BoundingBox: 0 0 ' + PW + ' ' + PH + '\n%%HiResBoundingBox: 0 0 ' + PW + ' ' + PH + '\n%%Title: (' + name + ')\n%%Creator: Optimasys QR\n%%LanguageLevel: 2\n%%Pages: 1\n%%EndComments\n' +
+      var head = '%!PS-Adobe-3.0 EPSF-3.0\n%%BoundingBox: 0 0 ' + PW + ' ' + PH + '\n%%HiResBoundingBox: 0 0 ' + PW + ' ' + PH + '\n%%Title: (' + name + ')\n%%Creator: QR-Codex\n%%LanguageLevel: 2\n%%Pages: 1\n%%EndComments\n' +
         'gsave\n' + PW + ' ' + PH + ' scale\n/DeviceRGB setcolorspace\n<< /ImageType 1 /Width ' + w + ' /Height ' + h + ' /BitsPerComponent 8 /Decode [0 1 0 1 0 1] /ImageMatrix [' + w + ' 0 0 -' + h + ' 0 ' + h + '] /DataSource currentfile /ASCIIHexDecode filter /DCTDecode filter >> image\n';
       return new Blob([head, lines.join('\n'), '>\ngrestore\nshowpage\n%%EOF\n'], { type: 'application/postscript' });
     });

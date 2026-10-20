@@ -79,7 +79,7 @@ async function main() {
     else console.error(e);
     process.exit(1);
   }
-  console.log('Optimasys QR (NestJS) draait op http://localhost:' + port + ' (database: ' + db.kindName + ' ' + db.label + ')');
+  console.log('QR-Codex (NestJS) draait op http://localhost:' + port + ' (database: ' + db.kindName + ' ' + db.label + ')');
   if (publicUrl()) console.log('QR-codes wijzen naar: ' + publicUrl());
   else if (codespaceUrl()) {
     console.log('\nCodespaces: QR-codes wijzen naar ' + codespaceUrl());

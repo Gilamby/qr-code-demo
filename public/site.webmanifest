@@ -1,6 +1,6 @@
 {
-  "name": "Optimasys QR",
-  "short_name": "Optimasys QR",
+  "name": "QR-Codex",
+  "short_name": "QR-Codex",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070a10",

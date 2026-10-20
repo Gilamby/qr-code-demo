@@ -584,7 +584,7 @@
       if (k === 'cancel') { tfaSetup = null; tfaOff = false; return draw(); }
       if (k === 'off') { tfaOff = true; draw(); var pi = box.querySelector('[data-tfa-form="off"] input'); if (pi) pi.focus(); return; }
       if (k === 'copy') { var txt = tfaCodes.join('\n'); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () { tfaMsg = [t('tfa.copied'), 'ok']; draw(); }).catch(function () {}); return; }
-      if (k === 'dl') return saveFile(new Blob(['Optimasys QR — ' + t('tfa.codesTitle') + '\n' + user.email + '\n\n' + tfaCodes.join('\n') + '\n'], { type: 'text/plain' }), 'optimasys-qr-herstelcodes.txt');
+      if (k === 'dl') return saveFile(new Blob(['QR-Codex — ' + t('tfa.codesTitle') + '\n' + user.email + '\n\n' + tfaCodes.join('\n') + '\n'], { type: 'text/plain' }), 'qr-codex-herstelcodes.txt');
       if (k === 'done') { tfaCodes = null; return draw(); }
     }
     var seg = e.target.closest('[data-btype]');
@@ -613,7 +613,7 @@
         .catch(function (x) { draw({ devices: [err(x), 'bad'] }); loadSecurity(); });
     }
     if (e.target.closest('[data-export]')) {
-      return api.account.exportData().then(function (d) { saveFile(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), 'optimasys-mijn-gegevens.json'); })
+      return api.account.exportData().then(function (d) { saveFile(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), 'qr-codex-mijn-gegevens.json'); })
         .catch(function (x) { draw({ export: [err(x), 'bad'] }); });
     }
     if (e.target.closest('[data-logout-others]')) {

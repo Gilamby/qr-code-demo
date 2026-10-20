@@ -5,7 +5,7 @@
    - Vier tegels: QR-codes, scans, unieke scans (met verschil t.o.v. de periode ervoor), scans vandaag
    - Rij 1: scanactiviteit (staafjes, tooltip, tabel) | recente activiteit
    - Rij 2: favorieten als tabel (code, status, scans) | meest gescand
-   - Onderaan: © Optimasys QR · Privacy en voorwaarden
+   - Onderaan: © QR-Codex · Privacy en voorwaarden
    - Nog geen codes? Dan een welkom met de eerste stappen.
    Admins beginnen op het Dashboard van Beheer, maar kunnen dit ook openen.
    ========================================================= */

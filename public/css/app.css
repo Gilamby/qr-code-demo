@@ -1968,6 +1968,7 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .auth-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
 .auth-logo { display: flex; align-items: center; gap: 10px; font-size: 17px; }
 .auth-logo small { font-size: inherit; color: var(--accent); }
+.auth-by { font-style: normal; font-size: 12px; color: var(--muted); margin-left: -4px; align-self: flex-end; padding-bottom: 2px; }
 .auth-lang { height: 38px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line-strong); background: rgba(0,0,0,.2); color: var(--fg); font: inherit; font-size: 14px; }
 .auth-card h1 { margin: 6px 0 0; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
 .auth-lead { margin: -6px 0 4px; color: var(--muted); font-size: 15.5px; line-height: 1.5; }

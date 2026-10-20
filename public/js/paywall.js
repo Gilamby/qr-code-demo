@@ -20,7 +20,7 @@
     var plans = (info.plans || []).filter(function (p) { return p.price != null; });
     if (step === 'pay' || step === 'done') return drawPay(plans.filter(function (p) { return p.id === chosen; })[0]);
     box.innerHTML = '<div class="pw-inner">' +
-      '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>Optimasys <small>QR</small></b></span>' +
+      '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
       '<button type="button" class="link-btn" data-pw-logout>' + esc(t('nav.logout')) + '</button></div>' +
       '<h1 id="pwTitle">' + esc(t('pw.title')) + '</h1><p class="pw-lead">' + esc(t('pw.lead')) + '</p>' +
       '<div class="pl-period" role="radiogroup" aria-label="' + esc(t('sub.period')) + '"><button type="button" role="radio" aria-checked="' + !year + '" data-pw-year="0">' + t('sub.monthly') + '</button><button type="button" role="radio" aria-checked="' + year + '" data-pw-year="1">' + t('sub.yearly') + ' <em>' + t('sub.yearSave') + '</em></button></div>' +
@@ -41,7 +41,7 @@
   // DEMO-afrekenen (zoals straks de betaalpagina van Stripe, maar er wordt niets afgeschreven)
   function drawPay(x) {
     var price = year ? x.priceYear : x.price, per = t(year ? 'sub.perYear' : 'plan.perMonth');
-    var top = '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>Optimasys <small>QR</small></b></span>' +
+    var top = '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
       '<button type="button" class="link-btn" data-pw-logout>' + esc(t('nav.logout')) + '</button></div>';
     if (step === 'done') {
       box.innerHTML = '<div class="pw-inner">' + top + '<div class="pw-done"><span class="pw-check" aria-hidden="true">✓</span><h1 id="pwTitle">' + esc(t('pw.done')) + '</h1>' +

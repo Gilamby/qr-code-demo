@@ -21,7 +21,7 @@ export function checkCode(secret: string, code: string, now = Date.now()): boole
   return [-1, 0, 1].some((d) => crypto.timingSafeEqual(Buffer.from(codeAt(secret, step + d)), Buffer.from(c)));
 }
 export function otpauth(secret: string, account: string): string {
-  return 'otpauth://totp/' + encodeURIComponent('Optimasys QR:' + account) + '?secret=' + secret + '&issuer=' + encodeURIComponent('Optimasys QR') + '&algorithm=SHA1&digits=6&period=30';
+  return 'otpauth://totp/' + encodeURIComponent('QR-Codex:' + account) + '?secret=' + secret + '&issuer=' + encodeURIComponent('QR-Codex') + '&algorithm=SHA1&digits=6&period=30';
 }
 export type Totp = { secret: string; on: boolean; codes: string[] };
 const sha = (s: string) => crypto.createHash('sha256').update(s.replace(/[\s-]/g, '').toUpperCase()).digest('hex');
