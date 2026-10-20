@@ -1,27 +1,43 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { LogoMark } from './QR'
 import Icon from './icons'
 
-type Nav = { features: string; solutions: string; pricing: string; faq: string; contact: string; login: string; tryFree: string; menu: string; close: string }
+type Nav = Record<string, string>
+/* Het menu = de onderdelen van de homepage, in dezelfde volgorde. Het onderdeel waar je bent licht op.
+   "Inloggen" staat er altijd, ook op de telefoon (bestaande klanten eerst). */
+const SECTIONS = ['generator', 'features', 'solutions', 'pricing', 'faq']
 
-/* Kopbalk: altijd zichtbaar. "Inloggen" staat er altijd, ook op de telefoon (bestaande klanten eerst). */
 export default function Header({ lang, nav, appUrl, signup }: { lang: string; nav: Nav; appUrl: string; signup: string }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState('')
+  const path = usePathname()
+  const home = path === '/' + lang || path === '/' + lang + '/'
+
   useEffect(() => {
     const f = () => setScrolled(window.scrollY > 8)
     f(); window.addEventListener('scroll', f, { passive: true })
     return () => window.removeEventListener('scroll', f)
   }, [])
   useEffect(() => { document.documentElement.classList.toggle('menu-open', open) }, [open])
-  const links = [
-    { href: `/${lang}#features`, label: nav.features },
-    { href: `/${lang}#solutions`, label: nav.solutions },
-    { href: `/${lang}/pricing`, label: nav.pricing },
-    { href: `/${lang}/faq`, label: nav.faq },
-  ]
+  // Welk onderdeel staat nu in beeld?
+  useEffect(() => {
+    if (!home) { setActive(path.includes('/pricing') ? 'pricing' : path.includes('/faq') ? 'faq' : ''); return }
+    const els = SECTIONS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+    const pick = () => {
+      const y = window.innerHeight * 0.35
+      let cur = ''
+      for (const el of els) if (el.getBoundingClientRect().top <= y) cur = el.id
+      setActive(cur)
+    }
+    pick(); window.addEventListener('scroll', pick, { passive: true })
+    return () => window.removeEventListener('scroll', pick)
+  }, [home, path])
+
+  const href = (id: string) => (home ? '#' + id : `/${lang}#${id}`)
   return (
     <header className={'site-header' + (scrolled ? ' is-scrolled' : '') + (open ? ' is-open' : '')}>
       <a className="skip" href="#main">Skip to content</a>
@@ -30,7 +46,7 @@ export default function Header({ lang, nav, appUrl, signup }: { lang: string; na
           <LogoMark size={30} id="hdr" /><span>Optimasys <b>QR</b></span>
         </Link>
         <nav className="main-nav" aria-label="Main">
-          {links.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
+          {SECTIONS.map((id) => <a key={id} href={href(id)} className={active === id ? 'on' : ''} aria-current={active === id ? 'true' : undefined}>{nav[id] || id}</a>)}
         </nav>
         <div className="header-actions">
           <a className="btn btn-ghost btn-sm login-btn" href={appUrl}>{nav.login}</a>
@@ -41,7 +57,7 @@ export default function Header({ lang, nav, appUrl, signup }: { lang: string; na
         </div>
       </div>
       <div id="mobile-nav" className="mobile-nav" hidden={!open}>
-        {links.map((l) => <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>{l.label}</Link>)}
+        {SECTIONS.map((id) => <a key={id} href={href(id)} onClick={() => setOpen(false)}>{nav[id] || id}</a>)}
         <Link href={`/${lang}/contact`} onClick={() => setOpen(false)}>{nav.contact}</Link>
         <a className="btn btn-primary" href={signup}>{nav.tryFree}</a>
       </div>

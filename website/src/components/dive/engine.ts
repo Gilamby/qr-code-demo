@@ -35,25 +35,28 @@ export function createEngine(canvas: HTMLCanvasElement, opts: { url: string; mob
   const warm = new THREE.PointLight('#ff8a3d', 0, 120, 1.6); warm.position.set(0, 18, 0); scene.add(warm)
   const rim = new THREE.DirectionalLight('#7dd3fc', 0.8); rim.position.set(40, 20, -40); scene.add(rim)
 
-  /* ---------- het veld ---------- */
-  const N = opts.mobile ? 57 : 85
-  const qr = matrix(opts.url, 'M')
-  const Q = qr.size, off = Math.floor((N - Q) / 2)
-  const qrSet = new Set<string>()
-  qr.dark.forEach(([x, y]) => qrSet.add(x + ',' + y))
-  qr.finders.forEach(([fx, fy]) => { for (let x = 0; x < 7; x++) for (let y = 0; y < 7; y++) { const ring = x === 0 || y === 0 || x === 6 || y === 6, core = x >= 2 && x <= 4 && y >= 2 && y <= 4; if (ring || core) qrSet.add(fx + x + ',' + (fy + y)) } })
+  /* ---------- het veld: een paar echte QR-codes op witte plaatjes (zoals ze geprint zijn) ---------- */
+  const T = 3, GAP = 7
   const rnd = (a: number, b: number) => { const v = Math.sin(a * 127.1 + b * 311.7) * 43758.5453; return v - Math.floor(v) }
+  const texts = ['https://example.com/menu', 'https://example.com/tickets', 'WIFI:T:WPA;S:Guest;P:welcome;;', 'https://example.com/shop',
+    opts.url, 'https://example.com/video', 'https://example.com/review', 'https://example.com/card', 'https://example.com/offer']
+  const codes = texts.map((t) => matrix(t, 'M'))
+  const Q = Math.max(...codes.map((c) => c.size)), cellW = Q + 4, span = T * cellW + (T - 1) * GAP
 
-  type Cell = { x: number; z: number; inQr: boolean; d: number; h: number; ph: number }
+  type Cell = { x: number; z: number; center: boolean; d: number; h: number; ph: number }
   const cells: Cell[] = []
-  for (let gx = 0; gx < N; gx++) for (let gz = 0; gz < N; gz++) {
-    const qx = gx - off, qz = gz - off
-    const inside = qx >= -1 && qz >= -1 && qx <= Q && qz <= Q
-    const isQr = inside && qrSet.has(qx + ',' + qz)
-    if (inside ? !isQr : rnd(gx, gz) > 0.44) continue
-    const x = gx - N / 2 + 0.5, z = gz - N / 2 + 0.5
-    cells.push({ x, z, inQr: isQr, d: Math.hypot(x, z) / (N * 0.7), h: 0.6 + rnd(gz, gx) * 5.5, ph: rnd(gx * 3, gz) * Math.PI * 2 })
-  }
+  const plates: { x: number; z: number; w: number }[] = []
+  codes.forEach((m, ti) => {
+    const tx = (ti % T) - (T - 1) / 2, tz = Math.floor(ti / T) - (T - 1) / 2
+    const ox = tx * (cellW + GAP), oz = tz * (cellW + GAP), center = ti === Math.floor(T * T / 2)
+    plates.push({ x: ox, z: oz, w: m.size + 4 })
+    const all: [number, number][] = [...m.dark]
+    m.finders.forEach(([fx, fy]) => { for (let x = 0; x < 7; x++) for (let y = 0; y < 7; y++) if (x === 0 || y === 0 || x === 6 || y === 6 || (x >= 2 && x <= 4 && y >= 2 && y <= 4)) all.push([fx + x, fy + y]) })
+    for (const [x, y] of all) {
+      const X = ox + x - m.size / 2 + 0.5, Z = oz + y - m.size / 2 + 0.5
+      cells.push({ x: X, z: Z, center, d: Math.hypot(X, Z) / span, h: 0.6 + rnd(x + ti * 7, y) * 4.5, ph: rnd(x * 3, y + ti) * Math.PI * 2 })
+    }
+  })
 
   /* ---------- de wereld: doelen voor elk blokje ---------- */
   const districts = buildWorld(opts.mobile ? 20 : 24)
@@ -87,18 +90,23 @@ export function createEngine(canvas: HTMLCanvasElement, opts: { url: string; mob
   const mesh = new THREE.InstancedMesh(geo, mat, cells.length)
   mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage)
   scene.add(mesh)
-  const silver = new THREE.Color('#eef2f7'), steelNear = new THREE.Color('#3a4456'), steelFar = new THREE.Color('#141a24')
-  const base: THREE.Color[] = cells.map((c) => c.inQr ? silver : steelNear.clone().lerp(steelFar, clamp(c.d * 1.4)))
+  const ink = new THREE.Color('#15181e')
+  const base: THREE.Color[] = cells.map(() => ink)
+  // witte plaatjes onder de codes (zakken weg als de wereld ontstaat)
+  const plateMesh = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshStandardMaterial({ color: '#f4f5f7', roughness: 0.85 }), plates.length)
+  scene.add(plateMesh)
   const tmpC = new THREE.Color(), m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), pos = new THREE.Vector3(), scl = new THREE.Vector3(), eul = new THREE.Euler()
   const stagger = cells.map((c, i) => rnd(i, 17) * 0.55 + c.d * 0.35)
 
   /* ---------- camera-route ---------- */
   const rect0 = canvas.getBoundingClientRect(), R = rect0.width < rect0.height ? 96 : 62   // staand scherm: verder weg
+  const aspect0 = rect0.width / Math.max(1, rect0.height), fov0 = aspect0 < 1 ? 58 : 40
+  const H0 = (span * 1.08) / (2 * Math.tan((fov0 * Math.PI) / 360) * Math.min(1, aspect0))      // hoogte waarop alle codes in beeld zijn
   type Key = { p: number; pos: [number, number, number]; look: [number, number, number] }
   const route: Key[] = [
-    { p: 0.0, pos: [0, opts.mobile ? 95 : 72, 0.01], look: [0, 0, 0] },
-    { p: 0.16, pos: [0, 52, 24], look: [0, 0, 0] },
-    { p: 0.34, pos: [10, 14, 26], look: [0, 2, 0] },
+    { p: 0.0, pos: [0, H0, 0.01], look: [0, 0, 0] },
+    { p: 0.18, pos: [0, 46, 12], look: [0, 0, 0] },
+    { p: 0.34, pos: [9, 16, 28], look: [0, 2, 0] },
     { p: 0.48, pos: [3, 2.2, 7], look: [-7, 3, -16] },
     { p: 0.58, pos: [-6, 3.5, -6], look: [-14, 5, -26] },
     { p: 0.76, pos: [0, 30, R], look: [0, 6, 0] },
@@ -131,7 +139,7 @@ export function createEngine(canvas: HTMLCanvasElement, opts: { url: string; mob
       const mi = clamp((morph * 1.9) - stagger[i])                     // eigen moment per blokje
       const e = mi * mi * (3 - 2 * mi)
       const wave = Math.sin(t * 0.9 + c.ph + c.x * 0.15) * 0.5 + 0.5
-      const fh = 0.18 + rise * (c.inQr ? c.h * 0.6 + 1.2 : c.h) * (0.65 + 0.35 * wave)
+      const fh = 0.12 + rise * (c.center ? c.h + 1.5 : c.h * 0.45) * (0.65 + 0.35 * wave)
       // vlucht: omhoog boog, dan naar de plek
       const arc = Math.sin(e * Math.PI) * (8 + c.d * 20)
       pos.set(mix(c.x, T.p[0], e), mix(0, T.p[1], e) + arc, mix(c.z, T.p[2], e))
@@ -143,6 +151,12 @@ export function createEngine(canvas: HTMLCanvasElement, opts: { url: string; mob
       tmpC.copy(base[i]).lerp(T.color, e)
       mesh.setColorAt(i, tmpC)
     }
+    plates.forEach((pl, i) => {
+      const sink = smooth(0.5, 0.7, p)
+      pos.set(pl.x, -0.25 - sink * 4, pl.z); scl.set(pl.w * (1 - sink) + 0.001, 0.5 * (1 - sink) + 0.001, pl.w * (1 - sink) + 0.001); q.identity()
+      m4.compose(pos, q, scl); plateMesh.setMatrixAt(i, m4)
+    })
+    plateMesh.instanceMatrix.needsUpdate = true
     mesh.instanceMatrix.needsUpdate = true
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true
     warm.intensity = world * 900
@@ -157,6 +171,8 @@ export function createEngine(canvas: HTMLCanvasElement, opts: { url: string; mob
       camera.position.set(r * Math.cos(a), 30 - (p - 0.76) * 22, r * Math.sin(a))
       camera.lookAt(0, 6, 0)
     }
+    const fog = scene.fog as THREE.Fog, dist = camera.position.length()
+    fog.near = Math.max(30, dist * 0.7); fog.far = dist + 150
     renderer.render(scene, camera)
     raf = requestAnimationFrame(frame)
   }

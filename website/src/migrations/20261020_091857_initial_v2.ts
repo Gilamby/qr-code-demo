@@ -166,6 +166,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE TABLE \`settings\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`app_url\` text DEFAULT 'https://my.qr-codex.com',
+  	\`free_downloads\` numeric DEFAULT 1,
+  	\`content_version\` numeric,
   	\`contact_email\` text,
   	\`updated_at\` text,
   	\`created_at\` text
@@ -174,6 +176,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE TABLE \`settings_locales\` (
   	\`seo_title\` text,
   	\`seo_description\` text,
+  	\`nav_generator\` text,
   	\`nav_features\` text,
   	\`nav_solutions\` text,
   	\`nav_pricing\` text,
@@ -232,7 +235,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`home_hero_items_order_idx\` ON \`home_hero_items\` (\`_order\`);`)
   await db.run(sql`CREATE INDEX \`home_hero_items_parent_id_idx\` ON \`home_hero_items\` (\`_parent_id\`);`)
   await db.run(sql`CREATE INDEX \`home_hero_items_locale_idx\` ON \`home_hero_items\` (\`_locale\`);`)
-  await db.run(sql`CREATE TABLE \`home_intro_items\` (
+  await db.run(sql`CREATE TABLE \`home_trust_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
   	\`_locale\` text NOT NULL,
@@ -243,37 +246,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`home_intro_items_order_idx\` ON \`home_intro_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`home_intro_items_parent_id_idx\` ON \`home_intro_items\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`home_intro_items_locale_idx\` ON \`home_intro_items\` (\`_locale\`);`)
-  await db.run(sql`CREATE TABLE \`home_dive_items\` (
-  	\`_order\` integer NOT NULL,
-  	\`_parent_id\` integer NOT NULL,
-  	\`_locale\` text NOT NULL,
-  	\`id\` text PRIMARY KEY NOT NULL,
-  	\`key\` text,
-  	\`title\` text,
-  	\`text\` text,
-  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
-  );
-  `)
-  await db.run(sql`CREATE INDEX \`home_dive_items_order_idx\` ON \`home_dive_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`home_dive_items_parent_id_idx\` ON \`home_dive_items\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`home_dive_items_locale_idx\` ON \`home_dive_items\` (\`_locale\`);`)
-  await db.run(sql`CREATE TABLE \`home_become_items\` (
-  	\`_order\` integer NOT NULL,
-  	\`_parent_id\` integer NOT NULL,
-  	\`_locale\` text NOT NULL,
-  	\`id\` text PRIMARY KEY NOT NULL,
-  	\`key\` text,
-  	\`title\` text,
-  	\`text\` text,
-  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
-  );
-  `)
-  await db.run(sql`CREATE INDEX \`home_become_items_order_idx\` ON \`home_become_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`home_become_items_parent_id_idx\` ON \`home_become_items\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`home_become_items_locale_idx\` ON \`home_become_items\` (\`_locale\`);`)
+  await db.run(sql`CREATE INDEX \`home_trust_items_order_idx\` ON \`home_trust_items\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`home_trust_items_parent_id_idx\` ON \`home_trust_items\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`home_trust_items_locale_idx\` ON \`home_trust_items\` (\`_locale\`);`)
   await db.run(sql`CREATE TABLE \`home_how_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -288,7 +263,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`home_how_items_order_idx\` ON \`home_how_items\` (\`_order\`);`)
   await db.run(sql`CREATE INDEX \`home_how_items_parent_id_idx\` ON \`home_how_items\` (\`_parent_id\`);`)
   await db.run(sql`CREATE INDEX \`home_how_items_locale_idx\` ON \`home_how_items\` (\`_locale\`);`)
-  await db.run(sql`CREATE TABLE \`home_demo_items\` (
+  await db.run(sql`CREATE TABLE \`home_features_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
   	\`_locale\` text NOT NULL,
@@ -299,10 +274,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`home_demo_items_order_idx\` ON \`home_demo_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`home_demo_items_parent_id_idx\` ON \`home_demo_items\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`home_demo_items_locale_idx\` ON \`home_demo_items\` (\`_locale\`);`)
-  await db.run(sql`CREATE TABLE \`home_manage_items\` (
+  await db.run(sql`CREATE INDEX \`home_features_items_order_idx\` ON \`home_features_items\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`home_features_items_parent_id_idx\` ON \`home_features_items\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`home_features_items_locale_idx\` ON \`home_features_items\` (\`_locale\`);`)
+  await db.run(sql`CREATE TABLE \`home_become_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
   	\`_locale\` text NOT NULL,
@@ -313,9 +288,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`home_manage_items_order_idx\` ON \`home_manage_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`home_manage_items_parent_id_idx\` ON \`home_manage_items\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`home_manage_items_locale_idx\` ON \`home_manage_items\` (\`_locale\`);`)
+  await db.run(sql`CREATE INDEX \`home_become_items_order_idx\` ON \`home_become_items\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`home_become_items_parent_id_idx\` ON \`home_become_items\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`home_become_items_locale_idx\` ON \`home_become_items\` (\`_locale\`);`)
   await db.run(sql`CREATE TABLE \`home_track_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -344,7 +319,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`home_solutions_items_order_idx\` ON \`home_solutions_items\` (\`_order\`);`)
   await db.run(sql`CREATE INDEX \`home_solutions_items_parent_id_idx\` ON \`home_solutions_items\` (\`_parent_id\`);`)
   await db.run(sql`CREATE INDEX \`home_solutions_items_locale_idx\` ON \`home_solutions_items\` (\`_locale\`);`)
-  await db.run(sql`CREATE TABLE \`home_maze_items\` (
+  await db.run(sql`CREATE TABLE \`home_dive_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
   	\`_locale\` text NOT NULL,
@@ -355,9 +330,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`home_maze_items_order_idx\` ON \`home_maze_items\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`home_maze_items_parent_id_idx\` ON \`home_maze_items\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`home_maze_items_locale_idx\` ON \`home_maze_items\` (\`_locale\`);`)
+  await db.run(sql`CREATE INDEX \`home_dive_items_order_idx\` ON \`home_dive_items\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`home_dive_items_parent_id_idx\` ON \`home_dive_items\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`home_dive_items_locale_idx\` ON \`home_dive_items\` (\`_locale\`);`)
   await db.run(sql`CREATE TABLE \`home_pricing_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -414,27 +389,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`hero_cta\` text,
   	\`hero_cta2\` text,
   	\`hero_note\` text,
-  	\`intro_chapter\` text,
-  	\`intro_eyebrow\` text,
-  	\`intro_title\` text,
-  	\`intro_text\` text,
-  	\`intro_cta\` text,
-  	\`intro_cta2\` text,
-  	\`intro_note\` text,
-  	\`dive_chapter\` text,
-  	\`dive_eyebrow\` text,
-  	\`dive_title\` text,
-  	\`dive_text\` text,
-  	\`dive_cta\` text,
-  	\`dive_cta2\` text,
-  	\`dive_note\` text,
-  	\`become_chapter\` text,
-  	\`become_eyebrow\` text,
-  	\`become_title\` text,
-  	\`become_text\` text,
-  	\`become_cta\` text,
-  	\`become_cta2\` text,
-  	\`become_note\` text,
+  	\`trust_chapter\` text,
+  	\`trust_eyebrow\` text,
+  	\`trust_title\` text,
+  	\`trust_text\` text,
+  	\`trust_cta\` text,
+  	\`trust_cta2\` text,
+  	\`trust_note\` text,
   	\`how_chapter\` text,
   	\`how_eyebrow\` text,
   	\`how_title\` text,
@@ -442,20 +403,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`how_cta\` text,
   	\`how_cta2\` text,
   	\`how_note\` text,
-  	\`demo_chapter\` text,
-  	\`demo_eyebrow\` text,
-  	\`demo_title\` text,
-  	\`demo_text\` text,
-  	\`demo_cta\` text,
-  	\`demo_cta2\` text,
-  	\`demo_note\` text,
-  	\`manage_chapter\` text,
-  	\`manage_eyebrow\` text,
-  	\`manage_title\` text,
-  	\`manage_text\` text,
-  	\`manage_cta\` text,
-  	\`manage_cta2\` text,
-  	\`manage_note\` text,
+  	\`features_chapter\` text,
+  	\`features_eyebrow\` text,
+  	\`features_title\` text,
+  	\`features_text\` text,
+  	\`features_cta\` text,
+  	\`features_cta2\` text,
+  	\`features_note\` text,
+  	\`become_chapter\` text,
+  	\`become_eyebrow\` text,
+  	\`become_title\` text,
+  	\`become_text\` text,
+  	\`become_cta\` text,
+  	\`become_cta2\` text,
+  	\`become_note\` text,
   	\`track_chapter\` text,
   	\`track_eyebrow\` text,
   	\`track_title\` text,
@@ -470,13 +431,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`solutions_cta\` text,
   	\`solutions_cta2\` text,
   	\`solutions_note\` text,
-  	\`maze_chapter\` text,
-  	\`maze_eyebrow\` text,
-  	\`maze_title\` text,
-  	\`maze_text\` text,
-  	\`maze_cta\` text,
-  	\`maze_cta2\` text,
-  	\`maze_note\` text,
+  	\`dive_chapter\` text,
+  	\`dive_eyebrow\` text,
+  	\`dive_title\` text,
+  	\`dive_text\` text,
+  	\`dive_cta\` text,
+  	\`dive_cta2\` text,
+  	\`dive_note\` text,
   	\`pricing_chapter\` text,
   	\`pricing_eyebrow\` text,
   	\`pricing_title\` text,
@@ -614,15 +575,13 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`settings\`;`)
   await db.run(sql`DROP TABLE \`settings_locales\`;`)
   await db.run(sql`DROP TABLE \`home_hero_items\`;`)
-  await db.run(sql`DROP TABLE \`home_intro_items\`;`)
-  await db.run(sql`DROP TABLE \`home_dive_items\`;`)
-  await db.run(sql`DROP TABLE \`home_become_items\`;`)
+  await db.run(sql`DROP TABLE \`home_trust_items\`;`)
   await db.run(sql`DROP TABLE \`home_how_items\`;`)
-  await db.run(sql`DROP TABLE \`home_demo_items\`;`)
-  await db.run(sql`DROP TABLE \`home_manage_items\`;`)
+  await db.run(sql`DROP TABLE \`home_features_items\`;`)
+  await db.run(sql`DROP TABLE \`home_become_items\`;`)
   await db.run(sql`DROP TABLE \`home_track_items\`;`)
   await db.run(sql`DROP TABLE \`home_solutions_items\`;`)
-  await db.run(sql`DROP TABLE \`home_maze_items\`;`)
+  await db.run(sql`DROP TABLE \`home_dive_items\`;`)
   await db.run(sql`DROP TABLE \`home_pricing_items\`;`)
   await db.run(sql`DROP TABLE \`home_faq_items\`;`)
   await db.run(sql`DROP TABLE \`home_final_items\`;`)

@@ -1,6 +1,6 @@
 import type { Payload } from 'payload'
 import { CONTENT, PRICES } from './defaults'
-import { HOME } from './home'
+import { HOME, HOME_VERSION, NAV } from './home'
 
 /* Eerste start: het beheer is leeg → vul het met de startteksten (en, nl, es).
    Draait alleen als er nog niets staat, dus wat in het beheer is aangepast blijft altijd staan. */
@@ -33,12 +33,24 @@ async function firstAdmin(payload: Payload) {
 export async function seed(payload: Payload) {
   await firstAdmin(payload)
   const settings: any = await payload.findGlobal({ slug: 'settings', locale: 'en' })
-  if (settings?.nav?.login) return                                      // al gevuld
+  if (settings?.nav?.login) {                                            // al gevuld
+    // Nieuwe opbouw van de homepage (versie): homepage-teksten en menu opnieuw zetten
+    if ((settings.contentVersion || 1) < HOME_VERSION) {
+      payload.logger.info('Website: nieuwe opbouw homepage (versie ' + HOME_VERSION + ')…')
+      for (const lang of LANGS) {
+        await payload.updateGlobal({ slug: 'home', locale: lang, data: { ...HOME[lang] } as any })
+        const cur: any = await payload.findGlobal({ slug: 'settings', locale: lang, fallbackLocale: false as any })
+        await payload.updateGlobal({ slug: 'settings', locale: lang, data: { nav: { ...(cur.nav || {}), ...NAV[lang] } } as any })
+      }
+      await payload.updateGlobal({ slug: 'settings', data: { contentVersion: HOME_VERSION } as any })
+    }
+    return
+  }
 
   payload.logger.info('Website: startteksten in het beheer zetten…')
   for (const lang of LANGS) {
     const c = CONTENT[lang]
-    await payload.updateGlobal({ slug: 'settings', locale: lang, data: { ...c.settings } })
+    await payload.updateGlobal({ slug: 'settings', locale: lang, data: { ...c.settings, nav: NAV[lang], contentVersion: HOME_VERSION } as any })
     await payload.updateGlobal({ slug: 'home', locale: lang, data: { ...HOME[lang] } as any })
   }
 

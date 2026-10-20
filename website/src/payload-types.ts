@@ -468,12 +468,15 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Setting {
   id: number;
   appUrl?: string | null;
+  freeDownloads?: number | null;
+  contentVersion?: number | null;
   contactEmail?: string | null;
   seo?: {
     title?: string | null;
     description?: string | null;
   };
   nav?: {
+    generator?: string | null;
     features?: string | null;
     solutions?: string | null;
     pricing?: string | null;
@@ -545,41 +548,7 @@ export interface Home {
         }[]
       | null;
   };
-  intro?: {
-    chapter?: string | null;
-    eyebrow?: string | null;
-    title?: string | null;
-    text?: string | null;
-    cta?: string | null;
-    cta2?: string | null;
-    note?: string | null;
-    items?:
-      | {
-          key?: string | null;
-          title?: string | null;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  dive?: {
-    chapter?: string | null;
-    eyebrow?: string | null;
-    title?: string | null;
-    text?: string | null;
-    cta?: string | null;
-    cta2?: string | null;
-    note?: string | null;
-    items?:
-      | {
-          key?: string | null;
-          title?: string | null;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  become?: {
+  trust?: {
     chapter?: string | null;
     eyebrow?: string | null;
     title?: string | null;
@@ -613,7 +582,7 @@ export interface Home {
         }[]
       | null;
   };
-  demo?: {
+  features?: {
     chapter?: string | null;
     eyebrow?: string | null;
     title?: string | null;
@@ -630,7 +599,7 @@ export interface Home {
         }[]
       | null;
   };
-  manage?: {
+  become?: {
     chapter?: string | null;
     eyebrow?: string | null;
     title?: string | null;
@@ -681,7 +650,7 @@ export interface Home {
         }[]
       | null;
   };
-  maze?: {
+  dive?: {
     chapter?: string | null;
     eyebrow?: string | null;
     title?: string | null;
@@ -809,6 +778,8 @@ export interface Pricing {
  */
 export interface SettingsSelect<T extends boolean = true> {
   appUrl?: T;
+  freeDownloads?: T;
+  contentVersion?: T;
   contactEmail?: T;
   seo?:
     | T
@@ -819,6 +790,7 @@ export interface SettingsSelect<T extends boolean = true> {
   nav?:
     | T
     | {
+        generator?: T;
         features?: T;
         solutions?: T;
         pricing?: T;
@@ -900,45 +872,7 @@ export interface HomeSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  intro?:
-    | T
-    | {
-        chapter?: T;
-        eyebrow?: T;
-        title?: T;
-        text?: T;
-        cta?: T;
-        cta2?: T;
-        note?: T;
-        items?:
-          | T
-          | {
-              key?: T;
-              title?: T;
-              text?: T;
-              id?: T;
-            };
-      };
-  dive?:
-    | T
-    | {
-        chapter?: T;
-        eyebrow?: T;
-        title?: T;
-        text?: T;
-        cta?: T;
-        cta2?: T;
-        note?: T;
-        items?:
-          | T
-          | {
-              key?: T;
-              title?: T;
-              text?: T;
-              id?: T;
-            };
-      };
-  become?:
+  trust?:
     | T
     | {
         chapter?: T;
@@ -976,7 +910,7 @@ export interface HomeSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  demo?:
+  features?:
     | T
     | {
         chapter?: T;
@@ -995,7 +929,7 @@ export interface HomeSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  manage?:
+  become?:
     | T
     | {
         chapter?: T;
@@ -1052,7 +986,7 @@ export interface HomeSelect<T extends boolean = true> {
               id?: T;
             };
       };
-  maze?:
+  dive?:
     | T
     | {
         chapter?: T;

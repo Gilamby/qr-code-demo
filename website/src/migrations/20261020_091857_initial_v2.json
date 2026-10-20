@@ -1109,6 +1109,21 @@
           "autoincrement": false,
           "default": "'https://my.qr-codex.com'"
         },
+        "free_downloads": {
+          "name": "free_downloads",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 1
+        },
+        "content_version": {
+          "name": "content_version",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "contact_email": {
           "name": "contact_email",
           "type": "text",
@@ -1149,6 +1164,13 @@
         },
         "seo_description": {
           "name": "seo_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nav_generator": {
+          "name": "nav_generator",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -1559,8 +1581,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "home_intro_items": {
-      "name": "home_intro_items",
+    "home_trust_items": {
+      "name": "home_trust_items",
       "columns": {
         "_order": {
           "name": "_order",
@@ -1613,22 +1635,22 @@
         }
       },
       "indexes": {
-        "home_intro_items_order_idx": {
-          "name": "home_intro_items_order_idx",
+        "home_trust_items_order_idx": {
+          "name": "home_trust_items_order_idx",
           "columns": [
             "_order"
           ],
           "isUnique": false
         },
-        "home_intro_items_parent_id_idx": {
-          "name": "home_intro_items_parent_id_idx",
+        "home_trust_items_parent_id_idx": {
+          "name": "home_trust_items_parent_id_idx",
           "columns": [
             "_parent_id"
           ],
           "isUnique": false
         },
-        "home_intro_items_locale_idx": {
-          "name": "home_intro_items_locale_idx",
+        "home_trust_items_locale_idx": {
+          "name": "home_trust_items_locale_idx",
           "columns": [
             "_locale"
           ],
@@ -1636,199 +1658,9 @@
         }
       },
       "foreignKeys": {
-        "home_intro_items_parent_id_fk": {
-          "name": "home_intro_items_parent_id_fk",
-          "tableFrom": "home_intro_items",
-          "tableTo": "home",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "home_dive_items": {
-      "name": "home_dive_items",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "key": {
-          "name": "key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "text": {
-          "name": "text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "home_dive_items_order_idx": {
-          "name": "home_dive_items_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "home_dive_items_parent_id_idx": {
-          "name": "home_dive_items_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        },
-        "home_dive_items_locale_idx": {
-          "name": "home_dive_items_locale_idx",
-          "columns": [
-            "_locale"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "home_dive_items_parent_id_fk": {
-          "name": "home_dive_items_parent_id_fk",
-          "tableFrom": "home_dive_items",
-          "tableTo": "home",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "home_become_items": {
-      "name": "home_become_items",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_locale": {
-          "name": "_locale",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "key": {
-          "name": "key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "text": {
-          "name": "text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "home_become_items_order_idx": {
-          "name": "home_become_items_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "home_become_items_parent_id_idx": {
-          "name": "home_become_items_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        },
-        "home_become_items_locale_idx": {
-          "name": "home_become_items_locale_idx",
-          "columns": [
-            "_locale"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "home_become_items_parent_id_fk": {
-          "name": "home_become_items_parent_id_fk",
-          "tableFrom": "home_become_items",
+        "home_trust_items_parent_id_fk": {
+          "name": "home_trust_items_parent_id_fk",
+          "tableFrom": "home_trust_items",
           "tableTo": "home",
           "columnsFrom": [
             "_parent_id"
@@ -1939,8 +1771,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "home_demo_items": {
-      "name": "home_demo_items",
+    "home_features_items": {
+      "name": "home_features_items",
       "columns": {
         "_order": {
           "name": "_order",
@@ -1993,22 +1825,22 @@
         }
       },
       "indexes": {
-        "home_demo_items_order_idx": {
-          "name": "home_demo_items_order_idx",
+        "home_features_items_order_idx": {
+          "name": "home_features_items_order_idx",
           "columns": [
             "_order"
           ],
           "isUnique": false
         },
-        "home_demo_items_parent_id_idx": {
-          "name": "home_demo_items_parent_id_idx",
+        "home_features_items_parent_id_idx": {
+          "name": "home_features_items_parent_id_idx",
           "columns": [
             "_parent_id"
           ],
           "isUnique": false
         },
-        "home_demo_items_locale_idx": {
-          "name": "home_demo_items_locale_idx",
+        "home_features_items_locale_idx": {
+          "name": "home_features_items_locale_idx",
           "columns": [
             "_locale"
           ],
@@ -2016,9 +1848,9 @@
         }
       },
       "foreignKeys": {
-        "home_demo_items_parent_id_fk": {
-          "name": "home_demo_items_parent_id_fk",
-          "tableFrom": "home_demo_items",
+        "home_features_items_parent_id_fk": {
+          "name": "home_features_items_parent_id_fk",
+          "tableFrom": "home_features_items",
           "tableTo": "home",
           "columnsFrom": [
             "_parent_id"
@@ -2034,8 +1866,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "home_manage_items": {
-      "name": "home_manage_items",
+    "home_become_items": {
+      "name": "home_become_items",
       "columns": {
         "_order": {
           "name": "_order",
@@ -2088,22 +1920,22 @@
         }
       },
       "indexes": {
-        "home_manage_items_order_idx": {
-          "name": "home_manage_items_order_idx",
+        "home_become_items_order_idx": {
+          "name": "home_become_items_order_idx",
           "columns": [
             "_order"
           ],
           "isUnique": false
         },
-        "home_manage_items_parent_id_idx": {
-          "name": "home_manage_items_parent_id_idx",
+        "home_become_items_parent_id_idx": {
+          "name": "home_become_items_parent_id_idx",
           "columns": [
             "_parent_id"
           ],
           "isUnique": false
         },
-        "home_manage_items_locale_idx": {
-          "name": "home_manage_items_locale_idx",
+        "home_become_items_locale_idx": {
+          "name": "home_become_items_locale_idx",
           "columns": [
             "_locale"
           ],
@@ -2111,9 +1943,9 @@
         }
       },
       "foreignKeys": {
-        "home_manage_items_parent_id_fk": {
-          "name": "home_manage_items_parent_id_fk",
-          "tableFrom": "home_manage_items",
+        "home_become_items_parent_id_fk": {
+          "name": "home_become_items_parent_id_fk",
+          "tableFrom": "home_become_items",
           "tableTo": "home",
           "columnsFrom": [
             "_parent_id"
@@ -2319,8 +2151,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "home_maze_items": {
-      "name": "home_maze_items",
+    "home_dive_items": {
+      "name": "home_dive_items",
       "columns": {
         "_order": {
           "name": "_order",
@@ -2373,22 +2205,22 @@
         }
       },
       "indexes": {
-        "home_maze_items_order_idx": {
-          "name": "home_maze_items_order_idx",
+        "home_dive_items_order_idx": {
+          "name": "home_dive_items_order_idx",
           "columns": [
             "_order"
           ],
           "isUnique": false
         },
-        "home_maze_items_parent_id_idx": {
-          "name": "home_maze_items_parent_id_idx",
+        "home_dive_items_parent_id_idx": {
+          "name": "home_dive_items_parent_id_idx",
           "columns": [
             "_parent_id"
           ],
           "isUnique": false
         },
-        "home_maze_items_locale_idx": {
-          "name": "home_maze_items_locale_idx",
+        "home_dive_items_locale_idx": {
+          "name": "home_dive_items_locale_idx",
           "columns": [
             "_locale"
           ],
@@ -2396,9 +2228,9 @@
         }
       },
       "foreignKeys": {
-        "home_maze_items_parent_id_fk": {
-          "name": "home_maze_items_parent_id_fk",
-          "tableFrom": "home_maze_items",
+        "home_dive_items_parent_id_fk": {
+          "name": "home_dive_items_parent_id_fk",
+          "tableFrom": "home_dive_items",
           "tableTo": "home",
           "columnsFrom": [
             "_parent_id"
@@ -2782,148 +2614,50 @@
           "notNull": false,
           "autoincrement": false
         },
-        "intro_chapter": {
-          "name": "intro_chapter",
+        "trust_chapter": {
+          "name": "trust_chapter",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "intro_eyebrow": {
-          "name": "intro_eyebrow",
+        "trust_eyebrow": {
+          "name": "trust_eyebrow",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "intro_title": {
-          "name": "intro_title",
+        "trust_title": {
+          "name": "trust_title",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "intro_text": {
-          "name": "intro_text",
+        "trust_text": {
+          "name": "trust_text",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "intro_cta": {
-          "name": "intro_cta",
+        "trust_cta": {
+          "name": "trust_cta",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "intro_cta2": {
-          "name": "intro_cta2",
+        "trust_cta2": {
+          "name": "trust_cta2",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "intro_note": {
-          "name": "intro_note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_chapter": {
-          "name": "dive_chapter",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_eyebrow": {
-          "name": "dive_eyebrow",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_title": {
-          "name": "dive_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_text": {
-          "name": "dive_text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_cta": {
-          "name": "dive_cta",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_cta2": {
-          "name": "dive_cta2",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "dive_note": {
-          "name": "dive_note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_chapter": {
-          "name": "become_chapter",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_eyebrow": {
-          "name": "become_eyebrow",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_title": {
-          "name": "become_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_text": {
-          "name": "become_text",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_cta": {
-          "name": "become_cta",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_cta2": {
-          "name": "become_cta2",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "become_note": {
-          "name": "become_note",
+        "trust_note": {
+          "name": "trust_note",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -2978,99 +2712,99 @@
           "notNull": false,
           "autoincrement": false
         },
-        "demo_chapter": {
-          "name": "demo_chapter",
+        "features_chapter": {
+          "name": "features_chapter",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "demo_eyebrow": {
-          "name": "demo_eyebrow",
+        "features_eyebrow": {
+          "name": "features_eyebrow",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "demo_title": {
-          "name": "demo_title",
+        "features_title": {
+          "name": "features_title",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "demo_text": {
-          "name": "demo_text",
+        "features_text": {
+          "name": "features_text",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "demo_cta": {
-          "name": "demo_cta",
+        "features_cta": {
+          "name": "features_cta",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "demo_cta2": {
-          "name": "demo_cta2",
+        "features_cta2": {
+          "name": "features_cta2",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "demo_note": {
-          "name": "demo_note",
+        "features_note": {
+          "name": "features_note",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "manage_chapter": {
-          "name": "manage_chapter",
+        "become_chapter": {
+          "name": "become_chapter",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "manage_eyebrow": {
-          "name": "manage_eyebrow",
+        "become_eyebrow": {
+          "name": "become_eyebrow",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "manage_title": {
-          "name": "manage_title",
+        "become_title": {
+          "name": "become_title",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "manage_text": {
-          "name": "manage_text",
+        "become_text": {
+          "name": "become_text",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "manage_cta": {
-          "name": "manage_cta",
+        "become_cta": {
+          "name": "become_cta",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "manage_cta2": {
-          "name": "manage_cta2",
+        "become_cta2": {
+          "name": "become_cta2",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "manage_note": {
-          "name": "manage_note",
+        "become_note": {
+          "name": "become_note",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -3174,50 +2908,50 @@
           "notNull": false,
           "autoincrement": false
         },
-        "maze_chapter": {
-          "name": "maze_chapter",
+        "dive_chapter": {
+          "name": "dive_chapter",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "maze_eyebrow": {
-          "name": "maze_eyebrow",
+        "dive_eyebrow": {
+          "name": "dive_eyebrow",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "maze_title": {
-          "name": "maze_title",
+        "dive_title": {
+          "name": "dive_title",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "maze_text": {
-          "name": "maze_text",
+        "dive_text": {
+          "name": "dive_text",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "maze_cta": {
-          "name": "maze_cta",
+        "dive_cta": {
+          "name": "dive_cta",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "maze_cta2": {
-          "name": "maze_cta2",
+        "dive_cta2": {
+          "name": "dive_cta2",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "maze_note": {
-          "name": "maze_note",
+        "dive_note": {
+          "name": "dive_note",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -4035,6 +3769,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "bc3aecb2-8053-444f-aac8-932e761eaf7e",
+  "id": "901a885f-a6eb-402c-816b-11aad9b2681b",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -9,9 +9,11 @@ export const Settings: GlobalConfig = {
   hooks: { afterChange: [revalidateAll] },
   fields: [
     { name: 'appUrl', label: 'Adres van de app', type: 'text', defaultValue: 'https://my.qr-codex.com' },
+    { name: 'freeDownloads', label: 'Gratis downloads in de generator per bezoeker (0 = uit)', type: 'number', defaultValue: 1, min: 0, max: 20 },
+    { name: 'contentVersion', type: 'number', admin: { hidden: true } },
     { name: 'contactEmail', label: 'E-mailadres support (leeg = niet tonen)', type: 'email' },
     group('seo', 'Zoekmachines', [L('title', 'Titel'), L('description', 'Omschrijving', true)]),
-    group('nav', 'Menu', [L('features', 'Functies'), L('solutions', 'Oplossingen'), L('pricing', 'Prijzen'), L('faq', 'Vragen'), L('contact', 'Contact'),
+    group('nav', 'Menu', [L('generator', 'Generator'), L('features', 'Functies'), L('solutions', 'Oplossingen'), L('pricing', 'Prijzen'), L('faq', 'Vragen'), L('contact', 'Contact'),
       L('login', 'Inloggen'), L('tryFree', 'Knop QR-code maken'), L('menu', 'Menu (mobiel)'), L('close', 'Sluiten')]),
     group('footer', 'Voettekst', [L('tagline', 'Zin onder het logo', true), L('product', 'Kop product'), L('company', 'Kop bedrijf'), L('legal', 'Kop juridisch'),
       L('cancel', 'Abonnement opzeggen'), L('language', 'Taal'), L('rights', 'Rechten')]),
