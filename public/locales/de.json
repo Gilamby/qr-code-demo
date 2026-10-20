@@ -652,7 +652,11 @@
     "reason_video": "Hintergrundvideos sind in Business enthalten.",
     "reason_team": "Im Team arbeiten geht ab Pro.",
     "reason_stats": "Längere Statistiken gibt es mit einem größeren Paket.",
-    "reason_limit": "Du hast alle QR-Codes deines Pakets genutzt. Wähle ein größeres Paket, um mehr zu erstellen."
+    "reason_limit": "Du hast alle QR-Codes deines Pakets genutzt. Wähle ein größeres Paket, um mehr zu erstellen.",
+    "viaStripe": "Sicher bezahlen mit Stripe. Jederzeit kündbar.",
+    "processing": "Deine Zahlung wird verarbeitet…",
+    "processingLead": "Das dauert ein paar Sekunden. Bitte lass diese Seite geöffnet.",
+    "payError": "Die Zahlung konnte nicht gestartet werden. Versuche es gleich noch einmal."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Hallo,",
     "teamInviteText": "{name} hat dich eingeladen, gemeinsam QR-Codes in QR-Codex zu verwalten. Klicke auf den Button, um dein Passwort zu wählen. Der Link gilt 7 Tage.",
     "teamInviteButton": "Einladung annehmen",
-    "teamInviteIgnore": "Hast du diese E-Mail nicht erwartet? Dann kannst du sie ignorieren."
+    "teamInviteIgnore": "Hast du diese E-Mail nicht erwartet? Dann kannst du sie ignorieren.",
+    "cancelSubject": "Dein QR-Codex-Abo wurde gekündigt",
+    "cancelText": "Wir haben deine Kündigung erhalten. Dein Paket läuft noch bis {date}; danach wird nichts mehr abgebucht und deine QR-Codes funktionieren nicht mehr. Doch weitermachen? Bis dahin ist das jederzeit möglich.",
+    "cancelButton": "Mein Paket ansehen"
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Mehr nötig?",
     "moreLead": "Alle Pakete im Vergleich – wechsle, wann du willst.",
     "seePlans": "Pakete ansehen",
-    "currentLead": "Dein aktuelles Paket."
+    "currentLead": "Dein aktuelles Paket.",
+    "manageTitle": "Abo verwalten",
+    "manageLead": "Rechnungen, Zahlungsdaten und Kündigen.",
+    "manage": "Verwalten"
   },
   "tfa": {
     "title": "Zwei-Schritt-Verifizierung",

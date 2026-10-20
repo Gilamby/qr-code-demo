@@ -313,6 +313,8 @@ var api = (function () {
       // Abonnement (demo: altijd de testfase)
       checkoutDemo: function (d) { return request('POST', 'api/account/checkout-demo', d); },
       terms: function () { return request('GET', 'api/account/terms'); },
+      stripeCheckout: function (d) { return request('POST', 'api/billing/checkout', d); },
+      stripePortal: function () { return request('POST', 'api/billing/portal'); },
       acceptTerms: function () { return request('POST', 'api/account/terms', { accept: true }); },
       plan:     either(function ()  { return request('GET', 'api/account/plan'); }, function () { return Promise.resolve({ plan: { id: 'free', codes: null, statsDays: null }, usage: { used: 0, limit: null, state: 'ok' }, plans: [], payments: false }); }),
       logoutOthers: either(function () { return request('POST', 'api/account/logout-others', {}); }, demoAuth.account.logoutOthers),

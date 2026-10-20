@@ -14,7 +14,10 @@ var Plans = (function () {
   function euro(n) { try { return new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); } catch (e) { return '€' + Number(n).toFixed(2); } }
   function blocked() { var u = Session.user(); return !u || u.admin || (window.Team && Team.member && Team.member()) || (api.isDemo && api.isDemo()); }
   function needed() { return !blocked() && info && info.sub && info.sub.state === 'unpaid'; }
-  function demo() { return !!(api.info && api.info().demoCheckout); }
+  function stripeOn() { return !!(api.info && api.info().stripe); }      // echt betalen via Stripe (testmodus of live)
+  function demo() { return !stripeOn() && !!(api.info && api.info().demoCheckout); }
+  var returned = /[?&]checkout=success\b/.test(location.search), waited = 0;      // terug van de betaalpagina van Stripe
+  if (/[?&]checkout=(success|cancel)\b/.test(location.search)) history.replaceState(null, '', location.pathname);
   function curPlan() { return info && info.sub && info.sub.state !== 'unpaid' && info.plan ? info.plan.id : null; }
   function curPeriod() { return info && info.sub && info.sub.interval; }
   function isCurrent(id) { return mode === 'change' && id === curPlan() && PlanPeriod.norm(curPeriod()) === period && info.sub.state === 'active'; }
@@ -28,6 +31,7 @@ var Plans = (function () {
     if (!box) { box = document.createElement('div'); box.className = 'paywall'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'pwTitle'); document.body.appendChild(box); }
     if (step === 'pay') return drawPay();
     if (step === 'done') return drawDone();
+    if (step === 'wait') { box.innerHTML = '<div class="pw-inner">' + top() + '<div class="pw-done"><span class="pw-spin" aria-hidden="true"></span><h1 id="pwTitle">' + esc(t('pw.processing')) + '</h1><p class="pw-lead">' + esc(t('pw.processingLead')) + '</p></div></div>'; return; }
     var cur = curPlan(), list = plans();
     if (isCurrent(chosen)) { var other = list.filter(function (p) { return !isCurrent(p.id); })[0]; if (other) chosen = other.id; }
     box.innerHTML = '<div class="pw-inner">' + top() +
@@ -44,8 +48,8 @@ var Plans = (function () {
           (period === 'year' && x.priceYearAfter ? '<span class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</span>' : '') + feats(x) + '</button>';
       }).join('') + '</div>' +
       (sent ? '<p class="acct-msg ok" role="status">' + esc(t('pw.sent')) + '</p>'
-        : '<button type="button" class="btn primary pw-go" data-pw-go>' + esc(mode === 'change' ? t('pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
-          (demo() ? '' : '<p class="pw-note">' + esc(t('pw.soon')) + '</p>')) +
+        : '<button type="button" class="btn primary pw-go" data-pw-go' + (busy ? ' disabled' : '') + '>' + esc(mode === 'change' ? t('pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
+          (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : demo() ? '' : '<p class="pw-note">' + esc(t('pw.soon')) + '</p>')) +
       '<p class="pw-note">' + esc(t('pw.reassure')) + '</p></div>';
   }
   // Afrekenen (DEMO: zoals straks de betaalpagina van Stripe, maar er wordt niets afgeschreven)
@@ -82,6 +86,9 @@ var Plans = (function () {
     if (window.TermsGate && TermsGate.waiting()) return;                 // eerst akkoord met de voorwaarden (terms-gate.js)
     api.account.plan().then(function (r) {
       info = r;
+      // Net betaald bij Stripe: even wachten tot Stripe het heeft gemeld (webhook), dan de app in
+      if (returned && info.sub && info.sub.state === 'unpaid' && waited < 15) { waited++; mode = 'must'; step = 'wait'; show(); setTimeout(check, 1500); return; }
+      if (returned) { returned = false; if (step === 'wait') { result = { sub: info.sub }; chosen = info.plan.id; period = PlanPeriod.norm(info.sub.interval); step = 'done'; mode = 'must'; return show(); } }
       var w = window.wantedPlan; if (w) { chosen = w.plan || chosen; period = PlanPeriod.norm(w.period); }
       if (needed()) { mode = 'must'; step = 'choose'; show(); } else if (mode === 'must') close();
     }).catch(function () {});
@@ -105,6 +112,12 @@ var Plans = (function () {
     if (e.target.closest('[data-pw-close]')) return close();
     if (e.target.closest('[data-pw-back]')) { step = 'choose'; return draw(); }
     if (e.target.closest('[data-pw-enter]')) { location.replace(location.pathname); return; }
+    if (e.target.closest('[data-pw-go]') && step === 'choose' && stripeOn()) {
+      if (busy) return; busy = true; draw();
+      api.account.stripeCheckout({ plan: chosen, period: period }).then(function (r) { location.href = r.url; })
+        .catch(function () { busy = false; draw(); var g = box && box.querySelector('[data-pw-go]'); if (g) g.insertAdjacentHTML('afterend', '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>'); });
+      return;
+    }
     if (e.target.closest('[data-pw-go]') && step === 'choose' && demo()) { step = 'pay'; return draw(); }
     if (e.target.closest('[data-pw-go]')) {
       // Geen demo en nog geen Stripe: aanvraag naar het team. (Met Stripe: hier naar de betaalpagina.)

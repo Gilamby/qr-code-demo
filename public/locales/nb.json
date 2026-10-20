@@ -652,7 +652,11 @@
     "reason_video": "Bakgrunnsvideoer er med i Business.",
     "reason_team": "Samarbeid i team er mulig fra Pro.",
     "reason_stats": "Lengre statistikk med en større pakke.",
-    "reason_limit": "Du har brukt alle QR-kodene i pakken din. Velg en større pakke for å lage flere."
+    "reason_limit": "Du har brukt alle QR-kodene i pakken din. Velg en større pakke for å lage flere.",
+    "viaStripe": "Sikker betaling via Stripe. Kan sies opp når som helst.",
+    "processing": "Vi behandler betalingen din…",
+    "processingLead": "Det tar noen sekunder. Hold siden åpen.",
+    "payError": "Betalingen kunne ikke startes. Prøv igjen om litt."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Hei,",
     "teamInviteText": "{name} har invitert deg til å administrere QR-koder sammen i QR-Codex. Klikk på knappen for å velge passord. Lenken virker i 7 dager.",
     "teamInviteButton": "Godta invitasjonen",
-    "teamInviteIgnore": "Ventet du ikke denne e-posten? Da kan du se bort fra den."
+    "teamInviteIgnore": "Ventet du ikke denne e-posten? Da kan du se bort fra den.",
+    "cancelSubject": "QR-Codex-abonnementet ditt er sagt opp",
+    "cancelText": "Vi har mottatt oppsigelsen din. Pakken din gjelder til {date}; deretter trekkes ingenting mer, og QR-kodene dine slutter å virke. Ombestemt deg? Du kan fortsette frem til da.",
+    "cancelButton": "Se pakken min"
   },
   "contact": {
     "lead": "Et spørsmål, et problem eller en idé? Send oss en melding.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Trenger du mer?",
     "moreLead": "Sammenlign alle pakkene og bytt når du vil.",
     "seePlans": "Se pakker",
-    "currentLead": "Din nåværende pakke."
+    "currentLead": "Din nåværende pakke.",
+    "manageTitle": "Administrer abonnement",
+    "manageLead": "Fakturaer, betalingsopplysninger og oppsigelse.",
+    "manage": "Administrer"
   },
   "tfa": {
     "title": "Totrinnsbekreftelse",

@@ -652,7 +652,11 @@
     "reason_video": "Os vídeos de fundo estão incluídos no Business.",
     "reason_team": "Trabalhar em equipa é possível a partir do Pro.",
     "reason_stats": "Estatísticas mais longas com um plano maior.",
-    "reason_limit": "Usou todos os códigos QR do seu plano. Escolha um plano maior para criar mais."
+    "reason_limit": "Usou todos os códigos QR do seu plano. Escolha um plano maior para criar mais.",
+    "viaStripe": "Pagamento seguro via Stripe. Cancele quando quiser.",
+    "processing": "A processar o seu pagamento…",
+    "processingLead": "Demora alguns segundos. Mantenha esta página aberta.",
+    "payError": "Não foi possível iniciar o pagamento. Tente novamente daqui a pouco."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Olá,",
     "teamInviteText": "{name} convidou-te para gerir códigos QR em conjunto no QR-Codex. Clica no botão para escolher a tua palavra-passe. O link funciona durante 7 dias.",
     "teamInviteButton": "Aceitar convite",
-    "teamInviteIgnore": "Não esperavas este e-mail? Podes ignorá-lo."
+    "teamInviteIgnore": "Não esperavas este e-mail? Podes ignorá-lo.",
+    "cancelSubject": "A sua subscrição QR-Codex foi cancelada",
+    "cancelText": "Recebemos o seu cancelamento. O seu plano continua ativo até {date}; depois não será cobrado mais nada e os seus códigos QR deixam de funcionar. Mudou de ideias? Pode continuar até essa data.",
+    "cancelButton": "Ver o meu plano"
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Precisa de mais?",
     "moreLead": "Compare todos os planos e mude quando quiser.",
     "seePlans": "Ver planos",
-    "currentLead": "O seu plano atual."
+    "currentLead": "O seu plano atual.",
+    "manageTitle": "Gerir subscrição",
+    "manageLead": "Faturas, dados de pagamento e cancelamento.",
+    "manage": "Gerir"
   },
   "tfa": {
     "title": "Verificação em dois passos",

@@ -652,7 +652,11 @@
     "reason_video": "Videoclipurile de fundal sunt incluse în Business.",
     "reason_team": "Lucrul în echipă este posibil de la Pro.",
     "reason_stats": "Statistici mai lungi cu un pachet mai mare.",
-    "reason_limit": "Ai folosit toate codurile QR din pachet. Alege un pachet mai mare pentru a crea mai multe."
+    "reason_limit": "Ai folosit toate codurile QR din pachet. Alege un pachet mai mare pentru a crea mai multe.",
+    "viaStripe": "Plată sigură prin Stripe. Poți anula oricând.",
+    "processing": "Îți procesăm plata…",
+    "processingLead": "Durează câteva secunde. Păstrează pagina deschisă.",
+    "payError": "Plata nu a putut fi pornită. Încearcă din nou peste puțin timp."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Bună,",
     "teamInviteText": "{name} te-a invitat să gestionați împreună coduri QR în QR-Codex. Apasă butonul ca să-ți alegi parola. Linkul funcționează 7 zile.",
     "teamInviteButton": "Acceptă invitația",
-    "teamInviteIgnore": "Nu te așteptai la acest e-mail? Îl poți ignora."
+    "teamInviteIgnore": "Nu te așteptai la acest e-mail? Îl poți ignora.",
+    "cancelSubject": "Abonamentul tău QR-Codex a fost anulat",
+    "cancelText": "Am primit anularea ta. Pachetul rămâne activ până la {date}; după aceea nu se mai percepe nimic, iar codurile QR nu vor mai funcționa. Te-ai răzgândit? Poți continua până atunci.",
+    "cancelButton": "Vezi pachetul meu"
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Ai nevoie de mai mult?",
     "moreLead": "Compară toate pachetele și schimbă oricând vrei.",
     "seePlans": "Vezi pachetele",
-    "currentLead": "Pachetul tău actual."
+    "currentLead": "Pachetul tău actual.",
+    "manageTitle": "Gestionează abonamentul",
+    "manageLead": "Facturi, date de plată și anulare.",
+    "manage": "Gestionează"
   },
   "tfa": {
     "title": "Verificare în doi pași",

@@ -652,7 +652,11 @@
     "reason_video": "Videot e sfondit përfshihen në Business.",
     "reason_team": "Puna në ekip është e mundur nga Pro.",
     "reason_stats": "Statistika më të gjata me një paketë më të madhe.",
-    "reason_limit": "Ke përdorur të gjitha kodet QR të paketës. Zgjidh një paketë më të madhe për të krijuar më shumë."
+    "reason_limit": "Ke përdorur të gjitha kodet QR të paketës. Zgjidh një paketë më të madhe për të krijuar më shumë.",
+    "viaStripe": "Pagesë e sigurt përmes Stripe. Mund ta anulosh kurdo.",
+    "processing": "Po përpunojmë pagesën tënde…",
+    "processingLead": "Zgjat disa sekonda. Mbaje faqen të hapur.",
+    "payError": "Pagesa nuk mund të niste. Provo përsëri pas pak."
   },
   "dz": {
     "lbl": {
@@ -1529,7 +1533,10 @@
     "teamInviteHello": "Përshëndetje,",
     "teamInviteText": "{name} të ka ftuar të menaxhoni së bashku kode QR në QR-Codex. Kliko butonin për të zgjedhur fjalëkalimin. Lidhja vlen 7 ditë.",
     "teamInviteButton": "Prano ftesën",
-    "teamInviteIgnore": "Nuk e prisje këtë email? Mund ta injorosh."
+    "teamInviteIgnore": "Nuk e prisje këtë email? Mund ta injorosh.",
+    "cancelSubject": "Abonimi yt në QR-Codex u anulua",
+    "cancelText": "E morëm anulimin tënd. Paketa jote vlen deri më {date}; pas kësaj nuk tarifohet më dhe kodet e tua QR ndalojnë së punuari. Ndryshove mendje? Mund të vazhdosh deri atëherë.",
+    "cancelButton": "Shiko paketën time"
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -2368,7 +2375,10 @@
     "moreTitle": "Të duhet më shumë?",
     "moreLead": "Krahaso të gjitha paketat dhe ndrysho kur të duash.",
     "seePlans": "Shiko paketat",
-    "currentLead": "Paketa jote aktuale."
+    "currentLead": "Paketa jote aktuale.",
+    "manageTitle": "Menaxho abonimin",
+    "manageLead": "Fatura, të dhëna pagese dhe anulim.",
+    "manage": "Menaxho"
   },
   "tfa": {
     "title": "Verifikimi me dy hapa",

@@ -652,7 +652,11 @@
     "reason_video": "Achtergrondvideo's zitten in Business.",
     "reason_team": "Samenwerken in een team kan vanaf Pro.",
     "reason_stats": "Langere statistieken krijg je met een groter pakket.",
-    "reason_limit": "Je hebt alle QR-codes van je pakket gebruikt. Kies een groter pakket om er meer te maken."
+    "reason_limit": "Je hebt alle QR-codes van je pakket gebruikt. Kies een groter pakket om er meer te maken.",
+    "viaStripe": "Veilig betalen via Stripe. Altijd opzegbaar.",
+    "processing": "We verwerken je betaling…",
+    "processingLead": "Dit duurt een paar seconden. Houd deze pagina open.",
+    "payError": "Betalen lukte niet. Probeer het zo nog eens."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Hallo,",
     "teamInviteText": "{name} heeft je uitgenodigd om samen QR-codes te beheren in QR-Codex. Klik op de knop om je wachtwoord te kiezen. De link werkt 7 dagen.",
     "teamInviteButton": "Uitnodiging aannemen",
-    "teamInviteIgnore": "Verwachtte je deze e-mail niet? Dan kun je hem negeren."
+    "teamInviteIgnore": "Verwachtte je deze e-mail niet? Dan kun je hem negeren.",
+    "cancelSubject": "Je abonnement bij QR-Codex is opgezegd",
+    "cancelText": "We hebben je opzegging ontvangen. Je pakket blijft werken tot {date}; daarna wordt er niets meer afgeschreven en werken je QR-codes niet meer. Bedacht? Tot die datum kun je gewoon doorgaan.",
+    "cancelButton": "Bekijk mijn pakket"
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Meer nodig?",
     "moreLead": "Bekijk alle pakketten naast elkaar en wissel wanneer je wilt.",
     "seePlans": "Bekijk pakketten",
-    "currentLead": "Je huidige pakket."
+    "currentLead": "Je huidige pakket.",
+    "manageTitle": "Abonnement beheren",
+    "manageLead": "Facturen, betaalgegevens en opzeggen.",
+    "manage": "Beheren"
   },
   "tfa": {
     "title": "Tweestapsverificatie",

@@ -652,7 +652,11 @@
     "reason_video": "Filmy w tle są w pakiecie Business.",
     "reason_team": "Praca w zespole jest dostępna od Pro.",
     "reason_stats": "Dłuższe statystyki w większym pakiecie.",
-    "reason_limit": "Wykorzystałeś wszystkie kody QR w pakiecie. Wybierz większy pakiet, aby tworzyć więcej."
+    "reason_limit": "Wykorzystałeś wszystkie kody QR w pakiecie. Wybierz większy pakiet, aby tworzyć więcej.",
+    "viaStripe": "Bezpieczna płatność przez Stripe. Możesz zrezygnować w każdej chwili.",
+    "processing": "Przetwarzamy Twoją płatność…",
+    "processingLead": "To potrwa kilka sekund. Nie zamykaj tej strony.",
+    "payError": "Nie udało się rozpocząć płatności. Spróbuj ponownie za chwilę."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Cześć,",
     "teamInviteText": "{name} zaprasza cię do wspólnego zarządzania kodami QR w QR-Codex. Kliknij przycisk, aby ustawić hasło. Link działa przez 7 dni.",
     "teamInviteButton": "Przyjmij zaproszenie",
-    "teamInviteIgnore": "Nie spodziewałeś się tej wiadomości? Możesz ją zignorować."
+    "teamInviteIgnore": "Nie spodziewałeś się tej wiadomości? Możesz ją zignorować.",
+    "cancelSubject": "Twoja subskrypcja QR-Codex została anulowana",
+    "cancelText": "Otrzymaliśmy Twoją rezygnację. Pakiet działa do {date}; potem nie pobierzemy już opłat, a Twoje kody QR przestaną działać. Zmieniłeś zdanie? Możesz kontynuować do tego dnia.",
+    "cancelButton": "Zobacz mój pakiet"
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Potrzebujesz więcej?",
     "moreLead": "Porównaj wszystkie pakiety i zmieniaj, kiedy chcesz.",
     "seePlans": "Zobacz pakiety",
-    "currentLead": "Twój obecny pakiet."
+    "currentLead": "Twój obecny pakiet.",
+    "manageTitle": "Zarządzaj subskrypcją",
+    "manageLead": "Faktury, dane płatności i rezygnacja.",
+    "manage": "Zarządzaj"
   },
   "tfa": {
     "title": "Weryfikacja dwuetapowa",

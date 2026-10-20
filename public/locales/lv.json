@@ -652,7 +652,11 @@
     "reason_video": "Fona video ir Business paketē.",
     "reason_team": "Darbs komandā iespējams no Pro.",
     "reason_stats": "Garāka statistika ar lielāku paketi.",
-    "reason_limit": "Tu esi izmantojis visus paketes QR kodus. Izvēlies lielāku paketi, lai izveidotu vairāk."
+    "reason_limit": "Tu esi izmantojis visus paketes QR kodus. Izvēlies lielāku paketi, lai izveidotu vairāk.",
+    "viaStripe": "Droša maksāšana caur Stripe. Vari atteikt jebkurā laikā.",
+    "processing": "Apstrādājam tavu maksājumu…",
+    "processingLead": "Tas aizņem dažas sekundes. Neaizver lapu.",
+    "payError": "Maksājumu neizdevās sākt. Pēc brīža mēģini vēlreiz."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Sveiki,",
     "teamInviteText": "{name} tevi uzaicināja kopīgi pārvaldīt QR kodus QR-Codex. Noklikšķini uz pogas, lai izvēlētos paroli. Saite darbojas 7 dienas.",
     "teamInviteButton": "Pieņemt uzaicinājumu",
-    "teamInviteIgnore": "Negaidīji šo e-pastu? Vari to ignorēt."
+    "teamInviteIgnore": "Negaidīji šo e-pastu? Vari to ignorēt.",
+    "cancelSubject": "Tavs QR-Codex abonements ir atcelts",
+    "cancelText": "Esam saņēmuši tavu atteikumu. Tava pakete darbojas līdz {date}; pēc tam vairs netiks iekasēta maksa un tavi QR kodi pārstās darboties. Pārdomāji? Līdz tam vari turpināt.",
+    "cancelButton": "Skatīt manu paketi"
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Vajag vairāk?",
     "moreLead": "Salīdzini visas paketes un maini, kad vēlies.",
     "seePlans": "Skatīt paketes",
-    "currentLead": "Tava pašreizējā pakete."
+    "currentLead": "Tava pašreizējā pakete.",
+    "manageTitle": "Pārvaldīt abonementu",
+    "manageLead": "Rēķini, maksājuma dati un atteikšana.",
+    "manage": "Pārvaldīt"
   },
   "tfa": {
     "title": "Divpakāpju verifikācija",

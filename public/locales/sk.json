@@ -652,7 +652,11 @@
     "reason_video": "Videá na pozadí sú v balíku Business.",
     "reason_team": "Práca v tíme je možná od Pro.",
     "reason_stats": "Dlhšie štatistiky s väčším balíkom.",
-    "reason_limit": "Využil si všetky QR kódy balíka. Vyber väčší balík a vytvor ďalšie."
+    "reason_limit": "Využil si všetky QR kódy balíka. Vyber väčší balík a vytvor ďalšie.",
+    "viaStripe": "Bezpečná platba cez Stripe. Zrušiť môžeš kedykoľvek.",
+    "processing": "Spracúvame tvoju platbu…",
+    "processingLead": "Trvá to pár sekúnd. Nechaj túto stránku otvorenú.",
+    "payError": "Platbu sa nepodarilo spustiť. Skús to o chvíľu znova."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Dobrý deň,",
     "teamInviteText": "{name} ťa pozval(a) spoločne spravovať QR kódy v QR-Codex. Klikni na tlačidlo a zvoľ si heslo. Odkaz platí 7 dní.",
     "teamInviteButton": "Prijať pozvánku",
-    "teamInviteIgnore": "Nečakal(a) si tento e-mail? Môžeš ho ignorovať."
+    "teamInviteIgnore": "Nečakal(a) si tento e-mail? Môžeš ho ignorovať.",
+    "cancelSubject": "Tvoje predplatné QR-Codex bolo zrušené",
+    "cancelText": "Prijali sme tvoje zrušenie. Balík platí do {date}; potom sa už nič nestrhne a tvoje QR kódy prestanú fungovať. Rozmyslel si sa? Do tohto dátumu môžeš pokračovať.",
+    "cancelButton": "Zobraziť môj balík"
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Potrebuješ viac?",
     "moreLead": "Porovnaj všetky balíky a meň, kedy chceš.",
     "seePlans": "Pozrieť balíky",
-    "currentLead": "Tvoj aktuálny balík."
+    "currentLead": "Tvoj aktuálny balík.",
+    "manageTitle": "Spravovať predplatné",
+    "manageLead": "Faktúry, platobné údaje a zrušenie.",
+    "manage": "Spravovať"
   },
   "tfa": {
     "title": "Dvojstupňové overenie",

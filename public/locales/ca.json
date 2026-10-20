@@ -652,7 +652,11 @@
     "reason_video": "Els vídeos de fons són a Business.",
     "reason_team": "Treballar en equip és possible des de Pro.",
     "reason_stats": "Estadístiques més llargues amb un pla més gran.",
-    "reason_limit": "Has fet servir tots els codis QR del teu pla. Tria un pla més gran per crear-ne més."
+    "reason_limit": "Has fet servir tots els codis QR del teu pla. Tria un pla més gran per crear-ne més.",
+    "viaStripe": "Pagament segur amb Stripe. Cancel·la quan vulguis.",
+    "processing": "Processant el pagament…",
+    "processingLead": "Triga uns segons. Mantén aquesta pàgina oberta.",
+    "payError": "No s’ha pogut iniciar el pagament. Torna-ho a provar d’aquí a una estona."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Hola,",
     "teamInviteText": "{name} t'ha convidat a gestionar codis QR junts a QR-Codex. Fes clic al botó per triar la contrasenya. L'enllaç funciona 7 dies.",
     "teamInviteButton": "Accepta la invitació",
-    "teamInviteIgnore": "No esperaves aquest correu? Pots ignorar-lo."
+    "teamInviteIgnore": "No esperaves aquest correu? Pots ignorar-lo.",
+    "cancelSubject": "La teva subscripció a QR-Codex s’ha cancel·lat",
+    "cancelText": "Hem rebut la teva cancel·lació. El teu pla continua actiu fins al {date}; després no es cobrarà res més i els teus codis QR deixaran de funcionar. Has canviat d’idea? Pots continuar fins a aquesta data.",
+    "cancelButton": "Veure el meu pla"
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Necessites més?",
     "moreLead": "Compara tots els plans i canvia quan vulguis.",
     "seePlans": "Veure els plans",
-    "currentLead": "El teu pla actual."
+    "currentLead": "El teu pla actual.",
+    "manageTitle": "Gestionar la subscripció",
+    "manageLead": "Factures, dades de pagament i cancel·lació.",
+    "manage": "Gestionar"
   },
   "tfa": {
     "title": "Verificació en dos passos",

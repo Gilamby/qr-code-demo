@@ -287,7 +287,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       bar + subLine(planInfo.sub) + (free ? '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul>' : PlanGate.featuresHtml(p, 'pg-feats two')) + '</div>') +
       (window.Team && Team.member && Team.member() ? '' :
       '<div class="glass bg-card acct pl-more"><div><h2>' + t('plan.moreTitle') + '</h2><p class="acct-note">' + t('plan.moreLead') + '</p></div>' +
-      '<button type="button" class="btn primary" data-open-plans>' + t('plan.seePlans') + ' →</button></div>');
+      '<button type="button" class="btn primary" data-open-plans>' + t('plan.seePlans') + ' →</button></div>' +
+      (planInfo.portal ? '<div class="glass bg-card acct pl-more"><div><h2>' + t('plan.manageTitle') + '</h2><p class="acct-note">' + t('plan.manageLead') + '</p></div>' +
+        '<button type="button" class="btn ghost" data-portal>' + t('plan.manage') + ' ↗</button></div>' : ''));
   }
   // Betaalstatus: betaald tot …, of niet betaald (codes uit, verwijderd op …), plus hoeveel bedenktijd je de volgende keer hebt
   function subLine(sb) {
@@ -642,6 +644,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
     if (e.target.closest('[data-open-plans]') && window.Plans) { Plans.open(); return; }
+    var pb = e.target.closest('[data-portal]');
+    if (pb) { pb.disabled = true; api.account.stripePortal().then(function (r) { location.href = r.url; }, function () { pb.disabled = false; pb.insertAdjacentHTML('afterend', '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>'); }); return; }
     var ask = e.target.closest('[data-plan-ask]');
     if (ask) { goToPage('contact'); document.dispatchEvent(new CustomEvent('contact-preset', { detail: { topic: 'billing', message: t('plan.askMsg', { plan: t('plan.n_' + ask.getAttribute('data-plan-ask')) }) } })); return; }
     var ed = e.target.closest('[data-edit]');

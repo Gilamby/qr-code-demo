@@ -112,6 +112,20 @@ export class MailerService {
         (kind !== 'deleted' ? '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.lapseButton || 'Renew') + '</a></p>' : '') + '</div>' });
   }
 
+  /** Abonnement opgezegd (Stripe): bevestiging, loopt nog tot {date} (Terms punt 5) */
+  async sendCancelled(user: User, until: number) {
+    const t = await this.texts(user.lang || 'en');
+    const loc = LANGS.includes(user.lang) && Intl.DateTimeFormat.supportedLocalesOf([user.lang]).length ? user.lang : 'en';
+    const date = new Intl.DateTimeFormat(loc, { dateStyle: 'long', timeZone: user.timezone || 'Europe/Madrid' }).format(new Date(until));
+    const name = String(user.name || '').trim().split(/\s+/)[0] || '';
+    const body = String(t.cancelText || '').replace(/\{date\}/g, date), hello = name ? String(t.reportHello || 'Hello {name},').replace('{name}', name) : t.reportHelloPlain || 'Hello,';
+    const link = (this.base() || '') + '/?go=plan';
+    if (!this.transport) { console.log('[e-mail niet ingesteld] Opgezegd voor ' + user.email + ': ' + body); return; }
+    await this.transport.sendMail({ from: this.from(), to: user.email, subject: t.cancelSubject, text: hello + '\n\n' + body + '\n\n' + link,
+      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px"><p>' + esc(hello) + '</p><p>' + esc(body) + '</p>' +
+        '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.cancelButton || 'My plan') + '</a></p></div>' });
+  }
+
   /** Overgezette QR-code: het account bij de oude QR-app loopt (bijna) af, dan werkt de geprinte code niet meer */
   async sendLegacyDue(user: User, codeName: string, oldUrl: string, until: string, over: boolean) {
     const t = await this.texts(user.lang || 'en'), K = over ? 'legacyOver' : 'legacySoon';

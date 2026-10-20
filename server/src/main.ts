@@ -30,7 +30,8 @@ export async function createApp(): Promise<NestExpressApplication> {
   app.set('trust proxy', trustProxy());
 
   app.use(securityHeaders);
-  app.use(express.json({ limit: '16mb' }));                  // ruimte voor een PDF/MP3 (max. 10 MB) of een fotogalerij
+  // ruimte voor een PDF/MP3 (max. 10 MB) of een fotogalerij; de webhook van Stripe heeft de onbewerkte tekst nodig (handtekening)
+  app.use(express.json({ limit: '16mb', verify: (req: any, _res, buf) => { if (req.url && req.url.startsWith('/api/billing/webhook')) req.rawBody = Buffer.from(buf); } }));
   app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 
   /* De app zelf.

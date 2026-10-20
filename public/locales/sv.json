@@ -652,7 +652,11 @@
     "reason_video": "Bakgrundsvideor ingår i Business.",
     "reason_team": "Arbeta i team går från Pro.",
     "reason_stats": "Längre statistik med ett större paket.",
-    "reason_limit": "Du har använt alla QR-koder i ditt paket. Välj ett större paket för att skapa fler."
+    "reason_limit": "Du har använt alla QR-koder i ditt paket. Välj ett större paket för att skapa fler.",
+    "viaStripe": "Säker betalning via Stripe. Kan sägas upp när som helst.",
+    "processing": "Vi behandlar din betalning…",
+    "processingLead": "Det tar några sekunder. Håll sidan öppen.",
+    "payError": "Betalningen kunde inte startas. Försök igen om en stund."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Hej,",
     "teamInviteText": "{name} har bjudit in dig att hantera QR-koder tillsammans i QR-Codex. Klicka på knappen för att välja ditt lösenord. Länken fungerar i 7 dagar.",
     "teamInviteButton": "Acceptera inbjudan",
-    "teamInviteIgnore": "Väntade du dig inte det här mejlet? Då kan du ignorera det."
+    "teamInviteIgnore": "Väntade du dig inte det här mejlet? Då kan du ignorera det.",
+    "cancelSubject": "Ditt QR-Codex-abonnemang har sagts upp",
+    "cancelText": "Vi har tagit emot din uppsägning. Ditt paket gäller till {date}; därefter dras inga fler pengar och dina QR-koder slutar fungera. Ångrat dig? Du kan fortsätta fram till dess.",
+    "cancelButton": "Visa mitt paket"
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Behöver du mer?",
     "moreLead": "Jämför alla paket och byt när du vill.",
     "seePlans": "Se paket",
-    "currentLead": "Ditt nuvarande paket."
+    "currentLead": "Ditt nuvarande paket.",
+    "manageTitle": "Hantera abonnemang",
+    "manageLead": "Fakturor, betaluppgifter och uppsägning.",
+    "manage": "Hantera"
   },
   "tfa": {
     "title": "Tvåstegsverifiering",

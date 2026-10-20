@@ -20,6 +20,7 @@ import type { User } from '../types';
 import { PLANS, planFor, usage, bgAllowed } from '../plans';
 import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
+import { stripeOn, readRecord, stripe } from '../billing/stripe';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
 /** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
@@ -134,7 +135,7 @@ export class AccountController {
   @Get('account/plan')
   async plan(@CurrentUser() user: User) {
     const plan = await planFor(this.db, user.id), codes = (await this.db.listQrCodes(user.id)).length;
-    return { plan, usage: usage(plan, codes), plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: false, sub: publicSub(await subFor(this.db, user.id)) };
+    return { plan, usage: usage(plan, codes), plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!(await readRecord(this.db, user.id)).customer, sub: publicSub(await subFor(this.db, user.id)) };
   }
 
   /** Akkoord met de voorwaarden (18+, Terms, Privacy). Wie via Google/Microsoft een account kreeg, of een account van het team,
@@ -244,6 +245,8 @@ export class AccountController {
     if (this.auth.limited('del:' + user.id, 10, 15)) throw fail(429, 'too_many');
     if (!(await this.auth.checkPassword(b.password || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');
     await cleanupTeam(this.db, user.id);                                    // team: leden weg (eigenaar) of uit het team (lid)
+    const rec = stripeOn() ? await readRecord(this.db, user.id) : {} as any;  // account weg: abonnement bij Stripe meteen stoppen (niet meer afschrijven)
+    if (rec.subscription) await stripe('DELETE', 'subscriptions/' + rec.subscription).catch((e) => console.error('Stripe-abonnement stoppen mislukt:', e.message));
     await this.db.deleteUser(user.id);
     this.auth.clearSession(req, res);
   }

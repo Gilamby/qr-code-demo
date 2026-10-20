@@ -1,5 +1,6 @@
 import { GoogleController } from './google.controller';
 import { MicrosoftController } from './microsoft.controller';
+import { BillingController } from '../billing/billing.controller';
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AccountController } from './account.controller';
@@ -11,7 +12,7 @@ import { AdminController, TeamOnly } from './admin.controller';
 import { TeamController } from './team.controller';
 
 @Module({
-  controllers: [AuthController, GoogleController, MicrosoftController, AccountController, AdminController, TeamController],
+  controllers: [AuthController, GoogleController, MicrosoftController, BillingController, AccountController, AdminController, TeamController],
   providers: [AuthService, MailerService, LoggedIn, SupportAccountService, TeamOnly],
   exports: [AuthService, MailerService, LoggedIn, TeamOnly],
 })

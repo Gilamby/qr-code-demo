@@ -652,7 +652,11 @@
     "reason_video": "Taustavideot kuuluvat Business-pakettiin.",
     "reason_team": "Tiimityö onnistuu Pro-paketista alkaen.",
     "reason_stats": "Pidemmät tilastot isommalla paketilla.",
-    "reason_limit": "Olet käyttänyt kaikki pakettisi QR-koodit. Valitse isompi paketti tehdäksesi lisää."
+    "reason_limit": "Olet käyttänyt kaikki pakettisi QR-koodit. Valitse isompi paketti tehdäksesi lisää.",
+    "viaStripe": "Turvallinen maksu Stripen kautta. Voit perua milloin vain.",
+    "processing": "Käsittelemme maksuasi…",
+    "processingLead": "Tämä kestää muutaman sekunnin. Pidä sivu auki.",
+    "payError": "Maksua ei voitu aloittaa. Yritä hetken päästä uudelleen."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Hei,",
     "teamInviteText": "{name} kutsui sinut hallinnoimaan QR-koodeja yhdessä QR-Codex:ssä. Valitse salasana painikkeesta. Linkki toimii 7 päivää.",
     "teamInviteButton": "Hyväksy kutsu",
-    "teamInviteIgnore": "Etkö odottanut tätä viestiä? Voit jättää sen huomiotta."
+    "teamInviteIgnore": "Etkö odottanut tätä viestiä? Voit jättää sen huomiotta.",
+    "cancelSubject": "QR-Codex-tilauksesi on peruttu",
+    "cancelText": "Olemme vastaanottaneet peruutuksesi. Pakettisi on voimassa {date} asti; sen jälkeen veloituksia ei tule ja QR-koodisi lakkaavat toimimasta. Muutitko mielesi? Voit jatkaa siihen asti.",
+    "cancelButton": "Näytä pakettini"
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Tarvitsetko enemmän?",
     "moreLead": "Vertaa kaikkia paketteja ja vaihda milloin haluat.",
     "seePlans": "Katso paketit",
-    "currentLead": "Nykyinen pakettisi."
+    "currentLead": "Nykyinen pakettisi.",
+    "manageTitle": "Hallitse tilausta",
+    "manageLead": "Laskut, maksutiedot ja peruutus.",
+    "manage": "Hallitse"
   },
   "tfa": {
     "title": "Kaksivaiheinen tunnistautuminen",

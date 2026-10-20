@@ -652,7 +652,11 @@
     "reason_video": "Les vidéos d’arrière-plan sont incluses dans Business.",
     "reason_team": "Le travail en équipe est possible à partir de Pro.",
     "reason_stats": "Des statistiques plus longues avec une formule supérieure.",
-    "reason_limit": "Vous avez utilisé tous les codes QR de votre formule. Choisissez une formule supérieure pour en créer plus."
+    "reason_limit": "Vous avez utilisé tous les codes QR de votre formule. Choisissez une formule supérieure pour en créer plus.",
+    "viaStripe": "Paiement sécurisé via Stripe. Résiliable à tout moment.",
+    "processing": "Traitement de votre paiement…",
+    "processingLead": "Cela prend quelques secondes. Gardez cette page ouverte.",
+    "payError": "Impossible de lancer le paiement. Réessayez dans un instant."
   },
   "dz": {
     "lbl": {
@@ -1423,7 +1427,10 @@
     "teamInviteHello": "Bonjour,",
     "teamInviteText": "{name} vous invite à gérer des QR codes ensemble dans QR-Codex. Cliquez sur le bouton pour choisir votre mot de passe. Le lien est valable 7 jours.",
     "teamInviteButton": "Accepter l'invitation",
-    "teamInviteIgnore": "Vous n'attendiez pas cet e-mail ? Vous pouvez l'ignorer."
+    "teamInviteIgnore": "Vous n'attendiez pas cet e-mail ? Vous pouvez l'ignorer.",
+    "cancelSubject": "Votre abonnement QR-Codex a été résilié",
+    "cancelText": "Nous avons bien reçu votre résiliation. Votre formule reste active jusqu’au {date} ; ensuite, plus aucun prélèvement et vos codes QR cesseront de fonctionner. Vous changez d’avis ? Vous pouvez continuer jusqu’à cette date.",
+    "cancelButton": "Voir ma formule"
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -2262,7 +2269,10 @@
     "moreTitle": "Besoin de plus ?",
     "moreLead": "Comparez toutes les formules et changez quand vous voulez.",
     "seePlans": "Voir les formules",
-    "currentLead": "Votre formule actuelle."
+    "currentLead": "Votre formule actuelle.",
+    "manageTitle": "Gérer l’abonnement",
+    "manageLead": "Factures, moyen de paiement et résiliation.",
+    "manage": "Gérer"
   },
   "tfa": {
     "title": "Validation en deux étapes",

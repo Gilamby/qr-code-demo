@@ -468,6 +468,7 @@
 :root[data-theme="light"] .pw-now { background: rgba(13,19,32,0.045); }
 :root[data-theme="light"] .pw-pop.cur { background: rgba(13,19,32,0.105); }
 :root[data-theme="light"] .pw-reason { color: #92400e; }
+:root[data-theme="light"] .pw-spin { border: 4px solid rgba(13,19,32,0.108); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }
