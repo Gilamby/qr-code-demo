@@ -1116,7 +1116,11 @@
     "errDisabled": "Ce compte a été désactivé par l’équipe. Contactez le support.",
     "sceneHint": "Cliquez et maintenez",
     "errDisposable": "Utilisez votre propre adresse e-mail. Les boîtes mail temporaires ne sont pas acceptées.",
-    "errAlias": "Un compte existe déjà avec cette adresse e-mail (écrite autrement). Connectez-vous avec celle-ci."
+    "errAlias": "Un compte existe déjà avec cette adresse e-mail (écrite autrement). Connectez-vous avec celle-ci.",
+    "google": "Continuer avec Google",
+    "or": "ou",
+    "gErr": "La connexion avec Google n’a pas fonctionné. Réessayez ou connectez-vous avec votre adresse e-mail.",
+    "g2fa": "La validation en deux étapes est activée pour ce compte : connectez-vous avec votre mot de passe et le code."
   },
   "acct": {
     "profile": "Profil",
@@ -2333,7 +2337,7 @@
     "yearSave": "1re année : 2 mois offerts",
     "perYear": "par an",
     "paidUntil": "Payé jusqu’au {date}",
-    "graceRule": "En cas de retard de paiement, vous avez {n} jours pour payer avant la suppression de vos codes QR. Ce délai est divisé par deux à chaque retard (3 jours minimum).",
+    "graceRule": "Si votre abonnement prend fin, vos QR codes cessent immédiatement de fonctionner, mais nous les conservons 12 mois. Si vous renouvelez pendant cette période, tout fonctionne à nouveau, y compris vos codes imprimés. Après 12 mois, ils sont supprimés.",
     "graceMsg": "Votre abonnement a expiré. Vos codes QR ne fonctionnent pas et vous ne pouvez rien modifier. Renouvelez avant le {date}, sinon tous vos codes QR seront supprimés.",
     "endedMsg": "Votre abonnement a expiré et vos codes QR ont été supprimés. Souscrivez un abonnement pour créer de nouveaux codes.",
     "barGrace": "Abonnement expiré : vos codes QR ne fonctionnent pas. Renouvelez avant le {date}.",

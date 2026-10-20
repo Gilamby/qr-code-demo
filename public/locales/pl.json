@@ -1116,7 +1116,11 @@
     "errDisabled": "To konto zostało wyłączone przez zespół. Skontaktuj się z pomocą.",
     "sceneHint": "Kliknij i przytrzymaj",
     "errDisposable": "Użyj własnego adresu e-mail. Tymczasowe skrzynki nie są akceptowane.",
-    "errAlias": "Istnieje już konto z tym adresem e-mail (zapisanym inaczej). Zaloguj się na nie."
+    "errAlias": "Istnieje już konto z tym adresem e-mail (zapisanym inaczej). Zaloguj się na nie.",
+    "google": "Kontynuuj z Google",
+    "or": "lub",
+    "gErr": "Logowanie przez Google nie powiodło się. Spróbuj ponownie lub zaloguj się adresem e-mail.",
+    "g2fa": "Na tym koncie włączona jest weryfikacja dwuetapowa: zaloguj się hasłem i kodem."
   },
   "acct": {
     "profile": "Profil",
@@ -2333,7 +2337,7 @@
     "yearSave": "1. rok: 2 miesiące gratis",
     "perYear": "rocznie",
     "paidUntil": "Opłacone do {date}",
-    "graceRule": "Jeśli zapłacisz z opóźnieniem, masz {n} dni na zapłatę, zanim Twoje kody QR zostaną usunięte. Ten czas skraca się o połowę przy każdym opóźnieniu (minimum 3 dni).",
+    "graceRule": "Gdy subskrypcja się skończy, Twoje kody QR od razu przestają działać, ale przechowujemy je przez 12 miesięcy. Jeśli odnowisz w tym czasie, wszystko znów działa, także wydrukowane kody. Po 12 miesiącach zostają usunięte.",
     "graceMsg": "Twoja subskrypcja wygasła. Twoje kody QR nie działają i nie możesz niczego zmieniać. Odnów ją przed {date}, inaczej wszystkie Twoje kody QR zostaną usunięte.",
     "endedMsg": "Twoja subskrypcja wygasła, a Twoje kody QR zostały usunięte. Wykup subskrypcję, aby tworzyć nowe kody.",
     "barGrace": "Subskrypcja wygasła: Twoje kody QR nie działają. Odnów przed {date}.",

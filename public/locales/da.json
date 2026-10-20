@@ -1116,7 +1116,11 @@
     "errDisabled": "Denne konto er deaktiveret af teamet. Kontakt support.",
     "sceneHint": "Klik og hold",
     "errDisposable": "Brug din egen e-mailadresse. Midlertidige postkasser kan ikke bruges.",
-    "errAlias": "Der findes allerede en konto med denne e-mailadresse (skrevet anderledes). Log ind med den."
+    "errAlias": "Der findes allerede en konto med denne e-mailadresse (skrevet anderledes). Log ind med den.",
+    "google": "Fortsæt med Google",
+    "or": "eller",
+    "gErr": "Login med Google mislykkedes. Prøv igen, eller log ind med din e-mailadresse.",
+    "g2fa": "Totrinsbekræftelse er slået til for denne konto: log ind med adgangskode og kode."
   },
   "acct": {
     "profile": "Profil",
@@ -2333,7 +2337,7 @@
     "yearSave": "1. år: 2 måneder gratis",
     "perYear": "om året",
     "paidUntil": "Betalt til {date}",
-    "graceRule": "Betaler du for sent, har du {n} dage til at betale, før dine QR-koder slettes. Fristen halveres hver gang, du betaler for sent (mindst 3 dage).",
+    "graceRule": "Udløber dit abonnement, holder dine QR-koder straks op med at virke, men vi gemmer dem i 12 måneder. Fornyer du inden da, virker alt igen, også dine trykte koder. Efter 12 måneder slettes de.",
     "graceMsg": "Dit abonnement er udløbet. Dine QR-koder virker ikke, og du kan ikke ændre noget. Forny inden {date}, ellers slettes alle dine QR-koder.",
     "endedMsg": "Dit abonnement er udløbet, og dine QR-koder er slettet. Tag et abonnement for at lave nye koder.",
     "barGrace": "Abonnement udløbet: dine QR-koder virker ikke. Forny inden {date}.",

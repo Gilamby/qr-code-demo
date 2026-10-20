@@ -4395,3 +4395,12 @@ body.team-viewer [data-mc-new], body.team-viewer .item[data-page="create"], body
   .mc-bulk .btn svg + span { display: none; }            /* knoppen met een icoon: alleen het icoon (tekst als tooltip) */
   .mc-bulk .btn { padding: 0 12px; }
 }
+
+/* Inloggen met Google */
+.auth-google { width: 100%; justify-content: center; gap: 10px; height: 52px; background: #fff; color: #1f1f1f; border: 1px solid #dadce0; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; border-radius: 12px; }
+.auth-google:hover { background: #f8fafc; }
+.auth-or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; margin: 16px 0; }
+.auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--line, rgba(255,255,255,.12)); }
+.hm-sub { margin-top: 8px; background: none; border: 0; padding: 0; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; text-align: left; }
+.hm-sub b { color: var(--accent); }
+.hm-sub:hover { color: var(--fg); }

@@ -1116,7 +1116,11 @@
     "errDisabled": "Det här kontot har inaktiverats av teamet. Kontakta supporten.",
     "sceneHint": "Klicka och håll in",
     "errDisposable": "Använd din egen e-postadress. Tillfälliga brevlådor kan inte användas.",
-    "errAlias": "Det finns redan ett konto med den här e-postadressen (skriven på annat sätt). Logga in med det."
+    "errAlias": "Det finns redan ett konto med den här e-postadressen (skriven på annat sätt). Logga in med det.",
+    "google": "Fortsätt med Google",
+    "or": "eller",
+    "gErr": "Inloggningen med Google misslyckades. Försök igen eller logga in med din e-postadress.",
+    "g2fa": "Tvåstegsverifiering är på för det här kontot: logga in med lösenord och kod."
   },
   "acct": {
     "profile": "Profil",
@@ -2333,7 +2337,7 @@
     "yearSave": "År 1: 2 månader gratis",
     "perYear": "per år",
     "paidUntil": "Betalt till {date}",
-    "graceRule": "Betalar du för sent har du {n} dagar på dig att betala innan dina QR-koder raderas. Tiden halveras varje gång du betalar för sent (minst 3 dagar).",
+    "graceRule": "Om din prenumeration upphör slutar dina QR-koder att fungera direkt, men vi sparar dem i 12 månader. Förnyar du inom den tiden fungerar allt igen, även dina tryckta koder. Efter 12 månader raderas de.",
     "graceMsg": "Ditt abonnemang har gått ut. Dina QR-koder fungerar inte och du kan inte ändra något. Förnya före {date}, annars raderas alla dina QR-koder.",
     "endedMsg": "Ditt abonnemang har gått ut och dina QR-koder har raderats. Teckna ett abonnemang för att skapa nya koder.",
     "barGrace": "Abonnemanget har gått ut: dina QR-koder fungerar inte. Förnya före {date}.",

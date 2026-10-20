@@ -30,6 +30,19 @@ async function firstAdmin(payload: Payload) {
   payload.logger.info('Website: beheerder ' + email + ' aangemaakt.')
 }
 
+/* Vragen: elke vraag één document, met de vertalingen erbij */
+async function seedFaqs(payload: Payload) {
+  const faqs = CONTENT.en.faqs
+  for (let i = 0; i < faqs.length; i++) {
+    const [category, home, question, answer] = faqs[i]
+    const doc = await payload.create({ collection: 'faqs', locale: 'en', data: { category, home, question, answer, order: (i + 1) * 10 } })
+    for (const lang of LANGS.filter((l) => l !== 'en')) {
+      const f = CONTENT[lang].faqs[i]
+      if (f) await payload.update({ collection: 'faqs', id: doc.id, locale: lang, data: { question: f[2], answer: f[3] } })
+    }
+  }
+}
+
 export async function seed(payload: Payload) {
   await firstAdmin(payload)
   const settings: any = await payload.findGlobal({ slug: 'settings', locale: 'en' })
@@ -42,7 +55,10 @@ export async function seed(payload: Payload) {
         const cur: any = await payload.findGlobal({ slug: 'settings', locale: lang, fallbackLocale: false as any })
         await payload.updateGlobal({ slug: 'settings', locale: lang, data: { nav: { ...(cur.nav || {}), ...NAV[lang] } } as any })
       }
-      await payload.updateGlobal({ slug: 'settings', data: { contentVersion: HOME_VERSION } as any })
+      // vragen opnieuw (antwoorden aangepast, bv. 12 maanden bewaren na het stoppen)
+      await payload.delete({ collection: 'faqs', where: { id: { exists: true } } })
+      await seedFaqs(payload)
+      await payload.updateGlobal({ slug: 'settings', data: { contentVersion: HOME_VERSION, contactEmail: (CONTENT.en.settings as any).contactEmail } as any })
     }
     return
   }
@@ -75,16 +91,7 @@ export async function seed(payload: Payload) {
     } })
   }
 
-  /* Vragen: elke vraag één document, met de vertalingen erbij */
-  const faqs = CONTENT.en.faqs
-  for (let i = 0; i < faqs.length; i++) {
-    const [category, home, question, answer] = faqs[i]
-    const doc = await payload.create({ collection: 'faqs', locale: 'en', data: { category, home, question, answer, order: (i + 1) * 10 } })
-    for (const lang of LANGS.filter((l) => l !== 'en')) {
-      const f = CONTENT[lang].faqs[i]
-      if (f) await payload.update({ collection: 'faqs', id: doc.id, locale: lang, data: { question: f[2], answer: f[3] } })
-    }
-  }
+  await seedFaqs(payload)
 
   /* Juridische pagina's (concept: Fabian controleert de echte teksten) */
   for (const slug of ['privacy', 'terms', 'cookies'] as const) {

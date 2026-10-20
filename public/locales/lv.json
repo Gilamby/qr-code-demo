@@ -1116,7 +1116,11 @@
     "errDisabled": "Komanda šo kontu ir deaktivizējusi. Sazinies ar atbalsta dienestu.",
     "sceneHint": "Noklikšķini un turi",
     "errDisposable": "Lūdzu, izmanto savu e-pasta adresi. Pagaidu pastkastes nevar izmantot.",
-    "errAlias": "Ar šo e-pasta adresi (citādi rakstītu) jau ir konts. Piesakies ar to."
+    "errAlias": "Ar šo e-pasta adresi (citādi rakstītu) jau ir konts. Piesakies ar to.",
+    "google": "Turpināt ar Google",
+    "or": "vai",
+    "gErr": "Pieteikšanās ar Google neizdevās. Mēģiniet vēlreiz vai piesakieties ar e-pasta adresi.",
+    "g2fa": "Šim kontam ir ieslēgta divpakāpju verifikācija: piesakieties ar paroli un kodu."
   },
   "acct": {
     "profile": "Profils",
@@ -2333,7 +2337,7 @@
     "yearSave": "1. gads: 2 mēneši bez maksas",
     "perYear": "gadā",
     "paidUntil": "Apmaksāts līdz {date}",
-    "graceRule": "Ja maksā ar nokavēšanos, tev ir {n} dienas laika samaksāt, pirms tavi QR kodi tiek dzēsti. Šis laiks samazinās uz pusi katru reizi, kad maksā par vēlu (vismaz 3 dienas).",
+    "graceRule": "Ja abonements beidzas, jūsu QR kodi uzreiz pārstāj darboties, taču mēs tos glabājam 12 mēnešus. Ja atjaunojat šajā laikā, viss atkal darbojas, arī izdrukātie kodi. Pēc 12 mēnešiem tie tiek dzēsti.",
     "graceMsg": "Tavs abonements ir beidzies. Tavi QR kodi nedarbojas, un tu neko nevari mainīt. Atjauno to līdz {date}, citādi visi tavi QR kodi tiks dzēsti.",
     "endedMsg": "Tavs abonements ir beidzies, un tavi QR kodi ir dzēsti. Noformē abonementu, lai veidotu jaunus kodus.",
     "barGrace": "Abonements beidzies: tavi QR kodi nedarbojas. Atjauno līdz {date}.",

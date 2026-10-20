@@ -1116,7 +1116,11 @@
     "errDisabled": "This account has been deactivated by the team. Please contact support.",
     "sceneHint": "Click and hold",
     "errDisposable": "Please use your own email address. Temporary mailboxes can't be used.",
-    "errAlias": "There's already an account with this email address (written differently). Please log in with that one."
+    "errAlias": "There's already an account with this email address (written differently). Please log in with that one.",
+    "google": "Continue with Google",
+    "or": "or",
+    "gErr": "Signing in with Google didn't work. Try again or log in with your email address.",
+    "g2fa": "Two-step verification is on for this account: log in with your password and code."
   },
   "acct": {
     "profile": "Profile",
@@ -2333,7 +2337,7 @@
     "yearSave": "1st year: 2 months free",
     "perYear": "per year",
     "paidUntil": "Paid until {date}",
-    "graceRule": "If a payment is late, you have {n} days to pay before your QR codes are deleted. This period halves each time a payment is late (minimum 3 days).",
+    "graceRule": "If your subscription ends, your QR codes stop working straight away, but we keep them for 12 months. Renew within that time and everything works again, including your printed codes. After 12 months they are deleted.",
     "graceMsg": "Your subscription has expired. Your QR codes are not working and you can't change anything. Renew before {date}, otherwise all your QR codes will be deleted.",
     "endedMsg": "Your subscription has expired and your QR codes have been deleted. Take out a subscription to create new codes.",
     "barGrace": "Subscription expired: your QR codes are not working. Renew before {date}.",

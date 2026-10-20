@@ -1116,7 +1116,11 @@
     "errDisabled": "Tiimi on poistanut tämän tilin käytöstä. Ota yhteyttä tukeen.",
     "sceneHint": "Napsauta ja pidä pohjassa",
     "errDisposable": "Käytä omaa sähköpostiosoitettasi. Tilapäisiä postilaatikoita ei voi käyttää.",
-    "errAlias": "Tällä sähköpostiosoitteella (eri tavalla kirjoitettuna) on jo tili. Kirjaudu sillä."
+    "errAlias": "Tällä sähköpostiosoitteella (eri tavalla kirjoitettuna) on jo tili. Kirjaudu sillä.",
+    "google": "Jatka Googlella",
+    "or": "tai",
+    "gErr": "Kirjautuminen Googlella ei onnistunut. Yritä uudelleen tai kirjaudu sähköpostiosoitteellasi.",
+    "g2fa": "Tilillä on kaksivaiheinen vahvistus: kirjaudu salasanalla ja koodilla."
   },
   "acct": {
     "profile": "Profiili",
@@ -2333,7 +2337,7 @@
     "yearSave": "1. vuosi: 2 kuukautta ilmaiseksi",
     "perYear": "vuodessa",
     "paidUntil": "Maksettu {date} asti",
-    "graceRule": "Jos maksat myöhässä, sinulla on {n} päivää aikaa maksaa ennen kuin QR-koodisi poistetaan. Aika puolittuu joka kerta, kun maksat myöhässä (vähintään 3 päivää).",
+    "graceRule": "Jos tilauksesi päättyy, QR-koodisi lakkaavat toimimasta heti, mutta säilytämme ne 12 kuukautta. Jos uusit tilauksen sinä aikana, kaikki toimii taas, myös painetut koodisi. 12 kuukauden jälkeen ne poistetaan.",
     "graceMsg": "Tilauksesi on päättynyt. QR-koodisi eivät toimi etkä voi muuttaa mitään. Uusi tilaus ennen {date}, muuten kaikki QR-koodisi poistetaan.",
     "endedMsg": "Tilauksesi on päättynyt ja QR-koodisi on poistettu. Tee tilaus luodaksesi uusia koodeja.",
     "barGrace": "Tilaus päättyi: QR-koodisi eivät toimi. Uusi ennen {date}.",

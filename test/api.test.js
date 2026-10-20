@@ -475,7 +475,7 @@ test('instellingen: bedrijfsgegevens in de privacytekst, onderhoudsmodus blokkee
   assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://m3.example' }, design: {} })).status, 201, 'weer uit');
 });
 
-test('abonnement verlopen: codes werken niet, niets wijzigen, betalen zet alles terug, na de bedenktijd weg', async () => {
+test('abonnement verlopen: codes werken niet, niets wijzigen, betalen zet alles terug, na 12 maanden weg', async () => {
   const { HousekeepingService } = require('../server/dist/housekeeping.service');
   const lapse = []; app.get(MailerService).sendLapse = async (u, kind) => { lapse.push(kind); };
   const team = client(); await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
@@ -500,8 +500,10 @@ test('abonnement verlopen: codes werken niet, niets wijzigen, betalen zet alles 
   await team('POST', '/api/admin/customers/' + id + '/subscription', { action: 'paid' });
   assert.equal((await scan()).status, 302, 'betaald in de bedenktijd: werkt weer');
   await team('POST', '/api/admin/customers/' + id + '/subscription', { action: 'set', periodEnd: yesterday });
-  await hk.subscriptions(Date.now() + 15 * 864e5);
-  assert.equal((await k('GET', '/api/qr-codes')).json.length, 0, 'tweede keer: bedenktijd 15 dagen, daarna verwijderd');
+  await hk.subscriptions(Date.now() + 200 * 864e5);
+  assert.ok((await k('GET', '/api/qr-codes')).json.length > 0, 'na 200 dagen nog bewaard');
+  await hk.subscriptions(Date.now() + 366 * 864e5);
+  assert.equal((await k('GET', '/api/qr-codes')).json.length, 0, 'na 12 maanden verwijderd');
   assert.ok(lapse.includes('deleted'));
   assert.equal((await scan()).status, 410, 'code bestaat niet meer');
 });

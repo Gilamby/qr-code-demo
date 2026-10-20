@@ -1116,7 +1116,11 @@
     "errDisabled": "Dieses Konto wurde vom Team deaktiviert. Bitte wende dich an den Support.",
     "sceneHint": "Klicken und halten",
     "errDisposable": "Bitte nutze deine eigene E-Mail-Adresse. Wegwerf-Postfächer sind nicht möglich.",
-    "errAlias": "Es gibt schon ein Konto mit dieser E-Mail-Adresse (anders geschrieben). Melde dich damit an."
+    "errAlias": "Es gibt schon ein Konto mit dieser E-Mail-Adresse (anders geschrieben). Melde dich damit an.",
+    "google": "Weiter mit Google",
+    "or": "oder",
+    "gErr": "Die Anmeldung mit Google hat nicht funktioniert. Versuche es erneut oder melde dich mit deiner E-Mail-Adresse an.",
+    "g2fa": "Für dieses Konto ist die Zwei-Schritt-Verifizierung aktiv: Melde dich mit Passwort und Code an."
   },
   "acct": {
     "profile": "Profil",
@@ -2333,7 +2337,7 @@
     "yearSave": "1. Jahr: 2 Monate gratis",
     "perYear": "pro Jahr",
     "paidUntil": "Bezahlt bis {date}",
-    "graceRule": "Zahlst du zu spät, hast du {n} Tage Zeit, bevor deine QR-Codes gelöscht werden. Diese Frist halbiert sich bei jeder verspäteten Zahlung (mindestens 3 Tage).",
+    "graceRule": "Endet dein Abo, funktionieren deine QR-Codes sofort nicht mehr, aber wir bewahren sie 12 Monate auf. Verlängerst du in dieser Zeit, funktioniert alles wieder, auch deine gedruckten Codes. Nach 12 Monaten werden sie gelöscht.",
     "graceMsg": "Dein Abo ist abgelaufen. Deine QR-Codes funktionieren nicht und du kannst nichts ändern. Verlängere vor dem {date}, sonst werden alle deine QR-Codes gelöscht.",
     "endedMsg": "Dein Abo ist abgelaufen und deine QR-Codes wurden gelöscht. Schließ ein Abo ab, um neue Codes zu erstellen.",
     "barGrace": "Abo abgelaufen: deine QR-Codes funktionieren nicht. Verlängere vor dem {date}.",

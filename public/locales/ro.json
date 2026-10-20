@@ -1116,7 +1116,11 @@
     "errDisabled": "Acest cont a fost dezactivat de echipă. Contactează asistența.",
     "sceneHint": "Dă clic și ține apăsat",
     "errDisposable": "Folosește propria adresă de e-mail. Căsuțele temporare nu sunt acceptate.",
-    "errAlias": "Există deja un cont cu această adresă (scrisă altfel). Autentifică-te cu acela."
+    "errAlias": "Există deja un cont cu această adresă (scrisă altfel). Autentifică-te cu acela.",
+    "google": "Continuă cu Google",
+    "or": "sau",
+    "gErr": "Conectarea cu Google nu a reușit. Încearcă din nou sau conectează-te cu adresa de e-mail.",
+    "g2fa": "Acest cont are verificarea în doi pași activă: conectează-te cu parola și codul."
   },
   "acct": {
     "profile": "Profil",
@@ -2333,7 +2337,7 @@
     "yearSave": "Anul 1: 2 luni gratuite",
     "perYear": "pe an",
     "paidUntil": "Plătit până la {date}",
-    "graceRule": "Dacă plătești cu întârziere, ai {n} zile să plătești înainte ca codurile tale QR să fie șterse. Acest timp se înjumătățește la fiecare întârziere (minimum 3 zile).",
+    "graceRule": "Dacă abonamentul expiră, codurile tale QR nu mai funcționează imediat, dar le păstrăm 12 luni. Dacă reînnoiești în acest timp, totul funcționează din nou, inclusiv codurile tipărite. După 12 luni sunt șterse.",
     "graceMsg": "Abonamentul tău a expirat. Codurile tale QR nu funcționează și nu poți modifica nimic. Reînnoiește-l înainte de {date}, altfel toate codurile tale QR vor fi șterse.",
     "endedMsg": "Abonamentul tău a expirat și codurile tale QR au fost șterse. Ia un abonament ca să creezi coduri noi.",
     "barGrace": "Abonament expirat: codurile tale QR nu funcționează. Reînnoiește înainte de {date}.",

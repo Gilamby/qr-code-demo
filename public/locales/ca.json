@@ -1116,7 +1116,11 @@
     "errDisabled": "L'equip ha desactivat aquest compte. Contacta amb el suport.",
     "sceneHint": "Fes clic i mantén premut",
     "errDisposable": "Fes servir el teu propi correu. No s'admeten bústies temporals.",
-    "errAlias": "Ja hi ha un compte amb aquest correu (escrit d'una altra manera). Inicia la sessió amb aquell."
+    "errAlias": "Ja hi ha un compte amb aquest correu (escrit d'una altra manera). Inicia la sessió amb aquell.",
+    "google": "Continua amb Google",
+    "or": "o",
+    "gErr": "No s’ha pogut iniciar la sessió amb Google. Torna-ho a provar o entra amb el teu correu.",
+    "g2fa": "Aquest compte té la verificació en dos passos activada: entra amb la contrasenya i el codi."
   },
   "acct": {
     "profile": "Perfil",
@@ -2333,7 +2337,7 @@
     "yearSave": "1r any: 2 mesos gratis",
     "perYear": "l'any",
     "paidUntil": "Pagat fins al {date}",
-    "graceRule": "Si pagues tard, tens {n} dies per pagar abans que s'eliminin els teus codis QR. Aquest termini es redueix a la meitat cada vegada que pagues tard (mínim 3 dies).",
+    "graceRule": "Si la teva subscripció acaba, els teus codis QR deixen de funcionar de seguida, però els conservem 12 mesos. Si renoves en aquest temps, tot torna a funcionar, també els codis impresos. Passats 12 mesos s’eliminen.",
     "graceMsg": "La teva subscripció ha caducat. Els teus codis QR no funcionen i no pots canviar res. Renova-la abans del {date} o s'eliminaran tots els teus codis QR.",
     "endedMsg": "La teva subscripció ha caducat i s'han eliminat els teus codis QR. Contracta una subscripció per crear codis nous.",
     "barGrace": "Subscripció caducada: els teus codis QR no funcionen. Renova-la abans del {date}.",

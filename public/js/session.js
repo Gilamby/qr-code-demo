@@ -14,6 +14,7 @@ var Session = (function () {
   var landing = null, user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var LOGO = '<img class="logo-mark" src="icons/favicon.svg" alt="">';
+  var GOOGLE = '<svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.6 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.2 0-11.5-4.1-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>';
   // Twee omgevingen met hetzelfde inlogscherm: de app (/) en het beheer (/admin, alleen voor admins).
   // Een admin kan alles wat een klant kan en wisselt met de knop App / Beheer; een klant kan het beheer niet in.
   var ADMIN = document.body.getAttribute('data-app') === 'admin';
@@ -40,6 +41,7 @@ var Session = (function () {
     if (mode === 'register' && !signup) mode = 'login';
     if (mode === 'login' || mode === 'register') {
       body = '<h1 id="authTitle">' + t(mode === 'login' ? (ADMIN ? 'adminApp.loginTitle' : 'auth.loginTitle') : 'auth.registerTitle') + '</h1><p class="auth-lead">' + t(mode === 'login' ? (ADMIN ? 'adminApp.loginLead' : 'auth.loginLead') : 'auth.registerLead') + '</p>' +
+        (!ADMIN && api.info && api.info().google ? '<a class="btn auth-google" href="api/auth/google">' + GOOGLE + '<span>' + t('auth.google') + '</span></a><p class="auth-or"><span>' + t('auth.or') + '</span></p>' : '') +
         (signup ? '<div class="auth-tabs" role="tablist"><button type="button" role="tab" data-mode="login" aria-selected="' + (mode === 'login') + '">' + t('auth.login') + '</button><button type="button" role="tab" data-mode="register" aria-selected="' + (mode === 'register') + '">' + t('auth.register') + '</button></div>' : '') + note +
         '<form class="auth-form" novalidate>' + (mode === 'register' ? field('name', 'text', t('auth.name'), 'name', name) : '') +
         field('email', 'email', t('auth.email'), 'email', email) + field('password', 'password', t('auth.password'), mode === 'login' ? 'current-password' : 'new-password') +
@@ -153,6 +155,8 @@ var Session = (function () {
     if (/^(standard|pro|business)$/.test(wp)) { try { localStorage.setItem('optimasys-want', JSON.stringify({ plan: wp, period: wper === 'year' ? 'year' : 'month', at: Date.now() })); } catch (e) {} }
     history.replaceState(null, '', location.pathname);
   }
+  var gerr = location.search.match(/[?&]gerr=([a-z_0-9]+)/);
+  if (gerr) { history.replaceState(null, '', location.pathname); flash = [{ signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', email_disposable: 'auth.errDisposable', too_many: 'auth.errTooMany', '2fa': 'auth.g2fa' }[gerr[1]] || 'auth.gErr', 'bad']; }
   api.available().then(function (online) {
     if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }

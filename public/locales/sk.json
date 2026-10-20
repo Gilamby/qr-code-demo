@@ -1116,7 +1116,11 @@
     "errDisabled": "Tento účet deaktivoval tím. Kontaktuj podporu.",
     "sceneHint": "Klikni a podrž",
     "errDisposable": "Použi vlastnú e-mailovú adresu. Dočasné schránky nie je možné použiť.",
-    "errAlias": "S touto e-mailovou adresou (inak napísanou) už existuje účet. Prihlás sa ním."
+    "errAlias": "S touto e-mailovou adresou (inak napísanou) už existuje účet. Prihlás sa ním.",
+    "google": "Pokračovať cez Google",
+    "or": "alebo",
+    "gErr": "Prihlásenie cez Google sa nepodarilo. Skúste to znova alebo sa prihláste e-mailom.",
+    "g2fa": "Toto konto má zapnuté dvojstupňové overenie: prihláste sa heslom a kódom."
   },
   "acct": {
     "profile": "Profil",
@@ -2333,7 +2337,7 @@
     "yearSave": "1. rok: 2 mesiace zadarmo",
     "perYear": "ročne",
     "paidUntil": "Zaplatené do {date}",
-    "graceRule": "Ak zaplatíš neskoro, máš {n} dní na zaplatenie, kým sa tvoje QR kódy odstránia. Táto lehota sa pri každom oneskorení skráti na polovicu (minimálne 3 dni).",
+    "graceRule": "Ak predplatné skončí, vaše QR kódy hneď prestanú fungovať, no uchováme ich 12 mesiacov. Ak počas tejto doby predplatné obnovíte, všetko opäť funguje, aj vytlačené kódy. Po 12 mesiacoch sa vymažú.",
     "graceMsg": "Tvoje predplatné vypršalo. Tvoje QR kódy nefungujú a nemôžeš nič meniť. Obnov ho do {date}, inak sa všetky tvoje QR kódy odstránia.",
     "endedMsg": "Tvoje predplatné vypršalo a tvoje QR kódy boli odstránené. Zaplať predplatné a vytváraj nové kódy.",
     "barGrace": "Predplatné vypršalo: tvoje QR kódy nefungujú. Obnov ho do {date}.",

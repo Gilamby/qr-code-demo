@@ -18,6 +18,7 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
   /* ------------------------------------------------ ENGLISH */
   en: {
     settings: {
+      contactEmail: 'support@optimasys.es',
       seo: { title: 'Optimasys QR — dynamic QR codes in your own style', description: 'Create QR codes in your own style, change where they lead at any time and see how often they are scanned. No watermark. 14 days free.' },
       nav: { features: 'Features', solutions: 'Solutions', pricing: 'Pricing', faq: 'FAQ', contact: 'Contact', login: 'Log in', tryFree: 'Create QR code', menu: 'Menu', close: 'Close' },
       footer: { tagline: 'Dynamic QR codes for businesses that like things done properly.', product: 'Product', company: 'Help', legal: 'Legal', cancel: 'Cancel subscription', language: 'Language', rights: 'All rights reserved.' },
@@ -49,7 +50,7 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['general', true, 'Can I change a code after printing it?', 'Yes. Change the link, the menu or the PDF whenever you like. The printed code stays the same.'],
       ['general', false, 'Is there a watermark on my codes?', 'No. Never, on any plan.'],
       ['general', false, 'Which files can I download?', 'PNG for screens, SVG and EPS for print shops and PDF to print yourself.'],
-      ['general', true, 'What happens if I stop?', 'Your codes stop working. You then still get time to renew (the first time 30 days) and everything is still there. After that your codes are deleted.'],
+      ['general', true, 'What happens if I stop?', 'Your codes stop working straight away, but we keep them for 12 months. Renew within that time and everything works again, including your printed codes. After 12 months they are deleted.'],
       ['general', false, 'Can I work together with colleagues?', 'Yes, on Pro (3 users) and Business (unlimited). Everyone logs in with their own email address and gets the role editor or viewer.'],
       ['billing', true, 'How does the free trial work?', 'You create an account and enter your payment details. The first 14 days are free. Cancel before the end and nothing is charged. You can try once per payment card.'],
       ['billing', false, 'What does yearly cost after the first year?', 'In the first year you get 2 months free. After that you pay 12 times the monthly price per year: €59.88 for Standard, €155.88 for Pro and €299.88 for Business.'],
@@ -98,7 +99,7 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['general', true, 'Kan ik een code wijzigen nadat hij geprint is?', 'Ja. Wijzig de link, de menukaart of de PDF wanneer je wilt. De geprinte code blijft hetzelfde.'],
       ['general', false, 'Staat er een watermerk op mijn codes?', 'Nee. Nooit, bij geen enkel pakket.'],
       ['general', false, 'Welke bestanden kan ik downloaden?', 'PNG voor schermen, SVG en EPS voor de drukkerij en PDF om zelf af te drukken.'],
-      ['general', true, 'Wat gebeurt er als ik stop?', 'Je codes stoppen met werken. Je krijgt daarna nog tijd om te verlengen (de eerste keer 30 dagen) en alles staat dan nog klaar. Daarna worden je codes verwijderd.'],
+      ['general', true, 'Wat gebeurt er als ik stop?', 'Je codes werken meteen niet meer, maar we bewaren ze 12 maanden. Verleng je in die tijd, dan werkt alles weer, ook je geprinte codes. Na 12 maanden worden ze verwijderd.'],
       ['general', false, 'Kan ik samenwerken met collega’s?', 'Ja, bij Pro (3 gebruikers) en Business (onbeperkt). Iedereen logt in met een eigen e-mailadres en krijgt de rol bewerker of kijker.'],
       ['billing', true, 'Hoe werkt de proefperiode?', 'Je maakt een account en vult je betaalgegevens in. De eerste 14 dagen betaal je niets. Zeg je op voor het einde, dan wordt er niets afgeschreven. Per betaalkaart kun je één keer gratis proberen.'],
       ['billing', false, 'Wat kost jaarlijks betalen na het eerste jaar?', 'Het eerste jaar krijg je 2 maanden gratis. Daarna betaal je 12 keer de maandprijs per jaar: €59,88 voor Standard, €155,88 voor Pro en €299,88 voor Business.'],
@@ -147,7 +148,7 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['general', true, '¿Puedo cambiar un código después de imprimirlo?', 'Sí. Cambia el enlace, la carta o el PDF cuando quieras. El código impreso sigue siendo el mismo.'],
       ['general', false, '¿Llevan marca de agua mis códigos?', 'No. Nunca, en ningún plan.'],
       ['general', false, '¿Qué archivos puedo descargar?', 'PNG para pantallas, SVG y EPS para la imprenta y PDF para imprimir tú mismo.'],
-      ['general', true, '¿Qué pasa si dejo de pagar?', 'Tus códigos dejan de funcionar. Después aún tienes tiempo para renovar (la primera vez 30 días) y todo sigue ahí. Pasado ese plazo, tus códigos se eliminan.'],
+      ['general', true, '¿Qué pasa si dejo de pagar?', 'Tus códigos dejan de funcionar al instante, pero los guardamos 12 meses. Si renuevas en ese plazo, todo vuelve a funcionar, también tus códigos impresos. Después de 12 meses se eliminan.'],
       ['general', false, '¿Puedo trabajar con compañeros?', 'Sí, en Pro (3 usuarios) y Business (ilimitados). Cada uno entra con su propio correo y recibe el rol de editor o lector.'],
       ['billing', true, '¿Cómo funciona la prueba gratis?', 'Creas una cuenta e introduces tus datos de pago. Los primeros 14 días no pagas nada. Si cancelas antes de que terminen, no se cobra nada. Solo hay una prueba por tarjeta.'],
       ['billing', false, '¿Cuánto cuesta el plan anual después del primer año?', 'El primer año tienes 2 meses gratis. Después pagas 12 veces el precio mensual al año: 59,88 € por Standard, 155,88 € por Pro y 299,88 € por Business.'],

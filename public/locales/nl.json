@@ -1116,7 +1116,11 @@
     "errDisabled": "Dit account is uitgezet door het team. Neem contact op met support.",
     "sceneHint": "Klik en houd vast",
     "errDisposable": "Gebruik je eigen e-mailadres. Tijdelijke mailboxen kunnen we niet gebruiken.",
-    "errAlias": "Er is al een account met dit e-mailadres (in een andere schrijfwijze). Log daarmee in."
+    "errAlias": "Er is al een account met dit e-mailadres (in een andere schrijfwijze). Log daarmee in.",
+    "google": "Doorgaan met Google",
+    "or": "of",
+    "gErr": "Inloggen met Google lukte niet. Probeer het opnieuw of log in met je e-mailadres.",
+    "g2fa": "Tweestapsverificatie staat aan voor dit account: log in met je wachtwoord en code."
   },
   "acct": {
     "profile": "Profiel",
@@ -2333,7 +2337,7 @@
     "yearSave": "1e jaar 2 maanden gratis",
     "perYear": "per jaar",
     "paidUntil": "Betaald tot {date}",
-    "graceRule": "Betaal je een keer te laat, dan heb je {n} dagen om te betalen voordat je QR-codes worden verwijderd. Die tijd halveert elke keer dat je te laat betaalt (minimaal 3 dagen).",
+    "graceRule": "Verloopt je abonnement, dan werken je QR-codes meteen niet meer, maar we bewaren ze 12 maanden. Verleng je in die tijd, dan werkt alles weer, ook je geprinte codes. Na 12 maanden worden ze verwijderd.",
     "graceMsg": "Je abonnement is verlopen. Je QR-codes werken niet en je kunt niets wijzigen. Verleng vóór {date}, anders worden al je QR-codes verwijderd.",
     "endedMsg": "Je abonnement is verlopen en je QR-codes zijn verwijderd. Neem een abonnement om nieuwe codes te maken.",
     "barGrace": "Abonnement verlopen: je QR-codes werken niet. Verleng vóór {date}.",

@@ -5,7 +5,7 @@ type Item = { key: string; title: string; text?: string }
 type Section = { chapter?: string; eyebrow?: string; title?: string; text?: string; cta?: string; cta2?: string; note?: string; items?: Item[] }
 const i = (key: string, title: string, text = ''): Item => ({ key, title, text })
 
-export const HOME_VERSION = 2
+export const HOME_VERSION = 3
 
 export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
   en: {

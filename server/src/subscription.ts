@@ -1,20 +1,18 @@
 /* =========================================================
    ABONNEMENT: BETAALPERIODE, BEDENKTIJD EN VERWIJDEREN
-   Regels (besluit Fabian/Geert, 19-10-2026):
+   Regels (besluit Geert/Fabian, 20-10-2026; vervangt de halverende bedenktijd van 19-10):
    - Loopt de betaalde periode af zonder nieuwe betaling, dan werken de QR-codes meteen niet meer
-     (bezoeker ziet "niet actief", klant kan niets wijzigen of bekijken) en begint de bedenktijd.
-   - Betaalt de klant binnen de bedenktijd, dan komt alles terug.
-   - Na de bedenktijd worden alle QR-codes (en bestanden) van de klant verwijderd.
-   - De bedenktijd halveert elke keer dat een klant niet op tijd betaalt: 30, 15, 7,5, 3,75 … dagen,
-     nooit korter dan 3 dagen. Na 12 maanden zonder te laat betalen begint de teller weer bij 30 dagen.
-   - Waarschuwingsmails: bij het begin, 7 dagen voor het einde (als er zoveel tijd is) en 1 dag voor het einde.
+     (bezoeker ziet "niet actief", klant kan niets wijzigen of bekijken). Ze worden NIET meteen verwijderd.
+   - Betaalt de klant binnen 12 maanden, dan werkt alles weer, ook de geprinte codes.
+   - Na 12 maanden worden alle QR-codes (en bestanden) van de klant verwijderd (niet langer bewaren: AVG).
+   - Waarschuwingsmails: bij het begin, 7 dagen en 1 dag voor het verwijderen.
    Zonder betaalperiode (testfase, gratis) en voor het team geldt dit niet.
    Zelf geregistreerd (mustPay): het account bestaat, maar codes maken kan pas na het kiezen en betalen van een abonnement.
    De periode zet nu het team (Beheer > Gebruikers > Betaald); straks doet Stripe dat automatisch.
    Opslag: settings 'sub:<userId>' (JSON).
    ========================================================= */
 export const DAY = 864e5;
-export const GRACE_START = 30 * DAY, GRACE_MIN = 3 * DAY, RESET_AFTER = 365 * DAY;
+export const RETAIN = 365 * DAY, RESET_AFTER = 365 * DAY;   // hoe lang we codes bewaren na het verlopen
 
 export type Interval = 'month' | 'year';
 export interface Sub {
@@ -31,8 +29,8 @@ export type SubState = 'none' | 'unpaid' | 'active' | 'grace' | 'ended';
 
 export const emptySub = (interval: Interval = 'month'): Sub => ({ interval, periodEnd: null, graceUntil: null, lapses: 0, lastLapseAt: null, notified: [], deletedAt: null });
 
-/** Lengte van de bedenktijd bij de n-de keer te laat (1 = eerste keer) */
-export function graceMs(n: number): number { return Math.max(GRACE_MIN, GRACE_START / Math.pow(2, Math.max(0, n - 1))); }
+/** Hoe lang de codes bewaard blijven na het verlopen (altijd 12 maanden; n = hoeveelste keer te laat, alleen nog voor de statistiek) */
+export function graceMs(_n: number): number { return RETAIN; }
 
 /** Hoeveelste keer te laat is dit? Na 12 maanden zonder te laat betalen telt het weer als de eerste keer. */
 export function nextLapse(s: Sub, at: number): number {

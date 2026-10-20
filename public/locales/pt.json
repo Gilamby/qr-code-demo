@@ -1116,7 +1116,11 @@
     "errDisabled": "Esta conta foi desativada pela equipa. Contacte o suporte.",
     "sceneHint": "Clique e mantenha",
     "errDisposable": "Usa o teu próprio e-mail. Não é possível usar caixas de correio temporárias.",
-    "errAlias": "Já existe uma conta com este e-mail (escrito de outra forma). Inicia sessão com essa."
+    "errAlias": "Já existe uma conta com este e-mail (escrito de outra forma). Inicia sessão com essa.",
+    "google": "Continuar com o Google",
+    "or": "ou",
+    "gErr": "Não foi possível entrar com o Google. Tente novamente ou entre com o seu e-mail.",
+    "g2fa": "Esta conta tem a verificação em dois passos ativa: entre com a sua palavra-passe e o código."
   },
   "acct": {
     "profile": "Perfil",
@@ -2333,7 +2337,7 @@
     "yearSave": "1.º ano: 2 meses grátis",
     "perYear": "por ano",
     "paidUntil": "Pago até {date}",
-    "graceRule": "Se pagar com atraso, tem {n} dias para pagar antes de os seus códigos QR serem eliminados. Este prazo é reduzido para metade a cada atraso (mínimo 3 dias).",
+    "graceRule": "Se a sua subscrição terminar, os seus códigos QR deixam de funcionar de imediato, mas guardamo-los durante 12 meses. Se renovar nesse período, tudo volta a funcionar, incluindo os códigos impressos. Após 12 meses, são eliminados.",
     "graceMsg": "A sua subscrição expirou. Os seus códigos QR não funcionam e não pode alterar nada. Renove antes de {date}, caso contrário todos os seus códigos QR serão eliminados.",
     "endedMsg": "A sua subscrição expirou e os seus códigos QR foram eliminados. Subscreva um plano para criar novos códigos.",
     "barGrace": "Subscrição expirada: os seus códigos QR não funcionam. Renove antes de {date}.",
