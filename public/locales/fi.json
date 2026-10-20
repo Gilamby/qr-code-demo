@@ -1915,7 +1915,7 @@
     "privacy": {
       "short": "Tietosuoja",
       "title": "Tietosuojaseloste",
-      "updated": "14. lokakuuta 2026",
+      "updated": "20. lokakuuta 2026",
       "intro": "Tässä selosteessa kerrotaan, mitä tietoja QR-Codex käsittelee, miksi, kuinka kauan säilytämme niitä ja mitkä ovat oikeutesi. Keräämme mahdollisimman vähän: ei mainoksia, ei seurantaa, emmekä koskaan myy tietoja.",
       "s1t": "Keitä olemme",
       "s1": "QR-Codex on yrityksen {company} palvelu. Vastaamme tilisi tietojen käsittelystä. Kysyttävää tietosuojasta? Lähetä sähköpostia osoitteeseen {email}.",
@@ -1924,15 +1924,17 @@
       "s3t": "Miksi käytämme näitä tietoja",
       "s3": "- palvelun tarjoamiseen: tilisi, QR-koodisi ja kävijöiden näkemät sivut (sopimuksen täyttäminen)\n- tilisi ja palvelun suojaamiseen sekä väärinkäytösten estämiseen (oikeutettu etu)\n- omien koodiesi tilastojen näyttämiseen (oikeutettu etu)\n- laskujen laatimiseen ja säilyttämiseen, jos sinulla on maksullinen tilaus (lakisääteinen velvoite)",
       "s4t": "Kuinka kauan säilytämme tietoja",
-      "s4": "- tilisi ja QR-koodisi: kunnes poistat ne tai suljet tilisi\n- viimeaikainen toiminta: 90 päivää\n- kirjautuneet laitteet: kunnes kirjaudut ulos tai istunto vanhenee\n- tilit, joita ei koskaan vahvistettu: 7 päivää\n- varmuuskopiot: enintään 14 päivää\n- laskut: niin kauan kuin laki edellyttää",
+      "s4": "- tilisi ja QR-koodisi: kunnes poistat ne tai suljet tilisi\n- jos tilauksesi päättyy: QR-koodisi lakkaavat toimimasta ja ne poistetaan 30 päivän kuluttua\n- viimeaikainen toiminta: 90 päivää\n- kirjautuneet laitteet: kunnes kirjaudut ulos tai istunto vanhenee\n- tilit, joita ei koskaan vahvistettu: 7 päivää\n- varmuuskopiot: enintään 14 päivää\n- laskut: niin kauan kuin laki edellyttää\n- minkä version ehdoista hyväksyit ja milloin: niin kauan kuin sinulla on tili",
       "s5t": "Kuka näkee tietosi",
-      "s5": "Vain sinä ja, kun se on tarpeen tukea tai tietoturvaa varten, yrityksen {company} tiimi. Käytämme vain tahoja, joita tarvitaan palvelun tarjoamiseen, kuten palveluntarjoajaa, jonka palvelimilla sovellus toimii, ja (jos määritetty) palvelua, joka lähettää sähköpostimme. Sovimme heidän kanssaan tietojesi suojaamisesta. QR-koodien osoitehaut kulkevat oman palvelimemme kautta, joten osoitepalvelu ei näe sinua.\n\nQR-koodiesi sivut ovat julkisia kaikille, jotka skannaavat koodin tai joilla on linkki. Laita sinne vain tietoja, jotka saavat olla julkisia.",
+      "s5": "Vain sinä ja, kun se on tarpeen tukea tai tietoturvaa varten, yrityksen {company} tiimi. Käytämme vain tahoja, joita tarvitaan palvelun tarjoamiseen, kuten palveluntarjoajaa, jonka palvelimilla sovellus toimii, ja (jos määritetty) palvelua, joka lähettää sähköpostimme. Sovimme heidän kanssaan tietojesi suojaamisesta. QR-koodien osoitehaut kulkevat oman palvelimemme kautta, joten osoitepalvelu ei näe sinua. Maksut käsittelee maksupalveluntarjoajamme Stripe. Palvelimemme sijaitsevat Euroopan unionissa.\n\nQR-koodiesi sivut ovat julkisia kaikille, jotka skannaavat koodin tai joilla on linkki. Laita sinne vain tietoja, jotka saavat olla julkisia.",
       "s6t": "Oikeutesi",
-      "s6": "Voit tarkastella, muuttaa ja ladata tietojasi sekä poistaa tilisi kaikkine sisältöineen. Voit tehdä tämän itse kohdassa Oma tili (Profiili ja Omat tiedot). Voit myös vastustaa tietojen käsittelyä. Kaikessa, mitä et voi tehdä itse, lähetä sähköpostia osoitteeseen {email}; vastaamme kuukauden kuluessa.\n\nEtkö ole samaa mieltä siitä, miten käsittelemme tietojasi? Voit tehdä valituksen maasi tietosuojaviranomaiselle.",
-      "s7t": "Tietoturva",
-      "s7": "- kaikki yhteydet käyttävät HTTPS:ää\n- salasanat tallennetaan tiivisteinä, arkaluonteinen sisältö salataan\n- kohdassa Oma tili näet, missä olet kirjautuneena, ja voit kirjata minkä tahansa laitteen ulos\n- varmuuskopio tehdään joka yö",
-      "s8t": "Muutokset",
-      "s8": "Jos muutamme tätä selostetta, näet sen ylhäällä olevasta päivämäärästä. Merkittävistä muutoksista ilmoitamme etukäteen."
+      "s6": "Voit tarkastella, muuttaa ja ladata tietojasi sekä poistaa tilisi kaikkine sisältöineen. Voit tehdä tämän itse kohdassa Oma tili (Profiili ja Omat tiedot). Voit myös vastustaa tietojen käsittelyä. Kaikessa, mitä et voi tehdä itse, lähetä sähköpostia osoitteeseen {email}; vastaamme kuukauden kuluessa.\n\nEtkö ole samaa mieltä siitä, miten käsittelemme tietojasi? Voit tehdä valituksen maasi tietosuojaviranomaiselle. Espanjassa se on Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Lapset",
+      "s7": "QR-Codex on tarkoitettu 18 vuotta täyttäneille. Nuoremmat saavat käyttää sitä vain huoltajan luvalla ja valvonnassa. Emme tietoisesti kerää lasten tietoja ilman tätä lupaa; jos huomaamme sellaista, poistamme tiedot.",
+      "s8t": "Tietoturva",
+      "s8": "- kaikki yhteydet käyttävät HTTPS:ää\n- salasanat tallennetaan tiivisteinä, arkaluonteinen sisältö salataan\n- kohdassa Oma tili näet, missä olet kirjautuneena, ja voit kirjata minkä tahansa laitteen ulos\n- varmuuskopio tehdään joka yö",
+      "s9t": "Muutokset",
+      "s9": "Jos muutamme tätä selostetta, näet sen ylhäällä olevasta päivämäärästä. Merkittävistä muutoksista ilmoitamme etukäteen."
     },
     "terms": {
       "short": "Ehdot",

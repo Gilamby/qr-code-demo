@@ -1915,7 +1915,7 @@
     "privacy": {
       "short": "Privatliv",
       "title": "Privatlivspolitik",
-      "updated": "14. oktober 2026",
+      "updated": "20. oktober 2026",
       "intro": "Denne politik forklarer, hvilke data QR-Codex behandler, hvorfor, hvor længe vi gemmer dem, og hvilke rettigheder du har. Vi indsamler så lidt som muligt: ingen reklamer, ingen sporing, og vi sælger aldrig data.",
       "s1t": "Hvem vi er",
       "s1": "QR-Codex er en tjeneste fra {company}. Vi er ansvarlige for behandlingen af dataene i din konto. Spørgsmål om privatliv? Skriv til {email}.",
@@ -1924,15 +1924,17 @@
       "s3t": "Hvorfor vi bruger disse data",
       "s3": "- for at levere tjenesten: din konto, dine QR-koder og de sider, besøgende ser (opfyldelse af aftalen)\n- for at beskytte din konto og tjenesten og forhindre misbrug (legitim interesse)\n- for at vise statistik om dine egne koder (legitim interesse)\n- for at udstede og opbevare fakturaer, hvis du har et betalt abonnement (retlig forpligtelse)",
       "s4t": "Hvor længe vi gemmer data",
-      "s4": "- din konto og dine QR-koder: indtil du sletter dem eller lukker din konto\n- seneste aktivitet: 90 dage\n- enheder, der er logget ind: indtil du logger ud, eller sessionen udløber\n- konti, der aldrig blev bekræftet: 7 dage\n- backups: op til 14 dage\n- fakturaer: så længe loven kræver det",
+      "s4": "- din konto og dine QR-koder: indtil du sletter dem eller lukker din konto\n- hvis dit abonnement slutter: dine QR-koder holder op med at virke og slettes efter 30 dage\n- seneste aktivitet: 90 dage\n- enheder, der er logget ind: indtil du logger ud, eller sessionen udløber\n- konti, der aldrig blev bekræftet: 7 dage\n- backups: op til 14 dage\n- fakturaer: så længe loven kræver det\n- hvilken version af vilkårene du har accepteret, og hvornår: så længe du har en konto",
       "s5t": "Hvem der kan se dine data",
-      "s5": "Kun du og, når det er nødvendigt af hensyn til support eller sikkerhed, teamet hos {company}. Vi bruger kun parter, der er nødvendige for at levere tjenesten, fx hostingudbyderen og (hvis det er sat op) den tjeneste, der sender vores e-mails. Vi indgår aftaler med dem om sikkerheden af dine data. Adresseopslag til QR-koder går via vores egen server, så adressetjenesten ikke ser dig.\n\nSiderne for dine QR-koder er offentlige for alle, der scanner koden eller har linket. Læg kun oplysninger der, som må være offentlige.",
+      "s5": "Kun du og, når det er nødvendigt af hensyn til support eller sikkerhed, teamet hos {company}. Vi bruger kun parter, der er nødvendige for at levere tjenesten, fx hostingudbyderen og (hvis det er sat op) den tjeneste, der sender vores e-mails. Vi indgår aftaler med dem om sikkerheden af dine data. Adresseopslag til QR-koder går via vores egen server, så adressetjenesten ikke ser dig. Betalinger håndteres af vores betalingsudbyder, Stripe. Vores servere står i Den Europæiske Union.\n\nSiderne for dine QR-koder er offentlige for alle, der scanner koden eller har linket. Læg kun oplysninger der, som må være offentlige.",
       "s6t": "Dine rettigheder",
-      "s6": "Du kan se, ændre og downloade dine data og slette din konto med alt indhold. Det kan du selv gøre under Min konto (Profil og Mine data). Du kan også gøre indsigelse mod behandlingen. For alt, du ikke selv kan gøre, skriv til {email}; vi svarer inden for en måned.\n\nEr du ikke enig i, hvordan vi håndterer dine data? Du kan klage til datatilsynet i dit land.",
-      "s7t": "Sikkerhed",
-      "s7": "- alle forbindelser bruger HTTPS\n- adgangskoder er hashet, følsomt indhold er krypteret\n- under Min konto kan du se, hvor du er logget ind, og logge enhver enhed ud\n- der laves en backup hver nat",
-      "s8t": "Ændringer",
-      "s8": "Hvis vi ændrer denne politik, kan du se det på datoen øverst. Ved større ændringer giver vi dig besked på forhånd."
+      "s6": "Du kan se, ændre og downloade dine data og slette din konto med alt indhold. Det kan du selv gøre under Min konto (Profil og Mine data). Du kan også gøre indsigelse mod behandlingen. For alt, du ikke selv kan gøre, skriv til {email}; vi svarer inden for en måned.\n\nEr du ikke enig i, hvordan vi håndterer dine data? Du kan klage til datatilsynet i dit land. I Spanien er det Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Børn",
+      "s7": "QR-Codex er beregnet til personer på 18 år og derover. Yngre må kun bruge det med tilladelse og under opsyn af en forælder eller værge. Vi indsamler ikke bevidst data fra børn uden denne tilladelse; opdager vi det, sletter vi dataene.",
+      "s8t": "Sikkerhed",
+      "s8": "- alle forbindelser bruger HTTPS\n- adgangskoder er hashet, følsomt indhold er krypteret\n- under Min konto kan du se, hvor du er logget ind, og logge enhver enhed ud\n- der laves en backup hver nat",
+      "s9t": "Ændringer",
+      "s9": "Hvis vi ændrer denne politik, kan du se det på datoen øverst. Ved større ændringer giver vi dig besked på forhånd."
     },
     "terms": {
       "short": "Vilkår",

@@ -1915,7 +1915,7 @@
     "privacy": {
       "short": "Súkromie",
       "title": "Zásady ochrany súkromia",
-      "updated": "14. októbra 2026",
+      "updated": "20. októbra 2026",
       "intro": "Tieto zásady vysvetľujú, aké údaje QR-Codex spracúva, prečo, ako dlho ich uchovávame a aké máš práva. Zbierame čo najmenej: žiadne reklamy, žiadne sledovanie a údaje nikdy nepredávame.",
       "s1t": "Kto sme",
       "s1": "QR-Codex je služba spoločnosti {company}. Zodpovedáme za spracúvanie údajov tvojho účtu. Máš otázky o ochrane súkromia? Napíš na {email}.",
@@ -1924,15 +1924,17 @@
       "s3t": "Prečo tieto údaje používame",
       "s3": "- na poskytovanie služby: tvoj účet, tvoje QR kódy a stránky, ktoré vidia návštevníci (plnenie zmluvy)\n- na zabezpečenie tvojho účtu a služby a na predchádzanie zneužitiu (oprávnený záujem)\n- na zobrazenie štatistík o tvojich vlastných kódoch (oprávnený záujem)\n- na vystavovanie a uchovávanie faktúr, ak máš platené predplatné (zákonná povinnosť)",
       "s4t": "Ako dlho uchovávame údaje",
-      "s4": "- tvoj účet a QR kódy: kým ich neodstrániš alebo nezrušíš účet\n- nedávna aktivita: 90 dní\n- prihlásené zariadenia: kým sa neodhlásiš alebo kým relácia nevyprší\n- účty, ktoré neboli nikdy potvrdené: 7 dní\n- zálohy: najviac 14 dní\n- faktúry: tak dlho, ako to vyžaduje zákon",
+      "s4": "- tvoj účet a QR kódy: kým ich neodstrániš alebo nezrušíš účet\n- ak sa predplatné skončí: tvoje QR kódy prestanú fungovať a po 30 dňoch sa vymažú\n- nedávna aktivita: 90 dní\n- prihlásené zariadenia: kým sa neodhlásiš alebo kým relácia nevyprší\n- účty, ktoré neboli nikdy potvrdené: 7 dní\n- zálohy: najviac 14 dní\n- faktúry: tak dlho, ako to vyžaduje zákon\n- ktorú verziu podmienok si prijal a kedy: kým máš účet",
       "s5t": "Kto vidí tvoje údaje",
-      "s5": "Len ty a, ak je to potrebné kvôli podpore alebo zabezpečeniu, tím spoločnosti {company}. Využívame len subjekty, ktoré sú potrebné na poskytovanie služby, napríklad poskytovateľa hostingu a (ak je nastavená) službu, ktorá posiela naše e-maily. Dohodneme sa s nimi na zabezpečení tvojich údajov. Vyhľadávanie adries pre QR kódy prebieha cez náš vlastný server, takže služba adries ťa nevidí.\n\nStránky tvojich QR kódov sú verejné pre každého, kto naskenuje kód alebo má odkaz. Uvádzaj tam len informácie, ktoré môžu byť verejné.",
+      "s5": "Len ty a, ak je to potrebné kvôli podpore alebo zabezpečeniu, tím spoločnosti {company}. Využívame len subjekty, ktoré sú potrebné na poskytovanie služby, napríklad poskytovateľa hostingu a (ak je nastavená) službu, ktorá posiela naše e-maily. Dohodneme sa s nimi na zabezpečení tvojich údajov. Vyhľadávanie adries pre QR kódy prebieha cez náš vlastný server, takže služba adries ťa nevidí. Platby spracúva náš poskytovateľ platieb Stripe. Naše servery sú v Európskej únii.\n\nStránky tvojich QR kódov sú verejné pre každého, kto naskenuje kód alebo má odkaz. Uvádzaj tam len informácie, ktoré môžu byť verejné.",
       "s6t": "Tvoje práva",
-      "s6": "Svoje údaje si môžeš pozrieť, zmeniť a stiahnuť a môžeš odstrániť svoj účet so všetkým, čo obsahuje. Urobíš to sám v Môj účet (Profil a Moje údaje). Môžeš tiež namietať proti spracúvaniu. Všetko, čo nemôžeš urobiť sám, nám napíš na {email}; odpovieme do mesiaca.\n\nNesúhlasíš s tým, ako narábame s tvojimi údajmi? Môžeš podať sťažnosť na úrade na ochranu osobných údajov vo svojej krajine.",
-      "s7t": "Zabezpečenie",
-      "s7": "- všetky pripojenia používajú HTTPS\n- heslá sú hashované, citlivý obsah je šifrovaný\n- v Môj účet vidíš, kde si prihlásený, a môžeš odhlásiť ktorékoľvek zariadenie\n- každú noc sa vytvára záloha",
-      "s8t": "Zmeny",
-      "s8": "Ak tieto zásady zmeníme, uvidíš to podľa dátumu hore. O väčších zmenách ťa vopred upozorníme."
+      "s6": "Svoje údaje si môžeš pozrieť, zmeniť a stiahnuť a môžeš odstrániť svoj účet so všetkým, čo obsahuje. Urobíš to sám v Môj účet (Profil a Moje údaje). Môžeš tiež namietať proti spracúvaniu. Všetko, čo nemôžeš urobiť sám, nám napíš na {email}; odpovieme do mesiaca.\n\nNesúhlasíš s tým, ako narábame s tvojimi údajmi? Môžeš podať sťažnosť na úrade na ochranu osobných údajov vo svojej krajine. V Španielsku je to Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Deti",
+      "s7": "QR-Codex je určený pre ľudí od 18 rokov. Mladší ho môžu používať len so súhlasom a pod dohľadom rodiča alebo opatrovníka. Vedome nezbierame údaje detí bez takého súhlasu; ak to zistíme, údaje vymažeme.",
+      "s8t": "Zabezpečenie",
+      "s8": "- všetky pripojenia používajú HTTPS\n- heslá sú hashované, citlivý obsah je šifrovaný\n- v Môj účet vidíš, kde si prihlásený, a môžeš odhlásiť ktorékoľvek zariadenie\n- každú noc sa vytvára záloha",
+      "s9t": "Zmeny",
+      "s9": "Ak tieto zásady zmeníme, uvidíš to podľa dátumu hore. O väčších zmenách ťa vopred upozorníme."
     },
     "terms": {
       "short": "Podmienky",

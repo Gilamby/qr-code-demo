@@ -1915,7 +1915,7 @@
     "privacy": {
       "short": "Privacy",
       "title": "Privacyverklaring",
-      "updated": "14 oktober 2026",
+      "updated": "20 oktober 2026",
       "intro": "In deze verklaring lees je welke gegevens QR-Codex verwerkt, waarom, hoe lang we ze bewaren en welke rechten je hebt. We verzamelen zo weinig mogelijk: geen advertenties, geen tracking en we verkopen nooit gegevens.",
       "s1t": "Wie wij zijn",
       "s1": "QR-Codex is een dienst van {company}. Wij zijn verantwoordelijk voor de verwerking van de gegevens van je account. Vragen over privacy? Mail naar {email}.",
@@ -1924,15 +1924,17 @@
       "s3t": "Waarom we die gegevens gebruiken",
       "s3": "- om de dienst te leveren: je account, je QR-codes en de pagina's die bezoekers zien (uitvoering van de overeenkomst)\n- om je account en de dienst te beveiligen en misbruik te voorkomen (gerechtvaardigd belang)\n- om je statistieken te tonen over je eigen codes (gerechtvaardigd belang)\n- om facturen te maken en te bewaren als je een betaald abonnement hebt (wettelijke plicht)",
       "s4t": "Hoe lang we gegevens bewaren",
-      "s4": "- je account en QR-codes: tot je ze verwijdert of je account opzegt\n- recente activiteit: 90 dagen\n- ingelogde apparaten: tot je uitlogt of de sessie verloopt\n- accounts die nooit zijn bevestigd: 7 dagen\n- back-ups: maximaal 14 dagen\n- facturen: zo lang als de wet voorschrijft",
+      "s4": "- je account en QR-codes: tot je ze verwijdert of je account opzegt\n- als je abonnement afloopt: je QR-codes werken niet meer en worden na 30 dagen verwijderd\n- recente activiteit: 90 dagen\n- ingelogde apparaten: tot je uitlogt of de sessie verloopt\n- accounts die nooit zijn bevestigd: 7 dagen\n- back-ups: maximaal 14 dagen\n- facturen: zo lang als de wet voorschrijft\n- welke versie van de voorwaarden je hebt geaccepteerd, en wanneer: zolang je een account hebt",
       "s5t": "Wie je gegevens kan zien",
-      "s5": "Alleen jij en, als het nodig is voor support of beveiliging, het team van {company}. We schakelen alleen partijen in die nodig zijn om de dienst te leveren, zoals de hostingpartij en (als die is ingesteld) de dienst die onze e-mails verstuurt. Met hen maken we afspraken over de beveiliging van je gegevens. Adressen zoeken bij QR-codes gaat via onze eigen server, zodat de adresdienst jou niet ziet.\n\nPagina's van je QR-codes zijn openbaar voor iedereen die de code scant of de link heeft. Zet daar dus alleen op wat openbaar mag zijn.",
+      "s5": "Alleen jij en, als het nodig is voor support of beveiliging, het team van {company}. We schakelen alleen partijen in die nodig zijn om de dienst te leveren, zoals de hostingpartij en (als die is ingesteld) de dienst die onze e-mails verstuurt. Met hen maken we afspraken over de beveiliging van je gegevens. Adressen zoeken bij QR-codes gaat via onze eigen server, zodat de adresdienst jou niet ziet. Betalingen worden verwerkt door onze betaalprovider, Stripe. Onze servers staan in de Europese Unie.\n\nPagina's van je QR-codes zijn openbaar voor iedereen die de code scant of de link heeft. Zet daar dus alleen op wat openbaar mag zijn.",
       "s6t": "Je rechten",
-      "s6": "Je kunt je gegevens bekijken, aanpassen en downloaden, en je account met alles verwijderen. Dat kan zelf in Mijn account (Profiel en Mijn gegevens). Je kunt ook bezwaar maken tegen een verwerking. Voor alles wat je niet zelf kunt regelen, mail je naar {email}; we reageren binnen een maand.\n\nBen je het niet eens met hoe we met je gegevens omgaan? Dan kun je een klacht indienen bij de toezichthouder voor privacy in jouw land, in Nederland de Autoriteit Persoonsgegevens.",
-      "s7t": "Beveiliging",
-      "s7": "- alle verbindingen gaan via HTTPS\n- wachtwoorden worden gehasht, gevoelige inhoud wordt versleuteld\n- je ziet in Mijn account waar je bent ingelogd en kunt elk apparaat uitloggen\n- er wordt elke nacht een back-up gemaakt",
-      "s8t": "Wijzigingen",
-      "s8": "Als we deze verklaring veranderen, zie je dat aan de datum bovenaan. Bij grote wijzigingen laten we het je vooraf weten."
+      "s6": "Je kunt je gegevens bekijken, aanpassen en downloaden, en je account met alles verwijderen. Dat kan zelf in Mijn account (Profiel en Mijn gegevens). Je kunt ook bezwaar maken tegen een verwerking. Voor alles wat je niet zelf kunt regelen, mail je naar {email}; we reageren binnen een maand.\n\nBen je het niet eens met hoe we met je gegevens omgaan? Dan kun je een klacht indienen bij de toezichthouder voor privacy in jouw land, in Nederland de Autoriteit Persoonsgegevens. In Spanje is dat de Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Kinderen",
+      "s7": "QR-Codex is bedoeld voor mensen van 18 jaar en ouder. Jongeren mogen het alleen gebruiken met toestemming en onder toezicht van een ouder of voogd. We verzamelen niet bewust gegevens van kinderen zonder die toestemming; merken we dat toch, dan verwijderen we de gegevens.",
+      "s8t": "Beveiliging",
+      "s8": "- alle verbindingen gaan via HTTPS\n- wachtwoorden worden gehasht, gevoelige inhoud wordt versleuteld\n- je ziet in Mijn account waar je bent ingelogd en kunt elk apparaat uitloggen\n- er wordt elke nacht een back-up gemaakt",
+      "s9t": "Wijzigingen",
+      "s9": "Als we deze verklaring veranderen, zie je dat aan de datum bovenaan. Bij grote wijzigingen laten we het je vooraf weten."
     },
     "terms": {
       "short": "Voorwaarden",

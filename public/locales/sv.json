@@ -1915,7 +1915,7 @@
     "privacy": {
       "short": "Integritet",
       "title": "Integritetspolicy",
-      "updated": "14 oktober 2026",
+      "updated": "20 oktober 2026",
       "intro": "Den här policyn förklarar vilka uppgifter QR-Codex behandlar, varför, hur länge vi sparar dem och vilka rättigheter du har. Vi samlar in så lite som möjligt: inga annonser, ingen spårning, och vi säljer aldrig uppgifter.",
       "s1t": "Vilka vi är",
       "s1": "QR-Codex är en tjänst från {company}. Vi är ansvariga för behandlingen av uppgifterna i ditt konto. Frågor om integritet? Mejla {email}.",
@@ -1924,15 +1924,17 @@
       "s3t": "Varför vi använder uppgifterna",
       "s3": "- för att tillhandahålla tjänsten: ditt konto, dina QR-koder och sidorna som besökare ser (fullgörande av avtal)\n- för att skydda ditt konto och tjänsten och förhindra missbruk (berättigat intresse)\n- för att visa statistik om dina egna koder (berättigat intresse)\n- för att upprätta och spara fakturor om du har ett betalt abonnemang (rättslig förpliktelse)",
       "s4t": "Hur länge vi sparar uppgifter",
-      "s4": "- ditt konto och dina QR-koder: tills du tar bort dem eller avslutar ditt konto\n- senaste aktivitet: 90 dagar\n- inloggade enheter: tills du loggar ut eller sessionen går ut\n- konton som aldrig bekräftades: 7 dagar\n- säkerhetskopior: upp till 14 dagar\n- fakturor: så länge lagen kräver",
+      "s4": "- ditt konto och dina QR-koder: tills du tar bort dem eller avslutar ditt konto\n- om ditt abonnemang upphör: dina QR-koder slutar fungera och raderas efter 30 dagar\n- senaste aktivitet: 90 dagar\n- inloggade enheter: tills du loggar ut eller sessionen går ut\n- konton som aldrig bekräftades: 7 dagar\n- säkerhetskopior: upp till 14 dagar\n- fakturor: så länge lagen kräver\n- vilken version av villkoren du har godkänt, och när: så länge du har ett konto",
       "s5t": "Vem som kan se dina uppgifter",
-      "s5": "Bara du och, när det behövs för support eller säkerhet, teamet på {company}. Vi anlitar bara parter som behövs för att tillhandahålla tjänsten, till exempel webbhotellet och (om det är konfigurerat) tjänsten som skickar våra mejl. Vi har avtal med dem om säkerheten för dina uppgifter. Adressökningar för QR-koder går via vår egen server, så adresstjänsten ser inte dig.\n\nSidorna för dina QR-koder är offentliga för alla som skannar koden eller har länken. Lägg bara in information där som får vara offentlig.",
+      "s5": "Bara du och, när det behövs för support eller säkerhet, teamet på {company}. Vi anlitar bara parter som behövs för att tillhandahålla tjänsten, till exempel webbhotellet och (om det är konfigurerat) tjänsten som skickar våra mejl. Vi har avtal med dem om säkerheten för dina uppgifter. Adressökningar för QR-koder går via vår egen server, så adresstjänsten ser inte dig. Betalningar hanteras av vår betalleverantör, Stripe. Våra servrar finns i Europeiska unionen.\n\nSidorna för dina QR-koder är offentliga för alla som skannar koden eller har länken. Lägg bara in information där som får vara offentlig.",
       "s6t": "Dina rättigheter",
-      "s6": "Du kan se, ändra och ladda ned dina uppgifter, och ta bort ditt konto med allt innehåll. Det gör du själv i Mitt konto (Profil och Mina uppgifter). Du kan också invända mot behandlingen. För allt du inte kan göra själv, mejla {email}; vi svarar inom en månad.\n\nHåller du inte med om hur vi hanterar dina uppgifter? Du kan lämna in ett klagomål till dataskyddsmyndigheten i ditt land.",
-      "s7t": "Säkerhet",
-      "s7": "- alla anslutningar använder HTTPS\n- lösenord hashas, känsligt innehåll krypteras\n- i Mitt konto ser du var du är inloggad och kan logga ut vilken enhet som helst\n- en säkerhetskopia görs varje natt",
-      "s8t": "Ändringar",
-      "s8": "Om vi ändrar den här policyn ser du det på datumet högst upp. Vid större ändringar meddelar vi dig i förväg."
+      "s6": "Du kan se, ändra och ladda ned dina uppgifter, och ta bort ditt konto med allt innehåll. Det gör du själv i Mitt konto (Profil och Mina uppgifter). Du kan också invända mot behandlingen. För allt du inte kan göra själv, mejla {email}; vi svarar inom en månad.\n\nHåller du inte med om hur vi hanterar dina uppgifter? Du kan lämna in ett klagomål till dataskyddsmyndigheten i ditt land. I Spanien är det Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Barn",
+      "s7": "QR-Codex är avsett för personer som är 18 år eller äldre. Yngre får bara använda det med tillstånd och under tillsyn av en förälder eller vårdnadshavare. Vi samlar inte medvetet in uppgifter från barn utan sådant tillstånd; om vi upptäcker det raderar vi uppgifterna.",
+      "s8t": "Säkerhet",
+      "s8": "- alla anslutningar använder HTTPS\n- lösenord hashas, känsligt innehåll krypteras\n- i Mitt konto ser du var du är inloggad och kan logga ut vilken enhet som helst\n- en säkerhetskopia görs varje natt",
+      "s9t": "Ändringar",
+      "s9": "Om vi ändrar den här policyn ser du det på datumet högst upp. Vid större ändringar meddelar vi dig i förväg."
     },
     "terms": {
       "short": "Villkor",

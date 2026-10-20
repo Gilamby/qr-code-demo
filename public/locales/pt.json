@@ -1913,7 +1913,7 @@
     "privacy": {
       "short": "Privacidade",
       "title": "Política de privacidade",
-      "updated": "14 de outubro de 2026",
+      "updated": "20 de outubro de 2026",
       "intro": "Esta política explica que dados o QR-Codex trata, porquê, durante quanto tempo os guardamos e quais são os seus direitos. Recolhemos o mínimo possível: sem anúncios, sem rastreio, e nunca vendemos dados.",
       "s1t": "Quem somos",
       "s1": "O QR-Codex é um serviço de {company}. Somos responsáveis pelo tratamento dos dados da sua conta. Perguntas sobre privacidade? Escreva para {email}.",
@@ -1922,15 +1922,17 @@
       "s3t": "Para que usamos estes dados",
       "s3": "- para prestar o serviço: a sua conta, os seus códigos QR e as páginas que os visitantes veem (execução do contrato)\n- para proteger a sua conta e o serviço e evitar abusos (interesse legítimo)\n- para mostrar estatísticas dos seus próprios códigos (interesse legítimo)\n- para emitir e guardar faturas se tiver um plano pago (obrigação legal)",
       "s4t": "Durante quanto tempo guardamos os dados",
-      "s4": "- a sua conta e códigos QR: até os eliminar ou fechar a conta\n- atividade recente: 90 dias\n- dispositivos com sessão iniciada: até terminar sessão ou a sessão expirar\n- contas nunca confirmadas: 7 dias\n- cópias de segurança: até 14 dias\n- faturas: durante o tempo exigido por lei",
+      "s4": "- a sua conta e códigos QR: até os eliminar ou fechar a conta\n- se a subscrição terminar: os seus códigos QR deixam de funcionar e são eliminados após 30 dias\n- atividade recente: 90 dias\n- dispositivos com sessão iniciada: até terminar sessão ou a sessão expirar\n- contas nunca confirmadas: 7 dias\n- cópias de segurança: até 14 dias\n- faturas: durante o tempo exigido por lei\n- que versão dos termos aceitou e quando: enquanto tiver uma conta",
       "s5t": "Quem pode ver os seus dados",
-      "s5": "Apenas o utilizador e, quando necessário para suporte ou segurança, a equipa de {company}. Só recorremos a parceiros necessários para o serviço, como o fornecedor de alojamento e (se configurado) o serviço que envia os nossos e-mails. Acordamos com eles a segurança dos seus dados. As pesquisas de moradas para códigos QR passam pelo nosso próprio servidor, por isso o serviço de moradas não o vê.\n\nAs páginas dos seus códigos QR são públicas para quem ler o código ou tiver o link. Coloque lá apenas informação que possa ser pública.",
+      "s5": "Apenas o utilizador e, quando necessário para suporte ou segurança, a equipa de {company}. Só recorremos a parceiros necessários para o serviço, como o fornecedor de alojamento e (se configurado) o serviço que envia os nossos e-mails. Acordamos com eles a segurança dos seus dados. As pesquisas de moradas para códigos QR passam pelo nosso próprio servidor, por isso o serviço de moradas não o vê. Os pagamentos são processados pelo nosso fornecedor de pagamentos, a Stripe. Os nossos servidores estão na União Europeia.\n\nAs páginas dos seus códigos QR são públicas para quem ler o código ou tiver o link. Coloque lá apenas informação que possa ser pública.",
       "s6t": "Os seus direitos",
-      "s6": "Pode ver, alterar e transferir os seus dados, e eliminar a sua conta com todo o conteúdo. Pode fazê-lo sozinho em A minha conta (Perfil e Os meus dados). Também se pode opor ao tratamento. Para o que não conseguir fazer sozinho, escreva para {email}; respondemos no prazo de um mês.\n\nNão concorda com a forma como tratamos os seus dados? Pode apresentar queixa à autoridade de proteção de dados do seu país.",
-      "s7t": "Segurança",
-      "s7": "- todas as ligações usam HTTPS\n- as palavras-passe são guardadas com hash, o conteúdo sensível é encriptado\n- em A minha conta vê onde tem sessão iniciada e pode terminá-la em qualquer dispositivo\n- todas as noites é feita uma cópia de segurança",
-      "s8t": "Alterações",
-      "s8": "Se alterarmos esta política, verá pela data no topo. Em alterações importantes avisamos com antecedência."
+      "s6": "Pode ver, alterar e transferir os seus dados, e eliminar a sua conta com todo o conteúdo. Pode fazê-lo sozinho em A minha conta (Perfil e Os meus dados). Também se pode opor ao tratamento. Para o que não conseguir fazer sozinho, escreva para {email}; respondemos no prazo de um mês.\n\nNão concorda com a forma como tratamos os seus dados? Pode apresentar queixa à autoridade de proteção de dados do seu país. Em Espanha é a Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Crianças",
+      "s7": "O QR-Codex destina-se a pessoas com 18 anos ou mais. Os mais novos só o podem usar com autorização e supervisão de um pai, mãe ou tutor. Não recolhemos intencionalmente dados de crianças sem essa autorização; se o detetarmos, eliminamos os dados.",
+      "s8t": "Segurança",
+      "s8": "- todas as ligações usam HTTPS\n- as palavras-passe são guardadas com hash, o conteúdo sensível é encriptado\n- em A minha conta vê onde tem sessão iniciada e pode terminá-la em qualquer dispositivo\n- todas as noites é feita uma cópia de segurança",
+      "s9t": "Alterações",
+      "s9": "Se alterarmos esta política, verá pela data no topo. Em alterações importantes avisamos com antecedência."
     },
     "terms": {
       "short": "Termos",

@@ -1913,7 +1913,7 @@
     "privacy": {
       "short": "Datenschutz",
       "title": "Datenschutzerklärung",
-      "updated": "14. Oktober 2026",
+      "updated": "20. Oktober 2026",
       "intro": "Diese Erklärung beschreibt, welche Daten QR-Codex verarbeitet, warum, wie lange wir sie aufbewahren und welche Rechte du hast. Wir erheben so wenig wie möglich: keine Werbung, kein Tracking, und wir verkaufen niemals Daten.",
       "s1t": "Wer wir sind",
       "s1": "QR-Codex ist ein Dienst von {company}. Wir sind für die Verarbeitung der Daten deines Kontos verantwortlich. Fragen zum Datenschutz? Schreib an {email}.",
@@ -1922,15 +1922,17 @@
       "s3t": "Wofür wir diese Daten nutzen",
       "s3": "- um den Dienst zu erbringen: dein Konto, deine QR-Codes und die Seiten, die Besucher sehen (Vertragserfüllung)\n- um dein Konto und den Dienst zu schützen und Missbrauch zu verhindern (berechtigtes Interesse)\n- um Statistiken über deine eigenen Codes anzuzeigen (berechtigtes Interesse)\n- um Rechnungen zu erstellen und aufzubewahren, wenn du ein kostenpflichtiges Abo hast (gesetzliche Pflicht)",
       "s4t": "Wie lange wir Daten aufbewahren",
-      "s4": "- dein Konto und deine QR-Codes: bis du sie löschst oder dein Konto schließt\n- letzte Aktivitäten: 90 Tage\n- angemeldete Geräte: bis du dich abmeldest oder die Sitzung abläuft\n- nie bestätigte Konten: 7 Tage\n- Backups: bis zu 14 Tage\n- Rechnungen: so lange das Gesetz es verlangt",
+      "s4": "- dein Konto und deine QR-Codes: bis du sie löschst oder dein Konto schließt\n- wenn dein Abo endet: deine QR-Codes funktionieren nicht mehr und werden nach 30 Tagen gelöscht\n- letzte Aktivitäten: 90 Tage\n- angemeldete Geräte: bis du dich abmeldest oder die Sitzung abläuft\n- nie bestätigte Konten: 7 Tage\n- Backups: bis zu 14 Tage\n- Rechnungen: so lange das Gesetz es verlangt\n- welche Version der Bedingungen du akzeptiert hast und wann: solange du ein Konto hast",
       "s5t": "Wer deine Daten sehen kann",
-      "s5": "Nur du und, wenn es für Support oder Sicherheit nötig ist, das Team von {company}. Wir arbeiten nur mit Partnern, die für den Dienst nötig sind, etwa dem Hosting-Anbieter und (falls eingerichtet) dem Dienst, der unsere E-Mails versendet. Mit ihnen vereinbaren wir die Sicherheit deiner Daten. Adressabfragen für QR-Codes laufen über unseren eigenen Server, sodass der Adressdienst dich nicht sieht.\n\nDie Seiten deiner QR-Codes sind für alle öffentlich, die den Code scannen oder den Link haben. Stelle dort nur Informationen ein, die öffentlich sein dürfen.",
+      "s5": "Nur du und, wenn es für Support oder Sicherheit nötig ist, das Team von {company}. Wir arbeiten nur mit Partnern, die für den Dienst nötig sind, etwa dem Hosting-Anbieter und (falls eingerichtet) dem Dienst, der unsere E-Mails versendet. Mit ihnen vereinbaren wir die Sicherheit deiner Daten. Adressabfragen für QR-Codes laufen über unseren eigenen Server, sodass der Adressdienst dich nicht sieht. Zahlungen werden von unserem Zahlungsanbieter Stripe abgewickelt. Unsere Server stehen in der Europäischen Union.\n\nDie Seiten deiner QR-Codes sind für alle öffentlich, die den Code scannen oder den Link haben. Stelle dort nur Informationen ein, die öffentlich sein dürfen.",
       "s6t": "Deine Rechte",
-      "s6": "Du kannst deine Daten einsehen, ändern und herunterladen sowie dein Konto mit allem Inhalt löschen. Das geht selbst unter Mein Konto (Profil und Meine Daten). Du kannst auch der Verarbeitung widersprechen. Für alles, was du nicht selbst erledigen kannst, schreib an {email}; wir antworten innerhalb eines Monats.\n\nBist du nicht einverstanden, wie wir mit deinen Daten umgehen? Dann kannst du dich bei der Datenschutzbehörde deines Landes beschweren.",
-      "s7t": "Sicherheit",
-      "s7": "- alle Verbindungen laufen über HTTPS\n- Passwörter werden gehasht, sensible Inhalte verschlüsselt\n- unter Mein Konto siehst du, wo du angemeldet bist, und kannst jedes Gerät abmelden\n- jede Nacht wird ein Backup erstellt",
-      "s8t": "Änderungen",
-      "s8": "Wenn wir diese Erklärung ändern, siehst du das am Datum oben. Bei großen Änderungen informieren wir dich vorab."
+      "s6": "Du kannst deine Daten einsehen, ändern und herunterladen sowie dein Konto mit allem Inhalt löschen. Das geht selbst unter Mein Konto (Profil und Meine Daten). Du kannst auch der Verarbeitung widersprechen. Für alles, was du nicht selbst erledigen kannst, schreib an {email}; wir antworten innerhalb eines Monats.\n\nBist du nicht einverstanden, wie wir mit deinen Daten umgehen? Dann kannst du dich bei der Datenschutzbehörde deines Landes beschweren. In Spanien ist das die Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Kinder",
+      "s7": "QR-Codex ist für Personen ab 18 Jahren gedacht. Jüngere dürfen es nur mit Erlaubnis und unter Aufsicht eines Elternteils oder Vormunds nutzen. Wir erheben nicht wissentlich Daten von Kindern ohne diese Erlaubnis; bemerken wir es doch, löschen wir die Daten.",
+      "s8t": "Sicherheit",
+      "s8": "- alle Verbindungen laufen über HTTPS\n- Passwörter werden gehasht, sensible Inhalte verschlüsselt\n- unter Mein Konto siehst du, wo du angemeldet bist, und kannst jedes Gerät abmelden\n- jede Nacht wird ein Backup erstellt",
+      "s9t": "Änderungen",
+      "s9": "Wenn wir diese Erklärung ändern, siehst du das am Datum oben. Bei großen Änderungen informieren wir dich vorab."
     },
     "terms": {
       "short": "AGB",

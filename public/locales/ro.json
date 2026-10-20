@@ -1915,7 +1915,7 @@
     "privacy": {
       "short": "Confidențialitate",
       "title": "Politica de confidențialitate",
-      "updated": "14 octombrie 2026",
+      "updated": "20 octombrie 2026",
       "intro": "Această politică explică ce date prelucrează QR-Codex, de ce, cât timp le păstrăm și care sunt drepturile tale. Colectăm cât mai puțin posibil: fără reclame, fără urmărire și nu vindem niciodată date.",
       "s1t": "Cine suntem",
       "s1": "QR-Codex este un serviciu al {company}. Suntem responsabili pentru prelucrarea datelor contului tău. Ai întrebări despre confidențialitate? Scrie-ne la {email}.",
@@ -1924,15 +1924,17 @@
       "s3t": "De ce folosim aceste date",
       "s3": "- ca să furnizăm serviciul: contul tău, codurile tale QR și paginile pe care le văd vizitatorii (executarea contractului)\n- ca să securizăm contul tău și serviciul și să prevenim abuzurile (interes legitim)\n- ca să afișăm statistici despre propriile tale coduri (interes legitim)\n- ca să emitem și să păstrăm facturi dacă ai un abonament plătit (obligație legală)",
       "s4t": "Cât timp păstrăm datele",
-      "s4": "- contul tău și codurile QR: până când le ștergi sau îți închizi contul\n- activitatea recentă: 90 de zile\n- dispozitivele conectate: până când te deconectezi sau sesiunea expiră\n- conturile care nu au fost confirmate niciodată: 7 zile\n- copiile de rezervă: până la 14 zile\n- facturile: atât cât cere legea",
+      "s4": "- contul tău și codurile QR: până când le ștergi sau îți închizi contul\n- dacă abonamentul se încheie: codurile QR nu mai funcționează și sunt șterse după 30 de zile\n- activitatea recentă: 90 de zile\n- dispozitivele conectate: până când te deconectezi sau sesiunea expiră\n- conturile care nu au fost confirmate niciodată: 7 zile\n- copiile de rezervă: până la 14 zile\n- facturile: atât cât cere legea\n- ce versiune a termenilor ai acceptat și când: cât timp ai un cont",
       "s5t": "Cine îți poate vedea datele",
-      "s5": "Doar tu și, când este necesar pentru asistență sau securitate, echipa {company}. Folosim doar părți necesare pentru furnizarea serviciului, cum ar fi furnizorul de găzduire și (dacă este configurat) serviciul care trimite e-mailurile noastre. Încheiem cu ele acorduri privind securitatea datelor tale. Căutările de adrese pentru codurile QR trec prin propriul nostru server, așa că serviciul de adrese nu te vede.\n\nPaginile codurilor tale QR sunt publice pentru oricine scanează codul sau are linkul. Pune acolo doar informații care pot fi publice.",
+      "s5": "Doar tu și, când este necesar pentru asistență sau securitate, echipa {company}. Folosim doar părți necesare pentru furnizarea serviciului, cum ar fi furnizorul de găzduire și (dacă este configurat) serviciul care trimite e-mailurile noastre. Încheiem cu ele acorduri privind securitatea datelor tale. Căutările de adrese pentru codurile QR trec prin propriul nostru server, așa că serviciul de adrese nu te vede. Plățile sunt procesate de furnizorul nostru de plăți, Stripe. Serverele noastre se află în Uniunea Europeană.\n\nPaginile codurilor tale QR sunt publice pentru oricine scanează codul sau are linkul. Pune acolo doar informații care pot fi publice.",
       "s6t": "Drepturile tale",
-      "s6": "Îți poți vedea, modifica și descărca datele și îți poți șterge contul cu tot ce conține. Poți face asta singur în Contul meu (Profil și Datele mele). De asemenea, te poți opune prelucrării. Pentru tot ce nu poți face singur, scrie-ne la {email}; răspundem în termen de o lună.\n\nNu ești de acord cu modul în care tratăm datele tale? Poți depune o plângere la autoritatea pentru protecția datelor din țara ta.",
-      "s7t": "Securitate",
-      "s7": "- toate conexiunile folosesc HTTPS\n- parolele sunt stocate ca hash, iar conținutul sensibil este criptat\n- în Contul meu poți vedea unde ești conectat și poți deconecta orice dispozitiv\n- în fiecare noapte se face o copie de rezervă",
-      "s8t": "Modificări",
-      "s8": "Dacă modificăm această politică, vei vedea asta după data din partea de sus. Pentru modificările importante te anunțăm din timp."
+      "s6": "Îți poți vedea, modifica și descărca datele și îți poți șterge contul cu tot ce conține. Poți face asta singur în Contul meu (Profil și Datele mele). De asemenea, te poți opune prelucrării. Pentru tot ce nu poți face singur, scrie-ne la {email}; răspundem în termen de o lună.\n\nNu ești de acord cu modul în care tratăm datele tale? Poți depune o plângere la autoritatea pentru protecția datelor din țara ta. În Spania este Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Copii",
+      "s7": "QR-Codex este destinat persoanelor de 18 ani și peste. Cei mai tineri îl pot folosi doar cu permisiunea și sub supravegherea unui părinte sau tutore. Nu colectăm intenționat date de la copii fără această permisiune; dacă aflăm, ștergem datele.",
+      "s8t": "Securitate",
+      "s8": "- toate conexiunile folosesc HTTPS\n- parolele sunt stocate ca hash, iar conținutul sensibil este criptat\n- în Contul meu poți vedea unde ești conectat și poți deconecta orice dispozitiv\n- în fiecare noapte se face o copie de rezervă",
+      "s9t": "Modificări",
+      "s9": "Dacă modificăm această politică, vei vedea asta după data din partea de sus. Pentru modificările importante te anunțăm din timp."
     },
     "terms": {
       "short": "Termeni",

@@ -1915,7 +1915,7 @@
     "privacy": {
       "short": "Privadesa",
       "title": "Política de privadesa",
-      "updated": "14 d'octubre de 2026",
+      "updated": "20 d'octubre de 2026",
       "intro": "Aquesta política explica quines dades tracta QR-Codex, per què, quant de temps les conservem i quins drets tens. Recollim el mínim possible: sense anuncis, sense seguiment, i mai no venem dades.",
       "s1t": "Qui som",
       "s1": "QR-Codex és un servei de {company}. Som els responsables del tractament de les dades del teu compte. Tens preguntes sobre privadesa? Escriu a {email}.",
@@ -1924,15 +1924,17 @@
       "s3t": "Per què fem servir aquestes dades",
       "s3": "- per prestar el servei: el teu compte, els teus codis QR i les pàgines que veuen els visitants (execució del contracte)\n- per protegir el teu compte i el servei i evitar abusos (interès legítim)\n- per mostrar estadístiques dels teus propis codis (interès legítim)\n- per emetre i conservar factures si tens un pla de pagament (obligació legal)",
       "s4t": "Quant de temps conservem les dades",
-      "s4": "- el teu compte i els codis QR: fins que els eliminis o tanquis el compte\n- activitat recent: 90 dies\n- dispositius amb la sessió iniciada: fins que tanquis la sessió o caduqui\n- comptes que no s'han confirmat mai: 7 dies\n- còpies de seguretat: fins a 14 dies\n- factures: el temps que exigeixi la llei",
+      "s4": "- el teu compte i els codis QR: fins que els eliminis o tanquis el compte\n- si la subscripció acaba: els teus codis QR deixen de funcionar i s’eliminen al cap de 30 dies\n- activitat recent: 90 dies\n- dispositius amb la sessió iniciada: fins que tanquis la sessió o caduqui\n- comptes que no s'han confirmat mai: 7 dies\n- còpies de seguretat: fins a 14 dies\n- factures: el temps que exigeixi la llei\n- quina versió de les condicions vas acceptar i quan: mentre tinguis un compte",
       "s5t": "Qui pot veure les teves dades",
-      "s5": "Només tu i, quan calgui per al suport o la seguretat, l'equip de {company}. Només treballem amb parts necessàries per prestar el servei, com el proveïdor d'allotjament i (si està configurat) el servei que envia els nostres correus. Hi acordem mesures per a la seguretat de les teves dades. Les cerques d'adreces per als codis QR passen pel nostre propi servidor, de manera que el servei d'adreces no et veu.\n\nLes pàgines dels teus codis QR són públiques per a qualsevol persona que escanegi el codi o tingui l'enllaç. Posa-hi només informació que pugui ser pública.",
+      "s5": "Només tu i, quan calgui per al suport o la seguretat, l'equip de {company}. Només treballem amb parts necessàries per prestar el servei, com el proveïdor d'allotjament i (si està configurat) el servei que envia els nostres correus. Hi acordem mesures per a la seguretat de les teves dades. Les cerques d'adreces per als codis QR passen pel nostre propi servidor, de manera que el servei d'adreces no et veu. Els pagaments els processa el nostre proveïdor de pagaments, Stripe. Els nostres servidors són a la Unió Europea.\n\nLes pàgines dels teus codis QR són públiques per a qualsevol persona que escanegi el codi o tingui l'enllaç. Posa-hi només informació que pugui ser pública.",
       "s6t": "Els teus drets",
-      "s6": "Pots consultar, modificar i baixar les teves dades, i eliminar el compte amb tot el que conté. Ho pots fer tu mateix a El meu compte (Perfil i Les meves dades). També et pots oposar al tractament. Per a tot el que no puguis fer tu mateix, escriu a {email}; et responem en el termini d'un mes.\n\nNo estàs d'acord amb com tractem les teves dades? Pots presentar una reclamació davant l'autoritat de protecció de dades del teu país.",
-      "s7t": "Seguretat",
-      "s7": "- totes les connexions fan servir HTTPS\n- les contrasenyes es desen amb hash i el contingut sensible es xifra\n- a El meu compte pots veure on tens la sessió iniciada i tancar-la en qualsevol dispositiu\n- cada nit es fa una còpia de seguretat",
-      "s8t": "Canvis",
-      "s8": "Si modifiquem aquesta política, ho veuràs per la data de dalt de tot. Si els canvis són importants, t'ho comunicarem amb antelació."
+      "s6": "Pots consultar, modificar i baixar les teves dades, i eliminar el compte amb tot el que conté. Ho pots fer tu mateix a El meu compte (Perfil i Les meves dades). També et pots oposar al tractament. Per a tot el que no puguis fer tu mateix, escriu a {email}; et responem en el termini d'un mes.\n\nNo estàs d'acord amb com tractem les teves dades? Pots presentar una reclamació davant l'autoritat de protecció de dades del teu país. A Espanya és l’Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Menors",
+      "s7": "QR-Codex està pensat per a persones de 18 anys o més. Els menors només el poden fer servir amb el permís i la supervisió d’un pare, mare o tutor. No recollim conscientment dades de menors sense aquest permís; si ho detectem, eliminem les dades.",
+      "s8t": "Seguretat",
+      "s8": "- totes les connexions fan servir HTTPS\n- les contrasenyes es desen amb hash i el contingut sensible es xifra\n- a El meu compte pots veure on tens la sessió iniciada i tancar-la en qualsevol dispositiu\n- cada nit es fa una còpia de seguretat",
+      "s9t": "Canvis",
+      "s9": "Si modifiquem aquesta política, ho veuràs per la data de dalt de tot. Si els canvis són importants, t'ho comunicarem amb antelació."
     },
     "terms": {
       "short": "Condicions",

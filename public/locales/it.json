@@ -1913,7 +1913,7 @@
     "privacy": {
       "short": "Privacy",
       "title": "Informativa sulla privacy",
-      "updated": "14 ottobre 2026",
+      "updated": "20 ottobre 2026",
       "intro": "Questa informativa spiega quali dati tratta QR-Codex, perché, per quanto tempo li conserviamo e quali sono i tuoi diritti. Raccogliamo il meno possibile: niente pubblicità, niente tracciamento e non vendiamo mai dati.",
       "s1t": "Chi siamo",
       "s1": "QR-Codex è un servizio di {company}. Siamo responsabili del trattamento dei dati del tuo account. Domande sulla privacy? Scrivi a {email}.",
@@ -1922,15 +1922,17 @@
       "s3t": "Perché usiamo questi dati",
       "s3": "- per fornire il servizio: il tuo account, i tuoi codici QR e le pagine che vedono i visitatori (esecuzione del contratto)\n- per proteggere il tuo account e il servizio e prevenire abusi (interesse legittimo)\n- per mostrare statistiche sui tuoi codici (interesse legittimo)\n- per emettere e conservare fatture se hai un piano a pagamento (obbligo di legge)",
       "s4t": "Per quanto tempo conserviamo i dati",
-      "s4": "- il tuo account e i codici QR: finché non li elimini o chiudi l’account\n- attività recente: 90 giorni\n- dispositivi collegati: finché non esci o la sessione scade\n- account mai confermati: 7 giorni\n- backup: fino a 14 giorni\n- fatture: per il tempo richiesto dalla legge",
+      "s4": "- il tuo account e i codici QR: finché non li elimini o chiudi l’account\n- se l’abbonamento termina: i tuoi codici QR smettono di funzionare e vengono eliminati dopo 30 giorni\n- attività recente: 90 giorni\n- dispositivi collegati: finché non esci o la sessione scade\n- account mai confermati: 7 giorni\n- backup: fino a 14 giorni\n- fatture: per il tempo richiesto dalla legge\n- quale versione dei termini hai accettato e quando: finché hai un account",
       "s5t": "Chi può vedere i tuoi dati",
-      "s5": "Solo tu e, quando serve per assistenza o sicurezza, il team di {company}. Ci avvaliamo solo di fornitori necessari al servizio, come l’hosting e (se configurato) il servizio che invia le nostre e-mail. Con loro concordiamo la sicurezza dei tuoi dati. Le ricerche di indirizzi per i codici QR passano dal nostro server, quindi il servizio di indirizzi non ti vede.\n\nLe pagine dei tuoi codici QR sono pubbliche per chiunque scansioni il codice o abbia il link. Inserisci lì solo informazioni che possono essere pubbliche.",
+      "s5": "Solo tu e, quando serve per assistenza o sicurezza, il team di {company}. Ci avvaliamo solo di fornitori necessari al servizio, come l’hosting e (se configurato) il servizio che invia le nostre e-mail. Con loro concordiamo la sicurezza dei tuoi dati. Le ricerche di indirizzi per i codici QR passano dal nostro server, quindi il servizio di indirizzi non ti vede. I pagamenti sono gestiti dal nostro fornitore di pagamenti, Stripe. I nostri server si trovano nell’Unione europea.\n\nLe pagine dei tuoi codici QR sono pubbliche per chiunque scansioni il codice o abbia il link. Inserisci lì solo informazioni che possono essere pubbliche.",
       "s6t": "I tuoi diritti",
-      "s6": "Puoi vedere, modificare e scaricare i tuoi dati ed eliminare il tuo account con tutto il contenuto. Puoi farlo da solo in Il mio account (Profilo e I miei dati). Puoi anche opporti al trattamento. Per ciò che non puoi fare da solo, scrivi a {email}; rispondiamo entro un mese.\n\nNon sei d’accordo con come trattiamo i tuoi dati? Puoi presentare un reclamo all’autorità per la protezione dei dati del tuo paese.",
-      "s7t": "Sicurezza",
-      "s7": "- tutte le connessioni usano HTTPS\n- le password sono salvate con hash, i contenuti sensibili cifrati\n- in Il mio account vedi dove sei collegato e puoi disconnettere qualsiasi dispositivo\n- ogni notte viene fatto un backup",
-      "s8t": "Modifiche",
-      "s8": "Se modifichiamo questa informativa, lo vedrai dalla data in alto. Per le modifiche importanti ti avviseremo in anticipo."
+      "s6": "Puoi vedere, modificare e scaricare i tuoi dati ed eliminare il tuo account con tutto il contenuto. Puoi farlo da solo in Il mio account (Profilo e I miei dati). Puoi anche opporti al trattamento. Per ciò che non puoi fare da solo, scrivi a {email}; rispondiamo entro un mese.\n\nNon sei d’accordo con come trattiamo i tuoi dati? Puoi presentare un reclamo all’autorità per la protezione dei dati del tuo paese. In Spagna è l’Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Minori",
+      "s7": "QR-Codex è pensato per persone dai 18 anni in su. I più giovani possono usarlo solo con il permesso e sotto la supervisione di un genitore o tutore. Non raccogliamo consapevolmente dati di minori senza tale permesso; se ce ne accorgiamo, eliminiamo i dati.",
+      "s8t": "Sicurezza",
+      "s8": "- tutte le connessioni usano HTTPS\n- le password sono salvate con hash, i contenuti sensibili cifrati\n- in Il mio account vedi dove sei collegato e puoi disconnettere qualsiasi dispositivo\n- ogni notte viene fatto un backup",
+      "s9t": "Modifiche",
+      "s9": "Se modifichiamo questa informativa, lo vedrai dalla data in alto. Per le modifiche importanti ti avviseremo in anticipo."
     },
     "terms": {
       "short": "Condizioni",

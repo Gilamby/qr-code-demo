@@ -2019,7 +2019,7 @@
     "privacy": {
       "short": "Privatësia",
       "title": "Politika e privatësisë",
-      "updated": "14 tetor 2026",
+      "updated": "20 tetor 2026",
       "intro": "Kjo politikë shpjegon cilat të dhëna përpunon QR-Codex, pse, sa kohë i ruajmë dhe cilat janë të drejtat e tua. Mbledhim sa më pak të jetë e mundur: pa reklama, pa gjurmim, dhe nuk shesim kurrë të dhëna.",
       "s1t": "Kush jemi",
       "s1": "QR-Codex është një shërbim i {company}. Ne jemi përgjegjës për përpunimin e të dhënave të llogarisë sate. Pyetje për privatësinë? Shkruaj në {email}.",
@@ -2028,15 +2028,17 @@
       "s3t": "Pse i përdorim këto të dhëna",
       "s3": "- për të ofruar shërbimin: llogarinë tënde, kodet e tua QR dhe faqet që shohin vizitorët (zbatimi i kontratës)\n- për të mbrojtur llogarinë dhe shërbimin dhe për të parandaluar abuzimin (interes legjitim)\n- për të shfaqur statistika për kodet e tua (interes legjitim)\n- për të krijuar dhe ruajtur fatura nëse ke një plan me pagesë (detyrim ligjor)",
       "s4t": "Sa kohë i ruajmë të dhënat",
-      "s4": "- llogaria dhe kodet QR: derisa t’i fshish ose ta mbyllësh llogarinë\n- aktiviteti i fundit: 90 ditë\n- pajisjet e lidhura: derisa të dalësh ose të skadojë seanca\n- llogaritë që nuk u konfirmuan kurrë: 7 ditë\n- kopjet rezervë: deri në 14 ditë\n- faturat: aq kohë sa kërkon ligji",
+      "s4": "- llogaria dhe kodet QR: derisa t’i fshish ose ta mbyllësh llogarinë\n- nëse abonimi përfundon: kodet e tua QR ndalojnë së punuari dhe fshihen pas 30 ditësh\n- aktiviteti i fundit: 90 ditë\n- pajisjet e lidhura: derisa të dalësh ose të skadojë seanca\n- llogaritë që nuk u konfirmuan kurrë: 7 ditë\n- kopjet rezervë: deri në 14 ditë\n- faturat: aq kohë sa kërkon ligji\n- cilin version të kushteve ke pranuar dhe kur: për sa kohë ke një llogari",
       "s5t": "Kush mund t’i shohë të dhënat e tua",
-      "s5": "Vetëm ti dhe, kur nevojitet për mbështetje ose siguri, ekipi i {company}. Punojmë vetëm me palë që nevojiten për shërbimin, si ofruesi i hostimit dhe (nëse është konfiguruar) shërbimi që dërgon email-et tona. Me ta bëjmë marrëveshje për sigurinë e të dhënave të tua. Kërkimet e adresave për kodet QR kalojnë përmes serverit tonë, kështu që shërbimi i adresave nuk të sheh.\n\nFaqet e kodeve të tua QR janë publike për këdo që skanon kodin ose ka lidhjen. Vendos aty vetëm informacion që mund të jetë publik.",
+      "s5": "Vetëm ti dhe, kur nevojitet për mbështetje ose siguri, ekipi i {company}. Punojmë vetëm me palë që nevojiten për shërbimin, si ofruesi i hostimit dhe (nëse është konfiguruar) shërbimi që dërgon email-et tona. Me ta bëjmë marrëveshje për sigurinë e të dhënave të tua. Kërkimet e adresave për kodet QR kalojnë përmes serverit tonë, kështu që shërbimi i adresave nuk të sheh. Pagesat përpunohen nga ofruesi ynë i pagesave, Stripe. Serverët tanë janë në Bashkimin Evropian.\n\nFaqet e kodeve të tua QR janë publike për këdo që skanon kodin ose ka lidhjen. Vendos aty vetëm informacion që mund të jetë publik.",
       "s6t": "Të drejtat e tua",
-      "s6": "Mund t’i shohësh, t’i ndryshosh dhe t’i shkarkosh të dhënat e tua, si dhe ta fshish llogarinë me gjithë përmbajtjen. Këtë e bën vetë te Llogaria ime (Profili dhe Të dhënat e mia). Mund të kundërshtosh edhe përpunimin. Për çdo gjë që nuk e bën dot vetë, shkruaj në {email}; përgjigjemi brenda një muaji.\n\nNuk je dakord me mënyrën si i trajtojmë të dhënat e tua? Mund të paraqesësh ankesë te autoriteti i mbrojtjes së të dhënave në vendin tënd.",
-      "s7t": "Siguria",
-      "s7": "- të gjitha lidhjet përdorin HTTPS\n- fjalëkalimet ruhen me hash, përmbajtja e ndjeshme enkriptohet\n- te Llogaria ime sheh ku je i lidhur dhe mund të nxjerrësh çdo pajisje\n- çdo natë bëhet një kopje rezervë",
-      "s8t": "Ndryshimet",
-      "s8": "Nëse e ndryshojmë këtë politikë, do ta shohësh nga data lart. Për ndryshime të mëdha do të të njoftojmë paraprakisht."
+      "s6": "Mund t’i shohësh, t’i ndryshosh dhe t’i shkarkosh të dhënat e tua, si dhe ta fshish llogarinë me gjithë përmbajtjen. Këtë e bën vetë te Llogaria ime (Profili dhe Të dhënat e mia). Mund të kundërshtosh edhe përpunimin. Për çdo gjë që nuk e bën dot vetë, shkruaj në {email}; përgjigjemi brenda një muaji.\n\nNuk je dakord me mënyrën si i trajtojmë të dhënat e tua? Mund të paraqesësh ankesë te autoriteti i mbrojtjes së të dhënave në vendin tënd. Në Spanjë kjo është Agencia Española de Protección de Datos (www.aepd.es).",
+      "s7t": "Fëmijët",
+      "s7": "QR-Codex është menduar për persona 18 vjeç e lart. Më të rinjtë mund ta përdorin vetëm me lejen dhe nën mbikëqyrjen e një prindi ose kujdestari. Nuk mbledhim me dijeni të dhëna fëmijësh pa këtë leje; nëse e zbulojmë, i fshijmë të dhënat.",
+      "s8t": "Siguria",
+      "s8": "- të gjitha lidhjet përdorin HTTPS\n- fjalëkalimet ruhen me hash, përmbajtja e ndjeshme enkriptohet\n- te Llogaria ime sheh ku je i lidhur dhe mund të nxjerrësh çdo pajisje\n- çdo natë bëhet një kopje rezervë",
+      "s9t": "Ndryshimet",
+      "s9": "Nëse e ndryshojmë këtë politikë, do ta shohësh nga data lart. Për ndryshime të mëdha do të të njoftojmë paraprakisht."
     },
     "terms": {
       "short": "Kushtet",
