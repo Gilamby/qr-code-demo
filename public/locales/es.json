@@ -604,7 +604,17 @@
     "start": "Empieza 14 días gratis",
     "soon": "El pago online llegará pronto. Elige tu plan y nuestro equipo activará tu cuenta.",
     "sent": "Solicitud enviada. Recibirás un correo cuando tu cuenta esté activa.",
-    "popular": "El más elegido"
+    "popular": "El más elegido",
+    "demo": "Demo: no se cobra nada. Pronto el pago irá por Stripe.",
+    "payTitle": "Pago",
+    "today": "A pagar hoy",
+    "after": "Después de 14 días",
+    "card": "Tarjeta",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "done": "¡Listo! Tu plan está activo.",
+    "trialUntil": "Gratis hasta el {date}",
+    "enter": "Ir a la app"
   },
   "dz": {
     "lbl": {

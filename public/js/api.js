@@ -311,6 +311,7 @@ var api = (function () {
       twoFactorEnable:  function (d) { return request('POST', 'api/account/2fa/enable', d); },
       twoFactorDisable: function (d) { return request('POST', 'api/account/2fa/disable', d); },
       // Abonnement (demo: altijd de testfase)
+      checkoutDemo: function (d) { return request('POST', 'api/account/checkout-demo', d); },
       plan:     either(function ()  { return request('GET', 'api/account/plan'); }, function () { return Promise.resolve({ plan: { id: 'free', codes: null, statsDays: null }, usage: { used: 0, limit: null, state: 'ok' }, plans: [], payments: false }); }),
       logoutOthers: either(function () { return request('POST', 'api/account/logout-others', {}); }, demoAuth.account.logoutOthers),
       billing:  either(function ()  { return request('GET', 'api/account/billing'); }, demoAuth.account.billing),

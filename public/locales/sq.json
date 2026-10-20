@@ -604,7 +604,17 @@
     "start": "Fillo 14 ditë falas",
     "soon": "Pagesa online vjen së shpejti. Zgjidh paketën dhe ekipi ynë aktivizon llogarinë tënde.",
     "sent": "Kërkesa u dërgua. Do të marrësh një email sapo llogaria të jetë aktive.",
-    "popular": "Më e zgjedhura"
+    "popular": "Më e zgjedhura",
+    "demo": "Demo: nuk tarifohet asgjë. Së shpejti pagesa do të bëhet me Stripe.",
+    "payTitle": "Pagesa",
+    "today": "Për t’u paguar sot",
+    "after": "Pas 14 ditësh",
+    "card": "Karta e pagesës",
+    "confirm": "Konfirmo",
+    "back": "Mbrapa",
+    "done": "U krye! Paketa jote është aktive.",
+    "trialUntil": "Falas deri më {date}",
+    "enter": "Shko te aplikacioni"
   },
   "dz": {
     "lbl": {

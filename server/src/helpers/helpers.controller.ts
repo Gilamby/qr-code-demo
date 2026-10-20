@@ -33,7 +33,7 @@ export class SystemController {
       const pick = (k: string, e: string) => String(co[k] || '').trim() || env(e);
       const legal = { name: pick('name', 'LEGAL_NAME') || 'Optimasys', address: pick('address', 'LEGAL_ADDRESS'), kvk: pick('kvk', 'LEGAL_KVK'), vat: pick('vat', 'LEGAL_VAT'), email: pick('email', 'LEGAL_EMAIL') /* niet het inlogadres van de super-admin */, phone: pick('phone', 'LEGAL_PHONE'), website: pick('website', 'LEGAL_WEBSITE') };
       let maintenance = { on: false, message: '' }; try { const m = JSON.parse((await this.db.getSetting('maintenance')) || '{}'); maintenance = { on: !!m.on, message: String(m.message || '') }; } catch (e) { /* uit */ }
-      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: process.env.ALLOW_SIGNUP === 'true', google: googleOn(), legal, maintenance, mail: !!process.env.SMTP_HOST };
+      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: process.env.ALLOW_SIGNUP === 'true', google: googleOn(), demoCheckout: process.env.DEMO_CHECKOUT === 'true', legal, maintenance, mail: !!process.env.SMTP_HOST };
     } catch (e) { throw reply(503, { ok: false }); }
   }
 

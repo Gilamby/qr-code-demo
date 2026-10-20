@@ -604,7 +604,17 @@
     "start": "14 Tage kostenlos starten",
     "soon": "Online-Zahlung kommt bald. Wähle dein Paket, dann schaltet unser Team dein Konto frei.",
     "sent": "Anfrage gesendet. Du bekommst eine E-Mail, sobald dein Konto aktiv ist.",
-    "popular": "Am beliebtesten"
+    "popular": "Am beliebtesten",
+    "demo": "Demo: Es wird nichts abgebucht. Bald läuft die Zahlung über Stripe.",
+    "payTitle": "Bezahlen",
+    "today": "Heute fällig",
+    "after": "Nach 14 Tagen",
+    "card": "Zahlungskarte",
+    "confirm": "Bestätigen",
+    "back": "Zurück",
+    "done": "Geschafft! Dein Paket ist aktiv.",
+    "trialUntil": "Kostenlos bis {date}",
+    "enter": "Zur App"
   },
   "dz": {
     "lbl": {

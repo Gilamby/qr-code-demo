@@ -604,7 +604,17 @@
     "start": "Sākt 14 dienas bez maksas",
     "soon": "Maksājumi tiešsaistē drīzumā. Izvēlieties paketi, un mūsu komanda aktivizēs jūsu kontu.",
     "sent": "Pieprasījums nosūtīts. Saņemsiet e-pastu, tiklīdz konts būs aktīvs.",
-    "popular": "Populārākā"
+    "popular": "Populārākā",
+    "demo": "Demo: nekas netiek iekasēts. Drīz maksājumi notiks caur Stripe.",
+    "payTitle": "Apmaksa",
+    "today": "Jāmaksā šodien",
+    "after": "Pēc 14 dienām",
+    "card": "Maksājumu karte",
+    "confirm": "Apstiprināt",
+    "back": "Atpakaļ",
+    "done": "Gatavs! Jūsu pakete ir aktīva.",
+    "trialUntil": "Bez maksas līdz {date}",
+    "enter": "Uz lietotni"
   },
   "dz": {
     "lbl": {

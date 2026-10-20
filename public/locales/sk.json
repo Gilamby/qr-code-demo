@@ -604,7 +604,17 @@
     "start": "Začať 14 dní zadarmo",
     "soon": "Online platba čoskoro. Vyberte balík a náš tím aktivuje váš účet.",
     "sent": "Žiadosť odoslaná. Keď bude účet aktívny, dostanete e-mail.",
-    "popular": "Najobľúbenejší"
+    "popular": "Najobľúbenejší",
+    "demo": "Demo: nič sa nestrhne. Čoskoro pôjde platba cez Stripe.",
+    "payTitle": "Platba",
+    "today": "Na zaplatenie dnes",
+    "after": "Po 14 dňoch",
+    "card": "Platobná karta",
+    "confirm": "Potvrdiť",
+    "back": "Späť",
+    "done": "Hotovo! Váš balík je aktívny.",
+    "trialUntil": "Zadarmo do {date}",
+    "enter": "Do aplikácie"
   },
   "dz": {
     "lbl": {

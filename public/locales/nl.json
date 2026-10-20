@@ -604,7 +604,17 @@
     "start": "Start 14 dagen gratis",
     "soon": "Online betalen komt binnenkort. Kies je pakket, dan zet ons team je account aan.",
     "sent": "Aanvraag verstuurd. Je krijgt een e-mail zodra je account aan staat.",
-    "popular": "Meest gekozen"
+    "popular": "Meest gekozen",
+    "demo": "Demo: er wordt niets afgeschreven. Straks gaat betalen via Stripe.",
+    "payTitle": "Afrekenen",
+    "today": "Vandaag te betalen",
+    "after": "Na 14 dagen",
+    "card": "Betaalkaart",
+    "confirm": "Bevestigen",
+    "back": "Terug",
+    "done": "Gelukt! Je pakket staat aan.",
+    "trialUntil": "Gratis tot {date}",
+    "enter": "Naar de app"
   },
   "dz": {
     "lbl": {

@@ -604,7 +604,17 @@
     "start": "Începe 14 zile gratuit",
     "soon": "Plata online vine în curând. Alege pachetul și echipa noastră îți activează contul.",
     "sent": "Cerere trimisă. Vei primi un e-mail când contul tău este activ.",
-    "popular": "Cel mai ales"
+    "popular": "Cel mai ales",
+    "demo": "Demo: nu se încasează nimic. În curând plata va fi prin Stripe.",
+    "payTitle": "Plată",
+    "today": "De plată azi",
+    "after": "După 14 zile",
+    "card": "Card de plată",
+    "confirm": "Confirmă",
+    "back": "Înapoi",
+    "done": "Gata! Pachetul tău este activ.",
+    "trialUntil": "Gratuit până la {date}",
+    "enter": "Mergi la aplicație"
   },
   "dz": {
     "lbl": {

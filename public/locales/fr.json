@@ -604,7 +604,17 @@
     "start": "Commencer 14 jours gratuits",
     "soon": "Le paiement en ligne arrive bientôt. Choisissez votre offre et notre équipe activera votre compte.",
     "sent": "Demande envoyée. Vous recevrez un e-mail dès que votre compte sera actif.",
-    "popular": "Le plus choisi"
+    "popular": "Le plus choisi",
+    "demo": "Démo : rien n’est débité. Bientôt, le paiement passera par Stripe.",
+    "payTitle": "Paiement",
+    "today": "À payer aujourd’hui",
+    "after": "Après 14 jours",
+    "card": "Carte de paiement",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "done": "C’est fait ! Votre offre est active.",
+    "trialUntil": "Gratuit jusqu’au {date}",
+    "enter": "Aller à l’app"
   },
   "dz": {
     "lbl": {

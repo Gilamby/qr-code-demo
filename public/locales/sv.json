@@ -604,7 +604,17 @@
     "start": "Starta 14 dagar gratis",
     "soon": "Onlinebetalning kommer snart. Välj paket så aktiverar vårt team ditt konto.",
     "sent": "Förfrågan skickad. Du får ett mejl när ditt konto är aktivt.",
-    "popular": "Mest valt"
+    "popular": "Mest valt",
+    "demo": "Demo: inget dras. Snart går betalningen via Stripe.",
+    "payTitle": "Betalning",
+    "today": "Att betala idag",
+    "after": "Efter 14 dagar",
+    "card": "Betalkort",
+    "confirm": "Bekräfta",
+    "back": "Tillbaka",
+    "done": "Klart! Ditt paket är aktivt.",
+    "trialUntil": "Gratis till {date}",
+    "enter": "Till appen"
   },
   "dz": {
     "lbl": {

@@ -604,7 +604,17 @@
     "start": "Aloita 14 päivää ilmaiseksi",
     "soon": "Verkkomaksu tulee pian. Valitse paketti, niin tiimimme aktivoi tilisi.",
     "sent": "Pyyntö lähetetty. Saat sähköpostin, kun tilisi on aktiivinen.",
-    "popular": "Suosituin"
+    "popular": "Suosituin",
+    "demo": "Demo: mitään ei veloiteta. Pian maksu hoidetaan Stripen kautta.",
+    "payTitle": "Maksu",
+    "today": "Maksettavaa tänään",
+    "after": "14 päivän jälkeen",
+    "card": "Maksukortti",
+    "confirm": "Vahvista",
+    "back": "Takaisin",
+    "done": "Valmis! Pakettisi on käytössä.",
+    "trialUntil": "Ilmainen {date} asti",
+    "enter": "Sovellukseen"
   },
   "dz": {
     "lbl": {

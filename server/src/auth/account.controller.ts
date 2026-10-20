@@ -18,7 +18,7 @@ import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
 import { PLANS, planFor, usage } from '../plans';
-import { subFor, publicSub } from '../subscription';
+import { subFor, publicSub, saveSub, renew, stateOf, DAY } from '../subscription';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
 /** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
@@ -134,6 +134,24 @@ export class AccountController {
   async plan(@CurrentUser() user: User) {
     const plan = await planFor(this.db, user.id), codes = (await this.db.listQrCodes(user.id)).length;
     return { plan, usage: usage(plan, codes), plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: false, sub: publicSub(await subFor(this.db, user.id)) };
+  }
+
+  /** DEMO-afrekenen (zolang Stripe er nog niet is; alleen met DEMO_CHECKOUT=true in .env).
+   *  Alleen voor een nieuwe klant die nog nooit betaald heeft: pakket kiezen → "betaald" → de app in.
+   *  Daarna zie je het pakket-scherm nooit meer. Zoals straks bij Stripe: 14 dagen gratis, daarna de eerste periode. */
+  @Post('account/checkout-demo')
+  @HttpCode(200)
+  async checkoutDemo(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (process.env.DEMO_CHECKOUT !== 'true') throw fail(403, 'off');
+    const planId = String(b.plan || ''), interval = b.period === 'year' ? 'year' : 'month';
+    if (!['standard', 'pro', 'business'].includes(planId)) throw fail(400, 'plan');
+    const sub = await subFor(this.db, user.id);
+    if (stateOf(sub) !== 'unpaid') throw fail(409, 'done');                       // maar één keer, en nooit voor wie al betaalt
+    const trial = (PLANS[planId].trialDays || 0) * DAY;
+    await this.db.setSetting('plan:' + user.id, planId);
+    await saveSub(this.db, user.id, renew({ ...sub, mustPay: false }, interval, Date.now() + trial));
+    await this.db.addActivity(user.id, 'plan_chosen', this.auth.meta(req));
+    return { ok: true, sub: publicSub(await subFor(this.db, user.id)) };
   }
 
   /** Uitloggen op alle andere apparaten (deze blijft ingelogd) */

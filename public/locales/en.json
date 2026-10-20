@@ -604,7 +604,17 @@
     "start": "Start 14 days free",
     "soon": "Online payment is coming soon. Choose your plan and our team will activate your account.",
     "sent": "Request sent. You'll get an email as soon as your account is active.",
-    "popular": "Most popular"
+    "popular": "Most popular",
+    "demo": "Demo: nothing is charged. Soon payment will go through Stripe.",
+    "payTitle": "Checkout",
+    "today": "Due today",
+    "after": "After 14 days",
+    "card": "Payment card",
+    "confirm": "Confirm",
+    "back": "Back",
+    "done": "Done! Your plan is active.",
+    "trialUntil": "Free until {date}",
+    "enter": "Go to the app"
   },
   "dz": {
     "lbl": {

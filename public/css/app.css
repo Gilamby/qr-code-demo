@@ -4422,3 +4422,14 @@ body.paywall-open { overflow: hidden; }
 .pw-go { min-width: 280px; height: 54px; justify-content: center; font-size: 16px; }
 .pw-note { color: var(--muted); font-size: 13px; max-width: 480px; margin-top: 14px; }
 @media (max-width: 760px) { .pw-grid { grid-template-columns: 1fr; } }
+.pw-demo { padding: 10px 16px; border-radius: 12px; background: rgba(250,204,21,.12); color: #fde68a; font-size: 14px; margin: 0 0 22px; }
+.pw-pay { width: 100%; max-width: 760px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+.pw-sum { padding: 24px; border-radius: 20px; background: rgba(255,255,255,.04); border: 1px solid var(--line, rgba(255,255,255,.1)); display: flex; flex-direction: column; gap: 8px; }
+.pw-sum > b { font-size: 22px; } .pw-sum > span { color: var(--muted); }
+.pw-row { display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; margin-top: 4px; border-top: 1px solid var(--line, rgba(255,255,255,.1)); }
+.pw-card-form { display: flex; flex-direction: column; gap: 12px; }
+.pw-card-form .pw-go { min-width: 0; width: 100%; }
+.pw-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pw-done { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 40px; }
+.pw-check { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; font-size: 36px; background: rgba(34,197,94,.15); color: #4ade80; }
+@media (max-width: 760px) { .pw-pay { grid-template-columns: 1fr; } }

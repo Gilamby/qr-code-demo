@@ -638,3 +638,19 @@ test('inloggen met Google: uit zonder sleutels; tweede stap met een onbekende co
   assert.equal((await c('POST', '/api/auth/google/2fa', { token: 'onzin', code: '123456' })).status, 400);
   assert.equal((await c('GET', '/api/health')).json.google, false, 'geen Google-knop zonder sleutels');
 });
+
+test('demo-afrekenen: alleen met DEMO_CHECKOUT, alleen voor een nieuwe klant, één keer', async () => {
+  const c = client(); await signup(c, 'demo-pay@example.com', 'Demo betalen zin 3!', 'Demo', { unpaid: true });
+  assert.equal((await c('GET', '/api/account/plan')).json.sub.state, 'unpaid');
+  delete process.env.DEMO_CHECKOUT;
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'year' })).status, 403, 'uit zonder DEMO_CHECKOUT');
+  process.env.DEMO_CHECKOUT = 'true';
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'gratis' })).status, 400);
+  const r = await c('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'year' });
+  assert.equal(r.status, 200); assert.equal(r.json.sub.state, 'active');
+  const plan = (await c('GET', '/api/account/plan')).json; assert.equal(plan.plan.id, 'pro');
+  assert.ok(Date.parse(plan.sub.periodEnd) > Date.now() + 370 * 864e5, '14 dagen proef + een jaar');
+  assert.equal((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://na-betalen.example' }, design: {} })).status, 201, 'nu kan hij codes maken');
+  assert.equal((await c('POST', '/api/account/checkout-demo', { plan: 'business' })).status, 409, 'maar één keer');
+  delete process.env.DEMO_CHECKOUT;
+});

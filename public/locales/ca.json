@@ -604,7 +604,17 @@
     "start": "Comença 14 dies gratis",
     "soon": "El pagament en línia arribarà aviat. Tria el pla i el nostre equip activarà el teu compte.",
     "sent": "Sol·licitud enviada. Rebràs un correu quan el teu compte estigui actiu.",
-    "popular": "El més triat"
+    "popular": "El més triat",
+    "demo": "Demo: no es cobra res. Aviat el pagament anirà per Stripe.",
+    "payTitle": "Pagament",
+    "today": "A pagar avui",
+    "after": "Després de 14 dies",
+    "card": "Targeta",
+    "confirm": "Confirma",
+    "back": "Enrere",
+    "done": "Fet! El teu pla està actiu.",
+    "trialUntil": "Gratis fins al {date}",
+    "enter": "Ves a l’app"
   },
   "dz": {
     "lbl": {

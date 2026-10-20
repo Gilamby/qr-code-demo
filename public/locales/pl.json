@@ -604,7 +604,17 @@
     "start": "Zacznij 14 dni za darmo",
     "soon": "Płatności online już wkrótce. Wybierz pakiet, a nasz zespół aktywuje Twoje konto.",
     "sent": "Prośba wysłana. Dostaniesz e-mail, gdy konto będzie aktywne.",
-    "popular": "Najczęściej wybierany"
+    "popular": "Najczęściej wybierany",
+    "demo": "Demo: nic nie jest pobierane. Wkrótce płatność przez Stripe.",
+    "payTitle": "Płatność",
+    "today": "Do zapłaty dziś",
+    "after": "Po 14 dniach",
+    "card": "Karta płatnicza",
+    "confirm": "Potwierdź",
+    "back": "Wstecz",
+    "done": "Gotowe! Twój pakiet jest aktywny.",
+    "trialUntil": "Za darmo do {date}",
+    "enter": "Przejdź do aplikacji"
   },
   "dz": {
     "lbl": {

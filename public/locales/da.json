@@ -604,7 +604,17 @@
     "start": "Start 14 dage gratis",
     "soon": "Onlinebetaling kommer snart. Vælg din pakke, så aktiverer vores team din konto.",
     "sent": "Anmodning sendt. Du får en e-mail, så snart din konto er aktiv.",
-    "popular": "Mest valgt"
+    "popular": "Mest valgt",
+    "demo": "Demo: der trækkes intet. Snart går betaling via Stripe.",
+    "payTitle": "Betaling",
+    "today": "Betales i dag",
+    "after": "Efter 14 dage",
+    "card": "Betalingskort",
+    "confirm": "Bekræft",
+    "back": "Tilbage",
+    "done": "Færdig! Din pakke er aktiv.",
+    "trialUntil": "Gratis indtil {date}",
+    "enter": "Til appen"
   },
   "dz": {
     "lbl": {
