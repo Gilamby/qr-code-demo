@@ -13,6 +13,49 @@ window.PlanPeriod = {
     }).join('') + '</div>';
   },
 };
+/* Wat zit in je pakket? Vergrendelde dingen tonen een slotje met "vanaf Pro/Business" en openen de pakketten-pagina.
+   De server controleert het ook (plan_type, plan_media, plan_bg, plan_limit). Team en online demo: alles open. */
+window.PlanGate = (function () {
+  var info = null, LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  function plan() { var u = window.Session && Session.user && Session.user(); if (!info || !u || u.admin || (api.isDemo && api.isDemo())) return null; return info.plan; }
+  function load() {
+    if (!window.api || !api.account || !api.account.plan) return;
+    api.account.plan().then(function (r) { info = r; document.dispatchEvent(new CustomEvent('plan-info')); }).catch(function () {});
+  }
+  if (window.Session && Session.onUser) Session.onUser(function (u) { info = null; if (u) setTimeout(load, 250); });
+  return {
+    load: load, info: function () { return info; },
+    typeOk: function (id) { var p = plan(); return !p || !p.types || p.types.indexOf(id) >= 0; },
+    /** what: 'extra' (meer achtergronden), 'image' (eigen foto), 'video' (eigen video) */
+    bgOk: function (what) { var p = plan(); if (!p || !p.bg) return true; return what === 'video' ? p.bg === 'all' : p.bg !== 'basic'; },
+    statsDays: function () { var p = plan(); return p ? p.statsDays : null; },
+    lock: LOCK,
+    badge: function (min) { return '<span class="lock-badge">' + LOCK + esc(t('pw.lockFrom', { plan: t('plan.n_' + min) })) + '</span>'; },
+    /** Pakketten-pagina openen met een reden ("Dit soort QR-code zit in Pro en Business") */
+    upgrade: function (min, reason) { if (window.Plans) Plans.open(min, reason); },
+    /** Wat zit er in een pakket, als lijstje: { ok, text, min } (min = vanaf welk pakket, bij een slotje) */
+    features: function (x) {
+      var f = [];
+      f.push({ ok: true, text: x.codes ? t('plan.fCodes', { n: x.codes }) : t('acct.planF1') });
+      f.push(x.types ? { ok: true, text: t('pw.fTypes', { n: x.types.length }) } : { ok: true, text: t('acct.planF2') });
+      if (x.types) f.push({ ok: false, text: t('acct.planF2'), min: 'pro' });
+      f.push({ ok: true, text: x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll') });
+      f.push(x.users === 1 ? { ok: false, text: t('pw.fTeam'), min: 'pro' } : { ok: true, text: x.users ? t('team.fUsers', { n: x.users }) : t('team.fUsersAll') });
+      f.push(x.bg === 'basic' ? { ok: false, text: t('pw.fBg'), min: 'pro' } : { ok: true, text: t('pw.fBg') });
+      f.push(x.bg === 'all' ? { ok: true, text: t('pw.fVideo') } : { ok: false, text: t('pw.fVideo'), min: 'business' });
+      f.push({ ok: true, text: t('acct.planF4') });
+      return f;
+    },
+    featuresHtml: function (x, cls) {
+      return '<ul class="' + (cls || 'pg-feats') + '">' + this.features(x).map(function (r) {
+        return '<li class="' + (r.ok ? 'pg-on' : 'pg-off') + '">' + (r.ok ? '<span class="pg-ok" aria-hidden="true">✓</span>' : '<span class="pg-lk">' + LOCK + '</span>') + '<span>' + esc(r.text) +
+          (r.ok ? '' : ' <small>' + esc(t('pw.lockFrom', { plan: t('plan.n_' + r.min) })) + '</small>') + '</span></li>';
+      }).join('') + '</ul>';
+    },
+  };
+})();
+/* Knop met data-gate-open="pro" (en data-gate-reason) opent de pakketten-pagina */
+document.addEventListener('click', function (e) { var g = e.target.closest('[data-gate-open]'); if (g) { e.preventDefault(); PlanGate.upgrade(g.getAttribute('data-gate-open'), g.getAttribute('data-gate-reason')); } });
 /* =========================================================
    MIJN ACCOUNT
    Rechts een menu in drie groepen, links het gekozen onderdeel (op de telefoon staat het menu bovenaan):
@@ -75,7 +118,7 @@ window.PlanPeriod = {
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
   function isMember() { return !!(window.Team && Team.member()); }
-  function shown(id) { return (id !== 'delete' || canDelete()) && !(isMember() && (id === 'billing' || id === 'plan')) && !(id === 'team' && (user && user.admin || !(window.Team && Team.visible()))); }   // Team: alleen bij Pro/Business of als je lid bent
+  function shown(id) { return (id !== 'delete' || canDelete()) && !(isMember() && (id === 'billing' || id === 'plan')) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html)
   function tabIds() { return ALL_TABS.filter(shown); }
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
@@ -241,7 +284,7 @@ window.PlanPeriod = {
     var feats = free ? ['acct.planF1', 'acct.planF2', 'acct.planF3', 'acct.planF4'].map(t)
       : [p.codes ? t('plan.fCodes', { n: p.codes }) : t('acct.planF1'), p.statsDays ? t('plan.fStats', { n: p.statsDays }) : t('plan.fStatsAll'), t('acct.planF2'), t('acct.planF4')];
     return (head || '<div class="glass bg-card acct"><div class="acct-plan-head"><div><h2>' + t('acct.planCurrent') + '</h2><p>' + t(free ? 'acct.planFreeLead' : 'plan.currentLead') + '</p></div><span class="acct-badge">' + t('plan.n_' + p.id) + '</span></div>' +
-      bar + subLine(planInfo.sub) + '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul></div>') +
+      bar + subLine(planInfo.sub) + (free ? '<ul class="acct-feats">' + feats.map(function (f) { return '<li>' + SVG + ICON.check + '</svg>' + f + '</li>'; }).join('') + '</ul>' : PlanGate.featuresHtml(p, 'pg-feats two')) + '</div>') +
       (window.Team && Team.member && Team.member() ? '' :
       '<div class="glass bg-card acct pl-more"><div><h2>' + t('plan.moreTitle') + '</h2><p class="acct-note">' + t('plan.moreLead') + '</p></div>' +
       '<button type="button" class="btn primary" data-open-plans>' + t('plan.seePlans') + ' →</button></div>');

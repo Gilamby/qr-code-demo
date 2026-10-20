@@ -641,7 +641,18 @@
     "then": "Potem",
     "payNow": "Zapłać {price}",
     "safe": "Bezpieczna płatność",
-    "changed": "Twój pakiet został zmieniony"
+    "changed": "Twój pakiet został zmieniony",
+    "lockFrom": "Od {plan}",
+    "fTypes": "{n} rodzajów kodów QR",
+    "fTeam": "Praca w zespole",
+    "fBg": "Wszystkie tła i własne zdjęcia",
+    "fVideo": "Filmy w tle",
+    "reason_type": "Ten rodzaj kodu QR jest w pakietach Pro i Business.",
+    "reason_bg": "Więcej teł i własne zdjęcia od Pro.",
+    "reason_video": "Filmy w tle są w pakiecie Business.",
+    "reason_team": "Praca w zespole jest dostępna od Pro.",
+    "reason_stats": "Dłuższe statystyki w większym pakiecie.",
+    "reason_limit": "Wykorzystałeś wszystkie kody QR w pakiecie. Wybierz większy pakiet, aby tworzyć więcej."
   },
   "dz": {
     "lbl": {

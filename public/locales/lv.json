@@ -641,7 +641,18 @@
     "then": "Pēc tam",
     "payNow": "Maksāt {price}",
     "safe": "Droša maksāšana",
-    "changed": "Tava pakete ir mainīta"
+    "changed": "Tava pakete ir mainīta",
+    "lockFrom": "No {plan}",
+    "fTypes": "{n} QR kodu veidi",
+    "fTeam": "Darbs komandā",
+    "fBg": "Visi foni un savi foto",
+    "fVideo": "Fona video",
+    "reason_type": "Šis QR koda veids ir Pro un Business paketēs.",
+    "reason_bg": "Vairāk fonu un savi foto no Pro.",
+    "reason_video": "Fona video ir Business paketē.",
+    "reason_team": "Darbs komandā iespējams no Pro.",
+    "reason_stats": "Garāka statistika ar lielāku paketi.",
+    "reason_limit": "Tu esi izmantojis visus paketes QR kodus. Izvēlies lielāku paketi, lai izveidotu vairāk."
   },
   "dz": {
     "lbl": {

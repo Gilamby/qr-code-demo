@@ -641,7 +641,18 @@
     "then": "Sen jälkeen",
     "payNow": "Maksa {price}",
     "safe": "Turvallinen maksu",
-    "changed": "Pakettisi on vaihdettu"
+    "changed": "Pakettisi on vaihdettu",
+    "lockFrom": "Alkaen {plan}",
+    "fTypes": "{n} QR-koodityyppiä",
+    "fTeam": "Tiimityö",
+    "fBg": "Kaikki taustat ja omat kuvat",
+    "fVideo": "Taustavideot",
+    "reason_type": "Tämä QR-koodityyppi kuuluu Pro- ja Business-paketteihin.",
+    "reason_bg": "Lisää taustoja ja omat kuvat Pro-paketista alkaen.",
+    "reason_video": "Taustavideot kuuluvat Business-pakettiin.",
+    "reason_team": "Tiimityö onnistuu Pro-paketista alkaen.",
+    "reason_stats": "Pidemmät tilastot isommalla paketilla.",
+    "reason_limit": "Olet käyttänyt kaikki pakettisi QR-koodit. Valitse isompi paketti tehdäksesi lisää."
   },
   "dz": {
     "lbl": {

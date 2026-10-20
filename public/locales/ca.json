@@ -641,7 +641,18 @@
     "then": "Després",
     "payNow": "Paga {price}",
     "safe": "Pagament segur",
-    "changed": "El teu pla ha canviat"
+    "changed": "El teu pla ha canviat",
+    "lockFrom": "Des de {plan}",
+    "fTypes": "{n} tipus de codis QR",
+    "fTeam": "Treballar en equip",
+    "fBg": "Tots els fons i les teves fotos",
+    "fVideo": "Vídeos de fons",
+    "reason_type": "Aquest tipus de codi QR és a Pro i Business.",
+    "reason_bg": "Més fons i les teves fotos des de Pro.",
+    "reason_video": "Els vídeos de fons són a Business.",
+    "reason_team": "Treballar en equip és possible des de Pro.",
+    "reason_stats": "Estadístiques més llargues amb un pla més gran.",
+    "reason_limit": "Has fet servir tots els codis QR del teu pla. Tria un pla més gran per crear-ne més."
   },
   "dz": {
     "lbl": {

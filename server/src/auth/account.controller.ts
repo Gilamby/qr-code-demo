@@ -17,7 +17,7 @@ import { baseUrl } from '../config/env';
 import { validateBilling } from './billing';
 import { fail } from '../common/http';
 import type { User } from '../types';
-import { PLANS, planFor, usage } from '../plans';
+import { PLANS, planFor, usage, bgAllowed } from '../plans';
 import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
@@ -261,6 +261,11 @@ export class AccountController {
     const { errors, value } = validateMe(b || {});
     if (errors.length) throw fail(400, 'Invalid profile update', { details: errors });
     if (value.background && value.background.startsWith('media:') && !(user.media || []).some((m) => 'media:' + m.id === value.background)) throw fail(400, 'Invalid profile update', { details: ['background: unknown'] });
+    if (value.background && !this.auth.isAdmin(user)) {                       // achtergrond hoort bij het pakket (Pro: meer + foto's, Business: video's)
+      const plan = await planFor(this.db, user.id), m = (user.media || []).find((x) => 'media:' + x.id === value.background);
+      const what = value.background === 'optimasys' || value.background === 'custom' ? null : m ? m.kind : 'extra';
+      if (what && !bgAllowed(plan, what as any)) throw fail(403, 'plan_bg', { plan: plan.id });
+    }
     const { hidden, ...rest } = value as any;
     if (hidden) await this.db.setSetting('bghide:' + user.id, hidden.length ? JSON.stringify(hidden) : null);
     // Verborgen of weggehaald terwijl hij aan stond: terug naar Optimasys

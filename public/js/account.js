@@ -18,31 +18,36 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
     var url = window.WallAnim ? WallAnim.snapshot(b.anim, 320, 200) : '';
     return url ? 'background-image:url(' + url + ')' : 'background:' + b.css;
   }
-  function card(id, thumb, label, extra) {
+  function card(id, thumb, label, extra, lock) {
     var cur = background.get();
-    return '<div class="bg-opt-wrap"><button type="button" class="bg-opt" role="radio" data-bg="' + esc(id) + '" aria-checked="' + (cur === id) + '"><span class="thumb" style="' + thumb + '">' + (extra || '') + TICK + '</span><span class="name">' + label + '</span></button>' +
+    return '<div class="bg-opt-wrap' + (lock ? ' locked' : '') + '"><button type="button" class="bg-opt" role="radio" data-bg="' + esc(id) + '" aria-checked="' + (cur === id) + '"' + (lock ? ' data-bg-lock="' + lock + '"' : '') + '><span class="thumb" style="' + thumb + '">' + (extra || '') + TICK + '</span><span class="name">' + label + (lock ? PlanGate.badge(lock) : '') + '</span></button>' +
       (id !== 'optimasys' ? '<button type="button" class="bg-del" data-del="' + esc(id) + '" aria-label="' + esc(t('bg.delete')) + '" title="' + esc(t('bg.delete')) + '">' + X + '</button>' : '') + '</div>';   // alles weg te halen behalve Optimasys
   }
   function render() {
-    var hid = background.hidden();
+    var hid = background.hidden(), G = window.PlanGate;
+    // Wat zit in je pakket: Standard alleen de standaard-achtergrond, Pro alles + eigen foto's, Business ook video's
+    var okExtra = !G || G.bgOk('extra'), okImage = !G || G.bgOk('image'), okVideo = !G || G.bgOk('video');
     var opts = BACKGROUNDS.filter(function (b) { return hid.indexOf(b.id) < 0; }).map(function (b) {
-      return b.anim ? card(b.id, shot(b), t(b.label), '<i class="bg-badge">' + PLAY + t('bg.animated') + '</i>')
-        : card(b.id, b.image ? 'background-image:url(' + b.image + ')' : 'background:' + b.css, t(b.label));
+      var lock = b.id !== 'optimasys' && !okExtra ? 'pro' : null;
+      return b.anim ? card(b.id, shot(b), t(b.label), '<i class="bg-badge">' + PLAY + t('bg.animated') + '</i>', lock)
+        : card(b.id, b.image ? 'background-image:url(' + b.image + ')' : 'background:' + b.css, t(b.label), null, lock);
     });
     if (background.custom()) opts.push(card('custom', 'background-image:url(' + background.custom() + ')', t('bg.custom')));
     background.media().forEach(function (m) {
       var url = background.mediaUrl(m);
-      opts.push(m.kind === 'image' ? card('media:' + m.id, 'background-image:url(' + url + ')', esc(m.name))
-        : card('media:' + m.id, '', esc(m.name), '<video src="' + url + '#t=0.5" muted loop playsinline preload="metadata"></video><i class="bg-badge">' + PLAY + t('bg.video') + '</i>'));
+      opts.push(m.kind === 'image' ? card('media:' + m.id, 'background-image:url(' + url + ')', esc(m.name), null, okImage ? null : 'pro')
+        : card('media:' + m.id, '', esc(m.name), '<video src="' + url + '#t=0.5" muted loop playsinline preload="metadata"></video><i class="bg-badge">' + PLAY + t('bg.video') + '</i>', okVideo ? null : 'business'));
     });
-    opts.push('<label class="bg-opt upload' + (busy ? ' busy' : '') + '"><span class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><span class="name">' + (busy ? t('bg.uploading') : t('bg.upload')) + '</span>' +
-      '<input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple' + (busy ? ' disabled' : '') + '></label>');
-    grid.innerHTML = opts.join('') + (hid.length ? '<p class="bg-restore"><button type="button" class="link-btn" data-restore>' + t('bg.restore', { n: hid.length }) + '</button></p>' : '');
+    if (!okImage) opts.push('<div class="bg-opt-wrap locked"><button type="button" class="bg-opt upload" data-bg-lock="pro"><span class="thumb">' + G.lock + '</span><span class="name">' + t('bg.upload') + G.badge('pro') + '</span></button></div>');
+    else opts.push('<label class="bg-opt upload' + (busy ? ' busy' : '') + '"><span class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><span class="name">' + (busy ? t('bg.uploading') : t('bg.upload')) + '</span>' +
+      '<input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp' + (okVideo ? ',video/mp4,video/webm' : '') + '" multiple' + (busy ? ' disabled' : '') + '></label>');
+    grid.innerHTML = opts.join('') + (okImage && !okVideo ? '<p class="bg-lock-note"><button type="button" class="link-btn" data-bg-lock="business">' + G.lock + esc(t('pw.reason_video')) + '</button></p>' : '') + (hid.length ? '<p class="bg-restore"><button type="button" class="link-btn" data-restore>' + t('bg.restore', { n: hid.length }) + '</button></p>' : '');
   }
   function showErr(key, vars) { err.textContent = t(key, vars); err.hidden = false; }
   grid.addEventListener('click', function (e) {
     if (e.target.closest('[data-restore]')) return background.setHidden([]);
     var d = e.target.closest('[data-del]'); if (d) return askDelete(d.getAttribute('data-del'));
+    var lk = e.target.closest('[data-bg-lock]'); if (lk) { PlanGate.upgrade(lk.getAttribute('data-bg-lock'), lk.getAttribute('data-bg-lock') === 'business' ? 'video' : 'bg'); return; }
     var b = e.target.closest('[data-bg]'); if (b) background.set(b.getAttribute('data-bg'));
   });
   // Video's in de kaartjes: alleen afspelen als je erop wijst
@@ -97,6 +102,7 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
   function uploadOne(file) {
     var isVideo = /^video\//.test(file.type);
     if (!/^(image\/(jpeg|png|webp)|video\/(mp4|webm))$/.test(file.type)) return Promise.reject({ key: 'bg.typeError' });
+    if (isVideo && window.PlanGate && !PlanGate.bgOk('video')) return Promise.reject({ key: 'pw.reason_video' });
     if (isVideo && file.size > 50 * 1048576) return Promise.reject({ key: 'bg.tooBig', vars: { mb: 50 } });
     var body = isVideo ? videoOk(file).then(function (ok) { if (!ok) throw { key: 'bg.tooLong' }; return file; }) : shrink(file);
     return body.then(function (blob) {
@@ -105,6 +111,7 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
       if (r.status === 409) throw { key: 'bg.full' };
       if (r.status === 413) throw { key: 'bg.tooBig', vars: { mb: isVideo ? 50 : 8 } };
       if (r.status === 415) throw { key: 'bg.typeError' };
+      if (r.status === 403) throw { key: isVideo ? 'pw.reason_video' : 'pw.reason_bg' };
       if (!r.ok) throw { key: 'bg.uploadError' };
       return r.json();
     });
@@ -119,6 +126,7 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
       .then(function () { busy--; render(); });
   });
   background.onChange(render); i18n.onChange(render); theme.onChange(render); render();
+  document.addEventListener('plan-info', render);
   // Voorbeelden van de animaties: three.js laden als je de achtergronden bekijkt, daarna opnieuw tekenen
   document.addEventListener('click', function (e) { if (e.target.closest('[data-tab="background"], #bgBtn')) WallAnim.ready(render); });
   if (BACKGROUNDS.some(function (b) { return b.anim && b.id === background.get(); })) WallAnim.ready(render);

@@ -10,7 +10,7 @@
    Niet voor het team (beheer), niet voor teamleden (het abonnement is van de eigenaar) en niet voor de online demo.
    ========================================================= */
 var Plans = (function () {
-  var box = null, info = null, period = 'month', chosen = 'pro', sent = false, step = 'choose', busy = false, mode = 'must', result = null;
+  var box = null, info = null, period = 'month', chosen = 'pro', sent = false, step = 'choose', busy = false, mode = 'must', result = null, reason = null;
   function euro(n) { try { return new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); } catch (e) { return '€' + Number(n).toFixed(2); } }
   function blocked() { var u = Session.user(); return !u || u.admin || (window.Team && Team.member && Team.member()) || (api.isDemo && api.isDemo()); }
   function needed() { return !blocked() && info && info.sub && info.sub.state === 'unpaid'; }
@@ -23,10 +23,7 @@ var Plans = (function () {
     return '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
       (mode === 'change' ? '<button type="button" class="btn ghost pw-close" data-pw-close>← ' + esc(t('pw.backApp')) + '</button>' : '<button type="button" class="link-btn" data-pw-logout>' + esc(t('nav.logout')) + '</button>') + '</div>';
   }
-  function feats(x) {
-    return '<span class="pw-list"><span>' + (x.codes ? t('plan.fCodes', { n: x.codes }) : t('acct.planF1')) + '</span><span>' + (x.statsDays ? t('plan.fStats', { n: x.statsDays }) : t('plan.fStatsAll')) + '</span><span>' +
-      (x.users === 1 ? t('team.fUsers1') : x.users ? t('team.fUsers', { n: x.users }) : t('team.fUsersAll')) + '</span><span>' + t('acct.planF4') + '</span></span>';
-  }
+  function feats(x) { return PlanGate.featuresHtml(x); }             // met slotjes: wat zit er niet in dit pakket
   function draw() {
     if (!box) { box = document.createElement('div'); box.className = 'paywall'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'pwTitle'); document.body.appendChild(box); }
     if (step === 'pay') return drawPay();
@@ -35,6 +32,7 @@ var Plans = (function () {
     if (isCurrent(chosen)) { var other = list.filter(function (p) { return !isCurrent(p.id); })[0]; if (other) chosen = other.id; }
     box.innerHTML = '<div class="pw-inner">' + top() +
       '<h1 id="pwTitle">' + esc(t(mode === 'change' ? 'pw.changeTitle' : 'pw.title')) + '</h1><p class="pw-lead">' + esc(t(mode === 'change' ? 'pw.changeLead' : 'pw.lead')) + '</p>' +
+      (reason && mode === 'change' ? '<p class="pw-reason" role="status">' + PlanGate.lock + esc(t('pw.reason_' + reason)) + '</p>' : '') +
       (mode === 'change' && cur ? '<p class="pw-now">' + esc(t('pw.now', { plan: t('plan.n_' + cur), period: PlanPeriod.label(PlanPeriod.norm(curPeriod())) })) + '</p>' : '') +
       PlanPeriod.toggle(period, 'data-pw-period', true) +
       '<div class="pw-grid" role="radiogroup" aria-label="' + esc(t('pw.title')) + '">' + list.map(function (x) {
@@ -89,10 +87,10 @@ var Plans = (function () {
     }).catch(function () {});
   }
   /** Zelf openen: een ander pakket of andere betaalperiode kiezen */
-  function open(planId) {
+  function open(planId, why) {
     if (blocked()) { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
     api.account.plan().then(function (r) {
-      info = r; mode = needed() ? 'must' : 'change'; step = 'choose'; sent = false; result = null;
+      info = r; mode = needed() ? 'must' : 'change'; step = 'choose'; sent = false; result = null; reason = why || null;
       if (curPeriod()) period = PlanPeriod.norm(curPeriod());
       var cur = curPlan(), order = ['standard', 'pro', 'business'];
       chosen = planId || (cur && order[order.indexOf(cur) + 1]) || 'pro';                // standaard: één stap omhoog

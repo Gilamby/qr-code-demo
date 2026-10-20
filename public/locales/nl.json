@@ -641,7 +641,18 @@
     "then": "Daarna",
     "payNow": "Betaal {price}",
     "safe": "Veilig betalen",
-    "changed": "Je pakket is gewijzigd"
+    "changed": "Je pakket is gewijzigd",
+    "lockFrom": "Vanaf {plan}",
+    "fTypes": "{n} soorten QR-codes",
+    "fTeam": "Samenwerken in een team",
+    "fBg": "Alle achtergronden en eigen foto's",
+    "fVideo": "Achtergrondvideo's",
+    "reason_type": "Deze soort QR-code zit in Pro en Business.",
+    "reason_bg": "Meer achtergronden en eigen foto's krijg je vanaf Pro.",
+    "reason_video": "Achtergrondvideo's zitten in Business.",
+    "reason_team": "Samenwerken in een team kan vanaf Pro.",
+    "reason_stats": "Langere statistieken krijg je met een groter pakket.",
+    "reason_limit": "Je hebt alle QR-codes van je pakket gebruikt. Kies een groter pakket om er meer te maken."
   },
   "dz": {
     "lbl": {

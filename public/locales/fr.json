@@ -641,7 +641,18 @@
     "then": "Ensuite",
     "payNow": "Payer {price}",
     "safe": "Paiement sécurisé",
-    "changed": "Votre formule a été modifiée"
+    "changed": "Votre formule a été modifiée",
+    "lockFrom": "À partir de {plan}",
+    "fTypes": "{n} types de codes QR",
+    "fTeam": "Travailler en équipe",
+    "fBg": "Tous les fonds et vos propres photos",
+    "fVideo": "Vidéos d’arrière-plan",
+    "reason_type": "Ce type de code QR est inclus dans Pro et Business.",
+    "reason_bg": "Plus de fonds et vos propres photos à partir de Pro.",
+    "reason_video": "Les vidéos d’arrière-plan sont incluses dans Business.",
+    "reason_team": "Le travail en équipe est possible à partir de Pro.",
+    "reason_stats": "Des statistiques plus longues avec une formule supérieure.",
+    "reason_limit": "Vous avez utilisé tous les codes QR de votre formule. Choisissez une formule supérieure pour en créer plus."
   },
   "dz": {
     "lbl": {

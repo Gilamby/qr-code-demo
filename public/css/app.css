@@ -4454,3 +4454,32 @@ body.paywall-open { overflow: hidden; }
 .pl-more { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .pl-more h2 { margin: 0 0 4px; }
 .pl-more .acct-note { margin: 0; }
+
+/* Vergrendeld (niet in je pakket): slotje + 'vanaf Pro/Business' */
+.lock-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 99px; background: rgba(250,204,21,.14); color: #fcd34d; font-size: 11px; font-weight: 750; letter-spacing: .01em; white-space: nowrap; vertical-align: middle; }
+.lock-badge svg { width: 11px; height: 11px; }
+.qr-card.locked { position: relative; opacity: .62; }
+.qr-card.locked:hover { opacity: .9; }
+.qr-card.locked .lock-badge { position: absolute; top: 8px; right: 8px; }
+.bg-opt-wrap.locked .thumb { filter: grayscale(.6) brightness(.6); }
+.bg-opt-wrap.locked .name { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.bg-opt.upload[data-bg-lock] .thumb { display: grid; place-items: center; color: #fcd34d; }
+.bg-opt.upload[data-bg-lock] .thumb svg { width: 26px; height: 26px; }
+.bg-lock-note { grid-column: 1 / -1; margin: 4px 0 0; }
+.bg-lock-note .link-btn, .an-lock { display: inline-flex; align-items: center; gap: 6px; }
+.bg-lock-note svg, .an-lock svg { width: 14px; height: 14px; color: #fcd34d; }
+.pg-feats { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 7px; font-size: 14px; text-align: left; }
+.pg-feats li { display: flex; gap: 8px; align-items: flex-start; }
+.pg-feats .pg-ok { color: var(--accent); font-weight: 800; width: 14px; flex: none; }
+.pg-feats .pg-lk { width: 14px; flex: none; color: var(--muted); }
+.pg-feats .pg-lk svg { width: 13px; height: 13px; margin-top: 3px; }
+.pg-feats li.pg-off { color: var(--muted); opacity: .75; }
+.pg-feats li.pg-off small { color: #fcd34d; font-weight: 700; margin-left: 4px; }
+.pg-feats.two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 22px; margin-top: 14px; }
+@media (max-width: 640px) { .pg-feats.two { grid-template-columns: 1fr; } }
+.pw-reason { display: inline-flex; align-items: center; gap: 8px; margin: -6px 0 18px; padding: 10px 16px; border-radius: 12px; background: rgba(250,204,21,.12); color: #fde68a; font-size: 14px; }
+.pw-reason svg { width: 16px; height: 16px; flex: none; }
+.lock-card { display: flex; gap: 18px; align-items: flex-start; }
+.lock-card .lock-ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: rgba(250,204,21,.12); color: #fcd34d; flex: none; }
+.lock-card .lock-ic svg { width: 22px; height: 22px; }
+.lock-card h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }

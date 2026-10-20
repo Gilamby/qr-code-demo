@@ -33,8 +33,8 @@ var Team = (function () {
     if (info.error) return '<div class="glass bg-card acct"><h2>' + t('team.title') + '</h2><p class="acct-msg bad">' + t('plan.loadError') + '</p></div>';
     if (info.member) return '<div class="glass bg-card acct"><h2>' + t('team.title') + '</h2><p>' + esc(t('team.youAreMember', { name: info.member.ownerName })) + '</p>' +
       '<p class="acct-note">' + esc(t(info.member.role === 'viewer' ? 'team.roleViewerHint' : 'team.roleEditorHint')) + '</p></div>' + logCard();
-    if (!info.canTeam) return '<div class="glass bg-card acct"><h2>' + t('team.title') + '</h2><p>' + t('team.notAvailable') + '</p>' +
-      '<button type="button" class="btn primary" data-tab-go="plan">' + t('sub.choose') + '</button></div>';
+    if (!info.canTeam) return '<div class="glass bg-card acct lock-card"><span class="lock-ic">' + PlanGate.lock + '</span><div><h2>' + t('team.title') + ' ' + PlanGate.badge('pro') + '</h2><p>' + t('team.notAvailable') + '</p>' +
+      '<button type="button" class="btn primary" data-gate-open="pro" data-gate-reason="team">' + t('plan.seePlans') + ' →</button></div></div>';
     var members = info.members || [], seats = info.seats, full = seats != null && members.length + 1 >= seats;
     return '<div class="glass bg-card acct"><h2>' + t('team.title') + '</h2><p>' + t('team.lead') + '</p>' +
       '<p class="acct-note">' + esc(seats == null ? t('team.seatsAll', { n: members.length + 1 }) : t('team.seats', { n: members.length + 1, max: seats })) + '</p>' +

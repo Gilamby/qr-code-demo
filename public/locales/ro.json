@@ -641,7 +641,18 @@
     "then": "Apoi",
     "payNow": "Plătește {price}",
     "safe": "Plată sigură",
-    "changed": "Pachetul tău a fost schimbat"
+    "changed": "Pachetul tău a fost schimbat",
+    "lockFrom": "De la {plan}",
+    "fTypes": "{n} tipuri de coduri QR",
+    "fTeam": "Lucru în echipă",
+    "fBg": "Toate fundalurile și propriile fotografii",
+    "fVideo": "Videoclipuri de fundal",
+    "reason_type": "Acest tip de cod QR este inclus în Pro și Business.",
+    "reason_bg": "Mai multe fundaluri și propriile fotografii de la Pro.",
+    "reason_video": "Videoclipurile de fundal sunt incluse în Business.",
+    "reason_team": "Lucrul în echipă este posibil de la Pro.",
+    "reason_stats": "Statistici mai lungi cu un pachet mai mare.",
+    "reason_limit": "Ai folosit toate codurile QR din pachet. Alege un pachet mai mare pentru a crea mai multe."
   },
   "dz": {
     "lbl": {

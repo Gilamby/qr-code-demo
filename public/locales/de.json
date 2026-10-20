@@ -641,7 +641,18 @@
     "then": "Danach",
     "payNow": "{price} bezahlen",
     "safe": "Sichere Zahlung",
-    "changed": "Dein Paket wurde geändert"
+    "changed": "Dein Paket wurde geändert",
+    "lockFrom": "Ab {plan}",
+    "fTypes": "{n} Arten von QR-Codes",
+    "fTeam": "Im Team arbeiten",
+    "fBg": "Alle Hintergründe und eigene Fotos",
+    "fVideo": "Hintergrundvideos",
+    "reason_type": "Diese Art QR-Code ist in Pro und Business enthalten.",
+    "reason_bg": "Mehr Hintergründe und eigene Fotos gibt es ab Pro.",
+    "reason_video": "Hintergrundvideos sind in Business enthalten.",
+    "reason_team": "Im Team arbeiten geht ab Pro.",
+    "reason_stats": "Längere Statistiken gibt es mit einem größeren Paket.",
+    "reason_limit": "Du hast alle QR-Codes deines Pakets genutzt. Wähle ein größeres Paket, um mehr zu erstellen."
   },
   "dz": {
     "lbl": {

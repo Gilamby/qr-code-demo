@@ -28,12 +28,14 @@ test.after(async () => { await app.close(); fs.rmSync(process.env.DATA_DIR, { re
 // Kleine "browser" met eigen cookie
 function client() {
   let cookie = '';
-  return async (method, url, body, headers) => {
+  const c = async (method, url, body, headers) => {
     const r = await fetch(base + url, { method, redirect: 'manual', headers: Object.assign({ 'Content-Type': 'application/json', cookie }, headers || {}), body: body ? JSON.stringify(body) : undefined });
     const set = r.headers.get('set-cookie'); if (set) cookie = set.split(';')[0];
     const text = await r.text(); let json = null; try { json = JSON.parse(text); } catch (e) {}
     return { status: r.status, json, text, headers: r.headers };
   };
+  c.cookie = () => cookie;
+  return c;
 }
 // Account maken + bevestigen + inloggen (zoals een echte klant)
 async function markPaid(email) {
@@ -657,6 +659,23 @@ test('akkoord met de voorwaarden: verplicht bij registreren, anders één keer i
   assert.equal((await c('POST', '/api/account/terms', { accept: false })).status, 400);
   assert.equal((await c('POST', '/api/account/terms', { accept: true })).json.ok, true);
   assert.equal((await client()('GET', '/api/account/terms')).status, 401, 'alleen ingelogd');
+});
+
+test('pakket bepaalt wat kan: Standard = basis-soorten, standaard-achtergrond, geen eigen foto of video', async () => {
+  const c = client(); await signup(c, 'standaard@example.com', 'Standaard pakket zin 6!', 'Std');
+  const { DatabaseService } = require('../server/dist/database/database.service');
+  const db = app.get(DatabaseService), u = await db.userByEmail('standaard@example.com'); await db.setSetting('plan:' + u.id, 'standard');
+  assert.equal((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://basis.example' }, design: {} })).status, 201, 'website mag');
+  const v = await c('POST', '/api/qr-codes', { typeId: 'video', content: { url: 'https://video.example/x.mp4' }, design: {} });
+  assert.equal(v.status, 403); assert.equal(v.json.error, 'plan_type');
+  assert.equal((await c('PATCH', '/api/me', { background: 'aurora' })).json.error, 'plan_bg');
+  assert.equal((await c('PATCH', '/api/me', { background: 'optimasys' })).status, 200);
+  const jpg = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0, 0x10, 0x4a, 0x46, 0x49, 0x46, 0, 1]);
+  const up = await fetch(base + '/api/account/media?name=x', { method: 'POST', headers: { 'Content-Type': 'image/jpeg', cookie: c.cookie() }, body: jpg });
+  assert.equal(up.status, 403, 'eigen foto pas vanaf Pro');
+  await db.setSetting('plan:' + u.id, 'pro');
+  assert.equal((await c('POST', '/api/qr-codes', { typeId: 'video', content: { url: 'https://video.example/x.mp4' }, design: {} })).status, 201, 'Pro: alle soorten');
+  assert.equal((await c('PATCH', '/api/me', { background: 'aurora' })).status, 200, 'Pro: meer achtergronden');
 });
 
 test('demo-afrekenen: alleen met DEMO_CHECKOUT, alleen voor een nieuwe klant, één keer', async () => {

@@ -641,7 +641,18 @@
     "then": "Después",
     "payNow": "Pagar {price}",
     "safe": "Pago seguro",
-    "changed": "Tu plan ha cambiado"
+    "changed": "Tu plan ha cambiado",
+    "lockFrom": "Desde {plan}",
+    "fTypes": "{n} tipos de códigos QR",
+    "fTeam": "Trabajar en equipo",
+    "fBg": "Todos los fondos y tus propias fotos",
+    "fVideo": "Vídeos de fondo",
+    "reason_type": "Este tipo de código QR está en Pro y Business.",
+    "reason_bg": "Más fondos y tus propias fotos con Pro.",
+    "reason_video": "Los vídeos de fondo están en Business.",
+    "reason_team": "Trabajar en equipo es posible desde Pro.",
+    "reason_stats": "Estadísticas más largas con un plan mayor.",
+    "reason_limit": "Has usado todos los códigos QR de tu plan. Elige un plan mayor para crear más."
   },
   "dz": {
     "lbl": {

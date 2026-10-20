@@ -45,6 +45,12 @@ var Analytics = (function () {
   };
   function ico(k, cls) { return '<svg class="' + (cls || 'an-i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + '</svg>'; }
   function iso(d) { return d.toISOString().slice(0, 10); }
+  /** Periode langer dan je pakket toont? Dan 'pro' of 'business' (vanaf welk pakket), anders null */
+  function periodLocked(p) {
+    var d = window.PlanGate && PlanGate.statsDays(); if (!d) return null;
+    var n = p === 'all' ? Infinity : /^\d+$/.test(p) ? +p : 0;
+    return n > d ? (d < 365 && n <= 365 ? 'pro' : 'business') : null;
+  }
   function range() {
     var now = new Date(), day = 864e5;
     switch (f.period) {
@@ -86,7 +92,7 @@ var Analytics = (function () {
     var chips = [];
     ['codes'].concat(MORE).forEach(function (dim) { f[dim].forEach(function (k) { chips.push('<button type="button" class="an-chip" data-unpick="' + dim + '" data-k="' + esc(k) + '" aria-label="' + esc(t('an.removeFilter', { name: label(dim, k) })) + '"><span>' + esc(label(dim, k)) + '</span>' + ico('x', 'an-cx') + '</button>'); }); });
     bar.innerHTML = '<div class="an-frow">' +
-      '<label class="an-f"><span class="an-flbl">' + t('an.period') + '</span><select id="anPeriod">' + PERIODS.map(function (p) { return '<option value="' + p + '"' + (f.period === p ? ' selected' : '') + '>' + t('an.p_' + p) + '</option>'; }).join('') + '</select></label>' +
+      '<label class="an-f"><span class="an-flbl">' + t('an.period') + '</span><select id="anPeriod">' + PERIODS.map(function (p) { var lk = periodLocked(p); return '<option value="' + p + '"' + (f.period === p ? ' selected' : '') + '>' + t('an.p_' + p) + (lk ? ' 🔒 ' + t('pw.lockFrom', { plan: t('plan.n_' + lk) }) : '') + '</option>'; }).join('') + '</select></label>' +
       (f.period === 'custom' ? '<label class="an-f"><span class="an-flbl">' + t('an.from') + '</span><input type="date" id="anFrom" value="' + range().from + '" max="' + iso(new Date()) + '"></label>' +
         '<label class="an-f"><span class="an-flbl">' + t('an.to') + '</span><input type="date" id="anTo" value="' + range().to + '" max="' + iso(new Date()) + '"></label>' : '') +
       multi('codes', t('an.codes'), codeIds) +
@@ -382,7 +388,7 @@ var Analytics = (function () {
     var r = data, rg = { from: r.from, to: r.to };
     document.getElementById('anRange').textContent = rg.from === rg.to ? i18n.fmt.date(d(rg.from), 'long') : i18n.fmt.date(d(rg.from), 'long') + ' – ' + i18n.fmt.date(d(rg.to), 'long');
     var demo = document.getElementById('anDemo'); demo.hidden = !r.demo; demo.textContent = t('an.demoNote');
-    document.getElementById('anFoot').innerHTML = (r.statsFloor ? esc(t('plan.statsFloor', { date: new Date(r.statsFloor + 'T00:00:00').toLocaleDateString(i18n.lang()) })) + ' ' : '') + (r.geo ? '<a href="https://db-ip.com" target="_blank" rel="noopener">' + esc(t('an.geoBy')) + '</a>' : esc(t('an.noGeo')));   // bronvermelding DB-IP is verplicht (licentie CC BY 4.0)
+    document.getElementById('anFoot').innerHTML = (r.statsFloor ? '<button type="button" class="link-btn an-lock" data-gate-open="' + (PlanGate.statsDays() < 365 ? 'pro' : 'business') + '" data-gate-reason="stats">' + PlanGate.lock + esc(t('plan.statsFloor', { date: new Date(r.statsFloor + 'T00:00:00').toLocaleDateString(i18n.lang()) })) + '</button> ' : '') + (r.geo ? '<a href="https://db-ip.com" target="_blank" rel="noopener">' + esc(t('an.geoBy')) + '</a>' : esc(t('an.noGeo')));   // bronvermelding DB-IP is verplicht (licentie CC BY 4.0)
     if (!Object.keys(names).length) {
       body.innerHTML = '<div class="mc-empty glass">' + ico('scans') + '<h3>' + t('an.emptyTitle') + '</h3><p>' + t('an.emptyText') + '</p><button type="button" class="btn primary" data-an-new>' + t('myCodes.first') + '</button></div>';
       return;
@@ -392,6 +398,7 @@ var Analytics = (function () {
       '<div id="anTab" class="an-tabp"></div>';
     drawTab(); countUp();
   }
+  document.addEventListener('plan-info', function () { if (data) { drawFilters(); load(); } });
   function load() {
     var my = ++seq;
     if (!data) body.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
@@ -454,6 +461,7 @@ var Analytics = (function () {
   /* ---------- Bediening ---------- */
   view.addEventListener('change', function (e) {
     var el = e.target;
+    if (el.id === 'anPeriod' && periodLocked(el.value)) { var need = periodLocked(el.value); el.value = f.period; PlanGate.upgrade(need, 'stats'); return; }
     if (el.id === 'anPeriod') { f.period = el.value; if (f.period === 'custom') { var r0 = range(); f.from = r0.from; f.to = r0.to; } return load(); }
     if (el.id === 'anFrom') { f.from = el.value; return load(); }
     if (el.id === 'anTo') { f.to = el.value; return load(); }

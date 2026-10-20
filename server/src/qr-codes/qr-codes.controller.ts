@@ -11,7 +11,7 @@ import { hashPassword } from '../visitor/rules';
 import { validateQrCode } from './validation';
 import { QrCodesService, cleanName, freshCodeId, missingRequired, secretKey } from './qr-codes.service';
 import type { User } from '../types';
-import { planFor } from '../plans';
+import { planFor, typeAllowed } from '../plans';
 import { AuthService } from '../auth/auth.service';
 
 @Controller('api/qr-codes')
@@ -38,6 +38,7 @@ export class QrCodesController {
     await this.roomLeft(user);
     const { errors, value } = validateQrCode(body);
     if (errors.length) throw fail(400, 'Invalid QR code', { details: errors });
+    await this.typeOk(user, value.typeId);
     const key = secretKey(value.typeId);
     if (key && value.content[key]) value.content[key] = hashPassword(value.content[key]);
     const record: any = { ...value };
@@ -55,6 +56,11 @@ export class QrCodesController {
     return this.codes.out(req, saved);
   }
 
+  /** Soort QR-code zit niet in het pakket (bv. Standard: alleen de basis) */
+  private async typeOk(user: User, typeId: string) {
+    const plan = await planFor(this.db, user.id);
+    if (!typeAllowed(plan, typeId)) throw fail(403, 'plan_type', { plan: plan.id, typeId });
+  }
   /** Limiet van het abonnement (aantal QR-codes) */
   private async roomLeft(user: User) {
     const plan = await planFor(this.db, user.id);
@@ -66,6 +72,7 @@ export class QrCodesController {
   async update(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string, @Body() body: any = {}) {
     const old = await this.db.getOwnedQrCode(id, user.id);
     if (!old) throw fail(404, 'QR code not found');
+    await this.typeOk(user, old.typeId);
     const { errors, value } = validateQrCode({ ...body, typeId: old.typeId });
     if (errors.length) throw fail(400, 'Invalid QR code', { details: errors });
     const key = secretKey(old.typeId);

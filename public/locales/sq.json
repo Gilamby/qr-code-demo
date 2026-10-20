@@ -641,7 +641,18 @@
     "then": "Pastaj",
     "payNow": "Paguaj {price}",
     "safe": "Pagesë e sigurt",
-    "changed": "Paketa jote u ndryshua"
+    "changed": "Paketa jote u ndryshua",
+    "lockFrom": "Nga {plan}",
+    "fTypes": "{n} lloje kodesh QR",
+    "fTeam": "Punë në ekip",
+    "fBg": "Të gjitha sfondet dhe fotot e tua",
+    "fVideo": "Video sfondi",
+    "reason_type": "Ky lloj kodi QR përfshihet në Pro dhe Business.",
+    "reason_bg": "Më shumë sfonde dhe fotot e tua nga Pro.",
+    "reason_video": "Videot e sfondit përfshihen në Business.",
+    "reason_team": "Puna në ekip është e mundur nga Pro.",
+    "reason_stats": "Statistika më të gjata me një paketë më të madhe.",
+    "reason_limit": "Ke përdorur të gjitha kodet QR të paketës. Zgjidh një paketë më të madhe për të krijuar më shumë."
   },
   "dz": {
     "lbl": {

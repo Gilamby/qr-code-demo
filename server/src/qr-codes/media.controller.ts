@@ -16,6 +16,7 @@ import { AuthService } from '../auth/auth.service';
 import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { fail } from '../common/http';
 import type { MediaItem, User } from '../types';
+import { planFor, bgAllowed } from '../plans';
 
 const IMAGES = ['image/jpeg', 'image/png', 'image/webp'], VIDEOS = ['video/mp4', 'video/webm'];
 const IMAGE_MAX = 8 * 1048576, videoMax = () => (Number(process.env.BG_VIDEO_MAX_MB) || 50) * 1048576, MAX_ITEMS = 12;
@@ -47,6 +48,8 @@ export class MediaController {
     const mime = String(req.headers['content-type'] || '').split(';')[0].trim().toLowerCase();
     const kind = IMAGES.includes(mime) ? 'image' : VIDEOS.includes(mime) ? 'video' : null;
     if (!kind) throw fail(415, 'media_type');
+    const plan = await planFor(this.db, user.id);                            // eigen foto's vanaf Pro, video's alleen bij Business
+    if (!this.auth.isAdmin(user) && !bgAllowed(plan, kind)) throw fail(403, 'plan_media', { plan: plan.id, kind });
     const max = kind === 'image' ? IMAGE_MAX : videoMax();
     if (Number(req.headers['content-length'] || 0) > max) throw fail(413, 'too_big', { maxMb: max / 1048576 });
     const id = 'bg' + newId(15), file = path.join(this.db.filesDir, id);

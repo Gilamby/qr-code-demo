@@ -641,7 +641,18 @@
     "then": "Därefter",
     "payNow": "Betala {price}",
     "safe": "Säker betalning",
-    "changed": "Ditt paket har ändrats"
+    "changed": "Ditt paket har ändrats",
+    "lockFrom": "Från {plan}",
+    "fTypes": "{n} typer av QR-koder",
+    "fTeam": "Arbeta i team",
+    "fBg": "Alla bakgrunder och egna foton",
+    "fVideo": "Bakgrundsvideor",
+    "reason_type": "Den här typen av QR-kod ingår i Pro och Business.",
+    "reason_bg": "Fler bakgrunder och egna foton från Pro.",
+    "reason_video": "Bakgrundsvideor ingår i Business.",
+    "reason_team": "Arbeta i team går från Pro.",
+    "reason_stats": "Längre statistik med ett större paket.",
+    "reason_limit": "Du har använt alla QR-koder i ditt paket. Välj ett större paket för att skapa fler."
   },
   "dz": {
     "lbl": {

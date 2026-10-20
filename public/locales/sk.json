@@ -641,7 +641,18 @@
     "then": "Potom",
     "payNow": "Zaplatiť {price}",
     "safe": "Bezpečná platba",
-    "changed": "Tvoj balík bol zmenený"
+    "changed": "Tvoj balík bol zmenený",
+    "lockFrom": "Od {plan}",
+    "fTypes": "{n} druhov QR kódov",
+    "fTeam": "Práca v tíme",
+    "fBg": "Všetky pozadia a vlastné fotky",
+    "fVideo": "Videá na pozadí",
+    "reason_type": "Tento druh QR kódu je v balíkoch Pro a Business.",
+    "reason_bg": "Viac pozadí a vlastné fotky od Pro.",
+    "reason_video": "Videá na pozadí sú v balíku Business.",
+    "reason_team": "Práca v tíme je možná od Pro.",
+    "reason_stats": "Dlhšie štatistiky s väčším balíkom.",
+    "reason_limit": "Využil si všetky QR kódy balíka. Vyber väčší balík a vytvor ďalšie."
   },
   "dz": {
     "lbl": {

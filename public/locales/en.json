@@ -641,7 +641,18 @@
     "then": "After that",
     "payNow": "Pay {price}",
     "safe": "Secure payment",
-    "changed": "Your plan has been changed"
+    "changed": "Your plan has been changed",
+    "lockFrom": "From {plan}",
+    "fTypes": "{n} types of QR codes",
+    "fTeam": "Work together in a team",
+    "fBg": "All backgrounds and your own photos",
+    "fVideo": "Background videos",
+    "reason_type": "This type of QR code is included in Pro and Business.",
+    "reason_bg": "More backgrounds and your own photos come with Pro.",
+    "reason_video": "Background videos come with Business.",
+    "reason_team": "Working together in a team comes with Pro and Business.",
+    "reason_stats": "Longer statistics come with a bigger plan.",
+    "reason_limit": "You've used all QR codes in your plan. Choose a bigger plan to make more."
   },
   "dz": {
     "lbl": {

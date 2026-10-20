@@ -27,9 +27,9 @@ function renderHero(state) {
 var TypeGrid = {
   render: function (el, state) {
     el.innerHTML = '<div class="grid" role="group" aria-label="' + esc(t('steps.type')) + '">' + QR_TYPES.map(function (type) {
-      var on = type.id === state.typeId;
-      return '<button class="qr-card' + (on ? ' selected' : '') + '" type="button" data-type="' + type.id + '" aria-pressed="' + on + '">' +
-        '<span class="ic" aria-hidden="true">' + svg(type.icon, 1.6) + '</span><span class="title">' + typeName(type) + '</span></button>';
+      var on = type.id === state.typeId, locked = window.PlanGate && !PlanGate.typeOk(type.id);   // niet in je pakket: slotje, klik = pakketten
+      return '<button class="qr-card' + (on ? ' selected' : '') + (locked ? ' locked' : '') + '" type="button" data-type="' + type.id + '" aria-pressed="' + on + '"' + (locked ? ' data-locked="pro"' : '') + '>' +
+        '<span class="ic" aria-hidden="true">' + svg(type.icon, 1.6) + '</span><span class="title">' + typeName(type) + '</span>' + (locked ? PlanGate.badge('pro') : '') + '</button>';
     }).join('') + '</div>' +
       // Al een QR-code uit een andere app (bv. al geprint)? Overzetten: alleen voor het team
       (window.api && !api.isDemo() && window.Session && Session.user && (Session.user() || {}).admin ? '<button type="button" class="imp-banner" data-import><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/></svg></span><span><b>' + t('imp.banner') + '</b><small>' + t('imp.bannerGo') + ' →</small></span></button>' : '') +
@@ -210,3 +210,19 @@ var Actions = {
 };
 
 var PANELS = { type: TypeGrid, content: ContentForm, design: DesignPanel };
+
+/* Vergrendelde soort QR-code (niet in je pakket): niet kiezen, maar de pakketten-pagina openen */
+document.addEventListener('click', function (e) {
+  var c = e.target.closest('.qr-card[data-locked]'); if (!c) return;
+  e.preventDefault(); e.stopPropagation();
+  if (window.PlanGate) PlanGate.upgrade(c.getAttribute('data-locked'), 'type');
+}, true);
+document.addEventListener('plan-info', function () {
+  document.querySelectorAll('.qr-card[data-type]').forEach(function (b) {
+    var id = b.getAttribute('data-type'), locked = !PlanGate.typeOk(id), has = b.hasAttribute('data-locked');
+    if (locked === has) return;
+    b.classList.toggle('locked', locked);
+    if (locked) { b.setAttribute('data-locked', 'pro'); b.insertAdjacentHTML('beforeend', PlanGate.badge('pro')); }
+    else { b.removeAttribute('data-locked'); var x = b.querySelector('.lock-badge'); if (x) x.remove(); }
+  });
+});
