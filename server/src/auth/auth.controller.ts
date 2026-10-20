@@ -5,6 +5,7 @@
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
    - Te veel pogingen = even wachten (429).
    ========================================================= */
+import { acceptTerms } from './terms';
 import { isDisposable, canonicalEmail } from './email-rules';
 import { saveSub, emptySub } from '../subscription';
 import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
@@ -37,6 +38,7 @@ export class AuthController {
     if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
     if (isDisposable(email)) throw fail(400, 'email_disposable');             // tijdelijke mailbox: geen account
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
+    if (b.accept !== true) throw fail(400, 'terms');                            // 18+ en akkoord met Terms en Privacy (Terms punt 1 en 3)
     const existing = await this.db.userByEmail(email);
     // Variant van een adres dat al een account heeft (jan.devries+2@gmail.com = jandevries@gmail.com): geen tweede account
     if (!existing) { const c = canonicalEmail(email); if ((await this.db.listCustomers()).some((u) => u.email !== email && canonicalEmail(u.email) === c)) throw fail(409, 'email_alias'); }
@@ -44,6 +46,7 @@ export class AuthController {
     if (!existing) {
       const user = await this.db.createUser({ email, name, passwordHash: await this.auth.hashPassword(b.password) });
       await saveSub(this.db, user.id, { ...emptySub(), mustPay: true });   // zelf geregistreerd: eerst een abonnement, dan pas codes maken
+      await acceptTerms(this.db, user.id);
       token = await this.sendVerifyMail(req, user.id, email, lang);
     } else if (!(await this.db.isVerified(existing.id))) token = await this.sendVerifyMail(req, existing.id, email, lang);   // nog niet bevestigd: nieuwe link
     return { verify: true, email, ...this.demoToken(token) };

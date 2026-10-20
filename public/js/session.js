@@ -20,6 +20,7 @@ var Session = (function () {
   // Een admin kan alles wat een klant kan en wisselt met de knop App / Beheer; een klant kan het beheer niet in.
   var ADMIN = document.body.getAttribute('data-app') === 'admin';
 
+  var accepted = false;                                                  // vinkje Terms bij registreren (blijft staan bij een foutmelding)
   function field(name, type, label, auto, value) {
     var pw = type === 'password';
     return '<label class="auth-f"><span>' + esc(label) + '</span><span class="auth-in">' +
@@ -49,6 +50,7 @@ var Session = (function () {
         (signup ? '<div class="auth-tabs" role="tablist"><button type="button" role="tab" data-mode="login" aria-selected="' + (mode === 'login') + '">' + t('auth.login') + '</button><button type="button" role="tab" data-mode="register" aria-selected="' + (mode === 'register') + '">' + t('auth.register') + '</button></div>' : '') + note +
         '<form class="auth-form" novalidate>' + (mode === 'register' ? field('name', 'text', t('auth.name'), 'name', name) : '') +
         field('email', 'email', t('auth.email'), 'email', email) + field('password', 'password', t('auth.password'), mode === 'login' ? 'current-password' : 'new-password') +
+        (mode === 'register' ? termsBox(accepted) : '') +
         '<button class="btn primary auth-go" type="submit">' + t(mode === 'login' ? 'auth.login' : 'auth.createAccount') + '</button></form>' +
         (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>') +
         (mode === 'login' && !signup && !ADMIN ? '<p class="auth-license">' + t('auth.licenseNote') + '</p>' : '') +
@@ -89,8 +91,14 @@ var Session = (function () {
     return api.auth.verify({ token: token }).then(function (r) { prefill = (r && r.email) || pendingEmail; flash = ['auth.verified', 'ok']; show('login'); })
       .catch(function () { flash = ['auth.errVerifyToken', 'bad']; show('login'); });
   }
+  /** Vinkje: 18+ en akkoord met Terms en Privacy (Terms punt 1 en 3). Ook gebruikt door TermsGate. */
+  function termsBox(on) {
+    return '<label class="auth-terms"><input type="checkbox" name="accept"' + (on ? ' checked' : '') + '><span>' + esc(t('terms.check')) + ' ' +
+      '<button type="button" class="link-btn" data-legal="terms">' + esc(t('legal.terms.title')) + '</button> · <button type="button" class="link-btn" data-legal="privacy">' + esc(t('legal.privacy.title')) + '</button></span></label>';
+  }
+  window.TermsBox = termsBox;
   function errorText(e) {
-    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', email_alias: 'auth.errAlias' };
+    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', email_alias: 'auth.errAlias', terms: 'terms.err' };
     return t(map[e && e.code] || PasswordRules.errorKey(e && e.code) || 'auth.errGeneral');
   }
   function ready() { document.body.classList.remove('auth-checking'); }
@@ -121,6 +129,11 @@ var Session = (function () {
     e.preventDefault(); flash = null;
     var f = e.target, val = function (n) { var i = f.querySelector('[name=' + n + ']'); return i ? i.value.trim() : ''; }, btn = f.querySelector('.auth-go');
     var pw = (f.querySelector('[name=password]') || {}).value || '';
+    var acc = f.querySelector('[name=accept]'); if (acc) accepted = acc.checked;
+    if (acc && !acc.checked) {                                            // melding zonder opnieuw tekenen: ingevuld wachtwoord blijft staan
+      var m = card.querySelector('.auth-msg') || document.createElement('p'); m.className = 'auth-msg bad'; m.setAttribute('role', 'alert'); m.textContent = t('terms.err');
+      if (!m.parentNode) f.parentNode.insertBefore(m, f); acc.focus(); return;
+    }
     if (f.querySelector('[name=email]') && !EmailCheck.valid(val('email')) || f.querySelector('[name=email]') && !val('email')) return draw(t('auth.errEmail'));
     if (f.querySelector('[name=password]') && !pw) return draw(t('auth.errPassword'));
     var np = f.querySelector('[data-pw-rules]'), prob = np && PasswordRules.problem(pw);    // nieuw wachtwoord: eerst zelf controleren
@@ -130,7 +143,7 @@ var Session = (function () {
     var job = mode === 'twofa' && tfa && tfa.google ? api.auth.google2fa({ token: tfa.google, code: val('code') })
       : mode === 'twofa' ? api.auth.login({ email: tfa.email, password: tfa.password, code: val('code') })
       : mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
-      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang() }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); return null; })
+      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang(), accept: accepted }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); return null; })
       : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
       : api.auth.reset({ token: resetToken, password: pw });
     job.then(function (u) { if (u) enter(u); }).catch(function (err) {

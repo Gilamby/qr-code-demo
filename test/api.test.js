@@ -42,7 +42,7 @@ async function markPaid(email) {
 }
 // Zelf registreren = eerst betalen. In de tests is een klant standaard al betaald (unpaid: true = net geregistreerd, nog niet betaald).
 async function signup(c, email, password, name, opts = {}) {
-  await c('POST', '/api/auth/register', { email, password, name });
+  await c('POST', '/api/auth/register', { accept: true, email, password, name });
   await c('POST', '/api/auth/verify', { token: tokenFor(email) });
   if (!opts.unpaid) await markPaid(email);
   return c('POST', '/api/auth/login', { email, password });
@@ -53,12 +53,12 @@ const filesOnDisk = () => fs.readdirSync(path.join(process.env.DATA_DIR, 'files'
 test('inloggen en accounts (met e-mailbevestiging)', async () => {
   const a = client();
   assert.equal((await a('GET', '/api/qr-codes')).status, 401, 'zonder inloggen geen codes');
-  assert.equal((await a('POST', '/api/auth/register', { email: 'a@example.com', password: 'kort' })).json.error, 'password_short');
+  assert.equal((await a('POST', '/api/auth/register', { accept: true, email: 'a@example.com', password: 'kort' })).json.error, 'password_short');
   // regels: hoofdletter, cijfer, speciaal teken
-  assert.equal((await a('POST', '/api/auth/register', { email: 'regel1@example.com', password: 'alleen kleine letters 1!' })).json.error, 'password_upper');
-  assert.equal((await a('POST', '/api/auth/register', { email: 'regel2@example.com', password: 'Geen cijfer hier!' })).json.error, 'password_digit');
-  assert.equal((await a('POST', '/api/auth/register', { email: 'regel3@example.com', password: 'Geen teken 123' })).json.error, 'password_special');
-  const reg = await a('POST', '/api/auth/register', { email: 'a@example.com', password: 'Mijn geheime zin 1!', name: 'Anna' });
+  assert.equal((await a('POST', '/api/auth/register', { accept: true, email: 'regel1@example.com', password: 'alleen kleine letters 1!' })).json.error, 'password_upper');
+  assert.equal((await a('POST', '/api/auth/register', { accept: true, email: 'regel2@example.com', password: 'Geen cijfer hier!' })).json.error, 'password_digit');
+  assert.equal((await a('POST', '/api/auth/register', { accept: true, email: 'regel3@example.com', password: 'Geen teken 123' })).json.error, 'password_special');
+  const reg = await a('POST', '/api/auth/register', { accept: true, email: 'a@example.com', password: 'Mijn geheime zin 1!', name: 'Anna' });
   assert.equal(reg.status, 201); assert.equal(reg.json.verify, true);
   assert.equal((await a('GET', '/api/auth/me')).status, 401, 'na account maken nog NIET ingelogd');
   assert.ok(mails['a@example.com'], 'bevestigingsmail verstuurd');
@@ -69,7 +69,7 @@ test('inloggen en accounts (met e-mailbevestiging)', async () => {
   assert.equal((await a('POST', '/api/auth/verify', { token: tok })).status, 400, 'link werkt maar één keer');
   await markPaid('a@example.com');
   assert.equal((await a('GET', '/api/auth/me')).status, 401, 'bevestigen logt niet vanzelf in');
-  const dup = await client()('POST', '/api/auth/register', { email: 'A@example.com', password: 'Nog een zin hier 6!' });
+  const dup = await client()('POST', '/api/auth/register', { accept: true, email: 'A@example.com', password: 'Nog een zin hier 6!' });
   assert.equal(dup.status, 201, 'bestaand adres: zelfde antwoord (niet te zien wie een account heeft)');
   assert.equal((await client()('POST', '/api/auth/login', { email: 'a@example.com', password: 'Nog een zin hier 6!' })).status, 401, 'wachtwoord niet overschreven');
   assert.equal((await client()('POST', '/api/auth/login', { email: 'a@example.com', password: 'fout fout fout' })).status, 401);
@@ -212,7 +212,7 @@ test('licentie: zelf aanmelden staat uit, het team nodigt klanten uit', async ()
   process.env.ALLOW_SIGNUP = '';
   try {
     assert.equal((await fetch(base + '/api/health').then((r) => r.json())).signup, false, 'app weet dat aanmelden dicht is');
-    assert.equal((await client()('POST', '/api/auth/register', { email: 'zelf@example.com', password: 'Zelf geheime zin 5!' })).json.error, 'signup_closed');
+    assert.equal((await client()('POST', '/api/auth/register', { accept: true, email: 'zelf@example.com', password: 'Zelf geheime zin 5!' })).json.error, 'signup_closed');
     const team = client();
     const me = await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
     assert.equal(me.status, 200, 'team-account is bij het opstarten aangemaakt'); assert.equal(me.json.admin, true);
@@ -568,12 +568,12 @@ test('zelf registreren: account bestaat, maar codes maken kan pas na betalen', a
 
 test('aanmelden: wegwerp-adressen en varianten van hetzelfde adres worden geweigerd', async () => {
   const c = client();
-  assert.equal((await c('POST', '/api/auth/register', { email: 'iemand@mailinator.com', password: 'Proef periode zin 12!' })).json.error, 'email_disposable');
-  assert.equal((await c('POST', '/api/auth/register', { email: 'x@abc.yopmail.com', password: 'Proef periode zin 12!' })).json.error, 'email_disposable', 'ook subdomeinen');
+  assert.equal((await c('POST', '/api/auth/register', { accept: true, email: 'iemand@mailinator.com', password: 'Proef periode zin 12!' })).json.error, 'email_disposable');
+  assert.equal((await c('POST', '/api/auth/register', { accept: true, email: 'x@abc.yopmail.com', password: 'Proef periode zin 12!' })).json.error, 'email_disposable', 'ook subdomeinen');
   await signup(client(), 'jan.devries@gmail.com', 'Proef periode zin 12!', 'Jan');
-  assert.equal((await c('POST', '/api/auth/register', { email: 'jandevries+2@gmail.com', password: 'Proef periode zin 12!' })).json.error, 'email_alias');
-  assert.equal((await c('POST', '/api/auth/register', { email: 'jan.de.vries@googlemail.com', password: 'Proef periode zin 12!' })).json.error, 'email_alias');
-  assert.equal((await c('POST', '/api/auth/register', { email: 'jan.devries@outlook.com', password: 'Proef periode zin 12!' })).status, 201, 'ander domein: gewoon toegestaan');
+  assert.equal((await c('POST', '/api/auth/register', { accept: true, email: 'jandevries+2@gmail.com', password: 'Proef periode zin 12!' })).json.error, 'email_alias');
+  assert.equal((await c('POST', '/api/auth/register', { accept: true, email: 'jan.de.vries@googlemail.com', password: 'Proef periode zin 12!' })).json.error, 'email_alias');
+  assert.equal((await c('POST', '/api/auth/register', { accept: true, email: 'jan.devries@outlook.com', password: 'Proef periode zin 12!' })).status, 201, 'ander domein: gewoon toegestaan');
 });
 
 test('team (Pro en Business): uitnodigen, samen codes beheren, kijker kan niets wijzigen, verwijderen', async () => {
@@ -646,6 +646,17 @@ test('inloggen met Microsoft: uit zonder sleutels', async () => {
   const cb = await fetch(base + '/api/auth/microsoft/callback?code=x&state=y', { redirect: 'manual' });
   assert.match(cb.headers.get('location'), /merr=off/);
   assert.equal((await c('GET', '/api/health')).json.microsoft, false, 'geen Microsoft-knop zonder sleutels');
+});
+
+test('akkoord met de voorwaarden: verplicht bij registreren, anders één keer in de app', async () => {
+  const c = client();
+  const r = await c('POST', '/api/auth/register', { email: 'zonder-akkoord@example.com', password: 'Geen akkoord zin 4!', name: 'Zonder' });
+  assert.equal(r.status, 400); assert.equal(r.json.error, 'terms');
+  await signup(c, 'met-akkoord@example.com', 'Wel akkoord zin 5!', 'Met');
+  assert.equal((await c('GET', '/api/account/terms')).json.ok, true, 'akkoord gegeven bij registreren');
+  assert.equal((await c('POST', '/api/account/terms', { accept: false })).status, 400);
+  assert.equal((await c('POST', '/api/account/terms', { accept: true })).json.ok, true);
+  assert.equal((await client()('GET', '/api/account/terms')).status, 401, 'alleen ingelogd');
 });
 
 test('demo-afrekenen: alleen met DEMO_CHECKOUT, alleen voor een nieuwe klant, één keer', async () => {

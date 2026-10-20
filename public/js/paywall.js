@@ -68,6 +68,7 @@
   function close() { if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
   function check() {
     if (!api.account || !api.account.plan) return;
+    if (window.TermsGate && TermsGate.waiting()) return;                 // eerst akkoord met de voorwaarden (terms-gate.js)
     api.account.plan().then(function (r) {
       info = r;
       var w = window.wantedPlan; if (w) { chosen = w.plan || chosen; year = w.period === 'year'; }
@@ -92,5 +93,6 @@
   document.addEventListener('submit', function (e) { if (box && e.target.closest('[data-pw-form]')) { e.preventDefault(); pay(); } });
   if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(check, 300); });
   document.addEventListener('sub-lapsed', check);
+  document.addEventListener('terms-ok', check);
   if (window.i18n) i18n.onChange(function () { if (box) draw(); });
 })();

@@ -4435,3 +4435,10 @@ body.paywall-open { overflow: hidden; }
 .pw-done { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 40px; }
 .pw-check { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; font-size: 36px; background: rgba(34,197,94,.15); color: #4ade80; }
 @media (max-width: 760px) { .pw-pay { grid-template-columns: 1fr; } }
+
+/* Akkoord met de voorwaarden (registreren + terms-gate.js) */
+.auth-terms { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.45; color: var(--fg); cursor: pointer; text-align: left; }
+.auth-terms input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--accent); }
+.auth-terms .link-btn { font-size: inherit; padding: 0; text-decoration: underline; }
+.tg-inner { max-width: 520px; }
+.tg-inner form { display: grid; gap: 18px; margin-top: 8px; }
