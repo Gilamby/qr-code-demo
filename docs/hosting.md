@@ -44,7 +44,7 @@ TRUST_PROXY=loopback                       # nginx on the same machine passes th
 # DATABASE_URL stays empty: SQLite in DATA_DIR. (Later: mongodb://… to switch to MongoDB, see section 3.)
 DATA_KEY=<openssl rand -hex 32>            # encrypts Wi-Fi passwords in the database; store it in your secret manager
 FILE_SECRET=<openssl rand -hex 32>         # signs file links of password-protected pages
-SMTP_HOST=… SMTP_PORT=587 SMTP_USER=… SMTP_PASS=… MAIL_FROM="Optimasys QR <no-reply@optimasys.com>"
+SMTP_HOST=… SMTP_PORT=587 SMTP_USER=… SMTP_PASS=… MAIL_FROM="QR-Codex <no-reply@qr-codex.com>"
 SUPPORT_EMAIL=support@…                    # team account, created (already verified) at startup if it doesn't exist
 SUPPORT_PASSWORD="…"                       # only on the server; quotes if it has spaces; 8+ chars, capital, number, special char
 # ADMIN_EMAILS=a@…,b@…                     # more team members (optional)
