@@ -6,12 +6,12 @@
    Opgeslagen in deze browser en (met server) in je profiel, zodat het op elk apparaat hetzelfde is. */
 var theme = (function () {
   var KEY = 'optimasys-theme', root = document.documentElement, listeners = [], mq = window.matchMedia ? matchMedia('(prefers-color-scheme: light)') : null;
-  // Feedback 14 okt: geen licht thema meer nodig (je kiest al een eigen achtergrond). De app is altijd donker.
-  var pref = 'dark'; try { localStorage.removeItem(KEY); } catch (e) {}
+  // 21 okt (Fabian): licht en donker weer te kiezen, bij Mijn account > Achtergrond. Standaard donker.
+  var pref = 'dark'; try { var sv = localStorage.getItem(KEY); if (sv === 'light' || sv === 'system' || sv === 'dark') pref = sv; } catch (e) {}
   function resolved() { return pref === 'system' ? (mq && mq.matches ? 'light' : 'dark') : pref === 'light' ? 'light' : 'dark'; }
   function apply() { root.setAttribute('data-theme', resolved()); listeners.forEach(function (f) { f(resolved(), pref); }); }
   function set(p, toServer) {
-    pref = 'dark';
+    pref = p === 'light' || p === 'system' ? p : 'dark';
     try { localStorage.setItem(KEY, pref); } catch (e) {}
     apply();
     if (toServer !== false && window.api && window.Session && Session.user()) api.account.update({ theme: pref }).catch(function () {});

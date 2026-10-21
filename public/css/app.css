@@ -5025,3 +5025,11 @@ body.paywall-open { overflow: hidden; }
   .acct-id .acct-stat { padding: 8px 6px !important; }
   .acct-id .acct-stat b { font-size: 17px !important; }
 }
+/* Licht / donker kiezen (Mijn account > Achtergrond) */
+.th-pick { margin: 6px 0 18px; }
+.th-pick h3 { margin: 0 0 8px; font-size: 15px; }
+.th-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 520px; }
+.th-seg button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 8px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--fg); font: inherit; font-size: 14px; font-weight: 650; cursor: pointer; }
+.th-seg button svg { width: 22px; height: 22px; }
+.th-seg button small { font-size: 11.5px; font-weight: 500; color: var(--muted); }
+.th-seg button[aria-checked="true"] { border-color: var(--accent); background: var(--accent-soft, rgba(43,181,240,.15)); box-shadow: 0 0 0 1px var(--accent) inset; }

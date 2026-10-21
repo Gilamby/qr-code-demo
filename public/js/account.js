@@ -23,7 +23,19 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
     return '<div class="bg-opt-wrap' + (lock ? ' locked' : '') + '"><button type="button" class="bg-opt" role="radio" data-bg="' + esc(id) + '" aria-checked="' + (cur === id) + '"' + (lock ? ' data-bg-lock="' + lock + '"' : '') + '><span class="thumb" style="' + thumb + '">' + (extra || '') + TICK + '</span><span class="name">' + label + (lock ? PlanGate.badge(lock) : '') + '</span></button>' +
       (id !== 'optimasys' ? '<button type="button" class="bg-del" data-del="' + esc(id) + '" aria-label="' + esc(t('bg.delete')) + '" title="' + esc(t('bg.delete')) + '">' + X + '</button>' : '') + '</div>';   // alles weg te halen behalve Optimasys
   }
+  /* Licht / donker / systeem: bovenaan bij Achtergrond (wens Fabian 21 okt) */
+  var ICONS = { dark: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>', light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', system: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>' };
+  function drawTheme() {
+    var box = document.getElementById('themePick'); if (!box) return;
+    var cur = theme.get();
+    box.innerHTML = '<h3>' + esc(t('theme.title')) + '</h3><div class="th-seg" role="radiogroup" aria-label="' + esc(t('theme.title')) + '">' + ['dark', 'light', 'system'].map(function (k) {
+      return '<button type="button" role="radio" aria-checked="' + (cur === k) + '" data-theme-set="' + k + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[k] + '</svg><span>' + esc(t('theme.' + k)) + '</span>' + (k === 'system' ? '<small>' + esc(t('theme.systemHint')) + '</small>' : '') + '</button>';
+    }).join('') + '</div>';
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-theme-set]'); if (!b) return; theme.set(b.getAttribute('data-theme-set')); drawTheme(); });
+  theme.onChange(function () { drawTheme(); });
   function render() {
+    drawTheme();
     var hid = background.hidden(), G = window.PlanGate;
     // Wat zit in je pakket: Standard alleen de standaard-achtergrond, Pro alles + eigen foto's, Business ook video's
     var okExtra = !G || G.bgOk('extra'), okImage = !G || G.bgOk('image'), okVideo = !G || G.bgOk('video');
