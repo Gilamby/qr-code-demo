@@ -711,7 +711,8 @@
     "promo": "Promocja: {n} dni za darmo",
     "firstMonthLabel": "pierwszy miesiąc",
     "thenMonth": "Potem {price} miesięcznie",
-    "perMonthEq": "To {price} miesięcznie"
+    "perMonthEq": "To {price} miesięcznie",
+    "youSave": "Oszczędzasz {price}"
   },
   "dz": {
     "lbl": {

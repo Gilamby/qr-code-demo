@@ -711,7 +711,8 @@
     "promo": "Akcija: {n} dienas bez maksas",
     "firstMonthLabel": "pirmais mēnesis",
     "thenMonth": "Pēc tam {price} mēnesī",
-    "perMonthEq": "Tas ir {price} mēnesī"
+    "perMonthEq": "Tas ir {price} mēnesī",
+    "youSave": "Jūs ietaupāt {price}"
   },
   "dz": {
     "lbl": {

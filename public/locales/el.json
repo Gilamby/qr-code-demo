@@ -711,7 +711,8 @@
     "promo": "Προσφορά: {n} ημέρες δωρεάν",
     "firstMonthLabel": "πρώτος μήνας",
     "thenMonth": "Μετά {price} τον μήνα",
-    "perMonthEq": "Δηλαδή {price} τον μήνα"
+    "perMonthEq": "Δηλαδή {price} τον μήνα",
+    "youSave": "Εξοικονομείτε {price}"
   },
   "dz": {
     "lbl": {

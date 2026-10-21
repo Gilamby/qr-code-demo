@@ -711,7 +711,8 @@
     "promo": "Akcia: {n} dní zadarmo",
     "firstMonthLabel": "prvý mesiac",
     "thenMonth": "Potom {price} mesačne",
-    "perMonthEq": "To je {price} mesačne"
+    "perMonthEq": "To je {price} mesačne",
+    "youSave": "Ušetríte {price}"
   },
   "dz": {
     "lbl": {

@@ -711,7 +711,8 @@
     "promo": "Промоция: {n} дни безплатно",
     "firstMonthLabel": "първи месец",
     "thenMonth": "След това {price} на месец",
-    "perMonthEq": "Това са {price} на месец"
+    "perMonthEq": "Това са {price} на месец",
+    "youSave": "Спестявате {price}"
   },
   "dz": {
     "lbl": {

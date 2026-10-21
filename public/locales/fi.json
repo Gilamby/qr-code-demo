@@ -711,7 +711,8 @@
     "promo": "Tarjous: {n} päivää ilmaiseksi",
     "firstMonthLabel": "ensimmäinen kuukausi",
     "thenMonth": "Sitten {price} kuukaudessa",
-    "perMonthEq": "Eli {price} kuukaudessa"
+    "perMonthEq": "Eli {price} kuukaudessa",
+    "youSave": "Säästät {price}"
   },
   "dz": {
     "lbl": {

@@ -711,7 +711,8 @@
     "promo": "Tilbud: {n} dager gratis",
     "firstMonthLabel": "første måned",
     "thenMonth": "Deretter {price} per måned",
-    "perMonthEq": "Det er {price} per måned"
+    "perMonthEq": "Det er {price} per måned",
+    "youSave": "Du sparer {price}"
   },
   "dz": {
     "lbl": {

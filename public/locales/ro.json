@@ -711,7 +711,8 @@
     "promo": "Ofertă: {n} zile gratuit",
     "firstMonthLabel": "prima lună",
     "thenMonth": "Apoi {price} pe lună",
-    "perMonthEq": "Adică {price} pe lună"
+    "perMonthEq": "Adică {price} pe lună",
+    "youSave": "Economisiți {price}"
   },
   "dz": {
     "lbl": {

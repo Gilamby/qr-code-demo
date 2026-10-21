@@ -711,7 +711,8 @@
     "promo": "Actie: {n} dagen gratis",
     "firstMonthLabel": "eerste maand",
     "thenMonth": "Daarna {price} per maand",
-    "perMonthEq": "Dat is {price} per maand"
+    "perMonthEq": "Dat is {price} per maand",
+    "youSave": "Je bespaart {price}"
   },
   "dz": {
     "lbl": {
