@@ -94,6 +94,10 @@ var Plans = (function () {
           // Prijs: actieprijs/korting groot, normale prijs doorgestreept. Nieuwe klant: label "14 dagen gratis" en per maand de actie voor de eerste maand.
           priceBlock(x) + feats(x) + '</button>';
       }).join('') + '</div>' +
+      // Telefoon: de kaartjes staan naast elkaar (klein); wat er in het gekozen pakket zit staat eronder
+      (function () { var x = list.filter(function (p) { return p.id === chosen; })[0]; if (!x) return '';
+        var first = mode === 'must' && x.trialDays && period === 'month' && x.priceFirstMonth != null;
+        return '<div class="pw-sel"><b>' + esc(t('bill.inPlan', { plan: t('plan.n_' + x.id) })) + '</b>' + (first ? '<small>' + esc(t('pw.thenMonth', { price: euro(x.price) })) + '</small>' : '') + feats(x) + '</div>'; })() +
       '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
       (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', limitArgs())) + '</p>' : '') +
       (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : '') +

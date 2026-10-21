@@ -4777,3 +4777,84 @@ body.paywall-open { overflow: hidden; }
   .an-compact .an-mpane > .an-card { padding: 12px 14px !important; }
   .an-foot { margin-top: 8px; font-size: 12px; }
 }
+
+/* Telefoon, stap 1: kleinere knoppen, grotere telefoon (wens Fabian 21 okt) */
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .grid { gap: 5px !important; }
+  body:not(.pv-open) #createView .qr-card { min-height: 42px !important; padding: 4px 2px !important; gap: 2px !important; border-radius: 10px !important; }
+  body:not(.pv-open) #createView .qr-card svg { width: 16px !important; height: 16px !important; }
+  body:not(.pv-open) #createView .qr-card .title { font-size: 10px !important; }
+  body:not(.pv-open) #createView .panel-card:has(.grid) .actions { margin-top: 8px !important; padding-top: 8px !important; padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important; }
+  body:not(.pv-open) #createView .panel-card:has(.grid) .actions .btn { height: 42px; }
+}
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .panel-card:has(.grid) .actions { font-size: 13.5px; }
+}
+
+/* Contact op de telefoon: compact, alles in één scherm (wens Fabian 21 okt) */
+@media (max-width: 760px) {
+  #contactView .help { gap: 10px !important; margin-top: 0 !important; padding: 14px 10px 12px !important; }
+  #contactView .help-head h2 { font-size: 22px; }
+  #contactView .help-head p { font-size: 13.5px; margin-top: 2px; }
+  #contactView .ct-globe { width: 30px !important; height: 30px !important; }
+  #contactView .help-main { padding: 14px !important; border-radius: 18px !important; }
+  #contactView .help-main h3 { display: none; }
+  #contactView .acct-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: 10px !important; }
+  #contactView .acct-grid .auth-f:nth-child(3), #contactView .acct-grid .acct-wide { grid-column: 1 / -1; }
+  #contactView .help-gap, #contactView .acct-grid .auth-hint { display: none !important; }
+  #contactView .auth-f > span:first-child { font-size: 13px; }
+  #contactView .auth-in input, #contactView .auth-in select { height: 44px !important; font-size: 15px; }
+  #contactView textarea { min-height: 0 !important; height: 120px; }
+  #contactView .help-form-foot { margin-top: 10px; }
+  #contactView .help-form-foot .btn { min-height: 44px; }
+  #contactView .help-side { gap: 8px; }
+  #contactView .help-card { padding: 12px 14px !important; border-radius: 16px !important; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  #contactView .help-card .hic, #contactView .help-card p { display: none; }
+  #contactView .help-card h3 { margin: 0; font-size: 15px; }
+  #contactView .help-card .btn { height: 38px; padding: 0 12px; font-size: 13.5px; flex: none; }
+  #contactView .help-side .help-card:nth-child(2) { display: none; }
+}
+
+/* Pakketten-pagina op de telefoon: alles op één scherm (wens Fabian 21 okt)
+   Drie kaartjes naast elkaar (naam, actie, prijs); wat er in het gekozen pakket zit staat eronder. */
+.pw-sel { display: none; }
+@media (max-width: 760px) {
+  .paywall .pw-inner { padding: 12px 12px 16px; }
+  .paywall .pw-top { margin-bottom: 12px; }
+  .paywall .pw-inner > h1 { font-size: 23px; margin: 0 0 2px; }
+  .paywall .pw-inner > .pw-lead { font-size: 13px; margin: 0 0 6px; line-height: 1.4; }
+  .paywall .pw-now, .paywall .pw-reason { margin: 2px 0 6px; font-size: 13px; padding: 6px 10px; }
+  .paywall .pl-period { margin: 4px 0 6px; }
+  .paywall .pl-period button { padding: 7px 12px; font-size: 13px; }
+  .paywall .pw-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px; margin: 10px 0 10px; }
+  .paywall .pw-card { overflow: visible !important; padding: 16px 6px 10px !important; border-radius: 14px; gap: 4px !important; align-items: center !important; text-align: center !important; transform: none !important; }
+  .paywall .pw-card .pl-name { font-size: 14px; justify-content: center; }
+  .paywall .pw-card .pl-promo { padding: 3px 6px; font-size: 9.5px; gap: 3px; line-height: 1.2; text-align: center; }
+  .paywall .pw-card .pl-promo svg { display: none; }
+  .paywall .pw-card .pl-price { flex-direction: column; align-items: center !important; gap: 0 !important; }
+  .paywall .pw-card .pl-price b { font-size: 20px !important; line-height: 1.15; letter-spacing: -.02em; }
+  .paywall .pw-card .pl-price small { font-size: 10.5px; }
+  .paywall .pw-card .pl-was { font-size: 11.5px !important; }
+  .paywall .pw-card .pl-then, .paywall .pw-card .pg-feats { display: none !important; }
+  .paywall .pw-pop { top: -8px; right: 50%; transform: translateX(50%); font-size: 9.5px; padding: 2px 7px; white-space: nowrap; }
+  .paywall .pw-sel { display: block; width: 100%; text-align: left; padding: 12px 14px; margin: 0 0 10px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
+  .paywall .pw-sel > b { display: block; font-size: 14px; }
+  .paywall .pw-sel > small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  .paywall .pw-sel .pg-feats { margin: 8px 0 0; display: grid; gap: 4px; font-size: 13px; }
+  .paywall .pw-sel .pg-off { opacity: .55; }
+  .paywall .pw-go { width: 100%; max-width: none; height: 48px; }
+  .paywall .pw-note, .paywall .pw-safe { font-size: 12px; margin-top: 8px; }
+  .paywall .pw-less { margin: 8px 0 0; font-size: 12.5px; }
+}
+@media (max-width: 760px) {
+  .paywall .pw-demo { margin: 0 0 10px; font-size: 12px; padding: 6px 10px; }
+  .paywall .pw-co-sum { padding: 14px 16px; gap: 2px; }
+  .paywall .pw-co-big { font-size: 26px; margin: 0; }
+  .paywall .pw-co-sum .pw-co-line:not(.tot) { display: none; }
+  .paywall .pw-co-line.tot { margin-top: 6px; padding: 8px 0 0; }
+  .paywall .pw-co-form { padding: 14px 16px; gap: 10px; }
+  .paywall .pw-co-f input, .paywall .pw-co-f select { padding: 8px 10px; }
+  .paywall .pw-co-m > button { padding: 10px 12px; font-size: 14px; }
+  .paywall .pw-co-body { padding: 2px 12px 10px 40px; }
+  .paywall .pw-co-fine, .paywall .pw-co-safe { font-size: 11.5px; }
+}
