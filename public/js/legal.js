@@ -12,7 +12,7 @@
 var Legal = (function () {
   var view = document.getElementById('legalView'), body = document.getElementById('legalBody'), doc = 'privacy', me = null;
   var DOCS = ['privacy', 'terms', 'cookies'];
-  function info() { var i = (window.api && api.info && api.info().legal) || {}; return { company: i.name || 'Optimasys', email: i.email || '', address: i.address, kvk: i.kvk, vat: i.vat }; }
+  function info() { var i = (window.api && api.info && api.info().legal) || {}; return { company: i.name || 'OptimaSys Group Spain', email: i.email || '', address: i.address, kvk: i.kvk, vat: i.vat }; }
   function has(key) { return t(key) !== key; }
   function paragraphs(text) {
     var esc2 = function (s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); };
