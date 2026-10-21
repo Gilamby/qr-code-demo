@@ -4643,5 +4643,5 @@ body.paywall-open { overflow: hidden; }
 .pl-promo { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: linear-gradient(135deg, #22c55e, #16a34a); color: #ffffff; font-size: 12.5px; font-weight: 800; letter-spacing: .01em; box-shadow: 0 6px 16px -8px #16a34a; }
 .pl-promo svg { width: 14px; height: 14px; }
 .pw-card .pl-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
-.pl-was { color: var(--muted); font-size: 17px; font-weight: 600; text-decoration-thickness: 2px; text-decoration-color: rgba(248,113,113,.85); }
+.pl-was { color: var(--muted); font-size: 17px; font-weight: 600; text-decoration-thickness: 1.5px; text-decoration-color: currentColor; font-weight: 500; }
 .pl-save { color: #4ade80; font-weight: 700; }
