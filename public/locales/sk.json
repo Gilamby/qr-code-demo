@@ -721,7 +721,8 @@
     "sStatsAll": "Všetky štatistiky",
     "sUsers1": "1 používateľ",
     "sUsers": "{n} používatelia",
-    "sUsersAll": "Neobmedzený tím"
+    "sUsersAll": "Neobmedzený tím",
+    "leadShort": "Najprv {free}, potom platíte. Zrušiť kedykoľvek."
   },
   "dz": {
     "lbl": {

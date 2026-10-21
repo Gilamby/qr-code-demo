@@ -721,7 +721,8 @@
     "sStatsAll": "All statistikk",
     "sUsers1": "1 bruker",
     "sUsers": "{n} brukere",
-    "sUsersAll": "Ubegrenset team"
+    "sUsersAll": "Ubegrenset team",
+    "leadShort": "Først {free}, deretter betaler du. Kan alltid sies opp."
   },
   "dz": {
     "lbl": {

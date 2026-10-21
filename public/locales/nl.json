@@ -721,7 +721,8 @@
     "sStatsAll": "Alle statistiek",
     "sUsers1": "1 gebruiker",
     "sUsers": "{n} gebruikers",
-    "sUsersAll": "Onbeperkt team"
+    "sUsersAll": "Onbeperkt team",
+    "leadShort": "Eerst {free}, daarna pas betalen. Altijd opzegbaar."
   },
   "dz": {
     "lbl": {

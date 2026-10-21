@@ -721,7 +721,8 @@
     "sStatsAll": "Kaikki tilastot",
     "sUsers1": "1 käyttäjä",
     "sUsers": "{n} käyttäjää",
-    "sUsersAll": "Rajaton tiimi"
+    "sUsersAll": "Rajaton tiimi",
+    "leadShort": "Ensin {free}, sitten maksat. Peru milloin vain."
   },
   "dz": {
     "lbl": {

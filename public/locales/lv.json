@@ -721,7 +721,8 @@
     "sStatsAll": "Visa statistika",
     "sUsers1": "1 lietotājs",
     "sUsers": "{n} lietotāji",
-    "sUsersAll": "Neierobežota komanda"
+    "sUsersAll": "Neierobežota komanda",
+    "leadShort": "Vispirms {free}, tad maksājat. Atceliet jebkurā laikā."
   },
   "dz": {
     "lbl": {

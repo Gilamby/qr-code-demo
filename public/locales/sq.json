@@ -721,7 +721,8 @@
     "sStatsAll": "Të gjitha statistikat",
     "sUsers1": "1 përdorues",
     "sUsers": "{n} përdorues",
-    "sUsersAll": "Ekip pa kufi"
+    "sUsersAll": "Ekip pa kufi",
+    "leadShort": "Fillimisht {free}, pastaj paguani. Anuloni kurdo."
   },
   "dz": {
     "lbl": {

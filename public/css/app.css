@@ -4640,7 +4640,7 @@ body.paywall-open { overflow: hidden; }
 .pw-card .pl-free b { font-size: 28px; color: var(--fg); }
 .pl-then.pl-then-trial { margin: -2px 0 2px; font-size: 13.5px; line-height: 1.45; }
 /* Pakketkaart: actie-label en doorgestreepte normale prijs (paywall.js priceBlock) */
-.pl-promo { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: linear-gradient(135deg, #22c55e, #16a34a); color: #ffffff; font-size: 12.5px; font-weight: 800; letter-spacing: .01em; box-shadow: 0 6px 16px -8px #16a34a; }
+.pl-promo { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.35); color: #7dd3fc; font-size: 12.5px; font-weight: 700; }
 .pl-promo svg { width: 14px; height: 14px; }
 .pw-card .pl-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
 .pl-was { color: var(--muted); font-size: 17px; font-weight: 600; text-decoration-thickness: 1.5px; text-decoration-color: currentColor; font-weight: 500; }
@@ -4817,33 +4817,36 @@ body.paywall-open { overflow: hidden; }
   #contactView .help-side .help-card:nth-child(2) { display: none; }
 }
 
-/* Pakketten-pagina op de telefoon: drie nette rechthoeken naast elkaar, kort en ruim (wens Fabian 21 okt) */
-.pl-short, .pl-ps { display: none; }
+/* Pakketten-pagina op de telefoon: drie rustige kaarten naast elkaar (wens Fabian 21 okt)
+   "14 dagen gratis" staat één keer bovenaan; per kaart alleen naam, prijs en drie punten. */
+.pl-short, .pl-ps, .pw-lead-s { display: none; }
 @media (max-width: 760px) {
   .paywall .pw-inner { padding: 12px 10px 16px; }
-  .paywall .pw-top { margin-bottom: 14px; }
-  .paywall .pw-inner > h1 { font-size: 24px; margin: 0 0 4px; }
-  .paywall .pw-inner > .pw-lead { font-size: 13px; margin: 0 0 8px; line-height: 1.4; }
-  .paywall .pw-now, .paywall .pw-reason { margin: 2px 0 6px; font-size: 13px; padding: 6px 10px; }
-  .paywall .pl-period { margin: 4px 0 6px; }
-  .paywall .pl-period button { padding: 7px 12px; font-size: 13px; }
-  .paywall .pw-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px; margin: 16px 0 18px; }
-  .paywall .pw-card { overflow: visible !important; padding: 20px 10px 14px !important; border-radius: 16px; gap: 8px !important; align-items: center !important; text-align: center !important; transform: none !important; min-height: 250px; }
-  .paywall .pw-card .pl-name { font-size: 15px; justify-content: center; }
-  .paywall .pw-card .pl-promo { padding: 4px 8px; font-size: 10.5px; }
-  .paywall .pw-card .pl-promo svg, .paywall .pw-card .pl-pl { display: none; }
-  .paywall .pw-card .pl-ps { display: inline; }
+  .paywall .pw-top { margin-bottom: 18px; }
+  .paywall .pw-inner > h1 { font-size: 26px; margin: 0 0 6px; }
+  .paywall .pw-inner > .pw-lead { display: none; }
+  .paywall .pw-lead-s { display: block; margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
+  .paywall .pw-lead-s b { color: var(--accent); }
+  .paywall .pw-now, .paywall .pw-reason { margin: 2px 0 8px; font-size: 13px; padding: 6px 10px; }
+  .paywall .pl-period { margin: 0 0 4px; }
+  .paywall .pl-period button { padding: 8px 13px; font-size: 13.5px; }
+  .paywall .pw-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px; margin: 20px 0 20px; }
+  .paywall .pw-card { overflow: visible !important; padding: 22px 10px 16px !important; border-radius: 16px; gap: 2px !important; align-items: center !important; text-align: center !important; transform: none !important; }
+  .paywall .pw-card .pl-name { font-size: 14px; font-weight: 700; color: var(--muted); justify-content: center; margin-bottom: 6px; }
+  .paywall .pw-card.on .pl-name { color: var(--fg); }
+  .paywall .pw-card .pl-promo { display: none !important; }
   .paywall .pw-card .pl-price { flex-direction: column; align-items: center !important; gap: 0 !important; }
-  .paywall .pw-card .pl-price b { font-size: 22px !important; line-height: 1.15; letter-spacing: -.02em; }
-  .paywall .pw-card .pl-price small { font-size: 11px; }
-  .paywall .pw-card .pl-was { font-size: 12px !important; }
-  .paywall .pw-card .pl-then { font-size: 10.5px; line-height: 1.3; margin: 0; }
+  .paywall .pw-card .pl-price b { font-size: 25px !important; line-height: 1.1; letter-spacing: -.02em; }
+  .paywall .pw-card .pl-price small { font-size: 11.5px; color: var(--muted); }
+  .paywall .pw-card .pl-was { font-size: 12.5px !important; order: 3; margin-top: 2px; }
+  .paywall .pw-card .pl-first .pl-was { display: none; }
+  .paywall .pw-card .pl-then { font-size: 11px; line-height: 1.3; margin: 2px 0 0; color: var(--muted); }
   .paywall .pw-card .pg-feats { display: none !important; }
-  .paywall .pw-card .pl-short { display: grid; gap: 6px; list-style: none; margin: 4px 0 0; padding: 10px 0 0; border-top: 1px solid var(--line); width: 100%; font-size: 11.5px; text-align: left; }
-  .paywall .pw-card .pl-short li { display: flex; gap: 5px; align-items: baseline; line-height: 1.25; }
+  .paywall .pw-card .pl-short { display: grid; gap: 7px; list-style: none; margin: 12px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); width: 100%; font-size: 12px; text-align: left; }
+  .paywall .pw-card .pl-short li { display: flex; gap: 6px; align-items: baseline; line-height: 1.25; }
   .paywall .pw-card .pl-short li span { color: var(--accent); font-weight: 800; }
-  .paywall .pw-pop { top: -9px; right: 50%; transform: translateX(50%); font-size: 10px; padding: 3px 8px; white-space: nowrap; }
-  .paywall .pw-go { width: 100%; max-width: none; height: 50px; }
+  .paywall .pw-pop { top: -10px; right: 50%; transform: translateX(50%); font-size: 10.5px; padding: 3px 9px; white-space: nowrap; }
+  .paywall .pw-go { width: 100%; max-width: none; height: 52px; font-size: 16px; }
   .paywall .pw-note, .paywall .pw-safe { font-size: 12px; margin-top: 10px; }
   .paywall .pw-less { margin: 10px 0 0; font-size: 12.5px; }
 }

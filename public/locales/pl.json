@@ -721,7 +721,8 @@
     "sStatsAll": "Wszystkie statystyki",
     "sUsers1": "1 użytkownik",
     "sUsers": "{n} użytkowników",
-    "sUsersAll": "Zespół bez limitu"
+    "sUsersAll": "Zespół bez limitu",
+    "leadShort": "Najpierw {free}, potem płacisz. Zrezygnuj w każdej chwili."
   },
   "dz": {
     "lbl": {

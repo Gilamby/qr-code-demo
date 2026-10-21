@@ -721,7 +721,8 @@
     "sStatsAll": "Toate statisticile",
     "sUsers1": "1 utilizator",
     "sUsers": "{n} utilizatori",
-    "sUsersAll": "Echipă nelimitată"
+    "sUsersAll": "Echipă nelimitată",
+    "leadShort": "Mai întâi {free}, apoi plătiți. Anulați oricând."
   },
   "dz": {
     "lbl": {

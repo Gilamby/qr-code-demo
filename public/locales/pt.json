@@ -721,7 +721,8 @@
     "sStatsAll": "Todas as estatísticas",
     "sUsers1": "1 utilizador",
     "sUsers": "{n} utilizadores",
-    "sUsersAll": "Equipa ilimitada"
+    "sUsersAll": "Equipa ilimitada",
+    "leadShort": "Primeiro {free}, depois paga. Cancele quando quiser."
   },
   "dz": {
     "lbl": {

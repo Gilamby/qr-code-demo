@@ -721,7 +721,8 @@
     "sStatsAll": "Totes les estadístiques",
     "sUsers1": "1 usuari",
     "sUsers": "{n} usuaris",
-    "sUsersAll": "Equip il·limitat"
+    "sUsersAll": "Equip il·limitat",
+    "leadShort": "Primer {free}, després pagues. Cancel·la quan vulguis."
   },
   "dz": {
     "lbl": {

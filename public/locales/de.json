@@ -721,7 +721,8 @@
     "sStatsAll": "Alle Statistiken",
     "sUsers1": "1 Nutzer",
     "sUsers": "{n} Nutzer",
-    "sUsersAll": "Unbegrenztes Team"
+    "sUsersAll": "Unbegrenztes Team",
+    "leadShort": "Zuerst {free}, dann erst zahlen. Jederzeit kündbar."
   },
   "dz": {
     "lbl": {

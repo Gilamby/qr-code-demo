@@ -485,6 +485,7 @@
 :root[data-theme="light"] .bl-st.warn { background: rgba(13,19,32,0.06); }
 :root[data-theme="light"] .bl-st.bad { color: #b91c1c; }
 :root[data-theme="light"] .bl-demo { background: rgba(13,19,32,0.053); }
+:root[data-theme="light"] .pl-promo { color: #0369a1; }
 :root[data-theme="light"] .pl-save { color: #15803d; }
 :root[data-theme="light"] .hm-mtabs,
 :root[data-theme="light"] .an-mtabs { background: rgba(13,19,32,0.038); }

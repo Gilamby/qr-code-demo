@@ -67,7 +67,7 @@ var Plans = (function () {
     var promo = mode === 'must' && x.trialDays, month = period === 'month', first = promo && month && x.priceFirstMonth != null;
     var now = first ? x.priceFirstMonth : PlanPeriod.price(x, period), was = first ? x.price : PlanPeriod.was(x, period);
     return (promo ? '<span class="pl-promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg>' + '<span class="pl-pl">' + esc(t('pw.promo', { n: x.trialDays })) + '</span><span class="pl-ps">' + esc(t('pw.promoShort', { n: x.trialDays })) + '</span></span>' : '') +
-      '<span class="pl-price">' + (was ? '<s class="pl-was">' + euro(was) + '</s>' : '') + '<b>' + euro(now) + '</b><small>' + esc(first ? t('pw.firstMonthLabel') : PlanPeriod.per(period)) + '</small></span>' +
+      '<span class="pl-price' + (first ? ' pl-first' : '') + '">' + (was ? '<s class="pl-was">' + euro(was) + '</s>' : '') + '<b>' + euro(now) + '</b><small>' + esc(first ? t('pw.firstMonthLabel') : PlanPeriod.per(period)) + '</small></span>' +
       (first ? '<span class="pl-then">' + esc(t('pw.thenMonth', { price: euro(x.price) })) + '</span>'
         : period === 'year' ? '<span class="pl-then"><b class="pl-save">' + esc(t('sub.yearSave')) + '</b> · ' + esc(t('pw.perMonthEq', { price: euro(Math.floor(x.priceYear / 12 * 100) / 100) })) + '</span>'
         : period === 'quarter' && was ? '<span class="pl-then"><b class="pl-save">' + esc(t('pw.youSave', { price: euro(Math.round((was - now) * 100) / 100) })) + '</b></span>' : '');
@@ -88,6 +88,7 @@ var Plans = (function () {
     if (isCurrent(chosen)) { var other = list.filter(function (p) { return !isCurrent(p.id); })[0]; if (other) chosen = other.id; }
     box.innerHTML = '<div class="pw-inner">' + top() +
       '<h1 id="pwTitle">' + esc(t(mode === 'change' ? 'pw.changeTitle' : 'pw.title')) + '</h1><p class="pw-lead">' + esc(t(mode === 'change' ? 'pw.changeLead' : 'pw.lead')) + '</p>' +
+      (mode === 'must' ? '<p class="pw-lead-s">' + t('pw.leadShort', { free: '<b>' + esc(t('pw.promoShort', { n: 14 })) + '</b>' }) + '</p>' : '<p class="pw-lead-s">' + esc(t('pw.changeLead')) + '</p>') +
       (reason && mode === 'change' ? '<p class="pw-reason" role="status">' + PlanGate.lock + esc(t('pw.reason_' + reason)) + '</p>' : '') +
       (mode === 'change' && cur ? '<p class="pw-now">' + esc(t('pw.now', { plan: t('plan.n_' + cur), period: PlanPeriod.label(PlanPeriod.norm(curPeriod())) })) + '</p>' : '') +
       PlanPeriod.toggle(period, 'data-pw-period', false) +   // korting staat op de kaarten zelf (wens Fabian 21 okt)
