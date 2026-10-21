@@ -4785,9 +4785,8 @@ body.paywall-open { overflow: hidden; }
   body:not(.pv-open) #createView .qr-card svg { width: 14px !important; height: 14px !important; }
   body:not(.pv-open) #createView .qr-card .title { font-size: 9.5px !important; line-height: 1.05 !important; }
   body:not(.pv-open) #createView .grid { gap: 4px !important; }
-  body:not(.pv-open) #createView .panel-card:has(.grid) { padding-top: 8px !important; padding-left: 8px !important; padding-right: 8px !important; }
-  body:not(.pv-open) #createView .panel-card:has(.grid) .actions { margin-top: 8px !important; padding-top: 8px !important; padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important; }
-  body:not(.pv-open) #createView .panel-card:has(.grid) .actions .btn { height: 42px; }
+  body:not(.pv-open) #createView .panel-card { padding-top: 8px !important; padding-left: 8px !important; padding-right: 8px !important; }
+  body:not(.pv-open) #createView .panel-card .actions { margin-top: 8px !important; padding-top: 8px !important; padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important; }
 }
 @media (max-width: 760px) {
   body:not(.pv-open) #createView .panel-card:has(.grid) .actions { font-size: 13.5px; }
@@ -4864,8 +4863,29 @@ body.paywall-open { overflow: hidden; }
 }
 
 @media (max-width: 760px) {
-  body:not(.pv-open) #createView .panel-card:has(.grid) .actions { gap: 8px !important; }
-  body:not(.pv-open) #createView .panel-card:has(.grid) .actions .btn { height: 38px; font-size: 14px; }
-  body:not(.pv-open) #createView .panel-card:has(.grid) .actions > :not(.btn) { font-size: 12.5px; line-height: 1.2; }
-  body:not(.pv-open) #createView .panel-card:has(.grid) .actions * { font-size: inherit; }
+  /* Balk onderaan (gekozen / Terug / Doorgaan): in elke stap even groot */
+  body:not(.pv-open) #createView .panel-card .actions { gap: 8px !important; min-height: 54px; box-sizing: border-box; margin-left: -8px !important; margin-right: -8px !important; padding-left: 10px !important; padding-right: 10px !important; }
+  body:not(.pv-open) #createView .panel-card .actions .btn { height: 38px !important; min-height: 38px !important; font-size: 14px !important; padding: 0 14px !important; }
+  body:not(.pv-open) #createView .panel-card .actions > :not(.btn) { font-size: 12.5px; line-height: 1.2; }
+  body:not(.pv-open) #createView .panel-card .actions * { font-size: inherit; }
+}
+/* Telefoon, stap 1: alle knoppen precies even groot, ook gekozen of met een lange naam (wens Fabian 21 okt) */
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .grid { grid-auto-rows: 40px !important; }
+  body:not(.pv-open) #createView .qr-card, body:not(.pv-open) #createView .qr-card.selected, body:not(.pv-open) #createView .qr-card[aria-pressed="true"], body:not(.pv-open) #createView .qr-card[aria-checked="true"] { height: 40px !important; min-height: 40px !important; max-height: 40px !important; transform: none !important; overflow: hidden; }
+  body:not(.pv-open) #createView .qr-card .title { white-space: nowrap !important; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: block; }
+  body:not(.pv-open) #createView .qr-card .title br { display: none; }
+}
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .qr-card { padding: 2px !important; justify-content: center !important; gap: 2px !important; }
+  body:not(.pv-open) #createView .qr-card svg { width: 13px !important; height: 13px !important; flex: none; }
+  body:not(.pv-open) #createView .qr-card .title { line-height: 1.1 !important; padding-bottom: 1px; }
+}
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .qr-card { display: flex !important; flex-direction: column !important; align-items: center !important; }
+  body:not(.pv-open) #createView .qr-card > *, body:not(.pv-open) #createView .qr-card svg { margin: 0 !important; }
+}
+@media (max-width: 760px) {
+  body:not(.pv-open) #createView .qr-card .ic { width: auto !important; height: auto !important; min-height: 0 !important; line-height: 0; padding: 0 !important; background: none !important; }
+  body:not(.pv-open) #createView .qr-card .title { height: auto !important; min-height: 12px; line-height: 12px !important; overflow: visible; }
 }
