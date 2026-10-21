@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} QR kódov",
     "rcManage": "Zmeniť alebo zrušiť môžete kedykoľvek v {where}.",
     "rcDemo": "Demo: nič sa nestrhlo.",
-    "freeDays": "{n} dní zadarmo",
-    "thenLabel": "Potom",
     "firstMonthPhrase": "{first} prvý mesiac, potom {price} mesačne",
-    "firstYearPhrase": "{first} prvý rok, potom {price} ročne"
+    "promo": "Akcia: {n} dní zadarmo",
+    "firstMonthLabel": "prvý mesiac",
+    "thenMonth": "Potom {price} mesačne",
+    "perMonthEq": "To je {price} mesačne"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Mesačne",
     "quarterly": "Štvrťročne",
     "yearly": "Ročne",
-    "yearSave": "1. rok: 2 mesiace zadarmo",
+    "yearSave": "2 mesiace zadarmo",
     "quarterSave": "10% zľava",
     "perYear": "ročne",
     "perQuarter": "za štvrťrok",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Vitaj! Vyber si predplatné a vytvor svoj prvý QR kód.",
     "choose": "Vybrať predplatné",
     "unpaidMsg": "Tvoj účet je pripravený. Vyber si nižšie predplatné; potom môžeš hneď vytvárať QR kódy.",
-    "admUnpaid": "Zatiaľ nezaplatené",
-    "yearThen": "prvý rok, potom {price} ročne"
+    "admUnpaid": "Zatiaľ nezaplatené"
   },
   "msg": {
     "whatsapp": "WhatsApp",

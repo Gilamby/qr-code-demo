@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} QR codes",
     "rcManage": "Change or cancel any time in {where}.",
     "rcDemo": "Demo: nothing was charged.",
-    "freeDays": "{n} days free",
-    "thenLabel": "Then",
     "firstMonthPhrase": "{first} for the first month, then {price} per month",
-    "firstYearPhrase": "{first} for the first year, then {price} per year"
+    "promo": "Offer: {n} days free",
+    "firstMonthLabel": "first month",
+    "thenMonth": "Then {price} per month",
+    "perMonthEq": "That's {price} per month"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Monthly",
     "quarterly": "Quarterly",
     "yearly": "Yearly",
-    "yearSave": "1st year: 2 months free",
+    "yearSave": "2 months free",
     "quarterSave": "10% off",
     "perYear": "per year",
     "perQuarter": "per quarter",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Welcome! Choose a plan to create your first QR code.",
     "choose": "Choose a plan",
     "unpaidMsg": "Your account is ready. Choose a plan below; then you can start creating QR codes right away.",
-    "admUnpaid": "Not paid yet",
-    "yearThen": "first year, then {price} per year"
+    "admUnpaid": "Not paid yet"
   },
   "msg": {
     "whatsapp": "WhatsApp",

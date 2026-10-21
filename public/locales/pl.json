@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} kodów QR",
     "rcManage": "Zmień lub zrezygnuj w każdej chwili w {where}.",
     "rcDemo": "Demo: nic nie zostało pobrane.",
-    "freeDays": "{n} dni za darmo",
-    "thenLabel": "Potem",
     "firstMonthPhrase": "{first} za pierwszy miesiąc, potem {price} miesięcznie",
-    "firstYearPhrase": "{first} za pierwszy rok, potem {price} rocznie"
+    "promo": "Promocja: {n} dni za darmo",
+    "firstMonthLabel": "pierwszy miesiąc",
+    "thenMonth": "Potem {price} miesięcznie",
+    "perMonthEq": "To {price} miesięcznie"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Miesięcznie",
     "quarterly": "Kwartalnie",
     "yearly": "Rocznie",
-    "yearSave": "1. rok: 2 miesiące gratis",
+    "yearSave": "2 miesiące gratis",
     "quarterSave": "10% zniżki",
     "perYear": "rocznie",
     "perQuarter": "na kwartał",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Witaj! Wybierz abonament, aby utworzyć swój pierwszy kod QR.",
     "choose": "Wybierz abonament",
     "unpaidMsg": "Twoje konto jest gotowe. Wybierz abonament poniżej; potem od razu możesz tworzyć kody QR.",
-    "admUnpaid": "Jeszcze nie opłacono",
-    "yearThen": "w pierwszym roku, potem {price} rocznie"
+    "admUnpaid": "Jeszcze nie opłacono"
   },
   "msg": {
     "whatsapp": "WhatsApp",

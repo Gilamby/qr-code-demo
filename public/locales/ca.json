@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} codis QR",
     "rcManage": "Canvia o cancel·la quan vulguis a {where}.",
     "rcDemo": "Demo: no s'ha cobrat res.",
-    "freeDays": "{n} dies gratis",
-    "thenLabel": "Després",
     "firstMonthPhrase": "{first} el primer mes, després {price} al mes",
-    "firstYearPhrase": "{first} el primer any, després {price} l'any"
+    "promo": "Oferta: {n} dies gratis",
+    "firstMonthLabel": "primer mes",
+    "thenMonth": "Després {price} al mes",
+    "perMonthEq": "Són {price} al mes"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Mensual",
     "quarterly": "Trimestral",
     "yearly": "Anual",
-    "yearSave": "1r any: 2 mesos gratis",
+    "yearSave": "2 mesos gratis",
     "quarterSave": "10% de descompte",
     "perYear": "l'any",
     "perQuarter": "per trimestre",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Benvingut! Tria un pla per crear el teu primer codi QR.",
     "choose": "Tria un pla",
     "unpaidMsg": "El teu compte està a punt. Tria un pla a continuació; després podràs crear codis QR de seguida.",
-    "admUnpaid": "Encara no pagat",
-    "yearThen": "el primer any, després {price} l'any"
+    "admUnpaid": "Encara no pagat"
   },
   "msg": {
     "whatsapp": "WhatsApp",

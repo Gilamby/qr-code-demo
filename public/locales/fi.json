@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} QR-koodia",
     "rcManage": "Muuta tai peru milloin vain kohdassa {where}.",
     "rcDemo": "Demo: mitään ei veloitettu.",
-    "freeDays": "{n} päivää ilmaiseksi",
-    "thenLabel": "Sen jälkeen",
     "firstMonthPhrase": "{first} ensimmäinen kuukausi, sitten {price} kuukaudessa",
-    "firstYearPhrase": "{first} ensimmäinen vuosi, sitten {price} vuodessa"
+    "promo": "Tarjous: {n} päivää ilmaiseksi",
+    "firstMonthLabel": "ensimmäinen kuukausi",
+    "thenMonth": "Sitten {price} kuukaudessa",
+    "perMonthEq": "Eli {price} kuukaudessa"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Kuukausittain",
     "quarterly": "Neljännesvuosittain",
     "yearly": "Vuosittain",
-    "yearSave": "1. vuosi: 2 kuukautta ilmaiseksi",
+    "yearSave": "2 kuukautta ilmaiseksi",
     "quarterSave": "10% alennus",
     "perYear": "vuodessa",
     "perQuarter": "neljännesvuodessa",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Tervetuloa! Valitse tilaus luodaksesi ensimmäisen QR-koodisi.",
     "choose": "Valitse tilaus",
     "unpaidMsg": "Tilisi on valmis. Valitse tilaus alta; sen jälkeen voit heti luoda QR-koodeja.",
-    "admUnpaid": "Ei vielä maksettu",
-    "yearThen": "ensimmäisenä vuonna, sitten {price} vuodessa"
+    "admUnpaid": "Ei vielä maksettu"
   },
   "msg": {
     "whatsapp": "WhatsApp",

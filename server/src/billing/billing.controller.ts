@@ -22,7 +22,7 @@ import type { User } from '../types';
 import { PLANS, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscription';
 import { fitToPlan } from '../plan-limit';
-import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature } from './stripe';
+import { stripe, stripeOn, readRecord, writeRecord, amountFor, recurringOf, planName, isPlanId, verifySignature } from './stripe';
 
 @Controller('api/billing')
 export class BillingController {
@@ -38,24 +38,16 @@ export class BillingController {
   }
 
   /** Coupon voor het eerste jaar (2 maanden gratis), per pakket één keer aangemaakt en onthouden */
-  /** Nieuwe klant per maand: eerste betaalde maand (na de proef) 50% goedkoper. 'repeating' 1 maand vanaf de start,
+  /** Nieuwe klant per maand: eerste betaalde maand (na de proef) voor de actieprijs (priceFirstMonth). 'repeating' 1 maand vanaf de start,
    *  zodat de korting zeker op de eerste echte factuur valt (niet op de factuur van € 0 bij de proef). */
   private async firstMonthCoupon(planId: string) {
     const P = PLANS[planId]; if (P.price == null || P.priceFirstMonth == null) return null;
     const off = Math.round(P.price * 100) - Math.round(P.priceFirstMonth * 100); if (off <= 0) return null;
     const key = 'stripe:coupon1m:' + planId + ':' + off, have = await this.db.getSetting(key);
     if (have) return have;
-    const c = await stripe('POST', 'coupons', { amount_off: off, currency: 'eur', duration: 'repeating', duration_in_months: 1, name: 'Eerste maand 50% korting' });
+    const c = await stripe('POST', 'coupons', { amount_off: off, currency: 'eur', duration: 'repeating', duration_in_months: 1, name: 'Actie eerste maand' });
     await this.db.setSetting(key, c.id); return c.id;
   }
-  private async yearCoupon(planId: string) {
-    const off = firstYearDiscount(PLANS[planId]); if (!off) return null;
-    const key = 'stripe:coupon:' + planId + ':' + off, have = await this.db.getSetting(key);
-    if (have) return have;
-    const c = await stripe('POST', 'coupons', { amount_off: off, currency: 'eur', duration: 'once', name: '2 maanden gratis (1e jaar)' });
-    await this.db.setSetting(key, c.id); return c.id;
-  }
-
   /** Product "Extra QR-code" bij Stripe (één keer aangemaakt en onthouden): zo herkennen we extra codes in een abonnement */
   private async extraProduct() {
     const have = await this.db.getSetting('stripe:extraProduct'); if (have) return have;
@@ -105,7 +97,7 @@ export class BillingController {
       const { customer } = await this.customerFor(user), base = baseUrl(req);
       const meta = { uid: user.id, plan: planId, period: interval };
       await this.db.setSetting('keep:' + user.id, Array.isArray(b.keep) ? JSON.stringify(b.keep.map(String).slice(0, 500)) : null);   // welke codes aan blijven bij minder ruimte
-      const coupon = interval === 'year' ? await this.yearCoupon(planId) : first && interval === 'month' ? await this.firstMonthCoupon(planId) : null;
+      const coupon = first && interval === 'month' ? await this.firstMonthCoupon(planId) : null;   // actie eerste maand (alleen nieuwe klant)
       const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
       const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
       const session = await stripe('POST', 'checkout/sessions', {

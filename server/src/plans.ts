@@ -6,7 +6,8 @@
    ========================================================= */
 // Prijzen (besluit Fabian, 19 okt): tussen goedkoop en de grote QR-diensten in. Iedereen begint met 14 dagen gratis proberen.
 // Per kwartaal (Terms punt 4, besluit Fabian 20 okt): 3 maanden met ongeveer 10% korting (priceQuarter).
-// Per jaar: het eerste jaar 2 maanden gratis (priceYear), daarna de gewone jaarprijs (priceYearAfter = 12 × maand).
+// Per jaar: elk jaar 2 maanden gratis (priceYear = 10 × maand), besluit Fabian 21 okt.
+// Nieuwe klant per maand: na de 14 dagen gratis een actieprijs voor de eerste maand (priceFirstMonth), besluit Fabian 21 okt.
 /** Wat zit in welk pakket (besluit Fabian 20 okt):
  *  - soorten QR-codes: iedereen alle 16 (besluit 20 okt: niet frustreren); het aantal codes hoort bij het pakket (Standard 5)
  *  - vol? Eén QR-code erbij kopen (EXTRA_PRICE per stuk) of upgraden
@@ -14,16 +15,13 @@
  *  - team: Pro tot 3 personen, Business onbeperkt. Bestaande codes blijven werken als je naar een kleiner pakket gaat. */
 export const STANDARD_TYPES = ['website', 'pdf', 'vcard', 'wifi', 'menu', 'whatsapp'];
 export type BgLevel = 'basic' | 'photos' | 'all';
-export type Plan = { id: string; types: string[] | null; bg: BgLevel; codes: number | null; extra?: number; statsDays: number | null; price: number | null; priceQuarter: number | null; priceYear: number | null; priceYearAfter: number | null; users: number | null; trialDays: number | null; priceFirstMonth?: number | null };   // users: eigenaar + teamleden, null = onbeperkt
+export type Plan = { id: string; types: string[] | null; bg: BgLevel; codes: number | null; extra?: number; statsDays: number | null; price: number | null; priceQuarter: number | null; priceYear: number | null; users: number | null; trialDays: number | null; priceFirstMonth: number | null };   // users: eigenaar + teamleden, null = onbeperkt
 export const PLANS: Record<string, Plan> = {
-  free:     { id: 'free',     types: null,           bg: 'all',    codes: null, statsDays: null, price: null,  priceQuarter: null,  priceYear: null,  priceYearAfter: null,   users: 1,    trialDays: null },   // testfase
-  standard: { id: 'standard', types: null,           bg: 'basic',  codes: 5,    statsDays: 30,   price: 4.99,  priceQuarter: 13.49, priceYear: 49.9,  priceYearAfter: 59.88,  users: 1,    trialDays: 14 },
-  pro:      { id: 'pro',      types: null,           bg: 'photos', codes: 50,   statsDays: 365,  price: 12.99, priceQuarter: 34.99, priceYear: 129.9, priceYearAfter: 155.88, users: 3,    trialDays: 14 },
-  business: { id: 'business', types: null,           bg: 'all',    codes: null, statsDays: null, price: 24.99, priceQuarter: 67.49, priceYear: 249.9, priceYearAfter: 299.88, users: null, trialDays: 14 },
+  free:     { id: 'free',     types: null,           bg: 'all',    codes: null, statsDays: null, price: null,  priceQuarter: null,  priceYear: null,  users: 1,    trialDays: null, priceFirstMonth: null },   // testfase
+  standard: { id: 'standard', types: null,           bg: 'basic',  codes: 5,    statsDays: 30,   price: 4.99,  priceQuarter: 13.49, priceYear: 49.9,  users: 1,    trialDays: 14, priceFirstMonth: 1.99 },
+  pro:      { id: 'pro',      types: null,           bg: 'photos', codes: 50,   statsDays: 365,  price: 12.99, priceQuarter: 34.99, priceYear: 129.9, users: 3,    trialDays: 14, priceFirstMonth: 4.99 },
+  business: { id: 'business', types: null,           bg: 'all',    codes: null, statsDays: null, price: 24.99, priceQuarter: 67.49, priceYear: 249.9, users: null, trialDays: 14, priceFirstMonth: 9.99 },
 };
-// Nieuwe klant, per maand: na de 14 dagen gratis is de eerste betaalde maand 50% goedkoper (besluit Fabian 21 okt). Afgerond naar beneden: €2,49 / €6,49 / €12,49.
-export const FIRST_MONTH_OFF = 0.5;
-for (const p of Object.values(PLANS)) p.priceFirstMonth = p.price != null ? Math.floor(Math.round(p.price * 100) * (1 - FIRST_MONTH_OFF)) / 100 : null;
 export const PLAN_IDS = Object.keys(PLANS);
 type Settings = { getSetting(k: string): Promise<string | null | undefined> };
 /** Abonnement van een gebruiker */

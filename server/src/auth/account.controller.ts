@@ -22,7 +22,7 @@ import { PLANS, planFor, usage, bgAllowed, EXTRA_PRICE, EXTRA_MAX } from '../pla
 import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { planPausedIds, fitToPlan, activeCount } from '../plan-limit';
-import { stripeOn, readRecord, stripe, demoCheckoutOn, amountFor, firstYearDiscount } from '../billing/stripe';
+import { stripeOn, readRecord, stripe, demoCheckoutOn, amountFor } from '../billing/stripe';
 import { addPayment, listPayments, demoMethod, setDemoMethod } from '../billing/history';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
@@ -195,7 +195,7 @@ export class AccountController {
     await this.db.setSetting('plan:' + user.id, planId);
     await saveSub(this.db, user.id, renew({ ...(sub || emptySub(interval)), periodEnd: null, mustPay: false, graceUntil: null, deletedAt: null }, interval, Date.now() + trial));
     await fitToPlan(this.db, user.id, Array.isArray(b.keep) ? b.keep.map(String) : null);   // minder codes: de gekozen blijven aan, de rest gepauzeerd
-    const P = PLANS[planId], cents = amountFor(P, interval) - (interval === 'year' ? firstYearDiscount(P) : 0);
+    const P = PLANS[planId], cents = amountFor(P, interval);
     await setDemoMethod(this.db, user.id, b.method);
     await addPayment(this.db, user.id, { kind: 'plan', plan: planId, interval, amount: trial ? 0 : cents / 100, status: trial ? 'trial' : 'paid', method: await demoMethod(this.db, user.id) });
     await this.db.addActivity(user.id, first ? 'plan_chosen' : 'plan_changed', this.auth.meta(req));

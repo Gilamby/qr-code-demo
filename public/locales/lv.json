@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} QR kodi",
     "rcManage": "Mainiet vai atceliet jebkurā laikā sadaļā {where}.",
     "rcDemo": "Demo: nekas netika iekasēts.",
-    "freeDays": "{n} dienas bez maksas",
-    "thenLabel": "Pēc tam",
     "firstMonthPhrase": "{first} pirmajā mēnesī, pēc tam {price} mēnesī",
-    "firstYearPhrase": "{first} pirmajā gadā, pēc tam {price} gadā"
+    "promo": "Akcija: {n} dienas bez maksas",
+    "firstMonthLabel": "pirmais mēnesis",
+    "thenMonth": "Pēc tam {price} mēnesī",
+    "perMonthEq": "Tas ir {price} mēnesī"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Ik mēnesi",
     "quarterly": "Ceturksnī",
     "yearly": "Ik gadu",
-    "yearSave": "1. gads: 2 mēneši bez maksas",
+    "yearSave": "2 mēneši bez maksas",
     "quarterSave": "10% atlaide",
     "perYear": "gadā",
     "perQuarter": "ceturksnī",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Laipni lūdzam! Izvēlies abonementu, lai izveidotu savu pirmo QR kodu.",
     "choose": "Izvēlēties abonementu",
     "unpaidMsg": "Tavs konts ir gatavs. Izvēlies abonementu zemāk; pēc tam vari uzreiz veidot QR kodus.",
-    "admUnpaid": "Vēl nav apmaksāts",
-    "yearThen": "pirmajā gadā, pēc tam {price} gadā"
+    "admUnpaid": "Vēl nav apmaksāts"
   },
   "msg": {
     "whatsapp": "WhatsApp",

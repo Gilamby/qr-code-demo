@@ -58,6 +58,14 @@ var Plans = (function () {
       '<button type="button" class="btn primary pw-go" data-pw-keep-go' + (n !== r || busy ? ' disabled' : '') + '>' + esc(t('pw.keepGo', { plan: t('plan.n_' + chosen) })) + '</button>' +
       '<button type="button" class="link-btn" data-pw-back>' + esc(t('pw.back')) + '</button></div>';
   }
+  function priceBlock(x) {
+    var promo = mode === 'must' && x.trialDays, month = period === 'month', first = promo && month && x.priceFirstMonth != null;
+    var now = first ? x.priceFirstMonth : PlanPeriod.price(x, period), was = first ? x.price : PlanPeriod.was(x, period);
+    return (promo ? '<span class="pl-promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg>' + esc(t('pw.promo', { n: x.trialDays })) + '</span>' : '') +
+      '<span class="pl-price">' + (was ? '<s class="pl-was">' + euro(was) + '</s>' : '') + '<b>' + euro(now) + '</b><small>' + esc(first ? t('pw.firstMonthLabel') : PlanPeriod.per(period)) + '</small></span>' +
+      (first ? '<span class="pl-then">' + esc(t('pw.thenMonth', { price: euro(x.price) })) + '</span>'
+        : period === 'year' ? '<span class="pl-then">' + esc(t('pw.perMonthEq', { price: euro(Math.floor(x.priceYear / 12 * 100) / 100) })) + '</span>' : '');
+  }
   function feats(x) { return PlanGate.featuresHtml(x); }             // met slotjes: wat zit er niet in dit pakket
   function draw() {
     if (!box) { box = document.createElement('div'); box.className = 'paywall'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'pwTitle'); document.body.appendChild(box); }
@@ -77,10 +85,8 @@ var Plans = (function () {
         return '<button type="button" role="radio" aria-checked="' + on + '"' + (here ? ' disabled' : '') + ' class="pw-card' + (on ? ' on' : '') + (here ? ' is-cur' : '') + '" data-pw-plan="' + x.id + '">' +
           (here ? '<span class="pw-pop cur">' + esc(t('pw.current')) + '</span>' : x.id === 'pro' ? '<span class="pw-pop">' + esc(t('pw.popular')) + '</span>' : '') +
           '<span class="pl-name">' + t('plan.n_' + x.id) + '</span>' +
-          // Nieuwe klant: eerst "14 dagen gratis", de prijs daarna klein eronder. Wisselen: gewoon de prijs.
-          (mode === 'must' && x.trialDays ? '<span class="pl-price pl-free"><b>' + esc(t('pw.freeDays', { n: x.trialDays })) + '</b></span><span class="pl-then pl-then-trial">' + esc(t('pw.thenLabel') + ': ' + PlanPeriod.then(x, period, euro)) + '</span>'
-            : '<span class="pl-price"><b>' + euro(PlanPeriod.price(x, period)) + '</b><small>' + PlanPeriod.per(period) + '</small></span>' +
-              (period === 'year' && x.priceYearAfter ? '<span class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</span>' : '')) + feats(x) + '</button>';
+          // Prijs: actieprijs/korting groot, normale prijs doorgestreept. Nieuwe klant: label "14 dagen gratis" en per maand de actie voor de eerste maand.
+          priceBlock(x) + feats(x) + '</button>';
       }).join('') + '</div>' +
       '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
       (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', { plan: t('plan.n_' + chosen), limit: limitOf(chosen), used: info.usage.used })) + '</p>' : '') +
@@ -134,7 +140,7 @@ var Plans = (function () {
   var pausedN = 0;
   function drawDone() {
     var sub = result && result.sub, x = plans().filter(function (p) { return p.id === chosen; })[0] || {}, trial = mode === 'must', u = Session.user() || {};
-    var first = PlanPeriod.price(x, period), next = trial ? PlanPeriod.firstPay(x, period) : period === 'year' && x.priceYearAfter ? x.priceYearAfter : first;
+    var first = PlanPeriod.price(x, period), next = trial ? PlanPeriod.firstPay(x, period) : first;
     var date = sub && sub.periodEnd ? i18n.fmt.stamp(sub.periodEnd, 'long') : '';
     var row = function (k, v) { return '<div class="pw-rc-row"><span>' + esc(k) + '</span><b>' + esc(v) + '</b></div>'; };
     box.innerHTML = '<div class="pw-inner">' + top() +

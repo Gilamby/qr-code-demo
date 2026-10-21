@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} coduri QR",
     "rcManage": "Schimbați sau anulați oricând în {where}.",
     "rcDemo": "Demo: nu s-a încasat nimic.",
-    "freeDays": "{n} zile gratuit",
-    "thenLabel": "Apoi",
     "firstMonthPhrase": "{first} în prima lună, apoi {price} pe lună",
-    "firstYearPhrase": "{first} în primul an, apoi {price} pe an"
+    "promo": "Ofertă: {n} zile gratuit",
+    "firstMonthLabel": "prima lună",
+    "thenMonth": "Apoi {price} pe lună",
+    "perMonthEq": "Adică {price} pe lună"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Lunar",
     "quarterly": "Trimestrial",
     "yearly": "Anual",
-    "yearSave": "Anul 1: 2 luni gratuite",
+    "yearSave": "2 luni gratuit",
     "quarterSave": "10% reducere",
     "perYear": "pe an",
     "perQuarter": "pe trimestru",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Bun venit! Alege un abonament ca să creezi primul tău cod QR.",
     "choose": "Alege un abonament",
     "unpaidMsg": "Contul tău este gata. Alege un abonament mai jos; apoi poți crea imediat coduri QR.",
-    "admUnpaid": "Neplătit încă",
-    "yearThen": "în primul an, apoi {price} pe an"
+    "admUnpaid": "Neplătit încă"
   },
   "msg": {
     "whatsapp": "WhatsApp",

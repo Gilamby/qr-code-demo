@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} QR-codes",
     "rcManage": "Wijzigen of opzeggen kan altijd via {where}.",
     "rcDemo": "Demo: er is niets afgeschreven.",
-    "freeDays": "{n} dagen gratis",
-    "thenLabel": "Daarna",
     "firstMonthPhrase": "{first} de eerste maand, dan {price} per maand",
-    "firstYearPhrase": "{first} het eerste jaar, dan {price} per jaar"
+    "promo": "Actie: {n} dagen gratis",
+    "firstMonthLabel": "eerste maand",
+    "thenMonth": "Daarna {price} per maand",
+    "perMonthEq": "Dat is {price} per maand"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Per maand",
     "quarterly": "Per kwartaal",
     "yearly": "Per jaar",
-    "yearSave": "1e jaar 2 maanden gratis",
+    "yearSave": "2 maanden gratis",
     "quarterSave": "10% korting",
     "perYear": "per jaar",
     "perQuarter": "per kwartaal",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Welkom! Kies een abonnement om je eerste QR-code te maken.",
     "choose": "Abonnement kiezen",
     "unpaidMsg": "Je account is klaar. Kies hieronder een abonnement; daarna kun je meteen QR-codes maken.",
-    "admUnpaid": "Nog niet betaald",
-    "yearThen": "eerste jaar, daarna {price} per jaar"
+    "admUnpaid": "Nog niet betaald"
   },
   "msg": {
     "whatsapp": "WhatsApp",

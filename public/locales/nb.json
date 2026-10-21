@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} QR-koder",
     "rcManage": "Endre eller si opp når som helst under {where}.",
     "rcDemo": "Demo: ingenting er trukket.",
-    "freeDays": "{n} dager gratis",
-    "thenLabel": "Deretter",
     "firstMonthPhrase": "{first} den første måneden, så {price} per måned",
-    "firstYearPhrase": "{first} det første året, så {price} per år"
+    "promo": "Tilbud: {n} dager gratis",
+    "firstMonthLabel": "første måned",
+    "thenMonth": "Deretter {price} per måned",
+    "perMonthEq": "Det er {price} per måned"
   },
   "dz": {
     "lbl": {
@@ -2477,7 +2478,7 @@
     "monthly": "Månedlig",
     "quarterly": "Kvartalsvis",
     "yearly": "Årlig",
-    "yearSave": "1. år: 2 måneder gratis",
+    "yearSave": "2 måneder gratis",
     "quarterSave": "10% rabatt",
     "perYear": "per år",
     "perQuarter": "per kvartal",
@@ -2502,8 +2503,7 @@
     "barUnpaid": "Velkommen! Velg et abonnement for å lage din første QR-kode.",
     "choose": "Velg abonnement",
     "unpaidMsg": "Kontoen din er klar. Velg et abonnement nedenfor; så kan du lage QR-koder med en gang.",
-    "admUnpaid": "Ikke betalt ennå",
-    "yearThen": "første år, deretter {price} per år"
+    "admUnpaid": "Ikke betalt ennå"
   },
   "msg": {
     "whatsapp": "WhatsApp",

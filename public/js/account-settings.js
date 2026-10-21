@@ -8,8 +8,10 @@ window.PlanPeriod = {
   /** Zin onder "14 dagen gratis": wat je daarna betaalt */
   then: function (x, p, money) {
     if (p === 'month' && x.priceFirstMonth != null) return t('pw.firstMonthPhrase', { first: money(x.priceFirstMonth), price: money(x.price) });
-    if (p === 'year' && x.priceYearAfter) return t('pw.firstYearPhrase', { first: money(x.priceYear), price: money(x.priceYearAfter) });
     return money(this.price(x, p)) + ' ' + this.per(p);
+  },
+  /** Normale prijs om door te strepen: per kwartaal 3 × maand, per jaar 12 × maand (zo zie je de korting) */
+  was: function (x, p) { return p === 'year' ? Math.round(x.price * 1200) / 100 : p === 'quarter' ? Math.round(x.price * 300) / 100 : null;
   },
   per: function (p) { return t(p === 'year' ? 'sub.perYear' : p === 'quarter' ? 'sub.perQuarter' : 'plan.perMonth'); },
   label: function (p) { return t(p === 'year' ? 'sub.yearly' : p === 'quarter' ? 'sub.quarterly' : 'sub.monthly'); },
@@ -362,7 +364,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   var METHOD = { paypal: 'PayPal', ideal: 'iDEAL', bancontact: 'Bancontact' };
   function methodName(m) { return m === 'card' ? t('pw.mCard') : METHOD[m] || ''; }
   function nextAmount(p, sb, bl) {                                     // wat de volgende keer wordt afgeschreven (pakket + losse codes)
-    var iv = PlanPeriod.norm(sb && sb.interval), base = bl && bl.trial ? PlanPeriod.firstPay(p, iv) : iv === 'year' ? p.priceYearAfter : iv === 'quarter' ? p.priceQuarter : p.price;
+    var iv = PlanPeriod.norm(sb && sb.interval), base = bl && bl.trial ? PlanPeriod.firstPay(p, iv) : PlanPeriod.price(p, iv);
     var xp = planInfo.extraPrice ? planInfo.extraPrice[iv] || 0 : 0;
     return (Number(base) || 0) + (p.extra || 0) * xp;
   }

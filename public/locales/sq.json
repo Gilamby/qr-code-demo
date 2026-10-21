@@ -707,10 +707,11 @@
     "rcPausedVal": "{n} kode QR",
     "rcManage": "Ndryshoni ose anuloni kurdo te {where}.",
     "rcDemo": "Demo: nuk u tërhoq asgjë.",
-    "freeDays": "{n} ditë falas",
-    "thenLabel": "Pastaj",
     "firstMonthPhrase": "{first} muajin e parë, pastaj {price} në muaj",
-    "firstYearPhrase": "{first} vitin e parë, pastaj {price} në vit"
+    "promo": "Ofertë: {n} ditë falas",
+    "firstMonthLabel": "muaji i parë",
+    "thenMonth": "Pastaj {price} në muaj",
+    "perMonthEq": "Pra {price} në muaj"
   },
   "dz": {
     "lbl": {
@@ -2583,7 +2584,7 @@
     "monthly": "Mujore",
     "quarterly": "Tremujore",
     "yearly": "Vjetore",
-    "yearSave": "Viti 1: 2 muaj falas",
+    "yearSave": "2 muaj falas",
     "quarterSave": "10% zbritje",
     "perYear": "në vit",
     "perQuarter": "në tremujor",
@@ -2608,8 +2609,7 @@
     "barUnpaid": "Mirë se erdhe! Zgjidh një abonim për të krijuar kodin tënd të parë QR.",
     "choose": "Zgjidh abonimin",
     "unpaidMsg": "Llogaria jote është gati. Zgjidh një abonim më poshtë; pastaj mund të krijosh menjëherë kode QR.",
-    "admUnpaid": "Ende pa paguar",
-    "yearThen": "vitin e parë, pastaj {price} në vit"
+    "admUnpaid": "Ende pa paguar"
   },
   "msg": {
     "whatsapp": "WhatsApp",
