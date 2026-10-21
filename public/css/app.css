@@ -2336,14 +2336,15 @@ button.mc-scans:hover small { color: var(--accent); text-decoration: underline; 
 .ad-legend { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
 .ad-legend i, .ad-tip i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-left: 8px; }
 .ad-tip i { margin: 0 6px 0 0; }
-.k-s { background: var(--accent); } .k-u { background: #a78bfa; }
+.k-s { background: var(--accent); } .k-u { background: #22c39a; }
 .ad-chart-wrap { position: relative; }
 .ad-chart { display: block; width: 100%; height: auto; overflow: visible; }
 .ad-chart .grid line { stroke: rgba(255,255,255,.07); }
 .ad-chart text { fill: var(--muted); font-size: 11px; font-family: var(--font); }
 .ad-chart .area { fill: url(#adFill); }
-.ad-chart .l-scans { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
-.ad-chart .l-uniq { fill: none; stroke: #a78bfa; stroke-width: 2; stroke-dasharray: 5 4; stroke-linejoin: round; }
+/* scans: brede blauwe lijn; uniek: smalle paarse lijn erbovenop. Zijn ze gelijk, dan zie je paars met een blauwe rand */
+.ad-chart .l-scans { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+.ad-chart .l-uniq { fill: none; stroke: #22c39a; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .ad-chart .cursor { stroke: rgba(255,255,255,.3); stroke-dasharray: 3 3; }
 .ad-chart .dot { fill: var(--accent); stroke: #0b0e13; stroke-width: 2; }
 .ad-chart [hidden] { display: none; }
@@ -3915,6 +3916,8 @@ button.an-lrow:hover, button.an-lrow:focus-visible { background: rgba(255,255,25
 
 /* Grafiek: lijn tekent zich, piek */
 .an-line { stroke-width: 2.4 !important; }
+/* scans breed eronder, unieke scans smal erbovenop: zijn ze gelijk, dan zie je groen met een blauwe rand */
+.an-line.s1 { stroke-width: 5 !important; } .an-line.s2 { stroke-width: 2 !important; }
 .an-plot.an-anim svg { animation: anWipe 1.2s ease both; }
 .an-area { fill: color-mix(in srgb, var(--s1) 16%, transparent); }
 .an-pring { fill: color-mix(in srgb, var(--s1) 25%, transparent); animation: anPulse 2s 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }

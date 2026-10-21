@@ -75,7 +75,7 @@ var Admin = (function () {
     var x = function (i) { return P.l + i * (W - P.l - P.r) / (days.length - 1); }, y = function (v) { return P.t + (1 - v / top) * (H - P.t - P.b); };
     var path = function (k) { return days.map(function (d, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(d[k]).toFixed(1); }).join(''); };
     var grid = [0, 1, 2, 3, 4].map(function (g) { var v = top * g / 4; return '<line x1="' + P.l + '" x2="' + (W - P.r) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text x="' + (P.l - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + num(v) + '</text>'; }).join('');
-    var labels = days.map(function (d, i) { return (i % 7 === 0 && i <= days.length - 4) || i === days.length - 1 ? '<text x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="middle">' + new Date(d.day + 'T12:00:00').toLocaleDateString(i18n.lang(), { day: 'numeric', month: 'short' }) + '</text>' : ''; }).join('');
+    var labels = days.map(function (d, i) { return (i % 7 === 0 && i <= days.length - 4) || i === days.length - 1 ? '<text x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="' + (i === 0 ? 'start' : i === days.length - 1 ? 'end' : 'middle') + '">' + new Date(d.day + 'T12:00:00').toLocaleDateString(i18n.lang(), { day: 'numeric', month: 'short' }) + '</text>' : ''; }).join('');
     return '<svg class="ad-chart" viewBox="0 0 ' + W + ' ' + H + '" data-top="' + top + '" role="img" aria-label="' + esc(t('adm.chartTitle')) + '">' +
       '<defs><linearGradient id="adFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".35"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>' +
       '<g class="grid">' + grid + '</g><g class="lbl">' + labels + '</g>' +
