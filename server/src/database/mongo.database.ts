@@ -142,7 +142,7 @@ export class MongoDatabase extends DatabaseService {
     await this.emailChanges.deleteMany({ userId: id });
     await this.folders.deleteMany({ userId: id });
     await this.users.deleteOne({ _id: id });
-    await this.setSetting('bghide:' + id, null); await this.setSetting('plan:' + id, null); await this.setSetting('disabled:' + id, null); await this.setSetting('totp:' + id, null); await this.setSetting('terms:' + id, null); await this.setSetting('stripe:' + id, null); await this.setSetting('extra:' + id, null); await this.setSetting('planPaused:' + id, null); await this.setSetting('keep:' + id, null);
+    await this.setSetting('bghide:' + id, null); await this.setSetting('plan:' + id, null); await this.setSetting('disabled:' + id, null); await this.setSetting('totp:' + id, null); await this.setSetting('terms:' + id, null); await this.setSetting('stripe:' + id, null); await this.setSetting('extra:' + id, null); await this.setSetting('planPaused:' + id, null); await this.setSetting('keep:' + id, null); await this.setSetting('payments:' + id, null); await this.setSetting('paymeta:' + id, null);
     removeFiles(files);
   }
 

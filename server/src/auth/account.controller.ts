@@ -4,6 +4,7 @@
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
 import { cleanupTeam } from './team.controller';
+import { membersOf } from '../team';
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { DatabaseService } from '../database/database.service';
@@ -21,7 +22,8 @@ import { PLANS, planFor, usage, bgAllowed, EXTRA_PRICE, EXTRA_MAX } from '../pla
 import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub } from '../subscription';
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { planPausedIds, fitToPlan, activeCount } from '../plan-limit';
-import { stripeOn, readRecord, stripe, demoCheckoutOn } from '../billing/stripe';
+import { stripeOn, readRecord, stripe, demoCheckoutOn, amountFor, firstYearDiscount } from '../billing/stripe';
+import { addPayment, listPayments, demoMethod, setDemoMethod } from '../billing/history';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
 /** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
@@ -137,7 +139,29 @@ export class AccountController {
   async plan(@CurrentUser() user: User) {
     const plan = await planFor(this.db, user.id), all = await this.db.listQrCodes(user.id), codes = all.filter((q) => !q.paused).length;
     const planPaused = (await planPausedIds(this.db, user.id)).filter((id) => all.some((q) => q.id === id && q.paused));
-    return { plan, usage: { ...usage(plan, codes), total: all.length, planPaused }, extraPrice: EXTRA_PRICE, plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!(await readRecord(this.db, user.id)).customer, sub: publicSub(await subFor(this.db, user.id)) };
+    const rec = await readRecord(this.db, user.id), demo = !stripeOn(), hist = demo ? await listPayments(this.db, user.id) : [];
+    // Extra regels voor het overzicht: proefperiode, opgezegd, betaalmethode (demo), team-grootte
+    const billing = {
+      trial: demo ? ((pl) => !!pl && pl.status === 'trial' && Date.parse(pl.at) + ((PLANS[pl.plan] && PLANS[pl.plan].trialDays) || 0) * DAY > Date.now())(hist.find((x) => x.kind === 'plan')) : rec.status === 'trialing',
+      cancelAtEnd: !!rec.cancelAtEnd, method: demo ? await demoMethod(this.db, user.id) : null,
+      teamUsed: 1 + (await membersOf(this.db, user.id)).length,
+    };
+    return { plan, usage: { ...usage(plan, codes), total: all.length, planPaused }, extraPrice: EXTRA_PRICE, plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!rec.customer, sub: publicSub(await subFor(this.db, user.id)), billing };
+  }
+
+  /** Facturen: met Stripe de echte facturen (link naar factuur en PDF), anders de demo-betalingen */
+  @Get('account/invoices')
+  async invoices(@CurrentUser() user: User) {
+    if (stripeOn()) {
+      const rec = await readRecord(this.db, user.id); if (!rec.customer) return { demo: false, items: [] };
+      try {
+        const r = await stripe('GET', 'invoices', { customer: rec.customer, limit: 24 });
+        return { demo: false, items: (r.data || []).filter((i: any) => i.status !== 'draft').map((i: any) => ({
+          id: i.id, number: i.number || i.id, at: new Date((i.created || 0) * 1000).toISOString(), amount: (i.status === 'paid' ? i.amount_paid : i.amount_due) / 100,
+          status: i.status, desc: (i.lines && i.lines.data && i.lines.data[0] && i.lines.data[0].description) || null, url: i.hosted_invoice_url || null, pdf: i.invoice_pdf || null })) };
+      } catch (e: any) { console.error('Stripe facturen ophalen mislukt:', e.message); throw fail(502, 'stripe'); }
+    }
+    return { demo: true, items: (await listPayments(this.db, user.id)).map((x) => ({ id: x.id, number: x.id, at: x.at, amount: x.amount, status: x.status, kind: x.kind, plan: x.plan, interval: x.interval, n: x.n || 0, method: x.method })) };
   }
 
   /** Akkoord met de voorwaarden (18+, Terms, Privacy). Wie via Google/Microsoft een account kreeg, of een account van het team,
@@ -171,6 +195,9 @@ export class AccountController {
     await this.db.setSetting('plan:' + user.id, planId);
     await saveSub(this.db, user.id, renew({ ...(sub || emptySub(interval)), periodEnd: null, mustPay: false, graceUntil: null, deletedAt: null }, interval, Date.now() + trial));
     await fitToPlan(this.db, user.id, Array.isArray(b.keep) ? b.keep.map(String) : null);   // minder codes: de gekozen blijven aan, de rest gepauzeerd
+    const P = PLANS[planId], cents = amountFor(P, interval) - (interval === 'year' ? firstYearDiscount(P) : 0);
+    await setDemoMethod(this.db, user.id, b.method);
+    await addPayment(this.db, user.id, { kind: 'plan', plan: planId, interval, amount: trial ? 0 : cents / 100, status: trial ? 'trial' : 'paid', method: await demoMethod(this.db, user.id) });
     await this.db.addActivity(user.id, first ? 'plan_chosen' : 'plan_changed', this.auth.meta(req));
     return { ok: true, sub: publicSub(await subFor(this.db, user.id)) };
   }
@@ -186,6 +213,8 @@ export class AccountController {
     const now = Number(await this.db.getSetting('extra:' + user.id)) || 0;
     if (now + n > EXTRA_MAX) throw fail(400, 'too_many');
     await this.db.setSetting('extra:' + user.id, String(now + n));
+    const iv = toInterval(((await subFor(this.db, user.id)) || emptySub()).interval);
+    await addPayment(this.db, user.id, { kind: 'extra', plan: plan.id, interval: iv, n, amount: Math.round(EXTRA_PRICE[iv] * n * 100) / 100, status: 'paid', method: await demoMethod(this.db, user.id) });
     await fitToPlan(this.db, user.id);                                         // door het pakket gepauzeerde codes kunnen weer aan
     await this.db.addActivity(user.id, 'extra_bought', this.auth.meta(req));
     const p2 = await planFor(this.db, user.id);

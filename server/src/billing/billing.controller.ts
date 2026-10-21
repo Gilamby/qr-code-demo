@@ -38,6 +38,16 @@ export class BillingController {
   }
 
   /** Coupon voor het eerste jaar (2 maanden gratis), per pakket één keer aangemaakt en onthouden */
+  /** Nieuwe klant per maand: eerste betaalde maand (na de proef) 50% goedkoper. 'repeating' 1 maand vanaf de start,
+   *  zodat de korting zeker op de eerste echte factuur valt (niet op de factuur van € 0 bij de proef). */
+  private async firstMonthCoupon(planId: string) {
+    const P = PLANS[planId]; if (P.price == null || P.priceFirstMonth == null) return null;
+    const off = Math.round(P.price * 100) - Math.round(P.priceFirstMonth * 100); if (off <= 0) return null;
+    const key = 'stripe:coupon1m:' + planId + ':' + off, have = await this.db.getSetting(key);
+    if (have) return have;
+    const c = await stripe('POST', 'coupons', { amount_off: off, currency: 'eur', duration: 'repeating', duration_in_months: 1, name: 'Eerste maand 50% korting' });
+    await this.db.setSetting(key, c.id); return c.id;
+  }
   private async yearCoupon(planId: string) {
     const off = firstYearDiscount(PLANS[planId]); if (!off) return null;
     const key = 'stripe:coupon:' + planId + ':' + off, have = await this.db.getSetting(key);
@@ -95,7 +105,7 @@ export class BillingController {
       const { customer } = await this.customerFor(user), base = baseUrl(req);
       const meta = { uid: user.id, plan: planId, period: interval };
       await this.db.setSetting('keep:' + user.id, Array.isArray(b.keep) ? JSON.stringify(b.keep.map(String).slice(0, 500)) : null);   // welke codes aan blijven bij minder ruimte
-      const coupon = interval === 'year' ? await this.yearCoupon(planId) : null;
+      const coupon = interval === 'year' ? await this.yearCoupon(planId) : first && interval === 'month' ? await this.firstMonthCoupon(planId) : null;
       const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
       const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
       const session = await stripe('POST', 'checkout/sessions', {
@@ -181,6 +191,7 @@ export class BillingController {
       this.mailer.sendCancelled(user, periodEnd).catch((e) => console.error('Mail opzeggen mislukt:', e.message));
     }
     if (!s.cancel_at_period_end && rec.cancelMailed === s.id) rec.cancelMailed = null;   // toch weer doorgaan
+    rec.status = s.status; rec.cancelAtEnd = !!s.cancel_at_period_end;                  // voor 'Abonnement en facturen': proefperiode / opgezegd
     await writeRecord(this.db, uid, rec);
   }
 }

@@ -135,3 +135,19 @@ test('Stripe: afrekenen, webhook, opzeggen, mislukte betaling, wisselen', async 
   assert.equal((await c('DELETE', '/api/account', { password: pw })).status, 204);
   assert.ok(calls.some((x) => x.method === 'DELETE' && x.path === 'subscriptions/sub_2'));
 });
+
+test('Stripe: nieuwe klant per maand krijgt na de proef de eerste maand 50% korting (alleen de eerste keer)', async () => {
+  const c = client(), email = 'maand-klant@example.com', pw = 'Maand klant zin 8!';
+  await c('POST', '/api/auth/register', { accept: true, email, password: pw, name: 'Maand' });
+  await c('POST', '/api/auth/verify', { token: decodeURIComponent(mails[email].split('verify=')[1]) });
+  await c('POST', '/api/auth/login', { email, password: pw });
+  const plans = (await c('GET', '/api/account/plan')).json.plans;
+  assert.deepEqual(plans.map((p) => p.priceFirstMonth), [2.49, 6.49, 12.49]);
+  assert.equal((await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month' })).status, 200);
+  const cs = calls.filter((x) => x.path === 'checkout/sessions').pop().body, co = calls.filter((x) => x.path === 'coupons').pop().body;
+  assert.equal(cs.get('subscription_data[trial_period_days]'), '14');
+  assert.ok(cs.get('discounts[0][coupon]'), 'korting eerste maand');
+  assert.equal(co.get('amount_off'), '650'); assert.equal(co.get('duration'), 'repeating'); assert.equal(co.get('duration_in_months'), '1');
+  assert.equal((await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'quarter' })).status, 200);
+  assert.equal(calls.filter((x) => x.path === 'checkout/sessions').pop().body.get('discounts[0][coupon]'), null, 'per kwartaal: geen eerste-maand-korting');
+});

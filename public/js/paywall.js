@@ -77,8 +77,10 @@ var Plans = (function () {
         return '<button type="button" role="radio" aria-checked="' + on + '"' + (here ? ' disabled' : '') + ' class="pw-card' + (on ? ' on' : '') + (here ? ' is-cur' : '') + '" data-pw-plan="' + x.id + '">' +
           (here ? '<span class="pw-pop cur">' + esc(t('pw.current')) + '</span>' : x.id === 'pro' ? '<span class="pw-pop">' + esc(t('pw.popular')) + '</span>' : '') +
           '<span class="pl-name">' + t('plan.n_' + x.id) + '</span>' +
-          '<span class="pl-price"><b>' + euro(PlanPeriod.price(x, period)) + '</b><small>' + PlanPeriod.per(period) + '</small></span>' +
-          (period === 'year' && x.priceYearAfter ? '<span class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</span>' : '') + feats(x) + '</button>';
+          // Nieuwe klant: eerst "14 dagen gratis", de prijs daarna klein eronder. Wisselen: gewoon de prijs.
+          (mode === 'must' && x.trialDays ? '<span class="pl-price pl-free"><b>' + esc(t('pw.freeDays', { n: x.trialDays })) + '</b></span><span class="pl-then pl-then-trial">' + esc(t('pw.thenLabel') + ': ' + PlanPeriod.then(x, period, euro)) + '</span>'
+            : '<span class="pl-price"><b>' + euro(PlanPeriod.price(x, period)) + '</b><small>' + PlanPeriod.per(period) + '</small></span>' +
+              (period === 'year' && x.priceYearAfter ? '<span class="pl-then">' + t('sub.yearThen', { price: euro(x.priceYearAfter) }) + '</span>' : '')) + feats(x) + '</button>';
       }).join('') + '</div>' +
       '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
       (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', { plan: t('plan.n_' + chosen), limit: limitOf(chosen), used: info.usage.used })) + '</p>' : '') +
@@ -109,7 +111,7 @@ var Plans = (function () {
       '<div class="pw-co"><div class="pw-co-sum">' +
         '<span class="pw-co-small">' + esc(t(trial ? 'pw.coTrial' : 'pw.coSub', { plan: t('plan.n_' + x.id) })) + '</span>' +
         '<b class="pw-co-big">' + euro(trial ? 0 : price) + '</b>' +
-        '<span class="pw-co-small">' + esc(trial ? t('pw.after') + ': ' + euro(price) + ' ' + per : PlanPeriod.label(period)) + '</span>' +
+        '<span class="pw-co-small">' + esc(trial ? t('pw.after') + ': ' + PlanPeriod.then(x, period, euro) : PlanPeriod.label(period)) + '</span>' +
         '<div class="pw-co-line"><span>QR-Codex ' + esc(t('plan.n_' + x.id)) + '<small>' + esc(PlanPeriod.label(period)) + '</small></span><b>' + euro(price) + '</b></div>' +
         (needKeep() ? '<p class="pw-co-warn">' + esc(t('pw.payPaused', { n: activeDyn().length - keep.length })) + '</p>' : '') +
         '<div class="pw-co-line tot"><span>' + esc(t('pw.today')) + '</span><b>' + euro(trial ? 0 : price) + '</b></div>' +
@@ -132,7 +134,7 @@ var Plans = (function () {
   var pausedN = 0;
   function drawDone() {
     var sub = result && result.sub, x = plans().filter(function (p) { return p.id === chosen; })[0] || {}, trial = mode === 'must', u = Session.user() || {};
-    var first = PlanPeriod.price(x, period), next = !trial && period === 'year' && x.priceYearAfter ? x.priceYearAfter : first;
+    var first = PlanPeriod.price(x, period), next = trial ? PlanPeriod.firstPay(x, period) : period === 'year' && x.priceYearAfter ? x.priceYearAfter : first;
     var date = sub && sub.periodEnd ? i18n.fmt.stamp(sub.periodEnd, 'long') : '';
     var row = function (k, v) { return '<div class="pw-rc-row"><span>' + esc(k) + '</span><b>' + esc(v) + '</b></div>'; };
     box.innerHTML = '<div class="pw-inner">' + top() +
@@ -154,7 +156,7 @@ var Plans = (function () {
   }
   function pay() {
     if (busy) return; busy = true; pausedN = needKeep() ? activeDyn().length - keep.length : 0; drawPay();
-    api.account.checkoutDemo({ plan: chosen, period: period, keep: needKeep() ? keep : undefined }).then(function (r) { busy = false; result = r; step = 'done'; draw(); })
+    api.account.checkoutDemo({ plan: chosen, period: period, method: method, keep: needKeep() ? keep : undefined }).then(function (r) { busy = false; result = r; step = 'done'; draw(); })
       .catch(function () { busy = false; step = 'choose'; draw(); });
   }
   function goStripe() {

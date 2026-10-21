@@ -311,6 +311,7 @@ var api = (function () {
       twoFactorEnable:  function (d) { return request('POST', 'api/account/2fa/enable', d); },
       twoFactorDisable: function (d) { return request('POST', 'api/account/2fa/disable', d); },
       // Abonnement (demo: altijd de testfase)
+      invoices: function () { return request('GET', 'api/account/invoices'); },
       checkoutDemo: function (d) { return request('POST', 'api/account/checkout-demo', d); },
       terms: function () { return request('GET', 'api/account/terms'); },
       stripeCheckout: function (d) { return request('POST', 'api/billing/checkout', d); },
