@@ -76,9 +76,9 @@ test('Stripe: afrekenen, webhook, opzeggen, mislukte betaling, wisselen', async 
   assert.equal(r.status, 200); assert.match(r.json.url, /^https:\/\/checkout\.stripe\.com\//);
   const cs = calls.filter((x) => x.path === 'checkout/sessions').pop().body;
   assert.equal(cs.get('subscription_data[trial_period_days]'), '14');
-  assert.equal(cs.get('line_items[0][price_data][unit_amount]'), '12990', 'jaarprijs Pro = 10 × maand (elk jaar 2 maanden gratis)');
+  assert.equal(cs.get('line_items[0][price_data][unit_amount]'), '15588', 'gewone jaarprijs Pro');
   assert.equal(cs.get('line_items[0][price_data][recurring][interval]'), 'year');
-  assert.equal(cs.get('discounts[0][coupon]'), null, 'per jaar geen coupon nodig');
+  assert.ok(cs.get('discounts[0][coupon]'), 'nieuwe klant: eerste jaar 2 maanden gratis (coupon, één keer)');
   assert.equal(cs.get('payment_method_collection'), 'always', 'kaart vooraf');
 
   // 2. Webhook zonder geldige handtekening: geweigerd

@@ -221,7 +221,7 @@ export class AccountController {
     await this.db.setSetting('plan:' + user.id, planId);
     await saveSub(this.db, user.id, renew({ ...(sub || emptySub(interval)), periodEnd: null, mustPay: false, graceUntil: null, deletedAt: null }, interval, Date.now() + trial));
     await fitToPlan(this.db, user.id, Array.isArray(b.keep) ? b.keep.map(String) : null);   // minder codes: de gekozen blijven aan, de rest gepauzeerd
-    const P = PLANS[planId], cents = amountFor(P, interval);
+    const P = PLANS[planId], cents = first ? Math.round(Number(interval === 'month' ? P.priceFirstMonth : interval === 'year' ? P.priceYear : P.priceQuarter) * 100) : amountFor(P, interval);   // acties alleen de eerste keer
     await setDemoMethod(this.db, user.id, b.method);
     await addPayment(this.db, user.id, { kind: 'plan', plan: planId, interval, amount: trial ? 0 : cents / 100, status: trial ? 'trial' : 'paid', method: await demoMethod(this.db, user.id) });
     await this.db.addActivity(user.id, first ? 'plan_chosen' : 'plan_changed', this.auth.meta(req));

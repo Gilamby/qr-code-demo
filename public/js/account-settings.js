@@ -2,12 +2,14 @@
 window.PlanPeriod = {
   list: ['month', 'quarter', 'year'],
   norm: function (p) { return p === 'year' || p === 'quarter' ? p : 'month'; },
-  price: function (x, p) { return p === 'year' ? x.priceYear : p === 'quarter' ? x.priceQuarter : x.price; },
+  /** Gewone prijs (zonder actie). Acties (eerste maand goedkoper, eerste jaar 2 maanden gratis) gelden één keer: zie firstPay */
+  price: function (x, p) { return p === 'year' ? (x.priceYearAfter || x.priceYear) : p === 'quarter' ? x.priceQuarter : x.price; },
   /** Eerste betaling na de 14 dagen gratis (nieuwe klant): per maand de eerste maand 50% korting */
-  firstPay: function (x, p) { return p === 'month' && x.priceFirstMonth != null ? x.priceFirstMonth : this.price(x, p); },
+  firstPay: function (x, p) { return p === 'month' && x.priceFirstMonth != null ? x.priceFirstMonth : p === 'year' && x.priceYear != null ? x.priceYear : this.price(x, p); },
   /** Zin onder "14 dagen gratis": wat je daarna betaalt */
   then: function (x, p, money) {
     if (p === 'month' && x.priceFirstMonth != null) return t('pw.firstMonthPhrase', { first: money(x.priceFirstMonth), price: money(x.price) });
+    if (p === 'year' && x.priceYear != null && x.priceYearAfter) return t('pw.firstYearPhrase', { first: money(x.priceYear), price: money(x.priceYearAfter) });
     return money(this.price(x, p)) + ' ' + this.per(p);
   },
   /** Normale prijs om door te strepen: per kwartaal 3 × maand, per jaar 12 × maand (zo zie je de korting) */

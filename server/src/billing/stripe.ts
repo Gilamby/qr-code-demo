@@ -48,11 +48,13 @@ export async function stripe(method: 'GET' | 'POST' | 'DELETE', path: string, pa
   return j;
 }
 
-/** Bedrag in centen voor een pakket en periode. Per jaar: 10 × de maandprijs (elk jaar 2 maanden gratis). */
+/** Bedrag in centen voor een pakket en periode. Per jaar: de gewone jaarprijs; de korting van het eerste jaar (nieuwe klant) gaat via een coupon. */
 export function amountFor(plan: Plan, interval: Interval) {
-  const eur = interval === 'year' ? plan.priceYear : interval === 'quarter' ? plan.priceQuarter : plan.price;
+  const eur = interval === 'year' ? plan.priceYearAfter : interval === 'quarter' ? plan.priceQuarter : plan.price;
   return Math.round(Number(eur) * 100);
 }
+/** Korting eerste jaar (2 maanden gratis) in centen, of 0 */
+export function firstYearDiscount(plan: Plan) { return plan.priceYearAfter && plan.priceYear ? Math.round((plan.priceYearAfter - plan.priceYear) * 100) : 0; }
 export const recurringOf = (interval: Interval) => (interval === 'year' ? { interval: 'year', interval_count: 1 } : { interval: 'month', interval_count: interval === 'quarter' ? 3 : 1 });
 export const planName = (id: string) => 'QR-Codex ' + ({ standard: 'Standard', pro: 'Pro', business: 'Business' } as any)[id];
 export const isPlanId = (id: unknown): id is string => typeof id === 'string' && ['standard', 'pro', 'business'].includes(id) && !!PLANS[id];

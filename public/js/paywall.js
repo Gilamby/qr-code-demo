@@ -64,18 +64,16 @@ var Plans = (function () {
       '<button type="button" class="link-btn" data-pw-back>' + esc(t('pw.back')) + '</button></div>';
   }
   function priceBlock(x) {
-    var promo = mode === 'must' && x.trialDays, month = period === 'month', first = promo && month && x.priceFirstMonth != null;
-    var now = first ? x.priceFirstMonth : PlanPeriod.price(x, period), was = first ? x.price : PlanPeriod.was(x, period);
-    return (promo ? '<span class="pl-promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg>' + '<span class="pl-pl">' + esc(t('pw.promo', { n: x.trialDays })) + '</span><span class="pl-ps">' + esc(t('pw.promoShort', { n: x.trialDays })) + '</span></span>' : '') +
-      '<span class="pl-price' + (first ? ' pl-first' : '') + '">' + (was ? '<s class="pl-was">' + euro(was) + '</s>' : '') + '<b>' + euro(now) + '</b><small>' + esc(first ? t('pw.firstMonthLabel') : PlanPeriod.per(period)) + '</small></span>' +
+    // Acties gelden één keer (nieuwe klant): per maand de eerste maand goedkoper, per jaar het eerste jaar 2 maanden gratis
+    var promo = mode === 'must' && x.trialDays, first = promo && period === 'month' && x.priceFirstMonth != null, year1 = promo && period === 'year' && x.priceYear != null;
+    var now = first ? x.priceFirstMonth : year1 ? x.priceYear : PlanPeriod.price(x, period);
+    var was = first ? x.price : year1 ? x.priceYearAfter : period === 'quarter' ? PlanPeriod.was(x, period) : null;
+    return (promo ? '<span class="pl-promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg><span class="pl-pl">' + esc(t('pw.promo', { n: x.trialDays })) + '</span><span class="pl-ps">' + esc(t('pw.promoShort', { n: x.trialDays })) + '</span></span>' : '') +
+      '<span class="pl-price' + (first || year1 ? ' pl-first' : '') + '">' + (was ? '<s class="pl-was">' + euro(was) + '</s>' : '') + '<b>' + euro(now) + '</b><small>' + esc(first ? t('pw.firstMonthLabel') : year1 ? t('pw.firstYearLabel') : PlanPeriod.per(period)) + '</small></span>' +
       (first ? '<span class="pl-then">' + esc(t('pw.thenMonth', { price: euro(x.price) })) + '</span>'
-        : period === 'year' ? '<span class="pl-then"><b class="pl-save">' + esc(t('sub.yearSave')) + '</b> · ' + esc(t('pw.perMonthEq', { price: euro(Math.floor(x.priceYear / 12 * 100) / 100) })) + '</span>'
+        : year1 ? '<span class="pl-then"><b class="pl-save">' + esc(t('sub.yearSave')) + '</b> · ' + esc(t('pw.thenYear', { price: euro(x.priceYearAfter) })) + '</span>'
+        : period === 'year' ? '<span class="pl-then">' + esc(t('pw.perMonthEq', { price: euro(Math.floor(now / 12 * 100) / 100) })) + '</span>'
         : period === 'quarter' && was ? '<span class="pl-then"><b class="pl-save">' + esc(t('pw.youSave', { price: euro(Math.round((was - now) * 100) / 100) })) + '</b></span>' : '');
-  }
-  // Telefoon: de drie belangrijkste punten kort (de volledige lijst staat op de computer)
-  function shortFeats(x) {
-    var r = [x.codes == null ? t('pw.sCodesAll') : t('pw.sCodes', { n: x.codes }), x.statsDays ? t('pw.sStats', { n: x.statsDays }) : t('pw.sStatsAll'), x.users == null ? t('pw.sUsersAll') : x.users === 1 ? t('pw.sUsers1') : t('pw.sUsers', { n: x.users })];
-    return '<ul class="pl-short">' + r.map(function (v) { return '<li><span aria-hidden="true">✓</span>' + esc(v) + '</li>'; }).join('') + '</ul>';
   }
   function feats(x) { return PlanGate.featuresHtml(x) + shortFeats(x); }             // met slotjes: wat zit er niet in dit pakket
   function draw() {

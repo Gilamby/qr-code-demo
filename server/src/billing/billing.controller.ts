@@ -22,7 +22,7 @@ import type { User } from '../types';
 import { PLANS, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscription';
 import { fitToPlan } from '../plan-limit';
-import { stripe, stripeOn, readRecord, writeRecord, amountFor, recurringOf, planName, isPlanId, verifySignature } from './stripe';
+import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature } from './stripe';
 
 @Controller('api/billing')
 export class BillingController {
@@ -38,6 +38,14 @@ export class BillingController {
   }
 
   /** Coupon voor het eerste jaar (2 maanden gratis), per pakket één keer aangemaakt en onthouden */
+  private async yearCoupon(planId: string) {
+    const off = firstYearDiscount(PLANS[planId]); if (!off) return null;
+    const key = 'stripe:coupon:' + planId + ':' + off, have = await this.db.getSetting(key);
+    if (have) return have;
+    const c = await stripe('POST', 'coupons', { amount_off: off, currency: 'eur', duration: 'once', name: '2 maanden gratis (1e jaar)' });
+    await this.db.setSetting(key, c.id); return c.id;
+  }
+
   /** Nieuwe klant per maand: eerste betaalde maand (na de proef) voor de actieprijs (priceFirstMonth). 'repeating' 1 maand vanaf de start,
    *  zodat de korting zeker op de eerste echte factuur valt (niet op de factuur van € 0 bij de proef). */
   private async firstMonthCoupon(planId: string) {
@@ -97,7 +105,8 @@ export class BillingController {
       const { customer } = await this.customerFor(user), base = baseUrl(req);
       const meta = { uid: user.id, plan: planId, period: interval };
       await this.db.setSetting('keep:' + user.id, Array.isArray(b.keep) ? JSON.stringify(b.keep.map(String).slice(0, 500)) : null);   // welke codes aan blijven bij minder ruimte
-      const coupon = first && interval === 'month' ? await this.firstMonthCoupon(planId) : null;   // actie eerste maand (alleen nieuwe klant)
+      // Acties gelden één keer: alleen een nieuwe klant krijgt de eerste maand goedkoper (per maand) of het eerste jaar 2 maanden gratis (per jaar)
+      const coupon = !first ? null : interval === 'month' ? await this.firstMonthCoupon(planId) : interval === 'year' ? await this.yearCoupon(planId) : null;
       const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
       const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
       const session = await stripe('POST', 'checkout/sessions', {
