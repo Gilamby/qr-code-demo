@@ -52,14 +52,31 @@ export function expressError(err: any, req: Request, res: Response, _next: NextF
   res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Something went wrong' });
 }
 
+/* Chatbot (Optimasys webchat, zie public/index.html): alleen deze adressen mag hij gebruiken.
+   - webchat-api.optimasys.es: het script, de chat, de live-verbinding en het venster
+   - cdn.socket.io / cdn.jsdelivr.net: hulpbibliotheken (live-verbinding, telefoonnummer-veld)
+   - ipapi.co: land van de bezoeker (voor het telefoonnummer-veld) */
+const CHAT = 'https://webchat-api.optimasys.es';
+const CSP = [
+  "default-src 'self'",
+  "img-src 'self' data: blob: https:",                                  // logo/icoon van de chatbot
+  "media-src 'self' data: blob:",
+  "style-src 'self' 'unsafe-inline' " + CHAT + ' https://cdn.jsdelivr.net https://fonts.googleapis.com',
+  "script-src 'self' 'unsafe-inline' " + CHAT + ' https://cdn.socket.io https://cdn.jsdelivr.net',
+  "font-src 'self' " + CHAT + ' https://fonts.gstatic.com',
+  "connect-src 'self' " + CHAT + ' wss://webchat-api.optimasys.es https://ipapi.co https://cdn.jsdelivr.net',
+  'frame-src ' + CHAT,
+  "frame-ancestors 'self'", "base-uri 'self'", "form-action 'self'",
+].join('; ');
+
 /** Beveiligingsheaders voor elke pagina */
 export function securityHeaders(req: Request, res: Response, next: NextFunction) {
   res.set({
     'X-Content-Type-Options': 'nosniff',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'X-Frame-Options': 'SAMEORIGIN',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
-    'Content-Security-Policy': "default-src 'self'; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'",
+    'Permissions-Policy': 'camera=(), microphone=(self "' + CHAT + '"), geolocation=(), payment=()',   // microfoon: alleen voor spraak in de chatbot
+    'Content-Security-Policy': CSP,
   });
   if (req.secure) res.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   next();
