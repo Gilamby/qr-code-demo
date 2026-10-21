@@ -25,6 +25,9 @@ var DesignPanel = (function () {
 
   // Elk onderdeel is een eigen glazen kaart die je in- en uitklapt. Stijlen en Logo staan open (belangrijkst).
   var openCards = { frame: true, style: true, logo: true, colors: false, corners: false };   // frame + tekst bovenaan: de enige plek voor je eigen tekst
+  // Telefoon: rustig, één onderdeel tegelijk open (begint bij Stijlen) — wens Fabian 21 okt
+  var phoneMq = matchMedia('(max-width: 760px)');
+  if (phoneMq.matches) openCards = { frame: false, style: true, logo: false, colors: false, corners: false };
   function card(id, title, body, domId) {
     var on = !!openCards[id];
     return '<section class="dz-card' + (on ? ' open' : '') + '" data-card="' + id + '"' + (domId ? ' id="' + domId + '"' : '') + '>' +
@@ -167,7 +170,12 @@ var DesignPanel = (function () {
       var s = store.get(), opt = e.target.closest('[data-d]'), th = e.target.closest('.dz-theme');
       var co = e.target.closest('[data-color-open]'), same = e.target.closest('[data-same]');
       var ct = e.target.closest('[data-card-toggle]');
-      if (ct) { var cid = ct.getAttribute('data-card-toggle'); setCard(el, cid, !openCards[cid]); return; }
+      if (ct) {
+        var cid = ct.getAttribute('data-card-toggle'), next = !openCards[cid];
+        if (next && phoneMq.matches) Object.keys(openCards).forEach(function (k) { if (k !== cid && openCards[k]) setCard(el, k, false); });
+        setCard(el, cid, next); if (next && phoneMq.matches) { var cc = el.querySelector('[data-card="' + cid + '"]'); if (cc) cc.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+        return;
+      }
       if (opt) { actions.previewDesign(null); actions.setDesign(opt.getAttribute('data-d'), opt.getAttribute('data-v')); if (opt.getAttribute('data-d') === 'frame' && !s.design.frameText) actions.setDesign('frameText', t('dz.text.scan')); }
       if (th) { var theme = themeById(th.getAttribute('data-theme')); actions.previewDesign(null); actions.applyDesign(Object.assign(themeDesign(theme, s), { logo: s.design.logo || '', themeId: theme.id })); }
       if (co) { var k = co.getAttribute('data-color-open'); el.querySelectorAll('.dz-color').forEach(function (r) { r.classList.remove('open'); r.querySelector('.ap-pick').innerHTML = ''; }); colorOpen = colorOpen === k ? null : k;
