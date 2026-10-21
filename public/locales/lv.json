@@ -672,7 +672,7 @@
     "boughtLead": "Tagad vari izveidot nākamo QR kodu.",
     "goOn": "Turpināt",
     "keepTitle": "Izvēlieties, kuri {n} QR kodi turpina darboties",
-    "keepLead": "{plan} atļauj {limit} QR kodus. Jums tagad ir {used} aktīvi.",
+    "keepLead": "{plan} atļauj {limit} QR kodus{plus}. Jums tagad ir {used} aktīvi.",
     "keepSafe": "Nekas netiek dzēsts. Pārējie kodi tiek apturēti. Ja jaunināsiet plānu vai nopirksiet papildu QR kodu, tie atkal darbosies.",
     "keepCount": "Izvēlēti {n} no {max}",
     "keepOff": "{n} tiks apturēti",
@@ -680,7 +680,7 @@
     "keepOn": "Paliek ieslēgts",
     "keepPaused": "Apturēts",
     "keepGo": "Turpināt uz {plan}",
-    "lessWarn": "{plan} ietver {limit} QR kodus. Jums ir {used}. Tūlīt izvēlēsieties, kuri paliek ieslēgti. Pārējie tiek apturēti, nevis dzēsti.",
+    "lessWarn": "{plan} ietver {limit} QR kodus{plus}. Jums ir {used}. Tūlīt izvēlēsieties, kuri paliek ieslēgti. Pārējie tiek apturēti, nevis dzēsti.",
     "payPaused": "{n} QR kodi tiks apturēti. Tie tiek saglabāti.",
     "stripeDemo": "Demo: tā jūs maksāsiet caur Stripe. Nekas netiek iekasēts.",
     "coTrial": "Izmēģiniet {plan} 14 dienas bez maksas",
@@ -712,7 +712,8 @@
     "firstMonthLabel": "pirmais mēnesis",
     "thenMonth": "Pēc tam {price} mēnesī",
     "perMonthEq": "Tas ir {price} mēnesī",
-    "youSave": "Jūs ietaupāt {price}"
+    "youSave": "Jūs ietaupāt {price}",
+    "plusExtra": " + {n} papildus nopirktie"
   },
   "dz": {
     "lbl": {

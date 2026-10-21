@@ -33,6 +33,11 @@ var Plans = (function () {
   function isStat(r) { return window.CodeUtil ? CodeUtil.isStatic(r) : false; }
   function activeDyn() { return (codes || []).filter(function (r) { return !r.paused && !isStat(r); }); }
   function room() { var L = limitOf(chosen); return L == null ? null : Math.max(0, L - (codes || []).filter(function (r) { return !r.paused && isStat(r); }).length); }
+  // Tekst: "Standaard heeft 5 QR-codes + 1 extra die je erbij kocht. Je hebt er 7." (zelfde 5 als op de kaart)
+  function limitArgs() {
+    var x = plans().filter(function (p) { return p.id === chosen; })[0] || {}, ex = (info.plan && info.plan.extra) || 0;
+    return { plan: t('plan.n_' + chosen), limit: x.codes, plus: ex ? t('pw.plusExtra', { n: ex }) : '', used: info.usage.used };
+  }
   function needKeep() { var L = limitOf(chosen); return mode === 'change' && L != null && info.usage && info.usage.used > L; }
   function startKeep() {
     api.listQrCodes().then(function (list) {
@@ -45,7 +50,7 @@ var Plans = (function () {
     var L = limitOf(chosen), r = room(), list = activeDyn().slice().sort(function (a, b) { return (b.scans || 0) - (a.scans || 0); }), n = keep.length, off = list.length - n;
     box.innerHTML = '<div class="pw-inner pw-keep">' + top() +
       '<h1 id="pwTitle">' + esc(t('pw.keepTitle', { n: r })) + '</h1>' +
-      '<p class="pw-lead">' + esc(t('pw.keepLead', { plan: t('plan.n_' + chosen), limit: L, used: info.usage.used })) + '</p>' +
+      '<p class="pw-lead">' + esc(t('pw.keepLead', limitArgs())) + '</p>' +
       '<p class="pw-keep-safe" role="note">' + esc(t('pw.keepSafe')) + '</p>' +
       '<div class="pw-keep-bar"><b>' + esc(t('pw.keepCount', { n: n, max: r })) + '</b><span>' + esc(t('pw.keepOff', { n: off })) + '</span></div>' +
       '<ul class="pw-keep-list">' + list.map(function (q) {
@@ -90,7 +95,7 @@ var Plans = (function () {
           priceBlock(x) + feats(x) + '</button>';
       }).join('') + '</div>' +
       '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
-      (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', { plan: t('plan.n_' + chosen), limit: limitOf(chosen), used: info.usage.used })) + '</p>' : '') +
+      (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', limitArgs())) + '</p>' : '') +
       (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : '') +
       '<p class="pw-note">' + esc(t('pw.reassure')) + '</p></div>';
   }

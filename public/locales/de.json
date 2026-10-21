@@ -672,7 +672,7 @@
     "boughtLead": "Du kannst jetzt deinen nächsten QR-Code erstellen.",
     "goOn": "Weiter",
     "keepTitle": "Wählen Sie, welche {n} QR-Codes weiter funktionieren",
-    "keepLead": "{plan} bietet Platz für {limit} QR-Codes. Sie haben jetzt {used} aktiv.",
+    "keepLead": "{plan} bietet Platz für {limit} QR-Codes{plus}. Sie haben jetzt {used} aktiv.",
     "keepSafe": "Nichts wird gelöscht. Die anderen Codes werden pausiert. Upgraden Sie später oder kaufen Sie einen QR-Code dazu, dann funktionieren sie wieder.",
     "keepCount": "{n} von {max} gewählt",
     "keepOff": "{n} werden pausiert",
@@ -680,7 +680,7 @@
     "keepOn": "Bleibt an",
     "keepPaused": "Pausiert",
     "keepGo": "Weiter zu {plan}",
-    "lessWarn": "{plan} hat {limit} QR-Codes. Sie haben {used}. Gleich wählen Sie, welche an bleiben. Der Rest wird pausiert, nicht gelöscht.",
+    "lessWarn": "{plan} hat {limit} QR-Codes{plus}. Sie haben {used}. Gleich wählen Sie, welche an bleiben. Der Rest wird pausiert, nicht gelöscht.",
     "payPaused": "{n} QR-Codes werden pausiert. Sie bleiben gespeichert.",
     "stripeDemo": "Demo: So bezahlen Sie künftig über Stripe. Es wird nichts abgebucht.",
     "coTrial": "{plan} 14 Tage kostenlos testen",
@@ -712,7 +712,8 @@
     "firstMonthLabel": "erster Monat",
     "thenMonth": "Danach {price} pro Monat",
     "perMonthEq": "Das sind {price} pro Monat",
-    "youSave": "Sie sparen {price}"
+    "youSave": "Sie sparen {price}",
+    "plusExtra": " + {n} zusätzlich gekaufte"
   },
   "dz": {
     "lbl": {

@@ -672,7 +672,7 @@
     "boughtLead": "Ja pots crear el següent codi QR.",
     "goOn": "Continua",
     "keepTitle": "Tria quins {n} codis QR continuen funcionant",
-    "keepLead": "{plan} permet {limit} codis QR. Ara en tens {used} d'actius.",
+    "keepLead": "{plan} permet {limit} codis QR{plus}. Ara en tens {used} d'actius.",
     "keepSafe": "No s'esborra res. Els altres codis es posen en pausa. Si millores el pla o compres un codi QR extra, tornen a funcionar.",
     "keepCount": "{n} de {max} triats",
     "keepOff": "{n} es posaran en pausa",
@@ -680,7 +680,7 @@
     "keepOn": "Continua actiu",
     "keepPaused": "En pausa",
     "keepGo": "Continua a {plan}",
-    "lessWarn": "{plan} inclou {limit} codis QR. En tens {used}. Ara tries quins continuen actius. La resta es posa en pausa, no s'esborra.",
+    "lessWarn": "{plan} inclou {limit} codis QR{plus}. En tens {used}. Ara tries quins continuen actius. La resta es posa en pausa, no s'esborra.",
     "payPaused": "{n} codis QR es posaran en pausa. Es conserven.",
     "stripeDemo": "Demo: així pagaràs amb Stripe. No es cobra res.",
     "coTrial": "Prova {plan} gratis 14 dies",
@@ -712,7 +712,8 @@
     "firstMonthLabel": "primer mes",
     "thenMonth": "Després {price} al mes",
     "perMonthEq": "Són {price} al mes",
-    "youSave": "Estalvies {price}"
+    "youSave": "Estalvies {price}",
+    "plusExtra": " + {n} extra que vas comprar"
   },
   "dz": {
     "lbl": {

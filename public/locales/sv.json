@@ -672,7 +672,7 @@
     "boughtLead": "Du kan nu skapa din nästa QR-kod.",
     "goOn": "Fortsätt",
     "keepTitle": "Välj vilka {n} QR-koder som fortsätter fungera",
-    "keepLead": "{plan} har plats för {limit} QR-koder. Du har {used} aktiva nu.",
+    "keepLead": "{plan} har plats för {limit} QR-koder{plus}. Du har {used} aktiva nu.",
     "keepSafe": "Inget raderas. De andra koderna pausas. Uppgraderar du senare eller köper en extra QR-kod fungerar de igen.",
     "keepCount": "{n} av {max} valda",
     "keepOff": "{n} pausas",
@@ -680,7 +680,7 @@
     "keepOn": "Förblir aktiv",
     "keepPaused": "Pausad",
     "keepGo": "Fortsätt till {plan}",
-    "lessWarn": "{plan} har {limit} QR-koder. Du har {used}. Du väljer nu vilka som förblir aktiva. Resten pausas, raderas inte.",
+    "lessWarn": "{plan} har {limit} QR-koder{plus}. Du har {used}. Du väljer nu vilka som förblir aktiva. Resten pausas, raderas inte.",
     "payPaused": "{n} QR-koder pausas. De sparas.",
     "stripeDemo": "Demo: så betalar du via Stripe. Inget dras.",
     "coTrial": "Prova {plan} gratis i 14 dagar",
@@ -712,7 +712,8 @@
     "firstMonthLabel": "första månaden",
     "thenMonth": "Sedan {price} per månad",
     "perMonthEq": "Det blir {price} per månad",
-    "youSave": "Du sparar {price}"
+    "youSave": "Du sparar {price}",
+    "plusExtra": " + {n} extra som du köpt"
   },
   "dz": {
     "lbl": {

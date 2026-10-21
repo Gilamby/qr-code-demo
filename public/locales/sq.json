@@ -672,7 +672,7 @@
     "boughtLead": "Tani mund të krijosh kodin tënd të radhës QR.",
     "goOn": "Vazhdo",
     "keepTitle": "Zgjidhni cilat {n} kode QR vazhdojnë të funksionojnë",
-    "keepLead": "{plan} lejon {limit} kode QR. Tani keni {used} aktive.",
+    "keepLead": "{plan} lejon {limit} kode QR{plus}. Tani keni {used} aktive.",
     "keepSafe": "Asgjë nuk fshihet. Kodet e tjera vihen në pauzë. Nëse kaloni në plan më të lartë ose blini një kod QR shtesë, funksionojnë përsëri.",
     "keepCount": "{n} nga {max} të zgjedhura",
     "keepOff": "{n} do të vihen në pauzë",
@@ -680,7 +680,7 @@
     "keepOn": "Mbetet aktiv",
     "keepPaused": "Në pauzë",
     "keepGo": "Vazhdo te {plan}",
-    "lessWarn": "{plan} përfshin {limit} kode QR. Keni {used}. Tani zgjidhni cilat mbeten aktive. Të tjerat vihen në pauzë, nuk fshihen.",
+    "lessWarn": "{plan} përfshin {limit} kode QR{plus}. Keni {used}. Tani zgjidhni cilat mbeten aktive. Të tjerat vihen në pauzë, nuk fshihen.",
     "payPaused": "{n} kode QR do të vihen në pauzë. Ruhen.",
     "stripeDemo": "Demo: kështu do të paguani përmes Stripe. Nuk tërhiqet asgjë.",
     "coTrial": "Provoni {plan} falas për 14 ditë",
@@ -712,7 +712,8 @@
     "firstMonthLabel": "muaji i parë",
     "thenMonth": "Pastaj {price} në muaj",
     "perMonthEq": "Pra {price} në muaj",
-    "youSave": "Kurseni {price}"
+    "youSave": "Kurseni {price}",
+    "plusExtra": " + {n} shtesë që keni blerë"
   },
   "dz": {
     "lbl": {

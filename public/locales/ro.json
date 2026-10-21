@@ -672,7 +672,7 @@
     "boughtLead": "Acum poți crea următorul cod QR.",
     "goOn": "Continuă",
     "keepTitle": "Alegeți care {n} coduri QR continuă să funcționeze",
-    "keepLead": "{plan} permite {limit} coduri QR. Acum aveți {used} active.",
+    "keepLead": "{plan} permite {limit} coduri QR{plus}. Acum aveți {used} active.",
     "keepSafe": "Nu se șterge nimic. Celelalte coduri sunt puse pe pauză. Dacă faceți upgrade sau cumpărați un cod QR în plus, funcționează din nou.",
     "keepCount": "{n} din {max} alese",
     "keepOff": "{n} vor fi puse pe pauză",
@@ -680,7 +680,7 @@
     "keepOn": "Rămâne activ",
     "keepPaused": "Pe pauză",
     "keepGo": "Continuă la {plan}",
-    "lessWarn": "{plan} include {limit} coduri QR. Aveți {used}. Imediat alegeți care rămân active. Restul sunt puse pe pauză, nu șterse.",
+    "lessWarn": "{plan} include {limit} coduri QR{plus}. Aveți {used}. Imediat alegeți care rămân active. Restul sunt puse pe pauză, nu șterse.",
     "payPaused": "{n} coduri QR vor fi puse pe pauză. Sunt păstrate.",
     "stripeDemo": "Demo: așa veți plăti prin Stripe. Nu se încasează nimic.",
     "coTrial": "Încercați {plan} gratuit 14 zile",
@@ -712,7 +712,8 @@
     "firstMonthLabel": "prima lună",
     "thenMonth": "Apoi {price} pe lună",
     "perMonthEq": "Adică {price} pe lună",
-    "youSave": "Economisiți {price}"
+    "youSave": "Economisiți {price}",
+    "plusExtra": " + {n} în plus cumpărate"
   },
   "dz": {
     "lbl": {
