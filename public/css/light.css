@@ -490,6 +490,18 @@
 :root[data-theme="light"] .hm-mtabs,
 :root[data-theme="light"] .an-mtabs { background: rgba(13,19,32,0.038); }
 :root[data-theme="light"] .an-xmenu button:hover { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .bk-x { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .bk-types button { background: rgba(13,19,32,0.03); }
+:root[data-theme="light"] .bk-warn { background: rgba(13,19,32,0.045); }
+:root[data-theme="light"] .bk-e { color: #b91c1c; }
+:root[data-theme="light"] .bk-y { color: #15803d; }
+:root[data-theme="light"] .bk-opts select { background: rgba(255,255,255,0.8); }
+:root[data-theme="light"] .api-keybox code { background: rgba(255,255,255,0.9); }
+:root[data-theme="light"] .api-m { background: rgba(13,19,32,0.06); }
+:root[data-theme="light"] .api-m.m-get { color: #0369a1; }
+:root[data-theme="light"] .api-m.m-post { color: #15803d; }
+:root[data-theme="light"] .api-m.m-delete { color: #b91c1c; }
+:root[data-theme="light"] .api-pre { background: rgba(255,255,255,0.95); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

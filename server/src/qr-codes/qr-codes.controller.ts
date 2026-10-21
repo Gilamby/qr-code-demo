@@ -37,6 +37,32 @@ export class QrCodesController {
   @HttpCode(201)
   async create(@Req() req: Request, @CurrentUser() user: User, @Body() body: any = {}) {
     await this.roomLeft(user);
+    return this.createOne(req, user, body);
+  }
+
+  /** Veel QR-codes tegelijk (uit een bestand, Pro en Business; ook via de API). Max 500 per keer.
+   *  Eerst alles controleren; past het niet in het pakket, dan wordt er niets gemaakt. Fouten per regel komen terug. */
+  @Post('bulk')
+  @HttpCode(200)
+  async bulk(@Req() req: Request, @CurrentUser() user: User, @Body() body: any = {}) {
+    const plan = await planFor(this.db, user.id);
+    if (!plan.bulk) throw fail(403, 'plan_bulk', { plan: plan.id });
+    const items = Array.isArray(body.items) ? body.items : [];
+    if (!items.length) throw fail(400, 'no_items');
+    if (items.length > 500) throw fail(400, 'too_many', { max: 500 });
+    if (plan.codes != null) { const room = plan.codes - await activeCount(this.db, user.id); if (items.length > room) throw fail(403, 'plan_limit', { limit: plan.codes, plan: plan.id, room: Math.max(0, room) }); }
+    const errors: any[] = [];
+    items.forEach((it: any, i: number) => {
+      const v = validateQrCode(it || {}); if (v.errors.length) { errors.push({ row: i, details: v.errors }); return; }
+      const miss = missingRequired(v.value.typeId, v.value.content); if (miss.length) errors.push({ row: i, details: miss });
+    });
+    if (errors.length) throw fail(400, 'Invalid rows', { rows: errors });
+    const created: any[] = [];
+    for (const it of items) created.push(await this.createOne(req, user, { ...it, id: undefined, folderId: it.folderId || body.folderId }));
+    return { created };
+  }
+
+  private async createOne(req: Request, user: User, body: any) {
     const { errors, value } = validateQrCode(body);
     if (errors.length) throw fail(400, 'Invalid QR code', { details: errors });
     await this.typeOk(user, value.typeId);

@@ -679,6 +679,7 @@ var MyCodes = (function () {
 
   view.addEventListener('click', function (e) {
     if (e.target.closest('[data-mc-new]')) return startNew();
+    if (e.target.closest('[data-bulk-new]')) return window.Bulk && Bulk.open();
     var szb = e.target.closest('.mc-card [data-size]'); if (szb) { e.stopPropagation(); return setSize(+szb.getAttribute('data-size')); }
     var b = e.target.closest('[data-act]');
     if (!b) { if (!e.target.closest('.mc-menu')) closeMenus(); return; }
@@ -730,13 +731,14 @@ var MyCodes = (function () {
 
   function label() {
     view.querySelector('.mc-head [data-mc-new]').innerHTML = ico('plus') + t('myCodes.new');
+    var bk = view.querySelector('.mc-head [data-bulk-new]'); if (bk) { var pi = window.PlanGate && PlanGate.info(), su = window.Session && Session.user(), locked = pi && pi.plan && !pi.plan.bulk && !(su && su.admin); bk.innerHTML = (locked ? PlanGate.lock : ico('copy')) + '<span>' + t('bulk.button') + '</span>'; bk.classList.toggle('is-locked', !!locked); }
     var ib = view.querySelector('.mc-head [data-import]'); if (ib) { ib.innerHTML = ico('qr') + '<span>' + t('imp.button') + '</span>'; ib.hidden = !isTeam(); }
   }
   label();
   document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes') { renaming = null; picked = {}; load(); } else if (e.detail !== 'create') newIn = null; });
   i18n.onChange(function () { label(); if (!view.hidden) { drawTools(); draw(); } });
   /** Nieuwe code gemaakt vanuit een map: die map (één keer) */
-  document.addEventListener('plan-info', function () { if (loaded) draw(); });
+  document.addEventListener('plan-info', function () { label(); if (loaded) draw(); });
   document.addEventListener('plan-changed', function () { if (loaded) load(); });   // QR-code erbij gekocht: een gepauzeerde code kan weer aan
   function folderForNew() { var f = newIn; newIn = null; return f; }
   /** Vanaf het Overzicht: meteen een map (of 'fav') openen */

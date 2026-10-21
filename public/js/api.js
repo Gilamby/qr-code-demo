@@ -19,7 +19,7 @@ var api = (function () {
         if (res.status === 204) return null;
         return res.json().catch(function () { return {}; }).then(function (data) {
           if (!res.ok) {
-            var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details; if (data.error === 'subscription_lapsed') setTimeout(function () { document.dispatchEvent(new CustomEvent('sub-lapsed')); }, 0); if (data.error === 'viewer') setTimeout(function () { document.dispatchEvent(new CustomEvent('team-viewer')); }, 0); if (data.error === 'maintenance') { info.maintenance = { on: true, message: data.message || '' }; setTimeout(function () { document.dispatchEvent(new CustomEvent('maintenance-change')); }, 0); }
+            var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details; err.data = data; if (data.error === 'subscription_lapsed') setTimeout(function () { document.dispatchEvent(new CustomEvent('sub-lapsed')); }, 0); if (data.error === 'viewer') setTimeout(function () { document.dispatchEvent(new CustomEvent('team-viewer')); }, 0); if (data.error === 'maintenance') { info.maintenance = { on: true, message: data.message || '' }; setTimeout(function () { document.dispatchEvent(new CustomEvent('maintenance-change')); }, 0); }
             if (res.status === 401 && url.indexOf('api/auth/') !== 0) document.dispatchEvent(new Event('auth:required'));   // sessie verlopen: opnieuw inloggen
             throw err;
           }
@@ -259,6 +259,7 @@ var api = (function () {
     updateQrCode: either(function (id, data) { return request('PUT', 'api/qr-codes/' + encodeURIComponent(id), data); }, local.update),
     patchQrCode:  either(function (id, patch) { return request('PATCH', 'api/qr-codes/' + encodeURIComponent(id), patch); }, local.patch),
     deleteQrCode: either(function (id) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id)); }, local.remove),
+    bulkQrCodes:  function (d) { return request('POST', 'api/qr-codes/bulk', d); },   // veel tegelijk (Pro, Business)
     duplicateQrCode: either(function (id, d) { return request('POST', 'api/qr-codes/' + encodeURIComponent(id) + '/duplicate', d || {}); }, local.duplicate),
     // Mappen in Mijn QR-codes
     folders: {
@@ -311,6 +312,9 @@ var api = (function () {
       twoFactorEnable:  function (d) { return request('POST', 'api/account/2fa/enable', d); },
       twoFactorDisable: function (d) { return request('POST', 'api/account/2fa/disable', d); },
       // Abonnement (demo: altijd de testfase)
+      apiKeys: function () { return request('GET', 'api/account/api-keys'); },
+      apiKeyNew: function (d) { return request('POST', 'api/account/api-keys', d); },
+      apiKeyDel: function (id) { return request('DELETE', 'api/account/api-keys/' + encodeURIComponent(id)); },
       invoices: function () { return request('GET', 'api/account/invoices'); },
       checkoutDemo: function (d) { return request('POST', 'api/account/checkout-demo', d); },
       terms: function () { return request('GET', 'api/account/terms'); },

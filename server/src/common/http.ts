@@ -68,7 +68,7 @@ export function securityHeaders(req: Request, res: Response, next: NextFunction)
 const hostOf = (u: string) => { try { return u ? new URL(u).host : ''; } catch (e) { return ''; } };
 /** Wijzigingen (POST, PUT, …) alleen vanaf onze eigen pagina's, niet via een andere website (CSRF) */
 export function sameOrigin(req: Request, res: Response, next: NextFunction) {
-  if (['GET', 'HEAD', 'OPTIONS'].indexOf(req.method) >= 0) return next();
+  if (['GET', 'HEAD', 'OPTIONS'].indexOf(req.method) >= 0 || req.apiUser) return next();   // API-sleutel: geen browser, dus geen cross-site risico
   const site = req.get('sec-fetch-site'), origin = req.get('origin');
   if (site === 'same-origin') return next();                          // de browser zelf bevestigt: van onze eigen pagina
   if (site && site !== 'none') return res.status(403).json({ error: 'Cross-site request blocked' });

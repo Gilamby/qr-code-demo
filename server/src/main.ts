@@ -54,6 +54,7 @@ export async function createApp(): Promise<NestExpressApplication> {
     app.use('/shared', express.static(PATHS.shared));
   }
 
+  app.use(app.get(AuthService).apiAuth);                     // API-sleutel (Business): /api/v1/… → /api/…
   app.use(app.get(AuthService).session);                     // req.user = wie is ingelogd (of null)
   app.use('/api', sameOrigin);                                // wijzigingen alleen vanaf onze eigen pagina's
   app.enableShutdownHooks();

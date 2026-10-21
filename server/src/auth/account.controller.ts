@@ -23,6 +23,7 @@ import { subFor, publicSub, saveSub, renew, stateOf, DAY, toInterval, emptySub }
 import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { planPausedIds, fitToPlan, activeCount } from '../plan-limit';
 import { stripeOn, readRecord, stripe, demoCheckoutOn, amountFor } from '../billing/stripe';
+import { listKeys, createKey, revokeKey, revokeAll, publicKey, MAX_KEYS } from './api-keys';
 import { addPayment, listPayments, demoMethod, setDemoMethod } from '../billing/history';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
@@ -147,6 +148,31 @@ export class AccountController {
       teamUsed: 1 + (await membersOf(this.db, user.id)).length,
     };
     return { plan, usage: { ...usage(plan, codes), total: all.length, planPaused }, extraPrice: EXTRA_PRICE, plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!rec.customer, sub: publicSub(await subFor(this.db, user.id)), billing };
+  }
+
+  /** API-sleutels (Business). De sleutel zelf zie je één keer, daarna alleen het begin. */
+  @Get('account/api-keys')
+  async apiKeys(@Req() req: Request, @CurrentUser() user: User) {
+    if ((req as any).member) throw fail(403, 'team');
+    const plan = await planFor(this.db, user.id);
+    return { allowed: plan.api, keys: (await listKeys(this.db, user.id)).map(publicKey), max: MAX_KEYS };
+  }
+  @Post('account/api-keys')
+  @HttpCode(201)
+  async apiKeyNew(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if ((req as any).member) throw fail(403, 'team');
+    if (!(await planFor(this.db, user.id)).api) throw fail(403, 'plan_api');
+    if (this.auth.limited('apikey-new:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    const r = await createKey(this.db, user.id, b.name);
+    if (!r) throw fail(400, 'max_keys', { max: MAX_KEYS });
+    await this.db.addActivity(user.id, 'api_key_created', this.auth.meta(req)).catch(() => {});
+    return { key: r.key, record: publicKey(r.record) };
+  }
+  @Delete('account/api-keys/:id')
+  @HttpCode(204)
+  async apiKeyDel(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string) {
+    if ((req as any).member) throw fail(403, 'team');
+    if (!(await revokeKey(this.db, user.id, String(id)))) throw fail(404, 'not_found');
   }
 
   /** Facturen: met Stripe de echte facturen (link naar factuur en PDF), anders de demo-betalingen */
@@ -296,6 +322,7 @@ export class AccountController {
     await cleanupTeam(this.db, user.id);                                    // team: leden weg (eigenaar) of uit het team (lid)
     const rec = stripeOn() ? await readRecord(this.db, user.id) : {} as any;  // account weg: abonnement bij Stripe meteen stoppen (niet meer afschrijven)
     if (rec.subscription) await stripe('DELETE', 'subscriptions/' + rec.subscription).catch((e) => console.error('Stripe-abonnement stoppen mislukt:', e.message));
+    await revokeAll(this.db, user.id);                                     // API-sleutels werken niet meer
     await this.db.deleteUser(user.id);
     this.auth.clearSession(req, res);
   }

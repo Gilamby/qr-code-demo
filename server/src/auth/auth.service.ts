@@ -5,6 +5,8 @@
      Je blijft ingelogd tot je uitlogt: 1 jaar, en elke dag dat je de app gebruikt schuift dat op.
      In de database staat alleen een hash van die code. Noodzakelijke cookie: geen cookiebanner nodig.
    ========================================================= */
+import { userOfKey } from './api-keys';
+import { planFor } from '../plans';
 import { memberOf, hasTeam, actionOf, addTeamLog } from '../team';
 import { isBlocked } from '../subscription';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
@@ -70,12 +72,32 @@ export class AuthService implements OnModuleDestroy {
     return out;
   }
 
+  /** API (Business): Authorization: Bearer qrc_…  op /api/v1/qr-codes… en /api/v1/analytics.
+   *  Zet req.apiUser en stuurt het verzoek door naar dezelfde routes als de app (/api/…), met dezelfde regels. */
+  readonly apiAuth = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!/^\/api\/v1(\/|$)/.test(req.path)) return next();
+      const m = /^\/api\/v1\/(qr-codes(?:\/.*)?|analytics(?:\.csv)?)$/.exec(req.path);
+      if (!m) { res.status(404).json({ error: 'not_found', docs: 'Mijn account > API' }); return; }
+      const h = String(req.get('authorization') || ''), key = h.startsWith('Bearer ') ? h.slice(7).trim() : '';
+      if (!key) { res.status(401).json({ error: 'missing_key', message: 'Use: Authorization: Bearer <API key>' }); return; }
+      if (this.limited('apikey:' + key.slice(0, 14), 300, 1)) { res.status(429).json({ error: 'too_many' }); return; }
+      const who = await userOfKey(this.db, key);
+      const user = who && await this.db.getUser(who.uid);
+      if (!who || !user || user.disabledAt) { res.status(401).json({ error: 'invalid_key' }); return; }
+      if (!(await planFor(this.db, user.id)).api && !this.isAdmin(user)) { res.status(403).json({ error: 'plan_api', message: 'The API is part of the Business plan.' }); return; }
+      req.apiUser = user;
+      req.url = req.url.replace(/^\/api\/v1\//, '/api/');
+      next();
+    } catch (e) { next(e); }
+  };
+
   /** Middleware: wie is ingelogd? (zet req.user, of null) en verleng het cookie als de sessie verlengd is */
   readonly session = async (req: Request, res: Response, next: NextFunction) => {
     try {
       req.sid = this.cookies(req)[COOKIE] || '';
-      req.user = await this.db.sessionUser(req.sid);
-      if (req.user && req.user.renewUntil) this.setSession(req, res, { token: req.sid, expires: req.user.renewUntil });
+      req.user = req.apiUser || await this.db.sessionUser(req.sid);   // API-sleutel (apiAuth) of het cookie
+      if (!req.apiUser && req.user && req.user.renewUntil) this.setSession(req, res, { token: req.sid, expires: req.user.renewUntil });
       // Team (Business): een teamlid werkt in het account van de eigenaar (codes, mappen, uploads, statistieken).
       // Eigen profiel, wachtwoord en 2-stapsverificatie blijven van het lid zelf. Kijkers kunnen niets wijzigen.
       if (req.user && /^\/api\/(qr-codes|folders|uploads|analytics|account\/media)(\/|\.|$)/.test(req.path)) {

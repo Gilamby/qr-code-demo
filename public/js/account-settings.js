@@ -54,6 +54,7 @@ window.PlanGate = (function () {
       f.push(x.users === 1 ? { ok: false, text: t('pw.fTeam'), min: 'pro' } : { ok: true, text: x.users ? t('team.fUsers', { n: x.users }) : t('team.fUsersAll') });
       f.push(x.bg === 'basic' ? { ok: false, text: t('pw.fBg'), min: 'pro' } : { ok: true, text: t('pw.fBg') });
       f.push(x.bg === 'all' ? { ok: true, text: t('pw.fVideo') } : { ok: false, text: t('pw.fVideo'), min: 'business' });
+      f.push(x.bulk === false ? { ok: false, text: t('pw.fBulk'), min: 'pro' } : { ok: true, text: t(x.api ? 'pw.fBulkApi' : 'pw.fBulk') });
       f.push({ ok: true, text: t('acct.planF4') });
       return f;
     },
@@ -191,11 +192,12 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
     'delete': '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     x: '<path d="M6 6l12 12M18 6L6 18"/>',
+    api: '<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5.5l-3 13"/>',
     team: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.3.2 3.9 1.8 4.5 4.8"/>'
   };
   var GROUPS = [
     ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
-    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav']]],
+    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav']]],
     ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
   ];
   var ALL_TABS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
@@ -203,7 +205,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
   function isMember() { return !!(window.Team && Team.member()); }
-  function shown(id) { return (id !== 'delete' || canDelete()) && !(isMember() && (id === 'billing' || id === 'plan')) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html)
+  function shown(id) { return (id !== 'delete' || canDelete()) && !(isMember() && (id === 'billing' || id === 'plan' || id === 'api')) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html)
   function tabIds() { return ALL_TABS.filter(shown); }
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
@@ -437,6 +439,35 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
         invRows() + '</div>' +
         (invInfo && invInfo.demo && invInfo.items && invInfo.items.length ? '<p class="bl-fine">' + esc(t('bill.demoNote')) + '</p>' : '') + '</div>';
   }
+  /* ---------- API (Business): sleutels maken en intrekken, korte uitleg met voorbeelden ---------- */
+  var apiInfo = null, apiNew = null, apiErr = '';
+  function loadApi() { api.account.apiKeys().then(function (r) { apiInfo = r; if (tab === 'api') draw(); }, function () { apiInfo = { error: true }; if (tab === 'api') draw(); }); }
+  function apiPanel() {
+    if (!apiInfo) return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p class="acct-note">' + t('plan.loading') + '</p></div>';
+    if (apiInfo.error) return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p class="acct-msg bad" role="alert">' + t('plan.loadError') + '</p></div>';
+    var base = location.origin + location.pathname.replace(/[^/]*$/, '') + 'api/v1';
+    var docs = '<div class="glass bg-card acct api-docs"><h2>' + t('api.docsTitle') + '</h2><p>' + t('api.docsLead') + '</p>' +
+      '<div class="api-kv"><span>' + t('api.base') + '</span><code>' + esc(base) + '</code></div>' +
+      '<div class="api-kv"><span>' + t('api.auth') + '</span><code>Authorization: Bearer qrc_…</code></div>' +
+      '<table class="api-tbl"><tbody>' + [
+        ['GET', '/qr-codes', 'api.e1'], ['GET', '/qr-codes/{id}', 'api.e2'], ['POST', '/qr-codes', 'api.e3'], ['POST', '/qr-codes/bulk', 'api.e4'],
+        ['PUT', '/qr-codes/{id}', 'api.e5'], ['PATCH', '/qr-codes/{id}', 'api.e6'], ['DELETE', '/qr-codes/{id}', 'api.e7'], ['GET', '/analytics?codes={id}&from=…&to=…', 'api.e8']
+      ].map(function (r) { return '<tr><td><b class="api-m m-' + r[0].toLowerCase() + '">' + r[0] + '</b></td><td><code>' + esc(r[1]) + '</code></td><td>' + esc(t(r[2])) + '</td></tr>'; }).join('') + '</tbody></table>' +
+      '<p class="api-ex-t">' + t('api.example') + '</p><pre class="api-pre"><code>' + esc('curl -X POST ' + base + '/qr-codes \\\n  -H "Authorization: Bearer qrc_…" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"typeId":"website","name":"Tafel 1","content":{"url":"https://example.com"},"design":{}}\'') + '</code></pre>' +
+      '<p class="acct-note">' + t('api.limits') + '</p></div>';
+    if (!apiInfo.allowed) return '<div class="glass bg-card acct api-lock"><h2>' + t('api.title') + '</h2><p>' + t('api.lockedLead') + '</p>' +
+      '<button type="button" class="btn primary" data-gate-open="business" data-gate-reason="api">' + PlanGate.lock + ' ' + esc(t('pw.upgradeTo', { plan: t('plan.n_business') })) + '</button></div>' + docs;
+    var keys = apiInfo.keys || [];
+    return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p>' + t('api.lead') + '</p>' +
+      (apiNew ? '<div class="api-new" role="status"><b>' + t('api.newTitle') + '</b><p>' + t('api.newLead') + '</p><div class="api-keybox"><code id="apiNewKey">' + esc(apiNew) + '</code><button type="button" class="btn primary sm" data-api-copy>' + t('api.copy') + '</button></div></div>' : '') +
+      (keys.length ? '<ul class="api-keys">' + keys.map(function (k) {
+        return '<li><div><b>' + esc(k.name) + '</b><small><code>' + esc(k.prefix) + '…</code> · ' + esc(t('api.created', { date: i18n.fmt.stamp(k.createdAt, 'short') })) + ' · ' + esc(k.lastUsedAt ? t('api.used', { date: i18n.fmt.stamp(k.lastUsedAt, 'short') }) : t('api.never')) + '</small></div>' +
+          '<button type="button" class="btn ghost sm danger-ghost" data-api-del="' + esc(k.id) + '">' + t('api.revoke') + '</button></li>';
+      }).join('') + '</ul>' : '<p class="acct-note">' + t('api.none') + '</p>') +
+      (keys.length < (apiInfo.max || 10) ? '<form class="api-form" data-form="apikey"><label class="auth-f"><span>' + t('api.name') + '</span><span class="auth-in"><input name="name" maxlength="60" placeholder="' + esc(t('api.namePh')) + '"></span></label><button class="btn primary" type="submit">' + t('api.create') + '</button></form>' : '') +
+      (apiErr ? '<p class="acct-msg bad" role="alert">' + esc(apiErr) + '</p>' : '') + '</div>' + docs;
+  }
+  function confirmApiDel() { return window.confirm(t('api.revokeConfirm')); }
   function dangerCard(m) {
     if (!canDelete()) return '';
     return '<div class="glass bg-card acct acct-danger"><div class="acct-danger-head">' + SVG + ICON.warn + '</svg><div><h2>' + t('acct.dangerTitle') + '</h2><p>' + t('acct.dangerLead') + '</p></div></div>' +
@@ -642,6 +673,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (tab === 'delete') return deletePanel();
     if (tab === 'billing') return billingPanel(m);
     if (tab === 'plan') return planPanel();
+    if (tab === 'api') return apiPanel();
     if (tab === 'team') return window.Team ? Team.html() : '';
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
       '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + SVG + ICON.download + '</svg>' + t('acct.download') + '</button></div>' + note('export') + '</div>' + dangerCard(m);
@@ -660,7 +692,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function open(id, focus) {
     if (!shown(id)) id = 'profile';
     if (id === 'team' && window.Team) Team.ensure();
-    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; loadPlan(); loadInv(); }
+    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); }
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
@@ -684,6 +716,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   stats.addEventListener('click', function (e) { var go = e.target.closest('[data-goto]'); if (go) { e.preventDefault(); window.goToPage(go.getAttribute('data-goto')); } });
 
   box.addEventListener('submit', function (e) {
+    var af = e.target.closest('[data-form="apikey"]');
+    if (af) { e.preventDefault(); apiErr = ''; api.account.apiKeyNew({ name: af.name.value }).then(function (r) { apiNew = r.key; loadApi(); }, function (x) { apiErr = t(x && x.code === 'max_keys' ? 'api.max' : 'myCodes.failed'); draw(); }); return; }
     var tf = e.target.closest('[data-tfa-form]');
     if (tf) {
       e.preventDefault(); var inp = tf.querySelector('input'), go = tf.querySelector('[type=submit]'); go.disabled = true; tfaMsg = null;
@@ -770,6 +804,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
+    var ad = e.target.closest('[data-api-del]');
+    if (ad) { if (!confirmApiDel()) return; api.account.apiKeyDel(ad.getAttribute('data-api-del')).then(function () { apiNew = null; loadApi(); }, function () { apiErr = t('myCodes.failed'); draw(); }); return; }
+    if (e.target.closest('[data-api-copy]')) { var kt = document.getElementById('apiNewKey'); if (kt && navigator.clipboard) navigator.clipboard.writeText(kt.textContent).then(function () { e.target.closest('[data-api-copy]').textContent = t('api.copied'); }); return; }
     if (e.target.closest('[data-open-plans]') && window.Plans) { Plans.open(); return; }
     var pb = e.target.closest('[data-portal]');
     if (pb) { pb.disabled = true; api.account.stripePortal().then(function (r) { location.href = r.url; }, function () { pb.disabled = false; pb.insertAdjacentHTML('afterend', '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>'); }); return; }

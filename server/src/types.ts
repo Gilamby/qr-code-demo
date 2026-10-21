@@ -108,6 +108,8 @@ declare global {
       member?: User | null;
       /** Ruwe sessiecode uit het cookie */
       sid?: string;
+      /** Gebruiker van een API-sleutel (Business, /api/v1/…) */
+      apiUser?: User | null;
     }
   }
 }

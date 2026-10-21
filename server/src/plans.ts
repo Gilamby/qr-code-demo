@@ -15,12 +15,12 @@
  *  - team: Pro tot 3 personen, Business onbeperkt. Bestaande codes blijven werken als je naar een kleiner pakket gaat. */
 export const STANDARD_TYPES = ['website', 'pdf', 'vcard', 'wifi', 'menu', 'whatsapp'];
 export type BgLevel = 'basic' | 'photos' | 'all';
-export type Plan = { id: string; types: string[] | null; bg: BgLevel; codes: number | null; extra?: number; statsDays: number | null; price: number | null; priceQuarter: number | null; priceYear: number | null; users: number | null; trialDays: number | null; priceFirstMonth: number | null };   // users: eigenaar + teamleden, null = onbeperkt
+export type Plan = { id: string; types: string[] | null; bg: BgLevel; codes: number | null; extra?: number; statsDays: number | null; price: number | null; priceQuarter: number | null; priceYear: number | null; users: number | null; trialDays: number | null; priceFirstMonth: number | null; bulk: boolean; api: boolean };   // bulk = veel codes tegelijk uit een bestand (Pro, Business); api = eigen software koppelen (Business)   // users: eigenaar + teamleden, null = onbeperkt
 export const PLANS: Record<string, Plan> = {
-  free:     { id: 'free',     types: null,           bg: 'all',    codes: null, statsDays: null, price: null,  priceQuarter: null,  priceYear: null,  users: 1,    trialDays: null, priceFirstMonth: null },   // testfase
-  standard: { id: 'standard', types: null,           bg: 'basic',  codes: 5,    statsDays: 30,   price: 4.99,  priceQuarter: 13.49, priceYear: 49.9,  users: 1,    trialDays: 14, priceFirstMonth: 1.99 },
-  pro:      { id: 'pro',      types: null,           bg: 'photos', codes: 50,   statsDays: 365,  price: 12.99, priceQuarter: 34.99, priceYear: 129.9, users: 3,    trialDays: 14, priceFirstMonth: 4.99 },
-  business: { id: 'business', types: null,           bg: 'all',    codes: null, statsDays: null, price: 24.99, priceQuarter: 67.49, priceYear: 249.9, users: null, trialDays: 14, priceFirstMonth: 9.99 },
+  free:     { id: 'free',     types: null,           bg: 'all',    codes: null, statsDays: null, price: null,  priceQuarter: null,  priceYear: null,  users: 1,    trialDays: null, priceFirstMonth: null, bulk: true, api: true },   // testfase
+  standard: { id: 'standard', types: null,           bg: 'basic',  codes: 5,    statsDays: 30,   price: 4.99,  priceQuarter: 13.49, priceYear: 49.9,  users: 1,    trialDays: 14, priceFirstMonth: 1.99, bulk: false, api: false },
+  pro:      { id: 'pro',      types: null,           bg: 'photos', codes: 50,   statsDays: 365,  price: 12.99, priceQuarter: 34.99, priceYear: 129.9, users: 3,    trialDays: 14, priceFirstMonth: 4.99, bulk: true, api: false },
+  business: { id: 'business', types: null,           bg: 'all',    codes: null, statsDays: null, price: 24.99, priceQuarter: 67.49, priceYear: 249.9, users: null, trialDays: 14, priceFirstMonth: 9.99, bulk: true, api: true },
 };
 export const PLAN_IDS = Object.keys(PLANS);
 type Settings = { getSetting(k: string): Promise<string | null | undefined> };

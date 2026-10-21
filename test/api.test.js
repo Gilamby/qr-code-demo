@@ -735,3 +735,50 @@ test('downgraden: niets wordt verwijderd, de klant kiest wat aan blijft, de rest
   assert.deepEqual(list.filter((q) => q.paused).map((q) => q.id), [ids[0]], 'alleen de zelf gepauzeerde staat nog uit');
   assert.equal((await c('GET', '/api/account/plan')).json.usage.planPaused.length, 0);
 });
+
+test('veel QR-codes tegelijk (Pro en Business): alles of niets, fouten per regel, limiet van het pakket', async () => {
+  const c = client(); await signup(c, 'bulk@example.com', 'Veel tegelijk zin 5!', 'Bulk');
+  const { DatabaseService } = require('../server/dist/database/database.service');
+  const db = app.get(DatabaseService), u = await db.userByEmail('bulk@example.com');
+  const items = (n, from = 0) => Array.from({ length: n }, (_, i) => ({ typeId: 'website', name: 'Tafel ' + (from + i + 1), content: { url: 'https://tafel' + (from + i + 1) + '.example' }, design: {} }));
+  await db.setSetting('plan:' + u.id, 'standard');
+  assert.equal((await c('POST', '/api/qr-codes/bulk', { items: items(2) })).json.error, 'plan_bulk', 'Standard: niet');
+  await db.setSetting('plan:' + u.id, 'pro');
+  const bad = await c('POST', '/api/qr-codes/bulk', { items: items(2).concat([{ typeId: 'website', name: 'x', content: { url: 'geen link' }, design: {} }]) });
+  assert.equal(bad.status, 400); assert.equal(bad.json.rows[0].row, 2, 'fout in regel 3');
+  assert.equal((await c('GET', '/api/qr-codes')).json.length, 0, 'bij een fout: niets gemaakt');
+  const ok = await c('POST', '/api/qr-codes/bulk', { items: items(48) });
+  assert.equal(ok.status, 200); assert.equal(ok.json.created.length, 48);
+  const full = await c('POST', '/api/qr-codes/bulk', { items: items(3, 48) });
+  assert.equal(full.json.error, 'plan_limit'); assert.equal(full.json.room, 2, 'Pro 50: nog 2 over');
+  assert.equal((await c('GET', '/api/qr-codes')).json.length, 48);
+});
+
+test('API (Business): sleutel maken, codes via /api/v1 met Bearer, intrekken', async () => {
+  const c = client(); await signup(c, 'api@example.com', 'Api koppeling zin 6!', 'Api');
+  const { DatabaseService } = require('../server/dist/database/database.service');
+  const db = app.get(DatabaseService), u = await db.userByEmail('api@example.com');
+  await db.setSetting('plan:' + u.id, 'pro');
+  assert.equal((await c('POST', '/api/account/api-keys', { name: 'CRM' })).json.error, 'plan_api', 'Pro: geen API');
+  await db.setSetting('plan:' + u.id, 'business');
+  const k = await c('POST', '/api/account/api-keys', { name: 'Optima-CRM' });
+  assert.equal(k.status, 201); assert.match(k.json.key, /^qrc_/);
+  const list = (await c('GET', '/api/account/api-keys')).json;
+  assert.equal(list.keys.length, 1); assert.equal(list.keys[0].name, 'Optima-CRM'); assert.equal(list.keys[0].hash, undefined, 'hash gaat nooit naar buiten');
+  const api = (method, url, body, key = k.json.key) => fetch(base + url, { method, headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', Origin: 'https://crm.example' }, body: body ? JSON.stringify(body) : undefined }).then(async (r) => ({ status: r.status, json: await r.json().catch(() => null) }));
+  assert.equal((await api('GET', '/api/v1/qr-codes', null, 'qrc_fout' + 'x'.repeat(40))).status, 401);
+  assert.equal((await fetch(base + '/api/v1/qr-codes')).status, 401, 'zonder sleutel');
+  const made = await api('POST', '/api/v1/qr-codes', { typeId: 'website', name: 'Uit het CRM', content: { url: 'https://crm.example/1' }, design: {} });
+  assert.equal(made.status, 201, 'maken via de API (ook vanaf een andere site)');
+  const all = await api('GET', '/api/v1/qr-codes'); assert.equal(all.status, 200); assert.equal(all.json.length, 1);
+  assert.equal((await api('PATCH', '/api/v1/qr-codes/' + made.json.id, { paused: true })).status, 200);
+  assert.equal((await api('GET', '/api/v1/analytics?codes=' + made.json.id)).status, 200);
+  const bulk = await api('POST', '/api/v1/qr-codes/bulk', { items: [{ typeId: 'website', name: 'B1', content: { url: 'https://b1.example' }, design: {} }] });
+  assert.equal(bulk.status, 200);
+  assert.equal((await api('GET', '/api/v1/account')).status, 404, 'alleen QR-codes en statistieken');
+  await db.setSetting('plan:' + u.id, 'pro');
+  assert.equal((await api('GET', '/api/v1/qr-codes')).json.error, 'plan_api', 'na downgraden werkt de sleutel niet meer');
+  await db.setSetting('plan:' + u.id, 'business');
+  assert.equal((await c('DELETE', '/api/account/api-keys/' + list.keys[0].id)).status, 204);
+  assert.equal((await api('GET', '/api/v1/qr-codes')).status, 401, 'ingetrokken');
+});
