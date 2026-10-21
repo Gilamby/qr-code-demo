@@ -713,7 +713,15 @@
     "thenMonth": "След това {price} на месец",
     "perMonthEq": "Това са {price} на месец",
     "youSave": "Спестявате {price}",
-    "plusExtra": " + {n} допълнително купени"
+    "plusExtra": " + {n} допълнително купени",
+    "promoShort": "{n} дни безплатно",
+    "sCodes": "{n} QR кода",
+    "sCodesAll": "Неограничени кодове",
+    "sStats": "Статистика {n} дни",
+    "sStatsAll": "Цялата статистика",
+    "sUsers1": "1 потребител",
+    "sUsers": "{n} потребители",
+    "sUsersAll": "Неограничен екип"
   },
   "dz": {
     "lbl": {

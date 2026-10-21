@@ -713,7 +713,15 @@
     "thenMonth": "Apoi {price} pe lună",
     "perMonthEq": "Adică {price} pe lună",
     "youSave": "Economisiți {price}",
-    "plusExtra": " + {n} în plus cumpărate"
+    "plusExtra": " + {n} în plus cumpărate",
+    "promoShort": "{n} zile gratuit",
+    "sCodes": "{n} coduri QR",
+    "sCodesAll": "Coduri nelimitate",
+    "sStats": "Statistici {n} zile",
+    "sStatsAll": "Toate statisticile",
+    "sUsers1": "1 utilizator",
+    "sUsers": "{n} utilizatori",
+    "sUsersAll": "Echipă nelimitată"
   },
   "dz": {
     "lbl": {

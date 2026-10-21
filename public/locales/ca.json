@@ -713,7 +713,15 @@
     "thenMonth": "Després {price} al mes",
     "perMonthEq": "Són {price} al mes",
     "youSave": "Estalvies {price}",
-    "plusExtra": " + {n} extra que vas comprar"
+    "plusExtra": " + {n} extra que vas comprar",
+    "promoShort": "{n} dies gratis",
+    "sCodes": "{n} codis QR",
+    "sCodesAll": "Codis il·limitats",
+    "sStats": "{n} dies d'estadístiques",
+    "sStatsAll": "Totes les estadístiques",
+    "sUsers1": "1 usuari",
+    "sUsers": "{n} usuaris",
+    "sUsersAll": "Equip il·limitat"
   },
   "dz": {
     "lbl": {

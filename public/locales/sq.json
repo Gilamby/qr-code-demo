@@ -713,7 +713,15 @@
     "thenMonth": "Pastaj {price} në muaj",
     "perMonthEq": "Pra {price} në muaj",
     "youSave": "Kurseni {price}",
-    "plusExtra": " + {n} shtesë që keni blerë"
+    "plusExtra": " + {n} shtesë që keni blerë",
+    "promoShort": "{n} ditë falas",
+    "sCodes": "{n} kode QR",
+    "sCodesAll": "Kode pa kufi",
+    "sStats": "Statistika {n} ditë",
+    "sStatsAll": "Të gjitha statistikat",
+    "sUsers1": "1 përdorues",
+    "sUsers": "{n} përdorues",
+    "sUsersAll": "Ekip pa kufi"
   },
   "dz": {
     "lbl": {

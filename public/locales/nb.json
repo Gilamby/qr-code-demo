@@ -713,7 +713,15 @@
     "thenMonth": "Deretter {price} per måned",
     "perMonthEq": "Det er {price} per måned",
     "youSave": "Du sparer {price}",
-    "plusExtra": " + {n} ekstra du har kjøpt"
+    "plusExtra": " + {n} ekstra du har kjøpt",
+    "promoShort": "{n} dager gratis",
+    "sCodes": "{n} QR-koder",
+    "sCodesAll": "Ubegrensede koder",
+    "sStats": "{n} dagers statistikk",
+    "sStatsAll": "All statistikk",
+    "sUsers1": "1 bruker",
+    "sUsers": "{n} brukere",
+    "sUsersAll": "Ubegrenset team"
   },
   "dz": {
     "lbl": {

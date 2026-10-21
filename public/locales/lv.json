@@ -713,7 +713,15 @@
     "thenMonth": "Pēc tam {price} mēnesī",
     "perMonthEq": "Tas ir {price} mēnesī",
     "youSave": "Jūs ietaupāt {price}",
-    "plusExtra": " + {n} papildus nopirktie"
+    "plusExtra": " + {n} papildus nopirktie",
+    "promoShort": "{n} dienas bez maksas",
+    "sCodes": "{n} QR kodi",
+    "sCodesAll": "Neierobežoti kodi",
+    "sStats": "Statistika {n} dienas",
+    "sStatsAll": "Visa statistika",
+    "sUsers1": "1 lietotājs",
+    "sUsers": "{n} lietotāji",
+    "sUsersAll": "Neierobežota komanda"
   },
   "dz": {
     "lbl": {

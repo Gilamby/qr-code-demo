@@ -713,7 +713,15 @@
     "thenMonth": "Potom {price} mesačne",
     "perMonthEq": "To je {price} mesačne",
     "youSave": "Ušetríte {price}",
-    "plusExtra": " + {n} dokúpených"
+    "plusExtra": " + {n} dokúpených",
+    "promoShort": "{n} dní zadarmo",
+    "sCodes": "{n} QR kódov",
+    "sCodesAll": "Neobmedzené kódy",
+    "sStats": "Štatistiky {n} dní",
+    "sStatsAll": "Všetky štatistiky",
+    "sUsers1": "1 používateľ",
+    "sUsers": "{n} používatelia",
+    "sUsersAll": "Neobmedzený tím"
   },
   "dz": {
     "lbl": {

@@ -713,7 +713,15 @@
     "thenMonth": "Después {price} al mes",
     "perMonthEq": "Son {price} al mes",
     "youSave": "Ahorras {price}",
-    "plusExtra": " + {n} extra que compraste"
+    "plusExtra": " + {n} extra que compraste",
+    "promoShort": "{n} días gratis",
+    "sCodes": "{n} códigos QR",
+    "sCodesAll": "Códigos ilimitados",
+    "sStats": "{n} días de estadísticas",
+    "sStatsAll": "Todas las estadísticas",
+    "sUsers1": "1 usuario",
+    "sUsers": "{n} usuarios",
+    "sUsersAll": "Equipo ilimitado"
   },
   "dz": {
     "lbl": {

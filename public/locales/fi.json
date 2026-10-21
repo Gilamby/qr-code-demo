@@ -713,7 +713,15 @@
     "thenMonth": "Sitten {price} kuukaudessa",
     "perMonthEq": "Eli {price} kuukaudessa",
     "youSave": "Säästät {price}",
-    "plusExtra": " + {n} ostamaasi lisäkoodia"
+    "plusExtra": " + {n} ostamaasi lisäkoodia",
+    "promoShort": "{n} päivää ilmaiseksi",
+    "sCodes": "{n} QR-koodia",
+    "sCodesAll": "Rajattomasti koodeja",
+    "sStats": "{n} päivän tilastot",
+    "sStatsAll": "Kaikki tilastot",
+    "sUsers1": "1 käyttäjä",
+    "sUsers": "{n} käyttäjää",
+    "sUsersAll": "Rajaton tiimi"
   },
   "dz": {
     "lbl": {

@@ -713,7 +713,15 @@
     "thenMonth": "Daarna {price} per maand",
     "perMonthEq": "Dat is {price} per maand",
     "youSave": "Je bespaart {price}",
-    "plusExtra": " + {n} extra die je erbij kocht"
+    "plusExtra": " + {n} extra die je erbij kocht",
+    "promoShort": "{n} dagen gratis",
+    "sCodes": "{n} QR-codes",
+    "sCodesAll": "Onbeperkt codes",
+    "sStats": "{n} dagen statistiek",
+    "sStatsAll": "Alle statistiek",
+    "sUsers1": "1 gebruiker",
+    "sUsers": "{n} gebruikers",
+    "sUsersAll": "Onbeperkt team"
   },
   "dz": {
     "lbl": {
