@@ -75,7 +75,8 @@
   if (!card) return;
   function show() {
     var p = info && info.plan;
-    if (!p || p.id === 'business' || (window.api && api.isDemo && api.isDemo()) || (window.Team && Team.member())) { card.hidden = true; return; }   // teamlid: het abonnement is van de eigenaar
+    var me = window.Session && Session.user && Session.user();
+    if (!p || p.id === 'business' || p.id === 'free' || (me && me.admin) || (window.api && api.isDemo && api.isDemo()) || (window.Team && Team.member())) { card.hidden = true; return; }   // teamlid: het abonnement is van de eigenaar
     card.hidden = false;
   }
   function load() { if (!window.api || !api.account || !api.account.plan) return; api.account.plan().then(function (r) { info = r; show(); banner(); }).catch(function () { card.hidden = true; }); }

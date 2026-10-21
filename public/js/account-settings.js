@@ -207,7 +207,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
   function isMember() { return !!(window.Team && Team.member()); }
-  function shown(id) { return (id !== 'delete' || canDelete()) && !(isMember() && (id === 'billing' || id === 'plan' || id === 'api')) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html)
+  function shown(id) { return (id !== 'delete' || canDelete()) && !((isMember() || (user && user.admin)) && (id === 'billing' || id === 'plan' || id === 'api')) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html). Admins (Optimasys-team) zijn gratis: geen facturen, pakket, API of team
   function tabIds() { return ALL_TABS.filter(shown); }
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
@@ -283,7 +283,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
 
   /* ---------- Menu ---------- */
   function drawMenu() {
-    menu.innerHTML = '<div class="acct-tabs" role="tablist" aria-orientation="vertical" aria-label="' + esc(t('acct.sections')) + '">' + GROUPS.map(function (g) {
+    menu.innerHTML = '<div class="acct-tabs" role="tablist" aria-orientation="vertical" aria-label="' + esc(t('acct.sections')) + '">' + GROUPS.filter(function (g) { return g[1].some(function (x) { return shown(x[0]); }); }).map(function (g) {
       return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].filter(function (x) { return shown(x[0]); }).map(function (x) {
         var on = x[0] === tab;
         return '<button type="button" role="tab"' + (x[0] === 'delete' ? ' class="acct-tab-danger"' : '') + ' id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
