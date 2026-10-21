@@ -4781,9 +4781,11 @@ body.paywall-open { overflow: hidden; }
 /* Telefoon, stap 1: kleinere knoppen, grotere telefoon (wens Fabian 21 okt) */
 @media (max-width: 760px) {
   body:not(.pv-open) #createView .grid { gap: 5px !important; }
-  body:not(.pv-open) #createView .qr-card { min-height: 42px !important; padding: 4px 2px !important; gap: 2px !important; border-radius: 10px !important; }
-  body:not(.pv-open) #createView .qr-card svg { width: 16px !important; height: 16px !important; }
-  body:not(.pv-open) #createView .qr-card .title { font-size: 10px !important; }
+  body:not(.pv-open) #createView .qr-card { min-height: 0 !important; height: 38px; padding: 3px 2px !important; gap: 1px !important; border-radius: 9px !important; }
+  body:not(.pv-open) #createView .qr-card svg { width: 14px !important; height: 14px !important; }
+  body:not(.pv-open) #createView .qr-card .title { font-size: 9.5px !important; line-height: 1.05 !important; }
+  body:not(.pv-open) #createView .grid { gap: 4px !important; }
+  body:not(.pv-open) #createView .panel-card:has(.grid) { padding-top: 8px !important; padding-left: 8px !important; padding-right: 8px !important; }
   body:not(.pv-open) #createView .panel-card:has(.grid) .actions { margin-top: 8px !important; padding-top: 8px !important; padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important; }
   body:not(.pv-open) #createView .panel-card:has(.grid) .actions .btn { height: 42px; }
 }
@@ -4815,36 +4817,12 @@ body.paywall-open { overflow: hidden; }
   #contactView .help-side .help-card:nth-child(2) { display: none; }
 }
 
-/* Pakketten-pagina op de telefoon: alles op één scherm (wens Fabian 21 okt)
-   Drie kaartjes naast elkaar (naam, actie, prijs); wat er in het gekozen pakket zit staat eronder. */
+/* Pakketten-pagina op de telefoon: dezelfde pagina als op de computer, alleen kleiner (paywall.js fitPhone, wens Fabian 21 okt) */
 .pw-sel { display: none; }
 @media (max-width: 760px) {
-  .paywall .pw-inner { padding: 12px 12px 16px; }
-  .paywall .pw-top { margin-bottom: 12px; }
-  .paywall .pw-inner > h1 { font-size: 23px; margin: 0 0 2px; }
-  .paywall .pw-inner > .pw-lead { font-size: 13px; margin: 0 0 6px; line-height: 1.4; }
-  .paywall .pw-now, .paywall .pw-reason { margin: 2px 0 6px; font-size: 13px; padding: 6px 10px; }
-  .paywall .pl-period { margin: 4px 0 6px; }
-  .paywall .pl-period button { padding: 7px 12px; font-size: 13px; }
-  .paywall .pw-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px; margin: 10px 0 10px; }
-  .paywall .pw-card { overflow: visible !important; padding: 16px 6px 10px !important; border-radius: 14px; gap: 4px !important; align-items: center !important; text-align: center !important; transform: none !important; }
-  .paywall .pw-card .pl-name { font-size: 14px; justify-content: center; }
-  .paywall .pw-card .pl-promo { padding: 3px 6px; font-size: 9.5px; gap: 3px; line-height: 1.2; text-align: center; }
-  .paywall .pw-card .pl-promo svg { display: none; }
-  .paywall .pw-card .pl-price { flex-direction: column; align-items: center !important; gap: 0 !important; }
-  .paywall .pw-card .pl-price b { font-size: 20px !important; line-height: 1.15; letter-spacing: -.02em; }
-  .paywall .pw-card .pl-price small { font-size: 10.5px; }
-  .paywall .pw-card .pl-was { font-size: 11.5px !important; }
-  .paywall .pw-card .pl-then, .paywall .pw-card .pg-feats { display: none !important; }
-  .paywall .pw-pop { top: -8px; right: 50%; transform: translateX(50%); font-size: 9.5px; padding: 2px 7px; white-space: nowrap; }
-  .paywall .pw-sel { display: block; width: 100%; text-align: left; padding: 12px 14px; margin: 0 0 10px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
-  .paywall .pw-sel > b { display: block; font-size: 14px; }
-  .paywall .pw-sel > small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
-  .paywall .pw-sel .pg-feats { margin: 8px 0 0; display: grid; gap: 4px; font-size: 13px; }
-  .paywall .pw-sel .pg-off { opacity: .55; }
-  .paywall .pw-go { width: 100%; max-width: none; height: 48px; }
-  .paywall .pw-note, .paywall .pw-safe { font-size: 12px; margin-top: 8px; }
-  .paywall .pw-less { margin: 8px 0 0; font-size: 12.5px; }
+  .paywall .pw-inner.pw-scaled { width: 620px; max-width: none; padding: 20px 20px 24px; transform-origin: top left; }
+  .paywall .pw-inner.pw-scaled .pw-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .paywall .pw-inner.pw-scaled .pw-top { margin-bottom: 18px; }
 }
 @media (max-width: 760px) {
   .paywall .pw-demo { margin: 0 0 10px; font-size: 12px; padding: 6px 10px; }

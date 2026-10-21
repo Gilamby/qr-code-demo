@@ -75,6 +75,7 @@ var Plans = (function () {
   function feats(x) { return PlanGate.featuresHtml(x); }             // met slotjes: wat zit er niet in dit pakket
   function draw() {
     if (!box) { box = document.createElement('div'); box.className = 'paywall'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'pwTitle'); document.body.appendChild(box); }
+    var pin = box.querySelector('.pw-inner'); if (pin) { pin.style.transform = ''; pin.style.marginLeft = ''; pin.style.marginBottom = ''; }
     if (step === 'pay') return drawPay();
     if (step === 'keep') return drawKeep();
     if (step === 'done') return drawDone();
@@ -94,14 +95,11 @@ var Plans = (function () {
           // Prijs: actieprijs/korting groot, normale prijs doorgestreept. Nieuwe klant: label "14 dagen gratis" en per maand de actie voor de eerste maand.
           priceBlock(x) + feats(x) + '</button>';
       }).join('') + '</div>' +
-      // Telefoon: de kaartjes staan naast elkaar (klein); wat er in het gekozen pakket zit staat eronder
-      (function () { var x = list.filter(function (p) { return p.id === chosen; })[0]; if (!x) return '';
-        var first = mode === 'must' && x.trialDays && period === 'month' && x.priceFirstMonth != null;
-        return '<div class="pw-sel"><b>' + esc(t('bill.inPlan', { plan: t('plan.n_' + x.id) })) + '</b>' + (first ? '<small>' + esc(t('pw.thenMonth', { price: euro(x.price) })) + '</small>' : '') + feats(x) + '</div>'; })() +
       '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
       (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', limitArgs())) + '</p>' : '') +
       (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : '') +
       '<p class="pw-note">' + esc(t('pw.reassure')) + '</p></div>';
+    fitPhone();
   }
   // Afrekenen (DEMO): zoals straks de betaalpagina van Stripe, met PayPal, iDEAL, Bancontact of kaart. Er wordt niets afgeschreven.
   var method = 'paypal', BANKS = ['ABN AMRO', 'ING', 'Rabobank', 'ASN Bank', 'bunq', 'Knab', 'SNS', 'Triodos Bank', 'Revolut'];
@@ -180,6 +178,20 @@ var Plans = (function () {
     api.account.stripeCheckout({ plan: chosen, period: period, keep: needKeep() ? keep : undefined }).then(function (r) { location.href = r.url; })
       .catch(function () { busy = false; draw(); var g = box && box.querySelector('[data-pw-go]'); if (g) g.insertAdjacentHTML('afterend', '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>'); });
   }
+  /* Telefoon: precies dezelfde pagina als op de computer, maar kleiner geschaald zodat alles in één scherm past */
+  var PW = 620;   // breedte waarop de computerpagina op de telefoon wordt nagebouwd (dan verkleind)
+  function fitPhone() {
+    if (!box) return; var inner = box.querySelector('.pw-inner'); if (!inner) return;
+    inner.classList.remove('pw-scaled'); inner.style.transform = ''; inner.style.marginBottom = ''; box.style.overflowX = '';
+    if (window.innerWidth > 760) return;
+    inner.classList.add('pw-scaled');
+    var s = Math.min(window.innerWidth / PW, window.innerHeight / inner.offsetHeight);
+    inner.style.transform = 'scale(' + s.toFixed(4) + ')';
+    inner.style.marginLeft = ((window.innerWidth - PW * s) / 2).toFixed(1) + 'px';
+    inner.style.marginBottom = (-(1 - s) * inner.offsetHeight).toFixed(1) + 'px';   // geen lege ruimte eronder
+    box.style.overflowX = 'hidden';
+  }
+  addEventListener('resize', function () { if (box) fitPhone(); });
   function show() { draw(); document.body.classList.add('paywall-open'); var f = box.querySelector('.pw-card.on') || box.querySelector('[data-pw-go]'); if (f) f.focus(); }
   function close() { if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
   function check() {

@@ -122,7 +122,7 @@
     var tb = document.querySelector('.topbar'); if (tb && tb.offsetHeight) document.body.style.setProperty('--tbh', Math.round(tb.getBoundingClientRect().bottom > 0 ? tb.offsetHeight : 60) + 'px');
     // Stap 1 (soort kiezen): de knoppen zijn klein, dus de telefoon mag groter (wens Fabian 21 okt). Bij invullen: meer ruimte voor het formulier.
     var g = document.querySelector('#createView .grid'), typeStep = !!(g && g.offsetParent);
-    var h = Math.round(typeStep ? Math.max(220, Math.min(window.innerHeight - 60 - 345, 520)) : Math.max(190, Math.min(window.innerHeight * 0.38, 340)));
+    var h = Math.round(typeStep ? Math.max(220, Math.min(window.innerHeight - 60 - 262, 560)) : Math.max(190, Math.min(window.innerHeight * 0.38, 340)));
     document.body.style.setProperty('--pvh', h + 'px');
     document.body.style.setProperty('--pvm', ((h - 14 - 34) / 726).toFixed(3));   // 34 px: de vraag boven de telefoon
   }
