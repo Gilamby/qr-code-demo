@@ -6,9 +6,9 @@
 type Txt = Record<string, any>
 
 const PRICES = [
-  { key: 'standard', priceMonth: 4.99, priceYear: 49.9, priceYearAfter: 59.88, popular: false },
-  { key: 'pro', priceMonth: 12.99, priceYear: 129.9, priceYearAfter: 155.88, popular: true },
-  { key: 'business', priceMonth: 24.99, priceYear: 249.9, priceYearAfter: 299.88, popular: false },
+  { key: 'standard', priceMonth: 4.99, priceYear: 49.9, priceYearAfter: 49.9, popular: false },
+  { key: 'pro', priceMonth: 12.99, priceYear: 129.9, priceYearAfter: 129.9, popular: true },
+  { key: 'business', priceMonth: 24.99, priceYear: 249.9, priceYearAfter: 249.9, popular: false },
 ]
 export { PRICES }
 
@@ -19,17 +19,17 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
   en: {
     settings: {
       contactEmail: 'support@optimasys.es',
-      seo: { title: 'Optimasys QR — dynamic QR codes in your own style', description: 'Create QR codes in your own style, change where they lead at any time and see how often they are scanned. No watermark. 14 days free.' },
+      seo: { title: 'QR-Codex — dynamic QR codes in your own style', description: 'Create QR codes in your own style, change where they lead at any time and see how often they are scanned. No watermark. 14 days free.' },
       nav: { features: 'Features', solutions: 'Solutions', pricing: 'Pricing', faq: 'FAQ', contact: 'Contact', login: 'Log in', tryFree: 'Create QR code', menu: 'Menu', close: 'Close' },
       footer: { tagline: 'Dynamic QR codes for businesses that like things done properly.', product: 'Product', company: 'Help', legal: 'Legal', cancel: 'Cancel subscription', language: 'Language', rights: 'All rights reserved.' },
-      contactPage: { title: 'Get in touch', text: 'A question about Optimasys QR, a plan or an invoice? Send us a message and we will reply by email.', name: 'Name', email: 'Email', topic: 'Topic', topics: 'Question|Pricing and billing|Feedback|Something else', message: 'Message', send: 'Send message', sent: 'Thanks! Your message has been sent. We will reply by email.', error: 'Sending failed. Please try again in a moment.', privacy: 'We only use your details to answer your message.', customers: 'Already a customer? Log in and use Help in the app, then we immediately know which account it is about.' },
+      contactPage: { title: 'Get in touch', text: 'A question about QR-Codex, a plan or an invoice? Send us a message and we will reply by email.', name: 'Name', email: 'Email', topic: 'Topic', topics: 'Question|Pricing and billing|Feedback|Something else', message: 'Message', send: 'Send message', sent: 'Thanks! Your message has been sent. We will reply by email.', error: 'Sending failed. Please try again in a moment.', privacy: 'We only use your details to answer your message.', customers: 'Already a customer? Log in and use Help in the app, then we immediately know which account it is about.' },
       faqPage: { title: 'Frequently asked questions', text: 'Everything about QR codes, your plan and payments.', general: 'General', billing: 'Plans and payment', more: 'Is your question not here? Send us a message.' },
       notFound: { title: 'This page does not exist', text: 'Maybe the link is old or mistyped.', back: 'Back to the homepage' },
     },
     pricing: {
       title: 'Choose your plan', subtitle: 'Every plan 14 days free. You only pay after the trial and you can cancel anytime.',
-      monthly: 'Monthly', yearly: 'Yearly', yearlyBadge: '2 months free in year one', perMonth: '/ month', perFirstYear: '/ first year',
-      monthNote: 'Cancel monthly.', yearNote: 'That is {month} a month. After that {after} a year.', cta: 'Start 14 days free', popular: 'Most popular',
+      monthly: 'Monthly', yearly: 'Yearly', yearlyBadge: '2 months free', perMonth: '/ month', perFirstYear: '/ year',
+      monthNote: 'Cancel monthly. Your first paid month is cheaper.', yearNote: 'That is {month} a month, every year.', cta: 'Start 14 days free', popular: 'Most popular',
       vatNote: 'All prices excluding VAT. Secure payment via Stripe.',
       plans: {
         standard: { name: 'Standard', lead: 'For freelancers and small shops', items: words('5 dynamic QR codes|1 user|Statistics for 30 days|All 16 QR types|Your own design and logo|No watermark') },
@@ -52,14 +52,14 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['general', false, 'Which files can I download?', 'PNG for screens, SVG and EPS for print shops and PDF to print yourself.'],
       ['general', true, 'What happens if I stop?', 'Your codes stop working straight away, but we keep them for 30 days. Renew within that time and everything works again, including your printed codes. After 30 days they are deleted.'],
       ['general', false, 'Can I work together with colleagues?', 'Yes, on Pro (3 users) and Business (unlimited). Everyone logs in with their own email address and gets the role editor or viewer.'],
-      ['billing', true, 'How does the free trial work?', 'You create an account and enter your payment details. The first 14 days are free. Cancel before the end and nothing is charged. You can try once per payment card.'],
-      ['billing', false, 'What does yearly cost after the first year?', 'In the first year you get 2 months free. After that you pay 12 times the monthly price per year: €59.88 for Standard, €155.88 for Pro and €299.88 for Business.'],
+      ['billing', true, 'How does the free trial work?', 'You create an account and enter your payment details. The first 14 days are free. Cancel before the end and nothing is charged. One trial per customer.'],
+      ['billing', false, 'Do I get 2 months free every year?', 'Yes. Paying yearly, you pay 10 times the monthly price, every year: €49.90 for Standard, €129.90 for Pro and €249.90 for Business. Paying per quarter is about 10% cheaper than monthly.'],
       ['billing', false, 'Can I switch plans later?', 'Yes, you can move to a bigger or smaller plan at any time.'],
       ['billing', false, 'Do I get an invoice?', 'Yes. After every payment you receive an invoice by email, and you can find them in your account.'],
       ['billing', false, 'How do I cancel?', 'In the app under My account → Subscription. You keep access until the end of the period you have paid for.'],
     ],
     pages: {
-      privacy: ['Privacy policy', ['Who we are', 'This website and the Optimasys QR app are run by Optimasys.'], ['What we collect on this website', 'This website does not use tracking or advertising cookies. If you use the contact form, we store your name, email address and message to answer you.'], ['Your rights', 'You can ask us to see, correct or delete your data at any time via the contact page.']],
+      privacy: ['Privacy policy', ['Who we are', 'This website and the QR-Codex app are run by Optimasys.'], ['What we collect on this website', 'This website does not use tracking or advertising cookies. If you use the contact form, we store your name, email address and message to answer you.'], ['Your rights', 'You can ask us to see, correct or delete your data at any time via the contact page.']],
       terms: ['Terms and conditions', ['Draft', 'The full terms and conditions will be published here before launch.']],
       cookies: ['Cookies', ['Only necessary cookies', 'This website does not use tracking or advertising cookies, so you will not see a cookie banner. The app (my.qr-codex.com) uses a necessary cookie to keep you logged in.']],
     },
@@ -68,17 +68,17 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
   /* ------------------------------------------------ NEDERLANDS */
   nl: {
     settings: {
-      seo: { title: 'Optimasys QR — dynamische QR-codes in je eigen stijl', description: 'Maak QR-codes in je eigen stijl, wijzig de bestemming wanneer je wilt en zie hoe vaak er gescand wordt. Zonder watermerk. 14 dagen gratis.' },
+      seo: { title: 'QR-Codex — dynamische QR-codes in je eigen stijl', description: 'Maak QR-codes in je eigen stijl, wijzig de bestemming wanneer je wilt en zie hoe vaak er gescand wordt. Zonder watermerk. 14 dagen gratis.' },
       nav: { features: 'Functies', solutions: 'Oplossingen', pricing: 'Prijzen', faq: 'Vragen', contact: 'Contact', login: 'Inloggen', tryFree: 'QR-code maken', menu: 'Menu', close: 'Sluiten' },
       footer: { tagline: 'Dynamische QR-codes voor bedrijven die het graag goed geregeld hebben.', product: 'Product', company: 'Hulp', legal: 'Juridisch', cancel: 'Abonnement opzeggen', language: 'Taal', rights: 'Alle rechten voorbehouden.' },
-      contactPage: { title: 'Neem contact op', text: 'Een vraag over Optimasys QR, een pakket of een factuur? Stuur ons een bericht, dan antwoorden we per e-mail.', name: 'Naam', email: 'E-mail', topic: 'Onderwerp', topics: 'Vraag|Prijzen en betalen|Idee of feedback|Iets anders', message: 'Bericht', send: 'Bericht versturen', sent: 'Bedankt! Je bericht is verstuurd. We antwoorden per e-mail.', error: 'Versturen lukte niet. Probeer het zo nog eens.', privacy: 'We gebruiken je gegevens alleen om je bericht te beantwoorden.', customers: 'Al klant? Log in en gebruik Hulp in de app, dan weten we meteen om welk account het gaat.' },
+      contactPage: { title: 'Neem contact op', text: 'Een vraag over QR-Codex, een pakket of een factuur? Stuur ons een bericht, dan antwoorden we per e-mail.', name: 'Naam', email: 'E-mail', topic: 'Onderwerp', topics: 'Vraag|Prijzen en betalen|Idee of feedback|Iets anders', message: 'Bericht', send: 'Bericht versturen', sent: 'Bedankt! Je bericht is verstuurd. We antwoorden per e-mail.', error: 'Versturen lukte niet. Probeer het zo nog eens.', privacy: 'We gebruiken je gegevens alleen om je bericht te beantwoorden.', customers: 'Al klant? Log in en gebruik Hulp in de app, dan weten we meteen om welk account het gaat.' },
       faqPage: { title: 'Veelgestelde vragen', text: 'Alles over QR-codes, je pakket en betalen.', general: 'Algemeen', billing: 'Pakketten en betalen', more: 'Staat je vraag er niet bij? Stuur ons een bericht.' },
       notFound: { title: 'Deze pagina bestaat niet', text: 'Misschien is de link oud of verkeerd getypt.', back: 'Terug naar de homepage' },
     },
     pricing: {
       title: 'Kies je pakket', subtitle: 'Elk pakket 14 dagen gratis. Je betaalt pas na de proefperiode en kunt altijd opzeggen.',
-      monthly: 'Maandelijks', yearly: 'Jaarlijks', yearlyBadge: 'eerste jaar 2 maanden gratis', perMonth: '/ maand', perFirstYear: '/ eerste jaar',
-      monthNote: 'Maandelijks opzegbaar.', yearNote: 'Dat is {month} per maand. Daarna {after} per jaar.', cta: 'Start 14 dagen gratis', popular: 'Meest gekozen',
+      monthly: 'Maandelijks', yearly: 'Jaarlijks', yearlyBadge: '2 maanden gratis', perMonth: '/ maand', perFirstYear: '/ jaar',
+      monthNote: 'Maandelijks opzegbaar. Je eerste betaalde maand is goedkoper.', yearNote: 'Dat is {month} per maand, elk jaar.', cta: 'Start 14 dagen gratis', popular: 'Meest gekozen',
       vatNote: 'Alle prijzen exclusief btw. Veilig betalen via Stripe.',
       plans: {
         standard: { name: 'Standard', lead: 'Voor zzp’ers en kleine zaken', items: words('5 dynamische QR-codes|1 gebruiker|Statistieken van 30 dagen|Alle 16 soorten QR-codes|Eigen ontwerp met logo|Geen watermerk') },
@@ -101,14 +101,14 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['general', false, 'Welke bestanden kan ik downloaden?', 'PNG voor schermen, SVG en EPS voor de drukkerij en PDF om zelf af te drukken.'],
       ['general', true, 'Wat gebeurt er als ik stop?', 'Je codes werken meteen niet meer, maar we bewaren ze 30 dagen. Verleng je in die tijd, dan werkt alles weer, ook je geprinte codes. Na 30 dagen worden ze verwijderd.'],
       ['general', false, 'Kan ik samenwerken met collega’s?', 'Ja, bij Pro (3 gebruikers) en Business (onbeperkt). Iedereen logt in met een eigen e-mailadres en krijgt de rol bewerker of kijker.'],
-      ['billing', true, 'Hoe werkt de proefperiode?', 'Je maakt een account en vult je betaalgegevens in. De eerste 14 dagen betaal je niets. Zeg je op voor het einde, dan wordt er niets afgeschreven. Per betaalkaart kun je één keer gratis proberen.'],
-      ['billing', false, 'Wat kost jaarlijks betalen na het eerste jaar?', 'Het eerste jaar krijg je 2 maanden gratis. Daarna betaal je 12 keer de maandprijs per jaar: €59,88 voor Standard, €155,88 voor Pro en €299,88 voor Business.'],
+      ['billing', true, 'Hoe werkt de proefperiode?', 'Je maakt een account en vult je betaalgegevens in. De eerste 14 dagen betaal je niets. Zeg je op voor het einde, dan wordt er niets afgeschreven. Je kunt één keer gratis proberen.'],
+      ['billing', false, 'Krijg ik elk jaar 2 maanden gratis?', 'Ja. Per jaar betaal je 10 keer de maandprijs, elk jaar weer: €49,90 voor Standard, €129,90 voor Pro en €249,90 voor Business. Per kwartaal betalen is ongeveer 10% goedkoper dan per maand.'],
       ['billing', false, 'Kan ik later van pakket wisselen?', 'Ja, je kunt op elk moment overstappen naar een groter of kleiner pakket.'],
       ['billing', false, 'Krijg ik een factuur?', 'Ja. Na elke betaling krijg je een factuur per e-mail, en je vindt ze ook terug in je account.'],
       ['billing', false, 'Hoe zeg ik op?', 'In de app onder Mijn account → Abonnement. Je houdt toegang tot het einde van de periode die je al betaald hebt.'],
     ],
     pages: {
-      privacy: ['Privacyverklaring', ['Wie we zijn', 'Deze website en de app Optimasys QR zijn van Optimasys.'], ['Wat we op deze website verzamelen', 'Deze website gebruikt geen volg- of advertentiecookies. Gebruik je het contactformulier, dan bewaren we je naam, e-mailadres en bericht om je te antwoorden.'], ['Je rechten', 'Je kunt ons altijd via de contactpagina vragen je gegevens in te zien, te verbeteren of te verwijderen.']],
+      privacy: ['Privacyverklaring', ['Wie we zijn', 'Deze website en de app QR-Codex zijn van Optimasys.'], ['Wat we op deze website verzamelen', 'Deze website gebruikt geen volg- of advertentiecookies. Gebruik je het contactformulier, dan bewaren we je naam, e-mailadres en bericht om je te antwoorden.'], ['Je rechten', 'Je kunt ons altijd via de contactpagina vragen je gegevens in te zien, te verbeteren of te verwijderen.']],
       terms: ['Algemene voorwaarden', ['Concept', 'De volledige algemene voorwaarden komen hier voor de lancering.']],
       cookies: ['Cookies', ['Alleen noodzakelijke cookies', 'Deze website gebruikt geen volg- of advertentiecookies, daarom zie je geen cookiemelding. De app (my.qr-codex.com) gebruikt een noodzakelijke cookie om je ingelogd te houden.']],
     },
@@ -117,17 +117,17 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
   /* ------------------------------------------------ ESPAÑOL */
   es: {
     settings: {
-      seo: { title: 'Optimasys QR — códigos QR dinámicos con tu propio estilo', description: 'Crea códigos QR con tu propio estilo, cambia su destino cuando quieras y descubre cuántas veces se escanean. Sin marca de agua. 14 días gratis.' },
+      seo: { title: 'QR-Codex — códigos QR dinámicos con tu propio estilo', description: 'Crea códigos QR con tu propio estilo, cambia su destino cuando quieras y descubre cuántas veces se escanean. Sin marca de agua. 14 días gratis.' },
       nav: { features: 'Funciones', solutions: 'Soluciones', pricing: 'Precios', faq: 'Preguntas', contact: 'Contacto', login: 'Iniciar sesión', tryFree: 'Crear código QR', menu: 'Menú', close: 'Cerrar' },
       footer: { tagline: 'Códigos QR dinámicos para empresas a las que les gustan las cosas bien hechas.', product: 'Producto', company: 'Ayuda', legal: 'Legal', cancel: 'Cancelar suscripción', language: 'Idioma', rights: 'Todos los derechos reservados.' },
-      contactPage: { title: 'Contacta con nosotros', text: '¿Una pregunta sobre Optimasys QR, un plan o una factura? Envíanos un mensaje y te responderemos por correo.', name: 'Nombre', email: 'Correo electrónico', topic: 'Tema', topics: 'Pregunta|Precios y pagos|Idea o comentario|Otra cosa', message: 'Mensaje', send: 'Enviar mensaje', sent: '¡Gracias! Tu mensaje se ha enviado. Te responderemos por correo.', error: 'No se pudo enviar. Inténtalo de nuevo en un momento.', privacy: 'Solo usamos tus datos para responder a tu mensaje.', customers: '¿Ya eres cliente? Inicia sesión y usa Ayuda en la app; así sabremos enseguida de qué cuenta se trata.' },
+      contactPage: { title: 'Contacta con nosotros', text: '¿Una pregunta sobre QR-Codex, un plan o una factura? Envíanos un mensaje y te responderemos por correo.', name: 'Nombre', email: 'Correo electrónico', topic: 'Tema', topics: 'Pregunta|Precios y pagos|Idea o comentario|Otra cosa', message: 'Mensaje', send: 'Enviar mensaje', sent: '¡Gracias! Tu mensaje se ha enviado. Te responderemos por correo.', error: 'No se pudo enviar. Inténtalo de nuevo en un momento.', privacy: 'Solo usamos tus datos para responder a tu mensaje.', customers: '¿Ya eres cliente? Inicia sesión y usa Ayuda en la app; así sabremos enseguida de qué cuenta se trata.' },
       faqPage: { title: 'Preguntas frecuentes', text: 'Todo sobre los códigos QR, tu plan y los pagos.', general: 'General', billing: 'Planes y pagos', more: '¿No encuentras tu pregunta? Envíanos un mensaje.' },
       notFound: { title: 'Esta página no existe', text: 'Puede que el enlace sea antiguo o esté mal escrito.', back: 'Volver al inicio' },
     },
     pricing: {
       title: 'Elige tu plan', subtitle: 'Todos los planes con 14 días gratis. Solo pagas después de la prueba y puedes cancelar cuando quieras.',
-      monthly: 'Mensual', yearly: 'Anual', yearlyBadge: '2 meses gratis el primer año', perMonth: '/ mes', perFirstYear: '/ primer año',
-      monthNote: 'Cancelación mensual.', yearNote: 'Son {month} al mes. Después {after} al año.', cta: 'Empieza 14 días gratis', popular: 'El más elegido',
+      monthly: 'Mensual', yearly: 'Anual', yearlyBadge: '2 meses gratis', perMonth: '/ mes', perFirstYear: '/ año',
+      monthNote: 'Cancelación mensual. Tu primer mes de pago es más barato.', yearNote: 'Son {month} al mes, cada año.', cta: 'Empieza 14 días gratis', popular: 'El más elegido',
       vatNote: 'Precios sin IVA. Pago seguro con Stripe.',
       plans: {
         standard: { name: 'Standard', lead: 'Para autónomos y pequeños negocios', items: words('5 códigos QR dinámicos|1 usuario|Estadísticas de 30 días|Los 16 tipos de código QR|Diseño propio con logo|Sin marca de agua') },
@@ -150,14 +150,14 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['general', false, '¿Qué archivos puedo descargar?', 'PNG para pantallas, SVG y EPS para la imprenta y PDF para imprimir tú mismo.'],
       ['general', true, '¿Qué pasa si dejo de pagar?', 'Tus códigos dejan de funcionar al instante, pero los guardamos 30 días. Si renuevas en ese plazo, todo vuelve a funcionar, también tus códigos impresos. Después de 30 días se eliminan.'],
       ['general', false, '¿Puedo trabajar con compañeros?', 'Sí, en Pro (3 usuarios) y Business (ilimitados). Cada uno entra con su propio correo y recibe el rol de editor o lector.'],
-      ['billing', true, '¿Cómo funciona la prueba gratis?', 'Creas una cuenta e introduces tus datos de pago. Los primeros 14 días no pagas nada. Si cancelas antes de que terminen, no se cobra nada. Solo hay una prueba por tarjeta.'],
-      ['billing', false, '¿Cuánto cuesta el plan anual después del primer año?', 'El primer año tienes 2 meses gratis. Después pagas 12 veces el precio mensual al año: 59,88 € por Standard, 155,88 € por Pro y 299,88 € por Business.'],
+      ['billing', true, '¿Cómo funciona la prueba gratis?', 'Creas una cuenta e introduces tus datos de pago. Los primeros 14 días no pagas nada. Si cancelas antes de que terminen, no se cobra nada. Solo hay una prueba por cliente.'],
+      ['billing', false, '¿Tengo 2 meses gratis cada año?', 'Sí. Con el pago anual pagas 10 veces el precio mensual, cada año: 49,90 € por Standard, 129,90 € por Pro y 249,90 € por Business. Pagar por trimestre es un 10% más barato que mensual.'],
       ['billing', false, '¿Puedo cambiar de plan más adelante?', 'Sí, puedes pasar a un plan mayor o menor en cualquier momento.'],
       ['billing', false, '¿Recibo factura?', 'Sí. Después de cada pago recibes una factura por correo y también las encuentras en tu cuenta.'],
       ['billing', false, '¿Cómo cancelo?', 'En la app, en Mi cuenta → Suscripción. Mantienes el acceso hasta el final del periodo que ya has pagado.'],
     ],
     pages: {
-      privacy: ['Política de privacidad', ['Quiénes somos', 'Este sitio web y la app Optimasys QR pertenecen a Optimasys.'], ['Qué recogemos en este sitio', 'Este sitio no usa cookies de seguimiento ni de publicidad. Si usas el formulario de contacto, guardamos tu nombre, correo y mensaje para responderte.'], ['Tus derechos', 'Puedes pedirnos en cualquier momento, desde la página de contacto, ver, corregir o eliminar tus datos.']],
+      privacy: ['Política de privacidad', ['Quiénes somos', 'Este sitio web y la app QR-Codex pertenecen a Optimasys.'], ['Qué recogemos en este sitio', 'Este sitio no usa cookies de seguimiento ni de publicidad. Si usas el formulario de contacto, guardamos tu nombre, correo y mensaje para responderte.'], ['Tus derechos', 'Puedes pedirnos en cualquier momento, desde la página de contacto, ver, corregir o eliminar tus datos.']],
       terms: ['Términos y condiciones', ['Borrador', 'Los términos y condiciones completos se publicarán aquí antes del lanzamiento.']],
       cookies: ['Cookies', ['Solo cookies necesarias', 'Este sitio no usa cookies de seguimiento ni de publicidad, por eso no verás un aviso de cookies. La app (my.qr-codex.com) usa una cookie necesaria para mantener tu sesión.']],
     },

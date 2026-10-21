@@ -45,7 +45,7 @@
   if (typeof module === 'object' && module.exports) module.exports = data;
   else root.QR_TYPES = data;
 })(typeof self !== 'undefined' ? self : this, [
-  { id: 'website', page: false,   icon: 'globe',  image: 'assets/qr-types/website.jpg', previewImage: 'assets/previews/website.jpg',   contentType: 'url',      previewType: 'card',    color: '#1576c9', theme: ['#1576c9', '#0f172a'],
+  { id: 'website', page: false,   icon: 'globe',  image: 'assets/qr-types/website.jpg',   contentType: 'url',      previewType: 'card',    color: '#1576c9', theme: ['#1576c9', '#0f172a'],
     fields: [
       { key: 'url', type: 'url', label: 'fields.url', sample: 'https://optimasys.com', required: true, check: true },
       { key: 'title', label: 'fields.qrName', sample: { t: 'pv.website.title' }, hint: 'hint.qrName' },
@@ -55,7 +55,7 @@
       { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
       { key: 'maxScans', type: 'number', min: 1, max: 1000000, label: 'fields.maxScans', advanced: true, hint: 'hint.maxScans' },
       { key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utm' } ] },
-  { id: 'pdf', page: false, icon: 'pdf',    image: 'assets/qr-types/pdf.jpg', previewImage: 'assets/previews/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b', theme: ['#c0392b', '#1f2937'],
+  { id: 'pdf', page: false, icon: 'pdf',    image: 'assets/qr-types/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b', theme: ['#c0392b', '#1f2937'],
     fields: [
       { key: 'file', type: 'file', accept: 'application/pdf', label: 'fields.pdfFile', required: true, sample: { t: 'sample.pdfFile' } },
       // Bij het scannen opent de PDF meteen: geen eigen pagina, dus geen kleuren of teksten nodig
@@ -92,7 +92,7 @@
       // Titel, tekst en kleuren alleen bij een eigen video: een link stuurt meteen door naar YouTube enz.
       { key: 'title', label: 'fields.title', sample: { t: 'pv.video.title' }, needs: 'file' },
       { key: 'description', label: 'fields.description', sample: { t: 'pv.video.desc' }, needs: 'file' } ] },
-  { id: 'images', colors: false, icon: 'img',    image: 'assets/qr-types/images.jpg', previewImage: 'assets/previews/images.jpg',    contentType: 'gallery',  previewType: 'card', color: '#2f9e8f', theme: ['#2f9e8f', '#134e4a'],
+  { id: 'images', colors: false, icon: 'img',    image: 'assets/qr-types/images.jpg',    contentType: 'gallery',  previewType: 'card', color: '#2f9e8f', theme: ['#2f9e8f', '#134e4a'],
     fields: [
       { key: 'photos', type: 'gallery', label: 'fields.photos', required: true, max: 30 },   // max. 30: elk ~250 kB na verkleinen, als los bestand op de server
       { key: 'title', label: 'fields.title', sample: { t: 'pv.images.title' } },
@@ -141,7 +141,7 @@
       { key: 'ios', type: 'url', label: 'fields.appStore', required: true, or: 'android', domains: ['apps.apple.com', 'itunes.apple.com'], sample: { t: 'sample.appIos' } },
       { key: 'android', type: 'url', label: 'fields.playStore', required: true, or: 'ios', domains: ['play.google.com'], sample: { t: 'sample.appAndroid' } },
       { key: 'appName', label: 'fields.appName', sample: { t: 'pv.apps.title' } } ] },
-  { id: 'coupon',    icon: 'coupon', image: 'assets/qr-types/coupon.jpg', previewImage: 'assets/previews/coupon.jpg',    contentType: 'coupon',   previewType: 'card',    color: '#d4a017', theme: ['#b7791f', '#7c2d12'],
+  { id: 'coupon',    icon: 'coupon', image: 'assets/qr-types/coupon.jpg',    contentType: 'coupon',   previewType: 'card',    color: '#d4a017', theme: ['#b7791f', '#7c2d12'],
     fields: [
       { key: 'company', label: 'fields.company', sample: { t: 'sample.couponCompany' } },
       { key: 'title', label: 'fields.title', required: true, sample: { t: 'pv.coupon.title' } },
@@ -155,7 +155,7 @@
       // Optioneel: knop naar de webshop of boekingspagina (de code moet daar ook ingesteld zijn)
       { key: 'buttonUrl', type: 'url', label: 'fields.couponUrl', hint: 'hint.couponUrl' },
       { key: 'buttonLabel', label: 'fields.buttonLabel', max: 30, needs: 'buttonUrl', sample: { t: 'pv.coupon.shopNow' } } ] },
-  { id: 'wifi', page: false,      icon: 'wifi',   image: 'assets/qr-types/wifi.jpg', previewImage: 'assets/previews/wifi.jpg',      contentType: 'wifi',     previewType: 'card',    color: '#2bb5f0', theme: ['#2bb5f0', '#0f172a'],
+  { id: 'wifi', page: false,      icon: 'wifi',   image: 'assets/qr-types/wifi.jpg',      contentType: 'wifi',     previewType: 'card',    color: '#2bb5f0', theme: ['#2bb5f0', '#0f172a'],
     fields: [ { key: 'ssid', label: 'fields.ssid', sample: { t: 'sample.wifiSsid' } }, { key: 'password', label: 'fields.password', sample: '' },
               { key: 'security', type: 'select', label: 'fields.security', options: [ { value: 'WPA', label: 'WPA/WPA2' }, { value: 'WEP', label: 'WEP' }, { value: 'nopass', label: { t: 'fields.securityNone' } } ], sample: 'WPA' } ] }
 ]);

@@ -42,7 +42,7 @@ export default function Header({ lang, nav, appUrl, signup }: { lang: string; na
     <header className={'site-header' + (scrolled ? ' is-scrolled' : '') + (open ? ' is-open' : '')}>
       <a className="skip" href="#main">Skip to content</a>
       <div className="wrap header-row">
-        <Link href={`/${lang}`} className="brand" aria-label="Optimasys QR" onClick={() => setOpen(false)}>
+        <Link href={`/${lang}`} className="brand" aria-label="QR-Codex" onClick={() => setOpen(false)}>
           <LogoMark size={30} id="hdr" /><span>Optimasys <b>QR</b></span>
         </Link>
         <nav className="main-nav" aria-label="Main">

@@ -105,21 +105,29 @@
     ['password', 'account', ['faq.go.security', 'account:security']],
     ['billing', 'account', ['faq.go.billing', 'account:billing']],
     ['data', 'account', ['faq.go.data', 'account:data']],
-    ['price', 'account', ['faq.go.plan', 'account:plan']]
+    ['price', 'account', ['faq.go.plan', 'account:plan']],
+    ['trial', 'account', ['faq.go.plan', 'account:plan']],
+    ['cancel', 'account', ['faq.go.plan', 'account:plan']],
+    ['downgrade', 'account', ['faq.go.plan', 'account:plan']],
+    ['team', 'account', ['faq.go.team', 'account:team']],
+    ['many', 'design', ['faq.go.myCodes', 'myCodes']],
+    ['api', 'account', ['faq.go.api', 'account:api']]
   ];
+  // Menunamen in de antwoorden altijd precies zoals in de app (per taal)
+  function fv() { return { acc: t('nav.account'), plan: t('acct.planNav'), team: t('team.nav'), api: t('api.nav'), codes: t('nav.myCodes'), bulk: t('bulk.button'), create: t('nav.create') }; }
   var CATS = ['all', 'basics', 'design', 'scan', 'stats', 'account'];
   var cat = 'all', query = '', openIds = {};
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
   function matches(item) {
     if (cat !== 'all' && item[1] !== cat) return false;
     if (!query) return true;
-    var hay = norm(t('faq.q.' + item[0]) + ' ' + t('faq.a.' + item[0]));
+    var hay = norm(t('faq.q.' + item[0]) + ' ' + t('faq.a.' + item[0], fv()));
     return norm(query).split(/\s+/).filter(Boolean).every(function (w) { return hay.indexOf(w) >= 0; });
   }
   function itemHtml(item) {
     var id = item[0], open = openIds[id] || (query && true);
     return '<details class="glass faq-item" data-faq="' + id + '"' + (open ? ' open' : '') + '><summary><span>' + t('faq.q.' + id) + '</span>' + SVG + ICON.chevron + '</svg></summary>' +
-      '<div class="faq-a">' + t('faq.a.' + id).split('\n').map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+      '<div class="faq-a">' + t('faq.a.' + id, fv()).split('\n').map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
       (item[2] ? '<button type="button" class="btn ghost faq-go" data-help-go="' + item[2][1] + '">' + t(item[2][0]) + SVG + ICON.arrow + '</svg></button>' : '') + '</div></details>';
   }
   function drawList() {

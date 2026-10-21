@@ -6,7 +6,7 @@ type Item = { key: string; title: string; text?: string }
 type Section = { chapter?: string; eyebrow?: string; title?: string; text?: string; cta?: string; cta2?: string; note?: string; items?: Item[] }
 const i = (key: string, title: string, text = ''): Item => ({ key, title, text })
 
-export const HOME_VERSION = 6
+export const HOME_VERSION = 7
 
 export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
   en: {
@@ -43,7 +43,7 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('restaurant', 'Restaurant', 'Scan the table. See the menu.|Menu'), i('poster', 'Poster', 'Scan the poster. Buy tickets.|Website'),
         i('packaging', 'Packaging', 'Scan the box. Watch the how-to.|Video'), i('card', 'Business card', 'Scan the card. Save the contact.|vCard'),
         i('l:end', 'You see every scan.', 'Per code. So you know what works.'),
-        i('l:scans', 'scans'), i('l:scan', 'Scanning…'), i('l:made', 'Made with Optimasys QR'),
+        i('l:scans', 'scans'), i('l:scan', 'Scanning…'), i('l:made', 'Made with QR-Codex'),
       ] },
     how: { eyebrow: 'How it works', title: 'Ready in 3 steps.', text: 'This is the app. No design skills needed.',
       items: [
@@ -63,7 +63,7 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
       ] },
     pricing: { eyebrow: 'Pricing', title: 'Simple prices.', text: '14 days free. Cancel anytime.', cta: 'Compare all plans' },
     faq: { eyebrow: 'Questions', title: 'Questions', cta: 'All questions', cta2: 'Contact us', note: 'Something not working? We’ll help.' },
-    final: { eyebrow: 'Get started', title: 'Optimasys QR', text: 'Make your first code today.', cta: 'Try 14 days free', cta2: 'Log in', note: 'From €4.99 a month' },
+    final: { eyebrow: 'Get started', title: 'QR-Codex', text: 'Make your first code today.', cta: 'Try 14 days free', cta2: 'Log in', note: 'From €4.99 a month' },
   },
 
   nl: {
@@ -100,7 +100,7 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('restaurant', 'Restaurant', 'Scan de tafel. Zie de menukaart.|Menukaart'), i('poster', 'Poster', 'Scan de poster. Koop tickets.|Website'),
         i('packaging', 'Verpakking', 'Scan de doos. Bekijk de uitleg.|Video'), i('card', 'Visitekaartje', 'Scan het kaartje. Sla het contact op.|vCard'),
         i('l:end', 'Jij ziet elke scan.', 'Per code. Zo weet je wat werkt.'),
-        i('l:scans', 'scans'), i('l:scan', 'Scannen…'), i('l:made', 'Gemaakt met Optimasys QR'),
+        i('l:scans', 'scans'), i('l:scan', 'Scannen…'), i('l:made', 'Gemaakt met QR-Codex'),
       ] },
     how: { eyebrow: 'Zo werkt het', title: 'Klaar in 3 stappen.', text: 'Dit is de app. Geen ontwerpkennis nodig.',
       items: [
@@ -120,7 +120,7 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
       ] },
     pricing: { eyebrow: 'Prijzen', title: 'Simpele prijzen.', text: '14 dagen gratis. Altijd opzegbaar.', cta: 'Vergelijk alle pakketten' },
     faq: { eyebrow: 'Vragen', title: 'Vragen', cta: 'Alle vragen', cta2: 'Neem contact op', note: 'Werkt er iets niet? Wij helpen je.' },
-    final: { eyebrow: 'Begin vandaag', title: 'Optimasys QR', text: 'Maak vandaag je eerste code.', cta: 'Probeer 14 dagen gratis', cta2: 'Inloggen', note: 'Vanaf €4,99 per maand' },
+    final: { eyebrow: 'Begin vandaag', title: 'QR-Codex', text: 'Maak vandaag je eerste code.', cta: 'Probeer 14 dagen gratis', cta2: 'Inloggen', note: 'Vanaf €4,99 per maand' },
   },
 
   es: {
@@ -157,7 +157,7 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
         i('restaurant', 'Restaurante', 'Escanea la mesa. Ve el menú.|Menú'), i('poster', 'Cartel', 'Escanea el cartel. Compra entradas.|Sitio web'),
         i('packaging', 'Envase', 'Escanea la caja. Mira el vídeo.|Vídeo'), i('card', 'Tarjeta de visita', 'Escanea la tarjeta. Guarda el contacto.|vCard'),
         i('l:end', 'Ves cada escaneo.', 'Por código. Así sabes qué funciona.'),
-        i('l:scans', 'escaneos'), i('l:scan', 'Escaneando…'), i('l:made', 'Hecho con Optimasys QR'),
+        i('l:scans', 'escaneos'), i('l:scan', 'Escaneando…'), i('l:made', 'Hecho con QR-Codex'),
       ] },
     how: { eyebrow: 'Cómo funciona', title: 'Listo en 3 pasos.', text: 'Esta es la app. Sin saber de diseño.',
       items: [
@@ -177,7 +177,7 @@ export const HOME: Record<'en' | 'nl' | 'es', Record<string, Section>> = {
       ] },
     pricing: { eyebrow: 'Precios', title: 'Precios simples.', text: '14 días gratis. Cancela cuando quieras.', cta: 'Compara todos los planes' },
     faq: { eyebrow: 'Preguntas', title: 'Preguntas', cta: 'Todas las preguntas', cta2: 'Contáctanos', note: '¿Algo no funciona? Te ayudamos.' },
-    final: { eyebrow: 'Empieza hoy', title: 'Optimasys QR', text: 'Crea hoy tu primer código.', cta: 'Prueba 14 días gratis', cta2: 'Iniciar sesión', note: 'Desde 4,99 € al mes' },
+    final: { eyebrow: 'Empieza hoy', title: 'QR-Codex', text: 'Crea hoy tu primer código.', cta: 'Prueba 14 días gratis', cta2: 'Iniciar sesión', note: 'Desde 4,99 € al mes' },
   },
 }
 

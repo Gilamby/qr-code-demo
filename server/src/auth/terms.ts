@@ -6,7 +6,7 @@
    ========================================================= */
 import { DatabaseService } from '../database/database.service';
 
-export const TERMS_VERSION = '2026-10-19';
+export const TERMS_VERSION = '2026-10-21';
 export type TermsRecord = { v: string; at: string };
 
 export async function termsAccepted(db: DatabaseService, userId: string): Promise<boolean> {

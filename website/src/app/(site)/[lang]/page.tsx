@@ -27,7 +27,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
   const homeFaqs = faqs.filter((f) => f.home).slice(0, 6)
   const plans = (pr.plans || []).map((p: any) => ({ ...p, items: p.items || [] }))
   const mail = (s as any).contactEmail || 'support@optimasys.es'
-  const ld = { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Optimasys QR', applicationCategory: 'BusinessApplication', operatingSystem: 'Web',
+  const ld = { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'QR-Codex', applicationCategory: 'BusinessApplication', operatingSystem: 'Web',
     offers: plans.map((p: any) => ({ '@type': 'Offer', name: p.name, price: p.priceMonth, priceCurrency: 'EUR' })) }
 
   return (

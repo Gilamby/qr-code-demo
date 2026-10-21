@@ -23,11 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const site = process.env.SITE_URL || 'https://qr-codex.com'
   return {
     metadataBase: new URL(site),
-    title: { default: s?.seo?.title || 'Optimasys QR', template: '%s · Optimasys QR' },
+    title: { default: s?.seo?.title || 'QR-Codex', template: '%s · QR-Codex' },
     description: s?.seo?.description,
     icons: { icon: '/favicon.svg' },
     alternates: { canonical: `/${lang}`, languages: Object.fromEntries(CODES.map((c) => [c, `/${c}`])) },
-    openGraph: { type: 'website', siteName: 'Optimasys QR', title: s?.seo?.title, description: s?.seo?.description, locale: lang },
+    openGraph: { type: 'website', siteName: 'QR-Codex', title: s?.seo?.title, description: s?.seo?.description, locale: lang },
   }
 }
 
