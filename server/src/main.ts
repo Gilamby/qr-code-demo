@@ -1,5 +1,5 @@
 /* =========================================================
-   OPTIMASYS QR — server (NestJS op Node.js)
+   QR-CODEX — server (NestJS op Node.js)
    - serveert de app (public/ of de productieversie in build/)
    - REST-API onder /api (accounts, QR-codes, statistieken, hulpdiensten)
    - korte links /q/:id: regels toepassen, scan tellen, pagina tonen of doorsturen

@@ -31,7 +31,7 @@ export async function urlInfo(url: string) {
     await assertPublic(current);
     const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 6000);
     let res: globalThis.Response;
-    try { res = await fetch(current, { redirect: 'manual', signal: ctrl.signal, headers: { 'User-Agent': 'Mozilla/5.0 (OptimasysQR link check)', Accept: 'text/html' } }); }
+    try { res = await fetch(current, { redirect: 'manual', signal: ctrl.signal, headers: { 'User-Agent': 'Mozilla/5.0 (QR-Codex link check)', Accept: 'text/html' } }); }
     finally { clearTimeout(timer); }
     if (res.status >= 300 && res.status < 400 && res.headers.get('location')) { current = new URL(res.headers.get('location'), current).href; continue; }
     let html = '';

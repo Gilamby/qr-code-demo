@@ -1,6 +1,6 @@
 # Live zetten
 
-Wat er nodig is om Optimasys QR echt online te hebben, voor klanten.
+Wat er nodig is om QR-Codex echt online te hebben, voor klanten.
 
 > **Op de servers van Optimasys** (Node.js 22, systemd, nginx + Cloudflare, MongoDB, zonder Docker): zie **[docs/hosting.md](hosting.md)**, met kant-en-klare bestanden in `deploy/`. Hieronder staan de andere manieren en de algemene uitleg.
 
@@ -82,14 +82,14 @@ Nodig voor **account bevestigen** (na "Account maken" krijg je een bevestigingsl
 
 **Gratis echte e-mail met Gmail** (genoeg voor testen en een demo, ± 500 mails per dag):
 1. Zet in je Google-account *2-stapsverificatie* aan.
-2. Ga naar <https://myaccount.google.com/apppasswords>, maak een app-wachtwoord ("Optimasys QR"). Je krijgt 16 letters.
+2. Ga naar <https://myaccount.google.com/apppasswords>, maak een app-wachtwoord ("QR-Codex"). Je krijgt 16 letters.
 3. Zet in `.env` (in Codespaces: maak het bestand `.env` naast `package.json`):
    ```
    SMTP_HOST=smtp.gmail.com
    SMTP_PORT=587
    SMTP_USER=jouwnaam@gmail.com
    SMTP_PASS=de16letters
-   MAIL_FROM=Optimasys QR <jouwnaam@gmail.com>
+   MAIL_FROM=QR-Codex <jouwnaam@gmail.com>
    ```
 4. Server opnieuw starten. `.env` staat in `.gitignore`: je wachtwoord komt nooit op GitHub.
 

@@ -1,5 +1,5 @@
 /* =========================================================
-   INLOGSCHERM – interactieve glazen QR-sculptuur (three.js) — Optimasys QR
+   INLOGSCHERM – interactieve glazen QR-sculptuur (three.js) — QR-Codex
    Een zwevende QR-code van losse glazen scherven: elk blokje bestaat uit twee driehoekige 3D-scherven
    (diagonaal gebroken, met geslepen randen).
      - muis erover: scherven in de buurt komen naar voren en kantelen

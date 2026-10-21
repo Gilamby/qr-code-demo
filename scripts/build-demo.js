@@ -32,7 +32,7 @@ const en = fs.readFileSync(path.join(pub, 'locales', 'en.json'), 'utf8').replace
 
 const demo = [
   '<meta charset="utf-8">',
-  title.replace('Optimasys QR', 'Optimasys QR Sidebar'),
+  title.replace('QR-Codex', 'QR-Codex Sidebar'),
   fonts,
   '<style>\n' + css + '\n</style>',
   body.trim(),

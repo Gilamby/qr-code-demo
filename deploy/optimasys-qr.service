@@ -1,4 +1,4 @@
-# systemd service for Optimasys QR
+# systemd service for QR-Codex
 # Install: copy to /etc/systemd/system/optimasys-qr.service, then
 #   systemctl daemon-reload && systemctl enable --now optimasys-qr
 # Assumes the layout from docs/hosting.md:
@@ -6,7 +6,7 @@
 #   /srv/optimasys-qr/shared/.env    configuration (not in git)
 #   /var/lib/optimasys-qr       persistent data: SQLite database (if used), uploaded files, secret.key
 [Unit]
-Description=Optimasys QR (NestJS)
+Description=QR-Codex (NestJS)
 After=network-online.target
 Wants=network-online.target
 # If MongoDB runs on the same machine, uncomment:

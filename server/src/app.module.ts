@@ -1,5 +1,5 @@
 /* =========================================================
-   OPTIMASYS QR — de hele server in één overzicht
+   QR-CODEX — de hele server in één overzicht
    DatabaseModule  PostgreSQL of SQLite, tabellen, versleuteling
    AuthModule      account maken, bevestigen, inloggen, Mijn account, e-mail
    QrCodesModule   QR-codes maken/bewerken/verwijderen + bestanden

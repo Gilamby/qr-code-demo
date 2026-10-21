@@ -1,5 +1,5 @@
 /* =========================================================
-   EIGEN 3D-ACHTERGRONDEN (three.js) — Optimasys QR
+   EIGEN 3D-ACHTERGRONDEN (three.js) — QR-Codex
    Vijf zelfgemaakte animaties in de huisstijl (donker, cyaan/blauw). Wordt gebundeld door scripts/build-3d.js
    naar public/anim/wallpaper3d.js en pas geladen als iemand een bewegende achtergrond kiest.
      tide    – Golfveld: een veld van lichtpuntjes dat als water golft

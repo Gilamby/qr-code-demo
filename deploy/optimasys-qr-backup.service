@@ -1,4 +1,4 @@
-# Nightly backup of Optimasys QR (started by optimasys-qr-backup.timer)
+# Nightly backup of QR-Codex (started by optimasys-qr-backup.timer)
 # Makes a consistent copy of the SQLite database (safe while the app runs) plus the uploaded files,
 # into /var/backups/optimasys-qr/optimasys-YYYY-MM-DD-HHMM/. Keeps the last 14.
 # With MongoDB: copies only the files; back up the database with mongodump.
@@ -8,7 +8,7 @@
 # Run once by hand:  systemctl start optimasys-qr-backup   (log: journalctl -u optimasys-qr-backup)
 # Copy /var/backups/optimasys-qr to another machine too (your central backup), and keep DATA_KEY separately.
 [Unit]
-Description=Optimasys QR nightly backup
+Description=QR-Codex nightly backup
 After=network-online.target
 
 [Service]

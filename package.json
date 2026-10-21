@@ -2,7 +2,7 @@
   "name": "optimasys-qr",
   "version": "0.1.0",
   "private": true,
-  "description": "Optimasys QR: QR-codes maken, beheren en meten (web-app met eigen server en SQLite-database)",
+  "description": "QR-Codex: QR-codes maken, beheren en meten (web-app met eigen server en SQLite-database)",
   "main": "server/dist/main.js",
   "scripts": {
     "start": "node server/dist/main.js",

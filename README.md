@@ -1,4 +1,4 @@
-# Optimasys QR
+# QR-Codex
 
 Web-app om QR-codes te maken, te beheren en te meten. Kies een type, vul de inhoud in, kies een ontwerp en zie het resultaat live op een telefoon. Met accounts (e-mailbevestiging), een eigen server en een database: **MongoDB** op de Optimasys-servers, **SQLite** om te ontwikkelen (PostgreSQL kan ook).
 

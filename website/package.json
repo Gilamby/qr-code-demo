@@ -2,7 +2,7 @@
   "name": "qr-codex-website",
   "version": "0.1.0",
   "private": true,
-  "description": "Website qr-codex.com (Next.js + Payload CMS) om de Optimasys QR-app te promoten",
+  "description": "Website qr-codex.com (Next.js + Payload CMS) om de QR-Codex-app te promoten",
   "type": "module",
   "scripts": {
     "dev": "next dev -p 3200",

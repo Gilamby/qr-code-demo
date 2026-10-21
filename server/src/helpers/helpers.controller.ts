@@ -66,7 +66,7 @@ export class HelpersController {
     const limit = Math.min(8, Math.max(1, parseInt(query.limit, 10) || 5));
     const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 5000);
     try {
-      const r = await fetch((process.env.PHOTON_URL || 'https://photon.komoot.io') + '/api/?limit=' + limit + lang + '&q=' + encodeURIComponent(q), { signal: ctrl.signal, headers: { 'User-Agent': 'OptimasysQR (+https://optimasys.com)' } });
+      const r = await fetch((process.env.PHOTON_URL || 'https://photon.komoot.io') + '/api/?limit=' + limit + lang + '&q=' + encodeURIComponent(q), { signal: ctrl.signal, headers: { 'User-Agent': 'QR-Codex (+https://optimasys.com)' } });
       if (!r.ok) throw new Error(String(r.status));
       const data: any = await r.json();
       return { features: (data.features || []).map((f) => ({ geometry: { coordinates: f.geometry.coordinates }, properties: f.properties })) };

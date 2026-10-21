@@ -1,6 +1,6 @@
 # Website qr-codex.com
 
-De promotiewebsite voor de app Optimasys QR (my.qr-codex.com). Gebouwd met **Next.js 15 + Payload CMS 3**.
+De promotiewebsite voor de app QR-Codex (my.qr-codex.com). Gebouwd met **Next.js 15 + Payload CMS 3**.
 De app zelf staat hier los van: deze website stuurt bezoekers alleen door naar de app (inloggen, account maken).
 
 - Website: `https://qr-codex.com` (deze map)
