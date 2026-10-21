@@ -708,7 +708,7 @@
     "rcManage": "Skift eller opsig når som helst under {where}.",
     "rcDemo": "Demo: der er ikke trukket noget.",
     "firstMonthPhrase": "{first} den første måned, så {price} om måneden",
-    "promo": "Tilbud: {n} dage gratis",
+    "promo": "{n} dage gratis",
     "firstMonthLabel": "første måned",
     "thenMonth": "Derefter {price} om måneden",
     "perMonthEq": "Det er {price} om måneden",

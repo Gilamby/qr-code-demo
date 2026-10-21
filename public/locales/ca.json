@@ -708,7 +708,7 @@
     "rcManage": "Canvia o cancel·la quan vulguis a {where}.",
     "rcDemo": "Demo: no s'ha cobrat res.",
     "firstMonthPhrase": "{first} el primer mes, després {price} al mes",
-    "promo": "Oferta: {n} dies gratis",
+    "promo": "{n} dies gratis",
     "firstMonthLabel": "primer mes",
     "thenMonth": "Després {price} al mes",
     "perMonthEq": "Són {price} al mes",

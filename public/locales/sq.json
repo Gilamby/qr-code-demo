@@ -708,7 +708,7 @@
     "rcManage": "Ndryshoni ose anuloni kurdo te {where}.",
     "rcDemo": "Demo: nuk u tërhoq asgjë.",
     "firstMonthPhrase": "{first} muajin e parë, pastaj {price} në muaj",
-    "promo": "Ofertë: {n} ditë falas",
+    "promo": "{n} ditë falas",
     "firstMonthLabel": "muaji i parë",
     "thenMonth": "Pastaj {price} në muaj",
     "perMonthEq": "Pra {price} në muaj",

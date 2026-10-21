@@ -708,7 +708,7 @@
     "rcManage": "Schimbați sau anulați oricând în {where}.",
     "rcDemo": "Demo: nu s-a încasat nimic.",
     "firstMonthPhrase": "{first} în prima lună, apoi {price} pe lună",
-    "promo": "Ofertă: {n} zile gratuit",
+    "promo": "{n} zile gratuit",
     "firstMonthLabel": "prima lună",
     "thenMonth": "Apoi {price} pe lună",
     "perMonthEq": "Adică {price} pe lună",

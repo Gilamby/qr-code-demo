@@ -708,7 +708,7 @@
     "rcManage": "Zmeniť alebo zrušiť môžete kedykoľvek v {where}.",
     "rcDemo": "Demo: nič sa nestrhlo.",
     "firstMonthPhrase": "{first} prvý mesiac, potom {price} mesačne",
-    "promo": "Akcia: {n} dní zadarmo",
+    "promo": "{n} dní zadarmo",
     "firstMonthLabel": "prvý mesiac",
     "thenMonth": "Potom {price} mesačne",
     "perMonthEq": "To je {price} mesačne",

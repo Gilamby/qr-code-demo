@@ -708,7 +708,7 @@
     "rcManage": "Modifica o disdici quando vuoi in {where}.",
     "rcDemo": "Demo: non è stato addebitato nulla.",
     "firstMonthPhrase": "{first} il primo mese, poi {price} al mese",
-    "promo": "Offerta: {n} giorni gratis",
+    "promo": "{n} giorni gratis",
     "firstMonthLabel": "primo mese",
     "thenMonth": "Poi {price} al mese",
     "perMonthEq": "Cioè {price} al mese",

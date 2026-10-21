@@ -708,7 +708,7 @@
     "rcManage": "Mainiet vai atceliet jebkurā laikā sadaļā {where}.",
     "rcDemo": "Demo: nekas netika iekasēts.",
     "firstMonthPhrase": "{first} pirmajā mēnesī, pēc tam {price} mēnesī",
-    "promo": "Akcija: {n} dienas bez maksas",
+    "promo": "{n} dienas bez maksas",
     "firstMonthLabel": "pirmais mēnesis",
     "thenMonth": "Pēc tam {price} mēnesī",
     "perMonthEq": "Tas ir {price} mēnesī",

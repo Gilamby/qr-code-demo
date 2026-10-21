@@ -708,7 +708,7 @@
     "rcManage": "Ändra eller säg upp när som helst under {where}.",
     "rcDemo": "Demo: inget har dragits.",
     "firstMonthPhrase": "{first} första månaden, sedan {price} per månad",
-    "promo": "Erbjudande: {n} dagar gratis",
+    "promo": "{n} dagar gratis",
     "firstMonthLabel": "första månaden",
     "thenMonth": "Sedan {price} per månad",
     "perMonthEq": "Det blir {price} per månad",

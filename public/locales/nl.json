@@ -708,7 +708,7 @@
     "rcManage": "Wijzigen of opzeggen kan altijd via {where}.",
     "rcDemo": "Demo: er is niets afgeschreven.",
     "firstMonthPhrase": "{first} de eerste maand, dan {price} per maand",
-    "promo": "Actie: {n} dagen gratis",
+    "promo": "{n} dagen gratis",
     "firstMonthLabel": "eerste maand",
     "thenMonth": "Daarna {price} per maand",
     "perMonthEq": "Dat is {price} per maand",

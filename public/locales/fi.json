@@ -708,7 +708,7 @@
     "rcManage": "Muuta tai peru milloin vain kohdassa {where}.",
     "rcDemo": "Demo: mitään ei veloitettu.",
     "firstMonthPhrase": "{first} ensimmäinen kuukausi, sitten {price} kuukaudessa",
-    "promo": "Tarjous: {n} päivää ilmaiseksi",
+    "promo": "{n} päivää ilmaiseksi",
     "firstMonthLabel": "ensimmäinen kuukausi",
     "thenMonth": "Sitten {price} kuukaudessa",
     "perMonthEq": "Eli {price} kuukaudessa",

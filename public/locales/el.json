@@ -708,7 +708,7 @@
     "rcManage": "Αλλαγή ή ακύρωση οποτεδήποτε στο {where}.",
     "rcDemo": "Demo: δεν χρεώθηκε τίποτα.",
     "firstMonthPhrase": "{first} τον πρώτο μήνα, μετά {price} τον μήνα",
-    "promo": "Προσφορά: {n} ημέρες δωρεάν",
+    "promo": "{n} ημέρες δωρεάν",
     "firstMonthLabel": "πρώτος μήνας",
     "thenMonth": "Μετά {price} τον μήνα",
     "perMonthEq": "Δηλαδή {price} τον μήνα",

@@ -708,7 +708,7 @@
     "rcManage": "Zmień lub zrezygnuj w każdej chwili w {where}.",
     "rcDemo": "Demo: nic nie zostało pobrane.",
     "firstMonthPhrase": "{first} za pierwszy miesiąc, potem {price} miesięcznie",
-    "promo": "Promocja: {n} dni za darmo",
+    "promo": "{n} dni za darmo",
     "firstMonthLabel": "pierwszy miesiąc",
     "thenMonth": "Potem {price} miesięcznie",
     "perMonthEq": "To {price} miesięcznie",
