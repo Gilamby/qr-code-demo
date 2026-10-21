@@ -141,7 +141,7 @@ var Home = (function () {
   function top() {
     var by = {}; ((statsP && statsP.codes) || []).forEach(function (c) { by[c.k] = c.s; });   // alleen de gekozen periode
     var list = codes.filter(function (r) { return by[r.id]; }).sort(function (a, b) { return by[b.id] - by[a.id]; }).slice(0, 4);
-    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('trophy', 'hm-hi') + t('home.topTitle') + '</h3><small class="hm-per">' + t(period === 1 ? 'an.p_today' : 'an.p_' + period) + '</small></div>' +
+    return '<div class="hm-card glass hm-topc"><div class="hm-head"><h3>' + ico('trophy', 'hm-hi') + t('home.topTitle') + '</h3><small class="hm-per">' + t(period === 1 ? 'an.p_today' : 'an.p_' + period) + '</small></div>' +
       (list.length ? '<ol class="hm-list hm-rank">' + list.map(function (r) { return codeRow(r, '<span class="hm-num">' + i18n.fmt.num(by[r.id]) + '</span>'); }).join('') + '</ol>'
         : '<p class="hm-none">' + t('home.noTop') + '</p>') + '</div>';
   }
@@ -157,7 +157,7 @@ var Home = (function () {
     acts.forEach(function (a) { ev.push({ at: a.at, icon: AI[a.kind] || 'check', text: t('acct.act_' + a.kind), cls: a.kind === 'login_failed' ? 'bad' : 'acct' }); });
     ev.sort(function (a, b) { return String(b.at).localeCompare(String(a.at)); });
     ev = ev.slice(0, 4);
-    return '<div class="hm-card glass"><div class="hm-head"><h3>' + ico('clock', 'hm-hi') + t('home.activity') + '</h3><button type="button" class="link-btn" data-goto-sec>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button></div>' +
+    return '<div class="hm-card glass hm-actc"><div class="hm-head"><h3>' + ico('clock', 'hm-hi') + t('home.activity') + '</h3><button type="button" class="link-btn" data-goto-sec>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button></div>' +
       (ev.length ? '<ol class="hm-feed">' + ev.map(function (e) {
         return '<li class="' + (e.cls || '') + '"><span class="hm-fi">' + ico(e.icon) + '</span><div>' + (e.code ? '<button type="button" class="hm-flink" data-code="' + esc(e.code) + '">' + esc(e.text) + '</button>' : '<b>' + esc(e.text) + '</b>') + '<small>' + esc(ago(e.at)) + '</small></div></li>';
       }).join('') + '</ol>' : '<p class="hm-none">' + t('acct.activityEmpty') + '</p>') + '</div>';
@@ -178,6 +178,14 @@ var Home = (function () {
     return '';
   }
 
+  /* Telefoon (≤ 760 px): alles op één scherm. Onder de grafiek tabbladjes: Meest gescand · Activiteit · Favorieten */
+  var phoneMq = matchMedia('(max-width: 760px)'), mtab = 'top';
+  function mpane() { return mtab === 'act' ? activity() : mtab === 'fav' ? favorites() : top(); }
+  function mtabs() {
+    return '<div class="hm-mtabs" role="tablist">' + [['top', 'home.topTitle'], ['act', 'home.mActivity'], ['fav', 'home.mFavs']].map(function (x) {
+      return '<button type="button" role="tab" data-hm-tab="' + x[0] + '" aria-selected="' + (mtab === x[0]) + '">' + esc(t(x[1])) + '</button>'; }).join('') + '</div>';
+  }
+  phoneMq.addEventListener('change', function () { if (!view.hidden) draw(); });
   function draw() {
     if (!codes) return;
     var sr = series30();
@@ -185,7 +193,8 @@ var Home = (function () {
         '<div class="hm-acts"><label class="ad-sel hm-period"><span class="sr-only">' + t('an.period') + '</span><select id="hmPeriod">' + [1, 7, 30, 90].map(function (n) { return '<option value="' + n + '"' + (n === period ? ' selected' : '') + '>' + t(n === 1 ? 'an.p_today' : 'an.p_' + n) + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn primary" data-hm-new>' + ico('plus') + t('nav.create') + '</button></div></header>' +
       (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') +
-      (codes.length ? tiles(sr) + '<div class="hm-rows"><div class="hm-row">' + chart(sr) + activity() + '</div><div class="hm-row">' + favorites() + top() + '</div></div>' : welcome() + '<div class="hm-grid one">' + activity() + '</div>') +
+      (codes.length && phoneMq.matches ? tiles(sr) + chart(sr) + mtabs() + '<div class="hm-mpane" id="hmMPane">' + mpane() + '</div>' :
+       codes.length ? tiles(sr) + '<div class="hm-rows"><div class="hm-row">' + chart(sr) + activity() + '</div><div class="hm-row">' + favorites() + top() + '</div></div>' : welcome() + '<div class="hm-grid one">' + activity() + '</div>') +
       '';   // geen voettekst: alles past zo op één scherm (Privacy staat in de zijbalk)
     fit();
   }
@@ -202,6 +211,8 @@ var Home = (function () {
 
   /* ---------- Klikken en tooltip ---------- */
   body.addEventListener('click', function (e) {
+    var mt = e.target.closest('[data-hm-tab]');
+    if (mt) { mtab = mt.getAttribute('data-hm-tab'); body.querySelectorAll('[data-hm-tab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === mt)); }); body.querySelector('#hmMPane').innerHTML = mpane(); return; }
     if (e.target.closest('[data-hm-new]')) { actions.startNew(); return goToPage('create'); }
     if (e.target.closest('[data-hm-plan]')) { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
     var g = e.target.closest('[data-goto]'); if (g) return goToPage(g.getAttribute('data-goto'));

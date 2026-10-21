@@ -1159,7 +1159,9 @@
     "tabsLabel": "Onderdelen van de statistieken",
     "peak": "Piek",
     "hourShort": "Uur",
-    "excel": "Exporteren (Excel)"
+    "excel": "Exporteren (Excel)",
+    "mTop": "Top QR-codes",
+    "exportShort": "Exporteren"
   },
   "auth": {
     "loginTitle": "Welkom terug",
@@ -1878,7 +1880,9 @@
     "viewAll": "Alles bekijken",
     "welcomeBack": "Welkom terug. Hier zie je je QR-codes en de laatste activiteit.",
     "vsYesterday": "Vergeleken met gisteren",
-    "vsYesterdayShort": "vs. gisteren"
+    "vsYesterdayShort": "vs. gisteren",
+    "mActivity": "Activiteit",
+    "mFavs": "Favorieten"
   },
   "as": {
     "tabTexts": "Teksten",

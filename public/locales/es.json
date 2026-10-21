@@ -1159,7 +1159,9 @@
     "tabsLabel": "Secciones de las estadísticas",
     "peak": "Pico",
     "hourShort": "Hora",
-    "excel": "Exportar (Excel)"
+    "excel": "Exportar (Excel)",
+    "mTop": "Top códigos QR",
+    "exportShort": "Exportar"
   },
   "auth": {
     "loginTitle": "Bienvenido de nuevo",
@@ -1878,7 +1880,9 @@
     "viewAll": "Ver todo",
     "welcomeBack": "Bienvenido de nuevo. Aquí tienes tus códigos QR y la actividad reciente.",
     "vsYesterday": "Comparado con ayer",
-    "vsYesterdayShort": "vs. ayer"
+    "vsYesterdayShort": "vs. ayer",
+    "mActivity": "Actividad",
+    "mFavs": "Favoritos"
   },
   "as": {
     "tabTexts": "Textos",

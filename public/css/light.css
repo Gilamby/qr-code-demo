@@ -486,6 +486,9 @@
 :root[data-theme="light"] .bl-st.bad { color: #b91c1c; }
 :root[data-theme="light"] .bl-demo { background: rgba(13,19,32,0.053); }
 :root[data-theme="light"] .pl-save { color: #15803d; }
+:root[data-theme="light"] .hm-mtabs,
+:root[data-theme="light"] .an-mtabs { background: rgba(13,19,32,0.038); }
+:root[data-theme="light"] .an-xmenu button:hover { background: rgba(13,19,32,0.045); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

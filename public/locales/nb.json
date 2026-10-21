@@ -1159,7 +1159,9 @@
     "tabsLabel": "Deler av statistikken",
     "peak": "Topp",
     "hourShort": "Time",
-    "excel": "Eksporter (Excel)"
+    "excel": "Eksporter (Excel)",
+    "mTop": "Topp QR-koder",
+    "exportShort": "Eksporter"
   },
   "auth": {
     "loginTitle": "Velkommen tilbake",
@@ -1878,7 +1880,9 @@
     "viewAll": "Se alle",
     "welcomeBack": "Velkommen tilbake. Her er QR-kodene dine og siste aktivitet.",
     "vsYesterday": "Sammenlignet med i går",
-    "vsYesterdayShort": "mot i går"
+    "vsYesterdayShort": "mot i går",
+    "mActivity": "Aktivitet",
+    "mFavs": "Favoritter"
   },
   "as": {
     "tabTexts": "Tekster",

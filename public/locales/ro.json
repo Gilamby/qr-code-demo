@@ -1159,7 +1159,9 @@
     "tabsLabel": "Secțiunile statisticilor",
     "peak": "Vârf",
     "hourShort": "Oră",
-    "excel": "Exportă (Excel)"
+    "excel": "Exportă (Excel)",
+    "mTop": "Top coduri QR",
+    "exportShort": "Exportă"
   },
   "auth": {
     "loginTitle": "Bine ai revenit",
@@ -1878,7 +1880,9 @@
     "viewAll": "Vezi tot",
     "welcomeBack": "Bine ai revenit. Iată codurile tale QR și activitatea recentă.",
     "vsYesterday": "Față de ieri",
-    "vsYesterdayShort": "față de ieri"
+    "vsYesterdayShort": "față de ieri",
+    "mActivity": "Activitate",
+    "mFavs": "Favorite"
   },
   "as": {
     "tabTexts": "Texte",

@@ -1159,7 +1159,9 @@
     "tabsLabel": "Statistikas sadaļas",
     "peak": "Maksimums",
     "hourShort": "Stunda",
-    "excel": "Eksportēt (Excel)"
+    "excel": "Eksportēt (Excel)",
+    "mTop": "Top QR kodi",
+    "exportShort": "Eksportēt"
   },
   "auth": {
     "loginTitle": "Sveicināts atpakaļ",
@@ -1878,7 +1880,9 @@
     "viewAll": "Skatīt visus",
     "welcomeBack": "Sveicināts atpakaļ! Lūk, tavi QR kodi un jaunākās darbības.",
     "vsYesterday": "Salīdzinot ar vakardienu",
-    "vsYesterdayShort": "pret vakardienu"
+    "vsYesterdayShort": "pret vakardienu",
+    "mActivity": "Aktivitāte",
+    "mFavs": "Izlase"
   },
   "as": {
     "tabTexts": "Teksti",

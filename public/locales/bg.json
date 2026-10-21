@@ -1159,7 +1159,9 @@
     "tabsLabel": "Части на статистиката",
     "peak": "Пик",
     "hourShort": "Час",
-    "excel": "Експорт (Excel)"
+    "excel": "Експорт (Excel)",
+    "mTop": "Топ QR кодове",
+    "exportShort": "Експорт"
   },
   "auth": {
     "loginTitle": "Добре дошъл отново",
@@ -1878,7 +1880,9 @@
     "viewAll": "Виж всички",
     "welcomeBack": "Добре дошъл отново. Ето твоите QR кодове и последната активност.",
     "vsYesterday": "Спрямо вчера",
-    "vsYesterdayShort": "спрямо вчера"
+    "vsYesterdayShort": "спрямо вчера",
+    "mActivity": "Активност",
+    "mFavs": "Любими"
   },
   "as": {
     "tabTexts": "Текстове",

@@ -1159,7 +1159,9 @@
     "tabsLabel": "Parts de les estadístiques",
     "peak": "Pic",
     "hourShort": "Hora",
-    "excel": "Exporta (Excel)"
+    "excel": "Exporta (Excel)",
+    "mTop": "Top codis QR",
+    "exportShort": "Exporta"
   },
   "auth": {
     "loginTitle": "Hola de nou",
@@ -1878,7 +1880,9 @@
     "viewAll": "Mostra-ho tot",
     "welcomeBack": "Hola de nou. Aquí tens els teus codis QR i l'activitat més recent.",
     "vsYesterday": "Respecte a ahir",
-    "vsYesterdayShort": "vs. ahir"
+    "vsYesterdayShort": "vs. ahir",
+    "mActivity": "Activitat",
+    "mFavs": "Preferits"
   },
   "as": {
     "tabTexts": "Textos",

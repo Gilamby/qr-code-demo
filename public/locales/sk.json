@@ -1159,7 +1159,9 @@
     "tabsLabel": "Časti štatistík",
     "peak": "Špička",
     "hourShort": "Hodina",
-    "excel": "Exportovať (Excel)"
+    "excel": "Exportovať (Excel)",
+    "mTop": "Top QR kódy",
+    "exportShort": "Exportovať"
   },
   "auth": {
     "loginTitle": "Vitaj späť",
@@ -1878,7 +1880,9 @@
     "viewAll": "Zobraziť všetko",
     "welcomeBack": "Vitaj späť. Tu sú tvoje QR kódy a najnovšia aktivita.",
     "vsYesterday": "V porovnaní so včerajškom",
-    "vsYesterdayShort": "oproti včerajšku"
+    "vsYesterdayShort": "oproti včerajšku",
+    "mActivity": "Aktivita",
+    "mFavs": "Obľúbené"
   },
   "as": {
     "tabTexts": "Texty",

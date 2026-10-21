@@ -184,7 +184,7 @@ var Analytics = (function () {
   function step(max) { var raw = Math.max(1, max / 4), p = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / p; return Math.max(1, (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p); }
   function lineChart(series) {
     var box = body.querySelector('.an-plot'); if (!box) return;
-    var W = Math.max(280, box.clientWidth), H = printAll ? 280 : W < 520 ? 200 : 270, L = 40, R = 14, T = 12, B = 30, iw = W - L - R, ih = H - T - B;
+    var W = Math.max(280, box.clientWidth), H = printAll ? 280 : W < 520 ? (compactMq.matches ? 132 : 200) : (compactMq.matches ? 180 : 270), L = 40, R = 14, T = 12, B = 30, iw = W - L - R, ih = H - T - B;
     var top = Math.max.apply(null, series.map(function (p) { return p.s; }).concat([1])), st = step(top), max = Math.ceil(top / st) * st, n = series.length;
     var x = function (i) { return L + (n === 1 ? iw / 2 : i * iw / (n - 1)); }, y = function (v) { return T + ih - v / max * ih; };
     var ticks = []; for (var v = 0; v <= max + 1e-9; v += st) ticks.push(v);
@@ -333,8 +333,20 @@ var Analytics = (function () {
     else body = I.filtered ? '<p class="an-none">' + t('an.hoursFiltered') + '</p>' : !I.hoursSince ? '<p class="an-none">' + t('an.hoursNone') + '</p>' : colBars(I.hours, hrLabel, 'h24');
     return '<div class="an-card glass an-dc"><div class="an-chead"><h3>' + ico('clock', 'an-hi') + t('an.tab_when') + '</h3>' + seg('when', whenDim, [['wd', t('an.g_day')], ['hr', t('an.hourShort')]]) + '</div>' + body + '</div>';
   }
+  /* Telefoon en tablet (≤ 1100 px): alles op één scherm. Grafiek, daaronder tabbladjes; je ziet steeds één onderdeel. */
+  var compactMq = matchMedia('(max-width: 1100px)'), mtab = 'top';
+  var MTABS = [['top', 'an.mTop'], ['where', 'an.tab_where'], ['os', 'an.os'], ['dev', 'an.devices'], ['br', 'an.browsers'], ['when', 'an.tab_when']];
+  function mpane(r) {
+    var tot = r.totals.scans;
+    return mtab === 'where' ? whereCard(r) : mtab === 'when' ? whenCard(r) : mtab === 'os' ? donut('os', t('an.os'), r.os, tot, 'phone')
+      : mtab === 'dev' ? donut('dev', t('an.devices'), r.devices || [], tot, 'desktop') : mtab === 'br' ? donut('br', t('an.browsers'), r.browsers || [], tot, 'globe') : ranking(r.codes, tot);
+  }
+  function mtabs() {
+    return '<div class="an-mtabs" role="tablist">' + MTABS.map(function (x) { return '<button type="button" role="tab" data-mtab="' + x[0] + '" aria-selected="' + (mtab === x[0]) + '">' + esc(t(x[1])) + '</button>'; }).join('') + '</div>';
+  }
   function dashboard(r) {
     var tot = r.totals.scans;
+    if (compactMq.matches && !printAll) return '<div class="an-dash an-compact">' + chartCard(r) + mtabs() + '<div class="an-mpane" id="anMPane">' + mpane(r) + '</div></div>';
     return '<div class="an-dash"><div class="an-d1">' + chartCard(r) + ranking(r.codes, tot) + '</div>' +
       '<div class="an-d2">' + whereCard(r) + donut('os', t('an.os'), r.os, tot, 'phone') + donut('dev', t('an.devices'), r.devices || [], tot, 'desktop') + donut('br', t('an.browsers'), r.browsers || [], tot, 'globe') + whenCard(r) + '</div></div>';
   }
@@ -479,6 +491,12 @@ var Analytics = (function () {
     if ((b = e.target.closest('[data-where]'))) { whereDim = b.getAttribute('data-where'); return swapCard(b, whereCard(data), '[data-where="' + whereDim + '"]'); }
     if ((b = e.target.closest('[data-when]'))) { whenDim = b.getAttribute('data-when'); return swapCard(b, whenCard(data), '[data-when="' + whenDim + '"]'); }
     if ((b = e.target.closest('[data-filter]'))) { var k = b.getAttribute('data-filter'); f[k] = [b.getAttribute('data-k')]; if (MORE.indexOf(k) >= 0) moreOpen = true; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+    if ((b = e.target.closest('[data-mtab]'))) {
+      mtab = b.getAttribute('data-mtab'); body.querySelectorAll('[data-mtab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+      var mp = body.querySelector('#anMPane'); if (mp) mp.innerHTML = mpane(data); b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); return;
+    }
+    if ((b = e.target.closest('[data-xopt]'))) { var xo = b.getAttribute('data-xopt'); view.querySelector('.an-xmenu').hidden = true; return xo === 'pdf' ? report() : xo === 'xlsx' ? exportXlsx() : exportCsv(); }
+    if (e.target.closest('#anExport') && compactMq.matches) { var xm = view.querySelector('.an-xmenu'); xm.hidden = !xm.hidden; document.getElementById('anExport').setAttribute('aria-expanded', String(!xm.hidden)); return; }
     if ((b = e.target.closest('[data-group]'))) { group = b.getAttribute('data-group'); return drawTab(); }
     if ((b = e.target.closest('[data-expand]'))) { var x = b.getAttribute('data-expand'); expanded[x] = !expanded[x]; return drawTab(); }
     if (e.target.closest('#anExport')) return exportCsv();
@@ -489,9 +507,15 @@ var Analytics = (function () {
   view.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openDrop) { var dim = openDrop; openDrop = null; drawFilters(); var btn = bar.querySelector('[data-drop="' + dim + '"]'); if (btn) btn.focus(); } });
   body.addEventListener('pointermove', function (e) { if (e.target.closest('.an-plot')) hover(e); });
   body.addEventListener('pointerleave', unhover, true);
+  compactMq.addEventListener('change', function () { if (!view.hidden && data && data.series) drawTab(); });
+  document.addEventListener('click', function (e) { var xm = view.querySelector('.an-xmenu'); if (xm && !xm.hidden && !e.target.closest('.an-acts')) xm.hidden = true; });
   addEventListener('resize', function () { clearTimeout(fit.t); fit.t = setTimeout(function () { if (!view.hidden && data && data.series) { lineChart(grouped(data.series)); fit(); } }, 80); });
 
-  function labels() { document.getElementById('anExport').innerHTML = ico('dl') + t('an.export'); var xb = document.getElementById('anXlsx'); if (xb) xb.innerHTML = ico('dl') + t('an.excel'); var rp = document.getElementById('anReport'); if (rp) rp.innerHTML = ico('dl') + t('an.report'); }
+  function labels() {
+    var xm = view.querySelector('.an-xmenu'); if (!xm) { xm = document.createElement('div'); xm.className = 'an-xmenu'; xm.hidden = true; xm.setAttribute('role', 'menu'); view.querySelector('.an-acts').appendChild(xm); }
+    xm.innerHTML = [['pdf', 'an.report'], ['csv', 'an.export'], ['xlsx', 'an.excel']].map(function (o) { return '<button type="button" role="menuitem" data-xopt="' + o[0] + '">' + ico('dl') + esc(t(o[1])) + '</button>'; }).join('');
+    document.getElementById('anExport').setAttribute('data-short', t('an.exportShort'));
+    document.getElementById('anExport').innerHTML = ico('dl') + '<span class="an-xl">' + t('an.export') + '</span><span class="an-xs">' + t('an.exportShort') + '</span>'; var xb = document.getElementById('anXlsx'); if (xb) xb.innerHTML = ico('dl') + t('an.excel'); var rp = document.getElementById('anReport'); if (rp) rp.innerHTML = ico('dl') + t('an.report'); }
   /* Rapport: de pagina netjes afdrukken; in het afdrukvenster kies je "Opslaan als PDF" */
   function report() {
     document.body.classList.add('an-printing'); printAll = true; if (data) drawTab();

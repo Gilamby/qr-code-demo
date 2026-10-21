@@ -1265,7 +1265,9 @@
     "tabsLabel": "Pjesët e statistikave",
     "peak": "Kulmi",
     "hourShort": "Ora",
-    "excel": "Eksporto (Excel)"
+    "excel": "Eksporto (Excel)",
+    "mTop": "Kodet QR kryesore",
+    "exportShort": "Eksporto"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",
@@ -1984,7 +1986,9 @@
     "viewAll": "Shiko të gjitha",
     "welcomeBack": "Mirë se u ktheve. Këtu janë kodet e tua QR dhe aktiviteti i fundit.",
     "vsYesterday": "Krahasuar me dje",
-    "vsYesterdayShort": "kundrejt dje"
+    "vsYesterdayShort": "kundrejt dje",
+    "mActivity": "Aktiviteti",
+    "mFavs": "Të preferuarat"
   },
   "as": {
     "tabTexts": "Tekstet",

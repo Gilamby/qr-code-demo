@@ -4645,3 +4645,135 @@ body.paywall-open { overflow: hidden; }
 .pw-card .pl-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
 .pl-was { color: var(--muted); font-size: 17px; font-weight: 600; text-decoration-thickness: 1.5px; text-decoration-color: currentColor; font-weight: 500; }
 .pl-save { color: #4ade80; font-weight: 700; }
+
+/* =========================================================
+   TELEFOON EN TABLET: in één oogopslag (wens Fabian 21 okt)
+   Overzicht en Statistieken passen op één scherm, net als op de computer.
+   Telefoon: compacte tegels (4 naast elkaar), lagere grafiek, daaronder tabbladjes met één onderdeel tegelijk.
+   ========================================================= */
+.hm-mtabs, .an-mtabs { display: flex; gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.hm-mtabs::-webkit-scrollbar, .an-mtabs::-webkit-scrollbar { display: none; }
+.hm-mtabs button, .an-mtabs button { flex: 1 0 auto; padding: 7px 12px; border: 0; border-radius: 9px; background: none; color: var(--muted); font: inherit; font-size: 13.5px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+.hm-mtabs button[aria-selected="true"], .an-mtabs button[aria-selected="true"] { background: var(--accent); color: #04121c; }
+.an-xmenu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; min-width: 200px; padding: 6px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 20px 50px -20px #000; display: grid; gap: 2px; }
+.an-xmenu[hidden] { display: none; }
+.an-xmenu button { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 0; border-radius: 10px; background: none; color: var(--fg); font: inherit; font-size: 14.5px; font-weight: 600; text-align: left; cursor: pointer; }
+.an-xmenu button:hover { background: rgba(255,255,255,.06); }
+.an-xmenu .an-i { width: 16px; height: 16px; }
+#anExport .an-xs { display: none; }
+
+/* ---------- Tablet en telefoon (≤ 1100) ---------- */
+@media (max-width: 1100px) {
+  .an-acts { position: relative; }
+  #anReport, #anXlsx { display: none; }
+  #anExport .an-xl { display: none; } #anExport .an-xs { display: inline; }
+  .an-head { align-items: center; flex-wrap: nowrap; }
+  .an-head .btn { height: 40px; }
+  .an-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 8px !important; }
+  .an-compact { gap: 10px; }
+  .an-compact .an-mpane > .an-card { min-height: 0; }
+  .an-compact .an-mpane .an-dwrap { flex-direction: row; align-items: center; gap: 16px; }
+  .an-compact .an-mpane .an-legend2 { flex: 1; }
+  .an-compact .an-mpane .an-donut { width: 104px; height: 104px; flex: none; }
+  .an-compact .an-mpane .an-cols { height: 120px; }
+  .hm-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+}
+/* Tablet (761–1100): Overzicht zoals op de computer, twee kolommen */
+@media (min-width: 761px) and (max-width: 1100px) {
+  /* Overzicht: grafiek over de hele breedte, daaronder Activiteit | Meest gescand, dan Favorieten */
+  .hm-rows { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px !important; }
+  .hm-row { display: contents !important; }
+  .hm-rows .hm-chart { grid-column: 1 / -1; order: 1; }
+  .hm-rows .hm-actc { order: 2; } .hm-rows .hm-topc { order: 3; }
+  .hm-rows .hm-favs { order: 4; grid-column: 1 / -1; }
+  .hm-tiles { gap: 10px; }
+  .hm-tile .hm-trend span { display: none; }
+  .hm-hero p { font-size: 14px; }
+  /* Statistieken */
+  .an-filters .an-frow { flex-wrap: nowrap; }
+  .an-filters .an-flbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .an-tile .an-spark { display: none !important; }
+  .an-tile:has(.an-spark) { padding-bottom: 14px !important; }
+  .an-tile .an-big, .an-tile > b { font-size: 24px !important; }
+  .an-tile .an-tfoot { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .an-tile .an-delta small { display: none; }
+  .an-compact .an-rank .an-more { display: none; }
+  .an-compact .an-mpane > .an-card { min-height: 0 !important; height: auto !important; }
+  .an-compact .an-rlist li:nth-child(n+5) { display: none; }
+  .an-compact .an-chart .an-table { display: none; }
+}
+@media (max-width: 1100px) {
+  .an-tiles .an-tile { grid-template-columns: minmax(0, 1fr) !important; grid-template-areas: "top" "num" "foot" !important; }
+}
+
+/* ---------- Telefoon (≤ 760) ---------- */
+@media (max-width: 760px) {
+  /* Overzicht */
+  #homeView .hm { margin-top: 4px; gap: 10px; }
+  .hm-hero { display: flex !important; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .hm-mpane .hm-head h3 { display: none; }
+  .hm-mpane .hm-head { justify-content: flex-end; }
+  .an-mpane .an-mini li:nth-child(n+5) { display: none; }
+  .hm-hero h2 { font-size: 20px; }
+  .hm-hero p, .hm-hero .hm-sub { display: none; }
+  .hm-acts { display: flex; gap: 8px; flex: 1 1 100% !important; width: 100% !important; }
+  .hm-acts .hm-period { flex: 1; } .hm-acts .hm-period select { max-width: none !important; width: 100%; }
+  .hm-acts .hm-period select { height: 38px; font-size: 13px; padding: 0 26px 0 10px; max-width: 128px; }
+  .hm-hero > div:first-child { min-width: 0; flex: 1 1 100%; }
+  .hm-hero h2 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hm-acts .btn { height: 38px; width: 38px; min-width: 0 !important; padding: 0 !important; font-size: 0; gap: 0; justify-content: center; flex: none; }
+  .hm-acts .btn svg { width: 18px; height: 18px; margin: 0; }
+  .hm-tiles { gap: 6px !important; }
+  .hm-tile { padding: 9px 9px 8px !important; min-height: 0 !important; border-radius: 14px !important; gap: 2px !important; }
+  .hm-tile .hm-tic { display: none; }
+  .hm-tile small { font-size: 11px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hm-tile b { font-size: 18px !important; line-height: 1.2; }
+  .hm-tile .hm-trend { font-size: 11px; } .hm-tile .hm-trend span { display: none; }
+  #homeView .hm-chart { padding: 12px 12px 8px !important; }
+  #homeView .hm-chart .hm-cfoot, #homeView .hm-chart details, #homeView .hm-chart .an-table { display: none; }
+  #homeView .hm-chart .hm-head { margin-bottom: 4px; }
+  .hm-mpane .hm-code { padding-top: 4px !important; padding-bottom: 4px !important; }
+  .hm-mpane .hm-qr { width: 30px !important; height: 30px !important; }
+  .hm-mpane .hm-list { gap: 2px; }
+  .hm-mpane > .hm-card { padding: 12px 14px !important; }
+  .hm-mpane .hm-head { margin-bottom: 4px; }
+  /* Statistieken */
+  #analyticsView .an { margin-top: 0; gap: 8px; padding: 14px 10px 12px !important; }
+  #analyticsView.canvas, #homeView.canvas { padding-bottom: 10px; }
+  .an-filters .an-morebtn { height: 38px !important; min-height: 0 !important; font-size: 13px !important; padding: 0 10px !important; }
+  #analyticsView .an-head h2 { font-size: 21px; }
+  #analyticsView .an-head .btn { height: 36px; padding: 0 12px; font-size: 13.5px; }
+  .an-range { display: none; }
+  .an-compact .an-chart .an-chead { margin-bottom: 0; }
+  .an-compact .an-chart .an-chead h3 { font-size: 14px; }
+  .an-compact .an-group button { padding: 4px 9px; font-size: 12px; }
+  .an-compact .an-rrow { padding: 3px 6px !important; grid-template-columns: 22px 28px minmax(0, 1fr) auto !important; }
+  .an-compact .an-rqr { width: 28px !important; height: 28px !important; padding: 2px !important; }
+  .an-compact .an-rlist li:nth-child(n+4) { display: none; }
+  .an-foot .an-lock { display: none !important; }
+  .an-compact .an-rank .an-more { display: none; }
+  .an-compact .an-mpane .an-chead { margin-bottom: 2px; }
+  .an-foot { margin-top: 0 !important; font-size: 11.5px !important; line-height: 1.4; }
+  .an-filters { padding: 0 !important; background: none !important; border: 0 !important; box-shadow: none !important; backdrop-filter: none !important; }
+  .an-mpane .an-chead h3, .an-mpane .an-chead > small, .an-mpane .an-chead > span:not(.an-seg) { display: none !important; }
+  .an-mpane .an-chead:not(:has(.an-seg)) { display: none !important; }
+  .an-foot { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 10px; }
+  .an-range { font-size: 12.5px; }
+  .an-filters { padding: 8px !important; }
+  .an-filters .an-frow { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 6px !important; }
+  .an-filters .an-flbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .an-filters .an-f { min-width: 0 !important; }
+  .an-filters select, .an-filters .an-sel, .an-filters .btn { height: 38px !important; font-size: 13px !important; }
+  .an-tiles { gap: 6px !important; }
+  .an-tile { padding: 9px 9px 8px !important; border-radius: 14px !important; gap: 2px !important; }
+  .an-tile:has(.an-spark) { padding-bottom: 8px !important; }
+  .an-tile .an-spark, .an-tile .an-tic, .an-tile .an-tip { display: none !important; }
+  .an-tile small { font-size: 11px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .an-tile .an-big, .an-tile b { font-size: 18px !important; }
+  .an-tile .an-tfoot { font-size: 11px; white-space: nowrap; overflow: hidden; }
+  .an-tile .an-delta small { display: none; }
+  .an-compact .an-chart { padding: 12px 12px 8px !important; }
+  .an-compact .an-chart .an-legend, .an-compact .an-chart .an-table { display: none; }
+  .an-compact .an-mpane > .an-card { padding: 12px 14px !important; }
+  .an-foot { margin-top: 8px; font-size: 12px; }
+}

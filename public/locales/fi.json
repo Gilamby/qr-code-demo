@@ -1159,7 +1159,9 @@
     "tabsLabel": "Tilastojen osat",
     "peak": "Huippu",
     "hourShort": "Tunti",
-    "excel": "Vie (Excel)"
+    "excel": "Vie (Excel)",
+    "mTop": "Suosituimmat",
+    "exportShort": "Vie"
   },
   "auth": {
     "loginTitle": "Tervetuloa takaisin",
@@ -1878,7 +1880,9 @@
     "viewAll": "Näytä kaikki",
     "welcomeBack": "Tervetuloa takaisin. Tässä QR-koodisi ja viimeisin toiminta.",
     "vsYesterday": "Verrattuna eiliseen",
-    "vsYesterdayShort": "vs. eilen"
+    "vsYesterdayShort": "vs. eilen",
+    "mActivity": "Toiminta",
+    "mFavs": "Suosikit"
   },
   "as": {
     "tabTexts": "Tekstit",
