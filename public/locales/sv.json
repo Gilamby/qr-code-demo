@@ -515,7 +515,12 @@
     "planBar": "{n} QR-koder är pausade av ditt paket.",
     "planBarOne": "1 QR-kod är pausad av ditt paket.",
     "planBarText": "De är sparade. Uppgradera eller köp en extra QR-kod för att slå på dem igen.",
-    "planBarBtn": "Slå på igen"
+    "planBarBtn": "Slå på igen",
+    "whereTip": "Se var den här koden har skannats",
+    "whereTitle": "Var har ”{name}” skannats?",
+    "whereLead": "{n} skanningar, per plats:",
+    "whereNone": "Inga skanningar ännu. Så fort någon skannar koden ser du här var.",
+    "whereMore": "Och {n} platser till i statistiken."
   },
   "appearance": {
     "title": "Färger",
@@ -1180,7 +1185,10 @@
     "hourShort": "Timme",
     "excel": "Exportera (Excel)",
     "mTop": "Topp QR-koder",
-    "exportShort": "Exportera"
+    "exportShort": "Exportera",
+    "allCountries": "Alla länder",
+    "drillHint": "Klicka på ett land för städerna och på en stad för alla detaljer.",
+    "cityHint": "Alla kort visar nu bara den här staden."
   },
   "auth": {
     "loginTitle": "Välkommen tillbaka",
@@ -2061,7 +2069,7 @@
       "s1t": "Vilka vi är",
       "s1": "QR-Codex är en tjänst från {company}. Vi är ansvariga för behandlingen av uppgifterna i ditt konto. Frågor om integritet? Mejla {email}.",
       "s2t": "Vilka uppgifter vi behandlar",
-      "s2": "**Ditt konto**\n- namn, e-postadress, profilbild och tidszon (om du lägger till dem)\n- ditt lösenord, som bara sparas i oläsbar form (hashat)\n- faktureringsuppgifter, om du lägger till dem (företagsnamn, adress, momsregistreringsnummer)\n- om du loggar in med Google: ditt namn och din e-postadress från ditt Google-konto\n- API-nycklar (Business): bara i oläslig form, aldrig själva nyckeln\n\n**Dina QR-koder**\n- innehållet du anger och filerna du laddar upp (bilder, PDF:er, ljud, video), eftersom de behövs för att visa sidan\n- lösenord för skyddade koder och Wi-Fi-lösenord sparas krypterade\n\n**Säkerhet**\n- för varje inloggad enhet: webbläsare, system, IP-adress och när den senast var aktiv\n- senaste aktivitet: inloggningar (även misslyckade försök), ändrat lösenord eller ändrad e-post, utloggning av andra enheter\n\n**Skanningar av dina QR-koder**\n- per kod och dag bara antal per system (till exempel iOS eller Android), land och ort\n- land och ort slås upp i vår egen databas på vår server; besökarens IP-adress sparas inte och lämnas inte vidare\n- ”unika skanningar” räknas utan cookies, med hjälp av en daglig kod som inte längre kan spåras efter den dagen\n\n**Chattassistenten**\n- om du använder chatten (nere till höger) skickas dina meddelanden och uppgifterna du anger (t.ex. namn, e-post eller telefonnummer) till chattjänsten hos {company}\n- för att fylla i telefonnummerfältet tar chatten reda på ditt land via ipapi.co, som då ser din IP-adress\n- chatten sparar samtalet i din webbläsare så att du kan fortsätta det senare",
+      "s2": "**Ditt konto**\n- namn, e-postadress, profilbild och tidszon (om du lägger till dem)\n- ditt lösenord, som bara sparas i oläsbar form (hashat)\n- faktureringsuppgifter, om du lägger till dem (företagsnamn, adress, momsregistreringsnummer)\n- om du loggar in med Google: ditt namn och din e-postadress från ditt Google-konto\n- API-nycklar (Business): bara i oläslig form, aldrig själva nyckeln\n\n**Dina QR-koder**\n- innehållet du anger och filerna du laddar upp (bilder, PDF:er, ljud, video), eftersom de behövs för att visa sidan\n- lösenord för skyddade koder och Wi-Fi-lösenord sparas krypterade\n\n**Säkerhet**\n- för varje inloggad enhet: webbläsare, system, IP-adress och när den senast var aktiv\n- senaste aktivitet: inloggningar (även misslyckade försök), ändrat lösenord eller ändrad e-post, utloggning av andra enheter\n\n**Skanningar av dina QR-koder**\n- per kod och dag bara antal per system (till exempel iOS eller Android), land och ort\n- land och ort slås upp i vår egen databas på vår server; besökarens IP-adress sparas inte och lämnas inte vidare (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- ”unika skanningar” räknas utan cookies, med hjälp av en daglig kod som inte längre kan spåras efter den dagen\n\n**Chattassistenten**\n- om du använder chatten (nere till höger) skickas dina meddelanden och uppgifterna du anger (t.ex. namn, e-post eller telefonnummer) till chattjänsten hos {company}\n- för att fylla i telefonnummerfältet tar chatten reda på ditt land via ipapi.co, som då ser din IP-adress\n- chatten sparar samtalet i din webbläsare så att du kan fortsätta det senare",
       "s3t": "Varför vi använder uppgifterna",
       "s3": "- för att tillhandahålla tjänsten: ditt konto, dina QR-koder och sidorna som besökare ser (fullgörande av avtal)\n- för att skydda ditt konto och tjänsten och förhindra missbruk (berättigat intresse)\n- för att visa statistik om dina egna koder (berättigat intresse)\n- för att upprätta och spara fakturor om du har ett betalt abonnemang (rättslig förpliktelse)",
       "s4t": "Hur länge vi sparar uppgifter",
@@ -2786,5 +2794,13 @@
     "defaultOff": "Ingen standard längre.",
     "tooBig": "Logotypen är för stor för att sparas. Använd en mindre bild.",
     "tooMany": "Du kan spara upp till 10 designer."
+  },
+  "cd": {
+    "link": "Länk",
+    "dest": "Går till",
+    "made": "Skapad",
+    "lastScan": "Senaste skanning",
+    "total": "Skanningar totalt",
+    "never": "Aldrig"
   }
 }

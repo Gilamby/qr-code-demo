@@ -33,6 +33,7 @@ var MyCodes = (function () {
     inbox: '<path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     star: '<path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/>',
+    pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     tag: '<path d="M3 12V4.5A1.5 1.5 0 0 1 4.5 3H12l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>', note: '<path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4M8.5 12h7M8.5 16h5"/>',
     dup: '<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2M14 11v6M11 14h6"/>',
     empty: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>'
@@ -188,7 +189,7 @@ var MyCodes = (function () {
           (r.note ? '<button type="button" class="mc-note" data-act="labels" title="' + esc(r.note) + '">' + ico('note') + '<span>' + esc(r.note.split('\n')[0].slice(0, 60)) + '</span></button>' : '') + '</div>' : '') +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
-        : '<button type="button" class="mc-scans" data-act="stats" title="' + esc(t('myCodes.viewStats')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
+        : '<button type="button" class="mc-scans" data-act="where" title="' + esc(t('myCodes.whereTip')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
       '<div class="mc-state">' + (stat ? '<span class="mc-pill on">' + t('myCodes.always') + '</span>'
         : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" data-act="toggle"' + (off && r.hold && r.hold.lock ? ' aria-disabled="true" title="' + esc(t('myCodes.heldLocked')) + '"' : '') + '><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
       '<div class="mc-acts">' +
@@ -741,6 +742,7 @@ var MyCodes = (function () {
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });
+    if (act === 'where') return Analytics.open({ codes: [r.id], detail: true });   // klik op scans: detailpagina van deze code
     if (act === 'toggle') return toggle(r);
     if (act === 'support') return goToPage('contact');
     if (act === 'delete') return askDelete(r);
@@ -786,5 +788,5 @@ var MyCodes = (function () {
   function folderForNew() { var f = newIn; newIn = null; return f; }
   /** Vanaf het Overzicht: meteen een map (of 'fav') openen */
   function showFolder(key) { filter.folder = key; if (loaded) draw(); }
-  return { reload: load, rows: function () { return rows; }, displayName: displayName, folderForNew: folderForNew, showFolder: showFolder };
+  return { reload: load, rows: function () { return rows; }, displayName: displayName, folderForNew: folderForNew, showFolder: showFolder, edit: edit, labelsOf: askLabels };
 })();

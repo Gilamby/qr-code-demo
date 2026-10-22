@@ -515,7 +515,12 @@
     "planBar": "{n} QR-Codes sind durch Ihr Paket pausiert.",
     "planBarOne": "1 QR-Code ist durch Ihr Paket pausiert.",
     "planBarText": "Sie sind gespeichert. Upgraden Sie oder kaufen Sie einen QR-Code dazu, um sie wieder einzuschalten.",
-    "planBarBtn": "Wieder einschalten"
+    "planBarBtn": "Wieder einschalten",
+    "whereTip": "Sieh, wo dieser Code gescannt wurde",
+    "whereTitle": "Wo wurde „{name}“ gescannt?",
+    "whereLead": "{n} Scans, nach Ort:",
+    "whereNone": "Noch keine Scans. Sobald jemand den Code scannt, siehst du hier, wo.",
+    "whereMore": "Und {n} weitere Orte in der Statistik."
   },
   "appearance": {
     "title": "Farben",
@@ -1180,7 +1185,10 @@
     "hourShort": "Stunde",
     "excel": "Exportieren (Excel)",
     "mTop": "Top-QR-Codes",
-    "exportShort": "Exportieren"
+    "exportShort": "Exportieren",
+    "allCountries": "Alle Länder",
+    "drillHint": "Klicke auf ein Land für die Städte und auf eine Stadt für alle Details.",
+    "cityHint": "Alle Karten zeigen jetzt nur diese Stadt."
   },
   "auth": {
     "loginTitle": "Willkommen zurück",
@@ -2065,7 +2073,7 @@
       "s1t": "Wer wir sind",
       "s1": "QR-Codex ist ein Dienst von {company}. Wir sind für die Verarbeitung der Daten deines Kontos verantwortlich. Fragen zum Datenschutz? Schreib an {email}.",
       "s2t": "Welche Daten wir verarbeiten",
-      "s2": "**Dein Konto**\n- Name, E-Mail-Adresse, Profilfoto und Zeitzone (wenn du sie angibst)\n- dein Passwort, nur in unlesbarer Form gespeichert (gehasht)\n- Rechnungsdaten, wenn du sie angibst (Firmenname, Adresse, USt-IdNr.)\n- wenn du dich mit Google anmeldest: dein Name und deine E-Mail-Adresse aus deinem Google-Konto\n- API-Schlüssel (Business): nur in unlesbarer Form, nie der Schlüssel selbst\n\n**Deine QR-Codes**\n- die Inhalte, die du eingibst, und die Dateien, die du hochlädst (Fotos, PDFs, Audio, Video), weil sie zum Anzeigen der Seite nötig sind\n- Passwörter geschützter Codes und WLAN-Passwörter werden verschlüsselt gespeichert\n\n**Sicherheit**\n- pro angemeldetem Gerät: Browser, System, IP-Adresse und wann es zuletzt aktiv war\n- letzte Aktivitäten: Anmeldungen (auch fehlgeschlagene), Passwort oder E-Mail geändert, andere Geräte abgemeldet\n\n**Scans deiner QR-Codes**\n- pro Code und Tag nur Zahlen pro System (zum Beispiel iOS oder Android), Land und Stadt\n- Land und Stadt werden in unserer eigenen Datenbank auf unserem Server nachgeschlagen; die IP-Adresse des Besuchers wird nicht gespeichert und nicht weitergegeben\n- „eindeutige Scans“ werden ohne Cookies gezählt, mit einem Tagescode, der nach diesem Tag nicht mehr zurückverfolgt werden kann\n\n**Der Chat-Assistent**\n- wenn du den Chat (unten rechts) nutzt, werden deine Nachrichten und deine Angaben (z. B. Name, E-Mail-Adresse oder Telefonnummer) an den Chatdienst von {company} gesendet\n- um das Telefonnummernfeld vorauszufüllen, ermittelt der Chat dein Land über ipapi.co, das dafür deine IP-Adresse sieht\n- der Chat speichert dein Gespräch in deinem Browser, damit du es später fortsetzen kannst",
+      "s2": "**Dein Konto**\n- Name, E-Mail-Adresse, Profilfoto und Zeitzone (wenn du sie angibst)\n- dein Passwort, nur in unlesbarer Form gespeichert (gehasht)\n- Rechnungsdaten, wenn du sie angibst (Firmenname, Adresse, USt-IdNr.)\n- wenn du dich mit Google anmeldest: dein Name und deine E-Mail-Adresse aus deinem Google-Konto\n- API-Schlüssel (Business): nur in unlesbarer Form, nie der Schlüssel selbst\n\n**Deine QR-Codes**\n- die Inhalte, die du eingibst, und die Dateien, die du hochlädst (Fotos, PDFs, Audio, Video), weil sie zum Anzeigen der Seite nötig sind\n- Passwörter geschützter Codes und WLAN-Passwörter werden verschlüsselt gespeichert\n\n**Sicherheit**\n- pro angemeldetem Gerät: Browser, System, IP-Adresse und wann es zuletzt aktiv war\n- letzte Aktivitäten: Anmeldungen (auch fehlgeschlagene), Passwort oder E-Mail geändert, andere Geräte abgemeldet\n\n**Scans deiner QR-Codes**\n- pro Code und Tag nur Zahlen pro System (zum Beispiel iOS oder Android), Land und Stadt\n- Land und Stadt werden in unserer eigenen Datenbank auf unserem Server nachgeschlagen; die IP-Adresse des Besuchers wird nicht gespeichert und nicht weitergegeben (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- „eindeutige Scans“ werden ohne Cookies gezählt, mit einem Tagescode, der nach diesem Tag nicht mehr zurückverfolgt werden kann\n\n**Der Chat-Assistent**\n- wenn du den Chat (unten rechts) nutzt, werden deine Nachrichten und deine Angaben (z. B. Name, E-Mail-Adresse oder Telefonnummer) an den Chatdienst von {company} gesendet\n- um das Telefonnummernfeld vorauszufüllen, ermittelt der Chat dein Land über ipapi.co, das dafür deine IP-Adresse sieht\n- der Chat speichert dein Gespräch in deinem Browser, damit du es später fortsetzen kannst",
       "s3t": "Wofür wir diese Daten nutzen",
       "s3": "- um den Dienst zu erbringen: dein Konto, deine QR-Codes und die Seiten, die Besucher sehen (Vertragserfüllung)\n- um dein Konto und den Dienst zu schützen und Missbrauch zu verhindern (berechtigtes Interesse)\n- um Statistiken über deine eigenen Codes anzuzeigen (berechtigtes Interesse)\n- um Rechnungen zu erstellen und aufzubewahren, wenn du ein kostenpflichtiges Abo hast (gesetzliche Pflicht)",
       "s4t": "Wie lange wir Daten aufbewahren",
@@ -2792,5 +2800,13 @@
     "defaultOff": "Kein Standard mehr.",
     "tooBig": "Das Logo ist zu groß zum Speichern. Nutze ein kleineres Bild.",
     "tooMany": "Du kannst bis zu 10 Designs speichern."
+  },
+  "cd": {
+    "link": "Link",
+    "dest": "Führt zu",
+    "made": "Erstellt",
+    "lastScan": "Letzter Scan",
+    "total": "Scans gesamt",
+    "never": "Noch nie"
   }
 }

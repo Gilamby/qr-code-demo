@@ -515,7 +515,12 @@
     "planBar": "{n} kodów QR jest wstrzymanych przez pakiet.",
     "planBarOne": "1 kod QR jest wstrzymany przez pakiet.",
     "planBarText": "Są zachowane. Podnieś pakiet lub dokup kod QR, aby je znów włączyć.",
-    "planBarBtn": "Włącz ponownie"
+    "planBarBtn": "Włącz ponownie",
+    "whereTip": "Zobacz, gdzie zeskanowano ten kod",
+    "whereTitle": "Gdzie zeskanowano „{name}”?",
+    "whereLead": "{n} skanów, według miejsca:",
+    "whereNone": "Brak skanów. Gdy ktoś zeskanuje kod, zobaczysz tu gdzie.",
+    "whereMore": "I jeszcze {n} miejsc w statystykach."
   },
   "appearance": {
     "title": "Kolory",
@@ -1180,7 +1185,10 @@
     "hourShort": "Godzina",
     "excel": "Eksportuj (Excel)",
     "mTop": "Top kody QR",
-    "exportShort": "Eksportuj"
+    "exportShort": "Eksportuj",
+    "allCountries": "Wszystkie kraje",
+    "drillHint": "Kliknij kraj, aby zobaczyć miasta, a miasto — aby zobaczyć wszystkie szczegóły.",
+    "cityHint": "Wszystkie karty pokazują teraz tylko to miasto."
   },
   "auth": {
     "loginTitle": "Witaj ponownie",
@@ -2059,7 +2067,7 @@
       "s1t": "Kim jesteśmy",
       "s1": "QR-Codex to usługa {company}. Odpowiadamy za przetwarzanie danych Twojego konta. Pytania o prywatność? Napisz na {email}.",
       "s2t": "Jakie dane przetwarzamy",
-      "s2": "**Twoje konto**\n- imię, adres e-mail, zdjęcie profilowe i strefa czasowa (jeśli je dodasz)\n- Twoje hasło, przechowywane wyłącznie w nieczytelnej formie (hash)\n- dane do faktur, jeśli je dodasz (nazwa firmy, adres, NIP)\n- jeśli logujesz się przez Google: imię i nazwisko oraz adres e-mail z konta Google\n- klucze API (Business): tylko w nieczytelnej formie, nigdy sam klucz\n\n**Twoje kody QR**\n- treść, którą wpisujesz, i pliki, które przesyłasz (zdjęcia, PDF, audio, wideo), bo są potrzebne do wyświetlenia strony\n- hasła chronionych kodów i hasła Wi-Fi są przechowywane w postaci zaszyfrowanej\n\n**Bezpieczeństwo**\n- dla każdego zalogowanego urządzenia: przeglądarka, system, adres IP i ostatnia aktywność\n- ostatnia aktywność: logowania (także nieudane), zmiana hasła lub e-maila, wylogowanie innych urządzeń\n\n**Skany Twoich kodów QR**\n- na kod i dzień tylko liczby według systemu (na przykład iOS lub Android), kraju i miasta\n- kraj i miasto sprawdzamy we własnej bazie danych na naszym serwerze; adres IP odwiedzającego nie jest zapisywany ani przekazywany\n- „unikalne skany” liczymy bez plików cookie, za pomocą dziennego kodu, którego po tym dniu nie da się już powiązać\n\n**Asystent czatu**\n- jeśli korzystasz z czatu (w prawym dolnym rogu), Twoje wiadomości i podane dane (np. imię, e-mail lub numer telefonu) są wysyłane do usługi czatu {company}\n- aby wstępnie uzupełnić pole numeru telefonu, czat ustala Twój kraj przez ipapi.co, który w tym celu widzi Twój adres IP\n- czat zapamiętuje rozmowę w Twojej przeglądarce, abyś mógł ją później kontynuować",
+      "s2": "**Twoje konto**\n- imię, adres e-mail, zdjęcie profilowe i strefa czasowa (jeśli je dodasz)\n- Twoje hasło, przechowywane wyłącznie w nieczytelnej formie (hash)\n- dane do faktur, jeśli je dodasz (nazwa firmy, adres, NIP)\n- jeśli logujesz się przez Google: imię i nazwisko oraz adres e-mail z konta Google\n- klucze API (Business): tylko w nieczytelnej formie, nigdy sam klucz\n\n**Twoje kody QR**\n- treść, którą wpisujesz, i pliki, które przesyłasz (zdjęcia, PDF, audio, wideo), bo są potrzebne do wyświetlenia strony\n- hasła chronionych kodów i hasła Wi-Fi są przechowywane w postaci zaszyfrowanej\n\n**Bezpieczeństwo**\n- dla każdego zalogowanego urządzenia: przeglądarka, system, adres IP i ostatnia aktywność\n- ostatnia aktywność: logowania (także nieudane), zmiana hasła lub e-maila, wylogowanie innych urządzeń\n\n**Skany Twoich kodów QR**\n- na kod i dzień tylko liczby według systemu (na przykład iOS lub Android), kraju i miasta\n- kraj i miasto sprawdzamy we własnej bazie danych na naszym serwerze; adres IP odwiedzającego nie jest zapisywany ani przekazywany (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- „unikalne skany” liczymy bez plików cookie, za pomocą dziennego kodu, którego po tym dniu nie da się już powiązać\n\n**Asystent czatu**\n- jeśli korzystasz z czatu (w prawym dolnym rogu), Twoje wiadomości i podane dane (np. imię, e-mail lub numer telefonu) są wysyłane do usługi czatu {company}\n- aby wstępnie uzupełnić pole numeru telefonu, czat ustala Twój kraj przez ipapi.co, który w tym celu widzi Twój adres IP\n- czat zapamiętuje rozmowę w Twojej przeglądarce, abyś mógł ją później kontynuować",
       "s3t": "Do czego używamy tych danych",
       "s3": "- do świadczenia usługi: Twoje konto, Twoje kody QR i strony, które widzą odwiedzający (wykonanie umowy)\n- do zabezpieczenia konta i usługi oraz zapobiegania nadużyciom (prawnie uzasadniony interes)\n- do pokazywania statystyk Twoich kodów (prawnie uzasadniony interes)\n- do wystawiania i przechowywania faktur, jeśli masz płatny plan (obowiązek prawny)",
       "s4t": "Jak długo przechowujemy dane",
@@ -2786,5 +2794,13 @@
     "defaultOff": "Brak domyślnego.",
     "tooBig": "Logo jest za duże do zapisania. Użyj mniejszego obrazu.",
     "tooMany": "Możesz zapisać do 10 projektów."
+  },
+  "cd": {
+    "link": "Link",
+    "dest": "Prowadzi do",
+    "made": "Utworzono",
+    "lastScan": "Ostatni skan",
+    "total": "Skanów łącznie",
+    "never": "Nigdy"
   }
 }

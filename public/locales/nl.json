@@ -515,7 +515,12 @@
     "planBar": "{n} QR-codes zijn gepauzeerd door je pakket.",
     "planBarOne": "1 QR-code is gepauzeerd door je pakket.",
     "planBarText": "Ze zijn bewaard. Upgrade of koop een QR-code erbij om ze weer aan te zetten.",
-    "planBarBtn": "Weer aanzetten"
+    "planBarBtn": "Weer aanzetten",
+    "whereTip": "Bekijk waar deze code gescand is",
+    "whereTitle": "Waar is “{name}” gescand?",
+    "whereLead": "{n} scans, per plaats:",
+    "whereNone": "Nog geen scans. Zodra iemand de code scant, zie je hier waar.",
+    "whereMore": "En nog {n} andere plaatsen in de statistieken."
   },
   "appearance": {
     "title": "Kleuren",
@@ -1180,7 +1185,10 @@
     "hourShort": "Uur",
     "excel": "Exporteren (Excel)",
     "mTop": "Top QR-codes",
-    "exportShort": "Exporteren"
+    "exportShort": "Exporteren",
+    "allCountries": "Alle landen",
+    "drillHint": "Klik op een land voor de steden, en op een stad voor alle details.",
+    "cityHint": "Alle kaarten tonen nu alleen deze stad."
   },
   "auth": {
     "loginTitle": "Welkom terug",
@@ -2071,7 +2079,7 @@
       "s1t": "Wie wij zijn",
       "s1": "QR-Codex is een dienst van {company}. Wij zijn verantwoordelijk voor de verwerking van de gegevens van je account. Vragen over privacy? Mail naar {email}.",
       "s2t": "Welke gegevens we verwerken",
-      "s2": "**Je account**\n- naam, e-mailadres, profielfoto en tijdzone (als je die invult)\n- je wachtwoord, alleen onleesbaar opgeslagen (gehasht)\n- factuurgegevens, als je die invult (bedrijfsnaam, adres, btw-nummer)\n- als je inlogt met Google: je naam en e-mailadres van je Google-account\n- API-sleutels (Business): alleen in onleesbare vorm, nooit de sleutel zelf\n\n**Je QR-codes**\n- de inhoud die je invult en de bestanden die je uploadt (foto's, PDF's, audio, video), want die zijn nodig om de pagina te tonen\n- wachtwoorden van beveiligde codes en wifi-wachtwoorden staan versleuteld opgeslagen\n\n**Beveiliging**\n- per ingelogd apparaat: browser, systeem, IP-adres en wanneer het laatst actief was\n- recente activiteit: inloggen (ook mislukte pogingen), wachtwoord of e-mail gewijzigd, uitloggen op andere apparaten\n\n**Scans van je QR-codes**\n- per code per dag alleen aantallen per systeem (bijvoorbeeld iOS of Android), land en stad\n- land en stad zoeken we op in een eigen database op onze server; het IP-adres van de bezoeker wordt niet opgeslagen en niet doorgestuurd\n- \"unieke scans\" tellen we zonder cookies, met een dagcode die na die dag niet meer te herleiden is\n\n**De chatbot**\n- als je de chat gebruikt (rechtsonder), gaan je berichten en wat je invult (zoals naam, e-mailadres of telefoonnummer) naar de chatdienst van {company}\n- om het telefoonnummerveld alvast in te vullen, zoekt de chat je land op via ipapi.co; die ziet daarvoor je IP-adres\n- de chat onthoudt je gesprek in je browser, zodat je het later kunt voortzetten",
+      "s2": "**Je account**\n- naam, e-mailadres, profielfoto en tijdzone (als je die invult)\n- je wachtwoord, alleen onleesbaar opgeslagen (gehasht)\n- factuurgegevens, als je die invult (bedrijfsnaam, adres, btw-nummer)\n- als je inlogt met Google: je naam en e-mailadres van je Google-account\n- API-sleutels (Business): alleen in onleesbare vorm, nooit de sleutel zelf\n\n**Je QR-codes**\n- de inhoud die je invult en de bestanden die je uploadt (foto's, PDF's, audio, video), want die zijn nodig om de pagina te tonen\n- wachtwoorden van beveiligde codes en wifi-wachtwoorden staan versleuteld opgeslagen\n\n**Beveiliging**\n- per ingelogd apparaat: browser, systeem, IP-adres en wanneer het laatst actief was\n- recente activiteit: inloggen (ook mislukte pogingen), wachtwoord of e-mail gewijzigd, uitloggen op andere apparaten\n\n**Scans van je QR-codes**\n- per code per dag alleen aantallen per systeem (bijvoorbeeld iOS of Android), land en stad\n- land en stad zoeken we op in een eigen database op onze server; het IP-adres van de bezoeker wordt niet opgeslagen en niet doorgestuurd (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- \"unieke scans\" tellen we zonder cookies, met een dagcode die na die dag niet meer te herleiden is\n\n**De chatbot**\n- als je de chat gebruikt (rechtsonder), gaan je berichten en wat je invult (zoals naam, e-mailadres of telefoonnummer) naar de chatdienst van {company}\n- om het telefoonnummerveld alvast in te vullen, zoekt de chat je land op via ipapi.co; die ziet daarvoor je IP-adres\n- de chat onthoudt je gesprek in je browser, zodat je het later kunt voortzetten",
       "s3t": "Waarom we die gegevens gebruiken",
       "s3": "- om de dienst te leveren: je account, je QR-codes en de pagina's die bezoekers zien (uitvoering van de overeenkomst)\n- om je account en de dienst te beveiligen en misbruik te voorkomen (gerechtvaardigd belang)\n- om je statistieken te tonen over je eigen codes (gerechtvaardigd belang)\n- om facturen te maken en te bewaren als je een betaald abonnement hebt (wettelijke plicht)",
       "s4t": "Hoe lang we gegevens bewaren",
@@ -2831,5 +2839,13 @@
     "defaultOff": "Geen standaard meer.",
     "tooBig": "Het logo is te groot om op te slaan. Gebruik een kleiner plaatje.",
     "tooMany": "Je kunt maximaal 10 ontwerpen bewaren."
+  },
+  "cd": {
+    "link": "Link",
+    "dest": "Gaat naar",
+    "made": "Gemaakt",
+    "lastScan": "Laatste scan",
+    "total": "Totaal gescand",
+    "never": "Nog nooit"
   }
 }

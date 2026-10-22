@@ -515,7 +515,12 @@
     "planBar": "{n} codici QR sono in pausa per il tuo piano.",
     "planBarOne": "1 codice QR è in pausa per il tuo piano.",
     "planBarText": "Sono salvati. Passa a un piano superiore o compra un codice QR in più per riattivarli.",
-    "planBarBtn": "Riattiva"
+    "planBarBtn": "Riattiva",
+    "whereTip": "Vedi dove è stato scansionato questo codice",
+    "whereTitle": "Dove è stato scansionato “{name}”?",
+    "whereLead": "{n} scansioni, per luogo:",
+    "whereNone": "Ancora nessuna scansione. Appena qualcuno scansiona il codice, qui vedrai dove.",
+    "whereMore": "E altri {n} luoghi nelle statistiche."
   },
   "appearance": {
     "title": "Colori",
@@ -1180,7 +1185,10 @@
     "hourShort": "Ora",
     "excel": "Esporta (Excel)",
     "mTop": "Top codici QR",
-    "exportShort": "Esporta"
+    "exportShort": "Esporta",
+    "allCountries": "Tutti i paesi",
+    "drillHint": "Clicca su un paese per le città e su una città per tutti i dettagli.",
+    "cityHint": "Tutte le schede mostrano ora solo questa città."
   },
   "auth": {
     "loginTitle": "Bentornato",
@@ -2059,7 +2067,7 @@
       "s1t": "Chi siamo",
       "s1": "QR-Codex è un servizio di {company}. Siamo responsabili del trattamento dei dati del tuo account. Domande sulla privacy? Scrivi a {email}.",
       "s2t": "Quali dati trattiamo",
-      "s2": "**Il tuo account**\n- nome, indirizzo e-mail, foto profilo e fuso orario (se li aggiungi)\n- la tua password, salvata solo in forma illeggibile (hash)\n- dati di fatturazione, se li aggiungi (ragione sociale, indirizzo, partita IVA)\n- se accedi con Google: nome e indirizzo e-mail del tuo account Google\n- chiavi API (Business): solo in forma illeggibile, mai la chiave stessa\n\n**I tuoi codici QR**\n- i contenuti che inserisci e i file che carichi (foto, PDF, audio, video), perché servono a mostrare la pagina\n- le password dei codici protetti e del Wi-Fi sono salvate cifrate\n\n**Sicurezza**\n- per ogni dispositivo collegato: browser, sistema, indirizzo IP e ultima attività\n- attività recente: accessi (anche quelli falliti), password o e-mail cambiate, disconnessione di altri dispositivi\n\n**Scansioni dei tuoi codici QR**\n- per codice e per giorno solo conteggi per sistema (per esempio iOS o Android), paese e città\n- paese e città vengono cercati nel nostro database sul nostro server; l’indirizzo IP del visitatore non viene salvato né trasmesso\n- le «scansioni uniche» sono contate senza cookie, con un codice giornaliero che dopo quel giorno non è più rintracciabile\n\n**L’assistente chat**\n- se usi la chat (in basso a destra), i tuoi messaggi e i dati che inserisci (come nome, e-mail o numero di telefono) vengono inviati al servizio di chat di {company}\n- per precompilare il campo del telefono, la chat rileva il tuo paese tramite ipapi.co, che per questo vede il tuo indirizzo IP\n- la chat ricorda la conversazione nel tuo browser, così puoi continuarla più tardi",
+      "s2": "**Il tuo account**\n- nome, indirizzo e-mail, foto profilo e fuso orario (se li aggiungi)\n- la tua password, salvata solo in forma illeggibile (hash)\n- dati di fatturazione, se li aggiungi (ragione sociale, indirizzo, partita IVA)\n- se accedi con Google: nome e indirizzo e-mail del tuo account Google\n- chiavi API (Business): solo in forma illeggibile, mai la chiave stessa\n\n**I tuoi codici QR**\n- i contenuti che inserisci e i file che carichi (foto, PDF, audio, video), perché servono a mostrare la pagina\n- le password dei codici protetti e del Wi-Fi sono salvate cifrate\n\n**Sicurezza**\n- per ogni dispositivo collegato: browser, sistema, indirizzo IP e ultima attività\n- attività recente: accessi (anche quelli falliti), password o e-mail cambiate, disconnessione di altri dispositivi\n\n**Scansioni dei tuoi codici QR**\n- per codice e per giorno solo conteggi per sistema (per esempio iOS o Android), paese e città\n- paese e città vengono cercati nel nostro database sul nostro server; l’indirizzo IP del visitatore non viene salvato né trasmesso (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- le «scansioni uniche» sono contate senza cookie, con un codice giornaliero che dopo quel giorno non è più rintracciabile\n\n**L’assistente chat**\n- se usi la chat (in basso a destra), i tuoi messaggi e i dati che inserisci (come nome, e-mail o numero di telefono) vengono inviati al servizio di chat di {company}\n- per precompilare il campo del telefono, la chat rileva il tuo paese tramite ipapi.co, che per questo vede il tuo indirizzo IP\n- la chat ricorda la conversazione nel tuo browser, così puoi continuarla più tardi",
       "s3t": "Perché usiamo questi dati",
       "s3": "- per fornire il servizio: il tuo account, i tuoi codici QR e le pagine che vedono i visitatori (esecuzione del contratto)\n- per proteggere il tuo account e il servizio e prevenire abusi (interesse legittimo)\n- per mostrare statistiche sui tuoi codici (interesse legittimo)\n- per emettere e conservare fatture se hai un piano a pagamento (obbligo di legge)",
       "s4t": "Per quanto tempo conserviamo i dati",
@@ -2786,5 +2794,13 @@
     "defaultOff": "Nessun predefinito.",
     "tooBig": "Il logo è troppo grande da salvare. Usa un’immagine più piccola.",
     "tooMany": "Puoi salvare fino a 10 design."
+  },
+  "cd": {
+    "link": "Link",
+    "dest": "Porta a",
+    "made": "Creato",
+    "lastScan": "Ultima scansione",
+    "total": "Scansioni totali",
+    "never": "Mai"
   }
 }

@@ -324,8 +324,12 @@ var Analytics = (function () {
   }
   function whereCard(r) {
     var tot = r.totals.scans;
+    // Kruimelpad bij doorklikken: Alle landen › Frankrijk › Parijs (klik = een stap terug)
+    var crumb = f.cc.length === 1 ? '<nav class="an-crumb"><button type="button" class="link-btn" data-geo-up="all">' + t('an.allCountries') + '</button><span>›</span>' +
+      (f.city.length === 1 ? '<button type="button" class="link-btn" data-geo-up="cc">' + esc(ccName(f.cc[0])) + '</button><span>›</span><b>' + esc(String(f.city[0]).split('|')[1] || t('an.unknown')) + '</b>' : '<b>' + esc(ccName(f.cc[0])) + '</b>') + '</nav>' : '';
+    var hint = !f.cc.length && tot ? '<p class="an-drill">' + t('an.drillHint') + '</p>' : f.city.length === 1 ? '<p class="an-drill">' + t('an.cityHint') + '</p>' : '';
     return '<div class="an-card glass an-dc"><div class="an-chead"><h3>' + ico('globe', 'an-hi') + t('an.tab_where') + '</h3>' + seg('where', whereDim, [['cc', t('an.countries')], ['city', t('an.cities')]]) + '</div>' +
-      miniList(whereDim, whereDim === 'cc' ? r.countries : r.cities, tot) + '</div>';
+      crumb + miniList(whereDim, whereDim === 'cc' ? r.countries : r.cities, tot) + hint + '</div>';
   }
   function whenCard(r) {
     var I = r.insights || {}, body;
@@ -347,7 +351,7 @@ var Analytics = (function () {
   function dashboard(r) {
     var tot = r.totals.scans;
     if (compactMq.matches && !printAll) return '<div class="an-dash an-compact">' + chartCard(r) + mtabs() + '<div class="an-mpane" id="anMPane">' + mpane(r) + '</div></div>';
-    return '<div class="an-dash"><div class="an-d1">' + chartCard(r) + ranking(r.codes, tot) + '</div>' +
+    return '<div class="an-dash"><div class="an-d1">' + chartCard(r) + (isDetail() ? breakdown('city', t('an.byCity'), r.cities, tot, 'globe') : ranking(r.codes, tot)) + '</div>' +
       '<div class="an-d2">' + whereCard(r) + donut('os', t('an.os'), r.os, tot, 'phone') + donut('dev', t('an.devices'), r.devices || [], tot, 'desktop') + donut('br', t('an.browsers'), r.browsers || [], tot, 'globe') + whenCard(r) + '</div></div>';
   }
   // Alleen dat ene kaartje vervangen (de rest van het dashboard blijft rustig staan)
@@ -360,6 +364,7 @@ var Analytics = (function () {
   function fit() {
     var sec = view.querySelector('.an'); if (!sec || view.hidden) return;
     sec.style.zoom = '';
+    if (isDetail()) { if (data && data.series && body.querySelector('.an-plot')) lineChart(grouped(data.series)); return; }   // detailpagina mag scrollen; grafiek opnieuw op de echte breedte
     if (window.innerWidth <= 1100 || printAll) return;
     var top = sec.getBoundingClientRect().top + window.scrollY, h = sec.offsetHeight, avail = window.innerHeight - top - 24;
     var extra = document.documentElement.scrollHeight - window.innerHeight - Math.max(0, h - avail);   // ruimte onder de bubbel (marge van de pagina)
@@ -395,17 +400,41 @@ var Analytics = (function () {
     requestAnimationFrame(fit);
   }
 
+  /* ---------- Detailpagina van één QR-code (klik op de scans in Mijn QR-codes) ---------- */
+  var detailId = null;
+  function isDetail() { return !!(detailId && f.codes.length === 1 && f.codes[0] === detailId && names[detailId]); }
+  function detailHead() {
+    var c = names[detailId].code, tp = getType(c.typeId), stat = CodeUtil.isStatic(c), dest = c.content && (c.content.url || c.content.ios || c.content.android) || '';
+    var row = function (label, val) { return val ? '<div class="cd-row"><span>' + label + '</span><b>' + val + '</b></div>' : ''; };
+    return '<div class="glass cd-head"><div class="cd-qr">' + QRRender.svg(CodeUtil.qrData(c), CodeUtil.qrDesign(c)) + '</div>' +
+      '<div class="cd-main"><button type="button" class="link-btn cd-back" data-cd-back>← ' + t('nav.myCodes') + '</button>' +
+        '<h2>' + esc(MyCodes.displayName(c)) + '</h2>' +
+        '<div class="cd-pills"><span class="cd-pill">' + esc(t('types.' + c.typeId + '.name')) + '</span>' + (stat ? '<span class="cd-pill">' + t('myCodes.static') + '</span>' : '<span class="cd-pill ' + (c.paused ? 'off' : 'on') + '"><i></i>' + t(c.paused ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span>') +
+          (c.labels || []).map(function (l) { return '<span class="cd-pill tag">#' + esc(l) + '</span>'; }).join('') + '</div>' +
+        '<div class="cd-rows">' + (stat ? '' : row(t('cd.link'), '<a href="' + esc(c.shortUrl || '') + '" target="_blank" rel="noopener">' + esc(String(c.shortUrl || '').replace(/^https?:\/\//, '')) + '</a>')) +
+          row(t('cd.dest'), dest ? esc(String(dest).replace(/^https?:\/\//, '').slice(0, 80)) : '') +
+          row(t('cd.made'), esc(i18n.fmt.stamp(c.createdAt, 'long'))) +
+          row(t('cd.lastScan'), c.lastScanAt ? esc(i18n.fmt.stamp(c.lastScanAt, 'long')) : t('cd.never')) +
+          row(t('cd.total'), i18n.fmt.num(c.scans || 0)) +
+          (c.content && c.content.starts ? row(t('fields.starts'), esc(c.content.starts)) : '') + (c.content && c.content.expires ? row(t('fields.expires'), esc(c.content.expires)) : '') +
+          (c.note ? row(t('labels.note'), esc(c.note)) : '') + '</div>' +
+        '<div class="cd-acts"><button type="button" class="btn primary sm" data-cd="edit">' + ico('pen') + t('myCodes.edit') + '</button>' +
+          '<button type="button" class="btn ghost sm" data-cd="png">' + ico('dl') + 'PNG</button><button type="button" class="btn ghost sm" data-cd="svg">' + ico('dl') + 'SVG</button>' +
+          '<button type="button" class="btn ghost sm" data-cd="labels">' + t('labels.menu') + '</button>' + (stat ? '' : '<button type="button" class="btn ghost sm" data-cd="copy">' + t('myCodes.copy') + '</button>') + '</div>' +
+      '</div></div>';
+  }
+
   /* ---------- Alles tekenen ---------- */
   function draw() {
     var r = data, rg = { from: r.from, to: r.to };
     document.getElementById('anRange').textContent = rg.from === rg.to ? i18n.fmt.date(d(rg.from), 'long') : i18n.fmt.date(d(rg.from), 'long') + ' – ' + i18n.fmt.date(d(rg.to), 'long');
     var demo = document.getElementById('anDemo'); demo.hidden = !r.demo; demo.textContent = t('an.demoNote');
-    document.getElementById('anFoot').innerHTML = (r.statsFloor ? '<button type="button" class="link-btn an-lock" data-gate-open="' + (PlanGate.statsDays() < 365 ? 'pro' : 'business') + '" data-gate-reason="stats">' + PlanGate.lock + esc(t('plan.statsFloor', { date: new Date(r.statsFloor + 'T00:00:00').toLocaleDateString(i18n.lang()) })) + '</button> ' : '') + (r.geo ? '<a href="https://db-ip.com" target="_blank" rel="noopener">' + esc(t('an.geoBy')) + '</a>' : esc(t('an.noGeo')));   // bronvermelding DB-IP is verplicht (licentie CC BY 4.0)
+    document.getElementById('anFoot').innerHTML = (r.statsFloor ? '<button type="button" class="link-btn an-lock" data-gate-open="' + (PlanGate.statsDays() < 365 ? 'pro' : 'business') + '" data-gate-reason="stats">' + PlanGate.lock + esc(t('plan.statsFloor', { date: new Date(r.statsFloor + 'T00:00:00').toLocaleDateString(i18n.lang()) })) + '</button> ' : '') + (r.geo ? '' : esc(t('an.noGeo')));   // bronvermelding DB-IP staat in de privacyverklaring (niet hier: geen link die je uit de app haalt)   // bronvermelding DB-IP is verplicht (licentie CC BY 4.0)
     if (!Object.keys(names).length) {
       body.innerHTML = '<div class="mc-empty glass">' + ico('scans') + '<h3>' + t('an.emptyTitle') + '</h3><p>' + t('an.emptyText') + '</p><button type="button" class="btn primary" data-an-new>' + t('myCodes.first') + '</button></div>';
       return;
     }
-    body.innerHTML = tiles(r) +   // de samenvattingszin is weg: tegels + ranglijst laten hetzelfde zien
+    body.innerHTML = (isDetail() ? detailHead() : '') + tiles(r) +   // de samenvattingszin is weg: tegels + ranglijst laten hetzelfde zien
 
       '<div id="anTab" class="an-tabp"></div>';
     drawTab(); countUp();
@@ -485,12 +514,23 @@ var Analytics = (function () {
     var b;
     if ((b = e.target.closest('[data-drop]'))) { var dim = b.getAttribute('data-drop'); openDrop = openDrop === dim ? null : dim; drawFilters(); var fst = bar.querySelector('.an-drop input'); if (fst) fst.focus(); return; }
     if (!e.target.closest('.an-drop') && openDrop) { openDrop = null; drawFilters(); }
-    if (e.target.closest('[data-clear]')) { f.codes = []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; return load(); }
+    if (e.target.closest('[data-clear]')) { detailId = null; f.codes = []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; return load(); }
     if (e.target.closest('[data-more]')) { moreOpen = !moreOpen; openDrop = null; drawFilters(); return requestAnimationFrame(fit); }
     if ((b = e.target.closest('[data-unpick]'))) { var ud = b.getAttribute('data-unpick'), uk = b.getAttribute('data-k'); f[ud] = f[ud].filter(function (v) { return v !== uk; }); return load(); }
     if ((b = e.target.closest('[data-where]'))) { whereDim = b.getAttribute('data-where'); return swapCard(b, whereCard(data), '[data-where="' + whereDim + '"]'); }
     if ((b = e.target.closest('[data-when]'))) { whenDim = b.getAttribute('data-when'); return swapCard(b, whenCard(data), '[data-when="' + whenDim + '"]'); }
-    if ((b = e.target.closest('[data-filter]'))) { var k = b.getAttribute('data-filter'); f[k] = [b.getAttribute('data-k')]; if (MORE.indexOf(k) >= 0) moreOpen = true; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+    // Doorklikken: land → steden van dat land → alles van die stad; QR-code → detailpagina van die code
+    if ((b = e.target.closest('[data-geo-up]'))) { var up = b.getAttribute('data-geo-up'); if (up === 'all') { f.cc = []; f.city = []; whereDim = 'cc'; } else { f.city = []; whereDim = 'city'; } return load(); }
+    if ((b = e.target.closest('[data-filter]'))) {
+      var k = b.getAttribute('data-filter'), kv = b.getAttribute('data-k');
+      if (k === 'codes') { detailId = kv; f.codes = [kv]; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+      f[k] = [kv];
+      if (k === 'cc') { f.city = []; whereDim = 'city'; }
+      if (k === 'city') { f.cc = [kv.split('|')[0]]; whereDim = 'city'; }
+      if (MORE.indexOf(k) >= 0 && k !== 'cc' && k !== 'city') moreOpen = true;
+      if (k !== 'cc' && k !== 'city') window.scrollTo({ top: 0, behavior: 'smooth' });
+      return load();
+    }
     if ((b = e.target.closest('[data-mtab]'))) {
       mtab = b.getAttribute('data-mtab'); body.querySelectorAll('[data-mtab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
       var mp = body.querySelector('#anMPane'); if (mp) mp.innerHTML = mpane(data); b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); return;
@@ -503,6 +543,15 @@ var Analytics = (function () {
     if (e.target.closest('#anXlsx')) return exportXlsx();
     if (e.target.closest('#anReport')) return report();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
+    if (e.target.closest('[data-cd-back]')) { detailId = null; return goToPage('myCodes'); }
+    var cdb = e.target.closest('[data-cd]');
+    if (cdb && isDetail()) {
+      var cc = names[detailId].code, k = cdb.getAttribute('data-cd');
+      if (k === 'edit') return MyCodes.edit(cc);
+      if (k === 'png' || k === 'svg') return CodeUtil.download(cc, k, 1024);
+      if (k === 'labels') return MyCodes.labelsOf(cc);
+      if (k === 'copy') { if (navigator.clipboard) navigator.clipboard.writeText(cc.shortUrl); cdb.textContent = t('myCodes.copied'); return; }
+    }
   });
   view.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openDrop) { var dim = openDrop; openDrop = null; drawFilters(); var btn = bar.querySelector('[data-drop="' + dim + '"]'); if (btn) btn.focus(); } });
   body.addEventListener('pointermove', function (e) { if (e.target.closest('.an-plot')) hover(e); });
@@ -528,5 +577,5 @@ var Analytics = (function () {
   i18n.onChange(function () { labels(); if (!view.hidden && data) { drawFilters(); draw(); } });
 
   // Vanuit Mijn QR-codes: meteen de statistieken van één code
-  return { open: function (opts) { f.codes = (opts && opts.codes) || []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; goToPage('analytics'); } };
+  return { open: function (opts) { f.codes = (opts && opts.codes) || []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; detailId = opts && opts.detail && f.codes.length === 1 ? f.codes[0] : null; goToPage('analytics'); } };
 })();

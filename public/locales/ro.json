@@ -515,7 +515,12 @@
     "planBar": "{n} coduri QR sunt pe pauză din cauza abonamentului.",
     "planBarOne": "1 cod QR este pe pauză din cauza abonamentului.",
     "planBarText": "Sunt păstrate. Faceți upgrade sau cumpărați un cod QR în plus ca să le reactivați.",
-    "planBarBtn": "Reactivează"
+    "planBarBtn": "Reactivează",
+    "whereTip": "Vezi unde a fost scanat acest cod",
+    "whereTitle": "Unde a fost scanat „{name}”?",
+    "whereLead": "{n} scanări, pe locuri:",
+    "whereNone": "Încă nu sunt scanări. Imediat ce cineva scanează codul, vezi aici unde.",
+    "whereMore": "Și încă {n} locuri în statistici."
   },
   "appearance": {
     "title": "Culori",
@@ -1180,7 +1185,10 @@
     "hourShort": "Oră",
     "excel": "Exportă (Excel)",
     "mTop": "Top coduri QR",
-    "exportShort": "Exportă"
+    "exportShort": "Exportă",
+    "allCountries": "Toate țările",
+    "drillHint": "Dă clic pe o țară pentru orașe și pe un oraș pentru toate detaliile.",
+    "cityHint": "Toate cardurile arată acum doar acest oraș."
   },
   "auth": {
     "loginTitle": "Bine ai revenit",
@@ -2061,7 +2069,7 @@
       "s1t": "Cine suntem",
       "s1": "QR-Codex este un serviciu al {company}. Suntem responsabili pentru prelucrarea datelor contului tău. Ai întrebări despre confidențialitate? Scrie-ne la {email}.",
       "s2t": "Ce date prelucrăm",
-      "s2": "**Contul tău**\n- numele, adresa de e-mail, fotografia de profil și fusul orar (dacă le adaugi)\n- parola ta, stocată doar în formă ilizibilă (hash)\n- datele de facturare, dacă le adaugi (numele companiei, adresa, codul TVA)\n- dacă te conectezi cu Google: numele și adresa de e-mail din contul Google\n- chei API (Business): doar în formă ilizibilă, niciodată cheia propriu-zisă\n\n**Codurile tale QR**\n- conținutul pe care îl introduci și fișierele pe care le încarci (fotografii, PDF-uri, audio, video), pentru că sunt necesare ca să afișăm pagina\n- parolele codurilor protejate și parolele Wi-Fi sunt stocate criptat\n\n**Securitate**\n- pentru fiecare dispozitiv conectat: browserul, sistemul, adresa IP și când a fost activ ultima dată\n- activitatea recentă: conectări (inclusiv încercările eșuate), schimbarea parolei sau a e-mailului, deconectarea altor dispozitive\n\n**Scanările codurilor tale QR**\n- pentru fiecare cod, pe zi, doar numărători pe sistem (de exemplu iOS sau Android), țară și oraș\n- țara și orașul sunt căutate în propria noastră bază de date, pe serverul nostru; adresa IP a vizitatorului nu este stocată și nu este transmisă mai departe\n- „scanările unice” sunt numărate fără cookie-uri, cu un cod zilnic care nu mai poate fi urmărit după ziua respectivă\n\n**Asistentul de chat**\n- dacă folosești chatul (dreapta jos), mesajele tale și datele pe care le introduci (de exemplu nume, e-mail sau număr de telefon) sunt trimise către serviciul de chat al {company}\n- pentru a completa câmpul de telefon, chatul îți află țara prin ipapi.co, care vede pentru asta adresa ta IP\n- chatul păstrează conversația în browserul tău, ca să o poți continua mai târziu",
+      "s2": "**Contul tău**\n- numele, adresa de e-mail, fotografia de profil și fusul orar (dacă le adaugi)\n- parola ta, stocată doar în formă ilizibilă (hash)\n- datele de facturare, dacă le adaugi (numele companiei, adresa, codul TVA)\n- dacă te conectezi cu Google: numele și adresa de e-mail din contul Google\n- chei API (Business): doar în formă ilizibilă, niciodată cheia propriu-zisă\n\n**Codurile tale QR**\n- conținutul pe care îl introduci și fișierele pe care le încarci (fotografii, PDF-uri, audio, video), pentru că sunt necesare ca să afișăm pagina\n- parolele codurilor protejate și parolele Wi-Fi sunt stocate criptat\n\n**Securitate**\n- pentru fiecare dispozitiv conectat: browserul, sistemul, adresa IP și când a fost activ ultima dată\n- activitatea recentă: conectări (inclusiv încercările eșuate), schimbarea parolei sau a e-mailului, deconectarea altor dispozitive\n\n**Scanările codurilor tale QR**\n- pentru fiecare cod, pe zi, doar numărători pe sistem (de exemplu iOS sau Android), țară și oraș\n- țara și orașul sunt căutate în propria noastră bază de date, pe serverul nostru; adresa IP a vizitatorului nu este stocată și nu este transmisă mai departe (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- „scanările unice” sunt numărate fără cookie-uri, cu un cod zilnic care nu mai poate fi urmărit după ziua respectivă\n\n**Asistentul de chat**\n- dacă folosești chatul (dreapta jos), mesajele tale și datele pe care le introduci (de exemplu nume, e-mail sau număr de telefon) sunt trimise către serviciul de chat al {company}\n- pentru a completa câmpul de telefon, chatul îți află țara prin ipapi.co, care vede pentru asta adresa ta IP\n- chatul păstrează conversația în browserul tău, ca să o poți continua mai târziu",
       "s3t": "De ce folosim aceste date",
       "s3": "- ca să furnizăm serviciul: contul tău, codurile tale QR și paginile pe care le văd vizitatorii (executarea contractului)\n- ca să securizăm contul tău și serviciul și să prevenim abuzurile (interes legitim)\n- ca să afișăm statistici despre propriile tale coduri (interes legitim)\n- ca să emitem și să păstrăm facturi dacă ai un abonament plătit (obligație legală)",
       "s4t": "Cât timp păstrăm datele",
@@ -2786,5 +2794,13 @@
     "defaultOff": "Nu mai există implicit.",
     "tooBig": "Logoul e prea mare pentru a fi salvat. Folosește o imagine mai mică.",
     "tooMany": "Poți salva cel mult 10 designuri."
+  },
+  "cd": {
+    "link": "Link",
+    "dest": "Duce la",
+    "made": "Creat",
+    "lastScan": "Ultima scanare",
+    "total": "Total scanări",
+    "never": "Niciodată"
   }
 }

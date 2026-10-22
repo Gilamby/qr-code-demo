@@ -515,7 +515,12 @@
     "planBar": "{n} QR codes sont en pause à cause de votre offre.",
     "planBarOne": "1 QR code est en pause à cause de votre offre.",
     "planBarText": "Ils sont conservés. Passez à une offre supérieure ou achetez un QR code en plus pour les réactiver.",
-    "planBarBtn": "Réactiver"
+    "planBarBtn": "Réactiver",
+    "whereTip": "Voir où ce code a été scanné",
+    "whereTitle": "Où « {name} » a-t-il été scanné ?",
+    "whereLead": "{n} scans, par lieu :",
+    "whereNone": "Pas encore de scans. Dès que quelqu’un scanne le code, tu verras ici où.",
+    "whereMore": "Et {n} autres lieux dans les statistiques."
   },
   "appearance": {
     "title": "Couleurs",
@@ -1180,7 +1185,10 @@
     "hourShort": "Heure",
     "excel": "Exporter (Excel)",
     "mTop": "Top QR codes",
-    "exportShort": "Exporter"
+    "exportShort": "Exporter",
+    "allCountries": "Tous les pays",
+    "drillHint": "Clique sur un pays pour voir ses villes, puis sur une ville pour tous les détails.",
+    "cityHint": "Toutes les cartes affichent maintenant seulement cette ville."
   },
   "auth": {
     "loginTitle": "Bon retour",
@@ -2065,7 +2073,7 @@
       "s1t": "Qui nous sommes",
       "s1": "QR-Codex est un service de {company}. Nous sommes responsables du traitement des données de votre compte. Une question sur la confidentialité ? Écrivez à {email}.",
       "s2t": "Quelles données nous traitons",
-      "s2": "**Votre compte**\n- nom, adresse e-mail, photo de profil et fuseau horaire (si vous les ajoutez)\n- votre mot de passe, conservé uniquement sous forme illisible (haché)\n- données de facturation, si vous les ajoutez (nom de l’entreprise, adresse, n° de TVA)\n- si vous vous connectez avec Google : votre nom et votre adresse e-mail de votre compte Google\n- clés API (Business) : uniquement sous forme illisible, jamais la clé elle-même\n\n**Vos codes QR**\n- le contenu que vous saisissez et les fichiers que vous envoyez (photos, PDF, audio, vidéo), car ils sont nécessaires pour afficher la page\n- les mots de passe des codes protégés et des réseaux Wi-Fi sont conservés chiffrés\n\n**Sécurité**\n- pour chaque appareil connecté : navigateur, système, adresse IP et dernière activité\n- activité récente : connexions (y compris les tentatives échouées), mot de passe ou e-mail modifié, déconnexion d’autres appareils\n\n**Scans de vos codes QR**\n- par code et par jour, uniquement des totaux par système (par exemple iOS ou Android), pays et ville\n- le pays et la ville sont recherchés dans notre propre base de données sur notre serveur ; l’adresse IP du visiteur n’est ni conservée ni transmise\n- les « scans uniques » sont comptés sans cookies, à l’aide d’un code journalier qui ne peut plus être retracé après ce jour\n\n**L’assistant de chat**\n- si tu utilises le chat (en bas à droite), tes messages et les informations que tu saisis (nom, e-mail ou téléphone par exemple) sont envoyés au service de chat de {company}\n- pour préremplir le champ du téléphone, le chat détermine ton pays via ipapi.co, qui voit pour cela ton adresse IP\n- le chat garde ta conversation dans ton navigateur pour que tu puisses la reprendre plus tard",
+      "s2": "**Votre compte**\n- nom, adresse e-mail, photo de profil et fuseau horaire (si vous les ajoutez)\n- votre mot de passe, conservé uniquement sous forme illisible (haché)\n- données de facturation, si vous les ajoutez (nom de l’entreprise, adresse, n° de TVA)\n- si vous vous connectez avec Google : votre nom et votre adresse e-mail de votre compte Google\n- clés API (Business) : uniquement sous forme illisible, jamais la clé elle-même\n\n**Vos codes QR**\n- le contenu que vous saisissez et les fichiers que vous envoyez (photos, PDF, audio, vidéo), car ils sont nécessaires pour afficher la page\n- les mots de passe des codes protégés et des réseaux Wi-Fi sont conservés chiffrés\n\n**Sécurité**\n- pour chaque appareil connecté : navigateur, système, adresse IP et dernière activité\n- activité récente : connexions (y compris les tentatives échouées), mot de passe ou e-mail modifié, déconnexion d’autres appareils\n\n**Scans de vos codes QR**\n- par code et par jour, uniquement des totaux par système (par exemple iOS ou Android), pays et ville\n- le pays et la ville sont recherchés dans notre propre base de données sur notre serveur ; l’adresse IP du visiteur n’est ni conservée ni transmise (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- les « scans uniques » sont comptés sans cookies, à l’aide d’un code journalier qui ne peut plus être retracé après ce jour\n\n**L’assistant de chat**\n- si tu utilises le chat (en bas à droite), tes messages et les informations que tu saisis (nom, e-mail ou téléphone par exemple) sont envoyés au service de chat de {company}\n- pour préremplir le champ du téléphone, le chat détermine ton pays via ipapi.co, qui voit pour cela ton adresse IP\n- le chat garde ta conversation dans ton navigateur pour que tu puisses la reprendre plus tard",
       "s3t": "Pourquoi nous utilisons ces données",
       "s3": "- pour fournir le service : votre compte, vos codes QR et les pages que voient les visiteurs (exécution du contrat)\n- pour sécuriser votre compte et le service et éviter les abus (intérêt légitime)\n- pour afficher des statistiques sur vos propres codes (intérêt légitime)\n- pour établir et conserver les factures si vous avez un abonnement payant (obligation légale)",
       "s4t": "Combien de temps nous conservons les données",
@@ -2792,5 +2800,13 @@
     "defaultOff": "Plus de design par défaut.",
     "tooBig": "Le logo est trop lourd pour être enregistré. Utilise une image plus petite.",
     "tooMany": "Tu peux enregistrer jusqu’à 10 designs."
+  },
+  "cd": {
+    "link": "Lien",
+    "dest": "Mène à",
+    "made": "Créé",
+    "lastScan": "Dernier scan",
+    "total": "Scans au total",
+    "never": "Jamais"
   }
 }

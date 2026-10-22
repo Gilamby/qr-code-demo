@@ -515,7 +515,12 @@
     "planBar": "{n} QR codes are paused by your plan.",
     "planBarOne": "1 QR code is paused by your plan.",
     "planBarText": "They are kept. Upgrade or buy an extra QR code to turn them back on.",
-    "planBarBtn": "Turn back on"
+    "planBarBtn": "Turn back on",
+    "whereTip": "See where this code was scanned",
+    "whereTitle": "Where was “{name}” scanned?",
+    "whereLead": "{n} scans, by place:",
+    "whereNone": "No scans yet. As soon as someone scans the code, you will see where here.",
+    "whereMore": "And {n} more places in the analytics."
   },
   "appearance": {
     "title": "Colours",
@@ -1180,7 +1185,10 @@
     "hourShort": "Hour",
     "excel": "Export (Excel)",
     "mTop": "Top QR codes",
-    "exportShort": "Export"
+    "exportShort": "Export",
+    "allCountries": "All countries",
+    "drillHint": "Click a country to see its cities, and a city for all details.",
+    "cityHint": "All cards now show only this city."
   },
   "auth": {
     "loginTitle": "Welcome back",
@@ -2071,7 +2079,7 @@
       "s1t": "Who we are",
       "s1": "QR-Codex is a service of {company}. We are responsible for processing the data of your account. Questions about privacy? Email {email}.",
       "s2t": "Which data we process",
-      "s2": "**Your account**\n- name, email address, profile photo and time zone (if you add them)\n- your password, stored only in unreadable form (hashed)\n- billing details, if you add them (company name, address, VAT number)\n- if you sign in with Google: your name and email address from your Google account\n- API keys (Business): only in unreadable form, never the key itself\n\n**Your QR codes**\n- the content you enter and the files you upload (photos, PDFs, audio, video), because they are needed to show the page\n- passwords of protected codes and Wi-Fi passwords are stored encrypted\n\n**Security**\n- for each signed-in device: browser, system, IP address and when it was last active\n- recent activity: sign-ins (including failed attempts), password or email changed, signing out other devices\n\n**Scans of your QR codes**\n- per code per day only counts per system (for example iOS or Android), country and city\n- country and city are looked up in our own database on our server; the visitor's IP address is not stored and not passed on\n- \"unique scans\" are counted without cookies, using a daily code that can no longer be traced after that day\n\n**The chat assistant**\n- if you use the chat (bottom right), your messages and any details you enter (such as name, email or phone number) are sent to the chat service of {company}\n- to pre-fill the phone number field, the chat looks up your country via ipapi.co, which sees your IP address for this\n- the chat remembers your conversation in your browser, so you can continue it later",
+      "s2": "**Your account**\n- name, email address, profile photo and time zone (if you add them)\n- your password, stored only in unreadable form (hashed)\n- billing details, if you add them (company name, address, VAT number)\n- if you sign in with Google: your name and email address from your Google account\n- API keys (Business): only in unreadable form, never the key itself\n\n**Your QR codes**\n- the content you enter and the files you upload (photos, PDFs, audio, video), because they are needed to show the page\n- passwords of protected codes and Wi-Fi passwords are stored encrypted\n\n**Security**\n- for each signed-in device: browser, system, IP address and when it was last active\n- recent activity: sign-ins (including failed attempts), password or email changed, signing out other devices\n\n**Scans of your QR codes**\n- per code per day only counts per system (for example iOS or Android), country and city\n- country and city are looked up in our own database on our server; the visitor's IP address is not stored and not passed on (IP Geolocation by DB-IP, db-ip.com, CC BY 4.0)\n- \"unique scans\" are counted without cookies, using a daily code that can no longer be traced after that day\n\n**The chat assistant**\n- if you use the chat (bottom right), your messages and any details you enter (such as name, email or phone number) are sent to the chat service of {company}\n- to pre-fill the phone number field, the chat looks up your country via ipapi.co, which sees your IP address for this\n- the chat remembers your conversation in your browser, so you can continue it later",
       "s3t": "Why we use this data",
       "s3": "- to provide the service: your account, your QR codes and the pages visitors see (performance of the contract)\n- to secure your account and the service and prevent abuse (legitimate interest)\n- to show statistics about your own codes (legitimate interest)\n- to create and keep invoices if you have a paid plan (legal obligation)",
       "s4t": "How long we keep data",
@@ -2831,5 +2839,13 @@
     "defaultOff": "No default anymore.",
     "tooBig": "The logo is too large to save. Use a smaller image.",
     "tooMany": "You can save up to 10 designs."
+  },
+  "cd": {
+    "link": "Link",
+    "dest": "Goes to",
+    "made": "Created",
+    "lastScan": "Last scan",
+    "total": "Total scans",
+    "never": "Never"
   }
 }

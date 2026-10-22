@@ -5147,3 +5147,37 @@ body.paywall-open { overflow: hidden; }
 .tpl-name { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .tpl-name .auth-in { flex: 1; min-width: 160px; }
 .tpl-add { margin-top: 10px; }
 @media (hover: none) { .tpl-star, .tpl-del { opacity: 1; } }
+
+/* Mijn QR-codes: waar gescand (klik op het aantal scans) */
+.mc-scans[data-act="where"] { cursor: pointer; border-radius: 12px; transition: background .15s; }
+.mc-scans[data-act="where"]:hover { background: rgba(43,181,240,.1); } .mc-scans[data-act="where"]:hover small { color: var(--accent); text-decoration: underline; }
+.wh-dlg .mc-dlg-ic { background: rgba(43,181,240,.14); color: var(--accent); }
+.wh-list { list-style: none; margin: 6px 0 4px; padding: 0; display: grid; gap: 10px; max-height: 50vh; overflow: auto; text-align: left; }
+.wh-list li { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.wh-name { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 8px; align-items: center; min-width: 0; }
+.wh-name i { font-style: normal; grid-row: span 2; font-size: 20px; } .wh-name b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .wh-name small { color: var(--muted); font-size: 12.5px; }
+.wh-bar { height: 6px; border-radius: 6px; background: rgba(148,163,184,.18); overflow: hidden; } .wh-bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #22d3ee, #2563eb); }
+.wh-n { min-width: 28px; text-align: right; }
+.wh-credit, .an-credit { color: var(--muted); font-size: 12px; }
+
+/* Statistieken: detailpagina van één QR-code */
+.cd-head { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; padding: 22px; border-radius: 20px; margin-bottom: 16px; align-items: start; }
+.cd-qr { background: #fff; border-radius: 16px; padding: 10px; } .cd-qr svg { width: 100%; height: auto; display: block; }
+.cd-main { display: grid; gap: 10px; min-width: 0; } .cd-main h2 { margin: 0; font-size: 26px; overflow-wrap: anywhere; }
+.cd-back { justify-self: start; font-size: 13.5px; }
+.cd-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.cd-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 99px; font-size: 12.5px; font-weight: 700; background: rgba(255,255,255,.07); border: 1px solid var(--line); }
+.cd-pill i { width: 7px; height: 7px; border-radius: 50%; background: #9ca3af; } .cd-pill.on i { background: #22c55e; } .cd-pill.off i { background: #f59e0b; }
+.cd-pill.tag { color: #7dd3fc; border-color: rgba(43,181,240,.3); background: rgba(43,181,240,.1); }
+.cd-rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px 22px; }
+.cd-row { display: grid; gap: 2px; min-width: 0; } .cd-row span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+.cd-row b { font-weight: 650; overflow-wrap: anywhere; } .cd-row a { color: var(--accent); }
+.cd-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+:root[data-theme="light"] .cd-pill { background: rgba(13,19,32,.05); } :root[data-theme="light"] .cd-pill.tag { color: #0369a1; }
+@media (max-width: 640px) { .cd-head { grid-template-columns: 1fr; } .cd-qr { width: 140px; } }
+
+/* Statistieken: doorklikken op land/stad */
+.an-crumb { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; margin: -2px 0 8px; } .an-crumb span { color: var(--muted); } .an-crumb b { font-weight: 700; }
+.an-drill { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
+.an-crumb { justify-content: flex-start; text-align: left; } .an-crumb .link-btn { display: inline; width: auto; padding: 0; margin: 0; font-size: 13px; background: none; border: 0; }
+.an-dc .an-crumb { display: flex !important; flex-direction: row !important; flex-wrap: wrap; align-items: baseline; } .an-dc .an-crumb > * { flex: none; width: auto !important; display: inline !important; }
