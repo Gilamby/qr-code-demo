@@ -590,7 +590,8 @@
     "menuUrl": "Till exempel din egen menysida eller en beställningssajt. Gästerna kommer direkt dit.",
     "couponCode": "Koden som kunderna använder. Obs: lägg in samma kod i ditt kassasystem eller din webbutik. Appen kontrollerar inte om en kod redan har använts.",
     "couponUrl": "Valfritt. Kunderna använder koden där i kassan.",
-    "starts": "Före detta datum ser besökaren ”Den här QR-koden är inte aktiv än”. Praktiskt om du skriver ut innan kampanjen startar."
+    "starts": "Före detta datum ser besökaren ”Den här QR-koden är inte aktiv än”. Praktiskt om du skriver ut innan kampanjen startar.",
+    "utmPage": "Lägger automatiskt till utm-taggar på länkarna på din sida, så att du ser besökare från QR-koden i Google Analytics."
   },
   "more": {
     "title": "Fler alternativ",

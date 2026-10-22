@@ -42,6 +42,17 @@
     var p = type.pageIf; if (!p) return true;
     return Array.isArray(p) ? data.choice(type, p[0], content) === p[1] : !!(content && content[p]);
   };
+  // Voor alle dynamische codes (niet vCard en wifi: die bevatten alles zelf en gaan niet via onze server):
+  // - Plannen (KB Q224): startdatum en einddatum onder "Meer opties"
+  // - Google Analytics (KB Q222): UTM-labels aan de links van de pagina, als die links heeft
+  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp'];
+  data.forEach(function (type) {
+    if (type.id === 'vcard' || type.id === 'wifi') return;
+    var has = function (k) { return type.fields.some(function (f) { return f.key === k; }); };
+    if (!has('starts')) type.fields.push({ key: 'starts', type: 'date', label: 'fields.starts', advanced: true, hint: 'hint.starts' });
+    if (!has('expires')) type.fields.push({ key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' });
+    if (!has('utm') && NO_LINKS.indexOf(type.id) < 0) type.fields.push({ key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utmPage' });
+  });
   if (typeof module === 'object' && module.exports) module.exports = data;
   else root.QR_TYPES = data;
 })(typeof self !== 'undefined' ? self : this, [

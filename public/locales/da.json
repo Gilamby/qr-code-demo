@@ -590,7 +590,8 @@
     "menuUrl": "For eksempel din egen menuside eller en bestillingsside. Gæsterne kommer direkte dertil.",
     "couponCode": "Koden, som kunderne bruger. Bemærk: opret den samme kode i dit kassesystem eller din webshop. Appen tjekker ikke, om en kode allerede er brugt.",
     "couponUrl": "Valgfrit. Kunderne bruger koden der ved betaling.",
-    "starts": "Før denne dato ser den besøgende \"Denne QR-kode er ikke aktiv endnu\". Praktisk, hvis du printer, før kampagnen starter."
+    "starts": "Før denne dato ser den besøgende \"Denne QR-kode er ikke aktiv endnu\". Praktisk, hvis du printer, før kampagnen starter.",
+    "utmPage": "Tilføjer automatisk utm-tags til linkene på din side, så du kan se besøgende fra QR-koden i Google Analytics."
   },
   "more": {
     "title": "Flere muligheder",

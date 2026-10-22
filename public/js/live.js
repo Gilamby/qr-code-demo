@@ -7,8 +7,20 @@
   type.fields.forEach(function (f) { c[f.key] = L.content[f.key] != null ? String(L.content[f.key]) : ''; });
 
   function href(v) { v = String(v || '').trim(); return !v ? '' : /^(https?:|mailto:|tel:)/i.test(v) ? v : /^[^\s]+\.[a-z]{2,}(\/|$)/i.test(v) ? 'https://' + v : ''; }
+  // Google Analytics (KB Q222): UTM-labels aan uitgaande links, als dat bij deze code aanstaat
+  function utm(url) {
+    if (!c.utm || !/^https?:/i.test(url)) return url;
+    try {
+      var u = new URL(url), camp = String(c.title || c.appName || c.name || L.name || 'qr').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'qr';
+      if (!u.searchParams.has('utm_source')) u.searchParams.set('utm_source', 'qr');
+      if (!u.searchParams.has('utm_medium')) u.searchParams.set('utm_medium', 'qr_code');
+      if (!u.searchParams.has('utm_campaign')) u.searchParams.set('utm_campaign', camp);
+      return u.href;
+    } catch (e) { return url; }
+  }
   function go(el, url, download) {
     if (!el || !url) return;
+    if (!download) url = utm(url);
     el.setAttribute('data-go', '');
     el.addEventListener('click', function (e) {
       e.preventDefault();

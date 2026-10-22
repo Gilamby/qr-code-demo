@@ -590,7 +590,8 @@
     "menuUrl": "Par exemple votre propre page de menu ou un site de commande. Les clients y arrivent directement.",
     "couponCode": "Le code utilisé par les clients. Attention : configurez le même code dans votre caisse ou boutique en ligne. Cette appli ne vérifie pas si un code a déjà été utilisé.",
     "couponUrl": "Facultatif. Les clients y utilisent le code au paiement.",
-    "starts": "Avant cette date, le visiteur voit « Ce QR code n'est pas encore actif ». Pratique si vous imprimez avant le début de la campagne."
+    "starts": "Avant cette date, le visiteur voit « Ce QR code n'est pas encore actif ». Pratique si vous imprimez avant le début de la campagne.",
+    "utmPage": "Ajoute automatiquement des balises utm aux liens de ta page, pour retrouver dans Google Analytics les visiteurs venus du QR code."
   },
   "more": {
     "title": "Plus d'options",

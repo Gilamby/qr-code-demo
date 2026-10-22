@@ -590,7 +590,8 @@
     "menuUrl": "Per exemple, la teva pròpia pàgina de la carta o un web de comandes. Els clients hi van directament.",
     "couponCode": "El codi que fan servir els clients. Atenció: configura el mateix codi a la caixa o a la botiga en línia. Aquesta aplicació no comprova si un codi ja s'ha fet servir.",
     "couponUrl": "Opcional. Els clients hi fan servir el codi en pagar.",
-    "starts": "Abans d'aquesta data, el visitant veu \"Aquest codi QR encara no està actiu\". Útil si imprimeixes abans que comenci la campanya."
+    "starts": "Abans d'aquesta data, el visitant veu \"Aquest codi QR encara no està actiu\". Útil si imprimeixes abans que comenci la campanya.",
+    "utmPage": "Afegeix automàticament etiquetes utm als enllaços de la teva pàgina, perquè vegis a Google Analytics els visitants del codi QR."
   },
   "more": {
     "title": "Més opcions",

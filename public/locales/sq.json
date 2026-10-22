@@ -590,7 +590,8 @@
     "menuUrl": "Për shembull faqja jote e menusë ose një faqe porosish. Mysafirët shkojnë drejt aty.",
     "couponCode": "Kodi që përdorin klientët. Kujdes: vendos të njëjtin kod edhe në arkë ose në dyqanin online. Ky aplikacion nuk kontrollon nëse një kod është përdorur.",
     "couponUrl": "Opsionale. Klientët e përdorin kodin atje kur paguajnë.",
-    "starts": "Para kësaj date vizitori sheh \"Ky kod QR nuk është ende aktiv\". E dobishme nëse printon para se të fillojë fushata."
+    "starts": "Para kësaj date vizitori sheh \"Ky kod QR nuk është ende aktiv\". E dobishme nëse printon para se të fillojë fushata.",
+    "utmPage": "Shton automatikisht etiketa utm te lidhjet e faqes sate, që të shohësh në Google Analytics vizitorët nga kodi QR."
   },
   "more": {
     "title": "Më shumë opsione",

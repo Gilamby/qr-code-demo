@@ -590,7 +590,8 @@
     "menuUrl": "Piemēram, tava ēdienkartes lapa vai pasūtīšanas vietne. Viesi nonāk tieši tur.",
     "couponCode": "Kods, ko izmanto klienti. Uzmanību: iestati to pašu kodu savā kases sistēmā vai interneta veikalā. Šī lietotne nepārbauda, vai kods jau ir izmantots.",
     "couponUrl": "Nav obligāti. Klienti tur izmanto kodu, norēķinoties.",
-    "starts": "Pirms šī datuma apmeklētājs redz \"Šis QR kods vēl nav aktīvs\". Ērti, ja drukā pirms akcijas sākuma."
+    "starts": "Pirms šī datuma apmeklētājs redz \"Šis QR kods vēl nav aktīvs\". Ērti, ja drukā pirms akcijas sākuma.",
+    "utmPage": "Automātiski pievieno utm birkas saitēm tavā lapā, lai Google Analytics redzētu apmeklētājus no QR koda."
   },
   "more": {
     "title": "Vairāk iespēju",

@@ -590,7 +590,8 @@
     "menuUrl": "Bijvoorbeeld je eigen menupagina, Thuisbezorgd of een andere bestelsite. Gasten komen daar meteen terecht.",
     "couponCode": "De code die klanten gebruiken. Let op: stel dezelfde code ook in bij je kassa of webshop. Deze app controleert niet of een code al gebruikt is.",
     "couponUrl": "Optioneel. Klanten gebruiken de code daar bij het afrekenen.",
-    "starts": "Vóór deze datum ziet de bezoeker \"Deze QR-code is nog niet actief\". Handig als je al print voordat de actie begint."
+    "starts": "Vóór deze datum ziet de bezoeker \"Deze QR-code is nog niet actief\". Handig als je al print voordat de actie begint.",
+    "utmPage": "Voegt automatisch utm-labels toe aan de links op je pagina, zodat je bezoekers uit de QR-code terugziet in Google Analytics."
   },
   "more": {
     "title": "Meer opties",

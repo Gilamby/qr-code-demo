@@ -590,7 +590,8 @@
     "menuUrl": "De exemplu, propria pagină cu meniul sau un site de comenzi. Oaspeții ajung direct acolo.",
     "couponCode": "Codul pe care îl folosesc clienții. Atenție: configurează același cod în casa de marcat sau în magazinul online. Această aplicație nu verifică dacă un cod a fost deja folosit.",
     "couponUrl": "Opțional. Clienții folosesc codul acolo la plată.",
-    "starts": "Înainte de această dată, vizitatorul vede „Acest cod QR nu este încă activ”. Util dacă tipărești înainte de începerea campaniei."
+    "starts": "Înainte de această dată, vizitatorul vede „Acest cod QR nu este încă activ”. Util dacă tipărești înainte de începerea campaniei.",
+    "utmPage": "Adaugă automat etichete utm la linkurile de pe pagina ta, ca să vezi în Google Analytics vizitatorii veniți prin codul QR."
   },
   "more": {
     "title": "Mai multe opțiuni",

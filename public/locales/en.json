@@ -590,7 +590,8 @@
     "menuUrl": "For example your own menu page or an ordering site. Guests go straight there.",
     "couponCode": "The code customers use. Note: set up the same code in your till or web shop. This app does not check whether a code was already used.",
     "couponUrl": "Optional. Customers use the code there at checkout.",
-    "starts": "Before this date the visitor sees \"This QR code isn't active yet\". Handy if you print before the campaign starts."
+    "starts": "Before this date the visitor sees \"This QR code isn't active yet\". Handy if you print before the campaign starts.",
+    "utmPage": "Automatically adds utm tags to the links on your page, so you can see visitors from the QR code in Google Analytics."
   },
   "more": {
     "title": "More options",

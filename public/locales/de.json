@@ -590,7 +590,8 @@
     "menuUrl": "Zum Beispiel deine eigene Menüseite, Lieferando oder eine andere Bestellseite. Gäste landen direkt dort.",
     "couponCode": "Der Code, den Kunden verwenden. Achtung: Richte denselben Code auch in deiner Kasse oder deinem Webshop ein. Diese App prüft nicht, ob ein Code schon benutzt wurde.",
     "couponUrl": "Optional. Kunden nutzen den Code dort beim Bezahlen.",
-    "starts": "Vor diesem Datum sieht der Besucher „Dieser QR-Code ist noch nicht aktiv“. Praktisch, wenn du druckst, bevor die Aktion beginnt."
+    "starts": "Vor diesem Datum sieht der Besucher „Dieser QR-Code ist noch nicht aktiv“. Praktisch, wenn du druckst, bevor die Aktion beginnt.",
+    "utmPage": "Fügt den Links auf deiner Seite automatisch UTM-Parameter hinzu, damit du Besucher über den QR-Code in Google Analytics siehst."
   },
   "more": {
     "title": "Weitere Optionen",

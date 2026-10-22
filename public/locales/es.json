@@ -590,7 +590,8 @@
     "menuUrl": "Por ejemplo tu propia página de menú, Just Eat u otra web de pedidos. Los clientes llegan directamente.",
     "couponCode": "El código que usan los clientes. Ojo: configura el mismo código en tu caja o tienda online. Esta app no comprueba si un código ya se ha usado.",
     "couponUrl": "Opcional. Los clientes usan allí el código al pagar.",
-    "starts": "Antes de esta fecha, el visitante ve \"Este código QR aún no está activo\". Útil si imprimes antes de que empiece la campaña."
+    "starts": "Antes de esta fecha, el visitante ve \"Este código QR aún no está activo\". Útil si imprimes antes de que empiece la campaña.",
+    "utmPage": "Añade automáticamente etiquetas utm a los enlaces de tu página, para que veas en Google Analytics a los visitantes que llegan por el código QR."
   },
   "more": {
     "title": "Más opciones",

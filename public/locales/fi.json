@@ -590,7 +590,8 @@
     "menuUrl": "Esimerkiksi oma ruokalistasivusi tai tilaussivusto. Vieraat pääsevät suoraan sinne.",
     "couponCode": "Koodi, jota asiakkaat käyttävät. Huomaa: lisää sama koodi kassajärjestelmääsi tai verkkokauppaasi. Tämä sovellus ei tarkista, onko koodi jo käytetty.",
     "couponUrl": "Valinnainen. Asiakkaat käyttävät koodia siellä kassalla.",
-    "starts": "Ennen tätä päivää kävijä näkee \"Tämä QR-koodi ei ole vielä käytössä\". Kätevä, jos tulostat ennen kampanjan alkua."
+    "starts": "Ennen tätä päivää kävijä näkee \"Tämä QR-koodi ei ole vielä käytössä\". Kätevä, jos tulostat ennen kampanjan alkua.",
+    "utmPage": "Lisää sivusi linkkeihin automaattisesti utm-tunnisteet, jotta näet QR-koodin kautta tulleet kävijät Google Analyticsissa."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
