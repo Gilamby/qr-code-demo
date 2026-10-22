@@ -2848,7 +2848,7 @@
     "total": "Escaneos totales",
     "never": "Nunca",
     "mapTitle": "Mapa: dónde se escaneó",
-    "mapLead": "{n} lugares. Haz clic en un punto para ver todo de ese lugar; arrastra o usa la rueda para mover y hacer zoom.",
+    "mapLead": "{n} lugares. Haz clic en un punto para ver todo de ese lugar. Usa + y − para el zoom y arrastra para mover.",
     "mapNone": "Aún no hay escaneos con ubicación. En cuanto alguien escanee, aparecerá un punto aquí.",
     "zoomIn": "Acercar",
     "zoomOut": "Alejar",

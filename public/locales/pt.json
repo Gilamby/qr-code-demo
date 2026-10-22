@@ -2803,7 +2803,7 @@
     "total": "Total de leituras",
     "never": "Nunca",
     "mapTitle": "Mapa: onde foi lido",
-    "mapLead": "{n} locais. Clica num ponto para ver tudo desse local; arrasta ou usa a roda para mover e ampliar.",
+    "mapLead": "{n} locais. Clica num ponto para ver tudo desse local.",
     "mapNone": "Ainda sem leituras com local. Assim que alguém ler, aparece aqui um ponto.",
     "zoomIn": "Ampliar",
     "zoomOut": "Reduzir",

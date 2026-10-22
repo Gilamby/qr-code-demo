@@ -2848,7 +2848,7 @@
     "total": "Totaal gescand",
     "never": "Nog nooit",
     "mapTitle": "Kaart: waar is er gescand",
-    "mapLead": "{n} plaatsen. Klik op een stip voor alles van die plaats, sleep of scroll om te verschuiven en in te zoomen.",
+    "mapLead": "{n} plaatsen. Klik op een stip voor alles van die plaats. Zoom met + en −, sleep om te verschuiven.",
     "mapNone": "Nog geen scans met een plaats. Zodra iemand scant, verschijnt hier een stip.",
     "zoomIn": "Inzoomen",
     "zoomOut": "Uitzoomen",

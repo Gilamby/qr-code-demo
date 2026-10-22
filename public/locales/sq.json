@@ -2909,7 +2909,7 @@
     "total": "Skanime gjithsej",
     "never": "Asnjëherë",
     "mapTitle": "Harta: ku është skanuar",
-    "mapLead": "{n} vende. Kliko një pikë për gjithçka nga ai vend; tërhiq ose rrotullo për të lëvizur dhe zmadhuar.",
+    "mapLead": "{n} vende. Kliko një pikë për gjithçka nga ai vend.",
     "mapNone": "Ende pa skanime me vendndodhje. Sapo dikush të skanojë, këtu shfaqet një pikë.",
     "zoomIn": "Zmadho",
     "zoomOut": "Zvogëlo",

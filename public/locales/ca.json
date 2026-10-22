@@ -2803,7 +2803,7 @@
     "total": "Escanejos totals",
     "never": "Mai",
     "mapTitle": "Mapa: on s’ha escanejat",
-    "mapLead": "{n} llocs. Fes clic en un punt per veure-ho tot d’aquell lloc; arrossega o fes servir la roda per moure i fer zoom.",
+    "mapLead": "{n} llocs. Fes clic en un punt per veure-ho tot d’aquell lloc.",
     "mapNone": "Encara no hi ha escanejos amb lloc. Quan algú escanegi, apareixerà un punt aquí.",
     "zoomIn": "Apropa",
     "zoomOut": "Allunya",

@@ -2803,7 +2803,7 @@
     "total": "Skanów łącznie",
     "never": "Nigdy",
     "mapTitle": "Mapa: gdzie skanowano",
-    "mapLead": "{n} miejsc. Kliknij punkt, aby zobaczyć wszystko z tego miejsca; przeciągnij lub przewiń, aby przesuwać i powiększać.",
+    "mapLead": "{n} miejsc. Kliknij punkt, aby zobaczyć wszystko z tego miejsca.",
     "mapNone": "Brak skanów z lokalizacją. Gdy ktoś zeskanuje, pojawi się tu punkt.",
     "zoomIn": "Powiększ",
     "zoomOut": "Pomniejsz",

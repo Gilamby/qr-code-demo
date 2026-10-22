@@ -2803,7 +2803,7 @@
     "total": "Skanninger totalt",
     "never": "Aldri",
     "mapTitle": "Kart: hvor det ble skannet",
-    "mapLead": "{n} steder. Klikk på en prikk for alt fra stedet; dra eller scroll for å flytte og zoome.",
+    "mapLead": "{n} steder. Klikk på en prikk for alt fra stedet.",
     "mapNone": "Ingen skanninger med sted ennå. Så snart noen skanner, dukker en prikk opp her.",
     "zoomIn": "Zoom inn",
     "zoomOut": "Zoom ut",

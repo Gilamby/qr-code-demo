@@ -5199,7 +5199,7 @@ body.paywall-open { overflow: hidden; }
 .cd-map .an-chead, .cd-log .an-chead { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
 .cd-mapbtns { display: flex; gap: 6px; } .cd-mapbtns .btn { min-width: 36px; }
 .cd-mapbox { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
-.cd-svg { display: block; width: 100%; aspect-ratio: 2 / 1; max-height: 520px; touch-action: none; cursor: grab; }
+.cd-svg { display: block; width: 100%; aspect-ratio: 2 / 1; max-height: 520px; touch-action: pan-y; cursor: grab; }
 .cd-svg:active { cursor: grabbing; }
 .cd-sea { fill: #0a1220; } .cd-land { fill: #1d2a3d; stroke: #0a1220; stroke-linejoin: round; } .cd-land.on { fill: #1e4a6e; }
 .cd-land:hover { fill: #26384f; } .cd-land.on:hover { fill: #245a85; }

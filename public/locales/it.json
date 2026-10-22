@@ -2803,7 +2803,7 @@
     "total": "Scansioni totali",
     "never": "Mai",
     "mapTitle": "Mappa: dove è stato scansionato",
-    "mapLead": "{n} luoghi. Clicca su un punto per tutto di quel luogo; trascina o usa la rotella per spostare e zoomare.",
+    "mapLead": "{n} luoghi. Clicca su un punto per tutto di quel luogo.",
     "mapNone": "Ancora nessuna scansione con luogo. Appena qualcuno scansiona, qui appare un punto.",
     "zoomIn": "Ingrandisci",
     "zoomOut": "Riduci",

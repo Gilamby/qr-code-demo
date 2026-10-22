@@ -2803,7 +2803,7 @@
     "total": "Scanninger i alt",
     "never": "Aldrig",
     "mapTitle": "Kort: hvor der er scannet",
-    "mapLead": "{n} steder. Klik på en prik for alt fra stedet; træk eller scroll for at flytte og zoome.",
+    "mapLead": "{n} steder. Klik på en prik for alt fra stedet.",
     "mapNone": "Ingen scanninger med sted endnu. Så snart nogen scanner, vises en prik her.",
     "zoomIn": "Zoom ind",
     "zoomOut": "Zoom ud",

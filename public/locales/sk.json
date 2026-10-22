@@ -2803,7 +2803,7 @@
     "total": "Skenov celkom",
     "never": "Nikdy",
     "mapTitle": "Mapa: kde sa skenovalo",
-    "mapLead": "{n} miest. Klikni na bod pre všetko z daného miesta; ťahaj alebo posúvaj na presun a priblíženie.",
+    "mapLead": "{n} miest. Klikni na bod pre všetko z daného miesta.",
     "mapNone": "Zatiaľ žiadne skeny s miestom. Hneď ako niekto naskenuje, objaví sa tu bod.",
     "zoomIn": "Priblížiť",
     "zoomOut": "Oddialiť",

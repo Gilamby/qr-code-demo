@@ -2848,7 +2848,7 @@
     "total": "Total scans",
     "never": "Never",
     "mapTitle": "Map: where it was scanned",
-    "mapLead": "{n} places. Click a dot for everything from that place, drag or scroll to move and zoom.",
+    "mapLead": "{n} places. Click a dot for everything from that place. Zoom with + and −, drag to move.",
     "mapNone": "No scans with a location yet. As soon as someone scans, a dot appears here.",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",

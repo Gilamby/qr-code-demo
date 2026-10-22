@@ -2803,7 +2803,7 @@
     "total": "Kopā skenēts",
     "never": "Nekad",
     "mapTitle": "Karte: kur noskenēts",
-    "mapLead": "{n} vietas. Noklikšķini uz punkta, lai redzētu visu par šo vietu; velc vai ritini, lai pārvietotu un tuvinātu.",
+    "mapLead": "{n} vietas. Noklikšķini uz punkta, lai redzētu visu par šo vietu.",
     "mapNone": "Vēl nav skenēšanu ar atrašanās vietu. Tiklīdz kāds noskenēs, šeit parādīsies punkts.",
     "zoomIn": "Tuvināt",
     "zoomOut": "Tālināt",

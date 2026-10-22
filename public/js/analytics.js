@@ -429,6 +429,7 @@ var Analytics = (function () {
   var MW = 2000;   // breedte van de kaart (zelfde schaal als assets/world.json)
   function mx(lon) { return (lon + 180) / 360 * MW; }
   function my(lat) { lat = Math.max(-85, Math.min(85, lat)); return (1 - Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) / Math.PI) / 2 * MW; }
+  function WORLD_VIEW() { var y0 = my(75), y1 = my(-56); return [0, (y0 + y1) / 2 - MW / 4, MW, MW / 2]; }   // hele wereld: van Groenland tot onder Zuid-Amerika
   function scansQuery(extra) { return Object.assign({ code: detailId }, query(), extra || {}); }
   function loadScans() {
     var my2 = ++scansSeq, box = document.getElementById('anDetail'); if (!box) return;
@@ -452,7 +453,7 @@ var Analytics = (function () {
       (pts.length ? '<p class="cd-maplead">' + t('cd.mapLead', { n: i18n.fmt.num(pts.length) }) + '</p>' : '<p class="an-none">' + t('cd.mapNone') + '</p>') + '</div>';
   }
   function fitView(pts) {
-    if (!pts.length) return [0, world.top, MW, world.h - world.top];
+    if (!pts.length) return WORLD_VIEW();
     var xs = pts.map(function (p) { return mx(p.lon); }), ys = pts.map(function (p) { return my(p.lat); });
     var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
     var w = Math.max(x1 - x0, 60), h = Math.max(y1 - y0, 30), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
@@ -461,7 +462,7 @@ var Analytics = (function () {
   }
   function drawMap() {
     var svgEl = body.querySelector('.cd-svg'); if (!svgEl || !world) return;
-    var pts = scansD.points || [], v = mapView || (mapView = fitView(pts)), withScans = {};
+    var pts = scansD.points || [], v = mapView || (mapView = clampView(fitView(pts))), withScans = {};
     pts.forEach(function (p) { withScans[p.cc] = (withScans[p.cc] || 0) + p.n; });
     var cw = svgEl.clientWidth || 800, px = v[2] / cw, sz = cw < 500 ? .65 : 1, max = Math.max.apply(null, pts.map(function (p) { return p.n; }).concat([1]));
     svgEl.setAttribute('viewBox', v.map(function (n) { return n.toFixed(1); }).join(' '));
@@ -474,10 +475,15 @@ var Analytics = (function () {
       }).join('');
     svgEl._pts = pts.slice().sort(function (a, b) { return b.n - a.n; });
   }
+  // Kaart altijd binnen de wereld houden (nooit 'weg' slepen of uitzoomen)
+  function clampView(v) {
+    var top = world ? world.top : 60, bottom = world ? world.h : 1420, w = Math.min(v[2], MW), h = Math.min(w / 2, bottom - top); w = h * 2;
+    return [Math.max(0, Math.min(MW - w, v[0])), Math.max(top, Math.min(bottom - h, v[1])), w, h];
+  }
   function zoomMap(f, cx, cy) {
     if (!mapView) return; var v = mapView, w = Math.min(MW * 1.2, Math.max(25, v[2] * f)), h = w / 2;
     cx = cx == null ? v[0] + v[2] / 2 : cx; cy = cy == null ? v[1] + v[3] / 2 : cy;
-    mapView = [cx - w / 2, cy - h / 2, w, h]; drawMap();
+    mapView = clampView([cx - w / 2, cy - h / 2, w, h]); drawMap();
   }
   function logCard() {
     var rows = scansD.scans || [];
@@ -514,7 +520,7 @@ var Analytics = (function () {
   body.addEventListener('pointerdown', function (e) { var s = e.target.closest('.cd-svg'); if (!s || e.target.closest('.cd-dot') || !mapView) return; drag = { x: e.clientX, y: e.clientY, v: mapView.slice(), w: s.clientWidth }; s.setPointerCapture(e.pointerId); });
   body.addEventListener('pointermove', function (e) {
     var s = e.target.closest && e.target.closest('.cd-svg');
-    if (drag) { var k = drag.v[2] / drag.w; mapView = [drag.v[0] - (e.clientX - drag.x) * k, drag.v[1] - (e.clientY - drag.y) * k, drag.v[2], drag.v[3]]; var sv = body.querySelector('.cd-svg'); if (sv) sv.setAttribute('viewBox', mapView.join(' ')); return; }
+    if (drag) { var k = drag.v[2] / drag.w; mapView = clampView([drag.v[0] - (e.clientX - drag.x) * k, drag.v[1] - (e.clientY - drag.y) * k, drag.v[2], drag.v[3]]); var sv = body.querySelector('.cd-svg'); if (sv) sv.setAttribute('viewBox', mapView.join(' ')); return; }
     var tip = body.querySelector('.cd-tip'), dot = e.target.closest && e.target.closest('.cd-dot'); if (!tip) return;
     if (!dot || !s) { tip.hidden = true; return; }
     var p = s._pts[+dot.getAttribute('data-pt')], box = s.getBoundingClientRect();
@@ -523,11 +529,7 @@ var Analytics = (function () {
     tip.hidden = false; tip.style.left = Math.min(Math.max(e.clientX - box.left, 90), box.width - 90) + 'px'; tip.style.top = (e.clientY - box.top - 12) + 'px';
   });
   body.addEventListener('pointerup', function () { drag = null; });
-  body.addEventListener('wheel', function (e) {
-    var s = e.target.closest && e.target.closest('.cd-svg'); if (!s || !mapView) return; e.preventDefault();
-    var b = s.getBoundingClientRect(), cx = mapView[0] + (e.clientX - b.left) / b.width * mapView[2], cy = mapView[1] + (e.clientY - b.top) / b.height * mapView[3];
-    zoomMap(e.deltaY > 0 ? 1.25 : .8, cx, cy);
-  }, { passive: false });
+  // Geen zoomen met het scrollwiel: scrollen op de kaart scrolt gewoon de pagina (anders raak je de kaart kwijt)
 
   /* ---------- Alles tekenen ---------- */
   function draw() {
@@ -651,7 +653,7 @@ var Analytics = (function () {
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
     if (e.target.closest('[data-cd-back]')) { detailId = null; return goToPage('myCodes'); }
     var mb = e.target.closest('[data-map]');
-    if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = mk === 'world' ? [0, world.top, MW, MW / 2] : fitView(scansD.points || []); drawMap(); } return; }
+    if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = clampView(mk === 'world' ? WORLD_VIEW() : fitView(scansD.points || [])); drawMap(); } return; }
     var dt = e.target.closest('.cd-dot');
     if (dt) { f.cc = [dt.getAttribute('data-cc')]; f.city = [dt.getAttribute('data-cc') + '|' + dt.getAttribute('data-city')]; whereDim = 'city'; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
     if (e.target.closest('[data-log-more]')) return moreScans(e.target.closest('[data-log-more]'));

@@ -2809,7 +2809,7 @@
     "total": "Scans gesamt",
     "never": "Noch nie",
     "mapTitle": "Karte: wo gescannt wurde",
-    "mapLead": "{n} Orte. Klicke auf einen Punkt für alles von diesem Ort, ziehe oder scrolle zum Verschieben und Zoomen.",
+    "mapLead": "{n} Orte. Klicke auf einen Punkt für alles von diesem Ort. Zoome mit + und −, ziehe zum Verschieben.",
     "mapNone": "Noch keine Scans mit Ort. Sobald jemand scannt, erscheint hier ein Punkt.",
     "zoomIn": "Vergrößern",
     "zoomOut": "Verkleinern",
