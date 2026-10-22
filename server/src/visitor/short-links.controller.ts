@@ -3,6 +3,8 @@
    Regels toepassen (uit, verlopen, wachtwoord), scan tellen, en dan doorsturen of de echte pagina tonen.
    Openbaar: geen inloggen nodig.
    ========================================================= */
+import { MailerService } from '../auth/mailer.service';
+import { scanAlert } from '../scan-alerts';
 import { Body, Controller, Get, Param, Post, Query, Req, Res } from '@nestjs/common';
 import { isBlocked } from '../subscription';
 import type { Request, Response } from 'express';
@@ -16,7 +18,7 @@ import type { QrCode } from '../types';
 
 @Controller('q')
 export class ShortLinksController {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(private readonly db: DatabaseService, private readonly mailer: MailerService) {}
 
   @Get(':id')
   open(@Req() req: Request, @Res() res: Response, @Param('id') id: string) { return this.openCode(req, res, id, false); }
@@ -75,6 +77,7 @@ export class ShortLinksController {
       return res.send(rules.passwordPage(req, req.method === 'POST'));
     }
     const q = await this.db.addScan(found.id, describe(found, req));
+    setImmediate(() => { scanAlert(this.db, this.mailer, q); });           // eerste scan / mijlpaal: mail (na het antwoord)
     const c = q.content;
     res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen
     if (q.contentType === 'url' && c.url && !(q.typeId === 'video' && c.file)) return res.redirect(rules.targetUrl(q, req.get('user-agent')));   // eigen video: de videopagina met speler

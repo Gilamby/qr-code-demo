@@ -2159,7 +2159,11 @@
     "security": "Avvisi di sicurezza",
     "securityText": "Quando qualcuno accede da un nuovo dispositivo e quando cambia la password. Consigliato.",
     "product": "Novità e consigli",
-    "productText": "Ogni tanto, sulle nuove funzioni. Mai pubblicità di terzi."
+    "productText": "Ogni tanto, sulle nuove funzioni. Mai pubblicità di terzi.",
+    "firstScan": "Prima scansione",
+    "firstScanText": "Un’e-mail quando un nuovo codice QR viene scansionato per la prima volta.",
+    "milestones": "Traguardi",
+    "milestonesText": "Un’e-mail a 100, 1.000, 10.000 … scansioni di un codice."
   },
   "ac": {
     "lead": "Ogni codice QR di ogni cliente. Cerca, filtra, seleziona più codici o apri un codice per tutti i dettagli.",

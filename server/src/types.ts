@@ -20,7 +20,7 @@ export interface User {
   /** Weergave: 'dark', 'light' of 'system' (null = standaard donker) */
   theme?: string | null;
   /** E-mailvoorkeuren: scanoverzicht (off/weekly/monthly), beveiligingsmeldingen, nieuws */
-  emailPrefs?: { report: 'off' | 'weekly' | 'monthly'; security: boolean; product: boolean };
+  emailPrefs?: { report: 'off' | 'weekly' | 'monthly'; security: boolean; product: boolean; firstScan?: boolean; milestones?: boolean };
   /** Eigen achtergronden (foto's en video's), nieuwste eerst. Bestand op schijf: <DATA_DIR>/files/<id> */
   media?: MediaItem[];
   /** Taal van de app (voor e-mails die we zelf versturen, zoals het scanoverzicht) */

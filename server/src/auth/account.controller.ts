@@ -65,9 +65,10 @@ export class AccountController {
       p.timezone = tz && tz.length <= 64 ? tz : null;
     }
     if (b.emailPrefs !== undefined) {                                  // E-mailvoorkeuren (Mijn account > Meldingen)
-      const e = b.emailPrefs || {}, cur = user.emailPrefs || { report: 'off', security: true, product: false };
+      const e = b.emailPrefs || {}, cur: any = user.emailPrefs || { report: 'off', security: true, product: false, firstScan: true, milestones: true };
       if (e.report !== undefined && !['off', 'weekly', 'monthly'].includes(e.report)) throw fail(400, 'emailPrefs');
-      p.emailPrefs = JSON.stringify({ report: e.report !== undefined ? e.report : cur.report, security: e.security !== undefined ? !!e.security : cur.security, product: e.product !== undefined ? !!e.product : cur.product });
+      p.emailPrefs = JSON.stringify({ report: e.report !== undefined ? e.report : cur.report, security: e.security !== undefined ? !!e.security : cur.security, product: e.product !== undefined ? !!e.product : cur.product,
+        firstScan: e.firstScan !== undefined ? !!e.firstScan : cur.firstScan !== false, milestones: e.milestones !== undefined ? !!e.milestones : cur.milestones !== false });
     }
     if (b.lang !== undefined) { if (!LANGS.includes(b.lang)) throw fail(400, 'lang'); p.lang = b.lang; }
     if (b.theme !== undefined) { if (!['dark', 'light', 'system'].includes(b.theme)) throw fail(400, 'theme'); p.theme = b.theme; }

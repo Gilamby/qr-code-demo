@@ -2159,7 +2159,11 @@
     "security": "Säkerhetsaviseringar",
     "securityText": "När någon loggar in från en ny enhet och när ditt lösenord ändras. Rekommenderas.",
     "product": "Nyheter och tips",
-    "productText": "Då och då, om nya funktioner. Aldrig annonser från andra."
+    "productText": "Då och då, om nya funktioner. Aldrig annonser från andra.",
+    "firstScan": "Första skanningen",
+    "firstScanText": "Ett mejl när en ny QR-kod skannas för första gången.",
+    "milestones": "Milstolpar",
+    "milestonesText": "Ett mejl vid 100, 1 000, 10 000 … skanningar av en kod."
   },
   "ac": {
     "lead": "Alla QR-koder från alla kunder. Sök, filtrera, välj flera koder eller öppna en kod för alla detaljer.",

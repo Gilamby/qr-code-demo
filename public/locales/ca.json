@@ -2159,7 +2159,11 @@
     "security": "Alertes de seguretat",
     "securityText": "Quan algú inicia la sessió des d'un dispositiu nou i quan canvia la teva contrasenya. Recomanat.",
     "product": "Novetats i consells",
-    "productText": "De tant en tant, sobre funcions noves. Mai anuncis d'altres."
+    "productText": "De tant en tant, sobre funcions noves. Mai anuncis d'altres.",
+    "firstScan": "Primer escaneig",
+    "firstScanText": "Un correu quan un codi QR nou s’escaneja per primer cop.",
+    "milestones": "Fites",
+    "milestonesText": "Un correu als 100, 1.000, 10.000… escanejos d’un codi."
   },
   "ac": {
     "lead": "Tots els codis QR de tots els clients. Cerca, filtra, selecciona diversos codis o obre un codi per veure'n tots els detalls.",

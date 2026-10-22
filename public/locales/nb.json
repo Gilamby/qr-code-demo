@@ -2159,7 +2159,11 @@
     "security": "Sikkerhetsvarsler",
     "securityText": "Når noen logger inn fra en ny enhet og når passordet ditt endres. Anbefales.",
     "product": "Nyheter og tips",
-    "productText": "Av og til, om nye funksjoner. Aldri annonser fra andre."
+    "productText": "Av og til, om nye funksjoner. Aldri annonser fra andre.",
+    "firstScan": "Første skanning",
+    "firstScanText": "En e-post når en ny QR-kode skannes for første gang.",
+    "milestones": "Milepæler",
+    "milestonesText": "En e-post ved 100, 1 000, 10 000 … skanninger av en kode."
   },
   "ac": {
     "lead": "Alle QR-kodene til alle kunder. Søk, filtrer, velg flere koder eller åpne en kode for å se alle detaljer.",

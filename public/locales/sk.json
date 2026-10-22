@@ -2159,7 +2159,11 @@
     "security": "Bezpečnostné upozornenia",
     "securityText": "Keď sa niekto prihlási z nového zariadenia a keď sa zmení tvoje heslo. Odporúčame.",
     "product": "Novinky a tipy",
-    "productText": "Občas, o nových funkciách. Nikdy reklamy od iných."
+    "productText": "Občas, o nových funkciách. Nikdy reklamy od iných.",
+    "firstScan": "Prvé skenovanie",
+    "firstScanText": "E-mail, keď sa nový QR kód naskenuje prvýkrát.",
+    "milestones": "Míľniky",
+    "milestonesText": "E-mail pri 100, 1 000, 10 000 … skenoch kódu."
   },
   "ac": {
     "lead": "Každý QR kód každého zákazníka. Hľadaj, filtruj, vyber viac kódov naraz alebo otvor kód a uvidíš všetky podrobnosti.",

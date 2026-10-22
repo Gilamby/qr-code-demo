@@ -35,7 +35,7 @@ export class AnalyticsModule {}
 @Module({ controllers: [SystemController, HelpersController, ContactController, TranslationsController, UnsubscribeController], imports: [AuthModule] })
 export class HelpersModule {}
 
-@Module({ controllers: [ShortLinksController] })
+@Module({ controllers: [ShortLinksController], imports: [AuthModule] })
 export class VisitorModule {}
 
 @Module({

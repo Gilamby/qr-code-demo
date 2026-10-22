@@ -1524,7 +1524,13 @@
     "unsubOpen": "Open QR-Codex",
     "unsubOther": "You can turn it back on any time in My account > Notifications.",
     "unsubBadTitle": "Link not valid",
-    "unsubBadText": "This link is not valid (anymore). You can turn emails off in My account > Notifications."
+    "unsubBadText": "This link is not valid (anymore). You can turn emails off in My account > Notifications.",
+    "scanFirstSubject": "Your QR code “{name}” was scanned for the first time",
+    "scanFirstText": "Good news: “{name}” was just scanned for the first time. You can now see where and when it is scanned.",
+    "scanMilestoneSubject": "“{name}” has been scanned {n} times",
+    "scanMilestoneText": "Nice: your QR code “{name}” has reached {n} scans.",
+    "scanButton": "View your QR codes",
+    "scanFooter": "You can turn these notifications off in My account > Notifications."
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2163,7 +2169,11 @@
     "security": "Security alerts",
     "securityText": "When someone signs in from a new device and when your password changes. Recommended.",
     "product": "News and tips",
-    "productText": "Now and then, about new features. Never ads from others."
+    "productText": "Now and then, about new features. Never ads from others.",
+    "firstScan": "First scan",
+    "firstScanText": "An email when a new QR code is scanned for the first time.",
+    "milestones": "Milestones",
+    "milestonesText": "An email at 100, 1,000, 10,000 … scans of a code."
   },
   "ac": {
     "lead": "Every QR code of every customer. Search, filter, select several codes or open a code for all details.",

@@ -2159,7 +2159,11 @@
     "security": "Drošības brīdinājumi",
     "securityText": "Kad kāds piesakās no jaunas ierīces un kad tiek mainīta tava parole. Ieteicams.",
     "product": "Jaunumi un padomi",
-    "productText": "Laiku pa laikam, par jaunām funkcijām. Nekad citu reklāmas."
+    "productText": "Laiku pa laikam, par jaunām funkcijām. Nekad citu reklāmas.",
+    "firstScan": "Pirmā skenēšana",
+    "firstScanText": "E-pasts, kad jauns QR kods tiek noskenēts pirmo reizi.",
+    "milestones": "Atskaites punkti",
+    "milestonesText": "E-pasts pie 100, 1000, 10 000 … koda skenēšanām."
   },
   "ac": {
     "lead": "Visi visu klientu QR kodi. Meklē, filtrē, atlasi vairākus kodus vai atver kodu, lai redzētu visas detaļas.",

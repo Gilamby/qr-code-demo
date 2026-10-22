@@ -2159,7 +2159,11 @@
     "security": "Alerty bezpieczeństwa",
     "securityText": "Gdy ktoś zaloguje się z nowego urządzenia i gdy zmieni się hasło. Zalecane.",
     "product": "Nowości i porady",
-    "productText": "Od czasu do czasu, o nowych funkcjach. Nigdy reklam innych firm."
+    "productText": "Od czasu do czasu, o nowych funkcjach. Nigdy reklam innych firm.",
+    "firstScan": "Pierwsze skanowanie",
+    "firstScanText": "E-mail, gdy nowy kod QR zostanie zeskanowany po raz pierwszy.",
+    "milestones": "Kamienie milowe",
+    "milestonesText": "E-mail przy 100, 1000, 10 000 … skanach kodu."
   },
   "ac": {
     "lead": "Każdy kod QR każdego klienta. Szukaj, filtruj, zaznacz kilka kodów lub otwórz kod, aby zobaczyć wszystkie szczegóły.",

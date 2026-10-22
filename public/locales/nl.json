@@ -1524,7 +1524,13 @@
     "unsubOpen": "QR-Codex openen",
     "unsubOther": "Weer aanzetten kan altijd in Mijn account > Meldingen.",
     "unsubBadTitle": "Link werkt niet",
-    "unsubBadText": "Deze link werkt niet (meer). Je kunt e-mails uitzetten in Mijn account > Meldingen."
+    "unsubBadText": "Deze link werkt niet (meer). Je kunt e-mails uitzetten in Mijn account > Meldingen.",
+    "scanFirstSubject": "Je QR-code “{name}” is voor het eerst gescand",
+    "scanFirstText": "Goed nieuws: “{name}” is net voor het eerst gescand. Je ziet nu waar en wanneer er gescand wordt.",
+    "scanMilestoneSubject": "“{name}” is {n} keer gescand",
+    "scanMilestoneText": "Mooi: je QR-code “{name}” heeft de {n} scans gehaald.",
+    "scanButton": "Bekijk je QR-codes",
+    "scanFooter": "Deze meldingen zet je uit in Mijn account > Meldingen."
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2163,7 +2169,11 @@
     "security": "Beveiligingsmeldingen",
     "securityText": "Als er wordt ingelogd op een nieuw apparaat en als je wachtwoord verandert. Aanbevolen.",
     "product": "Nieuws en tips",
-    "productText": "Af en toe, over nieuwe functies. Nooit reclame van anderen."
+    "productText": "Af en toe, over nieuwe functies. Nooit reclame van anderen.",
+    "firstScan": "Eerste scan",
+    "firstScanText": "Een e-mail als een nieuwe QR-code voor het eerst gescand wordt.",
+    "milestones": "Mijlpalen",
+    "milestonesText": "Een e-mail bij 100, 1.000, 10.000 … scans van een code."
   },
   "ac": {
     "lead": "Elke QR-code van elke klant. Zoek, filter, selecteer meerdere codes of open een code voor alle details.",

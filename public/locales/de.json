@@ -1520,7 +1520,13 @@
     "unsubOpen": "QR-Codex öffnen",
     "unsubOther": "Du kannst ihn jederzeit unter Mein Konto > Benachrichtigungen wieder einschalten.",
     "unsubBadTitle": "Link ungültig",
-    "unsubBadText": "Dieser Link ist (nicht mehr) gültig. E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten."
+    "unsubBadText": "Dieser Link ist (nicht mehr) gültig. E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten.",
+    "scanFirstSubject": "Dein QR-Code „{name}“ wurde zum ersten Mal gescannt",
+    "scanFirstText": "Gute Nachricht: „{name}“ wurde gerade zum ersten Mal gescannt. Du siehst jetzt, wo und wann gescannt wird.",
+    "scanMilestoneSubject": "„{name}“ wurde {n}-mal gescannt",
+    "scanMilestoneText": "Super: Dein QR-Code „{name}“ hat {n} Scans erreicht.",
+    "scanButton": "QR-Codes ansehen",
+    "scanFooter": "Diese Benachrichtigungen schaltest du unter Mein Konto > Benachrichtigungen aus."
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2159,7 +2165,11 @@
     "security": "Sicherheitsmeldungen",
     "securityText": "Bei Anmeldung auf einem neuen Gerät und wenn sich dein Passwort ändert. Empfohlen.",
     "product": "Neuigkeiten und Tipps",
-    "productText": "Ab und zu, über neue Funktionen. Nie Werbung von anderen."
+    "productText": "Ab und zu, über neue Funktionen. Nie Werbung von anderen.",
+    "firstScan": "Erster Scan",
+    "firstScanText": "Eine E-Mail, wenn ein neuer QR-Code zum ersten Mal gescannt wird.",
+    "milestones": "Meilensteine",
+    "milestonesText": "Eine E-Mail bei 100, 1.000, 10.000 … Scans eines Codes."
   },
   "ac": {
     "lead": "Jeder QR-Code jedes Kunden. Suchen, filtern, mehrere Codes auswählen oder einen Code mit allen Details öffnen.",

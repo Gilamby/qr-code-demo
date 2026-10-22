@@ -2265,7 +2265,11 @@
     "security": "Njoftime sigurie",
     "securityText": "Kur dikush hyn nga një pajisje e re dhe kur ndryshon fjalëkalimi. E rekomanduar.",
     "product": "Lajme dhe këshilla",
-    "productText": "Herë pas here, për funksione të reja. Asnjëherë reklama të të tjerëve."
+    "productText": "Herë pas here, për funksione të reja. Asnjëherë reklama të të tjerëve.",
+    "firstScan": "Skanimi i parë",
+    "firstScanText": "Një email kur një kod i ri QR skanohet për herë të parë.",
+    "milestones": "Pikë kyçe",
+    "milestonesText": "Një email në 100, 1.000, 10.000 … skanime të një kodi."
   },
   "ac": {
     "lead": "Çdo kod QR i çdo klienti. Kërko, filtro, zgjidh disa kode ose hap një kod për të gjitha detajet.",

@@ -2159,7 +2159,11 @@
     "security": "Alertas de segurança",
     "securityText": "Quando alguém inicia sessão num dispositivo novo e quando a palavra-passe muda. Recomendado.",
     "product": "Novidades e dicas",
-    "productText": "De vez em quando, sobre novas funções. Nunca publicidade de terceiros."
+    "productText": "De vez em quando, sobre novas funções. Nunca publicidade de terceiros.",
+    "firstScan": "Primeira leitura",
+    "firstScanText": "Um e-mail quando um código QR novo é lido pela primeira vez.",
+    "milestones": "Marcos",
+    "milestonesText": "Um e-mail aos 100, 1.000, 10.000 … leituras de um código."
   },
   "ac": {
     "lead": "Todos os códigos QR de todos os clientes. Pesquise, filtre, selecione vários códigos ou abra um código para ver todos os detalhes.",

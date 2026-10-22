@@ -1524,7 +1524,13 @@
     "unsubOpen": "Abrir QR-Codex",
     "unsubOther": "Puedes volver a activarlo cuando quieras en Mi cuenta > Notificaciones.",
     "unsubBadTitle": "Enlace no válido",
-    "unsubBadText": "Este enlace no es válido (o ha caducado). Puedes desactivar los correos en Mi cuenta > Notificaciones."
+    "unsubBadText": "Este enlace no es válido (o ha caducado). Puedes desactivar los correos en Mi cuenta > Notificaciones.",
+    "scanFirstSubject": "Tu código QR «{name}» se ha escaneado por primera vez",
+    "scanFirstText": "Buenas noticias: «{name}» se acaba de escanear por primera vez. Ya puedes ver dónde y cuándo se escanea.",
+    "scanMilestoneSubject": "«{name}» se ha escaneado {n} veces",
+    "scanMilestoneText": "Genial: tu código QR «{name}» ha llegado a {n} escaneos.",
+    "scanButton": "Ver tus códigos QR",
+    "scanFooter": "Puedes desactivar estos avisos en Mi cuenta > Notificaciones."
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",
@@ -2163,7 +2169,11 @@
     "security": "Alertas de seguridad",
     "securityText": "Cuando alguien inicia sesión desde un dispositivo nuevo y cuando cambia tu contraseña. Recomendado.",
     "product": "Novedades y consejos",
-    "productText": "De vez en cuando, sobre funciones nuevas. Nunca publicidad de terceros."
+    "productText": "De vez en cuando, sobre funciones nuevas. Nunca publicidad de terceros.",
+    "firstScan": "Primer escaneo",
+    "firstScanText": "Un correo cuando un código QR nuevo se escanea por primera vez.",
+    "milestones": "Hitos",
+    "milestonesText": "Un correo a los 100, 1.000, 10.000… escaneos de un código."
   },
   "ac": {
     "lead": "Todos los códigos QR de todos los clientes. Busca, filtra, selecciona varios códigos o abre un código para ver todos los detalles.",

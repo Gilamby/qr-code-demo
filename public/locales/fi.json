@@ -2159,7 +2159,11 @@
     "security": "Tietoturvailmoitukset",
     "securityText": "Kun joku kirjautuu sisään uudella laitteella ja kun salasanasi vaihtuu. Suositeltava.",
     "product": "Uutiset ja vinkit",
-    "productText": "Silloin tällöin, uusista ominaisuuksista. Ei koskaan muiden mainoksia."
+    "productText": "Silloin tällöin, uusista ominaisuuksista. Ei koskaan muiden mainoksia.",
+    "firstScan": "Ensimmäinen skannaus",
+    "firstScanText": "Sähköposti, kun uusi QR-koodi skannataan ensimmäisen kerran.",
+    "milestones": "Virstanpylväät",
+    "milestonesText": "Sähköposti, kun koodi on skannattu 100, 1 000, 10 000 … kertaa."
   },
   "ac": {
     "lead": "Jokaisen asiakkaan jokainen QR-koodi. Hae, suodata, valitse useita koodeja tai avaa koodi nähdäksesi kaikki tiedot.",

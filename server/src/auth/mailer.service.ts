@@ -51,6 +51,20 @@ export class MailerService {
       subject: '[QR-Codex] ' + m.topic + ': ' + m.message.slice(0, 60).replace(/\s+/g, ' '), text: body });
   }
 
+  /** Scanmelding: eerste scan van een code of een mijlpaal (100, 1.000, …). Uit te zetten in Mijn account > Meldingen */
+  async sendScanAlert(user: User, code: { id: string; name: string; scans: number }, kind: 'first' | 'milestone') {
+    const t = await this.texts(user.lang || 'en'), loc = LANGS.includes(user.lang || '') ? user.lang : 'en';
+    const n = new Intl.NumberFormat(loc).format(code.scans), v = (s: string) => String(s || '').replace(/\{name\}/g, code.name).replace(/\{n\}/g, n);
+    const subject = v(kind === 'first' ? t.scanFirstSubject : t.scanMilestoneSubject), body = v(kind === 'first' ? t.scanFirstText : t.scanMilestoneText);
+    const link = (this.base() || '') + '/?go=myCodes';
+    if (!this.transport) { console.log('[e-mail niet ingesteld] Scanmelding voor ' + user.email + ': ' + subject); return; }
+    await this.transport.sendMail({ from: this.from(), to: user.email, subject, text: body + '\n\n' + link + '\n\n' + t.scanFooter,
+      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px"><p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">QR-Codex</p>' +
+        '<h1 style="font-size:21px;margin:0 0 10px">' + esc(subject) + '</h1><p>' + esc(body) + '</p>' +
+        '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.scanButton) + '</a></p>' +
+        '<p style="color:#5a6577;font-size:13px;margin-top:20px">' + esc(t.scanFooter) + '</p></div>' });
+  }
+
   /** Testmail vanuit Beheer > Instellingen > E-mail: werkt de mailserver? (gooit een fout als het niet lukt) */
   async sendTest(to: string) {
     if (!this.transport) throw new Error('not_configured');

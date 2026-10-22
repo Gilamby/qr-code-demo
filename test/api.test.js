@@ -832,3 +832,20 @@ test('labels en notitie bij een code; startdatum ook voor pagina-codes', async (
   assert.equal(later.content.starts, '2099-01-01', 'startdatum ook bij een linkpagina');
   const r = await fetch(base + '/q/' + later.id, { redirect: 'manual' }); assert.equal(r.status, 503, 'nog niet begonnen');
 });
+
+test('scanmelding: mail bij de eerste scan (uit te zetten)', async () => {
+  app.get(require('../server/dist/auth/auth.service').AuthService).hits.clear();
+  const sent = []; const m = app.get(MailerService), orig = m.sendScanAlert; m.sendScanAlert = async (u, c, kind) => { sent.push([u.email, c.scans, kind]); };
+  try {
+    const c = client(); await signup(c, 'scanmail@example.com', 'Scan meldingen 9!', 'Scan');
+    const q = (await c('POST', '/api/qr-codes', { typeId: 'website', name: 'Melding', content: { url: 'https://example.com' }, design: {} })).json;
+    await fetch(base + '/q/' + q.id, { redirect: 'manual' }); await new Promise((r) => setTimeout(r, 50));
+    assert.deepEqual(sent, [['scanmail@example.com', 1, 'first']]);
+    await fetch(base + '/q/' + q.id, { redirect: 'manual' }); await new Promise((r) => setTimeout(r, 50));
+    assert.equal(sent.length, 1, 'tweede scan: geen mail');
+    await c('PATCH', '/api/account', { emailPrefs: { firstScan: false } });
+    const q2 = (await c('POST', '/api/qr-codes', { typeId: 'website', name: 'Stil', content: { url: 'https://example.com' }, design: {} })).json;
+    await fetch(base + '/q/' + q2.id, { redirect: 'manual' }); await new Promise((r) => setTimeout(r, 50));
+    assert.equal(sent.length, 1, 'uitgezet: geen mail');
+  } finally { m.sendScanAlert = orig; }
+});
