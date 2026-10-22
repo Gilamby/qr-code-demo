@@ -273,6 +273,8 @@ var api = (function () {
     // Statistieken: { from, to, codes: [], os: [], cc: [], city: [] }
     analytics: either(function (q) { return request('GET', 'api/analytics?' + query(q)); },
       function (q) { return demoCodes().then(function (codes) { return Object.assign(ANALYTICS.overview(codes, flat(q)), { demo: true, geo: true, names: codes.map(function (c) { return { id: c.id, typeId: c.typeId, name: c.name }; }) }); }); }),
+    // Detailpagina: logboek per scan + plaatsen voor de kaart (alleen met server)
+    analyticsScans: either(function (q) { return request('GET', 'api/analytics/scans?' + query(q)); }, function () { return Promise.resolve({ scans: [], points: [], total: 0, more: false }); }),
     // CSV: met server een link (downloadt zelf), zonder server de tekst
     analyticsCsv: either(function (q) { return Promise.resolve({ url: 'api/analytics.csv?' + query(q) }); },
       function (q) { return demoCodes().then(function (codes) { return { text: ANALYTICS.csv(codes, flat(q), function (c) { return c.name || c.id; }) }; }); }),

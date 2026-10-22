@@ -5193,3 +5193,30 @@ body.paywall-open { overflow: hidden; }
 .sh-sum { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
 @media (max-width: 480px) { .sh-grid { grid-template-columns: repeat(3, 1fr); } }
 .sh-dlg .mc-dlg-ic { background: rgba(43,181,240,.14); color: var(--accent); }
+
+/* Detailpagina: kaart en logboek per scan */
+.cd-extra { display: grid; gap: 16px; margin-top: 16px; }
+.cd-map .an-chead, .cd-log .an-chead { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cd-mapbtns { display: flex; gap: 6px; } .cd-mapbtns .btn { min-width: 36px; }
+.cd-mapbox { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+.cd-svg { display: block; width: 100%; aspect-ratio: 2 / 1; max-height: 520px; touch-action: none; cursor: grab; }
+.cd-svg:active { cursor: grabbing; }
+.cd-sea { fill: #0a1220; } .cd-land { fill: #1d2a3d; stroke: #0a1220; stroke-linejoin: round; } .cd-land.on { fill: #1e4a6e; }
+.cd-land:hover { fill: #26384f; } .cd-land.on:hover { fill: #245a85; }
+.cd-halo { fill: rgba(56,189,248,.18); pointer-events: none; } .cd-pin { fill: #38bdf8; stroke: #fff; cursor: pointer; }
+.cd-dot:hover .cd-pin { fill: #7dd3fc; }
+:root[data-theme="light"] .cd-sea { fill: #dbe7f3; } :root[data-theme="light"] .cd-land { fill: #f8fafc; stroke: #b6c6d8; } :root[data-theme="light"] .cd-land.on { fill: #bfe3f7; }
+:root[data-theme="light"] .cd-pin { fill: #0284c7; }
+.cd-tip { position: absolute; transform: translate(-50%, -100%); background: rgba(8,11,16,.94); color: #e8edf5; border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 8px 12px; display: grid; gap: 2px; font-size: 13px; pointer-events: none; white-space: nowrap; z-index: 2; }
+.cd-tip small { color: #9aa7b8; } .cd-tip em { font-style: normal; color: #7dd3fc; font-size: 12px; }
+.cd-maplead, .cd-loglead { margin: 10px 0 0; color: var(--muted); font-size: 13px; } .cd-loglead { margin: 0 0 10px; }
+.cd-tw { overflow-x: auto; }
+.cd-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.cd-table th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 700; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.cd-table td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+.cd-table tr:last-child td { border-bottom: 0; }
+.cd-place { display: inline-flex; align-items: center; gap: 8px; } .cd-place i { font-style: normal; font-size: 18px; } .cd-place span { display: grid; } .cd-place small { color: var(--muted); font-size: 12px; }
+.cd-vis { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 12px; font-weight: 700; } .cd-vis.new { background: rgba(34,197,94,.15); color: #4ade80; } .cd-vis.back { background: rgba(148,163,184,.15); color: #cbd5e1; }
+:root[data-theme="light"] .cd-vis.new { color: #15803d; } :root[data-theme="light"] .cd-vis.back { color: #475569; }
+.cd-more { display: flex; justify-content: center; margin-top: 12px; }
+@media (max-width: 600px) { .cd-svg { aspect-ratio: 4 / 3; } .cd-mapbtns .btn { padding: 0 10px; } }

@@ -364,7 +364,7 @@ var Analytics = (function () {
   function fit() {
     var sec = view.querySelector('.an'); if (!sec || view.hidden) return;
     sec.style.zoom = '';
-    if (isDetail()) { if (data && data.series && body.querySelector('.an-plot')) lineChart(grouped(data.series)); return; }   // detailpagina mag scrollen; grafiek opnieuw op de echte breedte
+    if (isDetail()) { if (data && data.series && body.querySelector('.an-plot')) lineChart(grouped(data.series)); if (scansD) drawMap(); return; }   // detailpagina mag scrollen; grafiek opnieuw op de echte breedte
     if (window.innerWidth <= 1100 || printAll) return;
     var top = sec.getBoundingClientRect().top + window.scrollY, h = sec.offsetHeight, avail = window.innerHeight - top - 24;
     var extra = document.documentElement.scrollHeight - window.innerHeight - Math.max(0, h - avail);   // ruimte onder de bubbel (marge van de pagina)
@@ -424,6 +424,111 @@ var Analytics = (function () {
       '</div></div>';
   }
 
+  /* ---------- Detailpagina: kaart en logboek per scan ---------- */
+  var scansD = null, scansSeq = 0, world = null, mapView = null;
+  var MW = 2000;   // breedte van de kaart (zelfde schaal als assets/world.json)
+  function mx(lon) { return (lon + 180) / 360 * MW; }
+  function my(lat) { lat = Math.max(-85, Math.min(85, lat)); return (1 - Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) / Math.PI) / 2 * MW; }
+  function scansQuery(extra) { return Object.assign({ code: detailId }, query(), extra || {}); }
+  function loadScans() {
+    var my2 = ++scansSeq, box = document.getElementById('anDetail'); if (!box) return;
+    if (!scansD) box.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    var w = world ? Promise.resolve(world) : fetch('assets/world.json').then(function (r) { return r.json(); }).then(function (j) { world = j; return j; }).catch(function () { return null; });
+    Promise.all([api.analyticsScans(scansQuery({ limit: 50 })), w]).then(function (res) {
+      if (my2 !== scansSeq) return; scansD = res[0]; mapView = null; drawDetail();
+    }).catch(function () { var b = document.getElementById('anDetail'); if (b) b.innerHTML = '<p class="acct-msg bad">' + t('myCodes.failed') + '</p>'; });
+  }
+  function drawDetail() {
+    var box = document.getElementById('anDetail'); if (!box || !scansD) return;
+    box.innerHTML = mapCard() + logCard();
+    drawMap();
+  }
+  function mapCard() {
+    var pts = scansD.points || [];
+    return '<div class="an-card glass cd-map"><div class="an-chead"><h3>' + ico('globe', 'an-hi') + t('cd.mapTitle') + '</h3>' +
+      (pts.length ? '<div class="cd-mapbtns"><button type="button" class="btn ghost sm" data-map="in" aria-label="' + esc(t('cd.zoomIn')) + '">+</button><button type="button" class="btn ghost sm" data-map="out" aria-label="' + esc(t('cd.zoomOut')) + '">−</button>' +
+        '<button type="button" class="btn ghost sm" data-map="fit">' + t('cd.fit') + '</button><button type="button" class="btn ghost sm" data-map="world">' + t('cd.world') + '</button></div>' : '') + '</div>' +
+      (world ? '<div class="cd-mapbox"><svg class="cd-svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + esc(t('cd.mapTitle')) + '"></svg><div class="cd-tip" hidden></div></div>' : '') +
+      (pts.length ? '<p class="cd-maplead">' + t('cd.mapLead', { n: i18n.fmt.num(pts.length) }) + '</p>' : '<p class="an-none">' + t('cd.mapNone') + '</p>') + '</div>';
+  }
+  function fitView(pts) {
+    if (!pts.length) return [0, world.top, MW, world.h - world.top];
+    var xs = pts.map(function (p) { return mx(p.lon); }), ys = pts.map(function (p) { return my(p.lat); });
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    var w = Math.max(x1 - x0, 60), h = Math.max(y1 - y0, 30), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+    w *= 1.6; h *= 1.6; if (w / h < 2) w = h * 2; else h = w / 2;      // kaart is 2:1
+    return [cx - w / 2, cy - h / 2, w, h];
+  }
+  function drawMap() {
+    var svgEl = body.querySelector('.cd-svg'); if (!svgEl || !world) return;
+    var pts = scansD.points || [], v = mapView || (mapView = fitView(pts)), withScans = {};
+    pts.forEach(function (p) { withScans[p.cc] = (withScans[p.cc] || 0) + p.n; });
+    var cw = svgEl.clientWidth || 800, px = v[2] / cw, sz = cw < 500 ? .65 : 1, max = Math.max.apply(null, pts.map(function (p) { return p.n; }).concat([1]));
+    svgEl.setAttribute('viewBox', v.map(function (n) { return n.toFixed(1); }).join(' '));
+    svgEl.innerHTML = '<rect x="-4000" y="-4000" width="10000" height="10000" class="cd-sea"/>' +
+      world.countries.map(function (c) { return '<path d="' + c.d + '" class="cd-land' + (withScans[c.c] ? ' on' : '') + '" stroke-width="' + (px * .8).toFixed(2) + '"><title>' + esc(c.c ? TEL.name(c.c) || c.n : c.n) + (withScans[c.c] ? ' · ' + t('cd.scansN', { n: i18n.fmt.num(withScans[c.c]) }) : '') + '</title></path>'; }).join('') +
+      pts.slice().sort(function (a, b) { return b.n - a.n; }).map(function (p, i) {
+        var r = (5 + 13 * Math.sqrt(p.n / max)) * sz * px;   // straal in schermpixels, hoe ver je ook inzoomt
+        return '<g class="cd-dot" data-pt="' + i + '" data-cc="' + esc(p.cc) + '" data-city="' + esc(p.city) + '"><circle cx="' + mx(p.lon).toFixed(1) + '" cy="' + my(p.lat).toFixed(1) + '" r="' + (r * 1.7).toFixed(2) + '" class="cd-halo"/>' +
+          '<circle cx="' + mx(p.lon).toFixed(1) + '" cy="' + my(p.lat).toFixed(1) + '" r="' + r.toFixed(2) + '" class="cd-pin" stroke-width="' + (px * 2).toFixed(2) + '"/></g>';
+      }).join('');
+    svgEl._pts = pts.slice().sort(function (a, b) { return b.n - a.n; });
+  }
+  function zoomMap(f, cx, cy) {
+    if (!mapView) return; var v = mapView, w = Math.min(MW * 1.2, Math.max(25, v[2] * f)), h = w / 2;
+    cx = cx == null ? v[0] + v[2] / 2 : cx; cy = cy == null ? v[1] + v[3] / 2 : cy;
+    mapView = [cx - w / 2, cy - h / 2, w, h]; drawMap();
+  }
+  function logCard() {
+    var rows = scansD.scans || [];
+    var place = function (s) { return '<span class="cd-place"><i>' + (s.cc ? TEL.flag(s.cc) : '🌐') + '</i><span><b>' + esc(s.city || t('an.unknown')) + '</b><small>' + esc([s.region && s.region !== s.city ? s.region : '', s.cc ? TEL.name(s.cc) : ''].filter(Boolean).join(', ')) + '</small></span></span>'; };
+    return '<div class="an-card glass cd-log"><div class="an-chead"><h3>' + ico('clock', 'an-hi') + t('cd.logTitle') + '</h3>' +
+      (rows.length ? '<button type="button" class="btn ghost sm" data-log-csv>' + ico('dl') + t('cd.exportLog') + '</button>' : '') + '</div>' +
+      '<p class="cd-loglead">' + t('cd.logLead', { n: i18n.fmt.num(scansD.total || 0) }) + '</p>' +
+      (rows.length ? '<div class="cd-tw"><table class="cd-table"><thead><tr><th>' + t('cd.when') + '</th><th>' + t('cd.place') + '</th><th>' + t('cd.device') + '</th><th>' + t('cd.browser') + '</th><th>' + t('cd.visitor') + '</th></tr></thead><tbody>' +
+        rows.map(function (s) {
+          return '<tr><td><b>' + esc(i18n.fmt.stamp(s.at, 'time')) + '</b></td><td>' + place(s) + '</td><td>' + esc(devName(s.dev)) + ' · ' + esc(osName(s.os)) + '</td><td>' + esc(brName(s.br)) + '</td>' +
+            '<td><span class="cd-vis ' + (s.uniq ? 'new' : 'back') + '">' + t(s.uniq ? 'cd.new' : 'cd.back') + '</span></td></tr>';
+        }).join('') + '</tbody></table></div>' + (scansD.more ? '<div class="cd-more"><button type="button" class="btn ghost sm" data-log-more>' + t('cd.more') + '</button></div>' : '')
+        : '<p class="an-none">' + t('cd.logNone') + '</p>') + '</div>';
+  }
+  function moreScans(btn) {
+    var last = scansD.scans[scansD.scans.length - 1]; if (!last) return; btn.disabled = true;
+    api.analyticsScans(scansQuery({ limit: 100, before: last.at })).then(function (r) { scansD.scans = scansD.scans.concat(r.scans || []); scansD.more = r.more; var c = body.querySelector('.cd-log'); if (c) c.outerHTML = logCard(); })
+      .catch(function () { btn.disabled = false; });
+  }
+  function exportLog() {
+    var all = [], step = function (before) {
+      return api.analyticsScans(scansQuery({ limit: 500, before: before || '' })).then(function (r) { all = all.concat(r.scans || []); return r.more && all.length < 5000 ? step(all[all.length - 1].at) : all; });
+    };
+    step('').then(function (list) {
+      var q = function (v) { v = String(v == null ? '' : v); return /[",;\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+      var head = [t('cd.when'), t('cd.city'), t('cd.region'), t('cd.country'), t('an.devices'), t('an.os'), t('cd.browser'), t('cd.visitor')];
+      var lines = [head.map(q).join(';')].concat(list.map(function (s) { return [i18n.fmt.stamp(s.at, 'time'), s.city, s.region, s.cc ? TEL.name(s.cc) : '', devName(s.dev), osName(s.os), brName(s.br), t(s.uniq ? 'cd.new' : 'cd.back')].map(q).join(';'); }));
+      var name = names[detailId] ? CodeUtil.fileName(names[detailId].code) : 'qr-code';
+      saveFile(new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' }), name + '-scans.csv');
+    });
+  }
+  // Kaart: muis/vinger (tip, slepen, klik op een plaats = alles van die stad)
+  var drag = null;
+  body.addEventListener('pointerdown', function (e) { var s = e.target.closest('.cd-svg'); if (!s || e.target.closest('.cd-dot') || !mapView) return; drag = { x: e.clientX, y: e.clientY, v: mapView.slice(), w: s.clientWidth }; s.setPointerCapture(e.pointerId); });
+  body.addEventListener('pointermove', function (e) {
+    var s = e.target.closest && e.target.closest('.cd-svg');
+    if (drag) { var k = drag.v[2] / drag.w; mapView = [drag.v[0] - (e.clientX - drag.x) * k, drag.v[1] - (e.clientY - drag.y) * k, drag.v[2], drag.v[3]]; var sv = body.querySelector('.cd-svg'); if (sv) sv.setAttribute('viewBox', mapView.join(' ')); return; }
+    var tip = body.querySelector('.cd-tip'), dot = e.target.closest && e.target.closest('.cd-dot'); if (!tip) return;
+    if (!dot || !s) { tip.hidden = true; return; }
+    var p = s._pts[+dot.getAttribute('data-pt')], box = s.getBoundingClientRect();
+    tip.innerHTML = '<b>' + (p.cc ? TEL.flag(p.cc) + ' ' : '') + esc(p.city || t('an.unknown')) + '</b><small>' + esc([p.region !== p.city ? p.region : '', p.cc ? TEL.name(p.cc) : ''].filter(Boolean).join(', ')) + '</small>' +
+      '<span>' + t('cd.scansN', { n: i18n.fmt.num(p.n) }) + ' · ' + t('cd.uniqN', { n: i18n.fmt.num(p.u) }) + '</span><em>' + t('cd.clickCity') + '</em>';
+    tip.hidden = false; tip.style.left = Math.min(Math.max(e.clientX - box.left, 90), box.width - 90) + 'px'; tip.style.top = (e.clientY - box.top - 12) + 'px';
+  });
+  body.addEventListener('pointerup', function () { drag = null; });
+  body.addEventListener('wheel', function (e) {
+    var s = e.target.closest && e.target.closest('.cd-svg'); if (!s || !mapView) return; e.preventDefault();
+    var b = s.getBoundingClientRect(), cx = mapView[0] + (e.clientX - b.left) / b.width * mapView[2], cy = mapView[1] + (e.clientY - b.top) / b.height * mapView[3];
+    zoomMap(e.deltaY > 0 ? 1.25 : .8, cx, cy);
+  }, { passive: false });
+
   /* ---------- Alles tekenen ---------- */
   function draw() {
     var r = data, rg = { from: r.from, to: r.to };
@@ -434,10 +539,11 @@ var Analytics = (function () {
       body.innerHTML = '<div class="mc-empty glass">' + ico('scans') + '<h3>' + t('an.emptyTitle') + '</h3><p>' + t('an.emptyText') + '</p><button type="button" class="btn primary" data-an-new>' + t('myCodes.first') + '</button></div>';
       return;
     }
-    body.innerHTML = (isDetail() ? detailHead() : '') + tiles(r) +   // de samenvattingszin is weg: tegels + ranglijst laten hetzelfde zien
+    body.innerHTML = (isDetail() ? detailHead() : '') + tiles(r) + (isDetail() ? '<div id="anDetail" class="cd-extra"></div>' : '') +   // de samenvattingszin is weg: tegels + ranglijst laten hetzelfde zien
 
       '<div id="anTab" class="an-tabp"></div>';
     drawTab(); countUp();
+    if (isDetail()) loadScans();
   }
   document.addEventListener('plan-info', function () { if (data) { drawFilters(); load(); } });
   function load() {
@@ -544,6 +650,12 @@ var Analytics = (function () {
     if (e.target.closest('#anReport')) return report();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
     if (e.target.closest('[data-cd-back]')) { detailId = null; return goToPage('myCodes'); }
+    var mb = e.target.closest('[data-map]');
+    if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = mk === 'world' ? [0, world.top, MW, MW / 2] : fitView(scansD.points || []); drawMap(); } return; }
+    var dt = e.target.closest('.cd-dot');
+    if (dt) { f.cc = [dt.getAttribute('data-cc')]; f.city = [dt.getAttribute('data-cc') + '|' + dt.getAttribute('data-city')]; whereDim = 'city'; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+    if (e.target.closest('[data-log-more]')) return moreScans(e.target.closest('[data-log-more]'));
+    if (e.target.closest('[data-log-csv]')) return exportLog();
     var cdb = e.target.closest('[data-cd]');
     if (cdb && isDetail()) {
       var cc = names[detailId].code, k = cdb.getAttribute('data-cd');
