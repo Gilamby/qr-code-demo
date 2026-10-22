@@ -5036,3 +5036,14 @@ body.paywall-open { overflow: hidden; }
 .th-seg button svg { width: 22px; height: 22px; }
 .th-seg button small { font-size: 11.5px; font-weight: 500; color: var(--muted); }
 .th-seg button[aria-checked="true"] { border-color: var(--accent); background: var(--accent-soft, rgba(43,181,240,.15)); box-shadow: 0 0 0 1px var(--accent) inset; }
+
+/* Chatknop bovenin (opent de chatbot, zie js/chatbot.js): opvallend, zodat je ziet dat je hier kunt chatten */
+.chat-btn { position: relative; height: 42px; flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px 0 13px; border: 0; border-radius: 21px;
+  background: linear-gradient(135deg, #29b6f6, #2563eb); color: #fff; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 6px 18px -6px rgba(41,182,246,.65); transition: transform .15s, box-shadow .2s; }
+.chat-btn[hidden] { display: none; }
+.chat-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(41,182,246,.8); }
+.chat-btn svg { width: 19px; height: 19px; }
+.chat-btn .chat-short { display: none; }
+.chat-dot { position: absolute; top: 6px; left: 27px; width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 2px #2196f0; }
+@media (max-width: 700px) { .chat-btn { padding: 0 13px 0 11px; gap: 6px; } .chat-btn .chat-full { display: none; } .chat-btn .chat-short { display: inline; } .chat-dot { left: 24px; } }
