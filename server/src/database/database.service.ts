@@ -80,6 +80,12 @@ export type DayCount = { day: string; scans: number; uniq: number };
 export const INVITED = 'invited';
 export const INVITE_HOURS = 7 * 24;
 
+/** Eén scan in het logboek: tijd, plaats (stad, regio, land, ongeveer), systeem, browser, apparaat, nieuw of terug. Geen IP. */
+export type ScanLog = { cc: string; city: string; region: string; lat: number | null; lon: number | null; os: string; br: string; dev: string; uniq: boolean };
+export type ScanInfo = { key: string; unique: boolean; log?: ScanLog };
+export type ScanRow = ScanLog & { id: string; at: string };
+export const SCAN_LOG_DAYS = 400;   // logboek ruim een jaar bewaren, daarna weg (privacyverklaring)
+
 export abstract class DatabaseService {
   abstract readonly kind: 'sqlite' | 'postgres' | 'mongodb';
   abstract readonly label: string;
@@ -176,7 +182,9 @@ export abstract class DatabaseService {
   abstract updateQrCode(id: string, patch: QrPatch): Promise<QrCode>;
   abstract deleteQrCode(id: string, userId: string): Promise<boolean>;
   /** Scan tellen: totaal + per dag per "systeem|land|stad" */
-  abstract addScan(id: string, info?: { key: string; unique: boolean }): Promise<QrCode>;
+  abstract addScan(id: string, info?: ScanInfo): Promise<QrCode>;
+  /** Logboek: losse scans van één code, nieuwste eerst (geen IP-adressen) */
+  abstract listScans(codeId: string, q: { from?: string; to?: string; before?: string; limit?: number }): Promise<ScanRow[]>;
   /** Alleen voor het overzetten van oude gegevens: statistieken van een code in één keer zetten */
   abstract importStats(codeId: string, stats: Record<string, Record<string, [number, number]>>, scans: number, lastScanAt: string | null): Promise<void>;
 

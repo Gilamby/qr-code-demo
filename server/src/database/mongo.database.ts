@@ -23,8 +23,9 @@ import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
   Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
-  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels,
+  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels, SCAN_LOG_DAYS,
 } from './database.service';
+import type { ScanInfo } from './database.service';
 
 interface Doc { _id?: string; [k: string]: any }
 const DUPLICATE = 11000;
@@ -61,6 +62,7 @@ export class MongoDatabase extends DatabaseService {
   private readonly folders: Collection<Doc>;
   private readonly adminLog: Collection<Doc>;
   private readonly hours: Collection<Doc>;
+  private readonly scanLog: Collection<Doc>;
 
   private constructor(private readonly client: MongoClient, readonly db: Db, url: string) {
     super();
@@ -71,6 +73,7 @@ export class MongoDatabase extends DatabaseService {
     this.activity = db.collection('activity'); this.emailChanges = db.collection('emailChanges'); this.folders = db.collection('folders');
     this.adminLog = db.collection('adminLog');
     this.hours = db.collection('scanHours');
+    this.scanLog = db.collection('scanLog');
   }
 
   /** Verbinden en de indexen aanmaken (mag vaker: bestaat de index al, dan gebeurt er niets) */
@@ -86,6 +89,8 @@ export class MongoDatabase extends DatabaseService {
       m.folders.createIndex({ userId: 1 }),
       m.adminLog.createIndex({ at: -1 }),
       m.hours.createIndex({ codeId: 1, day: 1, hour: 1 }, { unique: true, name: 'code_day_hour' }),
+      m.scanLog.createIndex({ codeId: 1, at: -1 }, { name: 'code_at' }),
+      m.scanLog.createIndex({ userId: 1 }, { name: 'user' }),
       m.hours.createIndex({ userId: 1 }),
       m.adminLog.createIndex({ codeId: 1, at: -1 }),
       m.resets.createIndex({ userId: 1 }),
@@ -132,6 +137,7 @@ export class MongoDatabase extends DatabaseService {
     // eerst alles wat bij het account hoort, als laatste het account zelf (lukt iets niet, dan kan het opnieuw)
     await this.stats.deleteMany({ userId: id });
     await this.hours.deleteMany({ userId: id });
+    await this.scanLog.deleteMany({ userId: id });
     await this.files.deleteMany({ userId: id });
     await this.markGone((await this.codes.find({ userId: id }, { projection: { _id: 1 } }).toArray()).map((d) => d._id));
     await this.codes.deleteMany({ userId: id });
@@ -361,13 +367,14 @@ export class MongoDatabase extends DatabaseService {
     const files = (await this.files.find({ codeId: id }, { projection: { _id: 1 } }).toArray()).map((d) => d._id);
     await this.stats.deleteMany({ codeId: id });
     await this.hours.deleteMany({ codeId: id });
+    await this.scanLog.deleteMany({ codeId: id });
     await this.files.deleteMany({ codeId: id });
     await this.codes.deleteOne({ _id: id });
     removeFiles(files);
     await this.markGone([id]);                                       // deze link wordt nooit opnieuw uitgegeven
     return true;
   }
-  async addScan(id: string, info?: { key: string; unique: boolean }) {
+  async addScan(id: string, info?: ScanInfo) {
     const t = now(), day = t.slice(0, 10), key = (info && info.key) || 'other||', uniq = !info || info.unique ? 1 : 0;
     const code = await this.codes.findOneAndUpdate({ _id: id }, { $inc: { scans: 1 }, $set: { lastScanAt: t } }, { returnDocument: 'after' });
     if (!code) return null;
@@ -380,7 +387,18 @@ export class MongoDatabase extends DatabaseService {
     const hf = { codeId: id, day, hour: Number(t.slice(11, 13)) };     // scans per uur (UTC)
     try { await this.hours.updateOne(hf, { $inc: { scans: 1 }, $setOnInsert: { userId: code.userId } }, { upsert: true }); }
     catch (e) { if (e instanceof MongoServerError && e.code === DUPLICATE) await this.hours.updateOne(hf, { $inc: { scans: 1 } }); else throw e; }
+    const L = info && info.log;
+    if (L) {
+      await this.scanLog.insertOne({ _id: newId(), codeId: id, userId: code.userId, at: t, cc: L.cc || '', city: L.city || '', region: L.region || '', lat: L.lat, lon: L.lon, os: L.os || '', br: L.br || '', dev: L.dev || '', uniq: !!L.uniq });
+      if (Math.random() < .01) await this.scanLog.deleteMany({ at: { $lt: new Date(Date.now() - SCAN_LOG_DAYS * 864e5).toISOString() } });
+    }
     return codeOut(code);
+  }
+  async listScans(codeId: string, q: { from?: string; to?: string; before?: string; limit?: number }) {
+    const at: Doc = {}; if (q.from) at.$gte = q.from; if (q.to) at.$lt = q.to; if (q.before) at.$lt = q.before && (!at.$lt || q.before < at.$lt) ? q.before : at.$lt;
+    const f: Doc = { codeId }; if (Object.keys(at).length) f.at = at;
+    return (await this.scanLog.find(f).sort({ at: -1 }).limit(Math.min(Math.max(Number(q.limit) || 50, 1), 5000)).toArray())
+      .map((d: any) => ({ id: d._id, at: d.at, cc: d.cc || '', city: d.city || '', region: d.region || '', lat: d.lat == null ? null : Number(d.lat), lon: d.lon == null ? null : Number(d.lon), os: d.os || '', br: d.br || '', dev: d.dev || '', uniq: !!d.uniq }));
   }
   async importStats(codeId: string, stats: Record<string, Record<string, [number, number]>>, scans: number, lastScanAt: string | null) {
     const code = await this.codes.findOne({ _id: codeId }, { projection: { userId: 1 } }); if (!code) return;

@@ -849,3 +849,20 @@ test('scanmelding: mail bij de eerste scan (uit te zetten)', async () => {
     assert.equal(sent.length, 1, 'uitgezet: geen mail');
   } finally { m.sendScanAlert = orig; }
 });
+
+test('logboek per scan en kaart (detailpagina): tijd, plaats, apparaat; geen IP', async () => {
+  app.get(require('../server/dist/auth/auth.service').AuthService).hits.clear();
+  const c = client(); await signup(c, 'logboek@example.com', 'Logboek zien 77!', 'Log');
+  const q = (await c('POST', '/api/qr-codes', { typeId: 'website', name: 'Log', content: { url: 'https://example.com' }, design: {} })).json;
+  const iphone = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+  await fetch(base + '/q/' + q.id, { redirect: 'manual', headers: { 'user-agent': iphone } });
+  await fetch(base + '/q/' + q.id, { redirect: 'manual', headers: { 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0 Safari/537.36' } });
+  const r = await c('GET', '/api/analytics/scans?code=' + q.id);
+  assert.equal(r.status, 200); assert.equal(r.json.total, 2); assert.equal(r.json.scans.length, 2);
+  const s = r.json.scans.find((x) => x.os === 'iOS'); assert.ok(s, 'iPhone-scan in het logboek'); assert.ok(s.at && s.dev);
+  assert.ok(!JSON.stringify(r.json).includes('127.0.0.1') && !('ip' in s), 'geen IP-adres');
+  assert.equal((await c('GET', '/api/analytics/scans?code=' + q.id + '&os=iOS')).json.total, 1, 'filter werkt');
+  assert.equal((await c('GET', '/api/analytics/scans?code=' + q.id + '&limit=1')).json.more, true, 'meer laden');
+  const other = client(); await signup(other, 'ander-log@example.com', 'Andere klant 77!', 'X');
+  assert.equal((await other('GET', '/api/analytics/scans?code=' + q.id)).status, 404, 'niet van een ander');
+});

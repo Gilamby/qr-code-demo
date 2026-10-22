@@ -31,6 +31,29 @@ export class AnalyticsController implements OnModuleInit {
     return { ...overview(await this.db.listWithStats(user.id), query), statsFloor: floor };
   }
 
+  /** Detailpagina: losse scans van één code (logboek) + plaatsen voor de kaart. Zelfde filters als de statistiek. */
+  @Get('analytics/scans')
+  async scans(@CurrentUser() user: User, @Query() query: Record<string, any>, @Res({ passthrough: true }) res: Response) {
+    const code = await this.db.getOwnedQrCode(String(query.code || ''), user.id);
+    if (!code) { res.status(404); return { error: 'QR code not found' }; }
+    const floor = await this.floor(user, query), day = (s: string) => (/^\d{4}-\d{2}-\d{2}$/.test(s || '') ? s : '');
+    const from = day(query.from) ? query.from + 'T00:00:00.000Z' : undefined;
+    const to = day(query.to) ? new Date(Date.parse(query.to + 'T00:00:00Z') + 864e5).toISOString() : undefined;
+    const list = (k: string) => String(query[k] || '').split(',').map((x) => x.trim()).filter(Boolean);
+    const want = { os: list('os'), cc: list('cc'), city: list('city'), br: list('br'), dev: list('dev') };
+    const ok = (r: any) => (!want.os.length || want.os.includes(r.os)) && (!want.cc.length || want.cc.includes(r.cc)) && (!want.city.length || want.city.includes(r.cc + '|' + r.city))
+      && (!want.br.length || want.br.includes(r.br)) && (!want.dev.length || want.dev.includes(r.dev));
+    const all = (await this.db.listScans(code.id, { from, to, limit: 5000 })).filter(ok);
+    // Kaart: per plaats opgeteld (stad-niveau)
+    const pts: Record<string, any> = {};
+    for (const r of all) if (r.lat != null && r.lon != null) {
+      const k = r.cc + '|' + r.city; const p = pts[k] || (pts[k] = { cc: r.cc, city: r.city, region: r.region, lat: r.lat, lon: r.lon, n: 0, u: 0 }); p.n++; if (r.uniq) p.u++;
+    }
+    const limit = Math.min(Math.max(Number(query.limit) || 50, 1), 500), before = String(query.before || '');
+    const page = (before ? all.filter((r) => r.at < before) : all).slice(0, limit);
+    return { scans: page, more: (before ? all.filter((r) => r.at < before) : all).length > limit, total: all.length, points: Object.values(pts).sort((a: any, b: any) => b.n - a.n), statsFloor: floor };
+  }
+
   @Get('analytics.csv')
   async csv(@CurrentUser() user: User, @Query() query: Record<string, any>, @Res({ passthrough: true }) res: Response) {
     await this.floor(user, query);

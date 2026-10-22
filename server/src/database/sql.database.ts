@@ -9,8 +9,9 @@ import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
   Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
-  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels,
+  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels, SCAN_LOG_DAYS,
 } from './database.service';
+import type { ScanInfo } from './database.service';
 
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 
@@ -291,15 +292,26 @@ export class SqlDatabase extends DatabaseService {
     await this.markGone([id]);                                       // deze link wordt nooit opnieuw uitgegeven
     return true;
   }
-  async addScan(id: string, info?: { key: string; unique: boolean }) {
-    const t = now(), day = t.slice(0, 10), key = (info && info.key) || 'other||';
+  async addScan(id: string, info?: ScanInfo) {
+    const t = now(), day = t.slice(0, 10), key = (info && info.key) || 'other||', L = info && info.log;
+    const log: [string, unknown[]][] = L ? [['INSERT INTO scan_log (id, code_id, at, cc, city, region, lat, lon, os, br, dev, uniq) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [newId(), id, t, L.cc || '', L.city || '', L.region || '', L.lat, L.lon, L.os || '', L.br || '', L.dev || '', L.uniq ? 1 : 0]]] : [];
+    if (L && Math.random() < .01) log.push(['DELETE FROM scan_log WHERE at < ?', [new Date(Date.now() - SCAN_LOG_DAYS * 864e5).toISOString()]]);   // af en toe oude regels opruimen
     await this.d.batch([            // in één transactie
+      ...log,
       ['UPDATE qr_codes SET scans = scans + 1, last_scan_at = ? WHERE id = ?', [t, id]],
       ['INSERT INTO scan_stats (code_id, day, key, scans, uniq) VALUES (?, ?, ?, 1, ?) ON CONFLICT (code_id, day, key) DO UPDATE SET scans = scan_stats.scans + 1, uniq = scan_stats.uniq + excluded.uniq',
         [id, day, key, !info || info.unique ? 1 : 0]],
       ['INSERT INTO scan_hours (code_id, day, hour, scans) VALUES (?, ?, ?, 1) ON CONFLICT (code_id, day, hour) DO UPDATE SET scans = scan_hours.scans + 1', [id, day, Number(t.slice(11, 13))]],
     ]);
     return this.getQrCode(id);
+  }
+  async listScans(codeId: string, q: { from?: string; to?: string; before?: string; limit?: number }) {
+    const w = ['code_id = ?'], v: unknown[] = [codeId];
+    if (q.from) { w.push('at >= ?'); v.push(q.from); } if (q.to) { w.push('at < ?'); v.push(q.to); } if (q.before) { w.push('at < ?'); v.push(q.before); }
+    v.push(Math.min(Math.max(Number(q.limit) || 50, 1), 5000));
+    return (await this.d.all('SELECT * FROM scan_log WHERE ' + w.join(' AND ') + ' ORDER BY at DESC LIMIT ?', v)).map((r: any) => ({ id: r.id, at: r.at, cc: r.cc || '', city: r.city || '', region: r.region || '',
+      lat: r.lat == null ? null : Number(r.lat), lon: r.lon == null ? null : Number(r.lon), os: r.os || '', br: r.br || '', dev: r.dev || '', uniq: !!Number(r.uniq) }));
   }
   async importStats(codeId: string, stats: Record<string, Record<string, [number, number]>>, scans: number, lastScanAt: string | null) {
     const list: [string, unknown[]][] = [];

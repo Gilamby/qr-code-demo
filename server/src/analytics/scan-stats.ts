@@ -45,14 +45,17 @@ export async function loadGeo() {
 }
 export function place(ip: string) {
   ip = String(ip || '').replace(/^::ffff:/, '');
-  if (!geo.ready || !ip) return { cc: '', city: '' };
+  if (!geo.ready || !ip) return { cc: '', city: '' } as { cc: string; city: string; region?: string; lat?: number | null; lon?: number | null };
   try {
     const r = (ip.includes(':') ? geo.v6 : geo.v4) && (ip.includes(':') ? geo.v6 : geo.v4).get(ip);
     if (!r) return { cc: '', city: '' };
     // Twee formaten: npm-pakket { country_code, city } of officieel { country: { iso_code }, city: { names: { en } } }
     const cc = r.country_code || (r.country && r.country.iso_code) || '';
     const city = typeof r.city === 'string' ? r.city : (r.city && r.city.names && (r.city.names.en || Object.values(r.city.names)[0])) || '';
-    return { cc: String(cc).toUpperCase().slice(0, 2), city: String(city).replace(/\s*\(.*\)\s*$/, '').slice(0, 60) };
+    const lat = Number(r.latitude != null ? r.latitude : r.location && r.location.latitude), lon = Number(r.longitude != null ? r.longitude : r.location && r.location.longitude);
+    const region = typeof r.state1 === 'string' ? r.state1 : (r.subdivisions && r.subdivisions[0] && r.subdivisions[0].names && r.subdivisions[0].names.en) || '';
+    return { cc: String(cc).toUpperCase().slice(0, 2), city: String(city).replace(/\s*\(.*\)\s*$/, '').slice(0, 60), region: String(region || '').slice(0, 60),
+      lat: isFinite(lat) ? Math.round(lat * 100) / 100 : null, lon: isFinite(lon) ? Math.round(lon * 100) / 100 : null };   // ±1 km: plaats, geen adres
   } catch (e) { return { cc: '', city: '' }; }
 }
 
@@ -103,7 +106,9 @@ function isNew(id: string, ip: string, ua: string) {
 export function describe(q: QrCode, req: Request) {
   const ip = req.ip || (req.socket && req.socket.remoteAddress) || '', ua = req.get('user-agent') || '';
   const p = place(ip);
-  return { key: [os(ua), p.cc, p.city.replace(/\|/g, ' '), browser(ua), device(ua)].join('|'), unique: isNew(q.id, ip, ua) };
+  // key = voor de opgetelde statistiek; log = één regel per scan (logboek en kaart). Nooit het IP-adres.
+  const o = os(ua), br = browser(ua), dev = device(ua), city = p.city.replace(/\|/g, ' '), unique = isNew(q.id, ip, ua);
+  return { key: [o, p.cc, city, br, dev].join('|'), unique, log: { cc: p.cc, city, region: p.region || '', lat: p.lat == null ? null : p.lat, lon: p.lon == null ? null : p.lon, os: o, br, dev, uniq: unique } };
 }
 
 /* ---------- Overzicht en export: gedeeld met de online demo (shared/analytics-core.js) ---------- */
