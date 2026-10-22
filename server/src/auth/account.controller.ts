@@ -43,6 +43,8 @@ export function maskIp(ip: string | null) {
   return v.split(':').slice(0, 3).join(':') + ':•••';
 }
 
+const START_PAGES = ['home', 'create', 'myCodes', 'analytics'];
+
 @Controller('api')
 @UseGuards(LoggedIn)
 export class AccountController {
@@ -193,6 +195,20 @@ export class AccountController {
 
   /** Akkoord met de voorwaarden (18+, Terms, Privacy). Wie via Google/Microsoft een account kreeg, of een account van het team,
    *  heeft nog niet akkoord gegeven: de app vraagt het dan één keer. Het team (beheer) hoeft niet. */
+  /* Voorkeuren van de app (Mijn account > Voorkeuren): startpagina na inloggen */
+  @Get('account/prefs')
+  async prefs(@CurrentUser() user: User) {
+    let p: any = {}; try { p = JSON.parse((await this.db.getSetting('uprefs:' + user.id)) || '{}'); } catch (e) { p = {}; }
+    return { start: START_PAGES.includes(p.start) ? p.start : 'home' };
+  }
+  @Patch('account/prefs')
+  async savePrefs(@CurrentUser() user: User, @Body() b: any = {}) {
+    if (b.start !== undefined && !START_PAGES.includes(b.start)) throw fail(400, 'start');
+    const cur = await this.prefs(user), out = { start: b.start !== undefined ? b.start : cur.start };
+    await this.db.setSetting('uprefs:' + user.id, out.start === 'home' ? null : JSON.stringify(out));
+    return out;
+  }
+
   @Get('account/terms')
   async terms(@CurrentUser() u: User) {
     return { ok: this.auth.isAdmin(u) || (await termsAccepted(this.db, u.id)), version: TERMS_VERSION };

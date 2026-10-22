@@ -5116,3 +5116,8 @@ body.paywall-open { overflow: hidden; }
   .set-row { grid-template-columns: 1fr; padding: 16px 18px; } .set-sec-h { padding: 18px; } .set-save { padding: 14px 18px 18px; }
   .set-sec > .set-grid, .set-sec > .set-note, .set-sec > .acct-actions, .set-sec > .set-status { padding-left: 18px; padding-right: 18px; }
 }
+
+/* Mijn account > Voorkeuren (zelfde rijen als Beheer > Instellingen) */
+.set-seg button { border: 0; background: transparent; padding: 8px 14px; border-radius: 9px; font: inherit; font-size: 14px; font-weight: 650; color: var(--muted); cursor: pointer; }
+.set-seg button[aria-checked="true"] { background: rgba(43,181,240,.18); color: var(--fg); box-shadow: inset 0 0 0 1px rgba(43,181,240,.45); }
+.acct-prefs .acct-sel { width: 100%; max-width: 320px; } .acct-prefs .acct-sel select { width: 100%; }

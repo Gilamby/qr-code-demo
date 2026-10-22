@@ -668,9 +668,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     var note = function (k) { return m[k] ? '<p class="acct-msg ' + m[k][1] + '" role="status">' + esc(m[k][0]) + '</p>' : ''; };
     if (tab === 'profile') return profilePanel(m, note);
     if (tab === 'security') return securityPanel(m, note);
-    if (tab === 'prefs') return '' +   // (licht/donker-keuze is weg: de app is altijd donker, je kiest zelf een achtergrond)
-      '<div class="glass bg-card acct"><h2>' + t('acct.prefsTitle') + '</h2><p>' + t('acct.prefsLead') + '</p>' +
-      field(t('acct.language'), '<select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select>', { icon: 'globe', cls: 'acct-lang' }) + '</div>';
+    if (tab === 'prefs') return prefsPanel(note);
     if (tab === 'notify') return notifyPanel(m);
     if (tab === 'delete') return deletePanel();
     if (tab === 'billing') return billingPanel(m);
@@ -680,6 +678,20 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
       '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + SVG + ICON.download + '</svg>' + t('acct.download') + '</button></div>' + note('export') + '</div>' + dangerCard(m);
     return '';
+  }
+  // Voorkeuren: rijen (uitleg links, keuze rechts), zelfde stijl als Beheer > Instellingen
+  var uprefs = null;
+  function prefsPanel(note) {
+    if (!uprefs) { api.account.prefs().then(function (r) { uprefs = r; if (tab === 'prefs') draw(); }).catch(function () { uprefs = { start: 'home' }; if (tab === 'prefs') draw(); }); }
+    var row = function (label, help, control) { return '<div class="set-row"><div class="set-row-l"><b>' + label + '</b>' + (help ? '<small>' + help + '</small>' : '') + '</div><div class="set-row-c">' + control + '</div></div>'; };
+    var cur = theme.get(), start = (uprefs && uprefs.start) || 'home';
+    return '<div class="glass ast-card set-sec acct-prefs"><header class="set-sec-h"><h3>' + t('acct.prefsTitle') + '</h3><p>' + t('acct.prefsLead2') + '</p></header>' +
+      row(t('acct.language'), t('acct.prefsLead'), '<span class="auth-in acct-sel"><select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select></span>') +
+      row(t('theme.title'), t('acct.prefThemeHelp'), '<div class="set-seg" role="radiogroup" aria-label="' + esc(t('theme.title')) + '">' + ['dark', 'light', 'system'].map(function (k) {
+        return '<button type="button" role="radio" aria-checked="' + (cur === k) + '" data-theme-set="' + k + '">' + t('theme.' + k) + '</button>'; }).join('') + '</div>') +
+      row(t('acct.prefStart'), t('acct.prefStartHelp'), '<span class="auth-in acct-sel"><select id="acctStart"' + (uprefs ? '' : ' disabled') + '>' + [['home', 'nav.overview'], ['create', 'nav.create'], ['myCodes', 'nav.myCodes'], ['analytics', 'nav.analytics']].map(function (o) {
+        return '<option value="' + o[0] + '"' + (o[0] === start ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join('') + '</select></span>' + note('prefs')) +
+      '</div>';
   }
   function draw(msg) {
     if (!msg && sticky) msg = sticky();                                  // melding blijft staan als de cijfers later binnenkomen
@@ -788,6 +800,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   box.addEventListener('change', function (e) {
     if (e.target.matches('[data-pref]')) { var o = {}; o[e.target.getAttribute('data-pref')] = e.target.checked; savePrefs(o); return; }
     if (e.target.id === 'acctLang') i18n.set(e.target.value);
+    if (e.target.id === 'acctStart') { var v = e.target.value; api.account.savePrefs({ start: v }).then(function (r) { uprefs = r; draw({ prefs: [t('acct.saved'), 'ok'] }); }).catch(function () { draw({ prefs: [t('myCodes.failed'), 'bad'] }); }); }
     if (e.target.name === 'timezone') { var h = document.getElementById('acctTzNow'); if (h) h.textContent = t('acct.tzHint', { time: nowIn(e.target.value) }); }
     if (e.target.name === 'country' && draft) draft.country = e.target.value;
   });
@@ -894,6 +907,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   idc.addEventListener('drop', function (e) { e.preventDefault(); idc.classList.remove('over'); usePhoto(e.dataTransfer.files[0]); });
 
   theme.onChange(function () { if (user && tab === 'prefs' && !box.hidden) draw(); });
+  if (window.Session) Session.onUser(function () { uprefs = null; });
   /* Verplicht om de app te gebruiken: een naam (vrij: voornaam, bijnaam, één woord – wat je wilt). Ontbreekt die, dan eerst invullen.
      Tijdzone: niet gekozen = die van dit apparaat, en die slaan we meteen op (dan klopt hij ook in mails en overzichten). */
   function requireName(u) {

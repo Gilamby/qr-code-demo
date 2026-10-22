@@ -1443,7 +1443,11 @@
     "needNameEmpty": "Please enter a name.",
     "act_plan_chosen": "Plan chosen",
     "act_plan_changed": "Plan changed",
-    "act_extra_bought": "Extra QR code bought"
+    "act_extra_bought": "Extra QR code bought",
+    "prefsLead2": "How the app looks and works. Just for you, on all your devices.",
+    "prefThemeHelp": "Dark, light or the same as your device.",
+    "prefStart": "Start page",
+    "prefStartHelp": "Where you land after logging in."
   },
   "mail": {
     "resetSubject": "New password for QR-Codex",

@@ -242,7 +242,8 @@ var Home = (function () {
 
   Session.onUser(function (u) {
     me = u; codes = null; stats = null; acts = null;
-    if (!u.admin) setTimeout(function () { goToPage(Session.landOn('home')); }, 0);   // admins beginnen op het Dashboard van Beheer
+    // Startpagina: eigen keuze (Mijn account > Voorkeuren), anders Overzicht. Admins beginnen op het Dashboard van Beheer
+    if (!u.admin) api.account.prefs().then(function (p) { return p.start; }, function () { return 'home'; }).then(function (s) { goToPage(Session.landOn(s || 'home')); });
   });
   document.addEventListener('pagechange', function (e) { if (e.detail === 'home') load(); });
   i18n.onChange(function () { if (!view.hidden) draw(); });

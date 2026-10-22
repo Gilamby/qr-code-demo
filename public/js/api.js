@@ -302,6 +302,8 @@ var api = (function () {
     },
     // Mijn account. Zonder server (online demo): alles in deze browser, zelfde antwoorden.
     account: {
+      prefs:     function ()  { return api.isDemo && api.isDemo() ? Promise.resolve({ start: 'home' }) : request('GET', 'api/account/prefs'); },
+      savePrefs: function (d) { return request('PATCH', 'api/account/prefs', d); },
       update:   either(function (d) { return request('PATCH', 'api/account', d); }, demoAuth.account.update),
       password: either(function (d) { return request('POST', 'api/account/password', d); }, demoAuth.account.password),
       remove:   either(function (d) { return request('DELETE', 'api/account', d); }, demoAuth.account.remove),

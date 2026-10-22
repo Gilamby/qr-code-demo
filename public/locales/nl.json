@@ -1443,7 +1443,11 @@
     "needNameEmpty": "Vul een naam in.",
     "act_plan_chosen": "Pakket gekozen",
     "act_plan_changed": "Pakket gewijzigd",
-    "act_extra_bought": "QR-code erbij gekocht"
+    "act_extra_bought": "QR-code erbij gekocht",
+    "prefsLead2": "Hoe de app eruitziet en werkt. Geldt voor jou, op al je apparaten.",
+    "prefThemeHelp": "Donker, licht of zoals je apparaat is ingesteld.",
+    "prefStart": "Startpagina",
+    "prefStartHelp": "Waar je terechtkomt na het inloggen."
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor QR-Codex",
