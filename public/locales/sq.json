@@ -2932,7 +2932,8 @@
     "logNone": "Ende pa skanime të veçanta në këtë periudhë. Skanimet regjistrohen një nga një që nga 22 tetori 2026; më parë vetëm totale.",
     "city": "Qyteti",
     "region": "Rajoni",
-    "country": "Shteti"
+    "country": "Shteti",
+    "pageTitle": "Detajet e kodit QR"
   },
   "sheet": {
     "title": "Fletë për printim (A4)",

@@ -2871,7 +2871,8 @@
     "logNone": "Nog geen losse scans in deze periode. Scans worden vanaf 22 oktober 2026 per stuk bijgehouden; daarvoor alleen opgeteld.",
     "city": "Stad",
     "region": "Regio",
-    "country": "Land"
+    "country": "Land",
+    "pageTitle": "QR-code details"
   },
   "sheet": {
     "title": "Printvel (A4)",

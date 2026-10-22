@@ -2826,7 +2826,8 @@
     "logNone": "Ainda sem leituras individuais neste período. As leituras são registadas uma a uma desde 22 de outubro de 2026; antes só os totais.",
     "city": "Cidade",
     "region": "Região",
-    "country": "País"
+    "country": "País",
+    "pageTitle": "Detalhes do código QR"
   },
   "sheet": {
     "title": "Folha para imprimir (A4)",

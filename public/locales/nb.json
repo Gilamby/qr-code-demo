@@ -2826,7 +2826,8 @@
     "logNone": "Ingen enkeltskanninger i perioden ennå. Skanninger logges én og én fra 22. oktober 2026; før det bare totaler.",
     "city": "By",
     "region": "Region",
-    "country": "Land"
+    "country": "Land",
+    "pageTitle": "QR-kodedetaljer"
   },
   "sheet": {
     "title": "Utskriftsark (A4)",

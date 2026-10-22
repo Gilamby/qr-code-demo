@@ -434,7 +434,7 @@ var Analytics = (function () {
   function loadScans() {
     var my2 = ++scansSeq, box = document.getElementById('anDetail'); if (!box) return;
     if (!scansD) box.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
-    var w = world ? Promise.resolve(world) : fetch('assets/world.json').then(function (r) { return r.json(); }).then(function (j) { world = j; return j; }).catch(function () { return null; });
+    var w = world ? Promise.resolve(world) : fetch('assets/world.json?v=2').then(function (r) { return r.json(); }).then(function (j) { world = j; return j; }).catch(function () { return null; });
     Promise.all([api.analyticsScans(scansQuery({ limit: 50 })), w]).then(function (res) {
       if (my2 !== scansSeq) return; scansD = res[0]; mapView = null; drawDetail();
     }).catch(function () { var b = document.getElementById('anDetail'); if (b) b.innerHTML = '<p class="acct-msg bad">' + t('myCodes.failed') + '</p>'; });
@@ -631,7 +631,7 @@ var Analytics = (function () {
     if ((b = e.target.closest('[data-geo-up]'))) { var up = b.getAttribute('data-geo-up'); if (up === 'all') { f.cc = []; f.city = []; whereDim = 'cc'; } else { f.city = []; whereDim = 'city'; } return load(); }
     if ((b = e.target.closest('[data-filter]'))) {
       var k = b.getAttribute('data-filter'), kv = b.getAttribute('data-k');
-      if (k === 'codes') { detailId = kv; f.codes = [kv]; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+      if (k === 'codes') { f.codes = [kv]; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; detailId = kv; return goToPage('codeDetail'); }
       f[k] = [kv];
       if (k === 'cc') { f.city = []; whereDim = 'city'; }
       if (k === 'city') { f.cc = [kv.split('|')[0]]; whereDim = 'city'; }
@@ -651,7 +651,7 @@ var Analytics = (function () {
     if (e.target.closest('#anXlsx')) return exportXlsx();
     if (e.target.closest('#anReport')) return report();
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
-    if (e.target.closest('[data-cd-back]')) { detailId = null; return goToPage('myCodes'); }
+    if (e.target.closest('[data-cd-back]')) { detailId = null; f.codes = []; f.cc = []; f.city = []; return goToPage('myCodes'); }
     var mb = e.target.closest('[data-map]');
     if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = clampView(mk === 'world' ? WORLD_VIEW() : fitView(scansD.points || [])); drawMap(); } return; }
     var dt = e.target.closest('.cd-dot');
@@ -687,9 +687,13 @@ var Analytics = (function () {
     setTimeout(function () { window.print(); setTimeout(done, 1000); }, 50);
   }
   labels();
-  document.addEventListener('pagechange', function (e) { if (e.detail === 'analytics') { names = {}; load(); } });
-  i18n.onChange(function () { labels(); if (!view.hidden && data) { drawFilters(); draw(); } });
+  document.addEventListener('pagechange', function (e) {
+    var head = view.querySelector('.an-head h2');
+    if (e.detail === 'analytics') { if (detailId) { detailId = null; f.codes = []; f.cc = []; f.city = []; } if (head) head.textContent = t('nav.analytics'); view.classList.remove('is-detail'); names = {}; load(); }
+    if (e.detail === 'codeDetail') { if (head) head.textContent = t('cd.pageTitle'); view.classList.add('is-detail'); data = null; scansD = null; mapView = null; names = {}; window.scrollTo(0, 0); load(); }   // altijd vers: nooit eerst de oude statistiek
+  });
+  i18n.onChange(function () { labels(); var hd = view.querySelector('.an-head h2'); if (hd && detailId) hd.textContent = t('cd.pageTitle'); if (!view.hidden && data) { drawFilters(); draw(); } });
 
   // Vanuit Mijn QR-codes: meteen de statistieken van één code
-  return { open: function (opts) { f.codes = (opts && opts.codes) || []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; detailId = opts && opts.detail && f.codes.length === 1 ? f.codes[0] : null; goToPage('analytics'); } };
+  return { open: function (opts) { f.codes = (opts && opts.codes) || []; f.os = []; f.cc = []; f.city = []; f.br = []; f.dev = []; detailId = opts && opts.detail && f.codes.length === 1 ? f.codes[0] : null; goToPage(detailId ? 'codeDetail' : 'analytics'); } };
 })();

@@ -2826,7 +2826,8 @@
     "logNone": "Încă nu sunt scanări individuale în această perioadă. Scanările sunt înregistrate una câte una din 22 octombrie 2026; înainte doar totaluri.",
     "city": "Oraș",
     "region": "Regiune",
-    "country": "Țară"
+    "country": "Țară",
+    "pageTitle": "Detaliile codului QR"
   },
   "sheet": {
     "title": "Coală de printat (A4)",

@@ -2871,7 +2871,8 @@
     "logNone": "No individual scans in this period yet. Scans are logged one by one from 22 October 2026; before that only totals.",
     "city": "City",
     "region": "Region",
-    "country": "Country"
+    "country": "Country",
+    "pageTitle": "QR code details"
   },
   "sheet": {
     "title": "Print sheet (A4)",

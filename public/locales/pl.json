@@ -2826,7 +2826,8 @@
     "logNone": "Brak pojedynczych skanów w tym okresie. Skany są zapisywane pojedynczo od 22 października 2026; wcześniej tylko sumy.",
     "city": "Miasto",
     "region": "Region",
-    "country": "Kraj"
+    "country": "Kraj",
+    "pageTitle": "Szczegóły kodu QR"
   },
   "sheet": {
     "title": "Arkusz do druku (A4)",

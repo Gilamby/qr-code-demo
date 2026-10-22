@@ -2826,7 +2826,8 @@
     "logNone": "Encara no hi ha escanejos individuals en aquest període. Es registren un a un des del 22 d’octubre de 2026; abans només els totals.",
     "city": "Ciutat",
     "region": "Regió",
-    "country": "País"
+    "country": "País",
+    "pageTitle": "Detalls del codi QR"
   },
   "sheet": {
     "title": "Full per imprimir (A4)",

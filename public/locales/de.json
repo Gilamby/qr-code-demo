@@ -2832,7 +2832,8 @@
     "logNone": "Noch keine einzelnen Scans in diesem Zeitraum. Scans werden ab 22. Oktober 2026 einzeln erfasst; davor nur als Summen.",
     "city": "Stadt",
     "region": "Region",
-    "country": "Land"
+    "country": "Land",
+    "pageTitle": "QR-Code-Details"
   },
   "sheet": {
     "title": "Druckbogen (A4)",

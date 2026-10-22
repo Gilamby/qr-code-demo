@@ -2826,7 +2826,8 @@
     "logNone": "Zatiaľ žiadne jednotlivé skeny v tomto období. Skeny sa zaznamenávajú jednotlivo od 22. októbra 2026; predtým len súčty.",
     "city": "Mesto",
     "region": "Región",
-    "country": "Krajina"
+    "country": "Krajina",
+    "pageTitle": "Detaily QR kódu"
   },
   "sheet": {
     "title": "Tlačový hárok (A4)",

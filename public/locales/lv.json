@@ -2826,7 +2826,8 @@
     "logNone": "Šajā periodā vēl nav atsevišķu skenēšanu. Tās tiek reģistrētas pa vienai kopš 2026. gada 22. oktobra; pirms tam tikai kopsummas.",
     "city": "Pilsēta",
     "region": "Reģions",
-    "country": "Valsts"
+    "country": "Valsts",
+    "pageTitle": "QR koda informācija"
   },
   "sheet": {
     "title": "Drukas lapa (A4)",

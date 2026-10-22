@@ -2826,7 +2826,8 @@
     "logNone": "Ancora nessuna scansione singola in questo periodo. Le scansioni sono registrate una per una dal 22 ottobre 2026; prima solo i totali.",
     "city": "Città",
     "region": "Regione",
-    "country": "Paese"
+    "country": "Paese",
+    "pageTitle": "Dettagli del codice QR"
   },
   "sheet": {
     "title": "Foglio da stampare (A4)",

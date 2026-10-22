@@ -2826,7 +2826,8 @@
     "logNone": "Ingen enkelte scanninger i perioden endnu. Scanninger logges enkeltvis fra 22. oktober 2026; før det kun totaler.",
     "city": "By",
     "region": "Region",
-    "country": "Land"
+    "country": "Land",
+    "pageTitle": "QR-kodedetaljer"
   },
   "sheet": {
     "title": "Printark (A4)",

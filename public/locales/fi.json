@@ -2826,7 +2826,8 @@
     "logNone": "Ei vielä yksittäisiä skannauksia tällä jaksolla. Skannaukset kirjataan yksitellen 22.10.2026 alkaen; sitä ennen vain summat.",
     "city": "Kaupunki",
     "region": "Alue",
-    "country": "Maa"
+    "country": "Maa",
+    "pageTitle": "QR-koodin tiedot"
   },
   "sheet": {
     "title": "Tulostusarkki (A4)",

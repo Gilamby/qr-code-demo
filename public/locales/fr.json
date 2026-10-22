@@ -2832,7 +2832,8 @@
     "logNone": "Pas encore de scans individuels sur cette période. Les scans sont enregistrés un par un depuis le 22 octobre 2026 ; avant, seulement les totaux.",
     "city": "Ville",
     "region": "Région",
-    "country": "Pays"
+    "country": "Pays",
+    "pageTitle": "Détails du QR code"
   },
   "sheet": {
     "title": "Planche à imprimer (A4)",

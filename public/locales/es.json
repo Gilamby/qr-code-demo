@@ -2871,7 +2871,8 @@
     "logNone": "Aún no hay escaneos individuales en este periodo. Se registran uno a uno desde el 22 de octubre de 2026; antes solo los totales.",
     "city": "Ciudad",
     "region": "Región",
-    "country": "País"
+    "country": "País",
+    "pageTitle": "Detalles del código QR"
   },
   "sheet": {
     "title": "Hoja para imprimir (A4)",
