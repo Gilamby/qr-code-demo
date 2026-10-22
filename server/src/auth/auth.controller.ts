@@ -33,7 +33,7 @@ export class AuthController {
   @Post('register')
   @HttpCode(201)
   async register(@Req() req: Request, @Body() b: any = {}) {
-    if (!this.auth.signupOpen()) throw fail(403, 'signup_closed');                 // licentie: het team maakt accounts aan
+    if (!(await this.auth.signupOpen())) throw fail(403, 'signup_closed');                 // licentie: het team maakt accounts aan
     const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').trim().slice(0, 80), lang = String(b.lang || 'en');
     if (this.auth.limited('reg:' + req.ip, 50, 60) || this.auth.limited('reg:' + email, 3, 60)) throw fail(429, 'too_many');
     if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
@@ -50,6 +50,7 @@ export class AuthController {
       await saveSub(this.db, user.id, { ...emptySub(), mustPay: true });   // zelf geregistreerd: eerst een abonnement, dan pas codes maken
       await acceptTerms(this.db, user.id);
       token = await this.sendVerifyMail(req, user.id, email, lang);
+      this.mailer.notifySignup(email, name, 'e-mail');
     } else if (!(await this.db.isVerified(existing.id))) token = await this.sendVerifyMail(req, existing.id, email, lang);   // nog niet bevestigd: nieuwe link
     return { verify: true, email, ...this.demoToken(token) };
   }

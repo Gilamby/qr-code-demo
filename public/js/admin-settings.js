@@ -12,14 +12,14 @@
    ========================================================= */
 var AdminSettings = (function () {
   var view = document.getElementById('adminSettingsView'), body = document.getElementById('asBody');
-  var PAGE = 40, me = null, tab = 'texts', info = null, base = {}, flatBase = {}, keys = [], shown = PAGE, busy = {}, notes = {};
+  var PAGE = 40, me = null, tab = 'company', info = null, base = {}, flatBase = {}, keys = [], shown = PAGE, busy = {}, notes = {};
   var f = { lang: 'nl', ref: 'en', q: '', status: '', group: '' };
   var SVG = function (p) { return '<svg class="ast-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
   var IC = {
     lang: '<path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c-.5 3-3 7-7 8"/><path d="M13 21l4-9 4 9M14.5 18h5"/>',
     key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>', search: '<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/>',
     undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>', spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
-    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', home: '<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>', tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>', ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>'
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', home: '<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>', tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>', ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>', user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>', mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/>', pulse: '<path d="M3 12h4l2.5-6 5 12 2.5-6h4"/>'
   };
   var ico = function (k) { return SVG(IC[k]); };
   function langName(c) { var l = LANGUAGES.filter(function (x) { return x.code === c; })[0]; return l ? l.name : c; }
@@ -56,15 +56,26 @@ var AdminSettings = (function () {
   }
 
   /* ---------- Tekenen ---------- */
+  // Menu links, in groepen (zoals bij Stripe/Notion). Op de telefoon: een rij knoppen om te schuiven.
+  var GROUPS = [
+    ['set.gGeneral', [['company', 'home', 'set.tabCompany'], ['signup', 'user', 'set.tabSignup'], ['maint', 'tool', 'set.tabMaint']]],
+    ['set.gComms', [['mail', 'mail', 'set.tabMail']]],
+    ['set.gTexts', [['texts', 'lang', 'as.tabTexts'], ['deepl', 'spark', 'as.tabDeepl']]],
+    ['set.gSecurity', [['block', 'ban', 'set.tabBlock']]],
+    ['set.gSystem', [['system', 'pulse', 'set.tabStatus']]]
+  ];
   function tabs() {
-    return '<div class="ast-tabs" role="tablist">' + [['texts', 'lang', 'as.tabTexts'], ['deepl', 'spark', 'as.tabDeepl'], ['company', 'home', 'set.tabCompany'], ['system', 'tool', 'set.tabSystem'], ['block', 'ban', 'set.tabBlock']].map(function (x) {
-      return '<button type="button" role="tab" aria-selected="' + (tab === x[0]) + '" data-tab="' + x[0] + '">' + ico(x[1]) + t(x[2]) + '</button>'; }).join('') + '</div>';
+    return '<nav class="ast-nav" role="tablist" aria-orientation="vertical">' + GROUPS.map(function (g) {
+      return '<p class="ast-nav-g" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].map(function (x) {
+        return '<button type="button" role="tab" aria-selected="' + (tab === x[0]) + '" data-tab="' + x[0] + '">' + ico(x[1]) + '<span>' + t(x[2]) + '</span></button>'; }).join('');
+    }).join('') + '</nav>';
   }
   function draw() {
     if (!info) return;
-    body.innerHTML = '<header class="ast-head"><div><h2>' + t('nav.adminSettings') + '</h2><p>' + t('as.lead') + '</p></div></header>' + tabs() +
-      '<div id="asPanel">' + (tab === 'texts' ? textsPanel() : tab === 'deepl' ? deeplPanel() : tab === 'company' ? companyPanel() : tab === 'block' ? blockPanel() : systemPanel()) + '</div>';
-    if ((tab === 'company' || tab === 'system') && !sets) loadSets();
+    var P = { texts: textsPanel, deepl: deeplPanel, company: companyPanel, signup: signupPanel, maint: maintPanel, mail: mailPanel, block: blockPanel, system: systemPanel }[tab] || companyPanel;
+    body.innerHTML = '<header class="ast-head"><div><h2>' + t('nav.adminSettings') + '</h2><p>' + t('set.lead') + '</p></div></header>' +
+      '<div class="ast-layout">' + tabs() + '<div id="asPanel" class="ast-main' + (tab === 'texts' ? ' wide' : '') + '">' + P() + '</div></div>';
+    if (['company', 'signup', 'maint', 'mail', 'system'].indexOf(tab) >= 0 && !sets) loadSets();
     if (tab === 'block' && !blocks) loadBlocks();
   }
   function textsPanel() {
@@ -144,31 +155,66 @@ var AdminSettings = (function () {
   var sets = null, sys = null, setMsg = null;
   function loadSets() {
     Promise.all([api.settings.get(), api.admin && api.admin.system ? api.admin.system().catch(function () { return null; }) : Promise.resolve(null)])
-      .then(function (r) { sets = r[0]; sys = r[1]; if (tab === 'company' || tab === 'system') draw(); }).catch(function () { sets = { error: true }; draw(); });
+      .then(function (r) { sets = r[0]; sys = r[1]; draw(); }).catch(function () { sets = { error: true }; draw(); });
   }
   function companyPanel() {
     if (!sets) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
     var c = sets.company || {}, e = sets.companyEnv || {};
     var F = [['name', 'set.cName', 'organization'], ['address', 'set.cAddress', 'street-address'], ['kvk', 'set.cKvk', 'off'], ['vat', 'set.cVat', 'off'], ['email', 'set.cEmail', 'email'], ['phone', 'set.cPhone', 'tel'], ['website', 'set.cWebsite', 'url']];
-    return '<form class="glass ast-card set-form" data-set="company"><h3>' + t('set.companyTitle') + '</h3><p>' + t('set.companyLead') + '</p><div class="set-grid">' +
+    return '<form class="glass ast-card set-form set-sec" data-set="company"><header class="set-sec-h"><h3>' + t('set.companyTitle') + '</h3><p>' + t('set.companyLead') + '</p></header><div class="set-grid">' +
       F.map(function (f) { return '<label class="auth-f"><span>' + t(f[1]) + '</span><span class="auth-in"><input name="' + f[0] + '" autocomplete="' + f[2] + '" value="' + esc(c[f[0]] || '') + '" placeholder="' + esc(e[f[0]] || '') + '"' + (f[0] === 'email' ? ' type="email"' : f[0] === 'website' ? ' type="url"' : '') + '></span></label>'; }).join('') +
       '</div><p class="set-note">' + t('set.companyNote') + '</p>' + (setMsg && setMsg.k === 'company' ? '<p class="acct-msg ' + setMsg.kind + '" role="status">' + esc(setMsg.text) + '</p>' : '') +
       '<div class="acct-actions"><button type="submit" class="btn primary">' + t('acct.save') + '</button></div></form>';
   }
+  // Kop van een onderdeel + rijen "uitleg links, instelling rechts"
+  function sec(title, lead, inner, attrs) { return '<form class="glass ast-card set-sec"' + (attrs || '') + '><header class="set-sec-h"><h3>' + title + '</h3>' + (lead ? '<p>' + lead + '</p>' : '') + '</header>' + inner + '</form>'; }
+  function srow(label, help, control) { return '<div class="set-row"><div class="set-row-l"><b>' + label + '</b>' + (help ? '<small>' + help + '</small>' : '') + '</div><div class="set-row-c">' + control + '</div></div>'; }
+  function msg(k) { return setMsg && setMsg.k === k ? '<p class="acct-msg ' + setMsg.kind + '" role="status">' + esc(setMsg.text) + '</p>' : ''; }
+  function saveBar(k) { return msg(k) + '<div class="set-save"><button type="submit" class="btn primary">' + t('acct.save') + '</button></div>'; }
+  function seg(name, cur, opts) {
+    return '<div class="set-seg" role="radiogroup">' + opts.map(function (o) { return '<label><input type="radio" name="' + name + '" value="' + esc(o[0]) + '"' + (cur === o[0] ? ' checked' : '') + '><span>' + o[1] + '</span></label>'; }).join('') + '</div>';
+  }
+  function sw(name, on) { return '<label class="set-tog"><input type="checkbox" name="' + name + '"' + (on ? ' checked' : '') + '><i aria-hidden="true"></i></label>'; }
+
+  function signupPanel() {
+    if (!sets) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    var p = sets.platform || {}, e = sets.platformEnv || {};
+    return sec(t('set.suTitle'), t('set.suLead'),
+      srow(t('set.suMode'), t('set.suModeHelp'), seg('signup', p.signup || '', [['', t('set.suEnv', { state: t(e.signup ? 'set.stOpen' : 'set.stClosed') })], ['open', t('set.suOpen')], ['closed', t('set.suClosed')]])) +
+      srow(t('set.suNotify'), t('set.suNotifyHelp', { email: esc(p.contactEmail || e.contactEmail || 'support@optimasys.es') }), sw('notifySignup', p.notifySignup)) +
+      saveBar('platform-signup'), ' data-set="platform-signup"');
+  }
+  function maintPanel() {
+    if (!sets) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    var m = sets.maintenance || {};
+    return sec(t('set.mTitle'), t('set.mLead'),
+      srow(t('set.mOn'), m.on && m.by ? esc(m.by) + (m.at ? ' · ' + esc(i18n.fmt.stamp(m.at, 'long')) : '') : '', sw('on', m.on)) +
+      srow(t('set.mMsg'), '', '<span class="auth-in"><input name="message" maxlength="300" value="' + esc(m.message || '') + '" placeholder="' + esc(t('set.mPh')) + '"></span>') +
+      saveBar('maintenance'), ' data-set="maintenance"');
+  }
+  var testMsg = null;
+  function mailPanel() {
+    if (!sets) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    var p = sets.platform || {}, e = sets.platformEnv || {}, on = !!e.mail;
+    var dot = function (ok, txt) { return '<span class="set-state ' + (ok ? 'ok' : 'off') + '"><i></i>' + txt + '</span>'; };
+    return sec(t('set.mailTitle'), t('set.mailLead'),
+      srow(t('set.mailServer'), on ? '' : t('set.mailOffHelp'), dot(on, t(on ? 'set.sOn' : 'set.sMailOff'))) +
+      srow(t('set.mailFrom'), t('set.mailFromHelp'), '<code class="set-code">' + esc(e.mailFrom || '–') + '</code>') +
+      srow(t('set.mailTeam'), t('set.mailTeamHelp'), '<span class="auth-in"><input type="email" name="contactEmail" value="' + esc(p.contactEmail || '') + '" placeholder="' + esc(e.contactEmail || 'support@optimasys.es') + '"></span>') +
+      srow(t('set.mailTest'), t('set.mailTestHelp', { email: esc(me && me.email || '') }), '<button type="button" class="btn ghost" data-test-mail' + (on ? '' : ' disabled') + '>' + ico('mail') + t('set.mailTestBtn') + '</button>' +
+        (testMsg ? '<p class="acct-msg ' + testMsg.kind + '" role="status">' + esc(testMsg.text) + '</p>' : '')) +
+      saveBar('platform-mail'), ' data-set="platform-mail"');
+  }
   function systemPanel() {
     if (!sets) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
-    var m = sets.maintenance || {}, row = function (ok, label, val) { return '<li><i class="set-dot ' + (ok ? 'ok' : 'off') + '"></i><b>' + label + '</b><span>' + val + '</span></li>'; };
-    var bk = sys && sys.backup && sys.backup.last;
-    return '<form class="glass ast-card set-form" data-set="maintenance"><h3>' + t('set.mTitle') + '</h3><p>' + t('set.mLead') + '</p>' +
-      '<label class="set-switch"><input type="checkbox" name="on"' + (m.on ? ' checked' : '') + '><span>' + t('set.mOn') + '</span></label>' +
-      '<label class="auth-f"><span>' + t('set.mMsg') + '</span><span class="auth-in"><input name="message" maxlength="300" value="' + esc(m.message || '') + '" placeholder="' + esc(t('set.mPh')) + '"></span></label>' +
-      (setMsg && setMsg.k === 'maintenance' ? '<p class="acct-msg ' + setMsg.kind + '" role="status">' + esc(setMsg.text) + '</p>' : '') +
-      '<div class="acct-actions"><button type="submit" class="btn primary">' + t('acct.save') + '</button></div></form>' +
-      '<div class="glass ast-card"><h3>' + t('set.statusTitle') + '</h3><ul class="set-status">' +
-        row(!!(sys && sys.deepl && sys.deepl.configured), t('set.sDeepl'), t(sys && sys.deepl && sys.deepl.configured ? 'set.sOn' : 'set.sOff')) +
-        row(!!(sys && sys.mail && sys.mail.configured), t('set.sMail'), t(sys && sys.mail && sys.mail.configured ? 'set.sOn' : 'set.sMailOff')) +
-        row(!!bk, t('set.sBackup'), bk ? esc(i18n.fmt.stamp(bk.at || bk, 'long')) : t('set.sNever')) +
+    var row = function (ok, label, val) { return '<li><i class="set-dot ' + (ok ? 'ok' : 'off') + '"></i><b>' + label + '</b><span>' + val + '</span></li>'; };
+    var bk = sys && sys.backup && sys.backup.last, m = sets.maintenance || {};
+    return '<div class="glass ast-card set-sec"><header class="set-sec-h"><h3>' + t('set.statusTitle') + '</h3><p>' + t('set.statusLead') + '</p></header><ul class="set-status">' +
         row(!(sys && sys.db && sys.db.ok === false), t('set.sDb'), esc((sys && sys.db && sys.db.kind) || '–')) +
+        row(!!(sys && sys.mail && sys.mail.configured), t('set.sMail'), t(sys && sys.mail && sys.mail.configured ? 'set.sOn' : 'set.sMailOff')) +
+        row(!!(sys && sys.deepl && sys.deepl.configured), t('set.sDeepl'), t(sys && sys.deepl && sys.deepl.configured ? 'set.sOn' : 'set.sOff')) +
+        row(!!bk, t('set.sBackup'), bk ? esc(i18n.fmt.stamp(bk.at || bk, 'long')) : t('set.sNever')) +
+        row(!m.on, t('set.mTitle'), t(m.on ? 'set.sOn' : 'set.sOff')) +
       '</ul></div>';
   }
 
@@ -201,6 +247,11 @@ var AdminSettings = (function () {
     if ((b = e.target.closest('[data-lang]'))) { f.lang = b.getAttribute('data-lang'); if (f.ref === f.lang) f.ref = f.lang === 'en' ? 'nl' : 'en'; shown = PAGE; return draw(); }
     if ((b = e.target.closest('[data-status]'))) { f.status = b.getAttribute('data-status'); shown = PAGE; return draw(); }
     if (e.target.closest('[data-more]')) { shown += PAGE * 2; return draw(); }
+    if ((b = e.target.closest('[data-test-mail]'))) {
+      b.disabled = true; testMsg = null;
+      return api.admin.testMail().then(function (r) { testMsg = { kind: 'ok', text: t('set.mailTestOk', { email: r.to }) }; draw(); })
+        .catch(function (x) { testMsg = { kind: 'bad', text: t('set.mailTestBad', { msg: (x && x.data && x.data.message) || (x && x.code) || '' }) }; draw(); });
+    }
     if ((b = e.target.closest('[data-unblock]'))) {
       b.disabled = true; var v = b.getAttribute('data-unblock');
       return api.admin.unblock(v).then(function () { blocks = blocks.filter(function (x) { return x.v !== v; }); blockMsg = { kind: 'ok', text: t('set.bRemoved', { v: v }) }; draw(); })
@@ -242,9 +293,11 @@ var AdminSettings = (function () {
       e.preventDefault(); var k = sf.getAttribute('data-set'), go = sf.querySelector('[type=submit]'); go.disabled = true;
       var d = {};
       if (k === 'company') { d.company = {}; ['name', 'address', 'kvk', 'vat', 'email', 'phone', 'website'].forEach(function (n) { d.company[n] = sf[n].value; }); }
+      else if (k === 'platform-signup') { var r = sf.querySelector('input[name=signup]:checked'); d.platform = { signup: r ? r.value || null : null, notifySignup: sf.notifySignup.checked }; }
+      else if (k === 'platform-mail') d.platform = { contactEmail: sf.contactEmail.value };
       else d.maintenance = { on: sf.on.checked, message: sf.message.value };
-      return api.settings.save(d).then(function (r) { sets = r; setMsg = { k: k, kind: 'ok', text: t('acct.saved') }; draw(); })
-        .catch(function (x) { setMsg = { k: k, kind: 'bad', text: t(x && x.details ? 'set.errFields' : 'set.errSave', { f: (x && x.details || []).map(function (f) { return t('set.c' + f.charAt(0).toUpperCase() + f.slice(1)); }).join(', ') }) }; draw(); });
+      return api.settings.save(d).then(function (r) { sets = r; setMsg = { k: k, kind: 'ok', text: t('acct.saved') }; draw(); setTimeout(function () { if (setMsg && setMsg.k === k) { setMsg = null; draw(); } }, 3000); })
+        .catch(function (x) { setMsg = { k: k, kind: 'bad', text: t(x && x.details ? 'set.errFields' : 'set.errSave', { f: (x && x.details || []).map(function (f) { return f === 'contactEmail' ? t('set.mailTeam') : t('set.c' + f.charAt(0).toUpperCase() + f.slice(1)); }).join(', ') }) }; draw(); });
     }
     var form = e.target.closest('[data-keyform]'); if (!form) return; e.preventDefault();
     var msg = form.querySelector('#asKeyMsg'), btn = form.querySelector('[type=submit]'); btn.disabled = true;

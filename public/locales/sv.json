@@ -2439,7 +2439,7 @@
     "sDb": "Databas",
     "sOn": "Konfigurerad",
     "sOff": "Inte konfigurerad",
-    "sMailOff": "Inte konfigurerad än (senare med handledaren)",
+    "sMailOff": "Inte konfigurerad än",
     "sNever": "Aldrig",
     "errFields": "Kontrollera: {f}",
     "errSave": "Det gick inte att spara.",

@@ -2439,7 +2439,7 @@
     "sDb": "Datenbank",
     "sOn": "Eingerichtet",
     "sOff": "Nicht eingerichtet",
-    "sMailOff": "Noch nicht eingerichtet (später mit Betreuer)",
+    "sMailOff": "Noch nicht eingerichtet",
     "sNever": "Noch nie",
     "errFields": "Prüfen: {f}",
     "errSave": "Speichern fehlgeschlagen.",

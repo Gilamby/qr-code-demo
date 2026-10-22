@@ -2439,7 +2439,7 @@
     "sDb": "Tietokanta",
     "sOn": "Määritetty",
     "sOff": "Ei määritetty",
-    "sMailOff": "Ei vielä määritetty (myöhemmin valvojan kanssa)",
+    "sMailOff": "Ei vielä määritetty",
     "sNever": "Ei koskaan",
     "errFields": "Tarkista: {f}",
     "errSave": "Tallennus epäonnistui.",

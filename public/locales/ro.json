@@ -2439,7 +2439,7 @@
     "sDb": "Bază de date",
     "sOn": "Configurat",
     "sOff": "Neconfigurat",
-    "sMailOff": "Încă neconfigurat (mai târziu, cu supervizorul)",
+    "sMailOff": "Încă neconfigurat",
     "sNever": "Niciodată",
     "errFields": "Verifică: {f}",
     "errSave": "Nu s-a putut salva.",

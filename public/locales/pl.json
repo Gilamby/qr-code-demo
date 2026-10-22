@@ -2439,7 +2439,7 @@
     "sDb": "Baza danych",
     "sOn": "Skonfigurowano",
     "sOff": "Nie skonfigurowano",
-    "sMailOff": "Jeszcze nie skonfigurowano (później z opiekunem)",
+    "sMailOff": "Jeszcze nie skonfigurowano",
     "sNever": "Nigdy",
     "errFields": "Sprawdź: {f}",
     "errSave": "Nie udało się zapisać.",

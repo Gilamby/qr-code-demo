@@ -391,6 +391,7 @@ var api = (function () {
       overview:   function ()      { return request('GET', 'api/admin/overview'); },
       system:     function ()      { return request('GET', 'api/admin/system'); },
       blocklist:  function ()      { return request('GET', 'api/admin/blocklist'); },
+      testMail:   function ()      { return request('POST', 'api/admin/test-mail', {}); },
       block:      function (d)     { return request('POST', 'api/admin/blocklist', d); },          // { value: 'jan@x.nl' | '@x.nl', note }
       unblock:    function (v)     { return request('DELETE', 'api/admin/blocklist?v=' + encodeURIComponent(v)); },
       codes:      function (f)     { var q = Object.keys(f || {}).filter(function (k) { return f[k] !== '' && f[k] != null; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); return request('GET', 'api/admin/codes' + (q ? '?' + q : '')); },

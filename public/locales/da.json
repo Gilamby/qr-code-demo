@@ -2439,7 +2439,7 @@
     "sDb": "Database",
     "sOn": "Sat op",
     "sOff": "Ikke sat op",
-    "sMailOff": "Ikke sat op endnu (senere med supervisor)",
+    "sMailOff": "Ikke sat op endnu",
     "sNever": "Aldrig",
     "errFields": "Tjek: {f}",
     "errSave": "Kunne ikke gemme.",

@@ -2439,7 +2439,7 @@
     "sDb": "Base de données",
     "sOn": "Configuré",
     "sOff": "Non configuré",
-    "sMailOff": "Pas encore configuré (plus tard avec le tuteur)",
+    "sMailOff": "Pas encore configuré",
     "sNever": "Jamais",
     "errFields": "Vérifiez : {f}",
     "errSave": "Enregistrement impossible.",

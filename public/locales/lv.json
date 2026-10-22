@@ -2439,7 +2439,7 @@
     "sDb": "Datubāze",
     "sOn": "Iestatīts",
     "sOff": "Nav iestatīts",
-    "sMailOff": "Vēl nav iestatīts (vēlāk ar uzraugu)",
+    "sMailOff": "Vēl nav iestatīts",
     "sNever": "Nekad",
     "errFields": "Pārbaudi: {f}",
     "errSave": "Neizdevās saglabāt.",

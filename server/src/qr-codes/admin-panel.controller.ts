@@ -14,6 +14,7 @@
    alleen de super-admin. Bekijken mag iedereen in het team. Elke aanpassing komt in het logboek.
    Klanten zelf (toevoegen, uitnodigen, rol, uitzetten): auth/admin.controller.ts
    ========================================================= */
+import { platform, forgetPlatform } from '../platform';
 import { Body, Controller, Delete, Get, Header, HttpCode, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { Customer, DatabaseService, Moderation } from '../database/database.service';
@@ -109,7 +110,8 @@ export class AdminPanelController {
   async getSettings() {
     const j = async (k: string) => { try { return JSON.parse((await this.db.getSetting(k)) || '{}'); } catch (e) { return {}; } };
     const env = (k: string) => String(process.env[k] || '').trim();
-    return { company: await j('company'), companyEnv: { name: env('LEGAL_NAME'), address: env('LEGAL_ADDRESS'), kvk: env('LEGAL_KVK'), vat: env('LEGAL_VAT'), email: env('LEGAL_EMAIL'), phone: env('LEGAL_PHONE'), website: env('LEGAL_WEBSITE') }, maintenance: await j('maintenance') };
+    const pf = await platform(this.db);
+    return { platform: pf, platformEnv: { signup: process.env.ALLOW_SIGNUP === 'true', contactEmail: env('CONTACT_EMAIL'), mailFrom: env('MAIL_FROM'), mail: this.mailer.configured }, company: await j('company'), companyEnv: { name: env('LEGAL_NAME'), address: env('LEGAL_ADDRESS'), kvk: env('LEGAL_KVK'), vat: env('LEGAL_VAT'), email: env('LEGAL_EMAIL'), phone: env('LEGAL_PHONE'), website: env('LEGAL_WEBSITE') }, maintenance: await j('maintenance') };
   }
   @Patch('settings')
   async saveSettings(@CurrentUser() me: User, @Body() b: any = {}) {
@@ -123,6 +125,15 @@ export class AdminPanelController {
       await this.db.setSetting('company', Object.keys(out).length ? JSON.stringify(out) : null);
       await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action: 'settings_company', codeId: null, ownerId: null, detail: out.name || '' }).catch(() => {});
     }
+    if (b.platform !== undefined) {
+      const x = b.platform || {}, cur = await platform(this.db);
+      const signup = x.signup === undefined ? cur.signup : x.signup === 'open' || x.signup === 'closed' ? x.signup : null;
+      const contactEmail = x.contactEmail === undefined ? cur.contactEmail : String(x.contactEmail || '').trim().toLowerCase().slice(0, 254);
+      if (contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) throw fail(400, 'Invalid settings', { details: ['contactEmail'] });
+      const out = { signup, notifySignup: x.notifySignup === undefined ? cur.notifySignup : !!x.notifySignup, contactEmail };
+      await this.db.setSetting('platform', JSON.stringify(out)); forgetPlatform();
+      await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action: 'settings_platform', codeId: null, ownerId: null, detail: 'signup: ' + (signup || 'env') + ' · notify: ' + (out.notifySignup ? 'on' : 'off') + (contactEmail ? ' · ' + contactEmail : '') }).catch(() => {});
+    }
     if (b.maintenance !== undefined) {
       const on = !!(b.maintenance && b.maintenance.on), message = String((b.maintenance && b.maintenance.message) || '').replace(/\s+/g, ' ').trim().slice(0, 300);
       await this.db.setSetting('maintenance', on || message ? JSON.stringify({ on, message, by: me.name || me.email, at: new Date().toISOString() }) : null);
@@ -130,6 +141,16 @@ export class AdminPanelController {
       await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action: on ? 'maintenance_on' : 'maintenance_off', codeId: null, ownerId: null, detail: message }).catch(() => {});
     }
     return this.getSettings();
+  }
+
+  /** Testmail naar jezelf: werkt de mailserver? */
+  @Post('test-mail')
+  @HttpCode(200)
+  async testMail(@CurrentUser() me: User) {
+    if (!this.mailer.configured) throw fail(400, 'mail_off');
+    if (this.auth.limited('testmail:' + me.id, 5, 10)) throw fail(429, 'too_many');
+    try { await this.mailer.sendTest(me.email); } catch (e) { throw fail(502, 'mail_failed', { message: String((e as Error).message || '').slice(0, 200) }); }
+    return { ok: true, to: me.email };
   }
 
   /* ---------------- Blokkeerlijst (Terms punt 14): geen nieuw account voor deze adressen/domeinen ---------------- */

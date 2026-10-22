@@ -2439,7 +2439,7 @@
     "sDb": "Databáza",
     "sOn": "Nastavené",
     "sOff": "Nenastavené",
-    "sMailOff": "Zatiaľ nenastavené (neskôr so supervisorom)",
+    "sMailOff": "Zatiaľ nenastavené",
     "sNever": "Nikdy",
     "errFields": "Skontroluj: {f}",
     "errSave": "Nepodarilo sa uložiť.",

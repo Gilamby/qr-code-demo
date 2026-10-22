@@ -5,6 +5,7 @@
      Je blijft ingelogd tot je uitlogt: 1 jaar, en elke dag dat je de app gebruikt schuift dat op.
      In de database staat alleen een hash van die code. Noodzakelijke cookie: geen cookiebanner nodig.
    ========================================================= */
+import { signupOpen } from '../platform';
 import { userOfKey } from './api-keys';
 import { planFor } from '../plans';
 import { memberOf, hasTeam, actionOf, addTeamLog } from '../team';
@@ -165,5 +166,6 @@ export class AuthService implements OnModuleDestroy {
     return !!(u && u.email && this.superList().indexOf(String(u.email).toLowerCase()) >= 0);
   }
   /** Mag iedereen zelf een account maken? Standaard niet: klanten krijgen een account bij hun licentie (ALLOW_SIGNUP=true zet het aan). */
-  signupOpen() { return process.env.ALLOW_SIGNUP === 'true'; }
+  /** Zelf aanmelden open? (Beheer > Instellingen > Aanmelden, anders ALLOW_SIGNUP in .env) */
+  signupOpen() { return signupOpen(this.db); }
 }

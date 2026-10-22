@@ -2439,7 +2439,7 @@
     "sDb": "Base de dados",
     "sOn": "Configurado",
     "sOff": "Não configurado",
-    "sMailOff": "Ainda não configurado (mais tarde com o orientador)",
+    "sMailOff": "Ainda não configurado",
     "sNever": "Nunca",
     "errFields": "Verifique: {f}",
     "errSave": "Não foi possível guardar.",

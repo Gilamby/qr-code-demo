@@ -4,6 +4,7 @@
    Zonder mailserver (ontwikkelen): de link verschijnt in de serverlog.
    Teksten in de taal van de gebruiker (public/locales/*.json, sleutel "mail").
    ========================================================= */
+import { platform, teamEmail } from '../platform';
 import { sign } from '../database/secret';
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
@@ -43,11 +44,27 @@ export class MailerService {
 
   /** Contactformulier: bericht naar het team (CONTACT_EMAIL, anders MAIL_FROM); antwoorden gaat naar de afzender */
   async sendContact(m: { name: string; email: string; topic: string; message: string; account: string }) {
-    const to = process.env.CONTACT_EMAIL || (process.env.MAIL_FROM || '').replace(/^.*<|>.*$/g, '');
+    const to = await teamEmail(this.db);
     const body = 'Van: ' + m.name + ' <' + m.email + '>\nAccount: ' + m.account + '\nOnderwerp: ' + m.topic + '\n\n' + m.message;
     if (!this.transport || !to) { console.log('[e-mail niet ingesteld] Contactformulier:\n' + body.replace(/^/gm, '  ')); return; }
     await this.transport.sendMail({ from: process.env.MAIL_FROM || 'QR-Codex <no-reply@optimasys.com>', to, replyTo: m.name + ' <' + m.email + '>',
       subject: '[QR-Codex] ' + m.topic + ': ' + m.message.slice(0, 60).replace(/\s+/g, ' '), text: body });
+  }
+
+  /** Testmail vanuit Beheer > Instellingen > E-mail: werkt de mailserver? (gooit een fout als het niet lukt) */
+  async sendTest(to: string) {
+    if (!this.transport) throw new Error('not_configured');
+    await this.transport.sendMail({ from: this.from(), to, subject: 'QR-Codex: test e-mail', text: 'Deze test-e-mail komt van QR-Codex (' + (this.base() || 'server') + '). De mailserver werkt.\n\nThis test email was sent from QR-Codex. Your mail server works.' });
+  }
+  /** Melding aan het team: nieuwe klant (aan te zetten in Beheer > Instellingen > Aanmelden) */
+  async notifySignup(email: string, name: string, via: string) {
+    try {
+      if (!(await platform(this.db)).notifySignup) return;
+      const to = await teamEmail(this.db); if (!to) return;
+      const body = 'Nieuwe klant / New customer\n\n' + (name ? name + ' <' + email + '>' : email) + '\nVia: ' + via + '\n\n' + (this.base() || '') + '/';
+      if (!this.transport) { console.log('[e-mail niet ingesteld] Nieuwe klant: ' + email); return; }
+      await this.transport.sendMail({ from: this.from(), to, subject: '[QR-Codex] Nieuwe klant: ' + email, text: body });
+    } catch (e) { console.error('Melding nieuwe klant mislukt:', (e as Error).message); }
   }
 
   /** Mailteksten van een taal, met de aanpassingen van admins erover (Beheer > Vertalingen) */

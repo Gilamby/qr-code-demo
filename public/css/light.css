@@ -506,6 +506,10 @@
 :root[data-theme="light"] .bl-v .ast-i { color: #dc2626; }
 :root[data-theme="light"] .bl-v em { color: #b91c1c; }
 :root[data-theme="light"] .bl-warn { color: #b45309; }
+:root[data-theme="light"] .set-seg { background: rgba(13,19,32,0.03); }
+:root[data-theme="light"] .set-tog i { background: rgba(13,19,32,0.105); }
+:root[data-theme="light"] .set-tog i::after { box-shadow: 0 1px 3px rgba(13,19,32,0.105); }
+:root[data-theme="light"] .set-code { background: rgba(13,19,32,0.045); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

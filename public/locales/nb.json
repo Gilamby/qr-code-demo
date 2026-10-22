@@ -2439,7 +2439,7 @@
     "sDb": "Database",
     "sOn": "Satt opp",
     "sOff": "Ikke satt opp",
-    "sMailOff": "Ikke satt opp ennå (senere med veileder)",
+    "sMailOff": "Ikke satt opp ennå",
     "sNever": "Aldri",
     "errFields": "Sjekk: {f}",
     "errSave": "Kunne ikke lagre.",

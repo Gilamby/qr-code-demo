@@ -2439,7 +2439,7 @@
     "sDb": "Database",
     "sOn": "Configurato",
     "sOff": "Non configurato",
-    "sMailOff": "Non ancora configurato (più tardi con il tutor)",
+    "sMailOff": "Non ancora configurato",
     "sNever": "Mai",
     "errFields": "Controlla: {f}",
     "errSave": "Salvataggio non riuscito.",

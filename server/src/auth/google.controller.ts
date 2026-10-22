@@ -6,6 +6,7 @@
    - Geen account: alleen als zelf aanmelden aan staat (ALLOW_SIGNUP); dan net als een gewone aanmelding eerst betalen.
    - Tweestapsverificatie aan: na Google nog de code uit de authenticator-app (Google slaat die stap niet over).
    ========================================================= */
+import { MailerService } from './mailer.service';
 import { isBlocked } from './blocklist';
 import { Body, Controller, Get, HttpCode, Post, Query, Req, Res } from '@nestjs/common';
 import type { Request, Response } from 'express';
@@ -27,7 +28,7 @@ export function startSecondStep(userId: string) { const t = crypto.randomBytes(2
 
 @Controller('api/auth/google')
 export class GoogleController {
-  constructor(private readonly db: DatabaseService, private readonly auth: AuthService) {}
+  constructor(private readonly db: DatabaseService, private readonly auth: AuthService, private readonly mailer: MailerService) {}
 
   private back(req: Request) { return baseUrl(req) + '/api/auth/google/callback'; }
 
@@ -58,11 +59,12 @@ export class GoogleController {
       if (!email || info.email_verified !== true) return fail('unverified');
       let row = await this.db.userByEmail(email);
       if (!row) {
-        if (!this.auth.signupOpen()) return fail('signup_closed');
+        if (!(await this.auth.signupOpen())) return fail('signup_closed');
         if (isDisposable(email)) return fail('email_disposable');
         if (await isBlocked(this.db, email)) return fail('blocked');
         const user = await this.db.createUser({ email, name: String(info.name || '').slice(0, 80), passwordHash: await this.auth.hashPassword(crypto.randomBytes(32).toString('hex')) });
         await saveSub(this.db, user.id, { ...emptySub(), mustPay: true });       // zoals elke nieuwe klant: eerst een abonnement kiezen
+        this.mailer.notifySignup(email, user.name, 'Google');
         row = await this.db.userByEmail(email);
       }
       const user = await this.db.getUser(row.id);

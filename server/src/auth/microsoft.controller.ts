@@ -9,6 +9,7 @@
    Verder hetzelfde als Google: bestaand account → inloggen; nieuw → alleen als zelf aanmelden aan staat (eerst betalen);
    tweestapsverificatie aan → daarna nog de code (zelfde stap als bij Google).
    ========================================================= */
+import { MailerService } from './mailer.service';
 import { isBlocked } from './blocklist';
 import { Controller, Get, Query, Req, Res } from '@nestjs/common';
 import type { Request, Response } from 'express';
@@ -33,7 +34,7 @@ function claims(idToken: string): any {
 
 @Controller('api/auth/microsoft')
 export class MicrosoftController {
-  constructor(private readonly db: DatabaseService, private readonly auth: AuthService) {}
+  constructor(private readonly db: DatabaseService, private readonly auth: AuthService, private readonly mailer: MailerService) {}
 
   private back(req: Request) { return baseUrl(req) + '/api/auth/microsoft/callback'; }
 
@@ -65,11 +66,12 @@ export class MicrosoftController {
       if (!email || !trusted) return fail('unverified');
       let row = await this.db.userByEmail(email);
       if (!row) {
-        if (!this.auth.signupOpen()) return fail('signup_closed');
+        if (!(await this.auth.signupOpen())) return fail('signup_closed');
         if (isDisposable(email)) return fail('email_disposable');
         if (await isBlocked(this.db, email)) return fail('blocked');
         const user = await this.db.createUser({ email, name: String(c.name || '').slice(0, 80), passwordHash: await this.auth.hashPassword(crypto.randomBytes(32).toString('hex')) });
         await saveSub(this.db, user.id, { ...emptySub(), mustPay: true });       // zoals elke nieuwe klant: eerst een abonnement kiezen
+        this.mailer.notifySignup(email, user.name, 'Microsoft');
         row = await this.db.userByEmail(email);
       }
       const user = await this.db.getUser(row.id);

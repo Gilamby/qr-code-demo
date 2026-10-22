@@ -2545,7 +2545,7 @@
     "sDb": "Baza e të dhënave",
     "sOn": "I konfiguruar",
     "sOff": "Jo i konfiguruar",
-    "sMailOff": "Ende jo i konfiguruar (më vonë me mentorin)",
+    "sMailOff": "Ende jo i konfiguruar",
     "sNever": "Asnjëherë",
     "errFields": "Kontrollo: {f}",
     "errSave": "Ruajtja dështoi.",

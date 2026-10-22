@@ -2439,7 +2439,7 @@
     "sDb": "Base de dades",
     "sOn": "Configurat",
     "sOff": "No configurat",
-    "sMailOff": "Encara no configurat (més endavant amb el supervisor)",
+    "sMailOff": "Encara no configurat",
     "sNever": "Mai",
     "errFields": "Revisa: {f}",
     "errSave": "No s'ha pogut desar.",
