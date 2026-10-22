@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Não esperavas este e-mail? Podes ignorá-lo.",
     "cancelSubject": "A sua subscrição QR-Codex foi cancelada",
     "cancelText": "Recebemos o seu cancelamento. O seu plano continua ativo até {date}; depois não será cobrado mais nada e os seus códigos QR deixam de funcionar. Mudou de ideias? Pode continuar até essa data.",
-    "cancelButton": "Ver o meu plano"
+    "cancelButton": "Ver o meu plano",
+    "reportUnsub": "Cancelar subscrição",
+    "unsubTitle": "Cancelar a subscrição do relatório de leituras?",
+    "unsubText": "Deixarás de receber o relatório de leituras em {email}.",
+    "unsubButton": "Cancelar subscrição",
+    "unsubDoneTitle": "Subscrição cancelada",
+    "unsubDoneText": "Deixarás de receber o relatório de leituras. Os e-mails de segurança sobre a tua conta continuam a chegar.",
+    "unsubOpen": "Abrir QR-Codex",
+    "unsubOther": "Podes voltar a ativá-lo a qualquer momento em A minha conta > Notificações.",
+    "unsubBadTitle": "Link inválido",
+    "unsubBadText": "Este link não é (ou já não é) válido. Podes desativar os e-mails em A minha conta > Notificações."
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",

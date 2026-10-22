@@ -4,6 +4,7 @@
    Zonder mailserver (ontwikkelen): de link verschijnt in de serverlog.
    Teksten in de taal van de gebruiker (public/locales/*.json, sleutel "mail").
    ========================================================= */
+import { sign } from '../database/secret';
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -67,7 +68,7 @@ export class MailerService {
     const pct = d.prevTotal ? Math.round((d.total - d.prevTotal) / d.prevTotal * 100) : null;
     const name = String(user.name || '').trim().split(/\s+/)[0] || '';
     const subject = v(d.period === 'monthly' ? t.reportSubjectMonth : t.reportSubjectWeek, { period: label });
-    const link = (base || this.base() || '') + '/';
+    const link = (base || this.base() || '') + '/', unsub = this.unsubLink(user, base);
     const tile = (n: string, l: string) => '<td style="padding:14px 16px;background:#f1f6fb;border-radius:12px;width:50%"><div style="font-size:28px;font-weight:800;color:#0d1320">' + n + '</div><div style="font-size:13px;color:#5a6577">' + esc(l) + '</div></td>';
     const html = '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:520px">' +
       '<p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">QR-Codex</p>' +
@@ -78,14 +79,20 @@ export class MailerService {
       (d.top.length ? '<p style="margin:0 0 6px;font-weight:700">' + esc(t.reportTop) + '</p><ol style="margin:0 0 18px;padding-left:20px">' + d.top.map((x) => '<li>' + esc(x.name) + ' <span style="color:#5a6577">– ' + num(x.scans) + '</span></li>').join('') + '</ol>'
         : '<p style="margin:0 0 18px;color:#5a6577">' + esc(t.reportNone) + '</p>') +
       '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.reportButton) + '</a></p>' +
-      '<p style="color:#5a6577;font-size:13px;margin-top:20px">' + esc(t.reportFooter) + '</p></div>';
-    const text = subject + '\n\n' + t.reportTotal + ': ' + num(d.total) + '\n' + t.reportUnique + ': ' + num(d.unique) + '\n' + d.top.map((x, i) => (i + 1) + '. ' + x.name + ' – ' + num(x.scans)).join('\n') + '\n\n' + link + '\n\n' + t.reportFooter;
+      '<p style="color:#5a6577;font-size:13px;margin-top:20px">' + esc(t.reportFooter) + ' <a href="' + esc(unsub) + '" style="color:#5a6577">' + esc(t.reportUnsub || 'Unsubscribe') + '</a></p></div>';
+    const text = subject + '\n\n' + t.reportTotal + ': ' + num(d.total) + '\n' + t.reportUnique + ': ' + num(d.unique) + '\n' + d.top.map((x, i) => (i + 1) + '. ' + x.name + ' – ' + num(x.scans)).join('\n') + '\n\n' + link + '\n\n' + t.reportFooter + '\n' + (t.reportUnsub || 'Unsubscribe') + ': ' + unsub;
     return { subject, html, text };
   }
+  /** Afmeldlink voor het scanoverzicht: werkt zonder inloggen, ondertekend zodat niemand anders iemand kan afmelden */
+  unsubLink(user: User, base?: string) { return (base || this.base() || '') + '/api/unsubscribe?u=' + encodeURIComponent(user.id) + '&t=' + sign('report:' + user.id); }
+  /** Teksten voor de afmeldpagina */
+  async pageTexts(lang: string) { return this.texts(lang); }
   async sendReport(user: User, d: ReportData) {
-    const r = await this.renderReport(user.lang || 'en', user, d);
+    const r = await this.renderReport(user.lang || 'en', user, d), unsub = this.unsubLink(user);
     if (!this.transport) { console.log('[e-mail niet ingesteld] Scanoverzicht voor ' + user.email + ': ' + r.subject); return; }
-    await this.transport.sendMail({ from: this.from(), to: user.email, subject: r.subject, text: r.text, html: r.html });
+    // List-Unsubscribe: de knop "Afmelden" van Gmail/Outlook (RFC 8058: met één klik, zonder pagina)
+    await this.transport.sendMail({ from: this.from(), to: user.email, subject: r.subject, text: r.text, html: r.html,
+      headers: { 'List-Unsubscribe': '<' + unsub + '>', 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' } });
   }
   /** Beveiligingsmelding: nieuw apparaat of wachtwoord gewijzigd */
   async sendSecurity(user: User, kind: 'login' | 'password', info: { device?: string; ip?: string; time: string }) {

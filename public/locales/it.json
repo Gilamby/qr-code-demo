@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Non aspettavi questa e-mail? Puoi ignorarla.",
     "cancelSubject": "Il tuo abbonamento QR-Codex è stato annullato",
     "cancelText": "Abbiamo ricevuto la tua disdetta. Il tuo piano resta attivo fino al {date}; dopo non verrà più addebitato nulla e i tuoi codici QR smetteranno di funzionare. Ci hai ripensato? Puoi continuare fino a quella data.",
-    "cancelButton": "Vedi il mio piano"
+    "cancelButton": "Vedi il mio piano",
+    "reportUnsub": "Annulla iscrizione",
+    "unsubTitle": "Annullare l’iscrizione al report delle scansioni?",
+    "unsubText": "Non riceverai più il report delle scansioni su {email}.",
+    "unsubButton": "Annulla iscrizione",
+    "unsubDoneTitle": "Iscrizione annullata",
+    "unsubDoneText": "Non riceverai più il report delle scansioni. Le e-mail di sicurezza sul tuo account continueranno ad arrivare.",
+    "unsubOpen": "Apri QR-Codex",
+    "unsubOther": "Puoi riattivarlo quando vuoi in Il mio account > Notifiche.",
+    "unsubBadTitle": "Link non valido",
+    "unsubBadText": "Questo link non è (più) valido. Puoi disattivare le e-mail in Il mio account > Notifiche."
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",

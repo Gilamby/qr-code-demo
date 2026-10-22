@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Etkö odottanut tätä viestiä? Voit jättää sen huomiotta.",
     "cancelSubject": "QR-Codex-tilauksesi on peruttu",
     "cancelText": "Olemme vastaanottaneet peruutuksesi. Pakettisi on voimassa {date} asti; sen jälkeen veloituksia ei tule ja QR-koodisi lakkaavat toimimasta. Muutitko mielesi? Voit jatkaa siihen asti.",
-    "cancelButton": "Näytä pakettini"
+    "cancelButton": "Näytä pakettini",
+    "reportUnsub": "Peru tilaus",
+    "unsubTitle": "Perutaanko skannausraportin tilaus?",
+    "unsubText": "Et enää saa skannausraporttia osoitteeseen {email}.",
+    "unsubButton": "Peru tilaus",
+    "unsubDoneTitle": "Tilaus peruttu",
+    "unsubDoneText": "Et enää saa skannausraporttia. Tiliäsi koskevat tietoturvaviestit tulevat edelleen.",
+    "unsubOpen": "Avaa QR-Codex",
+    "unsubOther": "Voit ottaa sen uudelleen käyttöön milloin tahansa kohdassa Oma tili > Ilmoitukset.",
+    "unsubBadTitle": "Linkki ei kelpaa",
+    "unsubBadText": "Tämä linkki ei ole (enää) voimassa. Voit poistaa sähköpostit käytöstä kohdassa Oma tili > Ilmoitukset."
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",

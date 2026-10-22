@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Negaidīji šo e-pastu? Vari to ignorēt.",
     "cancelSubject": "Tavs QR-Codex abonements ir atcelts",
     "cancelText": "Esam saņēmuši tavu atteikumu. Tava pakete darbojas līdz {date}; pēc tam vairs netiks iekasēta maksa un tavi QR kodi pārstās darboties. Pārdomāji? Līdz tam vari turpināt.",
-    "cancelButton": "Skatīt manu paketi"
+    "cancelButton": "Skatīt manu paketi",
+    "reportUnsub": "Atteikties",
+    "unsubTitle": "Atteikties no skenēšanas pārskata?",
+    "unsubText": "Tu vairs nesaņemsi skenēšanas pārskatu uz {email}.",
+    "unsubButton": "Atteikties",
+    "unsubDoneTitle": "Tu esi atteicies",
+    "unsubDoneText": "Tu vairs nesaņemsi skenēšanas pārskatu. Drošības e-pasti par tavu kontu joprojām tiks sūtīti.",
+    "unsubOpen": "Atvērt QR-Codex",
+    "unsubOther": "To jebkurā laikā var atkal ieslēgt sadaļā Mans konts > Paziņojumi.",
+    "unsubBadTitle": "Saite nav derīga",
+    "unsubBadText": "Šī saite nav (vairs) derīga. E-pastus var izslēgt sadaļā Mans konts > Paziņojumi."
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",

@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Väntade du dig inte det här mejlet? Då kan du ignorera det.",
     "cancelSubject": "Ditt QR-Codex-abonnemang har sagts upp",
     "cancelText": "Vi har tagit emot din uppsägning. Ditt paket gäller till {date}; därefter dras inga fler pengar och dina QR-koder slutar fungera. Ångrat dig? Du kan fortsätta fram till dess.",
-    "cancelButton": "Visa mitt paket"
+    "cancelButton": "Visa mitt paket",
+    "reportUnsub": "Avsluta prenumeration",
+    "unsubTitle": "Avsluta prenumerationen på skanningsrapporten?",
+    "unsubText": "Du får inte längre skanningsrapporten till {email}.",
+    "unsubButton": "Avsluta",
+    "unsubDoneTitle": "Du har avslutat prenumerationen",
+    "unsubDoneText": "Du får inte längre skanningsrapporten. Säkerhetsmejl om ditt konto kommer fortfarande.",
+    "unsubOpen": "Öppna QR-Codex",
+    "unsubOther": "Du kan när som helst slå på den igen under Mitt konto > Aviseringar.",
+    "unsubBadTitle": "Ogiltig länk",
+    "unsubBadText": "Den här länken är inte (längre) giltig. Du kan stänga av mejl under Mitt konto > Aviseringar."
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",

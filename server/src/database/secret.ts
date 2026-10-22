@@ -45,3 +45,12 @@ export function decrypt(value: string): string {
 }
 
 export const isEncrypted = (v: unknown): boolean => typeof v === 'string' && v.startsWith(PREFIX);
+
+/** Ondertekenen (HMAC) van links in e-mails, bv. de afmeldlink: niet te raden zonder de sleutel */
+export function sign(text: string): string {
+  return crypto.createHmac('sha256', loadKey()).update('sign:' + text).digest('base64url').slice(0, 32);
+}
+export function signed(text: string, sig: string): boolean {
+  const a = Buffer.from(sign(text)), b = Buffer.from(String(sig || ''));
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}

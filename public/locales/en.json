@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Weren't expecting this email? You can ignore it.",
     "cancelSubject": "Your QR-Codex subscription has been cancelled",
     "cancelText": "We've received your cancellation. Your plan keeps working until {date}; after that you won't be charged again and your QR codes stop working. Changed your mind? You can continue at any time before then.",
-    "cancelButton": "View my plan"
+    "cancelButton": "View my plan",
+    "reportUnsub": "Unsubscribe",
+    "unsubTitle": "Unsubscribe from the scan report?",
+    "unsubText": "You will no longer receive the scan report at {email}.",
+    "unsubButton": "Unsubscribe",
+    "unsubDoneTitle": "You are unsubscribed",
+    "unsubDoneText": "You will no longer receive the scan report. Security emails about your account will still arrive.",
+    "unsubOpen": "Open QR-Codex",
+    "unsubOther": "You can turn it back on any time in My account > Notifications.",
+    "unsubBadTitle": "Link not valid",
+    "unsubBadText": "This link is not valid (anymore). You can turn emails off in My account > Notifications."
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",

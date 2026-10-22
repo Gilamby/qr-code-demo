@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "No esperaves aquest correu? Pots ignorar-lo.",
     "cancelSubject": "La teva subscripció a QR-Codex s’ha cancel·lat",
     "cancelText": "Hem rebut la teva cancel·lació. El teu pla continua actiu fins al {date}; després no es cobrarà res més i els teus codis QR deixaran de funcionar. Has canviat d’idea? Pots continuar fins a aquesta data.",
-    "cancelButton": "Veure el meu pla"
+    "cancelButton": "Veure el meu pla",
+    "reportUnsub": "Donar-se de baixa",
+    "unsubTitle": "Vols donar-te de baixa de l’informe d’escanejos?",
+    "unsubText": "Ja no rebràs l’informe d’escanejos a {email}.",
+    "unsubButton": "Donar-me de baixa",
+    "unsubDoneTitle": "T’has donat de baixa",
+    "unsubDoneText": "Ja no rebràs l’informe d’escanejos. Els correus de seguretat sobre el teu compte continuaran arribant.",
+    "unsubOpen": "Obrir QR-Codex",
+    "unsubOther": "Pots tornar-lo a activar quan vulguis a El meu compte > Notificacions.",
+    "unsubBadTitle": "Enllaç no vàlid",
+    "unsubBadText": "Aquest enllaç no és (o ja no és) vàlid. Pots desactivar els correus a El meu compte > Notificacions."
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",

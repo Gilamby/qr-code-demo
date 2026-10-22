@@ -1613,7 +1613,17 @@
     "teamInviteIgnore": "Nuk e prisje këtë email? Mund ta injorosh.",
     "cancelSubject": "Abonimi yt në QR-Codex u anulua",
     "cancelText": "E morëm anulimin tënd. Paketa jote vlen deri më {date}; pas kësaj nuk tarifohet më dhe kodet e tua QR ndalojnë së punuari. Ndryshove mendje? Mund të vazhdosh deri atëherë.",
-    "cancelButton": "Shiko paketën time"
+    "cancelButton": "Shiko paketën time",
+    "reportUnsub": "Çregjistrohu",
+    "unsubTitle": "Të çregjistrohesh nga raporti i skanimeve?",
+    "unsubText": "Nuk do ta marrësh më raportin e skanimeve në {email}.",
+    "unsubButton": "Çregjistrohu",
+    "unsubDoneTitle": "U çregjistrove",
+    "unsubDoneText": "Nuk do ta marrësh më raportin e skanimeve. Email-et e sigurisë për llogarinë tënde do të vijnë ende.",
+    "unsubOpen": "Hap QR-Codex",
+    "unsubOther": "Mund ta aktivizosh sërish kur të duash te Llogaria ime > Njoftimet.",
+    "unsubBadTitle": "Lidhje e pavlefshme",
+    "unsubBadText": "Kjo lidhje nuk është (më) e vlefshme. Mund t’i çaktivizosh email-et te Llogaria ime > Njoftimet."
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",

@@ -19,6 +19,7 @@ import { AdminPanelController } from './qr-codes/admin-panel.controller';
 import { FoldersController } from './qr-codes/folders.controller';
 import { AnalyticsController } from './analytics/analytics.controller';
 import { HelpersController, SystemController } from './helpers/helpers.controller';
+import { UnsubscribeController } from './helpers/unsubscribe.controller';
 import { ContactController } from './helpers/contact.controller';
 import { TranslationsController } from './helpers/translations.controller';
 import { ShortLinksController } from './visitor/short-links.controller';
@@ -31,7 +32,7 @@ export class QrCodesModule {}
 @Module({ controllers: [AnalyticsController], imports: [AuthModule] })
 export class AnalyticsModule {}
 
-@Module({ controllers: [SystemController, HelpersController, ContactController, TranslationsController], imports: [AuthModule] })
+@Module({ controllers: [SystemController, HelpersController, ContactController, TranslationsController, UnsubscribeController], imports: [AuthModule] })
 export class HelpersModule {}
 
 @Module({ controllers: [ShortLinksController] })

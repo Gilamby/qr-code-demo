@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Verwachtte je deze e-mail niet? Dan kun je hem negeren.",
     "cancelSubject": "Je abonnement bij QR-Codex is opgezegd",
     "cancelText": "We hebben je opzegging ontvangen. Je pakket blijft werken tot {date}; daarna wordt er niets meer afgeschreven en werken je QR-codes niet meer. Bedacht? Tot die datum kun je gewoon doorgaan.",
-    "cancelButton": "Bekijk mijn pakket"
+    "cancelButton": "Bekijk mijn pakket",
+    "reportUnsub": "Afmelden",
+    "unsubTitle": "Afmelden voor het scanoverzicht?",
+    "unsubText": "Je krijgt het scanoverzicht dan niet meer op {email}.",
+    "unsubButton": "Afmelden",
+    "unsubDoneTitle": "Je bent afgemeld",
+    "unsubDoneText": "Je krijgt het scanoverzicht niet meer. Beveiligingsmails over je account blijven wel komen.",
+    "unsubOpen": "QR-Codex openen",
+    "unsubOther": "Weer aanzetten kan altijd in Mijn account > Meldingen.",
+    "unsubBadTitle": "Link werkt niet",
+    "unsubBadText": "Deze link werkt niet (meer). Je kunt e-mails uitzetten in Mijn account > Meldingen."
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",

@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Nečakal(a) si tento e-mail? Môžeš ho ignorovať.",
     "cancelSubject": "Tvoje predplatné QR-Codex bolo zrušené",
     "cancelText": "Prijali sme tvoje zrušenie. Balík platí do {date}; potom sa už nič nestrhne a tvoje QR kódy prestanú fungovať. Rozmyslel si sa? Do tohto dátumu môžeš pokračovať.",
-    "cancelButton": "Zobraziť môj balík"
+    "cancelButton": "Zobraziť môj balík",
+    "reportUnsub": "Odhlásiť odber",
+    "unsubTitle": "Odhlásiť sa z prehľadu skenov?",
+    "unsubText": "Prehľad skenov už nebudeš dostávať na {email}.",
+    "unsubButton": "Odhlásiť odber",
+    "unsubDoneTitle": "Odber je zrušený",
+    "unsubDoneText": "Prehľad skenov už nebudeš dostávať. Bezpečnostné e-maily o tvojom účte budú chodiť naďalej.",
+    "unsubOpen": "Otvoriť QR-Codex",
+    "unsubOther": "Kedykoľvek ho môžeš znova zapnúť v Môj účet > Upozornenia.",
+    "unsubBadTitle": "Neplatný odkaz",
+    "unsubBadText": "Tento odkaz nie je (už) platný. E-maily môžeš vypnúť v Môj účet > Upozornenia."
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",

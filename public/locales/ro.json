@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Nu te așteptai la acest e-mail? Îl poți ignora.",
     "cancelSubject": "Abonamentul tău QR-Codex a fost anulat",
     "cancelText": "Am primit anularea ta. Pachetul rămâne activ până la {date}; după aceea nu se mai percepe nimic, iar codurile QR nu vor mai funcționa. Te-ai răzgândit? Poți continua până atunci.",
-    "cancelButton": "Vezi pachetul meu"
+    "cancelButton": "Vezi pachetul meu",
+    "reportUnsub": "Dezabonare",
+    "unsubTitle": "Te dezabonezi de la raportul de scanări?",
+    "unsubText": "Nu vei mai primi raportul de scanări la {email}.",
+    "unsubButton": "Dezabonează-mă",
+    "unsubDoneTitle": "Te-ai dezabonat",
+    "unsubDoneText": "Nu vei mai primi raportul de scanări. E-mailurile de securitate despre contul tău vor sosi în continuare.",
+    "unsubOpen": "Deschide QR-Codex",
+    "unsubOther": "Îl poți reactiva oricând din Contul meu > Notificări.",
+    "unsubBadTitle": "Link invalid",
+    "unsubBadText": "Acest link nu este (sau nu mai este) valid. Poți dezactiva e-mailurile din Contul meu > Notificări."
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",

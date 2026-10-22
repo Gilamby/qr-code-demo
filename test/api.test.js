@@ -782,3 +782,17 @@ test('API (Business): sleutel maken, codes via /api/v1 met Bearer, intrekken', a
   assert.equal((await c('DELETE', '/api/account/api-keys/' + list.keys[0].id)).status, 204);
   assert.equal((await api('GET', '/api/v1/qr-codes')).status, 401, 'ingetrokken');
 });
+
+test('afmelden voor het scanoverzicht via de link in de mail (zonder inloggen, ondertekend)', async () => {
+  const c = client(); await signup(c, 'afmeld@example.com', 'Afmelden lukt 7!', 'Af Meld');
+  assert.equal((await c('PATCH', '/api/account', { emailPrefs: { report: 'weekly' } })).status, 200);
+  const u = await db.userByEmail('afmeld@example.com'), link = app.get(MailerService).unsubLink(u, base);
+  assert.equal((await fetch(link.replace(/t=[^&]+/, 't=fout'))).status, 400, 'zonder geldige handtekening niets');
+  const page = await fetch(link); assert.equal(page.status, 200); assert.match(await page.text(), /<form method="post"/);
+  assert.equal((await db.getUser(u.id)).emailPrefs.report, 'weekly', 'alleen de pagina openen meldt niet af');
+  const one = await fetch(link, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'List-Unsubscribe=One-Click' });
+  assert.equal(one.status, 200, 'één-klik-afmelden van Gmail/Outlook');
+  assert.equal((await db.getUser(u.id)).emailPrefs.report, 'off');
+  const r = await app.get(MailerService).renderReport('nl', u, { period: 'weekly', range: { from: '2026-10-12', to: '2026-10-18' }, total: 1, unique: 1, prevTotal: 0, top: [] }, base);
+  assert.ok(r.html.includes('/api/unsubscribe?u=') && r.text.includes('/api/unsubscribe?u='), 'afmeldlink staat in de mail');
+});

@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Hast du diese E-Mail nicht erwartet? Dann kannst du sie ignorieren.",
     "cancelSubject": "Dein QR-Codex-Abo wurde gekündigt",
     "cancelText": "Wir haben deine Kündigung erhalten. Dein Paket läuft noch bis {date}; danach wird nichts mehr abgebucht und deine QR-Codes funktionieren nicht mehr. Doch weitermachen? Bis dahin ist das jederzeit möglich.",
-    "cancelButton": "Mein Paket ansehen"
+    "cancelButton": "Mein Paket ansehen",
+    "reportUnsub": "Abmelden",
+    "unsubTitle": "Vom Scan-Bericht abmelden?",
+    "unsubText": "Du erhältst den Scan-Bericht dann nicht mehr an {email}.",
+    "unsubButton": "Abmelden",
+    "unsubDoneTitle": "Du bist abgemeldet",
+    "unsubDoneText": "Du erhältst den Scan-Bericht nicht mehr. Sicherheits-E-Mails zu deinem Konto kommen weiterhin.",
+    "unsubOpen": "QR-Codex öffnen",
+    "unsubOther": "Du kannst ihn jederzeit unter Mein Konto > Benachrichtigungen wieder einschalten.",
+    "unsubBadTitle": "Link ungültig",
+    "unsubBadText": "Dieser Link ist (nicht mehr) gültig. E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten."
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",

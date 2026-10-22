@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Ventet du ikke denne e-posten? Da kan du se bort fra den.",
     "cancelSubject": "QR-Codex-abonnementet ditt er sagt opp",
     "cancelText": "Vi har mottatt oppsigelsen din. Pakken din gjelder til {date}; deretter trekkes ingenting mer, og QR-kodene dine slutter å virke. Ombestemt deg? Du kan fortsette frem til da.",
-    "cancelButton": "Se pakken min"
+    "cancelButton": "Se pakken min",
+    "reportUnsub": "Meld av",
+    "unsubTitle": "Melde deg av skannerapporten?",
+    "unsubText": "Du får ikke lenger skannerapporten på {email}.",
+    "unsubButton": "Meld av",
+    "unsubDoneTitle": "Du er meldt av",
+    "unsubDoneText": "Du får ikke lenger skannerapporten. Sikkerhetsvarsler om kontoen din kommer fortsatt.",
+    "unsubOpen": "Åpne QR-Codex",
+    "unsubOther": "Du kan slå den på igjen når som helst under Min konto > Varsler.",
+    "unsubBadTitle": "Ugyldig lenke",
+    "unsubBadText": "Denne lenken er ikke (lenger) gyldig. Du kan slå av e-post under Min konto > Varsler."
   },
   "contact": {
     "lead": "Et spørsmål, et problem eller en idé? Send oss en melding.",

@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Vous n'attendiez pas cet e-mail ? Vous pouvez l'ignorer.",
     "cancelSubject": "Votre abonnement QR-Codex a été résilié",
     "cancelText": "Nous avons bien reçu votre résiliation. Votre formule reste active jusqu’au {date} ; ensuite, plus aucun prélèvement et vos codes QR cesseront de fonctionner. Vous changez d’avis ? Vous pouvez continuer jusqu’à cette date.",
-    "cancelButton": "Voir ma formule"
+    "cancelButton": "Voir ma formule",
+    "reportUnsub": "Se désabonner",
+    "unsubTitle": "Se désabonner du rapport de scans ?",
+    "unsubText": "Tu ne recevras plus le rapport de scans à {email}.",
+    "unsubButton": "Me désabonner",
+    "unsubDoneTitle": "Tu es désabonné",
+    "unsubDoneText": "Tu ne recevras plus le rapport de scans. Les e-mails de sécurité concernant ton compte continueront d’arriver.",
+    "unsubOpen": "Ouvrir QR-Codex",
+    "unsubOther": "Tu peux le réactiver à tout moment dans Mon compte > Notifications.",
+    "unsubBadTitle": "Lien non valide",
+    "unsubBadText": "Ce lien n’est pas (ou plus) valide. Tu peux désactiver les e-mails dans Mon compte > Notifications."
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",

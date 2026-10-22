@@ -1507,7 +1507,17 @@
     "teamInviteIgnore": "Nie spodziewałeś się tej wiadomości? Możesz ją zignorować.",
     "cancelSubject": "Twoja subskrypcja QR-Codex została anulowana",
     "cancelText": "Otrzymaliśmy Twoją rezygnację. Pakiet działa do {date}; potem nie pobierzemy już opłat, a Twoje kody QR przestaną działać. Zmieniłeś zdanie? Możesz kontynuować do tego dnia.",
-    "cancelButton": "Zobacz mój pakiet"
+    "cancelButton": "Zobacz mój pakiet",
+    "reportUnsub": "Wypisz się",
+    "unsubTitle": "Wypisać się z raportu skanów?",
+    "unsubText": "Nie będziesz już otrzymywać raportu skanów na {email}.",
+    "unsubButton": "Wypisz mnie",
+    "unsubDoneTitle": "Wypisano",
+    "unsubDoneText": "Nie będziesz już otrzymywać raportu skanów. E-maile dotyczące bezpieczeństwa konta nadal będą przychodzić.",
+    "unsubOpen": "Otwórz QR-Codex",
+    "unsubOther": "Możesz go ponownie włączyć w Moje konto > Powiadomienia.",
+    "unsubBadTitle": "Nieprawidłowy link",
+    "unsubBadText": "Ten link jest nieprawidłowy (lub wygasł). E-maile możesz wyłączyć w Moje konto > Powiadomienia."
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
