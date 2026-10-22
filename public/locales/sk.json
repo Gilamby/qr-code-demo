@@ -418,7 +418,8 @@
     "sphere": "Sieťová guľa",
     "fluid": "Prúdenie",
     "restore": "Obnoviť odstránené štandardné pozadia ({n})",
-    "hideText": "Toto pozadie zmizne z tvojho zoznamu. Neskôr ho môžeš obnoviť."
+    "hideText": "Toto pozadie zmizne z tvojho zoznamu. Neskôr ho môžeš obnoviť.",
+    "none": "Bez pozadia"
   },
   "myCodes": {
     "lead": "Všetky QR kódy, ktoré si vytvoril.",

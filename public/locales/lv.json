@@ -418,7 +418,8 @@
     "sphere": "Tīkla sfēra",
     "fluid": "Plūsma",
     "restore": "Atjaunot noņemtos standarta fonus ({n})",
-    "hideText": "Šis fons pazūd no tava saraksta. Vēlāk to vari atjaunot."
+    "hideText": "Šis fons pazūd no tava saraksta. Vēlāk to vari atjaunot.",
+    "none": "Bez fona"
   },
   "myCodes": {
     "lead": "Visi tevis izveidotie QR kodi.",

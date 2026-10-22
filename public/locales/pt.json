@@ -418,7 +418,8 @@
     "sphere": "Esfera de rede",
     "fluid": "Fluido",
     "restore": "Repor fundos padrão removidos ({n})",
-    "hideText": "Este fundo desaparece da sua lista. Pode repô-lo mais tarde."
+    "hideText": "Este fundo desaparece da sua lista. Pode repô-lo mais tarde.",
+    "none": "Sem fundo"
   },
   "myCodes": {
     "lead": "Todos os códigos QR que criou.",

@@ -418,7 +418,8 @@
     "sphere": "Esfera de red",
     "fluid": "Fluido",
     "restore": "Restaurar fondos estándar quitados ({n})",
-    "hideText": "Este fondo desaparece de tu lista. Puedes restaurarlo más tarde."
+    "hideText": "Este fondo desaparece de tu lista. Puedes restaurarlo más tarde.",
+    "none": "Sin fondo"
   },
   "myCodes": {
     "lead": "Todos los códigos QR que has creado.",

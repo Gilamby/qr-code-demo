@@ -418,7 +418,8 @@
     "sphere": "Netwerkbol",
     "fluid": "Vloeistof",
     "restore": "Weggehaalde standaard-achtergronden terugzetten ({n})",
-    "hideText": "Deze achtergrond verdwijnt uit je lijst. Je kunt hem later terugzetten."
+    "hideText": "Deze achtergrond verdwijnt uit je lijst. Je kunt hem later terugzetten.",
+    "none": "Geen achtergrond"
   },
   "myCodes": {
     "lead": "Alle QR-codes die je hebt gemaakt.",

@@ -418,7 +418,8 @@
     "sphere": "Sferë rrjeti",
     "fluid": "Lëng",
     "restore": "Rikthe sfondet standarde të hequra ({n})",
-    "hideText": "Ky sfond zhduket nga lista jote. Mund ta rikthesh më vonë."
+    "hideText": "Ky sfond zhduket nga lista jote. Mund ta rikthesh më vonë.",
+    "none": "Pa sfond"
   },
   "myCodes": {
     "lead": "Të gjitha kodet QR që ke krijuar.",

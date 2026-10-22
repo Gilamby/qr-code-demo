@@ -418,7 +418,8 @@
     "sphere": "Verkkopallo",
     "fluid": "Virtaus",
     "restore": "Palauta poistetut vakiotaustat ({n})",
-    "hideText": "Tämä tausta katoaa listaltasi. Voit palauttaa sen myöhemmin."
+    "hideText": "Tämä tausta katoaa listaltasi. Voit palauttaa sen myöhemmin.",
+    "none": "Ei taustaa"
   },
   "myCodes": {
     "lead": "Kaikki luomasi QR-koodit.",

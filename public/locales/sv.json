@@ -418,7 +418,8 @@
     "sphere": "Nätverksklot",
     "fluid": "Flöde",
     "restore": "Återställ borttagna standardbakgrunder ({n})",
-    "hideText": "Den här bakgrunden försvinner från din lista. Du kan återställa den senare."
+    "hideText": "Den här bakgrunden försvinner från din lista. Du kan återställa den senare.",
+    "none": "Ingen bakgrund"
   },
   "myCodes": {
     "lead": "Alla QR-koder du har skapat.",

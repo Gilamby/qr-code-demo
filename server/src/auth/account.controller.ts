@@ -344,7 +344,7 @@ export class AccountController {
     if (value.background && value.background.startsWith('media:') && !(user.media || []).some((m) => 'media:' + m.id === value.background)) throw fail(400, 'Invalid profile update', { details: ['background: unknown'] });
     if (value.background && !this.auth.isAdmin(user)) {                       // achtergrond hoort bij het pakket (Pro: meer + foto's, Business: video's)
       const plan = await planFor(this.db, user.id), m = (user.media || []).find((x) => 'media:' + x.id === value.background);
-      const what = value.background === 'optimasys' || value.background === 'custom' ? null : m ? m.kind : 'extra';
+      const what = value.background === 'optimasys' || value.background === 'none' || value.background === 'custom' ? null : m ? m.kind : 'extra';
       if (what && !bgAllowed(plan, what as any)) throw fail(403, 'plan_bg', { plan: plan.id });
     }
     const { hidden, ...rest } = value as any;

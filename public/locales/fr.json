@@ -418,7 +418,8 @@
     "sphere": "Sphère réseau",
     "fluid": "Fluide",
     "restore": "Rétablir les arrière-plans standard retirés ({n})",
-    "hideText": "Cet arrière-plan disparaît de votre liste. Vous pourrez le rétablir plus tard."
+    "hideText": "Cet arrière-plan disparaît de votre liste. Vous pourrez le rétablir plus tard.",
+    "none": "Aucun fond"
   },
   "myCodes": {
     "lead": "Tous les codes QR que vous avez créés.",

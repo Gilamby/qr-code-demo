@@ -418,7 +418,8 @@
     "sphere": "Sfera di rete",
     "fluid": "Fluido",
     "restore": "Ripristina gli sfondi standard rimossi ({n})",
-    "hideText": "Questo sfondo sparisce dalla tua lista. Potrai ripristinarlo più tardi."
+    "hideText": "Questo sfondo sparisce dalla tua lista. Potrai ripristinarlo più tardi.",
+    "none": "Nessuno sfondo"
   },
   "myCodes": {
     "lead": "Tutti i codici QR che hai creato.",

@@ -418,7 +418,8 @@
     "sphere": "Kula sieci",
     "fluid": "Fluid",
     "restore": "Przywróć usunięte tła standardowe ({n})",
-    "hideText": "To tło zniknie z listy. Możesz je później przywrócić."
+    "hideText": "To tło zniknie z listy. Możesz je później przywrócić.",
+    "none": "Bez tła"
   },
   "myCodes": {
     "lead": "Wszystkie utworzone przez Ciebie kody QR.",

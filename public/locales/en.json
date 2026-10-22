@@ -418,7 +418,8 @@
     "sphere": "Network sphere",
     "fluid": "Fluid",
     "restore": "Restore removed standard backgrounds ({n})",
-    "hideText": "This background disappears from your list. You can restore it later."
+    "hideText": "This background disappears from your list. You can restore it later.",
+    "none": "No background"
   },
   "myCodes": {
     "lead": "All QR codes you have created.",

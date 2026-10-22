@@ -418,7 +418,8 @@
     "sphere": "Sferă de rețea",
     "fluid": "Fluid",
     "restore": "Restabilește fundalurile standard eliminate ({n})",
-    "hideText": "Acest fundal dispare din lista ta. Îl poți restabili mai târziu."
+    "hideText": "Acest fundal dispare din lista ta. Îl poți restabili mai târziu.",
+    "none": "Fără fundal"
   },
   "myCodes": {
     "lead": "Toate codurile QR pe care le-ai creat.",

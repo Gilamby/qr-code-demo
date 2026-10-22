@@ -21,7 +21,7 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
   function card(id, thumb, label, extra, lock) {
     var cur = background.get();
     return '<div class="bg-opt-wrap' + (lock ? ' locked' : '') + '"><button type="button" class="bg-opt" role="radio" data-bg="' + esc(id) + '" aria-checked="' + (cur === id) + '"' + (lock ? ' data-bg-lock="' + lock + '"' : '') + '><span class="thumb" style="' + thumb + '">' + (extra || '') + TICK + '</span><span class="name">' + label + (lock ? PlanGate.badge(lock) : '') + '</span></button>' +
-      (id !== 'optimasys' ? '<button type="button" class="bg-del" data-del="' + esc(id) + '" aria-label="' + esc(t('bg.delete')) + '" title="' + esc(t('bg.delete')) + '">' + X + '</button>' : '') + '</div>';   // alles weg te halen behalve Optimasys
+      (id !== 'optimasys' && id !== 'none' ? '<button type="button" class="bg-del" data-del="' + esc(id) + '" aria-label="' + esc(t('bg.delete')) + '" title="' + esc(t('bg.delete')) + '">' + X + '</button>' : '') + '</div>';   // alles weg te halen behalve Optimasys
   }
   /* Licht / donker / systeem: bovenaan bij Achtergrond (wens Fabian 21 okt) */
   var ICONS = { dark: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>', light: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', system: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>' };
@@ -40,9 +40,9 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
     // Wat zit in je pakket: Standard alleen de standaard-achtergrond, Pro alles + eigen foto's, Business ook video's
     var okExtra = !G || G.bgOk('extra'), okImage = !G || G.bgOk('image'), okVideo = !G || G.bgOk('video');
     var opts = BACKGROUNDS.filter(function (b) { return hid.indexOf(b.id) < 0; }).map(function (b) {
-      var lock = b.id !== 'optimasys' && !okExtra ? 'pro' : null;
+      var lock = b.id !== 'optimasys' && b.id !== 'none' && !okExtra ? 'pro' : null;
       return b.anim ? card(b.id, shot(b), t(b.label), '<i class="bg-badge">' + PLAY + t('bg.animated') + '</i>', lock)
-        : card(b.id, b.image ? 'background-image:url(' + b.image + ')' : 'background:' + b.css, t(b.label), null, lock);
+        : card(b.id, b.image ? 'background-image:url(' + b.image + ')' : 'background:' + (b.plain && theme.resolved() === 'light' ? b.light : b.css), t(b.label), null, lock);
     });
     if (background.custom()) opts.push(card('custom', 'background-image:url(' + background.custom() + ')', t('bg.custom')));
     background.media().forEach(function (m) {

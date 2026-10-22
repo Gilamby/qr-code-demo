@@ -418,7 +418,8 @@
     "sphere": "Netzkugel",
     "fluid": "Fluid",
     "restore": "Entfernte Standard-Hintergründe wiederherstellen ({n})",
-    "hideText": "Dieser Hintergrund verschwindet aus deiner Liste. Du kannst ihn später wiederherstellen."
+    "hideText": "Dieser Hintergrund verschwindet aus deiner Liste. Du kannst ihn später wiederherstellen.",
+    "none": "Kein Hintergrund"
   },
   "myCodes": {
     "lead": "Alle QR-Codes, die Sie erstellt haben.",

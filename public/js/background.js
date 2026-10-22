@@ -30,6 +30,8 @@ var theme = (function () {
   return { get: function () { return pref; }, resolved: resolved, set: set, onChange: function (f) { listeners.push(f); } };
 })();
 var BACKGROUNDS = [
+  // Geen achtergrond: effen zwart (donker) of effen licht (licht thema), zonder kleurvlekken of animatie
+  { id: 'none',       label: 'bg.none',       css: '#05070a', light: '#eef2f7', plain: true },
   { id: 'optimasys',  label: 'bg.optimasys',  css: 'radial-gradient(55% 60% at 18% 12%, rgba(43,181,240,.32), transparent 70%), radial-gradient(55% 60% at 85% 90%, rgba(21,118,201,.26), transparent 70%), linear-gradient(160deg, #0b1019, #06080b)',
     light: 'radial-gradient(55% 60% at 18% 12%, rgba(43,181,240,.22), transparent 70%), radial-gradient(55% 60% at 85% 90%, rgba(37,99,235,.14), transparent 70%), linear-gradient(160deg, #f7fbfe, #e8eef6)' },
   { id: 'aurora',     label: 'bg.aurora',     css: 'radial-gradient(60% 55% at 20% 20%, rgba(0,220,170,.55), transparent 70%), radial-gradient(60% 60% at 82% 28%, rgba(130,80,255,.55), transparent 70%), radial-gradient(55% 55% at 50% 100%, rgba(43,181,240,.45), transparent 70%), #060a12',
@@ -53,7 +55,7 @@ var background = (function () {
     if (id === 'custom' && custom) return { bg: 'url("' + custom + '")', filter: 'blur(4px) brightness(.9)' };
     var m = mediaOf(id);
     if (m) return m.kind === 'image' ? { bg: 'url("' + new URL(mediaUrl(m), document.baseURI).href + '")', filter: 'blur(4px) brightness(.9)' } : { bg: 'none', filter: 'none', video: mediaUrl(m) };
-    var b = BACKGROUNDS.filter(function (x) { return x.id === id; })[0] || BACKGROUNDS[0];
+    var b = BACKGROUNDS.filter(function (x) { return x.id === id; })[0] || BACKGROUNDS[1];   // onbekend: Optimasys
     var light = theme.resolved() === 'light';
     return b.image ? { bg: 'url("' + new URL(b.image, document.baseURI).href + '")', filter: light ? 'blur(6px) brightness(1.08) saturate(1.05)' : 'blur(5px) brightness(.95) saturate(1.15)' } : { bg: light && b.light ? b.light : b.css, filter: 'none' };
   }
@@ -64,7 +66,7 @@ var background = (function () {
     // Eigen video: één <video> achter de app, zonder geluid, in een lus. Kan hij niet laden: de standaard-achtergrond blijft zichtbaar.
     if (c.video) {
       if (!video) { video = document.createElement('video'); video.className = 'wp-video'; video.muted = true; video.loop = true; video.autoplay = true; video.playsInline = true; video.setAttribute('aria-hidden', 'true'); document.body.insertBefore(video, document.body.firstChild);
-        video.addEventListener('error', function () { video.hidden = true; root.style.setProperty('--wallpaper', BACKGROUNDS[0].css); }); }
+        video.addEventListener('error', function () { video.hidden = true; root.style.setProperty('--wallpaper', BACKGROUNDS[1].css); }); }
       if (video.getAttribute('src') !== c.video) video.src = c.video;
       video.hidden = false; var pl = video.play(); if (pl && pl.catch) pl.catch(function () {});
     } else if (video) { video.pause(); video.removeAttribute('src'); video.load(); video.hidden = true; }

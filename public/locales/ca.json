@@ -418,7 +418,8 @@
     "sphere": "Esfera de xarxa",
     "fluid": "Fluid",
     "restore": "Recupera els fons estàndard eliminats ({n})",
-    "hideText": "Aquest fons desapareix de la teva llista. El pots recuperar més endavant."
+    "hideText": "Aquest fons desapareix de la teva llista. El pots recuperar més endavant.",
+    "none": "Sense fons"
   },
   "myCodes": {
     "lead": "Tots els codis QR que has creat.",

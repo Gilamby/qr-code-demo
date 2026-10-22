@@ -521,3 +521,7 @@
 :root[data-theme="light"] .an-grid { stroke: rgba(13,19,32,.08); }
 :root[data-theme="light"] .adm-label, :root[data-theme="light"] .adm-label em { color: #0369a1; }
 :root[data-theme="light"] .mc-qr, :root[data-theme="light"] .hm-qr { box-shadow: 0 0 0 1px rgba(13,19,32,.08); }
+/* Bewegende achtergrond (Wave field e.d.) is donker getekend: in het lichte thema omkeren naar licht, kleur blijft blauw */
+:root[data-theme="light"] .wp-anim { filter: invert(1) hue-rotate(180deg) saturate(1.1); }
+/* Eigen video: lichter en zachter, zodat de lichte panelen niet grijs worden */
+:root[data-theme="light"] .wp-video { opacity: .35; }

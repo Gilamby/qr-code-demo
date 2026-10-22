@@ -418,7 +418,8 @@
     "sphere": "Netværkskugle",
     "fluid": "Flydende",
     "restore": "Gendan fjernede standardbaggrunde ({n})",
-    "hideText": "Denne baggrund forsvinder fra din liste. Du kan gendanne den senere."
+    "hideText": "Denne baggrund forsvinder fra din liste. Du kan gendanne den senere.",
+    "none": "Ingen baggrund"
   },
   "myCodes": {
     "lead": "Alle QR-koder, du har oprettet.",

@@ -418,7 +418,8 @@
     "sphere": "Nettverkskule",
     "fluid": "Flyt",
     "restore": "Gjenopprett fjernede standardbakgrunner ({n})",
-    "hideText": "Denne bakgrunnen forsvinner fra listen din. Du kan gjenopprette den senere."
+    "hideText": "Denne bakgrunnen forsvinner fra listen din. Du kan gjenopprette den senere.",
+    "none": "Ingen bakgrunn"
   },
   "myCodes": {
     "lead": "Alle QR-kodene du har laget.",

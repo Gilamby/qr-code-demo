@@ -9,7 +9,7 @@ const { safeDesign } = DESIGN;
 const HEX = /^#[0-9a-f]{6}$/i;
 const MAX_TEXT = 500;
 // Vaste achtergronden + bewegende (orbit, network, flow, waves, mist). city … restaurant: oude namen (worden in de app omgezet naar een animatie).
-export const BACKGROUNDS = ['optimasys', 'aurora', 'tide', 'galaxy', 'ribbons', 'sphere', 'fluid', 'orbit', 'network', 'flow', 'waves', 'mist', 'city', 'mountains', 'office', 'cafe', 'restaurant', 'custom'];
+export const BACKGROUNDS = ['none', 'optimasys', 'aurora', 'tide', 'galaxy', 'ribbons', 'sphere', 'fluid', 'orbit', 'network', 'flow', 'waves', 'mist', 'city', 'mountains', 'office', 'cafe', 'restaurant', 'custom'];
 /** Standaard-achtergronden die je kunt verbergen (alles behalve Optimasys) */
 export const HIDEABLE = ['aurora', 'tide', 'galaxy', 'ribbons', 'sphere', 'fluid'];
 
