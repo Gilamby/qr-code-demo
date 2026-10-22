@@ -32,7 +32,8 @@
     "themeLight": "Zum hellen Modus wechseln",
     "themeDark": "Zum dunklen Modus wechseln",
     "title": "QR-Code",
-    "background": "Hintergrund anpassen"
+    "background": "Hintergrund anpassen",
+    "chat": "Chatte mit uns"
   },
   "empty": {
     "text": "Diese Seite wird später ergänzt."
@@ -2073,7 +2074,7 @@
       "s5t": "Cancellation and What Happens to Your QR Codes",
       "s5": "You can cancel at any time under My Account > Plan and invoices by selecting \"Manage subscription\" and then \"Cancel subscription\". You can also contact us at (support@optimasys.es) to cancel. We will email you a confirmation. Cancelling stops future renewals; it does not cancel charges already made.\n\nIf your subscription ends, is cancelled, or a trial ends without you taking a paid plan:\n\n- your QR codes stop working straight away: people who scan them see a notice that the code is not active (Wi-Fi and contact card codes store their content in the code itself and keep working);\n- you will not be able to open or edit them, or see their analytics, until you subscribe again; and\n- your QR codes, designs and analytics are kept for 30 days. If you subscribe again within those 30 days, everything works again, including codes you have already printed. After 30 days they are permanently deleted. We email you when your codes stop, one week before they are deleted and one day before they are deleted.\n\nBefore you cancel, download the designs, files and analytics data you want to keep.",
       "s6t": "Refunds",
-      "s6": "Fees are non-cancellable and non-refundable, except where applicable law gives you a right to a refund. We may, at our discretion, grant a refund in exceptional circumstances. Refunds are not available for accounts that have breached these Terms.\n\nIf you are unhappy with the Service, contact us at (support@optimasys.es) and explain the problem. We will look at your situation fairly.\n\nNothing in these Terms limits any mandatory consumer rights you may have under the law of the country where you live.",
+      "s6": "Fees are non-cancellable and non-refundable, except where applicable law gives you a right to a refund. We may, at our discretion, grant a refund in exceptional circumstances, if you ask for it within 14 days of your most recent payment. Refunds are not available for accounts that have breached these Terms.\n\nIf you are unhappy with the Service, contact us at (support@optimasys.es) and explain the problem. We will look at your situation fairly.\n\nNothing in these Terms limits any mandatory consumer rights you may have under the law of the country where you live.",
       "s7t": "Your QR Codes and Content",
       "s7": "You keep ownership of the content you submit to the Service, such as logos, files, text and the destinations you link to (\"Your Content\"). You give us a limited license to host, store, process, display and transmit Your Content as needed to provide the Service, including showing it to people who scan your codes.\n\nYou may use the QR codes you create with the Service for personal or commercial purposes, including codes created during a free trial, as long as you follow these Terms.\n\nYou confirm that you own Your Content or have all the rights, licenses and permissions needed to use it, and that you have obtained any consent required from people who are identifiable in it.\n\nYou are responsible for the destinations your codes point to and for keeping them accurate, safe and lawful. You are also responsible for backing up Your Content. We perform routine backups, but we are not responsible for loss or corruption of data.",
       "s8t": "Acceptable Use",
