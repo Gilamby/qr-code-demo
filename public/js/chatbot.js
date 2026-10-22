@@ -59,10 +59,25 @@
     hidden.removeAttribute('data-qrc-hidden'); hidden = null;
   }
 
+  // Zelfde uiterlijk als het knopje van de chatbot: zijn foto en tekst (bv. "I'm Clara...") in onze knop
+  var looked = '';
+  function copyLook(el) {
+    var img = el.querySelector && el.querySelector('img'), src = img && img.getAttribute('src');
+    var label = String(el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+    var key = (src || '') + '|' + label; if (key === looked) return; looked = key;
+    var ava = btn.querySelector('.chat-ava');
+    if (src) {
+      if (!ava) { ava = document.createElement('img'); ava.className = 'chat-ava'; ava.alt = ''; btn.insertBefore(ava, btn.firstChild); }
+      ava.src = img.currentSrc || img.src; btn.classList.add('has-ava');
+    }
+    if (label) { btn.querySelector('.chat-full').textContent = label; btn.querySelector('.chat-short').textContent = label; btn.setAttribute('aria-label', label); }
+  }
+
   function check() {
     if (!launcher || !launcher.isConnected) launcher = hidden && hidden.isConnected ? hidden : find();
     btn.hidden = !launcher;
     if (!launcher) { show(); return; }
+    copyLook(launcher);
     if (inView()) { if (hidden !== launcher || launcher.style.getPropertyValue('visibility') !== 'hidden') hide(launcher); }
     else show();
   }

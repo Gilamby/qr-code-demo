@@ -5058,3 +5058,11 @@ body.paywall-open { overflow: hidden; }
 .bl-list .btn { grid-column: 2; grid-row: 1 / span 2; }
 .cust-block { margin-top: 10px; }
 @media (max-width: 560px) { .bl-list li { grid-template-columns: 1fr; } .bl-list .btn { grid-column: 1; grid-row: auto; justify-self: start; } }
+
+/* Met de foto van de chatbot (zoals zijn eigen knopje): foto + naam */
+.chat-btn.has-ava { padding: 0 16px 0 4px; gap: 9px; background: #5ec4f0; box-shadow: 0 6px 18px -6px rgba(41,182,246,.55); }
+.chat-btn.has-ava > svg { display: none; }
+.chat-ava { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; flex: none; }
+.chat-btn.has-ava .chat-dot { top: 2px; left: 30px; box-shadow: 0 0 0 2px #fff; background: #22c55e; }
+.chat-btn .chat-full, .chat-btn .chat-short { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 700px) { .chat-btn.has-ava { padding: 0 12px 0 4px; } .chat-btn .chat-short { max-width: 80px; } }
