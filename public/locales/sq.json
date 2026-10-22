@@ -2908,5 +2908,19 @@
     "lastScan": "Skanimi i fundit",
     "total": "Skanime gjithsej",
     "never": "Asnjëherë"
+  },
+  "sheet": {
+    "title": "Fletë për printim (A4)",
+    "short": "Fletë A4",
+    "lead": "{n} kode në fletë A4, gati për printim.",
+    "leadOne": "Një fletë A4 plot me “{name}”, p.sh. për ngjitëse ose tavolina.",
+    "per": "Kode për faqe",
+    "perN": "{n} për fletë",
+    "names": "Emri poshtë çdo kodi",
+    "cut": "Vija prerjeje",
+    "sum": "{n} kode në {p} fletë.",
+    "sumOne": "I njëjti kod {n} herë në 1 fletë.",
+    "make": "Krijo PDF",
+    "busy": "Po krijohet fleta…"
   }
 }

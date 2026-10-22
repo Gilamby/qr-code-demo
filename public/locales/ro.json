@@ -2802,5 +2802,19 @@
     "lastScan": "Ultima scanare",
     "total": "Total scanări",
     "never": "Niciodată"
+  },
+  "sheet": {
+    "title": "Coală de printat (A4)",
+    "short": "Coală A4",
+    "lead": "{n} coduri pe coli A4, gata de printat.",
+    "leadOne": "O coală A4 plină cu „{name}”, de ex. pentru stickere sau mese.",
+    "per": "Coduri pe pagină",
+    "perN": "{n} pe coală",
+    "names": "Nume sub fiecare cod",
+    "cut": "Linii de tăiere",
+    "sum": "{n} coduri pe {p} coli.",
+    "sumOne": "Același cod de {n} ori pe 1 coală.",
+    "make": "Creează PDF",
+    "busy": "Se creează coala…"
   }
 }

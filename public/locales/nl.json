@@ -2847,5 +2847,19 @@
     "lastScan": "Laatste scan",
     "total": "Totaal gescand",
     "never": "Nog nooit"
+  },
+  "sheet": {
+    "title": "Printvel (A4)",
+    "short": "Printvel",
+    "lead": "{n} codes op A4-vellen, klaar om te printen.",
+    "leadOne": "Een A4-vel vol met “{name}”, bijv. voor stickers of tafels.",
+    "per": "Codes per pagina",
+    "perN": "{n} per vel",
+    "names": "Naam onder elke code",
+    "cut": "Snijlijnen",
+    "sum": "{n} codes op {p} vel(len).",
+    "sumOne": "{n} keer dezelfde code op 1 vel.",
+    "make": "PDF maken",
+    "busy": "Printvel wordt gemaakt…"
   }
 }

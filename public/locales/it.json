@@ -2802,5 +2802,19 @@
     "lastScan": "Ultima scansione",
     "total": "Scansioni totali",
     "never": "Mai"
+  },
+  "sheet": {
+    "title": "Foglio da stampare (A4)",
+    "short": "Foglio A4",
+    "lead": "{n} codici su fogli A4, pronti da stampare.",
+    "leadOne": "Un foglio A4 pieno di “{name}”, ad es. per adesivi o tavoli.",
+    "per": "Codici per pagina",
+    "perN": "{n} per foglio",
+    "names": "Nome sotto ogni codice",
+    "cut": "Linee di taglio",
+    "sum": "{n} codici su {p} fogli.",
+    "sumOne": "Lo stesso codice {n} volte su 1 foglio.",
+    "make": "Crea PDF",
+    "busy": "Creazione del foglio…"
   }
 }

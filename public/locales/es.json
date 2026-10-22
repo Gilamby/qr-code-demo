@@ -2847,5 +2847,19 @@
     "lastScan": "Último escaneo",
     "total": "Escaneos totales",
     "never": "Nunca"
+  },
+  "sheet": {
+    "title": "Hoja para imprimir (A4)",
+    "short": "Hoja A4",
+    "lead": "{n} códigos en hojas A4, listos para imprimir.",
+    "leadOne": "Una hoja A4 llena de «{name}», p. ej. para pegatinas o mesas.",
+    "per": "Códigos por página",
+    "perN": "{n} por hoja",
+    "names": "Nombre bajo cada código",
+    "cut": "Líneas de corte",
+    "sum": "{n} códigos en {p} hoja(s).",
+    "sumOne": "El mismo código {n} veces en 1 hoja.",
+    "make": "Crear PDF",
+    "busy": "Creando la hoja…"
   }
 }

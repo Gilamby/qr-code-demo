@@ -2802,5 +2802,19 @@
     "lastScan": "Seneste scanning",
     "total": "Scanninger i alt",
     "never": "Aldrig"
+  },
+  "sheet": {
+    "title": "Printark (A4)",
+    "short": "Printark",
+    "lead": "{n} koder på A4-ark, klar til print.",
+    "leadOne": "Et A4-ark fyldt med “{name}”, fx til klistermærker eller borde.",
+    "per": "Koder pr. side",
+    "perN": "{n} pr. ark",
+    "names": "Navn under hver kode",
+    "cut": "Skærelinjer",
+    "sum": "{n} koder på {p} ark.",
+    "sumOne": "Den samme kode {n} gange på 1 ark.",
+    "make": "Lav PDF",
+    "busy": "Laver printark…"
   }
 }

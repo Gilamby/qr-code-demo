@@ -2808,5 +2808,19 @@
     "lastScan": "Letzter Scan",
     "total": "Scans gesamt",
     "never": "Noch nie"
+  },
+  "sheet": {
+    "title": "Druckbogen (A4)",
+    "short": "Druckbogen",
+    "lead": "{n} Codes auf A4-Bögen, fertig zum Drucken.",
+    "leadOne": "Ein A4-Bogen voll mit „{name}“, z. B. für Aufkleber oder Tische.",
+    "per": "Codes pro Seite",
+    "perN": "{n} pro Bogen",
+    "names": "Name unter jedem Code",
+    "cut": "Schnittlinien",
+    "sum": "{n} Codes auf {p} Bogen.",
+    "sumOne": "Derselbe Code {n}-mal auf 1 Bogen.",
+    "make": "PDF erstellen",
+    "busy": "Druckbogen wird erstellt…"
   }
 }

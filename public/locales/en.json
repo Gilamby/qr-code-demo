@@ -2847,5 +2847,19 @@
     "lastScan": "Last scan",
     "total": "Total scans",
     "never": "Never"
+  },
+  "sheet": {
+    "title": "Print sheet (A4)",
+    "short": "Print sheet",
+    "lead": "{n} codes on A4 sheets, ready to print.",
+    "leadOne": "An A4 sheet full of “{name}”, e.g. for stickers or tables.",
+    "per": "Codes per page",
+    "perN": "{n} per sheet",
+    "names": "Name under each code",
+    "cut": "Cut lines",
+    "sum": "{n} codes on {p} sheet(s).",
+    "sumOne": "The same code {n} times on 1 sheet.",
+    "make": "Create PDF",
+    "busy": "Creating print sheet…"
   }
 }

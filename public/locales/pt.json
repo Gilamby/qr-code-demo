@@ -2802,5 +2802,19 @@
     "lastScan": "Última leitura",
     "total": "Total de leituras",
     "never": "Nunca"
+  },
+  "sheet": {
+    "title": "Folha para imprimir (A4)",
+    "short": "Folha A4",
+    "lead": "{n} códigos em folhas A4, prontos a imprimir.",
+    "leadOne": "Uma folha A4 cheia de “{name}”, p. ex. para autocolantes ou mesas.",
+    "per": "Códigos por página",
+    "perN": "{n} por folha",
+    "names": "Nome sob cada código",
+    "cut": "Linhas de corte",
+    "sum": "{n} códigos em {p} folha(s).",
+    "sumOne": "O mesmo código {n} vezes em 1 folha.",
+    "make": "Criar PDF",
+    "busy": "A criar a folha…"
   }
 }

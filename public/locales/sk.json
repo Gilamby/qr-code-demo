@@ -2802,5 +2802,19 @@
     "lastScan": "Posledný sken",
     "total": "Skenov celkom",
     "never": "Nikdy"
+  },
+  "sheet": {
+    "title": "Tlačový hárok (A4)",
+    "short": "Hárok A4",
+    "lead": "{n} kódov na hárkoch A4, pripravené na tlač.",
+    "leadOne": "Hárok A4 plný „{name}“, napr. na nálepky alebo stoly.",
+    "per": "Kódov na stranu",
+    "perN": "{n} na hárok",
+    "names": "Názov pod každým kódom",
+    "cut": "Rezacie čiary",
+    "sum": "{n} kódov na {p} hárkoch.",
+    "sumOne": "Ten istý kód {n}-krát na 1 hárku.",
+    "make": "Vytvoriť PDF",
+    "busy": "Vytvára sa hárok…"
   }
 }

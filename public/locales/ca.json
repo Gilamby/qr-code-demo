@@ -2802,5 +2802,19 @@
     "lastScan": "Últim escaneig",
     "total": "Escanejos totals",
     "never": "Mai"
+  },
+  "sheet": {
+    "title": "Full per imprimir (A4)",
+    "short": "Full A4",
+    "lead": "{n} codis en fulls A4, a punt per imprimir.",
+    "leadOne": "Un full A4 ple de «{name}», p. ex. per a adhesius o taules.",
+    "per": "Codis per pàgina",
+    "perN": "{n} per full",
+    "names": "Nom sota cada codi",
+    "cut": "Línies de tall",
+    "sum": "{n} codis en {p} full(s).",
+    "sumOne": "El mateix codi {n} vegades en 1 full.",
+    "make": "Crea el PDF",
+    "busy": "Creant el full…"
   }
 }

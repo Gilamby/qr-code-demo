@@ -34,6 +34,7 @@ var MyCodes = (function () {
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     star: '<path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/>',
     pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+    print: '<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>',
     tag: '<path d="M3 12V4.5A1.5 1.5 0 0 1 4.5 3H12l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>', note: '<path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4M8.5 12h7M8.5 16h5"/>',
     dup: '<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2M14 11v6M11 14h6"/>',
     empty: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>'
@@ -202,6 +203,7 @@ var MyCodes = (function () {
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
             '<button type="button" role="menuitem" data-act="labels">' + ico('tag') + t('labels.menu') + '</button>' +
+            '<button type="button" role="menuitem" data-act="sheet">' + ico('print') + t('sheet.title') + '</button>' +
             '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
             (r.folderId ? '<button type="button" role="menuitem" data-act="moveout">' + ico('moveOut') + t('folders.moveOut') + '</button>' : '') +
             (!stat && isTeam() ? '<button type="button" role="menuitem" data-act="legacy">' + ico('chain') + t(r.legacyUrl ? 'legacy.menuEdit' : 'legacy.menu') + '</button>' : '') +
@@ -253,6 +255,7 @@ var MyCodes = (function () {
       (sel.some(function (r) { return r.folderId; }) ? '<button type="button" class="btn ghost sm" data-bulk="moveout" title="' + esc(t('folders.moveOut')) + '">' + ico('moveOut') + '<span>' + t('folders.moveOut') + '</span></button>' : '') +
       '<div class="mc-drop mc-up"><button type="button" class="btn ghost sm" data-bulk="dl" aria-haspopup="true" aria-expanded="false" title="' + esc(t('myCodes.download')) + '">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button><div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(true) + '</div></div>' +
       (dyn.length ? '<button type="button" class="btn ghost sm" data-bulk="pause">' + t('myCodes.bulkPause') + '</button><button type="button" class="btn ghost sm" data-bulk="resume">' + t('myCodes.bulkResume') + '</button>' : '') +
+      '<button type="button" class="btn ghost sm" data-bulk="sheet" title="' + esc(t('sheet.title')) + '">' + ico('print') + '<span>' + t('sheet.short') + '</span></button>' +
       '<button type="button" class="btn ghost sm danger-ghost" data-bulk="delete" title="' + esc(t('myCodes.delete')) + '">' + ico('trash') + '<span>' + t('myCodes.delete') + '</span></button>' +
       '<button type="button" class="mc-ico" data-bulk="clear" aria-label="' + esc(t('myCodes.cancel')) + '" title="' + esc(t('myCodes.cancel')) + '">' + ico('x') + '</button>';
     bulk.hidden = false;
@@ -270,6 +273,7 @@ var MyCodes = (function () {
     if (k === 'move') return askMove(sel);
     if (k === 'moveout') return move(sel.filter(function (r) { return r.folderId; }).map(function (r) { return r.id; }), null);
     if (k === 'delete') return askDeleteMany(sel);
+    if (k === 'sheet') return askSheet(sel);
     if (k === 'pause' || k === 'resume') {
       var next = k === 'pause', todo = sel.filter(function (r) { return !isStatic(r) && !!r.paused !== next && !(r.hold && r.hold.lock); });
       // Na elkaar (niet tegelijk): bij aanzetten telt de limiet van het pakket per code
@@ -310,6 +314,36 @@ var MyCodes = (function () {
       api.patchQrCode(r.id, { labels: cur, note: dialog.querySelector('#lbNote').value }).then(function (rec) { replace(rec); drawTools(); draw(); toast('labels.saved'); }).catch(function () { toast('myCodes.failed'); });
     };
     dialog.returnValue = ''; dialog.showModal(); inp.focus();
+  }
+  // Printvel: meerdere codes op A4 (tafelkaartjes, stickers). Eén code: de pagina vullen met kopieën
+  var sheetPer = 6, sheetNames = true, sheetCut = true;
+  function askSheet(sel) {
+    var one = sel.length === 1, L = [[1, '1'], [4, '2 × 2'], [6, '2 × 3'], [12, '3 × 4'], [24, '4 × 6']];
+    var pages = function () { return one ? 1 : Math.ceil(sel.length / sheetPer); };
+    function html() {
+      return '<form method="dialog" class="mc-dlg sh-dlg"><span class="mc-dlg-ic">' + ico('print') + '</span><h3>' + esc(t('sheet.title')) + '</h3><p>' + esc(one ? t('sheet.leadOne', { name: displayName(sel[0]) }) : t('sheet.lead', { n: sel.length })) + '</p>' +
+        '<div class="sh-grid" role="radiogroup" aria-label="' + esc(t('sheet.per')) + '">' + L.map(function (l) {
+          var g = { 1: [1, 1], 4: [2, 2], 6: [2, 3], 12: [3, 4], 24: [4, 6] }[l[0]], cells = '';
+          for (var i = 0; i < g[0] * g[1]; i++) cells += '<i></i>';
+          return '<button type="button" role="radio" aria-checked="' + (sheetPer === l[0]) + '" data-sh="' + l[0] + '"><span class="sh-a4" style="--c:' + g[0] + ';--r:' + g[1] + '">' + cells + '</span><small>' + t('sheet.perN', { n: l[0] }) + '</small></button>';
+        }).join('') + '</div>' +
+        '<label class="set-switch"><input type="checkbox" id="shNames"' + (sheetNames ? ' checked' : '') + '><span>' + t('sheet.names') + '</span></label>' +
+        '<label class="set-switch"><input type="checkbox" id="shCut"' + (sheetCut ? ' checked' : '') + '><span>' + t('sheet.cut') + '</span></label>' +
+        '<p class="sh-sum">' + esc(t(one ? 'sheet.sumOne' : 'sheet.sum', { n: one ? sheetPer : sel.length, p: pages() })) + '</p>' +
+        '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn primary" value="ok">' + ico('dl') + t('sheet.make') + '</button></div></form>';
+    }
+    dialog.innerHTML = html();
+    dialog.onclick = function (e) { var b = e.target.closest('[data-sh]'); if (!b) return; sheetPer = +b.getAttribute('data-sh'); sheetNames = dialog.querySelector('#shNames').checked; sheetCut = dialog.querySelector('#shCut').checked; dialog.innerHTML = html(); };
+    dialog.onclose = function () {
+      dialog.onclick = null;
+      if (dialog.returnValue !== 'ok') return;
+      sheetNames = dialog.querySelector('#shNames').checked; sheetCut = dialog.querySelector('#shCut').checked;
+      toast('sheet.busy');
+      CodeUtil.sheetPdf(sel, sheetPer, { names: sheetNames, cut: sheetCut, fill: one })
+        .then(function (b) { saveFile(b, (one ? CodeUtil.fileName(sel[0]) : 'qr-codes') + '-a4-' + new Date().toISOString().slice(0, 10) + '.pdf'); })
+        .catch(function () { toast('myCodes.failed'); });
+    };
+    dialog.returnValue = ''; dialog.showModal();
   }
   function askDeleteMany(sel) {
     dialog.innerHTML = '<form method="dialog" class="mc-dlg">' + '<span class="mc-dlg-ic">' + ico('trash') + '</span>' +
@@ -753,6 +787,7 @@ var MyCodes = (function () {
     if (act === 'fav') return favorite(r);
     if (act === 'duplicate') return duplicate(r);
     if (act === 'labels') return askLabels(r);
+    if (act === 'sheet') return askSheet([r]);
   });
   list.addEventListener('change', function (e) {
     var cb = e.target.closest('[data-sel]'); if (!cb) return;

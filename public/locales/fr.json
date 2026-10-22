@@ -2808,5 +2808,19 @@
     "lastScan": "Dernier scan",
     "total": "Scans au total",
     "never": "Jamais"
+  },
+  "sheet": {
+    "title": "Planche à imprimer (A4)",
+    "short": "Planche A4",
+    "lead": "{n} codes sur des feuilles A4, prêts à imprimer.",
+    "leadOne": "Une feuille A4 remplie de « {name} », par ex. pour des autocollants ou des tables.",
+    "per": "Codes par page",
+    "perN": "{n} par feuille",
+    "names": "Nom sous chaque code",
+    "cut": "Traits de coupe",
+    "sum": "{n} codes sur {p} feuille(s).",
+    "sumOne": "Le même code {n} fois sur 1 feuille.",
+    "make": "Créer le PDF",
+    "busy": "Création de la planche…"
   }
 }

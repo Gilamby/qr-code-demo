@@ -2802,5 +2802,19 @@
     "lastScan": "Ostatni skan",
     "total": "Skanów łącznie",
     "never": "Nigdy"
+  },
+  "sheet": {
+    "title": "Arkusz do druku (A4)",
+    "short": "Arkusz A4",
+    "lead": "{n} kodów na arkuszach A4, gotowe do druku.",
+    "leadOne": "Arkusz A4 pełen „{name}”, np. na naklejki lub stoły.",
+    "per": "Kodów na stronę",
+    "perN": "{n} na arkusz",
+    "names": "Nazwa pod każdym kodem",
+    "cut": "Linie cięcia",
+    "sum": "{n} kodów na {p} arkuszach.",
+    "sumOne": "Ten sam kod {n} razy na 1 arkuszu.",
+    "make": "Utwórz PDF",
+    "busy": "Tworzenie arkusza…"
   }
 }

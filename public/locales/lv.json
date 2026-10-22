@@ -2802,5 +2802,19 @@
     "lastScan": "Pēdējā skenēšana",
     "total": "Kopā skenēts",
     "never": "Nekad"
+  },
+  "sheet": {
+    "title": "Drukas lapa (A4)",
+    "short": "A4 lapa",
+    "lead": "{n} kodi uz A4 lapām, gatavi drukai.",
+    "leadOne": "A4 lapa pilna ar “{name}”, piem., uzlīmēm vai galdiem.",
+    "per": "Kodi lapā",
+    "perN": "{n} lapā",
+    "names": "Nosaukums zem katra koda",
+    "cut": "Griešanas līnijas",
+    "sum": "{n} kodi uz {p} lapām.",
+    "sumOne": "Tas pats kods {n} reizes uz 1 lapas.",
+    "make": "Izveidot PDF",
+    "busy": "Veido drukas lapu…"
   }
 }

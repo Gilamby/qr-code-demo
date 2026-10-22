@@ -2802,5 +2802,19 @@
     "lastScan": "Viimeisin skannaus",
     "total": "Skannauksia yhteensä",
     "never": "Ei koskaan"
+  },
+  "sheet": {
+    "title": "Tulostusarkki (A4)",
+    "short": "Tulostusarkki",
+    "lead": "{n} koodia A4-arkeilla, valmiina tulostettaviksi.",
+    "leadOne": "A4-arkki täynnä koodia ”{name}”, esim. tarroihin tai pöytiin.",
+    "per": "Koodeja sivulla",
+    "perN": "{n} arkilla",
+    "names": "Nimi jokaisen koodin alle",
+    "cut": "Leikkuuviivat",
+    "sum": "{n} koodia {p} arkilla.",
+    "sumOne": "Sama koodi {n} kertaa yhdellä arkilla.",
+    "make": "Luo PDF",
+    "busy": "Luodaan tulostusarkkia…"
   }
 }

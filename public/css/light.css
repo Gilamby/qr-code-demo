@@ -516,6 +516,8 @@
 :root[data-theme="light"] .tpl-star.on { color: #b45309; }
 :root[data-theme="light"] .cd-pill { background: rgba(13,19,32,0.053); }
 :root[data-theme="light"] .cd-pill.tag { color: #0369a1; }
+:root[data-theme="light"] .sh-grid button { background: rgba(13,19,32,0.023); }
+:root[data-theme="light"] .sh-a4 i { background: #e5e7eb; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

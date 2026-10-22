@@ -2802,5 +2802,19 @@
     "lastScan": "Senaste skanning",
     "total": "Skanningar totalt",
     "never": "Aldrig"
+  },
+  "sheet": {
+    "title": "Utskriftsark (A4)",
+    "short": "Utskriftsark",
+    "lead": "{n} koder på A4-ark, klara att skriva ut.",
+    "leadOne": "Ett A4-ark fullt med ”{name}”, t.ex. för klistermärken eller bord.",
+    "per": "Koder per sida",
+    "perN": "{n} per ark",
+    "names": "Namn under varje kod",
+    "cut": "Skärlinjer",
+    "sum": "{n} koder på {p} ark.",
+    "sumOne": "Samma kod {n} gånger på 1 ark.",
+    "make": "Skapa PDF",
+    "busy": "Skapar utskriftsark…"
   }
 }

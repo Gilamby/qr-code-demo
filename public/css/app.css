@@ -5181,3 +5181,15 @@ body.paywall-open { overflow: hidden; }
 .an-drill { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
 .an-crumb { justify-content: flex-start; text-align: left; } .an-crumb .link-btn { display: inline; width: auto; padding: 0; margin: 0; font-size: 13px; background: none; border: 0; }
 .an-dc .an-crumb { display: flex !important; flex-direction: row !important; flex-wrap: wrap; align-items: baseline; } .an-dc .an-crumb > * { flex: none; width: auto !important; display: inline !important; }
+
+/* Printvel (A4) */
+.sh-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 6px 0 12px; }
+.sh-grid button { display: grid; justify-items: center; gap: 6px; padding: 10px 4px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--muted); font: inherit; cursor: pointer; }
+.sh-grid button[aria-checked="true"] { border-color: var(--accent); background: rgba(43,181,240,.12); color: var(--fg); }
+.sh-a4 { width: 36px; height: 50px; border-radius: 3px; background: #fff; padding: 3px; display: grid; grid-template-columns: repeat(var(--c), 1fr); grid-template-rows: repeat(var(--r), 1fr); gap: 2px; }
+.sh-a4 i { background: #1f2937; border-radius: 1px; }
+.sh-grid small { font-size: 12px; font-weight: 650; }
+.sh-dlg .set-switch { display: flex; margin: 4px 0; text-align: left; }
+.sh-sum { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
+@media (max-width: 480px) { .sh-grid { grid-template-columns: repeat(3, 1fr); } }
+.sh-dlg .mc-dlg-ic { background: rgba(43,181,240,.14); color: var(--accent); }

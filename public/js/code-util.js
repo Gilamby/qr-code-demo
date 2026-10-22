@@ -60,6 +60,51 @@ var CodeUtil = (function () {
       return new Blob(parts, { type: 'application/pdf' });
     });
   }
+  /* Printvel (A4-PDF): meerdere codes per pagina, voor tafelkaartjes of stickers.
+     list = codes, per = 1 | 4 | 6 | 12 | 24, opts = { names: naam onder de code, cut: snijlijnen, fill: één code de hele pagina vullen } */
+  var SHEETS = { 1: [1, 1], 4: [2, 2], 6: [2, 3], 12: [3, 4], 24: [4, 6] };
+  function sheetPdf(list, per, opts) {
+    opts = opts || {}; var grid = SHEETS[per] || SHEETS[6], cols = grid[0], rows = grid[1], n = cols * rows;
+    var items = opts.fill && list.length === 1 ? Array.apply(null, Array(n)).map(function () { return list[0]; }) : list.slice();
+    return list.reduce(function (p, r) { return p.then(function (acc) { return raster(r, 1024, 'image/jpeg').then(function (x) { return x.blob.arrayBuffer().then(function (b) { acc.push({ r: r, img: new Uint8Array(b), w: x.w, h: x.h }); return acc; }); }); }); }, Promise.resolve([])).then(function (imgs) {
+      var enc = new TextEncoder(), parts = [], offs = [], len = 0, idx = {};
+      imgs.forEach(function (x, i) { idx[x.r.id] = i; });
+      function push(x) { var b = typeof x === 'string' ? enc.encode(x) : x; parts.push(b); len += b.length; }
+      function obj(nr, body) { offs[nr] = len; push(nr + ' 0 obj\n'); body(); push('\nendobj\n'); }
+      var latin = function (s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\x20-\x7e]/g, '').replace(/([()\\])/g, '\\$1'); };
+      var pages = []; for (var i = 0; i < items.length; i += n) pages.push(items.slice(i, i + n));
+      var M = 28, cw = (595 - 2 * M) / cols, ch = (842 - 2 * M) / rows, fs = Math.max(7, Math.min(13, cw / 14)), nameH = opts.names ? fs + 8 : 0;
+      var size = Math.min(cw, ch - nameH) * (per === 1 ? .7 : .8);
+      // objecten: 1 catalogus, 2 paginalijst, 3 lettertype, 4.. afbeeldingen, daarna per pagina: pagina + inhoud
+      var imgBase = 4, pageBase = imgBase + imgs.length, total = pageBase + pages.length * 2;
+      push('%PDF-1.4\n%\xe2\xe3\xcf\xd3\n');
+      obj(1, function () { push('<< /Type /Catalog /Pages 2 0 R >>'); });
+      obj(2, function () { push('<< /Type /Pages /Kids [' + pages.map(function (_, i) { return (pageBase + i * 2) + ' 0 R'; }).join(' ') + '] /Count ' + pages.length + ' >>'); });
+      obj(3, function () { push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'); });
+      imgs.forEach(function (x, i) { obj(imgBase + i, function () { push('<< /Type /XObject /Subtype /Image /Width ' + x.w + ' /Height ' + x.h + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + x.img.length + ' >>\nstream\n'); push(x.img); push('\nendstream'); }); });
+      var xo = '<< ' + imgs.map(function (_, i) { return '/Im' + i + ' ' + (imgBase + i) + ' 0 R'; }).join(' ') + ' >>';
+      pages.forEach(function (pg, pi) {
+        var c = '';
+        pg.forEach(function (r, k) {
+          var col = k % cols, row = Math.floor(k / cols), x0 = M + col * cw, yTop = 842 - M - row * ch;
+          if (opts.cut) c += '0.8 G 0.4 w [3 3] 0 d ' + x0.toFixed(1) + ' ' + (yTop - ch).toFixed(1) + ' ' + cw.toFixed(1) + ' ' + ch.toFixed(1) + ' re S [] 0 d ';
+          var im = imgs[idx[r.id]], dw = im.h > im.w ? size * im.w / im.h : size, dh = im.h > im.w ? size : size * im.h / im.w;   // verhouding van het plaatje (kader) houden
+          var ix = x0 + (cw - dw) / 2, iy = yTop - (ch - dh - nameH) / 2 - dh;
+          c += 'q ' + dw.toFixed(1) + ' 0 0 ' + dh.toFixed(1) + ' ' + ix.toFixed(1) + ' ' + iy.toFixed(1) + ' cm /Im' + idx[r.id] + ' Do Q ';
+          if (opts.names) {
+            var nm = latin(displayName(r)), maxC = Math.floor(cw / (fs * .52)); if (nm.length > maxC) nm = nm.slice(0, Math.max(1, maxC - 1)) + '.';
+            var tw = nm.length * fs * .5; c += '0 g BT /F1 ' + fs.toFixed(1) + ' Tf ' + (x0 + (cw - tw) / 2).toFixed(1) + ' ' + (iy - fs - 4).toFixed(1) + ' Td (' + nm + ') Tj ET ';
+          }
+        });
+        obj(pageBase + pi * 2, function () { push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject ' + xo + ' /Font << /F1 3 0 R >> >> /Contents ' + (pageBase + pi * 2 + 1) + ' 0 R >>'); });
+        obj(pageBase + pi * 2 + 1, function () { push('<< /Length ' + enc.encode(c).length + ' >>\nstream\n' + c + '\nendstream'); });
+      });
+      var xref = len, tbl = 'xref\n0 ' + total + '\n0000000000 65535 f \n';
+      for (var j = 1; j < total; j++) tbl += String(offs[j]).padStart(10, '0') + ' 00000 n \n';
+      push(tbl + 'trailer\n<< /Size ' + total + ' /Root 1 0 R >>\nstartxref\n' + xref + '\n%%EOF');
+      return new Blob(parts, { type: 'application/pdf' });
+    });
+  }
   // EPS (voor drukkerijen, Illustrator): PostScript Level 2 met de QR-code als JPEG erin (DCTDecode), 12,7 cm breed
   function epsFrom(jpeg, w, h, title) {
     return jpeg.arrayBuffer().then(function (buf) {
@@ -138,5 +183,5 @@ var CodeUtil = (function () {
     users: '<g class="hx-p1"><circle cx="9" cy="8" r="3.4"/><path d="M2.8 19.5c.9-3.4 3.3-5.3 6.2-5.3s5.3 1.9 6.2 5.3"/></g><g class="hx-p2"><circle cx="16.8" cy="9" r="2.6"/><path d="M16.6 14.3c2.3.2 4 1.9 4.6 4.6"/></g>'
   };
   function tileIcon(k) { return '<svg class="hm-i hx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (TILE[k] || '') + '</svg>'; }
-  return { isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, print: print, share: share, zip: zip, fileName: fileName, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
+  return { sheetPdf: sheetPdf, isStatic: isStatic, displayName: displayName, qrData: qrData, qrDesign: qrDesign, qrSvg: qrSvg, download: download, downloadMany: downloadMany, render: render, print: print, share: share, zip: zip, fileName: fileName, formats: FORMATS, sizes: SIZES, tileIcon: tileIcon };
 })();
