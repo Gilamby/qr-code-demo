@@ -5135,3 +5135,15 @@ body.paywall-open { overflow: hidden; }
 .lb-chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px 4px 11px; border-radius: 99px; background: rgba(43,181,240,.18); font-size: 13px; font-weight: 650; }
 .lb-chip button { border: 0; background: transparent; color: inherit; font-size: 16px; line-height: 1; cursor: pointer; padding: 0 4px; opacity: .7; } .lb-chip button:hover { opacity: 1; }
 .lb-dlg textarea { width: 100%; resize: vertical; min-height: 70px; font: inherit; }
+
+/* Stap Ontwerp: Mijn huisstijl (sjablonen) */
+.dz-hint { margin: 0 0 10px; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.tpl-wrap { position: relative; }
+.tpl-wrap .dz-tile { width: 100%; }
+.tpl-star, .tpl-del { position: absolute; top: 4px; width: 24px; height: 24px; border-radius: 50%; border: 0; display: grid; place-items: center; cursor: pointer; font-size: 14px; line-height: 1; background: rgba(8,11,16,.75); color: #cbd5e1; opacity: 0; transition: opacity .15s; }
+.tpl-star { left: 4px; } .tpl-del { right: 4px; font-size: 16px; }
+.tpl-wrap:hover .tpl-star, .tpl-wrap:hover .tpl-del, .tpl-wrap:focus-within .tpl-star, .tpl-wrap:focus-within .tpl-del, .tpl-star.on { opacity: 1; }
+.tpl-star.on { color: #fbbf24; }
+.tpl-name { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .tpl-name .auth-in { flex: 1; min-width: 160px; }
+.tpl-add { margin-top: 10px; }
+@media (hover: none) { .tpl-star, .tpl-del { opacity: 1; } }

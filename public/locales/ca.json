@@ -2765,5 +2765,22 @@
     "note": "Nota",
     "notePh": "Per exemple: a l’entrada, fullet setmana 12",
     "saved": "Desat"
+  },
+  "tpl": {
+    "card": "El meu estil",
+    "lead": "Fes clic en un disseny per aplicar-lo. L’estrella el fa predeterminat per als codis nous.",
+    "empty": "Desa el teu disseny (colors, logo, marc) un cop i fes-lo servir per a cada codi nou.",
+    "apply": "Aplica {name}",
+    "save": "Desa el disseny actual",
+    "namePh": "Nom, p. ex. Estil Café Lumen",
+    "needName": "Posa un nom al teu disseny.",
+    "saved": "Desat al teu estil.",
+    "delete": "Elimina",
+    "makeDefault": "Predeterminat per als codis nous",
+    "isDefault": "Predeterminat per als codis nous",
+    "defaultOn": "Els codis nous tindran aquest disseny.",
+    "defaultOff": "Ja no hi ha predeterminat.",
+    "tooBig": "El logo és massa gran per desar-lo. Fes servir una imatge més petita.",
+    "tooMany": "Pots desar fins a 10 dissenys."
   }
 }

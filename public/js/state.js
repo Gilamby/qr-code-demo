@@ -76,7 +76,8 @@ var actions = {
   // Klaar met bewerken: terug naar een lege, nieuwe code
   stopEdit: function () {
     var s = store.get(), c = Object.assign({}, s.content); if (s.editing) delete c[s.typeId];
-    store.set({ editing: null, content: c, design: Object.assign({}, QR_DEFAULT_DESIGN), draftId: newDraftId(), saved: null, created: false, error: null, step: 'type', phoneView: 'preview' });
+    var def = typeof Templates !== 'undefined' && Templates.def();   // standaard-huisstijl voor nieuwe codes
+    store.set({ editing: null, content: c, design: Object.assign({}, QR_DEFAULT_DESIGN, def ? def.design : {}), draftId: newDraftId(), saved: null, created: false, error: null, step: 'type', phoneView: 'preview' });
   },
   // Na het maken: meteen een nieuwe beginnen
   startNew: function () {

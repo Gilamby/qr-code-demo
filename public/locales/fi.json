@@ -2765,5 +2765,22 @@
     "note": "Muistiinpano",
     "notePh": "Esimerkiksi: sisäänkäynnillä, esite viikko 12",
     "saved": "Tallennettu"
+  },
+  "tpl": {
+    "card": "Oma tyylini",
+    "lead": "Klikkaa ulkoasua käyttääksesi sitä. Tähti tekee siitä uusien koodien oletuksen.",
+    "empty": "Tallenna ulkoasusi (värit, logo, kehys) kerran ja käytä sitä jokaisessa uudessa koodissa.",
+    "apply": "Käytä: {name}",
+    "save": "Tallenna nykyinen ulkoasu",
+    "namePh": "Nimi, esim. Café Lumen -tyyli",
+    "needName": "Anna ulkoasulle nimi.",
+    "saved": "Tallennettu tyyliisi.",
+    "delete": "Poista",
+    "makeDefault": "Uusien koodien oletukseksi",
+    "isDefault": "Uusien koodien oletus",
+    "defaultOn": "Uudet koodit saavat nyt tämän ulkoasun.",
+    "defaultOff": "Ei enää oletusta.",
+    "tooBig": "Logo on liian suuri tallennettavaksi. Käytä pienempää kuvaa.",
+    "tooMany": "Voit tallentaa enintään 10 ulkoasua."
   }
 }

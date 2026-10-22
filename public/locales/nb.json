@@ -2765,5 +2765,22 @@
     "note": "Notat",
     "notePh": "For eksempel: ved inngangen, flyer uke 12",
     "saved": "Lagret"
+  },
+  "tpl": {
+    "card": "Min stil",
+    "lead": "Klikk på et design for å bruke det. Stjernen gjør det til standard for nye koder.",
+    "empty": "Lagre designet ditt (farger, logo, ramme) én gang og bruk det for hver ny kode.",
+    "apply": "Bruk {name}",
+    "save": "Lagre nåværende design",
+    "namePh": "Navn, f.eks. Café Lumen-stil",
+    "needName": "Gi designet ditt et navn.",
+    "saved": "Lagret i stilen din.",
+    "delete": "Slett",
+    "makeDefault": "Gjør til standard for nye koder",
+    "isDefault": "Standard for nye koder",
+    "defaultOn": "Nye koder får nå dette designet.",
+    "defaultOff": "Ingen standard lenger.",
+    "tooBig": "Logoen er for stor til å lagres. Bruk et mindre bilde.",
+    "tooMany": "Du kan lagre opptil 10 design."
   }
 }

@@ -2804,5 +2804,22 @@
     "note": "Nota",
     "notePh": "Por ejemplo: en la entrada, folleto semana 12",
     "saved": "Guardado"
+  },
+  "tpl": {
+    "card": "Mi estilo de marca",
+    "lead": "Haz clic en un diseño para aplicarlo. La estrella lo convierte en el predeterminado para códigos nuevos.",
+    "empty": "Guarda tu diseño (colores, logo, marco) una vez y úsalo para cada código nuevo.",
+    "apply": "Aplicar {name}",
+    "save": "Guardar diseño actual",
+    "namePh": "Nombre, p. ej. Estilo Café Lumen",
+    "needName": "Ponle un nombre a tu diseño.",
+    "saved": "Guardado en tu estilo de marca.",
+    "delete": "Eliminar",
+    "makeDefault": "Predeterminado para códigos nuevos",
+    "isDefault": "Predeterminado para códigos nuevos",
+    "defaultOn": "Los códigos nuevos tendrán este diseño.",
+    "defaultOff": "Ya no hay predeterminado.",
+    "tooBig": "El logo es demasiado grande para guardarlo. Usa una imagen más pequeña.",
+    "tooMany": "Puedes guardar hasta 10 diseños."
   }
 }

@@ -2765,5 +2765,22 @@
     "note": "Nota",
     "notePh": "Por exemplo: à entrada, folheto semana 12",
     "saved": "Guardado"
+  },
+  "tpl": {
+    "card": "O meu estilo",
+    "lead": "Clica num design para o aplicar. A estrela torna-o o predefinido para códigos novos.",
+    "empty": "Guarda o teu design (cores, logótipo, moldura) uma vez e usa-o em cada código novo.",
+    "apply": "Aplicar {name}",
+    "save": "Guardar design atual",
+    "namePh": "Nome, ex. Estilo Café Lumen",
+    "needName": "Dá um nome ao teu design.",
+    "saved": "Guardado no teu estilo.",
+    "delete": "Eliminar",
+    "makeDefault": "Predefinido para códigos novos",
+    "isDefault": "Predefinido para códigos novos",
+    "defaultOn": "Os códigos novos passam a ter este design.",
+    "defaultOff": "Sem predefinido.",
+    "tooBig": "O logótipo é demasiado grande. Usa uma imagem mais pequena.",
+    "tooMany": "Podes guardar até 10 designs."
   }
 }

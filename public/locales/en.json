@@ -2804,5 +2804,22 @@
     "note": "Note",
     "notePh": "For example: at the entrance, flyer week 12",
     "saved": "Saved"
+  },
+  "tpl": {
+    "card": "My brand style",
+    "lead": "Click a design to apply it. The star makes it the default for new codes.",
+    "empty": "Save your design (colours, logo, frame) once and use it for every new code.",
+    "apply": "Apply {name}",
+    "save": "Save current design",
+    "namePh": "Name, e.g. Café Lumen brand",
+    "needName": "Give your design a name.",
+    "saved": "Saved to your brand style.",
+    "delete": "Delete",
+    "makeDefault": "Make default for new codes",
+    "isDefault": "Default for new codes",
+    "defaultOn": "New codes now get this design.",
+    "defaultOff": "No default anymore.",
+    "tooBig": "The logo is too large to save. Use a smaller image.",
+    "tooMany": "You can save up to 10 designs."
   }
 }

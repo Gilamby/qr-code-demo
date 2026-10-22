@@ -2765,5 +2765,22 @@
     "note": "Notiz",
     "notePh": "Zum Beispiel: am Eingang, Flyer Woche 12",
     "saved": "Gespeichert"
+  },
+  "tpl": {
+    "card": "Mein Markenstil",
+    "lead": "Klicke auf ein Design, um es anzuwenden. Der Stern macht es zum Standard für neue Codes.",
+    "empty": "Speichere dein Design (Farben, Logo, Rahmen) einmal und nutze es für jeden neuen Code.",
+    "apply": "{name} anwenden",
+    "save": "Aktuelles Design speichern",
+    "namePh": "Name, z. B. Markenstil Café Lumen",
+    "needName": "Gib deinem Design einen Namen.",
+    "saved": "In deinem Markenstil gespeichert.",
+    "delete": "Löschen",
+    "makeDefault": "Als Standard für neue Codes",
+    "isDefault": "Standard für neue Codes",
+    "defaultOn": "Neue Codes bekommen jetzt dieses Design.",
+    "defaultOff": "Kein Standard mehr.",
+    "tooBig": "Das Logo ist zu groß zum Speichern. Nutze ein kleineres Bild.",
+    "tooMany": "Du kannst bis zu 10 Designs speichern."
   }
 }

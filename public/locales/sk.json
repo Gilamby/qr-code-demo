@@ -2765,5 +2765,22 @@
     "note": "Poznámka",
     "notePh": "Napríklad: pri vchode, leták týždeň 12",
     "saved": "Uložené"
+  },
+  "tpl": {
+    "card": "Môj štýl",
+    "lead": "Kliknutím na dizajn ho použiješ. Hviezdička z neho spraví predvolený pre nové kódy.",
+    "empty": "Ulož si dizajn (farby, logo, rám) raz a používaj ho pri každom novom kóde.",
+    "apply": "Použiť {name}",
+    "save": "Uložiť aktuálny dizajn",
+    "namePh": "Názov, napr. Štýl Café Lumen",
+    "needName": "Pomenuj svoj dizajn.",
+    "saved": "Uložené v tvojom štýle.",
+    "delete": "Vymazať",
+    "makeDefault": "Predvolený pre nové kódy",
+    "isDefault": "Predvolený pre nové kódy",
+    "defaultOn": "Nové kódy dostanú tento dizajn.",
+    "defaultOff": "Už žiadny predvolený.",
+    "tooBig": "Logo je príliš veľké na uloženie. Použi menší obrázok.",
+    "tooMany": "Môžeš uložiť najviac 10 dizajnov."
   }
 }

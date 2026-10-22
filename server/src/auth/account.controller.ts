@@ -3,6 +3,7 @@
    Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond, factuurgegevens,
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
+import * as crypto from 'crypto';
 import { isBlocked } from './blocklist';
 import { cleanupTeam } from './team.controller';
 import { membersOf } from '../team';
@@ -195,6 +196,43 @@ export class AccountController {
 
   /** Akkoord met de voorwaarden (18+, Terms, Privacy). Wie via Google/Microsoft een account kreeg, of een account van het team,
    *  heeft nog niet akkoord gegeven: de app vraagt het dan één keer. Het team (beheer) hoeft niet. */
+  /* Huisstijl-sjablonen (KB Q74): ontwerp (kleuren, logo, kader) bewaren en hergebruiken. Max. 10, één kan standaard zijn. */
+  private async tpls(uid: string): Promise<any[]> { try { const l = JSON.parse((await this.db.getSetting('templates:' + uid)) || '[]'); return Array.isArray(l) ? l : []; } catch (e) { return []; } }
+  private async saveTpls(uid: string, l: any[]) { await this.db.setSetting('templates:' + uid, l.length ? JSON.stringify(l) : null); return { templates: l }; }
+  @Get('account/templates')
+  async templates(@CurrentUser() user: User) { return { templates: await this.tpls(user.id) }; }
+  @Post('account/templates')
+  @HttpCode(201)
+  async addTemplate(@CurrentUser() user: User, @Body() b: any = {}) {
+    const name = String(b.name || '').replace(/\s+/g, ' ').trim().slice(0, 40), design = b.design;
+    if (!name) throw fail(400, 'name');
+    if (!design || typeof design !== 'object' || Array.isArray(design)) throw fail(400, 'design');
+    const clean: Record<string, any> = {};
+    for (const [k, v] of Object.entries(design)) if (/^[A-Za-z0-9]{1,40}$/.test(k) && (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean')) clean[k] = v;
+    delete clean.pageColor; delete clean.accentColor;
+    if (JSON.stringify(clean).length > 600000) throw fail(413, 'too_big');        // logo is een plaatje: niet eindeloos groot
+    const list = await this.tpls(user.id);
+    if (list.length >= 10) throw fail(403, 'too_many');
+    const tpl = { id: crypto.randomBytes(6).toString('hex'), name, design: clean, isDefault: !!b.isDefault, at: new Date().toISOString() };
+    return this.saveTpls(user.id, (tpl.isDefault ? list.map((x) => ({ ...x, isDefault: false })) : list).concat([tpl]));
+  }
+  @Patch('account/templates/:id')
+  async patchTemplate(@CurrentUser() user: User, @Param('id') id: string, @Body() b: any = {}) {
+    const list = await this.tpls(user.id); if (!list.some((x) => x.id === id)) throw fail(404, 'Not found');
+    return this.saveTpls(user.id, list.map((x) => {
+      const y = { ...x };
+      if (b.isDefault !== undefined) y.isDefault = x.id === id ? !!b.isDefault : (b.isDefault ? false : x.isDefault);
+      if (x.id === id && typeof b.name === 'string' && b.name.trim()) y.name = b.name.replace(/\s+/g, ' ').trim().slice(0, 40);
+      return y;
+    }));
+  }
+  @Delete('account/templates/:id')
+  async deleteTemplate(@CurrentUser() user: User, @Param('id') id: string) {
+    const list = await this.tpls(user.id), rest = list.filter((x) => x.id !== id);
+    if (rest.length === list.length) throw fail(404, 'Not found');
+    return this.saveTpls(user.id, rest);
+  }
+
   /* Voorkeuren van de app (Mijn account > Voorkeuren): startpagina na inloggen */
   @Get('account/prefs')
   async prefs(@CurrentUser() user: User) {

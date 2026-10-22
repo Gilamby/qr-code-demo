@@ -2765,5 +2765,22 @@
     "note": "Notă",
     "notePh": "De exemplu: la intrare, flyer săptămâna 12",
     "saved": "Salvat"
+  },
+  "tpl": {
+    "card": "Stilul meu",
+    "lead": "Dă clic pe un design ca să-l aplici. Steaua îl face implicit pentru codurile noi.",
+    "empty": "Salvează-ți designul (culori, logo, ramă) o dată și folosește-l la fiecare cod nou.",
+    "apply": "Aplică {name}",
+    "save": "Salvează designul actual",
+    "namePh": "Nume, ex. Stil Café Lumen",
+    "needName": "Dă un nume designului.",
+    "saved": "Salvat în stilul tău.",
+    "delete": "Șterge",
+    "makeDefault": "Implicit pentru codurile noi",
+    "isDefault": "Implicit pentru codurile noi",
+    "defaultOn": "Codurile noi vor avea acest design.",
+    "defaultOff": "Nu mai există implicit.",
+    "tooBig": "Logoul e prea mare pentru a fi salvat. Folosește o imagine mai mică.",
+    "tooMany": "Poți salva cel mult 10 designuri."
   }
 }

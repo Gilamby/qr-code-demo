@@ -2765,5 +2765,22 @@
     "note": "Anteckning",
     "notePh": "Till exempel: vid entrén, flyer vecka 12",
     "saved": "Sparat"
+  },
+  "tpl": {
+    "card": "Min stil",
+    "lead": "Klicka på en design för att använda den. Stjärnan gör den till standard för nya koder.",
+    "empty": "Spara din design (färger, logotyp, ram) en gång och använd den för varje ny kod.",
+    "apply": "Använd {name}",
+    "save": "Spara nuvarande design",
+    "namePh": "Namn, t.ex. Café Lumen-stil",
+    "needName": "Ge din design ett namn.",
+    "saved": "Sparad i din stil.",
+    "delete": "Ta bort",
+    "makeDefault": "Gör till standard för nya koder",
+    "isDefault": "Standard för nya koder",
+    "defaultOn": "Nya koder får nu den här designen.",
+    "defaultOff": "Ingen standard längre.",
+    "tooBig": "Logotypen är för stor för att sparas. Använd en mindre bild.",
+    "tooMany": "Du kan spara upp till 10 designer."
   }
 }

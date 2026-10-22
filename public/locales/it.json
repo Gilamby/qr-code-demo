@@ -2765,5 +2765,22 @@
     "note": "Nota",
     "notePh": "Ad esempio: all’ingresso, volantino settimana 12",
     "saved": "Salvato"
+  },
+  "tpl": {
+    "card": "Il mio stile",
+    "lead": "Clicca su un design per applicarlo. La stella lo rende predefinito per i nuovi codici.",
+    "empty": "Salva il tuo design (colori, logo, cornice) una volta e usalo per ogni nuovo codice.",
+    "apply": "Applica {name}",
+    "save": "Salva design attuale",
+    "namePh": "Nome, es. Stile Café Lumen",
+    "needName": "Dai un nome al tuo design.",
+    "saved": "Salvato nel tuo stile.",
+    "delete": "Elimina",
+    "makeDefault": "Predefinito per i nuovi codici",
+    "isDefault": "Predefinito per i nuovi codici",
+    "defaultOn": "I nuovi codici avranno questo design.",
+    "defaultOff": "Nessun predefinito.",
+    "tooBig": "Il logo è troppo grande da salvare. Usa un’immagine più piccola.",
+    "tooMany": "Puoi salvare fino a 10 design."
   }
 }

@@ -2765,5 +2765,22 @@
     "note": "Notatka",
     "notePh": "Na przykład: przy wejściu, ulotka tydzień 12",
     "saved": "Zapisano"
+  },
+  "tpl": {
+    "card": "Mój styl",
+    "lead": "Kliknij projekt, aby go zastosować. Gwiazdka ustawia go jako domyślny dla nowych kodów.",
+    "empty": "Zapisz swój projekt (kolory, logo, ramka) raz i używaj go dla każdego nowego kodu.",
+    "apply": "Zastosuj {name}",
+    "save": "Zapisz obecny projekt",
+    "namePh": "Nazwa, np. Styl Café Lumen",
+    "needName": "Nazwij swój projekt.",
+    "saved": "Zapisano w Twoim stylu.",
+    "delete": "Usuń",
+    "makeDefault": "Ustaw jako domyślny dla nowych kodów",
+    "isDefault": "Domyślny dla nowych kodów",
+    "defaultOn": "Nowe kody dostaną ten projekt.",
+    "defaultOff": "Brak domyślnego.",
+    "tooBig": "Logo jest za duże do zapisania. Użyj mniejszego obrazu.",
+    "tooMany": "Możesz zapisać do 10 projektów."
   }
 }

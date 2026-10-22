@@ -2765,5 +2765,22 @@
     "note": "Piezīme",
     "notePh": "Piemēram: pie ieejas, skrejlapa 12. nedēļa",
     "saved": "Saglabāts"
+  },
+  "tpl": {
+    "card": "Mans stils",
+    "lead": "Noklikšķini uz dizaina, lai to lietotu. Zvaigzne padara to par noklusējumu jauniem kodiem.",
+    "empty": "Saglabā savu dizainu (krāsas, logo, rāmi) vienreiz un izmanto katram jaunam kodam.",
+    "apply": "Lietot {name}",
+    "save": "Saglabāt pašreizējo dizainu",
+    "namePh": "Nosaukums, piem., Café Lumen stils",
+    "needName": "Piešķir dizainam nosaukumu.",
+    "saved": "Saglabāts tavā stilā.",
+    "delete": "Dzēst",
+    "makeDefault": "Noklusējums jauniem kodiem",
+    "isDefault": "Noklusējums jauniem kodiem",
+    "defaultOn": "Jaunie kodi tagad saņems šo dizainu.",
+    "defaultOff": "Vairs nav noklusējuma.",
+    "tooBig": "Logo ir par lielu saglabāšanai. Izmanto mazāku attēlu.",
+    "tooMany": "Var saglabāt līdz 10 dizainiem."
   }
 }

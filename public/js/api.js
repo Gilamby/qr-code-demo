@@ -301,6 +301,13 @@ var api = (function () {
       remove:   function (id)    { return request('DELETE', 'api/team/' + encodeURIComponent(id)); }
     },
     // Mijn account. Zonder server (online demo): alles in deze browser, zelfde antwoorden.
+    // Huisstijl-sjablonen (stap Ontwerp)
+    templates: {
+      list:   function ()      { return api.isDemo && api.isDemo() ? Promise.resolve({ templates: [] }) : request('GET', 'api/account/templates'); },
+      add:    function (d)     { return request('POST', 'api/account/templates', d); },
+      patch:  function (id, d) { return request('PATCH', 'api/account/templates/' + encodeURIComponent(id), d); },
+      remove: function (id)    { return request('DELETE', 'api/account/templates/' + encodeURIComponent(id)); },
+    },
     account: {
       prefs:     function ()  { return api.isDemo && api.isDemo() ? Promise.resolve({ start: 'home' }) : request('GET', 'api/account/prefs'); },
       savePrefs: function (d) { return request('PATCH', 'api/account/prefs', d); },

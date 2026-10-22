@@ -511,6 +511,9 @@
 :root[data-theme="light"] .set-tog i::after { box-shadow: 0 1px 3px rgba(13,19,32,0.105); }
 :root[data-theme="light"] .set-code { background: rgba(13,19,32,0.045); }
 :root[data-theme="light"] .mc-tag { color: #0369a1; }
+:root[data-theme="light"] .tpl-star,
+:root[data-theme="light"] .tpl-del { color: #475569; }
+:root[data-theme="light"] .tpl-star.on { color: #b45309; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

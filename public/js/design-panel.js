@@ -20,14 +20,29 @@ function themeDesign(th, state) {
 }
 function themeById(id) { return DESIGN_THEMES.filter(function (x) { return x.id === id; })[0]; }
 
+/* Huisstijl-sjablonen (KB Q74): eigen ontwerpen bewaren en met één klik toepassen; één kan standaard zijn voor nieuwe codes */
+var Templates = (function () {
+  var list = null, listeners = [];
+  function load() { return api.templates.list().then(function (r) { list = r.templates || []; listeners.forEach(function (f) { f(); }); return list; }).catch(function () { list = []; }); }
+  function set(r) { list = r.templates || []; listeners.forEach(function (f) { f(); }); return list; }
+  if (window.Session) Session.onUser(function () { list = null; load(); });
+  return {
+    all: function () { return list || []; }, loaded: function () { return list !== null; }, load: load, onChange: function (f) { listeners.push(f); },
+    def: function () { return (list || []).filter(function (x) { return x.isDefault; })[0] || null; },
+    add: function (name, design, isDefault) { return api.templates.add({ name: name, design: design, isDefault: !!isDefault }).then(set); },
+    setDefault: function (id, on) { return api.templates.patch(id, { isDefault: on }).then(set); },
+    remove: function (id) { return api.templates.remove(id).then(set); }
+  };
+})();
+
 var DesignPanel = (function () {
   var colorOpen = null, frameGroup = null, themeGroup = 'business';
 
   // Elk onderdeel is een eigen glazen kaart die je in- en uitklapt. Stijlen en Logo staan open (belangrijkst).
-  var openCards = { frame: true, style: true, logo: true, colors: false, corners: false };   // frame + tekst bovenaan: de enige plek voor je eigen tekst
+  var openCards = { brand: true, frame: true, style: true, logo: true, colors: false, corners: false };   // frame + tekst bovenaan: de enige plek voor je eigen tekst
   // Telefoon: rustig, één onderdeel tegelijk open (begint bij Stijlen) — wens Fabian 21 okt
   var phoneMq = matchMedia('(max-width: 760px)');
-  if (phoneMq.matches) openCards = { frame: false, style: true, logo: false, colors: false, corners: false };
+  if (phoneMq.matches) openCards = { brand: false, frame: false, style: true, logo: false, colors: false, corners: false };
   function card(id, title, body, domId) {
     var on = !!openCards[id];
     return '<section class="dz-card' + (on ? ' open' : '') + '" data-card="' + id + '"' + (domId ? ' id="' + domId + '"' : '') + '>' +
@@ -96,12 +111,39 @@ var DesignPanel = (function () {
     var corners = '<div class="dz-corners"><div><div class="dz-sub">' + t('dz.lbl.outer') + '</div>' + tiles('cornerOuter', DESIGN_OUTER, sw('cornerOuter'), 'corner') + '</div>' +
         '<div><div class="dz-sub">' + t('dz.lbl.inner') + '</div>' + tiles('cornerInner', DESIGN_INNER, sw('cornerInner'), 'corner') + '</div></div>';
 
-    return card('frame', t('dz.card.frameText'), frame) +
+    return card('brand', t('tpl.card'), brandBody(state), 'dzBrand') +
+      card('frame', t('dz.card.frameText'), frame) +
       card('style', t('dz.card.style'), styles) +
       card('logo', t('dz.card.logo'), logo) +
       card('colors', t('dz.card.colors'), colors) +
       card('corners', t('dz.card.corners'), corners);
   }
+
+  // Mijn huisstijl: opgeslagen ontwerpen als tegels + huidig ontwerp opslaan
+  var tplNaming = false, tplMsg = null;
+  function brandBody(state) {
+    var sample = encodeQR(state), list = Templates.all();
+    var tiles = list.map(function (x) {
+      return '<div class="tpl-wrap"><button type="button" class="dz-tile tpl" data-tpl="' + esc(x.id) + '" title="' + esc(t('tpl.apply', { name: x.name })) + '"><span class="dz-mini">' + QRRender.svg(sample, Object.assign({}, QR_DEFAULT_DESIGN, x.design), { fontScale: 1.25 }) + '</span><small>' + esc(x.name) + '</small></button>' +
+        '<button type="button" class="tpl-star' + (x.isDefault ? ' on' : '') + '" data-tpl-def="' + esc(x.id) + '" aria-pressed="' + !!x.isDefault + '" title="' + esc(t(x.isDefault ? 'tpl.isDefault' : 'tpl.makeDefault')) + '" aria-label="' + esc(t(x.isDefault ? 'tpl.isDefault' : 'tpl.makeDefault')) + '">★</button>' +
+        '<button type="button" class="tpl-del" data-tpl-del="' + esc(x.id) + '" title="' + esc(t('tpl.delete')) + '" aria-label="' + esc(t('tpl.delete')) + '">×</button></div>';
+    }).join('');
+    return '<p class="dz-hint">' + t(list.length ? 'tpl.lead' : 'tpl.empty') + '</p>' + (list.length ? '<div class="dz-tiles quick tpl-tiles">' + tiles + '</div>' : '') +
+      (tplNaming ? '<div class="tpl-name"><span class="auth-in"><input id="tplName" maxlength="40" placeholder="' + esc(t('tpl.namePh')) + '"></span><button type="button" class="btn primary sm" data-tpl-save>' + t('acct.save') + '</button><button type="button" class="btn ghost sm" data-tpl-cancel>' + t('myCodes.cancel') + '</button></div>'
+        : (list.length < 10 ? '<button type="button" class="btn ghost sm tpl-add" data-tpl-new>+ ' + t('tpl.save') + '</button>' : '')) +
+      (tplMsg ? '<p class="acct-msg ' + tplMsg[1] + '" role="status">' + esc(tplMsg[0]) + '</p>' : '');
+  }
+  function redrawBrand() {
+    var c = document.getElementById('dzBrand'); if (!c || store.get().step !== 'design') return;
+    c.querySelector('.dz-card-body').innerHTML = brandBody(store.get());
+    if (tplNaming) { var i = document.getElementById('tplName'); if (i) i.focus(); }
+  }
+  Templates.onChange(redrawBrand);
+  // Nieuwe code die nog niet is aangepast: meteen in je standaard-huisstijl
+  Templates.onChange(function () {
+    var s = store.get(), def = Templates.def();
+    if (def && !s.editing && s.step !== 'design' && JSON.stringify(s.design) === JSON.stringify(QR_DEFAULT_DESIGN)) actions.applyDesign(def.design);
+  });
 
   // Werkt alleen de wisselende delen bij (geen nieuwe HTML), zodat slepen en typen niet onderbroken worden.
   function update(el, state) {
@@ -176,6 +218,19 @@ var DesignPanel = (function () {
         setCard(el, cid, next); if (next && phoneMq.matches) { var cc = el.querySelector('[data-card="' + cid + '"]'); if (cc) cc.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
         return;
       }
+      var tp = e.target.closest('[data-tpl]'), tdef = e.target.closest('[data-tpl-def]'), tdel = e.target.closest('[data-tpl-del]');
+      if (tp) { var x = Templates.all().filter(function (y) { return y.id === tp.getAttribute('data-tpl'); })[0]; if (x) { actions.previewDesign(null); actions.applyDesign(Object.assign({}, x.design, { themeId: '' })); } return; }
+      if (tdef) { var id1 = tdef.getAttribute('data-tpl-def'), on = tdef.getAttribute('aria-pressed') !== 'true'; Templates.setDefault(id1, on).then(function () { tplMsg = [t(on ? 'tpl.defaultOn' : 'tpl.defaultOff'), 'ok']; redrawBrand(); }); return; }
+      if (tdel) { Templates.remove(tdel.getAttribute('data-tpl-del')).then(function () { tplMsg = null; redrawBrand(); }); return; }
+      if (e.target.closest('[data-tpl-new]')) { tplNaming = true; tplMsg = null; return redrawBrand(); }
+      if (e.target.closest('[data-tpl-cancel]')) { tplNaming = false; return redrawBrand(); }
+      if (e.target.closest('[data-tpl-save]')) {
+        var nm = (document.getElementById('tplName') || {}).value || ''; if (!nm.trim()) { tplMsg = [t('tpl.needName'), 'bad']; return redrawBrand(); }
+        var dd = Object.assign({}, s.design); delete dd.themeId;
+        Templates.add(nm.trim(), dd, !Templates.all().length).then(function () { tplNaming = false; tplMsg = [t('tpl.saved'), 'ok']; redrawBrand(); })
+          .catch(function (x) { tplMsg = [t(x && x.code === 'too_big' ? 'tpl.tooBig' : x && x.code === 'too_many' ? 'tpl.tooMany' : 'myCodes.failed'), 'bad']; redrawBrand(); });
+        return;
+      }
       if (opt) { actions.previewDesign(null); actions.setDesign(opt.getAttribute('data-d'), opt.getAttribute('data-v')); if (opt.getAttribute('data-d') === 'frame' && !s.design.frameText) actions.setDesign('frameText', t('dz.text.scan')); }
       if (th) { var theme = themeById(th.getAttribute('data-theme')); actions.previewDesign(null); actions.applyDesign(Object.assign(themeDesign(theme, s), { logo: s.design.logo || '', themeId: theme.id })); }
       if (co) { var k = co.getAttribute('data-color-open'); el.querySelectorAll('.dz-color').forEach(function (r) { r.classList.remove('open'); r.querySelector('.ap-pick').innerHTML = ''; }); colorOpen = colorOpen === k ? null : k;
@@ -198,14 +253,16 @@ var DesignPanel = (function () {
     el.addEventListener('input', function (e) {
       var k = e.target.getAttribute('data-text'); if (k) { e.stopPropagation(); if (k === 'frameText' && e.target.value.trim() && (store.get().design.frame || 'none') === 'none') actions.setDesign('frame', 'label'); actions.setDesign(k, e.target.value.slice(0, 32)); }
     });
+    el.addEventListener('keydown', function (e) { if (e.target.id === 'tplName' && e.key === 'Enter') { e.preventDefault(); var b = el.querySelector('[data-tpl-save]'); if (b) b.click(); } });
     el.addEventListener('mouseover', function (e) {
       if (store.get().step !== 'design') return;
+      var tph = e.target.closest('[data-tpl]'); if (tph) { var xx = Templates.all().filter(function (y) { return y.id === tph.getAttribute('data-tpl'); })[0]; if (xx) actions.previewDesign(xx.design); }
       var opt = e.target.closest('[data-d]'), th = e.target.closest('.dz-theme');
       if (opt) { var o = {}; o[opt.getAttribute('data-d')] = opt.getAttribute('data-v'); if (opt.getAttribute('data-d') === 'frame' && !store.get().design.frameText) o.frameText = t('dz.text.scan'); actions.previewDesign(o); }
       if (th) { var theme = themeById(th.getAttribute('data-theme')); if (theme) actions.previewDesign(Object.assign(themeDesign(theme, store.get()), { logo: store.get().design.logo || '' })); }
     });
     el.addEventListener('mouseout', function (e) {
-      var sel = '.dz-tile,[data-d]', from = e.target.closest(sel), to = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(sel);
+      var sel = '.dz-tile,[data-d],[data-tpl]', from = e.target.closest(sel), to = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(sel);
       if (from && from !== to) actions.previewDesign(null);
     });
   }

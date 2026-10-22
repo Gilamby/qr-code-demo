@@ -2765,5 +2765,22 @@
     "note": "Note",
     "notePh": "Par exemple : à l’entrée, flyer semaine 12",
     "saved": "Enregistré"
+  },
+  "tpl": {
+    "card": "Mon style de marque",
+    "lead": "Clique sur un design pour l’appliquer. L’étoile en fait le design par défaut des nouveaux codes.",
+    "empty": "Enregistre ton design (couleurs, logo, cadre) une fois et utilise-le pour chaque nouveau code.",
+    "apply": "Appliquer {name}",
+    "save": "Enregistrer le design actuel",
+    "namePh": "Nom, ex. Style Café Lumen",
+    "needName": "Donne un nom à ton design.",
+    "saved": "Enregistré dans ton style de marque.",
+    "delete": "Supprimer",
+    "makeDefault": "Par défaut pour les nouveaux codes",
+    "isDefault": "Par défaut pour les nouveaux codes",
+    "defaultOn": "Les nouveaux codes auront ce design.",
+    "defaultOff": "Plus de design par défaut.",
+    "tooBig": "Le logo est trop lourd pour être enregistré. Utilise une image plus petite.",
+    "tooMany": "Tu peux enregistrer jusqu’à 10 designs."
   }
 }

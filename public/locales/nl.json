@@ -2804,5 +2804,22 @@
     "note": "Notitie",
     "notePh": "Bijvoorbeeld: hangt bij de ingang, flyer week 12",
     "saved": "Opgeslagen"
+  },
+  "tpl": {
+    "card": "Mijn huisstijl",
+    "lead": "Klik op een ontwerp om het toe te passen. Met het sterretje wordt het de standaard voor nieuwe codes.",
+    "empty": "Sla je ontwerp (kleuren, logo, kader) één keer op en gebruik het voor elke nieuwe code.",
+    "apply": "{name} toepassen",
+    "save": "Huidig ontwerp opslaan",
+    "namePh": "Naam, bijv. Huisstijl Café Lumen",
+    "needName": "Geef je ontwerp een naam.",
+    "saved": "Opgeslagen in je huisstijl.",
+    "delete": "Verwijderen",
+    "makeDefault": "Standaard maken voor nieuwe codes",
+    "isDefault": "Standaard voor nieuwe codes",
+    "defaultOn": "Nieuwe codes krijgen voortaan dit ontwerp.",
+    "defaultOff": "Geen standaard meer.",
+    "tooBig": "Het logo is te groot om op te slaan. Gebruik een kleiner plaatje.",
+    "tooMany": "Je kunt maximaal 10 ontwerpen bewaren."
   }
 }

@@ -2871,5 +2871,22 @@
     "note": "Shënim",
     "notePh": "Për shembull: te hyrja, fletëpalosje java 12",
     "saved": "U ruajt"
+  },
+  "tpl": {
+    "card": "Stili im",
+    "lead": "Kliko një dizajn për ta zbatuar. Ylli e bën të paracaktuar për kodet e reja.",
+    "empty": "Ruaje dizajnin tënd (ngjyrat, logon, kornizën) një herë dhe përdore për çdo kod të ri.",
+    "apply": "Zbato {name}",
+    "save": "Ruaj dizajnin aktual",
+    "namePh": "Emri, p.sh. Stili Café Lumen",
+    "needName": "Jepi një emër dizajnit.",
+    "saved": "U ruajt në stilin tënd.",
+    "delete": "Fshi",
+    "makeDefault": "I paracaktuar për kodet e reja",
+    "isDefault": "I paracaktuar për kodet e reja",
+    "defaultOn": "Kodet e reja do ta kenë këtë dizajn.",
+    "defaultOff": "Nuk ka më të paracaktuar.",
+    "tooBig": "Logoja është shumë e madhe për t’u ruajtur. Përdor një imazh më të vogël.",
+    "tooMany": "Mund të ruash deri në 10 dizajne."
   }
 }
