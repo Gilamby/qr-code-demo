@@ -2750,5 +2750,20 @@
     "namePh": "Piemēram: Optima-CRM",
     "create": "Izveidot atslēgu",
     "max": "Sasniegts maksimālais atslēgu skaits."
+  },
+  "labels": {
+    "label": "Birka",
+    "all": "Visas birkas",
+    "menu": "Birkas un piezīme",
+    "title": "Birkas un piezīme: {name}",
+    "lead": "Birkas palīdz meklēt un filtrēt. Piezīmi redzi tikai tu.",
+    "labels": "Birkas",
+    "ph": "Ieraksti birku un nospied Enter",
+    "none": "Vēl nav birku.",
+    "suggest": "Lietotas iepriekš:",
+    "remove": "Noņemt {l}",
+    "note": "Piezīme",
+    "notePh": "Piemēram: pie ieejas, skrejlapa 12. nedēļa",
+    "saved": "Saglabāts"
   }
 }

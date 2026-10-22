@@ -2750,5 +2750,20 @@
     "namePh": "Till exempel: Optima-CRM",
     "create": "Skapa nyckel",
     "max": "Du har nått maxantalet nycklar."
+  },
+  "labels": {
+    "label": "Etikett",
+    "all": "Alla etiketter",
+    "menu": "Etiketter och anteckning",
+    "title": "Etiketter och anteckning: {name}",
+    "lead": "Etiketter hjälper dig att söka och filtrera. Bara du ser anteckningen.",
+    "labels": "Etiketter",
+    "ph": "Skriv en etikett och tryck Enter",
+    "none": "Inga etiketter ännu.",
+    "suggest": "Använda tidigare:",
+    "remove": "Ta bort {l}",
+    "note": "Anteckning",
+    "notePh": "Till exempel: vid entrén, flyer vecka 12",
+    "saved": "Sparat"
   }
 }

@@ -2789,5 +2789,20 @@
     "namePh": "For example: Optima-CRM",
     "create": "Create key",
     "max": "You've reached the maximum number of keys."
+  },
+  "labels": {
+    "label": "Label",
+    "all": "All labels",
+    "menu": "Labels and note",
+    "title": "Labels and note: {name}",
+    "lead": "Labels help you search and filter. Only you see the note.",
+    "labels": "Labels",
+    "ph": "Type a label and press Enter",
+    "none": "No labels yet.",
+    "suggest": "Used before:",
+    "remove": "Remove {l}",
+    "note": "Note",
+    "notePh": "For example: at the entrance, flyer week 12",
+    "saved": "Saved"
   }
 }

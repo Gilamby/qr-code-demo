@@ -2750,5 +2750,20 @@
     "namePh": "Zum Beispiel: Optima-CRM",
     "create": "Schlüssel erstellen",
     "max": "Sie haben die Höchstzahl an Schlüsseln erreicht."
+  },
+  "labels": {
+    "label": "Label",
+    "all": "Alle Labels",
+    "menu": "Labels und Notiz",
+    "title": "Labels und Notiz: {name}",
+    "lead": "Labels helfen beim Suchen und Filtern. Die Notiz siehst nur du.",
+    "labels": "Labels",
+    "ph": "Label eingeben und Enter drücken",
+    "none": "Noch keine Labels.",
+    "suggest": "Bereits verwendet:",
+    "remove": "{l} entfernen",
+    "note": "Notiz",
+    "notePh": "Zum Beispiel: am Eingang, Flyer Woche 12",
+    "saved": "Gespeichert"
   }
 }

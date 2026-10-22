@@ -2750,5 +2750,20 @@
     "namePh": "Ad esempio: Optima-CRM",
     "create": "Crea chiave",
     "max": "Hai raggiunto il numero massimo di chiavi."
+  },
+  "labels": {
+    "label": "Etichetta",
+    "all": "Tutte le etichette",
+    "menu": "Etichette e nota",
+    "title": "Etichette e nota: {name}",
+    "lead": "Le etichette ti aiutano a cercare e filtrare. Solo tu vedi la nota.",
+    "labels": "Etichette",
+    "ph": "Scrivi un’etichetta e premi Invio",
+    "none": "Ancora nessuna etichetta.",
+    "suggest": "Già usate:",
+    "remove": "Rimuovi {l}",
+    "note": "Nota",
+    "notePh": "Ad esempio: all’ingresso, volantino settimana 12",
+    "saved": "Salvato"
   }
 }

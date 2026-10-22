@@ -2750,5 +2750,20 @@
     "namePh": "For eksempel: Optima-CRM",
     "create": "Lav nøgle",
     "max": "Du har nået det maksimale antal nøgler."
+  },
+  "labels": {
+    "label": "Etiket",
+    "all": "Alle etiketter",
+    "menu": "Etiketter og note",
+    "title": "Etiketter og note: {name}",
+    "lead": "Etiketter hjælper dig med at søge og filtrere. Kun du ser noten.",
+    "labels": "Etiketter",
+    "ph": "Skriv en etiket og tryk Enter",
+    "none": "Ingen etiketter endnu.",
+    "suggest": "Brugt før:",
+    "remove": "Fjern {l}",
+    "note": "Note",
+    "notePh": "For eksempel: ved indgangen, flyer uge 12",
+    "saved": "Gemt"
   }
 }

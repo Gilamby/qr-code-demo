@@ -2750,5 +2750,20 @@
     "namePh": "Esimerkiksi: Optima-CRM",
     "create": "Luo avain",
     "max": "Olet saavuttanut avainten enimmäismäärän."
+  },
+  "labels": {
+    "label": "Tunniste",
+    "all": "Kaikki tunnisteet",
+    "menu": "Tunnisteet ja muistiinpano",
+    "title": "Tunnisteet ja muistiinpano: {name}",
+    "lead": "Tunnisteet auttavat hakemaan ja suodattamaan. Vain sinä näet muistiinpanon.",
+    "labels": "Tunnisteet",
+    "ph": "Kirjoita tunniste ja paina Enter",
+    "none": "Ei vielä tunnisteita.",
+    "suggest": "Käytetty aiemmin:",
+    "remove": "Poista {l}",
+    "note": "Muistiinpano",
+    "notePh": "Esimerkiksi: sisäänkäynnillä, esite viikko 12",
+    "saved": "Tallennettu"
   }
 }

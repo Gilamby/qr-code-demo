@@ -2750,5 +2750,20 @@
     "namePh": "Por exemplo: Optima-CRM",
     "create": "Criar chave",
     "max": "Atingiu o número máximo de chaves."
+  },
+  "labels": {
+    "label": "Etiqueta",
+    "all": "Todas as etiquetas",
+    "menu": "Etiquetas e nota",
+    "title": "Etiquetas e nota: {name}",
+    "lead": "As etiquetas ajudam-te a pesquisar e filtrar. Só tu vês a nota.",
+    "labels": "Etiquetas",
+    "ph": "Escreve uma etiqueta e carrega em Enter",
+    "none": "Ainda sem etiquetas.",
+    "suggest": "Já usadas:",
+    "remove": "Remover {l}",
+    "note": "Nota",
+    "notePh": "Por exemplo: à entrada, folheto semana 12",
+    "saved": "Guardado"
   }
 }

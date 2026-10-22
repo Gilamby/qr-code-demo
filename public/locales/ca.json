@@ -2750,5 +2750,20 @@
     "namePh": "Per exemple: Optima-CRM",
     "create": "Crear clau",
     "max": "Has arribat al nombre màxim de claus."
+  },
+  "labels": {
+    "label": "Etiqueta",
+    "all": "Totes les etiquetes",
+    "menu": "Etiquetes i nota",
+    "title": "Etiquetes i nota: {name}",
+    "lead": "Les etiquetes t’ajuden a cercar i filtrar. Només tu veus la nota.",
+    "labels": "Etiquetes",
+    "ph": "Escriu una etiqueta i prem Retorn",
+    "none": "Encara no hi ha etiquetes.",
+    "suggest": "Ja utilitzades:",
+    "remove": "Treu {l}",
+    "note": "Nota",
+    "notePh": "Per exemple: a l’entrada, fullet setmana 12",
+    "saved": "Desat"
   }
 }

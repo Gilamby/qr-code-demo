@@ -23,7 +23,7 @@ import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
   Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
-  hash, newId, now, openContent, removeFiles, sealContent, since30,
+  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels,
 } from './database.service';
 
 interface Doc { _id?: string; [k: string]: any }
@@ -32,7 +32,7 @@ const DUPLICATE = 11000;
 function codeOut(d: Doc): QrCode {
   if (!d) return null;
   return { id: d._id, userId: d.userId, typeId: d.typeId, contentType: d.contentType, content: openContent(d.contentType, d.content || {}), design: d.design || {},
-    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite, moderation: parseModeration(d.moderation) };
+    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite, labels: parseLabels(d.labels), note: d.note || '', moderation: parseModeration(d.moderation) };
 }
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 function userOut(d: Doc): User {
@@ -350,6 +350,8 @@ export class MongoDatabase extends DatabaseService {
     if (Object.keys(set).length) set.updatedAt = now();                 // alleen een sterretje of een markering = geen echte wijziging
     if (patch.moderation !== undefined) set.moderation = patch.moderation && (patch.moderation.hold || patch.moderation.flag) ? patch.moderation : null;
     if (patch.favorite !== undefined) set.favorite = !!patch.favorite;
+    if (patch.labels !== undefined) set.labels = patch.labels.length ? JSON.stringify(patch.labels) : null;
+    if (patch.note !== undefined) set.note = patch.note || null;
     if (!Object.keys(set).length) return this.getQrCode(id);
     await this.codes.updateOne({ _id: id }, { $set: set });
     return this.getQrCode(id);

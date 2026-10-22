@@ -818,3 +818,17 @@ test('blokkeerlijst: geblokkeerd adres of domein kan geen nieuw account maken (T
   assert.ok((await team('GET', '/api/admin/blocklist')).json.items.some((b) => b.v === 'weg@klant.test' && b.accounts[0].disabled));
   const normal = client(); assert.equal((await normal('GET', '/api/admin/blocklist')).status, 401);
 });
+
+test('labels en notitie bij een code; startdatum ook voor pagina-codes', async () => {
+  app.get(require('../server/dist/auth/auth.service').AuthService).hits.clear();   // na alle eerdere tests: limiet van aanmelden per IP weer leeg
+  const c = client(); await signup(c, 'labels@example.com', 'Labels zijn fijn 8!', 'Lab');
+  const made = (await c('POST', '/api/qr-codes', { typeId: 'website', name: 'Flyer', content: { url: 'https://example.com' }, design: {} })).json;
+  const p = await c('PATCH', '/api/qr-codes/' + made.id, { labels: ['Actie', 'actie', ' Zomer ', '', 'x'.repeat(40)], note: 'Hangt bij de ingang' });
+  assert.equal(p.status, 200); assert.deepEqual(p.json.labels, ['Actie', 'Zomer', 'x'.repeat(30)], 'dubbel/leeg eruit, max 30 tekens'); assert.equal(p.json.note, 'Hangt bij de ingang');
+  assert.equal((await c('PATCH', '/api/qr-codes/' + made.id, { labels: 'geen lijst' })).status, 400);
+  const dup = (await c('POST', '/api/qr-codes/' + made.id + '/duplicate', {})).json;
+  assert.deepEqual(dup.labels, ['Actie', 'Zomer', 'x'.repeat(30)], 'kopie houdt labels');
+  const lr = await c('POST', '/api/qr-codes', { typeId: 'links', name: 'Later', content: { link1: 'https://example.com', starts: '2099-01-01', utm: '1' }, design: {} }); const later = lr.json; assert.equal(lr.status, 201);
+  assert.equal(later.content.starts, '2099-01-01', 'startdatum ook bij een linkpagina');
+  const r = await fetch(base + '/q/' + later.id, { redirect: 'manual' }); assert.equal(r.status, 503, 'nog niet begonnen');
+});

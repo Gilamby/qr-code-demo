@@ -2789,5 +2789,20 @@
     "namePh": "Bijvoorbeeld: Optima-CRM",
     "create": "Sleutel maken",
     "max": "Je hebt het maximum aantal sleutels."
+  },
+  "labels": {
+    "label": "Label",
+    "all": "Alle labels",
+    "menu": "Labels en notitie",
+    "title": "Labels en notitie: {name}",
+    "lead": "Labels helpen je zoeken en filteren. De notitie zie alleen jij.",
+    "labels": "Labels",
+    "ph": "Typ een label en druk op Enter",
+    "none": "Nog geen labels.",
+    "suggest": "Eerder gebruikt:",
+    "remove": "{l} weghalen",
+    "note": "Notitie",
+    "notePh": "Bijvoorbeeld: hangt bij de ingang, flyer week 12",
+    "saved": "Opgeslagen"
   }
 }

@@ -2750,5 +2750,20 @@
     "namePh": "De exemplu: Optima-CRM",
     "create": "Creează cheie",
     "max": "Ați atins numărul maxim de chei."
+  },
+  "labels": {
+    "label": "Etichetă",
+    "all": "Toate etichetele",
+    "menu": "Etichete și notă",
+    "title": "Etichete și notă: {name}",
+    "lead": "Etichetele te ajută să cauți și să filtrezi. Doar tu vezi nota.",
+    "labels": "Etichete",
+    "ph": "Scrie o etichetă și apasă Enter",
+    "none": "Încă nu ai etichete.",
+    "suggest": "Folosite înainte:",
+    "remove": "Elimină {l}",
+    "note": "Notă",
+    "notePh": "De exemplu: la intrare, flyer săptămâna 12",
+    "saved": "Salvat"
   }
 }

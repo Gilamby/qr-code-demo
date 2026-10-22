@@ -130,6 +130,11 @@ export class QrCodesController {
     }
     if (b.paused !== undefined) await forgetPlanPaused(this.db, user.id, [id]);
     if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
+    if (b.labels !== undefined) {                                    // labels: max. 10, elk max. 30 tekens, dubbele (hoofdletters maken niet uit) eruit
+      if (!Array.isArray(b.labels)) errors.push('labels: must be a list');
+      else { const seen = new Set<string>(); patch.labels = b.labels.map((x: any) => String(x == null ? '' : x).replace(/\s+/g, ' ').trim().slice(0, 30)).filter((x: string) => x && !seen.has(x.toLowerCase()) && seen.add(x.toLowerCase())).slice(0, 10); }
+    }
+    if (b.note !== undefined) { if (b.note !== null && typeof b.note !== 'string') errors.push('note: must be text'); else patch.note = String(b.note || '').replace(/\r\n/g, '\n').trim().slice(0, 1000); }
     let legacy: string | null | undefined;
     // Overzetten uit een andere QR-app: alleen het team. Een klant komt er niet mee van zijn oude abonnement af
     // (de geprinte code gaat altijd eerst langs de oude app), dus voor klanten zou het vooral verwarring en klachten geven.
@@ -172,7 +177,8 @@ export class QrCodesController {
       name: cleanName(typeof b.name === 'string' && b.name.trim() ? b.name : (old.name || '')) || undefined });
     for (const f of files) await this.db.attachFile(f, newId);
     if (old.folderId) await this.db.moveToFolder(user.id, [newId], old.folderId);
-    return this.codes.out(req, old.folderId ? await this.db.getQrCode(newId) : saved);
+    if ((old.labels || []).length || old.note) await this.db.updateQrCode(newId, { labels: old.labels || [], note: old.note || '' });   // labels en notitie gaan mee
+    return this.codes.out(req, old.folderId || (old.labels || []).length || old.note ? await this.db.getQrCode(newId) : saved);
   }
 
   @Delete(':id')

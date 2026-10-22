@@ -33,6 +33,7 @@ var MyCodes = (function () {
     inbox: '<path d="M4 13l2.5-7h11L20 13v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     star: '<path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/>',
+    tag: '<path d="M3 12V4.5A1.5 1.5 0 0 1 4.5 3H12l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>', note: '<path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4M8.5 12h7M8.5 16h5"/>',
     dup: '<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2M14 11v6M11 14h6"/>',
     empty: '<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>'
   };
@@ -40,7 +41,7 @@ var MyCodes = (function () {
 
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList'), tools = document.getElementById('mcTools');
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
-  var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '' }, renaming = null, toastTimer = null;
+  var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '', label: '' }, renaming = null, toastTimer = null;
   var picked = {};                                          // geselecteerde codes (id → true)
   var dlSize = 1024; try { var ds = +localStorage.getItem('mc.dlSize'); if (CodeUtil.sizes.indexOf(ds) >= 0) dlSize = ds; } catch (e) {}
   var FMT = [['png', 'myCodes.pngHint'], ['jpg', 'myCodes.jpgHint'], ['webp', 'myCodes.webpHint'], ['svg', 'myCodes.svgHint'], ['pdf', 'myCodes.pdfHint'], ['eps', 'myCodes.epsHint']];
@@ -66,10 +67,15 @@ var MyCodes = (function () {
       '<label class="mc-search">' + ico('search') + '<input type="search" id="mcQ" value="' + esc(filter.q) + '" placeholder="' + esc(t('myCodes.search')) + '" aria-label="' + esc(t('myCodes.search')) + '"></label>' +
       '<label class="mc-sel"><span>' + t('myCodes.type') + '</span><select id="mcType"><option value="">' + t('myCodes.allTypes') + '</option>' +
         present.map(function (tp) { return '<option value="' + tp.id + '"' + (filter.type === tp.id ? ' selected' : '') + '>' + esc(typeName(tp)) + '</option>'; }).join('') + '</select></label>' +
+      (allLabels().length ? '<label class="mc-sel"><span>' + t('labels.label') + '</span><select id="mcLabel"><option value="">' + t('labels.all') + '</option>' +
+        allLabels().map(function (l) { return '<option value="' + esc(l) + '"' + (filter.label === l ? ' selected' : '') + '>' + esc(l) + '</option>'; }).join('') + '</select></label>' : '') +
       '<label class="mc-sel"><span>' + t('myCodes.sort') + '</span><select id="mcSort">' + ['new', 'old', 'scans', 'name'].map(function (k) {
         return '<option value="' + k + '"' + (filter.sort === k ? ' selected' : '') + '>' + t('myCodes.sort_' + k) + '</option>'; }).join('') + '</select></label>';
     tools.hidden = !rows.length;
   }
+  // Alle labels die de klant gebruikt (voor het filter en als suggestie)
+  function allLabels() { var s = {}; rows.forEach(function (r) { (r.labels || []).forEach(function (l) { s[l.toLowerCase()] = s[l.toLowerCase()] || l; }); }); return Object.keys(s).map(function (k) { return s[k]; }).sort(function (a, b) { return a.localeCompare(b, i18n.lang()); }); }
+  function hasLabel(r, l) { return (r.labels || []).some(function (x) { return x.toLowerCase() === l.toLowerCase(); }); }
   /* ---------- Mappen: balk bovenaan ---------- */
   function drawFolders() {
     if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && !folderOf(filter.folder)) filter.folder = '';
@@ -136,12 +142,13 @@ var MyCodes = (function () {
     var q = filter.q.trim().toLowerCase();
     var out = rows.filter(function (r) {
       if (filter.type && r.typeId !== filter.type) return false;
+      if (filter.label && !hasLabel(r, filter.label)) return false;
       if (filter.folder === 'fav' && !r.favorite) return false;
       if (filter.folder === 'none' && r.folderId) return false;
       if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && r.folderId !== filter.folder) return false;
       if (!q) return true;
       var dest = Object.keys(r.content || {}).filter(function (k) { return typeof r.content[k] === 'string' && !/password|secret/i.test(k); }).map(function (k) { return r.content[k]; }).join(' ');   // ook de bestemming (link, telefoon, e-mail …)
-      return (displayName(r) + ' ' + typeName(getType(r.typeId)) + ' ' + r.id + ' ' + (r.shortUrl || '') + ' ' + dest).toLowerCase().indexOf(q) >= 0;
+      return (displayName(r) + ' ' + typeName(getType(r.typeId)) + ' ' + r.id + ' ' + (r.shortUrl || '') + ' ' + dest + ' ' + (r.labels || []).join(' ') + ' ' + (r.note || '')).toLowerCase().indexOf(q) >= 0;   // ook labels en notitie
     });
     var by = {
       new: function (a, b) { return b.createdAt.localeCompare(a.createdAt); },
@@ -176,6 +183,9 @@ var MyCodes = (function () {
           (r.content && r.content.starts && r.content.starts > new Date().toISOString().slice(0, 10) ? '<span class="mc-until soon">' + ico('pause') + esc(t('fields.starts') + ' ' + i18n.fmt.date(new Date(r.content.starts + 'T00:00:00'), 'long')) + '</span>' : '') +
           (planPaused(r) ? '<span class="mc-until soon mc-planoff" title="' + esc(t('myCodes.planPausedTip')) + '">' + ico('pause') + esc(t('myCodes.planPaused')) + '</span>' : '') +
           (fo ? '<button type="button" class="mc-folder" data-folder="' + esc(fo.id) + '">' + dot(fo) + esc(fo.name) + '</button>' : '') + '</div>' +
+        // Labels (klik = filteren) en notitie (klik = bewerken)
+        ((r.labels || []).length || r.note ? '<div class="mc-tags">' + (r.labels || []).map(function (l) { return '<button type="button" class="mc-tag' + (filter.label && filter.label.toLowerCase() === l.toLowerCase() ? ' on' : '') + '" data-label="' + esc(l) + '">#' + esc(l) + '</button>'; }).join('') +
+          (r.note ? '<button type="button" class="mc-note" data-act="labels" title="' + esc(r.note) + '">' + ico('note') + '<span>' + esc(r.note.split('\n')[0].slice(0, 60)) + '</span></button>' : '') + '</div>' : '') +
         '<div class="mc-link">' + link + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
         : '<button type="button" class="mc-scans" data-act="stats" title="' + esc(t('myCodes.viewStats')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
@@ -190,6 +200,7 @@ var MyCodes = (function () {
             (stat ? '' : (api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="open">' + ico('open') + t('myCodes.open') + '</button>') + '<button type="button" role="menuitem" data-act="copy">' + ico('copy') + t('myCodes.copy') + '</button>') +
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
+            '<button type="button" role="menuitem" data-act="labels">' + ico('tag') + t('labels.menu') + '</button>' +
             '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
             (r.folderId ? '<button type="button" role="menuitem" data-act="moveout">' + ico('moveOut') + t('folders.moveOut') + '</button>' : '') +
             (!stat && isTeam() ? '<button type="button" role="menuitem" data-act="legacy">' + ico('chain') + t(r.legacyUrl ? 'legacy.menuEdit' : 'legacy.menu') + '</button>' : '') +
@@ -270,6 +281,34 @@ var MyCodes = (function () {
   function setSize(z) {
     dlSize = z; try { localStorage.setItem('mc.dlSize', String(z)); } catch (e) {}
     view.querySelectorAll('.mc-sz').forEach(function (b) { var on = +b.getAttribute('data-size') === z; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+  }
+  // Labels en notitie bewerken (venster): labels als losse knopjes, suggesties uit je andere codes
+  function askLabels(r) {
+    var cur = (r.labels || []).slice();
+    function chips() {
+      var sug = allLabels().filter(function (l) { return !cur.some(function (c) { return c.toLowerCase() === l.toLowerCase(); }); });
+      return '<div class="lb-cur">' + (cur.length ? cur.map(function (l, i) { return '<span class="lb-chip">#' + esc(l) + '<button type="button" data-lb-del="' + i + '" aria-label="' + esc(t('labels.remove', { l: l })) + '">×</button></span>'; }).join('') : '<small>' + t('labels.none') + '</small>') + '</div>' +
+        (sug.length ? '<div class="lb-sug"><small>' + t('labels.suggest') + '</small>' + sug.slice(0, 12).map(function (l) { return '<button type="button" class="mc-tag" data-lb-add="' + esc(l) + '">+ ' + esc(l) + '</button>'; }).join('') + '</div>' : '');
+    }
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg lb-dlg"><span class="mc-dlg-ic">' + ico('tag') + '</span><h3>' + esc(t('labels.title', { name: displayName(r) })) + '</h3><p>' + t('labels.lead') + '</p>' +
+      '<label class="auth-f"><span>' + t('labels.labels') + '</span><span class="auth-in"><input id="lbIn" maxlength="30" placeholder="' + esc(t('labels.ph')) + '" autocomplete="off"></span></label>' +
+      '<div id="lbChips">' + chips() + '</div>' +
+      '<label class="auth-f"><span>' + t('labels.note') + '</span><span class="auth-in"><textarea id="lbNote" rows="3" maxlength="1000" placeholder="' + esc(t('labels.notePh')) + '">' + esc(r.note || '') + '</textarea></span></label>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn primary" value="ok">' + t('acct.save') + '</button></div></form>';
+    var inp = dialog.querySelector('#lbIn'), box = dialog.querySelector('#lbChips');
+    function add(v) { v = String(v || '').replace(/^#/, '').replace(/\s+/g, ' ').trim().slice(0, 30); if (v && cur.length < 10 && !cur.some(function (c) { return c.toLowerCase() === v.toLowerCase(); })) cur.push(v); box.innerHTML = chips(); }
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); add(inp.value); inp.value = ''; } else if (e.key === 'Backspace' && !inp.value && cur.length) { cur.pop(); box.innerHTML = chips(); } });
+    box.addEventListener('click', function (e) {
+      var d = e.target.closest('[data-lb-del]'), a = e.target.closest('[data-lb-add]');
+      if (d) { cur.splice(+d.getAttribute('data-lb-del'), 1); box.innerHTML = chips(); }
+      if (a) add(a.getAttribute('data-lb-add'));
+    });
+    dialog.onclose = function () {
+      if (dialog.returnValue !== 'ok') return;
+      if (inp.value.trim()) add(inp.value);
+      api.patchQrCode(r.id, { labels: cur, note: dialog.querySelector('#lbNote').value }).then(function (rec) { replace(rec); drawTools(); draw(); toast('labels.saved'); }).catch(function () { toast('myCodes.failed'); });
+    };
+    dialog.returnValue = ''; dialog.showModal(); inp.focus();
   }
   function askDeleteMany(sel) {
     dialog.innerHTML = '<form method="dialog" class="mc-dlg">' + '<span class="mc-dlg-ic">' + ico('trash') + '</span>' +
@@ -681,11 +720,13 @@ var MyCodes = (function () {
     if (e.target.closest('[data-mc-new]')) return startNew();
     if (e.target.closest('[data-bulk-new]')) return window.Bulk && Bulk.open();
     var szb = e.target.closest('.mc-card [data-size]'); if (szb) { e.stopPropagation(); return setSize(+szb.getAttribute('data-size')); }
+    var lb = e.target.closest('.mc-tag[data-label]');
+    if (lb) { var lv = lb.getAttribute('data-label'); filter.label = filter.label && filter.label.toLowerCase() === lv.toLowerCase() ? '' : lv; drawTools(); return draw(); }
     var b = e.target.closest('[data-act]');
     if (!b) { if (!e.target.closest('.mc-menu')) closeMenus(); return; }
     var act = b.getAttribute('data-act');
     if (act === 'dl') { var rr = find(b.closest('[data-id]').getAttribute('data-id')); closeMenus(); return download(rr, b.getAttribute('data-fmt'), dlSize).catch(function () { toast('myCodes.failed'); }); }
-    if (act === 'clear') { filter.q = ''; filter.type = ''; drawTools(); return draw(); }
+    if (act === 'clear') { filter.q = ''; filter.type = ''; filter.label = ''; drawTools(); return draw(); }
     var el = b.closest('[data-id]'), r = el && find(el.getAttribute('data-id')); if (!r) return;
     if (act === 'dlmenu' || act === 'more') {
       var m = b.nextElementSibling, open = m.hidden; closeMenus(m); m.hidden = !open; b.setAttribute('aria-expanded', String(open));
@@ -709,6 +750,7 @@ var MyCodes = (function () {
     if (act === 'legacy') return askLegacy(r);
     if (act === 'fav') return favorite(r);
     if (act === 'duplicate') return duplicate(r);
+    if (act === 'labels') return askLabels(r);
   });
   list.addEventListener('change', function (e) {
     var cb = e.target.closest('[data-sel]'); if (!cb) return;
@@ -725,6 +767,7 @@ var MyCodes = (function () {
   tools.addEventListener('input', function (e) { if (e.target.id === 'mcQ') { filter.q = e.target.value; draw(); } });
   tools.addEventListener('change', function (e) {
     if (e.target.id === 'mcType') { filter.type = e.target.value; draw(); }
+    if (e.target.id === 'mcLabel') { filter.label = e.target.value; draw(); }
     if (e.target.id === 'mcSort') { filter.sort = e.target.value; draw(); }
   });
   document.addEventListener('click', function (e) { if (!view.hidden && !e.target.closest('.mc-drop')) closeMenus(); });

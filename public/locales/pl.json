@@ -2750,5 +2750,20 @@
     "namePh": "Na przykład: Optima-CRM",
     "create": "Utwórz klucz",
     "max": "Osiągnięto maksymalną liczbę kluczy."
+  },
+  "labels": {
+    "label": "Etykieta",
+    "all": "Wszystkie etykiety",
+    "menu": "Etykiety i notatka",
+    "title": "Etykiety i notatka: {name}",
+    "lead": "Etykiety pomagają wyszukiwać i filtrować. Notatkę widzisz tylko ty.",
+    "labels": "Etykiety",
+    "ph": "Wpisz etykietę i naciśnij Enter",
+    "none": "Brak etykiet.",
+    "suggest": "Użyte wcześniej:",
+    "remove": "Usuń {l}",
+    "note": "Notatka",
+    "notePh": "Na przykład: przy wejściu, ulotka tydzień 12",
+    "saved": "Zapisano"
   }
 }

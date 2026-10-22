@@ -2856,5 +2856,20 @@
     "namePh": "Për shembull: Optima-CRM",
     "create": "Krijo çelës",
     "max": "Keni arritur numrin maksimal të çelësave."
+  },
+  "labels": {
+    "label": "Etiketë",
+    "all": "Të gjitha etiketat",
+    "menu": "Etiketa dhe shënim",
+    "title": "Etiketa dhe shënim: {name}",
+    "lead": "Etiketat të ndihmojnë të kërkosh dhe të filtrosh. Shënimin e sheh vetëm ti.",
+    "labels": "Etiketa",
+    "ph": "Shkruaj një etiketë dhe shtyp Enter",
+    "none": "Ende pa etiketa.",
+    "suggest": "Të përdorura më parë:",
+    "remove": "Hiq {l}",
+    "note": "Shënim",
+    "notePh": "Për shembull: te hyrja, fletëpalosje java 12",
+    "saved": "U ruajt"
   }
 }

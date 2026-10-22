@@ -2750,5 +2750,20 @@
     "namePh": "Napríklad: Optima-CRM",
     "create": "Vytvoriť kľúč",
     "max": "Dosiahli ste maximálny počet kľúčov."
+  },
+  "labels": {
+    "label": "Štítok",
+    "all": "Všetky štítky",
+    "menu": "Štítky a poznámka",
+    "title": "Štítky a poznámka: {name}",
+    "lead": "Štítky ti pomôžu hľadať a filtrovať. Poznámku vidíš len ty.",
+    "labels": "Štítky",
+    "ph": "Napíš štítok a stlač Enter",
+    "none": "Zatiaľ žiadne štítky.",
+    "suggest": "Použité predtým:",
+    "remove": "Odstrániť {l}",
+    "note": "Poznámka",
+    "notePh": "Napríklad: pri vchode, leták týždeň 12",
+    "saved": "Uložené"
   }
 }
