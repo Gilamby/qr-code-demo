@@ -43,7 +43,7 @@ export default function Header({ lang, nav, appUrl, signup }: { lang: string; na
       <a className="skip" href="#main">Skip to content</a>
       <div className="wrap header-row">
         <Link href={`/${lang}`} className="brand" aria-label="QR-Codex" onClick={() => setOpen(false)}>
-          <LogoMark size={30} id="hdr" /><span>Optimasys <b>QR</b></span>
+          <LogoMark size={30} id="hdr" /><span>QR-<b>Codex</b></span>
         </Link>
         <nav className="main-nav" aria-label="Main">
           {SECTIONS.map((id) => <a key={id} href={href(id)} className={active === id ? 'on' : ''} aria-current={active === id ? 'true' : undefined}>{nav[id] || id}</a>)}

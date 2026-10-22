@@ -8,7 +8,7 @@ export default function Footer({ lang, s, appUrl, legal }: { lang: string; s: an
     <footer className="site-footer">
       <div className="wrap footer-grid">
         <div className="footer-brand">
-          <Link href={`/${lang}`} className="brand"><LogoMark size={30} id="ftr" /><span>Optimasys <b>QR</b></span></Link>
+          <Link href={`/${lang}`} className="brand"><LogoMark size={30} id="ftr" /><span>QR-<b>Codex</b></span></Link>
           <p>{f.tagline}</p>
           <LangSwitch lang={lang} label={f.language || 'Language'} />
         </div>
@@ -23,7 +23,7 @@ export default function Footer({ lang, s, appUrl, legal }: { lang: string; s: an
           <h3>{f.company}</h3>
           <Link href={`/${lang}/faq`}>{n.faq}</Link>
           <Link href={`/${lang}/contact`}>{n.contact}</Link>
-          <a href={`${appUrl}/?go=plan`}>{f.cancel}</a>
+          <Link href={`/${lang}/cancel`}>{f.cancel}</Link>
         </nav>
         <nav aria-label={f.legal}>
           <h3>{f.legal}</h3>

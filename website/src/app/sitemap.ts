@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { CODES } from '@/lib/locales'
 
 const SITE = process.env.SITE_URL || 'https://qr-codex.com'
-const PATHS = ['', '/pricing', '/faq', '/contact', '/privacy', '/terms', '/cookies']
+const PATHS = ['', '/pricing', '/faq', '/contact', '/cancel', '/privacy', '/terms', '/cookies']
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return PATHS.flatMap((p) => CODES.map((c) => ({

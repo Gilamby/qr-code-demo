@@ -7,6 +7,8 @@ import '../site.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Effects from '@/components/Effects'
+import CookieNotice from '@/components/CookieNotice'
+import { COOKIE, pick } from '@/content/extra'
 import { getSettings, getPages, appUrl, signupUrl } from '@/lib/data'
 import { CODES, isLocale, type Locale } from '@/lib/locales'
 
@@ -45,6 +47,7 @@ export default async function SiteLayout({ children, params }: { children: React
         <main id="main">{children}</main>
         <Footer lang={lang} s={s} appUrl={app} legal={legal} />
         <Effects />
+        <CookieNotice lang={lang} t={pick(COOKIE, lang)} />
       </body>
     </html>
   )

@@ -664,3 +664,16 @@ section { position: relative; }
 .dive-opt span { color: var(--muted); font-size: 14px; }
 .c-social { --c: #c084fc; }
 @media (max-width: 860px) { .dive-end-grid { grid-template-columns: 1fr 1fr; gap: 8px; } .dive-opt { padding: 12px 10px; flex-direction: row; text-align: left; } .dive-opt span { display: none; } .dive-end p { margin-bottom: 18px; } .dive-end-grid { margin-bottom: 18px; } }
+
+/* Opzegpagina */
+.cancel-steps { list-style: none; padding: 0; margin: 8px 0 28px; display: grid; gap: 14px; }
+.cancel-steps li { display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px; border-radius: 16px; background: var(--card, rgba(0,0,0,.03)); border: 1px solid var(--line, rgba(0,0,0,.08)); }
+.cancel-steps h2 { font-size: 18px; margin: 2px 0 4px; } .cancel-steps p { margin: 0; }
+.cancel-n { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--accent); color: var(--accent-ink); }
+.cancel-notes { margin: 28px 0 18px; padding-left: 20px; display: grid; gap: 8px; }
+.cancel-help { opacity: .85; }
+/* Cookiemelding */
+.cookie-notice { position: fixed; z-index: 60; left: 16px; right: 16px; bottom: 16px; margin: 0 auto; max-width: 720px; display: flex; gap: 16px; align-items: center; justify-content: space-between;
+  padding: 14px 16px 14px 20px; border-radius: 16px; background: rgba(12, 16, 22, .94); color: #e8edf5; border: 1px solid rgba(255,255,255,.12); box-shadow: 0 20px 50px -20px rgba(0,0,0,.6); backdrop-filter: blur(12px); }
+.cookie-notice p { margin: 0; font-size: 14px; line-height: 1.5; } .cookie-notice a { color: #7dd3fc; text-decoration: underline; }
+@media (max-width: 560px) { .cookie-notice { flex-direction: column; align-items: stretch; } }

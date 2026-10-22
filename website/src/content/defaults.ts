@@ -56,12 +56,12 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['billing', false, 'What does yearly cost after the first year?', 'In the first year you get 2 months free. After that you pay 12 times the monthly price per year: €59.88 for Standard, €155.88 for Pro and €299.88 for Business. Offers apply once per customer.'],
       ['billing', false, 'Can I switch plans later?', 'Yes, you can move to a bigger or smaller plan at any time.'],
       ['billing', false, 'Do I get an invoice?', 'Yes. After every payment you receive an invoice by email, and you can find them in your account.'],
-      ['billing', false, 'How do I cancel?', 'In the app under My account → Subscription. You keep access until the end of the period you have paid for.'],
+      ['billing', false, 'How do I cancel?', 'In the app under My account → Plan and invoices → Manage subscription (step by step: the Cancel subscription page in the footer). You keep access until the end of the period you have paid for.'],
     ],
     pages: {
       privacy: ['Privacy policy', ['Who we are', 'This website and the QR-Codex app are run by Optimasys.'], ['What we collect on this website', 'This website does not use tracking or advertising cookies. If you use the contact form, we store your name, email address and message to answer you.'], ['Your rights', 'You can ask us to see, correct or delete your data at any time via the contact page.']],
       terms: ['Terms and conditions', ['Draft', 'The full terms and conditions will be published here before launch.']],
-      cookies: ['Cookies', ['Only necessary cookies', 'This website does not use tracking or advertising cookies, so you will not see a cookie banner. The app (my.qr-codex.com) uses a necessary cookie to keep you logged in.']],
+      cookies: ['Cookies', ['Only necessary cookies', 'This website does not use tracking or advertising cookies, so there is nothing to choose: we only show a short notice once. The app (my.qr-codex.com) uses a necessary cookie to keep you logged in.']],
     },
   },
 
@@ -105,12 +105,12 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['billing', false, 'Wat kost jaarlijks betalen na het eerste jaar?', 'Het eerste jaar krijg je 2 maanden gratis. Daarna betaal je 12 keer de maandprijs per jaar: €59,88 voor Standard, €155,88 voor Pro en €299,88 voor Business. Acties gelden één keer per klant.'],
       ['billing', false, 'Kan ik later van pakket wisselen?', 'Ja, je kunt op elk moment overstappen naar een groter of kleiner pakket.'],
       ['billing', false, 'Krijg ik een factuur?', 'Ja. Na elke betaling krijg je een factuur per e-mail, en je vindt ze ook terug in je account.'],
-      ['billing', false, 'Hoe zeg ik op?', 'In de app onder Mijn account → Abonnement. Je houdt toegang tot het einde van de periode die je al betaald hebt.'],
+      ['billing', false, 'Hoe zeg ik op?', 'In de app onder Mijn account → Abonnement en facturen → Abonnement beheren (stap voor stap: de pagina Abonnement opzeggen onderaan de site). Je houdt toegang tot het einde van de periode die je al betaald hebt.'],
     ],
     pages: {
       privacy: ['Privacyverklaring', ['Wie we zijn', 'Deze website en de app QR-Codex zijn van Optimasys.'], ['Wat we op deze website verzamelen', 'Deze website gebruikt geen volg- of advertentiecookies. Gebruik je het contactformulier, dan bewaren we je naam, e-mailadres en bericht om je te antwoorden.'], ['Je rechten', 'Je kunt ons altijd via de contactpagina vragen je gegevens in te zien, te verbeteren of te verwijderen.']],
       terms: ['Algemene voorwaarden', ['Concept', 'De volledige algemene voorwaarden komen hier voor de lancering.']],
-      cookies: ['Cookies', ['Alleen noodzakelijke cookies', 'Deze website gebruikt geen volg- of advertentiecookies, daarom zie je geen cookiemelding. De app (my.qr-codex.com) gebruikt een noodzakelijke cookie om je ingelogd te houden.']],
+      cookies: ['Cookies', ['Alleen noodzakelijke cookies', 'Deze website gebruikt geen volg- of advertentiecookies, er valt dus niets te kiezen: we laten het je één keer kort weten. De app (my.qr-codex.com) gebruikt een noodzakelijke cookie om je ingelogd te houden.']],
     },
   },
 
@@ -154,12 +154,12 @@ export const CONTENT: Record<'en' | 'nl' | 'es', Txt> = {
       ['billing', false, '¿Cuánto cuesta el plan anual después del primer año?', 'El primer año tienes 2 meses gratis. Después pagas 12 veces el precio mensual al año: 59,88 € por Standard, 155,88 € por Pro y 299,88 € por Business. Las ofertas son una vez por cliente.'],
       ['billing', false, '¿Puedo cambiar de plan más adelante?', 'Sí, puedes pasar a un plan mayor o menor en cualquier momento.'],
       ['billing', false, '¿Recibo factura?', 'Sí. Después de cada pago recibes una factura por correo y también las encuentras en tu cuenta.'],
-      ['billing', false, '¿Cómo cancelo?', 'En la app, en Mi cuenta → Suscripción. Mantienes el acceso hasta el final del periodo que ya has pagado.'],
+      ['billing', false, '¿Cómo cancelo?', 'En la app, en Mi cuenta → Plan y facturas → Gestionar suscripción (paso a paso: la página Cancelar suscripción del pie de página). Mantienes el acceso hasta el final del periodo que ya has pagado.'],
     ],
     pages: {
       privacy: ['Política de privacidad', ['Quiénes somos', 'Este sitio web y la app QR-Codex pertenecen a Optimasys.'], ['Qué recogemos en este sitio', 'Este sitio no usa cookies de seguimiento ni de publicidad. Si usas el formulario de contacto, guardamos tu nombre, correo y mensaje para responderte.'], ['Tus derechos', 'Puedes pedirnos en cualquier momento, desde la página de contacto, ver, corregir o eliminar tus datos.']],
       terms: ['Términos y condiciones', ['Borrador', 'Los términos y condiciones completos se publicarán aquí antes del lanzamiento.']],
-      cookies: ['Cookies', ['Solo cookies necesarias', 'Este sitio no usa cookies de seguimiento ni de publicidad, por eso no verás un aviso de cookies. La app (my.qr-codex.com) usa una cookie necesaria para mantener tu sesión.']],
+      cookies: ['Cookies', ['Solo cookies necesarias', 'Este sitio no usa cookies de seguimiento ni de publicidad, así que no hay nada que elegir: solo te lo indicamos una vez con un breve aviso. La app (my.qr-codex.com) usa una cookie necesaria para mantener tu sesión.']],
     },
   },
 }
