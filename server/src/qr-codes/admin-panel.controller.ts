@@ -27,6 +27,7 @@ import { urlInfo } from '../helpers/url-check';
 import { planFor, usage } from '../plans';
 import { fail, recentErrors } from '../common/http';
 import { MailerService } from '../auth/mailer.service';
+import { addBlock, isBlocked, listBlocks, normBlock, removeBlock } from '../auth/blocklist';
 import type { QrCode, User } from '../types';
 
 const SIZES = [10, 25, 50, 100];
@@ -129,6 +130,34 @@ export class AdminPanelController {
       await this.db.addAdminLog({ adminId: me.id, adminName: me.name || me.email, action: on ? 'maintenance_on' : 'maintenance_off', codeId: null, ownerId: null, detail: message }).catch(() => {});
     }
     return this.getSettings();
+  }
+
+  /* ---------------- Blokkeerlijst (Terms punt 14): geen nieuw account voor deze adressen/domeinen ---------------- */
+  @Get('blocklist')
+  async blocklist() {
+    const [list, users] = await Promise.all([listBlocks(this.db), this.db.listCustomers()]);
+    // Per regel: welke bestaande accounts eronder vallen (die blijven werken tot een admin ze uitzet)
+    return { items: await Promise.all(list.map(async (b) => {
+      const hits = [];
+      for (const u of users) if (await isBlocked({ getSetting: async () => JSON.stringify([b]), setSetting: async () => null }, u.email)) hits.push({ id: u.id, email: u.email, disabled: !!u.disabledAt });
+      return { ...b, accounts: hits.slice(0, 20) };
+    })) };
+  }
+  @Post('blocklist')
+  @HttpCode(201)
+  async block(@CurrentUser() me: User, @Body() b: any = {}) {
+    const v = normBlock(b.value); if (!v) throw fail(400, 'block_value');
+    const own = String(me.email).toLowerCase();
+    if (await isBlocked({ getSetting: async () => JSON.stringify([{ v }]), setSetting: async () => null }, own)) throw fail(400, 'block_self');   // jezelf (of je eigen domein) niet buitensluiten
+    const added = await addBlock(this.db, v, b.note, me.name || me.email);
+    await this.log(me, 'block_add', null, v + (added.note ? ' · ' + added.note : ''));
+    return added;
+  }
+  @Delete('blocklist')
+  @HttpCode(204)
+  async unblock(@CurrentUser() me: User, @Query('v') v: string) {
+    if (!(await removeBlock(this.db, v))) throw fail(404, 'Not found');
+    await this.log(me, 'block_remove', null, normBlock(v));
   }
 
   /* ---------------- Systeemstatus en aandachtspunten (dashboard) ---------------- */

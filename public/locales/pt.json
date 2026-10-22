@@ -1241,7 +1241,8 @@
     "gErr": "Não foi possível entrar com o Google. Tente novamente ou entre com o seu e-mail.",
     "mErr": "Não foi possível entrar com o Microsoft. Tente novamente ou entre com o seu e-mail.",
     "mUnverified": "Não conseguimos confirmar o e-mail desta conta profissional. Inicia sessão com o teu e-mail e palavra-passe.",
-    "g2fa": "Esta conta tem a verificação em dois passos ativa: entre com a sua palavra-passe e o código."
+    "g2fa": "Esta conta tem a verificação em dois passos ativa: entre com a sua palavra-passe e o código.",
+    "errBlocked": "Não podes criar uma conta com este endereço de e-mail. Dúvidas? Contacta o suporte."
   },
   "acct": {
     "profile": "Perfil",
@@ -1664,7 +1665,8 @@
     "revoke": "Revogar",
     "revokeTitle": "Revogar o convite de {email}?",
     "revokeText": "A ligação do convite deixa de funcionar. Pode enviar um novo convite mais tarde.",
-    "revoked": "Convite de {email} revogado."
+    "revoked": "Convite de {email} revogado.",
+    "blocked": "Este endereço está bloqueado. Remove-o primeiro da lista de bloqueio (Definições > Bloqueados)."
   },
   "menu": {
     "modeLink": "Ligação para o menu",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Conta ativada",
     "log_user_delete": "Conta eliminada",
     "reasonLabel": "Motivo (opcional)",
-    "reasonPh": "Ex. falta de pagamento, abuso, a pedido"
+    "reasonPh": "Ex. falta de pagamento, abuso, a pedido",
+    "alsoBlock": "Bloquear também este endereço (não poderá criar uma conta nova)",
+    "log_block_add": "Bloqueado",
+    "log_block_remove": "Desbloqueado"
   },
   "adminApp": {
     "badge": "Administração",
@@ -2438,7 +2443,24 @@
     "errFields": "Verifique: {f}",
     "errSave": "Não foi possível guardar.",
     "bannerAdmin": "Modo de manutenção ligado: os clientes não podem alterar nada agora.",
-    "bannerUser": "Manutenção breve: as alterações estão temporariamente indisponíveis. Os seus códigos QR continuam a funcionar."
+    "bannerUser": "Manutenção breve: as alterações estão temporariamente indisponíveis. Os seus códigos QR continuam a funcionar.",
+    "tabBlock": "Bloqueados",
+    "bTitle": "Bloquear e-mail ou domínio",
+    "bLead": "Endereços bloqueados não podem criar uma conta nova (Termos, ponto 14). Introduz um e-mail ou um domínio inteiro como @exemplo.pt.",
+    "bValue": "E-mail ou domínio",
+    "bPh": "nome@exemplo.pt ou @exemplo.pt",
+    "bNote": "Motivo (opcional)",
+    "bNotePh": "Por exemplo: abuso, estorno",
+    "bAdd": "Bloquear",
+    "bListTitle": "Bloqueados ({n})",
+    "bEmpty": "Ainda nada bloqueado.",
+    "bDomain": "domínio inteiro",
+    "bStillActive": "Ainda ativas: {list}. Desativa estas contas em Utilizadores.",
+    "bRemove": "Desbloquear",
+    "bRemoved": "{v} já não está bloqueado.",
+    "bAdded": "{v} está bloqueado.",
+    "bSelf": "Não podes bloquear o teu próprio e-mail ou domínio.",
+    "bBad": "Introduz um e-mail ou domínio válido."
   },
   "st": {
     "lead": "Tudo sobre a sua conta, privacidade e a app num só lugar.",

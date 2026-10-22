@@ -1241,7 +1241,8 @@
     "gErr": "La connexion avec Google n’a pas fonctionné. Réessayez ou connectez-vous avec votre adresse e-mail.",
     "mErr": "La connexion avec Microsoft n’a pas fonctionné. Réessayez ou connectez-vous avec votre adresse e-mail.",
     "mUnverified": "Nous ne pouvons pas vérifier l’adresse e-mail de ce compte professionnel. Connectez-vous avec votre e-mail et votre mot de passe.",
-    "g2fa": "La validation en deux étapes est activée pour ce compte : connectez-vous avec votre mot de passe et le code."
+    "g2fa": "La validation en deux étapes est activée pour ce compte : connectez-vous avec votre mot de passe et le code.",
+    "errBlocked": "Tu ne peux pas créer de compte avec cette adresse e-mail. Des questions ? Contacte le support."
   },
   "acct": {
     "profile": "Profil",
@@ -1664,7 +1665,8 @@
     "revoke": "Révoquer",
     "revokeTitle": "Révoquer l’invitation de {email} ?",
     "revokeText": "Le lien d’invitation ne fonctionnera plus. Vous pourrez envoyer une nouvelle invitation plus tard.",
-    "revoked": "Invitation de {email} révoquée."
+    "revoked": "Invitation de {email} révoquée.",
+    "blocked": "Cette adresse est bloquée. Retire-la d’abord de la liste de blocage (Paramètres > Bloqués)."
   },
   "menu": {
     "modeLink": "Lien vers votre menu",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Compte activé",
     "log_user_delete": "Compte supprimé",
     "reasonLabel": "Motif (facultatif)",
-    "reasonPh": "Ex. paiement manquant, abus, à la demande"
+    "reasonPh": "Ex. paiement manquant, abus, à la demande",
+    "alsoBlock": "Bloquer aussi cette adresse (plus de nouveau compte possible)",
+    "log_block_add": "Bloqué",
+    "log_block_remove": "Débloqué"
   },
   "adminApp": {
     "badge": "Administration",
@@ -2438,7 +2443,24 @@
     "errFields": "Vérifiez : {f}",
     "errSave": "Enregistrement impossible.",
     "bannerAdmin": "Mode maintenance activé : les clients ne peuvent rien modifier.",
-    "bannerUser": "Courte maintenance : les modifications sont temporairement indisponibles. Vos codes QR fonctionnent."
+    "bannerUser": "Courte maintenance : les modifications sont temporairement indisponibles. Vos codes QR fonctionnent.",
+    "tabBlock": "Bloqués",
+    "bTitle": "Bloquer une adresse ou un domaine",
+    "bLead": "Les adresses bloquées ne peuvent pas créer de nouveau compte (Conditions, point 14). Saisis une adresse e-mail ou un domaine entier comme @exemple.fr.",
+    "bValue": "Adresse e-mail ou domaine",
+    "bPh": "nom@exemple.fr ou @exemple.fr",
+    "bNote": "Raison (facultatif)",
+    "bNotePh": "Par exemple : abus, rétrofacturation",
+    "bAdd": "Bloquer",
+    "bListTitle": "Bloqués ({n})",
+    "bEmpty": "Rien de bloqué pour l’instant.",
+    "bDomain": "domaine entier",
+    "bStillActive": "Encore actifs : {list}. Désactive ces comptes dans Utilisateurs.",
+    "bRemove": "Débloquer",
+    "bRemoved": "{v} n’est plus bloqué.",
+    "bAdded": "{v} est bloqué.",
+    "bSelf": "Tu ne peux pas bloquer ta propre adresse ou ton propre domaine.",
+    "bBad": "Saisis une adresse e-mail ou un domaine valide."
   },
   "st": {
     "lead": "Tout sur votre compte, la confidentialité et l’application au même endroit.",

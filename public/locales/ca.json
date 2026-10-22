@@ -1241,7 +1241,8 @@
     "gErr": "No s’ha pogut iniciar la sessió amb Google. Torna-ho a provar o entra amb el teu correu.",
     "mErr": "No s’ha pogut iniciar la sessió amb Microsoft. Torna-ho a provar o entra amb el teu correu.",
     "mUnverified": "No podem verificar el correu d’aquest compte de feina. Inicia la sessió amb el correu i la contrasenya.",
-    "g2fa": "Aquest compte té la verificació en dos passos activada: entra amb la contrasenya i el codi."
+    "g2fa": "Aquest compte té la verificació en dos passos activada: entra amb la contrasenya i el codi.",
+    "errBlocked": "No pots crear un compte amb aquesta adreça. Dubtes? Contacta amb el suport."
   },
   "acct": {
     "profile": "Perfil",
@@ -1664,7 +1665,8 @@
     "revoke": "Revoca",
     "revokeTitle": "Vols revocar la invitació per a {email}?",
     "revokeText": "L'enllaç d'invitació deixarà de funcionar. Més endavant pots enviar una invitació nova.",
-    "revoked": "S'ha revocat la invitació per a {email}."
+    "revoked": "S'ha revocat la invitació per a {email}.",
+    "blocked": "Aquesta adreça està bloquejada. Treu-la primer de la llista de bloqueig (Configuració > Bloquejats)."
   },
   "menu": {
     "modeLink": "Enllaç a la teva carta",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Compte activat",
     "log_user_delete": "Compte eliminat",
     "reasonLabel": "Motiu (opcional)",
-    "reasonPh": "P. ex. pagament pendent, abús, a petició"
+    "reasonPh": "P. ex. pagament pendent, abús, a petició",
+    "alsoBlock": "Bloquejar també aquesta adreça (no podrà crear un compte nou)",
+    "log_block_add": "Bloquejat",
+    "log_block_remove": "Desbloquejat"
   },
   "adminApp": {
     "badge": "Administració",
@@ -2438,7 +2443,24 @@
     "errFields": "Revisa: {f}",
     "errSave": "No s'ha pogut desar.",
     "bannerAdmin": "El mode de manteniment està activat: ara mateix els clients no poden canviar res.",
-    "bannerUser": "Manteniment breu: els canvis no estan disponibles temporalment. Els teus codis QR continuen funcionant."
+    "bannerUser": "Manteniment breu: els canvis no estan disponibles temporalment. Els teus codis QR continuen funcionant.",
+    "tabBlock": "Bloquejats",
+    "bTitle": "Bloquejar correu o domini",
+    "bLead": "Les adreces bloquejades no poden crear un compte nou (Condicions, punt 14). Escriu un correu o un domini sencer com @exemple.cat.",
+    "bValue": "Correu o domini",
+    "bPh": "nom@exemple.cat o @exemple.cat",
+    "bNote": "Motiu (opcional)",
+    "bNotePh": "Per exemple: abús, devolució de càrrec",
+    "bAdd": "Bloquejar",
+    "bListTitle": "Bloquejats ({n})",
+    "bEmpty": "Encara no hi ha res bloquejat.",
+    "bDomain": "domini sencer",
+    "bStillActive": "Encara actius: {list}. Desactiva aquests comptes a Usuaris.",
+    "bRemove": "Desbloquejar",
+    "bRemoved": "{v} ja no està bloquejat.",
+    "bAdded": "{v} està bloquejat.",
+    "bSelf": "No pots bloquejar el teu propi correu o domini.",
+    "bBad": "Escriu un correu o domini vàlid."
   },
   "st": {
     "lead": "Tot sobre el teu compte, la privadesa i l'aplicació en un sol lloc.",

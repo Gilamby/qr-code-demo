@@ -5,6 +5,7 @@
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
    - Te veel pogingen = even wachten (429).
    ========================================================= */
+import { isBlocked } from './blocklist';
 import { acceptTerms } from './terms';
 import { isDisposable, canonicalEmail } from './email-rules';
 import { saveSub, emptySub } from '../subscription';
@@ -37,6 +38,7 @@ export class AuthController {
     if (this.auth.limited('reg:' + req.ip, 50, 60) || this.auth.limited('reg:' + email, 3, 60)) throw fail(429, 'too_many');
     if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
     if (isDisposable(email)) throw fail(400, 'email_disposable');             // tijdelijke mailbox: geen account
+    if (await isBlocked(this.db, email)) throw fail(403, 'blocked');            // geblokkeerd (Terms punt 14): geen nieuw account
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
     if (b.accept !== true) throw fail(400, 'terms');                            // 18+ en akkoord met Terms en Privacy (Terms punt 1 en 3)
     const existing = await this.db.userByEmail(email);
@@ -162,6 +164,7 @@ export class AuthController {
     const r = await this.db.useEmailChange(String(b.token || '')); if (!r) throw fail(400, 'token');
     const user = await this.db.getUser(r.userId); if (!user) throw fail(400, 'token');
     const taken = await this.db.userByEmail(r.email); if (taken && taken.id !== user.id) throw fail(409, 'exists');
+    if (await isBlocked(this.db, r.email)) throw fail(403, 'blocked');
     if (this.auth.emailLocked(user)) throw fail(403, 'locked');
     const old = user.email;
     await this.db.updateUser(user.id, { email: r.email });

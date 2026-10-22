@@ -796,3 +796,25 @@ test('afmelden voor het scanoverzicht via de link in de mail (zonder inloggen, o
   const r = await app.get(MailerService).renderReport('nl', u, { period: 'weekly', range: { from: '2026-10-12', to: '2026-10-18' }, total: 1, unique: 1, prevTotal: 0, top: [] }, base);
   assert.ok(r.html.includes('/api/unsubscribe?u=') && r.text.includes('/api/unsubscribe?u='), 'afmeldlink staat in de mail');
 });
+
+test('blokkeerlijst: geblokkeerd adres of domein kan geen nieuw account maken (Terms punt 14)', async () => {
+  app.get(require('../server/dist/auth/auth.service').AuthService).hits.delete('login:team@example.com');   // het team-account logde in eerdere tests al vaak in
+  const team = client(); assert.equal((await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' })).status, 200);
+  assert.equal((await team('POST', '/api/admin/blocklist', { value: 'geen-adres' })).json.error, 'block_value');
+  assert.equal((await team('POST', '/api/admin/blocklist', { value: '@example.com' })).json.error, 'block_self', 'eigen domein niet');
+  assert.equal((await team('POST', '/api/admin/blocklist', { value: 'Fraude.Jan@Gmail.com', note: 'terugboeking' })).status, 201);
+  assert.equal((await team('POST', '/api/admin/blocklist', { value: 'spamfirma.test' })).json.v, '@spamfirma.test', 'domein zonder @ wordt @domein');
+  const a = client();
+  assert.equal((await a('POST', '/api/auth/register', { accept: true, email: 'fraudejan+2@gmail.com', password: 'Nieuw account 9!', name: 'Jan' })).json.error, 'blocked', 'variant van het adres ook');
+  assert.equal((await a('POST', '/api/auth/register', { accept: true, email: 'info@mail.spamfirma.test', password: 'Nieuw account 9!', name: 'X' })).json.error, 'blocked', 'subdomein ook');
+  assert.equal((await team('POST', '/api/admin/customers', { email: 'iemand@spamfirma.test', name: 'X' })).json.error, 'blocked', 'ook niet uitnodigen');
+  const list = (await team('GET', '/api/admin/blocklist')).json.items; assert.equal(list.length, 2);
+  assert.equal((await team('DELETE', '/api/admin/blocklist?v=' + encodeURIComponent('@spamfirma.test'))).status, 204);
+  assert.equal((await a('POST', '/api/auth/register', { accept: true, email: 'info@spamfirma.test', password: 'Nieuw account 9!', name: 'X' })).status, 201, 'na opheffen weer welkom');
+  // Uitzetten + blokkeren in één keer
+  const k = client(); await signup(k, 'weg@klant.test', 'Weg ermee 77!', 'Weg');
+  const u = await db.userByEmail('weg@klant.test');
+  assert.equal((await team('PATCH', '/api/admin/customers/' + u.id, { disabled: true, reason: 'misbruik', block: true })).status, 200);
+  assert.ok((await team('GET', '/api/admin/blocklist')).json.items.some((b) => b.v === 'weg@klant.test' && b.accounts[0].disabled));
+  const normal = client(); assert.equal((await normal('GET', '/api/admin/blocklist')).status, 401);
+});

@@ -1347,7 +1347,8 @@
     "gErr": "Hyrja me Google nuk funksionoi. Provo përsëri ose hyr me adresën e email-it.",
     "mErr": "Hyrja me Microsoft nuk funksionoi. Provo përsëri ose hyr me adresën e email-it.",
     "mUnverified": "Nuk mund ta verifikojmë email-in e kësaj llogarie pune. Hyni me email dhe fjalëkalim.",
-    "g2fa": "Kjo llogari ka të aktivizuar verifikimin me dy hapa: hyr me fjalëkalimin dhe kodin."
+    "g2fa": "Kjo llogari ka të aktivizuar verifikimin me dy hapa: hyr me fjalëkalimin dhe kodin.",
+    "errBlocked": "Nuk mund të krijosh llogari me këtë adresë email-i. Pyetje? Kontakto mbështetjen."
   },
   "acct": {
     "profile": "Profili",
@@ -1770,7 +1771,8 @@
     "revoke": "Tërhiq",
     "revokeTitle": "Të tërhiqet ftesa për {email}?",
     "revokeText": "Lidhja e ftesës nuk do të funksionojë më. Mund të dërgoni një ftesë të re më vonë.",
-    "revoked": "Ftesa për {email} u tërhoq."
+    "revoked": "Ftesa për {email} u tërhoq.",
+    "blocked": "Kjo adresë është e bllokuar. Hiqe fillimisht nga lista e bllokimeve (Cilësimet > Të bllokuara)."
   },
   "menu": {
     "modeLink": "Lidhje te menuja",
@@ -1889,7 +1891,10 @@
     "log_user_enable": "Llogaria u aktivizua",
     "log_user_delete": "Llogaria u fshi",
     "reasonLabel": "Arsyeja (opsionale)",
-    "reasonPh": "P.sh. mungesë pagese, abuzim, me kërkesë"
+    "reasonPh": "P.sh. mungesë pagese, abuzim, me kërkesë",
+    "alsoBlock": "Blloko edhe këtë adresë (nuk lejohet llogari e re)",
+    "log_block_add": "U bllokua",
+    "log_block_remove": "U zhbllokua"
   },
   "adminApp": {
     "badge": "Administrimi",
@@ -2544,7 +2549,24 @@
     "errFields": "Kontrollo: {f}",
     "errSave": "Ruajtja dështoi.",
     "bannerAdmin": "Mirëmbajtja është aktive: klientët nuk mund të ndryshojnë asgjë tani.",
-    "bannerUser": "Mirëmbajtje e shkurtër: ndryshimet nuk janë të mundshme përkohësisht. Kodet QR funksionojnë."
+    "bannerUser": "Mirëmbajtje e shkurtër: ndryshimet nuk janë të mundshme përkohësisht. Kodet QR funksionojnë.",
+    "tabBlock": "Të bllokuara",
+    "bTitle": "Blloko email ose domen",
+    "bLead": "Adresat e bllokuara nuk mund të krijojnë llogari të re (Kushtet, pika 14). Shkruaj një email ose një domen të tërë si @shembull.al.",
+    "bValue": "Email ose domen",
+    "bPh": "emri@shembull.al ose @shembull.al",
+    "bNote": "Arsyeja (opsionale)",
+    "bNotePh": "Për shembull: abuzim, kthim pagese",
+    "bAdd": "Blloko",
+    "bListTitle": "Të bllokuara ({n})",
+    "bEmpty": "Asgjë e bllokuar ende.",
+    "bDomain": "domen i tërë",
+    "bStillActive": "Ende aktive: {list}. Çaktivizoji këto llogari te Përdoruesit.",
+    "bRemove": "Zhblloko",
+    "bRemoved": "{v} nuk është më i bllokuar.",
+    "bAdded": "{v} u bllokua.",
+    "bSelf": "Nuk mund të bllokosh email-in ose domenin tënd.",
+    "bBad": "Shkruaj një email ose domen të vlefshëm."
   },
   "st": {
     "lead": "Gjithçka për llogarinë, privatësinë dhe aplikacionin në një vend.",

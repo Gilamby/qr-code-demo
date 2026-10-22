@@ -1241,7 +1241,8 @@
     "gErr": "Signing in with Google didn't work. Try again or log in with your email address.",
     "mErr": "Signing in with Microsoft didn't work. Try again or log in with your email address.",
     "mUnverified": "We can’t confirm the email address of this work account. Log in with your email and password instead.",
-    "g2fa": "Two-step verification is on for this account: log in with your password and code."
+    "g2fa": "Two-step verification is on for this account: log in with your password and code.",
+    "errBlocked": "You can't create an account with this email address. Questions? Contact support."
   },
   "acct": {
     "profile": "Profile",
@@ -1664,7 +1665,8 @@
     "revoke": "Revoke",
     "revokeTitle": "Revoke the invitation for {email}?",
     "revokeText": "The invitation link will stop working. You can send a new invitation later.",
-    "revoked": "Invitation for {email} revoked."
+    "revoked": "Invitation for {email} revoked.",
+    "blocked": "This email address is blocked. Remove it from the block list first (Settings > Blocked)."
   },
   "menu": {
     "modeLink": "Link to your menu",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Account turned on",
     "log_user_delete": "Account deleted",
     "reasonLabel": "Reason (optional)",
-    "reasonPh": "E.g. payment missing, abuse, on request"
+    "reasonPh": "E.g. payment missing, abuse, on request",
+    "alsoBlock": "Also block this email address (no new account possible)",
+    "log_block_add": "Blocked",
+    "log_block_remove": "Unblocked"
   },
   "adminApp": {
     "badge": "Admin",
@@ -2438,7 +2443,24 @@
     "errFields": "Check: {f}",
     "errSave": "Could not save.",
     "bannerAdmin": "Maintenance mode is on: customers cannot change anything right now.",
-    "bannerUser": "Brief maintenance: changes are temporarily unavailable. Your QR codes keep working."
+    "bannerUser": "Brief maintenance: changes are temporarily unavailable. Your QR codes keep working.",
+    "tabBlock": "Blocked",
+    "bTitle": "Block email address or domain",
+    "bLead": "Blocked addresses can't create a new account (Terms, section 14). Enter an email address, or a whole domain such as @example.com.",
+    "bValue": "Email address or domain",
+    "bPh": "name@example.com or @example.com",
+    "bNote": "Reason (optional)",
+    "bNotePh": "For example: abuse, chargeback",
+    "bAdd": "Block",
+    "bListTitle": "Blocked ({n})",
+    "bEmpty": "Nothing blocked yet.",
+    "bDomain": "whole domain",
+    "bStillActive": "Still active: {list}. Turn these accounts off under Users.",
+    "bRemove": "Unblock",
+    "bRemoved": "{v} is no longer blocked.",
+    "bAdded": "{v} is blocked.",
+    "bSelf": "You can't block your own email address or domain.",
+    "bBad": "Enter a valid email address or domain."
   },
   "st": {
     "lead": "Everything about your account, privacy and the app in one place.",

@@ -390,6 +390,9 @@ var api = (function () {
     admin: {
       overview:   function ()      { return request('GET', 'api/admin/overview'); },
       system:     function ()      { return request('GET', 'api/admin/system'); },
+      blocklist:  function ()      { return request('GET', 'api/admin/blocklist'); },
+      block:      function (d)     { return request('POST', 'api/admin/blocklist', d); },          // { value: 'jan@x.nl' | '@x.nl', note }
+      unblock:    function (v)     { return request('DELETE', 'api/admin/blocklist?v=' + encodeURIComponent(v)); },
       codes:      function (f)     { var q = Object.keys(f || {}).filter(function (k) { return f[k] !== '' && f[k] != null; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); return request('GET', 'api/admin/codes' + (q ? '?' + q : '')); },
       code:       function (id, q) { return request('GET', 'api/admin/codes/' + encodeURIComponent(id) + (q ? '?' + q : '')); },
       patchCode:  function (id, d) { return request('PATCH', 'api/admin/codes/' + encodeURIComponent(id), d); },   // { paused, reason, lock } | { flag, reason } | { name, content }

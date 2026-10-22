@@ -1241,7 +1241,8 @@
     "gErr": "Prihlásenie cez Google sa nepodarilo. Skúste to znova alebo sa prihláste e-mailom.",
     "mErr": "Prihlásenie cez Microsoft sa nepodarilo. Skúste to znova alebo sa prihláste e-mailom.",
     "mUnverified": "E-mailovú adresu tohto pracovného účtu nevieme overiť. Prihláste sa e-mailom a heslom.",
-    "g2fa": "Toto konto má zapnuté dvojstupňové overenie: prihláste sa heslom a kódom."
+    "g2fa": "Toto konto má zapnuté dvojstupňové overenie: prihláste sa heslom a kódom.",
+    "errBlocked": "S touto e-mailovou adresou si nemôžeš vytvoriť účet. Otázky? Kontaktuj podporu."
   },
   "acct": {
     "profile": "Profil",
@@ -1664,7 +1665,8 @@
     "revoke": "Zrušiť",
     "revokeTitle": "Zrušiť pozvánku pre {email}?",
     "revokeText": "Odkaz na pozvánku prestane fungovať. Neskôr môžeš poslať novú pozvánku.",
-    "revoked": "Pozvánka pre {email} bola zrušená."
+    "revoked": "Pozvánka pre {email} bola zrušená.",
+    "blocked": "Táto adresa je zablokovaná. Najprv ju odstráň zo zoznamu blokovaných (Nastavenia > Zablokované)."
   },
   "menu": {
     "modeLink": "Odkaz na tvoje menu",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Účet zapnutý",
     "log_user_delete": "Účet odstránený",
     "reasonLabel": "Dôvod (nepovinné)",
-    "reasonPh": "Napr. chýbajúca platba, zneužitie, na žiadosť"
+    "reasonPh": "Napr. chýbajúca platba, zneužitie, na žiadosť",
+    "alsoBlock": "Zablokovať aj túto adresu (nový účet nebude možný)",
+    "log_block_add": "Zablokované",
+    "log_block_remove": "Odblokované"
   },
   "adminApp": {
     "badge": "Správa",
@@ -2438,7 +2443,24 @@
     "errFields": "Skontroluj: {f}",
     "errSave": "Nepodarilo sa uložiť.",
     "bannerAdmin": "Režim údržby je zapnutý: zákazníci momentálne nemôžu nič meniť.",
-    "bannerUser": "Krátka údržba: zmeny sú dočasne nedostupné. Tvoje QR kódy fungujú ďalej."
+    "bannerUser": "Krátka údržba: zmeny sú dočasne nedostupné. Tvoje QR kódy fungujú ďalej.",
+    "tabBlock": "Zablokované",
+    "bTitle": "Zablokovať e-mail alebo doménu",
+    "bLead": "Zablokované adresy si nemôžu vytvoriť nový účet (Podmienky, bod 14). Zadaj e-mailovú adresu alebo celú doménu, napr. @priklad.sk.",
+    "bValue": "E-mailová adresa alebo doména",
+    "bPh": "meno@priklad.sk alebo @priklad.sk",
+    "bNote": "Dôvod (voliteľné)",
+    "bNotePh": "Napríklad: zneužitie, spätné zúčtovanie",
+    "bAdd": "Zablokovať",
+    "bListTitle": "Zablokované ({n})",
+    "bEmpty": "Zatiaľ nič nie je zablokované.",
+    "bDomain": "celá doména",
+    "bStillActive": "Stále aktívne: {list}. Vypni tieto účty v časti Používatelia.",
+    "bRemove": "Odblokovať",
+    "bRemoved": "{v} už nie je zablokované.",
+    "bAdded": "{v} je zablokované.",
+    "bSelf": "Nemôžeš zablokovať vlastnú e-mailovú adresu ani doménu.",
+    "bBad": "Zadaj platnú e-mailovú adresu alebo doménu."
   },
   "st": {
     "lead": "Všetko o tvojom účte, súkromí a aplikácii na jednom mieste.",

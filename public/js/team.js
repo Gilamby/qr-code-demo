@@ -61,7 +61,7 @@ var Team = (function () {
       return '<li><b>' + esc(e.byName) + '</b> ' + esc(t('team.a_' + e.action)) + (n ? ' <em>' + esc(n) + '</em>' : '') + '<small>' + esc(when(e.at)) + '</small></li>';
     }).join('') + '</ul></div>';
   }
-  function err(x) { return t(x && x.code === 'exists' ? 'team.errExists' : x && x.code === 'email' ? 'auth.errEmail' : x && x.code === 'email_disposable' ? 'auth.errDisposable' : x && x.code === 'seats' ? 'team.full' : 'myCodes.failed'); }
+  function err(x) { return t(x && x.code === 'exists' ? 'team.errExists' : x && x.code === 'email' ? 'auth.errEmail' : x && x.code === 'email_disposable' ? 'auth.errDisposable' : x && x.code === 'blocked' ? 'auth.errBlocked' : x && x.code === 'seats' ? 'team.full' : 'myCodes.failed'); }
   // Gebeurtenissen in Mijn account (het kaartje wordt steeds opnieuw getekend)
   document.addEventListener('submit', function (e) {
     var f = e.target.closest && e.target.closest('[data-team-form]'); if (!f) return;

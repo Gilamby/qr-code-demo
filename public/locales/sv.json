@@ -1241,7 +1241,8 @@
     "gErr": "Inloggningen med Google misslyckades. Försök igen eller logga in med din e-postadress.",
     "mErr": "Inloggningen med Microsoft misslyckades. Försök igen eller logga in med din e-postadress.",
     "mUnverified": "Vi kan inte bekräfta e-postadressen för det här jobbkontot. Logga in med e-post och lösenord.",
-    "g2fa": "Tvåstegsverifiering är på för det här kontot: logga in med lösenord och kod."
+    "g2fa": "Tvåstegsverifiering är på för det här kontot: logga in med lösenord och kod.",
+    "errBlocked": "Du kan inte skapa ett konto med den här e-postadressen. Frågor? Kontakta supporten."
   },
   "acct": {
     "profile": "Profil",
@@ -1664,7 +1665,8 @@
     "revoke": "Återkalla",
     "revokeTitle": "Återkalla inbjudan för {email}?",
     "revokeText": "Inbjudningslänken slutar fungera. Du kan skicka en ny inbjudan senare.",
-    "revoked": "Inbjudan för {email} har återkallats."
+    "revoked": "Inbjudan för {email} har återkallats.",
+    "blocked": "Den här adressen är blockerad. Ta först bort den från blocklistan (Inställningar > Blockerade)."
   },
   "menu": {
     "modeLink": "Länk till din meny",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Konto påslaget",
     "log_user_delete": "Konto borttaget",
     "reasonLabel": "Anledning (valfritt)",
-    "reasonPh": "T.ex. utebliven betalning, missbruk, på begäran"
+    "reasonPh": "T.ex. utebliven betalning, missbruk, på begäran",
+    "alsoBlock": "Blockera även den här adressen (inget nytt konto möjligt)",
+    "log_block_add": "Blockerad",
+    "log_block_remove": "Blockering hävd"
   },
   "adminApp": {
     "badge": "Admin",
@@ -2438,7 +2443,24 @@
     "errFields": "Kontrollera: {f}",
     "errSave": "Det gick inte att spara.",
     "bannerAdmin": "Underhållsläget är på: kunder kan inte ändra något just nu.",
-    "bannerUser": "Kort underhåll: ändringar är tillfälligt otillgängliga. Dina QR-koder fortsätter att fungera."
+    "bannerUser": "Kort underhåll: ändringar är tillfälligt otillgängliga. Dina QR-koder fortsätter att fungera.",
+    "tabBlock": "Blockerade",
+    "bTitle": "Blockera e-postadress eller domän",
+    "bLead": "Blockerade adresser kan inte skapa ett nytt konto (Villkor, punkt 14). Ange en e-postadress eller en hel domän som @exempel.se.",
+    "bValue": "E-postadress eller domän",
+    "bPh": "namn@exempel.se eller @exempel.se",
+    "bNote": "Anledning (valfritt)",
+    "bNotePh": "Till exempel: missbruk, återkrav",
+    "bAdd": "Blockera",
+    "bListTitle": "Blockerade ({n})",
+    "bEmpty": "Inget blockerat ännu.",
+    "bDomain": "hel domän",
+    "bStillActive": "Fortfarande aktiva: {list}. Stäng av dessa konton under Användare.",
+    "bRemove": "Häv",
+    "bRemoved": "{v} är inte längre blockerad.",
+    "bAdded": "{v} är blockerad.",
+    "bSelf": "Du kan inte blockera din egen e-postadress eller domän.",
+    "bBad": "Ange en giltig e-postadress eller domän."
   },
   "st": {
     "lead": "Allt om ditt konto, din integritet och appen på ett ställe.",

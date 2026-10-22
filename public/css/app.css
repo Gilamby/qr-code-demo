@@ -5047,3 +5047,14 @@ body.paywall-open { overflow: hidden; }
 .chat-btn .chat-short { display: none; }
 .chat-dot { position: absolute; top: 6px; left: 27px; width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 2px #2196f0; }
 @media (max-width: 700px) { .chat-btn { padding: 0 13px 0 11px; gap: 6px; } .chat-btn .chat-full { display: none; } .chat-btn .chat-short { display: inline; } .chat-dot { left: 24px; } }
+
+/* Beheer > Instellingen > Geblokkeerd */
+.bl-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+.bl-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.035); border: 1px solid var(--line); }
+.bl-v { display: flex; align-items: center; gap: 8px; min-width: 0; } .bl-v b { overflow-wrap: anywhere; } .bl-v .ast-i { width: 16px; height: 16px; color: #f87171; flex: none; }
+.bl-v em { font-style: normal; font-size: 12px; padding: 2px 8px; border-radius: 99px; background: rgba(248,113,113,.12); color: #fca5a5; }
+.bl-meta { grid-column: 1; font-size: 13px; color: var(--muted); display: grid; gap: 4px; }
+.bl-warn { display: flex; gap: 6px; align-items: flex-start; color: #fbbf24; } .bl-warn .ast-i { width: 14px; height: 14px; flex: none; margin-top: 2px; }
+.bl-list .btn { grid-column: 2; grid-row: 1 / span 2; }
+.cust-block { margin-top: 10px; }
+@media (max-width: 560px) { .bl-list li { grid-template-columns: 1fr; } .bl-list .btn { grid-column: 1; grid-row: auto; justify-self: start; } }

@@ -1241,7 +1241,8 @@
     "gErr": "Kirjautuminen Googlella ei onnistunut. Yritä uudelleen tai kirjaudu sähköpostiosoitteellasi.",
     "mErr": "Kirjautuminen Microsoft-tilillä ei onnistunut. Yritä uudelleen tai kirjaudu sähköpostiosoitteellasi.",
     "mUnverified": "Emme voi vahvistaa tämän työtilin sähköpostiosoitetta. Kirjaudu sähköpostilla ja salasanalla.",
-    "g2fa": "Tilillä on kaksivaiheinen vahvistus: kirjaudu salasanalla ja koodilla."
+    "g2fa": "Tilillä on kaksivaiheinen vahvistus: kirjaudu salasanalla ja koodilla.",
+    "errBlocked": "Tällä sähköpostiosoitteella ei voi luoda tiliä. Kysyttävää? Ota yhteyttä tukeen."
   },
   "acct": {
     "profile": "Profiili",
@@ -1664,7 +1665,8 @@
     "revoke": "Peru",
     "revokeTitle": "Perutaanko kutsu osoitteeseen {email}?",
     "revokeText": "Kutsulinkki lakkaa toimimasta. Voit lähettää uuden kutsun myöhemmin.",
-    "revoked": "Kutsu osoitteeseen {email} peruttu."
+    "revoked": "Kutsu osoitteeseen {email} peruttu.",
+    "blocked": "Tämä osoite on estetty. Poista se ensin estolistalta (Asetukset > Estetyt)."
   },
   "menu": {
     "modeLink": "Linkki ruokalistaasi",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Tili kytketty päälle",
     "log_user_delete": "Tili poistettu",
     "reasonLabel": "Syy (valinnainen)",
-    "reasonPh": "Esim. maksu puuttuu, väärinkäyttö, pyynnöstä"
+    "reasonPh": "Esim. maksu puuttuu, väärinkäyttö, pyynnöstä",
+    "alsoBlock": "Estä myös tämä osoite (uutta tiliä ei voi luoda)",
+    "log_block_add": "Estetty",
+    "log_block_remove": "Esto poistettu"
   },
   "adminApp": {
     "badge": "Hallinta",
@@ -2438,7 +2443,24 @@
     "errFields": "Tarkista: {f}",
     "errSave": "Tallennus epäonnistui.",
     "bannerAdmin": "Huoltotila on päällä: asiakkaat eivät voi juuri nyt muuttaa mitään.",
-    "bannerUser": "Lyhyt huoltokatko: muutokset eivät ole tilapäisesti käytettävissä. QR-koodisi toimivat edelleen."
+    "bannerUser": "Lyhyt huoltokatko: muutokset eivät ole tilapäisesti käytettävissä. QR-koodisi toimivat edelleen.",
+    "tabBlock": "Estetyt",
+    "bTitle": "Estä sähköpostiosoite tai verkkotunnus",
+    "bLead": "Estetyt osoitteet eivät voi luoda uutta tiliä (Ehdot, kohta 14). Anna sähköpostiosoite tai koko verkkotunnus, kuten @esimerkki.fi.",
+    "bValue": "Sähköpostiosoite tai verkkotunnus",
+    "bPh": "nimi@esimerkki.fi tai @esimerkki.fi",
+    "bNote": "Syy (valinnainen)",
+    "bNotePh": "Esimerkiksi: väärinkäyttö, veloituksen palautus",
+    "bAdd": "Estä",
+    "bListTitle": "Estetyt ({n})",
+    "bEmpty": "Mitään ei ole vielä estetty.",
+    "bDomain": "koko verkkotunnus",
+    "bStillActive": "Yhä aktiivisia: {list}. Poista nämä tilit käytöstä kohdassa Käyttäjät.",
+    "bRemove": "Poista esto",
+    "bRemoved": "{v} ei ole enää estetty.",
+    "bAdded": "{v} on estetty.",
+    "bSelf": "Et voi estää omaa sähköpostiosoitettasi tai verkkotunnustasi.",
+    "bBad": "Anna kelvollinen sähköpostiosoite tai verkkotunnus."
   },
   "st": {
     "lead": "Kaikki tilistäsi, tietosuojasta ja sovelluksesta yhdessä paikassa.",

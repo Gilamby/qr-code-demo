@@ -98,7 +98,7 @@ var Session = (function () {
   }
   window.TermsBox = termsBox;
   function errorText(e) {
-    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', email_alias: 'auth.errAlias', terms: 'terms.err' };
+    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', email_alias: 'auth.errAlias', terms: 'terms.err' };
     return t(map[e && e.code] || PasswordRules.errorKey(e && e.code) || 'auth.errGeneral');
   }
   function ready() { document.body.classList.remove('auth-checking'); }
@@ -176,7 +176,7 @@ var Session = (function () {
   var g2 = location.search.match(/[?&]g2fa=([A-Za-z0-9_-]+)/);
   if (g2) { history.replaceState(null, '', location.pathname); }
   var gerr = location.search.match(/[?&]([gm])err=([a-z_0-9]+)/);   // g = Google, m = Microsoft
-  if (gerr) { history.replaceState(null, '', location.pathname); flash = [{ signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', email_disposable: 'auth.errDisposable', too_many: 'auth.errTooMany', '2fa': 'auth.g2fa' }[gerr[2]] || (gerr[1] === 'm' ? (gerr[2] === 'unverified' ? 'auth.mUnverified' : 'auth.mErr') : 'auth.gErr'), 'bad']; }
+  if (gerr) { history.replaceState(null, '', location.pathname); flash = [{ signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', too_many: 'auth.errTooMany', '2fa': 'auth.g2fa' }[gerr[2]] || (gerr[1] === 'm' ? (gerr[2] === 'unverified' ? 'auth.mUnverified' : 'auth.mErr') : 'auth.gErr'), 'bad']; }
   api.available().then(function (online) {
     if (g2) { tfa = { google: g2[1] }; show('twofa'); return; }
     if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });

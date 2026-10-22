@@ -1,6 +1,7 @@
 /* =========================================================
    TEAM (/api/team) — alleen bij Business. Regels: zie server/src/team.ts
    ========================================================= */
+import { isBlocked } from './blocklist';
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService, INVITE_HOURS, INVITED } from '../database/database.service';
@@ -50,6 +51,7 @@ export class TeamController {
     const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').replace(/\s+/g, ' ').trim().slice(0, 80), role = (ROLES.includes(b.role) ? b.role : 'editor') as Role;
     if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
     if (isDisposable(email)) throw fail(400, 'email_disposable');
+    if (await isBlocked(this.db, email)) throw fail(403, 'blocked');
     if (await this.db.userByEmail(email)) throw fail(409, 'exists');           // heeft al een eigen account: niet samenvoegen
     const seats = await this.seats(user);
     if (seats != null && (await membersOf(this.db, user.id)).length + 1 >= seats) throw fail(403, 'seats');   // abonnement vol (eigenaar telt mee)

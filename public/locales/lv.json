@@ -1241,7 +1241,8 @@
     "gErr": "Pieteikšanās ar Google neizdevās. Mēģiniet vēlreiz vai piesakieties ar e-pasta adresi.",
     "mErr": "Pieteikšanās ar Microsoft neizdevās. Mēģiniet vēlreiz vai piesakieties ar e-pasta adresi.",
     "mUnverified": "Mēs nevaram apstiprināt šī darba konta e-pastu. Piesakieties ar e-pastu un paroli.",
-    "g2fa": "Šim kontam ir ieslēgta divpakāpju verifikācija: piesakieties ar paroli un kodu."
+    "g2fa": "Šim kontam ir ieslēgta divpakāpju verifikācija: piesakieties ar paroli un kodu.",
+    "errBlocked": "Ar šo e-pasta adresi nevar izveidot kontu. Jautājumi? Sazinies ar atbalstu."
   },
   "acct": {
     "profile": "Profils",
@@ -1664,7 +1665,8 @@
     "revoke": "Atsaukt",
     "revokeTitle": "Atsaukt ielūgumu uz {email}?",
     "revokeText": "Ielūguma saite pārstās darboties. Vēlāk vari nosūtīt jaunu ielūgumu.",
-    "revoked": "Ielūgums uz {email} atsaukts."
+    "revoked": "Ielūgums uz {email} atsaukts.",
+    "blocked": "Šī adrese ir bloķēta. Vispirms noņem to no bloķēto saraksta (Iestatījumi > Bloķētie)."
   },
   "menu": {
     "modeLink": "Saite uz tavu ēdienkarti",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Konts ieslēgts",
     "log_user_delete": "Konts izdzēsts",
     "reasonLabel": "Iemesls (nav obligāti)",
-    "reasonPh": "Piem., nav samaksāts, ļaunprātīga izmantošana, pēc pieprasījuma"
+    "reasonPh": "Piem., nav samaksāts, ļaunprātīga izmantošana, pēc pieprasījuma",
+    "alsoBlock": "Bloķēt arī šo adresi (jaunu kontu nevarēs izveidot)",
+    "log_block_add": "Bloķēts",
+    "log_block_remove": "Atbloķēts"
   },
   "adminApp": {
     "badge": "Administrēšana",
@@ -2438,7 +2443,24 @@
     "errFields": "Pārbaudi: {f}",
     "errSave": "Neizdevās saglabāt.",
     "bannerAdmin": "Apkopes režīms ir ieslēgts: klienti pašlaik neko nevar mainīt.",
-    "bannerUser": "Īsa apkope: izmaiņas uz laiku nav pieejamas. Tavi QR kodi turpina darboties."
+    "bannerUser": "Īsa apkope: izmaiņas uz laiku nav pieejamas. Tavi QR kodi turpina darboties.",
+    "tabBlock": "Bloķētie",
+    "bTitle": "Bloķēt e-pastu vai domēnu",
+    "bLead": "Bloķētās adreses nevar izveidot jaunu kontu (Noteikumi, 14. punkts). Ievadi e-pasta adresi vai visu domēnu, piem., @piemers.lv.",
+    "bValue": "E-pasta adrese vai domēns",
+    "bPh": "vards@piemers.lv vai @piemers.lv",
+    "bNote": "Iemesls (nav obligāts)",
+    "bNotePh": "Piemēram: ļaunprātīga izmantošana, maksājuma atcelšana",
+    "bAdd": "Bloķēt",
+    "bListTitle": "Bloķētie ({n})",
+    "bEmpty": "Vēl nekas nav bloķēts.",
+    "bDomain": "viss domēns",
+    "bStillActive": "Joprojām aktīvi: {list}. Izslēdz šos kontus sadaļā Lietotāji.",
+    "bRemove": "Atbloķēt",
+    "bRemoved": "{v} vairs nav bloķēts.",
+    "bAdded": "{v} ir bloķēts.",
+    "bSelf": "Tu nevari bloķēt savu e-pasta adresi vai domēnu.",
+    "bBad": "Ievadi derīgu e-pasta adresi vai domēnu."
   },
   "st": {
     "lead": "Viss par tavu kontu, privātumu un lietotni vienuviet.",

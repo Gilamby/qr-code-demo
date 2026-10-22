@@ -750,7 +750,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       api.account.changeEmail({ email: em, password: f.password.value, lang: i18n.lang() }).then(function (r) {
         emailPending = { email: r.email, link: r.link || null, mail: r.mail }; editing = null; emailDraft = ''; draw();
       }).catch(function (x) {
-        var k = x && x.code === 'wrong' ? 'acct.wrongCurrent' : x && x.code === 'exists' ? 'acct.emailErrExists' : x && x.code === 'same' ? 'acct.emailErrSame' : x && x.code === 'email' ? 'acct.emailErrInvalid' : x && x.code === 'locked' ? 'acct.whyEmailAdmin' : x && x.code === 'demo' ? 'acct.secDemo' : null;
+        var k = x && x.code === 'wrong' ? 'acct.wrongCurrent' : x && x.code === 'exists' ? 'acct.emailErrExists' : x && x.code === 'blocked' ? 'auth.errBlocked' : x && x.code === 'same' ? 'acct.emailErrSame' : x && x.code === 'email' ? 'acct.emailErrInvalid' : x && x.code === 'locked' ? 'acct.whyEmailAdmin' : x && x.code === 'demo' ? 'acct.secDemo' : null;
         btn.disabled = false; draw({ email: [k ? t(k) : err(x), 'bad'] });
         var fi = box.querySelector(x && x.code === 'wrong' ? 'form[data-form=email] input[name=password]' : 'form[data-form=email] input[name=email]'); if (fi) fi.focus();
       });
@@ -922,7 +922,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   document.addEventListener('account:email-note', function (e) {
     var n = e.detail || {}; window.goToPage('account'); open('profile');
     if (n.ok) { user = Object.assign({}, user, { email: n.email, verified: true }); emailPending = null; sticky = function () { return { email: [t('acct.emailChanged', { email: n.email }), 'ok'] }; }; }
-    else sticky = function () { return { email: [t(n.code === 'exists' ? 'acct.emailErrExists' : 'acct.emailErrToken'), 'bad'] }; };
+    else sticky = function () { return { email: [t(n.code === 'exists' ? 'acct.emailErrExists' : n.code === 'blocked' ? 'auth.errBlocked' : 'acct.emailErrToken'), 'bad'] }; };
     draw();
   });
   // Elke keer dat je Mijn account opent: verse cijfers

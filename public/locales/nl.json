@@ -1241,7 +1241,8 @@
     "gErr": "Inloggen met Google lukte niet. Probeer het opnieuw of log in met je e-mailadres.",
     "mErr": "Inloggen met Microsoft lukte niet. Probeer het opnieuw of log in met je e-mailadres.",
     "mUnverified": "We kunnen het e-mailadres van dit werkaccount niet controleren. Log in met je e-mailadres en wachtwoord.",
-    "g2fa": "Tweestapsverificatie staat aan voor dit account: log in met je wachtwoord en code."
+    "g2fa": "Tweestapsverificatie staat aan voor dit account: log in met je wachtwoord en code.",
+    "errBlocked": "Met dit e-mailadres kun je geen account maken. Vragen? Neem contact op met support."
   },
   "acct": {
     "profile": "Profiel",
@@ -1664,7 +1665,8 @@
     "revoke": "Intrekken",
     "revokeTitle": "Uitnodiging voor {email} intrekken?",
     "revokeText": "De uitnodigingslink werkt daarna niet meer. Je kunt later een nieuwe uitnodiging sturen.",
-    "revoked": "Uitnodiging voor {email} ingetrokken."
+    "revoked": "Uitnodiging voor {email} ingetrokken.",
+    "blocked": "Dit e-mailadres is geblokkeerd. Haal het eerst van de blokkeerlijst (Instellingen > Geblokkeerd)."
   },
   "menu": {
     "modeLink": "Link naar je menu",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Account aangezet",
     "log_user_delete": "Account verwijderd",
     "reasonLabel": "Reden (optioneel)",
-    "reasonPh": "Bijv. betaling uitgebleven, misbruik, op verzoek"
+    "reasonPh": "Bijv. betaling uitgebleven, misbruik, op verzoek",
+    "alsoBlock": "Ook dit e-mailadres blokkeren (geen nieuw account mogelijk)",
+    "log_block_add": "Geblokkeerd",
+    "log_block_remove": "Blokkering opgeheven"
   },
   "adminApp": {
     "badge": "Beheer",
@@ -2438,7 +2443,24 @@
     "errFields": "Controleer: {f}",
     "errSave": "Opslaan lukte niet.",
     "bannerAdmin": "Onderhoudsmodus staat aan: klanten kunnen nu niets wijzigen.",
-    "bannerUser": "Even onderhoud: wijzigen kan tijdelijk niet. Je QR-codes werken gewoon."
+    "bannerUser": "Even onderhoud: wijzigen kan tijdelijk niet. Je QR-codes werken gewoon.",
+    "tabBlock": "Geblokkeerd",
+    "bTitle": "E-mailadres of domein blokkeren",
+    "bLead": "Wie geblokkeerd is, kan geen nieuw account maken (Voorwaarden, punt 14). Vul een e-mailadres in, of een heel domein zoals @voorbeeld.nl.",
+    "bValue": "E-mailadres of domein",
+    "bPh": "naam@voorbeeld.nl of @voorbeeld.nl",
+    "bNote": "Reden (optioneel)",
+    "bNotePh": "Bijvoorbeeld: misbruik, terugboeking",
+    "bAdd": "Blokkeren",
+    "bListTitle": "Geblokkeerd ({n})",
+    "bEmpty": "Nog niets geblokkeerd.",
+    "bDomain": "heel domein",
+    "bStillActive": "Nog actief: {list}. Zet deze accounts uit bij Gebruikers.",
+    "bRemove": "Opheffen",
+    "bRemoved": "{v} is niet meer geblokkeerd.",
+    "bAdded": "{v} is geblokkeerd.",
+    "bSelf": "Je kunt je eigen e-mailadres of domein niet blokkeren.",
+    "bBad": "Vul een geldig e-mailadres of domein in."
   },
   "st": {
     "lead": "Alles over je account, privacy en de app op één plek.",

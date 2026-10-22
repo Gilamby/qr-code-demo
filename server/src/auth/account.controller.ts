@@ -3,6 +3,7 @@
    Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond, factuurgegevens,
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
+import { isBlocked } from './blocklist';
 import { cleanupTeam } from './team.controller';
 import { membersOf } from '../team';
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
@@ -287,6 +288,7 @@ export class AccountController {
     if (email === String(user.email).toLowerCase()) throw fail(400, 'same');
     if (!(await this.auth.checkPassword(b.password || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');
     if (await this.db.userByEmail(email)) throw fail(409, 'exists');
+    if (await isBlocked(this.db, email)) throw fail(403, 'blocked');
     const token = await this.db.createEmailChange(user.id, email), link = baseUrl(req) + '/?email=' + encodeURIComponent(token);
     this.mailer.sendEmailChange(email, link, String(b.lang || 'en')).catch((e) => console.error('E-mail versturen mislukt:', e.message));
     // Demo-server zonder mail (SHOW_VERIFY_LINK=true): de link gaat mee, zodat je hem kunt testen

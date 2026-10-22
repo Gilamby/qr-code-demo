@@ -1241,7 +1241,8 @@
     "gErr": "Conectarea cu Google nu a reușit. Încearcă din nou sau conectează-te cu adresa de e-mail.",
     "mErr": "Conectarea cu Microsoft nu a reușit. Încearcă din nou sau conectează-te cu adresa de e-mail.",
     "mUnverified": "Nu putem confirma adresa de e-mail a acestui cont de serviciu. Conectează-te cu e-mailul și parola.",
-    "g2fa": "Acest cont are verificarea în doi pași activă: conectează-te cu parola și codul."
+    "g2fa": "Acest cont are verificarea în doi pași activă: conectează-te cu parola și codul.",
+    "errBlocked": "Nu poți crea un cont cu această adresă de e-mail. Întrebări? Contactează asistența."
   },
   "acct": {
     "profile": "Profil",
@@ -1664,7 +1665,8 @@
     "revoke": "Retrage",
     "revokeTitle": "Retragi invitația pentru {email}?",
     "revokeText": "Linkul de invitație nu va mai funcționa. Poți trimite o invitație nouă mai târziu.",
-    "revoked": "Invitația pentru {email} a fost retrasă."
+    "revoked": "Invitația pentru {email} a fost retrasă.",
+    "blocked": "Această adresă este blocată. Scoate-o mai întâi din lista de blocare (Setări > Blocate)."
   },
   "menu": {
     "modeLink": "Link către meniul tău",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Cont activat",
     "log_user_delete": "Cont șters",
     "reasonLabel": "Motiv (opțional)",
-    "reasonPh": "De ex. plată lipsă, abuz, la cerere"
+    "reasonPh": "De ex. plată lipsă, abuz, la cerere",
+    "alsoBlock": "Blochează și această adresă (nu se mai poate crea un cont nou)",
+    "log_block_add": "Blocat",
+    "log_block_remove": "Deblocat"
   },
   "adminApp": {
     "badge": "Admin",
@@ -2438,7 +2443,24 @@
     "errFields": "Verifică: {f}",
     "errSave": "Nu s-a putut salva.",
     "bannerAdmin": "Modul de întreținere este activ: clienții nu pot modifica nimic acum.",
-    "bannerUser": "Întreținere scurtă: modificările nu sunt disponibile temporar. Codurile tale QR continuă să funcționeze."
+    "bannerUser": "Întreținere scurtă: modificările nu sunt disponibile temporar. Codurile tale QR continuă să funcționeze.",
+    "tabBlock": "Blocate",
+    "bTitle": "Blochează adresă sau domeniu",
+    "bLead": "Adresele blocate nu pot crea un cont nou (Termeni, punctul 14). Introdu o adresă de e-mail sau un domeniu întreg, de ex. @exemplu.ro.",
+    "bValue": "Adresă de e-mail sau domeniu",
+    "bPh": "nume@exemplu.ro sau @exemplu.ro",
+    "bNote": "Motiv (opțional)",
+    "bNotePh": "De exemplu: abuz, rambursare forțată",
+    "bAdd": "Blochează",
+    "bListTitle": "Blocate ({n})",
+    "bEmpty": "Nimic blocat încă.",
+    "bDomain": "domeniu întreg",
+    "bStillActive": "Încă active: {list}. Dezactivează aceste conturi la Utilizatori.",
+    "bRemove": "Deblochează",
+    "bRemoved": "{v} nu mai este blocat.",
+    "bAdded": "{v} este blocat.",
+    "bSelf": "Nu îți poți bloca propria adresă sau propriul domeniu.",
+    "bBad": "Introdu o adresă de e-mail sau un domeniu valid."
   },
   "st": {
     "lead": "Tot ce ține de contul tău, confidențialitate și aplicație, într-un singur loc.",

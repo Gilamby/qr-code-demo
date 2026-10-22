@@ -1241,7 +1241,8 @@
     "gErr": "Innlogging med Google mislyktes. Prøv igjen, eller logg inn med e-postadressen din.",
     "mErr": "Innlogging med Microsoft mislyktes. Prøv igjen, eller logg inn med e-postadressen din.",
     "mUnverified": "Vi kan ikke bekrefte e-postadressen til denne jobbkontoen. Logg inn med e-post og passord.",
-    "g2fa": "Totrinnsbekreftelse er på for denne kontoen: logg inn med passord og kode."
+    "g2fa": "Totrinnsbekreftelse er på for denne kontoen: logg inn med passord og kode.",
+    "errBlocked": "Du kan ikke opprette en konto med denne e-postadressen. Spørsmål? Kontakt support."
   },
   "acct": {
     "profile": "Profil",
@@ -1664,7 +1665,8 @@
     "revoke": "Trekk tilbake",
     "revokeTitle": "Trekke tilbake invitasjonen til {email}?",
     "revokeText": "Invitasjonslenken slutter å virke. Du kan sende en ny invitasjon senere.",
-    "revoked": "Invitasjonen til {email} er trukket tilbake."
+    "revoked": "Invitasjonen til {email} er trukket tilbake.",
+    "blocked": "Denne adressen er blokkert. Fjern den først fra blokkeringslisten (Innstillinger > Blokkert)."
   },
   "menu": {
     "modeLink": "Lenke til menyen din",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Konto slått på",
     "log_user_delete": "Konto slettet",
     "reasonLabel": "Årsak (valgfritt)",
-    "reasonPh": "F.eks. manglende betaling, misbruk, på forespørsel"
+    "reasonPh": "F.eks. manglende betaling, misbruk, på forespørsel",
+    "alsoBlock": "Blokker også denne adressen (ingen ny konto mulig)",
+    "log_block_add": "Blokkert",
+    "log_block_remove": "Blokkering opphevet"
   },
   "adminApp": {
     "badge": "Admin",
@@ -2438,7 +2443,24 @@
     "errFields": "Sjekk: {f}",
     "errSave": "Kunne ikke lagre.",
     "bannerAdmin": "Vedlikeholdsmodus er på: kunder kan ikke endre noe akkurat nå.",
-    "bannerUser": "Kort vedlikehold: endringer er midlertidig utilgjengelige. QR-kodene dine virker fortsatt."
+    "bannerUser": "Kort vedlikehold: endringer er midlertidig utilgjengelige. QR-kodene dine virker fortsatt.",
+    "tabBlock": "Blokkert",
+    "bTitle": "Blokker e-postadresse eller domene",
+    "bLead": "Blokkerte adresser kan ikke opprette en ny konto (Vilkår, punkt 14). Skriv inn en e-postadresse eller et helt domene som @eksempel.no.",
+    "bValue": "E-postadresse eller domene",
+    "bPh": "navn@eksempel.no eller @eksempel.no",
+    "bNote": "Årsak (valgfritt)",
+    "bNotePh": "For eksempel: misbruk, tilbakeføring",
+    "bAdd": "Blokker",
+    "bListTitle": "Blokkert ({n})",
+    "bEmpty": "Ingenting blokkert ennå.",
+    "bDomain": "helt domene",
+    "bStillActive": "Fortsatt aktive: {list}. Slå av disse kontoene under Brukere.",
+    "bRemove": "Opphev",
+    "bRemoved": "{v} er ikke lenger blokkert.",
+    "bAdded": "{v} er blokkert.",
+    "bSelf": "Du kan ikke blokkere din egen e-postadresse eller ditt eget domene.",
+    "bBad": "Skriv inn en gyldig e-postadresse eller et gyldig domene."
   },
   "st": {
     "lead": "Alt om kontoen din, personvern og appen på ett sted.",

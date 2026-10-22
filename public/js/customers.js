@@ -136,7 +136,7 @@
   }
   function redrawRows() { var r = document.getElementById('custRows'); if (r) r.innerHTML = rows(); }
   function errText(x) {
-    return x && x.code === 'exists' ? t('cust.exists') : x && x.code === 'active' ? t('cust.alreadyActive') : x && x.code === 'team_member' ? t('cust.cantRemove') : x && x.code === 'super_only' ? t('adm.superOnly') : t('auth.errGeneral');
+    return x && x.code === 'exists' ? t('cust.exists') : x && x.code === 'blocked' ? t('cust.blocked') : x && x.code === 'active' ? t('cust.alreadyActive') : x && x.code === 'team_member' ? t('cust.cantRemove') : x && x.code === 'super_only' ? t('adm.superOnly') : t('auth.errGeneral');
   }
 
   if (box) {
@@ -168,8 +168,8 @@
       if (e.target.closest('[data-showform]')) { showForm = !showForm; if (!showForm) { bad = []; } result = null; draw(); if (showForm) { var i = box.querySelector('input[name=name]'); if (i) i.focus(); } return; }
       if (e.target.closest('[data-toggle]') && c) {
         var turnOff = !c.disabledAt;
-        var go = function (reason) {
-          return api.customers.update(id, turnOff ? { disabled: true, reason: reason || '' } : { disabled: false }).then(function () { result = { kind: 'ok', text: t(turnOff ? 'adm.disabledMsg' : 'adm.enabledMsg', { email: c.email }) }; load(); draw(); })
+        var go = function (reason, block) {
+          return api.customers.update(id, turnOff ? { disabled: true, reason: reason || '', block: !!block } : { disabled: false }).then(function () { result = { kind: 'ok', text: t(turnOff ? 'adm.disabledMsg' : 'adm.enabledMsg', { email: c.email }) }; load(); draw(); })
             .catch(function (x) { result = { kind: 'bad', text: errText(x) }; draw(); });
         };
         if (!turnOff) return go();
@@ -177,8 +177,9 @@
         dd.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + SVG.replace('aria-hidden="true"', 'class="mc-i" aria-hidden="true"') + ICON.off + '</svg></span>' +
           '<h3>' + t('adm.disableTitle', { name: esc(c.name || c.email) }) + '</h3><p>' + t('adm.disableText') + '</p>' +
           '<label class="auth-f"><span>' + t('adm.reasonLabel') + '</span><span class="auth-in"><input id="custOffWhy" maxlength="200" placeholder="' + esc(t('adm.reasonPh')) + '"></span></label>' +
+          '<label class="set-switch cust-block"><input type="checkbox" id="custOffBlock"><span>' + t('adm.alsoBlock') + '</span></label>' +
           '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok" id="custOffGo">' + t('adm.disable') + '</button></div></form>';
-        dd.querySelector('#custOffGo').addEventListener('click', function (ev) { ev.preventDefault(); var why = dd.querySelector('#custOffWhy').value; dd.close(); go(why); });
+        dd.querySelector('#custOffGo').addEventListener('click', function (ev) { ev.preventDefault(); var why = dd.querySelector('#custOffWhy').value, blk = dd.querySelector('#custOffBlock').checked; dd.close(); go(why, blk); });
         return dd.showModal();
       }
       if (e.target.closest('[data-codes]') && c && window.AdminCodes) return AdminCodes.filter({ user: c.id });   // alle QR-codes van deze gebruiker

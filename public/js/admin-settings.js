@@ -19,7 +19,7 @@ var AdminSettings = (function () {
     lang: '<path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c-.5 3-3 7-7 8"/><path d="M13 21l4-9 4 9M14.5 18h5"/>',
     key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>', search: '<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/>',
     undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>', spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
-    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', home: '<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>', tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>'
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', home: '<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>', tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>', ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
   var ico = function (k) { return SVG(IC[k]); };
   function langName(c) { var l = LANGUAGES.filter(function (x) { return x.code === c; })[0]; return l ? l.name : c; }
@@ -57,14 +57,15 @@ var AdminSettings = (function () {
 
   /* ---------- Tekenen ---------- */
   function tabs() {
-    return '<div class="ast-tabs" role="tablist">' + [['texts', 'lang', 'as.tabTexts'], ['deepl', 'spark', 'as.tabDeepl'], ['company', 'home', 'set.tabCompany'], ['system', 'tool', 'set.tabSystem']].map(function (x) {
+    return '<div class="ast-tabs" role="tablist">' + [['texts', 'lang', 'as.tabTexts'], ['deepl', 'spark', 'as.tabDeepl'], ['company', 'home', 'set.tabCompany'], ['system', 'tool', 'set.tabSystem'], ['block', 'ban', 'set.tabBlock']].map(function (x) {
       return '<button type="button" role="tab" aria-selected="' + (tab === x[0]) + '" data-tab="' + x[0] + '">' + ico(x[1]) + t(x[2]) + '</button>'; }).join('') + '</div>';
   }
   function draw() {
     if (!info) return;
     body.innerHTML = '<header class="ast-head"><div><h2>' + t('nav.adminSettings') + '</h2><p>' + t('as.lead') + '</p></div></header>' + tabs() +
-      '<div id="asPanel">' + (tab === 'texts' ? textsPanel() : tab === 'deepl' ? deeplPanel() : tab === 'company' ? companyPanel() : systemPanel()) + '</div>';
+      '<div id="asPanel">' + (tab === 'texts' ? textsPanel() : tab === 'deepl' ? deeplPanel() : tab === 'company' ? companyPanel() : tab === 'block' ? blockPanel() : systemPanel()) + '</div>';
     if ((tab === 'company' || tab === 'system') && !sets) loadSets();
+    if (tab === 'block' && !blocks) loadBlocks();
   }
   function textsPanel() {
     // Onderdelen met een leesbare naam ("Beheer › Alle QR-codes" i.p.v. "ac"), op naam gesorteerd
@@ -171,6 +172,28 @@ var AdminSettings = (function () {
       '</ul></div>';
   }
 
+  /* ---------- Blokkeerlijst: deze adressen/domeinen kunnen geen nieuw account maken (Terms punt 14) ---------- */
+  var blocks = null, blockMsg = null;
+  function loadBlocks() {
+    api.admin.blocklist().then(function (r) { blocks = r.items || []; if (tab === 'block') draw(); }).catch(function () { blocks = []; blockMsg = { kind: 'bad', text: t('myCodes.failed') }; if (tab === 'block') draw(); });
+  }
+  function blockPanel() {
+    var form = '<form class="glass ast-card set-form" data-blockform><h3>' + t('set.bTitle') + '</h3><p>' + t('set.bLead') + '</p><div class="set-grid">' +
+      '<label class="auth-f"><span>' + t('set.bValue') + '</span><span class="auth-in"><input name="value" required maxlength="254" placeholder="' + esc(t('set.bPh')) + '" autocomplete="off"></span></label>' +
+      '<label class="auth-f"><span>' + t('set.bNote') + '</span><span class="auth-in"><input name="note" maxlength="200" placeholder="' + esc(t('set.bNotePh')) + '"></span></label></div>' +
+      (blockMsg ? '<p class="acct-msg ' + blockMsg.kind + '" role="status">' + esc(blockMsg.text) + '</p>' : '') +
+      '<div class="acct-actions"><button type="submit" class="btn primary">' + ico('ban') + t('set.bAdd') + '</button></div></form>';
+    if (!blocks) return form + '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    return form + '<div class="glass ast-card"><h3>' + t('set.bListTitle', { n: blocks.length }) + '</h3>' + (!blocks.length ? '<p class="muted-msg">' + t('set.bEmpty') + '</p>' :
+      '<ul class="bl-list">' + blocks.map(function (b) {
+        var acc = (b.accounts || []).filter(function (a) { return !a.disabled; });
+        return '<li><span class="bl-v">' + ico('ban') + '<b>' + esc(b.v) + '</b>' + (b.v.charAt(0) === '@' ? '<em>' + t('set.bDomain') + '</em>' : '') + '</span>' +
+          '<span class="bl-meta">' + esc([b.note, b.by, b.at && i18n.fmt.stamp(b.at, 'date')].filter(Boolean).join(' · ')) +
+            (acc.length ? '<span class="bl-warn">' + ico('warn') + t('set.bStillActive', { list: acc.map(function (a) { return esc(a.email); }).join(', ') }) + '</span>' : '') + '</span>' +
+          '<button type="button" class="btn ghost" data-unblock="' + esc(b.v) + '">' + ico('x') + t('set.bRemove') + '</button></li>';
+      }).join('') + '</ul>') + '</div>';
+  }
+
   /* ---------- Gebeurtenissen ---------- */
   body.addEventListener('click', function (e) {
     var b;
@@ -178,6 +201,11 @@ var AdminSettings = (function () {
     if ((b = e.target.closest('[data-lang]'))) { f.lang = b.getAttribute('data-lang'); if (f.ref === f.lang) f.ref = f.lang === 'en' ? 'nl' : 'en'; shown = PAGE; return draw(); }
     if ((b = e.target.closest('[data-status]'))) { f.status = b.getAttribute('data-status'); shown = PAGE; return draw(); }
     if (e.target.closest('[data-more]')) { shown += PAGE * 2; return draw(); }
+    if ((b = e.target.closest('[data-unblock]'))) {
+      b.disabled = true; var v = b.getAttribute('data-unblock');
+      return api.admin.unblock(v).then(function () { blocks = blocks.filter(function (x) { return x.v !== v; }); blockMsg = { kind: 'ok', text: t('set.bRemoved', { v: v }) }; draw(); })
+        .catch(function () { b.disabled = false; blockMsg = { kind: 'bad', text: t('myCodes.failed') }; draw(); });
+    }
     var r = e.target.closest('.ast-row'), k = r && r.getAttribute('data-key');
     if (k && e.target.closest('[data-reset]')) return save(k, '', function () { redrawRow(k); });
     if (k && e.target.closest('[data-auto]')) {
@@ -203,6 +231,12 @@ var AdminSettings = (function () {
   });
   function deeplErr(x) { var c = x && x.code; return t(c === 'deepl_key' ? 'as.badKey' : c === 'deepl_quota' ? 'as.quota' : c === 'unsupported_lang' ? 'as.unsupported' : c === 'too_many' ? 'auth.errTooMany' : 'as.unreachable'); }
   body.addEventListener('submit', function (e) {
+    var bf = e.target.closest('[data-blockform]');
+    if (bf) {
+      e.preventDefault(); var bb = bf.querySelector('[type=submit]'); bb.disabled = true;
+      return api.admin.block({ value: bf.value.value, note: bf.note.value }).then(function (r) { blockMsg = { kind: 'ok', text: t('set.bAdded', { v: r.v }) }; blocks = null; loadBlocks(); draw(); })
+        .catch(function (x) { blockMsg = { kind: 'bad', text: t(x && x.code === 'block_self' ? 'set.bSelf' : x && x.code === 'block_value' ? 'set.bBad' : 'myCodes.failed') }; draw(); });
+    }
     var sf = e.target.closest('[data-set]');
     if (sf) {
       e.preventDefault(); var k = sf.getAttribute('data-set'), go = sf.querySelector('[type=submit]'); go.disabled = true;

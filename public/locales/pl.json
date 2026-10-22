@@ -1241,7 +1241,8 @@
     "gErr": "Logowanie przez Google nie powiodło się. Spróbuj ponownie lub zaloguj się adresem e-mail.",
     "mErr": "Logowanie przez Microsoft nie powiodło się. Spróbuj ponownie lub zaloguj się adresem e-mail.",
     "mUnverified": "Nie możemy potwierdzić adresu e-mail tego konta służbowego. Zaloguj się e-mailem i hasłem.",
-    "g2fa": "Na tym koncie włączona jest weryfikacja dwuetapowa: zaloguj się hasłem i kodem."
+    "g2fa": "Na tym koncie włączona jest weryfikacja dwuetapowa: zaloguj się hasłem i kodem.",
+    "errBlocked": "Nie możesz utworzyć konta z tym adresem e-mail. Pytania? Skontaktuj się z pomocą."
   },
   "acct": {
     "profile": "Profil",
@@ -1664,7 +1665,8 @@
     "revoke": "Cofnij",
     "revokeTitle": "Cofnąć zaproszenie dla {email}?",
     "revokeText": "Link z zaproszeniem przestanie działać. Później możesz wysłać nowe zaproszenie.",
-    "revoked": "Zaproszenie dla {email} cofnięte."
+    "revoked": "Zaproszenie dla {email} cofnięte.",
+    "blocked": "Ten adres jest zablokowany. Najpierw usuń go z listy blokad (Ustawienia > Zablokowane)."
   },
   "menu": {
     "modeLink": "Link do menu",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Włączono konto",
     "log_user_delete": "Usunięto konto",
     "reasonLabel": "Powód (opcjonalnie)",
-    "reasonPh": "Np. brak płatności, nadużycie, na prośbę"
+    "reasonPh": "Np. brak płatności, nadużycie, na prośbę",
+    "alsoBlock": "Zablokuj też ten adres (nie da się utworzyć nowego konta)",
+    "log_block_add": "Zablokowano",
+    "log_block_remove": "Odblokowano"
   },
   "adminApp": {
     "badge": "Administracja",
@@ -2438,7 +2443,24 @@
     "errFields": "Sprawdź: {f}",
     "errSave": "Nie udało się zapisać.",
     "bannerAdmin": "Tryb konserwacji włączony: klienci nie mogą teraz nic zmieniać.",
-    "bannerUser": "Krótka konserwacja: zmiany są chwilowo niedostępne. Twoje kody QR działają."
+    "bannerUser": "Krótka konserwacja: zmiany są chwilowo niedostępne. Twoje kody QR działają.",
+    "tabBlock": "Zablokowane",
+    "bTitle": "Zablokuj adres e-mail lub domenę",
+    "bLead": "Zablokowane adresy nie mogą utworzyć nowego konta (Regulamin, punkt 14). Wpisz adres e-mail lub całą domenę, np. @przyklad.pl.",
+    "bValue": "Adres e-mail lub domena",
+    "bPh": "imie@przyklad.pl lub @przyklad.pl",
+    "bNote": "Powód (opcjonalnie)",
+    "bNotePh": "Na przykład: nadużycie, obciążenie zwrotne",
+    "bAdd": "Zablokuj",
+    "bListTitle": "Zablokowane ({n})",
+    "bEmpty": "Nic jeszcze nie zablokowano.",
+    "bDomain": "cała domena",
+    "bStillActive": "Nadal aktywne: {list}. Wyłącz te konta w sekcji Użytkownicy.",
+    "bRemove": "Odblokuj",
+    "bRemoved": "{v} nie jest już zablokowany.",
+    "bAdded": "{v} jest zablokowany.",
+    "bSelf": "Nie możesz zablokować własnego adresu ani domeny.",
+    "bBad": "Wpisz prawidłowy adres e-mail lub domenę."
   },
   "st": {
     "lead": "Wszystko o koncie, prywatności i aplikacji w jednym miejscu.",

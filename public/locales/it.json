@@ -1241,7 +1241,8 @@
     "gErr": "L’accesso con Google non è riuscito. Riprova o accedi con il tuo indirizzo e-mail.",
     "mErr": "L’accesso con Microsoft non è riuscito. Riprova o accedi con il tuo indirizzo e-mail.",
     "mUnverified": "Non possiamo verificare l’email di questo account di lavoro. Accedi con email e password.",
-    "g2fa": "Per questo account è attiva la verifica in due passaggi: accedi con password e codice."
+    "g2fa": "Per questo account è attiva la verifica in due passaggi: accedi con password e codice.",
+    "errBlocked": "Non puoi creare un account con questo indirizzo e-mail. Domande? Contatta il supporto."
   },
   "acct": {
     "profile": "Profilo",
@@ -1664,7 +1665,8 @@
     "revoke": "Revoca",
     "revokeTitle": "Revocare l’invito per {email}?",
     "revokeText": "Il link di invito non funzionerà più. Potrai inviare un nuovo invito in seguito.",
-    "revoked": "Invito per {email} revocato."
+    "revoked": "Invito per {email} revocato.",
+    "blocked": "Questo indirizzo è bloccato. Rimuovilo prima dalla lista di blocco (Impostazioni > Bloccati)."
   },
   "menu": {
     "modeLink": "Link al tuo menu",
@@ -1783,7 +1785,10 @@
     "log_user_enable": "Account attivato",
     "log_user_delete": "Account eliminato",
     "reasonLabel": "Motivo (facoltativo)",
-    "reasonPh": "Es. pagamento mancante, abuso, su richiesta"
+    "reasonPh": "Es. pagamento mancante, abuso, su richiesta",
+    "alsoBlock": "Blocca anche questo indirizzo (nessun nuovo account possibile)",
+    "log_block_add": "Bloccato",
+    "log_block_remove": "Sbloccato"
   },
   "adminApp": {
     "badge": "Amministrazione",
@@ -2438,7 +2443,24 @@
     "errFields": "Controlla: {f}",
     "errSave": "Salvataggio non riuscito.",
     "bannerAdmin": "Manutenzione attiva: i clienti ora non possono modificare nulla.",
-    "bannerUser": "Breve manutenzione: le modifiche non sono disponibili per poco. I tuoi codici QR funzionano."
+    "bannerUser": "Breve manutenzione: le modifiche non sono disponibili per poco. I tuoi codici QR funzionano.",
+    "tabBlock": "Bloccati",
+    "bTitle": "Blocca indirizzo o dominio",
+    "bLead": "Gli indirizzi bloccati non possono creare un nuovo account (Termini, punto 14). Inserisci un indirizzo e-mail o un intero dominio come @esempio.it.",
+    "bValue": "Indirizzo e-mail o dominio",
+    "bPh": "nome@esempio.it o @esempio.it",
+    "bNote": "Motivo (facoltativo)",
+    "bNotePh": "Ad esempio: abuso, chargeback",
+    "bAdd": "Blocca",
+    "bListTitle": "Bloccati ({n})",
+    "bEmpty": "Ancora niente di bloccato.",
+    "bDomain": "intero dominio",
+    "bStillActive": "Ancora attivi: {list}. Disattiva questi account in Utenti.",
+    "bRemove": "Sblocca",
+    "bRemoved": "{v} non è più bloccato.",
+    "bAdded": "{v} è bloccato.",
+    "bSelf": "Non puoi bloccare il tuo indirizzo o dominio.",
+    "bBad": "Inserisci un indirizzo e-mail o un dominio valido."
   },
   "st": {
     "lead": "Tutto su account, privacy e app in un unico posto.",

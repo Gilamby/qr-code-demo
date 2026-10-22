@@ -5,6 +5,7 @@
    (7 dagen geldig) en is daarna meteen ingelogd. Zonder mailserver krijgt het team de link terug om te kopiëren.
    Team = SUPPORT_EMAIL en ADMIN_EMAILS (zie auth.service.ts).
    ========================================================= */
+import { isBlocked, addBlock } from './blocklist';
 import { Body, CanActivate, Controller, Delete, ExecutionContext, Get, HttpCode, Injectable, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService, INVITE_HOURS, INVITED } from '../database/database.service';
@@ -76,6 +77,7 @@ export class AdminController {
     const errors = [!name && 'name', (!EMAIL.test(email) || email.length > 254) && 'email'].filter(Boolean);
     if (errors.length) throw fail(400, 'Invalid customer', { details: errors });
     if (await this.db.userByEmail(email)) throw fail(409, 'exists');
+    if (await isBlocked(this.db, email)) throw fail(403, 'blocked');           // eerst van de blokkeerlijst halen (Beheer > Instellingen)
     const user = await this.db.createUser({ email, name, passwordHash: INVITED });
     const link = await this.invite(req, user.id, email, String(b.lang || 'en'));
     await this.log(me, 'user_invite', user.id, email);
@@ -126,6 +128,7 @@ export class AdminController {
     if (patch.disabledAt !== undefined) await this.db.setSetting('disabled:' + id, patch.disabledAt && why ? JSON.stringify({ reason: why, by: me.name || me.email, at: new Date().toISOString() }) : null);
     if (patch.role !== undefined) await this.log(me, 'user_role', id, u.email + ' → ' + (patch.role || 'user'));
     if (patch.disabledAt !== undefined) await this.log(me, patch.disabledAt ? 'user_disable' : 'user_enable', id, u.email + (patch.disabledAt && why ? ' · ' + why : ''));
+    if (patch.disabledAt && b.block === true && await addBlock(this.db, u.email, why, me.name || me.email)) await this.log(me, 'block_add', id, u.email);   // ook geen nieuw account meer
     return { ...this.withRole((await this.db.listCustomers()).find((c) => c.id === id)), plan: (await planFor(this.db, id)).id, disabledReason: patch.disabledAt ? why || null : null };
   }
 
