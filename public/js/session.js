@@ -101,7 +101,12 @@ var Session = (function () {
     var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', email_alias: 'auth.errAlias', terms: 'terms.err' };
     return t(map[e && e.code] || PasswordRules.errorKey(e && e.code) || 'auth.errGeneral');
   }
-  function ready() { document.body.classList.remove('auth-checking'); }
+  function ready() {
+    document.body.classList.remove('auth-checking');
+    // Laadscherm weg (zie index.html); minstens 600 ms zichtbaar zodat het niet flitst
+    var wait = Math.max(0, 600 - (Date.now() - (window.__bootAt || 0)));
+    setTimeout(function () { document.body.classList.remove('booting'); }, wait);
+  }
   setTimeout(ready, 4000);                                                // nooit eeuwig een leeg scherm
   function show(m) { mode = m || 'login'; view.hidden = false; document.body.classList.add('auth-open'); ready(); draw(); }
   function hide() { view.hidden = true; document.body.classList.remove('auth-open'); }

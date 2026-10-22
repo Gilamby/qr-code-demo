@@ -13,8 +13,44 @@
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/light.css">
 <script>/* thema meteen goed zetten: geen flits */try{var p=localStorage.getItem("optimasys-theme")||"dark";document.documentElement.setAttribute("data-theme",p==="system"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):p==="light"?"light":"dark")}catch(e){}</script>
+<style>/* Laadscherm (bij openen of verversen): staat in de pagina zelf, zodat het er meteen is */
+#boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(60% 50% at 50% 40%,rgba(43,181,240,.16),transparent 70%),#080b10;transition:opacity .45s ease,visibility .45s}
+:root[data-theme="light"] #boot{background:radial-gradient(60% 50% at 50% 40%,rgba(43,181,240,.18),transparent 70%),#eef2f7}
+body:not(.booting) #boot{opacity:0;visibility:hidden;pointer-events:none}
+.boot-in{display:grid;justify-items:center;gap:22px;animation:bootIn .6s cubic-bezier(.2,.8,.2,1) both}
+.boot-mark{position:relative;width:96px;height:96px;filter:drop-shadow(0 12px 36px rgba(37,99,235,.45))}
+.boot-mark svg{width:100%;height:100%;display:block}
+.boot-mark .br{animation:bootBr 1.6s ease-in-out infinite;transform-origin:32px 32px}
+.boot-mark .core{animation:bootSpin 2.4s cubic-bezier(.6,0,.4,1) infinite;transform-origin:32px 32px}
+.boot-scan{position:absolute;left:10%;right:10%;height:2px;top:12%;border-radius:2px;background:linear-gradient(90deg,transparent,#5eead4,#38bdf8,transparent);box-shadow:0 0 14px 2px rgba(56,189,248,.7);animation:bootScan 1.6s ease-in-out infinite}
+.boot-name{font:800 26px/1 Manrope,system-ui,-apple-system,sans-serif;letter-spacing:-.02em;color:#f1f5f9}
+.boot-name span{background:linear-gradient(90deg,#22d3ee,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent}
+:root[data-theme="light"] .boot-name{color:#0d1320}
+.boot-bar{width:160px;height:3px;border-radius:3px;overflow:hidden;background:rgba(148,163,184,.18)}
+.boot-bar i{display:block;width:40%;height:100%;border-radius:3px;background:linear-gradient(90deg,#22d3ee,#2563eb);animation:bootBar 1.2s ease-in-out infinite}
+@keyframes bootIn{from{opacity:0;transform:translateY(8px) scale(.97)}}
+@keyframes bootBr{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes bootSpin{0%,20%{transform:rotate(0)}60%,100%{transform:rotate(90deg)}}
+@keyframes bootScan{0%{top:14%;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:84%;opacity:0}}
+@keyframes bootBar{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+@media (prefers-reduced-motion:reduce){.boot-mark .br,.boot-mark .core,.boot-scan,.boot-bar i{animation:none}}
+</style>
 </head>
-<body>
+<body class="booting">
+<div id="boot" role="status" aria-label="Loading">
+  <div class="boot-in">
+    <div class="boot-mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64"><defs><linearGradient id="bootg" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs>
+        <path class="br" d="M8 22v-7a7 7 0 0 1 7-7h7M42 8h7a7 7 0 0 1 7 7v7M56 42v7a7 7 0 0 1-7 7h-7M22 56h-7a7 7 0 0 1-7-7v-7" fill="none" stroke="url(#bootg)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <g class="core"><rect x="22.5" y="22.5" width="19" height="19" rx="5" fill="none" stroke="url(#bootg)" stroke-width="4" transform="rotate(45 32 32)"/><rect x="28.5" y="28.5" width="7" height="7" rx="1.8" fill="url(#bootg)" transform="rotate(45 32 32)"/></g>
+      </svg>
+      <i class="boot-scan"></i>
+    </div>
+    <div class="boot-name">QR-<span>Codex</span></div>
+    <div class="boot-bar"><i></i></div>
+  </div>
+</div>
+<script>/* laadscherm: altijd minstens even zichtbaar (geen flits), en nooit langer dan 12 s */window.__bootAt=Date.now();setTimeout(function(){document.body.classList.remove('booting')},12000);</script>
 <div class="auth" id="authView" hidden>
   <!-- Inlogscherm links: interactieve glazen QR-sculptuur (js/login-scene.js laadt anim/login3d.js; alleen computer/tablet) -->
   <div class="auth-art" aria-hidden="true"><canvas id="authScene"></canvas><p class="auth-art-hint" data-i18n="auth.sceneHint"></p></div>
