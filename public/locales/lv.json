@@ -531,7 +531,8 @@
     "hlBadTip": "{url} nedarbojas ({status}) · pārbaudīts {when}. Noklikšķini, lai pārbaudītu vēlreiz.",
     "hlNoAnswer": "nav atbildes",
     "hlNowOk": "Saite atkal darbojas.",
-    "hlNowBad": "Saite joprojām nedarbojas."
+    "hlNowBad": "Saite joprojām nedarbojas.",
+    "scansTotal": "skenējumi kopā"
   },
   "appearance": {
     "title": "Krāsas",
@@ -2848,7 +2849,8 @@
     "name": "Nosaukums (kam tā paredzēta?)",
     "namePh": "Piemēram: Optima-CRM",
     "create": "Izveidot atslēgu",
-    "max": "Sasniegts maksimālais atslēgu skaits."
+    "max": "Sasniegts maksimālais atslēgu skaits.",
+    "peek": "Apskati, ko vari darīt ar API"
   },
   "labels": {
     "label": "Birka",

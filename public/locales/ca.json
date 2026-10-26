@@ -531,7 +531,8 @@
     "hlBadTip": "{url} no funciona ({status}) · comprovat {when}. Fes clic per tornar a comprovar.",
     "hlNoAnswer": "sense resposta",
     "hlNowOk": "L'enllaç torna a funcionar.",
-    "hlNowBad": "L'enllaç encara no funciona."
+    "hlNowBad": "L'enllaç encara no funciona.",
+    "scansTotal": "escanejos en total"
   },
   "appearance": {
     "title": "Colors",
@@ -2848,7 +2849,8 @@
     "name": "Nom (per a què és?)",
     "namePh": "Per exemple: Optima-CRM",
     "create": "Crear clau",
-    "max": "Has arribat al nombre màxim de claus."
+    "max": "Has arribat al nombre màxim de claus.",
+    "peek": "Mira què pots fer amb l'API"
   },
   "labels": {
     "label": "Etiqueta",

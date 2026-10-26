@@ -531,7 +531,8 @@
     "hlBadTip": "{url} virker ikke ({status}) · sjekket {when}. Klikk for å sjekke igjen.",
     "hlNoAnswer": "ikke noe svar",
     "hlNowOk": "Lenken virker igjen.",
-    "hlNowBad": "Lenken virker fortsatt ikke."
+    "hlNowBad": "Lenken virker fortsatt ikke.",
+    "scansTotal": "skanninger totalt"
   },
   "appearance": {
     "title": "Farger",
@@ -2848,7 +2849,8 @@
     "name": "Navn (hva er den til?)",
     "namePh": "For eksempel: Optima-CRM",
     "create": "Lag nøkkel",
-    "max": "Du har nådd maksimalt antall nøkler."
+    "max": "Du har nådd maksimalt antall nøkler.",
+    "peek": "Se hva du kan gjøre med API-et"
   },
   "labels": {
     "label": "Etikett",

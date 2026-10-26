@@ -192,7 +192,7 @@ var MyCodes = (function () {
           (r.note ? '<button type="button" class="mc-note" data-act="labels" title="' + esc(r.note) + '">' + ico('note') + '<span>' + esc(r.note.split('\n')[0].slice(0, 60)) + '</span></button>' : '') + '</div>' : '') +
         '<div class="mc-link">' + link + hlBadge(r) + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
-        : '<button type="button" class="mc-scans" data-act="where" title="' + esc(t('myCodes.whereTip')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
+        : '<button type="button" class="mc-scans" data-act="where" title="' + esc(t('myCodes.whereTip')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scansTotal') + '</small></button>') +
       '<div class="mc-state">' + (stat ? '<span class="mc-pill on">' + t('myCodes.always') + '</span>'
         : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" data-act="toggle"' + (off && r.hold && r.hold.lock ? ' aria-disabled="true" title="' + esc(t('myCodes.heldLocked')) + '"' : '') + '><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
       '<div class="mc-acts">' +

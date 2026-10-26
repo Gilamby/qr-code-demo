@@ -531,7 +531,8 @@
     "hlBadTip": "{url} ei toimi ({status}) · tarkistettu {when}. Tarkista uudelleen klikkaamalla.",
     "hlNoAnswer": "ei vastausta",
     "hlNowOk": "Linkki toimii taas.",
-    "hlNowBad": "Linkki ei vieläkään toimi."
+    "hlNowBad": "Linkki ei vieläkään toimi.",
+    "scansTotal": "skannausta yhteensä"
   },
   "appearance": {
     "title": "Värit",
@@ -2848,7 +2849,8 @@
     "name": "Nimi (mihin se on?)",
     "namePh": "Esimerkiksi: Optima-CRM",
     "create": "Luo avain",
-    "max": "Olet saavuttanut avainten enimmäismäärän."
+    "max": "Olet saavuttanut avainten enimmäismäärän.",
+    "peek": "Katso, mitä API:lla voi tehdä"
   },
   "labels": {
     "label": "Tunniste",

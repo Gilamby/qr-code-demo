@@ -531,7 +531,8 @@
     "hlBadTip": "{url} nie działa ({status}) · sprawdzono {when}. Kliknij, aby sprawdzić ponownie.",
     "hlNoAnswer": "brak odpowiedzi",
     "hlNowOk": "Link znów działa.",
-    "hlNowBad": "Link nadal nie działa."
+    "hlNowBad": "Link nadal nie działa.",
+    "scansTotal": "skanów łącznie"
   },
   "appearance": {
     "title": "Kolory",
@@ -2848,7 +2849,8 @@
     "name": "Nazwa (do czego służy?)",
     "namePh": "Na przykład: Optima-CRM",
     "create": "Utwórz klucz",
-    "max": "Osiągnięto maksymalną liczbę kluczy."
+    "max": "Osiągnięto maksymalną liczbę kluczy.",
+    "peek": "Zobacz, co możesz zrobić z API"
   },
   "labels": {
     "label": "Etykieta",

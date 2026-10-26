@@ -290,9 +290,23 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
           (x[0] === 'billing' && billingLoaded && !billing && !user.admin && !viaStripe() ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
       }).join('');
     }).join('') + '</div>' +
+    // Juridisch (stond eerst op een aparte pagina "Instellingen"; nu hier, zodat er maar één plek is)
+    '<div class="acct-legal-links"><p class="acct-group" aria-hidden="true">' + t('nav.legal') + '</p>' + ['privacy', 'terms', 'cookies'].map(function (k) {
+      return '<button type="button" class="acct-legal" data-legal="' + k + '">' + esc(t('legal.' + k + '.title')) + '</button>'; }).join('') + '</div>' +
     '<span class="acct-menu-line" aria-hidden="true"></span>' +
     '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>';
+    requestAnimationFrame(tabFades);
   }
+  /* Telefoon: de tabbladen schuiven opzij. Vervaagde rand = er is nog meer; het open tabblad komt in beeld. */
+  function tabFades() {
+    var bar = menu.querySelector('.acct-tabs'); if (!bar) return;
+    var sc = bar.scrollWidth > bar.clientWidth + 2 ? bar : (menu.scrollWidth > menu.clientWidth + 2 ? menu : null);
+    var set = function () { if (!sc) return; bar.classList.toggle('fade-l', sc.scrollLeft > 4); bar.classList.toggle('fade-r', sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 4); };
+    if (sc && !sc._fades) { sc._fades = true; sc.addEventListener('scroll', set, { passive: true }); }
+    var on = bar.querySelector('[aria-selected="true"]'); if (sc && on) sc.scrollLeft = Math.max(0, on.offsetLeft - (sc.clientWidth - on.offsetWidth) / 2);
+    bar.classList.remove('fade-l', 'fade-r'); set();
+  }
+  addEventListener('resize', function () { if (menu.innerHTML) tabFades(); });
   function head(m) {
     m = m || {};
     var av = document.getElementById('acctAvatar');
@@ -498,7 +512,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       '<p class="api-ex-t">' + t('api.example') + '</p><pre class="api-pre"><code>' + esc('curl -X POST ' + base + '/qr-codes \\\n  -H "Authorization: Bearer qrc_…" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"typeId":"website","name":"Tafel 1","content":{"url":"https://example.com"},"design":{}}\'') + '</code></pre>' +
       '<p class="acct-note">' + t('api.limits') + '</p></div>';
     if (!apiInfo.allowed) return '<div class="glass bg-card acct api-lock"><h2>' + t('api.title') + '</h2><p>' + t('api.lockedLead') + '</p>' +
-      '<button type="button" class="btn primary" data-gate-open="business" data-gate-reason="api">' + PlanGate.lock + ' ' + esc(t('pw.upgradeTo', { plan: t('plan.n_business') })) + '</button></div>' + docs;
+      '<button type="button" class="btn primary" data-gate-open="business" data-gate-reason="api">' + PlanGate.lock + ' ' + esc(t('pw.upgradeTo', { plan: t('plan.n_business') })) + '</button>' +
+      // Zonder Business: de handleiding dichtgeklapt (wie wil kan kijken wat het is, de rest ziet geen lap tekst)
+      '<details class="api-peek"><summary>' + esc(t('api.peek')) + '</summary>' + docs.replace('glass bg-card acct api-docs', 'api-docs in-peek') + '</details></div>';
     var keys = apiInfo.keys || [];
     return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p>' + t('api.lead') + '</p>' +
       (apiNew ? '<div class="api-new" role="status"><b>' + t('api.newTitle') + '</b><p>' + t('api.newLead') + '</p><div class="api-keybox"><code id="apiNewKey">' + esc(apiNew) + '</code><button type="button" class="btn primary sm" data-api-copy>' + t('api.copy') + '</button></div></div>' : '') +
@@ -763,7 +779,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function err(e) { return e && e.code === 'wrong' ? t('acct.wrongCurrent') : e && PasswordRules.errorKey(e.code) ? t(PasswordRules.errorKey(e.code)) : e && e.code === 'too_many' ? t('auth.errTooMany') : t('auth.errGeneral'); }
   function readBilling(f) { BILLING_KEYS.forEach(function (k) { if (f.elements[k]) draft[k] = f.elements[k].value; }); }
 
-  menu.addEventListener('click', function (e) { var b = e.target.closest('[data-tab]'); if (b) open(b.getAttribute('data-tab')); });
+  menu.addEventListener('click', function (e) { var lg = e.target.closest('[data-legal]'); if (lg && window.Legal) return Legal.open(lg.getAttribute('data-legal')); var b = e.target.closest('[data-tab]'); if (b) open(b.getAttribute('data-tab')); });
   menu.addEventListener('keydown', function (e) {   // pijltjes: naar het vorige/volgende onderdeel
     var TAB_IDS = tabIds(), i = TAB_IDS.indexOf(tab), n = null;
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = TAB_IDS[(i + 1) % TAB_IDS.length];

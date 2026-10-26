@@ -6,7 +6,7 @@
   --side: #ffffff;
   --fg: #0d1320;
   --muted: #5a6577;
-  --dim: #8a94a5;
+  --dim: #687284;   /* was #8a94a5: te weinig contrast (3:1), nu 4.9:1 */
   --line: rgba(13,19,32,.08);
   --line-strong: rgba(13,19,32,.14);
   --hover: rgba(13,19,32,.045);
@@ -28,7 +28,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b0e13; --surface: #13171e; --side: #090b10; --fg: #f3f5f8; --muted: #98a2b3; --dim: #636d7d;
+    --bg: #0b0e13; --surface: #13171e; --side: #090b10; --fg: #f3f5f8; --muted: #98a2b3; --dim: #828c9c;
     --line: rgba(255,255,255,.07); --line-strong: rgba(255,255,255,.13); --hover: rgba(255,255,255,.045);
     --accent: #2bb5f0; --accent-ink: #04121c; --accent-soft: rgba(43,181,240,.14); --glow: rgba(43,181,240,.16);
     --topbar: rgba(11,14,19,.86); --pop: #151a22; --shadow: 0 20px 44px -16px rgba(0,0,0,.7);
@@ -36,7 +36,7 @@
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0b0e13; --surface: #13171e; --side: #090b10; --fg: #f3f5f8; --muted: #98a2b3; --dim: #636d7d;
+  --bg: #0b0e13; --surface: #13171e; --side: #090b10; --fg: #f3f5f8; --muted: #98a2b3; --dim: #828c9c;
   --line: rgba(255,255,255,.07); --line-strong: rgba(255,255,255,.13); --hover: rgba(255,255,255,.045);
   --accent: #2bb5f0; --accent-ink: #04121c; --accent-soft: rgba(43,181,240,.14); --glow: rgba(43,181,240,.16);
   --topbar: rgba(11,14,19,.86); --pop: #151a22; --shadow: 0 20px 44px -16px rgba(0,0,0,.7);
@@ -5331,3 +5331,20 @@ button.hm-tile:focus-visible { outline: 2px solid var(--accent); outline-offset:
 .acct-type-lock svg { width: 20px; height: 20px; grid-row: span 2; color: var(--accent); }
 .acct-type-lock small { color: var(--muted); font-size: 13px; }
 .acct-type-lock a { color: var(--accent); }
+/* Mijn account: juridische links onder het menu (vervangt de aparte pagina "Instellingen") */
+.acct-legal-links { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+.acct-legal { all: unset; box-sizing: border-box; cursor: pointer; padding: 8px 14px; border-radius: 10px; font-size: 14px; color: var(--muted); }
+.acct-legal:hover { color: var(--fg); background: rgba(255,255,255,.05); }
+.acct-legal:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 860px) { .acct-legal-links { flex-direction: row; flex-wrap: wrap; justify-content: center; } .acct-legal { font-size: 13px; padding: 6px 10px; } }   /* telefoon: als kleine regel links */
+.api-peek { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 12px; }
+.api-peek > summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 14px; list-style: none; }
+.api-peek > summary::-webkit-details-marker { display: none; }
+.api-peek > summary::before { content: '▸ '; } .api-peek[open] > summary::before { content: '▾ '; }
+.api-docs.in-peek { margin-top: 12px; }
+/* Telefoon: tabbladen Mijn account schuiven opzij; vervaagde rand laat zien dat er meer is */
+@media (max-width: 860px) {
+  .acct-tabs.fade-r { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+  .acct-tabs.fade-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%); mask-image: linear-gradient(90deg, transparent, #000 18%); }
+  .acct-tabs.fade-l.fade-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
+}

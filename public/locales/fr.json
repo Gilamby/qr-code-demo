@@ -531,7 +531,8 @@
     "hlBadTip": "{url} ne fonctionne pas ({status}) · vérifié {when}. Clique pour revérifier.",
     "hlNoAnswer": "pas de réponse",
     "hlNowOk": "Le lien fonctionne à nouveau.",
-    "hlNowBad": "Le lien ne fonctionne toujours pas."
+    "hlNowBad": "Le lien ne fonctionne toujours pas.",
+    "scansTotal": "scans au total"
   },
   "appearance": {
     "title": "Couleurs",
@@ -2854,7 +2855,8 @@
     "name": "Nom (à quoi sert-elle ?)",
     "namePh": "Par exemple : Optima-CRM",
     "create": "Créer une clé",
-    "max": "Vous avez atteint le nombre maximal de clés."
+    "max": "Vous avez atteint le nombre maximal de clés.",
+    "peek": "Voir ce que tu peux faire avec l'API"
   },
   "labels": {
     "label": "Étiquette",

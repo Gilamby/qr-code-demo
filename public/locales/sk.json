@@ -531,7 +531,8 @@
     "hlBadTip": "{url} nefunguje ({status}) · skontrolované {when}. Kliknutím skontroluješ znova.",
     "hlNoAnswer": "bez odpovede",
     "hlNowOk": "Odkaz opäť funguje.",
-    "hlNowBad": "Odkaz stále nefunguje."
+    "hlNowBad": "Odkaz stále nefunguje.",
+    "scansTotal": "skenov celkom"
   },
   "appearance": {
     "title": "Farby",
@@ -2848,7 +2849,8 @@
     "name": "Názov (na čo slúži?)",
     "namePh": "Napríklad: Optima-CRM",
     "create": "Vytvoriť kľúč",
-    "max": "Dosiahli ste maximálny počet kľúčov."
+    "max": "Dosiahli ste maximálny počet kľúčov.",
+    "peek": "Pozri sa, čo môžeš robiť s API"
   },
   "labels": {
     "label": "Štítok",

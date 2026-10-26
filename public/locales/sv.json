@@ -531,7 +531,8 @@
     "hlBadTip": "{url} fungerar inte ({status}) · kontrollerad {when}. Klicka för att kontrollera igen.",
     "hlNoAnswer": "inget svar",
     "hlNowOk": "Länken fungerar igen.",
-    "hlNowBad": "Länken fungerar fortfarande inte."
+    "hlNowBad": "Länken fungerar fortfarande inte.",
+    "scansTotal": "skanningar totalt"
   },
   "appearance": {
     "title": "Färger",
@@ -2848,7 +2849,8 @@
     "name": "Namn (vad är den till?)",
     "namePh": "Till exempel: Optima-CRM",
     "create": "Skapa nyckel",
-    "max": "Du har nått maxantalet nycklar."
+    "max": "Du har nått maxantalet nycklar.",
+    "peek": "Se vad du kan göra med API:et"
   },
   "labels": {
     "label": "Etikett",

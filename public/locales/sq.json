@@ -531,7 +531,8 @@
     "hlBadTip": "{url} nuk funksionon ({status}) · kontrolluar {when}. Kliko për ta kontrolluar sërish.",
     "hlNoAnswer": "pa përgjigje",
     "hlNowOk": "Lidhja funksionon sërish.",
-    "hlNowBad": "Lidhja ende nuk funksionon."
+    "hlNowBad": "Lidhja ende nuk funksionon.",
+    "scansTotal": "skanime gjithsej"
   },
   "appearance": {
     "title": "Ngjyrat",
@@ -2954,7 +2955,8 @@
     "name": "Emri (për çfarë është?)",
     "namePh": "Për shembull: Optima-CRM",
     "create": "Krijo çelës",
-    "max": "Keni arritur numrin maksimal të çelësave."
+    "max": "Keni arritur numrin maksimal të çelësave.",
+    "peek": "Shiko çfarë mund të bësh me API-n"
   },
   "labels": {
     "label": "Etiketë",

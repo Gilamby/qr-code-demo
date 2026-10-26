@@ -531,7 +531,8 @@
     "hlBadTip": "{url} werkt niet ({status}) · gecontroleerd {when}. Klik om opnieuw te controleren.",
     "hlNoAnswer": "geen antwoord",
     "hlNowOk": "De link werkt weer.",
-    "hlNowBad": "De link werkt nog steeds niet."
+    "hlNowBad": "De link werkt nog steeds niet.",
+    "scansTotal": "scans totaal"
   },
   "appearance": {
     "title": "Kleuren",
@@ -2893,7 +2894,8 @@
     "name": "Naam (waarvoor is hij?)",
     "namePh": "Bijvoorbeeld: Optima-CRM",
     "create": "Sleutel maken",
-    "max": "Je hebt het maximum aantal sleutels."
+    "max": "Je hebt het maximum aantal sleutels.",
+    "peek": "Bekijk wat je met de API kunt"
   },
   "labels": {
     "label": "Label",

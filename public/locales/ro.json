@@ -531,7 +531,8 @@
     "hlBadTip": "{url} nu funcționează ({status}) · verificat {when}. Dă clic pentru a verifica din nou.",
     "hlNoAnswer": "niciun răspuns",
     "hlNowOk": "Linkul funcționează din nou.",
-    "hlNowBad": "Linkul tot nu funcționează."
+    "hlNowBad": "Linkul tot nu funcționează.",
+    "scansTotal": "scanări în total"
   },
   "appearance": {
     "title": "Culori",
@@ -2848,7 +2849,8 @@
     "name": "Nume (pentru ce este?)",
     "namePh": "De exemplu: Optima-CRM",
     "create": "Creează cheie",
-    "max": "Ați atins numărul maxim de chei."
+    "max": "Ați atins numărul maxim de chei.",
+    "peek": "Vezi ce poți face cu API-ul"
   },
   "labels": {
     "label": "Etichetă",

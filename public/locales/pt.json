@@ -531,7 +531,8 @@
     "hlBadTip": "{url} não funciona ({status}) · verificado {when}. Clica para verificar de novo.",
     "hlNoAnswer": "sem resposta",
     "hlNowOk": "O link voltou a funcionar.",
-    "hlNowBad": "O link continua sem funcionar."
+    "hlNowBad": "O link continua sem funcionar.",
+    "scansTotal": "leituras no total"
   },
   "appearance": {
     "title": "Cores",
@@ -2848,7 +2849,8 @@
     "name": "Nome (para que serve?)",
     "namePh": "Por exemplo: Optima-CRM",
     "create": "Criar chave",
-    "max": "Atingiu o número máximo de chaves."
+    "max": "Atingiu o número máximo de chaves.",
+    "peek": "Vê o que podes fazer com a API"
   },
   "labels": {
     "label": "Etiqueta",
