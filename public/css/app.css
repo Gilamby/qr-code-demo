@@ -5230,7 +5230,12 @@ body.paywall-open { overflow: hidden; }
 .cd-svg:active { cursor: grabbing; }
 .cd-sea { fill: #0a1220; } .cd-land { fill: #1d2a3d; stroke: #0a1220; stroke-linejoin: round; } .cd-land.on { fill: #1e4a6e; }
 .cd-land:hover { fill: #26384f; } .cd-land.on:hover { fill: #245a85; }
-.cd-halo { fill: rgba(56,189,248,.18); pointer-events: none; } .cd-pin { fill: #38bdf8; stroke: #fff; cursor: pointer; }
+.cd-pin { fill: #38bdf8; stroke: #fff; stroke-width: 1.5px; cursor: pointer; filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); }
+.cd-pin-eye { fill: #fff; pointer-events: none; } .cd-shadow { fill: rgba(0,0,0,.35); pointer-events: none; }
+.cd-cities { pointer-events: none; } .cd-cdot { fill: rgba(226,232,240,.75); }
+.cd-city { fill: rgba(226,232,240,.78); font-family: var(--font); font-weight: 600; paint-order: stroke; stroke: rgba(8,12,18,.85); stroke-width: .25em; stroke-linejoin: round; }
+.cd-city-hit { fill: #fff; font-weight: 800; }
+:root[data-theme="light"] .cd-city { fill: #334155; stroke: rgba(255,255,255,.9); } :root[data-theme="light"] .cd-city-hit { fill: #0f172a; } :root[data-theme="light"] .cd-cdot { fill: #475569; }
 .cd-dot:hover .cd-pin { fill: #7dd3fc; }
 :root[data-theme="light"] .cd-sea { fill: #dbe7f3; } :root[data-theme="light"] .cd-land { fill: #f8fafc; stroke: #b6c6d8; } :root[data-theme="light"] .cd-land.on { fill: #bfe3f7; }
 :root[data-theme="light"] .cd-pin { fill: #0284c7; }
@@ -5269,3 +5274,4 @@ body.paywall-open { overflow: hidden; }
 .sub-bar.sub-soon { position: relative; padding-right: 44px; }
 .sub-bar .sub-x { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 20px; line-height: 1; cursor: pointer; opacity: .7; }
 .sub-bar .sub-x:hover { opacity: 1; background: rgba(255,255,255,.08); }
+.cd-credit { opacity: .6; font-size: .9em; white-space: nowrap; }

@@ -2861,7 +2861,8 @@
     "filterPlace": "Hela sidan för den här platsen",
     "lastScans": "Senaste skanningar här",
     "placeOld": "De här skanningarna är från före loggen: vi vet platsen men inte detaljerna per skanning.",
-    "placeSome": "Plus {n} äldre skanningar utan detaljer (från före loggen)."
+    "placeSome": "Plus {n} äldre skanningar utan detaljer (från före loggen).",
+    "placesCredit": "Ortnamn: GeoNames"
   },
   "sheet": {
     "title": "Utskriftsark (A4)",

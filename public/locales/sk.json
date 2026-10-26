@@ -2861,7 +2861,8 @@
     "filterPlace": "Celá stránka pre toto miesto",
     "lastScans": "Posledné skeny tu",
     "placeOld": "Tieto skeny sú spred záznamu: poznáme miesto, ale nie detaily jednotlivých skenov.",
-    "placeSome": "A ďalších {n} starších skenov bez detailov (spred záznamu)."
+    "placeSome": "A ďalších {n} starších skenov bez detailov (spred záznamu).",
+    "placesCredit": "Názvy miest: GeoNames"
   },
   "sheet": {
     "title": "Tlačový hárok (A4)",

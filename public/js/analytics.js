@@ -425,7 +425,7 @@ var Analytics = (function () {
   }
 
   /* ---------- Detailpagina: kaart en logboek per scan ---------- */
-  var scansD = null, scansSeq = 0, world = null, mapView = null;
+  var scansD = null, scansSeq = 0, world = null, mapView = null, cities = null;
   var MW = 2000;   // breedte van de kaart (zelfde schaal als assets/world.json)
   function mx(lon) { return (lon + 180) / 360 * MW; }
   function my(lat) { lat = Math.max(-85, Math.min(85, lat)); return (1 - Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) / Math.PI) / 2 * MW; }
@@ -435,6 +435,7 @@ var Analytics = (function () {
     var my2 = ++scansSeq, box = document.getElementById('anDetail'); if (!box) return;
     if (!scansD) box.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
     var w = world ? Promise.resolve(world) : fetch('assets/world.json?v=3').then(function (r) { return r.json(); }).then(function (j) { world = j; return j; }).catch(function () { return null; });
+    if (!cities) fetch('assets/cities.json?v=1').then(function (r) { return r.json(); }).then(function (j) { cities = j.c || []; if (scansD) drawMap(); }).catch(function () { cities = []; });   // plaatsnamen bij inzoomen
     Promise.all([api.analyticsScans(scansQuery({ limit: 50 })), w]).then(function (res) {
       if (my2 !== scansSeq) return; scansD = res[0]; mapView = null; drawDetail();
     }).catch(function () { var b = document.getElementById('anDetail'); if (b) b.innerHTML = '<p class="acct-msg bad">' + t('myCodes.failed') + '</p>'; });
@@ -466,7 +467,7 @@ var Analytics = (function () {
       (pts.length ? '<div class="cd-mapbtns"><button type="button" class="btn ghost sm" data-map="in" aria-label="' + esc(t('cd.zoomIn')) + '">+</button><button type="button" class="btn ghost sm" data-map="out" aria-label="' + esc(t('cd.zoomOut')) + '">−</button>' +
         '<button type="button" class="btn ghost sm" data-map="fit">' + t('cd.fit') + '</button><button type="button" class="btn ghost sm" data-map="world">' + t('cd.world') + '</button></div>' : '') + '</div>' +
       (world ? '<div class="cd-mapbox"><svg class="cd-svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + esc(t('cd.mapTitle')) + '"></svg><div class="cd-tip" hidden></div></div>' : '') +
-      (pts.length ? '<p class="cd-maplead">' + t('cd.mapLead', { n: i18n.fmt.num(pts.length) }) + '</p>' : '<p class="an-none">' + t('cd.mapNone') + '</p>') + '</div>';
+      (pts.length ? '<p class="cd-maplead">' + t('cd.mapLead', { n: i18n.fmt.num(pts.length) }) + ' <span class="cd-credit">' + esc(t('cd.placesCredit')) + '</span></p>' : '<p class="an-none">' + t('cd.mapNone') + '</p>') + '</div>';
   }
   function fitView(pts) {
     if (!pts.length) return WORLD_VIEW();
@@ -484,12 +485,38 @@ var Analytics = (function () {
     svgEl.setAttribute('viewBox', v.map(function (n) { return n.toFixed(1); }).join(' '));
     svgEl.innerHTML = '<rect x="-4000" y="-4000" width="10000" height="10000" class="cd-sea"/>' +
       world.countries.map(function (c) { return '<path d="' + c.d + '" class="cd-land' + (withScans[c.c] ? ' on' : '') + '" stroke-width="' + (px * .8).toFixed(2) + '"><title>' + esc(c.c ? TEL.name(c.c) || c.n : c.n) + (withScans[c.c] ? ' · ' + t('cd.scansN', { n: i18n.fmt.num(withScans[c.c]) }) : '') + '</title></path>'; }).join('') +
+      cityLabels(v, px, pts) +
       pts.slice().sort(function (a, b) { return b.n - a.n; }).map(function (p, i) {
-        var r = (5 + 13 * Math.sqrt(p.n / max)) * sz * px;   // straal in schermpixels, hoe ver je ook inzoomt
-        return '<g class="cd-dot" data-pt="' + i + '" data-cc="' + esc(p.cc) + '" data-city="' + esc(p.city) + '"><circle cx="' + mx(p.lon).toFixed(1) + '" cy="' + my(p.lat).toFixed(1) + '" r="' + (r * 1.7).toFixed(2) + '" class="cd-halo"/>' +
-          '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + r.toFixed(2) + '" class="cd-pin' + (p.approx ? ' approx' : '') + '" stroke-width="' + (px * 2).toFixed(2) + '"/></g>';
+        // Speld (druppelvorm) met de punt precies op de plaats; altijd even groot op het scherm, hoe ver je ook inzoomt
+        var h = (24 + 10 * Math.sqrt(p.n / max)) * sz * px;
+        return '<g class="cd-dot" data-pt="' + i + '" data-cc="' + esc(p.cc) + '" data-city="' + esc(p.city) + '" transform="translate(' + p.x.toFixed(2) + ' ' + p.y.toFixed(2) + ') scale(' + h.toFixed(4) + ')">' +
+          '<ellipse cx="0" cy="0" rx=".22" ry=".07" class="cd-shadow"/>' +
+          '<path d="' + PIN + '" class="cd-pin' + (p.approx ? ' approx' : '') + '" vector-effect="non-scaling-stroke"/><circle cx="0" cy="-.66" r=".15" class="cd-pin-eye"/></g>';
       }).join('');
     svgEl._pts = pts.slice().sort(function (a, b) { return b.n - a.n; });
+  }
+  var PIN = 'M0 0C-.1-.2-.36-.42-.36-.66A.36.36 0 1 1 .36-.66C.36-.42.1-.2 0 0Z';   // druppel/speld, hoogte 1, punt op (0,0)
+  /* Plaatsnamen bij inzoomen: hoe verder ingezoomd, hoe meer (kleinere) plaatsen. Nooit over elkaar heen.
+     Plaatsen met scans krijgen altijd hun naam naast de speld. Bron: GeoNames (CC BY 4.0). */
+  function cityLabels(v, px, pts) {
+    var w = v[2]; if (!cities || w > MW / 2.2) return '';
+    var minPop = w > MW / 5 ? 3000 : w > MW / 10 ? 1000 : w > MW / 25 ? 400 : w > MW / 60 ? 150 : 40;   // in duizenden inwoners
+    var fs = 11 * px, used = [], out = '';
+    var free = function (x, y, tw) { var b = [x - 4 * px, y - fs, x + tw, y + 4 * px]; if (used.some(function (u) { return !(b[2] < u[0] || b[0] > u[2] || b[3] < u[1] || b[1] > u[3]); })) return false; used.push(b); return true; };
+    // Eerst de plaatsen met scans (naam naast de speld)
+    pts.forEach(function (p) {
+      if (!p.city || p.approx) return; var tw = p.city.length * fs * .6 + 6 * px, x = p.x + 12 * px, y = p.y - 8 * px;
+      if (free(x, y, tw)) out += '<text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" class="cd-city cd-city-hit" style="font-size:' + fs.toFixed(2) + 'px">' + esc(p.city) + '</text>';
+    });
+    var x0 = v[0], y0 = v[1], x1 = v[0] + v[2], y1 = v[1] + v[3];
+    for (var i = 0; i < cities.length && used.length < 60; i++) {
+      var c = cities[i]; if (c[3] < minPop) break;                     // lijst staat op inwoners (groot naar klein)
+      if (c[1] < x0 || c[1] > x1 || c[2] < y0 || c[2] > y1) continue;
+      var tw2 = c[0].length * fs * .58 + 8 * px, tx = c[1] + 5 * px, ty = c[2] + 4 * px;
+      if (!free(c[1] - 3 * px, ty, tw2 + 5 * px)) continue;
+      out += '<circle cx="' + c[1] + '" cy="' + c[2] + '" r="' + (2.2 * px).toFixed(2) + '" class="cd-cdot"/><text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" class="cd-city" style="font-size:' + fs.toFixed(2) + 'px">' + esc(c[0]) + '</text>';
+    }
+    return '<g class="cd-cities" aria-hidden="true">' + out + '</g>';
   }
   // Kaart altijd binnen de wereld houden (nooit 'weg' slepen of uitzoomen)
   function clampView(v) {
@@ -566,7 +593,7 @@ var Analytics = (function () {
       '<span>' + t('cd.scansN', { n: i18n.fmt.num(p.n) }) + (p.u ? ' · ' + t('cd.uniqN', { n: i18n.fmt.num(p.u) }) : '') + '</span>' + (p.approx ? '<small>' + t('cd.approx') + '</small>' : '') + '<em>' + t('cd.clickCity') + '</em>';
     tip.hidden = false; tip.style.left = Math.min(Math.max(e.clientX - box.left, 90), box.width - 90) + 'px'; tip.style.top = (e.clientY - box.top - 12) + 'px';
   });
-  body.addEventListener('pointerup', function () { drag = null; });
+  body.addEventListener('pointerup', function () { if (drag) { drag = null; drawMap(); } });   // na het slepen: plaatsnamen van het nieuwe stuk kaart
   // Geen zoomen met het scrollwiel: scrollen op de kaart scrolt gewoon de pagina (anders raak je de kaart kwijt)
 
   /* ---------- Alles tekenen ---------- */

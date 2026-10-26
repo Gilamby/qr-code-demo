@@ -2861,7 +2861,8 @@
     "filterPlace": "Toda a página para este local",
     "lastScans": "Últimas leituras aqui",
     "placeOld": "Estas leituras são anteriores ao registo: sabemos o local, mas não os detalhes de cada leitura.",
-    "placeSome": "E mais {n} leituras antigas sem detalhes (anteriores ao registo)."
+    "placeSome": "E mais {n} leituras antigas sem detalhes (anteriores ao registo).",
+    "placesCredit": "Nomes de locais: GeoNames"
   },
   "sheet": {
     "title": "Folha para imprimir (A4)",

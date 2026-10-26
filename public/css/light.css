@@ -526,7 +526,8 @@
 :root[data-theme="light"] .cd-pill.tag { color: #0369a1; }
 :root[data-theme="light"] .sh-grid button { background: rgba(13,19,32,0.023); }
 :root[data-theme="light"] .sh-a4 i { background: #e5e7eb; }
-:root[data-theme="light"] .cd-pin { fill: #0284c7; }
+:root[data-theme="light"] .cd-pin { fill: #0284c7; filter: drop-shadow(0 2px 3px rgba(13,19,32,.45)); }
+:root[data-theme="light"] .cd-shadow { fill: rgba(13,19,32,.35); }
 :root[data-theme="light"] .cd-dot:hover .cd-pin { fill: #0369a1; }
 :root[data-theme="light"] .cd-tip { border: 1px solid rgba(13,19,32,0.126); }
 :root[data-theme="light"] .cd-tip em { color: #0369a1; }

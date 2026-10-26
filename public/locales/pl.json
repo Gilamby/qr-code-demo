@@ -2861,7 +2861,8 @@
     "filterPlace": "Cała strona dla tego miejsca",
     "lastScans": "Ostatnie skany tutaj",
     "placeOld": "Te skany są sprzed dziennika: znamy miejsce, ale nie szczegóły każdego skanu.",
-    "placeSome": "Oraz {n} starszych skanów bez szczegółów (sprzed dziennika)."
+    "placeSome": "Oraz {n} starszych skanów bez szczegółów (sprzed dziennika).",
+    "placesCredit": "Nazwy miejscowości: GeoNames"
   },
   "sheet": {
     "title": "Arkusz do druku (A4)",

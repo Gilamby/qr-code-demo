@@ -2861,7 +2861,8 @@
     "filterPlace": "Koko sivu tälle paikalle",
     "lastScans": "Viimeisimmät skannaukset täällä",
     "placeOld": "Nämä skannaukset ovat ajalta ennen lokia: tiedämme paikan, mutta emme yksittäisiä tietoja.",
-    "placeSome": "Lisäksi {n} vanhempaa skannausta ilman tietoja (ennen lokia)."
+    "placeSome": "Lisäksi {n} vanhempaa skannausta ilman tietoja (ennen lokia).",
+    "placesCredit": "Paikannimet: GeoNames"
   },
   "sheet": {
     "title": "Tulostusarkki (A4)",

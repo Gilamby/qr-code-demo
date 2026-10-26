@@ -2861,7 +2861,8 @@
     "filterPlace": "Visa lapa šai vietai",
     "lastScans": "Pēdējās skenēšanas šeit",
     "placeOld": "Šīs skenēšanas ir pirms žurnāla: zinām vietu, bet ne katras skenēšanas informāciju.",
-    "placeSome": "Un vēl {n} vecākas skenēšanas bez informācijas (pirms žurnāla)."
+    "placeSome": "Un vēl {n} vecākas skenēšanas bez informācijas (pirms žurnāla).",
+    "placesCredit": "Vietu nosaukumi: GeoNames"
   },
   "sheet": {
     "title": "Drukas lapa (A4)",

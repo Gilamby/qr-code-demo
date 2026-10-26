@@ -2906,7 +2906,8 @@
     "filterPlace": "Toda la página para este lugar",
     "lastScans": "Últimos escaneos aquí",
     "placeOld": "Estos escaneos son anteriores al registro: sabemos el lugar, pero no los detalles de cada escaneo.",
-    "placeSome": "Y {n} escaneos más antiguos sin detalles (anteriores al registro)."
+    "placeSome": "Y {n} escaneos más antiguos sin detalles (anteriores al registro).",
+    "placesCredit": "Nombres de lugares: GeoNames"
   },
   "sheet": {
     "title": "Hoja para imprimir (A4)",

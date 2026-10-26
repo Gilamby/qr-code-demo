@@ -2967,7 +2967,8 @@
     "filterPlace": "E gjithë faqja për këtë vend",
     "lastScans": "Skanimet e fundit këtu",
     "placeOld": "Këto skanime janë para regjistrit: e dimë vendin, por jo detajet e çdo skanimi.",
-    "placeSome": "Dhe {n} skanime më të vjetra pa detaje (para regjistrit)."
+    "placeSome": "Dhe {n} skanime më të vjetra pa detaje (para regjistrit).",
+    "placesCredit": "Emrat e vendeve: GeoNames"
   },
   "sheet": {
     "title": "Fletë për printim (A4)",
