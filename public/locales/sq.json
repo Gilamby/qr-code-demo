@@ -1610,7 +1610,9 @@
     "act_plan_chosen": "Paketa u zgjodh",
     "act_plan_changed": "Paketa u ndryshua",
     "act_extra_bought": "Bli një kod QR shtesë",
-    "billingAuto": "Plotësohet automatikisht kur paguan. Mund ta ndryshosh këtu."
+    "billingAuto": "Plotësohet automatikisht kur paguan. Mund ta ndryshosh këtu.",
+    "typeLocked": "Ke zgjedhur këtë lloj. Të duhet diçka tjetër?",
+    "typeLockedLink": "Na kontakto"
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për QR-Codex",

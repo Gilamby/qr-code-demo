@@ -5326,3 +5326,8 @@ button.hm-tile:focus-visible { outline: 2px solid var(--accent); outline-offset:
 .hm-alert > span:nth-child(2) { flex: 1; }
 .hm-alert-i svg { width: 18px; height: 18px; color: #f87171; display: block; }
 [data-theme="light"] .hm-alert { color: #991b1b; }
+/* Factuurgegevens: type staat vast (bedrijf of particulier) */
+.acct-type-lock { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 10px; row-gap: 2px; padding: 12px 14px; margin-bottom: 18px; border-radius: 14px; border: 1px solid var(--line, rgba(255,255,255,.12)); background: rgba(43,181,240,.08); }
+.acct-type-lock svg { width: 20px; height: 20px; grid-row: span 2; color: var(--accent); }
+.acct-type-lock small { color: var(--muted); font-size: 13px; }
+.acct-type-lock a { color: var(--accent); }

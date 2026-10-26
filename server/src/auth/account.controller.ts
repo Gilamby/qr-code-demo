@@ -133,6 +133,8 @@ export class AccountController {
   async saveBilling(@CurrentUser() user: User, @Body() b: any = {}) {
     const { errors, value } = validateBilling(b);
     if (errors.length) throw fail(400, 'Invalid billing details', { details: errors });
+    const before = await this.db.getBilling(user.id);
+    if (before && before.type && before.type !== value.type) throw fail(409, 'type_locked');   // bedrijf of particulier: één keer kiezen (btw)
     const saved = await this.db.setBilling(user.id, value);
     syncBillingToStripe(this.db, user, value).catch((e) => console.error('Factuurgegevens naar Stripe mislukt:', e.message));   // facturen van Stripe tonen dezelfde gegevens
     return { billing: saved };

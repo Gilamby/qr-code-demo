@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Pachet ales",
     "act_plan_changed": "Pachet schimbat",
     "act_extra_bought": "Cumpără un cod QR în plus",
-    "billingAuto": "Se completează automat la plată. Îl poți modifica aici."
+    "billingAuto": "Se completează automat la plată. Îl poți modifica aici.",
+    "typeLocked": "Ai ales acest tip. Ai nevoie de altceva?",
+    "typeLockedLink": "Contactează-ne"
   },
   "mail": {
     "resetSubject": "Parolă nouă pentru QR-Codex",

@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Plano escolhido",
     "act_plan_changed": "Plano alterado",
     "act_extra_bought": "Comprar um código QR extra",
-    "billingAuto": "Preenchido automaticamente ao pagar. Pode alterá-lo aqui."
+    "billingAuto": "Preenchido automaticamente ao pagar. Pode alterá-lo aqui.",
+    "typeLocked": "Escolheste este tipo. Precisas de outro?",
+    "typeLockedLink": "Contacta-nos"
   },
   "mail": {
     "resetSubject": "Nova palavra-passe para QR-Codex",

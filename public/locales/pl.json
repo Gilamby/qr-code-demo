@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Wybrano pakiet",
     "act_plan_changed": "Zmieniono pakiet",
     "act_extra_bought": "Dokup kod QR",
-    "billingAuto": "Uzupełniane automatycznie przy płatności. Możesz to zmienić tutaj."
+    "billingAuto": "Uzupełniane automatycznie przy płatności. Możesz to zmienić tutaj.",
+    "typeLocked": "Wybrano ten typ. Potrzebujesz innego?",
+    "typeLockedLink": "Skontaktuj się z nami"
   },
   "mail": {
     "resetSubject": "Nowe hasło do QR-Codex",

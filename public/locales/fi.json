@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Paketti valittu",
     "act_plan_changed": "Paketti vaihdettu",
     "act_extra_bought": "Osta lisä-QR-koodi",
-    "billingAuto": "Täytetään automaattisesti maksaessasi. Voit muuttaa sitä täällä."
+    "billingAuto": "Täytetään automaattisesti maksaessasi. Voit muuttaa sitä täällä.",
+    "typeLocked": "Valitsit tämän tyypin. Tarvitsetko jotain muuta?",
+    "typeLockedLink": "Ota yhteyttä"
   },
   "mail": {
     "resetSubject": "Uusi salasana QR-Codex:ään",

@@ -187,7 +187,7 @@ var Plans = (function () {
      Na betalen stuurt Stripe terug naar /?checkout=success en verwerkt de webhook het abonnement (zelfde als hiervoor). */
   var sJs = null, sCo = null, sPe = null, sKey = '', sReady = false;
   /* Bedrijf of particulier (voor de btw). Eerst invullen, dan pas de betaalvelden. Ingevuld blijft onthouden in deze sessie. */
-  var sBuyer = null, bDraft = null, bBad = [], sPromo = '';
+  var sBuyer = null, bDraft = null, bBad = [], sPromo = '', bLocked = false;   // bLocked: type staat vast (factuurgegevens al opgeslagen)
   var EU = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
   function draftBuyer() {
     if (bDraft) return bDraft;
@@ -196,6 +196,7 @@ var Plans = (function () {
     if (api.account.billing) api.account.billing().then(function (r) { var b = r && r.billing; if (!b || !bDraft) return;
       if (b.type === 'company') bDraft = Object.assign(bDraft, { type: 'company', companyName: b.companyName || '', vat: b.taxId || '' });
       if (b.type === 'private') bDraft.type = 'private';
+      bLocked = !!b.type;
       Object.assign(bDraft, { country: b.country || bDraft.country, address: b.address || '', postalCode: b.postalCode || '', city: b.city || '' });
       // Factuurgegevens al ingevuld en compleet: niet nog eens vragen, meteen gebruiken (met "Wijzigen")
       if (!sBuyer && !checkBuyer().length) useDraft();
@@ -210,8 +211,8 @@ var Plans = (function () {
   function bField(k, label, attrs, wide) { var d = draftBuyer(); return '<label class="pw-co-f' + (wide ? ' wide' : '') + (bBad.indexOf(k) >= 0 || (k === 'vat' && (bBad.indexOf('vies') >= 0 || bBad.indexOf('viesDown') >= 0)) ? ' bad' : '') + '"><span>' + esc(label) + '</span><input data-pw-b="' + k + '" value="' + esc(d[k] || '') + '"' + (attrs || '') + '></label>'; }
   function buyerForm() {
     var d = draftBuyer(), co = d.type === 'company';
-    return '<div class="pw-co-f"><span>' + esc(t('pw.b_buyerAs')) + '</span><div class="pw-seg" role="radiogroup">' +
-        ['private', 'company'].map(function (k) { return '<button type="button" role="radio" aria-checked="' + (d.type === k) + '" class="' + (d.type === k ? 'on' : '') + '" data-pw-btype="' + k + '">' + esc(t('pw.b_' + k)) + '</button>'; }).join('') + '</div></div>' +
+    return (bLocked ? '' : '<div class="pw-co-f"><span>' + esc(t('pw.b_buyerAs')) + '</span><div class="pw-seg" role="radiogroup">' +
+        ['private', 'company'].map(function (k) { return '<button type="button" role="radio" aria-checked="' + (d.type === k) + '" class="' + (d.type === k ? 'on' : '') + '" data-pw-btype="' + k + '">' + esc(t('pw.b_' + k)) + '</button>'; }).join('') + '</div></div>') +
       '<label class="pw-co-f' + (bBad.indexOf('country') >= 0 ? ' bad' : '') + '"><span>' + esc(t('pw.b_country')) + '</span><select data-pw-b="country">' + countryOpts(d.country) + '</select></label>' +
       (!co && d.country === 'ES' ? bField('postalCode', t('pw.b_postal'), ' maxlength="5" inputmode="numeric" autocomplete="postal-code"', true) + '<p class="pw-co-note">' + esc(t('pw.b_esPostalHint')) + '</p>' : '') +
       (co ? bField('companyName', t('pw.b_companyName'), ' maxlength="120" autocomplete="organization"', true) +

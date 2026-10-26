@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Pakete izvēlēta",
     "act_plan_changed": "Pakete mainīta",
     "act_extra_bought": "Nopirkt papildu QR kodu",
-    "billingAuto": "Tiek aizpildīts automātiski, kad maksājat. Šeit to varat mainīt."
+    "billingAuto": "Tiek aizpildīts automātiski, kad maksājat. Šeit to varat mainīt.",
+    "typeLocked": "Tu izvēlējies šo veidu. Vajag ko citu?",
+    "typeLockedLink": "Sazinies ar mums"
   },
   "mail": {
     "resetSubject": "Jauna parole QR-Codex",

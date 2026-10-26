@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Paket valt",
     "act_plan_changed": "Paket ändrat",
     "act_extra_bought": "Köp en extra QR-kod",
-    "billingAuto": "Fylls i automatiskt när du betalar. Du kan ändra det här."
+    "billingAuto": "Fylls i automatiskt när du betalar. Du kan ändra det här.",
+    "typeLocked": "Du har valt den här typen. Behöver du något annat?",
+    "typeLockedLink": "Kontakta oss"
   },
   "mail": {
     "resetSubject": "Nytt lösenord för QR-Codex",

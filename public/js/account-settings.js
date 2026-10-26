@@ -338,7 +338,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     var seg = function (v, label, icon) { var on = b.type === v; return '<button type="button" role="radio" aria-checked="' + on + '" data-btype="' + v + '">' + SVG + ICON[icon] + '</svg>' + label + '</button>'; };
     return '<div class="glass bg-card acct"><h2>' + t('acct.billing') + '</h2><p>' + t('acct.billingLead') + '</p>' +
       '<form data-form="billing" novalidate>' +
-      '<div class="acct-seg" role="radiogroup" aria-label="' + esc(t('acct.typeLabel')) + '">' + seg('company', t('acct.company'), 'company') + seg('private', t('acct.private'), 'person') + '</div>' +
+      // Of bedrijf, of particulier: één keer kiezen. Daarna alleen dat type (wisselen verandert de btw, dat gaat via ons)
+      (billing && billing.type ? '<div class="acct-type-lock">' + SVG + ICON[company ? 'company' : 'person'] + '</svg><b>' + esc(t(company ? 'acct.company' : 'acct.private')) + '</b><small>' + esc(t('acct.typeLocked')) + ' <a href="#" data-goto="contact">' + esc(t('acct.typeLockedLink')) + '</a></small></div>'
+        : '<div class="acct-seg" role="radiogroup" aria-label="' + esc(t('acct.typeLabel')) + '">' + seg('company', t('acct.company'), 'company') + seg('private', t('acct.private'), 'person') + '</div>') +
       '<div class="acct-grid">' +
       (company ? f('companyName', t('acct.companyName'), 'company', { attrs: ' maxlength="120" autocomplete="organization"' }) +
                  f('taxId', t('acct.taxId'), 'hash', { optional: true, hint: t('acct.taxIdHint'), attrs: ' maxlength="24" autocapitalize="characters" spellcheck="false"' }) : '') +

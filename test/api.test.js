@@ -946,3 +946,12 @@ test('A/B-test: verdeling over twee links, utm_content per versie, scans per ver
   await c('PUT', '/api/qr-codes/' + made.id, { typeId: 'website', content: { url: 'https://a.example/', abUrl: 'https://c.example/' } });
   assert.deepEqual((await c('GET', '/api/qr-codes/' + made.id)).json.ab, { A: 0, B: 0 }, 'nieuwe B-link: opnieuw tellen');
 });
+
+test('factuurgegevens: bedrijf of particulier één keer kiezen, daarna niet wisselen', async () => {
+  const c = client(); await signup(c, 'type-lock@example.com', 'Type vast zin 77!', 'Tv');
+  const co = { type: 'company', companyName: 'Vast BV', address: 'Straat 1', postalCode: '1000AA', city: 'Amsterdam', country: 'NL' };
+  assert.equal((await c('PUT', '/api/account/billing', co)).status, 200);
+  assert.equal((await c('PUT', '/api/account/billing', { ...co, companyName: 'Vast BV 2' })).status, 200, 'gegevens aanpassen mag');
+  const r = await c('PUT', '/api/account/billing', { type: 'private', firstName: 'Tim', lastName: 'Vast', address: 'Straat 1', postalCode: '1000AA', city: 'Amsterdam', country: 'NL' });
+  assert.equal(r.status, 409); assert.equal(r.json.error, 'type_locked');
+});

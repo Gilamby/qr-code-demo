@@ -1508,7 +1508,9 @@
     "prefThemeHelp": "Donker, licht of zoals je apparaat is ingesteld.",
     "prefStart": "Startpagina",
     "prefStartHelp": "Waar je terechtkomt na het inloggen.",
-    "billingAuto": "Wordt vanzelf ingevuld als je betaalt. Je kunt het hier aanpassen."
+    "billingAuto": "Wordt vanzelf ingevuld als je betaalt. Je kunt het hier aanpassen.",
+    "typeLocked": "Je hebt gekozen voor dit type. Toch iets anders nodig?",
+    "typeLockedLink": "Neem contact op"
   },
   "mail": {
     "resetSubject": "Nieuw wachtwoord voor QR-Codex",

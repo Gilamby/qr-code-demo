@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Pla triat",
     "act_plan_changed": "Pla canviat",
     "act_extra_bought": "Comprar un codi QR extra",
-    "billingAuto": "S'omple automàticament quan pagues. Pots canviar-ho aquí."
+    "billingAuto": "S'omple automàticament quan pagues. Pots canviar-ho aquí.",
+    "typeLocked": "Has triat aquest tipus. Necessites un altre?",
+    "typeLockedLink": "Contacta'ns"
   },
   "mail": {
     "resetSubject": "Contrasenya nova per a QR-Codex",

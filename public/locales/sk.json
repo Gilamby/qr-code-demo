@@ -1504,7 +1504,9 @@
     "act_plan_chosen": "Balík vybraný",
     "act_plan_changed": "Balík zmenený",
     "act_extra_bought": "Dokúpiť QR kód",
-    "billingAuto": "Vyplní sa automaticky pri platbe. Tu to môžete zmeniť."
+    "billingAuto": "Vyplní sa automaticky pri platbe. Tu to môžete zmeniť.",
+    "typeLocked": "Vybral si tento typ. Potrebuješ niečo iné?",
+    "typeLockedLink": "Kontaktuj nás"
   },
   "mail": {
     "resetSubject": "Nové heslo pre QR-Codex",

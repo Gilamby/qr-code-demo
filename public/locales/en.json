@@ -1508,7 +1508,9 @@
     "prefThemeHelp": "Dark, light or the same as your device.",
     "prefStart": "Start page",
     "prefStartHelp": "Where you land after logging in.",
-    "billingAuto": "Filled in automatically when you pay. You can change it here."
+    "billingAuto": "Filled in automatically when you pay. You can change it here.",
+    "typeLocked": "You chose this type. Need something else?",
+    "typeLockedLink": "Contact us"
   },
   "mail": {
     "resetSubject": "New password for QR-Codex",
