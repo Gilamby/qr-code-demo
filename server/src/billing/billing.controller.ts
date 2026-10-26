@@ -171,7 +171,9 @@ export class BillingController {
     if (rec.subscription && rec.subscription !== s.id) return;               // een oud (vervangen) abonnement: niets doen
     if (!rec.subscription) { rec.subscription = s.id; rec.customer = s.customer || rec.customer; }
     const cur: Sub = (await subFor(this.db, uid)) || emptySub(), now = Date.now();
-    const end = (Number(s.trial_end && s.status === 'trialing' ? s.trial_end : s.current_period_end) || 0) * 1000;
+    // Nieuwere Stripe-versies zetten current_period_end per regel (items) in plaats van op het abonnement: beide lezen
+    const pe = s.current_period_end || Math.max(0, ...(((s.items && s.items.data) || []).map((i: any) => Number(i.current_period_end) || 0)));
+    const end = (Number(s.trial_end && s.status === 'trialing' ? s.trial_end : pe) || 0) * 1000;
     let periodEnd: number;
     if (s.status === 'active' || s.status === 'trialing') periodEnd = end;
     else if (s.status === 'past_due' || s.status === 'unpaid' || s.status === 'incomplete') periodEnd = Math.min(end || now, now);   // niet betaald: codes stoppen
