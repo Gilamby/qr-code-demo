@@ -729,8 +729,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     var cur = theme.get(), start = (uprefs && uprefs.start) || 'home';
     return '<div class="glass ast-card set-sec acct-prefs"><header class="set-sec-h"><h3>' + t('acct.prefsTitle') + '</h3><p>' + t('acct.prefsLead2') + '</p></header>' +
       row(t('acct.language'), t('acct.prefsLead'), '<span class="auth-in acct-sel"><select id="acctLang">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + esc(l.name) + '</option>'; }).join('') + '</select></span>') +
-      row(t('theme.title'), t('acct.prefThemeHelp'), '<div class="set-seg" role="radiogroup" aria-label="' + esc(t('theme.title')) + '">' + ['dark', 'light', 'system'].map(function (k) {
-        return '<button type="button" role="radio" aria-checked="' + (cur === k) + '" data-theme-set="' + k + '">' + t('theme.' + k) + '</button>'; }).join('') + '</div>') +
+      // Licht/donker staat alleen bij Achtergrond (wens Fabian 21 okt); hier niet nog een keer
       row(t('acct.prefStart'), t('acct.prefStartHelp'), '<span class="auth-in acct-sel"><select id="acctStart"' + (uprefs ? '' : ' disabled') + '>' + [['home', 'nav.overview'], ['create', 'nav.create'], ['myCodes', 'nav.myCodes'], ['analytics', 'nav.analytics']].map(function (o) {
         return '<option value="' + o[0] + '"' + (o[0] === start ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join('') + '</select></span>' + note('prefs')) +
       '</div>';
