@@ -22,6 +22,7 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
   if (!/^[A-Z]{2}$/.test(country)) errors.push('country');
   if (country === 'ES' && !/^\d{5}$/.test(buyer.postalCode)) errors.push('postalCode');   // nodig voor Canarias/Ceuta/Melilla (geen IVA)
   if (BLOCKED.includes(country)) errors.push('blocked');
+  else if (type === 'private' && /^[A-Z]{2}$/.test(country) && !privateAllowed(country)) errors.push('nonEuB2c');
   else if (type === 'private' && /^(35|38|51|52)\d{3}$/.test(buyer.postalCode) && country === 'ES' && !esSpecialB2cAllowed()) errors.push('esB2c');
   if (type === 'company') {
     if (!buyer.companyName) errors.push('companyName');
@@ -44,6 +45,11 @@ export const BLOCKED = ['KP', 'IR', 'CU', 'SY', 'RU', 'BY'];
    Tot OptimaSys dat geregeld heeft: niet aan particulieren daar verkopen (bedrijven wel, die betalen het zelf).
    Na registratie: ES_SPECIAL_B2C=allow in .env (dan wel verkopen; IGIC/IPSI aangeven via de boekhouder). */
 export const esSpecialB2cAllowed = () => String(process.env.ES_SPECIAL_B2C || '').toLowerCase() === 'allow';
+/* Particulieren buiten de EU: veel landen (VK, Noorwegen, Zwitserland, India, Turkije, Australië …) willen dat een buitenlandse
+   verkoper zich daar registreert en btw/GST afdraagt, soms vanaf de eerste verkoop. Tot OptimaSys dat per land geregeld heeft:
+   particulieren alleen in de EU (btw via OSS). Bedrijven buiten de EU wel (die rekenen de belasting zelf af).
+   Land toegevoegd na registratie: PRIVATE_COUNTRIES=GB,NO in .env (en het land in Stripe Tax aanzetten). */
+export const privateAllowed = (country: string) => EU.includes(country) || String(process.env.PRIVATE_COUNTRIES || '').toUpperCase().split(/[\s,]+/).includes(country);
 export const esNoVat = (country: string, postalCode: string) => country === 'ES' && /^(35|38|51|52)\d{3}$/.test(postalCode || '');
 export const taxBehavior = (type?: string) => (type === 'company' ? 'exclusive' : 'inclusive');
 

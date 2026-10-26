@@ -766,7 +766,8 @@
     "b_esPostalHint": "Code postal requis : pas de TVA aux Canaries, à Ceuta et à Melilla.",
     "b_noVatEs": "Pas de TVA (Canaries, Ceuta, Melilla)",
     "b_esB2c": "Nous ne pouvons pas encore vendre aux particuliers des Canaries, de Ceuta et de Melilla en raison de la taxe locale (IGIC/IPSI). Tu achètes pour une entreprise ? Choisis Entreprise.",
-    "b_blocked": "Nous ne pouvons malheureusement pas vendre dans ce pays."
+    "b_blocked": "Nous ne pouvons malheureusement pas vendre dans ce pays.",
+    "b_nonEuB2c": "Hors de l'UE, nous vendons pour l'instant uniquement aux entreprises. Tu achètes pour une entreprise ? Choisis Entreprise."
   },
   "dz": {
     "lbl": {

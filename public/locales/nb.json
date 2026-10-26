@@ -766,7 +766,8 @@
     "b_esPostalHint": "Postnummer trengs: det er ingen mva. på Kanariøyene, i Ceuta og Melilla.",
     "b_noVatEs": "Ingen mva. (Kanariøyene, Ceuta, Melilla)",
     "b_esB2c": "Vi kan ennå ikke selge til privatpersoner på Kanariøyene, i Ceuta og Melilla på grunn av lokal skatt (IGIC/IPSI). Kjøper du som bedrift? Velg Bedrift.",
-    "b_blocked": "Vi kan dessverre ikke selge i dette landet."
+    "b_blocked": "Vi kan dessverre ikke selge i dette landet.",
+    "b_nonEuB2c": "Utenfor EU selger vi foreløpig bare til bedrifter. Kjøper du for en bedrift? Velg Bedrift."
   },
   "dz": {
     "lbl": {

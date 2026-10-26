@@ -766,7 +766,8 @@
     "b_esPostalHint": "Kod pocztowy wymagany: na Wyspach Kanaryjskich, w Ceucie i Melilli nie ma VAT.",
     "b_noVatEs": "Bez VAT (Wyspy Kanaryjskie, Ceuta, Melilla)",
     "b_esB2c": "Nie możemy jeszcze sprzedawać osobom prywatnym na Wyspach Kanaryjskich, w Ceucie i Melilli z powodu lokalnego podatku (IGIC/IPSI). Kupujesz jako firma? Wybierz Firma.",
-    "b_blocked": "Niestety nie możemy sprzedawać w tym kraju."
+    "b_blocked": "Niestety nie możemy sprzedawać w tym kraju.",
+    "b_nonEuB2c": "Poza UE sprzedajemy obecnie tylko firmom. Kupujesz dla firmy? Wybierz Firma."
   },
   "dz": {
     "lbl": {

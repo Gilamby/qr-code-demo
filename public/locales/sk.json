@@ -766,7 +766,8 @@
     "b_esPostalHint": "Potrebné PSČ: na Kanárskych ostrovoch, v Ceute a Melille sa DPH neplatí.",
     "b_noVatEs": "Bez DPH (Kanárske ostrovy, Ceuta, Melilla)",
     "b_esB2c": "Súkromným osobám na Kanárskych ostrovoch, v Ceute a Melille zatiaľ nemôžeme predávať pre miestnu daň (IGIC/IPSI). Kupuješ ako firma? Vyber Firma.",
-    "b_blocked": "V tejto krajine bohužiaľ nemôžeme predávať."
+    "b_blocked": "V tejto krajine bohužiaľ nemôžeme predávať.",
+    "b_nonEuB2c": "Mimo EÚ zatiaľ predávame len firmám. Kupuješ pre firmu? Vyber Firma."
   },
   "dz": {
     "lbl": {

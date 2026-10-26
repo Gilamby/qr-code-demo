@@ -214,7 +214,7 @@ var Plans = (function () {
         bField('vat', t('pw.b_vat'), ' maxlength="24" spellcheck="false" placeholder="' + esc((d.country === 'GR' ? 'EL' : d.country) + '…') + '"', true) + '<p class="pw-co-note">' + esc(t('pw.b_vatHint')) + '</p>' +
         bField('address', t('pw.b_address'), ' maxlength="160" autocomplete="street-address"', true) +
         '<div class="pw-two">' + bField('postalCode', t('pw.b_postal'), ' maxlength="12" autocomplete="postal-code"') + bField('city', t('pw.b_city'), ' maxlength="80" autocomplete="address-level2"') + '</div>' : '') +
-      (bBad.length ? '<p class="acct-msg bad" role="alert">' + esc(t(bBad.indexOf('esB2c') >= 0 ? 'pw.b_esB2c' : bBad.indexOf('blocked') >= 0 ? 'pw.b_blocked' : bBad.indexOf('vies') >= 0 ? 'pw.b_viesBad' : bBad.indexOf('viesDown') >= 0 ? 'pw.b_viesDown' : 'pw.b_buyerErr')) + '</p>' : '') +
+      (bBad.length ? '<p class="acct-msg bad" role="alert">' + esc(t(bBad.indexOf('nonEuB2c') >= 0 ? 'pw.b_nonEuB2c' : bBad.indexOf('esB2c') >= 0 ? 'pw.b_esB2c' : bBad.indexOf('blocked') >= 0 ? 'pw.b_blocked' : bBad.indexOf('vies') >= 0 ? 'pw.b_viesBad' : bBad.indexOf('viesDown') >= 0 ? 'pw.b_viesDown' : 'pw.b_buyerErr')) + '</p>' : '') +
       '<button type="button" class="pw-co-go" data-pw-bgo>' + esc(t('pw.b_toPay')) + '</button>';
   }
   function buyerLine() {

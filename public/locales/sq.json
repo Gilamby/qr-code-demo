@@ -766,7 +766,8 @@
     "b_esPostalHint": "Duhet kodi postar: në Ishujt Kanarie, Ceuta dhe Melilla nuk ka TVSH.",
     "b_noVatEs": "Pa TVSH (Kanarie, Ceuta, Melilla)",
     "b_esB2c": "Ende nuk mund t'u shesim personave privatë në Ishujt Kanarie, Ceuta dhe Melilla për shkak të taksës vendore (IGIC/IPSI). Blen si biznes? Zgjidh Biznes.",
-    "b_blocked": "Fatkeqësisht nuk mund të shesim në këtë vend."
+    "b_blocked": "Fatkeqësisht nuk mund të shesim në këtë vend.",
+    "b_nonEuB2c": "Jashtë BE-së tani për tani u shesim vetëm bizneseve. Blen për një biznes? Zgjidh Biznes."
   },
   "dz": {
     "lbl": {

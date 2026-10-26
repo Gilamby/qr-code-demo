@@ -766,7 +766,8 @@
     "b_esPostalHint": "Postinumero tarvitaan: Kanariansaarilla, Ceutassa ja Melillassa ei ole ALV:tä.",
     "b_noVatEs": "Ei ALV:tä (Kanariansaaret, Ceuta, Melilla)",
     "b_esB2c": "Emme voi vielä myydä yksityishenkilöille Kanariansaarille, Ceutaan ja Melillaan paikallisen veron (IGIC/IPSI) vuoksi. Ostatko yrityksenä? Valitse Yritys.",
-    "b_blocked": "Valitettavasti emme voi myydä tähän maahan."
+    "b_blocked": "Valitettavasti emme voi myydä tähän maahan.",
+    "b_nonEuB2c": "EU:n ulkopuolella myymme toistaiseksi vain yrityksille. Ostatko yritykselle? Valitse Yritys."
   },
   "dz": {
     "lbl": {

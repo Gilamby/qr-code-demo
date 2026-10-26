@@ -320,6 +320,11 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   assert.equal(r.status, 200); assert.equal(global.__cusBody.get('tax_exempt'), 'exempt'); delete process.env.ES_SPECIAL_B2C;
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Guagua SL', address: 'Calle Triana 1', postalCode: '35002', city: 'Las Palmas', vat: 'ESB76543210' } });
   assert.equal(r.status, 200); assert.equal(global.__cusBody.get('tax_exempt'), 'exempt');
+  // Particulier buiten de EU: nog niet (registratie daar nodig); na registratie via PRIVATE_COUNTRIES wel
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'GB' } });
+  assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['nonEuB2c']);
+  process.env.PRIVATE_COUNTRIES = 'GB,NO';
+  assert.equal((await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'GB' } })).status, 200); delete process.env.PRIVATE_COUNTRIES;
   // Landen met sancties: niet verkopen
   for (const cc of ['KP', 'IR', 'RU']) { r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: cc } }); assert.equal(r.status, 400); assert.ok(r.json.details.includes('blocked'), cc); }
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES' } });

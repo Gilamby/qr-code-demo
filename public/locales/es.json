@@ -766,7 +766,8 @@
     "b_esPostalHint": "Código postal necesario: en Canarias, Ceuta y Melilla no se aplica IVA.",
     "b_noVatEs": "Sin IVA (Canarias, Ceuta, Melilla)",
     "b_esB2c": "Todavía no podemos vender a particulares en Canarias, Ceuta y Melilla por el impuesto local (IGIC/IPSI). ¿Compras como empresa? Elige Empresa.",
-    "b_blocked": "Lo sentimos, no podemos vender en este país."
+    "b_blocked": "Lo sentimos, no podemos vender en este país.",
+    "b_nonEuB2c": "Fuera de la UE, de momento solo vendemos a empresas. ¿Compras para una empresa? Elige Empresa."
   },
   "dz": {
     "lbl": {
