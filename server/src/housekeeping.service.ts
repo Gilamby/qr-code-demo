@@ -4,6 +4,8 @@ import { DatabaseService } from './database/database.service';
 import { MailerService } from './auth/mailer.service';
 import { sendDueReports } from './reports';
 import { subFor, saveSub, tick, rebuildBlocked, graceEnd } from './subscription';
+import { stripeOn, readRecord } from './billing/stripe';
+import { planFor, EXTRA_PRICE } from './plans';
 
 @Injectable()
 export class HousekeepingService implements OnApplicationBootstrap, OnApplicationShutdown {
@@ -32,6 +34,29 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
       for (const a of r.actions) if (a.startsWith('mail:')) await this.mailer.sendLapse(await this.db.getUser(u.id), a.slice(5) as any, graceEnd(r.sub)).catch((e) => console.error('Abonnementsmail mislukt:', e.message));
     }
     rebuildBlocked(entries);
+    await this.reminders(now).catch((e) => console.error('Herinneringen abonnement mislukt:', e.message));
+  }
+  /** 3 dagen vooraf een herinnering: opgezegd abonnement stopt, of de gratis proef stopt en de eerste betaling volgt (één keer per einddatum) */
+  async reminders(now = Date.now()) {
+    if (!stripeOn()) return;
+    for (const u of await this.db.listCustomers()) {
+      const rec = await readRecord(this.db, u.id); if (!rec.subscription || rec.status === 'canceled') continue;
+      const s = await subFor(this.db, u.id); if (!s || !s.periodEnd) continue;
+      const end = Date.parse(s.periodEnd), left = end - now;
+      if (left <= 0 || left > 3 * 864e5) continue;
+      const kind = rec.cancelAtEnd ? 'end' : rec.status === 'trialing' ? 'trial' : null; if (!kind) continue;
+      const key = 'remind:' + u.id, mark = kind + '|' + s.periodEnd;
+      if ((await this.db.getSetting(key)) === mark) continue;
+      await this.db.setSetting(key, mark);
+      let amount: number | null = null;
+      if (kind === 'trial') {
+        const p = await planFor(this.db, u.id), iv = s.interval || 'month';
+        const base = iv === 'month' && p.priceFirstMonth != null ? p.priceFirstMonth : iv === 'year' ? (p.priceYear != null ? p.priceYear : p.priceYearAfter) : iv === 'quarter' ? p.priceQuarter : p.price;
+        amount = Math.round(((Number(base) || 0) + (p.extra || 0) * ((EXTRA_PRICE as any)[iv] || 0)) * 100) / 100;
+      }
+      const user = await this.db.getUser(u.id);
+      if (user) await this.mailer.sendReminder(user, kind, end, amount).catch((e) => console.error('Herinnering mislukt:', e.message));
+    }
   }
   /** Overgezette codes: het account bij de oude QR-app loopt af. Daarna werkt de geprinte code niet meer (hij gaat eerst langs die app).
       Herinnering per e-mail 60 en 14 dagen ervoor, en op de dag zelf. Zo weet het team het ook als niemand eraan denkt. */

@@ -382,7 +382,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   }
   function resumeSub() {
     subBusy = true; draw();
-    api.account.resumeSub().then(function () { subBusy = false; planMsg = ['bill.resumed', 'ok']; planInfo = null; loadPlan(); })
+    api.account.resumeSub().then(function () { subBusy = false; planMsg = ['bill.resumed', 'ok']; planInfo = null; loadPlan(); document.dispatchEvent(new Event('sub-lapsed')); })
       .catch(function () { subBusy = false; planMsg = ['pw.payError', 'bad']; draw(); });
   }
   // Terug van een nieuwe betaalmethode (?go=plan&pm=cs_…): meteen als standaard zetten en melden

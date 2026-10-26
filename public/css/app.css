@@ -5265,3 +5265,7 @@ body.paywall-open { overflow: hidden; }
 .bl-pm-exp { color: var(--muted); font-weight: 500; margin-left: 4px; }
 .paywall .pw-pm-plan { font-size: 26px; }
 .paywall .pw-pm .pw-co-note { margin-top: 6px; }
+/* Herinnering bovenin (opgezegd / proef stopt bijna): rustig, weg te klikken */
+.sub-bar.sub-soon { position: relative; padding-right: 44px; }
+.sub-bar .sub-x { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 20px; line-height: 1; cursor: pointer; opacity: .7; }
+.sub-bar .sub-x:hover { opacity: 1; background: rgba(255,255,255,.08); }

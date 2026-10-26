@@ -1536,7 +1536,11 @@
     "unsubOther": "Voit ottaa sen uudelleen käyttöön milloin tahansa kohdassa Oma tili > Ilmoitukset.",
     "unsubBadTitle": "Linkki ei kelpaa",
     "unsubBadText": "Tämä linkki ei ole (enää) voimassa. Voit poistaa sähköpostit käytöstä kohdassa Oma tili > Ilmoitukset.",
-    "cancelTrialText": "Olemme peruneet ilmaisen kokeilujaksosi. Se päättyi heti, eikä sinulta ole veloitettu mitään. QR-koodisi ovat tauolla; valitse paketti 30 päivän kuluessa saadaksesi kaiken takaisin."
+    "cancelTrialText": "Olemme peruneet ilmaisen kokeilujaksosi. Se päättyi heti, eikä sinulta ole veloitettu mitään. QR-koodisi ovat tauolla; valitse paketti 30 päivän kuluessa saadaksesi kaiken takaisin.",
+    "remindEndSubject": "QR-Codex-tilauksesi päättyy pian",
+    "remindEndText": "Tilauksesi päättyy {date}. Sen jälkeen QR-koodisi lakkaavat toimimasta. Haluatko pitää ne? Jatka tilausta kohdassa Oma tili.",
+    "remindTrialSubject": "Ilmainen kokeilusi päättyy pian",
+    "remindTrialText": "Ilmainen kokeilusi päättyy {date}. Silloin ensimmäinen maksusi {amount} veloitetaan automaattisesti. Etkö halua jatkaa? Peruuta sitä ennen kohdassa Oma tili."
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Tervetuloa! Valitse tilaus luodaksesi ensimmäisen QR-koodisi.",
     "choose": "Valitse tilaus",
     "unpaidMsg": "Tilisi on valmis. Valitse tilaus alta; sen jälkeen voit heti luoda QR-koodeja.",
-    "admUnpaid": "Ei vielä maksettu"
+    "admUnpaid": "Ei vielä maksettu",
+    "barEnds": "Tilauksesi on peruttu ja päättyy {date}.",
+    "barTrialEnds": "Ilmainen kokeilusi päättyy {date}. Sen jälkeen veloitetaan ensimmäinen maksusi {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

@@ -1536,7 +1536,11 @@
     "unsubOther": "Du kan altid slå den til igen under Min konto > Notifikationer.",
     "unsubBadTitle": "Ugyldigt link",
     "unsubBadText": "Dette link er ikke (længere) gyldigt. Du kan slå mails fra under Min konto > Notifikationer.",
-    "cancelTrialText": "Vi har opsagt din gratis prøveperiode. Den sluttede med det samme, og du er ikke blevet opkrævet. Dine QR-koder er sat på pause; vælg en plan inden for 30 dage for at få det hele tilbage."
+    "cancelTrialText": "Vi har opsagt din gratis prøveperiode. Den sluttede med det samme, og du er ikke blevet opkrævet. Dine QR-koder er sat på pause; vælg en plan inden for 30 dage for at få det hele tilbage.",
+    "remindEndSubject": "Dit QR-Codex-abonnement slutter snart",
+    "remindEndText": "Dit abonnement slutter den {date}. Derefter holder dine QR-koder op med at virke. Vil du beholde dem? Fortsæt dit abonnement under Min konto.",
+    "remindTrialSubject": "Din gratis prøveperiode slutter snart",
+    "remindTrialText": "Din gratis prøveperiode slutter den {date}. Så trækkes din første betaling på {amount} automatisk. Vil du ikke fortsætte? Opsig inden da under Min konto."
   },
   "contact": {
     "lead": "Et spørgsmål, et problem eller en idé? Send os en besked.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Velkommen! Vælg et abonnement for at lave din første QR-kode.",
     "choose": "Vælg abonnement",
     "unpaidMsg": "Din konto er klar. Vælg et abonnement nedenfor; så kan du straks lave QR-koder.",
-    "admUnpaid": "Ikke betalt endnu"
+    "admUnpaid": "Ikke betalt endnu",
+    "barEnds": "Dit abonnement er opsagt og slutter den {date}.",
+    "barTrialEnds": "Din gratis prøveperiode slutter den {date}. Derefter trækkes din første betaling på {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

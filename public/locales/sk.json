@@ -1536,7 +1536,11 @@
     "unsubOther": "Kedykoľvek ho môžeš znova zapnúť v Môj účet > Upozornenia.",
     "unsubBadTitle": "Neplatný odkaz",
     "unsubBadText": "Tento odkaz nie je (už) platný. E-maily môžeš vypnúť v Môj účet > Upozornenia.",
-    "cancelTrialText": "Zrušili sme vaše bezplatné skúšobné obdobie. Skončilo sa okamžite a nič vám nebolo strhnuté. Vaše QR kódy sú pozastavené; vyberte si balík do 30 dní a všetko získate späť."
+    "cancelTrialText": "Zrušili sme vaše bezplatné skúšobné obdobie. Skončilo sa okamžite a nič vám nebolo strhnuté. Vaše QR kódy sú pozastavené; vyberte si balík do 30 dní a všetko získate späť.",
+    "remindEndSubject": "Vaše predplatné QR-Codex čoskoro končí",
+    "remindEndText": "Vaše predplatné končí {date}. Potom QR kódy prestanú fungovať. Chcete si ich ponechať? Pokračujte v predplatnom v časti Môj účet.",
+    "remindTrialSubject": "Vaše bezplatné skúšobné obdobie čoskoro končí",
+    "remindTrialText": "Vaše bezplatné skúšobné obdobie končí {date}. Vtedy sa automaticky strhne prvá platba vo výške {amount}. Nechcete pokračovať? Zrušte ho predtým v časti Môj účet."
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Vitaj! Vyber si predplatné a vytvor svoj prvý QR kód.",
     "choose": "Vybrať predplatné",
     "unpaidMsg": "Tvoj účet je pripravený. Vyber si nižšie predplatné; potom môžeš hneď vytvárať QR kódy.",
-    "admUnpaid": "Zatiaľ nezaplatené"
+    "admUnpaid": "Zatiaľ nezaplatené",
+    "barEnds": "Vaše predplatné je zrušené a končí {date}.",
+    "barTrialEnds": "Vaše bezplatné skúšobné obdobie končí {date}. Potom sa strhne prvá platba vo výške {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

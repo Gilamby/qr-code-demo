@@ -1536,7 +1536,11 @@
     "unsubOther": "Możesz go ponownie włączyć w Moje konto > Powiadomienia.",
     "unsubBadTitle": "Nieprawidłowy link",
     "unsubBadText": "Ten link jest nieprawidłowy (lub wygasł). E-maile możesz wyłączyć w Moje konto > Powiadomienia.",
-    "cancelTrialText": "Anulowaliśmy Twój bezpłatny okres próbny. Zakończył się od razu i nic nie zostało pobrane. Twoje kody QR są wstrzymane; wybierz plan w ciągu 30 dni, aby wszystko odzyskać."
+    "cancelTrialText": "Anulowaliśmy Twój bezpłatny okres próbny. Zakończył się od razu i nic nie zostało pobrane. Twoje kody QR są wstrzymane; wybierz plan w ciągu 30 dni, aby wszystko odzyskać.",
+    "remindEndSubject": "Twoja subskrypcja QR-Codex wkrótce się kończy",
+    "remindEndText": "Twoja subskrypcja kończy się {date}. Potem kody QR przestaną działać. Chcesz je zachować? Kontynuuj subskrypcję w Moim koncie.",
+    "remindTrialSubject": "Twój bezpłatny okres próbny wkrótce się kończy",
+    "remindTrialText": "Twój bezpłatny okres próbny kończy się {date}. Wtedy automatycznie zostanie pobrana pierwsza płatność w wysokości {amount}. Nie chcesz kontynuować? Anuluj wcześniej w Moim koncie."
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Witaj! Wybierz abonament, aby utworzyć swój pierwszy kod QR.",
     "choose": "Wybierz abonament",
     "unpaidMsg": "Twoje konto jest gotowe. Wybierz abonament poniżej; potem od razu możesz tworzyć kody QR.",
-    "admUnpaid": "Jeszcze nie opłacono"
+    "admUnpaid": "Jeszcze nie opłacono",
+    "barEnds": "Twoja subskrypcja została anulowana i kończy się {date}.",
+    "barTrialEnds": "Twój bezpłatny okres próbny kończy się {date}. Potem zostanie pobrana pierwsza płatność w wysokości {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

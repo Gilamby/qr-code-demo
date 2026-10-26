@@ -1536,7 +1536,11 @@
     "unsubOther": "Pots tornar-lo a activar quan vulguis a El meu compte > Notificacions.",
     "unsubBadTitle": "Enllaç no vàlid",
     "unsubBadText": "Aquest enllaç no és (o ja no és) vàlid. Pots desactivar els correus a El meu compte > Notificacions.",
-    "cancelTrialText": "Hem cancel·lat la teva prova gratuïta. Ha acabat immediatament i no se t'ha cobrat res. Els teus codis QR estan en pausa; tria un pla en 30 dies per recuperar-ho tot."
+    "cancelTrialText": "Hem cancel·lat la teva prova gratuïta. Ha acabat immediatament i no se t'ha cobrat res. Els teus codis QR estan en pausa; tria un pla en 30 dies per recuperar-ho tot.",
+    "remindEndSubject": "La subscripció a QR-Codex acaba aviat",
+    "remindEndText": "La subscripció acaba el {date}. Després els codis QR deixaran de funcionar. Els vols conservar? Continua la subscripció a El meu compte.",
+    "remindTrialSubject": "La prova gratuïta acaba aviat",
+    "remindTrialText": "La prova gratuïta acaba el {date}. Aleshores es cobrarà automàticament el primer pagament de {amount}. No vols continuar? Cancel·la abans a El meu compte."
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Benvingut! Tria un pla per crear el teu primer codi QR.",
     "choose": "Tria un pla",
     "unpaidMsg": "El teu compte està a punt. Tria un pla a continuació; després podràs crear codis QR de seguida.",
-    "admUnpaid": "Encara no pagat"
+    "admUnpaid": "Encara no pagat",
+    "barEnds": "La subscripció està cancel·lada i acaba el {date}.",
+    "barTrialEnds": "La prova gratuïta acaba el {date}. Després es cobrarà el primer pagament de {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

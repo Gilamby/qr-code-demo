@@ -1536,7 +1536,11 @@
     "unsubOther": "To jebkurā laikā var atkal ieslēgt sadaļā Mans konts > Paziņojumi.",
     "unsubBadTitle": "Saite nav derīga",
     "unsubBadText": "Šī saite nav (vairs) derīga. E-pastus var izslēgt sadaļā Mans konts > Paziņojumi.",
-    "cancelTrialText": "Mēs atcēlām jūsu bezmaksas izmēģinājumu. Tas beidzās uzreiz, un nekas netika iekasēts. Jūsu QR kodi ir apturēti; 30 dienu laikā izvēlieties plānu, lai visu atgūtu."
+    "cancelTrialText": "Mēs atcēlām jūsu bezmaksas izmēģinājumu. Tas beidzās uzreiz, un nekas netika iekasēts. Jūsu QR kodi ir apturēti; 30 dienu laikā izvēlieties plānu, lai visu atgūtu.",
+    "remindEndSubject": "Jūsu QR-Codex abonements drīz beigsies",
+    "remindEndText": "Jūsu abonements beidzas {date}. Pēc tam QR kodi pārstās darboties. Vēlaties tos paturēt? Turpiniet abonementu sadaļā Mans konts.",
+    "remindTrialSubject": "Jūsu bezmaksas izmēģinājums drīz beigsies",
+    "remindTrialText": "Jūsu bezmaksas izmēģinājums beidzas {date}. Tad automātiski tiks iekasēts pirmais maksājums {amount}. Nevēlaties turpināt? Atceliet to iepriekš sadaļā Mans konts."
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Laipni lūdzam! Izvēlies abonementu, lai izveidotu savu pirmo QR kodu.",
     "choose": "Izvēlēties abonementu",
     "unpaidMsg": "Tavs konts ir gatavs. Izvēlies abonementu zemāk; pēc tam vari uzreiz veidot QR kodus.",
-    "admUnpaid": "Vēl nav apmaksāts"
+    "admUnpaid": "Vēl nav apmaksāts",
+    "barEnds": "Jūsu abonements ir atcelts un beidzas {date}.",
+    "barTrialEnds": "Jūsu bezmaksas izmēģinājums beidzas {date}. Pēc tam tiks iekasēts pirmais maksājums {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

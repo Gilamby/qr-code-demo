@@ -1642,7 +1642,11 @@
     "unsubOther": "Mund ta aktivizosh sërish kur të duash te Llogaria ime > Njoftimet.",
     "unsubBadTitle": "Lidhje e pavlefshme",
     "unsubBadText": "Kjo lidhje nuk është (më) e vlefshme. Mund t’i çaktivizosh email-et te Llogaria ime > Njoftimet.",
-    "cancelTrialText": "E anuluam provën tënde falas. Përfundoi menjëherë dhe nuk të është tarifuar asgjë. Kodet e tua QR janë në pauzë; zgjidh një plan brenda 30 ditëve për t'i rikthyer të gjitha."
+    "cancelTrialText": "E anuluam provën tënde falas. Përfundoi menjëherë dhe nuk të është tarifuar asgjë. Kodet e tua QR janë në pauzë; zgjidh një plan brenda 30 ditëve për t'i rikthyer të gjitha.",
+    "remindEndSubject": "Abonimi yt QR-Codex mbaron së shpejti",
+    "remindEndText": "Abonimi yt mbaron më {date}. Pas kësaj kodet QR ndalojnë së punuari. Do t'i mbash? Vazhdo abonimin te Llogaria ime.",
+    "remindTrialSubject": "Prova jote falas mbaron së shpejti",
+    "remindTrialText": "Prova jote falas mbaron më {date}. Atëherë tarifohet automatikisht pagesa e parë prej {amount}. Nuk do të vazhdosh? Anuloje më parë te Llogaria ime."
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -2700,7 +2704,9 @@
     "barUnpaid": "Mirë se erdhe! Zgjidh një abonim për të krijuar kodin tënd të parë QR.",
     "choose": "Zgjidh abonimin",
     "unpaidMsg": "Llogaria jote është gati. Zgjidh një abonim më poshtë; pastaj mund të krijosh menjëherë kode QR.",
-    "admUnpaid": "Ende pa paguar"
+    "admUnpaid": "Ende pa paguar",
+    "barEnds": "Abonimi yt u anulua dhe mbaron më {date}.",
+    "barTrialEnds": "Prova jote falas mbaron më {date}. Pas kësaj tarifohet pagesa e parë prej {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

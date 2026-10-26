@@ -225,3 +225,28 @@ test('abonnement beheren in de app: betaalmethode, opzeggen (proef = meteen, bet
   assert.equal(subs.sub_b.status, 'canceled');
   assert.notEqual((await c('GET', '/api/account/plan')).json.sub.state, 'active');
 });
+
+test('herinnering 3 dagen vooraf: opgezegd abonnement en einde proef (één keer)', async () => {
+  const { HousekeepingService } = require('../server/dist/housekeeping.service');
+  const { saveSub, emptySub } = require('../server/dist/subscription');
+  const hk = app.get(HousekeepingService), sent = [], m = app.get(MailerService);
+  m.sendReminder = async (user, kind, until, amount) => { sent.push({ email: user.email, kind, amount }); };
+  const c = client();
+  await c('POST', '/api/auth/register', { accept: true, email: 'herinner@example.com', password: 'Herinner zin 77!', name: 'He' });
+  const u = await db.userByEmail('herinner@example.com');
+  const soon = new Date(Date.now() + 2 * 864e5).toISOString();
+  await saveSub(db, u.id, { ...emptySub(), interval: 'month', periodEnd: soon });
+  await db.setSetting('plan:' + u.id, 'pro');
+  await db.setSetting('stripe:' + u.id, JSON.stringify({ customer: 'cus_h', subscription: 'sub_h', status: 'trialing' }));
+  await hk.reminders(); await hk.reminders();
+  let mine = sent.filter((x) => x.email === 'herinner@example.com');
+  assert.equal(mine.length, 1, 'één keer'); assert.equal(mine[0].kind, 'trial'); assert.equal(mine[0].amount, 4.99, 'eerste maand Pro (actie)');
+  await db.setSetting('stripe:' + u.id, JSON.stringify({ customer: 'cus_h', subscription: 'sub_h', status: 'active', cancelAtEnd: true }));
+  await hk.reminders();
+  mine = sent.filter((x) => x.email === 'herinner@example.com');
+  assert.equal(mine.length, 2); assert.equal(mine[1].kind, 'end');
+  // Nog ver weg: niets
+  await saveSub(db, u.id, { ...emptySub(), interval: 'month', periodEnd: new Date(Date.now() + 10 * 864e5).toISOString() });
+  await db.setSetting('remind:' + u.id, null); await hk.reminders();
+  assert.equal(sent.filter((x) => x.email === 'herinner@example.com').length, 2);
+});

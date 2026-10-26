@@ -1536,7 +1536,11 @@
     "unsubOther": "Puoi riattivarlo quando vuoi in Il mio account > Notifiche.",
     "unsubBadTitle": "Link non valido",
     "unsubBadText": "Questo link non è (più) valido. Puoi disattivare le e-mail in Il mio account > Notifiche.",
-    "cancelTrialText": "Abbiamo annullato la tua prova gratuita. È terminata subito e non ti è stato addebitato nulla. I tuoi codici QR sono in pausa; scegli un piano entro 30 giorni per recuperare tutto."
+    "cancelTrialText": "Abbiamo annullato la tua prova gratuita. È terminata subito e non ti è stato addebitato nulla. I tuoi codici QR sono in pausa; scegli un piano entro 30 giorni per recuperare tutto.",
+    "remindEndSubject": "Il tuo abbonamento QR-Codex sta per terminare",
+    "remindEndText": "Il tuo abbonamento termina il {date}. Dopo i tuoi codici QR smetteranno di funzionare. Vuoi tenerli? Continua l'abbonamento in Il mio account.",
+    "remindTrialSubject": "La tua prova gratuita sta per terminare",
+    "remindTrialText": "La tua prova gratuita termina il {date}. Allora verrà addebitato automaticamente il primo pagamento di {amount}. Non vuoi continuare? Annulla prima in Il mio account."
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Benvenuto! Scegli un abbonamento per creare il tuo primo QR code.",
     "choose": "Scegli un abbonamento",
     "unpaidMsg": "Il tuo account è pronto. Scegli un abbonamento qui sotto; poi potrai creare subito i QR code.",
-    "admUnpaid": "Non ancora pagato"
+    "admUnpaid": "Non ancora pagato",
+    "barEnds": "Il tuo abbonamento è stato annullato e termina il {date}.",
+    "barTrialEnds": "La tua prova gratuita termina il {date}. Poi verrà addebitato il primo pagamento di {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

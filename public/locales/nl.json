@@ -1546,7 +1546,11 @@
     "scanMilestoneText": "Mooi: je QR-code “{name}” heeft de {n} scans gehaald.",
     "scanButton": "Bekijk je QR-codes",
     "scanFooter": "Deze meldingen zet je uit in Mijn account > Meldingen.",
-    "cancelTrialText": "We hebben je gratis proefperiode opgezegd. Die is meteen gestopt en er is niets afgeschreven. Je QR-codes staan op pauze; kies binnen 30 dagen een pakket om alles terug te krijgen."
+    "cancelTrialText": "We hebben je gratis proefperiode opgezegd. Die is meteen gestopt en er is niets afgeschreven. Je QR-codes staan op pauze; kies binnen 30 dagen een pakket om alles terug te krijgen.",
+    "remindEndSubject": "Je QR-Codex-abonnement stopt binnenkort",
+    "remindEndText": "Je abonnement stopt op {date}. Daarna werken je QR-codes niet meer. Wil je ze houden? Zet je abonnement voort in Mijn account.",
+    "remindTrialSubject": "Je gratis proefperiode stopt binnenkort",
+    "remindTrialText": "Je gratis proefperiode stopt op {date}. Dan wordt je eerste betaling van {amount} automatisch afgeschreven. Wil je niet verder? Zeg vóór die datum op in Mijn account."
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2639,7 +2643,9 @@
     "barUnpaid": "Welkom! Kies een abonnement om je eerste QR-code te maken.",
     "choose": "Abonnement kiezen",
     "unpaidMsg": "Je account is klaar. Kies hieronder een abonnement; daarna kun je meteen QR-codes maken.",
-    "admUnpaid": "Nog niet betaald"
+    "admUnpaid": "Nog niet betaald",
+    "barEnds": "Je abonnement is opgezegd en stopt op {date}.",
+    "barTrialEnds": "Je gratis proefperiode stopt op {date}. Daarna wordt je eerste betaling van {amount} afgeschreven."
   },
   "msg": {
     "whatsapp": "WhatsApp",

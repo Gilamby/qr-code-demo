@@ -1536,7 +1536,11 @@
     "unsubOther": "Îl poți reactiva oricând din Contul meu > Notificări.",
     "unsubBadTitle": "Link invalid",
     "unsubBadText": "Acest link nu este (sau nu mai este) valid. Poți dezactiva e-mailurile din Contul meu > Notificări.",
-    "cancelTrialText": "Am anulat perioada ta de probă gratuită. S-a încheiat imediat și nu ți s-a perceput nimic. Codurile tale QR sunt în pauză; alege un plan în 30 de zile pentru a recupera totul."
+    "cancelTrialText": "Am anulat perioada ta de probă gratuită. S-a încheiat imediat și nu ți s-a perceput nimic. Codurile tale QR sunt în pauză; alege un plan în 30 de zile pentru a recupera totul.",
+    "remindEndSubject": "Abonamentul tău QR-Codex se încheie curând",
+    "remindEndText": "Abonamentul tău se încheie pe {date}. După aceea codurile QR nu mai funcționează. Vrei să le păstrezi? Continuă abonamentul în Contul meu.",
+    "remindTrialSubject": "Perioada ta de probă se încheie curând",
+    "remindTrialText": "Perioada ta de probă gratuită se încheie pe {date}. Atunci se percepe automat prima plată de {amount}. Nu vrei să continui? Anulează înainte în Contul meu."
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Bun venit! Alege un abonament ca să creezi primul tău cod QR.",
     "choose": "Alege un abonament",
     "unpaidMsg": "Contul tău este gata. Alege un abonament mai jos; apoi poți crea imediat coduri QR.",
-    "admUnpaid": "Neplătit încă"
+    "admUnpaid": "Neplătit încă",
+    "barEnds": "Abonamentul tău a fost anulat și se încheie pe {date}.",
+    "barTrialEnds": "Perioada ta de probă gratuită se încheie pe {date}. Apoi se percepe prima plată de {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

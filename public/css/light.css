@@ -533,6 +533,7 @@
 :root[data-theme="light"] .cd-vis.new { color: #15803d; }
 :root[data-theme="light"] .cd-vis.back { color: #475569; }
 :root[data-theme="light"] .pl-tiles div { background: rgba(13,19,32,0.038); }
+:root[data-theme="light"] .sub-bar .sub-x:hover { background: rgba(13,19,32,0.06); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

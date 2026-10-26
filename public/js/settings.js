@@ -84,8 +84,29 @@
   /* Balk bovenin als het abonnement niet betaald is: codes werken niet, tot wanneer je nog kunt betalen */
   var bar = document.createElement('div'); bar.className = 'maint-bar sub-bar'; bar.setAttribute('role', 'alert'); bar.hidden = true;
   var main = document.querySelector('.main'); if (main) main.insertBefore(bar, main.children[1] || null);
+  // Rustige herinnering bovenin: opgezegd (loopt nog tot …) of de gratis proef stopt binnen 3 dagen. Wegklikken = tot de volgende keer openen.
+  function soonKey() {
+    var sb = info && info.sub, bl = (info && info.billing) || {};
+    if (!sb || sb.state !== 'active' || !sb.periodEnd) return null;
+    if (bl.cancelAtEnd) return 'end|' + sb.periodEnd;
+    if (bl.trial && Date.parse(sb.periodEnd) - Date.now() <= 3 * 864e5) return 'trial|' + sb.periodEnd;
+    return null;
+  }
+  function closed(k) { try { return sessionStorage.getItem('qrc-soon') === k; } catch (e) { return false; } }
+  function soonBar(k) {
+    var sb = info.sub, p = info.plan, iv = PlanPeriod.norm(sb.interval), date = i18n.fmt.stamp(sb.periodEnd, 'long');
+    var amount = (Number(PlanPeriod.firstPay(p, iv)) || 0) + (p.extra || 0) * ((info.extraPrice && info.extraPrice[iv]) || 0);
+    var money = new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(amount);
+    bar.classList.add('sub-info', 'sub-soon');
+    bar.innerHTML = '<b>' + esc(k.indexOf('end') === 0 ? t('sub.barEnds', { date: date }) : t('sub.barTrialEnds', { date: date, amount: money })) + '</b> ' +
+      '<a href="#" data-sub-plan>' + esc(k.indexOf('end') === 0 ? t('bill.resume') : t('bill.manage')) + '</a>' +
+      '<button type="button" class="sub-x" data-sub-x aria-label="' + esc(t('legal.close')) + '">×</button>';
+  }
   function banner() {
     var sb = info && info.sub, st = sb && sb.state;
+    bar.classList.remove('sub-soon');
+    var me = window.Session && Session.user && Session.user(), k = soonKey();
+    if (k && !closed(k) && !(me && me.admin) && !(window.Team && Team.member && Team.member())) { bar.hidden = false; return soonBar(k); }
     bar.hidden = !(st === 'grace' || st === 'ended' || st === 'unpaid');
     bar.classList.toggle('sub-info', st === 'unpaid');                // welkom, nog geen abonnement: geen rode alarmbalk
     if (bar.hidden) return;
@@ -93,6 +114,10 @@
     bar.innerHTML = '<b>' + esc(st === 'grace' ? t('sub.barGrace', { date: i18n.fmt.stamp(sb.graceUntil, 'time') }) : t('sub.barEnded')) + '</b> <a href="#" data-sub-go>' + esc(t('sub.renew')) + '</a>';
   }
   bar.addEventListener('click', function (e) { if (e.target.closest('[data-sub-go]')) { e.preventDefault(); if (window.Plans) Plans.open(); } });
+  bar.addEventListener('click', function (e) {
+    if (e.target.closest('[data-sub-plan]')) { e.preventDefault(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
+    if (e.target.closest('[data-sub-x]')) { try { sessionStorage.setItem('qrc-soon', soonKey() || ''); } catch (x) {} bar.hidden = true; }
+  });
   document.addEventListener('sub-lapsed', load);
   // Nog geen abonnement: QR-code maken leidt naar Abonnement kiezen (anders vul je alles in en kun je niet opslaan)
   document.addEventListener('pagechange', function (e) {

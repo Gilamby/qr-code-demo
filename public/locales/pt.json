@@ -1536,7 +1536,11 @@
     "unsubOther": "Podes voltar a ativá-lo a qualquer momento em A minha conta > Notificações.",
     "unsubBadTitle": "Link inválido",
     "unsubBadText": "Este link não é (ou já não é) válido. Podes desativar os e-mails em A minha conta > Notificações.",
-    "cancelTrialText": "Cancelámos o seu período de teste gratuito. Terminou de imediato e não foi cobrado nada. Os seus códigos QR estão em pausa; escolha um plano no prazo de 30 dias para recuperar tudo."
+    "cancelTrialText": "Cancelámos o seu período de teste gratuito. Terminou de imediato e não foi cobrado nada. Os seus códigos QR estão em pausa; escolha um plano no prazo de 30 dias para recuperar tudo.",
+    "remindEndSubject": "A sua subscrição QR-Codex termina em breve",
+    "remindEndText": "A sua subscrição termina a {date}. Depois os seus códigos QR deixam de funcionar. Quer mantê-los? Continue a subscrição em A minha conta.",
+    "remindTrialSubject": "O seu período de teste termina em breve",
+    "remindTrialText": "O seu período de teste gratuito termina a {date}. Nessa altura é cobrado automaticamente o primeiro pagamento de {amount}. Não quer continuar? Cancele antes em A minha conta."
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",
@@ -2594,7 +2598,9 @@
     "barUnpaid": "Bem-vindo! Escolhe um plano para criar o teu primeiro código QR.",
     "choose": "Escolher um plano",
     "unpaidMsg": "A tua conta está pronta. Escolhe um plano abaixo; depois podes criar códigos QR de imediato.",
-    "admUnpaid": "Ainda não pago"
+    "admUnpaid": "Ainda não pago",
+    "barEnds": "A sua subscrição foi cancelada e termina a {date}.",
+    "barTrialEnds": "O seu período de teste gratuito termina a {date}. Depois é cobrado o primeiro pagamento de {amount}."
   },
   "msg": {
     "whatsapp": "WhatsApp",

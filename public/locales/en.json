@@ -1546,7 +1546,11 @@
     "scanMilestoneText": "Nice: your QR code “{name}” has reached {n} scans.",
     "scanButton": "View your QR codes",
     "scanFooter": "You can turn these notifications off in My account > Notifications.",
-    "cancelTrialText": "We've cancelled your free trial. It ended straight away and you have not been charged. Your QR codes are paused; choose a plan within 30 days to get everything back."
+    "cancelTrialText": "We've cancelled your free trial. It ended straight away and you have not been charged. Your QR codes are paused; choose a plan within 30 days to get everything back.",
+    "remindEndSubject": "Your QR-Codex subscription ends soon",
+    "remindEndText": "Your subscription ends on {date}. After that your QR codes stop working. Want to keep them? Continue your subscription in My Account.",
+    "remindTrialSubject": "Your free trial ends soon",
+    "remindTrialText": "Your free trial ends on {date}. Then your first payment of {amount} is charged automatically. Don't want to continue? Cancel in My Account before then."
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2639,7 +2643,9 @@
     "barUnpaid": "Welcome! Choose a plan to create your first QR code.",
     "choose": "Choose a plan",
     "unpaidMsg": "Your account is ready. Choose a plan below; then you can start creating QR codes right away.",
-    "admUnpaid": "Not paid yet"
+    "admUnpaid": "Not paid yet",
+    "barEnds": "Your subscription has been cancelled and ends on {date}.",
+    "barTrialEnds": "Your free trial ends on {date}. After that your first payment of {amount} is charged."
   },
   "msg": {
     "whatsapp": "WhatsApp",

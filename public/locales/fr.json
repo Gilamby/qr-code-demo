@@ -1542,7 +1542,11 @@
     "scanMilestoneText": "Bravo : ton QR code « {name} » a atteint {n} scans.",
     "scanButton": "Voir tes QR codes",
     "scanFooter": "Tu peux désactiver ces notifications dans Mon compte > Notifications.",
-    "cancelTrialText": "Nous avons annulé votre essai gratuit. Il a pris fin immédiatement et rien n'a été débité. Vos codes QR sont en pause ; choisissez une formule dans les 30 jours pour tout récupérer."
+    "cancelTrialText": "Nous avons annulé votre essai gratuit. Il a pris fin immédiatement et rien n'a été débité. Vos codes QR sont en pause ; choisissez une formule dans les 30 jours pour tout récupérer.",
+    "remindEndSubject": "Votre abonnement QR-Codex se termine bientôt",
+    "remindEndText": "Votre abonnement se termine le {date}. Ensuite, vos codes QR cesseront de fonctionner. Vous voulez les garder ? Poursuivez votre abonnement dans Mon compte.",
+    "remindTrialSubject": "Votre essai gratuit se termine bientôt",
+    "remindTrialText": "Votre essai gratuit se termine le {date}. Votre premier paiement de {amount} sera alors débité automatiquement. Vous ne souhaitez pas continuer ? Résiliez avant dans Mon compte."
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -2600,7 +2604,9 @@
     "barUnpaid": "Bienvenue ! Choisissez un abonnement pour créer votre premier QR code.",
     "choose": "Choisir un abonnement",
     "unpaidMsg": "Votre compte est prêt. Choisissez un abonnement ci-dessous ; vous pourrez ensuite créer des QR codes tout de suite.",
-    "admUnpaid": "Pas encore payé"
+    "admUnpaid": "Pas encore payé",
+    "barEnds": "Votre abonnement est résilié et se termine le {date}.",
+    "barTrialEnds": "Votre essai gratuit se termine le {date}. Ensuite, votre premier paiement de {amount} sera débité."
   },
   "msg": {
     "whatsapp": "WhatsApp",
