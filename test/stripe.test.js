@@ -288,14 +288,14 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   const { forgetTax } = require('../server/dist/billing/tax'); forgetTax();
   const last = () => calls.filter((x) => x.path === 'checkout/sessions').pop().body;
   // Bedrijf zonder (goed) btw-nummer binnen de EU: fout
-  let r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', city: 'Milano', vat: 'NL123' } });
+  let r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', postalCode: '20100', city: 'Milano', vat: 'NL123' } });
   assert.equal(r.status, 400); assert.equal(r.json.error, 'buyer'); assert.ok(r.json.details.includes('vat'));
   // Btw-nummer met goede vorm maar niet in VIES: niet verder (geen btw verleggen)
-  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', city: 'Milano', vat: 'IT99999999999' } });
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', postalCode: '20100', city: 'Milano', vat: 'IT99999999999' } });
   assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['vies']);
   // VIES niet bereikbaar: ook niet verder
   global.__viesDown = true;
-  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', city: 'Milano', vat: 'IT12345678901' } });
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', postalCode: '20100', city: 'Milano', vat: 'IT12345678901' } });
   assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['viesDown']); global.__viesDown = false;
   // Italiaans bedrijf: prijs excl. btw, btw-nummer bij Stripe, adres in Italië, Stripe Tax aan
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', postalCode: '20100', city: 'Milano', vat: 'IT 1234567890 1' } });
@@ -332,7 +332,7 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', postalCode: '28013', city: 'Madrid', vat: 'ESB12345678' } });
   assert.equal(r.status, 200); assert.equal(global.__vies, nv, 'Spanje: geen VIES-aanvraag');
   // Bedrijf buiten de EU (VS): geen btw-nummer bij Stripe
-  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'US', companyName: 'Burger Inc', address: '1 Main St', city: 'Austin', vat: '12-3456789' } });
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'US', companyName: 'Burger Inc', address: '1 Main St', postalCode: '73301', city: 'Austin', vat: '12-3456789' } });
   assert.equal(r.status, 200); assert.equal(global.__tax[cus].length, 0);
   // Particulier: prijs incl. btw, btw-nummer weg
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'NL' } });

@@ -1332,7 +1332,7 @@
     "private": "Súkromná osoba",
     "companyName": "Názov firmy",
     "taxId": "IČ DPH",
-    "taxIdHint": "S kódom krajiny, napríklad SK1234567890.",
+    "taxIdHint": "S kódom krajiny, napríklad ESB12345678. Firma v inej krajine EÚ: prenesenie daňovej povinnosti, ak je číslo platné vo VIES.",
     "firstName": "Meno",
     "lastName": "Priezvisko",
     "billingEmail": "E-mail pre faktúry",

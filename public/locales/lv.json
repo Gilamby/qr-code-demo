@@ -1332,7 +1332,7 @@
     "private": "Privātpersona",
     "companyName": "Uzņēmuma nosaukums",
     "taxId": "PVN numurs",
-    "taxIdHint": "Ar valsts kodu, piemēram, LV12345678901.",
+    "taxIdHint": "Ar valsts kodu, piemēram, ESB12345678. Uzņēmums citā ES valstī: apgrieztā maksāšana, ja numurs ir derīgs VIES.",
     "firstName": "Vārds",
     "lastName": "Uzvārds",
     "billingEmail": "E-pasts rēķiniem",

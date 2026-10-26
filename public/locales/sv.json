@@ -1332,7 +1332,7 @@
     "private": "Privatperson",
     "companyName": "Företagsnamn",
     "taxId": "Momsregistreringsnummer",
-    "taxIdHint": "Med landskod, till exempel SE123456789001.",
+    "taxIdHint": "Med landskod, till exempel ESB12345678. Företag i ett annat EU-land: omvänd skattskyldighet om numret är giltigt i VIES.",
     "firstName": "Förnamn",
     "lastName": "Efternamn",
     "billingEmail": "E-post för fakturor",

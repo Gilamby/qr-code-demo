@@ -342,8 +342,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       '<div class="acct-grid">' +
       (company ? f('companyName', t('acct.companyName'), 'company', { attrs: ' maxlength="120" autocomplete="organization"' }) +
                  f('taxId', t('acct.taxId'), 'hash', { optional: true, hint: t('acct.taxIdHint'), attrs: ' maxlength="24" autocapitalize="characters" spellcheck="false"' }) : '') +
-      f('firstName', t('acct.firstName'), 'person', { optional: company, attrs: ' maxlength="60" autocomplete="given-name"' }) +
-      f('lastName', t('acct.lastName'), 'person', { optional: company, attrs: ' maxlength="60" autocomplete="family-name"' }) +
+      // Of bedrijf, of particulier: bedrijf = bedrijfsnaam + btw-nummer, particulier = voor- en achternaam (niet allebei)
+      (company ? '' : f('firstName', t('acct.firstName'), 'person', { attrs: ' maxlength="60" autocomplete="given-name"' }) +
+      f('lastName', t('acct.lastName'), 'person', { attrs: ' maxlength="60" autocomplete="family-name"' })) +
       f('email', t('acct.billingEmail'), 'mail', { optional: true, wide: true, hint: t('acct.billingEmailHint'), attrs: ' type="email" maxlength="254" autocomplete="email" placeholder="' + esc(user.email) + '"' }) +
       f('address', t('acct.address'), 'pin', { attrs: ' maxlength="160" autocomplete="street-address"' }) +
       f('postalCode', t('acct.postalCode'), 'hash', { attrs: ' maxlength="12" autocomplete="postal-code"' }) +

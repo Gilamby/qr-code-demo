@@ -1332,7 +1332,7 @@
     "private": "Yksityishenkilö",
     "companyName": "Yrityksen nimi",
     "taxId": "ALV-numero",
-    "taxIdHint": "Maatunnuksen kanssa, esimerkiksi FI12345678.",
+    "taxIdHint": "Maatunnuksella, esimerkiksi ESB12345678. Yritys toisessa EU-maassa: käännetty verovelvollisuus, jos numero on voimassa VIESissä.",
     "firstName": "Etunimi",
     "lastName": "Sukunimi",
     "billingEmail": "Sähköposti laskuille",

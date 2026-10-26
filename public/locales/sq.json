@@ -1438,7 +1438,7 @@
     "private": "Person privat",
     "companyName": "Emri i kompanisë",
     "taxId": "NIPT / Nr. TVSH",
-    "taxIdHint": "Me kodin e shtetit, për shembull AL12345678A.",
+    "taxIdHint": "Me kodin e vendit, p.sh. ESB12345678. Kompani në një vend tjetër të BE-së: ngarkesë e kundërt nëse numri është i vlefshëm në VIES.",
     "firstName": "Emri",
     "lastName": "Mbiemri",
     "billingEmail": "Email për faturat",

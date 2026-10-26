@@ -1332,7 +1332,7 @@
     "private": "Privatperson",
     "companyName": "Virksomhedsnavn",
     "taxId": "Momsnummer",
-    "taxIdHint": "Med landekode, for eksempel DK12345678.",
+    "taxIdHint": "Med landekode, for eksempel ESB12345678. Virksomhed i et andet EU-land: omvendt betalingspligt, hvis nummeret er gyldigt i VIES.",
     "firstName": "Fornavn",
     "lastName": "Efternavn",
     "billingEmail": "E-mail til fakturaer",

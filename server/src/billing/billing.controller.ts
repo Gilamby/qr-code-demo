@@ -114,7 +114,7 @@ export class BillingController {
         if (vies && vies.state !== 'valid') throw fail(400, 'buyer', { details: [vies.state === 'down' ? 'viesDown' : 'vies'] });
         await applyBuyer(customer, r.buyer, user.email, user.name || '', vies);
         buyerType = r.buyer.type; rec.buyer = r.buyer.type; await writeRecord(this.db, user.id, rec);
-        const bl = validateBilling({ type: r.buyer.type, companyName: r.buyer.companyName, taxId: r.buyer.vat, firstName: (user.name || '').split(' ')[0], lastName: (user.name || '').split(' ').slice(1).join(' ') || '-', address: r.buyer.address || '-', postalCode: r.buyer.postalCode || '00000', city: r.buyer.city || '-', country: r.buyer.country });
+        const bl = validateBilling({ type: r.buyer.type, companyName: r.buyer.companyName, taxId: r.buyer.vat, address: r.buyer.address, postalCode: r.buyer.postalCode, city: r.buyer.city, country: r.buyer.country });
         if (bl.value && r.buyer.type === 'company') await this.db.setBilling(user.id, bl.value);   // factuurgegevens in de app gelijk houden
       }
       const tax = await taxOn();

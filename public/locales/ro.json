@@ -1332,7 +1332,7 @@
     "private": "Persoană fizică",
     "companyName": "Numele companiei",
     "taxId": "Cod TVA",
-    "taxIdHint": "Cu codul țării, de exemplu RO12345678.",
+    "taxIdHint": "Cu codul țării, de exemplu ESB12345678. Firmă din altă țară UE: taxare inversă dacă numărul este valid în VIES.",
     "firstName": "Prenume",
     "lastName": "Nume",
     "billingEmail": "E-mail pentru facturi",

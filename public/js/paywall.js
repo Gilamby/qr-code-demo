@@ -194,8 +194,12 @@ var Plans = (function () {
     var lang = { nl: 'NL', es: 'ES', de: 'DE', fr: 'FR', it: 'IT', pt: 'PT', pl: 'PL', ro: 'RO', sk: 'SK', lv: 'LV', el: 'GR', bg: 'BG', da: 'DK', sv: 'SE', nb: 'NO', fi: 'FI', ca: 'ES', sq: 'AL' }[i18n.lang()] || 'ES';
     bDraft = { type: (info && info.billing && info.billing.buyer) || 'private', country: lang, companyName: '', vat: '', address: '', postalCode: '', city: '' };
     if (api.account.billing) api.account.billing().then(function (r) { var b = r && r.billing; if (!b || !bDraft) return;
-      if (b.type === 'company') bDraft = Object.assign(bDraft, { type: (info && info.billing && info.billing.buyer) || 'company', companyName: b.companyName || '', vat: b.taxId || '' });
-      Object.assign(bDraft, { country: b.country || bDraft.country, address: b.address || '', postalCode: b.postalCode || '', city: b.city || '' }); if (step === 'pay' && !sBuyer) draw(); }).catch(function () {});
+      if (b.type === 'company') bDraft = Object.assign(bDraft, { type: 'company', companyName: b.companyName || '', vat: b.taxId || '' });
+      if (b.type === 'private') bDraft.type = 'private';
+      Object.assign(bDraft, { country: b.country || bDraft.country, address: b.address || '', postalCode: b.postalCode || '', city: b.city || '' });
+      // Factuurgegevens al ingevuld en compleet: niet nog eens vragen, meteen gebruiken (met "Wijzigen")
+      if (!sBuyer && !checkBuyer().length) useDraft();
+      if (step === 'pay') draw(); }).catch(function () {});
     return bDraft;
   }
   function countryOpts(sel) {
@@ -223,6 +227,7 @@ var Plans = (function () {
     var b = sBuyer; if (!b) return '';
     return '<div class="pw-buyer"><span>' + TEL.flag(b.country) + ' <b>' + esc(b.type === 'company' ? b.companyName : t('pw.b_private')) + '</b>' + (b.vat ? ' · ' + esc(b.vat) : '') + '</span><button type="button" class="link-btn" data-pw-bedit>' + esc(t('pw.b_change')) + '</button></div>';
   }
+  function useDraft() { var d0 = draftBuyer(); sBuyer = { type: d0.type, country: d0.country, companyName: d0.type === 'company' ? String(d0.companyName).trim() : '', vat: d0.type === 'company' ? d0.vat : '', address: (d0.address || '').trim(), postalCode: (d0.postalCode || '').trim(), city: (d0.city || '').trim() }; }
   function checkBuyer() {
     var d = draftBuyer(), bad = [], co = d.type === 'company', eu = EU.indexOf(d.country) >= 0;
     d.vat = String(d.vat || '').toUpperCase().replace(/[\s.\-]/g, '');
@@ -233,6 +238,7 @@ var Plans = (function () {
       if (!String(d.companyName).trim()) bad.push('companyName');
       if (!String(d.address).trim()) bad.push('address');
       if (!String(d.city).trim()) bad.push('city');
+      if (!/^[A-Z0-9][A-Z0-9 -]{1,11}$/.test(d.postalCode)) bad.push('postalCode');
       if (eu && (!/^[A-Z]{2}[A-Z0-9]{2,13}$/.test(d.vat) || d.vat.slice(0, 2) !== (d.country === 'GR' ? 'EL' : d.country))) bad.push('vat');
     }
     return bad;
@@ -382,7 +388,7 @@ var Plans = (function () {
     if (e.target.closest('[data-pw-logout]')) { api.auth.logout().catch(function () {}).then(function () { location.replace(location.pathname); }); return; }
     if (e.target.closest('[data-pw-close]')) return close();
     var bt = e.target.closest('[data-pw-btype]'); if (bt) { draftBuyer().type = bt.getAttribute('data-pw-btype'); bBad = []; return draw(); }
-    if (e.target.closest('[data-pw-bgo]')) { bBad = checkBuyer(); if (bBad.length) return draw(); var d0 = draftBuyer(); sBuyer = { type: d0.type, country: d0.country, companyName: d0.type === 'company' ? d0.companyName.trim() : '', vat: d0.type === 'company' ? d0.vat : '', address: (d0.address || '').trim(), postalCode: (d0.postalCode || '').trim(), city: (d0.city || '').trim() }; return draw(); }
+    if (e.target.closest('[data-pw-bgo]')) { bBad = checkBuyer(); if (bBad.length) return draw(); useDraft(); return draw(); }
     if (e.target.closest('[data-pw-promo-go]') && sCo) {
       var pin = box.querySelector('[data-pw-promo]'), msg = box.querySelector('.pw-promo-msg'), code = pin ? pin.value.trim() : ''; if (!code) return;
       Promise.resolve(sCo.applyPromotionCode ? sCo.applyPromotionCode(code) : sCo.loadActions().then(function (r) { return r.actions.applyPromotionCode(code); })).then(function (r) {

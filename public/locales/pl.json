@@ -1332,7 +1332,7 @@
     "private": "Osoba prywatna",
     "companyName": "Nazwa firmy",
     "taxId": "NIP (VAT UE)",
-    "taxIdHint": "Z kodem kraju, na przykład PL1234567890.",
+    "taxIdHint": "Z kodem kraju, np. ESB12345678. Firma w innym kraju UE: odwrotne obciążenie, jeśli numer jest ważny w VIES.",
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "billingEmail": "E-mail do faktur",

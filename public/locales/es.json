@@ -1332,7 +1332,7 @@
     "private": "Particular",
     "companyName": "Nombre de la empresa",
     "taxId": "NIF / CIF",
-    "taxIdHint": "Con código de país, por ejemplo ESB12345678.",
+    "taxIdHint": "Con código de país, por ejemplo ESB12345678. Empresa en otro país de la UE: inversión del sujeto pasivo si el número es válido en VIES.",
     "firstName": "Nombre",
     "lastName": "Apellidos",
     "billingEmail": "Correo para facturas",

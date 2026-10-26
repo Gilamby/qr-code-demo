@@ -1332,7 +1332,7 @@
     "private": "Particulier",
     "companyName": "Nom de l’entreprise",
     "taxId": "Numéro de TVA",
-    "taxIdHint": "Avec le code pays, par exemple FR12345678901.",
+    "taxIdHint": "Avec le code pays, par exemple ESB12345678. Entreprise dans un autre pays de l'UE : autoliquidation si le numéro est valide dans VIES.",
     "firstName": "Prénom",
     "lastName": "Nom",
     "billingEmail": "E-mail pour les factures",

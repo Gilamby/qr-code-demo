@@ -1332,7 +1332,7 @@
     "private": "Particular",
     "companyName": "Nom de l'empresa",
     "taxId": "NIF/IVA intracomunitari",
-    "taxIdHint": "Amb el codi de país, per exemple ESB12345678.",
+    "taxIdHint": "Amb codi de país, per exemple ESB12345678. Empresa d'un altre país de la UE: inversió del subjecte passiu si el número és vàlid al VIES.",
     "firstName": "Nom",
     "lastName": "Cognoms",
     "billingEmail": "Correu per a les factures",

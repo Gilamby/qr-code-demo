@@ -1332,7 +1332,7 @@
     "private": "Private person",
     "companyName": "Company name",
     "taxId": "VAT number",
-    "taxIdHint": "With country code, for example GB123456789.",
+    "taxIdHint": "With country code, for example ESB12345678. Company in another EU country: VAT reverse charged if the number is valid in VIES.",
     "firstName": "First name",
     "lastName": "Last name",
     "billingEmail": "Email for invoices",

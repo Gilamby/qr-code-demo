@@ -1332,7 +1332,7 @@
     "private": "Privatperson",
     "companyName": "Firmanavn",
     "taxId": "MVA-nummer",
-    "taxIdHint": "Med landkode, for eksempel NO123456789MVA.",
+    "taxIdHint": "Med landskode, for eksempel ESB12345678. Bedrift i et annet EU-land: omvendt avgiftsplikt hvis nummeret er gyldig i VIES.",
     "firstName": "Fornavn",
     "lastName": "Etternavn",
     "billingEmail": "E-post for fakturaer",

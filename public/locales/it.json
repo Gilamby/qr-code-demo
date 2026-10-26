@@ -1332,7 +1332,7 @@
     "private": "Privato",
     "companyName": "Ragione sociale",
     "taxId": "Partita IVA",
-    "taxIdHint": "Con il codice paese, per esempio IT12345678901.",
+    "taxIdHint": "Con codice paese, ad esempio ESB12345678. Azienda in un altro paese UE: inversione contabile se il numero è valido nel VIES.",
     "firstName": "Nome",
     "lastName": "Cognome",
     "billingEmail": "E-mail per le fatture",

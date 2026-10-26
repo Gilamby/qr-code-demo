@@ -1332,7 +1332,7 @@
     "private": "Privatperson",
     "companyName": "Firmenname",
     "taxId": "USt-IdNr.",
-    "taxIdHint": "Mit Ländercode, zum Beispiel DE123456789.",
+    "taxIdHint": "Mit Ländercode, zum Beispiel ESB12345678. Unternehmen in einem anderen EU-Land: Reverse Charge, wenn die Nummer in VIES gültig ist.",
     "firstName": "Vorname",
     "lastName": "Nachname",
     "billingEmail": "E-Mail für Rechnungen",

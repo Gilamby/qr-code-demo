@@ -1332,7 +1332,7 @@
     "private": "Particulier",
     "companyName": "Bedrijfsnaam",
     "taxId": "Btw-nummer",
-    "taxIdHint": "Met landcode, bijvoorbeeld NL123456789B01.",
+    "taxIdHint": "Met landcode, bijvoorbeeld ESB12345678. Bedrijf in een ander EU-land: btw verlegd als het nummer geldig is in VIES.",
     "firstName": "Voornaam",
     "lastName": "Achternaam",
     "billingEmail": "E-mail voor facturen",

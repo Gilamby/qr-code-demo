@@ -17,8 +17,8 @@ export function validateBilling(body: any): { errors: string[]; value?: Billing 
     type: type || 'company',
     companyName: type === 'company' ? text(b.companyName, 120) : '',
     taxId: type === 'company' ? text(b.taxId, 24).toUpperCase().replace(/[\s.]/g, '') : '',
-    firstName: text(b.firstName, 60),
-    lastName: text(b.lastName, 60),
+    firstName: type === 'company' ? '' : text(b.firstName, 60),   // bedrijf: alleen bedrijfsnaam, geen persoonsnaam
+    lastName: type === 'company' ? '' : text(b.lastName, 60),
     email: text(b.email, 254).toLowerCase(),
     address: text(b.address, 160),
     postalCode: text(b.postalCode, 12).toUpperCase(),

@@ -1332,7 +1332,7 @@
     "private": "Particular",
     "companyName": "Nome da empresa",
     "taxId": "NIF / IVA",
-    "taxIdHint": "Com o código do país, por exemplo PT123456789.",
+    "taxIdHint": "Com código do país, por exemplo ESB12345678. Empresa noutro país da UE: autoliquidação se o número for válido no VIES.",
     "firstName": "Nome",
     "lastName": "Apelido",
     "billingEmail": "E-mail para faturas",

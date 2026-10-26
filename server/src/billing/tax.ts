@@ -28,6 +28,7 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
     if (!buyer.companyName) errors.push('companyName');
     if (!buyer.address) errors.push('address');
     if (!buyer.city) errors.push('city');
+    if (!/^[A-Z0-9][A-Z0-9 -]{1,11}$/.test(buyer.postalCode)) errors.push('postalCode');   // hoort op de factuur
     if (EU.includes(country) && !buyer.vat) errors.push('vat');
     if (buyer.vat) {
       if (EU.includes(country) && !/^[A-Z]{2}[A-Z0-9]{2,13}$/.test(buyer.vat)) errors.push('vat');
