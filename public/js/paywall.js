@@ -75,6 +75,11 @@ var Plans = (function () {
         : period === 'year' ? '<span class="pl-then">' + esc(t('pw.perMonthEq', { price: euro(Math.floor(now / 12 * 100) / 100) })) + '</span>'
         : period === 'quarter' && was ? '<span class="pl-then"><b class="pl-save">' + esc(t('pw.youSave', { price: euro(Math.round((was - now) * 100) / 100) })) + '</b></span>' : '');
   }
+  // Telefoon: de drie belangrijkste punten kort (de volledige lijst staat op de computer)
+  function shortFeats(x) {
+    var r = [x.codes == null ? t('pw.sCodesAll') : t('pw.sCodes', { n: x.codes }), x.statsDays ? t('pw.sStats', { n: x.statsDays }) : t('pw.sStatsAll'), x.users == null ? t('pw.sUsersAll') : x.users === 1 ? t('pw.sUsers1') : t('pw.sUsers', { n: x.users })];
+    return '<ul class="pl-short">' + r.map(function (v) { return '<li><span aria-hidden="true">✓</span>' + esc(v) + '</li>'; }).join('') + '</ul>';
+  }
   function feats(x) { return PlanGate.featuresHtml(x) + shortFeats(x); }             // met slotjes: wat zit er niet in dit pakket
   function draw() {
     if (!box) { box = document.createElement('div'); box.className = 'paywall'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'pwTitle'); document.body.appendChild(box); }
@@ -180,7 +185,10 @@ var Plans = (function () {
     api.account.stripeCheckout({ plan: chosen, period: period, keep: needKeep() ? keep : undefined }).then(function (r) { location.href = r.url; })
       .catch(function () { busy = false; draw(); var g = box && box.querySelector('[data-pw-go]'); if (g) g.insertAdjacentHTML('afterend', '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>'); });
   }
-  function show() { draw(); document.body.classList.add('paywall-open'); var f = box.querySelector('.pw-card.on') || box.querySelector('[data-pw-go]'); if (f) f.focus(); }
+  function show() {
+    // Gaat het tekenen mis, dan nooit een leeg scherm: sluiten en naar Mijn account > Abonnement
+    try { draw(); } catch (e) { console.error('Pakketten-scherm:', e); close(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
+    document.body.classList.add('paywall-open'); var f = box.querySelector('.pw-card.on') || box.querySelector('[data-pw-go]'); if (f) f.focus(); }
   function close() { if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
   function check() {
     if (!api.account || !api.account.plan) return;

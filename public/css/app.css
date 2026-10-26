@@ -4447,7 +4447,10 @@ body.paywall-open { overflow: hidden; }
 .tg-inner form { display: grid; gap: 18px; margin-top: 8px; }
 
 /* Pakketten-pagina: rustig en uitnodigend */
-.pw-close { height: 40px; }
+.pw-close { height: 40px; white-space: nowrap; }
+.pw-top { gap: 12px; }
+.pw-top .auth-logo, .pw-top .auth-logo b { white-space: nowrap; }
+@media (max-width: 520px) { .pw-top .auth-by { display: none; } .pw-close { height: 36px; padding: 0 12px; font-size: 14px; } }
 .pw-now { margin: -8px 0 18px; padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,.06); color: var(--muted); font-size: 14px; }
 .pw-card[disabled] { cursor: default; opacity: .7; transform: none; }
 .pw-pop.cur { background: rgba(255,255,255,.14); color: var(--fg); }
