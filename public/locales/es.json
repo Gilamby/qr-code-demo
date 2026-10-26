@@ -2872,7 +2872,8 @@
     "city": "Ciudad",
     "region": "Región",
     "country": "País",
-    "pageTitle": "Detalles del código QR"
+    "pageTitle": "Detalles del código QR",
+    "approx": "Lugar aproximado (escaneo anterior al registro)"
   },
   "sheet": {
     "title": "Hoja para imprimir (A4)",

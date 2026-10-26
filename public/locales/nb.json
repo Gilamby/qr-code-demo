@@ -2827,7 +2827,8 @@
     "city": "By",
     "region": "Region",
     "country": "Land",
-    "pageTitle": "QR-kodedetaljer"
+    "pageTitle": "QR-kodedetaljer",
+    "approx": "Omtrentlig sted (skanning fra før loggen)"
   },
   "sheet": {
     "title": "Utskriftsark (A4)",

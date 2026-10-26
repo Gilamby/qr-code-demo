@@ -2833,7 +2833,8 @@
     "city": "Ville",
     "region": "Région",
     "country": "Pays",
-    "pageTitle": "Détails du QR code"
+    "pageTitle": "Détails du QR code",
+    "approx": "Lieu approximatif (scan antérieur au journal)"
   },
   "sheet": {
     "title": "Planche à imprimer (A4)",

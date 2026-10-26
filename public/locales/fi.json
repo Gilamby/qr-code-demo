@@ -2827,7 +2827,8 @@
     "city": "Kaupunki",
     "region": "Alue",
     "country": "Maa",
-    "pageTitle": "QR-koodin tiedot"
+    "pageTitle": "QR-koodin tiedot",
+    "approx": "Likimääräinen paikka (skannaus ennen lokia)"
   },
   "sheet": {
     "title": "Tulostusarkki (A4)",

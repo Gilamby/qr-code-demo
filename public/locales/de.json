@@ -2833,7 +2833,8 @@
     "city": "Stadt",
     "region": "Region",
     "country": "Land",
-    "pageTitle": "QR-Code-Details"
+    "pageTitle": "QR-Code-Details",
+    "approx": "Ungefährer Ort (Scan von vor dem Protokoll)"
   },
   "sheet": {
     "title": "Druckbogen (A4)",

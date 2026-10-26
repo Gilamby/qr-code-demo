@@ -434,7 +434,7 @@ var Analytics = (function () {
   function loadScans() {
     var my2 = ++scansSeq, box = document.getElementById('anDetail'); if (!box) return;
     if (!scansD) box.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
-    var w = world ? Promise.resolve(world) : fetch('assets/world.json?v=2').then(function (r) { return r.json(); }).then(function (j) { world = j; return j; }).catch(function () { return null; });
+    var w = world ? Promise.resolve(world) : fetch('assets/world.json?v=3').then(function (r) { return r.json(); }).then(function (j) { world = j; return j; }).catch(function () { return null; });
     Promise.all([api.analyticsScans(scansQuery({ limit: 50 })), w]).then(function (res) {
       if (my2 !== scansSeq) return; scansD = res[0]; mapView = null; drawDetail();
     }).catch(function () { var b = document.getElementById('anDetail'); if (b) b.innerHTML = '<p class="acct-msg bad">' + t('myCodes.failed') + '</p>'; });
@@ -444,8 +444,24 @@ var Analytics = (function () {
     box.innerHTML = mapCard() + logCard();
     drawMap();
   }
+  // Stippen: alle scans uit de statistiek (zelfde getallen als de rest van de pagina). Plaats uit het logboek;
+  // oudere scans (van vóór het logboek) zonder coördinaten: in het midden van het land, gemarkeerd als "bij benadering".
+  function mapPoints() {
+    var byK = {}, out = [], cen = {}, seen = {};
+    (scansD.points || []).forEach(function (p) { byK[p.cc + '|' + p.city] = p; });
+    if (world) world.countries.forEach(function (c) { if (c.c) cen[c.c] = c; });
+    ((data && data.cities) || []).forEach(function (r) {
+      var k = String(r.k || ''), cc = k.split('|')[0], city = k.split('|')[1] || '', lp = byK[k];
+      if (lp) { out.push({ cc: cc, city: city, region: lp.region, x: mx(lp.lon), y: my(lp.lat), n: Math.max(r.s || 0, lp.n), u: Math.max(r.u || 0, lp.u) }); seen[k] = 1; return; }
+      if (!cc || !cen[cc]) return;
+      var i = (seen['#' + cc] = (seen['#' + cc] || 0) + 1) - 1, a = i * 2.4, d = i ? 6 + 4 * Math.sqrt(i) : 0;   // meer plaatsen in hetzelfde land: een klein stukje uit elkaar
+      out.push({ cc: cc, city: city, region: '', x: cen[cc].x + Math.cos(a) * d, y: cen[cc].y + Math.sin(a) * d, n: r.s || 0, u: r.u || 0, approx: true });
+    });
+    (scansD.points || []).forEach(function (p) { var k = p.cc + '|' + p.city; if (!seen[k]) out.push({ cc: p.cc, city: p.city, region: p.region, x: mx(p.lon), y: my(p.lat), n: p.n, u: p.u }); });
+    return out.filter(function (p) { return p.n > 0; });
+  }
   function mapCard() {
-    var pts = scansD.points || [];
+    var pts = mapPoints();
     return '<div class="an-card glass cd-map"><div class="an-chead"><h3>' + ico('globe', 'an-hi') + t('cd.mapTitle') + '</h3>' +
       (pts.length ? '<div class="cd-mapbtns"><button type="button" class="btn ghost sm" data-map="in" aria-label="' + esc(t('cd.zoomIn')) + '">+</button><button type="button" class="btn ghost sm" data-map="out" aria-label="' + esc(t('cd.zoomOut')) + '">−</button>' +
         '<button type="button" class="btn ghost sm" data-map="fit">' + t('cd.fit') + '</button><button type="button" class="btn ghost sm" data-map="world">' + t('cd.world') + '</button></div>' : '') + '</div>' +
@@ -454,7 +470,7 @@ var Analytics = (function () {
   }
   function fitView(pts) {
     if (!pts.length) return WORLD_VIEW();
-    var xs = pts.map(function (p) { return mx(p.lon); }), ys = pts.map(function (p) { return my(p.lat); });
+    var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
     var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
     var w = Math.max(x1 - x0, 60), h = Math.max(y1 - y0, 30), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
     w *= 1.6; h *= 1.6; if (w / h < 2) w = h * 2; else h = w / 2;      // kaart is 2:1
@@ -462,7 +478,7 @@ var Analytics = (function () {
   }
   function drawMap() {
     var svgEl = body.querySelector('.cd-svg'); if (!svgEl || !world) return;
-    var pts = scansD.points || [], v = mapView || (mapView = clampView(fitView(pts))), withScans = {};
+    var pts = mapPoints(), v = mapView || (mapView = clampView(fitView(pts))), withScans = {};
     pts.forEach(function (p) { withScans[p.cc] = (withScans[p.cc] || 0) + p.n; });
     var cw = svgEl.clientWidth || 800, px = v[2] / cw, sz = cw < 500 ? .65 : 1, max = Math.max.apply(null, pts.map(function (p) { return p.n; }).concat([1]));
     svgEl.setAttribute('viewBox', v.map(function (n) { return n.toFixed(1); }).join(' '));
@@ -471,7 +487,7 @@ var Analytics = (function () {
       pts.slice().sort(function (a, b) { return b.n - a.n; }).map(function (p, i) {
         var r = (5 + 13 * Math.sqrt(p.n / max)) * sz * px;   // straal in schermpixels, hoe ver je ook inzoomt
         return '<g class="cd-dot" data-pt="' + i + '" data-cc="' + esc(p.cc) + '" data-city="' + esc(p.city) + '"><circle cx="' + mx(p.lon).toFixed(1) + '" cy="' + my(p.lat).toFixed(1) + '" r="' + (r * 1.7).toFixed(2) + '" class="cd-halo"/>' +
-          '<circle cx="' + mx(p.lon).toFixed(1) + '" cy="' + my(p.lat).toFixed(1) + '" r="' + r.toFixed(2) + '" class="cd-pin" stroke-width="' + (px * 2).toFixed(2) + '"/></g>';
+          '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + r.toFixed(2) + '" class="cd-pin' + (p.approx ? ' approx' : '') + '" stroke-width="' + (px * 2).toFixed(2) + '"/></g>';
       }).join('');
     svgEl._pts = pts.slice().sort(function (a, b) { return b.n - a.n; });
   }
@@ -525,7 +541,7 @@ var Analytics = (function () {
     if (!dot || !s) { tip.hidden = true; return; }
     var p = s._pts[+dot.getAttribute('data-pt')], box = s.getBoundingClientRect();
     tip.innerHTML = '<b>' + (p.cc ? TEL.flag(p.cc) + ' ' : '') + esc(p.city || t('an.unknown')) + '</b><small>' + esc([p.region !== p.city ? p.region : '', p.cc ? TEL.name(p.cc) : ''].filter(Boolean).join(', ')) + '</small>' +
-      '<span>' + t('cd.scansN', { n: i18n.fmt.num(p.n) }) + ' · ' + t('cd.uniqN', { n: i18n.fmt.num(p.u) }) + '</span><em>' + t('cd.clickCity') + '</em>';
+      '<span>' + t('cd.scansN', { n: i18n.fmt.num(p.n) }) + (p.u ? ' · ' + t('cd.uniqN', { n: i18n.fmt.num(p.u) }) : '') + '</span>' + (p.approx ? '<small>' + t('cd.approx') + '</small>' : '') + '<em>' + t('cd.clickCity') + '</em>';
     tip.hidden = false; tip.style.left = Math.min(Math.max(e.clientX - box.left, 90), box.width - 90) + 'px'; tip.style.top = (e.clientY - box.top - 12) + 'px';
   });
   body.addEventListener('pointerup', function () { drag = null; });
@@ -653,7 +669,7 @@ var Analytics = (function () {
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
     if (e.target.closest('[data-cd-back]')) { detailId = null; f.codes = []; f.cc = []; f.city = []; return goToPage('myCodes'); }
     var mb = e.target.closest('[data-map]');
-    if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = clampView(mk === 'world' ? WORLD_VIEW() : fitView(scansD.points || [])); drawMap(); } return; }
+    if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = clampView(mk === 'world' ? WORLD_VIEW() : fitView(mapPoints())); drawMap(); } return; }
     var dt = e.target.closest('.cd-dot');
     if (dt) { f.cc = [dt.getAttribute('data-cc')]; f.city = [dt.getAttribute('data-cc') + '|' + dt.getAttribute('data-city')]; whereDim = 'city'; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
     if (e.target.closest('[data-log-more]')) return moreScans(e.target.closest('[data-log-more]'));

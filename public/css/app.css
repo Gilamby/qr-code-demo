@@ -5220,3 +5220,4 @@ body.paywall-open { overflow: hidden; }
 :root[data-theme="light"] .cd-vis.new { color: #15803d; } :root[data-theme="light"] .cd-vis.back { color: #475569; }
 .cd-more { display: flex; justify-content: center; margin-top: 12px; }
 @media (max-width: 600px) { .cd-svg { aspect-ratio: 4 / 3; } .cd-mapbtns .btn { padding: 0 10px; } }
+.cd-pin.approx { fill: #f59e0b; } :root[data-theme="light"] .cd-pin.approx { fill: #d97706; }

@@ -2872,7 +2872,8 @@
     "city": "Stad",
     "region": "Regio",
     "country": "Land",
-    "pageTitle": "QR-code details"
+    "pageTitle": "QR-code details",
+    "approx": "Plaats bij benadering (scan van vóór het logboek)"
   },
   "sheet": {
     "title": "Printvel (A4)",

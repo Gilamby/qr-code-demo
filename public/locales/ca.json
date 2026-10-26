@@ -2827,7 +2827,8 @@
     "city": "Ciutat",
     "region": "Regió",
     "country": "País",
-    "pageTitle": "Detalls del codi QR"
+    "pageTitle": "Detalls del codi QR",
+    "approx": "Lloc aproximat (escaneig anterior al registre)"
   },
   "sheet": {
     "title": "Full per imprimir (A4)",

@@ -2827,7 +2827,8 @@
     "city": "Miasto",
     "region": "Region",
     "country": "Kraj",
-    "pageTitle": "Szczegóły kodu QR"
+    "pageTitle": "Szczegóły kodu QR",
+    "approx": "Przybliżone miejsce (skan sprzed dziennika)"
   },
   "sheet": {
     "title": "Arkusz do druku (A4)",

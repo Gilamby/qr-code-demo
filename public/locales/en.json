@@ -2872,7 +2872,8 @@
     "city": "City",
     "region": "Region",
     "country": "Country",
-    "pageTitle": "QR code details"
+    "pageTitle": "QR code details",
+    "approx": "Approximate place (scan from before the log)"
   },
   "sheet": {
     "title": "Print sheet (A4)",

@@ -2827,7 +2827,8 @@
     "city": "Cidade",
     "region": "Região",
     "country": "País",
-    "pageTitle": "Detalhes do código QR"
+    "pageTitle": "Detalhes do código QR",
+    "approx": "Local aproximado (leitura anterior ao registo)"
   },
   "sheet": {
     "title": "Folha para imprimir (A4)",

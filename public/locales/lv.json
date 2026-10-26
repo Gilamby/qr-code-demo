@@ -2827,7 +2827,8 @@
     "city": "Pilsēta",
     "region": "Reģions",
     "country": "Valsts",
-    "pageTitle": "QR koda informācija"
+    "pageTitle": "QR koda informācija",
+    "approx": "Aptuvena vieta (skenēšana pirms žurnāla)"
   },
   "sheet": {
     "title": "Drukas lapa (A4)",

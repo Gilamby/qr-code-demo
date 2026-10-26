@@ -2827,7 +2827,8 @@
     "city": "Oraș",
     "region": "Regiune",
     "country": "Țară",
-    "pageTitle": "Detaliile codului QR"
+    "pageTitle": "Detaliile codului QR",
+    "approx": "Loc aproximativ (scanare de dinaintea jurnalului)"
   },
   "sheet": {
     "title": "Coală de printat (A4)",

@@ -2827,7 +2827,8 @@
     "city": "Mesto",
     "region": "Región",
     "country": "Krajina",
-    "pageTitle": "Detaily QR kódu"
+    "pageTitle": "Detaily QR kódu",
+    "approx": "Približné miesto (sken spred záznamu)"
   },
   "sheet": {
     "title": "Tlačový hárok (A4)",
