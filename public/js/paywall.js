@@ -141,7 +141,7 @@ var Plans = (function () {
         (needKeep() ? '<p class="pw-co-warn">' + esc(t('pw.payPaused', { n: activeDyn().length - keep.length })) + '</p>' : '') +
         '<div class="pw-co-line pw-tax" id="pwTax" hidden><span></span><b></b></div>' +
         '<div class="pw-co-line tot"><span>' + esc(t('pw.today')) + '</span><b id="pwTotal">' + euro(trial ? 0 : price) + '</b></div>' +
-        (inApp() && sBuyer ? '<p class="pw-co-small pw-vatnote">' + esc(t(sBuyer.type === 'company' ? 'pw.b_exclVat' : 'pw.b_inclVat')) + '</p>' : '') +
+        (inApp() && sBuyer ? '<p class="pw-co-small pw-vatnote">' + esc(t(noVatFor(sBuyer) ? 'pw.b_noVat' : sBuyer.type === 'company' ? 'pw.b_exclVat' : 'pw.b_inclVat')) + '</p>' : '') +
       '</div>' +
       '<form class="pw-co-form" data-pw-form>' +
         '<label class="pw-co-f"><span>' + esc(t('pw.email')) + '</span><input value="' + esc(u.email || '') + '" readonly></label>' +
@@ -217,6 +217,8 @@ var Plans = (function () {
       (bBad.length ? '<p class="acct-msg bad" role="alert">' + esc(t(bBad.indexOf('nonEuB2c') >= 0 ? 'pw.b_nonEuB2c' : bBad.indexOf('esB2c') >= 0 ? 'pw.b_esB2c' : bBad.indexOf('blocked') >= 0 ? 'pw.b_blocked' : bBad.indexOf('vies') >= 0 ? 'pw.b_viesBad' : bBad.indexOf('viesDown') >= 0 ? 'pw.b_viesDown' : 'pw.b_buyerErr')) + '</p>' : '') +
       '<button type="button" class="pw-co-go" data-pw-bgo>' + esc(t('pw.b_toPay')) + '</button>';
   }
+  // Buiten de EU-btw (ander land buiten de EU, of Canarias/Ceuta/Melilla): 0% btw
+  function noVatFor(b) { return !!b && (EU.indexOf(b.country) < 0 || (b.country === 'ES' && /^(35|38|51|52)\d{3}$/.test(b.postalCode || ''))); }
   function buyerLine() {
     var b = sBuyer; if (!b) return '';
     return '<div class="pw-buyer"><span>' + TEL.flag(b.country) + ' <b>' + esc(b.type === 'company' ? b.companyName : t('pw.b_private')) + '</b>' + (b.vat ? ' · ' + esc(b.vat) : '') + '</span><button type="button" class="link-btn" data-pw-bedit>' + esc(t('pw.b_change')) + '</button></div>';
@@ -244,6 +246,7 @@ var Plans = (function () {
     if (tot && amt(T.total) != null) tot.textContent = amt(T.total);
     if (!line) return;
     if (tx) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_vatLine') + (T.taxInclusive === tx ? ' (' + t('pw.b_inclVat') + ')' : ''); line.querySelector('b').textContent = amt(tx); }
+    else if (sBuyer && EU.indexOf(sBuyer.country) < 0 && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_noVat'); line.querySelector('b').textContent = euro(0); }
     else if (sBuyer && sBuyer.country === 'ES' && /^(35|38|51|52)\d{3}$/.test(sBuyer.postalCode || '') && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_noVatEs'); line.querySelector('b').textContent = euro(0); }
     else if (sBuyer && sBuyer.type === 'company' && sBuyer.vat && sBuyer.country !== 'ES' && EU.indexOf(sBuyer.country) >= 0 && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_reverse'); line.querySelector('b').textContent = euro(0); }
     else line.hidden = true;

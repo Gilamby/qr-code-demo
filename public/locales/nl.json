@@ -767,7 +767,8 @@
     "b_noVatEs": "Geen btw (Canarias, Ceuta, Melilla)",
     "b_esB2c": "Voor particulieren op de Canarische Eilanden, in Ceuta en Melilla kunnen we nog niet verkopen vanwege de lokale belasting (IGIC/IPSI). Koop je als bedrijf? Kies dan Bedrijf.",
     "b_blocked": "In dit land kunnen we helaas niet verkopen.",
-    "b_nonEuB2c": "Buiten de EU verkopen we nu alleen aan bedrijven. Koop je voor een bedrijf? Kies dan Bedrijf."
+    "b_nonEuB2c": "Buiten de EU verkopen we nu alleen aan bedrijven. Koop je voor een bedrijf? Kies dan Bedrijf.",
+    "b_noVat": "0% btw"
   },
   "dz": {
     "lbl": {

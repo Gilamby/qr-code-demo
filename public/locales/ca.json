@@ -767,7 +767,8 @@
     "b_noVatEs": "Sense IVA (Canàries, Ceuta, Melilla)",
     "b_esB2c": "Encara no podem vendre a particulars a Canàries, Ceuta i Melilla per l'impost local (IGIC/IPSI). Compres com a empresa? Tria Empresa.",
     "b_blocked": "No podem vendre en aquest país.",
-    "b_nonEuB2c": "Fora de la UE, de moment només venem a empreses. Compres per a una empresa? Tria Empresa."
+    "b_nonEuB2c": "Fora de la UE, de moment només venem a empreses. Compres per a una empresa? Tria Empresa.",
+    "b_noVat": "0% IVA"
   },
   "dz": {
     "lbl": {

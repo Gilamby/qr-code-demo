@@ -314,17 +314,17 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   assert.equal(global.__cusBody.get('tax_exempt'), 'none');
   // Canarische Eilanden: particulier nog niet (IGIC-registratie nodig), bedrijf wel en vrijgesteld van IVA
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES', postalCode: '35001' } });
-  assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['esB2c']);
-  process.env.ES_SPECIAL_B2C = 'allow';
+  assert.equal(r.status, 200); assert.equal(global.__cusBody.get('tax_exempt'), 'exempt', 'Canarias particulier: 0% IVA');
+  process.env.ES_SPECIAL_B2C = 'block';
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES', postalCode: '35001' } });
-  assert.equal(r.status, 200); assert.equal(global.__cusBody.get('tax_exempt'), 'exempt'); delete process.env.ES_SPECIAL_B2C;
+  assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['esB2c']); delete process.env.ES_SPECIAL_B2C;
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Guagua SL', address: 'Calle Triana 1', postalCode: '35002', city: 'Las Palmas', vat: 'ESB76543210' } });
   assert.equal(r.status, 200); assert.equal(global.__cusBody.get('tax_exempt'), 'exempt');
   // Particulier buiten de EU: nog niet (registratie daar nodig); na registratie via PRIVATE_COUNTRIES wel
+  for (const cc of ['GB', 'US', 'IN']) { r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: cc } }); assert.equal(r.status, 200, cc); assert.equal(global.__tax[cus].length, 0); }
+  process.env.PRIVATE_EU_ONLY = 'true';
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'GB' } });
-  assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['nonEuB2c']);
-  process.env.PRIVATE_COUNTRIES = 'GB,NO';
-  assert.equal((await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'GB' } })).status, 200); delete process.env.PRIVATE_COUNTRIES;
+  assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['nonEuB2c']); delete process.env.PRIVATE_EU_ONLY;
   // Landen met sancties: niet verkopen
   for (const cc of ['KP', 'IR', 'RU']) { r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: cc } }); assert.equal(r.status, 400); assert.ok(r.json.details.includes('blocked'), cc); }
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES' } });

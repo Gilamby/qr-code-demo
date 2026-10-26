@@ -767,7 +767,8 @@
     "b_noVatEs": "Bez PVN (Kanāriju salas, Seuta, Melilja)",
     "b_esB2c": "Mēs vēl nevaram pārdot privātpersonām Kanāriju salās, Seutā un Meliljā vietējā nodokļa (IGIC/IPSI) dēļ. Pērc kā uzņēmums? Izvēlies Uzņēmums.",
     "b_blocked": "Diemžēl šajā valstī mēs nevaram pārdot.",
-    "b_nonEuB2c": "Ārpus ES pagaidām pārdodam tikai uzņēmumiem. Pērc uzņēmumam? Izvēlies Uzņēmums."
+    "b_nonEuB2c": "Ārpus ES pagaidām pārdodam tikai uzņēmumiem. Pērc uzņēmumam? Izvēlies Uzņēmums.",
+    "b_noVat": "0% PVN"
   },
   "dz": {
     "lbl": {

@@ -767,7 +767,8 @@
     "b_noVatEs": "Ingen moms (Kanarieøerne, Ceuta, Melilla)",
     "b_esB2c": "Vi kan endnu ikke sælge til privatpersoner på De Kanariske Øer, i Ceuta og Melilla pga. den lokale skat (IGIC/IPSI). Køber du som virksomhed? Vælg Virksomhed.",
     "b_blocked": "Vi kan desværre ikke sælge i dette land.",
-    "b_nonEuB2c": "Uden for EU sælger vi i øjeblikket kun til virksomheder. Køber du til en virksomhed? Vælg Virksomhed."
+    "b_nonEuB2c": "Uden for EU sælger vi i øjeblikket kun til virksomheder. Køber du til en virksomhed? Vælg Virksomhed.",
+    "b_noVat": "0% moms"
   },
   "dz": {
     "lbl": {

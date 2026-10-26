@@ -41,15 +41,13 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
    Daarom vragen we in Spanje altijd de postcode en zetten we die klanten bij Stripe op 'vrijgesteld' (zeker weten, niet afhankelijk van Stripe Tax). */
 /* Landen met sancties (EU/VN/VS): niet verkopen. Stripe kan daar ook niet betalen. */
 export const BLOCKED = ['KP', 'IR', 'CU', 'SY', 'RU', 'BY'];
-/* Particulieren op Canarias/Ceuta/Melilla: daar geldt IGIC/IPSI en moet de verkoper zich eerst bij die belastingdienst registreren.
-   Tot OptimaSys dat geregeld heeft: niet aan particulieren daar verkopen (bedrijven wel, die betalen het zelf).
-   Na registratie: ES_SPECIAL_B2C=allow in .env (dan wel verkopen; IGIC/IPSI aangeven via de boekhouder). */
-export const esSpecialB2cAllowed = () => String(process.env.ES_SPECIAL_B2C || '').toLowerCase() === 'allow';
-/* Particulieren buiten de EU: veel landen (VK, Noorwegen, Zwitserland, India, Turkije, Australië …) willen dat een buitenlandse
-   verkoper zich daar registreert en btw/GST afdraagt, soms vanaf de eerste verkoop. Tot OptimaSys dat per land geregeld heeft:
-   particulieren alleen in de EU (btw via OSS). Bedrijven buiten de EU wel (die rekenen de belasting zelf af).
-   Land toegevoegd na registratie: PRIVATE_COUNTRIES=GB,NO in .env (en het land in Stripe Tax aanzetten). */
-export const privateAllowed = (country: string) => EU.includes(country) || String(process.env.PRIVATE_COUNTRIES || '').toUpperCase().split(/[\s,]+/).includes(country);
+/* Besluit OptimaSys (Geert, 26 okt 2026): buiten de EU-btw is het 0% btw, ook voor particulieren.
+   Canarias/Ceuta/Melilla: verkopen, 0% IVA (klant vrijgesteld bij Stripe). Wil OptimaSys dit later toch blokkeren: ES_SPECIAL_B2C=block. */
+export const esSpecialB2cAllowed = () => String(process.env.ES_SPECIAL_B2C || '').toLowerCase() !== 'block';
+/* Particulieren buiten de EU: verkopen met 0% btw (besluit OptimaSys). Stripe Tax rekent daar niets zolang er in dat land geen
+   registratie in Stripe staat. Registreert OptimaSys zich later ergens (bv. VK), dan dat land in Stripe Tax toevoegen: dan rekent
+   Stripe daar automatisch de lokale btw. Alleen particulieren in de EU toestaan kan nog met PRIVATE_EU_ONLY=true in .env. */
+export const privateAllowed = (country: string) => EU.includes(country) || String(process.env.PRIVATE_EU_ONLY || '').toLowerCase() !== 'true';
 export const esNoVat = (country: string, postalCode: string) => country === 'ES' && /^(35|38|51|52)\d{3}$/.test(postalCode || '');
 export const taxBehavior = (type?: string) => (type === 'company' ? 'exclusive' : 'inclusive');
 

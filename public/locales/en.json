@@ -767,7 +767,8 @@
     "b_noVatEs": "No VAT (Canarias, Ceuta, Melilla)",
     "b_esB2c": "We can't sell to private customers in the Canary Islands, Ceuta and Melilla yet because of the local tax (IGIC/IPSI). Buying as a business? Choose Business.",
     "b_blocked": "Unfortunately we can't sell in this country.",
-    "b_nonEuB2c": "Outside the EU we currently only sell to businesses. Buying for a business? Choose Business."
+    "b_nonEuB2c": "Outside the EU we currently only sell to businesses. Buying for a business? Choose Business.",
+    "b_noVat": "0% VAT"
   },
   "dz": {
     "lbl": {

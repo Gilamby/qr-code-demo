@@ -767,7 +767,8 @@
     "b_noVatEs": "Fără TVA (Canare, Ceuta, Melilla)",
     "b_esB2c": "Încă nu putem vinde persoanelor fizice din Insulele Canare, Ceuta și Melilla din cauza taxei locale (IGIC/IPSI). Cumperi ca firmă? Alege Firmă.",
     "b_blocked": "Din păcate nu putem vinde în această țară.",
-    "b_nonEuB2c": "În afara UE vindem deocamdată doar firmelor. Cumperi pentru o firmă? Alege Firmă."
+    "b_nonEuB2c": "În afara UE vindem deocamdată doar firmelor. Cumperi pentru o firmă? Alege Firmă.",
+    "b_noVat": "0% TVA"
   },
   "dz": {
     "lbl": {

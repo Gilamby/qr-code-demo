@@ -767,7 +767,8 @@
     "b_noVatEs": "Keine MwSt. (Kanaren, Ceuta, Melilla)",
     "b_esB2c": "An Privatkunden auf den Kanaren, in Ceuta und Melilla können wir wegen der lokalen Steuer (IGIC/IPSI) noch nicht verkaufen. Kaufst du als Unternehmen? Wähle Unternehmen.",
     "b_blocked": "In diesem Land können wir leider nicht verkaufen.",
-    "b_nonEuB2c": "Außerhalb der EU verkaufen wir derzeit nur an Unternehmen. Kaufst du für ein Unternehmen? Wähle Unternehmen."
+    "b_nonEuB2c": "Außerhalb der EU verkaufen wir derzeit nur an Unternehmen. Kaufst du für ein Unternehmen? Wähle Unternehmen.",
+    "b_noVat": "0% MwSt."
   },
   "dz": {
     "lbl": {
