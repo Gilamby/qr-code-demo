@@ -41,7 +41,12 @@ global.fetch = async (url, o = {}) => {
   }
   if (/^checkout\/sessions\/cs_setup/.test(p)) return ok({ id: 'cs_setup1', mode: 'setup', status: 'complete', customer: global.__cus, setup_intent: 'seti_1' });
   if (p === 'setup_intents/seti_1') return ok({ id: 'seti_1', payment_method: 'pm_new' });
-  if (/^customers\//.test(p)) return ok({ id: p.split('/')[1], invoice_settings: {} });
+  if (p === 'tax/settings') return ok({ status: global.__taxOn ? 'active' : 'pending' });
+  if (/^customers\/[^/]+\/tax_ids/.test(p)) { const cus = p.split('/')[1]; global.__tax = global.__tax || {}; const l = global.__tax[cus] = global.__tax[cus] || [];
+    if (o.method === 'POST') { const t = { id: 'txi_' + (++seq), value: body.get('value'), type: body.get('type') }; l.push(t); return ok(t); }
+    if (o.method === 'DELETE') { const id = p.split('/')[3]; global.__tax[cus] = l.filter((x) => x.id !== id); return ok({ deleted: true }); }
+    return ok({ data: l }); }
+  if (/^customers\//.test(p)) { if (o.method === 'POST') { global.__cusBody = body; } return ok({ id: p.split('/')[1], invoice_settings: {} }); }
   return { ok: false, status: 404, json: async () => ({ error: { message: 'onbekend ' + p } }) };
 };
 
@@ -249,4 +254,30 @@ test('herinnering 3 dagen vooraf: opgezegd abonnement en einde proef (één keer
   await saveSub(db, u.id, { ...emptySub(), interval: 'month', periodEnd: new Date(Date.now() + 10 * 864e5).toISOString() });
   await db.setSetting('remind:' + u.id, null); await hk.reminders();
   assert.equal(sent.filter((x) => x.email === 'herinner@example.com').length, 2);
+});
+
+test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Stripe Tax aan', async () => {
+  const c = client();
+  await c('POST', '/api/auth/register', { accept: true, email: 'btw@example.com', password: 'Btw test zin 77!', name: 'Bea Btw' });
+  await c('POST', '/api/auth/verify', { token: decodeURIComponent(mails['btw@example.com'].split('verify=')[1]) });
+  await c('POST', '/api/auth/login', { email: 'btw@example.com', password: 'Btw test zin 77!' });
+  global.__taxOn = true;
+  const { forgetTax } = require('../server/dist/billing/tax'); forgetTax();
+  const last = () => calls.filter((x) => x.path === 'checkout/sessions').pop().body;
+  // Bedrijf zonder (goed) btw-nummer binnen de EU: fout
+  let r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', city: 'Milano', vat: 'NL123' } });
+  assert.equal(r.status, 400); assert.equal(r.json.error, 'buyer'); assert.ok(r.json.details.includes('vat'));
+  // Italiaans bedrijf: prijs excl. btw, btw-nummer bij Stripe, adres in Italië, Stripe Tax aan
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', postalCode: '20100', city: 'Milano', vat: 'IT 1234567890 1' } });
+  assert.equal(r.status, 200);
+  let b = last(); assert.equal(b.get('line_items[0][price_data][tax_behavior]'), 'exclusive'); assert.equal(b.get('automatic_tax[enabled]'), 'true');
+  assert.equal(global.__cusBody.get('address[country]'), 'IT'); assert.equal(global.__cusBody.get('name'), 'Pizza Srl');
+  const cus = Object.keys(global.__tax).pop(); assert.equal(global.__tax[cus][0].value, 'IT12345678901'); assert.equal(global.__tax[cus][0].type, 'eu_vat');
+  assert.equal((await c('GET', '/api/account/plan')).json.billing.buyer, 'company');
+  assert.equal((await c('GET', '/api/account/billing')).json.billing.companyName, 'Pizza Srl', 'factuurgegevens in de app bijgewerkt');
+  // Particulier: prijs incl. btw, btw-nummer weg
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'NL' } });
+  b = last(); assert.equal(b.get('line_items[0][price_data][tax_behavior]'), 'inclusive');
+  assert.equal(global.__tax[cus].length, 0, 'geen btw-nummer meer bij particulier');
+  global.__taxOn = false; forgetTax();
 });

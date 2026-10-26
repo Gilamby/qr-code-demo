@@ -144,6 +144,7 @@ export class BillingController {
       });
       return { url: session.url };
     } catch (e) {
+      if (e && (e as any).getStatus) throw e;                              // onze eigen fout (bv. gegevens koper): zo doorgeven
       console.error('Stripe afrekenen mislukt:', (e as Error).message);
       throw fail(502, 'stripe');
     }
