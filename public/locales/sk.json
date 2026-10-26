@@ -762,7 +762,9 @@
     "promoOk": "Zľava uplatnená.",
     "b_viesBad": "Toto IČ DPH nie je registrované vo VIES (EÚ). Skontroluj číslo. Bez platného čísla môžeš platiť ako súkromná osoba (s DPH).",
     "b_viesDown": "VIES (kontrola DPH v EÚ) je dočasne nedostupný. Skús to znova o pár minút.",
-    "vatNote": "Ceny s DPH, pre firmy bez DPH."
+    "vatNote": "Ceny s DPH, pre firmy bez DPH.",
+    "b_esPostalHint": "Potrebné PSČ: na Kanárskych ostrovoch, v Ceute a Melille sa DPH neplatí.",
+    "b_noVatEs": "Bez DPH (Kanárske ostrovy, Ceuta, Melilla)"
   },
   "dz": {
     "lbl": {

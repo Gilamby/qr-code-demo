@@ -762,7 +762,9 @@
     "promoOk": "Rabatt lagt til.",
     "b_viesBad": "Dette mva-nummeret er ikke registrert i VIES (EU). Sjekk nummeret. Uten et gyldig nummer kan du betale som privatperson (inkl. mva).",
     "b_viesDown": "VIES (EUs mva-kontroll) er midlertidig utilgjengelig. Prøv igjen om noen minutter.",
-    "vatNote": "Priser inkl. mva., for bedrifter ekskl. mva."
+    "vatNote": "Priser inkl. mva., for bedrifter ekskl. mva.",
+    "b_esPostalHint": "Postnummer trengs: det er ingen mva. på Kanariøyene, i Ceuta og Melilla.",
+    "b_noVatEs": "Ingen mva. (Kanariøyene, Ceuta, Melilla)"
   },
   "dz": {
     "lbl": {

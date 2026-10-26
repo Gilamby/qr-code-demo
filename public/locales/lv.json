@@ -762,7 +762,9 @@
     "promoOk": "Atlaide piemērota.",
     "b_viesBad": "Šis PVN numurs nav reģistrēts VIES (ES). Pārbaudi numuru. Bez derīga numura vari maksāt kā privātpersona (ar PVN).",
     "b_viesDown": "VIES (ES PVN pārbaude) īslaicīgi nav pieejama. Mēģini vēlreiz pēc dažām minūtēm.",
-    "vatNote": "Cenas ar PVN, uzņēmumiem bez PVN."
+    "vatNote": "Cenas ar PVN, uzņēmumiem bez PVN.",
+    "b_esPostalHint": "Vajadzīgs pasta indekss: Kanāriju salās, Seutā un Meliljā PVN nav.",
+    "b_noVatEs": "Bez PVN (Kanāriju salas, Seuta, Melilja)"
   },
   "dz": {
     "lbl": {

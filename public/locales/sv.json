@@ -762,7 +762,9 @@
     "promoOk": "Rabatten har lagts till.",
     "b_viesBad": "Detta momsnummer är inte registrerat i VIES (EU). Kontrollera numret. Utan ett giltigt nummer kan du betala som privatperson (inkl. moms).",
     "b_viesDown": "VIES (EU:s momskontroll) är tillfälligt otillgängligt. Försök igen om några minuter.",
-    "vatNote": "Priser inkl. moms, för företag exkl. moms."
+    "vatNote": "Priser inkl. moms, för företag exkl. moms.",
+    "b_esPostalHint": "Postnummer behövs: ingen moms på Kanarieöarna, i Ceuta och Melilla.",
+    "b_noVatEs": "Ingen moms (Kanarieöarna, Ceuta, Melilla)"
   },
   "dz": {
     "lbl": {

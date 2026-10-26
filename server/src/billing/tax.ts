@@ -20,6 +20,7 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
   const buyer: Buyer = { type, country, postalCode: text(x.postalCode, 12).toUpperCase(), companyName: type === 'company' ? text(x.companyName, 120) : '',
     vat: type === 'company' ? text(x.vat, 24).toUpperCase().replace(/[\s.\-]/g, '') : '', address: text(x.address, 160), city: text(x.city, 80) };
   if (!/^[A-Z]{2}$/.test(country)) errors.push('country');
+  if (country === 'ES' && !/^\d{5}$/.test(buyer.postalCode)) errors.push('postalCode');   // nodig voor Canarias/Ceuta/Melilla (geen IVA)
   if (type === 'company') {
     if (!buyer.companyName) errors.push('companyName');
     if (!buyer.address) errors.push('address');
@@ -33,6 +34,9 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
   }
   return errors.length ? { errors } : { errors, buyer };
 }
+/* Canarische Eilanden (35/38), Ceuta (51) en Melilla (52) horen bij Spanje maar vallen buiten de EU-btw: geen IVA.
+   Daarom vragen we in Spanje altijd de postcode en zetten we die klanten bij Stripe op 'vrijgesteld' (zeker weten, niet afhankelijk van Stripe Tax). */
+export const esNoVat = (country: string, postalCode: string) => country === 'ES' && /^(35|38|51|52)\d{3}$/.test(postalCode || '');
 export const taxBehavior = (type?: string) => (type === 'company' ? 'exclusive' : 'inclusive');
 
 /* ---------- VIES: is het btw-nummer echt geregistreerd? ----------
@@ -74,6 +78,7 @@ export async function applyBuyer(customer: string, buyer: Buyer, email: string, 
   await stripe('POST', 'customers/' + customer, {
     name: buyer.type === 'company' ? buyer.companyName : name || undefined, email,
     address: { country: buyer.country, postal_code: buyer.postalCode || undefined, line1: buyer.address || undefined, city: buyer.city || undefined },
+    tax_exempt: esNoVat(buyer.country, buyer.postalCode) ? 'exempt' : 'none',
     metadata: { buyer: buyer.type, vies_checked: vies && vies.state === 'valid' ? buyer.vat + ' ' + vies.date : '' },
   });
   const have = await stripe('GET', 'customers/' + customer + '/tax_ids', { limit: 10 });

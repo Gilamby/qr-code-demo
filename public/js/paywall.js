@@ -208,6 +208,7 @@ var Plans = (function () {
     return '<div class="pw-co-f"><span>' + esc(t('pw.b_buyerAs')) + '</span><div class="pw-seg" role="radiogroup">' +
         ['private', 'company'].map(function (k) { return '<button type="button" role="radio" aria-checked="' + (d.type === k) + '" class="' + (d.type === k ? 'on' : '') + '" data-pw-btype="' + k + '">' + esc(t('pw.b_' + k)) + '</button>'; }).join('') + '</div></div>' +
       '<label class="pw-co-f' + (bBad.indexOf('country') >= 0 ? ' bad' : '') + '"><span>' + esc(t('pw.b_country')) + '</span><select data-pw-b="country">' + countryOpts(d.country) + '</select></label>' +
+      (!co && d.country === 'ES' ? bField('postalCode', t('pw.b_postal'), ' maxlength="5" inputmode="numeric" autocomplete="postal-code"', true) + '<p class="pw-co-note">' + esc(t('pw.b_esPostalHint')) + '</p>' : '') +
       (co ? bField('companyName', t('pw.b_companyName'), ' maxlength="120" autocomplete="organization"', true) +
         bField('vat', t('pw.b_vat'), ' maxlength="24" spellcheck="false" placeholder="' + esc((d.country === 'GR' ? 'EL' : d.country) + '…') + '"', true) + '<p class="pw-co-note">' + esc(t('pw.b_vatHint')) + '</p>' +
         bField('address', t('pw.b_address'), ' maxlength="160" autocomplete="street-address"', true) +
@@ -223,6 +224,8 @@ var Plans = (function () {
     var d = draftBuyer(), bad = [], co = d.type === 'company', eu = EU.indexOf(d.country) >= 0;
     d.vat = String(d.vat || '').toUpperCase().replace(/[\s.\-]/g, '');
     if (!/^[A-Z]{2}$/.test(d.country)) bad.push('country');
+    d.postalCode = String(d.postalCode || '').trim().toUpperCase();
+    if (d.country === 'ES' && !/^\d{5}$/.test(d.postalCode)) bad.push('postalCode');
     if (co) {
       if (!String(d.companyName).trim()) bad.push('companyName');
       if (!String(d.address).trim()) bad.push('address');
@@ -240,6 +243,7 @@ var Plans = (function () {
     if (tot && amt(T.total) != null) tot.textContent = amt(T.total);
     if (!line) return;
     if (tx) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_vatLine') + (T.taxInclusive === tx ? ' (' + t('pw.b_inclVat') + ')' : ''); line.querySelector('b').textContent = amt(tx); }
+    else if (sBuyer && sBuyer.country === 'ES' && /^(35|38|51|52)\d{3}$/.test(sBuyer.postalCode || '') && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_noVatEs'); line.querySelector('b').textContent = euro(0); }
     else if (sBuyer && sBuyer.type === 'company' && sBuyer.vat && sBuyer.country !== 'ES' && EU.indexOf(sBuyer.country) >= 0 && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_reverse'); line.querySelector('b').textContent = euro(0); }
     else line.hidden = true;
   }

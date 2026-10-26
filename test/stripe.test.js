@@ -309,6 +309,15 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   // Spaans bedrijf: geen VIES nodig (altijd 21%)
   const nv = global.__vies;
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', city: 'Madrid', vat: 'ESB12345678' } });
+  assert.equal(r.status, 400); assert.ok(r.json.details.includes('postalCode'), 'Spanje: postcode verplicht');
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', postalCode: '28013', city: 'Madrid', vat: 'ESB12345678' } });
+  assert.equal(global.__cusBody.get('tax_exempt'), 'none');
+  // Canarische Eilanden (particulier): geen IVA, vrijgesteld bij Stripe
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES', postalCode: '35001' } });
+  assert.equal(r.status, 200); assert.equal(global.__cusBody.get('tax_exempt'), 'exempt');
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES' } });
+  assert.equal(r.status, 400, 'particulier in Spanje zonder postcode');
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', postalCode: '28013', city: 'Madrid', vat: 'ESB12345678' } });
   assert.equal(r.status, 200); assert.equal(global.__vies, nv, 'Spanje: geen VIES-aanvraag');
   // Bedrijf buiten de EU (VS): geen btw-nummer bij Stripe
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'US', companyName: 'Burger Inc', address: '1 Main St', city: 'Austin', vat: '12-3456789' } });

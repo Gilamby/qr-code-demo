@@ -762,7 +762,9 @@
     "promoOk": "Réduction appliquée.",
     "b_viesBad": "Ce numéro de TVA n'est pas enregistré dans VIES (UE). Vérifie le numéro. Sans numéro valide, tu peux payer en tant que particulier (TVA incluse).",
     "b_viesDown": "VIES (le contrôle TVA de l'UE) est momentanément indisponible. Réessaie dans quelques minutes.",
-    "vatNote": "Prix TTC ; pour les entreprises, HT."
+    "vatNote": "Prix TTC ; pour les entreprises, HT.",
+    "b_esPostalHint": "Code postal requis : pas de TVA aux Canaries, à Ceuta et à Melilla.",
+    "b_noVatEs": "Pas de TVA (Canaries, Ceuta, Melilla)"
   },
   "dz": {
     "lbl": {

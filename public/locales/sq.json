@@ -762,7 +762,9 @@
     "promoOk": "Zbritja u zbatua.",
     "b_viesBad": "Ky numër TVSH nuk është i regjistruar në VIES (BE). Kontrollo numrin. Pa numër të vlefshëm mund të paguash si person privat (me TVSH).",
     "b_viesDown": "VIES (kontrolli i TVSH-së i BE-së) nuk është i disponueshëm për momentin. Provo përsëri pas disa minutash.",
-    "vatNote": "Çmimet me TVSH, për bizneset pa TVSH."
+    "vatNote": "Çmimet me TVSH, për bizneset pa TVSH.",
+    "b_esPostalHint": "Duhet kodi postar: në Ishujt Kanarie, Ceuta dhe Melilla nuk ka TVSH.",
+    "b_noVatEs": "Pa TVSH (Kanarie, Ceuta, Melilla)"
   },
   "dz": {
     "lbl": {

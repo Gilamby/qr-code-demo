@@ -762,7 +762,9 @@
     "promoOk": "Sconto applicato.",
     "b_viesBad": "Questa partita IVA non è registrata nel VIES (UE). Controlla il numero. Senza un numero valido puoi pagare come privato (IVA inclusa).",
     "b_viesDown": "Il VIES (il controllo IVA dell'UE) non è al momento raggiungibile. Riprova tra qualche minuto.",
-    "vatNote": "Prezzi IVA inclusa; per le aziende IVA esclusa."
+    "vatNote": "Prezzi IVA inclusa; per le aziende IVA esclusa.",
+    "b_esPostalHint": "CAP necessario: alle Canarie, a Ceuta e Melilla non si applica l'IVA.",
+    "b_noVatEs": "Senza IVA (Canarie, Ceuta, Melilla)"
   },
   "dz": {
     "lbl": {

@@ -762,7 +762,9 @@
     "promoOk": "Descompte aplicat.",
     "b_viesBad": "Aquest número d'IVA no està registrat al VIES (UE). Comprova el número. Sense un número vàlid pots pagar com a particular (IVA inclòs).",
     "b_viesDown": "El VIES (la comprovació d'IVA de la UE) no està disponible ara mateix. Torna-ho a provar d'aquí a uns minuts.",
-    "vatNote": "Preus amb IVA inclòs; per a empreses, sense IVA."
+    "vatNote": "Preus amb IVA inclòs; per a empreses, sense IVA.",
+    "b_esPostalHint": "Cal el codi postal: a Canàries, Ceuta i Melilla no s'aplica IVA.",
+    "b_noVatEs": "Sense IVA (Canàries, Ceuta, Melilla)"
   },
   "dz": {
     "lbl": {
