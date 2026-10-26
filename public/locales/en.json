@@ -2907,7 +2907,9 @@
     "lastScans": "Latest scans here",
     "placeOld": "These scans are from before the log: we know the place, but not the details per scan.",
     "placeSome": "Plus {n} older scans without details (from before the log).",
-    "placesCredit": "Place names: GeoNames · Natural Earth"
+    "placesCredit": "Place names: GeoNames · Natural Earth",
+    "clPlaces": "{n} places",
+    "clZoom": "Click to zoom in"
   },
   "sheet": {
     "title": "Print sheet (A4)",

@@ -2862,7 +2862,9 @@
     "lastScans": "Viimeisimmät skannaukset täällä",
     "placeOld": "Nämä skannaukset ovat ajalta ennen lokia: tiedämme paikan, mutta emme yksittäisiä tietoja.",
     "placeSome": "Lisäksi {n} vanhempaa skannausta ilman tietoja (ennen lokia).",
-    "placesCredit": "Paikannimet: GeoNames · Natural Earth"
+    "placesCredit": "Paikannimet: GeoNames · Natural Earth",
+    "clPlaces": "{n} paikkaa",
+    "clZoom": "Lähennä napsauttamalla"
   },
   "sheet": {
     "title": "Tulostusarkki (A4)",

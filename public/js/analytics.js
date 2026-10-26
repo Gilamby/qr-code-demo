@@ -435,7 +435,7 @@ var Analytics = (function () {
     var my2 = ++scansSeq, box = document.getElementById('anDetail'); if (!box) return;
     if (!scansD) box.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
     var w = world ? Promise.resolve(world) : fetch('assets/world.json?v=3').then(function (r) { return r.json(); }).then(function (j) { world = j; return j; }).catch(function () { return null; });
-    if (!cities) fetch('assets/cities.json?v=1').then(function (r) { return r.json(); }).then(function (j) { cities = j.c || []; if (scansD) drawMap(); }).catch(function () { cities = []; });   // plaatsnamen bij inzoomen
+    if (!cities) fetch('assets/cities.json?v=1').then(function (r) { return r.json(); }).then(function (j) { cities = j.c || []; if (scansD) { mapView = null; drawMap(); } }).catch(function () { cities = []; });   // plaatsnamen bij inzoomen
     Promise.all([api.analyticsScans(scansQuery({ limit: 50 })), w]).then(function (res) {
       if (my2 !== scansSeq) return; scansD = res[0]; mapView = null; drawDetail();
     }).catch(function () { var b = document.getElementById('anDetail'); if (b) b.innerHTML = '<p class="acct-msg bad">' + t('myCodes.failed') + '</p>'; });
@@ -447,6 +447,8 @@ var Analytics = (function () {
   }
   // Stippen: alle scans uit de statistiek (zelfde getallen als de rest van de pagina). Plaats uit het logboek;
   // oudere scans (van vóór het logboek) zonder coördinaten: in het midden van het land, gemarkeerd als "bij benadering".
+  function norm(x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+  function cityAt(cc, name) { if (!cities || !name) return null; var n = norm(name); for (var i = 0; i < cities.length; i++) { var c = cities[i]; if (c[4] === cc && norm(c[0]) === n) return c; } return null; }
   function mapPoints() {
     var byK = {}, out = [], cen = {}, seen = {};
     (scansD.points || []).forEach(function (p) { byK[p.cc + '|' + p.city] = p; });
@@ -454,6 +456,9 @@ var Analytics = (function () {
     ((data && data.cities) || []).forEach(function (r) {
       var k = String(r.k || ''), cc = k.split('|')[0], city = k.split('|')[1] || '', lp = byK[k];
       if (lp) { out.push({ cc: cc, city: city, region: lp.region, x: mx(lp.lon), y: my(lp.lat), n: Math.max(r.s || 0, lp.n), u: Math.max(r.u || 0, lp.u) }); seen[k] = 1; return; }
+      // Oudere scan zonder coördinaten: staat de stad in onze lijst, dan gewoon op die stad
+      var known = cityAt(cc, city);
+      if (known) { out.push({ cc: cc, city: city, region: '', x: known[1], y: known[2], n: r.s || 0, u: r.u || 0 }); seen[k] = 1; return; }
       if (!cc || !cen[cc]) return;
       var i = (seen['#' + cc] = (seen['#' + cc] || 0) + 1) - 1, a = i * 2.4, d = i ? 6 + 4 * Math.sqrt(i) : 0;   // meer plaatsen in hetzelfde land: een klein stukje uit elkaar
       out.push({ cc: cc, city: city, region: '', x: cen[cc].x + Math.cos(a) * d, y: cen[cc].y + Math.sin(a) * d, n: r.s || 0, u: r.u || 0, approx: true });
@@ -481,18 +486,28 @@ var Analytics = (function () {
     var svgEl = body.querySelector('.cd-svg'); if (!svgEl || !world) return;
     var pts = mapPoints(), v = mapView || (mapView = clampView(fitView(pts))), withScans = {};
     pts.forEach(function (p) { withScans[p.cc] = (withScans[p.cc] || 0) + p.n; });
-    var cw = svgEl.clientWidth || 800, px = v[2] / cw, sz = cw < 500 ? .65 : 1, max = Math.max.apply(null, pts.map(function (p) { return p.n; }).concat([1]));
+    var cw = svgEl.clientWidth || 800, px = upp(svgEl, v), sz = cw < 500 ? .8 : 1, max = Math.max.apply(null, pts.map(function (p) { return p.n; }).concat([1]));
+    var sorted = pts.slice().sort(function (a, b) { return b.n - a.n; }), groups = clusterPts(sorted, px, sz);
     svgEl.setAttribute('viewBox', v.map(function (n) { return n.toFixed(1); }).join(' '));
-    svgEl.innerHTML = '<rect x="-4000" y="-4000" width="10000" height="10000" class="cd-sea"/>' +
+    var ov = function (x, y, inner, cls, attrs) { return '<g class="cd-ov ' + cls + '" data-x="' + x.toFixed(2) + '" data-y="' + y.toFixed(2) + '" transform="translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ') scale(' + px.toFixed(5) + ')"' + (attrs || '') + '>' + inner + '</g>'; };
+    svgEl.innerHTML = '<defs><radialGradient id="cdHeat"><stop offset="0" stop-color="#38bdf8" stop-opacity=".55"/><stop offset=".45" stop-color="#0ea5e9" stop-opacity=".22"/><stop offset="1" stop-color="#0ea5e9" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect x="-4000" y="-4000" width="10000" height="10000" class="cd-sea"/>' +
       landPaths(v, px, withScans) +
-      provLines(v, px) + cityLabels(v, px, pts) +
-      pts.slice().sort(function (a, b) { return b.n - a.n; }).map(function (p, i) {
-        // Speld (druppelvorm) met de punt precies op de plaats; altijd even groot op het scherm, hoe ver je ook inzoomt
-        var h = (24 + 10 * Math.sqrt(p.n / max)) * sz * px;
-        return '<g class="cd-dot" data-pt="' + i + '" data-cc="' + esc(p.cc) + '" data-city="' + esc(p.city) + '" transform="translate(' + p.x.toFixed(2) + ' ' + p.y.toFixed(2) + ') scale(' + h.toFixed(4) + ')">' +
-          '<ellipse cx="0" cy="0" rx=".22" ry=".07" class="cd-shadow"/>' +
-          '<path d="' + PIN + '" class="cd-pin' + (p.approx ? ' approx' : '') + '" vector-effect="non-scaling-stroke"/><circle cx="0" cy="-.66" r=".15" class="cd-pin-eye"/></g>';
+      provLines(v, px) +
+      // Gloed waar gescand is (zoals de "heatmap" van de Snap Map): groter en feller bij meer scans
+      '<g class="cd-heat">' + groups.map(function (g) { var r = (34 + 46 * Math.sqrt(g.n / max)) * sz; return ov(g.x, g.y, '<circle r="' + r.toFixed(1) + '" fill="url(#cdHeat)"/>', ''); }).join('') + '</g>' +
+      cityLabels(v, px, groups.filter(function (g) { return g.m.length === 1; }).map(function (g) { return g.m[0]; }), groups.filter(function (g) { return g.m.length > 1; }), px) +
+      groups.map(function (g, j) {
+        if (g.m.length === 1) {                                         // één plaats: speld (druppel), punt precies op de plek
+          var p = g.m[0], i = sorted.indexOf(p), hs = (24 + 10 * Math.sqrt(p.n / max)) * sz;
+          return ov(p.x, p.y, '<ellipse cx="0" cy="0" rx="' + (hs * .22).toFixed(1) + '" ry="' + (hs * .07).toFixed(1) + '" class="cd-shadow"/><g transform="scale(' + hs.toFixed(2) + ')"><path d="' + PIN + '" class="cd-pin' + (p.approx ? ' approx' : '') + '" vector-effect="non-scaling-stroke"/><circle cx="0" cy="-.66" r=".15" class="cd-pin-eye"/></g>',
+            'cd-dot', ' data-pt="' + i + '" data-cc="' + esc(p.cc) + '" data-city="' + esc(p.city) + '"');
+        }
+        // Meer plaatsen dicht bij elkaar: één bolletje met het aantal scans; klik = inzoomen, dan gaan ze uit elkaar
+        var R = (17 + 9 * Math.sqrt(g.n / max)) * sz, lbl = g.n >= 10000 ? Math.round(g.n / 1000) + 'k' : g.n >= 1000 ? (g.n / 1000).toFixed(1).replace('.0', '') + 'k' : String(g.n);
+        return ov(g.x, g.y, '<circle r="' + (R + 5).toFixed(1) + '" class="cd-cl-ring"/><circle r="' + R.toFixed(1) + '" class="cd-cl-dot"/><text y="' + (R * .36).toFixed(1) + '" class="cd-cl-n" style="font-size:' + (R * .9).toFixed(1) + 'px">' + lbl + '</text>', 'cd-cl', ' data-cl="' + j + '"');
       }).join('');
+    svgEl._groups = groups;
     svgEl._pts = pts.slice().sort(function (a, b) { return b.n - a.n; });
   }
   /* Landen: normaal de lichte wereldkaart; ingezoomd een scherpere versie (kust en grenzen niet meer blokkerig). Bron: Natural Earth. */
@@ -509,20 +524,59 @@ var Analytics = (function () {
   }
   /* Grenzen van provincies/regio's: pas zichtbaar als je inzoomt (bestand wordt dan pas geladen). Bron: Natural Earth (publiek domein). */
   function provLines(v, px) {
-    if (v[2] > MW / 4) return '';
+    if (v[2] > MW / 7) return '';
     if (!provs) { if (!provsBusy) { provsBusy = true; fetch('assets/provinces.json?v=1').then(function (r) { return r.json(); }).then(function (j) { provs = j; drawMap(); }).catch(function () { provsBusy = false; }); } return ''; }
     var q = provs.q, x0 = v[0] * q, y0 = v[1] * q, x1 = (v[0] + v[2]) * q, y1 = (v[1] + v[3]) * q, d = '';
     for (var i = 0; i < provs.l.length; i++) { var l = provs.l[i]; if (l[2] < x0 || l[0] > x1 || l[3] < y0 || l[1] > y1) continue; d += l[4]; }
     return d ? '<path d="' + d + '" transform="scale(' + (1 / q) + ')" class="cd-prov" vector-effect="non-scaling-stroke"/>' : '';
   }
   var PIN = 'M0 0C-.1-.2-.36-.42-.36-.66A.36.36 0 1 1 .36-.66C.36-.42.1-.2 0 0Z';   // druppel/speld, hoogte 1, punt op (0,0)
+  // Kaarteenheden per schermpixel (de kaart past met 'meet' in het vak)
+  function upp(svgEl, v) { var w = svgEl.clientWidth || 800, h = svgEl.clientHeight || w / 2; return Math.max(v[2] / w, v[3] / h); }
+  /* Plaatsen die op het scherm dicht bij elkaar liggen samenvoegen (zoals vrienden op de Snap Map). Hoe verder je inzoomt, hoe meer losse spelden. */
+  function clusterPts(sorted, px, sz) {
+    var R = 46 * sz * px, groups = [];
+    sorted.forEach(function (p) {
+      var g = null; for (var i = 0; i < groups.length; i++) { var dx = groups[i].x - p.x, dy = groups[i].y - p.y; if (dx * dx + dy * dy < R * R) { g = groups[i]; break; } }
+      if (!g) { groups.push({ x: p.x, y: p.y, n: p.n, u: p.u || 0, m: [p] }); return; }
+      g.m.push(p); var t2 = g.n + p.n; g.x = (g.x * g.n + p.x * p.n) / (t2 || 1); g.y = (g.y * g.n + p.y * p.n) / (t2 || 1); g.n = t2; g.u += p.u || 0;
+    });
+    return groups;
+  }
+  /* Vloeiend zoomen en schuiven: tijdens de beweging alleen het beeld verschuiven (spelden en bolletjes blijven even groot), daarna alles opnieuw */
+  var anim = null;
+  function frameMap(v) {
+    var svgEl = body.querySelector('.cd-svg'); if (!svgEl) return; var px = upp(svgEl, v);
+    svgEl.setAttribute('viewBox', v.map(function (n) { return n.toFixed(2); }).join(' '));
+    svgEl.querySelectorAll('.cd-ov').forEach(function (g) { g.setAttribute('transform', 'translate(' + g.getAttribute('data-x') + ' ' + g.getAttribute('data-y') + ') scale(' + px.toFixed(5) + ')'); });
+  }
+  function animateTo(target, dur) {
+    var tp = body.querySelector('.cd-tip'); if (tp) tp.hidden = true;
+    var svgEl = body.querySelector('.cd-svg'); target = clampView(target);
+    if (!svgEl || !mapView) { mapView = target; return drawMap(); }
+    if (anim) cancelAnimationFrame(anim.id);
+    var from = mapView.slice(), t0 = performance.now(), D = dur || 420; svgEl.classList.add('cd-moving');
+    var step = function (now) {
+      var k = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - k, 3);   // rustig afremmen
+      var w = from[2] * Math.pow(target[2] / from[2], e), cx = from[0] + from[2] / 2 + ((target[0] + target[2] / 2) - (from[0] + from[2] / 2)) * e, cy = from[1] + from[3] / 2 + ((target[1] + target[3] / 2) - (from[1] + from[3] / 2)) * e;
+      mapView = [cx - w / 2, cy - w / 4, w, w / 2]; frameMap(mapView);
+      if (k < 1) anim = { id: requestAnimationFrame(step) }; else { anim = null; mapView = target; svgEl.classList.remove('cd-moving'); drawMap(); }
+    };
+    anim = { id: requestAnimationFrame(step) };
+  }
+  // Schermpunt (muis/vinger) naar kaartcoördinaten
+  function toMap(svgEl, clientX, clientY) {
+    var b = svgEl.getBoundingClientRect(), v = mapView, k = upp(svgEl, v), ox = (b.width * k - v[2]) / 2, oy = (b.height * k - v[3]) / 2;
+    return [v[0] - ox + (clientX - b.left) * k, v[1] - oy + (clientY - b.top) * k];
+  }
   /* Plaatsnamen bij inzoomen: hoe verder ingezoomd, hoe meer (kleinere) plaatsen. Nooit over elkaar heen.
      Plaatsen met scans krijgen altijd hun naam naast de speld. Bron: GeoNames (CC BY 4.0). */
-  function cityLabels(v, px, pts) {
+  function cityLabels(v, px, pts, clusters) {
     var w = v[2]; if (!cities || w > MW / 2.2) return '';
     var minPop = w > MW / 5 ? 3000 : w > MW / 10 ? 1000 : w > MW / 25 ? 400 : w > MW / 60 ? 150 : 40;   // in duizenden inwoners
     var fs = 11 * px, used = [], out = '';
-    var free = function (x, y, tw) { var b = [x - 4 * px, y - fs, x + tw, y + 4 * px]; if (used.some(function (u) { return !(b[2] < u[0] || b[0] > u[2] || b[3] < u[1] || b[1] > u[3]); })) return false; used.push(b); return true; };
+    var taken = (clusters || []).map(function (g) { var R = 30 * px; return [g.x - R, g.y - R, g.x + R, g.y + R]; });
+    var free = function (x, y, tw) { var b = [x - 4 * px, y - fs, x + tw, y + 4 * px]; if (taken.concat(used).some(function (u) { return !(b[2] < u[0] || b[0] > u[2] || b[3] < u[1] || b[1] > u[3]); })) return false; used.push(b); return true; };
     // Eerst de plaatsen met scans (naam naast de speld)
     pts.forEach(function (p) {
       if (!p.city || p.approx) return; var tw = p.city.length * fs * .6 + 6 * px, x = p.x + 12 * px, y = p.y - 8 * px;
@@ -544,9 +598,9 @@ var Analytics = (function () {
     return [Math.max(0, Math.min(MW - w, v[0])), Math.max(top, Math.min(bottom - h, v[1])), w, h];
   }
   function zoomMap(f, cx, cy) {
-    if (!mapView) return; var v = mapView, w = Math.min(MW * 1.2, Math.max(25, v[2] * f)), h = w / 2;
+    if (!mapView) return; var v = mapView, w = Math.min(MW * 1.2, Math.max(8, v[2] * f)), h = w / 2;
     cx = cx == null ? v[0] + v[2] / 2 : cx; cy = cy == null ? v[1] + v[3] / 2 : cy;
-    mapView = clampView([cx - w / 2, cy - h / 2, w, h]); drawMap();
+    animateTo([cx - w / 2, cy - h / 2, w, h]);
   }
   function logCard() {
     var rows = scansD.scans || [];
@@ -602,18 +656,60 @@ var Analytics = (function () {
   }
   // Kaart: muis/vinger (tip, slepen, klik op een plaats = alles van die stad)
   var drag = null;
-  body.addEventListener('pointerdown', function (e) { var s = e.target.closest('.cd-svg'); if (!s || e.target.closest('.cd-dot') || !mapView) return; drag = { x: e.clientX, y: e.clientY, v: mapView.slice(), w: s.clientWidth }; s.setPointerCapture(e.pointerId); });
+  var touches = {}, pinch = null;
+  body.addEventListener('pointerdown', function (e) {
+    var s = e.target.closest('.cd-svg'); if (!s || !mapView) return;
+    touches[e.pointerId] = { x: e.clientX, y: e.clientY };
+    var ids = Object.keys(touches);
+    if (ids.length === 2) {                                             // twee vingers: knijpen = zoomen
+      var a = touches[ids[0]], b = touches[ids[1]]; drag = null;
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, v: mapView.slice(), c: toMap(s, (a.x + b.x) / 2, (a.y + b.y) / 2) }; s.classList.add('cd-moving'); return;
+    }
+    if (e.target.closest('.cd-dot') || e.target.closest('.cd-cl')) return;
+    if (anim) { cancelAnimationFrame(anim.id); anim = null; }
+    drag = { x: e.clientX, y: e.clientY, v: mapView.slice(), k: upp(s, mapView) }; s.setPointerCapture(e.pointerId);
+  });
   body.addEventListener('pointermove', function (e) {
     var s = e.target.closest && e.target.closest('.cd-svg');
-    if (drag) { var k = drag.v[2] / drag.w; mapView = clampView([drag.v[0] - (e.clientX - drag.x) * k, drag.v[1] - (e.clientY - drag.y) * k, drag.v[2], drag.v[3]]); var sv = body.querySelector('.cd-svg'); if (sv) sv.setAttribute('viewBox', mapView.join(' ')); return; }
+    if (touches[e.pointerId]) touches[e.pointerId] = { x: e.clientX, y: e.clientY };
+    if (pinch) {
+      var ids2 = Object.keys(touches); if (ids2.length < 2) return; var a2 = touches[ids2[0]], b2 = touches[ids2[1]], f2 = pinch.d / (Math.hypot(a2.x - b2.x, a2.y - b2.y) || 1);
+      var w2 = Math.min(MW * 1.2, Math.max(8, pinch.v[2] * f2)); mapView = clampView([pinch.c[0] - (pinch.c[0] - pinch.v[0]) * w2 / pinch.v[2], pinch.c[1] - (pinch.c[1] - pinch.v[1]) * w2 / pinch.v[2], w2, w2 / 2]); frameMap(mapView); return;
+    }
+    if (drag) { if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) > 3) { drag.moved = true; var sv0 = body.querySelector('.cd-svg'); if (sv0) sv0.classList.add('cd-moving'); }
+      mapView = clampView([drag.v[0] - (e.clientX - drag.x) * drag.k, drag.v[1] - (e.clientY - drag.y) * drag.k, drag.v[2], drag.v[3]]); frameMap(mapView); return; }
     var tip = body.querySelector('.cd-tip'), dot = e.target.closest && e.target.closest('.cd-dot'); if (!tip) return;
+    var clu = e.target.closest && e.target.closest('.cd-cl');
+    if (clu && s) {
+      var g = s._groups[+clu.getAttribute('data-cl')], bx = s.getBoundingClientRect();
+      tip.innerHTML = '<b>' + esc(t('cd.clPlaces', { n: i18n.fmt.num(g.m.length) })) + '</b><small>' + esc(g.m.slice(0, 4).map(function (p) { return p.city || TEL.name(p.cc) || '?'; }).join(', ') + (g.m.length > 4 ? ' …' : '')) + '</small>' +
+        '<span>' + t('cd.scansN', { n: i18n.fmt.num(g.n) }) + '</span><em>' + esc(t('cd.clZoom')) + '</em>';
+      tip.hidden = false; tip.style.left = Math.min(Math.max(e.clientX - bx.left, 90), bx.width - 90) + 'px'; tip.style.top = (e.clientY - bx.top - 12) + 'px'; return;
+    }
     if (!dot || !s) { tip.hidden = true; return; }
     var p = s._pts[+dot.getAttribute('data-pt')], box = s.getBoundingClientRect();
     tip.innerHTML = '<b>' + (p.cc ? TEL.flag(p.cc) + ' ' : '') + esc(p.city || t('an.unknown')) + '</b><small>' + esc([p.region !== p.city ? p.region : '', p.cc ? TEL.name(p.cc) : ''].filter(Boolean).join(', ')) + '</small>' +
       '<span>' + t('cd.scansN', { n: i18n.fmt.num(p.n) }) + (p.u ? ' · ' + t('cd.uniqN', { n: i18n.fmt.num(p.u) }) : '') + '</span>' + (p.approx ? '<small>' + t('cd.approx') + '</small>' : '') + '<em>' + t('cd.clickCity') + '</em>';
     tip.hidden = false; tip.style.left = Math.min(Math.max(e.clientX - box.left, 90), box.width - 90) + 'px'; tip.style.top = (e.clientY - box.top - 12) + 'px';
   });
-  body.addEventListener('pointerup', function () { if (drag) { drag = null; drawMap(); } });   // na het slepen: plaatsnamen van het nieuwe stuk kaart
+  var endTouch = function (e) {
+    delete touches[e.pointerId];
+    var sv1 = body.querySelector('.cd-svg'); if (sv1) sv1.classList.remove('cd-moving');
+    if (pinch) { pinch = null; drag = null; drawMap(); return; }
+    if (drag) { var moved = drag.moved; drag = null; if (moved) drawMap(); }  // na het slepen: plaatsnamen en bolletjes van het nieuwe stuk kaart
+  };
+  body.addEventListener('pointerup', endTouch); body.addEventListener('pointercancel', endTouch);
+  // Dubbelklik / dubbeltik: inzoomen op die plek
+  body.addEventListener('dblclick', function (e) { var s = e.target.closest('.cd-svg'); if (!s || !mapView || e.target.closest('.cd-dot') || e.target.closest('.cd-cl')) return; e.preventDefault(); var c = toMap(s, e.clientX, e.clientY); zoomMap(.5, c[0], c[1]); });
+  // Knijpen op een trackpad (Mac) = ctrl + scrollwiel: zoomen rond de muis. Gewoon scrollen blijft de pagina scrollen.
+  var wheelT = null;
+  body.addEventListener('wheel', function (e) {
+    var s = e.target.closest && e.target.closest('.cd-svg'); if (!s || !mapView || !e.ctrlKey) return; e.preventDefault();
+    if (anim) { cancelAnimationFrame(anim.id); anim = null; }
+    var c = toMap(s, e.clientX, e.clientY), f = Math.exp(e.deltaY * .01), w = Math.min(MW * 1.2, Math.max(8, mapView[2] * f));
+    mapView = clampView([c[0] - (c[0] - mapView[0]) * w / mapView[2], c[1] - (c[1] - mapView[1]) * w / mapView[2], w, w / 2]); s.classList.add('cd-moving'); frameMap(mapView);
+    clearTimeout(wheelT); wheelT = setTimeout(function () { s.classList.remove('cd-moving'); drawMap(); }, 160);
+  }, { passive: false });
   // Geen zoomen met het scrollwiel: scrollen op de kaart scrolt gewoon de pagina (anders raak je de kaart kwijt)
 
   /* ---------- Alles tekenen ---------- */
@@ -738,7 +834,9 @@ var Analytics = (function () {
     if (e.target.closest('[data-an-new]')) { actions.startNew(); goToPage('create'); }
     if (e.target.closest('[data-cd-back]')) { detailId = null; f.codes = []; f.cc = []; f.city = []; return goToPage('myCodes'); }
     var mb = e.target.closest('[data-map]');
-    if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = clampView(mk === 'world' ? WORLD_VIEW() : fitView(mapPoints())); drawMap(); } return; }
+    if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else animateTo(mk === 'world' ? WORLD_VIEW() : fitView(mapPoints()), 600); return; }
+    var cl = e.target.closest('.cd-cl');
+    if (cl) { var sv2 = cl.closest('.cd-svg'), g = sv2._groups[+cl.getAttribute('data-cl')], f = fitView(g.m); if (f[2] > mapView[2] * .7) f = [g.x - mapView[2] * .2, g.y - mapView[3] * .2, mapView[2] * .4, mapView[3] * .4]; return animateTo(f, 520); }
     var dt = e.target.closest('.cd-dot');
     if (dt) { var sv = dt.closest('.cd-svg'); return placeInfo(sv._pts[+dt.getAttribute('data-pt')]); }
     if (e.target.closest('[data-log-more]')) return moreScans(e.target.closest('[data-log-more]'));

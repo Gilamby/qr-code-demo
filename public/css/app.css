@@ -5277,3 +5277,14 @@ body.paywall-open { overflow: hidden; }
 .cd-credit { opacity: .6; font-size: .9em; white-space: nowrap; }
 .cd-prov { fill: none; stroke: rgba(226,232,240,.32); stroke-width: 1px; stroke-dasharray: 3 3; stroke-linejoin: round; pointer-events: none; }
 :root[data-theme="light"] .cd-prov { stroke: rgba(15,23,42,.3); }
+/* Kaart in de stijl van de Snap Map: gloed, bolletjes met aantallen, vloeiend zoomen */
+.cd-heat { pointer-events: none; mix-blend-mode: screen; }
+.cd-cl { cursor: pointer; }
+.cd-cl-ring { fill: rgba(56,189,248,.22); stroke: rgba(56,189,248,.5); stroke-width: 1px; vector-effect: non-scaling-stroke; animation: cdPulse 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+.cd-cl-dot { fill: #0ea5e9; stroke: #fff; stroke-width: 2.5px; vector-effect: non-scaling-stroke; filter: drop-shadow(0 3px 6px rgba(0,0,0,.45)); }
+.cd-cl:hover .cd-cl-dot { fill: #38bdf8; }
+.cd-cl-n { fill: #fff; font-family: var(--font); font-weight: 800; text-anchor: middle; pointer-events: none; }
+@keyframes cdPulse { 0% { transform: scale(.85); opacity: .9; } 70% { transform: scale(1.25); opacity: 0; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cd-cl-ring { animation: none; } }
+.cd-svg.cd-moving .cd-cities, .cd-svg.cd-moving .cd-prov { opacity: 0; transition: opacity .1s; }
+:root[data-theme="light"] .cd-heat { mix-blend-mode: multiply; }

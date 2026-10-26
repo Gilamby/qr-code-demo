@@ -2862,7 +2862,9 @@
     "lastScans": "Posledné skeny tu",
     "placeOld": "Tieto skeny sú spred záznamu: poznáme miesto, ale nie detaily jednotlivých skenov.",
     "placeSome": "A ďalších {n} starších skenov bez detailov (spred záznamu).",
-    "placesCredit": "Názvy miest: GeoNames · Natural Earth"
+    "placesCredit": "Názvy miest: GeoNames · Natural Earth",
+    "clPlaces": "{n} miest",
+    "clZoom": "Kliknutím priblížite"
   },
   "sheet": {
     "title": "Tlačový hárok (A4)",

@@ -2907,7 +2907,9 @@
     "lastScans": "Laatste scans hier",
     "placeOld": "Deze scans zijn van vóór het logboek: we weten de plaats, maar niet de details per scan.",
     "placeSome": "En nog {n} oudere scans zonder details (van vóór het logboek).",
-    "placesCredit": "Plaatsnamen: GeoNames · Natural Earth"
+    "placesCredit": "Plaatsnamen: GeoNames · Natural Earth",
+    "clPlaces": "{n} plaatsen",
+    "clZoom": "Klik om in te zoomen"
   },
   "sheet": {
     "title": "Printvel (A4)",

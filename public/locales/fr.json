@@ -2868,7 +2868,9 @@
     "lastScans": "Derniers scans ici",
     "placeOld": "Ces scans sont antérieurs au journal : nous connaissons le lieu, mais pas les détails de chaque scan.",
     "placeSome": "Et {n} scans plus anciens sans détails (antérieurs au journal).",
-    "placesCredit": "Noms de lieux : GeoNames · Natural Earth"
+    "placesCredit": "Noms de lieux : GeoNames · Natural Earth",
+    "clPlaces": "{n} lieux",
+    "clZoom": "Cliquez pour zoomer"
   },
   "sheet": {
     "title": "Planche à imprimer (A4)",

@@ -2862,7 +2862,9 @@
     "lastScans": "Pēdējās skenēšanas šeit",
     "placeOld": "Šīs skenēšanas ir pirms žurnāla: zinām vietu, bet ne katras skenēšanas informāciju.",
     "placeSome": "Un vēl {n} vecākas skenēšanas bez informācijas (pirms žurnāla).",
-    "placesCredit": "Vietu nosaukumi: GeoNames · Natural Earth"
+    "placesCredit": "Vietu nosaukumi: GeoNames · Natural Earth",
+    "clPlaces": "{n} vietas",
+    "clZoom": "Noklikšķiniet, lai tuvinātu"
   },
   "sheet": {
     "title": "Drukas lapa (A4)",

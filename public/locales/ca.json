@@ -2862,7 +2862,9 @@
     "lastScans": "Últims escanejos aquí",
     "placeOld": "Aquests escanejos són anteriors al registre: en sabem el lloc, però no els detalls de cada escaneig.",
     "placeSome": "I {n} escanejos més antics sense detalls (anteriors al registre).",
-    "placesCredit": "Noms de llocs: GeoNames · Natural Earth"
+    "placesCredit": "Noms de llocs: GeoNames · Natural Earth",
+    "clPlaces": "{n} llocs",
+    "clZoom": "Fes clic per apropar"
   },
   "sheet": {
     "title": "Full per imprimir (A4)",

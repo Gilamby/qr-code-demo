@@ -2862,7 +2862,9 @@
     "lastScans": "Senaste skanningar här",
     "placeOld": "De här skanningarna är från före loggen: vi vet platsen men inte detaljerna per skanning.",
     "placeSome": "Plus {n} äldre skanningar utan detaljer (från före loggen).",
-    "placesCredit": "Ortnamn: GeoNames · Natural Earth"
+    "placesCredit": "Ortnamn: GeoNames · Natural Earth",
+    "clPlaces": "{n} platser",
+    "clZoom": "Klicka för att zooma in"
   },
   "sheet": {
     "title": "Utskriftsark (A4)",

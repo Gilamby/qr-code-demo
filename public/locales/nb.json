@@ -2862,7 +2862,9 @@
     "lastScans": "Siste skanninger her",
     "placeOld": "Disse skanningene er fra før loggen: vi vet stedet, men ikke detaljene per skanning.",
     "placeSome": "Pluss {n} eldre skanninger uten detaljer (fra før loggen).",
-    "placesCredit": "Stedsnavn: GeoNames · Natural Earth"
+    "placesCredit": "Stedsnavn: GeoNames · Natural Earth",
+    "clPlaces": "{n} steder",
+    "clZoom": "Klikk for å zoome inn"
   },
   "sheet": {
     "title": "Utskriftsark (A4)",
