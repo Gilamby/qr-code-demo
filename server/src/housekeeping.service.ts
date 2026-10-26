@@ -4,7 +4,7 @@ import { DatabaseService } from './database/database.service';
 import { MailerService } from './auth/mailer.service';
 import { sendDueReports } from './reports';
 import { subFor, saveSub, tick, rebuildBlocked, graceEnd } from './subscription';
-import { stripeOn, readRecord } from './billing/stripe';
+import { stripeOn, readRecord, stripe } from './billing/stripe';
 import { planFor, EXTRA_PRICE } from './plans';
 
 @Injectable()
@@ -61,6 +61,8 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
         const base = iv === 'month' && p.priceFirstMonth != null ? p.priceFirstMonth : iv === 'year' ? (p.priceYear != null ? p.priceYear : p.priceYearAfter) : iv === 'quarter' ? p.priceQuarter : p.price;
         amount = Math.round(((Number(base) || 0) + (p.extra || 0) * ((EXTRA_PRICE as any)[iv] || 0)) * 100) / 100;
       }
+      // Het echte bedrag van de volgende factuur bij Stripe (met kortingscode en btw); lukt dat niet, dan de prijslijst
+      if (amount != null) try { const inv = await stripe('GET', 'invoices/upcoming', { subscription: rec.subscription }); if (inv && typeof inv.total === 'number') amount = inv.total / 100; } catch { /* prijslijst */ }
       const user = await this.db.getUser(u.id);
       if (user) await this.mailer.sendReminder(user, kind, end, amount).catch((e) => console.error('Herinnering mislukt:', e.message));
     }

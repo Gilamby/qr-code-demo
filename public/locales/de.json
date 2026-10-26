@@ -761,7 +761,8 @@
     "promoBad": "Dieser Code ist ungültig.",
     "promoOk": "Rabatt angewendet.",
     "b_viesBad": "Diese USt-IdNr. ist nicht in VIES (EU) registriert. Bitte prüfe die Nummer. Ohne gültige Nummer kannst du als Privatperson zahlen (inkl. MwSt.).",
-    "b_viesDown": "VIES (die USt-Prüfung der EU) ist gerade nicht erreichbar. Bitte versuche es in ein paar Minuten erneut."
+    "b_viesDown": "VIES (die USt-Prüfung der EU) ist gerade nicht erreichbar. Bitte versuche es in ein paar Minuten erneut.",
+    "vatNote": "Preise inkl. MwSt., für Unternehmen zzgl. MwSt."
   },
   "dz": {
     "lbl": {

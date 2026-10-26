@@ -761,7 +761,8 @@
     "promoBad": "Ten kod jest nieprawidłowy.",
     "promoOk": "Rabat zastosowany.",
     "b_viesBad": "Ten numer VAT nie jest zarejestrowany w VIES (UE). Sprawdź numer. Bez ważnego numeru możesz zapłacić jako osoba prywatna (z VAT).",
-    "b_viesDown": "VIES (unijna weryfikacja VAT) jest chwilowo niedostępny. Spróbuj ponownie za kilka minut."
+    "b_viesDown": "VIES (unijna weryfikacja VAT) jest chwilowo niedostępny. Spróbuj ponownie za kilka minut.",
+    "vatNote": "Ceny z VAT, dla firm bez VAT."
   },
   "dz": {
     "lbl": {

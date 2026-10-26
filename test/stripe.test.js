@@ -44,6 +44,7 @@ global.fetch = async (url, o = {}) => {
   }
   if (/^checkout\/sessions\/cs_setup/.test(p)) return ok({ id: 'cs_setup1', mode: 'setup', status: 'complete', customer: global.__cus, setup_intent: 'seti_1' });
   if (p === 'setup_intents/seti_1') return ok({ id: 'seti_1', payment_method: 'pm_new' });
+  if (p === 'invoices/upcoming') return global.__upcoming ? ok({ total: global.__upcoming }) : { ok: false, status: 404, json: async () => ({ error: { message: 'geen' } }) };
   if (p === 'tax/settings') return ok({ status: global.__taxOn ? 'active' : 'pending' });
   if (/^customers\/[^/]+\/tax_ids/.test(p)) { const cus = p.split('/')[1]; global.__tax = global.__tax || {}; const l = global.__tax[cus] = global.__tax[cus] || [];
     if (o.method === 'POST') { const t = { id: 'txi_' + (++seq), value: body.get('value'), type: body.get('type') }; l.push(t); return ok(t); }
@@ -269,9 +270,13 @@ test('herinnering 3 dagen vooraf: opgezegd abonnement en einde proef (één keer
   await db.setSetting('remind:' + u.id, null); await hk.reminders(); await hk.reminders();
   mine = sent.filter((x) => x.email === 'herinner@example.com');
   assert.equal(mine.length, 3, 'één keer'); assert.equal(mine[2].kind, 'renew'); assert.ok(mine[2].amount > 0);
-  await saveSub(db, u.id, { ...emptySub(), interval: 'month', periodEnd: new Date(Date.now() + 6 * 864e5).toISOString() });
+  // Bedrag komt van de echte volgende factuur bij Stripe (korting, btw)
+  global.__upcoming = 18148; await db.setSetting('remind:' + u.id, null); await hk.reminders();
+  mine = sent.filter((x) => x.email === 'herinner@example.com'); assert.equal(mine[3].amount, 181.48); global.__upcoming = 0;
+  sent.length = 0; await db.setSetting('remind:' + u.id, null); await hk.reminders(); assert.equal(sent.filter((x) => x.email === 'herinner@example.com').length, 1);
+  sent.length = 0; await saveSub(db, u.id, { ...emptySub(), interval: 'month', periodEnd: new Date(Date.now() + 6 * 864e5).toISOString() });
   await db.setSetting('remind:' + u.id, null); await hk.reminders();
-  assert.equal(sent.filter((x) => x.email === 'herinner@example.com').length, 3, 'per maand geen verlengherinnering');
+  assert.equal(sent.filter((x) => x.email === 'herinner@example.com').length, 0, 'per maand geen verlengherinnering');
 });
 
 test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Stripe Tax aan', async () => {
@@ -312,5 +317,16 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'NL' } });
   b = last(); assert.equal(b.get('line_items[0][price_data][tax_behavior]'), 'inclusive');
   assert.equal(global.__tax[cus].length, 0, 'geen btw-nummer meer bij particulier');
+  // Betaalpagina van Stripe (zonder betalen in de app): Stripe vraagt geen btw-nummer (dat zou VIES overslaan)
+  assert.equal(b.get('tax_id_collection[enabled]'), null);
+  assert.equal(b.get('customer_update[address]'), null, 'land uit ons betaalscherm blijft staan');
+  // Factuurgegevens in Mijn account: btw-nummer dat niet in VIES staat gaat niet naar Stripe
+  const cusB = cus; global.__tax[cusB] = [];
+  await c('PUT', '/api/account/billing', { type: 'company', companyName: 'Nep Srl', taxId: 'IT99999999999', firstName: 'Bea', lastName: 'Btw', address: 'Via 1', postalCode: '20100', city: 'Milano', country: 'IT' });
+  await new Promise((ok) => setTimeout(ok, 100));
+  assert.equal(global.__tax[cusB].length, 0, 'niet in VIES: geen btw-nummer bij Stripe');
+  await c('PUT', '/api/account/billing', { type: 'company', companyName: 'Pizza Srl', taxId: 'IT12345678901', firstName: 'Bea', lastName: 'Btw', address: 'Via 1', postalCode: '20100', city: 'Milano', country: 'IT' });
+  await new Promise((ok) => setTimeout(ok, 100));
+  assert.equal(global.__tax[cusB].length, 1); assert.equal(global.__tax[cusB][0].value, 'IT12345678901');
   global.__taxOn = false; forgetTax();
 });

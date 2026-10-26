@@ -761,7 +761,8 @@
     "promoBad": "Acest cod nu este valid.",
     "promoOk": "Reducere aplicată.",
     "b_viesBad": "Acest cod de TVA nu este înregistrat în VIES (UE). Verifică numărul. Fără un număr valid poți plăti ca persoană fizică (cu TVA).",
-    "b_viesDown": "VIES (verificarea TVA a UE) este temporar indisponibil. Încearcă din nou peste câteva minute."
+    "b_viesDown": "VIES (verificarea TVA a UE) este temporar indisponibil. Încearcă din nou peste câteva minute.",
+    "vatNote": "Prețuri cu TVA inclus, pentru firme fără TVA."
   },
   "dz": {
     "lbl": {

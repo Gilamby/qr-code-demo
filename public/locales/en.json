@@ -761,7 +761,8 @@
     "promoBad": "This code is not valid.",
     "promoOk": "Discount applied.",
     "b_viesBad": "This VAT number is not registered in VIES (EU). Please check the number. Without a valid number you can pay as a private person (incl. VAT).",
-    "b_viesDown": "VIES (the EU VAT check) is temporarily unavailable. Please try again in a few minutes."
+    "b_viesDown": "VIES (the EU VAT check) is temporarily unavailable. Please try again in a few minutes.",
+    "vatNote": "Prices incl. VAT; for businesses excl. VAT."
   },
   "dz": {
     "lbl": {

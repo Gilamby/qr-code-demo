@@ -761,7 +761,8 @@
     "promoBad": "Koodi ei ole voimassa.",
     "promoOk": "Alennus lisätty.",
     "b_viesBad": "Tätä ALV-numeroa ei ole rekisteröity VIES-järjestelmään (EU). Tarkista numero. Ilman voimassa olevaa numeroa voit maksaa yksityishenkilönä (sis. ALV).",
-    "b_viesDown": "VIES (EU:n ALV-tarkistus) ei ole juuri nyt käytettävissä. Yritä uudelleen muutaman minuutin kuluttua."
+    "b_viesDown": "VIES (EU:n ALV-tarkistus) ei ole juuri nyt käytettävissä. Yritä uudelleen muutaman minuutin kuluttua.",
+    "vatNote": "Hinnat sis. ALV:n, yrityksille ilman ALV:tä."
   },
   "dz": {
     "lbl": {

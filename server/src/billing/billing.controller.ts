@@ -143,7 +143,9 @@ export class BillingController {
       const session = await stripe('POST', 'checkout/sessions', {
         ...common,
         // Factuurgegevens door Stripe laten vragen: adres alleen als het nodig is; bedrijven vinken "Ik koop als bedrijf" aan voor naam + btw-nummer
-        billing_address_collection: tax ? 'required' : 'auto', tax_id_collection: { enabled: true }, customer_update: { name: 'auto', address: 'auto' },
+        // Geen btw-nummer via Stripe: dat loopt alleen via ons betaalscherm, waar het eerst bij VIES gecontroleerd wordt.
+        // Land/adres van ons betaalscherm niet laten overschrijven (anders kan de btw van een ander land gerekend worden).
+        billing_address_collection: tax && !b.buyer ? 'required' : 'auto', customer_update: b.buyer ? { name: 'auto' } : { name: 'auto', address: 'auto' },
         success_url: base + '/?checkout=success', cancel_url: base + '/?checkout=cancel',
       });
       return { url: session.url };

@@ -761,7 +761,8 @@
     "promoBad": "Deze code is niet geldig.",
     "promoOk": "Korting toegepast.",
     "b_viesBad": "Dit btw-nummer staat niet geregistreerd in VIES (EU). Controleer het nummer. Zonder geldig nummer kun je als particulier betalen (incl. btw).",
-    "b_viesDown": "VIES (de btw-controle van de EU) is even niet bereikbaar. Probeer het over een paar minuten opnieuw."
+    "b_viesDown": "VIES (de btw-controle van de EU) is even niet bereikbaar. Probeer het over een paar minuten opnieuw.",
+    "vatNote": "Prijzen incl. btw, voor bedrijven excl. btw."
   },
   "dz": {
     "lbl": {

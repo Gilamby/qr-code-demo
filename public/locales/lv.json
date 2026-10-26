@@ -761,7 +761,8 @@
     "promoBad": "Šis kods nav derīgs.",
     "promoOk": "Atlaide piemērota.",
     "b_viesBad": "Šis PVN numurs nav reģistrēts VIES (ES). Pārbaudi numuru. Bez derīga numura vari maksāt kā privātpersona (ar PVN).",
-    "b_viesDown": "VIES (ES PVN pārbaude) īslaicīgi nav pieejama. Mēģini vēlreiz pēc dažām minūtēm."
+    "b_viesDown": "VIES (ES PVN pārbaude) īslaicīgi nav pieejama. Mēģini vēlreiz pēc dažām minūtēm.",
+    "vatNote": "Cenas ar PVN, uzņēmumiem bez PVN."
   },
   "dz": {
     "lbl": {

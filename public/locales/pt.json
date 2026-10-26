@@ -761,7 +761,8 @@
     "promoBad": "Este código não é válido.",
     "promoOk": "Desconto aplicado.",
     "b_viesBad": "Este número de IVA não está registado no VIES (UE). Verifica o número. Sem um número válido podes pagar como particular (IVA incl.).",
-    "b_viesDown": "O VIES (a verificação de IVA da UE) está temporariamente indisponível. Tenta novamente dentro de alguns minutos."
+    "b_viesDown": "O VIES (a verificação de IVA da UE) está temporariamente indisponível. Tenta novamente dentro de alguns minutos.",
+    "vatNote": "Preços com IVA incluído; para empresas, sem IVA."
   },
   "dz": {
     "lbl": {

@@ -28,6 +28,7 @@ import { stripeOn, readRecord, stripe, demoCheckoutOn, amountFor } from '../bill
 import { taxOn } from '../billing/tax';
 import { listKeys, createKey, revokeKey, revokeAll, publicKey, MAX_KEYS } from './api-keys';
 import { addPayment, listPayments, demoMethod, setDemoMethod } from '../billing/history';
+import { readBuyer, applyBuyer, needsVies, checkVies } from '../billing/tax';
 import { checkCode, newSecret, otpauth, readTotp, recoveryCodes, writeTotp } from './totp';
 
 /** "Chrome op macOS" uit de browsertekst (alleen voor de lijst met apparaten) */
@@ -415,14 +416,18 @@ export class AccountController {
   }
 }
 
-/** Factuurgegevens uit de app ook bij de klant in Stripe zetten (naam, adres, factuur-e-mail, btw-nummer) */
+/** Factuurgegevens uit de app ook bij de klant in Stripe zetten (naam, adres, btw-nummer).
+    Zelfde regels als bij betalen: een btw-nummer uit een ander EU-land gaat alleen naar Stripe als het geldig is in VIES
+    (anders zou Stripe de btw verleggen zonder controle). */
 async function syncBillingToStripe(db: any, user: User, b: any) {
   if (!stripeOn()) return;
   const rec = await readRecord(db, user.id); if (!rec.customer) return;
-  const name = b.type === 'company' ? b.companyName : (b.firstName + ' ' + b.lastName).trim();
-  await stripe('POST', 'customers/' + rec.customer, { name, email: b.email || user.email, address: { line1: b.address, postal_code: b.postalCode, city: b.city, country: b.country } });
-  if (b.taxId) {
-    const have = await stripe('GET', 'customers/' + rec.customer + '/tax_ids', { limit: 10 });
-    if (!(have.data || []).some((x: any) => String(x.value).replace(/\s/g, '').toUpperCase() === b.taxId)) await stripe('POST', 'customers/' + rec.customer + '/tax_ids', { type: 'eu_vat', value: b.taxId });
+  const r = readBuyer({ type: b.type, country: b.country, postalCode: b.postalCode, companyName: b.companyName, vat: b.taxId, address: b.address, city: b.city });
+  if (!r.buyer) {   // bv. bedrijf in de EU zonder btw-nummer: alleen naam/adres bijwerken, geen btw-nummer
+    await stripe('POST', 'customers/' + rec.customer, { name: b.type === 'company' ? b.companyName : (b.firstName + ' ' + b.lastName).trim(), address: { line1: b.address, postal_code: b.postalCode, city: b.city, country: b.country } });
+    return;
   }
+  const vies = needsVies(r.buyer) ? await checkVies(r.buyer.vat) : undefined;
+  if (vies && vies.state !== 'valid') r.buyer.vat = '';                        // niet (aantoonbaar) geldig: geen btw verleggen
+  await applyBuyer(rec.customer, r.buyer, b.email || user.email, (b.firstName + ' ' + b.lastName).trim(), vies);
 }

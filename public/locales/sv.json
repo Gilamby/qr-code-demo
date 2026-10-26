@@ -761,7 +761,8 @@
     "promoBad": "Koden är inte giltig.",
     "promoOk": "Rabatten har lagts till.",
     "b_viesBad": "Detta momsnummer är inte registrerat i VIES (EU). Kontrollera numret. Utan ett giltigt nummer kan du betala som privatperson (inkl. moms).",
-    "b_viesDown": "VIES (EU:s momskontroll) är tillfälligt otillgängligt. Försök igen om några minuter."
+    "b_viesDown": "VIES (EU:s momskontroll) är tillfälligt otillgängligt. Försök igen om några minuter.",
+    "vatNote": "Priser inkl. moms, för företag exkl. moms."
   },
   "dz": {
     "lbl": {

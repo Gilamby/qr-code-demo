@@ -761,7 +761,8 @@
     "promoBad": "Tento kód nie je platný.",
     "promoOk": "Zľava uplatnená.",
     "b_viesBad": "Toto IČ DPH nie je registrované vo VIES (EÚ). Skontroluj číslo. Bez platného čísla môžeš platiť ako súkromná osoba (s DPH).",
-    "b_viesDown": "VIES (kontrola DPH v EÚ) je dočasne nedostupný. Skús to znova o pár minút."
+    "b_viesDown": "VIES (kontrola DPH v EÚ) je dočasne nedostupný. Skús to znova o pár minút.",
+    "vatNote": "Ceny s DPH, pre firmy bez DPH."
   },
   "dz": {
     "lbl": {

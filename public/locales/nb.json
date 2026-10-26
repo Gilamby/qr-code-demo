@@ -761,7 +761,8 @@
     "promoBad": "Denne koden er ikke gyldig.",
     "promoOk": "Rabatt lagt til.",
     "b_viesBad": "Dette mva-nummeret er ikke registrert i VIES (EU). Sjekk nummeret. Uten et gyldig nummer kan du betale som privatperson (inkl. mva).",
-    "b_viesDown": "VIES (EUs mva-kontroll) er midlertidig utilgjengelig. Prøv igjen om noen minutter."
+    "b_viesDown": "VIES (EUs mva-kontroll) er midlertidig utilgjengelig. Prøv igjen om noen minutter.",
+    "vatNote": "Priser inkl. mva., for bedrifter ekskl. mva."
   },
   "dz": {
     "lbl": {

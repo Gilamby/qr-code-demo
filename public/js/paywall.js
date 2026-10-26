@@ -109,7 +109,7 @@ var Plans = (function () {
       '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
       (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', limitArgs())) + '</p>' : '') +
       (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : '') +
-      '<p class="pw-note">' + esc(t('pw.reassure')) + '</p></div>';
+      '<p class="pw-note">' + esc(t('pw.reassure')) + ' ' + esc(t('pw.vatNote')) + '</p></div>';
   }
   // Afrekenen (DEMO): zoals straks de betaalpagina van Stripe, met PayPal, iDEAL, Bancontact of kaart. Er wordt niets afgeschreven.
   var method = 'paypal', BANKS = ['ABN AMRO', 'ING', 'Rabobank', 'ASN Bank', 'bunq', 'Knab', 'SNS', 'Triodos Bank', 'Revolut'];
