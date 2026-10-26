@@ -27,14 +27,17 @@ test.after(async () => { await app.close(); fs.rmSync(process.env.DATA_DIR, { re
 
 // Kleine "browser" met eigen cookie
 function client() {
-  let cookie = '';
+  const jar = {}, cookieHeader = () => Object.keys(jar).map((k) => k + '=' + jar[k]).join('; ');
   const c = async (method, url, body, headers) => {
-    const r = await fetch(base + url, { method, redirect: 'manual', headers: Object.assign({ 'Content-Type': 'application/json', cookie }, headers || {}), body: body ? JSON.stringify(body) : undefined });
-    const set = r.headers.get('set-cookie'); if (set) cookie = set.split(';')[0];
+    const r = await fetch(base + url, { method, redirect: 'manual', headers: Object.assign({ 'Content-Type': 'application/json', cookie: cookieHeader() }, headers || {}), body: body ? JSON.stringify(body) : undefined });
+    (r.headers.getSetCookie ? r.headers.getSetCookie() : []).forEach((line) => {
+      const [kv] = line.split(';'), i = kv.indexOf('='), k = kv.slice(0, i), v = kv.slice(i + 1);
+      if (!v || /Max-Age=0|Expires=Thu, 01 Jan 1970/i.test(line)) delete jar[k]; else jar[k] = v;
+    });
     const text = await r.text(); let json = null; try { json = JSON.parse(text); } catch (e) {}
     return { status: r.status, json, text, headers: r.headers };
   };
-  c.cookie = () => cookie;
+  c.cookie = () => (jar.sid ? 'sid=' + jar.sid : '');
   return c;
 }
 // Account maken + bevestigen + inloggen (zoals een echte klant)
@@ -52,6 +55,18 @@ async function signup(c, email, password, name, opts = {}) {
 const pdf = (s) => JSON.stringify({ n: 'test.pdf', s: s.length, d: 'data:application/pdf;base64,' + Buffer.from(s).toString('base64') });
 const filesOnDisk = () => fs.readdirSync(path.join(process.env.DATA_DIR, 'files')).length;
 
+test('bevestigingslink in dezelfde browser: meteen ingelogd; niemand anders kan meeliften', async () => {
+  const b = client(), evil = client();
+  await b('POST', '/api/auth/register', { accept: true, email: 'zelfde@example.com', password: 'Zelfde browser zin 1!', name: 'Zo' });
+  // Iemand anders probeert hetzelfde (nog niet bevestigde) adres met een ander wachtwoord: krijgt geen wachtrij-cookie
+  await evil('POST', '/api/auth/register', { accept: true, email: 'zelfde@example.com', password: 'Andere boze zin 9!' });
+  assert.equal((await evil('POST', '/api/auth/pending')).json.state, 'none');
+  const v = await b('POST', '/api/auth/verify', { token: tokenFor('zelfde@example.com') });
+  assert.equal(v.json.loggedIn, true); assert.equal(v.json.user.email, 'zelfde@example.com');
+  assert.equal((await b('GET', '/api/auth/me')).status, 200);
+  assert.equal((await evil('GET', '/api/auth/me')).status, 401);
+});
+
 test('inloggen en accounts (met e-mailbevestiging)', async () => {
   const a = client();
   assert.equal((await a('GET', '/api/qr-codes')).status, 401, 'zonder inloggen geen codes');
@@ -67,10 +82,18 @@ test('inloggen en accounts (met e-mailbevestiging)', async () => {
   assert.equal((await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'Mijn geheime zin 1!' })).json.error, 'unverified', 'inloggen kan pas na bevestigen');
   assert.equal((await a('POST', '/api/auth/verify', { token: 'verzonnen' })).status, 400);
   const tok = tokenFor('a@example.com');
-  assert.equal((await a('POST', '/api/auth/verify', { token: tok })).json.email, 'a@example.com');
-  assert.equal((await a('POST', '/api/auth/verify', { token: tok })).status, 400, 'link werkt maar één keer');
+  assert.equal((await a('POST', '/api/auth/pending')).json.state, 'waiting', 'scherm check je e-mail: nog wachten');
+  const phone = client();                                                    // link geopend op de telefoon
+  assert.equal((await phone('POST', '/api/auth/verify', { token: tok })).json.email, 'a@example.com');
+  assert.equal((await phone('POST', '/api/auth/verify', { token: tok })).status, 400, 'link werkt maar één keer');
+  assert.equal((await phone('GET', '/api/auth/me')).status, 401, 'op de telefoon niet vanzelf ingelogd');
   await markPaid('a@example.com');
-  assert.equal((await a('GET', '/api/auth/me')).status, 401, 'bevestigen logt niet vanzelf in');
+  const auto = await a('POST', '/api/auth/pending');
+  assert.equal(auto.json.state, 'in', 'de computer gaat vanzelf verder'); assert.equal(auto.json.user.email, 'a@example.com');
+  assert.equal((await a('GET', '/api/auth/me')).status, 200);
+  assert.equal((await a('POST', '/api/auth/pending')).json.state, 'none', 'maar één keer');
+  await a('POST', '/api/auth/logout');
+  assert.equal((await a('GET', '/api/auth/me')).status, 401);
   const dup = await client()('POST', '/api/auth/register', { accept: true, email: 'A@example.com', password: 'Nog een zin hier 6!' });
   assert.equal(dup.status, 201, 'bestaand adres: zelfde antwoord (niet te zien wie een account heeft)');
   assert.equal((await client()('POST', '/api/auth/login', { email: 'a@example.com', password: 'Nog een zin hier 6!' })).status, 401, 'wachtwoord niet overschreven');

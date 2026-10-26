@@ -60,14 +60,14 @@ export class AuthService implements OnModuleDestroy {
   }
 
   /* ---------- Cookies ---------- */
-  private secure(req: Request) { return req.secure || isProduction(); }
+  secure(req: Request) { return req.secure || isProduction(); }
   setSession(req: Request, res: Response, s: { token: string; expires: string }) {
     res.append('Set-Cookie', COOKIE + '=' + s.token + '; Path=/; HttpOnly; SameSite=Lax; Expires=' + new Date(s.expires).toUTCString() + (this.secure(req) ? '; Secure' : ''));
   }
   clearSession(req: Request, res: Response) {
     res.append('Set-Cookie', COOKIE + '=; Path=/; HttpOnly; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:00 GMT' + (this.secure(req) ? '; Secure' : ''));
   }
-  private cookies(req: Request) {
+  cookies(req: Request) {
     const out: Record<string, string> = {};
     String(req.get('cookie') || '').split(';').forEach((p) => { const i = p.indexOf('='); if (i > 0) { try { out[p.slice(0, i).trim()] = decodeURIComponent(p.slice(i + 1).trim()); } catch (e) { /* kapot cookie: negeren */ } } });
     return out;

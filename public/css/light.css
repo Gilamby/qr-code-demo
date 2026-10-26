@@ -154,6 +154,7 @@
 :root[data-theme="light"] .acct-msg.ok { color: #15803d; }
 :root[data-theme="light"] .danger-ghost { color: #dc2626 !important; }
 :root[data-theme="light"] .acct-lang select { border: 1px solid rgba(13,19,32,0.162); background: rgba(255,255,255,0.95); }
+:root[data-theme="light"] .auth-mail.auth-ok { color: #16a34a; }
 :root[data-theme="light"] .auth-msg.ok,
 :root[data-theme="light"] .acct-msg.ok { color: #15803d; }
 :root[data-theme="light"] .acct-menu button:hover { background: rgba(13,19,32,0.045); }

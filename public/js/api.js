@@ -286,6 +286,7 @@ var api = (function () {
       register: either(function (d) { return request('POST', 'api/auth/register', d); }, demoAuth.register),
       verify:   either(function (d) { return request('POST', 'api/auth/verify', d); }, demoAuth.verify),
       resend:   either(function (d) { return request('POST', 'api/auth/resend', d); }, function () { return Promise.resolve({ ok: true }); }),
+      pending:  either(function () { return request('POST', 'api/auth/pending', {}); }, function () { return Promise.resolve({ state: 'none' }); }),
       demoToken: function (email) { return 'demo:' + String(email || '').trim().toLowerCase(); },
       logout:   either(function ()  { return request('POST', 'api/auth/logout', {}); }, demoAuth.logout),
       forgot:   either(function (d) { return request('POST', 'api/auth/forgot', d); }, function () { return Promise.resolve({ ok: true }); }),

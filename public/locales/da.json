@@ -1227,7 +1227,7 @@
     "demoNote": "Demo: der sendes ingen rigtig e-mail; bekræftelseslinket er en knap. Din konto gemmes kun i denne browser.",
     "demoAccount": "Demo: denne konto findes kun i denne browser. I den rigtige version administrerer du dit navn, din adgangskode og dine data her.",
     "checkTitle": "Bekræft din e-mailadresse",
-    "checkLead": "Vi har sendt et link til {email}. Klik på linket i mailen for at bekræfte din konto. Derefter kan du logge ind.",
+    "checkLead": "Vi har sendt et link til {email}. Klik på linket i e-mailen for at bekræfte din konto.",
     "resend": "Send mailen igen",
     "resent": "Sendt. Tjek også din spam-mappe.",
     "errUnverified": "Din konto er ikke bekræftet endnu. Klik på linket i den mail, vi sendte dig.",
@@ -1252,7 +1252,12 @@
     "mErr": "Login med Microsoft mislykkedes. Prøv igen, eller log ind med din e-mailadresse.",
     "mUnverified": "Vi kan ikke bekræfte e-mailadressen på denne arbejdskonto. Log ind med din e-mail og adgangskode.",
     "g2fa": "Totrinsbekræftelse er slået til for denne konto: log ind med adgangskode og kode.",
-    "errBlocked": "Du kan ikke oprette en konto med denne e-mailadresse. Spørgsmål? Kontakt support."
+    "errBlocked": "Du kan ikke oprette en konto med denne e-mailadresse. Spørgsmål? Kontakt support.",
+    "checkAuto": "Lad denne side være åben: så snart du klikker på linket, fortsætter du automatisk her – også hvis du åbner e-mailen på din telefon.",
+    "checkSpam": "Ingen e-mail? Tjek din spammappe.",
+    "verifiedTitle": "E-mail bekræftet",
+    "verifiedLead": "Din konto er klar. Du kan lukke denne side: på den enhed, hvor du oprettede kontoen, fortsætter du automatisk.",
+    "continueHere": "Fortsæt på denne enhed"
   },
   "acct": {
     "profile": "Profil",
@@ -1452,7 +1457,8 @@
     "needNameEmpty": "Indtast et navn.",
     "act_plan_chosen": "Pakke valgt",
     "act_plan_changed": "Pakke ændret",
-    "act_extra_bought": "Køb en ekstra QR-kode"
+    "act_extra_bought": "Køb en ekstra QR-kode",
+    "billingAuto": "Udfyldes automatisk, når du betaler. Du kan ændre det her."
   },
   "mail": {
     "resetSubject": "Ny adgangskode til QR-Codex",
@@ -1528,7 +1534,8 @@
     "unsubOpen": "Åbn QR-Codex",
     "unsubOther": "Du kan altid slå den til igen under Min konto > Notifikationer.",
     "unsubBadTitle": "Ugyldigt link",
-    "unsubBadText": "Dette link er ikke (længere) gyldigt. Du kan slå mails fra under Min konto > Notifikationer."
+    "unsubBadText": "Dette link er ikke (længere) gyldigt. Du kan slå mails fra under Min konto > Notifikationer.",
+    "cancelTrialText": "Vi har opsagt din gratis prøveperiode. Den sluttede med det samme, og du er ikke blevet opkrævet. Dine QR-koder er sat på pause; vælg en plan inden for 30 dage for at få det hele tilbage."
   },
   "contact": {
     "lead": "Et spørgsmål, et problem eller en idé? Send os en besked.",
@@ -2099,7 +2106,7 @@
       "s4t": "Plans, Free Trials and Payment",
       "s4": "**Plans.** We offer three paid plans (Standard, Pro and Business) on monthly, quarterly and annual billing periods. Paying per quarter costs less than paying monthly, and annual billing gives you two months free in the first year; after that the regular annual price applies. Introductory offers (the reduced first month and two months free in the first year) apply once per customer. Pro and Business are multi-user plans for teams. Prices are in euros. The plans, prices and included features are shown on our Plans and Pricing page and at checkout. Amounts may vary because of tax.\n\n**Extra QR codes and plan changes.** If you reach the number of QR codes in your plan, you can buy extra QR codes or move to a higher plan. If you move to a plan with fewer QR codes, you choose which codes stay active; the others are paused, not deleted, and work again when you upgrade or buy extra QR codes.\n\n**Free trials.** New customers get a one-time free trial of 14 days with access to the features of the plan they choose. A trial can be used once per customer. Unless you cancel before the trial ends, your payment method will be charged for the first paid billing period. On a monthly plan, the first paid month is charged at a reduced introductory price shown at checkout; after that the regular monthly fee applies.\n\n**Payment methods.** We accept the payment methods shown at the Stripe checkout, such as payment cards, PayPal and iDEAL. Payments are processed by a third-party payment provider (Stripe). You agree to give accurate payment details and to keep your payment method and billing information current.\n\n**Automatic renewal.** Subscriptions renew automatically at the end of each billing period. By subscribing, you authorize us to charge your payment method for each renewal, without asking you again, until you cancel. To avoid being charged for the next period, cancel before the renewal date.\n\n**Price changes.** We may change our prices. We will not apply a price increase to your existing subscription without giving you advance notice that is long enough for you to cancel before the new price takes effect.\n\n**Errors and refusals.** We may correct pricing errors even after an order has been placed or paid. We may refuse or limit an order, including orders that appear to come from resellers or that we reasonably suspect to be fraudulent or abusive. Charges appear on your statement under our billing name.\n\n**Invoices.** You can view and download your invoices under My Account > Plan and invoices. We keep electronic records of purchases for legal reasons, and you may request access to the records of your own purchases by contacting us.",
       "s5t": "Cancellation and What Happens to Your QR Codes",
-      "s5": "You can cancel at any time under My Account > Plan and invoices by selecting \"Manage subscription\" and then \"Cancel subscription\". You can also contact us at (support@optimasys.es) to cancel. We will email you a confirmation. Cancelling stops future renewals; it does not cancel charges already made.\n\nIf your subscription ends, is cancelled, or a trial ends without you taking a paid plan:\n\n- your QR codes stop working straight away: people who scan them see a notice that the code is not active (Wi-Fi and contact card codes store their content in the code itself and keep working);\n- you will not be able to open or edit them, or see their analytics, until you subscribe again; and\n- your QR codes, designs and analytics are kept for 30 days. If you subscribe again within those 30 days, everything works again, including codes you have already printed. After 30 days they are permanently deleted. We email you when your codes stop, one week before they are deleted and one day before they are deleted.\n\nBefore you cancel, download the designs, files and analytics data you want to keep.",
+      "s5": "You can cancel at any time under My Account > Plan and invoices by selecting \"Manage subscription\" and then \"Cancel subscription\". You can also contact us at (support@optimasys.es) to cancel. We will email you a confirmation. Cancelling stops future renewals; it does not cancel charges already made. Opsiger du i en gratis prøveperiode, slutter prøveperioden med det samme. Opsiger du et betalt abonnement, beholder du adgangen til slutningen af den periode, du har betalt for.\n\nIf your subscription ends, is cancelled, or a trial ends without you taking a paid plan:\n\n- your QR codes stop working straight away: people who scan them see a notice that the code is not active (Wi-Fi and contact card codes store their content in the code itself and keep working);\n- you will not be able to open or edit them, or see their analytics, until you subscribe again; and\n- your QR codes, designs and analytics are kept for 30 days. If you subscribe again within those 30 days, everything works again, including codes you have already printed. After 30 days they are permanently deleted. We email you when your codes stop, one week before they are deleted and one day before they are deleted.\n\nBefore you cancel, download the designs, files and analytics data you want to keep.",
       "s6t": "Refunds",
       "s6": "Fees are non-cancellable and non-refundable, except where applicable law gives you a right to a refund. We may, at our discretion, grant a refund in exceptional circumstances, if you ask for it within 14 days of your most recent payment. Refunds are not available for accounts that have breached these Terms.\n\nIf you are unhappy with the Service, contact us at (support@optimasys.es) and explain the problem. We will look at your situation fairly.\n\nNothing in these Terms limits any mandatory consumer rights you may have under the law of the country where you live.",
       "s7t": "Your QR Codes and Content",

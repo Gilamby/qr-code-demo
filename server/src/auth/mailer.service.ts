@@ -151,12 +151,12 @@ export class MailerService {
   }
 
   /** Abonnement opgezegd (Stripe): bevestiging, loopt nog tot {date} (Terms punt 5) */
-  async sendCancelled(user: User, until: number) {
+  async sendCancelled(user: User, until: number, trial = false) {
     const t = await this.texts(user.lang || 'en');
     const loc = LANGS.includes(user.lang) && Intl.DateTimeFormat.supportedLocalesOf([user.lang]).length ? user.lang : 'en';
     const date = new Intl.DateTimeFormat(loc, { dateStyle: 'long', timeZone: user.timezone || 'Europe/Madrid' }).format(new Date(until));
     const name = String(user.name || '').trim().split(/\s+/)[0] || '';
-    const body = String(t.cancelText || '').replace(/\{date\}/g, date), hello = name ? String(t.reportHello || 'Hello {name},').replace('{name}', name) : t.reportHelloPlain || 'Hello,';
+    const body = String((trial && t.cancelTrialText) || t.cancelText || '').replace(/\{date\}/g, date), hello = name ? String(t.reportHello || 'Hello {name},').replace('{name}', name) : t.reportHelloPlain || 'Hello,';
     const link = (this.base() || '') + '/?go=plan';
     if (!this.transport) { console.log('[e-mail niet ingesteld] Opgezegd voor ' + user.email + ': ' + body); return; }
     await this.transport.sendMail({ from: this.from(), to: user.email, subject: t.cancelSubject, text: hello + '\n\n' + body + '\n\n' + link,

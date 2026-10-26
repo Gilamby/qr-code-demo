@@ -53,7 +53,7 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
     if (!okImage) opts.push('<div class="bg-opt-wrap locked"><button type="button" class="bg-opt upload" data-bg-lock="pro"><span class="thumb">' + G.lock + '</span><span class="name">' + t('bg.upload') + G.badge('pro') + '</span></button></div>');
     else opts.push('<label class="bg-opt upload' + (busy ? ' busy' : '') + '"><span class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><span class="name">' + (busy ? t('bg.uploading') : t('bg.upload')) + '</span>' +
       '<input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp' + (okVideo ? ',video/mp4,video/webm' : '') + '" multiple' + (busy ? ' disabled' : '') + '></label>');
-    grid.innerHTML = opts.join('') + (okImage && !okVideo ? '<p class="bg-lock-note"><button type="button" class="link-btn" data-bg-lock="business">' + G.lock + esc(t('pw.reason_video')) + '</button></p>' : '') + (hid.length ? '<p class="bg-restore"><button type="button" class="link-btn" data-restore>' + t('bg.restore', { n: hid.length }) + '</button></p>' : '');
+    grid.innerHTML = opts.join('') + (hid.length ? '<p class="bg-restore"><button type="button" class="link-btn" data-restore>' + t('bg.restore', { n: hid.length }) + '</button></p>' : '');
   }
   function showErr(key, vars) { err.textContent = t(key, vars); err.hidden = false; }
   grid.addEventListener('click', function (e) {
@@ -134,7 +134,11 @@ document.getElementById('bgBtn').addEventListener('click', function () { window.
     // Na elkaar uploaden (niet tegelijk), elke upload komt erbij
     files.reduce(function (p, f) {
       return p.then(function () { return uploadOne(f).then(function (item) { background.setMedia([item].concat(background.media())); }); });
-    }, Promise.resolve()).catch(function (x) { showErr((x && x.key) || 'bg.uploadError', x && x.vars); })
+    }, Promise.resolve()).catch(function (x) {
+      // Video zonder Business: geen foutmelding, maar meteen het aanbod om te upgraden (wens Fabian 26 okt)
+      if (x && x.key === 'pw.reason_video' && window.PlanGate) return PlanGate.upgrade('business', 'video');
+      showErr((x && x.key) || 'bg.uploadError', x && x.vars);
+    })
       .then(function () { busy--; render(); });
   });
   background.onChange(render); i18n.onChange(render); theme.onChange(render); render();

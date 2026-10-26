@@ -19,6 +19,7 @@ import { EMAIL } from '../qr-codes/validation';
 import { baseUrl } from '../config/env';
 import { fail } from '../common/http';
 import { device, maskIp } from './account.controller';
+import { startPending, readPending, endPending, pendingSecret } from './pending';
 
 @Controller('api/auth')
 export class AuthController {
@@ -32,7 +33,7 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(201)
-  async register(@Req() req: Request, @Body() b: any = {}) {
+  async register(@Req() req: Request, @Res({ passthrough: true }) res: Response, @Body() b: any = {}) {
     if (!(await this.auth.signupOpen())) throw fail(403, 'signup_closed');                 // licentie: het team maakt accounts aan
     const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').trim().slice(0, 80), lang = String(b.lang || 'en');
     if (this.auth.limited('reg:' + req.ip, 50, 60) || this.auth.limited('reg:' + email, 3, 60)) throw fail(429, 'too_many');
@@ -51,7 +52,12 @@ export class AuthController {
       await acceptTerms(this.db, user.id);
       token = await this.sendVerifyMail(req, user.id, email, lang);
       this.mailer.notifySignup(email, name, 'e-mail');
-    } else if (!(await this.db.isVerified(existing.id))) token = await this.sendVerifyMail(req, existing.id, email, lang);   // nog niet bevestigd: nieuwe link
+      await startPending(this.db, user.id, res, this.auth.secure(req));   // deze browser gaat vanzelf verder na het bevestigen
+    } else if (!(await this.db.isVerified(existing.id))) {                   // nog niet bevestigd: nieuwe link
+      token = await this.sendVerifyMail(req, existing.id, email, lang);
+      // Alleen met hetzelfde wachtwoord gaat deze browser vanzelf verder (anders kon iemand anders zo in dit account komen)
+      if (await this.auth.checkPassword(b.password || '', existing.password_hash)) await startPending(this.db, existing.id, res, this.auth.secure(req));
+    }
     return { verify: true, email, ...this.demoToken(token) };
   }
 
@@ -67,11 +73,40 @@ export class AuthController {
   /** Link uit de mail: account bevestigd. Daarna zelf inloggen. */
   @Post('verify')
   @HttpCode(200)
-  async verify(@Req() req: Request, @Body() b: any = {}) {
+  async verify(@Req() req: Request, @Res({ passthrough: true }) res: Response, @Body() b: any = {}) {
     if (this.auth.limited('verify:' + req.ip, 30, 60)) throw fail(429, 'too_many');
     const userId = await this.db.useVerification(String(b.token || ''));
     if (!userId) throw fail(400, 'token');
-    return { ok: true, email: (await this.db.getUser(userId)).email };
+    const user = await this.db.getUser(userId);
+    // Link geopend in dezelfde browser als waar het account gemaakt is: meteen ingelogd
+    const secret = pendingSecret(this.auth.cookies(req));
+    if (secret && (await readPending(this.db, secret)) === userId && !user.disabledAt) {
+      await endPending(this.db, secret, res, this.auth.secure(req));
+      return { ok: true, loggedIn: true, user: await this.signIn(req, res, userId) };
+    }
+    return { ok: true, email: user.email };
+  }
+
+  /** Scherm "check je e-mail": is het account al bevestigd (op een ander apparaat)? Dan hier vanzelf inloggen. */
+  @Post('pending')
+  @HttpCode(200)
+  async pending(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    if (this.auth.limited('pending:' + req.ip, 3000, 60)) throw fail(429, 'too_many');
+    const secret = pendingSecret(this.auth.cookies(req)), uid = await readPending(this.db, secret);
+    const user = uid && await this.db.getUser(uid);
+    if (!user) { if (secret) await endPending(this.db, secret, res, this.auth.secure(req)); return { state: 'none' }; }
+    if (!(await this.db.isVerified(uid))) return { state: 'waiting', email: user.email };
+    await endPending(this.db, secret, res, this.auth.secure(req));
+    if (user.disabledAt) return { state: 'none' };
+    return { state: 'in', user: await this.signIn(req, res, uid) };
+  }
+
+  /** Inloggen zonder wachtwoord na het bevestigen (alleen via verify/pending hierboven) */
+  private async signIn(req: Request, res: Response, uid: string) {
+    const meta = this.auth.meta(req);
+    this.auth.setSession(req, res, await this.db.createSession(uid, meta));
+    await this.db.addActivity(uid, 'login', meta);
+    return this.auth.me(await this.db.updateUser(uid, { lastLoginAt: new Date().toISOString() }));
   }
 
   /** Nieuwe bevestigingsmail (altijd hetzelfde antwoord) */

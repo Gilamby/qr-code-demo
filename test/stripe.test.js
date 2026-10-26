@@ -93,12 +93,18 @@ test('Stripe: afrekenen, webhook, opzeggen, mislukte betaling, wisselen', async 
   assert.ok(Math.abs(Date.parse(plan.sub.periodEnd) - trialEnd) < 2000);
   assert.equal((await c('POST', '/api/billing/portal')).json.url, 'https://billing.stripe.com/p/session/x');
 
-  // 4. Opgezegd (loopt nog tot het einde): één bevestigingsmail
-  const upd = { ...subs.sub_1, cancel_at_period_end: true };
+  // 4a. Betaald abonnement opgezegd: loopt nog tot het einde, één bevestigingsmail
+  const upd = { ...subs.sub_1, status: 'active', trial_end: null, cancel_at_period_end: true };
   await hook({ type: 'customer.subscription.updated', data: { object: upd } });
   await hook({ type: 'customer.subscription.updated', data: { object: upd } });
   assert.equal(cancelled.length, 1, 'maar één mail');
   assert.equal((await c('GET', '/api/account/plan')).json.sub.state, 'active', 'tot het einde van de periode');
+  await hook({ type: 'customer.subscription.updated', data: { object: { ...upd, cancel_at_period_end: false } } });   // toch weer door
+  // 4b. Opgezegd in de gratis proef: meteen gestopt (bij Stripe ook), één mail
+  await hook({ type: 'customer.subscription.updated', data: { object: { ...subs.sub_1, cancel_at_period_end: true } } });
+  assert.equal(subs.sub_1.status, 'canceled', 'proef bij Stripe meteen gestopt');
+  assert.notEqual((await c('GET', '/api/account/plan')).json.sub.state, 'active', 'proef opgezegd = meteen klaar');
+  assert.equal(cancelled.length, 2);
 
   // 5. Betaling mislukt: codes stoppen meteen (bedenktijd 30 dagen)
   await hook({ type: 'customer.subscription.updated', data: { object: { ...subs.sub_1, status: 'past_due', cancel_at_period_end: false, current_period_end: sec(Date.now() + 30 * day) } } });

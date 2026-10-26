@@ -1227,7 +1227,7 @@
     "demoNote": "Demo: δεν στέλνεται πραγματικό email· ο σύνδεσμος επιβεβαίωσης είναι κουμπί. Ο λογαριασμός αποθηκεύεται μόνο σε αυτό το πρόγραμμα περιήγησης.",
     "demoAccount": "Demo: αυτός ο λογαριασμός υπάρχει μόνο σε αυτό το πρόγραμμα περιήγησης. Στην πραγματική έκδοση διαχειρίζεστε εδώ όνομα, κωδικό και δεδομένα.",
     "checkTitle": "Επιβεβαιώστε το email σας",
-    "checkLead": "Στείλαμε έναν σύνδεσμο στο {email}. Κάντε κλικ στον σύνδεσμο του email για να επιβεβαιώσετε τον λογαριασμό. Μετά μπορείτε να συνδεθείτε.",
+    "checkLead": "Στείλαμε έναν σύνδεσμο στο {email}. Κάντε κλικ στον σύνδεσμο του email για να επιβεβαιώσετε τον λογαριασμό σας.",
     "resend": "Αποστολή email ξανά",
     "resent": "Στάλθηκε. Ελέγξτε και τα ανεπιθύμητα.",
     "errUnverified": "Ο λογαριασμός σας δεν έχει επιβεβαιωθεί ακόμη. Κάντε κλικ στον σύνδεσμο του email που σας στείλαμε.",
@@ -1252,7 +1252,12 @@
     "mErr": "Η σύνδεση με Microsoft απέτυχε. Δοκιμάστε ξανά ή συνδεθείτε με το email σας.",
     "mUnverified": "Δεν μπορούμε να επιβεβαιώσουμε το email αυτού του εταιρικού λογαριασμού. Συνδεθείτε με email και κωδικό.",
     "g2fa": "Ο λογαριασμός έχει ενεργή επαλήθευση δύο βημάτων: συνδεθείτε με κωδικό πρόσβασης και κωδικό επαλήθευσης.",
-    "errBlocked": "Δεν μπορείς να δημιουργήσεις λογαριασμό με αυτό το email. Ερωτήσεις; Επικοινώνησε με την υποστήριξη."
+    "errBlocked": "Δεν μπορείς να δημιουργήσεις λογαριασμό με αυτό το email. Ερωτήσεις; Επικοινώνησε με την υποστήριξη.",
+    "checkAuto": "Αφήστε αυτή τη σελίδα ανοιχτή: μόλις κάνετε κλικ στον σύνδεσμο, θα συνεχίσετε εδώ αυτόματα – ακόμη κι αν ανοίξετε το email στο κινητό.",
+    "checkSpam": "Δεν ήρθε email; Ελέγξτε τον φάκελο ανεπιθύμητης αλληλογραφίας.",
+    "verifiedTitle": "Το email επιβεβαιώθηκε",
+    "verifiedLead": "Ο λογαριασμός σας είναι έτοιμος. Μπορείτε να κλείσετε αυτή τη σελίδα: στη συσκευή όπου δημιουργήσατε τον λογαριασμό θα συνεχίσετε αυτόματα.",
+    "continueHere": "Συνέχεια σε αυτή τη συσκευή"
   },
   "acct": {
     "profile": "Προφίλ",
@@ -1452,7 +1457,8 @@
     "needNameEmpty": "Εισαγάγετε ένα όνομα.",
     "act_plan_chosen": "Επιλογή πακέτου",
     "act_plan_changed": "Αλλαγή πακέτου",
-    "act_extra_bought": "Αγορά επιπλέον κωδικού QR"
+    "act_extra_bought": "Αγορά επιπλέον κωδικού QR",
+    "billingAuto": "Συμπληρώνεται αυτόματα όταν πληρώνετε. Μπορείτε να το αλλάξετε εδώ."
   },
   "mail": {
     "resetSubject": "Νέος κωδικός για το QR-Codex",
@@ -1528,7 +1534,8 @@
     "unsubOpen": "Άνοιγμα QR-Codex",
     "unsubOther": "Μπορείς να την ενεργοποιήσεις ξανά από Ο λογαριασμός μου > Ειδοποιήσεις.",
     "unsubBadTitle": "Μη έγκυρος σύνδεσμος",
-    "unsubBadText": "Αυτός ο σύνδεσμος δεν είναι (πλέον) έγκυρος. Μπορείς να απενεργοποιήσεις τα email από Ο λογαριασμός μου > Ειδοποιήσεις."
+    "unsubBadText": "Αυτός ο σύνδεσμος δεν είναι (πλέον) έγκυρος. Μπορείς να απενεργοποιήσεις τα email από Ο λογαριασμός μου > Ειδοποιήσεις.",
+    "cancelTrialText": "Ακυρώσαμε τη δωρεάν δοκιμή σας. Έληξε αμέσως και δεν χρεωθήκατε τίποτα. Οι κωδικοί QR σας είναι σε παύση· επιλέξτε πακέτο μέσα σε 30 ημέρες για να τα πάρετε όλα πίσω."
   },
   "contact": {
     "lead": "Μια ερώτηση, ένα πρόβλημα ή μια ιδέα; Στείλτε μας μήνυμα.",
@@ -2097,7 +2104,7 @@
       "s4t": "Plans, Free Trials and Payment",
       "s4": "**Plans.** We offer three paid plans (Standard, Pro and Business) on monthly, quarterly and annual billing periods. Paying per quarter costs less than paying monthly, and annual billing gives you two months free in the first year; after that the regular annual price applies. Introductory offers (the reduced first month and two months free in the first year) apply once per customer. Pro and Business are multi-user plans for teams. Prices are in euros. The plans, prices and included features are shown on our Plans and Pricing page and at checkout. Amounts may vary because of tax.\n\n**Extra QR codes and plan changes.** If you reach the number of QR codes in your plan, you can buy extra QR codes or move to a higher plan. If you move to a plan with fewer QR codes, you choose which codes stay active; the others are paused, not deleted, and work again when you upgrade or buy extra QR codes.\n\n**Free trials.** New customers get a one-time free trial of 14 days with access to the features of the plan they choose. A trial can be used once per customer. Unless you cancel before the trial ends, your payment method will be charged for the first paid billing period. On a monthly plan, the first paid month is charged at a reduced introductory price shown at checkout; after that the regular monthly fee applies.\n\n**Payment methods.** We accept the payment methods shown at the Stripe checkout, such as payment cards, PayPal and iDEAL. Payments are processed by a third-party payment provider (Stripe). You agree to give accurate payment details and to keep your payment method and billing information current.\n\n**Automatic renewal.** Subscriptions renew automatically at the end of each billing period. By subscribing, you authorize us to charge your payment method for each renewal, without asking you again, until you cancel. To avoid being charged for the next period, cancel before the renewal date.\n\n**Price changes.** We may change our prices. We will not apply a price increase to your existing subscription without giving you advance notice that is long enough for you to cancel before the new price takes effect.\n\n**Errors and refusals.** We may correct pricing errors even after an order has been placed or paid. We may refuse or limit an order, including orders that appear to come from resellers or that we reasonably suspect to be fraudulent or abusive. Charges appear on your statement under our billing name.\n\n**Invoices.** You can view and download your invoices under My Account > Plan and invoices. We keep electronic records of purchases for legal reasons, and you may request access to the records of your own purchases by contacting us.",
       "s5t": "Cancellation and What Happens to Your QR Codes",
-      "s5": "You can cancel at any time under My Account > Plan and invoices by selecting \"Manage subscription\" and then \"Cancel subscription\". You can also contact us at (support@optimasys.es) to cancel. We will email you a confirmation. Cancelling stops future renewals; it does not cancel charges already made.\n\nIf your subscription ends, is cancelled, or a trial ends without you taking a paid plan:\n\n- your QR codes stop working straight away: people who scan them see a notice that the code is not active (Wi-Fi and contact card codes store their content in the code itself and keep working);\n- you will not be able to open or edit them, or see their analytics, until you subscribe again; and\n- your QR codes, designs and analytics are kept for 30 days. If you subscribe again within those 30 days, everything works again, including codes you have already printed. After 30 days they are permanently deleted. We email you when your codes stop, one week before they are deleted and one day before they are deleted.\n\nBefore you cancel, download the designs, files and analytics data you want to keep.",
+      "s5": "You can cancel at any time under My Account > Plan and invoices by selecting \"Manage subscription\" and then \"Cancel subscription\". You can also contact us at (support@optimasys.es) to cancel. We will email you a confirmation. Cancelling stops future renewals; it does not cancel charges already made. Αν ακυρώσετε κατά τη δωρεάν δοκιμή, η δοκιμή λήγει αμέσως. Αν ακυρώσετε μια πληρωμένη συνδρομή, διατηρείτε την πρόσβαση έως το τέλος της περιόδου που έχετε πληρώσει.\n\nIf your subscription ends, is cancelled, or a trial ends without you taking a paid plan:\n\n- your QR codes stop working straight away: people who scan them see a notice that the code is not active (Wi-Fi and contact card codes store their content in the code itself and keep working);\n- you will not be able to open or edit them, or see their analytics, until you subscribe again; and\n- your QR codes, designs and analytics are kept for 30 days. If you subscribe again within those 30 days, everything works again, including codes you have already printed. After 30 days they are permanently deleted. We email you when your codes stop, one week before they are deleted and one day before they are deleted.\n\nBefore you cancel, download the designs, files and analytics data you want to keep.",
       "s6t": "Refunds",
       "s6": "Fees are non-cancellable and non-refundable, except where applicable law gives you a right to a refund. We may, at our discretion, grant a refund in exceptional circumstances, if you ask for it within 14 days of your most recent payment. Refunds are not available for accounts that have breached these Terms.\n\nIf you are unhappy with the Service, contact us at (support@optimasys.es) and explain the problem. We will look at your situation fairly.\n\nNothing in these Terms limits any mandatory consumer rights you may have under the law of the country where you live.",
       "s7t": "Your QR Codes and Content",

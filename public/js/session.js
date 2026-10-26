@@ -65,9 +65,15 @@ var Session = (function () {
       // Account gemaakt: eerst e-mail bevestigen
       body = '<span class="auth-mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>' +
         '<h1 id="authTitle">' + t('auth.checkTitle') + '</h1><p class="auth-lead">' + t('auth.checkLead', { email: '<b>' + esc(pendingEmail) + '</b>' }) + '</p>' + note +
+        '<p class="auth-wait"><span class="pw-spin sm" aria-hidden="true"></span>' + esc(t('auth.checkAuto')) + '</p><p class="auth-small">' + esc(t('auth.checkSpam')) + '</p>' +
         (api.isDemo() || pendingToken ? '<button type="button" class="btn primary auth-go" data-demo-verify>' + t('auth.demoVerify') + '</button>' : '') +
         '<button type="button" class="btn ghost auth-go" data-resend>' + t('auth.resend') + '</button>' +
         '<button type="button" class="link-btn auth-link" data-mode="login">← ' + t('auth.backToLogin') + '</button>';
+    } else if (mode === 'verified') {
+      // Link geopend op een ander apparaat (bv. telefoon): klaar; de computer gaat vanzelf verder
+      body = '<span class="auth-mail auth-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
+        '<h1 id="authTitle">' + t('auth.verifiedTitle') + '</h1><p class="auth-lead">' + esc(t('auth.verifiedLead')) + '</p>' + note +
+        '<button type="button" class="btn ghost auth-go" data-mode="login">' + esc(t('auth.continueHere')) + '</button>';
     } else if (mode === 'forgot') {
       body = '<h1 id="authTitle">' + t('auth.forgotTitle') + '</h1><p class="auth-lead">' + t('auth.forgotLead') + '</p>' + note +
         '<form class="auth-form" novalidate>' + field('email', 'email', t('auth.email'), 'email', email) + '<button class="btn primary auth-go" type="submit">' + t('auth.sendLink') + '</button></form>' +
@@ -88,7 +94,10 @@ var Session = (function () {
   }
   // Link uit de bevestigingsmail
   function verify(token) {
-    return api.auth.verify({ token: token }).then(function (r) { prefill = (r && r.email) || pendingEmail; flash = ['auth.verified', 'ok']; show('login'); })
+    return api.auth.verify({ token: token }).then(function (r) {
+      if (r && r.loggedIn && r.user) return enter(r.user);              // zelfde browser als waar het account gemaakt is: meteen binnen
+      prefill = (r && r.email) || pendingEmail; flash = null; show(api.isDemo() ? 'login' : 'verified');
+    })
       .catch(function () { flash = ['auth.errVerifyToken', 'bad']; show('login'); });
   }
   /** Vinkje: 18+ en akkoord met Terms en Privacy (Terms punt 1 en 3). Ook gebruikt door TermsGate. */
@@ -108,7 +117,16 @@ var Session = (function () {
     setTimeout(function () { document.body.classList.remove('booting'); }, wait);
   }
   setTimeout(ready, 4000);                                                // nooit eeuwig een leeg scherm
-  function show(m) { mode = m || 'login'; view.hidden = false; document.body.classList.add('auth-open'); ready(); draw(); }
+  function show(m) { mode = m || 'login'; view.hidden = false; document.body.classList.add('auth-open'); ready(); draw(); if (mode === 'check') watch(); }
+  // Scherm "check je e-mail": elke 3 seconden kijken of de link al is aangeklikt (ook op een ander apparaat); dan vanzelf inloggen
+  var watching = null;
+  function poll() {
+    if (mode !== 'check' || view.hidden) { clearInterval(watching); watching = null; return; }
+    if (document.hidden) return;
+    api.auth.pending().then(function (r) { if (r && r.state === 'in' && r.user && mode === 'check') { clearInterval(watching); watching = null; enter(r.user); } }).catch(function () {});
+  }
+  function watch() { if (!watching && !api.isDemo()) watching = setInterval(poll, 3000); }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && mode === 'check') poll(); });
   function hide() { view.hidden = true; document.body.classList.remove('auth-open'); }
   // Na inloggen: alles opnieuw laden met de nieuwe sessie (eigen codes, eigen achtergrond)
   function enter(u) {
@@ -148,13 +166,13 @@ var Session = (function () {
     var job = mode === 'twofa' && tfa && tfa.google ? api.auth.google2fa({ token: tfa.google, code: val('code') })
       : mode === 'twofa' ? api.auth.login({ email: tfa.email, password: tfa.password, code: val('code') })
       : mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
-      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang(), accept: accepted }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); return null; })
+      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang(), accept: accepted }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); watch(); return null; })
       : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
       : api.auth.reset({ token: resetToken, password: pw });
     job.then(function (u) { if (u) enter(u); }).catch(function (err) {
       if (err && err.code === '2fa_required' && mode === 'login') { tfa = { email: val('email'), password: pw }; mode = 'twofa'; draw(); var ci = card.querySelector('[name=code]'); if (ci) ci.focus(); return; }
       if (err && err.code === '2fa_wrong') { draw(t('tfa.errWrong')); var cb = card.querySelector('.auth-go'); if (cb) cb.disabled = false; var ci2 = card.querySelector('[name=code]'); if (ci2) { ci2.value = ''; ci2.focus(); } return; }
-      if (err && err.code === 'unverified') { pendingEmail = val('email'); pendingToken = null; mode = 'check'; flash = ['auth.errUnverified', 'bad']; return draw(); }
+      if (err && err.code === 'unverified') { pendingEmail = val('email'); pendingToken = null; mode = 'check'; flash = ['auth.errUnverified', 'bad']; draw(); return watch(); }
       draw(errorText(err)); var b = card.querySelector('.auth-go'); if (b) b.disabled = false; });
   });
   i18n.onChange(function () { if (!view.hidden) draw(); });
@@ -198,7 +216,13 @@ var Session = (function () {
       if (note) document.dispatchEvent(new CustomEvent('account:email-note', { detail: note }));
     }).catch(function () {
       if (note) flash = note.ok ? ['acct.emailChangedLogin', 'ok'] : [note.code === 'exists' ? 'acct.emailErrExists' : 'acct.emailErrToken', 'bad'];
-      show('login');
+      if (note) return show('login');
+      // Net een account gemaakt in deze browser (en pagina herladen)? Dan weer wachten op de bevestiging, of meteen binnen
+      return api.auth.pending().then(function (r) {
+        if (r && r.state === 'in' && r.user) return enter(r.user);
+        if (r && r.state === 'waiting') { pendingEmail = r.email; return show('check'); }
+        show('login');
+      }, function () { show('login'); });
     });
   });
   /** Waar je na het inloggen begint: normaal de standaard (Overzicht of Dashboard), na een link uit de mail Mijn account */

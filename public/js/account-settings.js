@@ -287,7 +287,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].filter(function (x) { return shown(x[0]); }).map(function (x) {
         var on = x[0] === tab;
         return '<button type="button" role="tab"' + (x[0] === 'delete' ? ' class="acct-tab-danger"' : '') + ' id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
-          (x[0] === 'billing' && billingLoaded && !billing && !user.admin ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
+          (x[0] === 'billing' && billingLoaded && !billing && !user.admin && !viaStripe() ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
       }).join('');
     }).join('') + '</div>' +
     '<span class="acct-menu-line" aria-hidden="true"></span>' +
@@ -433,8 +433,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     return planCurrent() +
       '<div class="glass bg-card acct bl-addr"><div><h2>' + t('acct.billingTo') + '</h2>' +
         (billing ? '<p class="acct-addr">' + addr + (billing.taxId ? '<br><span>' + t('acct.taxId') + ': ' + esc(billing.taxId) + '</span>' : '') + (billing.email ? '<br><span>' + esc(billing.email) + '</span>' : '') + '</p>'
-          : '<p class="bl-missing">' + SVG + ICON.warn + '</svg>' + t('acct.billingMissing') + '</p>') + '</div>' +
-        '<button type="button" class="btn ' + (billing ? 'ghost' : 'primary') + '" data-tab-go="billing">' + t(billing ? 'bill.edit' : 'acct.billingFill') + '</button></div>' +
+          : viaStripe() ? '<p class="acct-addr">' + esc(t('acct.billingAuto')) + '</p>' : '<p class="bl-missing">' + SVG + ICON.warn + '</svg>' + t('acct.billingMissing') + '</p>') + '</div>' +
+        '<button type="button" class="btn ' + (billing || viaStripe() ? 'ghost' : 'primary') + '" data-tab-go="billing">' + t(billing ? 'bill.edit' : 'acct.billingFill') + '</button></div>' +
       '<div class="glass bg-card acct"><div class="bl-head"><h2>' + t('acct.invoices') + '</h2>' + (planInfo && planInfo.portal ? '<button type="button" class="link-btn" data-portal>' + esc(t('bill.allInvoices')) + ' ↗</button>' : '') + '</div>' +
         '<div class="acct-table bl-table' + (invInfo && invInfo.demo ? ' nodl' : '') + '" role="table" aria-label="' + esc(t('acct.invoices')) + '"><div class="acct-tr acct-th bl-tr" role="row">' +
         ['acct.invDate', 'bill.desc', 'acct.invAmount', 'acct.invStatus'].concat(invInfo && invInfo.demo ? [] : ['bill.invoice']).map(function (k) { return '<span role="columnheader">' + t(k) + '</span>'; }).join('') + '</div>' +
@@ -493,13 +493,15 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     return '<div class="ar-actions"><button type="button" class="btn ghost" data-edit-cancel>' + t('myCodes.cancel') + '</button><button class="btn primary" type="submit">' + (label || t('acct.save')) + '</button></div>';
   }
   /** Voltooi je profiel: wat is er al, wat nog (klik = er meteen heen) */
+  // Met Stripe vult de betaling de factuurgegevens zelf in: dan niet zeuren dat ze ontbreken (wens Fabian 26 okt)
+  function viaStripe() { return !!(api.info && api.info().stripe); }
   function completeness() {
     var items = [
       ['photo', !!user.avatar, 'acct.cpPhoto', 'data-photo-pick', 'camera'],
       ['name', !!String(user.name || '').trim(), 'acct.cpName', 'data-edit="name"', 'person'],
       ['email', user.verified !== false, 'acct.cpEmail', '', 'mail'],
       ['tz', !!user.timezone, 'acct.cpTz', 'data-edit="tz"', 'clock'],
-      user.admin ? null : ['billing', !!billing, 'acct.cpBilling', 'data-tab-go="billing"', 'billing'],   // admin-accounts zijn gratis: geen factuur
+      user.admin || viaStripe() ? null : ['billing', !!billing, 'acct.cpBilling', 'data-tab-go="billing"', 'billing'],   // admin-accounts zijn gratis: geen factuur
       ['code', !!(sum && sum.codes), 'acct.cpCode', 'data-goto="create"', 'qr']
     ].filter(Boolean);
     var done = items.filter(function (x) { return x[1]; }).length, pct = Math.round(done / items.length * 100);

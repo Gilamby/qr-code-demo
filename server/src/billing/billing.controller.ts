@@ -10,6 +10,7 @@
    - Opgezegd (loopt nog tot het einde van de periode): bevestigingsmail.
    Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar).
    ========================================================= */
+import { validateBilling } from '../auth/billing';
 import { Body, Controller, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService } from '../database/database.service';
@@ -111,6 +112,8 @@ export class BillingController {
       const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
       const session = await stripe('POST', 'checkout/sessions', {
         mode: 'subscription', customer, client_reference_id: user.id, locale: 'auto', payment_method_collection: 'always',
+        // Factuurgegevens door Stripe laten vragen: adres alleen als het nodig is; bedrijven vinken "Ik koop als bedrijf" aan voor naam + btw-nummer
+        billing_address_collection: 'auto', tax_id_collection: { enabled: true }, customer_update: { name: 'auto', address: 'auto' },
         line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), product_data: { name: planName(planId) } } }, ...extraLines],
         subscription_data: { metadata: meta, trial_period_days: first && plan.trialDays ? plan.trialDays : undefined },
         discounts: coupon ? [{ coupon }] : undefined,
@@ -157,10 +160,25 @@ export class BillingController {
       if (old && old !== o.subscription) await stripe('DELETE', 'subscriptions/' + old, { prorate: true }).catch((e) => console.error('Oud abonnement stoppen mislukt:', e.message));
       await this.apply(await stripe('GET', 'subscriptions/' + o.subscription));
       await this.db.addActivity(uid, old ? 'plan_changed' : 'plan_chosen', {} as any).catch(() => {});
+      await this.fillBilling(uid, o.customer_details).catch((e) => console.error('Factuurgegevens overnemen mislukt:', e.message));
     } else if (/^customer\.subscription\.(created|updated|deleted)$/.test(ev.type)) {
       await this.apply(o);
     }
     return { ok: true };
+  }
+
+  /** Factuurgegevens nog leeg? Dan overnemen wat de klant bij Stripe invulde (naam, adres, bedrijfsnaam, btw-nummer).
+   *  Zo hoeft niemand na het betalen nog iets in te vullen. Onvolledig (bv. alleen een kaart zonder adres): niets opslaan. */
+  async fillBilling(uid: string, d: any) {
+    if (!d || await this.db.getBilling(uid)) return;
+    const a = d.address || {}, tax = (d.tax_ids || [])[0], biz = d.business_name || (tax ? d.name : '');
+    const parts = String(d.individual_name || (biz ? '' : d.name) || '').trim().split(/\s+/);
+    const { value } = validateBilling({
+      type: biz ? 'company' : 'private', companyName: biz, taxId: tax && tax.value,
+      firstName: parts[0] || '', lastName: parts.slice(1).join(' '),
+      address: [a.line1, a.line2].filter(Boolean).join(', '), postalCode: a.postal_code, city: a.city, country: a.country,
+    });
+    if (value) await this.db.setBilling(uid, value);
   }
 
   /** Stand van een Stripe-abonnement overnemen in de app (pakket, periode, tot wanneer betaald) */
@@ -170,6 +188,11 @@ export class BillingController {
     const rec = await readRecord(this.db, uid);
     if (rec.subscription && rec.subscription !== s.id) return;               // een oud (vervangen) abonnement: niets doen
     if (!rec.subscription) { rec.subscription = s.id; rec.customer = s.customer || rec.customer; }
+    // Opgezegd in de gratis proefperiode: meteen stoppen (er is niets betaald). Betaald abonnement: loopt door tot het einde van de periode.
+    const trialCancel = s.status === 'trialing' && !!(s.cancel_at_period_end || s.cancel_at);
+    if (trialCancel) {
+      try { s = await stripe('DELETE', 'subscriptions/' + s.id, {}); } catch (e) { console.error('Proef stoppen mislukt:', (e as Error).message); }
+    }
     const cur: Sub = (await subFor(this.db, uid)) || emptySub(), now = Date.now();
     // Nieuwere Stripe-versies zetten current_period_end per regel (items) in plaats van op het abonnement: beide lezen
     const pe = s.current_period_end || Math.max(0, ...(((s.items && s.items.data) || []).map((i: any) => Number(i.current_period_end) || 0)));
@@ -189,9 +212,10 @@ export class BillingController {
     await saveSub(this.db, uid, { ...cur, interval: toInterval(s.metadata.period), periodEnd: new Date(periodEnd).toISOString(), mustPay: false,
       ...(paid ? { graceUntil: null, notified: [], deletedAt: null } : {}) });
     // Opgezegd (loopt nog tot het einde van de periode): één keer een bevestigingsmail
-    if (s.cancel_at_period_end && s.status !== 'canceled' && rec.cancelMailed !== s.id) {
+    const trialStopped = s.status === 'canceled' && (trialCancel || rec.status === 'trialing');      // proef opgezegd: meteen gestopt, ook dan één bevestiging
+    if ((trialStopped || (s.cancel_at_period_end && s.status !== 'canceled')) && rec.cancelMailed !== s.id) {
       rec.cancelMailed = s.id;
-      this.mailer.sendCancelled(user, periodEnd).catch((e) => console.error('Mail opzeggen mislukt:', e.message));
+      this.mailer.sendCancelled(user, periodEnd, trialStopped).catch((e) => console.error('Mail opzeggen mislukt:', e.message));
     }
     if (!s.cancel_at_period_end && rec.cancelMailed === s.id) rec.cancelMailed = null;   // toch weer doorgaan
     rec.status = s.status; rec.cancelAtEnd = !!s.cancel_at_period_end;                  // voor 'Abonnement en facturen': proefperiode / opgezegd
