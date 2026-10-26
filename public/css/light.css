@@ -539,6 +539,9 @@
 :root[data-theme="light"] .cd-cl:hover .cd-cl-dot { fill: #0284c7; }
 :root[data-theme="light"] .pw-seg { border: 1px solid var(--line, rgba(13,19,32,0.09)); }
 :root[data-theme="light"] .paywall .pw-co-f.bad > span { color: #dc2626; }
+:root[data-theme="light"] .pw-promo-msg.bad { color: #dc2626; }
+:root[data-theme="light"] .pw-promo-msg.ok { color: #15803d; }
+:root[data-theme="light"] .paywall .pw-promo-row input { border: 1px solid var(--line, rgba(13,19,32,0.108)); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

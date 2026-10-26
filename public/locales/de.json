@@ -755,7 +755,11 @@
     "b_inclVat": "inkl. MwSt.",
     "b_exclVat": "zzgl. MwSt.",
     "b_reverse": "Steuerschuldnerschaft des Leistungsempfängers",
-    "b_buyerErr": "Bitte prüfe die rot markierten Felder."
+    "b_buyerErr": "Bitte prüfe die rot markierten Felder.",
+    "promoCode": "Rabattcode",
+    "promoApply": "Anwenden",
+    "promoBad": "Dieser Code ist ungültig.",
+    "promoOk": "Rabatt angewendet."
   },
   "dz": {
     "lbl": {
@@ -1563,7 +1567,9 @@
     "remindEndSubject": "Dein QR-Codex-Abo endet bald",
     "remindEndText": "Dein Abo endet am {date}. Danach funktionieren deine QR-Codes nicht mehr. Möchtest du sie behalten? Setze dein Abo unter Mein Konto fort.",
     "remindTrialSubject": "Deine kostenlose Testphase endet bald",
-    "remindTrialText": "Deine kostenlose Testphase endet am {date}. Dann wird deine erste Zahlung von {amount} automatisch abgebucht. Möchtest du nicht weitermachen? Kündige vorher unter Mein Konto."
+    "remindTrialText": "Deine kostenlose Testphase endet am {date}. Dann wird deine erste Zahlung von {amount} automatisch abgebucht. Möchtest du nicht weitermachen? Kündige vorher unter Mein Konto.",
+    "remindRenewSubject": "Dein QR-Codex-Abo verlängert sich bald",
+    "remindRenewText": "Dein Abo verlängert sich am {date} für {amount}. Du musst nichts tun: alles läuft weiter. Möchtest du etwas ändern oder kündigen? Geh vorher zu Mein Konto."
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2735,7 +2741,14 @@
     "pmLead": "Die neue Zahlungsmethode wird für deine nächsten Zahlungen verwendet.",
     "pmSave": "Zahlungsmethode speichern",
     "pmDone": "Deine Zahlungsmethode wurde aktualisiert.",
-    "pmSepa": "SEPA-Lastschrift"
+    "pmSepa": "SEPA-Lastschrift",
+    "why": "Warum kündigst du? (optional)",
+    "r_too_expensive": "Zu teuer",
+    "r_missing_features": "Funktionen fehlen",
+    "r_switched_service": "Ich wechsle zu einem anderen Dienst",
+    "r_unused": "Ich nutze es zu wenig",
+    "r_too_complex": "Zu kompliziert",
+    "r_other": "Anderer Grund"
   },
   "bulk": {
     "button": "Mehrere auf einmal",

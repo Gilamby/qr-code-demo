@@ -127,6 +127,7 @@ export class BillingController {
         automatic_tax: tax ? { enabled: true } : undefined,
         subscription_data: { metadata: meta, trial_period_days: first && plan.trialDays ? plan.trialDays : undefined },
         discounts: coupon ? [{ coupon }] : undefined,
+        allow_promotion_codes: coupon ? undefined : true,                 // kortingscode invullen (niet samen met de actie voor nieuwe klanten)
         metadata: meta,
       };
       // Betalen in de app zelf (eigen ontwerp, velden van Stripe). Lukt dat niet, dan gewoon de betaalpagina van Stripe.
@@ -163,12 +164,15 @@ export class BillingController {
   @Post('cancel')
   @UseGuards(LoggedIn)
   @HttpCode(200)
-  async cancel(@Req() req: Request, @CurrentUser() user: User) {
+  async cancel(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
     if ((req as any).member) throw fail(403, 'team');
     if (this.auth.limited('subchange:' + user.id, 20, 60)) throw fail(429, 'too_many');
     try {
       const { sub } = await this.mySub(user);
-      const next = sub.status === 'trialing' ? await stripe('DELETE', 'subscriptions/' + sub.id, {}) : await stripe('POST', 'subscriptions/' + sub.id, { cancel_at_period_end: true });
+      // Reden van opzeggen (optioneel): bij Stripe bewaard, zo zie je waarom klanten stoppen
+      const REASONS = ['too_expensive', 'missing_features', 'switched_service', 'unused', 'too_complex', 'other'];
+      const why = REASONS.includes(b.reason) ? { feedback: b.reason, comment: String(b.comment || '').slice(0, 500) || undefined } : undefined;
+      const next = sub.status === 'trialing' ? await stripe('DELETE', 'subscriptions/' + sub.id, { cancellation_details: why }) : await stripe('POST', 'subscriptions/' + sub.id, { cancel_at_period_end: true, cancellation_details: why });
       await this.apply(sub.status === 'trialing' ? { ...next, metadata: next.metadata || sub.metadata } : next);
       return { ok: true, ended: next.status === 'canceled' };
     } catch (e: any) { if (e && e.getStatus) throw e; console.error('Opzeggen mislukt:', e.message); throw fail(502, 'stripe'); }
@@ -277,7 +281,7 @@ export class BillingController {
       rec.customer = o.customer || rec.customer; rec.subscription = o.subscription; rec.cancelMailed = null;
       await writeRecord(this.db, uid, rec);
       // Gewisseld van pakket of periode: het oude abonnement stopt meteen, het restbedrag wordt verrekend
-      if (old && old !== o.subscription) await stripe('DELETE', 'subscriptions/' + old, { prorate: true }).catch((e) => console.error('Oud abonnement stoppen mislukt:', e.message));
+      if (old && old !== o.subscription) await stripe('DELETE', 'subscriptions/' + old, { prorate: true, invoice_now: true }).catch((e) => console.error('Oud abonnement stoppen mislukt:', e.message));
       await this.apply(await stripe('GET', 'subscriptions/' + o.subscription));
       await this.db.addActivity(uid, old ? 'plan_changed' : 'plan_chosen', {} as any).catch(() => {});
       await this.fillBilling(uid, o.customer_details).catch((e) => console.error('Factuurgegevens overnemen mislukt:', e.message));

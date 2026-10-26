@@ -755,7 +755,11 @@
     "b_inclVat": "s DPH",
     "b_exclVat": "bez DPH",
     "b_reverse": "Prenesenie daňovej povinnosti",
-    "b_buyerErr": "Skontrolujte polia označené červenou."
+    "b_buyerErr": "Skontrolujte polia označené červenou.",
+    "promoCode": "Zľavový kód",
+    "promoApply": "Použiť",
+    "promoBad": "Tento kód nie je platný.",
+    "promoOk": "Zľava uplatnená."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "Vaše predplatné QR-Codex čoskoro končí",
     "remindEndText": "Vaše predplatné končí {date}. Potom QR kódy prestanú fungovať. Chcete si ich ponechať? Pokračujte v predplatnom v časti Môj účet.",
     "remindTrialSubject": "Vaše bezplatné skúšobné obdobie čoskoro končí",
-    "remindTrialText": "Vaše bezplatné skúšobné obdobie končí {date}. Vtedy sa automaticky strhne prvá platba vo výške {amount}. Nechcete pokračovať? Zrušte ho predtým v časti Môj účet."
+    "remindTrialText": "Vaše bezplatné skúšobné obdobie končí {date}. Vtedy sa automaticky strhne prvá platba vo výške {amount}. Nechcete pokračovať? Zrušte ho predtým v časti Môj účet.",
+    "remindRenewSubject": "Vaše predplatné QR-Codex sa čoskoro obnoví",
+    "remindRenewText": "Vaše predplatné sa obnoví {date} za {amount}. Nemusíte nič robiť: všetko funguje ďalej. Chcete niečo zmeniť alebo zrušiť? Prejdite pred týmto dátumom do časti Môj účet."
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Nový spôsob platby sa použije pri ďalších platbách.",
     "pmSave": "Uložiť spôsob platby",
     "pmDone": "Spôsob platby bol aktualizovaný.",
-    "pmSepa": "Inkaso SEPA"
+    "pmSepa": "Inkaso SEPA",
+    "why": "Prečo rušíte? (voliteľné)",
+    "r_too_expensive": "Príliš drahé",
+    "r_missing_features": "Chýbajú funkcie",
+    "r_switched_service": "Prechádzam na inú službu",
+    "r_unused": "Málo to používam",
+    "r_too_complex": "Príliš zložité",
+    "r_other": "Iný dôvod"
   },
   "bulk": {
     "button": "Viac naraz",

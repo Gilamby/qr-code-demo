@@ -755,7 +755,11 @@
     "b_inclVat": "incl. VAT",
     "b_exclVat": "excl. VAT",
     "b_reverse": "VAT reverse-charged",
-    "b_buyerErr": "Please check the fields marked in red."
+    "b_buyerErr": "Please check the fields marked in red.",
+    "promoCode": "Discount code",
+    "promoApply": "Apply",
+    "promoBad": "This code is not valid.",
+    "promoOk": "Discount applied."
   },
   "dz": {
     "lbl": {
@@ -1567,7 +1571,9 @@
     "remindEndSubject": "Your QR-Codex subscription ends soon",
     "remindEndText": "Your subscription ends on {date}. After that your QR codes stop working. Want to keep them? Continue your subscription in My Account.",
     "remindTrialSubject": "Your free trial ends soon",
-    "remindTrialText": "Your free trial ends on {date}. Then your first payment of {amount} is charged automatically. Don't want to continue? Cancel in My Account before then."
+    "remindTrialText": "Your free trial ends on {date}. Then your first payment of {amount} is charged automatically. Don't want to continue? Cancel in My Account before then.",
+    "remindRenewSubject": "Your QR-Codex subscription renews soon",
+    "remindRenewText": "Your subscription renews on {date} for {amount}. Nothing to do: you keep everything. Want to change or cancel? Go to My Account before then."
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2774,7 +2780,14 @@
     "pmLead": "The new payment method will be used for your next payments.",
     "pmSave": "Save payment method",
     "pmDone": "Your payment method has been updated.",
-    "pmSepa": "SEPA Direct Debit"
+    "pmSepa": "SEPA Direct Debit",
+    "why": "Why are you cancelling? (optional)",
+    "r_too_expensive": "Too expensive",
+    "r_missing_features": "Missing features",
+    "r_switched_service": "Switching to another service",
+    "r_unused": "I don't use it enough",
+    "r_too_complex": "Too complicated",
+    "r_other": "Other reason"
   },
   "bulk": {
     "button": "Several at once",

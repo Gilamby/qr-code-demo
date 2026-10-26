@@ -331,7 +331,7 @@ var api = (function () {
       checkoutDemo: function (d) { return request('POST', 'api/account/checkout-demo', d); },
       terms: function () { return request('GET', 'api/account/terms'); },
       stripeCheckout: function (d) { return request('POST', 'api/billing/checkout', d); },
-      cancelSub: function () { return request('POST', 'api/billing/cancel', {}); },
+      cancelSub: function (d) { return request('POST', 'api/billing/cancel', d || {}); },
       resumeSub: function () { return request('POST', 'api/billing/resume', {}); },
       payMethod: function () { return request('GET', 'api/billing/method'); },
       newPayMethod: function () { return request('POST', 'api/billing/method', {}); },

@@ -755,7 +755,11 @@
     "b_inclVat": "IVA incl.",
     "b_exclVat": "IVA excl.",
     "b_reverse": "Inversió del subjecte passiu",
-    "b_buyerErr": "Revisa els camps marcats en vermell."
+    "b_buyerErr": "Revisa els camps marcats en vermell.",
+    "promoCode": "Codi de descompte",
+    "promoApply": "Aplica",
+    "promoBad": "Aquest codi no és vàlid.",
+    "promoOk": "Descompte aplicat."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "La subscripció a QR-Codex acaba aviat",
     "remindEndText": "La subscripció acaba el {date}. Després els codis QR deixaran de funcionar. Els vols conservar? Continua la subscripció a El meu compte.",
     "remindTrialSubject": "La prova gratuïta acaba aviat",
-    "remindTrialText": "La prova gratuïta acaba el {date}. Aleshores es cobrarà automàticament el primer pagament de {amount}. No vols continuar? Cancel·la abans a El meu compte."
+    "remindTrialText": "La prova gratuïta acaba el {date}. Aleshores es cobrarà automàticament el primer pagament de {amount}. No vols continuar? Cancel·la abans a El meu compte.",
+    "remindRenewSubject": "La subscripció a QR-Codex es renova aviat",
+    "remindRenewText": "La subscripció es renova el {date} per {amount}. No cal fer res: tot continua funcionant. Vols canviar o cancel·lar? Ves a El meu compte abans d'aquesta data."
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2729,7 +2735,14 @@
     "pmLead": "El nou mètode de pagament s'utilitzarà per als propers pagaments.",
     "pmSave": "Desar el mètode de pagament",
     "pmDone": "El mètode de pagament s'ha actualitzat.",
-    "pmSepa": "Domiciliació SEPA"
+    "pmSepa": "Domiciliació SEPA",
+    "why": "Per què cancel·les? (opcional)",
+    "r_too_expensive": "Massa car",
+    "r_missing_features": "Falten funcions",
+    "r_switched_service": "Canvio a un altre servei",
+    "r_unused": "No ho faig servir prou",
+    "r_too_complex": "Massa complicat",
+    "r_other": "Un altre motiu"
   },
   "bulk": {
     "button": "Diversos alhora",

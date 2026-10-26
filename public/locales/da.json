@@ -755,7 +755,11 @@
     "b_inclVat": "inkl. moms",
     "b_exclVat": "ekskl. moms",
     "b_reverse": "Omvendt betalingspligt",
-    "b_buyerErr": "Tjek felterne markeret med rødt."
+    "b_buyerErr": "Tjek felterne markeret med rødt.",
+    "promoCode": "Rabatkode",
+    "promoApply": "Anvend",
+    "promoBad": "Denne kode er ikke gyldig.",
+    "promoOk": "Rabat anvendt."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "Dit QR-Codex-abonnement slutter snart",
     "remindEndText": "Dit abonnement slutter den {date}. Derefter holder dine QR-koder op med at virke. Vil du beholde dem? Fortsæt dit abonnement under Min konto.",
     "remindTrialSubject": "Din gratis prøveperiode slutter snart",
-    "remindTrialText": "Din gratis prøveperiode slutter den {date}. Så trækkes din første betaling på {amount} automatisk. Vil du ikke fortsætte? Opsig inden da under Min konto."
+    "remindTrialText": "Din gratis prøveperiode slutter den {date}. Så trækkes din første betaling på {amount} automatisk. Vil du ikke fortsætte? Opsig inden da under Min konto.",
+    "remindRenewSubject": "Dit QR-Codex-abonnement fornyes snart",
+    "remindRenewText": "Dit abonnement fornyes den {date} for {amount}. Du skal ikke gøre noget: alt fortsætter. Vil du ændre eller opsige? Gå til Min konto inden da."
   },
   "contact": {
     "lead": "Et spørgsmål, et problem eller en idé? Send os en besked.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Den nye betalingsmetode bruges til dine næste betalinger.",
     "pmSave": "Gem betalingsmetode",
     "pmDone": "Din betalingsmetode er opdateret.",
-    "pmSepa": "SEPA-direkte debitering"
+    "pmSepa": "SEPA-direkte debitering",
+    "why": "Hvorfor opsiger du? (valgfrit)",
+    "r_too_expensive": "For dyrt",
+    "r_missing_features": "Mangler funktioner",
+    "r_switched_service": "Jeg skifter til en anden tjeneste",
+    "r_unused": "Jeg bruger det for lidt",
+    "r_too_complex": "For kompliceret",
+    "r_other": "Anden grund"
   },
   "bulk": {
     "button": "Flere på én gang",

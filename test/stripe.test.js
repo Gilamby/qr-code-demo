@@ -94,6 +94,7 @@ test('Stripe: afrekenen, webhook, opzeggen, mislukte betaling, wisselen', async 
   assert.equal(cs.get('subscription_data[trial_period_days]'), '14');
   assert.equal(cs.get('line_items[0][price_data][unit_amount]'), '15588', 'gewone jaarprijs Pro');
   assert.equal(cs.get('line_items[0][price_data][recurring][interval]'), 'year');
+  assert.equal(cs.get('allow_promotion_codes'), null, 'met coupon geen kortingscodeveld (Stripe staat niet beide toe)');
   assert.ok(cs.get('discounts[0][coupon]'), 'nieuwe klant: eerste jaar 2 maanden gratis (coupon, één keer)');
   assert.equal(cs.get('payment_method_collection'), 'always', 'kaart vooraf');
 
@@ -146,7 +147,8 @@ test('Stripe: afrekenen, webhook, opzeggen, mislukte betaling, wisselen', async 
   assert.equal(cs2.get('line_items[1][quantity]'), null, 'Business is onbeperkt: geen losse codes mee');
   subs.sub_2 = { id: 'sub_2', customer: 'cus_1', status: 'active', current_period_end: sec(Date.now() + 90 * day), cancel_at_period_end: false, metadata: { uid: u.id, plan: 'business', period: 'quarter' } };
   await hook({ type: 'checkout.session.completed', data: { object: { mode: 'subscription', subscription: 'sub_2', customer: 'cus_1', client_reference_id: u.id } } });
-  assert.ok(calls.some((x) => x.method === 'DELETE' && x.path === 'subscriptions/sub_1'), 'oude abonnement gestopt');
+  const del = calls.filter((x) => x.method === 'DELETE' && x.path === 'subscriptions/sub_1').pop();
+  assert.ok(del, 'oude abonnement gestopt'); assert.equal(del.body.get('prorate'), 'true'); assert.equal(del.body.get('invoice_now'), 'true', 'tegoed meteen verrekend');
   plan = (await c('GET', '/api/account/plan')).json;
   assert.equal(plan.plan.id, 'business'); assert.equal(plan.sub.interval, 'quarter');
   // Melding over het oude (gestopte) abonnement verandert niets meer
@@ -171,7 +173,9 @@ test('Stripe: nieuwe klant per maand krijgt na de proef de eerste maand de actie
   assert.ok(cs.get('discounts[0][coupon]'), 'korting eerste maand');
   assert.equal(co.get('amount_off'), '800'); assert.equal(co.get('duration'), 'repeating'); assert.equal(co.get('duration_in_months'), '1');
   assert.equal((await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'quarter' })).status, 200);
-  assert.equal(calls.filter((x) => x.path === 'checkout/sessions').pop().body.get('discounts[0][coupon]'), null, 'per kwartaal: geen eerste-maand-korting');
+  const q = calls.filter((x) => x.path === 'checkout/sessions').pop().body;
+  assert.equal(q.get('discounts[0][coupon]'), null, 'per kwartaal: geen eerste-maand-korting');
+  assert.equal(q.get('allow_promotion_codes'), 'true', 'zonder coupon: kortingscode mogelijk');
 });
 
 test('betalen in de app: Checkout Session met ui_mode elements (alleen met openbare sleutel)', async () => {
@@ -215,8 +219,10 @@ test('abonnement beheren in de app: betaalmethode, opzeggen (proef = meteen, bet
   assert.equal((await c('POST', '/api/billing/method/done', { session: 'x" or 1' })).status, 400);
   // Opzeggen betaald: loopt door tot het einde
   const n = cancelled.length;
-  assert.equal((await c('POST', '/api/billing/cancel')).json.ended, false);
+  assert.equal((await c('POST', '/api/billing/cancel', { reason: 'too_expensive', comment: 'Te duur voor ons' })).json.ended, false);
   assert.equal(subs.sub_b.cancel_at_period_end, true);
+  const cx = calls.filter((x) => x.path === 'subscriptions/sub_b' && x.method === 'POST').pop().body;
+  assert.equal(cx.get('cancellation_details[feedback]'), 'too_expensive'); assert.equal(cx.get('cancellation_details[comment]'), 'Te duur voor ons');
   let plan = (await c('GET', '/api/account/plan')).json;
   assert.equal(plan.sub.state, 'active'); assert.equal(plan.billing.cancelAtEnd, true);
   assert.equal(cancelled.length, n + 1, 'bevestigingsmail');
@@ -254,6 +260,15 @@ test('herinnering 3 dagen vooraf: opgezegd abonnement en einde proef (één keer
   await saveSub(db, u.id, { ...emptySub(), interval: 'month', periodEnd: new Date(Date.now() + 10 * 864e5).toISOString() });
   await db.setSetting('remind:' + u.id, null); await hk.reminders();
   assert.equal(sent.filter((x) => x.email === 'herinner@example.com').length, 2);
+  // Jaarabonnement: 7 dagen vooraf herinnering verlenging (maand niet)
+  await saveSub(db, u.id, { ...emptySub(), interval: 'year', periodEnd: new Date(Date.now() + 6 * 864e5).toISOString() });
+  await db.setSetting('stripe:' + u.id, JSON.stringify({ customer: 'cus_h', subscription: 'sub_h', status: 'active' }));
+  await db.setSetting('remind:' + u.id, null); await hk.reminders(); await hk.reminders();
+  mine = sent.filter((x) => x.email === 'herinner@example.com');
+  assert.equal(mine.length, 3, 'één keer'); assert.equal(mine[2].kind, 'renew'); assert.ok(mine[2].amount > 0);
+  await saveSub(db, u.id, { ...emptySub(), interval: 'month', periodEnd: new Date(Date.now() + 6 * 864e5).toISOString() });
+  await db.setSetting('remind:' + u.id, null); await hk.reminders();
+  assert.equal(sent.filter((x) => x.email === 'herinner@example.com').length, 3, 'per maand geen verlengherinnering');
 });
 
 test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Stripe Tax aan', async () => {

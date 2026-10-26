@@ -755,7 +755,11 @@
     "b_inclVat": "ar PVN",
     "b_exclVat": "bez PVN",
     "b_reverse": "PVN apgrieztā maksāšana",
-    "b_buyerErr": "Pārbaudiet sarkanā krāsā iezīmētos laukus."
+    "b_buyerErr": "Pārbaudiet sarkanā krāsā iezīmētos laukus.",
+    "promoCode": "Atlaides kods",
+    "promoApply": "Piemērot",
+    "promoBad": "Šis kods nav derīgs.",
+    "promoOk": "Atlaide piemērota."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "Jūsu QR-Codex abonements drīz beigsies",
     "remindEndText": "Jūsu abonements beidzas {date}. Pēc tam QR kodi pārstās darboties. Vēlaties tos paturēt? Turpiniet abonementu sadaļā Mans konts.",
     "remindTrialSubject": "Jūsu bezmaksas izmēģinājums drīz beigsies",
-    "remindTrialText": "Jūsu bezmaksas izmēģinājums beidzas {date}. Tad automātiski tiks iekasēts pirmais maksājums {amount}. Nevēlaties turpināt? Atceliet to iepriekš sadaļā Mans konts."
+    "remindTrialText": "Jūsu bezmaksas izmēģinājums beidzas {date}. Tad automātiski tiks iekasēts pirmais maksājums {amount}. Nevēlaties turpināt? Atceliet to iepriekš sadaļā Mans konts.",
+    "remindRenewSubject": "Jūsu QR-Codex abonements drīz tiks atjaunots",
+    "remindRenewText": "Jūsu abonements tiks atjaunots {date} par {amount}. Jums nekas nav jādara: viss turpina darboties. Vēlaties mainīt vai atcelt? Pirms šī datuma atveriet sadaļu Mans konts."
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Jaunais maksājuma veids tiks izmantots nākamajiem maksājumiem.",
     "pmSave": "Saglabāt maksājuma veidu",
     "pmDone": "Maksājuma veids ir atjaunināts.",
-    "pmSepa": "SEPA tiešais debets"
+    "pmSepa": "SEPA tiešais debets",
+    "why": "Kāpēc atceļat? (neobligāti)",
+    "r_too_expensive": "Pārāk dārgi",
+    "r_missing_features": "Trūkst funkciju",
+    "r_switched_service": "Pāreju uz citu pakalpojumu",
+    "r_unused": "Pārāk maz izmantoju",
+    "r_too_complex": "Pārāk sarežģīti",
+    "r_other": "Cits iemesls"
   },
   "bulk": {
     "button": "Vairāki reizē",

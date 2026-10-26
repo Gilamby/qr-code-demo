@@ -755,7 +755,11 @@
     "b_inclVat": "incl. btw",
     "b_exclVat": "excl. btw",
     "b_reverse": "Btw verlegd",
-    "b_buyerErr": "Controleer de rood gemarkeerde velden."
+    "b_buyerErr": "Controleer de rood gemarkeerde velden.",
+    "promoCode": "Kortingscode",
+    "promoApply": "Toepassen",
+    "promoBad": "Deze code is niet geldig.",
+    "promoOk": "Korting toegepast."
   },
   "dz": {
     "lbl": {
@@ -1567,7 +1571,9 @@
     "remindEndSubject": "Je QR-Codex-abonnement stopt binnenkort",
     "remindEndText": "Je abonnement stopt op {date}. Daarna werken je QR-codes niet meer. Wil je ze houden? Zet je abonnement voort in Mijn account.",
     "remindTrialSubject": "Je gratis proefperiode stopt binnenkort",
-    "remindTrialText": "Je gratis proefperiode stopt op {date}. Dan wordt je eerste betaling van {amount} automatisch afgeschreven. Wil je niet verder? Zeg vóór die datum op in Mijn account."
+    "remindTrialText": "Je gratis proefperiode stopt op {date}. Dan wordt je eerste betaling van {amount} automatisch afgeschreven. Wil je niet verder? Zeg vóór die datum op in Mijn account.",
+    "remindRenewSubject": "Je QR-Codex-abonnement wordt binnenkort verlengd",
+    "remindRenewText": "Je abonnement wordt op {date} verlengd voor {amount}. Je hoeft niets te doen: alles blijft werken. Wil je iets veranderen of opzeggen? Ga vóór die datum naar Mijn account."
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2774,7 +2780,14 @@
     "pmLead": "De nieuwe betaalmethode wordt gebruikt voor je volgende betalingen.",
     "pmSave": "Betaalmethode opslaan",
     "pmDone": "Je betaalmethode is bijgewerkt.",
-    "pmSepa": "SEPA-incasso"
+    "pmSepa": "SEPA-incasso",
+    "why": "Waarom zeg je op? (optioneel)",
+    "r_too_expensive": "Te duur",
+    "r_missing_features": "Mist functies",
+    "r_switched_service": "Ik stap over naar een andere dienst",
+    "r_unused": "Ik gebruik het te weinig",
+    "r_too_complex": "Te ingewikkeld",
+    "r_other": "Andere reden"
   },
   "bulk": {
     "button": "Meerdere tegelijk",

@@ -148,7 +148,8 @@ var Plans = (function () {
         (inApp() && !sBuyer
           ? buyerForm()
           : inApp()
-          ? buyerLine() + '<div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div id="pwPe" class="pw-pe"><span class="pw-spin sm" aria-hidden="true"></span></div></div><p class="acct-msg bad" id="pwErr" role="alert" hidden></p>'
+          ? buyerLine() + '<div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div id="pwPe" class="pw-pe"><span class="pw-spin sm" aria-hidden="true"></span></div></div><p class="acct-msg bad" id="pwErr" role="alert" hidden></p>' +
+            (trial && mode === 'must' ? '' : '<details class="pw-promo"' + (sPromo ? ' open' : '') + '><summary>' + esc(t('pw.promoCode')) + '</summary><div class="pw-promo-row"><input data-pw-promo maxlength="40" spellcheck="false" autocomplete="off" value="' + esc(sPromo || '') + '"><button type="button" class="btn ghost sm" data-pw-promo-go>' + esc(t('pw.promoApply')) + '</button></div><p class="pw-promo-msg" role="status"></p></details>')
           : '<div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div class="pw-co-methods" role="radiogroup" aria-label="' + esc(t('pw.method')) + '">' +
         ['paypal', 'ideal', 'bancontact', 'card'].map(function (m) {
           var on = m === method;
@@ -186,7 +187,7 @@ var Plans = (function () {
      Na betalen stuurt Stripe terug naar /?checkout=success en verwerkt de webhook het abonnement (zelfde als hiervoor). */
   var sJs = null, sCo = null, sPe = null, sKey = '', sReady = false;
   /* Bedrijf of particulier (voor de btw). Eerst invullen, dan pas de betaalvelden. Ingevuld blijft onthouden in deze sessie. */
-  var sBuyer = null, bDraft = null, bBad = [];
+  var sBuyer = null, bDraft = null, bBad = [], sPromo = '';
   var EU = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
   function draftBuyer() {
     if (bDraft) return bDraft;
@@ -374,6 +375,13 @@ var Plans = (function () {
     if (e.target.closest('[data-pw-close]')) return close();
     var bt = e.target.closest('[data-pw-btype]'); if (bt) { draftBuyer().type = bt.getAttribute('data-pw-btype'); bBad = []; return draw(); }
     if (e.target.closest('[data-pw-bgo]')) { bBad = checkBuyer(); if (bBad.length) return draw(); var d0 = draftBuyer(); sBuyer = { type: d0.type, country: d0.country, companyName: d0.type === 'company' ? d0.companyName.trim() : '', vat: d0.type === 'company' ? d0.vat : '', address: (d0.address || '').trim(), postalCode: (d0.postalCode || '').trim(), city: (d0.city || '').trim() }; return draw(); }
+    if (e.target.closest('[data-pw-promo-go]') && sCo) {
+      var pin = box.querySelector('[data-pw-promo]'), msg = box.querySelector('.pw-promo-msg'), code = pin ? pin.value.trim() : ''; if (!code) return;
+      Promise.resolve(sCo.applyPromotionCode ? sCo.applyPromotionCode(code) : sCo.loadActions().then(function (r) { return r.actions.applyPromotionCode(code); })).then(function (r) {
+        var bad = r && r.type === 'error'; sPromo = bad ? '' : code; if (msg) { msg.textContent = t(bad ? 'pw.promoBad' : 'pw.promoOk'); msg.className = 'pw-promo-msg ' + (bad ? 'bad' : 'ok'); }
+      }).catch(function () { if (msg) { msg.textContent = t('pw.promoBad'); msg.className = 'pw-promo-msg bad'; } });
+      return;
+    }
     if (e.target.closest('[data-pw-bedit]')) { stripeReset(); sBuyer = null; return draw(); }
     if (e.target.closest('[data-pw-back]')) { stripeReset(); busy = false; step = 'choose'; return draw(); }
     if (e.target.closest('[data-pw-enter]')) { location.replace(location.pathname); return; }

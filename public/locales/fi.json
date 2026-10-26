@@ -755,7 +755,11 @@
     "b_inclVat": "sis. ALV",
     "b_exclVat": "ilman ALV:tä",
     "b_reverse": "Käännetty verovelvollisuus",
-    "b_buyerErr": "Tarkista punaisella merkityt kentät."
+    "b_buyerErr": "Tarkista punaisella merkityt kentät.",
+    "promoCode": "Alennuskoodi",
+    "promoApply": "Käytä",
+    "promoBad": "Koodi ei ole voimassa.",
+    "promoOk": "Alennus lisätty."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "QR-Codex-tilauksesi päättyy pian",
     "remindEndText": "Tilauksesi päättyy {date}. Sen jälkeen QR-koodisi lakkaavat toimimasta. Haluatko pitää ne? Jatka tilausta kohdassa Oma tili.",
     "remindTrialSubject": "Ilmainen kokeilusi päättyy pian",
-    "remindTrialText": "Ilmainen kokeilusi päättyy {date}. Silloin ensimmäinen maksusi {amount} veloitetaan automaattisesti. Etkö halua jatkaa? Peruuta sitä ennen kohdassa Oma tili."
+    "remindTrialText": "Ilmainen kokeilusi päättyy {date}. Silloin ensimmäinen maksusi {amount} veloitetaan automaattisesti. Etkö halua jatkaa? Peruuta sitä ennen kohdassa Oma tili.",
+    "remindRenewSubject": "QR-Codex-tilauksesi uusitaan pian",
+    "remindRenewText": "Tilauksesi uusitaan {date} hintaan {amount}. Sinun ei tarvitse tehdä mitään: kaikki jatkuu. Haluatko muuttaa tai peruuttaa? Siirry Oma tili -kohtaan ennen sitä."
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Uutta maksutapaa käytetään seuraavissa maksuissa.",
     "pmSave": "Tallenna maksutapa",
     "pmDone": "Maksutapasi on päivitetty.",
-    "pmSepa": "SEPA-suoraveloitus"
+    "pmSepa": "SEPA-suoraveloitus",
+    "why": "Miksi peruutat? (valinnainen)",
+    "r_too_expensive": "Liian kallis",
+    "r_missing_features": "Ominaisuuksia puuttuu",
+    "r_switched_service": "Vaihdan toiseen palveluun",
+    "r_unused": "En käytä sitä tarpeeksi",
+    "r_too_complex": "Liian monimutkainen",
+    "r_other": "Muu syy"
   },
   "bulk": {
     "button": "Useita kerralla",

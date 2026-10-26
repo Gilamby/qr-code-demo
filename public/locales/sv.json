@@ -755,7 +755,11 @@
     "b_inclVat": "inkl. moms",
     "b_exclVat": "exkl. moms",
     "b_reverse": "Omvänd skattskyldighet",
-    "b_buyerErr": "Kontrollera fälten som är markerade i rött."
+    "b_buyerErr": "Kontrollera fälten som är markerade i rött.",
+    "promoCode": "Rabattkod",
+    "promoApply": "Använd",
+    "promoBad": "Koden är inte giltig.",
+    "promoOk": "Rabatten har lagts till."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "Din QR-Codex-prenumeration upphör snart",
     "remindEndText": "Din prenumeration upphör den {date}. Därefter slutar dina QR-koder fungera. Vill du behålla dem? Fortsätt prenumerationen under Mitt konto.",
     "remindTrialSubject": "Din kostnadsfria provperiod upphör snart",
-    "remindTrialText": "Din kostnadsfria provperiod upphör den {date}. Då dras din första betalning på {amount} automatiskt. Vill du inte fortsätta? Säg upp innan dess under Mitt konto."
+    "remindTrialText": "Din kostnadsfria provperiod upphör den {date}. Då dras din första betalning på {amount} automatiskt. Vill du inte fortsätta? Säg upp innan dess under Mitt konto.",
+    "remindRenewSubject": "Din QR-Codex-prenumeration förnyas snart",
+    "remindRenewText": "Din prenumeration förnyas den {date} för {amount}. Du behöver inte göra något: allt fortsätter. Vill du ändra eller säga upp? Gå till Mitt konto innan dess."
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Den nya betalningsmetoden används för dina nästa betalningar.",
     "pmSave": "Spara betalningsmetod",
     "pmDone": "Din betalningsmetod har uppdaterats.",
-    "pmSepa": "SEPA-autogiro"
+    "pmSepa": "SEPA-autogiro",
+    "why": "Varför säger du upp? (valfritt)",
+    "r_too_expensive": "För dyrt",
+    "r_missing_features": "Saknar funktioner",
+    "r_switched_service": "Jag byter till en annan tjänst",
+    "r_unused": "Jag använder det för lite",
+    "r_too_complex": "För krångligt",
+    "r_other": "Annan anledning"
   },
   "bulk": {
     "button": "Flera samtidigt",

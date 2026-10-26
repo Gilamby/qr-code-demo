@@ -43,12 +43,19 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
       const rec = await readRecord(this.db, u.id); if (!rec.subscription || rec.status === 'canceled') continue;
       const s = await subFor(this.db, u.id); if (!s || !s.periodEnd) continue;
       const end = Date.parse(s.periodEnd), left = end - now;
-      if (left <= 0 || left > 3 * 864e5) continue;
-      const kind = rec.cancelAtEnd ? 'end' : rec.status === 'trialing' ? 'trial' : null; if (!kind) continue;
+      if (left <= 0 || left > 7 * 864e5) continue;
+      // 3 dagen vooraf: opgezegd of einde proef. 7 dagen vooraf: verlenging van een kwartaal- of jaarabonnement (per maand niet, dat is te vaak).
+      const long = s.interval === 'year' || s.interval === 'quarter';
+      const kind = rec.cancelAtEnd ? (left <= 3 * 864e5 ? 'end' : null) : rec.status === 'trialing' ? (left <= 3 * 864e5 ? 'trial' : null) : rec.status === 'active' && long ? 'renew' : null;
+      if (!kind) continue;
       const key = 'remind:' + u.id, mark = kind + '|' + s.periodEnd;
       if ((await this.db.getSetting(key)) === mark) continue;
       await this.db.setSetting(key, mark);
       let amount: number | null = null;
+      if (kind === 'renew') {
+        const p = await planFor(this.db, u.id), iv = s.interval || 'year', base = iv === 'year' ? (p.priceYearAfter || p.priceYear) : p.priceQuarter;
+        amount = Math.round(((Number(base) || 0) + (p.extra || 0) * ((EXTRA_PRICE as any)[iv] || 0)) * 100) / 100;
+      }
       if (kind === 'trial') {
         const p = await planFor(this.db, u.id), iv = s.interval || 'month';
         const base = iv === 'month' && p.priceFirstMonth != null ? p.priceFirstMonth : iv === 'year' ? (p.priceYear != null ? p.priceYear : p.priceYearAfter) : iv === 'quarter' ? p.priceQuarter : p.price;

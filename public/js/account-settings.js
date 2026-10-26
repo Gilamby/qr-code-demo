@@ -370,12 +370,16 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   }
   function askCancel() {
     var sb = (planInfo && planInfo.sub) || {}, bl = (planInfo && planInfo.billing) || {}, d = document.getElementById('mcDialog'); if (!d) return;
+    var R = ['too_expensive', 'missing_features', 'switched_service', 'unused', 'too_complex', 'other'];
     d.innerHTML = '<form method="dialog" class="mc-dlg"><h3>' + esc(t('bill.cancelTitle')) + '</h3><p>' + esc(bl.trial ? t('bill.cancelTrialText') : t('bill.cancelPaidText', { date: day(sb.periodEnd) })) + '</p>' +
+      '<label class="auth-f cx-why"><span>' + esc(t('bill.why')) + '</span><select name="why"><option value="">—</option>' + R.map(function (r) { return '<option value="' + r + '">' + esc(t('bill.r_' + r)) + '</option>'; }).join('') + '</select></label>' +
+      '<label class="auth-f cx-why"><span class="auth-in"><textarea name="comment" rows="2" maxlength="500"></textarea></span></label>' +
       '<div class="mc-dlg-btns"><button class="btn ghost" value="no" autofocus>' + esc(t('bill.cancelKeep')) + '</button><button class="btn danger" value="yes">' + esc(t('bill.cancelYes')) + '</button></div></form>';
     d.addEventListener('close', function () {
       if (d.returnValue !== 'yes') return;
       subBusy = true; draw();
-      api.account.cancelSub().then(function () { subBusy = false; planMsg = ['bill.cancelled', 'ok']; planInfo = null; invInfo = null; loadPlan(); loadInv(); document.dispatchEvent(new Event('sub-lapsed')); })
+      var fw = d.querySelector('[name=why]'), fc = d.querySelector('[name=comment]');
+      api.account.cancelSub({ reason: fw ? fw.value : '', comment: fc ? fc.value : '' }).then(function () { subBusy = false; planMsg = ['bill.cancelled', 'ok']; planInfo = null; invInfo = null; loadPlan(); loadInv(); document.dispatchEvent(new Event('sub-lapsed')); })
         .catch(function () { subBusy = false; planMsg = ['pw.payError', 'bad']; draw(); });
     }, { once: true });
     d.returnValue = ''; d.showModal();

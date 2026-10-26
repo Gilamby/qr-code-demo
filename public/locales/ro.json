@@ -755,7 +755,11 @@
     "b_inclVat": "cu TVA",
     "b_exclVat": "fără TVA",
     "b_reverse": "Taxare inversă",
-    "b_buyerErr": "Verifică câmpurile marcate cu roșu."
+    "b_buyerErr": "Verifică câmpurile marcate cu roșu.",
+    "promoCode": "Cod de reducere",
+    "promoApply": "Aplică",
+    "promoBad": "Acest cod nu este valid.",
+    "promoOk": "Reducere aplicată."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "Abonamentul tău QR-Codex se încheie curând",
     "remindEndText": "Abonamentul tău se încheie pe {date}. După aceea codurile QR nu mai funcționează. Vrei să le păstrezi? Continuă abonamentul în Contul meu.",
     "remindTrialSubject": "Perioada ta de probă se încheie curând",
-    "remindTrialText": "Perioada ta de probă gratuită se încheie pe {date}. Atunci se percepe automat prima plată de {amount}. Nu vrei să continui? Anulează înainte în Contul meu."
+    "remindTrialText": "Perioada ta de probă gratuită se încheie pe {date}. Atunci se percepe automat prima plată de {amount}. Nu vrei să continui? Anulează înainte în Contul meu.",
+    "remindRenewSubject": "Abonamentul tău QR-Codex se reînnoiește curând",
+    "remindRenewText": "Abonamentul se reînnoiește pe {date} pentru {amount}. Nu trebuie să faci nimic: totul continuă. Vrei să schimbi sau să anulezi? Mergi la Contul meu înainte de acea dată."
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Noua metodă de plată va fi folosită pentru plățile următoare.",
     "pmSave": "Salvează metoda de plată",
     "pmDone": "Metoda de plată a fost actualizată.",
-    "pmSepa": "Debit direct SEPA"
+    "pmSepa": "Debit direct SEPA",
+    "why": "De ce anulezi? (opțional)",
+    "r_too_expensive": "Prea scump",
+    "r_missing_features": "Lipsesc funcții",
+    "r_switched_service": "Trec la alt serviciu",
+    "r_unused": "Nu îl folosesc destul",
+    "r_too_complex": "Prea complicat",
+    "r_other": "Alt motiv"
   },
   "bulk": {
     "button": "Mai multe deodată",

@@ -755,7 +755,11 @@
     "b_inclVat": "TTC",
     "b_exclVat": "HT",
     "b_reverse": "Autoliquidation de la TVA",
-    "b_buyerErr": "Vérifiez les champs en rouge."
+    "b_buyerErr": "Vérifiez les champs en rouge.",
+    "promoCode": "Code de réduction",
+    "promoApply": "Appliquer",
+    "promoBad": "Ce code n'est pas valide.",
+    "promoOk": "Réduction appliquée."
   },
   "dz": {
     "lbl": {
@@ -1563,7 +1567,9 @@
     "remindEndSubject": "Votre abonnement QR-Codex se termine bientôt",
     "remindEndText": "Votre abonnement se termine le {date}. Ensuite, vos codes QR cesseront de fonctionner. Vous voulez les garder ? Poursuivez votre abonnement dans Mon compte.",
     "remindTrialSubject": "Votre essai gratuit se termine bientôt",
-    "remindTrialText": "Votre essai gratuit se termine le {date}. Votre premier paiement de {amount} sera alors débité automatiquement. Vous ne souhaitez pas continuer ? Résiliez avant dans Mon compte."
+    "remindTrialText": "Votre essai gratuit se termine le {date}. Votre premier paiement de {amount} sera alors débité automatiquement. Vous ne souhaitez pas continuer ? Résiliez avant dans Mon compte.",
+    "remindRenewSubject": "Votre abonnement QR-Codex sera bientôt renouvelé",
+    "remindRenewText": "Votre abonnement sera renouvelé le {date} pour {amount}. Rien à faire : tout continue. Vous voulez changer ou résilier ? Allez dans Mon compte avant cette date."
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -2735,7 +2741,14 @@
     "pmLead": "Le nouveau moyen de paiement sera utilisé pour vos prochains paiements.",
     "pmSave": "Enregistrer le moyen de paiement",
     "pmDone": "Votre moyen de paiement a été mis à jour.",
-    "pmSepa": "Prélèvement SEPA"
+    "pmSepa": "Prélèvement SEPA",
+    "why": "Pourquoi résiliez-vous ? (facultatif)",
+    "r_too_expensive": "Trop cher",
+    "r_missing_features": "Fonctionnalités manquantes",
+    "r_switched_service": "Je passe à un autre service",
+    "r_unused": "Je ne l'utilise pas assez",
+    "r_too_complex": "Trop compliqué",
+    "r_other": "Autre raison"
   },
   "bulk": {
     "button": "Plusieurs à la fois",

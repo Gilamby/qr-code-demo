@@ -755,7 +755,11 @@
     "b_inclVat": "inkl. mva",
     "b_exclVat": "ekskl. mva",
     "b_reverse": "Omvendt avgiftsplikt",
-    "b_buyerErr": "Sjekk feltene som er merket med rødt."
+    "b_buyerErr": "Sjekk feltene som er merket med rødt.",
+    "promoCode": "Rabattkode",
+    "promoApply": "Bruk",
+    "promoBad": "Denne koden er ikke gyldig.",
+    "promoOk": "Rabatt lagt til."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "QR-Codex-abonnementet ditt avsluttes snart",
     "remindEndText": "Abonnementet avsluttes {date}. Etter det slutter QR-kodene å virke. Vil du beholde dem? Fortsett abonnementet under Min konto.",
     "remindTrialSubject": "Den gratis prøveperioden avsluttes snart",
-    "remindTrialText": "Den gratis prøveperioden avsluttes {date}. Da trekkes den første betalingen på {amount} automatisk. Vil du ikke fortsette? Si opp før det under Min konto."
+    "remindTrialText": "Den gratis prøveperioden avsluttes {date}. Da trekkes den første betalingen på {amount} automatisk. Vil du ikke fortsette? Si opp før det under Min konto.",
+    "remindRenewSubject": "QR-Codex-abonnementet ditt fornyes snart",
+    "remindRenewText": "Abonnementet fornyes {date} for {amount}. Du trenger ikke gjøre noe: alt fortsetter. Vil du endre eller si opp? Gå til Min konto før det."
   },
   "contact": {
     "lead": "Et spørsmål, et problem eller en idé? Send oss en melding.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Den nye betalingsmåten brukes for de neste betalingene.",
     "pmSave": "Lagre betalingsmåte",
     "pmDone": "Betalingsmåten er oppdatert.",
-    "pmSepa": "SEPA-direktedebitering"
+    "pmSepa": "SEPA-direktedebitering",
+    "why": "Hvorfor sier du opp? (valgfritt)",
+    "r_too_expensive": "For dyrt",
+    "r_missing_features": "Mangler funksjoner",
+    "r_switched_service": "Jeg bytter til en annen tjeneste",
+    "r_unused": "Jeg bruker det for lite",
+    "r_too_complex": "For komplisert",
+    "r_other": "Annen grunn"
   },
   "bulk": {
     "button": "Flere samtidig",

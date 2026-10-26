@@ -755,7 +755,11 @@
     "b_inclVat": "IVA incl.",
     "b_exclVat": "IVA excl.",
     "b_reverse": "Inversión del sujeto pasivo",
-    "b_buyerErr": "Revisa los campos marcados en rojo."
+    "b_buyerErr": "Revisa los campos marcados en rojo.",
+    "promoCode": "Código de descuento",
+    "promoApply": "Aplicar",
+    "promoBad": "Este código no es válido.",
+    "promoOk": "Descuento aplicado."
   },
   "dz": {
     "lbl": {
@@ -1567,7 +1571,9 @@
     "remindEndSubject": "Tu suscripción a QR-Codex termina pronto",
     "remindEndText": "Tu suscripción termina el {date}. Después tus códigos QR dejarán de funcionar. ¿Quieres conservarlos? Continúa tu suscripción en Mi cuenta.",
     "remindTrialSubject": "Tu prueba gratuita termina pronto",
-    "remindTrialText": "Tu prueba gratuita termina el {date}. Entonces se cobrará automáticamente tu primer pago de {amount}. ¿No quieres continuar? Cancela antes en Mi cuenta."
+    "remindTrialText": "Tu prueba gratuita termina el {date}. Entonces se cobrará automáticamente tu primer pago de {amount}. ¿No quieres continuar? Cancela antes en Mi cuenta.",
+    "remindRenewSubject": "Tu suscripción a QR-Codex se renueva pronto",
+    "remindRenewText": "Tu suscripción se renueva el {date} por {amount}. No tienes que hacer nada: todo sigue funcionando. ¿Quieres cambiar o cancelar? Ve a Mi cuenta antes de esa fecha."
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",
@@ -2774,7 +2780,14 @@
     "pmLead": "El nuevo método de pago se usará para tus próximos pagos.",
     "pmSave": "Guardar método de pago",
     "pmDone": "Tu método de pago se ha actualizado.",
-    "pmSepa": "Domiciliación SEPA"
+    "pmSepa": "Domiciliación SEPA",
+    "why": "¿Por qué cancelas? (opcional)",
+    "r_too_expensive": "Demasiado caro",
+    "r_missing_features": "Faltan funciones",
+    "r_switched_service": "Me cambio a otro servicio",
+    "r_unused": "No lo uso lo suficiente",
+    "r_too_complex": "Demasiado complicado",
+    "r_other": "Otro motivo"
   },
   "bulk": {
     "button": "Varios a la vez",

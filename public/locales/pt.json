@@ -755,7 +755,11 @@
     "b_inclVat": "IVA incl.",
     "b_exclVat": "IVA excl.",
     "b_reverse": "Autoliquidação do IVA",
-    "b_buyerErr": "Verifique os campos assinalados a vermelho."
+    "b_buyerErr": "Verifique os campos assinalados a vermelho.",
+    "promoCode": "Código de desconto",
+    "promoApply": "Aplicar",
+    "promoBad": "Este código não é válido.",
+    "promoOk": "Desconto aplicado."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "A sua subscrição QR-Codex termina em breve",
     "remindEndText": "A sua subscrição termina a {date}. Depois os seus códigos QR deixam de funcionar. Quer mantê-los? Continue a subscrição em A minha conta.",
     "remindTrialSubject": "O seu período de teste termina em breve",
-    "remindTrialText": "O seu período de teste gratuito termina a {date}. Nessa altura é cobrado automaticamente o primeiro pagamento de {amount}. Não quer continuar? Cancele antes em A minha conta."
+    "remindTrialText": "O seu período de teste gratuito termina a {date}. Nessa altura é cobrado automaticamente o primeiro pagamento de {amount}. Não quer continuar? Cancele antes em A minha conta.",
+    "remindRenewSubject": "A sua subscrição QR-Codex renova-se em breve",
+    "remindRenewText": "A sua subscrição renova-se a {date} por {amount}. Não precisa de fazer nada: tudo continua a funcionar. Quer alterar ou cancelar? Vá a A minha conta antes dessa data."
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",
@@ -2729,7 +2735,14 @@
     "pmLead": "O novo método de pagamento será usado nos próximos pagamentos.",
     "pmSave": "Guardar método de pagamento",
     "pmDone": "O método de pagamento foi atualizado.",
-    "pmSepa": "Débito Direto SEPA"
+    "pmSepa": "Débito Direto SEPA",
+    "why": "Porque está a cancelar? (opcional)",
+    "r_too_expensive": "Demasiado caro",
+    "r_missing_features": "Faltam funcionalidades",
+    "r_switched_service": "Vou mudar para outro serviço",
+    "r_unused": "Não uso o suficiente",
+    "r_too_complex": "Demasiado complicado",
+    "r_other": "Outro motivo"
   },
   "bulk": {
     "button": "Vários de uma vez",

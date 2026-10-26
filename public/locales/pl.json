@@ -755,7 +755,11 @@
     "b_inclVat": "z VAT",
     "b_exclVat": "bez VAT",
     "b_reverse": "Odwrotne obciążenie VAT",
-    "b_buyerErr": "Sprawdź pola zaznaczone na czerwono."
+    "b_buyerErr": "Sprawdź pola zaznaczone na czerwono.",
+    "promoCode": "Kod rabatowy",
+    "promoApply": "Zastosuj",
+    "promoBad": "Ten kod jest nieprawidłowy.",
+    "promoOk": "Rabat zastosowany."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "Twoja subskrypcja QR-Codex wkrótce się kończy",
     "remindEndText": "Twoja subskrypcja kończy się {date}. Potem kody QR przestaną działać. Chcesz je zachować? Kontynuuj subskrypcję w Moim koncie.",
     "remindTrialSubject": "Twój bezpłatny okres próbny wkrótce się kończy",
-    "remindTrialText": "Twój bezpłatny okres próbny kończy się {date}. Wtedy automatycznie zostanie pobrana pierwsza płatność w wysokości {amount}. Nie chcesz kontynuować? Anuluj wcześniej w Moim koncie."
+    "remindTrialText": "Twój bezpłatny okres próbny kończy się {date}. Wtedy automatycznie zostanie pobrana pierwsza płatność w wysokości {amount}. Nie chcesz kontynuować? Anuluj wcześniej w Moim koncie.",
+    "remindRenewSubject": "Twoja subskrypcja QR-Codex wkrótce się odnowi",
+    "remindRenewText": "Twoja subskrypcja odnowi się {date} za {amount}. Nie musisz nic robić: wszystko działa dalej. Chcesz coś zmienić lub zrezygnować? Wejdź do Mojego konta przed tą datą."
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Nowa metoda płatności zostanie użyta przy kolejnych płatnościach.",
     "pmSave": "Zapisz metodę płatności",
     "pmDone": "Metoda płatności została zaktualizowana.",
-    "pmSepa": "Polecenie zapłaty SEPA"
+    "pmSepa": "Polecenie zapłaty SEPA",
+    "why": "Dlaczego rezygnujesz? (opcjonalnie)",
+    "r_too_expensive": "Za drogo",
+    "r_missing_features": "Brakuje funkcji",
+    "r_switched_service": "Przechodzę do innej usługi",
+    "r_unused": "Za mało z tego korzystam",
+    "r_too_complex": "Za skomplikowane",
+    "r_other": "Inny powód"
   },
   "bulk": {
     "button": "Kilka naraz",

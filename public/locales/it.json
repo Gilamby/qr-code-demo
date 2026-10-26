@@ -755,7 +755,11 @@
     "b_inclVat": "IVA incl.",
     "b_exclVat": "IVA escl.",
     "b_reverse": "Inversione contabile (reverse charge)",
-    "b_buyerErr": "Controlla i campi in rosso."
+    "b_buyerErr": "Controlla i campi in rosso.",
+    "promoCode": "Codice sconto",
+    "promoApply": "Applica",
+    "promoBad": "Questo codice non è valido.",
+    "promoOk": "Sconto applicato."
   },
   "dz": {
     "lbl": {
@@ -1557,7 +1561,9 @@
     "remindEndSubject": "Il tuo abbonamento QR-Codex sta per terminare",
     "remindEndText": "Il tuo abbonamento termina il {date}. Dopo i tuoi codici QR smetteranno di funzionare. Vuoi tenerli? Continua l'abbonamento in Il mio account.",
     "remindTrialSubject": "La tua prova gratuita sta per terminare",
-    "remindTrialText": "La tua prova gratuita termina il {date}. Allora verrà addebitato automaticamente il primo pagamento di {amount}. Non vuoi continuare? Annulla prima in Il mio account."
+    "remindTrialText": "La tua prova gratuita termina il {date}. Allora verrà addebitato automaticamente il primo pagamento di {amount}. Non vuoi continuare? Annulla prima in Il mio account.",
+    "remindRenewSubject": "Il tuo abbonamento QR-Codex si rinnova a breve",
+    "remindRenewText": "Il tuo abbonamento si rinnova il {date} per {amount}. Non devi fare nulla: tutto continua a funzionare. Vuoi cambiare o annullare? Vai in Il mio account prima di quella data."
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",
@@ -2729,7 +2735,14 @@
     "pmLead": "Il nuovo metodo di pagamento verrà usato per i prossimi pagamenti.",
     "pmSave": "Salva metodo di pagamento",
     "pmDone": "Il metodo di pagamento è stato aggiornato.",
-    "pmSepa": "Addebito SEPA"
+    "pmSepa": "Addebito SEPA",
+    "why": "Perché annulli? (facoltativo)",
+    "r_too_expensive": "Troppo caro",
+    "r_missing_features": "Mancano funzioni",
+    "r_switched_service": "Passo a un altro servizio",
+    "r_unused": "Non lo uso abbastanza",
+    "r_too_complex": "Troppo complicato",
+    "r_other": "Altro motivo"
   },
   "bulk": {
     "button": "Più insieme",

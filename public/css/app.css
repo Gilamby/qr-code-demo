@@ -5298,3 +5298,8 @@ body.paywall-open { overflow: hidden; }
 .pw-buyer b { font-weight: 700; }
 .pw-tax span, .pw-tax b { font-size: 14px; }
 .pw-vatnote { margin: -6px 0 0; text-align: right; }
+.pw-promo { font-size: 14px; } .pw-promo summary { cursor: pointer; color: var(--accent); font-weight: 600; list-style: none; } .pw-promo summary::-webkit-details-marker { display: none; }
+.pw-promo-row { display: flex; gap: 8px; margin-top: 8px; } .pw-promo-row input { flex: 1; text-transform: uppercase; }
+.pw-promo-msg { margin: 6px 0 0; font-size: 13px; } .pw-promo-msg.bad { color: #f87171; } .pw-promo-msg.ok { color: #4ade80; } .pw-promo-msg:empty { display: none; }
+.paywall .pw-promo-row input { font: inherit; font-size: 15px; color: var(--fg); background: var(--bg); border: 1px solid var(--line, rgba(255,255,255,.12)); border-radius: 8px; padding: 9px 12px; }
+.cx-why { margin-top: 10px; } .cx-why select, .cx-why textarea { width: 100%; }

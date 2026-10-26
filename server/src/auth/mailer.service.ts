@@ -151,8 +151,8 @@ export class MailerService {
   }
 
   /** Herinnering 3 dagen vooraf: opgezegd abonnement stopt ('end') of de gratis proef stopt en de eerste betaling volgt ('trial') */
-  async sendReminder(user: User, kind: 'end' | 'trial', until: number, amount: number | null) {
-    const t = await this.texts(user.lang || 'en'), K = kind === 'end' ? 'remindEnd' : 'remindTrial';
+  async sendReminder(user: User, kind: 'end' | 'trial' | 'renew', until: number, amount: number | null) {
+    const t = await this.texts(user.lang || 'en'), K = kind === 'end' ? 'remindEnd' : kind === 'renew' ? 'remindRenew' : 'remindTrial';
     const loc = LANGS.includes(user.lang) && Intl.DateTimeFormat.supportedLocalesOf([user.lang]).length ? user.lang : 'en';
     const date = new Intl.DateTimeFormat(loc, { dateStyle: 'long', timeZone: user.timezone || 'Europe/Madrid' }).format(new Date(until));
     const money = amount == null ? '' : new Intl.NumberFormat(loc, { style: 'currency', currency: 'EUR' }).format(amount);
