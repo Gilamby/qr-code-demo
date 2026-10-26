@@ -2917,7 +2917,7 @@
     "world": "Gjithë bota",
     "scansN": "{n} skanime",
     "uniqN": "{n} unike",
-    "clickCity": "Kliko për të gjitha detajet",
+    "clickCity": "Kliko për gjithçka nga ky vend",
     "logTitle": "Regjistri: çdo skanim",
     "logLead": "{n} skanime në këtë periudhë, më të rejat sipër. Për çdo skanim sheh kur, ku dhe me çfarë; nuk ruajmë kurrë kush ishte (pa adresë IP).",
     "exportLog": "Eksporto regjistrin (CSV)",
@@ -2934,7 +2934,12 @@
     "region": "Rajoni",
     "country": "Shteti",
     "pageTitle": "Detajet e kodit QR",
-    "approx": "Vend i përafërt (skanim para regjistrit)"
+    "approx": "Vend i përafërt (skanim para regjistrit)",
+    "menu": "Detajet dhe harta",
+    "filterPlace": "E gjithë faqja për këtë vend",
+    "lastScans": "Skanimet e fundit këtu",
+    "placeOld": "Këto skanime janë para regjistrit: e dimë vendin, por jo detajet e çdo skanimi.",
+    "placeSome": "Dhe {n} skanime më të vjetra pa detaje (para regjistrit)."
   },
   "sheet": {
     "title": "Fletë për printim (A4)",

@@ -2811,7 +2811,7 @@
     "world": "Celý svet",
     "scansN": "{n} skenov",
     "uniqN": "{n} unikátnych",
-    "clickCity": "Klikni pre všetky detaily",
+    "clickCity": "Klikni pre všetko z tohto miesta",
     "logTitle": "Záznam: každý sken",
     "logLead": "{n} skenov v tomto období, najnovšie hore. Pri každom skene vidíš kedy, kde a čím; nikdy neukladáme kto to bol (žiadna IP adresa).",
     "exportLog": "Exportovať záznam (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Región",
     "country": "Krajina",
     "pageTitle": "Detaily QR kódu",
-    "approx": "Približné miesto (sken spred záznamu)"
+    "approx": "Približné miesto (sken spred záznamu)",
+    "menu": "Detaily a mapa",
+    "filterPlace": "Celá stránka pre toto miesto",
+    "lastScans": "Posledné skeny tu",
+    "placeOld": "Tieto skeny sú spred záznamu: poznáme miesto, ale nie detaily jednotlivých skenov.",
+    "placeSome": "A ďalších {n} starších skenov bez detailov (spred záznamu)."
   },
   "sheet": {
     "title": "Tlačový hárok (A4)",

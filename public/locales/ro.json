@@ -2811,7 +2811,7 @@
     "world": "Toată lumea",
     "scansN": "{n} scanări",
     "uniqN": "{n} unice",
-    "clickCity": "Dă clic pentru toate detaliile",
+    "clickCity": "Dă clic pentru tot din acest loc",
     "logTitle": "Jurnal: fiecare scanare",
     "logLead": "{n} scanări în această perioadă, cele mai noi sus. La fiecare scanare vezi când, unde și cu ce; nu salvăm niciodată cine a fost (fără adresă IP).",
     "exportLog": "Exportă jurnalul (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Regiune",
     "country": "Țară",
     "pageTitle": "Detaliile codului QR",
-    "approx": "Loc aproximativ (scanare de dinaintea jurnalului)"
+    "approx": "Loc aproximativ (scanare de dinaintea jurnalului)",
+    "menu": "Detalii și hartă",
+    "filterPlace": "Toată pagina pentru acest loc",
+    "lastScans": "Ultimele scanări aici",
+    "placeOld": "Aceste scanări sunt de dinaintea jurnalului: știm locul, dar nu detaliile fiecărei scanări.",
+    "placeSome": "Plus {n} scanări mai vechi fără detalii (dinaintea jurnalului)."
   },
   "sheet": {
     "title": "Coală de printat (A4)",

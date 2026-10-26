@@ -2811,7 +2811,7 @@
     "world": "Cały świat",
     "scansN": "{n} skanów",
     "uniqN": "{n} unikalnych",
-    "clickCity": "Kliknij, aby zobaczyć szczegóły",
+    "clickCity": "Kliknij, aby zobaczyć wszystko z tego miejsca",
     "logTitle": "Dziennik: każdy skan",
     "logLead": "{n} skanów w tym okresie, najnowsze na górze. Przy każdym skanie widzisz kiedy, gdzie i czym; nigdy nie zapisujemy kto (bez adresu IP).",
     "exportLog": "Eksportuj dziennik (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Region",
     "country": "Kraj",
     "pageTitle": "Szczegóły kodu QR",
-    "approx": "Przybliżone miejsce (skan sprzed dziennika)"
+    "approx": "Przybliżone miejsce (skan sprzed dziennika)",
+    "menu": "Szczegóły i mapa",
+    "filterPlace": "Cała strona dla tego miejsca",
+    "lastScans": "Ostatnie skany tutaj",
+    "placeOld": "Te skany są sprzed dziennika: znamy miejsce, ale nie szczegóły każdego skanu.",
+    "placeSome": "Oraz {n} starszych skanów bez szczegółów (sprzed dziennika)."
   },
   "sheet": {
     "title": "Arkusz do druku (A4)",

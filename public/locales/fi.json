@@ -2811,7 +2811,7 @@
     "world": "Koko maailma",
     "scansN": "{n} skannausta",
     "uniqN": "{n} yksilöllistä",
-    "clickCity": "Klikkaa nähdäksesi kaikki tiedot",
+    "clickCity": "Klikkaa nähdäksesi kaiken tästä paikasta",
     "logTitle": "Loki: jokainen skannaus",
     "logLead": "{n} skannausta tällä jaksolla, uusimmat ylimpänä. Jokaisesta näet milloin, missä ja millä; emme koskaan tallenna kuka (ei IP-osoitetta).",
     "exportLog": "Vie loki (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Alue",
     "country": "Maa",
     "pageTitle": "QR-koodin tiedot",
-    "approx": "Likimääräinen paikka (skannaus ennen lokia)"
+    "approx": "Likimääräinen paikka (skannaus ennen lokia)",
+    "menu": "Tiedot ja kartta",
+    "filterPlace": "Koko sivu tälle paikalle",
+    "lastScans": "Viimeisimmät skannaukset täällä",
+    "placeOld": "Nämä skannaukset ovat ajalta ennen lokia: tiedämme paikan, mutta emme yksittäisiä tietoja.",
+    "placeSome": "Lisäksi {n} vanhempaa skannausta ilman tietoja (ennen lokia)."
   },
   "sheet": {
     "title": "Tulostusarkki (A4)",

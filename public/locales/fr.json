@@ -2817,7 +2817,7 @@
     "world": "Monde entier",
     "scansN": "{n} scans",
     "uniqN": "{n} uniques",
-    "clickCity": "Clique pour tous les détails",
+    "clickCity": "Clique pour tout voir de ce lieu",
     "logTitle": "Journal : chaque scan",
     "logLead": "{n} scans sur cette période, les plus récents en haut. Pour chaque scan tu vois quand, où et avec quoi ; nous n’enregistrons jamais qui c’était (pas d’adresse IP).",
     "exportLog": "Exporter le journal (CSV)",
@@ -2834,7 +2834,12 @@
     "region": "Région",
     "country": "Pays",
     "pageTitle": "Détails du QR code",
-    "approx": "Lieu approximatif (scan antérieur au journal)"
+    "approx": "Lieu approximatif (scan antérieur au journal)",
+    "menu": "Détails et carte",
+    "filterPlace": "Toute la page pour ce lieu",
+    "lastScans": "Derniers scans ici",
+    "placeOld": "Ces scans sont antérieurs au journal : nous connaissons le lieu, mais pas les détails de chaque scan.",
+    "placeSome": "Et {n} scans plus anciens sans détails (antérieurs au journal)."
   },
   "sheet": {
     "title": "Planche à imprimer (A4)",

@@ -2856,7 +2856,7 @@
     "world": "Hele wereld",
     "scansN": "{n} scans",
     "uniqN": "{n} uniek",
-    "clickCity": "Klik voor alle details",
+    "clickCity": "Klik voor alles van deze plaats",
     "logTitle": "Logboek: elke scan",
     "logLead": "{n} scans in deze periode, de nieuwste bovenaan. Per scan zie je wanneer, waar en waarmee; we bewaren nooit wie het was (geen IP-adres).",
     "exportLog": "Logboek exporteren (CSV)",
@@ -2873,7 +2873,12 @@
     "region": "Regio",
     "country": "Land",
     "pageTitle": "QR-code details",
-    "approx": "Plaats bij benadering (scan van vóór het logboek)"
+    "approx": "Plaats bij benadering (scan van vóór het logboek)",
+    "menu": "Details en kaart",
+    "filterPlace": "Hele pagina op deze plaats",
+    "lastScans": "Laatste scans hier",
+    "placeOld": "Deze scans zijn van vóór het logboek: we weten de plaats, maar niet de details per scan.",
+    "placeSome": "En nog {n} oudere scans zonder details (van vóór het logboek)."
   },
   "sheet": {
     "title": "Printvel (A4)",

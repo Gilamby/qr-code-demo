@@ -531,6 +531,28 @@ var Analytics = (function () {
       saveFile(new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' }), name + '-scans.csv');
     });
   }
+  // Klik op een stip: venster met alles van die plaats (aantallen, apparaten, systemen, browsers, laatste scans)
+  function placeInfo(p) {
+    var dlg = document.getElementById('mcDialog'), key = p.cc + '|' + p.city;
+    var where = esc(p.city || t('an.unknown')) + (p.cc ? ', ' + esc(TEL.name(p.cc)) : '');
+    var shell = function (inner) {
+      dlg.innerHTML = '<form method="dialog" class="mc-dlg pl-dlg"><span class="mc-dlg-ic">' + (p.cc ? TEL.flag(p.cc) : '🌐') + '</span><h3>' + where + '</h3>' + (p.region && p.region !== p.city ? '<p class="pl-sub">' + esc(p.region) + '</p>' : '') + inner +
+        '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('legal.close') + '</button><button class="btn primary" value="filter">' + t('cd.filterPlace') + '</button></div></form>';
+    };
+    shell('<p class="muted-msg">' + t('myCodes.loading') + '</p>');
+    dlg.onclose = function () { if (dlg.returnValue === 'filter') { f.cc = [p.cc]; f.city = [key]; whereDim = 'city'; window.scrollTo({ top: 0, behavior: 'smooth' }); load(); } };
+    dlg.returnValue = ''; dlg.showModal();
+    api.analyticsScans(scansQuery({ cc: p.cc, city: key, limit: 500 })).then(function (r) {
+      var rows = r.scans || [], count = function (k, nm) { var o = {}; rows.forEach(function (s) { o[s[k]] = (o[s[k]] || 0) + 1; }); return Object.keys(o).sort(function (a, b) { return o[b] - o[a]; }).map(function (x) { return '<li><span>' + esc(nm(x)) + '</span><b>' + i18n.fmt.num(o[x]) + '</b></li>'; }).join(''); };
+      var last = rows.length ? rows[0].at : null, uniq = rows.filter(function (s) { return s.uniq; }).length;
+      var tiles = '<div class="pl-tiles"><div><b>' + i18n.fmt.num(p.n) + '</b><small>' + t('an.scans') + '</small></div><div><b>' + i18n.fmt.num(Math.max(p.u || 0, uniq)) + '</b><small>' + t('an.unique') + '</small></div>' +
+        '<div><b>' + (last ? esc(i18n.fmt.stamp(last, 'time')) : '–') + '</b><small>' + t('cd.lastScan') + '</small></div></div>';
+      if (!rows.length) return shell(tiles + '<p class="pl-note">' + t('cd.placeOld') + '</p>');
+      shell(tiles + '<div class="pl-cols"><div><h4>' + t('an.devices') + '</h4><ul>' + count('dev', devName) + '</ul></div><div><h4>' + t('an.os') + '</h4><ul>' + count('os', osName) + '</ul></div><div><h4>' + t('an.browsers') + '</h4><ul>' + count('br', brName) + '</ul></div></div>' +
+        '<h4 class="pl-h">' + t('cd.lastScans') + '</h4><ul class="pl-last">' + rows.slice(0, 8).map(function (s) { return '<li><span>' + esc(i18n.fmt.stamp(s.at, 'time')) + '</span><span>' + esc(devName(s.dev)) + ' · ' + esc(osName(s.os)) + ' · ' + esc(brName(s.br)) + '</span><em class="cd-vis ' + (s.uniq ? 'new' : 'back') + '">' + t(s.uniq ? 'cd.new' : 'cd.back') + '</em></li>'; }).join('') + '</ul>' +
+        (p.n > rows.length ? '<p class="pl-note">' + t('cd.placeSome', { n: i18n.fmt.num(p.n - rows.length) }) + '</p>' : ''));
+    }).catch(function () { shell('<p class="acct-msg bad">' + t('myCodes.failed') + '</p>'); });
+  }
   // Kaart: muis/vinger (tip, slepen, klik op een plaats = alles van die stad)
   var drag = null;
   body.addEventListener('pointerdown', function (e) { var s = e.target.closest('.cd-svg'); if (!s || e.target.closest('.cd-dot') || !mapView) return; drag = { x: e.clientX, y: e.clientY, v: mapView.slice(), w: s.clientWidth }; s.setPointerCapture(e.pointerId); });
@@ -671,7 +693,7 @@ var Analytics = (function () {
     var mb = e.target.closest('[data-map]');
     if (mb && scansD) { var mk = mb.getAttribute('data-map'); if (mk === 'in') zoomMap(.6); else if (mk === 'out') zoomMap(1.6); else { mapView = clampView(mk === 'world' ? WORLD_VIEW() : fitView(mapPoints())); drawMap(); } return; }
     var dt = e.target.closest('.cd-dot');
-    if (dt) { f.cc = [dt.getAttribute('data-cc')]; f.city = [dt.getAttribute('data-cc') + '|' + dt.getAttribute('data-city')]; whereDim = 'city'; window.scrollTo({ top: 0, behavior: 'smooth' }); return load(); }
+    if (dt) { var sv = dt.closest('.cd-svg'); return placeInfo(sv._pts[+dt.getAttribute('data-pt')]); }
     if (e.target.closest('[data-log-more]')) return moreScans(e.target.closest('[data-log-more]'));
     if (e.target.closest('[data-log-csv]')) return exportLog();
     var cdb = e.target.closest('[data-cd]');

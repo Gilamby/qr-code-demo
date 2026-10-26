@@ -2811,7 +2811,7 @@
     "world": "Visa pasaule",
     "scansN": "{n} skenēšanas",
     "uniqN": "{n} unikālas",
-    "clickCity": "Noklikšķini, lai redzētu visu",
+    "clickCity": "Noklikšķini, lai redzētu visu par šo vietu",
     "logTitle": "Žurnāls: katra skenēšana",
     "logLead": "{n} skenēšanas šajā periodā, jaunākās augšā. Katrai redzi kad, kur un ar ko; mēs nekad neglabājam, kas tas bija (bez IP adreses).",
     "exportLog": "Eksportēt žurnālu (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Reģions",
     "country": "Valsts",
     "pageTitle": "QR koda informācija",
-    "approx": "Aptuvena vieta (skenēšana pirms žurnāla)"
+    "approx": "Aptuvena vieta (skenēšana pirms žurnāla)",
+    "menu": "Informācija un karte",
+    "filterPlace": "Visa lapa šai vietai",
+    "lastScans": "Pēdējās skenēšanas šeit",
+    "placeOld": "Šīs skenēšanas ir pirms žurnāla: zinām vietu, bet ne katras skenēšanas informāciju.",
+    "placeSome": "Un vēl {n} vecākas skenēšanas bez informācijas (pirms žurnāla)."
   },
   "sheet": {
     "title": "Drukas lapa (A4)",

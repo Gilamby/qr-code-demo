@@ -2811,7 +2811,7 @@
     "world": "Hele verden",
     "scansN": "{n} scanninger",
     "uniqN": "{n} unikke",
-    "clickCity": "Klik for alle detaljer",
+    "clickCity": "Klik for alt fra dette sted",
     "logTitle": "Log: hver scanning",
     "logLead": "{n} scanninger i perioden, nyeste øverst. For hver scanning ser du hvornår, hvor og med hvad; vi gemmer aldrig hvem (ingen IP-adresse).",
     "exportLog": "Eksportér log (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Region",
     "country": "Land",
     "pageTitle": "QR-kodedetaljer",
-    "approx": "Omtrentligt sted (scanning fra før loggen)"
+    "approx": "Omtrentligt sted (scanning fra før loggen)",
+    "menu": "Detaljer og kort",
+    "filterPlace": "Hele siden for dette sted",
+    "lastScans": "Seneste scanninger her",
+    "placeOld": "Disse scanninger er fra før loggen: vi kender stedet, men ikke detaljerne pr. scanning.",
+    "placeSome": "Plus {n} ældre scanninger uden detaljer (fra før loggen)."
   },
   "sheet": {
     "title": "Printark (A4)",

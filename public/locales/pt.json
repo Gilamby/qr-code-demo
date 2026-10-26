@@ -2811,7 +2811,7 @@
     "world": "Mundo inteiro",
     "scansN": "{n} leituras",
     "uniqN": "{n} únicas",
-    "clickCity": "Clica para todos os detalhes",
+    "clickCity": "Clica para ver tudo deste local",
     "logTitle": "Registo: cada leitura",
     "logLead": "{n} leituras neste período, as mais recentes em cima. Em cada leitura vês quando, onde e com quê; nunca guardamos quem foi (sem endereço IP).",
     "exportLog": "Exportar registo (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Região",
     "country": "País",
     "pageTitle": "Detalhes do código QR",
-    "approx": "Local aproximado (leitura anterior ao registo)"
+    "approx": "Local aproximado (leitura anterior ao registo)",
+    "menu": "Detalhes e mapa",
+    "filterPlace": "Toda a página para este local",
+    "lastScans": "Últimas leituras aqui",
+    "placeOld": "Estas leituras são anteriores ao registo: sabemos o local, mas não os detalhes de cada leitura.",
+    "placeSome": "E mais {n} leituras antigas sem detalhes (anteriores ao registo)."
   },
   "sheet": {
     "title": "Folha para imprimir (A4)",

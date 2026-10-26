@@ -2817,7 +2817,7 @@
     "world": "Ganze Welt",
     "scansN": "{n} Scans",
     "uniqN": "{n} eindeutig",
-    "clickCity": "Klicken für alle Details",
+    "clickCity": "Klicken für alles von diesem Ort",
     "logTitle": "Protokoll: jeder Scan",
     "logLead": "{n} Scans in diesem Zeitraum, die neuesten oben. Pro Scan siehst du wann, wo und womit; wer es war, speichern wir nie (keine IP-Adresse).",
     "exportLog": "Protokoll exportieren (CSV)",
@@ -2834,7 +2834,12 @@
     "region": "Region",
     "country": "Land",
     "pageTitle": "QR-Code-Details",
-    "approx": "Ungefährer Ort (Scan von vor dem Protokoll)"
+    "approx": "Ungefährer Ort (Scan von vor dem Protokoll)",
+    "menu": "Details und Karte",
+    "filterPlace": "Ganze Seite für diesen Ort",
+    "lastScans": "Letzte Scans hier",
+    "placeOld": "Diese Scans sind von vor dem Protokoll: Wir kennen den Ort, aber nicht die Details pro Scan.",
+    "placeSome": "Dazu {n} ältere Scans ohne Details (von vor dem Protokoll)."
   },
   "sheet": {
     "title": "Druckbogen (A4)",

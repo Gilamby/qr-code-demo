@@ -2811,7 +2811,7 @@
     "world": "Tot el món",
     "scansN": "{n} escanejos",
     "uniqN": "{n} únics",
-    "clickCity": "Fes clic per a tots els detalls",
+    "clickCity": "Fes clic per veure-ho tot d’aquest lloc",
     "logTitle": "Registre: cada escaneig",
     "logLead": "{n} escanejos en aquest període, els més recents a dalt. De cada escaneig veus quan, on i amb què; mai no desem qui era (sense adreça IP).",
     "exportLog": "Exporta el registre (CSV)",
@@ -2828,7 +2828,12 @@
     "region": "Regió",
     "country": "País",
     "pageTitle": "Detalls del codi QR",
-    "approx": "Lloc aproximat (escaneig anterior al registre)"
+    "approx": "Lloc aproximat (escaneig anterior al registre)",
+    "menu": "Detalls i mapa",
+    "filterPlace": "Tota la pàgina per a aquest lloc",
+    "lastScans": "Últims escanejos aquí",
+    "placeOld": "Aquests escanejos són anteriors al registre: en sabem el lloc, però no els detalls de cada escaneig.",
+    "placeSome": "I {n} escanejos més antics sense detalls (anteriors al registre)."
   },
   "sheet": {
     "title": "Full per imprimir (A4)",

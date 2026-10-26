@@ -2856,7 +2856,7 @@
     "world": "Todo el mundo",
     "scansN": "{n} escaneos",
     "uniqN": "{n} únicos",
-    "clickCity": "Haz clic para ver todos los detalles",
+    "clickCity": "Haz clic para ver todo de este lugar",
     "logTitle": "Registro: cada escaneo",
     "logLead": "{n} escaneos en este periodo, los más recientes arriba. De cada escaneo ves cuándo, dónde y con qué; nunca guardamos quién fue (sin dirección IP).",
     "exportLog": "Exportar registro (CSV)",
@@ -2873,7 +2873,12 @@
     "region": "Región",
     "country": "País",
     "pageTitle": "Detalles del código QR",
-    "approx": "Lugar aproximado (escaneo anterior al registro)"
+    "approx": "Lugar aproximado (escaneo anterior al registro)",
+    "menu": "Detalles y mapa",
+    "filterPlace": "Toda la página para este lugar",
+    "lastScans": "Últimos escaneos aquí",
+    "placeOld": "Estos escaneos son anteriores al registro: sabemos el lugar, pero no los detalles de cada escaneo.",
+    "placeSome": "Y {n} escaneos más antiguos sin detalles (anteriores al registro)."
   },
   "sheet": {
     "title": "Hoja para imprimir (A4)",

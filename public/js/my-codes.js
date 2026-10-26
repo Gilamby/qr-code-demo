@@ -199,6 +199,7 @@ var MyCodes = (function () {
         '<button type="button" class="btn ghost sm" data-act="edit">' + ico('edit') + '<span>' + t('myCodes.edit') + '</span></button>' +
         '<div class="mc-drop"><button type="button" class="mc-ico big" data-act="more" aria-haspopup="true" aria-expanded="false" aria-label="' + esc(t('myCodes.more')) + '" title="' + esc(t('myCodes.more')) + '">' + ico('more') + '</button>' +
           '<div class="mc-menu right" role="menu" hidden>' +
+            '<button type="button" role="menuitem" data-act="where">' + ico('pin') + t('cd.menu') + '</button>' +
             (stat ? '' : (api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="open">' + ico('open') + t('myCodes.open') + '</button>') + '<button type="button" role="menuitem" data-act="copy">' + ico('copy') + t('myCodes.copy') + '</button>') +
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +

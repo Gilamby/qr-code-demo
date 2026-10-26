@@ -2856,7 +2856,7 @@
     "world": "Whole world",
     "scansN": "{n} scans",
     "uniqN": "{n} unique",
-    "clickCity": "Click for all details",
+    "clickCity": "Click for everything from this place",
     "logTitle": "Log: every scan",
     "logLead": "{n} scans in this period, newest first. For each scan you see when, where and with what; we never store who it was (no IP address).",
     "exportLog": "Export log (CSV)",
@@ -2873,7 +2873,12 @@
     "region": "Region",
     "country": "Country",
     "pageTitle": "QR code details",
-    "approx": "Approximate place (scan from before the log)"
+    "approx": "Approximate place (scan from before the log)",
+    "menu": "Details and map",
+    "filterPlace": "Show this place on the whole page",
+    "lastScans": "Latest scans here",
+    "placeOld": "These scans are from before the log: we know the place, but not the details per scan.",
+    "placeSome": "Plus {n} older scans without details (from before the log)."
   },
   "sheet": {
     "title": "Print sheet (A4)",
