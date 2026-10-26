@@ -2698,7 +2698,21 @@
     "sOpen": "Offen",
     "sVoid": "Storniert",
     "sUncollectible": "Nicht bezahlt",
-    "demoNote": "Demo: Dies sind Beispielzahlungen. Es wurde nichts abgebucht."
+    "demoNote": "Demo: Dies sind Beispielzahlungen. Es wurde nichts abgebucht.",
+    "cancelSub": "Abo kündigen",
+    "resume": "Abo fortsetzen",
+    "cancelTitle": "Abo kündigen?",
+    "cancelTrialText": "Deine kostenlose Testphase endet sofort und es wird nichts abgebucht. Deine QR-Codes funktionieren nicht mehr; alles wird 30 Tage aufbewahrt.",
+    "cancelPaidText": "Dein Paket läuft bis zum {date} weiter. Danach wird nichts mehr abgebucht und deine QR-Codes funktionieren nicht mehr.",
+    "cancelKeep": "Abo behalten",
+    "cancelYes": "Ja, kündigen",
+    "cancelled": "Dein Abo wurde gekündigt. Du erhältst eine Bestätigung per E-Mail.",
+    "resumed": "Dein Abo läuft weiter.",
+    "pmTitle": "Zahlungsmethode ändern",
+    "pmLead": "Die neue Zahlungsmethode wird für deine nächsten Zahlungen verwendet.",
+    "pmSave": "Zahlungsmethode speichern",
+    "pmDone": "Deine Zahlungsmethode wurde aktualisiert.",
+    "pmSepa": "SEPA-Lastschrift"
   },
   "bulk": {
     "button": "Mehrere auf einmal",

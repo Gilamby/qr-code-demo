@@ -131,7 +131,9 @@ export class AccountController {
   async saveBilling(@CurrentUser() user: User, @Body() b: any = {}) {
     const { errors, value } = validateBilling(b);
     if (errors.length) throw fail(400, 'Invalid billing details', { details: errors });
-    return { billing: await this.db.setBilling(user.id, value) };
+    const saved = await this.db.setBilling(user.id, value);
+    syncBillingToStripe(this.db, user, value).catch((e) => console.error('Factuurgegevens naar Stripe mislukt:', e.message));   // facturen van Stripe tonen dezelfde gegevens
+    return { billing: saved };
   }
 
   /** Overzicht: aantal codes, scans, ingelogde apparaten */
@@ -408,5 +410,17 @@ export class AccountController {
     if ((hidden && hidden.includes(rest.background || user.background)) || (rest.customBackground === null && (rest.background || user.background) === 'custom')) rest.background = 'optimasys';
     const u = await this.db.updateUser(user.id, rest);
     return { name: u.name, background: u.background, customBackground: u.customBackground, media: u.media || [], hiddenBackgrounds: await this.hiddenOf(user.id) };
+  }
+}
+
+/** Factuurgegevens uit de app ook bij de klant in Stripe zetten (naam, adres, factuur-e-mail, btw-nummer) */
+async function syncBillingToStripe(db: any, user: User, b: any) {
+  if (!stripeOn()) return;
+  const rec = await readRecord(db, user.id); if (!rec.customer) return;
+  const name = b.type === 'company' ? b.companyName : (b.firstName + ' ' + b.lastName).trim();
+  await stripe('POST', 'customers/' + rec.customer, { name, email: b.email || user.email, address: { line1: b.address, postal_code: b.postalCode, city: b.city, country: b.country } });
+  if (b.taxId) {
+    const have = await stripe('GET', 'customers/' + rec.customer + '/tax_ids', { limit: 10 });
+    if (!(have.data || []).some((x: any) => String(x.value).replace(/\s/g, '').toUpperCase() === b.taxId)) await stripe('POST', 'customers/' + rec.customer + '/tax_ids', { type: 'eu_vat', value: b.taxId });
   }
 }

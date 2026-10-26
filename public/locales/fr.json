@@ -2698,7 +2698,21 @@
     "sOpen": "Ouverte",
     "sVoid": "Annulée",
     "sUncollectible": "Impayée",
-    "demoNote": "Démo : ce sont des paiements d'exemple. Rien n'a été débité."
+    "demoNote": "Démo : ce sont des paiements d'exemple. Rien n'a été débité.",
+    "cancelSub": "Résilier l'abonnement",
+    "resume": "Poursuivre l'abonnement",
+    "cancelTitle": "Résilier votre abonnement ?",
+    "cancelTrialText": "Votre essai gratuit s'arrête immédiatement et rien n'est débité. Vos codes QR cessent de fonctionner ; tout est conservé 30 jours.",
+    "cancelPaidText": "Votre formule reste active jusqu'au {date}. Ensuite, plus rien n'est débité et vos codes QR cessent de fonctionner.",
+    "cancelKeep": "Garder l'abonnement",
+    "cancelYes": "Oui, résilier",
+    "cancelled": "Votre abonnement a été résilié. Vous recevrez une confirmation par e-mail.",
+    "resumed": "Votre abonnement continue.",
+    "pmTitle": "Changer de moyen de paiement",
+    "pmLead": "Le nouveau moyen de paiement sera utilisé pour vos prochains paiements.",
+    "pmSave": "Enregistrer le moyen de paiement",
+    "pmDone": "Votre moyen de paiement a été mis à jour.",
+    "pmSepa": "Prélèvement SEPA"
   },
   "bulk": {
     "button": "Plusieurs à la fois",

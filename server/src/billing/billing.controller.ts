@@ -11,7 +11,7 @@
    Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar).
    ========================================================= */
 import { validateBilling } from '../auth/billing';
-import { Body, Controller, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService } from '../database/database.service';
 import { AuthService } from '../auth/auth.service';
@@ -137,6 +137,100 @@ export class BillingController {
     }
   }
 
+  /* ---------- Abonnement beheren in de app zelf (in plaats van de klantportal van Stripe) ---------- */
+  private async mySub(user: User) {
+    if (!stripeOn()) throw fail(403, 'off');
+    if ((user as any).member) throw fail(403, 'team');
+    const rec = await readRecord(this.db, user.id);
+    if (!rec.subscription) throw fail(404, 'no_subscription');
+    return { rec, sub: await stripe('GET', 'subscriptions/' + rec.subscription) };
+  }
+
+  /** Opzeggen. In de gratis proef: meteen stoppen (er is niets betaald). Betaald: loopt door tot het einde van de periode. */
+  @Post('cancel')
+  @UseGuards(LoggedIn)
+  @HttpCode(200)
+  async cancel(@Req() req: Request, @CurrentUser() user: User) {
+    if ((req as any).member) throw fail(403, 'team');
+    if (this.auth.limited('subchange:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    try {
+      const { sub } = await this.mySub(user);
+      const next = sub.status === 'trialing' ? await stripe('DELETE', 'subscriptions/' + sub.id, {}) : await stripe('POST', 'subscriptions/' + sub.id, { cancel_at_period_end: true });
+      await this.apply(sub.status === 'trialing' ? { ...next, metadata: next.metadata || sub.metadata } : next);
+      return { ok: true, ended: next.status === 'canceled' };
+    } catch (e: any) { if (e && e.getStatus) throw e; console.error('Opzeggen mislukt:', e.message); throw fail(502, 'stripe'); }
+  }
+
+  /** Toch doorgaan (opzegging intrekken), zolang de periode nog loopt */
+  @Post('resume')
+  @UseGuards(LoggedIn)
+  @HttpCode(200)
+  async resume(@Req() req: Request, @CurrentUser() user: User) {
+    if ((req as any).member) throw fail(403, 'team');
+    if (this.auth.limited('subchange:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    try {
+      const { sub } = await this.mySub(user);
+      if (sub.status === 'canceled') throw fail(409, 'ended');
+      await this.apply(await stripe('POST', 'subscriptions/' + sub.id, { cancel_at_period_end: false }));
+      return { ok: true };
+    } catch (e: any) { if (e && e.getStatus) throw e; console.error('Doorgaan mislukt:', e.message); throw fail(502, 'stripe'); }
+  }
+
+  /** Huidige betaalmethode (kaart, SEPA, PayPal …), alleen merk en laatste cijfers */
+  @Get('method')
+  @UseGuards(LoggedIn)
+  async method(@CurrentUser() user: User) {
+    if (!stripeOn()) return { method: null };
+    const rec = await readRecord(this.db, user.id); if (!rec.customer) return { method: null };
+    try {
+      let pm: any = null;
+      if (rec.subscription) { const sub = await stripe('GET', 'subscriptions/' + rec.subscription, { 'expand[]': 'default_payment_method' }); pm = sub.default_payment_method; }
+      if (!pm || typeof pm === 'string') { const c = await stripe('GET', 'customers/' + rec.customer, { 'expand[]': 'invoice_settings.default_payment_method' }); pm = c.invoice_settings && c.invoice_settings.default_payment_method; }
+      return { method: describePm(pm) };
+    } catch (e: any) { console.error('Betaalmethode ophalen mislukt:', e.message); return { method: null }; }
+  }
+
+  /** Andere betaalmethode: Checkout Session in 'setup'-modus met de betaalvelden in onze eigen pagina (of de pagina van Stripe) */
+  @Post('method')
+  @UseGuards(LoggedIn)
+  @HttpCode(200)
+  async newMethod(@Req() req: Request, @CurrentUser() user: User) {
+    if (!stripeOn()) throw fail(403, 'off');
+    if ((req as any).member) throw fail(403, 'team');
+    if (this.auth.limited('pm:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    const rec = await readRecord(this.db, user.id); if (!rec.customer) throw fail(404, 'no_customer');
+    const base = baseUrl(req), common = { mode: 'setup', customer: rec.customer, currency: 'eur', client_reference_id: user.id, metadata: { uid: user.id, kind: 'method' }, setup_intent_data: { metadata: { uid: user.id } } };
+    try {
+      if (stripePk()) {
+        const s = await stripe('POST', 'checkout/sessions', { ...common, ui_mode: 'elements', return_url: base + '/?go=plan&pm={CHECKOUT_SESSION_ID}' }, ELEMENTS_VERSION);
+        if (s.client_secret) return { clientSecret: s.client_secret };
+      }
+      const s = await stripe('POST', 'checkout/sessions', { ...common, success_url: base + '/?go=plan&pm={CHECKOUT_SESSION_ID}', cancel_url: base + '/?go=plan' });
+      return { url: s.url };
+    } catch (e: any) { console.error('Betaalmethode wijzigen mislukt:', e.message); throw fail(502, 'stripe'); }
+  }
+
+  /** Terug van het opslaan van een nieuwe betaalmethode: meteen als standaard zetten (de webhook doet hetzelfde, voor de zekerheid) */
+  @Post('method/done')
+  @UseGuards(LoggedIn)
+  @HttpCode(200)
+  async methodDone(@CurrentUser() user: User, @Body() b: any = {}) {
+    const id = String(b.session || ''); if (!/^cs_[A-Za-z0-9_]+$/.test(id)) throw fail(400, 'session');
+    try { return { ok: await this.useSetup(await stripe('GET', 'checkout/sessions/' + id), user.id) }; }
+    catch (e: any) { console.error('Betaalmethode instellen mislukt:', e.message); throw fail(502, 'stripe'); }
+  }
+  /** Nieuwe betaalmethode uit een afgeronde setup-sessie: standaard voor de klant en het abonnement */
+  async useSetup(o: any, uid: string) {
+    if (!o || o.mode !== 'setup' || o.status !== 'complete' || !o.setup_intent) return false;
+    const rec = await readRecord(this.db, uid);
+    if (!rec.customer || o.customer !== rec.customer) return false;            // alleen je eigen sessie
+    const si = await stripe('GET', 'setup_intents/' + (typeof o.setup_intent === 'string' ? o.setup_intent : o.setup_intent.id));
+    const pm = typeof si.payment_method === 'string' ? si.payment_method : si.payment_method && si.payment_method.id; if (!pm) return false;
+    await stripe('POST', 'customers/' + rec.customer, { invoice_settings: { default_payment_method: pm } });
+    if (rec.subscription) await stripe('POST', 'subscriptions/' + rec.subscription, { default_payment_method: pm });
+    return true;
+  }
+
   @Post('portal')
   @UseGuards(LoggedIn)
   @HttpCode(200)
@@ -161,7 +255,10 @@ export class BillingController {
     if (!stripeOn() || !verifySignature(raw, String(req.get('stripe-signature') || ''), String(process.env.STRIPE_WEBHOOK_SECRET || ''))) throw fail(400, 'signature');
     const ev = JSON.parse(raw.toString('utf8')), o = ev.data && ev.data.object;
     if (!o) return { ok: true };
-    if (ev.type === 'checkout.session.completed' && o.mode === 'subscription' && o.subscription) {
+    if (ev.type === 'checkout.session.completed' && o.mode === 'setup') {
+      const uid = o.client_reference_id || (o.metadata && o.metadata.uid);
+      if (uid) await this.useSetup(o, uid).catch((e) => console.error('Betaalmethode (webhook) mislukt:', e.message));
+    } else if (ev.type === 'checkout.session.completed' && o.mode === 'subscription' && o.subscription) {
       const uid = o.client_reference_id || (o.metadata && o.metadata.uid); if (!uid || !(await this.db.getUser(uid))) return { ok: true };
       const rec = await readRecord(this.db, uid), old = rec.subscription;
       rec.customer = o.customer || rec.customer; rec.subscription = o.subscription; rec.cancelMailed = null;
@@ -231,4 +328,14 @@ export class BillingController {
     rec.status = s.status; rec.cancelAtEnd = !!s.cancel_at_period_end;                  // voor 'Abonnement en facturen': proefperiode / opgezegd
     await writeRecord(this.db, uid, rec);
   }
+}
+
+/** Betaalmethode in het kort voor de app: soort, merk, laatste 4 cijfers (nooit meer dan dat) */
+export function describePm(pm: any) {
+  if (!pm || typeof pm !== 'object') return null;
+  const t = pm.type, d = pm[t] || {};
+  if (t === 'card') return { type: 'card', brand: d.brand || null, last4: d.last4 || null, exp: d.exp_month && d.exp_year ? String(d.exp_month).padStart(2, '0') + '/' + String(d.exp_year).slice(-2) : null };
+  if (t === 'sepa_debit') return { type: 'sepa_debit', last4: d.last4 || null };
+  if (t === 'paypal') return { type: 'paypal', email: d.payer_email || null };
+  return { type: t, last4: d.last4 || null };
 }

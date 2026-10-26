@@ -85,6 +85,7 @@ var Plans = (function () {
   function feats(x) { return PlanGate.featuresHtml(x) + shortFeats(x); }             // met slotjes: wat zit er niet in dit pakket
   function draw() {
     if (!box) { box = document.createElement('div'); box.className = 'paywall'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'pwTitle'); document.body.appendChild(box); }
+    if (step === 'method') return drawMethod();
     if (step === 'pay') return drawPay();
     if (step === 'keep') return drawKeep();
     if (step === 'done') return drawDone();
@@ -157,6 +158,18 @@ var Plans = (function () {
       '</form></div></div>';
     if (inApp()) mountStripe();
   }
+  // Andere betaalmethode opslaan (zelfde betaalvelden van Stripe, in onze stijl)
+  function drawMethod() {
+    var cur = curPlan();
+    box.innerHTML = '<div class="pw-inner">' + top() + '<div class="pw-co pw-pm"><div class="pw-co-sum">' +
+      '<span class="pw-co-small">' + esc(t('bill.pmTitle')) + '</span>' + (cur ? '<b class="pw-co-big pw-pm-plan">QR-Codex ' + esc(t('plan.n_' + cur)) + '</b>' : '') +
+      '<p class="pw-co-note">' + esc(t('bill.pmLead')) + '</p></div>' +
+      '<form class="pw-co-form" data-pw-form><div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div id="pwPe" class="pw-pe"><span class="pw-spin sm" aria-hidden="true"></span></div></div>' +
+      '<p class="acct-msg bad" id="pwErr" role="alert" hidden></p>' +
+      '<button type="submit" class="pw-co-go"' + (busy || !sReady ? ' disabled' : '') + '>' + esc(t('bill.pmSave')) + '</button>' +
+      '<p class="pw-co-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p></form></div></div>';
+    mountStripe();
+  }
   // Losse QR-codes die je erbij kocht: gaan mee in het abonnement
   function extraLine() {
     var n = (info && info.plan && info.plan.extra) || 0, x = plans().filter(function (p) { return p.id === chosen; })[0];
@@ -192,12 +205,12 @@ var Plans = (function () {
   function stripeReset() { try { if (sPe) sPe.destroy(); } catch (e) {} sCo = null; sPe = null; sKey = ''; sReady = false; }
   function mountStripe() {
     var host = box && box.querySelector('#pwPe'); if (!host) return;
-    var key = chosen + '|' + period + '|' + (needKeep() ? keep.join(',') : '');
+    var key = step === 'method' ? 'method' : chosen + '|' + period + '|' + (needKeep() ? keep.join(',') : '');
     if (sPe && sKey === key) { try { sPe.unmount(); } catch (e) {} host.innerHTML = ''; sPe.mount(host); setGo(); return; }   // opnieuw getekend (bv. taal): zelfde betaling
     stripeReset(); sKey = key;
     loadStripe().then(function () {
       var st = window.Stripe(pk(), { locale: 'auto' });
-      var secret = api.account.stripeCheckout({ plan: chosen, period: period, keep: needKeep() ? keep : undefined, embedded: true }).then(function (r) {
+      var secret = (key === 'method' ? api.account.newPayMethod() : api.account.stripeCheckout({ plan: chosen, period: period, keep: needKeep() ? keep : undefined, embedded: true })).then(function (r) {
         if (r && r.clientSecret) return r.clientSecret;
         if (r && r.url) location.href = r.url;                          // de server viel terug op de betaalpagina van Stripe
         return new Promise(function () {});
@@ -272,6 +285,12 @@ var Plans = (function () {
       if (needed()) { mode = 'must'; step = 'choose'; show(); } else if (mode === 'must') close();
     }).catch(function () {});
   }
+  /** Betaalmethode wijzigen (Mijn account > Abonnement): eigen scherm met de velden van Stripe */
+  function changeMethod() {
+    if (!stripeOn()) return;
+    if (!inApp()) { api.account.newPayMethod().then(function (r) { if (r && r.url) location.href = r.url; }).catch(function () {}); return; }
+    api.account.plan().then(function (r) { info = r; mode = 'change'; step = 'method'; busy = false; stripeReset(); show(); }).catch(function () {});
+  }
   /** Zelf openen: een ander pakket of andere betaalperiode kiezen */
   function open(planId, why, direct) {
     if (blocked()) { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
@@ -309,5 +328,5 @@ var Plans = (function () {
   document.addEventListener('sub-lapsed', check);
   document.addEventListener('terms-ok', check);
   if (window.i18n) i18n.onChange(function () { if (box) draw(); });
-  return { open: open };
+  return { open: open, method: changeMethod };
 })();

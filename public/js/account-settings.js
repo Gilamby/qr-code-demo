@@ -356,7 +356,37 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       '<button class="btn primary" type="submit">' + t('acct.save') + '</button></div></form>' + (m.billing ? '<p class="acct-msg ' + m.billing[1] + '" role="status">' + esc(m.billing[0]) + '</p>' : '') + '</div>';
   }
   var planInfo = null, planBusy = false;
-  function loadPlan() { if (planBusy) return; planBusy = true; api.account.plan().then(function (r) { planBusy = false; planInfo = r; if (tab === 'plan') draw(); }).catch(function () { planBusy = false; planInfo = { error: true }; if (tab === 'plan') draw(); }); }
+  function loadPlan() { if (planBusy) return; planBusy = true; api.account.plan().then(function (r) { planBusy = false; planInfo = r; if (tab === 'plan') draw(); if (r && r.portal) loadPm(); }).catch(function () { planBusy = false; planInfo = { error: true }; if (tab === 'plan') draw(); }); }
+  /* Abonnement beheren in de app zelf (geen klantportal van Stripe meer): betaalmethode, opzeggen, doorgaan */
+  var pmInfo = null, planMsg = null, subBusy = false;
+  function loadPm() { api.account.payMethod().then(function (r) { pmInfo = (r && r.method) || false; if (tab === 'plan') draw(); }).catch(function () { pmInfo = false; }); }
+  function pmText(m) {
+    if (!m) return esc(t('bill.viaStripe'));
+    var brand = m.brand ? m.brand.charAt(0).toUpperCase() + m.brand.slice(1) : t('pw.mCard');
+    if (m.type === 'card') return esc(brand) + ' •••• ' + esc(m.last4 || '') + (m.exp ? ' <small class="bl-pm-exp">' + esc(m.exp) + '</small>' : '');
+    if (m.type === 'sepa_debit') return esc(t('bill.pmSepa')) + ' •••• ' + esc(m.last4 || '');
+    if (m.type === 'paypal') return 'PayPal' + (m.email ? ' <small class="bl-pm-exp">' + esc(m.email) + '</small>' : '');
+    return esc(m.type) + (m.last4 ? ' •••• ' + esc(m.last4) : '');
+  }
+  function askCancel() {
+    var sb = (planInfo && planInfo.sub) || {}, bl = (planInfo && planInfo.billing) || {}, d = document.getElementById('mcDialog'); if (!d) return;
+    d.innerHTML = '<form method="dialog" class="mc-dlg"><h3>' + esc(t('bill.cancelTitle')) + '</h3><p>' + esc(bl.trial ? t('bill.cancelTrialText') : t('bill.cancelPaidText', { date: day(sb.periodEnd) })) + '</p>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="no" autofocus>' + esc(t('bill.cancelKeep')) + '</button><button class="btn danger" value="yes">' + esc(t('bill.cancelYes')) + '</button></div></form>';
+    d.addEventListener('close', function () {
+      if (d.returnValue !== 'yes') return;
+      subBusy = true; draw();
+      api.account.cancelSub().then(function () { subBusy = false; planMsg = ['bill.cancelled', 'ok']; planInfo = null; invInfo = null; loadPlan(); loadInv(); document.dispatchEvent(new Event('sub-lapsed')); })
+        .catch(function () { subBusy = false; planMsg = ['pw.payError', 'bad']; draw(); });
+    }, { once: true });
+    d.returnValue = ''; d.showModal();
+  }
+  function resumeSub() {
+    subBusy = true; draw();
+    api.account.resumeSub().then(function () { subBusy = false; planMsg = ['bill.resumed', 'ok']; planInfo = null; loadPlan(); })
+      .catch(function () { subBusy = false; planMsg = ['pw.payError', 'bad']; draw(); });
+  }
+  // Terug van een nieuwe betaalmethode (?go=plan&pm=cs_…): meteen als standaard zetten en melden
+  var pmBack = (location.search.match(/[?&]pm=(cs_[A-Za-z0-9_]+)/) || [])[1];
   function euro(n) { return n === 0 ? t('plan.freeMonth') : new Intl.NumberFormat(i18n.lang(), { style: 'currency', currency: 'EUR' }).format(n); }
   /* ---------- Abonnement en facturen: overzicht zoals bij een professionele dienst ----------
      1. Je pakket (status, prijs, volgende betaling, periode, betaalmethode, knoppen)  2. Gebruik  3. Inbegrepen
@@ -391,14 +421,17 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     var nextCell = !paid ? fact(t('bill.next'), '—', esc(sb.state === 'none' ? t('bill.byTeam') : ''))
       : bl.cancelAtEnd ? fact(t('bill.endsOn'), esc(day(sb.periodEnd)), esc(t('bill.endsSub')))
       : fact(t('bill.next'), esc(money(nextAmount(p, sb, bl))), esc(t(bl.trial ? 'bill.afterTrial' : 'bill.on', { date: day(sb.periodEnd) })));
-    var method = bl.method ? esc(methodName(bl.method)) + ' <em class="bl-demo">' + esc(t('bill.demoTag')) + '</em>' : planInfo.portal ? esc(t('bill.viaStripe')) : '—';
+    var method = bl.method ? esc(methodName(bl.method)) + ' <em class="bl-demo">' + esc(t('bill.demoTag')) + '</em>' : planInfo.portal ? (pmInfo === null ? '…' : pmText(pmInfo)) : '—';
+    var live = planInfo.portal && !member && (sb.state === 'active' || bl.trial);
     var hero = '<div class="glass bg-card acct bl-hero">' +
       '<div class="bl-top"><div><span class="bl-label">' + t('bill.yourPlan') + '</span><h2 class="bl-plan">QR-Codex ' + esc(t('plan.n_' + p.id)) + ' <i class="bl-st ' + st[0] + '">' + esc(t(st[1])) + '</i></h2></div>' +
         (price != null ? '<div class="bl-price"><b>' + esc(money(price)) + '</b><small>' + esc(PlanPeriod.per(iv)) + '</small></div>' : '') + '</div>' +
       (sb.state === 'grace' ? '<p class="acct-msg bad" role="alert">' + t('sub.graceMsg', { date: i18n.fmt.stamp(sb.graceUntil, 'time') }) + '</p>' : sb.state === 'ended' ? '<p class="acct-msg bad" role="alert">' + t('sub.endedMsg') + '</p>' : '') +
-      '<div class="bl-facts">' + nextCell + fact(t('bill.period'), esc(sb.interval ? PlanPeriod.label(iv) : '—')) + fact(t('bill.method'), method, planInfo.portal ? '<button type="button" class="link-btn" data-portal>' + esc(t('bill.changeMethod')) + '</button>' : '') + '</div>' +
+      '<div class="bl-facts">' + nextCell + fact(t('bill.period'), esc(sb.interval ? PlanPeriod.label(iv) : '—')) + fact(t('bill.method'), method, planInfo.portal && !member ? '<button type="button" class="link-btn" data-pm-change>' + esc(t('bill.changeMethod')) + '</button>' : '') + '</div>' +
       (member ? '' : '<div class="bl-actions"><button type="button" class="btn primary" data-open-plans>' + t('bill.change') + '</button>' +
-        (planInfo.portal ? '<button type="button" class="btn ghost" data-portal>' + t('bill.manage') + ' ↗</button>' : '') + '</div>') +
+        (live && bl.cancelAtEnd ? '<button type="button" class="btn ghost" data-sub-resume' + (subBusy ? ' disabled' : '') + '>' + esc(t('bill.resume')) + '</button>' : '') +
+        (live && !bl.cancelAtEnd ? '<button type="button" class="btn ghost danger-ghost" data-sub-cancel' + (subBusy ? ' disabled' : '') + '>' + esc(t('bill.cancelSub')) + '</button>' : '') + '</div>') +
+      (planMsg ? '<p class="acct-msg ' + planMsg[1] + '" role="status">' + esc(t(planMsg[0])) + '</p>' : '') +
       '<p class="bl-fine">' + esc(t('sub.graceRule', { n: '' })) + '</p></div>';
     // Gebruik
     var canBuy = p.codes != null && !free && (api.info().demoCheckout || api.info().stripe);
@@ -435,7 +468,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
         (billing ? '<p class="acct-addr">' + addr + (billing.taxId ? '<br><span>' + t('acct.taxId') + ': ' + esc(billing.taxId) + '</span>' : '') + (billing.email ? '<br><span>' + esc(billing.email) + '</span>' : '') + '</p>'
           : viaStripe() ? '<p class="acct-addr">' + esc(t('acct.billingAuto')) + '</p>' : '<p class="bl-missing">' + SVG + ICON.warn + '</svg>' + t('acct.billingMissing') + '</p>') + '</div>' +
         '<button type="button" class="btn ' + (billing || viaStripe() ? 'ghost' : 'primary') + '" data-tab-go="billing">' + t(billing ? 'bill.edit' : 'acct.billingFill') + '</button></div>' +
-      '<div class="glass bg-card acct"><div class="bl-head"><h2>' + t('acct.invoices') + '</h2>' + (planInfo && planInfo.portal ? '<button type="button" class="link-btn" data-portal>' + esc(t('bill.allInvoices')) + ' ↗</button>' : '') + '</div>' +
+      '<div class="glass bg-card acct"><div class="bl-head"><h2>' + t('acct.invoices') + '</h2></div>' +
         '<div class="acct-table bl-table' + (invInfo && invInfo.demo ? ' nodl' : '') + '" role="table" aria-label="' + esc(t('acct.invoices')) + '"><div class="acct-tr acct-th bl-tr" role="row">' +
         ['acct.invDate', 'bill.desc', 'acct.invAmount', 'acct.invStatus'].concat(invInfo && invInfo.demo ? [] : ['bill.invoice']).map(function (k) { return '<span role="columnheader">' + t(k) + '</span>'; }).join('') + '</div>' +
         invRows() + '</div>' +
@@ -710,7 +743,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function open(id, focus) {
     if (!shown(id)) id = 'profile';
     if (id === 'team' && window.Team) Team.ensure();
-    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); }
+    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; pmInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); }
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
@@ -827,6 +860,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (ad) { if (!confirmApiDel()) return; api.account.apiKeyDel(ad.getAttribute('data-api-del')).then(function () { apiNew = null; loadApi(); }, function () { apiErr = t('myCodes.failed'); draw(); }); return; }
     if (e.target.closest('[data-api-copy]')) { var kt = document.getElementById('apiNewKey'); if (kt && navigator.clipboard) navigator.clipboard.writeText(kt.textContent).then(function () { e.target.closest('[data-api-copy]').textContent = t('api.copied'); }); return; }
     if (e.target.closest('[data-open-plans]') && window.Plans) { Plans.open(); return; }
+    if (e.target.closest('[data-pm-change]') && window.Plans) { planMsg = null; Plans.method(); return; }
+    if (e.target.closest('[data-sub-cancel]')) { planMsg = null; askCancel(); return; }
+    if (e.target.closest('[data-sub-resume]')) { planMsg = null; resumeSub(); return; }
     var pb = e.target.closest('[data-portal]');
     if (pb) { pb.disabled = true; api.account.stripePortal().then(function (r) { location.href = r.url; }, function () { pb.disabled = false; pb.insertAdjacentHTML('afterend', '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>'); }); return; }
     var ask = e.target.closest('[data-plan-ask]');
@@ -934,7 +970,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     };
     if (!d.open) d.showModal(); f.nick.focus();
   }
-  Session.onUser(function (u) { setTimeout(function () { requireName(u); }, 300); });
+  Session.onUser(function (u) {
+    if (pmBack) { var sid = pmBack; pmBack = null; api.account.payMethodDone(sid).then(function () { planMsg = ['bill.pmDone', 'ok']; pmInfo = null; loadPm(); if (tab === 'plan') draw(); }).catch(function () {}); } setTimeout(function () { requireName(u); }, 300); });
   Session.onUser(function (u) { if (u.theme && u.theme !== theme.get()) theme.set(u.theme, false); user = u; sum = null; billing = null; billingLoaded = false; draft = null; bad = []; tab = 'profile'; editing = null; emailPending = null; sessions = null; activity = null; planInfo = null; invInfo = null; draw(); loadSummary(); loadBilling(); });
   // Net op de link in de mail geklikt (nieuw e-mailadres): Mijn account openen met de uitkomst
   document.addEventListener('account:email-note', function (e) {

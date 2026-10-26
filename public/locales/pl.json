@@ -2692,7 +2692,21 @@
     "sOpen": "Otwarta",
     "sVoid": "Anulowana",
     "sUncollectible": "Nieopłacona",
-    "demoNote": "Demo: to przykładowe płatności. Nic nie zostało pobrane."
+    "demoNote": "Demo: to przykładowe płatności. Nic nie zostało pobrane.",
+    "cancelSub": "Anuluj subskrypcję",
+    "resume": "Kontynuuj subskrypcję",
+    "cancelTitle": "Anulować subskrypcję?",
+    "cancelTrialText": "Bezpłatny okres próbny kończy się od razu i nic nie zostanie pobrane. Kody QR przestaną działać; wszystko jest przechowywane przez 30 dni.",
+    "cancelPaidText": "Plan działa do {date}. Potem nic nie zostanie pobrane, a kody QR przestaną działać.",
+    "cancelKeep": "Zachowaj subskrypcję",
+    "cancelYes": "Tak, anuluj",
+    "cancelled": "Subskrypcja została anulowana. Otrzymasz potwierdzenie e-mailem.",
+    "resumed": "Subskrypcja trwa dalej.",
+    "pmTitle": "Zmień metodę płatności",
+    "pmLead": "Nowa metoda płatności zostanie użyta przy kolejnych płatnościach.",
+    "pmSave": "Zapisz metodę płatności",
+    "pmDone": "Metoda płatności została zaktualizowana.",
+    "pmSepa": "Polecenie zapłaty SEPA"
   },
   "bulk": {
     "button": "Kilka naraz",

@@ -32,7 +32,16 @@ global.fetch = async (url, o = {}) => {
     ? ok({ id: 'cs_' + (++seq), client_secret: 'cs_' + seq + '_secret_x', version: o.headers['Stripe-Version'] })
     : ok({ id: 'cs_' + (++seq), url: 'https://checkout.stripe.com/c/pay/cs_' + seq });
   if (p === 'billing_portal/sessions') return ok({ url: 'https://billing.stripe.com/p/session/x' });
-  if (/^subscriptions\//.test(p)) { const id = p.split('/')[1]; if (o.method === 'DELETE') subs[id] = { ...subs[id], status: 'canceled' }; return ok(subs[id] || {}); }
+  if (/^subscriptions\//.test(p)) {
+    const id = p.split('/')[1];
+    if (o.method === 'DELETE') subs[id] = { ...subs[id], status: 'canceled' };
+    if (o.method === 'POST' && subs[id]) { if (body.has('cancel_at_period_end')) subs[id].cancel_at_period_end = body.get('cancel_at_period_end') === 'true'; if (body.has('default_payment_method')) subs[id].default_payment_method = body.get('default_payment_method'); }
+    if (o.method === 'GET' && subs[id] && /expand/.test(String(url)) && typeof subs[id].default_payment_method === 'string') return ok({ ...subs[id], default_payment_method: { id: subs[id].default_payment_method, type: 'card', card: { brand: 'visa', last4: '4242', exp_month: 12, exp_year: 2034 } } });
+    return ok(subs[id] || {});
+  }
+  if (/^checkout\/sessions\/cs_setup/.test(p)) return ok({ id: 'cs_setup1', mode: 'setup', status: 'complete', customer: global.__cus, setup_intent: 'seti_1' });
+  if (p === 'setup_intents/seti_1') return ok({ id: 'seti_1', payment_method: 'pm_new' });
+  if (/^customers\//.test(p)) return ok({ id: p.split('/')[1], invoice_settings: {} });
   return { ok: false, status: 404, json: async () => ({ error: { message: 'onbekend ' + p } }) };
 };
 
@@ -178,4 +187,41 @@ test('betalen in de app: Checkout Session met ui_mode elements (alleen met openb
   assert.equal(call.body.get('subscription_data[trial_period_days]'), '14', 'proef ook hier');
   assert.equal(call.body.get('tax_id_collection[enabled]'), null);
   delete process.env.STRIPE_PUBLISHABLE_KEY;
+});
+
+test('abonnement beheren in de app: betaalmethode, opzeggen (proef = meteen, betaald = tot einde), doorgaan', async () => {
+  const c = client(), day = 864e5, sec = (ms) => Math.floor(ms / 1000);
+  await c('POST', '/api/auth/register', { accept: true, email: 'beheer@example.com', password: 'Beheer zin hier 7!', name: 'Be' });
+  await c('POST', '/api/auth/verify', { token: decodeURIComponent(mails['beheer@example.com'].split('verify=')[1]) });
+  await c('POST', '/api/auth/login', { email: 'beheer@example.com', password: 'Beheer zin hier 7!' });
+  const u = await db.userByEmail('beheer@example.com');
+  assert.equal((await c('POST', '/api/billing/cancel')).status, 404, 'zonder abonnement niets op te zeggen');
+  // Betaald abonnement
+  global.__cus = 'cus_b';
+  subs.sub_b = { id: 'sub_b', customer: 'cus_b', status: 'active', current_period_end: sec(Date.now() + 20 * day), cancel_at_period_end: false, metadata: { uid: u.id, plan: 'pro', period: 'month' } };
+  await db.setSetting('stripe:' + u.id, JSON.stringify({ customer: 'cus_b', subscription: 'sub_b' }));
+  // Nieuwe betaalmethode: wordt standaard op het abonnement
+  const m = await c('POST', '/api/billing/method');
+  assert.ok(m.json.url || m.json.clientSecret);
+  assert.equal((await c('POST', '/api/billing/method/done', { session: 'cs_setup1' })).json.ok, true);
+  assert.equal(subs.sub_b.default_payment_method, 'pm_new');
+  const pm = (await c('GET', '/api/billing/method')).json.method;
+  assert.equal(pm.type, 'card'); assert.equal(pm.last4, '4242'); assert.equal(pm.exp, '12/34');
+  assert.equal((await c('POST', '/api/billing/method/done', { session: 'x" or 1' })).status, 400);
+  // Opzeggen betaald: loopt door tot het einde
+  const n = cancelled.length;
+  assert.equal((await c('POST', '/api/billing/cancel')).json.ended, false);
+  assert.equal(subs.sub_b.cancel_at_period_end, true);
+  let plan = (await c('GET', '/api/account/plan')).json;
+  assert.equal(plan.sub.state, 'active'); assert.equal(plan.billing.cancelAtEnd, true);
+  assert.equal(cancelled.length, n + 1, 'bevestigingsmail');
+  // Toch doorgaan
+  assert.equal((await c('POST', '/api/billing/resume')).json.ok, true);
+  assert.equal(subs.sub_b.cancel_at_period_end, false);
+  assert.equal((await c('GET', '/api/account/plan')).json.billing.cancelAtEnd, false);
+  // Proef opzeggen: meteen gestopt
+  subs.sub_b.status = 'trialing'; subs.sub_b.trial_end = sec(Date.now() + 10 * day);
+  assert.equal((await c('POST', '/api/billing/cancel')).json.ended, true);
+  assert.equal(subs.sub_b.status, 'canceled');
+  assert.notEqual((await c('GET', '/api/account/plan')).json.sub.state, 'active');
 });

@@ -5261,3 +5261,7 @@ body.paywall-open { overflow: hidden; }
 .pl-note { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
 :root[data-theme="light"] .pl-tiles div { background: rgba(13,19,32,.04); }
 @media (max-width: 520px) { .pl-cols { grid-template-columns: 1fr 1fr; } .pl-last li { grid-template-columns: 1fr auto; } .pl-last span:nth-child(2) { grid-column: 1 / -1; grid-row: 2; } }
+/* Abonnement beheren in de app: betaalmethode en scherm "betaalmethode wijzigen" */
+.bl-pm-exp { color: var(--muted); font-weight: 500; margin-left: 4px; }
+.paywall .pw-pm-plan { font-size: 26px; }
+.paywall .pw-pm .pw-co-note { margin-top: 6px; }

@@ -2692,7 +2692,21 @@
     "sOpen": "Atvērts",
     "sVoid": "Anulēts",
     "sUncollectible": "Neapmaksāts",
-    "demoNote": "Demo: šie ir parauga maksājumi. Nekas netika iekasēts."
+    "demoNote": "Demo: šie ir parauga maksājumi. Nekas netika iekasēts.",
+    "cancelSub": "Atcelt abonementu",
+    "resume": "Turpināt abonementu",
+    "cancelTitle": "Atcelt abonementu?",
+    "cancelTrialText": "Bezmaksas izmēģinājums beidzas uzreiz, un nekas netiek iekasēts. QR kodi pārstāj darboties; viss tiek glabāts 30 dienas.",
+    "cancelPaidText": "Plāns darbojas līdz {date}. Pēc tam nekas vairs netiek iekasēts, un QR kodi pārstāj darboties.",
+    "cancelKeep": "Paturēt abonementu",
+    "cancelYes": "Jā, atcelt",
+    "cancelled": "Abonements ir atcelts. Jūs saņemsiet apstiprinājumu e-pastā.",
+    "resumed": "Abonements turpinās.",
+    "pmTitle": "Mainīt maksājuma veidu",
+    "pmLead": "Jaunais maksājuma veids tiks izmantots nākamajiem maksājumiem.",
+    "pmSave": "Saglabāt maksājuma veidu",
+    "pmDone": "Maksājuma veids ir atjaunināts.",
+    "pmSepa": "SEPA tiešais debets"
   },
   "bulk": {
     "button": "Vairāki reizē",

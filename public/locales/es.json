@@ -2737,7 +2737,21 @@
     "sOpen": "Abierta",
     "sVoid": "Anulada",
     "sUncollectible": "Impagada",
-    "demoNote": "Demo: son pagos de ejemplo. No se ha cobrado nada."
+    "demoNote": "Demo: son pagos de ejemplo. No se ha cobrado nada.",
+    "cancelSub": "Cancelar suscripción",
+    "resume": "Continuar suscripción",
+    "cancelTitle": "¿Cancelar tu suscripción?",
+    "cancelTrialText": "Tu prueba gratuita termina de inmediato y no se te cobrará nada. Tus códigos QR dejan de funcionar; todo se guarda durante 30 días.",
+    "cancelPaidText": "Tu plan sigue funcionando hasta el {date}. Después no se te cobrará más y tus códigos QR dejarán de funcionar.",
+    "cancelKeep": "Mantener suscripción",
+    "cancelYes": "Sí, cancelar",
+    "cancelled": "Tu suscripción se ha cancelado. Recibirás una confirmación por correo.",
+    "resumed": "Tu suscripción continúa.",
+    "pmTitle": "Cambiar método de pago",
+    "pmLead": "El nuevo método de pago se usará para tus próximos pagos.",
+    "pmSave": "Guardar método de pago",
+    "pmDone": "Tu método de pago se ha actualizado.",
+    "pmSepa": "Domiciliación SEPA"
   },
   "bulk": {
     "button": "Varios a la vez",

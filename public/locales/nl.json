@@ -2737,7 +2737,21 @@
     "sOpen": "Open",
     "sVoid": "Vervallen",
     "sUncollectible": "Niet betaald",
-    "demoNote": "Demo: dit zijn voorbeeldbetalingen. Er is niets afgeschreven."
+    "demoNote": "Demo: dit zijn voorbeeldbetalingen. Er is niets afgeschreven.",
+    "cancelSub": "Abonnement opzeggen",
+    "resume": "Abonnement voortzetten",
+    "cancelTitle": "Abonnement opzeggen?",
+    "cancelTrialText": "Je gratis proefperiode stopt meteen en er wordt niets afgeschreven. Je QR-codes werken dan niet meer; alles wordt 30 dagen bewaard.",
+    "cancelPaidText": "Je pakket blijft werken tot {date}. Daarna wordt er niets meer afgeschreven en werken je QR-codes niet meer.",
+    "cancelKeep": "Abonnement houden",
+    "cancelYes": "Ja, opzeggen",
+    "cancelled": "Je abonnement is opgezegd. Je krijgt een bevestiging per e-mail.",
+    "resumed": "Je abonnement loopt gewoon door.",
+    "pmTitle": "Betaalmethode wijzigen",
+    "pmLead": "De nieuwe betaalmethode wordt gebruikt voor je volgende betalingen.",
+    "pmSave": "Betaalmethode opslaan",
+    "pmDone": "Je betaalmethode is bijgewerkt.",
+    "pmSepa": "SEPA-incasso"
   },
   "bulk": {
     "button": "Meerdere tegelijk",

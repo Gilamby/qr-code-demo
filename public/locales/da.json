@@ -2692,7 +2692,21 @@
     "sOpen": "Åben",
     "sVoid": "Annulleret",
     "sUncollectible": "Ikke betalt",
-    "demoNote": "Demo: dette er eksempelbetalinger. Der er ikke trukket noget."
+    "demoNote": "Demo: dette er eksempelbetalinger. Der er ikke trukket noget.",
+    "cancelSub": "Opsig abonnement",
+    "resume": "Fortsæt abonnement",
+    "cancelTitle": "Opsig dit abonnement?",
+    "cancelTrialText": "Din gratis prøveperiode stopper med det samme, og du opkræves ikke. Dine QR-koder holder op med at virke; alt gemmes i 30 dage.",
+    "cancelPaidText": "Din plan virker indtil {date}. Derefter opkræves du ikke mere, og dine QR-koder holder op med at virke.",
+    "cancelKeep": "Behold abonnement",
+    "cancelYes": "Ja, opsig",
+    "cancelled": "Dit abonnement er opsagt. Du får en bekræftelse på e-mail.",
+    "resumed": "Dit abonnement fortsætter.",
+    "pmTitle": "Skift betalingsmetode",
+    "pmLead": "Den nye betalingsmetode bruges til dine næste betalinger.",
+    "pmSave": "Gem betalingsmetode",
+    "pmDone": "Din betalingsmetode er opdateret.",
+    "pmSepa": "SEPA-direkte debitering"
   },
   "bulk": {
     "button": "Flere på én gang",

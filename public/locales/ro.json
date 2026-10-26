@@ -2692,7 +2692,21 @@
     "sOpen": "Deschisă",
     "sVoid": "Anulată",
     "sUncollectible": "Neplătită",
-    "demoNote": "Demo: acestea sunt plăți de exemplu. Nu s-a încasat nimic."
+    "demoNote": "Demo: acestea sunt plăți de exemplu. Nu s-a încasat nimic.",
+    "cancelSub": "Anulează abonamentul",
+    "resume": "Continuă abonamentul",
+    "cancelTitle": "Anulezi abonamentul?",
+    "cancelTrialText": "Perioada de probă gratuită se încheie imediat și nu ți se percepe nimic. Codurile QR nu mai funcționează; totul se păstrează 30 de zile.",
+    "cancelPaidText": "Planul funcționează până la {date}. După aceea nu ți se mai percepe nimic și codurile QR nu mai funcționează.",
+    "cancelKeep": "Păstrează abonamentul",
+    "cancelYes": "Da, anulează",
+    "cancelled": "Abonamentul a fost anulat. Vei primi o confirmare pe e-mail.",
+    "resumed": "Abonamentul continuă.",
+    "pmTitle": "Schimbă metoda de plată",
+    "pmLead": "Noua metodă de plată va fi folosită pentru plățile următoare.",
+    "pmSave": "Salvează metoda de plată",
+    "pmDone": "Metoda de plată a fost actualizată.",
+    "pmSepa": "Debit direct SEPA"
   },
   "bulk": {
     "button": "Mai multe deodată",

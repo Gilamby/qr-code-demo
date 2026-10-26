@@ -2692,7 +2692,21 @@
     "sOpen": "Aperta",
     "sVoid": "Annullata",
     "sUncollectible": "Non pagata",
-    "demoNote": "Demo: sono pagamenti di esempio. Non è stato addebitato nulla."
+    "demoNote": "Demo: sono pagamenti di esempio. Non è stato addebitato nulla.",
+    "cancelSub": "Annulla abbonamento",
+    "resume": "Continua abbonamento",
+    "cancelTitle": "Annullare l'abbonamento?",
+    "cancelTrialText": "La prova gratuita termina subito e non ti verrà addebitato nulla. I codici QR smettono di funzionare; tutto viene conservato per 30 giorni.",
+    "cancelPaidText": "Il piano resta attivo fino al {date}. Dopo non ti verrà addebitato più nulla e i codici QR smetteranno di funzionare.",
+    "cancelKeep": "Mantieni abbonamento",
+    "cancelYes": "Sì, annulla",
+    "cancelled": "Il tuo abbonamento è stato annullato. Riceverai una conferma via e-mail.",
+    "resumed": "Il tuo abbonamento continua.",
+    "pmTitle": "Cambia metodo di pagamento",
+    "pmLead": "Il nuovo metodo di pagamento verrà usato per i prossimi pagamenti.",
+    "pmSave": "Salva metodo di pagamento",
+    "pmDone": "Il metodo di pagamento è stato aggiornato.",
+    "pmSepa": "Addebito SEPA"
   },
   "bulk": {
     "button": "Più insieme",

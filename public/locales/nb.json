@@ -2692,7 +2692,21 @@
     "sOpen": "Åpen",
     "sVoid": "Annullert",
     "sUncollectible": "Ikke betalt",
-    "demoNote": "Demo: dette er eksempelbetalinger. Ingenting er trukket."
+    "demoNote": "Demo: dette er eksempelbetalinger. Ingenting er trukket.",
+    "cancelSub": "Si opp abonnement",
+    "resume": "Fortsett abonnement",
+    "cancelTitle": "Si opp abonnementet?",
+    "cancelTrialText": "Den gratis prøveperioden stopper umiddelbart, og du belastes ikke. QR-kodene slutter å virke; alt lagres i 30 dager.",
+    "cancelPaidText": "Planen virker til {date}. Etter det belastes du ikke mer, og QR-kodene slutter å virke.",
+    "cancelKeep": "Behold abonnement",
+    "cancelYes": "Ja, si opp",
+    "cancelled": "Abonnementet er sagt opp. Du får en bekreftelse på e-post.",
+    "resumed": "Abonnementet fortsetter.",
+    "pmTitle": "Endre betalingsmåte",
+    "pmLead": "Den nye betalingsmåten brukes for de neste betalingene.",
+    "pmSave": "Lagre betalingsmåte",
+    "pmDone": "Betalingsmåten er oppdatert.",
+    "pmSepa": "SEPA-direktedebitering"
   },
   "bulk": {
     "button": "Flere samtidig",

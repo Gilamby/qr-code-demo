@@ -2692,7 +2692,21 @@
     "sOpen": "Avoin",
     "sVoid": "Mitätöity",
     "sUncollectible": "Maksamatta",
-    "demoNote": "Demo: nämä ovat esimerkkimaksuja. Mitään ei veloitettu."
+    "demoNote": "Demo: nämä ovat esimerkkimaksuja. Mitään ei veloitettu.",
+    "cancelSub": "Peruuta tilaus",
+    "resume": "Jatka tilausta",
+    "cancelTitle": "Peruutetaanko tilaus?",
+    "cancelTrialText": "Ilmainen kokeilu päättyy heti, eikä sinulta veloiteta mitään. QR-koodit lakkaavat toimimasta; kaikki säilytetään 30 päivää.",
+    "cancelPaidText": "Pakettisi toimii {date} asti. Sen jälkeen sinulta ei veloiteta enää ja QR-koodit lakkaavat toimimasta.",
+    "cancelKeep": "Pidä tilaus",
+    "cancelYes": "Kyllä, peruuta",
+    "cancelled": "Tilauksesi on peruttu. Saat vahvistuksen sähköpostiin.",
+    "resumed": "Tilauksesi jatkuu.",
+    "pmTitle": "Vaihda maksutapa",
+    "pmLead": "Uutta maksutapaa käytetään seuraavissa maksuissa.",
+    "pmSave": "Tallenna maksutapa",
+    "pmDone": "Maksutapasi on päivitetty.",
+    "pmSepa": "SEPA-suoraveloitus"
   },
   "bulk": {
     "button": "Useita kerralla",

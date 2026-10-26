@@ -2737,7 +2737,21 @@
     "sOpen": "Open",
     "sVoid": "Void",
     "sUncollectible": "Unpaid",
-    "demoNote": "Demo: these are sample payments. Nothing was charged."
+    "demoNote": "Demo: these are sample payments. Nothing was charged.",
+    "cancelSub": "Cancel subscription",
+    "resume": "Continue subscription",
+    "cancelTitle": "Cancel your subscription?",
+    "cancelTrialText": "Your free trial stops straight away and you will not be charged. Your QR codes stop working; everything is kept for 30 days.",
+    "cancelPaidText": "Your plan keeps working until {date}. After that you will not be charged again and your QR codes stop working.",
+    "cancelKeep": "Keep subscription",
+    "cancelYes": "Yes, cancel",
+    "cancelled": "Your subscription has been cancelled. You will receive a confirmation email.",
+    "resumed": "Your subscription continues.",
+    "pmTitle": "Change payment method",
+    "pmLead": "The new payment method will be used for your next payments.",
+    "pmSave": "Save payment method",
+    "pmDone": "Your payment method has been updated.",
+    "pmSepa": "SEPA Direct Debit"
   },
   "bulk": {
     "button": "Several at once",

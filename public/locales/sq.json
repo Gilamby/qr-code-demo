@@ -2798,7 +2798,21 @@
     "sOpen": "E hapur",
     "sVoid": "Anuluar",
     "sUncollectible": "E papaguar",
-    "demoNote": "Demo: këto janë pagesa shembull. Nuk u tërhoq asgjë."
+    "demoNote": "Demo: këto janë pagesa shembull. Nuk u tërhoq asgjë.",
+    "cancelSub": "Anulo abonimin",
+    "resume": "Vazhdo abonimin",
+    "cancelTitle": "Ta anulosh abonimin?",
+    "cancelTrialText": "Prova falas ndalon menjëherë dhe nuk tarifohesh. Kodet QR ndalojnë së punuari; gjithçka ruhet për 30 ditë.",
+    "cancelPaidText": "Plani punon deri më {date}. Pas kësaj nuk tarifohesh më dhe kodet QR ndalojnë së punuari.",
+    "cancelKeep": "Mbaje abonimin",
+    "cancelYes": "Po, anulo",
+    "cancelled": "Abonimi u anulua. Do të marrësh një konfirmim me email.",
+    "resumed": "Abonimi vazhdon.",
+    "pmTitle": "Ndrysho mënyrën e pagesës",
+    "pmLead": "Mënyra e re e pagesës do të përdoret për pagesat e ardhshme.",
+    "pmSave": "Ruaj mënyrën e pagesës",
+    "pmDone": "Mënyra e pagesës u përditësua.",
+    "pmSepa": "Debitim direkt SEPA"
   },
   "bulk": {
     "button": "Disa njëherësh",

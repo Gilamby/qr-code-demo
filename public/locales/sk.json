@@ -2692,7 +2692,21 @@
     "sOpen": "Otvorená",
     "sVoid": "Zrušená",
     "sUncollectible": "Nezaplatená",
-    "demoNote": "Demo: toto sú ukážkové platby. Nič sa nestrhlo."
+    "demoNote": "Demo: toto sú ukážkové platby. Nič sa nestrhlo.",
+    "cancelSub": "Zrušiť predplatné",
+    "resume": "Pokračovať v predplatnom",
+    "cancelTitle": "Zrušiť predplatné?",
+    "cancelTrialText": "Bezplatné skúšobné obdobie sa okamžite skončí a nič sa nestrhne. QR kódy prestanú fungovať; všetko sa uchová 30 dní.",
+    "cancelPaidText": "Balík funguje do {date}. Potom sa už nič nestrhne a QR kódy prestanú fungovať.",
+    "cancelKeep": "Ponechať predplatné",
+    "cancelYes": "Áno, zrušiť",
+    "cancelled": "Predplatné bolo zrušené. Dostanete potvrdenie e-mailom.",
+    "resumed": "Predplatné pokračuje.",
+    "pmTitle": "Zmeniť spôsob platby",
+    "pmLead": "Nový spôsob platby sa použije pri ďalších platbách.",
+    "pmSave": "Uložiť spôsob platby",
+    "pmDone": "Spôsob platby bol aktualizovaný.",
+    "pmSepa": "Inkaso SEPA"
   },
   "bulk": {
     "button": "Viac naraz",

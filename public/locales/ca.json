@@ -2692,7 +2692,21 @@
     "sOpen": "Oberta",
     "sVoid": "Anul·lada",
     "sUncollectible": "No pagada",
-    "demoNote": "Demo: són pagaments d'exemple. No s'ha cobrat res."
+    "demoNote": "Demo: són pagaments d'exemple. No s'ha cobrat res.",
+    "cancelSub": "Cancel·lar subscripció",
+    "resume": "Continuar subscripció",
+    "cancelTitle": "Vols cancel·lar la subscripció?",
+    "cancelTrialText": "La prova gratuïta s'acaba immediatament i no se't cobrarà res. Els codis QR deixen de funcionar; tot es guarda durant 30 dies.",
+    "cancelPaidText": "El pla continua funcionant fins al {date}. Després no se't cobrarà més i els codis QR deixaran de funcionar.",
+    "cancelKeep": "Mantenir subscripció",
+    "cancelYes": "Sí, cancel·lar",
+    "cancelled": "La subscripció s'ha cancel·lat. Rebràs una confirmació per correu.",
+    "resumed": "La subscripció continua.",
+    "pmTitle": "Canviar el mètode de pagament",
+    "pmLead": "El nou mètode de pagament s'utilitzarà per als propers pagaments.",
+    "pmSave": "Desar el mètode de pagament",
+    "pmDone": "El mètode de pagament s'ha actualitzat.",
+    "pmSepa": "Domiciliació SEPA"
   },
   "bulk": {
     "button": "Diversos alhora",

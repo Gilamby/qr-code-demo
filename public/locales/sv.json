@@ -2692,7 +2692,21 @@
     "sOpen": "Öppen",
     "sVoid": "Makulerad",
     "sUncollectible": "Obetald",
-    "demoNote": "Demo: detta är exempelbetalningar. Inget har dragits."
+    "demoNote": "Demo: detta är exempelbetalningar. Inget har dragits.",
+    "cancelSub": "Säg upp prenumeration",
+    "resume": "Fortsätt prenumeration",
+    "cancelTitle": "Säga upp prenumerationen?",
+    "cancelTrialText": "Din kostnadsfria provperiod upphör direkt och du debiteras inget. Dina QR-koder slutar fungera; allt sparas i 30 dagar.",
+    "cancelPaidText": "Ditt paket fungerar till {date}. Därefter debiteras du inte mer och dina QR-koder slutar fungera.",
+    "cancelKeep": "Behåll prenumeration",
+    "cancelYes": "Ja, säg upp",
+    "cancelled": "Din prenumeration är uppsagd. Du får en bekräftelse via e-post.",
+    "resumed": "Din prenumeration fortsätter.",
+    "pmTitle": "Byt betalningsmetod",
+    "pmLead": "Den nya betalningsmetoden används för dina nästa betalningar.",
+    "pmSave": "Spara betalningsmetod",
+    "pmDone": "Din betalningsmetod har uppdaterats.",
+    "pmSepa": "SEPA-autogiro"
   },
   "bulk": {
     "button": "Flera samtidigt",

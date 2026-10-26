@@ -2692,7 +2692,21 @@
     "sOpen": "Em aberto",
     "sVoid": "Anulada",
     "sUncollectible": "Não paga",
-    "demoNote": "Demo: são pagamentos de exemplo. Nada foi cobrado."
+    "demoNote": "Demo: são pagamentos de exemplo. Nada foi cobrado.",
+    "cancelSub": "Cancelar subscrição",
+    "resume": "Continuar subscrição",
+    "cancelTitle": "Cancelar a subscrição?",
+    "cancelTrialText": "O período de teste gratuito termina de imediato e não é cobrado nada. Os códigos QR deixam de funcionar; tudo é guardado durante 30 dias.",
+    "cancelPaidText": "O plano continua ativo até {date}. Depois não é cobrado mais nada e os códigos QR deixam de funcionar.",
+    "cancelKeep": "Manter subscrição",
+    "cancelYes": "Sim, cancelar",
+    "cancelled": "A subscrição foi cancelada. Vai receber uma confirmação por e-mail.",
+    "resumed": "A subscrição continua.",
+    "pmTitle": "Alterar método de pagamento",
+    "pmLead": "O novo método de pagamento será usado nos próximos pagamentos.",
+    "pmSave": "Guardar método de pagamento",
+    "pmDone": "O método de pagamento foi atualizado.",
+    "pmSepa": "Débito Direto SEPA"
   },
   "bulk": {
     "button": "Vários de uma vez",
