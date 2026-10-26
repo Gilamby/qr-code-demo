@@ -388,7 +388,9 @@
     "msgChannel": "Kā cilvēkiem ar tevi sazināties?",
     "startsTime": "No (laiks)",
     "expiresTime": "Līdz (laiks)",
-    "afterUrl": "Pēc beigām sūtīt uz"
+    "afterUrl": "Pēc beigām sūtīt uz",
+    "abUrl": "Otrā saite (A/B tests)",
+    "abShare": "Daļa uz otro saiti (%)"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -607,7 +609,9 @@
     "starts": "Pirms šī datuma apmeklētājs redz \"Šis QR kods vēl nav aktīvs\". Ērti, ja drukā pirms akcijas sākuma.",
     "utmPage": "Automātiski pievieno utm birkas saitēm tavā lapā, lai Google Analytics redzētu apmeklētājus no QR koda.",
     "time": "Pēc izvēles. Tavā laika joslā. Tukšs = visa diena.",
-    "afterUrl": "Kad beigu datums pagājis vai sasniegts maksimālais skenējumu skaits, apmeklētāji nonāk šajā saitē, nevis \"beidzies\". Ērti nākamajai akcijai."
+    "afterUrl": "Kad beigu datums pagājis vai sasniegts maksimālais skenējumu skaits, apmeklētāji nonāk šajā saitē, nevis \"beidzies\". Ērti nākamajai akcijai.",
+    "abUrl": "Daļa apmeklētāju nonāk šajā saitē, pārējie parastajā saitē. Ieslēdz arī \"Sekot Google Analytics\", lai redzētu konversijas pa versijām (utm_content=a vai b).",
+    "abShare": "Pēc noklusējuma 50: puse uz katru saiti."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -2917,7 +2921,8 @@
     "placeSome": "Un vēl {n} vecākas skenēšanas bez informācijas (pirms žurnāla).",
     "placesCredit": "Vietu nosaukumi: GeoNames · Natural Earth",
     "clPlaces": "{n} vietas",
-    "clZoom": "Noklikšķiniet, lai tuvinātu"
+    "clZoom": "Noklikšķiniet, lai tuvinātu",
+    "ab": "A/B tests"
   },
   "sheet": {
     "title": "Drukas lapa (A4)",

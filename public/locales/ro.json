@@ -388,7 +388,9 @@
     "msgChannel": "Cum să te contacteze oamenii?",
     "startsTime": "De la (ora)",
     "expiresTime": "Până la (ora)",
-    "afterUrl": "După final, trimite la"
+    "afterUrl": "După final, trimite la",
+    "abUrl": "Al doilea link (test A/B)",
+    "abShare": "Procent către al doilea link (%)"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -607,7 +609,9 @@
     "starts": "Înainte de această dată, vizitatorul vede „Acest cod QR nu este încă activ”. Util dacă tipărești înainte de începerea campaniei.",
     "utmPage": "Adaugă automat etichete utm la linkurile de pe pagina ta, ca să vezi în Google Analytics vizitatorii veniți prin codul QR.",
     "time": "Opțional. În fusul tău orar. Gol = toată ziua.",
-    "afterUrl": "După data de final sau după numărul maxim de scanări, vizitatorii ajung la acest link în loc de „expirat”. Util pentru următoarea promoție."
+    "afterUrl": "După data de final sau după numărul maxim de scanări, vizitatorii ajung la acest link în loc de „expirat”. Util pentru următoarea promoție.",
+    "abUrl": "O parte dintre vizitatori ajung la acest link, restul la linkul obișnuit. Activează și „Urmărește în Google Analytics” ca să vezi conversiile pe versiuni (utm_content=a sau b).",
+    "abShare": "Implicit 50: jumătate la fiecare link."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -2917,7 +2921,8 @@
     "placeSome": "Plus {n} scanări mai vechi fără detalii (dinaintea jurnalului).",
     "placesCredit": "Denumiri de localități: GeoNames · Natural Earth",
     "clPlaces": "{n} locuri",
-    "clZoom": "Fă clic pentru a mări"
+    "clZoom": "Fă clic pentru a mări",
+    "ab": "Test A/B"
   },
   "sheet": {
     "title": "Coală de printat (A4)",

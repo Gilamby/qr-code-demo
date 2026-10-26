@@ -69,6 +69,9 @@
       { key: 'starts', type: 'date', label: 'fields.starts', advanced: true, hint: 'hint.starts' },
       { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
       { key: 'maxScans', type: 'number', min: 1, max: 1000000, label: 'fields.maxScans', advanced: true, hint: 'hint.maxScans' },
+      // A/B-test: een deel van de scans naar een tweede link (zie server/src/visitor/rules.ts)
+      { key: 'abUrl', type: 'url', label: 'fields.abUrl', advanced: true, hint: 'hint.abUrl' },
+      { key: 'abShare', type: 'number', min: 1, max: 99, label: 'fields.abShare', advanced: true, needs: 'abUrl', sample: '50', hint: 'hint.abShare' },
       { key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utm' } ] },
   { id: 'pdf', page: false, icon: 'pdf',    image: 'assets/qr-types/pdf.jpg',       contentType: 'file',     previewType: 'card',    color: '#c0392b', theme: ['#c0392b', '#1f2937'],
     fields: [

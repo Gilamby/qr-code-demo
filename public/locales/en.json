@@ -388,7 +388,9 @@
     "msgChannel": "How should people reach you?",
     "startsTime": "From (time)",
     "expiresTime": "Until (time)",
-    "afterUrl": "After it ends, send visitors to"
+    "afterUrl": "After it ends, send visitors to",
+    "abUrl": "Second link (A/B test)",
+    "abShare": "Share to the second link (%)"
   },
   "panel": {
     "selected": "{type} selected"
@@ -607,7 +609,9 @@
     "starts": "Before this date the visitor sees \"This QR code isn't active yet\". Handy if you print before the campaign starts.",
     "utmPage": "Automatically adds utm tags to the links on your page, so you can see visitors from the QR code in Google Analytics.",
     "time": "Optional. In your time zone. Empty = the whole day.",
-    "afterUrl": "When the end date has passed or the maximum number of scans is reached, visitors go to this link instead of \"expired\". Handy for your next promotion."
+    "afterUrl": "When the end date has passed or the maximum number of scans is reached, visitors go to this link instead of \"expired\". Handy for your next promotion.",
+    "abUrl": "Part of your visitors goes to this link, the rest to the normal link. Also turn on \"Track in Google Analytics\" to see conversions per version (utm_content=a or b).",
+    "abShare": "Default 50: half to each link."
   },
   "more": {
     "title": "More options",
@@ -2962,7 +2966,8 @@
     "placeSome": "Plus {n} older scans without details (from before the log).",
     "placesCredit": "Place names: GeoNames · Natural Earth",
     "clPlaces": "{n} places",
-    "clZoom": "Click to zoom in"
+    "clZoom": "Click to zoom in",
+    "ab": "A/B test"
   },
   "sheet": {
     "title": "Print sheet (A4)",

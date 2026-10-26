@@ -59,6 +59,7 @@ export class QrCodesService {
   /** out() + het gekoppelde oude adres (als dat er is) en tot wanneer het oude account loopt */
   async outFull(req: Request, q: QrCode, map?: Record<string, string>, until?: Record<string, { until: string }>) {
     const r: any = this.out(req, q), m = map || await this.legacyMap(q.userId);
+    if (q.content && q.content.abUrl) { try { r.ab = JSON.parse((await this.db.getSetting('ab:' + q.id)) || 'null') || { A: 0, B: 0 }; } catch { r.ab = { A: 0, B: 0 }; } }   // A/B-test: scans per versie
     if (m[q.id]) {
       r.legacyUrl = m[q.id];
       const u = until || await this.untilMap(q.userId);

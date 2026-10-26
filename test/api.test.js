@@ -929,3 +929,20 @@ test('plannen: start- en eindtijd in de tijdzone van de eigenaar, na afloop naar
   const made2 = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com', expires: '2020-01-01' } })).json;
   assert.equal((await fetch(base + '/q/' + made2.id, { redirect: 'manual' })).status, 410, 'zonder link: verlopen-pagina');
 });
+
+test('A/B-test: verdeling over twee links, utm_content per versie, scans per versie, opnieuw tellen bij nieuwe link', async () => {
+  const rules = require('../server/dist/visitor/rules');
+  const q = { id: 'ab', content: { url: 'https://a.example/', abUrl: 'https://b.example/', abShare: '20', utm: '1', title: 'Actie' } };
+  assert.equal(rules.abVariant(q, 0.1), 'B'); assert.equal(rules.abVariant(q, 0.5), 'A'); assert.equal(rules.abVariant({ content: { url: 'x' } }), null);
+  assert.match(rules.targetUrl(q, '', 'B'), /^https:\/\/b\.example\/\?.*utm_content=b/);
+  const c = client(); await signup(c, 'ab@example.com', 'AB test zin 77!', 'Ab');
+  const made = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://a.example/', abUrl: 'https://b.example/' } })).json;
+  const seen = {};
+  for (let i = 0; i < 40; i++) { const r = await fetch(base + '/q/' + made.id, { redirect: 'manual' }); seen[r.headers.get('location')] = 1; }
+  assert.ok(seen['https://a.example/'] && seen['https://b.example/'], 'beide links krijgen bezoekers');
+  await new Promise((ok) => setTimeout(ok, 50));
+  const ab = (await c('GET', '/api/qr-codes/' + made.id)).json.ab;
+  assert.equal(ab.A + ab.B, 40);
+  await c('PUT', '/api/qr-codes/' + made.id, { typeId: 'website', content: { url: 'https://a.example/', abUrl: 'https://c.example/' } });
+  assert.deepEqual((await c('GET', '/api/qr-codes/' + made.id)).json.ab, { A: 0, B: 0 }, 'nieuwe B-link: opnieuw tellen');
+});

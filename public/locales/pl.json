@@ -388,7 +388,9 @@
     "msgChannel": "Jak ludzie mają się z tobą kontaktować?",
     "startsTime": "Od (godzina)",
     "expiresTime": "Do (godzina)",
-    "afterUrl": "Po zakończeniu przekieruj do"
+    "afterUrl": "Po zakończeniu przekieruj do",
+    "abUrl": "Drugi link (test A/B)",
+    "abShare": "Udział drugiego linku (%)"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -607,7 +609,9 @@
     "starts": "Przed tą datą odwiedzający zobaczy „Ten kod QR nie jest jeszcze aktywny”. Przydatne, jeśli drukujesz przed startem akcji.",
     "utmPage": "Automatycznie dodaje tagi utm do linków na Twojej stronie, abyś widział w Google Analytics odwiedzających z kodu QR.",
     "time": "Opcjonalnie. W Twojej strefie czasowej. Puste = cały dzień.",
-    "afterUrl": "Po dacie końcowej lub po osiągnięciu maksymalnej liczby skanów odwiedzający trafią na ten link zamiast „wygasł”. Przydatne przy kolejnej promocji."
+    "afterUrl": "Po dacie końcowej lub po osiągnięciu maksymalnej liczby skanów odwiedzający trafią na ten link zamiast „wygasł”. Przydatne przy kolejnej promocji.",
+    "abUrl": "Część odwiedzających trafia na ten link, reszta na zwykły link. Włącz też „Śledź w Google Analytics”, aby widzieć konwersje dla każdej wersji (utm_content=a lub b).",
+    "abShare": "Domyślnie 50: połowa na każdy link."
   },
   "more": {
     "title": "Więcej opcji",
@@ -2917,7 +2921,8 @@
     "placeSome": "Oraz {n} starszych skanów bez szczegółów (sprzed dziennika).",
     "placesCredit": "Nazwy miejscowości: GeoNames · Natural Earth",
     "clPlaces": "{n} miejsc",
-    "clZoom": "Kliknij, aby przybliżyć"
+    "clZoom": "Kliknij, aby przybliżyć",
+    "ab": "Test A/B"
   },
   "sheet": {
     "title": "Arkusz do druku (A4)",

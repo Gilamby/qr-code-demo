@@ -388,7 +388,9 @@
     "msgChannel": "Hvordan skal folk kontakte dig?",
     "startsTime": "Fra (tid)",
     "expiresTime": "Til (tid)",
-    "afterUrl": "Når den slutter, send til"
+    "afterUrl": "Når den slutter, send til",
+    "abUrl": "Andet link (A/B-test)",
+    "abShare": "Andel til det andet link (%)"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -607,7 +609,9 @@
     "starts": "Før denne dato ser den besøgende \"Denne QR-kode er ikke aktiv endnu\". Praktisk, hvis du printer, før kampagnen starter.",
     "utmPage": "Tilføjer automatisk utm-tags til linkene på din side, så du kan se besøgende fra QR-koden i Google Analytics.",
     "time": "Valgfrit. I din tidszone. Tom = hele dagen.",
-    "afterUrl": "Når slutdatoen er passeret eller det maksimale antal scanninger er nået, kommer besøgende til dette link i stedet for \"udløbet\". Smart til din næste kampagne."
+    "afterUrl": "Når slutdatoen er passeret eller det maksimale antal scanninger er nået, kommer besøgende til dette link i stedet for \"udløbet\". Smart til din næste kampagne.",
+    "abUrl": "En del af de besøgende går til dette link, resten til det normale link. Slå også \"Følg i Google Analytics\" til for at se konverteringer pr. version (utm_content=a eller b).",
+    "abShare": "Standard 50: halvdelen til hvert link."
   },
   "more": {
     "title": "Flere muligheder",
@@ -2917,7 +2921,8 @@
     "placeSome": "Plus {n} ældre scanninger uden detaljer (fra før loggen).",
     "placesCredit": "Stednavne: GeoNames · Natural Earth",
     "clPlaces": "{n} steder",
-    "clZoom": "Klik for at zoome ind"
+    "clZoom": "Klik for at zoome ind",
+    "ab": "A/B-test"
   },
   "sheet": {
     "title": "Printark (A4)",

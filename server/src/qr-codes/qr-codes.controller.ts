@@ -135,6 +135,8 @@ export class QrCodesController {
     const patch: any = { content: value.content, design: value.design };
     if (body.name !== undefined) patch.name = cleanName(body.name);
     await this.db.setSetting('health:' + old.id, null).catch(() => {});      // inhoud veranderd: link opnieuw controleren
+    const nc: any = (patch as any).content || {}, oc: any = old.content || {};
+    if (nc.abUrl !== oc.abUrl || nc.url !== oc.url) await this.db.setSetting('ab:' + old.id, null).catch(() => {});   // andere links: A/B-test opnieuw tellen
     return this.codes.outFull(req, await this.db.updateQrCode(old.id, patch));
   }
 

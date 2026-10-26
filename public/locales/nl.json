@@ -388,7 +388,9 @@
     "msgChannel": "Hoe willen mensen je bereiken?",
     "startsTime": "Vanaf (tijd)",
     "expiresTime": "Tot (tijd)",
-    "afterUrl": "Na afloop doorsturen naar"
+    "afterUrl": "Na afloop doorsturen naar",
+    "abUrl": "Tweede link (A/B-test)",
+    "abShare": "Deel naar de tweede link (%)"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -607,7 +609,9 @@
     "starts": "Vóór deze datum ziet de bezoeker \"Deze QR-code is nog niet actief\". Handig als je al print voordat de actie begint.",
     "utmPage": "Voegt automatisch utm-labels toe aan de links op je pagina, zodat je bezoekers uit de QR-code terugziet in Google Analytics.",
     "time": "Optioneel. In jouw tijdzone. Leeg = de hele dag.",
-    "afterUrl": "Als de einddatum voorbij is of het maximum aantal scans bereikt, gaan bezoekers naar deze link in plaats van \"verlopen\". Handig voor de volgende actie."
+    "afterUrl": "Als de einddatum voorbij is of het maximum aantal scans bereikt, gaan bezoekers naar deze link in plaats van \"verlopen\". Handig voor de volgende actie.",
+    "abUrl": "Een deel van de bezoekers gaat naar deze link, de rest naar de gewone link. Zet ook \"Volgen in Google Analytics\" aan: dan zie je verkopen per versie (utm_content=a of b).",
+    "abShare": "Standaard 50: de helft naar elke link."
   },
   "more": {
     "title": "Meer opties",
@@ -2962,7 +2966,8 @@
     "placeSome": "En nog {n} oudere scans zonder details (van vóór het logboek).",
     "placesCredit": "Plaatsnamen: GeoNames · Natural Earth",
     "clPlaces": "{n} plaatsen",
-    "clZoom": "Klik om in te zoomen"
+    "clZoom": "Klik om in te zoomen",
+    "ab": "A/B-test"
   },
   "sheet": {
     "title": "Printvel (A4)",

@@ -388,7 +388,9 @@
     "msgChannel": "Si duhet të të kontaktojnë njerëzit?",
     "startsTime": "Nga (ora)",
     "expiresTime": "Deri (ora)",
-    "afterUrl": "Pas përfundimit, dërgo te"
+    "afterUrl": "Pas përfundimit, dërgo te",
+    "abUrl": "Lidhja e dytë (test A/B)",
+    "abShare": "Pjesa te lidhja e dytë (%)"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -607,7 +609,9 @@
     "starts": "Para kësaj date vizitori sheh \"Ky kod QR nuk është ende aktiv\". E dobishme nëse printon para se të fillojë fushata.",
     "utmPage": "Shton automatikisht etiketa utm te lidhjet e faqes sate, që të shohësh në Google Analytics vizitorët nga kodi QR.",
     "time": "Opsionale. Në zonën tënde kohore. Bosh = gjithë dita.",
-    "afterUrl": "Kur kalon data e mbarimit ose arrihet numri maksimal i skanimeve, vizitorët shkojnë te kjo lidhje në vend të \"skaduar\". E dobishme për ofertën e radhës."
+    "afterUrl": "Kur kalon data e mbarimit ose arrihet numri maksimal i skanimeve, vizitorët shkojnë te kjo lidhje në vend të \"skaduar\". E dobishme për ofertën e radhës.",
+    "abUrl": "Një pjesë e vizitorëve shkon te kjo lidhje, pjesa tjetër te lidhja e zakonshme. Aktivizo edhe \"Ndiq në Google Analytics\" për të parë konvertimet sipas versionit (utm_content=a ose b).",
+    "abShare": "Si parazgjedhje 50: gjysma te secila lidhje."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -3023,7 +3027,8 @@
     "placeSome": "Dhe {n} skanime më të vjetra pa detaje (para regjistrit).",
     "placesCredit": "Emrat e vendeve: GeoNames · Natural Earth",
     "clPlaces": "{n} vende",
-    "clZoom": "Kliko për ta zmadhuar"
+    "clZoom": "Kliko për ta zmadhuar",
+    "ab": "Test A/B"
   },
   "sheet": {
     "title": "Fletë për printim (A4)",

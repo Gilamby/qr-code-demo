@@ -388,7 +388,9 @@
     "msgChannel": "Come devono contattarti?",
     "startsTime": "Dalle (ora)",
     "expiresTime": "Fino alle (ora)",
-    "afterUrl": "Al termine, invia a"
+    "afterUrl": "Al termine, invia a",
+    "abUrl": "Secondo link (test A/B)",
+    "abShare": "Quota al secondo link (%)"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -607,7 +609,9 @@
     "starts": "Prima di questa data il visitatore vede \"Questo QR code non è ancora attivo\". Utile se stampi prima dell'inizio della campagna.",
     "utmPage": "Aggiunge automaticamente i tag utm ai link della tua pagina, così vedi in Google Analytics i visitatori arrivati dal codice QR.",
     "time": "Facoltativo. Nel tuo fuso orario. Vuoto = tutto il giorno.",
-    "afterUrl": "Quando la data di fine è passata o si raggiunge il numero massimo di scansioni, i visitatori vanno a questo link invece di \"scaduto\". Utile per la prossima promozione."
+    "afterUrl": "Quando la data di fine è passata o si raggiunge il numero massimo di scansioni, i visitatori vanno a questo link invece di \"scaduto\". Utile per la prossima promozione.",
+    "abUrl": "Una parte dei visitatori va a questo link, il resto al link normale. Attiva anche \"Traccia in Google Analytics\" per vedere le conversioni per versione (utm_content=a o b).",
+    "abShare": "Predefinito 50: metà a ciascun link."
   },
   "more": {
     "title": "Altre opzioni",
@@ -2917,7 +2921,8 @@
     "placeSome": "Più {n} scansioni più vecchie senza dettagli (precedenti al registro).",
     "placesCredit": "Nomi dei luoghi: GeoNames · Natural Earth",
     "clPlaces": "{n} luoghi",
-    "clZoom": "Clicca per ingrandire"
+    "clZoom": "Clicca per ingrandire",
+    "ab": "Test A/B"
   },
   "sheet": {
     "title": "Foglio da stampare (A4)",

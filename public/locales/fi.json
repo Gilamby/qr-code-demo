@@ -388,7 +388,9 @@
     "msgChannel": "Miten ihmiset ottavat yhteyttä?",
     "startsTime": "Alkaen (kellonaika)",
     "expiresTime": "Asti (kellonaika)",
-    "afterUrl": "Päättymisen jälkeen ohjaa"
+    "afterUrl": "Päättymisen jälkeen ohjaa",
+    "abUrl": "Toinen linkki (A/B-testi)",
+    "abShare": "Osuus toiseen linkkiin (%)"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -607,7 +609,9 @@
     "starts": "Ennen tätä päivää kävijä näkee \"Tämä QR-koodi ei ole vielä käytössä\". Kätevä, jos tulostat ennen kampanjan alkua.",
     "utmPage": "Lisää sivusi linkkeihin automaattisesti utm-tunnisteet, jotta näet QR-koodin kautta tulleet kävijät Google Analyticsissa.",
     "time": "Valinnainen. Omalla aikavyöhykkeelläsi. Tyhjä = koko päivä.",
-    "afterUrl": "Kun päättymispäivä on ohi tai skannausten enimmäismäärä täynnä, kävijät ohjataan tähän linkkiin \"vanhentunut\"-sivun sijaan. Kätevä seuraavaa kampanjaa varten."
+    "afterUrl": "Kun päättymispäivä on ohi tai skannausten enimmäismäärä täynnä, kävijät ohjataan tähän linkkiin \"vanhentunut\"-sivun sijaan. Kätevä seuraavaa kampanjaa varten.",
+    "abUrl": "Osa kävijöistä ohjataan tähän linkkiin, loput tavalliseen linkkiin. Laita päälle myös \"Seuraa Google Analyticsissa\", niin näet konversiot versioittain (utm_content=a tai b).",
+    "abShare": "Oletus 50: puolet kumpaankin linkkiin."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -2917,7 +2921,8 @@
     "placeSome": "Lisäksi {n} vanhempaa skannausta ilman tietoja (ennen lokia).",
     "placesCredit": "Paikannimet: GeoNames · Natural Earth",
     "clPlaces": "{n} paikkaa",
-    "clZoom": "Lähennä napsauttamalla"
+    "clZoom": "Lähennä napsauttamalla",
+    "ab": "A/B-testi"
   },
   "sheet": {
     "title": "Tulostusarkki (A4)",

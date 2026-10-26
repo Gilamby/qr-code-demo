@@ -388,7 +388,9 @@
     "msgChannel": "Com et poden contactar?",
     "startsTime": "Des de (hora)",
     "expiresTime": "Fins a (hora)",
-    "afterUrl": "En acabar, enviar a"
+    "afterUrl": "En acabar, enviar a",
+    "abUrl": "Segon enllaç (prova A/B)",
+    "abShare": "Part al segon enllaç (%)"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -607,7 +609,9 @@
     "starts": "Abans d'aquesta data, el visitant veu \"Aquest codi QR encara no està actiu\". Útil si imprimeixes abans que comenci la campanya.",
     "utmPage": "Afegeix automàticament etiquetes utm als enllaços de la teva pàgina, perquè vegis a Google Analytics els visitants del codi QR.",
     "time": "Opcional. A la teva zona horària. Buit = tot el dia.",
-    "afterUrl": "Quan passi la data de fi o s'arribi al màxim d'escanejos, els visitants van a aquest enllaç en lloc de \"caducat\". Útil per a la teva propera promoció."
+    "afterUrl": "Quan passi la data de fi o s'arribi al màxim d'escanejos, els visitants van a aquest enllaç en lloc de \"caducat\". Útil per a la teva propera promoció.",
+    "abUrl": "Una part dels visitants va a aquest enllaç i la resta a l'enllaç normal. Activa també \"Seguir a Google Analytics\" per veure les conversions per versió (utm_content=a o b).",
+    "abShare": "Per defecte 50: la meitat a cada enllaç."
   },
   "more": {
     "title": "Més opcions",
@@ -2917,7 +2921,8 @@
     "placeSome": "I {n} escanejos més antics sense detalls (anteriors al registre).",
     "placesCredit": "Noms de llocs: GeoNames · Natural Earth",
     "clPlaces": "{n} llocs",
-    "clZoom": "Fes clic per apropar"
+    "clZoom": "Fes clic per apropar",
+    "ab": "Prova A/B"
   },
   "sheet": {
     "title": "Full per imprimir (A4)",

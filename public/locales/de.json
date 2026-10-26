@@ -388,7 +388,9 @@
     "msgChannel": "Wie sollen dich Leute erreichen?",
     "startsTime": "Ab (Uhrzeit)",
     "expiresTime": "Bis (Uhrzeit)",
-    "afterUrl": "Danach weiterleiten zu"
+    "afterUrl": "Danach weiterleiten zu",
+    "abUrl": "Zweiter Link (A/B-Test)",
+    "abShare": "Anteil zum zweiten Link (%)"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -607,7 +609,9 @@
     "starts": "Vor diesem Datum sieht der Besucher „Dieser QR-Code ist noch nicht aktiv“. Praktisch, wenn du druckst, bevor die Aktion beginnt.",
     "utmPage": "Fügt den Links auf deiner Seite automatisch UTM-Parameter hinzu, damit du Besucher über den QR-Code in Google Analytics siehst.",
     "time": "Optional. In deiner Zeitzone. Leer = der ganze Tag.",
-    "afterUrl": "Ist das Enddatum vorbei oder die maximale Anzahl Scans erreicht, landen Besucher auf diesem Link statt auf „abgelaufen“. Praktisch für die nächste Aktion."
+    "afterUrl": "Ist das Enddatum vorbei oder die maximale Anzahl Scans erreicht, landen Besucher auf diesem Link statt auf „abgelaufen“. Praktisch für die nächste Aktion.",
+    "abUrl": "Ein Teil der Besucher landet auf diesem Link, der Rest auf dem normalen Link. Schalte auch „In Google Analytics verfolgen“ ein, um Conversions pro Version zu sehen (utm_content=a oder b).",
+    "abShare": "Standard 50: die Hälfte zu jedem Link."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -2923,7 +2927,8 @@
     "placeSome": "Dazu {n} ältere Scans ohne Details (von vor dem Protokoll).",
     "placesCredit": "Ortsnamen: GeoNames · Natural Earth",
     "clPlaces": "{n} Orte",
-    "clZoom": "Zum Vergrößern klicken"
+    "clZoom": "Zum Vergrößern klicken",
+    "ab": "A/B-Test"
   },
   "sheet": {
     "title": "Druckbogen (A4)",

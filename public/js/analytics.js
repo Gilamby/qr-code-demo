@@ -416,7 +416,10 @@ var Analytics = (function () {
           row(t('cd.made'), esc(i18n.fmt.stamp(c.createdAt, 'long'))) +
           row(t('cd.lastScan'), c.lastScanAt ? esc(i18n.fmt.stamp(c.lastScanAt, 'long')) : t('cd.never')) +
           row(t('cd.total'), i18n.fmt.num(c.scans || 0)) +
-          (c.content && c.content.starts ? row(t('fields.starts'), esc(c.content.starts)) : '') + (c.content && c.content.expires ? row(t('fields.expires'), esc(c.content.expires)) : '') +
+          (c.content && c.content.starts ? row(t('fields.starts'), esc(c.content.starts + (c.content.startsTime ? ' ' + c.content.startsTime : ''))) : '') + (c.content && c.content.expires ? row(t('fields.expires'), esc(c.content.expires + (c.content.expiresTime ? ' ' + c.content.expiresTime : ''))) : '') +
+          (c.content && c.content.afterUrl ? row(t('fields.afterUrl'), esc(String(c.content.afterUrl).replace(/^https?:\/\//, '').slice(0, 60))) : '') +
+          (c.ab ? row(t('cd.ab'), (function () { var A = c.ab.A || 0, B = c.ab.B || 0, n = A + B || 1;   // A/B-test: scans per versie
+            return esc('A ' + i18n.fmt.num(A) + ' (' + i18n.fmt.pct(A / n) + ') · B ' + i18n.fmt.num(B) + ' (' + i18n.fmt.pct(B / n) + ')'); })()) : '') +
           (c.note ? row(t('labels.note'), esc(c.note)) : '') + '</div>' +
         '<div class="cd-acts"><button type="button" class="btn primary sm" data-cd="edit">' + ico('pen') + t('myCodes.edit') + '</button>' +
           '<button type="button" class="btn ghost sm" data-cd="png">' + ico('dl') + 'PNG</button><button type="button" class="btn ghost sm" data-cd="svg">' + ico('dl') + 'SVG</button>' +

@@ -388,7 +388,9 @@
     "msgChannel": "Hur ska folk nå dig?",
     "startsTime": "Från (tid)",
     "expiresTime": "Till (tid)",
-    "afterUrl": "När den är slut, skicka till"
+    "afterUrl": "När den är slut, skicka till",
+    "abUrl": "Andra länk (A/B-test)",
+    "abShare": "Andel till den andra länken (%)"
   },
   "panel": {
     "selected": "{type} vald"
@@ -607,7 +609,9 @@
     "starts": "Före detta datum ser besökaren ”Den här QR-koden är inte aktiv än”. Praktiskt om du skriver ut innan kampanjen startar.",
     "utmPage": "Lägger automatiskt till utm-taggar på länkarna på din sida, så att du ser besökare från QR-koden i Google Analytics.",
     "time": "Valfritt. I din tidszon. Tomt = hela dagen.",
-    "afterUrl": "När slutdatumet passerat eller max antal skanningar nåtts hamnar besökare på den här länken i stället för \"utgången\". Smidigt för nästa kampanj."
+    "afterUrl": "När slutdatumet passerat eller max antal skanningar nåtts hamnar besökare på den här länken i stället för \"utgången\". Smidigt för nästa kampanj.",
+    "abUrl": "En del av besökarna går till den här länken, resten till den vanliga länken. Slå även på \"Följ i Google Analytics\" för att se konverteringar per version (utm_content=a eller b).",
+    "abShare": "Standard 50: hälften till varje länk."
   },
   "more": {
     "title": "Fler alternativ",
@@ -2917,7 +2921,8 @@
     "placeSome": "Plus {n} äldre skanningar utan detaljer (från före loggen).",
     "placesCredit": "Ortnamn: GeoNames · Natural Earth",
     "clPlaces": "{n} platser",
-    "clZoom": "Klicka för att zooma in"
+    "clZoom": "Klicka för att zooma in",
+    "ab": "A/B-test"
   },
   "sheet": {
     "title": "Utskriftsark (A4)",

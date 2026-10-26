@@ -45,9 +45,15 @@ export function notYet(q: QrCode, now?: Now) {
   const c = q.content || {}, n = asNow(now);
   return !!(c.starts && (n.d < c.starts || (n.d === c.starts && c.startsTime && n.t < c.startsTime)));
 }
-export function targetUrl(q: QrCode, userAgent = '') {
+/** A/B-test: welke versie krijgt deze bezoeker? B met kans abShare % (standaard 50) */
+export function abVariant(q: QrCode, rnd = Math.random()): 'A' | 'B' | null {
+  const c = q.content || {}; if (!c.abUrl) return null;
+  const share = Math.min(99, Math.max(1, Number(c.abShare) || 50));
+  return rnd * 100 < share ? 'B' : 'A';
+}
+export function targetUrl(q: QrCode, userAgent = '', variant: 'A' | 'B' | null = null) {
   const c = q.content || {};
-  let url = c.url;
+  let url = variant === 'B' && c.abUrl ? c.abUrl : c.url;
   if (/iPhone|iPad|iPod/i.test(userAgent) && c.iosUrl) url = c.iosUrl;
   else if (/Android/i.test(userAgent) && c.androidUrl) url = c.androidUrl;
   if (c.utm && url) {
@@ -56,6 +62,7 @@ export function targetUrl(q: QrCode, userAgent = '') {
     if (!u.searchParams.has('utm_source')) u.searchParams.set('utm_source', 'qr');
     if (!u.searchParams.has('utm_medium')) u.searchParams.set('utm_medium', 'qr_code');
     if (!u.searchParams.has('utm_campaign')) u.searchParams.set('utm_campaign', campaign);
+    if (variant && !u.searchParams.has('utm_content')) u.searchParams.set('utm_content', variant.toLowerCase());   // A/B: resultaat per versie in Google Analytics
     url = u.href;
   }
   return url;

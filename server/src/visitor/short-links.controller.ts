@@ -16,6 +16,18 @@ import * as rules from './rules';
 import { livePage } from './live-page';
 import type { QrCode } from '../types';
 
+/* A/B-test: scans per versie, per code in instelling "ab:<id>" = { A, B, since }. Eén schrijver per code tegelijk. */
+const abQueue = new Map<string, Promise<unknown>>();
+function countAb(db: DatabaseService, id: string, v: 'A' | 'B') {
+  const prev = abQueue.get(id) || Promise.resolve();
+  const next = prev.then(async () => {
+    let o: any = null; try { o = JSON.parse((await db.getSetting('ab:' + id)) || 'null'); } catch { o = null; }
+    o = o || { A: 0, B: 0, since: new Date().toISOString() }; o[v] = (o[v] || 0) + 1;
+    await db.setSetting('ab:' + id, JSON.stringify(o));
+  }).catch(() => {});
+  abQueue.set(id, next); next.then(() => { if (abQueue.get(id) === next) abQueue.delete(id); });
+}
+
 @Controller('q')
 export class ShortLinksController {
   constructor(private readonly db: DatabaseService, private readonly mailer: MailerService) {}
@@ -92,7 +104,10 @@ export class ShortLinksController {
     setImmediate(() => { scanAlert(this.db, this.mailer, q); });           // eerste scan / mijlpaal: mail (na het antwoord)
     const c = q.content;
     res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen
-    if (q.contentType === 'url' && c.url && !(q.typeId === 'video' && c.file)) return res.redirect(rules.targetUrl(q, req.get('user-agent')));   // eigen video: de videopagina met speler
+    if (q.contentType === 'url' && c.url && !(q.typeId === 'video' && c.file)) {
+      const v = rules.abVariant(q); if (v) countAb(this.db, q.id, v);     // A/B-test: scans per versie tellen
+      return res.redirect(rules.targetUrl(q, req.get('user-agent'), v));
+    }   // eigen video: de videopagina met speler
     // WhatsApp of SMS. SMS: berichtenprogramma openen met nummer en tekst ("?&body=" werkt op iPhone én Android)
     if (q.contentType === 'message' && c.channel === 'sms' && c.phone) return res.redirect('sms:' + c.phone.replace(/[^\d+]/g, '') + (c.message ? '?&body=' + encodeURIComponent(c.message) : ''));
     if (q.contentType === 'message' && c.phone) return res.redirect('https://wa.me/' + c.phone.replace(/\D/g, '') + (c.message ? '?text=' + encodeURIComponent(c.message) : ''));
