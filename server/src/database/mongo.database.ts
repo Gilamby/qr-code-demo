@@ -23,8 +23,7 @@ import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
   Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
-  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels, SCAN_LOG_DAYS,
-} from './database.service';
+  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels, SCAN_LOG_DAYS, ScanQuery } from './database.service';
 import type { ScanInfo } from './database.service';
 
 interface Doc { _id?: string; [k: string]: any }
@@ -91,6 +90,7 @@ export class MongoDatabase extends DatabaseService {
       m.hours.createIndex({ codeId: 1, day: 1, hour: 1 }, { unique: true, name: 'code_day_hour' }),
       m.scanLog.createIndex({ codeId: 1, at: -1 }, { name: 'code_at' }),
       m.scanLog.createIndex({ userId: 1 }, { name: 'user' }),
+      m.scanLog.createIndex({ at: 1 }, { name: 'at' }),
       m.hours.createIndex({ userId: 1 }),
       m.adminLog.createIndex({ codeId: 1, at: -1 }),
       m.resets.createIndex({ userId: 1 }),
@@ -254,6 +254,7 @@ export class MongoDatabase extends DatabaseService {
     await this.emailChanges.deleteMany({ expiresAt: { $lt: t } });
     await this.activity.deleteMany({ at: { $lt: new Date(Date.now() - 90 * 864e5).toISOString() } });
     await this.adminLog.deleteMany({ at: { $lt: new Date(Date.now() - ADMIN_LOG_DAYS * 864e5).toISOString() } });
+    await this.scanLog.deleteMany({ at: { $lt: new Date(Date.now() - SCAN_LOG_DAYS * 864e5).toISOString() } });   // logboek: alleen de laatste 400 dagen
     // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
     const loose = (await this.files.find({ codeId: null, createdAt: { $lt: new Date(Date.now() - 864e5).toISOString() } }, { projection: { _id: 1 } }).toArray()).map((d) => d._id);
     if (loose.length) await this.files.deleteMany({ _id: { $in: loose } });
@@ -302,15 +303,16 @@ export class MongoDatabase extends DatabaseService {
   /* ---------- QR-codes ---------- */
   private codesOf(userId: string) { return this.codes.find({ userId }).sort({ createdAt: -1 }).toArray(); }
   async listQrCodes(userId: string): Promise<QrCode[]> { return (await this.codesOf(userId)).map(codeOut); }
-  async listWithStats(userId: string): Promise<QrCode[]> {
+  async listWithStats(userId: string, days?: { from?: string; to?: string }): Promise<QrCode[]> {
+    const df: Doc = {}; if (days && days.from) df.$gte = days.from; if (days && days.to) df.$lte = days.to; const f: Doc = Object.keys(df).length ? { userId, day: df } : { userId };
     const codes = (await this.codesOf(userId)).map(codeOut), byId: Record<string, QrCode> = {};
     codes.forEach((c) => { c.stats = {}; byId[c.id] = c; });
-    for (const r of await this.stats.find({ userId }).toArray()) {
+    for (const r of await this.stats.find(f).toArray()) {
       const c = byId[r.codeId]; if (!c) continue;
       (c.stats[r.day] = c.stats[r.day] || {})[r.key] = [Number(r.scans), Number(r.uniq)];
     }
     codes.forEach((c) => { c.hours = {}; });
-    for (const r of await this.hours.find({ userId }).toArray()) { const c = byId[r.codeId]; if (c) (c.hours[r.day] = c.hours[r.day] || {})[String(r.hour)] = Number(r.scans); }
+    for (const r of await this.hours.find(f).toArray()) { const c = byId[r.codeId]; if (c) (c.hours[r.day] = c.hours[r.day] || {})[String(r.hour)] = Number(r.scans); }
     return codes;
   }
   async getQrCode(id: string): Promise<QrCode> { return codeOut(await this.codes.findOne({ _id: id })); }
@@ -390,15 +392,27 @@ export class MongoDatabase extends DatabaseService {
     const L = info && info.log;
     if (L) {
       await this.scanLog.insertOne({ _id: newId(), codeId: id, userId: code.userId, at: t, cc: L.cc || '', city: L.city || '', region: L.region || '', lat: L.lat, lon: L.lon, os: L.os || '', br: L.br || '', dev: L.dev || '', uniq: !!L.uniq });
-      if (Math.random() < .01) await this.scanLog.deleteMany({ at: { $lt: new Date(Date.now() - SCAN_LOG_DAYS * 864e5).toISOString() } });
     }
     return codeOut(code);
   }
-  async listScans(codeId: string, q: { from?: string; to?: string; before?: string; limit?: number }) {
-    const at: Doc = {}; if (q.from) at.$gte = q.from; if (q.to) at.$lt = q.to; if (q.before) at.$lt = q.before && (!at.$lt || q.before < at.$lt) ? q.before : at.$lt;
+  private scanMatch(codeId: string, q: ScanQuery) {
+    const at: Doc = {}; if (q.from) at.$gte = q.from; if (q.to) at.$lt = q.to; if (q.before && (!at.$lt || q.before < at.$lt)) at.$lt = q.before;
     const f: Doc = { codeId }; if (Object.keys(at).length) f.at = at;
-    return (await this.scanLog.find(f).sort({ at: -1 }).limit(Math.min(Math.max(Number(q.limit) || 50, 1), 5000)).toArray())
+    for (const k of ['os', 'cc', 'br', 'dev'] as const) if (q[k] && q[k]!.length) f[k] = { $in: q[k]!.slice(0, 200) };
+    if (q.city && q.city.length) f.$or = q.city.slice(0, 200).map((x) => { const i = x.indexOf('|'); return { cc: x.slice(0, i), city: x.slice(i + 1) }; });
+    return f;
+  }
+  async listScans(codeId: string, q: ScanQuery) {
+    return (await this.scanLog.find(this.scanMatch(codeId, q)).sort({ at: -1 }).limit(Math.min(Math.max(Number(q.limit) || 50, 1), 5000)).toArray())
       .map((d: any) => ({ id: d._id, at: d.at, cc: d.cc || '', city: d.city || '', region: d.region || '', lat: d.lat == null ? null : Number(d.lat), lon: d.lon == null ? null : Number(d.lon), os: d.os || '', br: d.br || '', dev: d.dev || '', uniq: !!d.uniq }));
+  }
+  async scanSummary(codeId: string, q: ScanQuery) {
+    const m = this.scanMatch(codeId, { ...q, before: undefined });
+    const total = await this.scanLog.countDocuments(m);
+    const rows = await this.scanLog.aggregate([{ $match: { ...m, lat: { $ne: null }, lon: { $ne: null } } },
+      { $group: { _id: { cc: '$cc', city: '$city' }, region: { $max: '$region' }, lat: { $avg: '$lat' }, lon: { $avg: '$lon' }, n: { $sum: 1 }, u: { $sum: { $cond: ['$uniq', 1, 0] } } } },
+      { $sort: { n: -1 } }, { $limit: 3000 }]).toArray();
+    return { total, places: rows.map((r: any) => ({ cc: r._id.cc || '', city: r._id.city || '', region: r.region || '', lat: Math.round(Number(r.lat) * 100) / 100, lon: Math.round(Number(r.lon) * 100) / 100, n: r.n, u: r.u })) };
   }
   async importStats(codeId: string, stats: Record<string, Record<string, [number, number]>>, scans: number, lastScanAt: string | null) {
     const code = await this.codes.findOne({ _id: codeId }, { projection: { userId: 1 } }); if (!code) return;

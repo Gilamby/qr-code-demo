@@ -537,6 +537,8 @@
 :root[data-theme="light"] .sub-bar .sub-x:hover { background: rgba(13,19,32,0.06); }
 :root[data-theme="light"] .cd-cl-dot { filter: drop-shadow(0 3px 6px rgba(13,19,32,.45)); }
 :root[data-theme="light"] .cd-cl:hover .cd-cl-dot { fill: #0284c7; }
+:root[data-theme="light"] .pw-seg { border: 1px solid var(--line, rgba(13,19,32,0.09)); }
+:root[data-theme="light"] .paywall .pw-co-f.bad > span { color: #dc2626; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

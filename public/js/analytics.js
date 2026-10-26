@@ -495,16 +495,17 @@ var Analytics = (function () {
       landPaths(v, px, withScans) +
       provLines(v, px) +
       // Gloed waar gescand is (zoals de "heatmap" van de Snap Map): groter en feller bij meer scans
-      '<g class="cd-heat">' + groups.map(function (g) { var r = (34 + 46 * Math.sqrt(g.n / max)) * sz; return ov(g.x, g.y, '<circle r="' + r.toFixed(1) + '" fill="url(#cdHeat)"/>', ''); }).join('') + '</g>' +
+      // Gloed: klein op de wereldkaart, groter als je inzoomt; nooit groter dan ~70 px, hoeveel scans er ook zijn
+      '<g class="cd-heat">' + groups.map(function (g) { var zf = Math.min(1, .35 + .65 * Math.log(MW / v[2]) / Math.log(40)), r = Math.min(70, 20 + 9 * Math.log10(g.n + 1)) * sz * Math.max(.35, zf); return ov(g.x, g.y, '<circle r="' + r.toFixed(1) + '" fill="url(#cdHeat)"/>', ''); }).join('') + '</g>' +
       cityLabels(v, px, groups.filter(function (g) { return g.m.length === 1; }).map(function (g) { return g.m[0]; }), groups.filter(function (g) { return g.m.length > 1; }), px) +
       groups.map(function (g, j) {
         if (g.m.length === 1) {                                         // één plaats: speld (druppel), punt precies op de plek
-          var p = g.m[0], i = sorted.indexOf(p), hs = (24 + 10 * Math.sqrt(p.n / max)) * sz;
+          var p = g.m[0], i = sorted.indexOf(p), hs = Math.min(36, 24 + 2 * Math.log10(p.n + 1)) * sz;
           return ov(p.x, p.y, '<ellipse cx="0" cy="0" rx="' + (hs * .22).toFixed(1) + '" ry="' + (hs * .07).toFixed(1) + '" class="cd-shadow"/><g transform="scale(' + hs.toFixed(2) + ')"><path d="' + PIN + '" class="cd-pin' + (p.approx ? ' approx' : '') + '" vector-effect="non-scaling-stroke"/><circle cx="0" cy="-.66" r=".15" class="cd-pin-eye"/></g>',
             'cd-dot', ' data-pt="' + i + '" data-cc="' + esc(p.cc) + '" data-city="' + esc(p.city) + '"');
         }
         // Meer plaatsen dicht bij elkaar: één bolletje met het aantal scans; klik = inzoomen, dan gaan ze uit elkaar
-        var R = (17 + 9 * Math.sqrt(g.n / max)) * sz, lbl = g.n >= 10000 ? Math.round(g.n / 1000) + 'k' : g.n >= 1000 ? (g.n / 1000).toFixed(1).replace('.0', '') + 'k' : String(g.n);
+        var R = Math.min(30, 15 + 2.6 * Math.log10(g.n + 1)) * sz, lbl = compact(g.n);   // logaritmisch: 10 miljoen scans is maar iets groter dan 100
         return ov(g.x, g.y, '<circle r="' + (R + 5).toFixed(1) + '" class="cd-cl-ring"/><circle r="' + R.toFixed(1) + '" class="cd-cl-dot"/><text y="' + (R * .36).toFixed(1) + '" class="cd-cl-n" style="font-size:' + (R * .9).toFixed(1) + 'px">' + lbl + '</text>', 'cd-cl', ' data-cl="' + j + '"');
       }).join('');
     svgEl._groups = groups;
@@ -532,10 +533,12 @@ var Analytics = (function () {
   }
   var PIN = 'M0 0C-.1-.2-.36-.42-.36-.66A.36.36 0 1 1 .36-.66C.36-.42.1-.2 0 0Z';   // druppel/speld, hoogte 1, punt op (0,0)
   // Kaarteenheden per schermpixel (de kaart past met 'meet' in het vak)
+  // 1.234 → 1,2K, 1.234.567 → 1,2M (in de taal van de app)
+  function compact(n) { try { return new Intl.NumberFormat(i18n.lang(), { notation: 'compact', maximumFractionDigits: n < 10000 ? 1 : 0 }).format(n); } catch (e) { return n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? (n / 1e3).toFixed(1) + 'k' : String(n); } }
   function upp(svgEl, v) { var w = svgEl.clientWidth || 800, h = svgEl.clientHeight || w / 2; return Math.max(v[2] / w, v[3] / h); }
   /* Plaatsen die op het scherm dicht bij elkaar liggen samenvoegen (zoals vrienden op de Snap Map). Hoe verder je inzoomt, hoe meer losse spelden. */
   function clusterPts(sorted, px, sz) {
-    var R = 46 * sz * px, groups = [];
+    var R = 62 * sz * px, groups = [];   // ruimer dan twee bolletjes naast elkaar: nooit over elkaar heen
     sorted.forEach(function (p) {
       var g = null; for (var i = 0; i < groups.length; i++) { var dx = groups[i].x - p.x, dy = groups[i].y - p.y; if (dx * dx + dy * dy < R * R) { g = groups[i]; break; } }
       if (!g) { groups.push({ x: p.x, y: p.y, n: p.n, u: p.u || 0, m: [p] }); return; }

@@ -28,7 +28,7 @@ export function lastPeriod(period: Period, now: Date): Range {
 }
 
 export async function buildReport(db: DatabaseService, userId: string, period: Period, range: Range): Promise<ReportData> {
-  const codes = await db.listWithStats(userId);
+  const codes = await db.listWithStats(userId, { from: range.prevFrom, to: range.to });
   let total = 0, unique = 0, prevTotal = 0; const per: { name: string; scans: number }[] = [];
   for (const c of codes) {
     let n = 0;

@@ -109,7 +109,7 @@ export function openSqlite(file: string): SqlDriver {
   at TEXT NOT NULL,
   cc TEXT, city TEXT, region TEXT, lat REAL, lon REAL, os TEXT, br TEXT, dev TEXT, uniq INTEGER NOT NULL DEFAULT 0
 );`);
-  db.exec('CREATE INDEX IF NOT EXISTS scan_log_code_at ON scan_log (code_id, at)');
+  db.exec('CREATE INDEX IF NOT EXISTS scan_log_code_at ON scan_log (code_id, at)'); db.exec('CREATE INDEX IF NOT EXISTS scan_log_at ON scan_log (at)');
   // 14 okt 2026: beheer (gepauzeerd door het team, gemarkeerd) + logboek van het beheer
   if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'moderation'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN moderation TEXT');
   db.exec(`CREATE TABLE IF NOT EXISTS admin_log (

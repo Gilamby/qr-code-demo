@@ -11,6 +11,7 @@
    Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar).
    ========================================================= */
 import { validateBilling } from '../auth/billing';
+import { readBuyer, applyBuyer, taxOn, taxBehavior } from './tax';
 import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService } from '../database/database.service';
@@ -63,8 +64,8 @@ export class BillingController {
     const p = await stripe('POST', 'products', { name: 'QR-Codex extra QR-code' });
     await this.db.setSetting('stripe:extraProduct', p.id); return p.id;
   }
-  private extraLine(product: string, interval: 'month' | 'quarter' | 'year', quantity: number) {
-    return { quantity, price_data: { currency: 'eur', product, unit_amount: Math.round(EXTRA_PRICE[interval] * 100), recurring: recurringOf(interval) } };
+  private extraLine(product: string, interval: 'month' | 'quarter' | 'year', quantity: number, buyerType?: string) {
+    return { quantity, price_data: { currency: 'eur', product, unit_amount: Math.round(EXTRA_PRICE[interval] * 100), recurring: recurringOf(interval), tax_behavior: taxBehavior(buyerType) } };
   }
 
   /** Losse QR-code(s) erbij: komt als extra regel in het lopende abonnement (Stripe verrekent het deel van deze periode) */
@@ -81,7 +82,7 @@ export class BillingController {
       const item = ((sub.items && sub.items.data) || []).find((i: any) => i.price && i.price.product === product);
       const now = item ? item.quantity : 0; if (now + n > EXTRA_MAX) throw fail(400, 'too_many');
       if (item) await stripe('POST', 'subscription_items/' + item.id, { quantity: now + n, proration_behavior: 'create_prorations' });
-      else await stripe('POST', 'subscription_items', { subscription: rec.subscription, ...this.extraLine(product, toInterval(sub.metadata && sub.metadata.period), n), proration_behavior: 'create_prorations' });
+      else await stripe('POST', 'subscription_items', { subscription: rec.subscription, ...this.extraLine(product, toInterval(sub.metadata && sub.metadata.period), n, rec.buyer), proration_behavior: 'create_prorations' });
       await this.apply(await stripe('GET', 'subscriptions/' + rec.subscription));
       await this.db.addActivity(user.id, 'extra_bought', this.auth.meta(req)).catch(() => {});
       return { ok: true };
@@ -103,16 +104,27 @@ export class BillingController {
     const planId = b.plan, interval = toInterval(b.period), plan = PLANS[planId];
     const first = stateOf(await subFor(this.db, user.id)) === 'unpaid';
     try {
-      const { customer } = await this.customerFor(user), base = baseUrl(req);
+      const { customer, rec } = await this.customerFor(user), base = baseUrl(req);
+      // Bedrijf of particulier (uit het betaalscherm): adres en btw-nummer naar Stripe, zodat de btw klopt
+      let buyerType: string | undefined = rec.buyer;
+      if (b.buyer) {
+        const r = readBuyer(b.buyer); if (!r.buyer) throw fail(400, 'buyer', { details: r.errors });
+        await applyBuyer(customer, r.buyer, user.email, user.name || '');
+        buyerType = r.buyer.type; rec.buyer = r.buyer.type; await writeRecord(this.db, user.id, rec);
+        const bl = validateBilling({ type: r.buyer.type, companyName: r.buyer.companyName, taxId: r.buyer.vat, firstName: (user.name || '').split(' ')[0], lastName: (user.name || '').split(' ').slice(1).join(' ') || '-', address: r.buyer.address || '-', postalCode: r.buyer.postalCode || '00000', city: r.buyer.city || '-', country: r.buyer.country });
+        if (bl.value && r.buyer.type === 'company') await this.db.setBilling(user.id, bl.value);   // factuurgegevens in de app gelijk houden
+      }
+      const tax = await taxOn();
       const meta = { uid: user.id, plan: planId, period: interval };
       await this.db.setSetting('keep:' + user.id, Array.isArray(b.keep) ? JSON.stringify(b.keep.map(String).slice(0, 500)) : null);   // welke codes aan blijven bij minder ruimte
       // Acties gelden één keer: alleen een nieuwe klant krijgt de eerste maand goedkoper (per maand) of het eerste jaar 2 maanden gratis (per jaar)
       const coupon = !first ? null : interval === 'month' ? await this.firstMonthCoupon(planId) : interval === 'year' ? await this.yearCoupon(planId) : null;
       const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
-      const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
+      const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras, (await readRecord(this.db, user.id)).buyer || (b.buyer && b.buyer.type))] : [];
       const common = {
         mode: 'subscription', customer, client_reference_id: user.id, locale: 'auto', payment_method_collection: 'always',
-        line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), product_data: { name: planName(planId) } } }, ...extraLines],
+        line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), tax_behavior: taxBehavior(buyerType), product_data: { name: planName(planId) } } }, ...extraLines],
+        automatic_tax: tax ? { enabled: true } : undefined,
         subscription_data: { metadata: meta, trial_period_days: first && plan.trialDays ? plan.trialDays : undefined },
         discounts: coupon ? [{ coupon }] : undefined,
         metadata: meta,
@@ -127,7 +139,7 @@ export class BillingController {
       const session = await stripe('POST', 'checkout/sessions', {
         ...common,
         // Factuurgegevens door Stripe laten vragen: adres alleen als het nodig is; bedrijven vinken "Ik koop als bedrijf" aan voor naam + btw-nummer
-        billing_address_collection: 'auto', tax_id_collection: { enabled: true }, customer_update: { name: 'auto', address: 'auto' },
+        billing_address_collection: tax ? 'required' : 'auto', tax_id_collection: { enabled: true }, customer_update: { name: 'auto', address: 'auto' },
         success_url: base + '/?checkout=success', cancel_url: base + '/?checkout=cancel',
       });
       return { url: session.url };

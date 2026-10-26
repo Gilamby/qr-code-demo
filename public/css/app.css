@@ -5288,3 +5288,13 @@ body.paywall-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .cd-cl-ring { animation: none; } }
 .cd-svg.cd-moving .cd-cities, .cd-svg.cd-moving .cd-prov { opacity: 0; transition: opacity .1s; }
 :root[data-theme="light"] .cd-heat { mix-blend-mode: multiply; }
+/* Afrekenen: bedrijf of particulier (btw) */
+.pw-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line, rgba(255,255,255,.1)); }
+.pw-seg button { border: 0; border-radius: 9px; padding: 10px 12px; font: inherit; font-weight: 700; font-size: 14.5px; color: var(--muted); background: transparent; cursor: pointer; }
+.pw-seg button.on { background: var(--accent); color: var(--accent-ink, #04121c); }
+.paywall .pw-co-f.bad input, .paywall .pw-co-f.bad select { border-color: #f87171 !important; }
+.paywall .pw-co-f.bad > span { color: #f87171; }
+.pw-buyer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--accent-soft, rgba(43,181,240,.1)); font-size: 14px; }
+.pw-buyer b { font-weight: 700; }
+.pw-tax span, .pw-tax b { font-size: 14px; }
+.pw-vatnote { margin: -6px 0 0; text-align: right; }

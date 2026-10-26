@@ -9,8 +9,7 @@ import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
 import {
   Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
-  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels, SCAN_LOG_DAYS,
-} from './database.service';
+  hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels, SCAN_LOG_DAYS, ScanQuery } from './database.service';
 import type { ScanInfo } from './database.service';
 
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
@@ -180,6 +179,7 @@ export class SqlDatabase extends DatabaseService {
     await this.d.run('DELETE FROM email_changes WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM activity WHERE at < ?', [new Date(Date.now() - 90 * 864e5).toISOString()]);
     await this.d.run('DELETE FROM admin_log WHERE at < ?', [new Date(Date.now() - ADMIN_LOG_DAYS * 864e5).toISOString()]);
+    await this.d.run('DELETE FROM scan_log WHERE at < ?', [new Date(Date.now() - SCAN_LOG_DAYS * 864e5).toISOString()]);   // logboek: alleen de laatste 400 dagen
     // geüploade bestanden die nooit bij een code zijn opgeslagen (na een dag)
     const loose = (await this.d.all('SELECT id FROM files WHERE code_id IS NULL AND created_at < ?', [new Date(Date.now() - 864e5).toISOString()])).map((r) => r.id);
     for (const id of loose) await this.d.run('DELETE FROM files WHERE id = ?', [id]);
@@ -249,13 +249,14 @@ export class SqlDatabase extends DatabaseService {
     return (await this.d.run('UPDATE qr_codes SET folder_id = ? WHERE user_id = ? AND id IN (' + codeIds.map(() => '?').join(', ') + ')', [folderId, userId, ...codeIds])).changes || 0;
   }
   async listQrCodes(userId: string): Promise<QrCode[]> { return (await this.d.all(SQL.codesOf, [userId])).map(codeOut); }
-  async listWithStats(userId: string): Promise<QrCode[]> {
+  async listWithStats(userId: string, days?: { from?: string; to?: string }): Promise<QrCode[]> {
+    const dw = (days && days.from ? ' AND day >= ?' : '') + (days && days.to ? ' AND day <= ?' : ''), dv = [days && days.from, days && days.to].filter(Boolean);
     const codes = (await this.d.all(SQL.codesOf, [userId])).map(codeOut), byId: Record<string, QrCode> = {};
     codes.forEach((c) => { c.stats = {}; byId[c.id] = c; });
-    (await this.d.all('SELECT s.code_id, s.day, s.key, s.scans, s.uniq FROM scan_stats s JOIN qr_codes q ON q.id = s.code_id WHERE q.user_id = ?', [userId]))
+    (await this.d.all('SELECT s.code_id, s.day, s.key, s.scans, s.uniq FROM scan_stats s JOIN qr_codes q ON q.id = s.code_id WHERE q.user_id = ?' + dw.replace(/day/g, 's.day'), [userId, ...dv]))
       .forEach((r) => { const c = byId[r.code_id]; if (!c) return; (c.stats[r.day] = c.stats[r.day] || {})[r.key] = [Number(r.scans), Number(r.uniq)]; });
     codes.forEach((c) => { c.hours = {}; });
-    (await this.d.all('SELECT h.code_id, h.day, h.hour, h.scans FROM scan_hours h JOIN qr_codes q ON q.id = h.code_id WHERE q.user_id = ?', [userId]))
+    (await this.d.all('SELECT h.code_id, h.day, h.hour, h.scans FROM scan_hours h JOIN qr_codes q ON q.id = h.code_id WHERE q.user_id = ?' + dw.replace(/day/g, 'h.day'), [userId, ...dv]))
       .forEach((r) => { const c = byId[r.code_id]; if (!c) return; (c.hours[r.day] = c.hours[r.day] || {})[String(r.hour)] = Number(r.scans); });
     return codes;
   }
@@ -296,7 +297,6 @@ export class SqlDatabase extends DatabaseService {
     const t = now(), day = t.slice(0, 10), key = (info && info.key) || 'other||', L = info && info.log;
     const log: [string, unknown[]][] = L ? [['INSERT INTO scan_log (id, code_id, at, cc, city, region, lat, lon, os, br, dev, uniq) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [newId(), id, t, L.cc || '', L.city || '', L.region || '', L.lat, L.lon, L.os || '', L.br || '', L.dev || '', L.uniq ? 1 : 0]]] : [];
-    if (L && Math.random() < .01) log.push(['DELETE FROM scan_log WHERE at < ?', [new Date(Date.now() - SCAN_LOG_DAYS * 864e5).toISOString()]]);   // af en toe oude regels opruimen
     await this.d.batch([            // in één transactie
       ...log,
       ['UPDATE qr_codes SET scans = scans + 1, last_scan_at = ? WHERE id = ?', [t, id]],
@@ -306,12 +306,23 @@ export class SqlDatabase extends DatabaseService {
     ]);
     return this.getQrCode(id);
   }
-  async listScans(codeId: string, q: { from?: string; to?: string; before?: string; limit?: number }) {
+  private scanWhere(codeId: string, q: ScanQuery) {
     const w = ['code_id = ?'], v: unknown[] = [codeId];
     if (q.from) { w.push('at >= ?'); v.push(q.from); } if (q.to) { w.push('at < ?'); v.push(q.to); } if (q.before) { w.push('at < ?'); v.push(q.before); }
-    v.push(Math.min(Math.max(Number(q.limit) || 50, 1), 5000));
-    return (await this.d.all('SELECT * FROM scan_log WHERE ' + w.join(' AND ') + ' ORDER BY at DESC LIMIT ?', v)).map((r: any) => ({ id: r.id, at: r.at, cc: r.cc || '', city: r.city || '', region: r.region || '',
+    const inList = (col: string, list?: string[]) => { if (list && list.length) { w.push(col + ' IN (' + list.map(() => '?').join(',') + ')'); v.push(...list.slice(0, 200)); } };
+    inList('os', q.os); inList('cc', q.cc); inList('br', q.br); inList('dev', q.dev); inList("(cc || '|' || city)", q.city);
+    return { w: w.join(' AND '), v };
+  }
+  async listScans(codeId: string, q: ScanQuery) {
+    const { w, v } = this.scanWhere(codeId, q);
+    return (await this.d.all('SELECT * FROM scan_log WHERE ' + w + ' ORDER BY at DESC LIMIT ?', [...v, Math.min(Math.max(Number(q.limit) || 50, 1), 5000)])).map((r: any) => ({ id: r.id, at: r.at, cc: r.cc || '', city: r.city || '', region: r.region || '',
       lat: r.lat == null ? null : Number(r.lat), lon: r.lon == null ? null : Number(r.lon), os: r.os || '', br: r.br || '', dev: r.dev || '', uniq: !!Number(r.uniq) }));
+  }
+  async scanSummary(codeId: string, q: ScanQuery) {
+    const { w, v } = this.scanWhere(codeId, { ...q, before: undefined });
+    const tot: any = await this.d.get('SELECT COUNT(*) AS n FROM scan_log WHERE ' + w, v);
+    const rows = await this.d.all('SELECT cc, city, MAX(region) AS region, AVG(lat) AS lat, AVG(lon) AS lon, COUNT(*) AS n, SUM(uniq) AS u FROM scan_log WHERE ' + w + ' AND lat IS NOT NULL AND lon IS NOT NULL GROUP BY cc, city ORDER BY n DESC LIMIT 3000', v);
+    return { total: Number(tot && tot.n) || 0, places: rows.map((r: any) => ({ cc: r.cc || '', city: r.city || '', region: r.region || '', lat: Math.round(Number(r.lat) * 100) / 100, lon: Math.round(Number(r.lon) * 100) / 100, n: Number(r.n) || 0, u: Number(r.u) || 0 })) };
   }
   async importStats(codeId: string, stats: Record<string, Record<string, [number, number]>>, scans: number, lastScanAt: string | null) {
     const list: [string, unknown[]][] = [];

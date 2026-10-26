@@ -108,7 +108,7 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   at TEXT NOT NULL,
   cc TEXT, city TEXT, region TEXT, lat REAL, lon REAL, os TEXT, br TEXT, dev TEXT, uniq INTEGER NOT NULL DEFAULT 0
 );`);
-  await pool.query('CREATE INDEX IF NOT EXISTS scan_log_code_at ON scan_log (code_id, at)');
+  await pool.query('CREATE INDEX IF NOT EXISTS scan_log_code_at ON scan_log (code_id, at)'); await pool.query('CREATE INDEX IF NOT EXISTS scan_log_at ON scan_log (at)');
   // 14 okt 2026: beheer (gepauzeerd door het team, gemarkeerd) + logboek van het beheer
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS moderation TEXT');
   await pool.query(`CREATE TABLE IF NOT EXISTS admin_log (

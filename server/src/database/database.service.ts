@@ -83,6 +83,9 @@ export const INVITE_HOURS = 7 * 24;
 /** Eén scan in het logboek: tijd, plaats (stad, regio, land, ongeveer), systeem, browser, apparaat, nieuw of terug. Geen IP. */
 export type ScanLog = { cc: string; city: string; region: string; lat: number | null; lon: number | null; os: string; br: string; dev: string; uniq: boolean };
 export type ScanInfo = { key: string; unique: boolean; log?: ScanLog };
+/** Filters voor het logboek: periode, bladeren (before) en keuzes op de detailpagina */
+export type ScanQuery = { from?: string; to?: string; before?: string; limit?: number; os?: string[]; cc?: string[]; city?: string[]; br?: string[]; dev?: string[] };
+export type ScanPlace = { cc: string; city: string; region: string; lat: number; lon: number; n: number; u: number };
 export type ScanRow = ScanLog & { id: string; at: string };
 export const SCAN_LOG_DAYS = 400;   // logboek ruim een jaar bewaren, daarna weg (privacyverklaring)
 
@@ -169,7 +172,8 @@ export abstract class DatabaseService {
   abstract moveToFolder(userId: string, codeIds: string[], folderId: string | null): Promise<number>;
   abstract listQrCodes(userId: string): Promise<QrCode[]>;
   /** Met statistieken (voor /api/analytics): { stats: { dag: { sleutel: [scans, uniek] } } } */
-  abstract listWithStats(userId: string): Promise<QrCode[]>;
+  /** Codes met statistieken. Met days alleen die dagen (veel sneller bij veel scans). */
+  abstract listWithStats(userId: string, days?: { from?: string; to?: string }): Promise<QrCode[]>;
   /** Openbaar (scannen) */
   abstract getQrCode(id: string): Promise<QrCode | null>;
   async getOwnedQrCode(id: string, userId: string): Promise<QrCode | null> { const q = await this.getQrCode(id); return q && q.userId === userId ? q : null; }
@@ -184,7 +188,9 @@ export abstract class DatabaseService {
   /** Scan tellen: totaal + per dag per "systeem|land|stad" */
   abstract addScan(id: string, info?: ScanInfo): Promise<QrCode>;
   /** Logboek: losse scans van één code, nieuwste eerst (geen IP-adressen) */
-  abstract listScans(codeId: string, q: { from?: string; to?: string; before?: string; limit?: number }): Promise<ScanRow[]>;
+  abstract listScans(codeId: string, q: ScanQuery): Promise<ScanRow[]>;
+  /** Logboek samengevat in de database (snel, ook bij miljoenen scans): totaal en per plaats met coördinaten */
+  abstract scanSummary(codeId: string, q: ScanQuery): Promise<{ total: number; places: ScanPlace[] }>;
   /** Alleen voor het overzetten van oude gegevens: statistieken van een code in één keer zetten */
   abstract importStats(codeId: string, stats: Record<string, Record<string, [number, number]>>, scans: number, lastScanAt: string | null): Promise<void>;
 
