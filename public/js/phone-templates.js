@@ -450,7 +450,7 @@ var PHONE = (function () {
           // De korting is het belangrijkste: groot en als eerste
           '<div class="wl-off">' + (c.discount ? '<b>' + esc(c.discount) + '<em>%</em></b><span>' + esc(t('pv.coupon.off')) + '</span>' : '<i class="sk" style="width:120px;height:46px"></i>') + '</div>' +
           '<div class="wl-big"><small>' + esc(t('pv.coupon.offer')) + '</small><b>' + (c.title ? esc(c.title) : '<i class="sk" style="width:70%;height:16px"></i>') + '</b></div>' +
-          '<div class="wl-row f2"><span class="wl-f"><small>' + esc(t('pv.coupon.validLbl')) + '</small><b>' + (date ? esc(date) : '–') + '</b></span><span class="wl-f r"><small>' + esc(t('pv.coupon.yourCode')) + '</small><b>' + (c.code ? esc(c.code) : '–') + '</b></span></div>' +
+          '<div class="wl-row f2">' + (date ? '<span class="wl-f"><small>' + esc(t('pv.coupon.validLbl')) + '</small><b>' + esc(date) + '</b></span>' : '<span></span>') + '<span class="wl-f r"><small>' + esc(t('pv.coupon.yourCode')) + '</small><b>' + (c.code ? esc(c.code) : '–') + '</b></span></div>' +
           (bar ? '<div class="wl-code wl-bar"><span>' + bar + '</span><small>' + esc(c.code) + '</small></div>'
             : c.code && scan === 'none' ? '' : '<div class="wl-code"><span>' + (qr || '<i class="wl-qr-sk"></i>') + '</span><small>' + (c.code ? esc(c.code) : '') + '</small></div>') +
         '</div>' +

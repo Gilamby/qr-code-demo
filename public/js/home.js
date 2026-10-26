@@ -154,7 +154,8 @@ var Home = (function () {
       if (r.lastScanAt) ev.push({ at: r.lastScanAt, icon: 'scan', text: t('home.evScanned', { name: name(r) }), code: r.id, cls: 'scan' });
     });
     var AI = { login: 'check', login_failed: 'warn', password: 'key', email: 'mail', sessions_ended: 'out', session_ended: 'out' };
-    acts.forEach(function (a) { ev.push({ at: a.at, icon: AI[a.kind] || 'check', text: t('acct.act_' + a.kind), cls: a.kind === 'login_failed' ? 'bad' : 'acct' }); });
+    var seenLogin = false;   // alleen de laatste keer inloggen; anders vult "Ingelogd" ×3 het hele lijstje (alles staat bij Beveiliging)
+    acts.forEach(function (a) { if (a.kind === 'login') { if (seenLogin) return; seenLogin = true; } ev.push({ at: a.at, icon: AI[a.kind] || 'check', text: t('acct.act_' + a.kind), cls: a.kind === 'login_failed' ? 'bad' : 'acct' }); });
     ev.sort(function (a, b) { return String(b.at).localeCompare(String(a.at)); });
     ev = ev.slice(0, 4);
     return '<div class="hm-card glass hm-actc"><div class="hm-head"><h3>' + ico('clock', 'hm-hi') + t('home.activity') + '</h3><button type="button" class="link-btn" data-goto-sec>' + t('home.viewAll') + ico('arrow', 'hm-ti') + '</button></div>' +
