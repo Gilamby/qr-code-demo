@@ -737,7 +737,8 @@
     "reason_api": "API (łączenie własnego oprogramowania) jest częścią Business.",
     "firstYearLabel": "pierwszy rok",
     "thenYear": "Potem {price} rocznie",
-    "firstYearPhrase": "{first} za pierwszy rok, potem {price} rocznie"
+    "firstYearPhrase": "{first} za pierwszy rok, potem {price} rocznie",
+    "extraLine": "{n} dodatkowe kody QR"
   },
   "dz": {
     "lbl": {

@@ -737,7 +737,8 @@
     "reason_api": "API (prepojenie softvéru) je súčasťou Business.",
     "firstYearLabel": "prvý rok",
     "thenYear": "Potom {price} ročne",
-    "firstYearPhrase": "{first} prvý rok, potom {price} ročne"
+    "firstYearPhrase": "{first} prvý rok, potom {price} ročne",
+    "extraLine": "{n} ďalšie QR kódy"
   },
   "dz": {
     "lbl": {

@@ -737,7 +737,8 @@
     "reason_api": "API-ul (conectarea software-ului) face parte din Business.",
     "firstYearLabel": "primul an",
     "thenYear": "Apoi {price} pe an",
-    "firstYearPhrase": "{first} în primul an, apoi {price} pe an"
+    "firstYearPhrase": "{first} în primul an, apoi {price} pe an",
+    "extraLine": "{n} coduri QR suplimentare"
   },
   "dz": {
     "lbl": {

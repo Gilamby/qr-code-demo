@@ -737,7 +737,8 @@
     "reason_api": "API (oman ohjelmiston yhdistäminen) kuuluu Businessiin.",
     "firstYearLabel": "ensimmäinen vuosi",
     "thenYear": "Sitten {price} vuodessa",
-    "firstYearPhrase": "{first} ensimmäinen vuosi, sitten {price} vuodessa"
+    "firstYearPhrase": "{first} ensimmäinen vuosi, sitten {price} vuodessa",
+    "extraLine": "{n} lisä-QR-koodia"
   },
   "dz": {
     "lbl": {

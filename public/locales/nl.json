@@ -737,7 +737,8 @@
     "reason_api": "De API (eigen software koppelen) zit in Business.",
     "firstYearLabel": "eerste jaar",
     "thenYear": "Daarna {price} per jaar",
-    "firstYearPhrase": "{first} het eerste jaar, dan {price} per jaar"
+    "firstYearPhrase": "{first} het eerste jaar, dan {price} per jaar",
+    "extraLine": "{n} extra QR-codes"
   },
   "dz": {
     "lbl": {

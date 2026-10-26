@@ -57,15 +57,17 @@ export function expressError(err: any, req: Request, res: Response, _next: NextF
    - cdn.socket.io / cdn.jsdelivr.net: hulpbibliotheken (live-verbinding, telefoonnummer-veld)
    - ipapi.co: land van de bezoeker (voor het telefoonnummer-veld) */
 const CHAT = 'https://webchat-api.optimasys.es';
+// Betalen in de app (Stripe Payment Element): het script en de betaalvelden komen van Stripe zelf
+const STRIPE = 'https://js.stripe.com https://*.js.stripe.com';
 const CSP = [
   "default-src 'self'",
   "img-src 'self' data: blob: https:",                                  // logo/icoon van de chatbot
   "media-src 'self' data: blob:",
   "style-src 'self' 'unsafe-inline' " + CHAT + ' https://cdn.jsdelivr.net https://fonts.googleapis.com',
-  "script-src 'self' 'unsafe-inline' " + CHAT + ' https://cdn.socket.io https://cdn.jsdelivr.net',
+  "script-src 'self' 'unsafe-inline' " + CHAT + ' https://cdn.socket.io https://cdn.jsdelivr.net ' + STRIPE,
   "font-src 'self' " + CHAT + ' https://fonts.gstatic.com',
-  "connect-src 'self' " + CHAT + ' wss://webchat-api.optimasys.es https://ipapi.co https://cdn.jsdelivr.net',
-  'frame-src ' + CHAT,
+  "connect-src 'self' " + CHAT + ' wss://webchat-api.optimasys.es https://ipapi.co https://cdn.jsdelivr.net https://api.stripe.com https://merchant-ui-api.stripe.com https://errors.stripe.com https://r.stripe.com https://m.stripe.network',
+  'frame-src ' + CHAT + ' ' + STRIPE + ' https://hooks.stripe.com https://pay.google.com',
   "frame-ancestors 'self'", "base-uri 'self'", "form-action 'self'",
 ].join('; ');
 
@@ -75,7 +77,7 @@ export function securityHeaders(req: Request, res: Response, next: NextFunction)
     'X-Content-Type-Options': 'nosniff',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'X-Frame-Options': 'SAMEORIGIN',
-    'Permissions-Policy': 'camera=(), microphone=(self "' + CHAT + '"), geolocation=(), payment=()',   // microfoon: alleen voor spraak in de chatbot
+    'Permissions-Policy': 'camera=(), microphone=(self "' + CHAT + '"), geolocation=(), payment=(self "https://js.stripe.com")',   // Apple Pay / Google Pay in het betaalveld van Stripe   // microfoon: alleen voor spraak in de chatbot
     'Content-Security-Policy': CSP,
   });
   if (req.secure) res.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');

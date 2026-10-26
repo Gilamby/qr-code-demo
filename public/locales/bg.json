@@ -737,7 +737,8 @@
     "reason_api": "API (свързване на софтуер) е част от Business.",
     "firstYearLabel": "първа година",
     "thenYear": "След това {price} на година",
-    "firstYearPhrase": "{first} за първата година, после {price} на година"
+    "firstYearPhrase": "{first} за първата година, после {price} на година",
+    "extraLine": "{n} допълнителни QR кода"
   },
   "dz": {
     "lbl": {

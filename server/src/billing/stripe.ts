@@ -13,6 +13,11 @@ import type { Interval } from '../subscription';
 
 export const STRIPE_VERSION = '2024-06-20';
 export const stripeOn = () => !!process.env.STRIPE_SECRET_KEY;
+/** Betalen in de app zelf (eigen betaalpagina met de velden van Stripe). Openbare sleutel pk_…: mag in de browser, staat in .env.
+ *  Leeg = de betaalpagina van Stripe zelf (checkout.stripe.com). */
+export const stripePk = () => { const k = String(process.env.STRIPE_PUBLISHABLE_KEY || '').trim(); return stripeOn() && /^pk_(test|live)_/.test(k) ? k : ''; };
+/** API-versie voor de betaalvelden in de app (ui_mode 'elements' bestaat pas in nieuwe versies); de rest blijft op STRIPE_VERSION */
+export const ELEMENTS_VERSION = '2026-09-30.endive';
 /** Demo-betaling (er wordt niets afgeschreven): standaard aan zolang Stripe er niet is. Uitzetten: DEMO_CHECKOUT=false.
  *  Zodra STRIPE_SECRET_KEY er staat, is de demo vanzelf uit. */
 export const demoCheckoutOn = () => !stripeOn() && process.env.DEMO_CHECKOUT !== 'false';
@@ -37,10 +42,10 @@ export function form(obj: any, prefix = '', out: string[] = []): string {
 }
 
 /** Eén aanroep naar Stripe. Bij een fout: Error met de melding van Stripe. */
-export async function stripe(method: 'GET' | 'POST' | 'DELETE', path: string, params?: any): Promise<any> {
+export async function stripe(method: 'GET' | 'POST' | 'DELETE', path: string, params?: any, version = STRIPE_VERSION): Promise<any> {
   const q = method === 'GET' && params ? '?' + form(params) : '';
   const r = await fetch('https://api.stripe.com/v1/' + path + q, {
-    method, headers: { Authorization: 'Bearer ' + process.env.STRIPE_SECRET_KEY, 'Content-Type': 'application/x-www-form-urlencoded', 'Stripe-Version': STRIPE_VERSION },
+    method, headers: { Authorization: 'Bearer ' + process.env.STRIPE_SECRET_KEY, 'Content-Type': 'application/x-www-form-urlencoded', 'Stripe-Version': version },
     body: method === 'GET' ? undefined : form(params || {}),
   });
   const j: any = await r.json().catch(() => ({}));

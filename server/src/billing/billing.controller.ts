@@ -23,7 +23,7 @@ import type { User } from '../types';
 import { PLANS, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscription';
 import { fitToPlan } from '../plan-limit';
-import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature } from './stripe';
+import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature, stripePk, ELEMENTS_VERSION } from './stripe';
 
 @Controller('api/billing')
 export class BillingController {
@@ -110,14 +110,24 @@ export class BillingController {
       const coupon = !first ? null : interval === 'month' ? await this.firstMonthCoupon(planId) : interval === 'year' ? await this.yearCoupon(planId) : null;
       const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
       const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras)] : [];
-      const session = await stripe('POST', 'checkout/sessions', {
+      const common = {
         mode: 'subscription', customer, client_reference_id: user.id, locale: 'auto', payment_method_collection: 'always',
-        // Factuurgegevens door Stripe laten vragen: adres alleen als het nodig is; bedrijven vinken "Ik koop als bedrijf" aan voor naam + btw-nummer
-        billing_address_collection: 'auto', tax_id_collection: { enabled: true }, customer_update: { name: 'auto', address: 'auto' },
         line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), product_data: { name: planName(planId) } } }, ...extraLines],
         subscription_data: { metadata: meta, trial_period_days: first && plan.trialDays ? plan.trialDays : undefined },
         discounts: coupon ? [{ coupon }] : undefined,
         metadata: meta,
+      };
+      // Betalen in de app zelf (eigen ontwerp, velden van Stripe). Lukt dat niet, dan gewoon de betaalpagina van Stripe.
+      if (b.embedded && stripePk()) {
+        try {
+          const s2 = await stripe('POST', 'checkout/sessions', { ...common, ui_mode: 'elements', return_url: base + '/?checkout=success&session_id={CHECKOUT_SESSION_ID}' }, ELEMENTS_VERSION);
+          if (s2.client_secret) return { clientSecret: s2.client_secret };
+        } catch (e) { console.error('Stripe betalen in de app mislukt, terug naar de betaalpagina van Stripe:', (e as Error).message); }
+      }
+      const session = await stripe('POST', 'checkout/sessions', {
+        ...common,
+        // Factuurgegevens door Stripe laten vragen: adres alleen als het nodig is; bedrijven vinken "Ik koop als bedrijf" aan voor naam + btw-nummer
+        billing_address_collection: 'auto', tax_id_collection: { enabled: true }, customer_update: { name: 'auto', address: 'auto' },
         success_url: base + '/?checkout=success', cancel_url: base + '/?checkout=cancel',
       });
       return { url: session.url };

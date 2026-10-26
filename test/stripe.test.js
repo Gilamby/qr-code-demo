@@ -28,7 +28,9 @@ global.fetch = async (url, o = {}) => {
   if (p === 'products') return ok({ id: 'prod_extra' });
   if (p === 'subscription_items') { const s = subs[body.get('subscription')]; const it = { id: 'si_' + (++seq), quantity: +body.get('quantity'), price: { product: body.get('price_data[product]') } }; s.items = { data: [...((s.items && s.items.data) || []), it] }; return ok(it); }
   if (/^subscription_items\//.test(p)) { const id = p.split('/')[1]; for (const s of Object.values(subs)) for (const it of ((s.items && s.items.data) || [])) if (it.id === id) it.quantity = +body.get('quantity'); return ok({ id }); }
-  if (p === 'checkout/sessions') return ok({ id: 'cs_' + (++seq), url: 'https://checkout.stripe.com/c/pay/cs_' + seq });
+  if (p === 'checkout/sessions') return body.get('ui_mode') === 'elements'
+    ? ok({ id: 'cs_' + (++seq), client_secret: 'cs_' + seq + '_secret_x', version: o.headers['Stripe-Version'] })
+    : ok({ id: 'cs_' + (++seq), url: 'https://checkout.stripe.com/c/pay/cs_' + seq });
   if (p === 'billing_portal/sessions') return ok({ url: 'https://billing.stripe.com/p/session/x' });
   if (/^subscriptions\//.test(p)) { const id = p.split('/')[1]; if (o.method === 'DELETE') subs[id] = { ...subs[id], status: 'canceled' }; return ok(subs[id] || {}); }
   return { ok: false, status: 404, json: async () => ({ error: { message: 'onbekend ' + p } }) };
@@ -156,4 +158,24 @@ test('Stripe: nieuwe klant per maand krijgt na de proef de eerste maand de actie
   assert.equal(co.get('amount_off'), '800'); assert.equal(co.get('duration'), 'repeating'); assert.equal(co.get('duration_in_months'), '1');
   assert.equal((await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'quarter' })).status, 200);
   assert.equal(calls.filter((x) => x.path === 'checkout/sessions').pop().body.get('discounts[0][coupon]'), null, 'per kwartaal: geen eerste-maand-korting');
+});
+
+test('betalen in de app: Checkout Session met ui_mode elements (alleen met openbare sleutel)', async () => {
+  const c = client();
+  await c('POST', '/api/auth/register', { accept: true, email: 'inapp@example.com', password: 'In de app zin 7!', name: 'In' });
+  await c('POST', '/api/auth/verify', { token: decodeURIComponent(mails['inapp@example.com'].split('verify=')[1]) });
+  await c('POST', '/api/auth/login', { email: 'inapp@example.com', password: 'In de app zin 7!' });
+  // Zonder STRIPE_PUBLISHABLE_KEY: gewoon de betaalpagina van Stripe
+  assert.ok((await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', embedded: true })).json.url);
+  assert.equal((await c('GET', '/api/health')).json.stripePk, undefined);
+  process.env.STRIPE_PUBLISHABLE_KEY = 'pk_test_nep';
+  assert.equal((await c('GET', '/api/health')).json.stripePk, 'pk_test_nep', 'openbare sleutel naar de app');
+  const r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', embedded: true });
+  assert.ok(r.json.clientSecret && !r.json.url, 'client secret, geen link');
+  const call = calls.filter((x) => x.path === 'checkout/sessions').pop();
+  assert.equal(call.body.get('ui_mode'), 'elements');
+  assert.ok(/checkout=success/.test(call.body.get('return_url')));
+  assert.equal(call.body.get('subscription_data[trial_period_days]'), '14', 'proef ook hier');
+  assert.equal(call.body.get('tax_id_collection[enabled]'), null);
+  delete process.env.STRIPE_PUBLISHABLE_KEY;
 });

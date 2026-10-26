@@ -737,7 +737,8 @@
     "reason_api": "Το API (σύνδεση λογισμικού) ανήκει στο Business.",
     "firstYearLabel": "πρώτο έτος",
     "thenYear": "Μετά {price} τον χρόνο",
-    "firstYearPhrase": "{first} τον πρώτο χρόνο, μετά {price} τον χρόνο"
+    "firstYearPhrase": "{first} τον πρώτο χρόνο, μετά {price} τον χρόνο",
+    "extraLine": "{n} επιπλέον κωδικοί QR"
   },
   "dz": {
     "lbl": {

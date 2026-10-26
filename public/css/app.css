@@ -4549,6 +4549,10 @@ body.paywall-open { overflow: hidden; }
 .pw-co-line span { display: flex; flex-direction: column; gap: 2px; }
 .pw-co-line small { color: #6b7385; font-size: 13px; }
 .pw-co-line.tot { margin-top: auto; font-weight: 700; }
+/* Betaalvelden van Stripe in onze eigen betaalpagina */
+.pw-pe { min-height: 120px; margin-top: 4px; }
+.pw-pe > .pw-spin { display: block; margin: 40px auto; }
+.pw-co-go.busy { opacity: .7; cursor: progress; }
 .pw-co-warn { margin: 4px 0 0; padding: 10px 12px; border-radius: 10px; background: #eef2f7; color: #3c4257; font-size: 13.5px; line-height: 1.45; }
 .pw-co-form { padding: 32px; display: flex; flex-direction: column; gap: 16px; }
 .pw-co-f { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; font-weight: 600; color: #3c4257; }
@@ -4573,6 +4577,21 @@ body.paywall-open { overflow: hidden; }
 .pw-co-back { align-self: center; }
 .pw-spin.sm { width: 16px; height: 16px; border-width: 2px; }
 @media (max-width: 760px) { .pw-co { grid-template-columns: 1fr; } .pw-co-sum { border-right: 0; border-bottom: 1px solid #e6e9ef; } .pw-co-sum, .pw-co-form { padding: 22px; } }
+/* Afrekenen in de stijl van de app (wens Fabian 26 okt): zelfde kleuren als de rest, licht of donker volgens het thema */
+.paywall .pw-co { background: var(--surface); color: var(--fg); border: 1px solid var(--line, rgba(255,255,255,.08)); box-shadow: 0 30px 80px -30px rgba(0,0,0,.6); }
+.paywall .pw-co-sum { background: var(--accent-soft, rgba(43,181,240,.08)); border-color: var(--line, rgba(255,255,255,.08)); }
+.paywall .pw-co-big { color: var(--fg); }
+.paywall .pw-co-small, .paywall .pw-co-line small, .paywall .pw-co-note, .paywall .pw-co-fine, .paywall .pw-co-safe { color: var(--muted); }
+.paywall .pw-co-line { border-color: var(--line, rgba(255,255,255,.08)); }
+.paywall .pw-co-f { color: var(--muted); }
+.paywall .pw-co-f input, .paywall .pw-co-f select { background: var(--bg); color: var(--fg); border-color: var(--line, rgba(255,255,255,.12)); box-shadow: none; }
+.paywall .pw-co-f input[readonly] { opacity: .8; }
+.paywall .pw-co-methods, .paywall .pw-co-m + .pw-co-m { border-color: var(--line, rgba(255,255,255,.12)); }
+.paywall .pw-co-m > button { background: transparent; color: var(--fg); }
+.paywall .pw-co-m > button:hover, .paywall .pw-co-m.on > button, .paywall .pw-co-body { background: var(--accent-soft, rgba(43,181,240,.08)); }
+.paywall .pw-co-ico { background: var(--accent-soft, rgba(43,181,240,.12)); color: var(--accent); }
+.paywall .pw-co-warn { background: var(--accent-soft, rgba(43,181,240,.1)); color: var(--fg); }
+.paywall .pw-co-go { background: var(--accent); color: var(--accent-ink, #04121c); border-radius: 12px; }
 
 /* Bevestiging na betalen: zelfde witte kaart als de betaalpagina, als een bon */
 .pw-rc { width: 100%; max-width: 520px; margin-top: 8px; padding: 32px; border-radius: 20px; background: #ffffff; color: #1a1f36; text-align: left; box-shadow: 0 30px 80px -30px #000000; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box; }

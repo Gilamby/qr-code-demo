@@ -737,7 +737,8 @@
     "reason_api": "API'et (forbind din software) er en del af Business.",
     "firstYearLabel": "første år",
     "thenYear": "Derefter {price} om året",
-    "firstYearPhrase": "{first} det første år, så {price} om året"
+    "firstYearPhrase": "{first} det første år, så {price} om året",
+    "extraLine": "{n} ekstra QR-koder"
   },
   "dz": {
     "lbl": {

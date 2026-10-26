@@ -737,7 +737,8 @@
     "reason_api": "API:t (koppla din programvara) ingår i Business.",
     "firstYearLabel": "första året",
     "thenYear": "Sedan {price} per år",
-    "firstYearPhrase": "{first} första året, sedan {price} per år"
+    "firstYearPhrase": "{first} första året, sedan {price} per år",
+    "extraLine": "{n} extra QR-koder"
   },
   "dz": {
     "lbl": {

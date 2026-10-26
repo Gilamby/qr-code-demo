@@ -737,7 +737,8 @@
     "reason_api": "API (lidhja e softuerit) është pjesë e Business.",
     "firstYearLabel": "viti i parë",
     "thenYear": "Pastaj {price} në vit",
-    "firstYearPhrase": "{first} vitin e parë, pastaj {price} në vit"
+    "firstYearPhrase": "{first} vitin e parë, pastaj {price} në vit",
+    "extraLine": "{n} kode QR shtesë"
   },
   "dz": {
     "lbl": {

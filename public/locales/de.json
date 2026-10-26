@@ -737,7 +737,8 @@
     "reason_api": "Die API (eigene Software verbinden) ist Teil von Business.",
     "firstYearLabel": "erstes Jahr",
     "thenYear": "Danach {price} pro Jahr",
-    "firstYearPhrase": "{first} im ersten Jahr, dann {price} pro Jahr"
+    "firstYearPhrase": "{first} im ersten Jahr, dann {price} pro Jahr",
+    "extraLine": "{n} zusätzliche QR-Codes"
   },
   "dz": {
     "lbl": {

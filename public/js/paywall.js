@@ -16,6 +16,8 @@ var Plans = (function () {
   function needed() { return !blocked() && info && info.sub && info.sub.state === 'unpaid'; }
   function stripeOn() { return !!(api.info && api.info().stripe); }      // echt betalen via Stripe (testmodus of live)
   function demo() { return !stripeOn() && !!(api.info && api.info().demoCheckout); }
+  function pk() { return (api.info && api.info().stripePk) || ''; }
+  function inApp() { return stripeOn() && !!pk(); }                    // echt betalen op onze eigen pagina (velden van Stripe)
   var returned = /[?&]checkout=success\b/.test(location.search), waited = 0;      // terug van de betaalpagina van Stripe
   if (/[?&]checkout=(success|cancel)\b/.test(location.search)) history.replaceState(null, '', location.pathname);
   function curPlan() { return info && info.sub && info.sub.state !== 'unpaid' && info.plan ? info.plan.id : null; }
@@ -128,28 +130,96 @@ var Plans = (function () {
     var x = plans().filter(function (p) { return p.id === chosen; })[0], price = PlanPeriod.price(x, period), per = PlanPeriod.per(period);
     var trial = mode === 'must', u = Session.user() || {};                // nieuwe klant: eerst 14 dagen gratis; wisselen: meteen
     box.innerHTML = '<div class="pw-inner">' + top() +
-      '<p class="pw-demo" role="note">' + esc(t('pw.stripeDemo')) + '</p>' +
+      (inApp() ? '' : '<p class="pw-demo" role="note">' + esc(t('pw.stripeDemo')) + '</p>') +
       '<div class="pw-co"><div class="pw-co-sum">' +
         '<span class="pw-co-small">' + esc(t(trial ? 'pw.coTrial' : 'pw.coSub', { plan: t('plan.n_' + x.id) })) + '</span>' +
         '<b class="pw-co-big">' + euro(trial ? 0 : price) + '</b>' +
         '<span class="pw-co-small">' + esc(trial ? t('pw.after') + ': ' + PlanPeriod.then(x, period, euro) : PlanPeriod.label(period)) + '</span>' +
         '<div class="pw-co-line"><span>QR-Codex ' + esc(t('plan.n_' + x.id)) + '<small>' + esc(PlanPeriod.label(period)) + '</small></span><b>' + euro(price) + '</b></div>' +
+        extraLine() +
         (needKeep() ? '<p class="pw-co-warn">' + esc(t('pw.payPaused', { n: activeDyn().length - keep.length })) + '</p>' : '') +
         '<div class="pw-co-line tot"><span>' + esc(t('pw.today')) + '</span><b>' + euro(trial ? 0 : price) + '</b></div>' +
       '</div>' +
       '<form class="pw-co-form" data-pw-form>' +
         '<label class="pw-co-f"><span>' + esc(t('pw.email')) + '</span><input value="' + esc(u.email || '') + '" readonly></label>' +
-        '<div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div class="pw-co-methods" role="radiogroup" aria-label="' + esc(t('pw.method')) + '">' +
+        (inApp()
+          ? '<div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div id="pwPe" class="pw-pe"><span class="pw-spin sm" aria-hidden="true"></span></div></div><p class="acct-msg bad" id="pwErr" role="alert" hidden></p>'
+          : '<div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div class="pw-co-methods" role="radiogroup" aria-label="' + esc(t('pw.method')) + '">' +
         ['paypal', 'ideal', 'bancontact', 'card'].map(function (m) {
           var on = m === method;
           return '<div class="pw-co-m' + (on ? ' on' : '') + '"><button type="button" role="radio" aria-checked="' + on + '" data-pw-method="' + m + '"><i class="pw-co-dot"></i><span class="pw-co-ico">' + MICO[m] + '</span>' + esc(mName(m)) + '</button>' +
             (on ? '<div class="pw-co-body">' + methodBody(m) + '</div>' : '') + '</div>';
-        }).join('') + '</div></div>' +
-        '<button type="submit" class="pw-co-go"' + (busy ? ' disabled' : '') + '>' + (busy ? '<span class="pw-spin sm" aria-hidden="true"></span>' : '') + esc(t(trial ? 'pw.startTrial' : 'pw.subscribe')) + '</button>' +
+        }).join('') + '</div></div>') +
+        '<button type="submit" class="pw-co-go"' + (busy || (inApp() && !sReady) ? ' disabled' : '') + '>' + (busy ? '<span class="pw-spin sm" aria-hidden="true"></span>' : '') + esc(t(trial ? 'pw.startTrial' : 'pw.subscribe')) + '</button>' +
         '<p class="pw-co-fine">' + esc(t(trial ? 'pw.fineTrial' : 'pw.fine', { price: euro(price) + ' ' + per })) + '</p>' +
-        '<p class="pw-co-safe">🔒 ' + esc(t('pw.safe')) + '</p>' +
+        '<p class="pw-co-safe">🔒 ' + esc(t(inApp() ? 'pw.viaStripe' : 'pw.safe')) + '</p>' +
         '<button type="button" class="link-btn pw-co-back" data-pw-back>' + esc(t('pw.back')) + '</button>' +
       '</form></div></div>';
+    if (inApp()) mountStripe();
+  }
+  // Losse QR-codes die je erbij kocht: gaan mee in het abonnement
+  function extraLine() {
+    var n = (info && info.plan && info.plan.extra) || 0, x = plans().filter(function (p) { return p.id === chosen; })[0];
+    if (!n || !x || x.codes == null || !info.extraPrice) return '';
+    return '<div class="pw-co-line"><span>' + esc(t('pw.extraLine', { n: n })) + '<small>' + esc(PlanPeriod.label(period)) + '</small></span><b>' + euro(Math.round(n * info.extraPrice[period] * 100) / 100) + '</b></div>';
+  }
+
+  /* ---------- Echt betalen in de app: Stripe Payment Element in onze eigen pagina (stijl van de app) ----------
+     De server maakt een Checkout Session (ui_mode 'elements'); Stripe.js tekent alleen de betaalvelden.
+     Na betalen stuurt Stripe terug naar /?checkout=success en verwerkt de webhook het abonnement (zelfde als hiervoor). */
+  var sJs = null, sCo = null, sPe = null, sKey = '', sReady = false;
+  function loadStripe() {
+    if (sJs) return sJs;
+    sJs = new Promise(function (ok, bad) {
+      if (window.Stripe) return ok();
+      var sc = document.createElement('script'); sc.src = 'https://js.stripe.com/endive/stripe.js'; sc.onload = function () { ok(); }; sc.onerror = function () { sJs = null; bad(new Error('stripe.js')); };
+      document.head.appendChild(sc);
+    });
+    return sJs;
+  }
+  function cssVar(n, d) { var v = getComputedStyle(document.documentElement).getPropertyValue(n).trim(); return v || d; }
+  function look() {
+    var bg = getComputedStyle(document.body).backgroundColor, m = bg.match(/\d+/g) || [0, 0, 0], dark = (+m[0] * 0.3 + +m[1] * 0.59 + +m[2] * 0.11) < 128;
+    return {
+      theme: dark ? 'night' : 'stripe',
+      variables: { colorPrimary: cssVar('--accent', '#2bb5f0'), colorBackground: cssVar('--bg', dark ? '#0b0e13' : '#ffffff'), colorText: cssVar('--fg', dark ? '#f3f5f8' : '#111827'),
+        colorTextSecondary: cssVar('--muted', '#98a2b3'), colorDanger: '#ff6b6b', fontFamily: 'Manrope, system-ui, -apple-system, sans-serif', borderRadius: '12px', spacingUnit: '4px' },
+      rules: { '.Input': { border: '1px solid ' + (dark ? 'rgba(255,255,255,.12)' : 'rgba(17,24,39,.14)'), boxShadow: 'none' }, '.Tab': { border: '1px solid ' + (dark ? 'rgba(255,255,255,.12)' : 'rgba(17,24,39,.14)') }, '.AccordionItem': { border: '1px solid ' + (dark ? 'rgba(255,255,255,.12)' : 'rgba(17,24,39,.14)') } }
+    };
+  }
+  function stripeErr(msg) { var e = box && box.querySelector('#pwErr'); if (e) { e.textContent = msg || t('pw.payError'); e.hidden = false; } }
+  function setGo() { var g = box && box.querySelector('.pw-co-go'); if (!g) return; g.disabled = busy || !sReady; g.classList.toggle('busy', busy); }
+  function stripeReset() { try { if (sPe) sPe.destroy(); } catch (e) {} sCo = null; sPe = null; sKey = ''; sReady = false; }
+  function mountStripe() {
+    var host = box && box.querySelector('#pwPe'); if (!host) return;
+    var key = chosen + '|' + period + '|' + (needKeep() ? keep.join(',') : '');
+    if (sPe && sKey === key) { try { sPe.unmount(); } catch (e) {} host.innerHTML = ''; sPe.mount(host); setGo(); return; }   // opnieuw getekend (bv. taal): zelfde betaling
+    stripeReset(); sKey = key;
+    loadStripe().then(function () {
+      var st = window.Stripe(pk(), { locale: 'auto' });
+      var secret = api.account.stripeCheckout({ plan: chosen, period: period, keep: needKeep() ? keep : undefined, embedded: true }).then(function (r) {
+        if (r && r.clientSecret) return r.clientSecret;
+        if (r && r.url) location.href = r.url;                          // de server viel terug op de betaalpagina van Stripe
+        return new Promise(function () {});
+      });
+      secret.catch(function () { stripeErr(); });
+      sCo = st.initCheckoutElementsSdk({ clientSecret: secret, elementsOptions: { appearance: look(), fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap' }] } });
+      sCo.on('change', function (ses) { sReady = !!(ses && ses.canConfirm); setGo(); });
+      sPe = sCo.createPaymentElement();
+      var h = box && box.querySelector('#pwPe'); if (h) { h.innerHTML = ''; sPe.mount(h); }
+    }).catch(function () {                                              // Stripe.js niet te laden: dan de betaalpagina van Stripe zelf
+      stripeReset(); step = 'choose'; goStripe();
+    });
+  }
+  function confirmStripe() {
+    if (busy || !sCo) return;
+    busy = true; setGo(); var e = box && box.querySelector('#pwErr'); if (e) e.hidden = true;
+    sCo.loadActions().then(function (r) {
+      if (!r || r.type === 'error' || !r.actions) throw (r && r.error) || new Error('actions');
+      return r.actions.confirm();
+    }).then(function (res) {                                            // gelukt = Stripe stuurt door naar /?checkout=success (of eerst naar de bank, bv. iDEAL)
+      if (res && res.type === 'error') { busy = false; setGo(); stripeErr(res.error && res.error.message); }
+    }).catch(function (x) { busy = false; setGo(); stripeErr(x && x.message); });
   }
   // Bevestiging: rustig en zakelijk, zoals na betalen op een echte website (geen animatie)
   var pausedN = 0;
@@ -189,7 +259,7 @@ var Plans = (function () {
     // Gaat het tekenen mis, dan nooit een leeg scherm: sluiten en naar Mijn account > Abonnement
     try { draw(); } catch (e) { console.error('Pakketten-scherm:', e); close(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
     document.body.classList.add('paywall-open'); var f = box.querySelector('.pw-card.on') || box.querySelector('[data-pw-go]'); if (f) f.focus(); }
-  function close() { if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
+  function close() { stripeReset(); if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
   function check() {
     if (!api.account || !api.account.plan) return;
     if (window.TermsGate && TermsGate.waiting()) return;                 // eerst akkoord met de voorwaarden (terms-gate.js)
@@ -210,9 +280,9 @@ var Plans = (function () {
       if (curPeriod()) period = PlanPeriod.norm(curPeriod());
       var cur = curPlan(), order = ['standard', 'pro', 'business'];
       chosen = planId || (cur && order[order.indexOf(cur) + 1]) || 'pro';                // standaard: één stap omhoog
-      if (direct && demo() && !needKeep()) step = 'pay';                                                // "Upgrade naar Pro": meteen afrekenen
+      if (direct && (demo() || inApp()) && !needKeep()) step = 'pay';                                                // "Upgrade naar Pro": meteen afrekenen
       show();
-      if (direct && stripeOn() && !needKeep()) { var g = box.querySelector('[data-pw-go]'); if (g) g.click(); }
+      if (direct && stripeOn() && !inApp() && !needKeep()) { var g = box.querySelector('[data-pw-go]'); if (g) g.click(); }
     }).catch(function () {});
   }
   document.addEventListener('click', function (e) {
@@ -222,18 +292,19 @@ var Plans = (function () {
     var y = e.target.closest('[data-pw-period]'); if (y) { period = PlanPeriod.norm(y.getAttribute('data-pw-period')); return draw(); }
     if (e.target.closest('[data-pw-logout]')) { api.auth.logout().catch(function () {}).then(function () { location.replace(location.pathname); }); return; }
     if (e.target.closest('[data-pw-close]')) return close();
-    if (e.target.closest('[data-pw-back]')) { step = 'choose'; return draw(); }
+    if (e.target.closest('[data-pw-back]')) { stripeReset(); busy = false; step = 'choose'; return draw(); }
     if (e.target.closest('[data-pw-enter]')) { location.replace(location.pathname); return; }
     var k = e.target.closest('[data-pw-keep]');
     if (k) { var id = k.getAttribute('data-pw-keep'); keep = keep.filter(function (x) { return x !== id; }); if (k.checked) keep.push(id); return draw(); }
     if (e.target.closest('[data-pw-go]') && step === 'choose' && needKeep()) return startKeep();
     var kg = e.target.closest('[data-pw-keep-go]');
-    if (kg) { if (stripeOn()) { step = 'choose'; return goStripe(); } step = 'pay'; return draw(); }
+    if (kg) { if (stripeOn() && !inApp()) { step = 'choose'; return goStripe(); } step = 'pay'; return draw(); }
+    if (e.target.closest('[data-pw-go]') && step === 'choose' && inApp()) { step = 'pay'; return draw(); }
     if (e.target.closest('[data-pw-go]') && step === 'choose' && stripeOn()) return goStripe();
     if (e.target.closest('[data-pw-go]') && step === 'choose' && demo()) { step = 'pay'; return draw(); }
   });
   document.addEventListener('keydown', function (e) { if (box && mode === 'change' && e.key === 'Escape') close(); });
-  document.addEventListener('submit', function (e) { if (box && e.target.closest('[data-pw-form]')) { e.preventDefault(); pay(); } });
+  document.addEventListener('submit', function (e) { if (box && e.target.closest('[data-pw-form]')) { e.preventDefault(); if (inApp()) confirmStripe(); else pay(); } });
   if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(check, 300); });
   document.addEventListener('sub-lapsed', check);
   document.addEventListener('terms-ok', check);

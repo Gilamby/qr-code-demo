@@ -737,7 +737,8 @@
     "reason_api": "API (programmatūras savienošana) ir daļa no Business.",
     "firstYearLabel": "pirmais gads",
     "thenYear": "Pēc tam {price} gadā",
-    "firstYearPhrase": "{first} pirmajā gadā, pēc tam {price} gadā"
+    "firstYearPhrase": "{first} pirmajā gadā, pēc tam {price} gadā",
+    "extraLine": "{n} papildu QR kodi"
   },
   "dz": {
     "lbl": {

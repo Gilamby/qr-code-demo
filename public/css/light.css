@@ -480,6 +480,13 @@
 :root[data-theme="light"] .pw-keep-st { background: rgba(13,19,32,0.053); }
 :root[data-theme="light"] .mc-due.mc-planbar { border-color: var(--line, rgba(13,19,32,0.126)); background: rgba(13,19,32,0.038); }
 :root[data-theme="light"] .mc-until.mc-planoff { border-color: var(--line, rgba(13,19,32,0.126)); background: rgba(13,19,32,0.038); }
+:root[data-theme="light"] .paywall .pw-co { border: 1px solid var(--line, rgba(13,19,32,0.072)); box-shadow: 0 30px 80px -30px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .paywall .pw-co-sum { border-color: var(--line, rgba(13,19,32,0.072)); }
+:root[data-theme="light"] .paywall .pw-co-line { border-color: var(--line, rgba(13,19,32,0.072)); }
+:root[data-theme="light"] .paywall .pw-co-f input,
+:root[data-theme="light"] .paywall .pw-co-f select { border-color: var(--line, rgba(13,19,32,0.108)); }
+:root[data-theme="light"] .paywall .pw-co-methods,
+:root[data-theme="light"] .paywall .pw-co-m + .pw-co-m { border-color: var(--line, rgba(13,19,32,0.108)); }
 :root[data-theme="light"] .bl-st { background: rgba(13,19,32,0.053); }
 :root[data-theme="light"] .bl-st.ok { color: #15803d; }
 :root[data-theme="light"] .bl-st.info { color: #0369a1; }
