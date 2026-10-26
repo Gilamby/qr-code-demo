@@ -226,6 +226,6 @@ var Session = (function () {
     });
   });
   /** Waar je na het inloggen begint: normaal de standaard (Overzicht of Dashboard), na een link uit de mail Mijn account */
-  function landOn(def) { return landing || def; }
+  function landOn(def) { var r = window.Route ? Route.initial(def) : null; return landing || r || def; }   // link/vernieuwen (#/analytics) gaat voor de startpagina
   return { landOn: landOn, user: function () { return user; }, onUser: function (f) { listeners.push(f); if (user) f(user); }, show: show };
 })();

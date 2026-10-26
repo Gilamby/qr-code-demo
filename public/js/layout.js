@@ -91,6 +91,42 @@
   i18n.onChange(function () { labelToggle(); showPage(); });
 })();
 
+/* ---------- Adresbalk: elke pagina een eigen adres (#/analytics, #/account/billing)
+   Vernieuwen blijft op dezelfde pagina, de terugknop van de browser werkt en je kunt een link naar een pagina delen. ---------- */
+(function () {
+  var SLUG = { home: 'overview', create: 'create', analytics: 'analytics', myCodes: 'codes', codeDetail: 'codes', account: 'account', contact: 'contact', faq: 'faq', settings: 'settings',
+    adminDash: 'admin', adminCodes: 'admin-codes', customers: 'users', adminSettings: 'admin-settings' };
+  var PAGE = {}; Object.keys(SLUG).forEach(function (p) { if (p !== 'codeDetail') PAGE[SLUG[p]] = p; });
+  var ADMIN = ['adminDash', 'adminCodes', 'customers', 'adminSettings'];
+  var page = null, tab = null, applying = false, timer = 0, booted = false;
+  function parse(h) { var m = String(h || '').match(/^#\/([a-z-]+)(?:\/([a-z]+))?/); return m && PAGE[m[1]] ? { page: PAGE[m[1]], tab: m[2] || null } : null; }
+  function want() { var s = SLUG[page]; if (!s) return null; return '#/' + s + (page === 'account' && tab ? '/' + tab : ''); }
+  function sync() {
+    clearTimeout(timer);
+    timer = setTimeout(function () {                                           // één keer per klik (pagina + tabblad samen)
+      var h = want(); if (!h || h === location.hash || !booted) return;
+      if (applying) history.replaceState(null, '', h); else history.pushState(null, '', h);
+      applying = false;
+    }, 0);
+  }
+  document.addEventListener('pagechange', function (e) { page = e.detail; if (page !== 'account') tab = null; if (page === 'logout') { booted = false; history.replaceState(null, '', location.pathname + location.search); return; } sync(); });
+  document.addEventListener('accounttab', function (e) { tab = e.detail; sync(); });
+  function go(r) {
+    applying = true; goToPage(r.page);
+    if (r.page === 'account' && window.openAccountTab) openAccountTab(r.tab || 'profile');
+  }
+  addEventListener('popstate', function () { var r = parse(location.hash); if (r && booted) go(r); });
+  window.Route = {
+    /* Eerste pagina na inloggen: wat in de adresbalk staat (als dat mag), anders de startpagina */
+    initial: function (def) {
+      booted = true; applying = true; var r = parse(location.hash);   // eerste pagina vervangt het adres (geen extra stap terug)
+      if (!r || (ADMIN.indexOf(r.page) >= 0) !== (ADMIN.indexOf(def) >= 0)) return null;   // gebruiker niet naar beheer, beheerder niet naar klantpagina's via link
+      if (r.tab) setTimeout(function () { if (window.openAccountTab) openAccountTab(r.tab); }, 0);
+      return r.page;
+    },
+  };
+})();
+
 /* ---------- Schalen: telefoon + paneel passen altijd in het scherm ---------- */
 (function () {
   var W = 1084, H = 760;

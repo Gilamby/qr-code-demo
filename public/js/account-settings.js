@@ -751,9 +751,11 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; pmInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); }
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
+    document.dispatchEvent(new CustomEvent('accounttab', { detail: id }));   // adresbalk bijwerken (#/account/…)
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
   }
   window.openAccountTab = function (id) { open(id); };
+  document.addEventListener('pagechange', function (e) { if (e.detail === 'account') document.dispatchEvent(new CustomEvent('accounttab', { detail: tab })); });   // adres: welk tabblad open staat
   document.addEventListener('plan-changed', function () { planInfo = null; invInfo = null; if (tab === 'plan' && user) { loadPlan(); loadInv(); } });
   document.addEventListener('team-loaded', function () { if (user && menu.innerHTML) drawMenu(); });
 
