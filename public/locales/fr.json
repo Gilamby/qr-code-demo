@@ -2542,8 +2542,7 @@
   },
   "up": {
     "title": "Changer d’offre",
-    "cta": "Mettre à niveau",
-    "change": "Changer de formule"
+    "cta": "Mettre à niveau"
   },
   "imp": {
     "button": "Transférer un code QR existant",

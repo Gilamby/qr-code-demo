@@ -2581,8 +2581,7 @@
   },
   "up": {
     "title": "Upgrade plan",
-    "cta": "Upgraden",
-    "change": "Pakket wijzigen"
+    "cta": "Upgraden"
   },
   "imp": {
     "button": "Bestaande QR-code overzetten",

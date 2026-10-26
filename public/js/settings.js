@@ -77,14 +77,9 @@
     var p = info && info.plan;
     var me = window.Session && Session.user && Session.user();
     if (!p || p.id === 'free' || (me && me.admin) || (window.api && api.isDemo && api.isDemo()) || (window.Team && Team.member())) { card.hidden = true; return; }   // teamlid: het abonnement is van de eigenaar
-    // Business (hoogste pakket): geen "Upgrade", wel makkelijk wisselen van pakket of betaalperiode (wens Fabian 26 okt)
-    var key = p.id === 'business' ? 'up.change' : 'up.title';
-    card.querySelectorAll('[data-i18n]').forEach(function (el) { el.setAttribute('data-i18n', key); el.textContent = t(key); });
-    card.classList.toggle('up-change', p.id === 'business');
-    var ic = card.querySelector('svg path'); if (ic) ic.setAttribute('d', p.id === 'business' ? 'M7 4L3 8l4 4M3 8h13M17 20l4-4-4-4M21 16H8' : 'M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z');   // wissel-pijlen of bliksem
+    // Ook bij Business zichtbaar: zo kun je altijd makkelijk van pakket of betaalperiode wisselen (wens Fabian 26 okt)
     card.hidden = false;
   }
-  if (window.i18n) i18n.onChange(show);
   function load() { if (!window.api || !api.account || !api.account.plan) return; api.account.plan().then(function (r) { info = r; show(); banner(); }).catch(function () { card.hidden = true; }); }
   /* Balk bovenin als het abonnement niet betaald is: codes werken niet, tot wanneer je nog kunt betalen */
   var bar = document.createElement('div'); bar.className = 'maint-bar sub-bar'; bar.setAttribute('role', 'alert'); bar.hidden = true;

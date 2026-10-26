@@ -2581,8 +2581,7 @@
   },
   "up": {
     "title": "Upgrade plan",
-    "cta": "Upgrade",
-    "change": "Change plan"
+    "cta": "Upgrade"
   },
   "imp": {
     "button": "Move an existing QR code",

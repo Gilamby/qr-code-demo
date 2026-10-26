@@ -2581,8 +2581,7 @@
   },
   "up": {
     "title": "Mejorar plan",
-    "cta": "Mejorar",
-    "change": "Cambiar de plan"
+    "cta": "Mejorar"
   },
   "imp": {
     "button": "Transferir un código QR existente",

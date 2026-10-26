@@ -4248,7 +4248,6 @@ body.an-printing #anRange { display: block; }
 .up-item { margin-top: auto; color: var(--accent) !important; }
 .up-item[hidden] { display: none !important; }
 .up-item:not([hidden]) + .me-item { margin-top: 0 !important; }
-.up-item.up-change { color: var(--muted) !important; }
 /* Mappen verslepen */
 .mf-wrap[draggable="true"] { cursor: grab; }
 .mf-wrap.mf-dragging { opacity: .45; }

@@ -2536,8 +2536,7 @@
   },
   "up": {
     "title": "Migliora piano",
-    "cta": "Aggiorna",
-    "change": "Cambia piano"
+    "cta": "Aggiorna"
   },
   "imp": {
     "button": "Trasferisci un codice QR esistente",

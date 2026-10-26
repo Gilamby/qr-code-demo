@@ -2536,8 +2536,7 @@
   },
   "up": {
     "title": "Trece la un abonament superior",
-    "cta": "Fă upgrade",
-    "change": "Schimbă planul"
+    "cta": "Fă upgrade"
   },
   "imp": {
     "button": "Mută un cod QR existent",

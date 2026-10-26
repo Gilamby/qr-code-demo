@@ -2542,8 +2542,7 @@
   },
   "up": {
     "title": "Plan upgraden",
-    "cta": "Upgraden",
-    "change": "Paket ändern"
+    "cta": "Upgraden"
   },
   "imp": {
     "button": "Bestehenden QR-Code übernehmen",
