@@ -2862,7 +2862,7 @@
     "lastScans": "Ultimele scanări aici",
     "placeOld": "Aceste scanări sunt de dinaintea jurnalului: știm locul, dar nu detaliile fiecărei scanări.",
     "placeSome": "Plus {n} scanări mai vechi fără detalii (dinaintea jurnalului).",
-    "placesCredit": "Denumiri de localități: GeoNames"
+    "placesCredit": "Denumiri de localități: GeoNames · Natural Earth"
   },
   "sheet": {
     "title": "Coală de printat (A4)",

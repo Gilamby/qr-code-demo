@@ -5275,3 +5275,5 @@ body.paywall-open { overflow: hidden; }
 .sub-bar .sub-x { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border: 0; border-radius: 8px; background: transparent; color: inherit; font-size: 20px; line-height: 1; cursor: pointer; opacity: .7; }
 .sub-bar .sub-x:hover { opacity: 1; background: rgba(255,255,255,.08); }
 .cd-credit { opacity: .6; font-size: .9em; white-space: nowrap; }
+.cd-prov { fill: none; stroke: rgba(226,232,240,.32); stroke-width: 1px; stroke-dasharray: 3 3; stroke-linejoin: round; pointer-events: none; }
+:root[data-theme="light"] .cd-prov { stroke: rgba(15,23,42,.3); }

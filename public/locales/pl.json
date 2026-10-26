@@ -2862,7 +2862,7 @@
     "lastScans": "Ostatnie skany tutaj",
     "placeOld": "Te skany są sprzed dziennika: znamy miejsce, ale nie szczegóły każdego skanu.",
     "placeSome": "Oraz {n} starszych skanów bez szczegółów (sprzed dziennika).",
-    "placesCredit": "Nazwy miejscowości: GeoNames"
+    "placesCredit": "Nazwy miejscowości: GeoNames · Natural Earth"
   },
   "sheet": {
     "title": "Arkusz do druku (A4)",

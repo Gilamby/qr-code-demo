@@ -2862,7 +2862,7 @@
     "lastScans": "Ultime scansioni qui",
     "placeOld": "Queste scansioni sono precedenti al registro: conosciamo il luogo, ma non i dettagli di ogni scansione.",
     "placeSome": "Più {n} scansioni più vecchie senza dettagli (precedenti al registro).",
-    "placesCredit": "Nomi dei luoghi: GeoNames"
+    "placesCredit": "Nomi dei luoghi: GeoNames · Natural Earth"
   },
   "sheet": {
     "title": "Foglio da stampare (A4)",

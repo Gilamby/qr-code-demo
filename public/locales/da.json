@@ -2862,7 +2862,7 @@
     "lastScans": "Seneste scanninger her",
     "placeOld": "Disse scanninger er fra før loggen: vi kender stedet, men ikke detaljerne pr. scanning.",
     "placeSome": "Plus {n} ældre scanninger uden detaljer (fra før loggen).",
-    "placesCredit": "Stednavne: GeoNames"
+    "placesCredit": "Stednavne: GeoNames · Natural Earth"
   },
   "sheet": {
     "title": "Printark (A4)",

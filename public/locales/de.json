@@ -2868,7 +2868,7 @@
     "lastScans": "Letzte Scans hier",
     "placeOld": "Diese Scans sind von vor dem Protokoll: Wir kennen den Ort, aber nicht die Details pro Scan.",
     "placeSome": "Dazu {n} ältere Scans ohne Details (von vor dem Protokoll).",
-    "placesCredit": "Ortsnamen: GeoNames"
+    "placesCredit": "Ortsnamen: GeoNames · Natural Earth"
   },
   "sheet": {
     "title": "Druckbogen (A4)",

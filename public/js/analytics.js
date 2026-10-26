@@ -425,7 +425,7 @@ var Analytics = (function () {
   }
 
   /* ---------- Detailpagina: kaart en logboek per scan ---------- */
-  var scansD = null, scansSeq = 0, world = null, mapView = null, cities = null;
+  var scansD = null, scansSeq = 0, world = null, mapView = null, cities = null, provs = null, provsBusy = false, hiWorld = null, hiBusy = false;
   var MW = 2000;   // breedte van de kaart (zelfde schaal als assets/world.json)
   function mx(lon) { return (lon + 180) / 360 * MW; }
   function my(lat) { lat = Math.max(-85, Math.min(85, lat)); return (1 - Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) / Math.PI) / 2 * MW; }
@@ -484,8 +484,8 @@ var Analytics = (function () {
     var cw = svgEl.clientWidth || 800, px = v[2] / cw, sz = cw < 500 ? .65 : 1, max = Math.max.apply(null, pts.map(function (p) { return p.n; }).concat([1]));
     svgEl.setAttribute('viewBox', v.map(function (n) { return n.toFixed(1); }).join(' '));
     svgEl.innerHTML = '<rect x="-4000" y="-4000" width="10000" height="10000" class="cd-sea"/>' +
-      world.countries.map(function (c) { return '<path d="' + c.d + '" class="cd-land' + (withScans[c.c] ? ' on' : '') + '" stroke-width="' + (px * .8).toFixed(2) + '"><title>' + esc(c.c ? TEL.name(c.c) || c.n : c.n) + (withScans[c.c] ? ' · ' + t('cd.scansN', { n: i18n.fmt.num(withScans[c.c]) }) : '') + '</title></path>'; }).join('') +
-      cityLabels(v, px, pts) +
+      landPaths(v, px, withScans) +
+      provLines(v, px) + cityLabels(v, px, pts) +
       pts.slice().sort(function (a, b) { return b.n - a.n; }).map(function (p, i) {
         // Speld (druppelvorm) met de punt precies op de plaats; altijd even groot op het scherm, hoe ver je ook inzoomt
         var h = (24 + 10 * Math.sqrt(p.n / max)) * sz * px;
@@ -494,6 +494,26 @@ var Analytics = (function () {
           '<path d="' + PIN + '" class="cd-pin' + (p.approx ? ' approx' : '') + '" vector-effect="non-scaling-stroke"/><circle cx="0" cy="-.66" r=".15" class="cd-pin-eye"/></g>';
       }).join('');
     svgEl._pts = pts.slice().sort(function (a, b) { return b.n - a.n; });
+  }
+  /* Landen: normaal de lichte wereldkaart; ingezoomd een scherpere versie (kust en grenzen niet meer blokkerig). Bron: Natural Earth. */
+  function landPaths(v, px, withScans) {
+    var title = function (cc, n) { return '<title>' + esc(cc ? TEL.name(cc) || n : n) + (withScans[cc] ? ' · ' + t('cd.scansN', { n: i18n.fmt.num(withScans[cc]) }) : '') + '</title>'; };
+    if (v[2] <= MW / 4 && !hiWorld && !hiBusy) { hiBusy = true; fetch('assets/world-hi.json?v=1').then(function (r) { return r.json(); }).then(function (j) { hiWorld = j; drawMap(); }).catch(function () { hiBusy = false; }); }
+    if (v[2] <= MW / 4 && hiWorld) {
+      var q = hiWorld.q, x0 = v[0] * q, y0 = v[1] * q, x1 = (v[0] + v[2]) * q, y1 = (v[1] + v[3]) * q;
+      return '<g transform="scale(' + (1 / q) + ')">' + hiWorld.c.filter(function (c) { return !(c[4] < x0 || c[2] > x1 || c[5] < y0 || c[3] > y1); }).map(function (c) {
+        return '<path d="' + c[6] + '" class="cd-land' + (withScans[c[0]] ? ' on' : '') + '" vector-effect="non-scaling-stroke" style="stroke-width:.8px">' + title(c[0], c[1]) + '</path>';
+      }).join('') + '</g>';
+    }
+    return world.countries.map(function (c) { return '<path d="' + c.d + '" class="cd-land' + (withScans[c.c] ? ' on' : '') + '" stroke-width="' + (px * .8).toFixed(2) + '">' + title(c.c, c.n) + '</path>'; }).join('');
+  }
+  /* Grenzen van provincies/regio's: pas zichtbaar als je inzoomt (bestand wordt dan pas geladen). Bron: Natural Earth (publiek domein). */
+  function provLines(v, px) {
+    if (v[2] > MW / 4) return '';
+    if (!provs) { if (!provsBusy) { provsBusy = true; fetch('assets/provinces.json?v=1').then(function (r) { return r.json(); }).then(function (j) { provs = j; drawMap(); }).catch(function () { provsBusy = false; }); } return ''; }
+    var q = provs.q, x0 = v[0] * q, y0 = v[1] * q, x1 = (v[0] + v[2]) * q, y1 = (v[1] + v[3]) * q, d = '';
+    for (var i = 0; i < provs.l.length; i++) { var l = provs.l[i]; if (l[2] < x0 || l[0] > x1 || l[3] < y0 || l[1] > y1) continue; d += l[4]; }
+    return d ? '<path d="' + d + '" transform="scale(' + (1 / q) + ')" class="cd-prov" vector-effect="non-scaling-stroke"/>' : '';
   }
   var PIN = 'M0 0C-.1-.2-.36-.42-.36-.66A.36.36 0 1 1 .36-.66C.36-.42.1-.2 0 0Z';   // druppel/speld, hoogte 1, punt op (0,0)
   /* Plaatsnamen bij inzoomen: hoe verder ingezoomd, hoe meer (kleinere) plaatsen. Nooit over elkaar heen.
