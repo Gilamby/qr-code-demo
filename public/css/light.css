@@ -542,6 +542,9 @@
 :root[data-theme="light"] .pw-promo-msg.bad { color: #dc2626; }
 :root[data-theme="light"] .pw-promo-msg.ok { color: #15803d; }
 :root[data-theme="light"] .paywall .pw-promo-row input { border: 1px solid var(--line, rgba(13,19,32,0.108)); }
+:root[data-theme="light"] .mc-hl.bad { color: #b91c1c; }
+:root[data-theme="light"] .hm-alert { color: #991b1b; }
+:root[data-theme="light"] .hm-alert-i svg { color: #dc2626; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

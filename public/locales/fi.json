@@ -385,7 +385,10 @@
     "couponUrl": "Painike verkkokauppaan tai varaussivulle",
     "buttonLabel": "Painikkeen teksti",
     "starts": "Voimassa alkaen",
-    "msgChannel": "Miten ihmiset ottavat yhteyttä?"
+    "msgChannel": "Miten ihmiset ottavat yhteyttä?",
+    "startsTime": "Alkaen (kellonaika)",
+    "expiresTime": "Asti (kellonaika)",
+    "afterUrl": "Päättymisen jälkeen ohjaa"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -520,7 +523,13 @@
     "whereTitle": "Missä ”{name}” on skannattu?",
     "whereLead": "{n} skannausta, paikoittain:",
     "whereNone": "Ei vielä skannauksia. Kun joku skannaa koodin, näet täällä missä.",
-    "whereMore": "Ja {n} muuta paikkaa tilastoissa."
+    "whereMore": "Ja {n} muuta paikkaa tilastoissa.",
+    "hlOkTip": "Linkki toimii · tarkistettu {when}",
+    "hlBad": "Linkki ei toimi",
+    "hlBadTip": "{url} ei toimi ({status}) · tarkistettu {when}. Tarkista uudelleen klikkaamalla.",
+    "hlNoAnswer": "ei vastausta",
+    "hlNowOk": "Linkki toimii taas.",
+    "hlNowBad": "Linkki ei vieläkään toimi."
   },
   "appearance": {
     "title": "Värit",
@@ -596,7 +605,9 @@
     "couponCode": "Koodi, jota asiakkaat käyttävät. Huomaa: lisää sama koodi kassajärjestelmääsi tai verkkokauppaasi. Tämä sovellus ei tarkista, onko koodi jo käytetty.",
     "couponUrl": "Valinnainen. Asiakkaat käyttävät koodia siellä kassalla.",
     "starts": "Ennen tätä päivää kävijä näkee \"Tämä QR-koodi ei ole vielä käytössä\". Kätevä, jos tulostat ennen kampanjan alkua.",
-    "utmPage": "Lisää sivusi linkkeihin automaattisesti utm-tunnisteet, jotta näet QR-koodin kautta tulleet kävijät Google Analyticsissa."
+    "utmPage": "Lisää sivusi linkkeihin automaattisesti utm-tunnisteet, jotta näet QR-koodin kautta tulleet kävijät Google Analyticsissa.",
+    "time": "Valinnainen. Omalla aikavyöhykkeelläsi. Tyhjä = koko päivä.",
+    "afterUrl": "Kun päättymispäivä on ohi tai skannausten enimmäismäärä täynnä, kävijät ohjataan tähän linkkiin \"vanhentunut\"-sivun sijaan. Kätevä seuraavaa kampanjaa varten."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Verrattuna eiliseen",
     "vsYesterdayShort": "vs. eilen",
     "mActivity": "Toiminta",
-    "mFavs": "Suosikit"
+    "mFavs": "Suosikit",
+    "alertBadOne": "Koodin \"{name}\" linkki ei enää toimi. Kävijät eivät pääse minnekään.",
+    "alertBadMany": "{n} QR-koodia osoittaa linkkiin, joka ei enää toimi.",
+    "alertFix": "Näytä"
   },
   "as": {
     "tabTexts": "Tekstit",

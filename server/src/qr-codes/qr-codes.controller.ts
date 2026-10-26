@@ -14,6 +14,7 @@ import type { User } from '../types';
 import { planFor, typeAllowed } from '../plans';
 import { activeCount, forgetPlanPaused } from '../plan-limit';
 import { AuthService } from '../auth/auth.service';
+import { checkCode, readHealth } from '../health';
 
 @Controller('api/qr-codes')
 @UseGuards(LoggedIn)
@@ -24,6 +25,26 @@ export class QrCodesController {
   async list(@Req() req: Request, @CurrentUser() user: User) {
     const m = await this.codes.legacyMap(user.id), u = await this.codes.untilMap(user.id);
     return Promise.all((await this.db.listQrCodes(user.id)).map((q) => this.codes.outFull(req, q, m, u)));
+  }
+
+  /** Health check: werkt de bestemming van mijn codes nog? { [code-id]: { state, at, bad } } */
+  @Get('health')
+  async health(@CurrentUser() user: User) {
+    const out: Record<string, any> = {};
+    for (const q of await this.db.listQrCodes(user.id)) { const h = await readHealth(this.db, q.id); if (h) out[q.id] = { state: h.state, at: h.at, bad: h.bad }; }
+    return out;
+  }
+
+  /** Nu controleren (knop "Opnieuw controleren"); max. 20 per minuut */
+  @Post(':id/health')
+  @HttpCode(200)
+  async healthNow(@CurrentUser() user: User, @Param('id') id: string) {
+    if (this.auth.limited('health:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    const q = await this.db.getOwnedQrCode(id, user.id); if (!q) throw fail(404, 'QR code not found');
+    const h = await checkCode(q, null);
+    if (h && h.bad.length) h.state = 'down';                                 // zelf gevraagd: meteen het eerlijke resultaat
+    await this.db.setSetting('health:' + q.id, h ? JSON.stringify(h) : null);
+    return h ? { state: h.state, at: h.at, bad: h.bad } : { state: 'none' };
   }
 
   @Get(':id')
@@ -113,6 +134,7 @@ export class QrCodesController {
     await this.db.pruneFiles(old.id, files);                          // vervangen bestanden opruimen
     const patch: any = { content: value.content, design: value.design };
     if (body.name !== undefined) patch.name = cleanName(body.name);
+    await this.db.setSetting('health:' + old.id, null).catch(() => {});      // inhoud veranderd: link opnieuw controleren
     return this.codes.outFull(req, await this.db.updateQrCode(old.id, patch));
   }
 

@@ -7,6 +7,7 @@ import { subFor, saveSub, tick, rebuildBlocked, graceEnd } from './subscription'
 import { stripeOn, readRecord, stripe } from './billing/stripe';
 import { needsVies, checkVies } from './billing/tax';
 import { planFor, EXTRA_PRICE } from './plans';
+import { healthSweep } from './health';
 
 @Injectable()
 export class HousekeepingService implements OnApplicationBootstrap, OnApplicationShutdown {
@@ -14,7 +15,7 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
   constructor(private readonly db: DatabaseService, private readonly mailer: MailerService) {}
 
   onApplicationBootstrap() {
-    const tidy = () => { this.db.cleanup().catch((e) => console.error('Opruimen mislukt:', e.message)); sendDueReports(this.db, this.mailer).catch((e) => console.error('Scanoverzichten mislukt:', e.message)); this.subscriptions().catch((e) => console.error('Abonnementen nakijken mislukt:', e.message)); this.legacyReminders().catch((e) => console.error('Herinneringen oude QR-app mislukt:', e.message)); };
+    const tidy = () => { this.db.cleanup().catch((e) => console.error('Opruimen mislukt:', e.message)); sendDueReports(this.db, this.mailer).catch((e) => console.error('Scanoverzichten mislukt:', e.message)); this.subscriptions().catch((e) => console.error('Abonnementen nakijken mislukt:', e.message)); this.legacyReminders().catch((e) => console.error('Herinneringen oude QR-app mislukt:', e.message)); if (process.env.HEALTH_CHECK !== 'off') healthSweep(this.db).catch((e) => console.error('Health check mislukt:', e.message)); };
     tidy();
     this.timer = setInterval(tidy, 3600e3); this.timer.unref();
   }

@@ -385,7 +385,10 @@
     "couponUrl": "Pulsante verso il tuo negozio online o pagina di prenotazione",
     "buttonLabel": "Testo del pulsante",
     "starts": "Attivo dal",
-    "msgChannel": "Come devono contattarti?"
+    "msgChannel": "Come devono contattarti?",
+    "startsTime": "Dalle (ora)",
+    "expiresTime": "Fino alle (ora)",
+    "afterUrl": "Al termine, invia a"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -520,7 +523,13 @@
     "whereTitle": "Dove è stato scansionato “{name}”?",
     "whereLead": "{n} scansioni, per luogo:",
     "whereNone": "Ancora nessuna scansione. Appena qualcuno scansiona il codice, qui vedrai dove.",
-    "whereMore": "E altri {n} luoghi nelle statistiche."
+    "whereMore": "E altri {n} luoghi nelle statistiche.",
+    "hlOkTip": "Il link funziona · controllato {when}",
+    "hlBad": "Il link non funziona",
+    "hlBadTip": "{url} non funziona ({status}) · controllato {when}. Clicca per ricontrollare.",
+    "hlNoAnswer": "nessuna risposta",
+    "hlNowOk": "Il link funziona di nuovo.",
+    "hlNowBad": "Il link continua a non funzionare."
   },
   "appearance": {
     "title": "Colori",
@@ -596,7 +605,9 @@
     "couponCode": "Il codice che usano i clienti. Attenzione: imposta lo stesso codice anche in cassa o nel negozio online. Questa app non controlla se un codice è già stato usato.",
     "couponUrl": "Facoltativo. I clienti usano lì il codice al pagamento.",
     "starts": "Prima di questa data il visitatore vede \"Questo QR code non è ancora attivo\". Utile se stampi prima dell'inizio della campagna.",
-    "utmPage": "Aggiunge automaticamente i tag utm ai link della tua pagina, così vedi in Google Analytics i visitatori arrivati dal codice QR."
+    "utmPage": "Aggiunge automaticamente i tag utm ai link della tua pagina, così vedi in Google Analytics i visitatori arrivati dal codice QR.",
+    "time": "Facoltativo. Nel tuo fuso orario. Vuoto = tutto il giorno.",
+    "afterUrl": "Quando la data di fine è passata o si raggiunge il numero massimo di scansioni, i visitatori vanno a questo link invece di \"scaduto\". Utile per la prossima promozione."
   },
   "more": {
     "title": "Altre opzioni",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Rispetto a ieri",
     "vsYesterdayShort": "vs ieri",
     "mActivity": "Attività",
-    "mFavs": "Preferiti"
+    "mFavs": "Preferiti",
+    "alertBadOne": "Il link di \"{name}\" non funziona più. I visitatori non arrivano da nessuna parte.",
+    "alertBadMany": "{n} codici QR portano a un link che non funziona più.",
+    "alertFix": "Vedi"
   },
   "as": {
     "tabTexts": "Testi",

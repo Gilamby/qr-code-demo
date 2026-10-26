@@ -385,7 +385,10 @@
     "couponUrl": "Tlačidlo do e-shopu alebo na rezervačnú stránku",
     "buttonLabel": "Text tlačidla",
     "starts": "Aktívny od",
-    "msgChannel": "Ako ťa majú ľudia kontaktovať?"
+    "msgChannel": "Ako ťa majú ľudia kontaktovať?",
+    "startsTime": "Od (čas)",
+    "expiresTime": "Do (čas)",
+    "afterUrl": "Po skončení posielať na"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -520,7 +523,13 @@
     "whereTitle": "Kde bol naskenovaný „{name}“?",
     "whereLead": "{n} skenov, podľa miesta:",
     "whereNone": "Zatiaľ žiadne skeny. Hneď ako niekto kód naskenuje, uvidíš tu kde.",
-    "whereMore": "A ďalších {n} miest v štatistikách."
+    "whereMore": "A ďalších {n} miest v štatistikách.",
+    "hlOkTip": "Odkaz funguje · skontrolované {when}",
+    "hlBad": "Odkaz nefunguje",
+    "hlBadTip": "{url} nefunguje ({status}) · skontrolované {when}. Kliknutím skontroluješ znova.",
+    "hlNoAnswer": "bez odpovede",
+    "hlNowOk": "Odkaz opäť funguje.",
+    "hlNowBad": "Odkaz stále nefunguje."
   },
   "appearance": {
     "title": "Farby",
@@ -596,7 +605,9 @@
     "couponCode": "Kód, ktorý zákazníci použijú. Pozor: nastav rovnaký kód v pokladni alebo e-shope. Táto aplikácia nekontroluje, či už bol kód použitý.",
     "couponUrl": "Nepovinné. Zákazníci tam kód použijú pri platbe.",
     "starts": "Pred týmto dátumom návštevník uvidí „Tento QR kód ešte nie je aktívny“. Užitočné, ak tlačíš pred začiatkom akcie.",
-    "utmPage": "Automaticky pridá utm značky k odkazom na tvojej stránke, aby si v Google Analytics videl návštevníkov z QR kódu."
+    "utmPage": "Automaticky pridá utm značky k odkazom na tvojej stránke, aby si v Google Analytics videl návštevníkov z QR kódu.",
+    "time": "Voliteľné. Vo tvojom časovom pásme. Prázdne = celý deň.",
+    "afterUrl": "Keď uplynie dátum konca alebo sa dosiahne maximum skenov, návštevníci prídu na tento odkaz namiesto „vypršalo“. Praktické pre ďalšiu akciu."
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "V porovnaní so včerajškom",
     "vsYesterdayShort": "oproti včerajšku",
     "mActivity": "Aktivita",
-    "mFavs": "Obľúbené"
+    "mFavs": "Obľúbené",
+    "alertBadOne": "Odkaz v „{name}“ už nefunguje. Návštevníci sa nikam nedostanú.",
+    "alertBadMany": "{n} QR kódov vedie na odkaz, ktorý už nefunguje.",
+    "alertFix": "Zobraziť"
   },
   "as": {
     "tabTexts": "Texty",

@@ -385,7 +385,10 @@
     "couponUrl": "Knop naar je webshop of boekingspagina",
     "buttonLabel": "Tekst op de knop",
     "starts": "Actief vanaf",
-    "msgChannel": "Hoe willen mensen je bereiken?"
+    "msgChannel": "Hoe willen mensen je bereiken?",
+    "startsTime": "Vanaf (tijd)",
+    "expiresTime": "Tot (tijd)",
+    "afterUrl": "Na afloop doorsturen naar"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -520,7 +523,13 @@
     "whereTitle": "Waar is “{name}” gescand?",
     "whereLead": "{n} scans, per plaats:",
     "whereNone": "Nog geen scans. Zodra iemand de code scant, zie je hier waar.",
-    "whereMore": "En nog {n} andere plaatsen in de statistieken."
+    "whereMore": "En nog {n} andere plaatsen in de statistieken.",
+    "hlOkTip": "Link werkt · gecontroleerd {when}",
+    "hlBad": "Link werkt niet",
+    "hlBadTip": "{url} werkt niet ({status}) · gecontroleerd {when}. Klik om opnieuw te controleren.",
+    "hlNoAnswer": "geen antwoord",
+    "hlNowOk": "De link werkt weer.",
+    "hlNowBad": "De link werkt nog steeds niet."
   },
   "appearance": {
     "title": "Kleuren",
@@ -596,7 +605,9 @@
     "couponCode": "De code die klanten gebruiken. Let op: stel dezelfde code ook in bij je kassa of webshop. Deze app controleert niet of een code al gebruikt is.",
     "couponUrl": "Optioneel. Klanten gebruiken de code daar bij het afrekenen.",
     "starts": "Vóór deze datum ziet de bezoeker \"Deze QR-code is nog niet actief\". Handig als je al print voordat de actie begint.",
-    "utmPage": "Voegt automatisch utm-labels toe aan de links op je pagina, zodat je bezoekers uit de QR-code terugziet in Google Analytics."
+    "utmPage": "Voegt automatisch utm-labels toe aan de links op je pagina, zodat je bezoekers uit de QR-code terugziet in Google Analytics.",
+    "time": "Optioneel. In jouw tijdzone. Leeg = de hele dag.",
+    "afterUrl": "Als de einddatum voorbij is of het maximum aantal scans bereikt, gaan bezoekers naar deze link in plaats van \"verlopen\". Handig voor de volgende actie."
   },
   "more": {
     "title": "Meer opties",
@@ -1992,7 +2003,10 @@
     "vsYesterday": "Vergeleken met gisteren",
     "vsYesterdayShort": "vs. gisteren",
     "mActivity": "Activiteit",
-    "mFavs": "Favorieten"
+    "mFavs": "Favorieten",
+    "alertBadOne": "De link van \"{name}\" werkt niet meer. Bezoekers komen nergens uit.",
+    "alertBadMany": "{n} QR-codes verwijzen naar een link die niet meer werkt.",
+    "alertFix": "Bekijken"
   },
   "as": {
     "tabTexts": "Teksten",

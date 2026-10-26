@@ -9,6 +9,7 @@
 var MyCodes = (function () {
   var IC = {
     lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    warn: '<path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/>',
     pause: '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>',
     search: '<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/>',
     plus: '<path d="M12 5v14M5 12h14"/>',
@@ -44,7 +45,8 @@ var MyCodes = (function () {
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList'), tools = document.getElementById('mcTools');
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
   var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '', label: '' }, renaming = null, toastTimer = null;
-  var picked = {};                                          // geselecteerde codes (id → true)
+  var picked = {};
+  var health = {};                                          // health check per code: { state, at, bad }                                          // geselecteerde codes (id → true)
   var dlSize = 1024; try { var ds = +localStorage.getItem('mc.dlSize'); if (CodeUtil.sizes.indexOf(ds) >= 0) dlSize = ds; } catch (e) {}
   var FMT = [['png', 'myCodes.pngHint'], ['jpg', 'myCodes.jpgHint'], ['webp', 'myCodes.webpHint'], ['svg', 'myCodes.svgHint'], ['pdf', 'myCodes.pdfHint'], ['eps', 'myCodes.epsHint']];
   function dlMenu(bulk) {
@@ -188,7 +190,7 @@ var MyCodes = (function () {
         // Labels (klik = filteren) en notitie (klik = bewerken)
         ((r.labels || []).length || r.note ? '<div class="mc-tags">' + (r.labels || []).map(function (l) { return '<button type="button" class="mc-tag' + (filter.label && filter.label.toLowerCase() === l.toLowerCase() ? ' on' : '') + '" data-label="' + esc(l) + '">#' + esc(l) + '</button>'; }).join('') +
           (r.note ? '<button type="button" class="mc-note" data-act="labels" title="' + esc(r.note) + '">' + ico('note') + '<span>' + esc(r.note.split('\n')[0].slice(0, 60)) + '</span></button>' : '') + '</div>' : '') +
-        '<div class="mc-link">' + link + '</div></div>' +
+        '<div class="mc-link">' + link + hlBadge(r) + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
         : '<button type="button" class="mc-scans" data-act="where" title="' + esc(t('myCodes.whereTip')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + t('myCodes.scans') + '</small></button>') +
       '<div class="mc-state">' + (stat ? '<span class="mc-pill on">' + t('myCodes.always') + '</span>'
@@ -363,11 +365,20 @@ var MyCodes = (function () {
   function load() {
     if (!loaded) message('myCodes.loading');
     return Promise.all([api.listQrCodes(), api.folders.list().catch(function () { return { folders: [] }; })])
-      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; loaded = true; label(); drawTools(); draw(); })
+      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; loaded = true; label(); drawTools(); draw();
+        if (api.codeHealth) api.codeHealth().then(function (h) { health = h || {}; draw(); document.dispatchEvent(new CustomEvent('health-loaded', { detail: health })); }).catch(function () {}); })
       .catch(function () { message('myCodes.error'); });
   }
 
   /* ---------- Acties ---------- */
+  /* Health check: groen bolletje = link werkt, rood = werkt niet (klik = opnieuw controleren) */
+  function hlBadge(r) {
+    var h = health[r.id]; if (!h || h.state === 'checking') return '';
+    var when = i18n.fmt.stamp(h.at, 'short');
+    if (h.state === 'ok') return '<span class="mc-hl ok" title="' + esc(t('myCodes.hlOkTip', { when: when })) + '" aria-label="' + esc(t('myCodes.hlOkTip', { when: when })) + '"></span>';
+    var b = (h.bad || [])[0] || {};
+    return '<button type="button" class="mc-hl bad" data-act="recheck" title="' + esc(t('myCodes.hlBadTip', { url: b.url || '', status: b.status ? String(b.status) : t('myCodes.hlNoAnswer'), when: when })) + '">' + ico('warn') + '<span>' + esc(t('myCodes.hlBad')) + '</span></button>';
+  }
   function find(id) { return rows.filter(function (r) { return r.id === id; })[0]; }
   function replace(rec) { rows = rows.map(function (r) { return r.id === rec.id ? rec : r; }); }
   function toast(key) {
@@ -774,6 +785,7 @@ var MyCodes = (function () {
     if (act === 'print') { closeMenus(); return CodeUtil.print(r).catch(function () { toast('myCodes.failed'); }); }
     if (act === 'share') { closeMenus(); return CodeUtil.share(r).then(function (done) { if (!done) { download(r, 'png', dlSize); toast('myCodes.shareFallback'); } }).catch(function () { toast('myCodes.failed'); }); }
     if (act === 'copydest') return copy(destVal(r) || r.shortUrl);
+    if (act === 'recheck') { var hb = e.target.closest('[data-act]'); if (hb) hb.disabled = true; return api.codeHealthNow(r.id).then(function (h) { if (h && h.state !== 'none') health[r.id] = h; else delete health[r.id]; draw(); toast(h && h.state === 'ok' ? 'myCodes.hlNowOk' : 'myCodes.hlNowBad'); }).catch(function () { draw(); }); }
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });

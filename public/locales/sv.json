@@ -385,7 +385,10 @@
     "couponUrl": "Knapp till din webbutik eller bokningssida",
     "buttonLabel": "Knapptext",
     "starts": "Aktiv från",
-    "msgChannel": "Hur ska folk nå dig?"
+    "msgChannel": "Hur ska folk nå dig?",
+    "startsTime": "Från (tid)",
+    "expiresTime": "Till (tid)",
+    "afterUrl": "När den är slut, skicka till"
   },
   "panel": {
     "selected": "{type} vald"
@@ -520,7 +523,13 @@
     "whereTitle": "Var har ”{name}” skannats?",
     "whereLead": "{n} skanningar, per plats:",
     "whereNone": "Inga skanningar ännu. Så fort någon skannar koden ser du här var.",
-    "whereMore": "Och {n} platser till i statistiken."
+    "whereMore": "Och {n} platser till i statistiken.",
+    "hlOkTip": "Länken fungerar · kontrollerad {when}",
+    "hlBad": "Länken fungerar inte",
+    "hlBadTip": "{url} fungerar inte ({status}) · kontrollerad {when}. Klicka för att kontrollera igen.",
+    "hlNoAnswer": "inget svar",
+    "hlNowOk": "Länken fungerar igen.",
+    "hlNowBad": "Länken fungerar fortfarande inte."
   },
   "appearance": {
     "title": "Färger",
@@ -596,7 +605,9 @@
     "couponCode": "Koden som kunderna använder. Obs: lägg in samma kod i ditt kassasystem eller din webbutik. Appen kontrollerar inte om en kod redan har använts.",
     "couponUrl": "Valfritt. Kunderna använder koden där i kassan.",
     "starts": "Före detta datum ser besökaren ”Den här QR-koden är inte aktiv än”. Praktiskt om du skriver ut innan kampanjen startar.",
-    "utmPage": "Lägger automatiskt till utm-taggar på länkarna på din sida, så att du ser besökare från QR-koden i Google Analytics."
+    "utmPage": "Lägger automatiskt till utm-taggar på länkarna på din sida, så att du ser besökare från QR-koden i Google Analytics.",
+    "time": "Valfritt. I din tidszon. Tomt = hela dagen.",
+    "afterUrl": "När slutdatumet passerat eller max antal skanningar nåtts hamnar besökare på den här länken i stället för \"utgången\". Smidigt för nästa kampanj."
   },
   "more": {
     "title": "Fler alternativ",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Jämfört med i går",
     "vsYesterdayShort": "jmf. i går",
     "mActivity": "Aktivitet",
-    "mFavs": "Favoriter"
+    "mFavs": "Favoriter",
+    "alertBadOne": "Länken i \"{name}\" fungerar inte längre. Besökare hamnar ingenstans.",
+    "alertBadMany": "{n} QR-koder pekar på en länk som inte fungerar längre.",
+    "alertFix": "Visa"
   },
   "as": {
     "tabTexts": "Texter",

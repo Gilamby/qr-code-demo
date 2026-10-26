@@ -8,7 +8,7 @@
     "start": "node server/dist/main.js",
     "dev": "npm run -s build:server && (tsc -p server -w --preserveWatchOutput > /dev/null & node --watch server/dist/main.js)",
     "build": "npm run -s build:server && node scripts/build.js",
-    "test": "npm run -s build:server && node --test test/*.test.js",
+    "test": "npm run -s build:server && HEALTH_CHECK=off node --test test/*.test.js",
     "backup": "npm run -s build:server && node scripts/backup.js",
     "migrate": "npm run -s build:server && node scripts/migrate-json.js",
     "build:demo": "node scripts/build-demo.js",

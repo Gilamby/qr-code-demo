@@ -385,7 +385,10 @@
     "couponUrl": "Poga uz interneta veikalu vai rezervēšanas lapu",
     "buttonLabel": "Pogas teksts",
     "starts": "Aktīvs no",
-    "msgChannel": "Kā cilvēkiem ar tevi sazināties?"
+    "msgChannel": "Kā cilvēkiem ar tevi sazināties?",
+    "startsTime": "No (laiks)",
+    "expiresTime": "Līdz (laiks)",
+    "afterUrl": "Pēc beigām sūtīt uz"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -520,7 +523,13 @@
     "whereTitle": "Kur noskenēts “{name}”?",
     "whereLead": "{n} skenēšanas, pa vietām:",
     "whereNone": "Vēl nav skenēšanu. Tiklīdz kāds noskenēs kodu, šeit redzēsi kur.",
-    "whereMore": "Un vēl {n} vietas statistikā."
+    "whereMore": "Un vēl {n} vietas statistikā.",
+    "hlOkTip": "Saite darbojas · pārbaudīts {when}",
+    "hlBad": "Saite nedarbojas",
+    "hlBadTip": "{url} nedarbojas ({status}) · pārbaudīts {when}. Noklikšķini, lai pārbaudītu vēlreiz.",
+    "hlNoAnswer": "nav atbildes",
+    "hlNowOk": "Saite atkal darbojas.",
+    "hlNowBad": "Saite joprojām nedarbojas."
   },
   "appearance": {
     "title": "Krāsas",
@@ -596,7 +605,9 @@
     "couponCode": "Kods, ko izmanto klienti. Uzmanību: iestati to pašu kodu savā kases sistēmā vai interneta veikalā. Šī lietotne nepārbauda, vai kods jau ir izmantots.",
     "couponUrl": "Nav obligāti. Klienti tur izmanto kodu, norēķinoties.",
     "starts": "Pirms šī datuma apmeklētājs redz \"Šis QR kods vēl nav aktīvs\". Ērti, ja drukā pirms akcijas sākuma.",
-    "utmPage": "Automātiski pievieno utm birkas saitēm tavā lapā, lai Google Analytics redzētu apmeklētājus no QR koda."
+    "utmPage": "Automātiski pievieno utm birkas saitēm tavā lapā, lai Google Analytics redzētu apmeklētājus no QR koda.",
+    "time": "Pēc izvēles. Tavā laika joslā. Tukšs = visa diena.",
+    "afterUrl": "Kad beigu datums pagājis vai sasniegts maksimālais skenējumu skaits, apmeklētāji nonāk šajā saitē, nevis \"beidzies\". Ērti nākamajai akcijai."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Salīdzinot ar vakardienu",
     "vsYesterdayShort": "pret vakardienu",
     "mActivity": "Aktivitāte",
-    "mFavs": "Izlase"
+    "mFavs": "Izlase",
+    "alertBadOne": "Koda \"{name}\" saite vairs nedarbojas. Apmeklētāji nekur nenonāk.",
+    "alertBadMany": "{n} QR kodi ved uz saiti, kas vairs nedarbojas.",
+    "alertFix": "Skatīt"
   },
   "as": {
     "tabTexts": "Teksti",

@@ -50,7 +50,11 @@
     if (type.id === 'vcard' || type.id === 'wifi') return;
     var has = function (k) { return type.fields.some(function (f) { return f.key === k; }); };
     if (!has('starts')) type.fields.push({ key: 'starts', type: 'date', label: 'fields.starts', advanced: true, hint: 'hint.starts' });
+    if (!has('startsTime')) type.fields.splice(type.fields.findIndex(function (f) { return f.key === 'starts'; }) + 1, 0, { key: 'startsTime', type: 'time', label: 'fields.startsTime', advanced: true, needs: 'starts', hint: 'hint.time' });
     if (!has('expires')) type.fields.push({ key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' });
+    // Plannen met tijd (in de tijdzone van de eigenaar) en een andere link na afloop (einddatum of max. aantal scans)
+    if (!has('expiresTime')) type.fields.splice(type.fields.findIndex(function (f) { return f.key === 'expires'; }) + 1, 0, { key: 'expiresTime', type: 'time', label: 'fields.expiresTime', advanced: true, needs: 'expires', hint: 'hint.time' });
+    if (!has('afterUrl')) type.fields.splice(type.fields.findIndex(function (f) { return f.key === 'maxScans' || f.key === 'expiresTime'; }) + 1, 0, { key: 'afterUrl', type: 'url', label: 'fields.afterUrl', advanced: true, hint: 'hint.afterUrl' });
     if (!has('utm') && NO_LINKS.indexOf(type.id) < 0) type.fields.push({ key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utmPage' });
   });
   if (typeof module === 'object' && module.exports) module.exports = data;

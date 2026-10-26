@@ -5311,3 +5311,18 @@ body.paywall-open { overflow: hidden; }
 /* Wachtwoord-puntjes nooit over twee regels */
 .ar-dots { white-space: nowrap; display: block; }
 .mc-pill { white-space: nowrap; }
+/* Health check in Mijn QR-codes: groen bolletje = link werkt, rode knop = werkt niet */
+.mc-hl.ok { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.18); margin-left: 8px; flex: none; }
+.mc-hl.bad { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; padding: 2px 9px; border-radius: 999px; border: 1px solid rgba(248,113,113,.45); background: rgba(248,113,113,.12); color: #fca5a5; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.mc-hl.bad svg { width: 13px; height: 13px; }
+.mc-hl.bad:disabled { opacity: .6; cursor: progress; }
+[data-theme="light"] .mc-hl.bad { color: #b91c1c; }
+/* Overzicht: tegels zijn knoppen (naar Mijn QR-codes / Statistieken) */
+button.hm-tile { font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; transition: transform .15s ease, border-color .15s ease; }
+button.hm-tile:hover { transform: translateY(-1px); border-color: rgba(43,181,240,.45); }
+button.hm-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Overzicht: melding bovenaan (link werkt niet) */
+.hm-alert { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid rgba(248,113,113,.4); background: rgba(248,113,113,.1); color: #fecaca; font-size: 14px; }
+.hm-alert > span:nth-child(2) { flex: 1; }
+.hm-alert-i svg { width: 18px; height: 18px; color: #f87171; display: block; }
+[data-theme="light"] .hm-alert { color: #991b1b; }

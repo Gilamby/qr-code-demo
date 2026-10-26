@@ -24,14 +24,27 @@ export function checkPassword(pw: string, stored: string) {
 }
 
 /* ---------- Regels bij het scannen ---------- */
-export function isExpired(q: QrCode, today = new Date().toISOString().slice(0, 10)) {
-  const c = q.content || {};
-  if (c.expires && today > c.expires) return true;
+/** Datum en tijd nu in een tijdzone (van de eigenaar): { d: 'YYYY-MM-DD', t: 'HH:MM' } */
+export function nowIn(tz = 'Europe/Madrid', at = new Date()) {
+  try {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(at).map((x) => [x.type, x.value]));
+    return { d: p.year + '-' + p.month + '-' + p.day, t: p.hour + ':' + p.minute };
+  } catch { const i = at.toISOString(); return { d: i.slice(0, 10), t: i.slice(11, 16) }; }
+}
+type Now = string | { d: string; t: string };
+const asNow = (n?: Now) => (n == null ? nowIn() : typeof n === 'string' ? { d: n, t: '00:00' } : n);
+/** Afgelopen: na de einddatum (en eindtijd, anders de hele dag nog geldig) of het max. aantal scans bereikt */
+export function isExpired(q: QrCode, now?: Now) {
+  const c = q.content || {}, n = asNow(now);
+  if (c.expires && (n.d > c.expires || (n.d === c.expires && c.expiresTime && n.t >= c.expiresTime))) return true;
   if (c.maxScans && q.scans >= Number(c.maxScans)) return true;
   return false;
 }
-/** Startdatum (KB Q224): vóór die dag werkt de code nog niet */
-export function notYet(q: QrCode, today = new Date().toISOString().slice(0, 10)) { const c = q.content || {}; return !!(c.starts && today < c.starts); }
+/** Startdatum (KB Q224) en eventueel starttijd: daarvóór werkt de code nog niet */
+export function notYet(q: QrCode, now?: Now) {
+  const c = q.content || {}, n = asNow(now);
+  return !!(c.starts && (n.d < c.starts || (n.d === c.starts && c.startsTime && n.t < c.startsTime)));
+}
 export function targetUrl(q: QrCode, userAgent = '') {
   const c = q.content || {};
   let url = c.url;

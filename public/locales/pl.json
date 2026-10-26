@@ -385,7 +385,10 @@
     "couponUrl": "Przycisk do sklepu internetowego lub strony rezerwacji",
     "buttonLabel": "Tekst na przycisku",
     "starts": "Aktywny od",
-    "msgChannel": "Jak ludzie mają się z tobą kontaktować?"
+    "msgChannel": "Jak ludzie mają się z tobą kontaktować?",
+    "startsTime": "Od (godzina)",
+    "expiresTime": "Do (godzina)",
+    "afterUrl": "Po zakończeniu przekieruj do"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -520,7 +523,13 @@
     "whereTitle": "Gdzie zeskanowano „{name}”?",
     "whereLead": "{n} skanów, według miejsca:",
     "whereNone": "Brak skanów. Gdy ktoś zeskanuje kod, zobaczysz tu gdzie.",
-    "whereMore": "I jeszcze {n} miejsc w statystykach."
+    "whereMore": "I jeszcze {n} miejsc w statystykach.",
+    "hlOkTip": "Link działa · sprawdzono {when}",
+    "hlBad": "Link nie działa",
+    "hlBadTip": "{url} nie działa ({status}) · sprawdzono {when}. Kliknij, aby sprawdzić ponownie.",
+    "hlNoAnswer": "brak odpowiedzi",
+    "hlNowOk": "Link znów działa.",
+    "hlNowBad": "Link nadal nie działa."
   },
   "appearance": {
     "title": "Kolory",
@@ -596,7 +605,9 @@
     "couponCode": "Kod, którego używają klienci. Uwaga: ustaw ten sam kod w kasie lub sklepie internetowym. Ta aplikacja nie sprawdza, czy kod został już użyty.",
     "couponUrl": "Opcjonalnie. Klienci używają tam kodu przy płatności.",
     "starts": "Przed tą datą odwiedzający zobaczy „Ten kod QR nie jest jeszcze aktywny”. Przydatne, jeśli drukujesz przed startem akcji.",
-    "utmPage": "Automatycznie dodaje tagi utm do linków na Twojej stronie, abyś widział w Google Analytics odwiedzających z kodu QR."
+    "utmPage": "Automatycznie dodaje tagi utm do linków na Twojej stronie, abyś widział w Google Analytics odwiedzających z kodu QR.",
+    "time": "Opcjonalnie. W Twojej strefie czasowej. Puste = cały dzień.",
+    "afterUrl": "Po dacie końcowej lub po osiągnięciu maksymalnej liczby skanów odwiedzający trafią na ten link zamiast „wygasł”. Przydatne przy kolejnej promocji."
   },
   "more": {
     "title": "Więcej opcji",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "W porównaniu z wczoraj",
     "vsYesterdayShort": "vs wczoraj",
     "mActivity": "Aktywność",
-    "mFavs": "Ulubione"
+    "mFavs": "Ulubione",
+    "alertBadOne": "Link w \"{name}\" już nie działa. Odwiedzający nigdzie nie trafiają.",
+    "alertBadMany": "{n} kodów QR prowadzi do linku, który już nie działa.",
+    "alertFix": "Zobacz"
   },
   "as": {
     "tabTexts": "Teksty",

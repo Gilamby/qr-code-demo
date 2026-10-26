@@ -385,7 +385,10 @@
     "couponUrl": "Buton către magazinul online sau pagina de rezervări",
     "buttonLabel": "Textul butonului",
     "starts": "Activ de la",
-    "msgChannel": "Cum să te contacteze oamenii?"
+    "msgChannel": "Cum să te contacteze oamenii?",
+    "startsTime": "De la (ora)",
+    "expiresTime": "Până la (ora)",
+    "afterUrl": "După final, trimite la"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -520,7 +523,13 @@
     "whereTitle": "Unde a fost scanat „{name}”?",
     "whereLead": "{n} scanări, pe locuri:",
     "whereNone": "Încă nu sunt scanări. Imediat ce cineva scanează codul, vezi aici unde.",
-    "whereMore": "Și încă {n} locuri în statistici."
+    "whereMore": "Și încă {n} locuri în statistici.",
+    "hlOkTip": "Linkul funcționează · verificat {when}",
+    "hlBad": "Linkul nu funcționează",
+    "hlBadTip": "{url} nu funcționează ({status}) · verificat {when}. Dă clic pentru a verifica din nou.",
+    "hlNoAnswer": "niciun răspuns",
+    "hlNowOk": "Linkul funcționează din nou.",
+    "hlNowBad": "Linkul tot nu funcționează."
   },
   "appearance": {
     "title": "Culori",
@@ -596,7 +605,9 @@
     "couponCode": "Codul pe care îl folosesc clienții. Atenție: configurează același cod în casa de marcat sau în magazinul online. Această aplicație nu verifică dacă un cod a fost deja folosit.",
     "couponUrl": "Opțional. Clienții folosesc codul acolo la plată.",
     "starts": "Înainte de această dată, vizitatorul vede „Acest cod QR nu este încă activ”. Util dacă tipărești înainte de începerea campaniei.",
-    "utmPage": "Adaugă automat etichete utm la linkurile de pe pagina ta, ca să vezi în Google Analytics vizitatorii veniți prin codul QR."
+    "utmPage": "Adaugă automat etichete utm la linkurile de pe pagina ta, ca să vezi în Google Analytics vizitatorii veniți prin codul QR.",
+    "time": "Opțional. În fusul tău orar. Gol = toată ziua.",
+    "afterUrl": "După data de final sau după numărul maxim de scanări, vizitatorii ajung la acest link în loc de „expirat”. Util pentru următoarea promoție."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Față de ieri",
     "vsYesterdayShort": "față de ieri",
     "mActivity": "Activitate",
-    "mFavs": "Favorite"
+    "mFavs": "Favorite",
+    "alertBadOne": "Linkul din „{name}” nu mai funcționează. Vizitatorii nu ajung nicăieri.",
+    "alertBadMany": "{n} coduri QR duc la un link care nu mai funcționează.",
+    "alertFix": "Vezi"
   },
   "as": {
     "tabTexts": "Texte",

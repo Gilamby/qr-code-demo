@@ -11,6 +11,7 @@
    ========================================================= */
 var Home = (function () {
   var view = document.getElementById('homeView'), body = document.getElementById('homeBody');
+  var health = {};
   var codes = null, stats = null, statsP = null, acts = null, me = null, seq = 0, period = 30, plan = null;
   try { var sp = +localStorage.getItem('home.period'); if ([1, 7, 30, 90].indexOf(sp) >= 0) period = sp; } catch (e) {}
   var SVG = function (p, cls) { return '<svg class="' + (cls || 'hm-i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
@@ -46,12 +47,21 @@ var Home = (function () {
       api.analytics({ from: iso(from), to: iso(to), codes: [], os: [], cc: [], city: [] }).catch(function () { return null; }),
       api.analytics({ from: iso(new Date(Date.now() - (period - 1) * 864e5)), to: iso(to), codes: [], os: [], cc: [], city: [], tz: i18n.fmt.zone() }).catch(function () { return null; }),
       api.account.activity ? api.account.activity().catch(function () { return { activity: [] }; }) : Promise.resolve({ activity: [] }),
-      api.account.plan ? api.account.plan().catch(function () { return null; }) : Promise.resolve(null)
+      api.account.plan ? api.account.plan().catch(function () { return null; }) : Promise.resolve(null),
+      api.codeHealth ? api.codeHealth().catch(function () { return {}; }) : Promise.resolve({})
     ]).then(function (r) {
       if (my !== seq) return;
-      codes = r[0] || []; stats = r[1]; statsP = r[2]; acts = (r[3] && r[3].activity) || []; plan = r[4];
+      codes = r[0] || []; stats = r[1]; statsP = r[2]; acts = (r[3] && r[3].activity) || []; plan = r[4]; health = r[5] || {};
       draw();
     });
+  }
+
+  /* ---------- Meldingen bovenaan: QR-codes waarvan de link niet meer werkt (health check) ---------- */
+  function alerts() {
+    var bad = (codes || []).filter(function (r) { var h = health[r.id]; return h && h.state === 'down' && !r.paused; });
+    if (!bad.length) return '';
+    var txt = bad.length === 1 ? t('home.alertBadOne', { name: name(bad[0]) }) : t('home.alertBadMany', { n: bad.length });
+    return '<div class="hm-alert" role="status"><span class="hm-alert-i">' + ico('warn') + '</span><span>' + esc(txt) + '</span><button type="button" class="btn ghost sm" data-goto="myCodes">' + esc(t('home.alertFix')) + '</button></div>';
   }
 
   /* ---------- Onderdelen ---------- */
@@ -94,7 +104,8 @@ var Home = (function () {
       var pct = Math.round((now - before) / before * 100);
       return '<em class="hm-trend ' + (pct > 0 ? 't-up' : pct < 0 ? 't-down' : 'flat') + '" title="' + esc(lng) + '">' + (pct ? ico(pct > 0 ? 'up' : 'down', 'hm-ti') : '') + (pct > 0 ? '+' : '') + pct + '%<span>' + sht + '</span></em>';
     };
-    var tile = function (cls, icon, label, value, extra) { return '<div class="hm-tile glass ' + cls + '"><span class="hm-tic">' + ico(icon) + '</span><small>' + label + '</small><b>' + value + '</b>' + (extra || '') + '</div>'; };
+    // Klikbaar: QR-codes → Mijn QR-codes, scans → Statistieken
+    var tile = function (cls, icon, label, value, extra) { return '<button type="button" class="hm-tile glass ' + cls + '" data-goto="' + (cls === 't-codes' ? 'myCodes' : 'analytics') + '"><span class="hm-tic">' + ico(icon) + '</span><small>' + label + '</small><b>' + value + '</b>' + (extra || '') + '</button>'; };
     var active = codes.filter(function (r) { return !r.paused; }).length;
     return '<div class="hm-tiles">' +
       tile('t-codes', 'folder', t('home.tCodesAll'), i18n.fmt.num(codes.length)) +
@@ -193,7 +204,7 @@ var Home = (function () {
     body.innerHTML = '<header class="hm-hero"><div><h2>' + esc(greeting()) + '</h2><p>' + t(codes.length ? 'home.welcomeBack' : 'home.leadNew') + '</p>' + subLine() + '</div>' +
         '<div class="hm-acts"><label class="ad-sel hm-period"><span class="sr-only">' + t('an.period') + '</span><select id="hmPeriod">' + [1, 7, 30, 90].map(function (n) { return '<option value="' + n + '"' + (n === period ? ' selected' : '') + '>' + t(n === 1 ? 'an.p_today' : 'an.p_' + n) + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn primary" data-hm-new>' + ico('plus') + t('nav.create') + '</button></div></header>' +
-      (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') +
+      (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') + alerts() +
       (codes.length && phoneMq.matches ? tiles(sr) + chart(sr) + mtabs() + '<div class="hm-mpane" id="hmMPane">' + mpane() + '</div>' :
        codes.length ? tiles(sr) + '<div class="hm-rows"><div class="hm-row">' + chart(sr) + activity() + '</div><div class="hm-row">' + favorites() + top() + '</div></div>' : welcome() + '<div class="hm-grid one">' + activity() + '</div>') +
       '';   // geen voettekst: alles past zo op één scherm (Privacy staat in de zijbalk)

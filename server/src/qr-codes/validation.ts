@@ -97,6 +97,7 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
     if (field.type === 'email' && !EMAIL.test(v)) errors.push(field.key + ': invalid email');
     if (field.type === 'tel' && !/^\+\d{7,16}$/.test(v.replace(/\s/g, ''))) errors.push(field.key + ': must be a phone number with country code (+31 …)');
     if (field.type === 'number') { const n = Number(v), lo = field.min != null ? field.min : 0, hi = field.max != null ? field.max : 100; if (isNaN(n) || n < lo || n > hi || (field.min != null && !Number.isInteger(n))) errors.push(field.key + ': must be ' + lo + '-' + hi); }
+    if (field.type === 'time' && !/^([01]\d|2[0-3]):[0-5]\d$/.test(v)) errors.push(field.key + ': must be a time (HH:MM)');
     if (field.type === 'date' && (!/^\d{4}-\d{2}-\d{2}$/.test(v) || isNaN(Date.parse(v)))) errors.push(field.key + ': must be a date (YYYY-MM-DD)');
     if (field.type === 'toggle' && v !== '1') errors.push(field.key + ': must be 1 or empty');
     if (field.type === 'password' && (v.length < 4 || v.length > 64)) errors.push(field.key + ': must be 4-64 characters');

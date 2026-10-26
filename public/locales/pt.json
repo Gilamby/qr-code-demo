@@ -385,7 +385,10 @@
     "couponUrl": "Botão para a loja online ou página de reservas",
     "buttonLabel": "Texto do botão",
     "starts": "Ativo a partir de",
-    "msgChannel": "Como devem contactar-te?"
+    "msgChannel": "Como devem contactar-te?",
+    "startsTime": "A partir de (hora)",
+    "expiresTime": "Até (hora)",
+    "afterUrl": "Depois de terminar, enviar para"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -520,7 +523,13 @@
     "whereTitle": "Onde foi lido “{name}”?",
     "whereLead": "{n} leituras, por local:",
     "whereNone": "Ainda sem leituras. Assim que alguém ler o código, vês aqui onde.",
-    "whereMore": "E mais {n} locais nas estatísticas."
+    "whereMore": "E mais {n} locais nas estatísticas.",
+    "hlOkTip": "O link funciona · verificado {when}",
+    "hlBad": "O link não funciona",
+    "hlBadTip": "{url} não funciona ({status}) · verificado {when}. Clica para verificar de novo.",
+    "hlNoAnswer": "sem resposta",
+    "hlNowOk": "O link voltou a funcionar.",
+    "hlNowBad": "O link continua sem funcionar."
   },
   "appearance": {
     "title": "Cores",
@@ -596,7 +605,9 @@
     "couponCode": "O código que os clientes usam. Atenção: configure o mesmo código na caixa ou loja online. Esta app não verifica se um código já foi usado.",
     "couponUrl": "Opcional. Os clientes usam lá o código ao pagar.",
     "starts": "Antes desta data, o visitante vê \"Este código QR ainda não está ativo\". Útil se imprimires antes de a campanha começar.",
-    "utmPage": "Adiciona automaticamente etiquetas utm aos links da tua página, para veres no Google Analytics os visitantes vindos do código QR."
+    "utmPage": "Adiciona automaticamente etiquetas utm aos links da tua página, para veres no Google Analytics os visitantes vindos do código QR.",
+    "time": "Opcional. No teu fuso horário. Vazio = o dia todo.",
+    "afterUrl": "Quando a data de fim passar ou o máximo de leituras for atingido, os visitantes vão para este link em vez de \"expirado\". Útil para a tua próxima promoção."
   },
   "more": {
     "title": "Mais opções",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Comparado com ontem",
     "vsYesterdayShort": "vs. ontem",
     "mActivity": "Atividade",
-    "mFavs": "Favoritos"
+    "mFavs": "Favoritos",
+    "alertBadOne": "O link de \"{name}\" já não funciona. Os visitantes não chegam a lado nenhum.",
+    "alertBadMany": "{n} códigos QR apontam para um link que já não funciona.",
+    "alertFix": "Ver"
   },
   "as": {
     "tabTexts": "Textos",

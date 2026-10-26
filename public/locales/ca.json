@@ -385,7 +385,10 @@
     "couponUrl": "Botó a la botiga en línia o a la pàgina de reserves",
     "buttonLabel": "Text del botó",
     "starts": "Actiu des del",
-    "msgChannel": "Com et poden contactar?"
+    "msgChannel": "Com et poden contactar?",
+    "startsTime": "Des de (hora)",
+    "expiresTime": "Fins a (hora)",
+    "afterUrl": "En acabar, enviar a"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -520,7 +523,13 @@
     "whereTitle": "On s’ha escanejat «{name}»?",
     "whereLead": "{n} escanejos, per lloc:",
     "whereNone": "Encara no hi ha escanejos. Quan algú escanegi el codi, veuràs aquí on.",
-    "whereMore": "I {n} llocs més a les estadístiques."
+    "whereMore": "I {n} llocs més a les estadístiques.",
+    "hlOkTip": "L'enllaç funciona · comprovat {when}",
+    "hlBad": "L'enllaç no funciona",
+    "hlBadTip": "{url} no funciona ({status}) · comprovat {when}. Fes clic per tornar a comprovar.",
+    "hlNoAnswer": "sense resposta",
+    "hlNowOk": "L'enllaç torna a funcionar.",
+    "hlNowBad": "L'enllaç encara no funciona."
   },
   "appearance": {
     "title": "Colors",
@@ -596,7 +605,9 @@
     "couponCode": "El codi que fan servir els clients. Atenció: configura el mateix codi a la caixa o a la botiga en línia. Aquesta aplicació no comprova si un codi ja s'ha fet servir.",
     "couponUrl": "Opcional. Els clients hi fan servir el codi en pagar.",
     "starts": "Abans d'aquesta data, el visitant veu \"Aquest codi QR encara no està actiu\". Útil si imprimeixes abans que comenci la campanya.",
-    "utmPage": "Afegeix automàticament etiquetes utm als enllaços de la teva pàgina, perquè vegis a Google Analytics els visitants del codi QR."
+    "utmPage": "Afegeix automàticament etiquetes utm als enllaços de la teva pàgina, perquè vegis a Google Analytics els visitants del codi QR.",
+    "time": "Opcional. A la teva zona horària. Buit = tot el dia.",
+    "afterUrl": "Quan passi la data de fi o s'arribi al màxim d'escanejos, els visitants van a aquest enllaç en lloc de \"caducat\". Útil per a la teva propera promoció."
   },
   "more": {
     "title": "Més opcions",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Respecte a ahir",
     "vsYesterdayShort": "vs. ahir",
     "mActivity": "Activitat",
-    "mFavs": "Preferits"
+    "mFavs": "Preferits",
+    "alertBadOne": "L'enllaç de \"{name}\" ja no funciona. Els visitants no arriben enlloc.",
+    "alertBadMany": "{n} codis QR porten a un enllaç que ja no funciona.",
+    "alertFix": "Veure"
   },
   "as": {
     "tabTexts": "Textos",

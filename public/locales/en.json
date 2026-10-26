@@ -385,7 +385,10 @@
     "couponUrl": "Button to your web shop or booking page",
     "buttonLabel": "Button text",
     "starts": "Active from",
-    "msgChannel": "How should people reach you?"
+    "msgChannel": "How should people reach you?",
+    "startsTime": "From (time)",
+    "expiresTime": "Until (time)",
+    "afterUrl": "After it ends, send visitors to"
   },
   "panel": {
     "selected": "{type} selected"
@@ -520,7 +523,13 @@
     "whereTitle": "Where was “{name}” scanned?",
     "whereLead": "{n} scans, by place:",
     "whereNone": "No scans yet. As soon as someone scans the code, you will see where here.",
-    "whereMore": "And {n} more places in the analytics."
+    "whereMore": "And {n} more places in the analytics.",
+    "hlOkTip": "Link works · checked {when}",
+    "hlBad": "Link not working",
+    "hlBadTip": "{url} isn't working ({status}) · checked {when}. Click to check again.",
+    "hlNoAnswer": "no answer",
+    "hlNowOk": "The link works again.",
+    "hlNowBad": "The link still isn't working."
   },
   "appearance": {
     "title": "Colours",
@@ -596,7 +605,9 @@
     "couponCode": "The code customers use. Note: set up the same code in your till or web shop. This app does not check whether a code was already used.",
     "couponUrl": "Optional. Customers use the code there at checkout.",
     "starts": "Before this date the visitor sees \"This QR code isn't active yet\". Handy if you print before the campaign starts.",
-    "utmPage": "Automatically adds utm tags to the links on your page, so you can see visitors from the QR code in Google Analytics."
+    "utmPage": "Automatically adds utm tags to the links on your page, so you can see visitors from the QR code in Google Analytics.",
+    "time": "Optional. In your time zone. Empty = the whole day.",
+    "afterUrl": "When the end date has passed or the maximum number of scans is reached, visitors go to this link instead of \"expired\". Handy for your next promotion."
   },
   "more": {
     "title": "More options",
@@ -1992,7 +2003,10 @@
     "vsYesterday": "Compared with yesterday",
     "vsYesterdayShort": "vs. yesterday",
     "mActivity": "Activity",
-    "mFavs": "Favorites"
+    "mFavs": "Favorites",
+    "alertBadOne": "The link of \"{name}\" no longer works. Visitors end up nowhere.",
+    "alertBadMany": "{n} QR codes point to a link that no longer works.",
+    "alertFix": "View"
   },
   "as": {
     "tabTexts": "Texts",

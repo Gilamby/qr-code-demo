@@ -889,3 +889,43 @@ test('logboek per scan en kaart (detailpagina): tijd, plaats, apparaat; geen IP'
   const other = client(); await signup(other, 'ander-log@example.com', 'Andere klant 77!', 'X');
   assert.equal((await other('GET', '/api/analytics/scans?code=' + q.id)).status, 404, 'niet van een ander');
 });
+
+test('health check: link niet bereikbaar (intern adres) = werkt niet; code zonder link = niets; bewerken = opnieuw', async () => {
+  const c = client();
+  await signup(c, 'health@example.com', 'Health check zin 9!', 'He');
+  const bad = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'http://127.0.0.1:9/weg' } })).json;
+  const h = await c('POST', '/api/qr-codes/' + bad.id + '/health');
+  assert.equal(h.status, 200); assert.equal(h.json.state, 'down'); assert.equal(h.json.bad[0].url, 'http://127.0.0.1:9/weg');
+  assert.equal((await c('GET', '/api/qr-codes/health')).json[bad.id].state, 'down');
+  const wifi = (await c('POST', '/api/qr-codes', { typeId: 'wifi', content: { ssid: 'Gasten', password: 'geheim123', security: 'WPA' } })).json;
+  assert.equal((await c('POST', '/api/qr-codes/' + wifi.id + '/health')).json.state, 'none', 'geen link: niets te controleren');
+  await c('PUT', '/api/qr-codes/' + bad.id, { typeId: 'website', content: { url: 'https://example.org/nieuw' } });
+  assert.equal((await c('GET', '/api/qr-codes/health')).json[bad.id], undefined, 'nieuwe link: oude uitslag weg');
+  const other = client(); await signup(other, 'health2@example.com', 'Health check zin 8!', 'Ho');
+  assert.equal((await other('POST', '/api/qr-codes/' + bad.id + '/health')).status, 404, 'niet van een ander');
+});
+
+test('health check: pas na 2 mislukte pogingen "werkt niet" (geen vals alarm)', async () => {
+  const { checkCode, due } = require('../server/dist/health');
+  const q = { id: 'x', content: { url: 'http://10.0.0.1/' } };
+  const one = await checkCode(q, null); assert.equal(one.state, 'checking'); assert.equal(one.fails, 1);
+  assert.ok(due(one, Date.now() + 3601e3), 'na een mislukte poging over een uur opnieuw');
+  const two = await checkCode(q, one); assert.equal(two.state, 'down');
+  assert.equal(await checkCode({ id: 'y', content: {} }, null), null);
+});
+
+test('plannen: start- en eindtijd in de tijdzone van de eigenaar, na afloop naar een andere link', async () => {
+  const rules = require('../server/dist/visitor/rules');
+  const q = { scans: 0, content: { starts: '2026-11-01', startsTime: '18:00', expires: '2026-11-30', expiresTime: '23:00' } };
+  assert.equal(rules.notYet(q, { d: '2026-11-01', t: '17:59' }), true); assert.equal(rules.notYet(q, { d: '2026-11-01', t: '18:00' }), false);
+  assert.equal(rules.isExpired(q, { d: '2026-11-30', t: '22:59' }), false); assert.equal(rules.isExpired(q, { d: '2026-11-30', t: '23:00' }), true);
+  assert.equal(rules.isExpired({ scans: 0, content: { expires: '2026-11-30' } }, { d: '2026-11-30', t: '23:59' }), false, 'zonder tijd: de hele dag geldig');
+  assert.equal(rules.nowIn('Europe/Madrid', new Date('2026-07-01T10:00:00Z')).t, '12:00');
+  const c = client(); await signup(c, 'plan-tijd@example.com', 'Plannen zin 77!', 'Pt');
+  assert.equal((await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com', expires: '2026-01-01', expiresTime: '25:00' } })).status, 400, 'geen geldige tijd');
+  const made = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com', expires: '2020-01-01', afterUrl: 'https://example.com/nieuwe-actie' } })).json;
+  const r = await fetch(base + '/q/' + made.id, { redirect: 'manual' });
+  assert.equal(r.status, 302); assert.equal(r.headers.get('location'), 'https://example.com/nieuwe-actie');
+  const made2 = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com', expires: '2020-01-01' } })).json;
+  assert.equal((await fetch(base + '/q/' + made2.id, { redirect: 'manual' })).status, 410, 'zonder link: verlopen-pagina');
+});

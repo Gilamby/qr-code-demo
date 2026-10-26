@@ -61,13 +61,25 @@ export class ShortLinksController {
     return res.sendFile(f.path, { dotfiles: 'allow' }, (err) => { if (err && !res.headersSent) res.status(404).send('Not found'); });
   }
 
+  /** Tijdzone van de eigenaar (voor starttijd/eindtijd), 10 minuten onthouden */
+  private zones = new Map<string, { at: number; tz: string }>();
+  private async zoneOf(userId: string) {
+    const z = this.zones.get(userId); if (z && Date.now() - z.at < 600e3) return z.tz;
+    const u: any = await this.db.getUser(userId).catch(() => null), tz = (u && u.timezone) || 'Europe/Madrid';
+    this.zones.set(userId, { at: Date.now(), tz }); return tz;
+  }
   private async openCode(req: Request, res: Response, id: string, passwordOk: boolean) {
     const found = await this.db.getQrCode(id);
     if (!found) return res.status(/^[A-Za-z0-9_-]{4,16}$/.test(id) && (await this.db.wasDeleted(id)) ? 410 : 404).send(rules.notFoundPage(req));   // 410 = verwijderd, komt niet terug
     if (isBlocked(found.userId)) return res.status(503).set('Retry-After', '3600').send(rules.inactivePage(req));   // abonnement niet betaald: niet tellen
     if (found.paused) return res.status(503).set('Retry-After', '3600').send(rules.pausedPage(req));   // tijdelijk uit: niet tellen
-    if (rules.isExpired(found)) return res.status(410).send(rules.expiredPage(req));
-    if (rules.notYet(found)) return res.status(503).send(rules.notYetPage(req, found.content.starts));   // nog niet begonnen: niet tellen
+    const now = rules.nowIn(found.content && (found.content.startsTime || found.content.expiresTime) ? await this.zoneOf(found.userId) : undefined);
+    if (rules.isExpired(found, now)) {
+      // Na afloop doorsturen naar een andere link (bv. de nieuwe actie), anders "Deze QR-code is verlopen"
+      if (found.content.afterUrl && /^https?:\/\//i.test(found.content.afterUrl)) { res.set('Cache-Control', 'no-store'); return res.redirect(found.content.afterUrl); }
+      return res.status(410).send(rules.expiredPage(req));
+    }
+    if (rules.notYet(found, now)) return res.status(503).send(rules.notYetPage(req, found.content.starts));   // nog niet begonnen: niet tellen
     const key = secretKey(found.typeId);
     if (key && found.content[key] && !passwordOk) {
       // Na het juiste wachtwoord stuurt het formulier door naar de bestemming (een andere website).

@@ -385,7 +385,10 @@
     "couponUrl": "Bouton vers votre boutique ou page de réservation",
     "buttonLabel": "Texte du bouton",
     "starts": "Actif à partir du",
-    "msgChannel": "Comment les gens doivent-ils vous joindre ?"
+    "msgChannel": "Comment les gens doivent-ils vous joindre ?",
+    "startsTime": "À partir de (heure)",
+    "expiresTime": "Jusqu'à (heure)",
+    "afterUrl": "Une fois terminé, envoyer vers"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -520,7 +523,13 @@
     "whereTitle": "Où « {name} » a-t-il été scanné ?",
     "whereLead": "{n} scans, par lieu :",
     "whereNone": "Pas encore de scans. Dès que quelqu’un scanne le code, tu verras ici où.",
-    "whereMore": "Et {n} autres lieux dans les statistiques."
+    "whereMore": "Et {n} autres lieux dans les statistiques.",
+    "hlOkTip": "Le lien fonctionne · vérifié {when}",
+    "hlBad": "Le lien ne fonctionne pas",
+    "hlBadTip": "{url} ne fonctionne pas ({status}) · vérifié {when}. Clique pour revérifier.",
+    "hlNoAnswer": "pas de réponse",
+    "hlNowOk": "Le lien fonctionne à nouveau.",
+    "hlNowBad": "Le lien ne fonctionne toujours pas."
   },
   "appearance": {
     "title": "Couleurs",
@@ -596,7 +605,9 @@
     "couponCode": "Le code utilisé par les clients. Attention : configurez le même code dans votre caisse ou boutique en ligne. Cette appli ne vérifie pas si un code a déjà été utilisé.",
     "couponUrl": "Facultatif. Les clients y utilisent le code au paiement.",
     "starts": "Avant cette date, le visiteur voit « Ce QR code n'est pas encore actif ». Pratique si vous imprimez avant le début de la campagne.",
-    "utmPage": "Ajoute automatiquement des balises utm aux liens de ta page, pour retrouver dans Google Analytics les visiteurs venus du QR code."
+    "utmPage": "Ajoute automatiquement des balises utm aux liens de ta page, pour retrouver dans Google Analytics les visiteurs venus du QR code.",
+    "time": "Facultatif. Dans ton fuseau horaire. Vide = toute la journée.",
+    "afterUrl": "Une fois la date de fin passée ou le nombre maximal de scans atteint, les visiteurs arrivent sur ce lien au lieu de « expiré ». Pratique pour ta prochaine offre."
   },
   "more": {
     "title": "Plus d'options",
@@ -1988,7 +1999,10 @@
     "vsYesterday": "Par rapport à hier",
     "vsYesterdayShort": "vs hier",
     "mActivity": "Activité",
-    "mFavs": "Favoris"
+    "mFavs": "Favoris",
+    "alertBadOne": "Le lien de « {name} » ne fonctionne plus. Les visiteurs n'arrivent nulle part.",
+    "alertBadMany": "{n} codes QR renvoient vers un lien qui ne fonctionne plus.",
+    "alertFix": "Voir"
   },
   "as": {
     "tabTexts": "Textes",

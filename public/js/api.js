@@ -253,6 +253,8 @@ var api = (function () {
     available: available,
     info: function () { return info; },
     isDemo: function () { return online === false; },
+    codeHealth:   function () { return api.isDemo && api.isDemo() ? Promise.resolve({}) : request('GET', 'api/qr-codes/health'); },
+    codeHealthNow: function (id) { return request('POST', 'api/qr-codes/' + encodeURIComponent(id) + '/health', {}); },
     listQrCodes:  either(function () { return request('GET', 'api/qr-codes'); }, local.list),
     getQrCode:    either(function (id) { return request('GET', 'api/qr-codes/' + encodeURIComponent(id)); }, local.get),
     createQrCode: either(function (data) { return request('POST', 'api/qr-codes', data); }, local.create),

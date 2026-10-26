@@ -385,7 +385,10 @@
     "couponUrl": "Button zu deinem Webshop oder deiner Buchungsseite",
     "buttonLabel": "Text auf dem Button",
     "starts": "Aktiv ab",
-    "msgChannel": "Wie sollen dich Leute erreichen?"
+    "msgChannel": "Wie sollen dich Leute erreichen?",
+    "startsTime": "Ab (Uhrzeit)",
+    "expiresTime": "Bis (Uhrzeit)",
+    "afterUrl": "Danach weiterleiten zu"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -520,7 +523,13 @@
     "whereTitle": "Wo wurde „{name}“ gescannt?",
     "whereLead": "{n} Scans, nach Ort:",
     "whereNone": "Noch keine Scans. Sobald jemand den Code scannt, siehst du hier, wo.",
-    "whereMore": "Und {n} weitere Orte in der Statistik."
+    "whereMore": "Und {n} weitere Orte in der Statistik.",
+    "hlOkTip": "Link funktioniert · geprüft {when}",
+    "hlBad": "Link funktioniert nicht",
+    "hlBadTip": "{url} funktioniert nicht ({status}) · geprüft {when}. Klicke, um erneut zu prüfen.",
+    "hlNoAnswer": "keine Antwort",
+    "hlNowOk": "Der Link funktioniert wieder.",
+    "hlNowBad": "Der Link funktioniert immer noch nicht."
   },
   "appearance": {
     "title": "Farben",
@@ -596,7 +605,9 @@
     "couponCode": "Der Code, den Kunden verwenden. Achtung: Richte denselben Code auch in deiner Kasse oder deinem Webshop ein. Diese App prüft nicht, ob ein Code schon benutzt wurde.",
     "couponUrl": "Optional. Kunden nutzen den Code dort beim Bezahlen.",
     "starts": "Vor diesem Datum sieht der Besucher „Dieser QR-Code ist noch nicht aktiv“. Praktisch, wenn du druckst, bevor die Aktion beginnt.",
-    "utmPage": "Fügt den Links auf deiner Seite automatisch UTM-Parameter hinzu, damit du Besucher über den QR-Code in Google Analytics siehst."
+    "utmPage": "Fügt den Links auf deiner Seite automatisch UTM-Parameter hinzu, damit du Besucher über den QR-Code in Google Analytics siehst.",
+    "time": "Optional. In deiner Zeitzone. Leer = der ganze Tag.",
+    "afterUrl": "Ist das Enddatum vorbei oder die maximale Anzahl Scans erreicht, landen Besucher auf diesem Link statt auf „abgelaufen“. Praktisch für die nächste Aktion."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -1988,7 +1999,10 @@
     "vsYesterday": "Verglichen mit gestern",
     "vsYesterdayShort": "vs. gestern",
     "mActivity": "Aktivität",
-    "mFavs": "Favoriten"
+    "mFavs": "Favoriten",
+    "alertBadOne": "Der Link von „{name}“ funktioniert nicht mehr. Besucher landen im Nichts.",
+    "alertBadMany": "{n} QR-Codes verweisen auf einen Link, der nicht mehr funktioniert.",
+    "alertFix": "Ansehen"
   },
   "as": {
     "tabTexts": "Texte",

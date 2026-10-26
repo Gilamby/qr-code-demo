@@ -385,7 +385,10 @@
     "couponUrl": "Knapp til nettbutikken eller bookingsiden din",
     "buttonLabel": "Knappetekst",
     "starts": "Aktiv fra",
-    "msgChannel": "Hvordan skal folk nå deg?"
+    "msgChannel": "Hvordan skal folk nå deg?",
+    "startsTime": "Fra (tid)",
+    "expiresTime": "Til (tid)",
+    "afterUrl": "Når den er slutt, send til"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -520,7 +523,13 @@
     "whereTitle": "Hvor er «{name}» skannet?",
     "whereLead": "{n} skanninger, per sted:",
     "whereNone": "Ingen skanninger ennå. Så snart noen skanner koden, ser du her hvor.",
-    "whereMore": "Og {n} steder til i statistikken."
+    "whereMore": "Og {n} steder til i statistikken.",
+    "hlOkTip": "Lenken virker · sjekket {when}",
+    "hlBad": "Lenken virker ikke",
+    "hlBadTip": "{url} virker ikke ({status}) · sjekket {when}. Klikk for å sjekke igjen.",
+    "hlNoAnswer": "ikke noe svar",
+    "hlNowOk": "Lenken virker igjen.",
+    "hlNowBad": "Lenken virker fortsatt ikke."
   },
   "appearance": {
     "title": "Farger",
@@ -596,7 +605,9 @@
     "couponCode": "Koden kundene bruker. Merk: legg inn den samme koden i kassesystemet eller nettbutikken din. Denne appen sjekker ikke om en kode allerede er brukt.",
     "couponUrl": "Valgfritt. Kundene bruker koden der i kassen.",
     "starts": "Før denne datoen ser besøkende «Denne QR-koden er ikke aktiv ennå». Nyttig hvis du skriver ut før kampanjen starter.",
-    "utmPage": "Legger automatisk til utm-tagger på lenkene på siden din, så du ser besøkende fra QR-koden i Google Analytics."
+    "utmPage": "Legger automatisk til utm-tagger på lenkene på siden din, så du ser besøkende fra QR-koden i Google Analytics.",
+    "time": "Valgfritt. I din tidssone. Tomt = hele dagen.",
+    "afterUrl": "Når sluttdatoen er passert eller maks antall skanninger er nådd, kommer besøkende til denne lenken i stedet for «utløpt». Nyttig for neste kampanje."
   },
   "more": {
     "title": "Flere alternativer",
@@ -1982,7 +1993,10 @@
     "vsYesterday": "Sammenlignet med i går",
     "vsYesterdayShort": "mot i går",
     "mActivity": "Aktivitet",
-    "mFavs": "Favoritter"
+    "mFavs": "Favoritter",
+    "alertBadOne": "Lenken i \"{name}\" virker ikke lenger. Besøkende kommer ingen vei.",
+    "alertBadMany": "{n} QR-koder peker til en lenke som ikke virker lenger.",
+    "alertFix": "Se"
   },
   "as": {
     "tabTexts": "Tekster",

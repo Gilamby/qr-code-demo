@@ -385,7 +385,10 @@
     "couponUrl": "Buton për dyqanin online ose faqen e rezervimeve",
     "buttonLabel": "Teksti i butonit",
     "starts": "Aktiv nga",
-    "msgChannel": "Si duhet të të kontaktojnë njerëzit?"
+    "msgChannel": "Si duhet të të kontaktojnë njerëzit?",
+    "startsTime": "Nga (ora)",
+    "expiresTime": "Deri (ora)",
+    "afterUrl": "Pas përfundimit, dërgo te"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -520,7 +523,13 @@
     "whereTitle": "Ku është skanuar “{name}”?",
     "whereLead": "{n} skanime, sipas vendit:",
     "whereNone": "Ende pa skanime. Sapo dikush ta skanojë kodin, këtu do shohësh ku.",
-    "whereMore": "Dhe {n} vende të tjera te statistikat."
+    "whereMore": "Dhe {n} vende të tjera te statistikat.",
+    "hlOkTip": "Lidhja funksionon · kontrolluar {when}",
+    "hlBad": "Lidhja nuk funksionon",
+    "hlBadTip": "{url} nuk funksionon ({status}) · kontrolluar {when}. Kliko për ta kontrolluar sërish.",
+    "hlNoAnswer": "pa përgjigje",
+    "hlNowOk": "Lidhja funksionon sërish.",
+    "hlNowBad": "Lidhja ende nuk funksionon."
   },
   "appearance": {
     "title": "Ngjyrat",
@@ -596,7 +605,9 @@
     "couponCode": "Kodi që përdorin klientët. Kujdes: vendos të njëjtin kod edhe në arkë ose në dyqanin online. Ky aplikacion nuk kontrollon nëse një kod është përdorur.",
     "couponUrl": "Opsionale. Klientët e përdorin kodin atje kur paguajnë.",
     "starts": "Para kësaj date vizitori sheh \"Ky kod QR nuk është ende aktiv\". E dobishme nëse printon para se të fillojë fushata.",
-    "utmPage": "Shton automatikisht etiketa utm te lidhjet e faqes sate, që të shohësh në Google Analytics vizitorët nga kodi QR."
+    "utmPage": "Shton automatikisht etiketa utm te lidhjet e faqes sate, që të shohësh në Google Analytics vizitorët nga kodi QR.",
+    "time": "Opsionale. Në zonën tënde kohore. Bosh = gjithë dita.",
+    "afterUrl": "Kur kalon data e mbarimit ose arrihet numri maksimal i skanimeve, vizitorët shkojnë te kjo lidhje në vend të \"skaduar\". E dobishme për ofertën e radhës."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -2088,7 +2099,10 @@
     "vsYesterday": "Krahasuar me dje",
     "vsYesterdayShort": "kundrejt dje",
     "mActivity": "Aktiviteti",
-    "mFavs": "Të preferuarat"
+    "mFavs": "Të preferuarat",
+    "alertBadOne": "Lidhja e \"{name}\" nuk funksionon më. Vizitorët nuk arrijnë askund.",
+    "alertBadMany": "{n} kode QR çojnë te një lidhje që nuk funksionon më.",
+    "alertFix": "Shiko"
   },
   "as": {
     "tabTexts": "Tekstet",

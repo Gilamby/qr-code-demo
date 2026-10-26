@@ -385,7 +385,10 @@
     "couponUrl": "Botón a tu tienda online o página de reservas",
     "buttonLabel": "Texto del botón",
     "starts": "Activo desde",
-    "msgChannel": "¿Cómo deben contactarte?"
+    "msgChannel": "¿Cómo deben contactarte?",
+    "startsTime": "Desde (hora)",
+    "expiresTime": "Hasta (hora)",
+    "afterUrl": "Al terminar, enviar a"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -520,7 +523,13 @@
     "whereTitle": "¿Dónde se escaneó «{name}»?",
     "whereLead": "{n} escaneos, por lugar:",
     "whereNone": "Aún no hay escaneos. En cuanto alguien escanee el código, verás aquí dónde.",
-    "whereMore": "Y {n} lugares más en las estadísticas."
+    "whereMore": "Y {n} lugares más en las estadísticas.",
+    "hlOkTip": "El enlace funciona · comprobado {when}",
+    "hlBad": "El enlace no funciona",
+    "hlBadTip": "{url} no funciona ({status}) · comprobado {when}. Haz clic para volver a comprobar.",
+    "hlNoAnswer": "sin respuesta",
+    "hlNowOk": "El enlace vuelve a funcionar.",
+    "hlNowBad": "El enlace sigue sin funcionar."
   },
   "appearance": {
     "title": "Colores",
@@ -596,7 +605,9 @@
     "couponCode": "El código que usan los clientes. Ojo: configura el mismo código en tu caja o tienda online. Esta app no comprueba si un código ya se ha usado.",
     "couponUrl": "Opcional. Los clientes usan allí el código al pagar.",
     "starts": "Antes de esta fecha, el visitante ve \"Este código QR aún no está activo\". Útil si imprimes antes de que empiece la campaña.",
-    "utmPage": "Añade automáticamente etiquetas utm a los enlaces de tu página, para que veas en Google Analytics a los visitantes que llegan por el código QR."
+    "utmPage": "Añade automáticamente etiquetas utm a los enlaces de tu página, para que veas en Google Analytics a los visitantes que llegan por el código QR.",
+    "time": "Opcional. En tu zona horaria. Vacío = todo el día.",
+    "afterUrl": "Cuando pase la fecha de fin o se alcance el máximo de escaneos, los visitantes van a este enlace en lugar de \"caducado\". Útil para tu siguiente promoción."
   },
   "more": {
     "title": "Más opciones",
@@ -1992,7 +2003,10 @@
     "vsYesterday": "Comparado con ayer",
     "vsYesterdayShort": "vs. ayer",
     "mActivity": "Actividad",
-    "mFavs": "Favoritos"
+    "mFavs": "Favoritos",
+    "alertBadOne": "El enlace de \"{name}\" ya no funciona. Los visitantes no llegan a ninguna parte.",
+    "alertBadMany": "{n} códigos QR llevan a un enlace que ya no funciona.",
+    "alertFix": "Ver"
   },
   "as": {
     "tabTexts": "Textos",
