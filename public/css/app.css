@@ -5348,3 +5348,11 @@ button.hm-tile:focus-visible { outline: 2px solid var(--accent); outline-offset:
   .acct-tabs.fade-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%); mask-image: linear-gradient(90deg, transparent, #000 18%); }
   .acct-tabs.fade-l.fade-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
 }
+/* Alle keuzelijsten: zelfde pijltje, netjes binnen het vak (het standaardpijltje van de browser stond los tegen de rand) */
+select:not([multiple]):not([size]) {
+  -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398a2b3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;
+  padding-right: 38px !important;
+}
+select:not([multiple]):not([size])::-ms-expand { display: none; }

@@ -102,7 +102,7 @@
       { key: 'email', type: 'email', label: 'fields.email', sample: { t: 'sample.bizEmail' } },
       { key: 'website', type: 'url', label: 'fields.website', sample: { t: 'sample.bizWebsite' } },
       { key: 'socials', type: 'socials', label: 'fields.socials', sample: { t: 'sample.bizSocials' } } ] },
-  { id: 'video', pageIf: 'file', icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg',     contentType: 'url',      previewType: 'card',    color: '#2563eb', theme: ['#2563eb', '#0f172a'],
+  { id: 'video', pageIf: 'file', icon: 'video',  image: 'assets/qr-types/video.jpg', previewImage: 'assets/previews/video.jpg?v=2',     contentType: 'url',      previewType: 'card',    color: '#2563eb', theme: ['#2563eb', '#0f172a'],
     fields: [
       // Een link (YouTube, Vimeo …) óf een eigen videobestand: één van de twee is genoeg (or)
       { key: 'url', type: 'url', label: 'fields.videoUrl', required: true, or: 'file', sample: { t: 'sample.videoUrl' }, hint: 'hint.videoUrl' },
