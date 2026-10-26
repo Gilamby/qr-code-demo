@@ -2536,7 +2536,8 @@
   },
   "up": {
     "title": "Millora el pla",
-    "cta": "Millora"
+    "cta": "Millora",
+    "change": "Canviar de pla"
   },
   "imp": {
     "button": "Trasllada un codi QR existent",

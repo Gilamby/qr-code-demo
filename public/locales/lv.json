@@ -2536,7 +2536,8 @@
   },
   "up": {
     "title": "Uzlabot plānu",
-    "cta": "Uzlabot"
+    "cta": "Uzlabot",
+    "change": "Mainīt plānu"
   },
   "imp": {
     "button": "Pārvietot esošu QR kodu",

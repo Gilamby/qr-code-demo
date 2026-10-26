@@ -2536,7 +2536,8 @@
   },
   "up": {
     "title": "Päivitä tilaus",
-    "cta": "Päivitä"
+    "cta": "Päivitä",
+    "change": "Vaihda pakettia"
   },
   "imp": {
     "button": "Siirrä olemassa oleva QR-koodi",

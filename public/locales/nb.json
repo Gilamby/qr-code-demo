@@ -2536,7 +2536,8 @@
   },
   "up": {
     "title": "Oppgrader abonnement",
-    "cta": "Oppgrader"
+    "cta": "Oppgrader",
+    "change": "Bytt plan"
   },
   "imp": {
     "button": "Flytt en eksisterende QR-kode",

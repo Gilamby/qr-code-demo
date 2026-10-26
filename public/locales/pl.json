@@ -2536,7 +2536,8 @@
   },
   "up": {
     "title": "Ulepsz plan",
-    "cta": "Ulepsz"
+    "cta": "Ulepsz",
+    "change": "Zmień plan"
   },
   "imp": {
     "button": "Przenieś istniejący kod QR",

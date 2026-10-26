@@ -2536,7 +2536,8 @@
   },
   "up": {
     "title": "Vylepšiť predplatné",
-    "cta": "Vylepšiť"
+    "cta": "Vylepšiť",
+    "change": "Zmeniť balík"
   },
   "imp": {
     "button": "Presunúť existujúci QR kód",

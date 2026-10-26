@@ -2642,7 +2642,8 @@
   },
   "up": {
     "title": "Përmirëso planin",
-    "cta": "Përmirëso"
+    "cta": "Përmirëso",
+    "change": "Ndrysho planin"
   },
   "imp": {
     "button": "Transfero një kod QR ekzistues",

@@ -2536,7 +2536,8 @@
   },
   "up": {
     "title": "Uppgradera abonnemang",
-    "cta": "Uppgradera"
+    "cta": "Uppgradera",
+    "change": "Byt paket"
   },
   "imp": {
     "button": "Flytta en befintlig QR-kod",
