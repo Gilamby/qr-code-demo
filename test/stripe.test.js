@@ -21,7 +21,7 @@ const realFetch = global.fetch;
 global.fetch = async (url, o = {}) => {
   const vm = String(url).match(/^https:\/\/ec\.europa\.eu\/taxation_customs\/vies\/rest-api\/ms\/(\w+)\/vat\/(\w+)$/);
   if (vm) { global.__vies = (global.__vies || 0) + 1; if (global.__viesDown) return { ok: false, status: 503, json: async () => ({}) };
-    return { ok: true, status: 200, json: async () => ({ isValid: vm[2] === '12345678901', requestDate: '2026-10-26+02:00', userError: vm[2] === '12345678901' ? 'VALID' : 'INVALID', name: 'PIZZA SRL' }) }; }
+    return { ok: true, status: 200, json: async () => ({ isValid: vm[2] === '12345678901' && !global.__viesGone, requestDate: '2026-10-26+02:00', userError: vm[2] === '12345678901' && !global.__viesGone ? 'VALID' : 'INVALID', name: 'PIZZA SRL' }) }; }
   if (!String(url).startsWith('https://api.stripe.com/')) return realFetch(url, o);
   const p = String(url).replace('https://api.stripe.com/v1/', '').split('?')[0], body = new URLSearchParams(o.body || '');
   calls.push({ method: o.method, path: p, body });
@@ -349,5 +349,17 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   await c('PUT', '/api/account/billing', { type: 'company', companyName: 'Pizza Srl', taxId: 'IT12345678901', firstName: 'Bea', lastName: 'Btw', address: 'Via 1', postalCode: '20100', city: 'Milano', country: 'IT' });
   await new Promise((ok) => setTimeout(ok, 100));
   assert.equal(global.__tax[cusB].length, 1); assert.equal(global.__tax[cusB][0].value, 'IT12345678901');
+  // Lopend abonnement: btw-nummer later niet meer geldig in VIES -> btw-nummer weg bij Stripe (btw weer gerekend)
+  const { HousekeepingService } = require('../server/dist/housekeeping.service');
+  const { writeRecord, readRecord } = require('../server/dist/billing/stripe');
+  const ub = await db.userByEmail('btw@example.com'), rb = await readRecord(db, ub.id);
+  await writeRecord(db, ub.id, { ...rb, customer: cusB, subscription: 'sub_v', status: 'active', buyer: 'company' });
+  await c('PUT', '/api/account/billing', { type: 'company', companyName: 'Pizza Srl', taxId: 'IT12345678901', firstName: 'Bea', lastName: 'Btw', address: 'Via 1', postalCode: '20100', city: 'Milano', country: 'IT' });
+  await new Promise((ok) => setTimeout(ok, 100));
+  assert.equal(global.__tax[cusB].length, 1);
+  const hk = app.get(HousekeepingService);
+  await hk.viesRecheck(); assert.equal(global.__tax[cusB].length, 1, 'nog geldig: blijft');
+  await db.setSetting('vies:' + ub.id, null); global.__viesGone = true;
+  await hk.viesRecheck(); assert.equal(global.__tax[cusB].length, 0, 'niet meer geldig: btw-nummer weg'); global.__viesGone = false;
   global.__taxOn = false; forgetTax();
 });

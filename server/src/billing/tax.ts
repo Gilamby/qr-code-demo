@@ -60,8 +60,8 @@ const VIES = 'https://ec.europa.eu/taxation_customs/vies/rest-api/ms/';
 export type ViesResult = { state: 'valid' | 'invalid' | 'down'; date?: string; name?: string };
 const viesCache = new Map<string, { at: number; r: ViesResult }>();
 export const needsVies = (b: Buyer) => b.type === 'company' && !!b.vat && EU.includes(b.country) && b.country !== 'ES';
-export async function checkVies(vat: string): Promise<ViesResult> {
-  const hit = viesCache.get(vat); if (hit && Date.now() - hit.at < 864e5) return hit.r;
+export async function checkVies(vat: string, fresh = false): Promise<ViesResult> {
+  const hit = viesCache.get(vat); if (!fresh && hit && Date.now() - hit.at < 864e5) return hit.r;
   const cc = vat.slice(0, 2), num = vat.slice(2);
   let r: ViesResult = { state: 'down' };
   try {

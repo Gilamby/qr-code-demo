@@ -5,6 +5,7 @@ import { MailerService } from './auth/mailer.service';
 import { sendDueReports } from './reports';
 import { subFor, saveSub, tick, rebuildBlocked, graceEnd } from './subscription';
 import { stripeOn, readRecord, stripe } from './billing/stripe';
+import { needsVies, checkVies } from './billing/tax';
 import { planFor, EXTRA_PRICE } from './plans';
 
 @Injectable()
@@ -35,8 +36,33 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
     }
     rebuildBlocked(entries);
     await this.reminders(now).catch((e) => console.error('Herinneringen abonnement mislukt:', e.message));
+    await this.viesRecheck(now).catch((e) => console.error('VIES-controle mislukt:', e.message));
   }
   /** 3 dagen vooraf een herinnering: opgezegd abonnement stopt, of de gratis proef stopt en de eerste betaling volgt (één keer per einddatum) */
+  /** Btw verlegd alleen zolang het btw-nummer geldig is in VIES: elke 30 dagen opnieuw controleren (en altijd vóór een verlenging).
+      Niet meer geldig: btw-nummer bij Stripe weg, de volgende factuur krijgt gewoon btw. VIES niet bereikbaar: later opnieuw. */
+  async viesRecheck(now = Date.now()) {
+    if (!stripeOn()) return;
+    for (const u of await this.db.listCustomers()) {
+      const rec = await readRecord(this.db, u.id); if (!rec.customer || !rec.subscription || rec.status === 'canceled' || rec.buyer !== 'company') continue;
+      const b: any = await this.db.getBilling(u.id); if (!b || !b.taxId) continue;
+      const buyer = { type: 'company' as const, country: String(b.country || '').toUpperCase(), vat: String(b.taxId).toUpperCase().replace(/[\s.\-]/g, ''), postalCode: b.postalCode || '', companyName: b.companyName || '', address: b.address || '', city: b.city || '' };
+      if (!needsVies(buyer)) continue;
+      const key = 'vies:' + u.id, last = Number(await this.db.getSetting(key)) || 0;
+      const s = await subFor(this.db, u.id), end = s && s.periodEnd ? Date.parse(s.periodEnd) : 0;
+      const soon = end && end - now < 2 * 864e5 && last < end - 3 * 864e5;            // vlak voor de verlenging nog eens
+      if (!soon && now - last < 30 * 864e5) continue;
+      const r = await checkVies(buyer.vat, true); if (r.state === 'down') continue;
+      await this.db.setSetting(key, String(now));
+      if (r.state === 'invalid') {
+        const have = await stripe('GET', 'customers/' + rec.customer + '/tax_ids', { limit: 10 });
+        for (const t of have.data || []) await stripe('DELETE', 'customers/' + rec.customer + '/tax_ids/' + t.id, {}).catch(() => {});
+        await stripe('POST', 'customers/' + rec.customer, { metadata: { vies_checked: buyer.vat + ' ongeldig ' + new Date(now).toISOString().slice(0, 10) } });
+        console.log('Btw-nummer niet meer geldig in VIES, btw wordt weer gerekend: klant ' + u.id);
+      } else await stripe('POST', 'customers/' + rec.customer, { metadata: { vies_checked: buyer.vat + ' ' + r.date } }).catch(() => {});
+    }
+  }
+
   async reminders(now = Date.now()) {
     if (!stripeOn()) return;
     for (const u of await this.db.listCustomers()) {
