@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (EU:n ALV-tarkistus) ei ole juuri nyt käytettävissä. Yritä uudelleen muutaman minuutin kuluttua.",
     "vatNote": "Hinnat sis. ALV:n, yrityksille ilman ALV:tä.",
     "b_esPostalHint": "Postinumero tarvitaan: Kanariansaarilla, Ceutassa ja Melillassa ei ole ALV:tä.",
-    "b_noVatEs": "Ei ALV:tä (Kanariansaaret, Ceuta, Melilla)"
+    "b_noVatEs": "Ei ALV:tä (Kanariansaaret, Ceuta, Melilla)",
+    "b_esB2c": "Emme voi vielä myydä yksityishenkilöille Kanariansaarille, Ceutaan ja Melillaan paikallisen veron (IGIC/IPSI) vuoksi. Ostatko yrityksenä? Valitse Yritys.",
+    "b_blocked": "Valitettavasti emme voi myydä tähän maahan."
   },
   "dz": {
     "lbl": {

@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (the EU VAT check) is temporarily unavailable. Please try again in a few minutes.",
     "vatNote": "Prices incl. VAT; for businesses excl. VAT.",
     "b_esPostalHint": "Postal code needed: no VAT applies in the Canary Islands, Ceuta and Melilla.",
-    "b_noVatEs": "No VAT (Canarias, Ceuta, Melilla)"
+    "b_noVatEs": "No VAT (Canarias, Ceuta, Melilla)",
+    "b_esB2c": "We can't sell to private customers in the Canary Islands, Ceuta and Melilla yet because of the local tax (IGIC/IPSI). Buying as a business? Choose Business.",
+    "b_blocked": "Unfortunately we can't sell in this country."
   },
   "dz": {
     "lbl": {

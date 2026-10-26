@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (EUs mva-kontroll) er midlertidig utilgjengelig. Prøv igjen om noen minutter.",
     "vatNote": "Priser inkl. mva., for bedrifter ekskl. mva.",
     "b_esPostalHint": "Postnummer trengs: det er ingen mva. på Kanariøyene, i Ceuta og Melilla.",
-    "b_noVatEs": "Ingen mva. (Kanariøyene, Ceuta, Melilla)"
+    "b_noVatEs": "Ingen mva. (Kanariøyene, Ceuta, Melilla)",
+    "b_esB2c": "Vi kan ennå ikke selge til privatpersoner på Kanariøyene, i Ceuta og Melilla på grunn av lokal skatt (IGIC/IPSI). Kjøper du som bedrift? Velg Bedrift.",
+    "b_blocked": "Vi kan dessverre ikke selge i dette landet."
   },
   "dz": {
     "lbl": {

@@ -21,6 +21,8 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
     vat: type === 'company' ? text(x.vat, 24).toUpperCase().replace(/[\s.\-]/g, '') : '', address: text(x.address, 160), city: text(x.city, 80) };
   if (!/^[A-Z]{2}$/.test(country)) errors.push('country');
   if (country === 'ES' && !/^\d{5}$/.test(buyer.postalCode)) errors.push('postalCode');   // nodig voor Canarias/Ceuta/Melilla (geen IVA)
+  if (BLOCKED.includes(country)) errors.push('blocked');
+  else if (type === 'private' && /^(35|38|51|52)\d{3}$/.test(buyer.postalCode) && country === 'ES' && !esSpecialB2cAllowed()) errors.push('esB2c');
   if (type === 'company') {
     if (!buyer.companyName) errors.push('companyName');
     if (!buyer.address) errors.push('address');
@@ -36,6 +38,12 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
 }
 /* Canarische Eilanden (35/38), Ceuta (51) en Melilla (52) horen bij Spanje maar vallen buiten de EU-btw: geen IVA.
    Daarom vragen we in Spanje altijd de postcode en zetten we die klanten bij Stripe op 'vrijgesteld' (zeker weten, niet afhankelijk van Stripe Tax). */
+/* Landen met sancties (EU/VN/VS): niet verkopen. Stripe kan daar ook niet betalen. */
+export const BLOCKED = ['KP', 'IR', 'CU', 'SY', 'RU', 'BY'];
+/* Particulieren op Canarias/Ceuta/Melilla: daar geldt IGIC/IPSI en moet de verkoper zich eerst bij die belastingdienst registreren.
+   Tot OptimaSys dat geregeld heeft: niet aan particulieren daar verkopen (bedrijven wel, die betalen het zelf).
+   Na registratie: ES_SPECIAL_B2C=allow in .env (dan wel verkopen; IGIC/IPSI aangeven via de boekhouder). */
+export const esSpecialB2cAllowed = () => String(process.env.ES_SPECIAL_B2C || '').toLowerCase() === 'allow';
 export const esNoVat = (country: string, postalCode: string) => country === 'ES' && /^(35|38|51|52)\d{3}$/.test(postalCode || '');
 export const taxBehavior = (type?: string) => (type === 'company' ? 'exclusive' : 'inclusive');
 

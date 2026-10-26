@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (kontrolli i TVSH-së i BE-së) nuk është i disponueshëm për momentin. Provo përsëri pas disa minutash.",
     "vatNote": "Çmimet me TVSH, për bizneset pa TVSH.",
     "b_esPostalHint": "Duhet kodi postar: në Ishujt Kanarie, Ceuta dhe Melilla nuk ka TVSH.",
-    "b_noVatEs": "Pa TVSH (Kanarie, Ceuta, Melilla)"
+    "b_noVatEs": "Pa TVSH (Kanarie, Ceuta, Melilla)",
+    "b_esB2c": "Ende nuk mund t'u shesim personave privatë në Ishujt Kanarie, Ceuta dhe Melilla për shkak të taksës vendore (IGIC/IPSI). Blen si biznes? Zgjidh Biznes.",
+    "b_blocked": "Fatkeqësisht nuk mund të shesim në këtë vend."
   },
   "dz": {
     "lbl": {

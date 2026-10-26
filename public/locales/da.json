@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (EU's momskontrol) er midlertidigt utilgængelig. Prøv igen om et par minutter.",
     "vatNote": "Priser inkl. moms, for virksomheder ekskl. moms.",
     "b_esPostalHint": "Postnummer kræves: der er ingen moms på De Kanariske Øer, i Ceuta og Melilla.",
-    "b_noVatEs": "Ingen moms (Kanarieøerne, Ceuta, Melilla)"
+    "b_noVatEs": "Ingen moms (Kanarieøerne, Ceuta, Melilla)",
+    "b_esB2c": "Vi kan endnu ikke sælge til privatpersoner på De Kanariske Øer, i Ceuta og Melilla pga. den lokale skat (IGIC/IPSI). Køber du som virksomhed? Vælg Virksomhed.",
+    "b_blocked": "Vi kan desværre ikke sælge i dette land."
   },
   "dz": {
     "lbl": {

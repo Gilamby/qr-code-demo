@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (unijna weryfikacja VAT) jest chwilowo niedostępny. Spróbuj ponownie za kilka minut.",
     "vatNote": "Ceny z VAT, dla firm bez VAT.",
     "b_esPostalHint": "Kod pocztowy wymagany: na Wyspach Kanaryjskich, w Ceucie i Melilli nie ma VAT.",
-    "b_noVatEs": "Bez VAT (Wyspy Kanaryjskie, Ceuta, Melilla)"
+    "b_noVatEs": "Bez VAT (Wyspy Kanaryjskie, Ceuta, Melilla)",
+    "b_esB2c": "Nie możemy jeszcze sprzedawać osobom prywatnym na Wyspach Kanaryjskich, w Ceucie i Melilli z powodu lokalnego podatku (IGIC/IPSI). Kupujesz jako firma? Wybierz Firma.",
+    "b_blocked": "Niestety nie możemy sprzedawać w tym kraju."
   },
   "dz": {
     "lbl": {

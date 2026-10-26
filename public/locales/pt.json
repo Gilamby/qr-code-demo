@@ -764,7 +764,9 @@
     "b_viesDown": "O VIES (a verificação de IVA da UE) está temporariamente indisponível. Tenta novamente dentro de alguns minutos.",
     "vatNote": "Preços com IVA incluído; para empresas, sem IVA.",
     "b_esPostalHint": "Código postal necessário: nas Canárias, em Ceuta e Melilla não se aplica IVA.",
-    "b_noVatEs": "Sem IVA (Canárias, Ceuta, Melilla)"
+    "b_noVatEs": "Sem IVA (Canárias, Ceuta, Melilla)",
+    "b_esB2c": "Ainda não podemos vender a particulares nas Canárias, em Ceuta e Melilla devido ao imposto local (IGIC/IPSI). Compras como empresa? Escolhe Empresa.",
+    "b_blocked": "Infelizmente não podemos vender neste país."
   },
   "dz": {
     "lbl": {

@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (kontrola DPH v EÚ) je dočasne nedostupný. Skús to znova o pár minút.",
     "vatNote": "Ceny s DPH, pre firmy bez DPH.",
     "b_esPostalHint": "Potrebné PSČ: na Kanárskych ostrovoch, v Ceute a Melille sa DPH neplatí.",
-    "b_noVatEs": "Bez DPH (Kanárske ostrovy, Ceuta, Melilla)"
+    "b_noVatEs": "Bez DPH (Kanárske ostrovy, Ceuta, Melilla)",
+    "b_esB2c": "Súkromným osobám na Kanárskych ostrovoch, v Ceute a Melille zatiaľ nemôžeme predávať pre miestnu daň (IGIC/IPSI). Kupuješ ako firma? Vyber Firma.",
+    "b_blocked": "V tejto krajine bohužiaľ nemôžeme predávať."
   },
   "dz": {
     "lbl": {

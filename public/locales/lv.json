@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (ES PVN pārbaude) īslaicīgi nav pieejama. Mēģini vēlreiz pēc dažām minūtēm.",
     "vatNote": "Cenas ar PVN, uzņēmumiem bez PVN.",
     "b_esPostalHint": "Vajadzīgs pasta indekss: Kanāriju salās, Seutā un Meliljā PVN nav.",
-    "b_noVatEs": "Bez PVN (Kanāriju salas, Seuta, Melilja)"
+    "b_noVatEs": "Bez PVN (Kanāriju salas, Seuta, Melilja)",
+    "b_esB2c": "Mēs vēl nevaram pārdot privātpersonām Kanāriju salās, Seutā un Meliljā vietējā nodokļa (IGIC/IPSI) dēļ. Pērc kā uzņēmums? Izvēlies Uzņēmums.",
+    "b_blocked": "Diemžēl šajā valstī mēs nevaram pārdot."
   },
   "dz": {
     "lbl": {

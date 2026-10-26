@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (de btw-controle van de EU) is even niet bereikbaar. Probeer het over een paar minuten opnieuw.",
     "vatNote": "Prijzen incl. btw, voor bedrijven excl. btw.",
     "b_esPostalHint": "Postcode nodig: op de Canarische Eilanden, in Ceuta en Melilla betaal je geen btw.",
-    "b_noVatEs": "Geen btw (Canarias, Ceuta, Melilla)"
+    "b_noVatEs": "Geen btw (Canarias, Ceuta, Melilla)",
+    "b_esB2c": "Voor particulieren op de Canarische Eilanden, in Ceuta en Melilla kunnen we nog niet verkopen vanwege de lokale belasting (IGIC/IPSI). Koop je als bedrijf? Kies dan Bedrijf.",
+    "b_blocked": "In dit land kunnen we helaas niet verkopen."
   },
   "dz": {
     "lbl": {

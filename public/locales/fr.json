@@ -764,7 +764,9 @@
     "b_viesDown": "VIES (le contrôle TVA de l'UE) est momentanément indisponible. Réessaie dans quelques minutes.",
     "vatNote": "Prix TTC ; pour les entreprises, HT.",
     "b_esPostalHint": "Code postal requis : pas de TVA aux Canaries, à Ceuta et à Melilla.",
-    "b_noVatEs": "Pas de TVA (Canaries, Ceuta, Melilla)"
+    "b_noVatEs": "Pas de TVA (Canaries, Ceuta, Melilla)",
+    "b_esB2c": "Nous ne pouvons pas encore vendre aux particuliers des Canaries, de Ceuta et de Melilla en raison de la taxe locale (IGIC/IPSI). Tu achètes pour une entreprise ? Choisis Entreprise.",
+    "b_blocked": "Nous ne pouvons malheureusement pas vendre dans ce pays."
   },
   "dz": {
     "lbl": {
