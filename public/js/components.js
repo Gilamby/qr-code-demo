@@ -52,7 +52,7 @@ var ContentForm = {
         var id = 'f-' + type.id + '-' + f.key, label = t(f.label, { n: f.n }), v = values[f.key] != null ? values[f.key] : '';
         if (f.required) label += '<span class="req" aria-hidden="true">*</span>';
         var keepPw = f.type === 'password' && state.editing && state.editing.hasPassword;   // bestaand wachtwoord: leeg laten = houden
-        var cls = f.advanced ? ' opt' : (f.extra ? ' opt extra' : ''), attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v || keepPw ? '' : ' hidden') : (f.extra ? ' data-extra-field="' + f.key + '"' + (v ? '' : ' hidden') : '');
+        var cls = f.advanced ? ' opt' : (f.extra ? ' opt extra' : ''), attrs = f.advanced ? ' data-opt-field="' + f.key + '"' + (v || keepPw || (f.needs && values[f.needs]) ? '' : ' hidden') : (f.extra ? ' data-extra-field="' + f.key + '"' + (v ? '' : ' hidden') : '');
         var rm = f.advanced ? '<button type="button" class="opt-x" data-opt-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>'
                : f.extra ? '<button type="button" class="opt-x" data-extra-rm="' + f.key + '" aria-label="' + esc(t('more.remove')) + '">×</button>' : '';
         // Onderdelen van dit veld (bv. bij een link: naam en foto), in hetzelfde blok
@@ -98,7 +98,7 @@ var ContentForm = {
       if (extras.length) html.splice(lastExtra + 1, 0, '<button type="button" class="add-row" data-extra-add' + (extras.every(function (f) { return values[f.key]; }) ? ' hidden' : '') + '>+ ' + t('fields.addLink') + '</button>');
       return html.join('') + (more.length
         ? '<details class="more"' + (active ? ' open' : '') + '><summary><span>' + t('more.title') + '</span><em class="more-count"' + (active ? '' : ' hidden') + '>' + t('more.active', { n: active }) + '</em></summary>' +
-            '<div class="more-body"><div class="opt-chips">' + more.map(function (f) { return '<button type="button" class="opt-chip" data-opt="' + f.key + '"' + (values[f.key] ? ' hidden' : '') + '>+ ' + t(f.label) + '</button>'; }).join('') + '</div>' +
+            '<div class="more-body"><div class="opt-chips">' + more.filter(function (f) { return !f.needs; }).map(function (f) { return '<button type="button" class="opt-chip" data-opt="' + f.key + '"' + (values[f.key] ? ' hidden' : '') + '>+ ' + t(f.label) + '</button>'; }).join('') + '</div>' +
             more.map(render).join('') + '</div></details>'
         : '');
     })() + '</form>' +
@@ -128,11 +128,13 @@ var ContentForm = {
         if (add) {
           var k = add.getAttribute('data-opt'), box = det.querySelector('[data-opt-field="' + k + '"]'), inp = box.querySelector('input');
           add.hidden = true; box.hidden = false;
+          det.querySelectorAll('[data-opt-field]').forEach(function (d) { var df = type.fields.filter(function (x) { return x.key === d.getAttribute('data-opt-field'); })[0]; if (df && df.needs === k) d.hidden = false; });   // bv. tijd bij een datum
           if (inp && inp.type === 'checkbox') { inp.checked = true; actions.setField(k, '1'); count(); } else if (inp) inp.focus();
         }
         if (rm) {
           var key = rm.getAttribute('data-opt-rm'), f = det.querySelector('[data-opt-field="' + key + '"]');
-          f.hidden = true; det.querySelector('[data-opt="' + key + '"]').hidden = false;
+          f.hidden = true; var chip = det.querySelector('[data-opt="' + key + '"]'); if (chip) chip.hidden = false;
+          type.fields.filter(function (x) { return x.needs === key; }).forEach(function (x) { var d = det.querySelector('[data-opt-field="' + x.key + '"]'); if (d) { d.hidden = true; d.querySelectorAll('input').forEach(function (i) { i.value = ''; }); actions.setField(x.key, ''); } });
           f.querySelectorAll('input').forEach(function (i) { if (i.type === 'checkbox') i.checked = false; else i.value = ''; });
           actions.setField(key, ''); count();
           // Bewerken: het bestaande wachtwoord echt weghalen (anders blijft het oude staan als het veld leeg is)
