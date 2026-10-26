@@ -5303,3 +5303,11 @@ body.paywall-open { overflow: hidden; }
 .pw-promo-msg { margin: 6px 0 0; font-size: 13px; } .pw-promo-msg.bad { color: #f87171; } .pw-promo-msg.ok { color: #4ade80; } .pw-promo-msg:empty { display: none; }
 .paywall .pw-promo-row input { font: inherit; font-size: 15px; color: var(--fg); background: var(--bg); border: 1px solid var(--line, rgba(255,255,255,.12)); border-radius: 8px; padding: 9px 12px; }
 .cx-why { margin-top: 10px; } .cx-why select, .cx-why textarea { width: 100%; }
+/* Telefoon: titels van de tegels (Unieke scans, Codes met scans …) niet afkappen, maar op twee regels */
+@media (max-width: 600px) {
+  .hm-tile > small, .an-tile .an-ttop > small { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.2; overflow-wrap: anywhere; }
+  .an-tile .an-tsub { white-space: normal; }
+}
+/* Wachtwoord-puntjes nooit over twee regels */
+.ar-dots { white-space: nowrap; display: block; }
+.mc-pill { white-space: nowrap; }
