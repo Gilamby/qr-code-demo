@@ -745,7 +745,7 @@
     "b_country": "Valsts",
     "b_companyName": "Uzņēmuma nosaukums",
     "b_vat": "PVN numurs",
-    "b_vatHint": "Piemēram, LV12345678901. Uzņēmums citā ES valstī ar derīgu PVN numuru: apgrieztā maksāšana.",
+    "b_vatHint": "Piemēram, IT12345678901. Uzņēmums citā ES valstī ar VIES derīgu PVN numuru: apgrieztā maksāšana.",
     "b_address": "Adrese",
     "b_postal": "Pasta indekss",
     "b_city": "Pilsēta",
@@ -759,7 +759,9 @@
     "promoCode": "Atlaides kods",
     "promoApply": "Piemērot",
     "promoBad": "Šis kods nav derīgs.",
-    "promoOk": "Atlaide piemērota."
+    "promoOk": "Atlaide piemērota.",
+    "b_viesBad": "Šis PVN numurs nav reģistrēts VIES (ES). Pārbaudi numuru. Bez derīga numura vari maksāt kā privātpersona (ar PVN).",
+    "b_viesDown": "VIES (ES PVN pārbaude) īslaicīgi nav pieejama. Mēģini vēlreiz pēc dažām minūtēm."
   },
   "dz": {
     "lbl": {

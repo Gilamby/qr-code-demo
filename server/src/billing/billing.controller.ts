@@ -11,7 +11,7 @@
    Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar).
    ========================================================= */
 import { validateBilling } from '../auth/billing';
-import { readBuyer, applyBuyer, taxOn, taxBehavior } from './tax';
+import { readBuyer, applyBuyer, taxOn, taxBehavior, needsVies, checkVies } from './tax';
 import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService } from '../database/database.service';
@@ -109,7 +109,10 @@ export class BillingController {
       let buyerType: string | undefined = rec.buyer;
       if (b.buyer) {
         const r = readBuyer(b.buyer); if (!r.buyer) throw fail(400, 'buyer', { details: r.errors });
-        await applyBuyer(customer, r.buyer, user.email, user.name || '');
+        // Btw verleggen mag alleen met een btw-nummer dat in VIES geregistreerd staat
+        const vies = needsVies(r.buyer) ? await checkVies(r.buyer.vat) : undefined;
+        if (vies && vies.state !== 'valid') throw fail(400, 'buyer', { details: [vies.state === 'down' ? 'viesDown' : 'vies'] });
+        await applyBuyer(customer, r.buyer, user.email, user.name || '', vies);
         buyerType = r.buyer.type; rec.buyer = r.buyer.type; await writeRecord(this.db, user.id, rec);
         const bl = validateBilling({ type: r.buyer.type, companyName: r.buyer.companyName, taxId: r.buyer.vat, firstName: (user.name || '').split(' ')[0], lastName: (user.name || '').split(' ').slice(1).join(' ') || '-', address: r.buyer.address || '-', postalCode: r.buyer.postalCode || '00000', city: r.buyer.city || '-', country: r.buyer.country });
         if (bl.value && r.buyer.type === 'company') await this.db.setBilling(user.id, bl.value);   // factuurgegevens in de app gelijk houden

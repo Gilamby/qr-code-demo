@@ -745,7 +745,7 @@
     "b_country": "Shteti",
     "b_companyName": "Emri i biznesit",
     "b_vat": "Numri i TVSH-së",
-    "b_vatHint": "Për shembull ESB12345678. Biznes në një shtet tjetër të BE-së me numër të vlefshëm TVSH: ngarkesë e kundërt.",
+    "b_vatHint": "Për shembull IT12345678901. Kompani në një vend tjetër të BE-së me numër TVSH të vlefshëm në VIES: ngarkesë e kundërt.",
     "b_address": "Adresa",
     "b_postal": "Kodi postar",
     "b_city": "Qyteti",
@@ -759,7 +759,9 @@
     "promoCode": "Kodi i zbritjes",
     "promoApply": "Zbato",
     "promoBad": "Ky kod nuk është i vlefshëm.",
-    "promoOk": "Zbritja u zbatua."
+    "promoOk": "Zbritja u zbatua.",
+    "b_viesBad": "Ky numër TVSH nuk është i regjistruar në VIES (BE). Kontrollo numrin. Pa numër të vlefshëm mund të paguash si person privat (me TVSH).",
+    "b_viesDown": "VIES (kontrolli i TVSH-së i BE-së) nuk është i disponueshëm për momentin. Provo përsëri pas disa minutash."
   },
   "dz": {
     "lbl": {

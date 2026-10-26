@@ -745,7 +745,7 @@
     "b_country": "Paese",
     "b_companyName": "Ragione sociale",
     "b_vat": "Partita IVA",
-    "b_vatHint": "Ad esempio IT12345678901. Azienda di un altro paese UE con partita IVA valida: inversione contabile.",
+    "b_vatHint": "Ad esempio IT12345678901. Azienda in un altro paese UE con partita IVA valida nel VIES: inversione contabile.",
     "b_address": "Indirizzo",
     "b_postal": "CAP",
     "b_city": "Città",
@@ -759,7 +759,9 @@
     "promoCode": "Codice sconto",
     "promoApply": "Applica",
     "promoBad": "Questo codice non è valido.",
-    "promoOk": "Sconto applicato."
+    "promoOk": "Sconto applicato.",
+    "b_viesBad": "Questa partita IVA non è registrata nel VIES (UE). Controlla il numero. Senza un numero valido puoi pagare come privato (IVA inclusa).",
+    "b_viesDown": "Il VIES (il controllo IVA dell'UE) non è al momento raggiungibile. Riprova tra qualche minuto."
   },
   "dz": {
     "lbl": {

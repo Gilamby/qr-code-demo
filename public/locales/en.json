@@ -745,7 +745,7 @@
     "b_country": "Country",
     "b_companyName": "Company name",
     "b_vat": "VAT number",
-    "b_vatHint": "For example ESB12345678. Business in another EU country with a valid VAT number: VAT is reverse-charged.",
+    "b_vatHint": "For example IT12345678901. Company in another EU country with a VAT number that is valid in VIES: VAT reverse charged.",
     "b_address": "Address",
     "b_postal": "Postal code",
     "b_city": "City",
@@ -759,7 +759,9 @@
     "promoCode": "Discount code",
     "promoApply": "Apply",
     "promoBad": "This code is not valid.",
-    "promoOk": "Discount applied."
+    "promoOk": "Discount applied.",
+    "b_viesBad": "This VAT number is not registered in VIES (EU). Please check the number. Without a valid number you can pay as a private person (incl. VAT).",
+    "b_viesDown": "VIES (the EU VAT check) is temporarily unavailable. Please try again in a few minutes."
   },
   "dz": {
     "lbl": {

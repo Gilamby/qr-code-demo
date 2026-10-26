@@ -745,7 +745,7 @@
     "b_country": "Land",
     "b_companyName": "Bedriftsnavn",
     "b_vat": "Mva-nummer",
-    "b_vatHint": "For eksempel ESB12345678. Bedrift i et annet EU-land med gyldig mva-nummer: omvendt avgiftsplikt.",
+    "b_vatHint": "For eksempel IT12345678901. Bedrift i et annet EU-land med et mva-nummer som er gyldig i VIES: omvendt avgiftsplikt.",
     "b_address": "Adresse",
     "b_postal": "Postnummer",
     "b_city": "Sted",
@@ -759,7 +759,9 @@
     "promoCode": "Rabattkode",
     "promoApply": "Bruk",
     "promoBad": "Denne koden er ikke gyldig.",
-    "promoOk": "Rabatt lagt til."
+    "promoOk": "Rabatt lagt til.",
+    "b_viesBad": "Dette mva-nummeret er ikke registrert i VIES (EU). Sjekk nummeret. Uten et gyldig nummer kan du betale som privatperson (inkl. mva).",
+    "b_viesDown": "VIES (EUs mva-kontroll) er midlertidig utilgjengelig. Prøv igjen om noen minutter."
   },
   "dz": {
     "lbl": {

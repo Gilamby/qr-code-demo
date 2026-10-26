@@ -745,7 +745,7 @@
     "b_country": "Land",
     "b_companyName": "Bedrijfsnaam",
     "b_vat": "Btw-nummer",
-    "b_vatHint": "Bijvoorbeeld NL123456789B01. Bedrijf in een ander EU-land met een geldig btw-nummer: btw verlegd.",
+    "b_vatHint": "Bijvoorbeeld IT12345678901. Bedrijf in een ander EU-land met een btw-nummer dat geldig is in VIES: btw verlegd.",
     "b_address": "Adres",
     "b_postal": "Postcode",
     "b_city": "Plaats",
@@ -759,7 +759,9 @@
     "promoCode": "Kortingscode",
     "promoApply": "Toepassen",
     "promoBad": "Deze code is niet geldig.",
-    "promoOk": "Korting toegepast."
+    "promoOk": "Korting toegepast.",
+    "b_viesBad": "Dit btw-nummer staat niet geregistreerd in VIES (EU). Controleer het nummer. Zonder geldig nummer kun je als particulier betalen (incl. btw).",
+    "b_viesDown": "VIES (de btw-controle van de EU) is even niet bereikbaar. Probeer het over een paar minuten opnieuw."
   },
   "dz": {
     "lbl": {

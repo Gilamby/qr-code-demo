@@ -745,7 +745,7 @@
     "b_country": "Krajina",
     "b_companyName": "Názov firmy",
     "b_vat": "IČ DPH",
-    "b_vatHint": "Napríklad SK1234567890. Firma z inej krajiny EÚ s platným IČ DPH: prenesenie daňovej povinnosti.",
+    "b_vatHint": "Napríklad IT12345678901. Firma v inej krajine EÚ s IČ DPH platným vo VIES: prenesenie daňovej povinnosti.",
     "b_address": "Adresa",
     "b_postal": "PSČ",
     "b_city": "Mesto",
@@ -759,7 +759,9 @@
     "promoCode": "Zľavový kód",
     "promoApply": "Použiť",
     "promoBad": "Tento kód nie je platný.",
-    "promoOk": "Zľava uplatnená."
+    "promoOk": "Zľava uplatnená.",
+    "b_viesBad": "Toto IČ DPH nie je registrované vo VIES (EÚ). Skontroluj číslo. Bez platného čísla môžeš platiť ako súkromná osoba (s DPH).",
+    "b_viesDown": "VIES (kontrola DPH v EÚ) je dočasne nedostupný. Skús to znova o pár minút."
   },
   "dz": {
     "lbl": {

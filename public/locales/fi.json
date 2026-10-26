@@ -745,7 +745,7 @@
     "b_country": "Maa",
     "b_companyName": "Yrityksen nimi",
     "b_vat": "ALV-tunnus",
-    "b_vatHint": "Esimerkiksi FI12345678. Toisen EU-maan yritys, jolla on voimassa oleva ALV-tunnus: käännetty verovelvollisuus.",
+    "b_vatHint": "Esimerkiksi IT12345678901. Yritys toisessa EU-maassa, jolla on VIESissä voimassa oleva ALV-numero: käännetty verovelvollisuus.",
     "b_address": "Osoite",
     "b_postal": "Postinumero",
     "b_city": "Kaupunki",
@@ -759,7 +759,9 @@
     "promoCode": "Alennuskoodi",
     "promoApply": "Käytä",
     "promoBad": "Koodi ei ole voimassa.",
-    "promoOk": "Alennus lisätty."
+    "promoOk": "Alennus lisätty.",
+    "b_viesBad": "Tätä ALV-numeroa ei ole rekisteröity VIES-järjestelmään (EU). Tarkista numero. Ilman voimassa olevaa numeroa voit maksaa yksityishenkilönä (sis. ALV).",
+    "b_viesDown": "VIES (EU:n ALV-tarkistus) ei ole juuri nyt käytettävissä. Yritä uudelleen muutaman minuutin kuluttua."
   },
   "dz": {
     "lbl": {

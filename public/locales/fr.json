@@ -745,7 +745,7 @@
     "b_country": "Pays",
     "b_companyName": "Nom de l'entreprise",
     "b_vat": "Numéro de TVA",
-    "b_vatHint": "Par exemple FR12345678901. Entreprise d'un autre pays de l'UE avec un numéro de TVA valide : autoliquidation.",
+    "b_vatHint": "Par exemple IT12345678901. Entreprise dans un autre pays de l'UE avec un numéro de TVA valide dans VIES : autoliquidation.",
     "b_address": "Adresse",
     "b_postal": "Code postal",
     "b_city": "Ville",
@@ -759,7 +759,9 @@
     "promoCode": "Code de réduction",
     "promoApply": "Appliquer",
     "promoBad": "Ce code n'est pas valide.",
-    "promoOk": "Réduction appliquée."
+    "promoOk": "Réduction appliquée.",
+    "b_viesBad": "Ce numéro de TVA n'est pas enregistré dans VIES (UE). Vérifie le numéro. Sans numéro valide, tu peux payer en tant que particulier (TVA incluse).",
+    "b_viesDown": "VIES (le contrôle TVA de l'UE) est momentanément indisponible. Réessaie dans quelques minutes."
   },
   "dz": {
     "lbl": {

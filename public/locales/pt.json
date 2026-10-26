@@ -745,7 +745,7 @@
     "b_country": "País",
     "b_companyName": "Nome da empresa",
     "b_vat": "Número de IVA",
-    "b_vatHint": "Por exemplo PT123456789. Empresa de outro país da UE com número de IVA válido: autoliquidação.",
+    "b_vatHint": "Por exemplo IT12345678901. Empresa noutro país da UE com número de IVA válido no VIES: autoliquidação.",
     "b_address": "Morada",
     "b_postal": "Código postal",
     "b_city": "Cidade",
@@ -759,7 +759,9 @@
     "promoCode": "Código de desconto",
     "promoApply": "Aplicar",
     "promoBad": "Este código não é válido.",
-    "promoOk": "Desconto aplicado."
+    "promoOk": "Desconto aplicado.",
+    "b_viesBad": "Este número de IVA não está registado no VIES (UE). Verifica o número. Sem um número válido podes pagar como particular (IVA incl.).",
+    "b_viesDown": "O VIES (a verificação de IVA da UE) está temporariamente indisponível. Tenta novamente dentro de alguns minutos."
   },
   "dz": {
     "lbl": {

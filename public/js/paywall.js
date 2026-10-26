@@ -202,7 +202,7 @@ var Plans = (function () {
     return TEL.C.map(function (c) { return c[0]; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).map(function (iso) { return [iso, TEL.name(iso)]; })
       .sort(function (a, b) { return a[1].localeCompare(b[1], i18n.lang()); }).map(function (c) { return '<option value="' + c[0] + '"' + (c[0] === sel ? ' selected' : '') + '>' + TEL.flag(c[0]) + ' ' + esc(c[1]) + '</option>'; }).join('');
   }
-  function bField(k, label, attrs, wide) { var d = draftBuyer(); return '<label class="pw-co-f' + (wide ? ' wide' : '') + (bBad.indexOf(k) >= 0 ? ' bad' : '') + '"><span>' + esc(label) + '</span><input data-pw-b="' + k + '" value="' + esc(d[k] || '') + '"' + (attrs || '') + '></label>'; }
+  function bField(k, label, attrs, wide) { var d = draftBuyer(); return '<label class="pw-co-f' + (wide ? ' wide' : '') + (bBad.indexOf(k) >= 0 || (k === 'vat' && (bBad.indexOf('vies') >= 0 || bBad.indexOf('viesDown') >= 0)) ? ' bad' : '') + '"><span>' + esc(label) + '</span><input data-pw-b="' + k + '" value="' + esc(d[k] || '') + '"' + (attrs || '') + '></label>'; }
   function buyerForm() {
     var d = draftBuyer(), co = d.type === 'company';
     return '<div class="pw-co-f"><span>' + esc(t('pw.b_buyerAs')) + '</span><div class="pw-seg" role="radiogroup">' +
@@ -212,7 +212,7 @@ var Plans = (function () {
         bField('vat', t('pw.b_vat'), ' maxlength="24" spellcheck="false" placeholder="' + esc((d.country === 'GR' ? 'EL' : d.country) + '…') + '"', true) + '<p class="pw-co-note">' + esc(t('pw.b_vatHint')) + '</p>' +
         bField('address', t('pw.b_address'), ' maxlength="160" autocomplete="street-address"', true) +
         '<div class="pw-two">' + bField('postalCode', t('pw.b_postal'), ' maxlength="12" autocomplete="postal-code"') + bField('city', t('pw.b_city'), ' maxlength="80" autocomplete="address-level2"') + '</div>' : '') +
-      (bBad.length ? '<p class="acct-msg bad" role="alert">' + esc(t('pw.b_buyerErr')) + '</p>' : '') +
+      (bBad.length ? '<p class="acct-msg bad" role="alert">' + esc(t(bBad.indexOf('vies') >= 0 ? 'pw.b_viesBad' : bBad.indexOf('viesDown') >= 0 ? 'pw.b_viesDown' : 'pw.b_buyerErr')) + '</p>' : '') +
       '<button type="button" class="pw-co-go" data-pw-bgo>' + esc(t('pw.b_toPay')) + '</button>';
   }
   function buyerLine() {

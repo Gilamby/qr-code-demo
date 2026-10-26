@@ -1,7 +1,8 @@
 /* =========================================================
    BTW BIJ BETALEN (Stripe Tax)
    - Particulier: de prijs is inclusief btw (wat je ziet, betaal je). Btw van het land van de klant (EU, via OSS).
-   - Bedrijf: prijs + btw. Bedrijf in een ander EU-land met btw-nummer: btw verlegd (0%), Stripe zet dat op de factuur.
+   - Bedrijf: prijs + btw. Bedrijf in een ander EU-land met een btw-nummer dat GELDIG is in VIES: btw verlegd (0%).
+     Het nummer wordt vóór het betalen bij VIES (Europese Commissie) gecontroleerd; niet geldig = niet verder.
      Spaans bedrijf: + 21%. Buiten de EU: meestal geen Spaanse btw.
    Stripe Tax rekent het uit zodra het in het Stripe-dashboard aanstaat (Instellingen > Belastingen). Staat het uit,
    dan betaalt iedereen de getoonde prijs (zoals hiervoor).
@@ -34,6 +35,30 @@ export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
 }
 export const taxBehavior = (type?: string) => (type === 'company' ? 'exclusive' : 'inclusive');
 
+/* ---------- VIES: is het btw-nummer echt geregistreerd? ----------
+   Officiële REST-dienst van de Europese Commissie. Alleen nodig voor bedrijven in een ander EU-land dan Spanje
+   (daar wordt de btw verlegd). Geldige uitkomsten worden 24 uur onthouden. */
+const VIES = 'https://ec.europa.eu/taxation_customs/vies/rest-api/ms/';
+export type ViesResult = { state: 'valid' | 'invalid' | 'down'; date?: string; name?: string };
+const viesCache = new Map<string, { at: number; r: ViesResult }>();
+export const needsVies = (b: Buyer) => b.type === 'company' && !!b.vat && EU.includes(b.country) && b.country !== 'ES';
+export async function checkVies(vat: string): Promise<ViesResult> {
+  const hit = viesCache.get(vat); if (hit && Date.now() - hit.at < 864e5) return hit.r;
+  const cc = vat.slice(0, 2), num = vat.slice(2);
+  let r: ViesResult = { state: 'down' };
+  try {
+    const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 10000);
+    const res = await fetch(VIES + encodeURIComponent(cc) + '/vat/' + encodeURIComponent(num), { headers: { Accept: 'application/json' }, signal: ctl.signal });
+    clearTimeout(tm);
+    const j: any = res.ok ? await res.json() : null;
+    const ok = j ? (typeof j.isValid === 'boolean' ? j.isValid : j.valid) : undefined;   // GET-dienst: isValid, POST-dienst: valid
+    if (ok === true) r = { state: 'valid', date: String(j.requestDate || new Date().toISOString()).slice(0, 10), name: j.name && j.name !== '---' ? String(j.name).slice(0, 120) : undefined };
+    else if (ok === false && (!j.userError || j.userError === 'INVALID' || j.userError === 'VALID')) r = { state: 'invalid' };   // MS_UNAVAILABLE e.d. = niet bereikbaar
+  } catch { r = { state: 'down' }; }
+  if (r.state === 'valid') viesCache.set(vat, { at: Date.now(), r });
+  return r;
+}
+
 /** Staat Stripe Tax aan in het dashboard? (1 minuut onthouden) */
 let cache: { at: number; on: boolean } | null = null;
 export async function taxOn(): Promise<boolean> {
@@ -45,15 +70,17 @@ export async function taxOn(): Promise<boolean> {
 export const forgetTax = () => { cache = null; };
 
 /** Koper bij Stripe zetten: naam, adres (voor het juiste btw-land) en btw-nummer */
-export async function applyBuyer(customer: string, buyer: Buyer, email: string, name: string) {
+export async function applyBuyer(customer: string, buyer: Buyer, email: string, name: string, vies?: ViesResult) {
   await stripe('POST', 'customers/' + customer, {
     name: buyer.type === 'company' ? buyer.companyName : name || undefined, email,
     address: { country: buyer.country, postal_code: buyer.postalCode || undefined, line1: buyer.address || undefined, city: buyer.city || undefined },
-    metadata: { buyer: buyer.type },
+    metadata: { buyer: buyer.type, vies_checked: vies && vies.state === 'valid' ? buyer.vat + ' ' + vies.date : '' },
   });
   const have = await stripe('GET', 'customers/' + customer + '/tax_ids', { limit: 10 });
   for (const t of have.data || []) if (buyer.type !== 'company' || String(t.value).toUpperCase() !== buyer.vat) await stripe('DELETE', 'customers/' + customer + '/tax_ids/' + t.id, {}).catch(() => {});
-  if (buyer.type === 'company' && buyer.vat && !(have.data || []).some((t: any) => String(t.value).toUpperCase() === buyer.vat)) {
-    await stripe('POST', 'customers/' + customer + '/tax_ids', { type: EU.includes(buyer.country) ? 'eu_vat' : buyer.country === 'GB' ? 'gb_vat' : 'eu_vat', value: buyer.vat });
+  // Alleen EU-nummers (na VIES-controle) en Britse nummers; andere landen buiten de EU: geen Spaanse btw, nummer niet nodig
+  const kind = EU.includes(buyer.country) ? 'eu_vat' : buyer.country === 'GB' ? 'gb_vat' : '';
+  if (kind && buyer.type === 'company' && buyer.vat && !(have.data || []).some((t: any) => String(t.value).toUpperCase() === buyer.vat)) {
+    await stripe('POST', 'customers/' + customer + '/tax_ids', { type: kind, value: buyer.vat });
   }
 }

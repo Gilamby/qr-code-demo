@@ -745,7 +745,7 @@
     "b_country": "Țară",
     "b_companyName": "Numele companiei",
     "b_vat": "Cod de TVA",
-    "b_vatHint": "De exemplu RO12345678. Companie din altă țară UE cu cod de TVA valid: taxare inversă.",
+    "b_vatHint": "De exemplu IT12345678901. Firmă din altă țară UE cu cod de TVA valid în VIES: taxare inversă.",
     "b_address": "Adresă",
     "b_postal": "Cod poștal",
     "b_city": "Oraș",
@@ -759,7 +759,9 @@
     "promoCode": "Cod de reducere",
     "promoApply": "Aplică",
     "promoBad": "Acest cod nu este valid.",
-    "promoOk": "Reducere aplicată."
+    "promoOk": "Reducere aplicată.",
+    "b_viesBad": "Acest cod de TVA nu este înregistrat în VIES (UE). Verifică numărul. Fără un număr valid poți plăti ca persoană fizică (cu TVA).",
+    "b_viesDown": "VIES (verificarea TVA a UE) este temporar indisponibil. Încearcă din nou peste câteva minute."
   },
   "dz": {
     "lbl": {

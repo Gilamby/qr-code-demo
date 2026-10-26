@@ -745,7 +745,7 @@
     "b_country": "Kraj",
     "b_companyName": "Nazwa firmy",
     "b_vat": "Numer VAT",
-    "b_vatHint": "Na przykład PL1234567890. Firma z innego kraju UE z ważnym numerem VAT: odwrotne obciążenie.",
+    "b_vatHint": "Na przykład IT12345678901. Firma w innym kraju UE z numerem VAT ważnym w VIES: odwrotne obciążenie.",
     "b_address": "Adres",
     "b_postal": "Kod pocztowy",
     "b_city": "Miasto",
@@ -759,7 +759,9 @@
     "promoCode": "Kod rabatowy",
     "promoApply": "Zastosuj",
     "promoBad": "Ten kod jest nieprawidłowy.",
-    "promoOk": "Rabat zastosowany."
+    "promoOk": "Rabat zastosowany.",
+    "b_viesBad": "Ten numer VAT nie jest zarejestrowany w VIES (UE). Sprawdź numer. Bez ważnego numeru możesz zapłacić jako osoba prywatna (z VAT).",
+    "b_viesDown": "VIES (unijna weryfikacja VAT) jest chwilowo niedostępny. Spróbuj ponownie za kilka minut."
   },
   "dz": {
     "lbl": {

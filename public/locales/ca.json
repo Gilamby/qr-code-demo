@@ -745,7 +745,7 @@
     "b_country": "País",
     "b_companyName": "Nom de l'empresa",
     "b_vat": "Número d'IVA",
-    "b_vatHint": "Per exemple ESB12345678. Empresa d'un altre país de la UE amb un número d'IVA vàlid: inversió del subjecte passiu.",
+    "b_vatHint": "Per exemple IT12345678901. Empresa d'un altre país de la UE amb un número d'IVA vàlid al VIES: inversió del subjecte passiu.",
     "b_address": "Adreça",
     "b_postal": "Codi postal",
     "b_city": "Ciutat",
@@ -759,7 +759,9 @@
     "promoCode": "Codi de descompte",
     "promoApply": "Aplica",
     "promoBad": "Aquest codi no és vàlid.",
-    "promoOk": "Descompte aplicat."
+    "promoOk": "Descompte aplicat.",
+    "b_viesBad": "Aquest número d'IVA no està registrat al VIES (UE). Comprova el número. Sense un número vàlid pots pagar com a particular (IVA inclòs).",
+    "b_viesDown": "El VIES (la comprovació d'IVA de la UE) no està disponible ara mateix. Torna-ho a provar d'aquí a uns minuts."
   },
   "dz": {
     "lbl": {

@@ -19,6 +19,9 @@ const { DatabaseService } = require('../server/dist/database/database.service');
 const calls = []; let subs = {}, seq = 0;
 const realFetch = global.fetch;
 global.fetch = async (url, o = {}) => {
+  const vm = String(url).match(/^https:\/\/ec\.europa\.eu\/taxation_customs\/vies\/rest-api\/ms\/(\w+)\/vat\/(\w+)$/);
+  if (vm) { global.__vies = (global.__vies || 0) + 1; if (global.__viesDown) return { ok: false, status: 503, json: async () => ({}) };
+    return { ok: true, status: 200, json: async () => ({ isValid: vm[2] === '12345678901', requestDate: '2026-10-26+02:00', userError: vm[2] === '12345678901' ? 'VALID' : 'INVALID', name: 'PIZZA SRL' }) }; }
   if (!String(url).startsWith('https://api.stripe.com/')) return realFetch(url, o);
   const p = String(url).replace('https://api.stripe.com/v1/', '').split('?')[0], body = new URLSearchParams(o.body || '');
   calls.push({ method: o.method, path: p, body });
@@ -282,6 +285,13 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   // Bedrijf zonder (goed) btw-nummer binnen de EU: fout
   let r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', city: 'Milano', vat: 'NL123' } });
   assert.equal(r.status, 400); assert.equal(r.json.error, 'buyer'); assert.ok(r.json.details.includes('vat'));
+  // Btw-nummer met goede vorm maar niet in VIES: niet verder (geen btw verleggen)
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', city: 'Milano', vat: 'IT99999999999' } });
+  assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['vies']);
+  // VIES niet bereikbaar: ook niet verder
+  global.__viesDown = true;
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', city: 'Milano', vat: 'IT12345678901' } });
+  assert.equal(r.status, 400); assert.deepEqual(r.json.details, ['viesDown']); global.__viesDown = false;
   // Italiaans bedrijf: prijs excl. btw, btw-nummer bij Stripe, adres in Italië, Stripe Tax aan
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'IT', companyName: 'Pizza Srl', address: 'Via Roma 1', postalCode: '20100', city: 'Milano', vat: 'IT 1234567890 1' } });
   assert.equal(r.status, 200);
@@ -290,6 +300,14 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   const cus = Object.keys(global.__tax).pop(); assert.equal(global.__tax[cus][0].value, 'IT12345678901'); assert.equal(global.__tax[cus][0].type, 'eu_vat');
   assert.equal((await c('GET', '/api/account/plan')).json.billing.buyer, 'company');
   assert.equal((await c('GET', '/api/account/billing')).json.billing.companyName, 'Pizza Srl', 'factuurgegevens in de app bijgewerkt');
+  assert.match(global.__cusBody.get('metadata[vies_checked]'), /^IT12345678901 2026-10-26/, 'VIES-controle vastgelegd bij de klant');
+  // Spaans bedrijf: geen VIES nodig (altijd 21%)
+  const nv = global.__vies;
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', city: 'Madrid', vat: 'ESB12345678' } });
+  assert.equal(r.status, 200); assert.equal(global.__vies, nv, 'Spanje: geen VIES-aanvraag');
+  // Bedrijf buiten de EU (VS): geen btw-nummer bij Stripe
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'US', companyName: 'Burger Inc', address: '1 Main St', city: 'Austin', vat: '12-3456789' } });
+  assert.equal(r.status, 200); assert.equal(global.__tax[cus].length, 0);
   // Particulier: prijs incl. btw, btw-nummer weg
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'NL' } });
   b = last(); assert.equal(b.get('line_items[0][price_data][tax_behavior]'), 'inclusive');

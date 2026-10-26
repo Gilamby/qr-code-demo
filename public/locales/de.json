@@ -745,7 +745,7 @@
     "b_country": "Land",
     "b_companyName": "Firmenname",
     "b_vat": "USt-IdNr.",
-    "b_vatHint": "Zum Beispiel DE123456789. Unternehmen in einem anderen EU-Land mit gültiger USt-IdNr.: Steuerschuldnerschaft des Leistungsempfängers.",
+    "b_vatHint": "Zum Beispiel IT12345678901. Unternehmen in einem anderen EU-Land mit einer in VIES gültigen USt-IdNr.: Steuerschuldnerschaft des Leistungsempfängers.",
     "b_address": "Adresse",
     "b_postal": "Postleitzahl",
     "b_city": "Ort",
@@ -759,7 +759,9 @@
     "promoCode": "Rabattcode",
     "promoApply": "Anwenden",
     "promoBad": "Dieser Code ist ungültig.",
-    "promoOk": "Rabatt angewendet."
+    "promoOk": "Rabatt angewendet.",
+    "b_viesBad": "Diese USt-IdNr. ist nicht in VIES (EU) registriert. Bitte prüfe die Nummer. Ohne gültige Nummer kannst du als Privatperson zahlen (inkl. MwSt.).",
+    "b_viesDown": "VIES (die USt-Prüfung der EU) ist gerade nicht erreichbar. Bitte versuche es in ein paar Minuten erneut."
   },
   "dz": {
     "lbl": {

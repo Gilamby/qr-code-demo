@@ -745,7 +745,7 @@
     "b_country": "Land",
     "b_companyName": "Företagsnamn",
     "b_vat": "Momsregistreringsnummer",
-    "b_vatHint": "Till exempel SE123456789001. Företag i ett annat EU-land med giltigt momsnummer: omvänd skattskyldighet.",
+    "b_vatHint": "Till exempel IT12345678901. Företag i ett annat EU-land med ett momsnummer som är giltigt i VIES: omvänd skattskyldighet.",
     "b_address": "Adress",
     "b_postal": "Postnummer",
     "b_city": "Ort",
@@ -759,7 +759,9 @@
     "promoCode": "Rabattkod",
     "promoApply": "Använd",
     "promoBad": "Koden är inte giltig.",
-    "promoOk": "Rabatten har lagts till."
+    "promoOk": "Rabatten har lagts till.",
+    "b_viesBad": "Detta momsnummer är inte registrerat i VIES (EU). Kontrollera numret. Utan ett giltigt nummer kan du betala som privatperson (inkl. moms).",
+    "b_viesDown": "VIES (EU:s momskontroll) är tillfälligt otillgängligt. Försök igen om några minuter."
   },
   "dz": {
     "lbl": {
