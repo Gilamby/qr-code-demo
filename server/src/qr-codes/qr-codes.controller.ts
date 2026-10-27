@@ -18,7 +18,6 @@ import { checkCode, readHealth } from '../health';
 import { publicVersion, readHistory, remember, restorable } from './history';
 import { destinationOf } from './moderation';
 import { notePurged, readPurged } from './purged';
-import { fire } from '../webhooks';
 
 /** Zo lang blijft een verwijderde code in de prullenbak */
 /** Naam voor het logboek: eigen naam, anders titel of link */
@@ -77,8 +76,7 @@ export class QrCodesController {
   @HttpCode(201)
   async create(@Req() req: Request, @CurrentUser() user: User, @Body() body: any = {}) {
     await this.roomLeft(user);
-    const out: any = await this.createOne(req, user, body); this.hook(user.id, 'created', out);
-    return out;
+    return this.createOne(req, user, body);
   }
 
   /** Veel QR-codes tegelijk (uit een bestand, Pro en Business; ook via de API). Max 500 per keer.
@@ -158,8 +156,7 @@ export class QrCodesController {
     await this.db.setSetting('health:' + old.id, null).catch(() => {});      // inhoud veranderd: link opnieuw controleren
     const nc: any = (patch as any).content || {}, oc: any = old.content || {};
     if (nc.abUrl !== oc.abUrl || nc.url !== oc.url) await this.db.setSetting('ab:' + old.id, null).catch(() => {});   // andere links: A/B-test opnieuw tellen
-    const outPut: any = await this.codes.outFull(req, await this.db.updateQrCode(old.id, patch)); this.hook(user.id, 'updated', outPut);
-    return outPut;
+    return this.codes.outFull(req, await this.db.updateQrCode(old.id, patch));
   }
 
   private actor(req: Request, user: User) { const m: any = (req as any).member; return (m && (m.name || m.email)) || user.name || user.email; }
@@ -256,14 +253,7 @@ export class QrCodesController {
   @Delete(':id')
   @HttpCode(204)
   async remove(@CurrentUser() user: User, @Param('id') id: string) {
-    const q = await this.db.getOwnedQrCode(id, user.id);
     if (!(await this.db.trashQrCode(id, user.id))) throw fail(404, 'QR code not found');
-    if (q) this.hook(user.id, 'deleted', { id: q.id, name: codeName(q), typeId: q.typeId });
-  }
-  /** Webhook "code" (Business): op de achtergrond, de klant wacht er niet op */
-  private hook(uid: string, action: 'created' | 'updated' | 'deleted', o: any) {
-    if (!o || !o.id) return;
-    setImmediate(() => { fire(this.db, uid, 'code', { event: 'code.' + action, at: new Date().toISOString(), code: { id: o.id, name: o.name || codeName(o) || null, type: o.typeId, shortUrl: o.shortUrl || null } }).catch(() => {}); });
   }
 
   /** Terugzetten uit de prullenbak. Geen ruimte meer in het pakket: dan terug als gepauzeerd */

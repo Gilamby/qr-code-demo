@@ -5597,16 +5597,6 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .tk-filt em { font-style: normal; opacity: .7; margin-left: 4px; }
 @media (max-width: 560px) { .tk-head { grid-template-columns: auto minmax(0, 1fr) auto; } .tk-when { display: none; } .tk-msg { max-width: 100%; } }
 
-/* Webhooks (account-settings.js) */
-.wh-url { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: ui-monospace, Menlo, monospace; font-size: 13.5px; }
-.wh-list li > div { min-width: 0; }
-.wh-acts { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
-.wh-st { font-weight: 700; }
-.wh-st.ok { color: var(--ok); } .wh-st.bad { color: #d04437; } .wh-st.off { color: var(--muted); }
-:root[data-theme="dark"] .wh-st.ok { color: #4ade80; } :root[data-theme="dark"] .wh-st.bad { color: #ff8a80; }
-.wh-ev { border: 0; padding: 0; margin: 4px 0 12px; display: flex; flex-wrap: wrap; gap: 16px; }
-.wh-ev legend { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; padding: 0; }
-.wh-ev label { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
 
 /* Feedback (phone-templates.js + live.js) */
 .ph-fb { background: color-mix(in srgb, var(--pc, #0e9f6e) 7%, #fff); color: #0f172a; min-height: 100%; }
@@ -5651,8 +5641,6 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .fbx-list small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
 .fbx-list p { margin: 6px 0 0; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
 
-.api-form.wh-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
-.api-form.wh-form .btn { justify-self: start; }
 
 /* Tekst en Gevonden? (phone-templates.js) */
 .ph-tx { background: color-mix(in srgb, var(--pc, #475569) 6%, #fff); color: #0f172a; min-height: 100%; }

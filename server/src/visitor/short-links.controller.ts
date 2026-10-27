@@ -13,7 +13,6 @@ import { describe } from '../analytics/scan-stats';
 import { QR_TYPES } from '../qr-codes/validation';
 import { secretKey } from '../qr-codes/qr-codes.service';
 import { place, device, os } from '../analytics/scan-stats';
-import { fire } from '../webhooks';
 import * as rules from './rules';
 import { livePage } from './live-page';
 import { isCustomHost, ownerOfHost } from '../domains';
@@ -112,8 +111,6 @@ export class ShortLinksController {
     }
     const q = await this.db.addScan(found.id, describe(found, req));
     setImmediate(() => { scanAlert(this.db, this.mailer, q); });           // eerste scan / mijlpaal: mail (na het antwoord)
-    { const ua = req.get('user-agent') || '', cc = place(req.ip || '').cc;     // webhook "scan" (Business): land en soort apparaat, nooit het IP-adres
-      setImmediate(() => { fire(this.db, q.userId, 'scan', { event: 'scan', at: new Date().toISOString(), code: { id: q.id, name: q.name || (q.content && (q.content.title || q.content.name)) || null, type: q.typeId, scans: q.scans }, scan: { country: cc || null, device: device(ua), os: os(ua) } }).catch(() => {}); }); }
     const c = q.content;
     res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen
     if (q.contentType === 'url' && c.url && !(q.typeId === 'video' && c.file)) {

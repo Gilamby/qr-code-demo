@@ -498,29 +498,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   }
   /* ---------- API (Business): sleutels maken en intrekken, korte uitleg met voorbeelden ---------- */
   var apiInfo = null, apiNew = null, apiErr = '';
-  function loadApi() { api.account.apiKeys().then(function (r) { apiInfo = r; if (tab === 'api') draw(); }, function () { apiInfo = { error: true }; if (tab === 'api') draw(); }); loadHooks(); }
-  /* ---------- Webhooks (Business): bij een scan of wijziging een bericht naar je eigen systeem ---------- */
-  var hooks = null, hookSecret = null, hookMsg = null;
-  function loadHooks() { if (!api.account.hooks) return; api.account.hooks().then(function (r) { hooks = r; if (tab === 'api') draw(); }, function () { hooks = { hooks: [] }; }); }
-  function hookErr(x) { var c = x && x.code; return t(c === 'url' ? 'wh.errUrl' : c === 'url_private' ? 'wh.errPrivate' : c === 'events' ? 'wh.errEvents' : c === 'max_hooks' ? 'wh.errMax' : c === 'too_many' ? 'auth.errTooMany' : 'myCodes.failed'); }
-  function hooksCard() {
-    if (!hooks || !hooks.allowed) return '';
-    var list = hooks.hooks || [], ev = function (e) { return t(e === 'scan' ? 'wh.evScan' : 'wh.evCode'); };
-    return '<div class="glass bg-card acct wh-card"><h2>' + t('wh.title') + '</h2><p>' + t('wh.lead') + '</p>' +
-      (hookSecret ? '<div class="api-new" role="status"><b>' + t('wh.secretTitle') + '</b><p>' + t('wh.secretLead') + '</p><div class="api-keybox"><code id="whSecret">' + esc(hookSecret) + '</code><button type="button" class="btn primary sm" data-wh-copy>' + t('api.copy') + '</button></div></div>' : '') +
-      (list.length ? '<ul class="api-keys wh-list">' + list.map(function (h) {
-        var st = !h.on ? '<span class="wh-st off">' + t('wh.off') + '</span>' : h.last ? '<span class="wh-st ' + (h.last.ok ? 'ok' : 'bad') + '">' + (h.last.ok ? t('wh.ok') : t('wh.fail')) + (h.last.status ? ' · ' + h.last.status : '') + '</span>' : '<span class="wh-st">' + t('wh.never') + '</span>';
-        return '<li data-wh="' + esc(h.id) + '"><div><b class="wh-url">' + esc(h.url) + '</b><small>' + h.events.map(ev).join(' · ') + ' · ' + st + (h.last ? ' · ' + esc(i18n.fmt.stamp(h.last.at, 'time')) : '') + '</small></div>' +
-          '<span class="wh-acts"><button type="button" class="btn ghost sm" data-wh-test>' + t('wh.test') + '</button>' +
-          '<button type="button" class="btn ghost sm" data-wh-on="' + (h.on ? '0' : '1') + '">' + t(h.on ? 'wh.pause' : 'wh.resume') + '</button>' +
-          '<button type="button" class="btn ghost sm danger-ghost" data-wh-del>' + t('wh.remove') + '</button></span></li>';
-      }).join('') + '</ul>' : '<p class="acct-note">' + t('wh.none') + '</p>') +
-      (list.length < (hooks.max || 5) ? '<form class="api-form wh-form" data-form="webhook"><label class="auth-f"><span>' + t('wh.url') + '</span><span class="auth-in"><input name="url" type="url" maxlength="500" placeholder="https://" required></span></label>' +
-        '<fieldset class="wh-ev"><legend>' + t('wh.events') + '</legend><label><input type="checkbox" name="scan" checked> ' + t('wh.evScan') + '</label><label><input type="checkbox" name="code"> ' + t('wh.evCode') + '</label></fieldset>' +
-        '<button type="submit" class="btn primary">' + t('wh.add') + '</button></form>' : '') +
-      (hookMsg ? '<p class="acct-msg ' + hookMsg[1] + '" role="status">' + esc(hookMsg[0]) + '</p>' : '') +
-      '<details class="api-peek"><summary>' + t('wh.howTitle') + '</summary><p class="acct-note">' + t('wh.how') + '</p><pre class="api-pre" tabindex="0"><code>' + esc('POST https://your-site.example/qr-hook\nX-QR-Codex-Event: scan\nX-QR-Codex-Signature: sha256=…\n\n{"event":"scan","at":"2026-10-27T15:00:00Z","code":{"id":"abc123","name":"Terrace menu","type":"menu","scans":120},"scan":{"country":"ES","device":"mobile","os":"iOS"}}') + '</code></pre></details></div>';
-  }
+  function loadApi() { api.account.apiKeys().then(function (r) { apiInfo = r; if (tab === 'api') draw(); }, function () { apiInfo = { error: true }; if (tab === 'api') draw(); }); }
   /* ---------- Eigen domein (Business): korte links op je eigen domein ---------- */
   var domInfo = null, domMsg = null, domBusy = false;
   function loadDom() { api.account.domain().then(function (r) { domInfo = r; if (tab === 'domain') draw(); }, function () { domInfo = { loadFailed: true }; if (tab === 'domain') draw(); }); }
@@ -579,7 +557,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
           '<button type="button" class="btn ghost sm danger-ghost" data-api-del="' + esc(k.id) + '">' + t('api.revoke') + '</button></li>';
       }).join('') + '</ul>' : '<p class="acct-note">' + t('api.none') + '</p>') +
       (keys.length < (apiInfo.max || 10) ? '<form class="api-form" data-form="apikey"><label class="auth-f"><span>' + t('api.name') + '</span><span class="auth-in"><input name="name" maxlength="60" placeholder="' + esc(t('api.namePh')) + '"></span></label><button class="btn primary" type="submit">' + t('api.create') + '</button></form>' : '') +
-      (apiErr ? '<p class="acct-msg bad" role="alert">' + esc(apiErr) + '</p>' : '') + '</div>' + hooksCard() + docs;
+      (apiErr ? '<p class="acct-msg bad" role="alert">' + esc(apiErr) + '</p>' : '') + '</div>' + docs;
   }
   function confirmApiDel() { return window.confirm(t('api.revokeConfirm')); }
   function dangerCard(m) {
@@ -851,13 +829,6 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   stats.addEventListener('click', function (e) { var go = e.target.closest('[data-goto]'); if (go) { e.preventDefault(); window.goToPage(go.getAttribute('data-goto')); } });
 
   box.addEventListener('submit', function (e) {
-    var whf = e.target.closest('[data-form="webhook"]');
-    if (whf) {
-      e.preventDefault(); var evs = ['scan', 'code'].filter(function (k) { return whf[k].checked; });
-      if (!evs.length) { hookMsg = [t('wh.errEvents'), 'bad']; return draw(); }
-      whf.querySelector('[type=submit]').disabled = true;
-      return api.account.hookNew({ url: whf.url.value.trim(), events: evs }).then(function (r) { hookSecret = r.secret; hookMsg = null; loadHooks(); }, function (x) { hookMsg = [hookErr(x), 'bad']; draw(); });
-    }
     var af = e.target.closest('[data-form="apikey"]');
     if (af) { e.preventDefault(); apiErr = ''; api.account.apiKeyNew({ name: af.name.value }).then(function (r) { apiNew = r.key; loadApi(); }, function (x) { apiErr = t(x && x.code === 'max_keys' ? 'api.max' : 'myCodes.failed'); draw(); }); return; }
     var tf = e.target.closest('[data-tfa-form]');
@@ -947,11 +918,6 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (seg) { readBilling(seg.closest('form')); draft.type = seg.getAttribute('data-btype'); bad = []; draw(); var s = box.querySelector('[data-btype="' + draft.type + '"]'); if (s) s.focus(); return; }
     if (e.target.closest('[data-billing-reset]')) { draft = startDraft(); bad = []; return draw(); }
     var go = e.target.closest('[data-tab-go]'); if (go) return open(go.getAttribute('data-tab-go'));
-    var wh = e.target.closest('[data-wh]');
-    if (wh && e.target.closest('[data-wh-test]')) { var tb = e.target.closest('button'); tb.disabled = true; return api.account.hookTest(wh.getAttribute('data-wh')).then(function (r) { hookMsg = [r.ok ? t('wh.testOk', { status: r.status }) : t('wh.testFail', { status: r.status || '—' }), r.ok ? 'ok' : 'bad']; loadHooks(); }, function (x) { hookMsg = [hookErr(x), 'bad']; draw(); }); }
-    if (wh && e.target.closest('[data-wh-on]')) return api.account.hookEdit(wh.getAttribute('data-wh'), { on: e.target.closest('[data-wh-on]').getAttribute('data-wh-on') === '1' }).then(loadHooks);
-    if (wh && e.target.closest('[data-wh-del]')) { if (!window.confirm(t('wh.removeConfirm'))) return; return api.account.hookDel(wh.getAttribute('data-wh')).then(function () { hookSecret = null; loadHooks(); }); }
-    if (e.target.closest('[data-wh-copy]')) { var st = document.getElementById('whSecret'); if (st && navigator.clipboard) navigator.clipboard.writeText(st.textContent); return; }
     var ad = e.target.closest('[data-api-del]');
     if (ad) { if (!confirmApiDel()) return; api.account.apiKeyDel(ad.getAttribute('data-api-del')).then(function () { apiNew = null; loadApi(); }, function () { apiErr = t('myCodes.failed'); draw(); }); return; }
     if (e.target.closest('[data-api-copy]')) { var kt = document.getElementById('apiNewKey'); if (kt && navigator.clipboard) navigator.clipboard.writeText(kt.textContent).then(function () { e.target.closest('[data-api-copy]').textContent = t('api.copied'); }); return; }

@@ -1141,28 +1141,6 @@ test('supportvragen: contactbericht wordt een vraag; klant en team praten verder
   assert.equal((await k('POST', '/api/tickets/' + id + '/close')).json.ticket.status, 'closed');
 });
 
-test('webhooks: scan en wijziging naar de klant, ondertekend, zonder IP; alleen https en openbaar', async () => {
-  const http = require('http'), crypto = require('crypto'); const got = [];
-  const srv = http.createServer((req, res) => { let b = ''; req.on('data', (c) => (b += c)); req.on('end', () => { got.push({ h: req.headers, b }); res.end('ok'); }); });
-  await new Promise((r) => srv.listen(0, '127.0.0.1', r)); const url = 'http://127.0.0.1:' + srv.address().port + '/hook';
-  const k = client(); await signup(k, 'wh-k@example.com', 'Webhook zin 22!', 'Klant Hook');
-  assert.equal((await k('POST', '/api/account/webhooks', { url: 'http://192.168.1.5/x', events: ['scan'] })).status, 400, 'zonder testmodus: geen http/intern');
-  process.env.WEBHOOK_ALLOW_PRIVATE = '1';
-  try {
-    assert.equal((await k('POST', '/api/account/webhooks', { url, events: [] })).status, 400);
-    const made = await k('POST', '/api/account/webhooks', { url, events: ['scan', 'code'] }); assert.equal(made.status, 201); const secret = made.json.secret;
-    assert.ok(!JSON.stringify((await k('GET', '/api/account/webhooks')).json).includes(secret), 'geheim niet nog eens te zien');
-    const test = await k('POST', '/api/account/webhooks/' + made.json.hook.id + '/test'); assert.equal(test.json.ok, true);
-    const c = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://hook.example/' }, design: {} })).json;
-    await fetch(base + '/q/' + c.id, { redirect: 'manual', headers: { 'x-forwarded-for': '81.2.69.142', 'user-agent': 'Mozilla/5.0 (iPhone)' } });
-    for (let i = 0; i < 40 && got.filter((g) => g.h['x-qr-codex-event'] !== 'test').length < 2; i++) await new Promise((r) => setTimeout(r, 50));
-    const scan = got.find((g) => g.h['x-qr-codex-event'] === 'scan'), code = got.find((g) => g.h['x-qr-codex-event'] === 'code.created');
-    assert.ok(scan && code, 'scan en code.created ontvangen');
-    assert.equal(scan.h['x-qr-codex-signature'], 'sha256=' + crypto.createHmac('sha256', secret).update(scan.b).digest('hex'));
-    const body = JSON.parse(scan.b); assert.equal(body.code.id, c.id); assert.equal(body.scan.os, 'iOS'); assert.ok(!/81\.2\.69|ip/i.test(JSON.stringify(body.scan)), 'geen IP');
-  } finally { process.env.WEBHOOK_ALLOW_PRIVATE = ''; srv.close(); }
-});
-
 test('feedback: bezoeker stuurt sterren, e-mail alleen met toestemming, eigenaar ziet en wist antwoorden', async () => {
   const k = client(); await signup(k, 'fb-k@example.com', 'Feedback zin 23!', 'Klant Feedback');
   const c = (await k('POST', '/api/qr-codes', { typeId: 'feedback', content: { title: 'Café Lumen', askEmail: '1' }, design: {} }));
