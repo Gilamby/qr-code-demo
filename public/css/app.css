@@ -5366,3 +5366,8 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .dom-rec { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin-top: 8px; padding: 10px 12px; border-radius: 10px; background: rgba(0,0,0,.2); font-size: 13.5px; }
 .dom-rec span { color: var(--muted); } .dom-rec code { word-break: break-all; }
 .dom-acts { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 4px; }
+/* Scanlimiet: balkje onder het aantal scans */
+.mc-limit { display: block; width: 64px; height: 4px; margin: 5px auto 0; border-radius: 4px; background: rgba(255,255,255,.12); overflow: hidden; }
+.mc-limit > i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+.mc-limit.near > i { background: #f59e0b; } .mc-limit.full > i { background: #ef4444; }
+[data-theme="light"] .mc-limit { background: rgba(15,23,42,.1); }

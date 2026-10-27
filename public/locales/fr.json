@@ -390,7 +390,8 @@
     "expiresTime": "Jusqu'à (heure)",
     "afterUrl": "Une fois terminé, envoyer vers",
     "abUrl": "Deuxième lien (test A/B)",
-    "abShare": "Part vers le deuxième lien (%)"
+    "abShare": "Part vers le deuxième lien (%)",
+    "alertAt": "M'avertir à … scans"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "pas de réponse",
     "hlNowOk": "Le lien fonctionne à nouveau.",
     "hlNowBad": "Le lien ne fonctionne toujours pas.",
-    "scansTotal": "scans au total"
+    "scansTotal": "scans au total",
+    "ofLimit": "sur {max} scans"
   },
   "appearance": {
     "title": "Couleurs",
@@ -612,7 +614,8 @@
     "time": "Facultatif. Dans ton fuseau horaire. Vide = toute la journée.",
     "afterUrl": "Une fois la date de fin passée ou le nombre maximal de scans atteint, les visiteurs arrivent sur ce lien au lieu de « expiré ». Pratique pour ta prochaine offre.",
     "abUrl": "Une partie des visiteurs va vers ce lien, le reste vers le lien normal. Active aussi « Suivre dans Google Analytics » pour voir les conversions par version (utm_content=a ou b).",
-    "abShare": "Par défaut 50 : la moitié vers chaque lien."
+    "abShare": "Par défaut 50 : la moitié vers chaque lien.",
+    "alertAt": "Tu reçois un e-mail quand ce code atteint ce nombre de scans. Pratique pour les offres et les affiches."
   },
   "more": {
     "title": "Plus d'options",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exporter",
     "allCountries": "Tous les pays",
     "drillHint": "Clique sur un pays pour voir ses villes, puis sur une ville pour tous les détails.",
-    "cityHint": "Toutes les cartes affichent maintenant seulement cette ville."
+    "cityHint": "Toutes les cartes affichent maintenant seulement cette ville.",
+    "folder": "Dossier",
+    "folderAll": "Tous les dossiers"
   },
   "auth": {
     "loginTitle": "Bon retour",
@@ -1596,7 +1601,13 @@
     "remindTrialSubject": "Votre essai gratuit se termine bientôt",
     "remindTrialText": "Votre essai gratuit se termine le {date}. Votre premier paiement de {amount} sera alors débité automatiquement. Vous ne souhaitez pas continuer ? Résiliez avant dans Mon compte.",
     "remindRenewSubject": "Votre abonnement QR-Codex sera bientôt renouvelé",
-    "remindRenewText": "Votre abonnement sera renouvelé le {date} pour {amount}. Rien à faire : tout continue. Vous voulez changer ou résilier ? Allez dans Mon compte avant cette date."
+    "remindRenewText": "Votre abonnement sera renouvelé le {date} pour {amount}. Rien à faire : tout continue. Vous voulez changer ou résilier ? Allez dans Mon compte avant cette date.",
+    "scanTargetSubject": "« {name} » a été scanné {n} fois",
+    "scanTargetText": "Ton code QR « {name} » a atteint {n} scans, le nombre pour lequel tu voulais être averti.",
+    "linkDownSubject": "Le lien de « {name} » ne fonctionne plus",
+    "linkDownText": "Les personnes qui scannent « {name} » arrivent sur un lien qui ne fonctionne pas : {url}. Vérifie le lien ou choisis-en un nouveau ; ton code QR imprimé reste le même.",
+    "linkDownButton": "Modifier le lien",
+    "linkDownFooter": "Tu peux désactiver ces e-mails dans Mon compte > Notifications."
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -2242,7 +2253,9 @@
     "firstScan": "Premier scan",
     "firstScanText": "Un e-mail quand un nouveau QR code est scanné pour la première fois.",
     "milestones": "Étapes",
-    "milestonesText": "Un e-mail à 100, 1 000, 10 000 … scans d’un code."
+    "milestonesText": "Un e-mail à 100, 1 000, 10 000 … scans d’un code.",
+    "brokenLinks": "Liens cassés",
+    "brokenLinksText": "Un e-mail quand le lien d'un code QR ne fonctionne plus."
   },
   "ac": {
     "lead": "Tous les QR codes de tous les clients. Recherchez, filtrez, sélectionnez plusieurs codes ou ouvrez un code pour tous les détails.",
@@ -2932,7 +2945,8 @@
     "placesCredit": "Noms de lieux : GeoNames · Natural Earth",
     "clPlaces": "{n} lieux",
     "clZoom": "Cliquez pour zoomer",
-    "ab": "Test A/B"
+    "ab": "Test A/B",
+    "limitUsed": "{n} sur {max} utilisés"
   },
   "sheet": {
     "title": "Planche à imprimer (A4)",

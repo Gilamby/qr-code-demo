@@ -716,7 +716,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       '<button type="submit" class="btn danger" data-del-go disabled>' + SVG + ICON.trash + '</svg>' + t('acct.delete') + '</button></div></form></div>';
   }
   /* ---------- Meldingen: e-mailvoorkeuren ---------- */
-  function prefs() { return Object.assign({ report: 'off', security: true, product: false, firstScan: true, milestones: true }, user.emailPrefs || {}); }
+  function prefs() { return Object.assign({ report: 'off', security: true, product: false, firstScan: true, milestones: true, brokenLinks: true }, user.emailPrefs || {}); }
   function nextSend(kind) {
     var d = new Date(); d.setHours(8, 0, 0, 0);
     if (kind === 'weekly') { var add = (8 - d.getDay()) % 7 || 7; if (new Date().getDay() === 1 && new Date().getHours() < 8) add = 0; d.setDate(d.getDate() + add); }
@@ -738,6 +738,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
         '<button type="button" class="btn ghost sm nf-prev" data-report-preview>' + SVG + ICON.eye + '</svg>' + t('notify.preview') + '</button></div>' +
       toggle('firstScan', t('notify.firstScan'), t('notify.firstScanText'), p.firstScan !== false) +
       toggle('milestones', t('notify.milestones'), t('notify.milestonesText'), p.milestones !== false) +
+      toggle('brokenLinks', t('notify.brokenLinks'), t('notify.brokenLinksText'), p.brokenLinks !== false) +
       toggle('security', t('notify.security'), t('notify.securityText'), p.security) +
       toggle('product', t('notify.product'), t('notify.productText'), p.product) + '</div>' +
       (m.notify ? '<p class="acct-msg ' + m.notify[1] + '" role="status">' + esc(m.notify[0]) + '</p>' : '') + '</div>';

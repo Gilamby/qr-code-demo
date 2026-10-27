@@ -390,7 +390,8 @@
     "expiresTime": "Līdz (laiks)",
     "afterUrl": "Pēc beigām sūtīt uz",
     "abUrl": "Otrā saite (A/B tests)",
-    "abShare": "Daļa uz otro saiti (%)"
+    "abShare": "Daļa uz otro saiti (%)",
+    "alertAt": "Paziņot pie … skenējumiem"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "nav atbildes",
     "hlNowOk": "Saite atkal darbojas.",
     "hlNowBad": "Saite joprojām nedarbojas.",
-    "scansTotal": "skenējumi kopā"
+    "scansTotal": "skenējumi kopā",
+    "ofLimit": "no {max} skenējumiem"
   },
   "appearance": {
     "title": "Krāsas",
@@ -612,7 +614,8 @@
     "time": "Pēc izvēles. Tavā laika joslā. Tukšs = visa diena.",
     "afterUrl": "Kad beigu datums pagājis vai sasniegts maksimālais skenējumu skaits, apmeklētāji nonāk šajā saitē, nevis \"beidzies\". Ērti nākamajai akcijai.",
     "abUrl": "Daļa apmeklētāju nonāk šajā saitē, pārējie parastajā saitē. Ieslēdz arī \"Sekot Google Analytics\", lai redzētu konversijas pa versijām (utm_content=a vai b).",
-    "abShare": "Pēc noklusējuma 50: puse uz katru saiti."
+    "abShare": "Pēc noklusējuma 50: puse uz katru saiti.",
+    "alertAt": "Saņemsi vienu e-pastu, kad kods sasniegs šo skenējumu skaitu. Noderīgi akcijām un plakātiem."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -1235,7 +1238,9 @@
     "exportShort": "Eksportēt",
     "allCountries": "Visas valstis",
     "drillHint": "Noklikšķini uz valsts, lai redzētu pilsētas, un uz pilsētas, lai redzētu visu sīkāk.",
-    "cityHint": "Visas kartītes tagad rāda tikai šo pilsētu."
+    "cityHint": "Visas kartītes tagad rāda tikai šo pilsētu.",
+    "folder": "Mape",
+    "folderAll": "Visas mapes"
   },
   "auth": {
     "loginTitle": "Sveicināts atpakaļ",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "Jūsu bezmaksas izmēģinājums drīz beigsies",
     "remindTrialText": "Jūsu bezmaksas izmēģinājums beidzas {date}. Tad automātiski tiks iekasēts pirmais maksājums {amount}. Nevēlaties turpināt? Atceliet to iepriekš sadaļā Mans konts.",
     "remindRenewSubject": "Jūsu QR-Codex abonements drīz tiks atjaunots",
-    "remindRenewText": "Jūsu abonements tiks atjaunots {date} par {amount}. Jums nekas nav jādara: viss turpina darboties. Vēlaties mainīt vai atcelt? Pirms šī datuma atveriet sadaļu Mans konts."
+    "remindRenewText": "Jūsu abonements tiks atjaunots {date} par {amount}. Jums nekas nav jādara: viss turpina darboties. Vēlaties mainīt vai atcelt? Pirms šī datuma atveriet sadaļu Mans konts.",
+    "scanTargetSubject": "“{name}” noskenēts {n} reizes",
+    "scanTargetText": "Tavs QR kods “{name}” sasniedza {n} skenējumus – skaitu, par kuru vēlējies paziņojumu.",
+    "linkDownSubject": "Koda “{name}” saite vairs nedarbojas",
+    "linkDownText": "Tie, kas skenē “{name}”, nonāk saitē, kas nedarbojas: {url}. Pārbaudi saiti vai izvēlies jaunu; izdrukātais QR kods paliek tas pats.",
+    "linkDownButton": "Mainīt saiti",
+    "linkDownFooter": "Šos e-pastus vari izslēgt sadaļā Mans konts > Paziņojumi."
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Pirmā skenēšana",
     "firstScanText": "E-pasts, kad jauns QR kods tiek noskenēts pirmo reizi.",
     "milestones": "Atskaites punkti",
-    "milestonesText": "E-pasts pie 100, 1000, 10 000 … koda skenēšanām."
+    "milestonesText": "E-pasts pie 100, 1000, 10 000 … koda skenēšanām.",
+    "brokenLinks": "Nestrādājošas saites",
+    "brokenLinksText": "E-pasts, kad QR koda saite pārstāj darboties."
   },
   "ac": {
     "lead": "Visi visu klientu QR kodi. Meklē, filtrē, atlasi vairākus kodus vai atver kodu, lai redzētu visas detaļas.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Vietu nosaukumi: GeoNames · Natural Earth",
     "clPlaces": "{n} vietas",
     "clZoom": "Noklikšķiniet, lai tuvinātu",
-    "ab": "A/B tests"
+    "ab": "A/B tests",
+    "limitUsed": "{n} no {max} izmantoti"
   },
   "sheet": {
     "title": "Drukas lapa (A4)",

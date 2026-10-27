@@ -390,7 +390,8 @@
     "expiresTime": "Do (čas)",
     "afterUrl": "Po skončení posielať na",
     "abUrl": "Druhý odkaz (A/B test)",
-    "abShare": "Podiel pre druhý odkaz (%)"
+    "abShare": "Podiel pre druhý odkaz (%)",
+    "alertAt": "Upozorniť pri … skenoch"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "bez odpovede",
     "hlNowOk": "Odkaz opäť funguje.",
     "hlNowBad": "Odkaz stále nefunguje.",
-    "scansTotal": "skenov celkom"
+    "scansTotal": "skenov celkom",
+    "ofLimit": "z {max} skenov"
   },
   "appearance": {
     "title": "Farby",
@@ -612,7 +614,8 @@
     "time": "Voliteľné. Vo tvojom časovom pásme. Prázdne = celý deň.",
     "afterUrl": "Keď uplynie dátum konca alebo sa dosiahne maximum skenov, návštevníci prídu na tento odkaz namiesto „vypršalo“. Praktické pre ďalšiu akciu.",
     "abUrl": "Časť návštevníkov ide na tento odkaz, zvyšok na bežný odkaz. Zapni aj „Sledovať v Google Analytics“, aby si videl konverzie pre každú verziu (utm_content=a alebo b).",
-    "abShare": "Predvolene 50: polovica na každý odkaz."
+    "abShare": "Predvolene 50: polovica na každý odkaz.",
+    "alertAt": "Dostaneš jeden e-mail, keď kód dosiahne tento počet skenov. Praktické pre akcie a plagáty."
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exportovať",
     "allCountries": "Všetky krajiny",
     "drillHint": "Klikni na krajinu pre mestá a na mesto pre všetky detaily.",
-    "cityHint": "Všetky karty teraz ukazujú len toto mesto."
+    "cityHint": "Všetky karty teraz ukazujú len toto mesto.",
+    "folder": "Priečinok",
+    "folderAll": "Všetky priečinky"
   },
   "auth": {
     "loginTitle": "Vitaj späť",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "Vaše bezplatné skúšobné obdobie čoskoro končí",
     "remindTrialText": "Vaše bezplatné skúšobné obdobie končí {date}. Vtedy sa automaticky strhne prvá platba vo výške {amount}. Nechcete pokračovať? Zrušte ho predtým v časti Môj účet.",
     "remindRenewSubject": "Vaše predplatné QR-Codex sa čoskoro obnoví",
-    "remindRenewText": "Vaše predplatné sa obnoví {date} za {amount}. Nemusíte nič robiť: všetko funguje ďalej. Chcete niečo zmeniť alebo zrušiť? Prejdite pred týmto dátumom do časti Môj účet."
+    "remindRenewText": "Vaše predplatné sa obnoví {date} za {amount}. Nemusíte nič robiť: všetko funguje ďalej. Chcete niečo zmeniť alebo zrušiť? Prejdite pred týmto dátumom do časti Môj účet.",
+    "scanTargetSubject": "„{name}“ bol naskenovaný {n}-krát",
+    "scanTargetText": "Tvoj QR kód „{name}“ dosiahol {n} skenov – počet, pri ktorom si chcel upozornenie.",
+    "linkDownSubject": "Odkaz v „{name}“ už nefunguje",
+    "linkDownText": "Kto naskenuje „{name}“, dostane sa na nefunkčný odkaz: {url}. Skontroluj odkaz alebo vyber nový; tvoj vytlačený QR kód zostáva rovnaký.",
+    "linkDownButton": "Zmeniť odkaz",
+    "linkDownFooter": "Tieto e-maily vypneš v Môj účet > Upozornenia."
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Prvé skenovanie",
     "firstScanText": "E-mail, keď sa nový QR kód naskenuje prvýkrát.",
     "milestones": "Míľniky",
-    "milestonesText": "E-mail pri 100, 1 000, 10 000 … skenoch kódu."
+    "milestonesText": "E-mail pri 100, 1 000, 10 000 … skenoch kódu.",
+    "brokenLinks": "Nefunkčné odkazy",
+    "brokenLinksText": "E-mail, keď odkaz QR kódu prestane fungovať."
   },
   "ac": {
     "lead": "Každý QR kód každého zákazníka. Hľadaj, filtruj, vyber viac kódov naraz alebo otvor kód a uvidíš všetky podrobnosti.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Názvy miest: GeoNames · Natural Earth",
     "clPlaces": "{n} miest",
     "clZoom": "Kliknutím priblížite",
-    "ab": "A/B test"
+    "ab": "A/B test",
+    "limitUsed": "{n} z {max} využitých"
   },
   "sheet": {
     "title": "Tlačový hárok (A4)",

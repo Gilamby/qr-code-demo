@@ -390,7 +390,8 @@
     "expiresTime": "Do (godzina)",
     "afterUrl": "Po zakończeniu przekieruj do",
     "abUrl": "Drugi link (test A/B)",
-    "abShare": "Udział drugiego linku (%)"
+    "abShare": "Udział drugiego linku (%)",
+    "alertAt": "Powiadom mnie przy … skanach"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "brak odpowiedzi",
     "hlNowOk": "Link znów działa.",
     "hlNowBad": "Link nadal nie działa.",
-    "scansTotal": "skanów łącznie"
+    "scansTotal": "skanów łącznie",
+    "ofLimit": "z {max} skanów"
   },
   "appearance": {
     "title": "Kolory",
@@ -612,7 +614,8 @@
     "time": "Opcjonalnie. W Twojej strefie czasowej. Puste = cały dzień.",
     "afterUrl": "Po dacie końcowej lub po osiągnięciu maksymalnej liczby skanów odwiedzający trafią na ten link zamiast „wygasł”. Przydatne przy kolejnej promocji.",
     "abUrl": "Część odwiedzających trafia na ten link, reszta na zwykły link. Włącz też „Śledź w Google Analytics”, aby widzieć konwersje dla każdej wersji (utm_content=a lub b).",
-    "abShare": "Domyślnie 50: połowa na każdy link."
+    "abShare": "Domyślnie 50: połowa na każdy link.",
+    "alertAt": "Dostaniesz jeden e-mail, gdy kod osiągnie tę liczbę skanów. Przydatne przy promocjach i plakatach."
   },
   "more": {
     "title": "Więcej opcji",
@@ -1235,7 +1238,9 @@
     "exportShort": "Eksportuj",
     "allCountries": "Wszystkie kraje",
     "drillHint": "Kliknij kraj, aby zobaczyć miasta, a miasto — aby zobaczyć wszystkie szczegóły.",
-    "cityHint": "Wszystkie karty pokazują teraz tylko to miasto."
+    "cityHint": "Wszystkie karty pokazują teraz tylko to miasto.",
+    "folder": "Folder",
+    "folderAll": "Wszystkie foldery"
   },
   "auth": {
     "loginTitle": "Witaj ponownie",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "Twój bezpłatny okres próbny wkrótce się kończy",
     "remindTrialText": "Twój bezpłatny okres próbny kończy się {date}. Wtedy automatycznie zostanie pobrana pierwsza płatność w wysokości {amount}. Nie chcesz kontynuować? Anuluj wcześniej w Moim koncie.",
     "remindRenewSubject": "Twoja subskrypcja QR-Codex wkrótce się odnowi",
-    "remindRenewText": "Twoja subskrypcja odnowi się {date} za {amount}. Nie musisz nic robić: wszystko działa dalej. Chcesz coś zmienić lub zrezygnować? Wejdź do Mojego konta przed tą datą."
+    "remindRenewText": "Twoja subskrypcja odnowi się {date} za {amount}. Nie musisz nic robić: wszystko działa dalej. Chcesz coś zmienić lub zrezygnować? Wejdź do Mojego konta przed tą datą.",
+    "scanTargetSubject": "„{name}” zeskanowano {n} razy",
+    "scanTargetText": "Twój kod QR „{name}” osiągnął {n} skanów, czyli liczbę, o której chciałeś dostać powiadomienie.",
+    "linkDownSubject": "Link w „{name}” już nie działa",
+    "linkDownText": "Osoby skanujące „{name}” trafiają na niedziałający link: {url}. Sprawdź link lub wybierz nowy; wydrukowany kod QR pozostaje ten sam.",
+    "linkDownButton": "Zmień link",
+    "linkDownFooter": "Możesz wyłączyć te e-maile w Moje konto > Powiadomienia."
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Pierwsze skanowanie",
     "firstScanText": "E-mail, gdy nowy kod QR zostanie zeskanowany po raz pierwszy.",
     "milestones": "Kamienie milowe",
-    "milestonesText": "E-mail przy 100, 1000, 10 000 … skanach kodu."
+    "milestonesText": "E-mail przy 100, 1000, 10 000 … skanach kodu.",
+    "brokenLinks": "Niedziałające linki",
+    "brokenLinksText": "E-mail, gdy link kodu QR przestaje działać."
   },
   "ac": {
     "lead": "Każdy kod QR każdego klienta. Szukaj, filtruj, zaznacz kilka kodów lub otwórz kod, aby zobaczyć wszystkie szczegóły.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Nazwy miejscowości: GeoNames · Natural Earth",
     "clPlaces": "{n} miejsc",
     "clZoom": "Kliknij, aby przybliżyć",
-    "ab": "Test A/B"
+    "ab": "Test A/B",
+    "limitUsed": "{n} z {max} wykorzystanych"
   },
   "sheet": {
     "title": "Arkusz do druku (A4)",

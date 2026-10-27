@@ -34,12 +34,13 @@ export async function checkCode(q: QrCode, prev: Health | null, now = Date.now()
 }
 export const due = (h: Health | null, now = Date.now()) => !h || now - Date.parse(h.at) >= (h.fails ? RETRY : DAY);
 
-type Db = { allQrCodes(): Promise<QrCode[]>; getSetting(k: string): Promise<string | null>; setSetting(k: string, v: string | null): Promise<unknown> };
+type Db = { allQrCodes(): Promise<QrCode[]>; getSetting(k: string): Promise<string | null>; setSetting(k: string, v: string | null): Promise<unknown>; getUser?(id: string): Promise<any> };
+type Mailer = { sendLinkDown(user: any, code: { id: string; name: string }, url: string): Promise<void> };
 export async function readHealth(db: Db, id: string): Promise<Health | null> { try { return JSON.parse((await db.getSetting('health:' + id)) || 'null'); } catch { return null; } }
 
 /** Onderhoud: codes die aan de beurt zijn controleren (max. 300 per keer, 4 tegelijk) */
 let busy = false;
-export async function healthSweep(db: Db, now = Date.now()) {
+export async function healthSweep(db: Db, now = Date.now(), mailer?: Mailer) {
   if (busy) return; busy = true;
   try {
     const todo: QrCode[] = [];
@@ -49,7 +50,15 @@ export async function healthSweep(db: Db, now = Date.now()) {
       if (todo.length >= 300) break;
     }
     let i = 0;
-    const worker = async () => { while (i < todo.length) { const q = todo[i++]; const h = await checkCode(q, await readHealth(db, q.id), now); await db.setSetting('health:' + q.id, h ? JSON.stringify(h) : null); } };
+    const worker = async () => { while (i < todo.length) { const q = todo[i++], prev = await readHealth(db, q.id); const h = await checkCode(q, prev, now); await db.setSetting('health:' + q.id, h ? JSON.stringify(h) : null);
+      // Net stukgegaan: één mail aan de eigenaar (uit te zetten in Mijn account > Meldingen)
+      if (h && h.state === 'down' && (!prev || prev.state !== 'down') && mailer && db.getUser) {
+        const u = await db.getUser(q.userId).catch(() => null);
+        if (u && !u.disabledAt && !(u.emailPrefs && u.emailPrefs.brokenLinks === false)) {
+          const name = String(q.name || (q.content && (q.content.title || q.content.name)) || q.id).slice(0, 80);
+          await mailer.sendLinkDown(u, { id: q.id, name }, h.bad[0].url).catch((e) => console.error('Mail kapotte link mislukt:', e.message));
+        }
+      } } };
     await Promise.all([worker(), worker(), worker(), worker()]);
   } finally { busy = false; }
 }

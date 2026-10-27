@@ -989,3 +989,25 @@ test('eigen domein (Business): toevoegen, korte links op dat domein, alleen eige
   assert.doesNotMatch((await c('GET', '/api/qr-codes/' + mine.id)).json.shortUrl, /voorbeeld\.nl/, 'na verwijderen weer het gewone adres');
   delete process.env.CUSTOM_DOMAIN_TARGET;
 });
+
+test('melding bij zelfgekozen aantal scans en mail als een link stukgaat (één keer)', async () => {
+  const { MailerService: M } = require('../server/dist/auth/mailer.service');
+  const m = app.get(M), sent = [], down = [];
+  const oldScan = m.sendScanAlert, oldDown = m.sendLinkDown;
+  m.sendScanAlert = async (u, code, kind) => { sent.push({ kind, scans: code.scans }); };
+  m.sendLinkDown = async (u, code, url) => { down.push({ id: code.id, url }); };
+  const c = client(); await signup(c, 'meldingen@example.com', 'Meldingen zin 77!', 'Me');
+  const made = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com/', alertAt: '3' } })).json;
+  for (let i = 0; i < 4; i++) await fetch(base + '/q/' + made.id, { redirect: 'manual' });
+  await new Promise((ok) => setTimeout(ok, 100));
+  assert.deepEqual(sent.map((x) => x.kind), ['first', 'target'], 'eerste scan en bij 3 scans, niet bij 2 of 4');
+  // Health check: link stuk (2x mislukt) = één mail; nog een keer = geen tweede mail
+  const { healthSweep } = require('../server/dist/health');
+  const bad = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'http://127.0.0.1:9/weg' } })).json;
+  const all = db.allQrCodes.bind(db); db.allQrCodes = async () => (await all()).filter((q) => q.id === bad.id);
+  const t0 = Date.now();
+  await healthSweep(db, t0, m); assert.equal(down.length, 0, 'eerste mislukking: nog geen mail');
+  await healthSweep(db, t0 + 3700e3, m); assert.equal(down.length, 1, 'tweede keer mis: mail'); assert.equal(down[0].id, bad.id);
+  await healthSweep(db, t0 + 7400e3, m); assert.equal(down.length, 1, 'blijft stuk: geen nieuwe mail');
+  db.allQrCodes = all; m.sendScanAlert = oldScan; m.sendLinkDown = oldDown;
+});

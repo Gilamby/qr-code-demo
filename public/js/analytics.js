@@ -14,6 +14,7 @@ var Analytics = (function () {
   var view = document.getElementById('analyticsView'), body = document.getElementById('anBody'), bar = document.getElementById('anFilters');
   var PERIODS = ['today', 'yesterday', '7', '30', '90', 'all', 'custom'];
   var f = { period: '30', from: '', to: '', codes: [], os: [], cc: [], city: [], br: [], dev: [] };
+  var folders = [];   // mappen (campagnes): in Statistieken in één keer alle codes van een map kiezen
   var data = null, names = {}, openDrop = null, expanded = {}, seq = 0, group = 'day';   // group: dag, week of maand
   var tab = 'overview', moreOpen = false, printAll = false, whereDim = 'cc', whenDim = 'wd';   // dashboard: land/stad en weekdag/uur wisselen
   var TABS = ['overview', 'where', 'with', 'when'], MORE = ['os', 'cc', 'city', 'dev', 'br'];
@@ -85,6 +86,7 @@ var Analytics = (function () {
         options.map(function (k) { return '<label class="an-opt"><input type="checkbox" data-pick="' + dim + '" value="' + esc(k) + '"' + (sel.indexOf(k) >= 0 ? ' checked' : '') + '><span>' + esc(label(dim, k)) + '</span></label>'; }).join('') +
       '</div>' : '') + '</div>';
   }
+  function folderIds(fid) { return Object.keys(names).filter(function (id) { var c = names[id].code; return c && c.folderId === fid; }); }
   function drawFilters() {
     var o = (data && data.options) || { os: [], countries: [], cities: [], browsers: [], devices: [] };
     var codeIds = Object.keys(names);
@@ -95,6 +97,9 @@ var Analytics = (function () {
       '<label class="an-f"><span class="an-flbl">' + t('an.period') + '</span><select id="anPeriod">' + PERIODS.map(function (p) { var lk = periodLocked(p); return '<option value="' + p + '"' + (f.period === p ? ' selected' : '') + '>' + t('an.p_' + p) + (lk ? ' ⚡ ' + t('pw.lockFrom', { plan: t('plan.n_' + lk) }) : '') + '</option>'; }).join('') + '</select></label>' +
       (f.period === 'custom' ? '<label class="an-f"><span class="an-flbl">' + t('an.from') + '</span><input type="date" id="anFrom" value="' + range().from + '" max="' + iso(new Date()) + '"></label>' +
         '<label class="an-f"><span class="an-flbl">' + t('an.to') + '</span><input type="date" id="anTo" value="' + range().to + '" max="' + iso(new Date()) + '"></label>' : '') +
+      (folders.length ? '<label class="an-f"><span class="an-flbl">' + t('an.folder') + '</span><select id="anFolder"><option value="">' + esc(t('an.folderAll')) + '</option>' + folders.map(function (fo) {
+        var ids = folderIds(fo.id), on = ids.length && f.codes.length === ids.length && ids.every(function (x) { return f.codes.indexOf(x) >= 0; });
+        return '<option value="' + esc(fo.id) + '"' + (on ? ' selected' : '') + '>' + esc(fo.name) + ' (' + ids.length + ')</option>'; }).join('') + '</select></label>' : '') +
       multi('codes', t('an.codes'), codeIds) +
       '<button type="button" class="an-morebtn' + (moreOpen ? ' on' : '') + '" data-more aria-expanded="' + moreOpen + '">' + ico('filter') + '<span>' + t('an.filters') + '</span>' + (nMore ? '<b>' + nMore + '</b>' : '') + ico('chev', 'an-chev') + '</button></div>' +
       (moreOpen ? '<div class="an-frow an-frow2">' + multi('os', t('an.os'), o.os) + multi('cc', t('an.countries'), o.countries) + multi('city', t('an.cities'), o.cities) + multi('dev', t('an.devices'), o.devices || []) + multi('br', t('an.browsers'), o.browsers || []) + '</div>' : '') +
@@ -416,6 +421,7 @@ var Analytics = (function () {
           row(t('cd.made'), esc(i18n.fmt.stamp(c.createdAt, 'long'))) +
           row(t('cd.lastScan'), c.lastScanAt ? esc(i18n.fmt.stamp(c.lastScanAt, 'long')) : t('cd.never')) +
           row(t('cd.total'), i18n.fmt.num(c.scans || 0)) +
+          (c.content && c.content.maxScans ? row(t('fields.maxScans'), esc(t('cd.limitUsed', { n: i18n.fmt.num(c.scans || 0), max: i18n.fmt.num(Number(c.content.maxScans)) }))) : '') +
           (c.content && c.content.starts ? row(t('fields.starts'), esc(c.content.starts + (c.content.startsTime ? ' ' + c.content.startsTime : ''))) : '') + (c.content && c.content.expires ? row(t('fields.expires'), esc(c.content.expires + (c.content.expiresTime ? ' ' + c.content.expiresTime : ''))) : '') +
           (c.content && c.content.afterUrl ? row(t('fields.afterUrl'), esc(String(c.content.afterUrl).replace(/^https?:\/\//, '').slice(0, 60))) : '') +
           (c.ab ? row(t('cd.ab'), (function () { var A = c.ab.A || 0, B = c.ab.B || 0, n = A + B || 1;   // A/B-test: scans per versie
@@ -738,6 +744,7 @@ var Analytics = (function () {
   function load() {
     var my = ++seq;
     if (!data) body.innerHTML = '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    if (!folders.length && api.folders && !load.fo) { load.fo = true; api.folders.list().then(function (r) { folders = (r && r.folders) || []; if (data) drawFilters(); }).catch(function () {}); }
     Promise.all([api.analytics(query()), Object.keys(names).length ? null : api.listQrCodes().catch(function () { return []; })]).then(function (res) {
       if (my !== seq) return;
       data = res[0];
@@ -798,6 +805,7 @@ var Analytics = (function () {
   view.addEventListener('change', function (e) {
     var el = e.target;
     if (el.id === 'anPeriod' && periodLocked(el.value)) { var need = periodLocked(el.value); el.value = f.period; PlanGate.upgrade(need, 'stats'); return; }
+    if (el.id === 'anFolder') { f.codes = el.value ? folderIds(el.value) : []; return load(); }
     if (el.id === 'anPeriod') { f.period = el.value; if (f.period === 'custom') { var r0 = range(); f.from = r0.from; f.to = r0.to; } return load(); }
     if (el.id === 'anFrom') { f.from = el.value; return load(); }
     if (el.id === 'anTo') { f.to = el.value; return load(); }

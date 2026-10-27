@@ -64,7 +64,7 @@ export type ClientMeta = { ua?: string; ip?: string };
 /** Recente activiteit: login, login_failed, password, email, sessions_ended, session_ended */
 export type Activity = { kind: string; at: string; ip: string | null; ua: string | null };
 export const SESSION_ID_LEN = 16;
-export const DEFAULT_EMAIL_PREFS = { report: 'off' as const, security: true, product: false, firstScan: true, milestones: true };
+export const DEFAULT_EMAIL_PREFS = { report: 'off' as const, security: true, product: false, firstScan: true, milestones: true, brokenLinks: true };
 export function parseMedia(v: unknown) { try { const a = typeof v === 'string' ? JSON.parse(v) : v; return Array.isArray(a) ? a : []; } catch (e) { return []; } }
 export function parsePrefs(v: unknown) { let o: any = {}; try { o = typeof v === 'string' ? JSON.parse(v) : v || {}; } catch (e) { o = {}; } return { ...DEFAULT_EMAIL_PREFS, ...o }; }
 /** Map in Mijn QR-codes */

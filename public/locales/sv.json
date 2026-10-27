@@ -390,7 +390,8 @@
     "expiresTime": "Till (tid)",
     "afterUrl": "När den är slut, skicka till",
     "abUrl": "Andra länk (A/B-test)",
-    "abShare": "Andel till den andra länken (%)"
+    "abShare": "Andel till den andra länken (%)",
+    "alertAt": "Mejla mig vid … skanningar"
   },
   "panel": {
     "selected": "{type} vald"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "inget svar",
     "hlNowOk": "Länken fungerar igen.",
     "hlNowBad": "Länken fungerar fortfarande inte.",
-    "scansTotal": "skanningar totalt"
+    "scansTotal": "skanningar totalt",
+    "ofLimit": "av {max} skanningar"
   },
   "appearance": {
     "title": "Färger",
@@ -612,7 +614,8 @@
     "time": "Valfritt. I din tidszon. Tomt = hela dagen.",
     "afterUrl": "När slutdatumet passerat eller max antal skanningar nåtts hamnar besökare på den här länken i stället för \"utgången\". Smidigt för nästa kampanj.",
     "abUrl": "En del av besökarna går till den här länken, resten till den vanliga länken. Slå även på \"Följ i Google Analytics\" för att se konverteringar per version (utm_content=a eller b).",
-    "abShare": "Standard 50: hälften till varje länk."
+    "abShare": "Standard 50: hälften till varje länk.",
+    "alertAt": "Du får ett mejl när koden når detta antal skanningar. Smidigt för kampanjer och affischer."
   },
   "more": {
     "title": "Fler alternativ",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exportera",
     "allCountries": "Alla länder",
     "drillHint": "Klicka på ett land för städerna och på en stad för alla detaljer.",
-    "cityHint": "Alla kort visar nu bara den här staden."
+    "cityHint": "Alla kort visar nu bara den här staden.",
+    "folder": "Mapp",
+    "folderAll": "Alla mappar"
   },
   "auth": {
     "loginTitle": "Välkommen tillbaka",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "Din kostnadsfria provperiod upphör snart",
     "remindTrialText": "Din kostnadsfria provperiod upphör den {date}. Då dras din första betalning på {amount} automatiskt. Vill du inte fortsätta? Säg upp innan dess under Mitt konto.",
     "remindRenewSubject": "Din QR-Codex-prenumeration förnyas snart",
-    "remindRenewText": "Din prenumeration förnyas den {date} för {amount}. Du behöver inte göra något: allt fortsätter. Vill du ändra eller säga upp? Gå till Mitt konto innan dess."
+    "remindRenewText": "Din prenumeration förnyas den {date} för {amount}. Du behöver inte göra något: allt fortsätter. Vill du ändra eller säga upp? Gå till Mitt konto innan dess.",
+    "scanTargetSubject": "”{name}” har skannats {n} gånger",
+    "scanTargetText": "Din QR-kod ”{name}” har nått {n} skanningar, antalet du ville bli meddelad om.",
+    "linkDownSubject": "Länken i ”{name}” fungerar inte längre",
+    "linkDownText": "De som skannar ”{name}” hamnar på en länk som inte fungerar: {url}. Kontrollera länken eller välj en ny; din utskrivna QR-kod är densamma.",
+    "linkDownButton": "Ändra länk",
+    "linkDownFooter": "Du kan stänga av de här mejlen under Mitt konto > Aviseringar."
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Första skanningen",
     "firstScanText": "Ett mejl när en ny QR-kod skannas för första gången.",
     "milestones": "Milstolpar",
-    "milestonesText": "Ett mejl vid 100, 1 000, 10 000 … skanningar av en kod."
+    "milestonesText": "Ett mejl vid 100, 1 000, 10 000 … skanningar av en kod.",
+    "brokenLinks": "Trasiga länkar",
+    "brokenLinksText": "Ett mejl när länken i en QR-kod slutar fungera."
   },
   "ac": {
     "lead": "Alla QR-koder från alla kunder. Sök, filtrera, välj flera koder eller öppna en kod för alla detaljer.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Ortnamn: GeoNames · Natural Earth",
     "clPlaces": "{n} platser",
     "clZoom": "Klicka för att zooma in",
-    "ab": "A/B-test"
+    "ab": "A/B-test",
+    "limitUsed": "{n} av {max} använda"
   },
   "sheet": {
     "title": "Utskriftsark (A4)",

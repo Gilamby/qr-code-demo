@@ -390,7 +390,8 @@
     "expiresTime": "Bis (Uhrzeit)",
     "afterUrl": "Danach weiterleiten zu",
     "abUrl": "Zweiter Link (A/B-Test)",
-    "abShare": "Anteil zum zweiten Link (%)"
+    "abShare": "Anteil zum zweiten Link (%)",
+    "alertAt": "Mail bei … Scans"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "keine Antwort",
     "hlNowOk": "Der Link funktioniert wieder.",
     "hlNowBad": "Der Link funktioniert immer noch nicht.",
-    "scansTotal": "Scans insgesamt"
+    "scansTotal": "Scans insgesamt",
+    "ofLimit": "von {max} Scans"
   },
   "appearance": {
     "title": "Farben",
@@ -612,7 +614,8 @@
     "time": "Optional. In deiner Zeitzone. Leer = der ganze Tag.",
     "afterUrl": "Ist das Enddatum vorbei oder die maximale Anzahl Scans erreicht, landen Besucher auf diesem Link statt auf „abgelaufen“. Praktisch für die nächste Aktion.",
     "abUrl": "Ein Teil der Besucher landet auf diesem Link, der Rest auf dem normalen Link. Schalte auch „In Google Analytics verfolgen“ ein, um Conversions pro Version zu sehen (utm_content=a oder b).",
-    "abShare": "Standard 50: die Hälfte zu jedem Link."
+    "abShare": "Standard 50: die Hälfte zu jedem Link.",
+    "alertAt": "Du bekommst eine E-Mail, wenn dieser Code diese Anzahl Scans erreicht. Praktisch für Aktionen und Plakate."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exportieren",
     "allCountries": "Alle Länder",
     "drillHint": "Klicke auf ein Land für die Städte und auf eine Stadt für alle Details.",
-    "cityHint": "Alle Karten zeigen jetzt nur diese Stadt."
+    "cityHint": "Alle Karten zeigen jetzt nur diese Stadt.",
+    "folder": "Ordner",
+    "folderAll": "Alle Ordner"
   },
   "auth": {
     "loginTitle": "Willkommen zurück",
@@ -1596,7 +1601,13 @@
     "remindTrialSubject": "Deine kostenlose Testphase endet bald",
     "remindTrialText": "Deine kostenlose Testphase endet am {date}. Dann wird deine erste Zahlung von {amount} automatisch abgebucht. Möchtest du nicht weitermachen? Kündige vorher unter Mein Konto.",
     "remindRenewSubject": "Dein QR-Codex-Abo verlängert sich bald",
-    "remindRenewText": "Dein Abo verlängert sich am {date} für {amount}. Du musst nichts tun: alles läuft weiter. Möchtest du etwas ändern oder kündigen? Geh vorher zu Mein Konto."
+    "remindRenewText": "Dein Abo verlängert sich am {date} für {amount}. Du musst nichts tun: alles läuft weiter. Möchtest du etwas ändern oder kündigen? Geh vorher zu Mein Konto.",
+    "scanTargetSubject": "„{name}“ wurde {n}-mal gescannt",
+    "scanTargetText": "Dein QR-Code „{name}“ hat {n} Scans erreicht – die Zahl, bei der du benachrichtigt werden wolltest.",
+    "linkDownSubject": "Der Link von „{name}“ funktioniert nicht mehr",
+    "linkDownText": "Wer „{name}“ scannt, landet auf einem Link, der nicht funktioniert: {url}. Prüfe den Link oder wähle einen neuen; dein gedruckter QR-Code bleibt gleich.",
+    "linkDownButton": "Link ändern",
+    "linkDownFooter": "Diese E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten."
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2242,7 +2253,9 @@
     "firstScan": "Erster Scan",
     "firstScanText": "Eine E-Mail, wenn ein neuer QR-Code zum ersten Mal gescannt wird.",
     "milestones": "Meilensteine",
-    "milestonesText": "Eine E-Mail bei 100, 1.000, 10.000 … Scans eines Codes."
+    "milestonesText": "Eine E-Mail bei 100, 1.000, 10.000 … Scans eines Codes.",
+    "brokenLinks": "Defekte Links",
+    "brokenLinksText": "Eine E-Mail, wenn der Link eines QR-Codes nicht mehr funktioniert."
   },
   "ac": {
     "lead": "Jeder QR-Code jedes Kunden. Suchen, filtern, mehrere Codes auswählen oder einen Code mit allen Details öffnen.",
@@ -2932,7 +2945,8 @@
     "placesCredit": "Ortsnamen: GeoNames · Natural Earth",
     "clPlaces": "{n} Orte",
     "clZoom": "Zum Vergrößern klicken",
-    "ab": "A/B-Test"
+    "ab": "A/B-Test",
+    "limitUsed": "{n} von {max} genutzt"
   },
   "sheet": {
     "title": "Druckbogen (A4)",

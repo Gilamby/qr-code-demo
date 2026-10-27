@@ -9,12 +9,14 @@ import type { QrCode } from './types';
 export const MILESTONES = [100, 1000, 10000, 100000, 1000000];
 
 export async function scanAlert(db: DatabaseService, mailer: MailerService, q: QrCode) {
-  const kind = q.scans === 1 ? 'first' : MILESTONES.includes(q.scans) ? 'milestone' : null;
+  // Zelfgekozen aantal per code ("mail me bij 1.000 scans") gaat voor; die heeft de klant zelf gevraagd, dus altijd
+  const target = Number(q.content && q.content.alertAt) || 0;
+  const kind = target && q.scans === target ? 'target' : q.scans === 1 ? 'first' : MILESTONES.includes(q.scans) ? 'milestone' : null;
   if (!kind) return;
   try {
     const u = await db.getUser(q.userId); if (!u || u.disabledAt) return;
     const p: any = u.emailPrefs || {};
-    if (kind === 'first' ? p.firstScan === false : p.milestones === false) return;
+    if (kind === 'first' ? p.firstScan === false : kind === 'milestone' ? p.milestones === false : false) return;
     const name = q.name || (q.content && (q.content.title || q.content.name)) || q.id;
     await mailer.sendScanAlert(u, { id: q.id, name: String(name).slice(0, 80), scans: q.scans }, kind);
   } catch (e) { console.error('Scanmelding mislukt:', (e as Error).message); }

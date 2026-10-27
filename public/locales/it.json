@@ -390,7 +390,8 @@
     "expiresTime": "Fino alle (ora)",
     "afterUrl": "Al termine, invia a",
     "abUrl": "Secondo link (test A/B)",
-    "abShare": "Quota al secondo link (%)"
+    "abShare": "Quota al secondo link (%)",
+    "alertAt": "Avvisami a … scansioni"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "nessuna risposta",
     "hlNowOk": "Il link funziona di nuovo.",
     "hlNowBad": "Il link continua a non funzionare.",
-    "scansTotal": "scansioni totali"
+    "scansTotal": "scansioni totali",
+    "ofLimit": "di {max} scansioni"
   },
   "appearance": {
     "title": "Colori",
@@ -612,7 +614,8 @@
     "time": "Facoltativo. Nel tuo fuso orario. Vuoto = tutto il giorno.",
     "afterUrl": "Quando la data di fine è passata o si raggiunge il numero massimo di scansioni, i visitatori vanno a questo link invece di \"scaduto\". Utile per la prossima promozione.",
     "abUrl": "Una parte dei visitatori va a questo link, il resto al link normale. Attiva anche \"Traccia in Google Analytics\" per vedere le conversioni per versione (utm_content=a o b).",
-    "abShare": "Predefinito 50: metà a ciascun link."
+    "abShare": "Predefinito 50: metà a ciascun link.",
+    "alertAt": "Ricevi un'email quando questo codice raggiunge questo numero di scansioni. Utile per promozioni e poster."
   },
   "more": {
     "title": "Altre opzioni",
@@ -1235,7 +1238,9 @@
     "exportShort": "Esporta",
     "allCountries": "Tutti i paesi",
     "drillHint": "Clicca su un paese per le città e su una città per tutti i dettagli.",
-    "cityHint": "Tutte le schede mostrano ora solo questa città."
+    "cityHint": "Tutte le schede mostrano ora solo questa città.",
+    "folder": "Cartella",
+    "folderAll": "Tutte le cartelle"
   },
   "auth": {
     "loginTitle": "Bentornato",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "La tua prova gratuita sta per terminare",
     "remindTrialText": "La tua prova gratuita termina il {date}. Allora verrà addebitato automaticamente il primo pagamento di {amount}. Non vuoi continuare? Annulla prima in Il mio account.",
     "remindRenewSubject": "Il tuo abbonamento QR-Codex si rinnova a breve",
-    "remindRenewText": "Il tuo abbonamento si rinnova il {date} per {amount}. Non devi fare nulla: tutto continua a funzionare. Vuoi cambiare o annullare? Vai in Il mio account prima di quella data."
+    "remindRenewText": "Il tuo abbonamento si rinnova il {date} per {amount}. Non devi fare nulla: tutto continua a funzionare. Vuoi cambiare o annullare? Vai in Il mio account prima di quella data.",
+    "scanTargetSubject": "“{name}” è stato scansionato {n} volte",
+    "scanTargetText": "Il tuo codice QR “{name}” ha raggiunto {n} scansioni, il numero per cui volevi un avviso.",
+    "linkDownSubject": "Il link di “{name}” non funziona più",
+    "linkDownText": "Chi scansiona “{name}” arriva a un link che non funziona: {url}. Controlla il link o scegline uno nuovo; il tuo codice QR stampato resta lo stesso.",
+    "linkDownButton": "Modifica link",
+    "linkDownFooter": "Puoi disattivare queste email in Il mio account > Notifiche."
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Prima scansione",
     "firstScanText": "Un’e-mail quando un nuovo codice QR viene scansionato per la prima volta.",
     "milestones": "Traguardi",
-    "milestonesText": "Un’e-mail a 100, 1.000, 10.000 … scansioni di un codice."
+    "milestonesText": "Un’e-mail a 100, 1.000, 10.000 … scansioni di un codice.",
+    "brokenLinks": "Link non funzionanti",
+    "brokenLinksText": "Un'email quando il link di un codice QR smette di funzionare."
   },
   "ac": {
     "lead": "Ogni codice QR di ogni cliente. Cerca, filtra, seleziona più codici o apri un codice per tutti i dettagli.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Nomi dei luoghi: GeoNames · Natural Earth",
     "clPlaces": "{n} luoghi",
     "clZoom": "Clicca per ingrandire",
-    "ab": "Test A/B"
+    "ab": "Test A/B",
+    "limitUsed": "{n} di {max} usate"
   },
   "sheet": {
     "title": "Foglio da stampare (A4)",

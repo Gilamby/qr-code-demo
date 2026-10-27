@@ -390,7 +390,8 @@
     "expiresTime": "Asti (kellonaika)",
     "afterUrl": "Päättymisen jälkeen ohjaa",
     "abUrl": "Toinen linkki (A/B-testi)",
-    "abShare": "Osuus toiseen linkkiin (%)"
+    "abShare": "Osuus toiseen linkkiin (%)",
+    "alertAt": "Ilmoita … skannauksen kohdalla"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "ei vastausta",
     "hlNowOk": "Linkki toimii taas.",
     "hlNowBad": "Linkki ei vieläkään toimi.",
-    "scansTotal": "skannausta yhteensä"
+    "scansTotal": "skannausta yhteensä",
+    "ofLimit": "/ {max} skannausta"
   },
   "appearance": {
     "title": "Värit",
@@ -612,7 +614,8 @@
     "time": "Valinnainen. Omalla aikavyöhykkeelläsi. Tyhjä = koko päivä.",
     "afterUrl": "Kun päättymispäivä on ohi tai skannausten enimmäismäärä täynnä, kävijät ohjataan tähän linkkiin \"vanhentunut\"-sivun sijaan. Kätevä seuraavaa kampanjaa varten.",
     "abUrl": "Osa kävijöistä ohjataan tähän linkkiin, loput tavalliseen linkkiin. Laita päälle myös \"Seuraa Google Analyticsissa\", niin näet konversiot versioittain (utm_content=a tai b).",
-    "abShare": "Oletus 50: puolet kumpaankin linkkiin."
+    "abShare": "Oletus 50: puolet kumpaankin linkkiin.",
+    "alertAt": "Saat yhden sähköpostin, kun koodi saavuttaa tämän skannausmäärän. Kätevä kampanjoihin ja julisteisiin."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -1235,7 +1238,9 @@
     "exportShort": "Vie",
     "allCountries": "Kaikki maat",
     "drillHint": "Klikkaa maata nähdäksesi kaupungit ja kaupunkia nähdäksesi kaikki tiedot.",
-    "cityHint": "Kaikki kortit näyttävät nyt vain tämän kaupungin."
+    "cityHint": "Kaikki kortit näyttävät nyt vain tämän kaupungin.",
+    "folder": "Kansio",
+    "folderAll": "Kaikki kansiot"
   },
   "auth": {
     "loginTitle": "Tervetuloa takaisin",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "Ilmainen kokeilusi päättyy pian",
     "remindTrialText": "Ilmainen kokeilusi päättyy {date}. Silloin ensimmäinen maksusi {amount} veloitetaan automaattisesti. Etkö halua jatkaa? Peruuta sitä ennen kohdassa Oma tili.",
     "remindRenewSubject": "QR-Codex-tilauksesi uusitaan pian",
-    "remindRenewText": "Tilauksesi uusitaan {date} hintaan {amount}. Sinun ei tarvitse tehdä mitään: kaikki jatkuu. Haluatko muuttaa tai peruuttaa? Siirry Oma tili -kohtaan ennen sitä."
+    "remindRenewText": "Tilauksesi uusitaan {date} hintaan {amount}. Sinun ei tarvitse tehdä mitään: kaikki jatkuu. Haluatko muuttaa tai peruuttaa? Siirry Oma tili -kohtaan ennen sitä.",
+    "scanTargetSubject": "”{name}” on skannattu {n} kertaa",
+    "scanTargetText": "QR-koodisi ”{name}” saavutti {n} skannausta, eli määrän, josta halusit ilmoituksen.",
+    "linkDownSubject": "Koodin ”{name}” linkki ei enää toimi",
+    "linkDownText": "”{name}”-koodin skannaajat päätyvät linkkiin, joka ei toimi: {url}. Tarkista linkki tai valitse uusi; tulostettu QR-koodisi pysyy samana.",
+    "linkDownButton": "Muuta linkkiä",
+    "linkDownFooter": "Voit poistaa nämä viestit käytöstä kohdassa Oma tili > Ilmoitukset."
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Ensimmäinen skannaus",
     "firstScanText": "Sähköposti, kun uusi QR-koodi skannataan ensimmäisen kerran.",
     "milestones": "Virstanpylväät",
-    "milestonesText": "Sähköposti, kun koodi on skannattu 100, 1 000, 10 000 … kertaa."
+    "milestonesText": "Sähköposti, kun koodi on skannattu 100, 1 000, 10 000 … kertaa.",
+    "brokenLinks": "Rikkinäiset linkit",
+    "brokenLinksText": "Sähköposti, kun QR-koodin linkki lakkaa toimimasta."
   },
   "ac": {
     "lead": "Jokaisen asiakkaan jokainen QR-koodi. Hae, suodata, valitse useita koodeja tai avaa koodi nähdäksesi kaikki tiedot.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Paikannimet: GeoNames · Natural Earth",
     "clPlaces": "{n} paikkaa",
     "clZoom": "Lähennä napsauttamalla",
-    "ab": "A/B-testi"
+    "ab": "A/B-testi",
+    "limitUsed": "{n} / {max} käytetty"
   },
   "sheet": {
     "title": "Tulostusarkki (A4)",

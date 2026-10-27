@@ -55,6 +55,7 @@
     // Plannen met tijd (in de tijdzone van de eigenaar) en een andere link na afloop (einddatum of max. aantal scans)
     if (!has('expiresTime')) type.fields.splice(type.fields.findIndex(function (f) { return f.key === 'expires'; }) + 1, 0, { key: 'expiresTime', type: 'time', label: 'fields.expiresTime', advanced: true, needs: 'expires', hint: 'hint.time' });
     if (!has('afterUrl')) type.fields.splice(type.fields.findIndex(function (f) { return f.key === 'maxScans' || f.key === 'expiresTime'; }) + 1, 0, { key: 'afterUrl', type: 'url', label: 'fields.afterUrl', advanced: true, hint: 'hint.afterUrl' });
+    if (!has('alertAt')) type.fields.push({ key: 'alertAt', type: 'number', min: 1, max: 100000000, label: 'fields.alertAt', advanced: true, hint: 'hint.alertAt' });   // mail bij een zelfgekozen aantal scans
     if (!has('utm') && NO_LINKS.indexOf(type.id) < 0) type.fields.push({ key: 'utm', type: 'toggle', label: 'fields.utm', advanced: true, hint: 'hint.utmPage' });
   });
   if (typeof module === 'object' && module.exports) module.exports = data;
@@ -69,6 +70,7 @@
       { key: 'starts', type: 'date', label: 'fields.starts', advanced: true, hint: 'hint.starts' },
       { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
       { key: 'maxScans', type: 'number', min: 1, max: 1000000, label: 'fields.maxScans', advanced: true, hint: 'hint.maxScans' },
+      { key: 'alertAt', type: 'number', min: 1, max: 100000000, label: 'fields.alertAt', advanced: true, hint: 'hint.alertAt' },
       // A/B-test: een deel van de scans naar een tweede link (zie server/src/visitor/rules.ts)
       { key: 'abUrl', type: 'url', label: 'fields.abUrl', advanced: true, hint: 'hint.abUrl' },
       { key: 'abShare', type: 'number', min: 1, max: 99, label: 'fields.abShare', advanced: true, needs: 'abUrl', sample: '50', hint: 'hint.abShare' },

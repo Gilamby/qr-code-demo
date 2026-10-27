@@ -390,7 +390,8 @@
     "expiresTime": "Până la (ora)",
     "afterUrl": "După final, trimite la",
     "abUrl": "Al doilea link (test A/B)",
-    "abShare": "Procent către al doilea link (%)"
+    "abShare": "Procent către al doilea link (%)",
+    "alertAt": "Anunță-mă la … scanări"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "niciun răspuns",
     "hlNowOk": "Linkul funcționează din nou.",
     "hlNowBad": "Linkul tot nu funcționează.",
-    "scansTotal": "scanări în total"
+    "scansTotal": "scanări în total",
+    "ofLimit": "din {max} scanări"
   },
   "appearance": {
     "title": "Culori",
@@ -612,7 +614,8 @@
     "time": "Opțional. În fusul tău orar. Gol = toată ziua.",
     "afterUrl": "După data de final sau după numărul maxim de scanări, vizitatorii ajung la acest link în loc de „expirat”. Util pentru următoarea promoție.",
     "abUrl": "O parte dintre vizitatori ajung la acest link, restul la linkul obișnuit. Activează și „Urmărește în Google Analytics” ca să vezi conversiile pe versiuni (utm_content=a sau b).",
-    "abShare": "Implicit 50: jumătate la fiecare link."
+    "abShare": "Implicit 50: jumătate la fiecare link.",
+    "alertAt": "Primești un e-mail când codul ajunge la acest număr de scanări. Util pentru promoții și afișe."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exportă",
     "allCountries": "Toate țările",
     "drillHint": "Dă clic pe o țară pentru orașe și pe un oraș pentru toate detaliile.",
-    "cityHint": "Toate cardurile arată acum doar acest oraș."
+    "cityHint": "Toate cardurile arată acum doar acest oraș.",
+    "folder": "Dosar",
+    "folderAll": "Toate dosarele"
   },
   "auth": {
     "loginTitle": "Bine ai revenit",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "Perioada ta de probă se încheie curând",
     "remindTrialText": "Perioada ta de probă gratuită se încheie pe {date}. Atunci se percepe automat prima plată de {amount}. Nu vrei să continui? Anulează înainte în Contul meu.",
     "remindRenewSubject": "Abonamentul tău QR-Codex se reînnoiește curând",
-    "remindRenewText": "Abonamentul se reînnoiește pe {date} pentru {amount}. Nu trebuie să faci nimic: totul continuă. Vrei să schimbi sau să anulezi? Mergi la Contul meu înainte de acea dată."
+    "remindRenewText": "Abonamentul se reînnoiește pe {date} pentru {amount}. Nu trebuie să faci nimic: totul continuă. Vrei să schimbi sau să anulezi? Mergi la Contul meu înainte de acea dată.",
+    "scanTargetSubject": "„{name}” a fost scanat de {n} ori",
+    "scanTargetText": "Codul tău QR „{name}” a ajuns la {n} scanări, numărul pentru care voiai o notificare.",
+    "linkDownSubject": "Linkul din „{name}” nu mai funcționează",
+    "linkDownText": "Cei care scanează „{name}” ajung la un link care nu funcționează: {url}. Verifică linkul sau alege unul nou; codul QR tipărit rămâne același.",
+    "linkDownButton": "Schimbă linkul",
+    "linkDownFooter": "Poți dezactiva aceste e-mailuri în Contul meu > Notificări."
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Prima scanare",
     "firstScanText": "Un e-mail când un cod QR nou este scanat prima dată.",
     "milestones": "Praguri",
-    "milestonesText": "Un e-mail la 100, 1.000, 10.000 … scanări ale unui cod."
+    "milestonesText": "Un e-mail la 100, 1.000, 10.000 … scanări ale unui cod.",
+    "brokenLinks": "Linkuri nefuncționale",
+    "brokenLinksText": "Un e-mail când linkul unui cod QR nu mai funcționează."
   },
   "ac": {
     "lead": "Fiecare cod QR al fiecărui client. Caută, filtrează, selectează mai multe coduri sau deschide un cod pentru toate detaliile.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Denumiri de localități: GeoNames · Natural Earth",
     "clPlaces": "{n} locuri",
     "clZoom": "Fă clic pentru a mări",
-    "ab": "Test A/B"
+    "ab": "Test A/B",
+    "limitUsed": "{n} din {max} folosite"
   },
   "sheet": {
     "title": "Coală de printat (A4)",

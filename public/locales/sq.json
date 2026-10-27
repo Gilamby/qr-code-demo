@@ -390,7 +390,8 @@
     "expiresTime": "Deri (ora)",
     "afterUrl": "Pas përfundimit, dërgo te",
     "abUrl": "Lidhja e dytë (test A/B)",
-    "abShare": "Pjesa te lidhja e dytë (%)"
+    "abShare": "Pjesa te lidhja e dytë (%)",
+    "alertAt": "Më njofto në … skanime"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "pa përgjigje",
     "hlNowOk": "Lidhja funksionon sërish.",
     "hlNowBad": "Lidhja ende nuk funksionon.",
-    "scansTotal": "skanime gjithsej"
+    "scansTotal": "skanime gjithsej",
+    "ofLimit": "nga {max} skanime"
   },
   "appearance": {
     "title": "Ngjyrat",
@@ -612,7 +614,8 @@
     "time": "Opsionale. Në zonën tënde kohore. Bosh = gjithë dita.",
     "afterUrl": "Kur kalon data e mbarimit ose arrihet numri maksimal i skanimeve, vizitorët shkojnë te kjo lidhje në vend të \"skaduar\". E dobishme për ofertën e radhës.",
     "abUrl": "Një pjesë e vizitorëve shkon te kjo lidhje, pjesa tjetër te lidhja e zakonshme. Aktivizo edhe \"Ndiq në Google Analytics\" për të parë konvertimet sipas versionit (utm_content=a ose b).",
-    "abShare": "Si parazgjedhje 50: gjysma te secila lidhje."
+    "abShare": "Si parazgjedhje 50: gjysma te secila lidhje.",
+    "alertAt": "Merr një email kur ky kod arrin këtë numër skanimesh. E dobishme për oferta dhe postera."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -1341,7 +1344,9 @@
     "exportShort": "Eksporto",
     "allCountries": "Të gjitha vendet",
     "drillHint": "Kliko një vend për qytetet dhe një qytet për të gjitha detajet.",
-    "cityHint": "Të gjitha kartat tani tregojnë vetëm këtë qytet."
+    "cityHint": "Të gjitha kartat tani tregojnë vetëm këtë qytet.",
+    "folder": "Dosja",
+    "folderAll": "Të gjitha dosjet"
   },
   "auth": {
     "loginTitle": "Mirë se u ktheve",
@@ -1696,7 +1701,13 @@
     "remindTrialSubject": "Prova jote falas mbaron së shpejti",
     "remindTrialText": "Prova jote falas mbaron më {date}. Atëherë tarifohet automatikisht pagesa e parë prej {amount}. Nuk do të vazhdosh? Anuloje më parë te Llogaria ime.",
     "remindRenewSubject": "Abonimi yt QR-Codex rinovohet së shpejti",
-    "remindRenewText": "Abonimi yt rinovohet më {date} për {amount}. Nuk duhet të bësh asgjë: gjithçka vazhdon. Do të ndryshosh ose anulosh? Shko te Llogaria ime para kësaj date."
+    "remindRenewText": "Abonimi yt rinovohet më {date} për {amount}. Nuk duhet të bësh asgjë: gjithçka vazhdon. Do të ndryshosh ose anulosh? Shko te Llogaria ime para kësaj date.",
+    "scanTargetSubject": "“{name}” është skanuar {n} herë",
+    "scanTargetText": "Kodi yt QR “{name}” arriti {n} skanime, numrin për të cilin doje njoftim.",
+    "linkDownSubject": "Lidhja e “{name}” nuk funksionon më",
+    "linkDownText": "Kush skanon “{name}” përfundon te një lidhje që nuk funksionon: {url}. Kontrollo lidhjen ose zgjidh një të re; kodi yt QR i printuar mbetet i njëjtë.",
+    "linkDownButton": "Ndrysho lidhjen",
+    "linkDownFooter": "Këto email-e i çaktivizon te Llogaria ime > Njoftimet."
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -2342,7 +2353,9 @@
     "firstScan": "Skanimi i parë",
     "firstScanText": "Një email kur një kod i ri QR skanohet për herë të parë.",
     "milestones": "Pikë kyçe",
-    "milestonesText": "Një email në 100, 1.000, 10.000 … skanime të një kodi."
+    "milestonesText": "Një email në 100, 1.000, 10.000 … skanime të një kodi.",
+    "brokenLinks": "Lidhje që nuk funksionojnë",
+    "brokenLinksText": "Një email kur lidhja e një kodi QR ndalon së funksionuari."
   },
   "ac": {
     "lead": "Çdo kod QR i çdo klienti. Kërko, filtro, zgjidh disa kode ose hap një kod për të gjitha detajet.",
@@ -3032,7 +3045,8 @@
     "placesCredit": "Emrat e vendeve: GeoNames · Natural Earth",
     "clPlaces": "{n} vende",
     "clZoom": "Kliko për ta zmadhuar",
-    "ab": "Test A/B"
+    "ab": "Test A/B",
+    "limitUsed": "{n} nga {max} të përdorura"
   },
   "sheet": {
     "title": "Fletë për printim (A4)",

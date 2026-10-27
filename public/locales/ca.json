@@ -390,7 +390,8 @@
     "expiresTime": "Fins a (hora)",
     "afterUrl": "En acabar, enviar a",
     "abUrl": "Segon enllaç (prova A/B)",
-    "abShare": "Part al segon enllaç (%)"
+    "abShare": "Part al segon enllaç (%)",
+    "alertAt": "Avisa'm als … escanejos"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "sense resposta",
     "hlNowOk": "L'enllaç torna a funcionar.",
     "hlNowBad": "L'enllaç encara no funciona.",
-    "scansTotal": "escanejos en total"
+    "scansTotal": "escanejos en total",
+    "ofLimit": "de {max} escanejos"
   },
   "appearance": {
     "title": "Colors",
@@ -612,7 +614,8 @@
     "time": "Opcional. A la teva zona horària. Buit = tot el dia.",
     "afterUrl": "Quan passi la data de fi o s'arribi al màxim d'escanejos, els visitants van a aquest enllaç en lloc de \"caducat\". Útil per a la teva propera promoció.",
     "abUrl": "Una part dels visitants va a aquest enllaç i la resta a l'enllaç normal. Activa també \"Seguir a Google Analytics\" per veure les conversions per versió (utm_content=a o b).",
-    "abShare": "Per defecte 50: la meitat a cada enllaç."
+    "abShare": "Per defecte 50: la meitat a cada enllaç.",
+    "alertAt": "Reps un correu quan aquest codi arribi a aquest nombre d'escanejos. Útil per a promocions i cartells."
   },
   "more": {
     "title": "Més opcions",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exporta",
     "allCountries": "Tots els països",
     "drillHint": "Fes clic en un país per veure’n les ciutats, i en una ciutat per a tots els detalls.",
-    "cityHint": "Totes les targetes mostren ara només aquesta ciutat."
+    "cityHint": "Totes les targetes mostren ara només aquesta ciutat.",
+    "folder": "Carpeta",
+    "folderAll": "Totes les carpetes"
   },
   "auth": {
     "loginTitle": "Hola de nou",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "La prova gratuïta acaba aviat",
     "remindTrialText": "La prova gratuïta acaba el {date}. Aleshores es cobrarà automàticament el primer pagament de {amount}. No vols continuar? Cancel·la abans a El meu compte.",
     "remindRenewSubject": "La subscripció a QR-Codex es renova aviat",
-    "remindRenewText": "La subscripció es renova el {date} per {amount}. No cal fer res: tot continua funcionant. Vols canviar o cancel·lar? Ves a El meu compte abans d'aquesta data."
+    "remindRenewText": "La subscripció es renova el {date} per {amount}. No cal fer res: tot continua funcionant. Vols canviar o cancel·lar? Ves a El meu compte abans d'aquesta data.",
+    "scanTargetSubject": "“{name}” s'ha escanejat {n} vegades",
+    "scanTargetText": "El teu codi QR “{name}” ha arribat als {n} escanejos, el nombre del qual volies un avís.",
+    "linkDownSubject": "L'enllaç de “{name}” ja no funciona",
+    "linkDownText": "Qui escaneja “{name}” arriba a un enllaç que no funciona: {url}. Revisa l'enllaç o tria'n un de nou; el teu codi QR imprès continua sent el mateix.",
+    "linkDownButton": "Canviar enllaç",
+    "linkDownFooter": "Pots desactivar aquests correus a El meu compte > Notificacions."
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Primer escaneig",
     "firstScanText": "Un correu quan un codi QR nou s’escaneja per primer cop.",
     "milestones": "Fites",
-    "milestonesText": "Un correu als 100, 1.000, 10.000… escanejos d’un codi."
+    "milestonesText": "Un correu als 100, 1.000, 10.000… escanejos d’un codi.",
+    "brokenLinks": "Enllaços trencats",
+    "brokenLinksText": "Un correu quan l'enllaç d'un codi QR deixa de funcionar."
   },
   "ac": {
     "lead": "Tots els codis QR de tots els clients. Cerca, filtra, selecciona diversos codis o obre un codi per veure'n tots els detalls.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Noms de llocs: GeoNames · Natural Earth",
     "clPlaces": "{n} llocs",
     "clZoom": "Fes clic per apropar",
-    "ab": "Prova A/B"
+    "ab": "Prova A/B",
+    "limitUsed": "{n} de {max} utilitzats"
   },
   "sheet": {
     "title": "Full per imprimir (A4)",

@@ -390,7 +390,8 @@
     "expiresTime": "Until (time)",
     "afterUrl": "After it ends, send visitors to",
     "abUrl": "Second link (A/B test)",
-    "abShare": "Share to the second link (%)"
+    "abShare": "Share to the second link (%)",
+    "alertAt": "Email me at … scans"
   },
   "panel": {
     "selected": "{type} selected"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "no answer",
     "hlNowOk": "The link works again.",
     "hlNowBad": "The link still isn't working.",
-    "scansTotal": "scans in total"
+    "scansTotal": "scans in total",
+    "ofLimit": "of {max} scans"
   },
   "appearance": {
     "title": "Colours",
@@ -612,7 +614,8 @@
     "time": "Optional. In your time zone. Empty = the whole day.",
     "afterUrl": "When the end date has passed or the maximum number of scans is reached, visitors go to this link instead of \"expired\". Handy for your next promotion.",
     "abUrl": "Part of your visitors goes to this link, the rest to the normal link. Also turn on \"Track in Google Analytics\" to see conversions per version (utm_content=a or b).",
-    "abShare": "Default 50: half to each link."
+    "abShare": "Default 50: half to each link.",
+    "alertAt": "You get one email when this code reaches this number of scans. Handy for promotions and posters."
   },
   "more": {
     "title": "More options",
@@ -1235,7 +1238,9 @@
     "exportShort": "Export",
     "allCountries": "All countries",
     "drillHint": "Click a country to see its cities, and a city for all details.",
-    "cityHint": "All cards now show only this city."
+    "cityHint": "All cards now show only this city.",
+    "folder": "Folder",
+    "folderAll": "All folders"
   },
   "auth": {
     "loginTitle": "Welcome back",
@@ -1600,7 +1605,13 @@
     "remindTrialSubject": "Your free trial ends soon",
     "remindTrialText": "Your free trial ends on {date}. Then your first payment of {amount} is charged automatically. Don't want to continue? Cancel in My Account before then.",
     "remindRenewSubject": "Your QR-Codex subscription renews soon",
-    "remindRenewText": "Your subscription renews on {date} for {amount}. Nothing to do: you keep everything. Want to change or cancel? Go to My Account before then."
+    "remindRenewText": "Your subscription renews on {date} for {amount}. Nothing to do: you keep everything. Want to change or cancel? Go to My Account before then.",
+    "scanTargetSubject": "“{name}” has been scanned {n} times",
+    "scanTargetText": "Your QR code “{name}” reached {n} scans, the number you asked to be notified about.",
+    "linkDownSubject": "The link of “{name}” no longer works",
+    "linkDownText": "People who scan “{name}” end up on a link that doesn't work: {url}. Check the link or choose a new one; your printed QR code stays the same.",
+    "linkDownButton": "Change link",
+    "linkDownFooter": "You can turn these emails off in My Account > Notifications."
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2246,7 +2257,9 @@
     "firstScan": "First scan",
     "firstScanText": "An email when a new QR code is scanned for the first time.",
     "milestones": "Milestones",
-    "milestonesText": "An email at 100, 1,000, 10,000 … scans of a code."
+    "milestonesText": "An email at 100, 1,000, 10,000 … scans of a code.",
+    "brokenLinks": "Broken links",
+    "brokenLinksText": "An email when the link of a QR code stops working."
   },
   "ac": {
     "lead": "Every QR code of every customer. Search, filter, select several codes or open a code for all details.",
@@ -2971,7 +2984,8 @@
     "placesCredit": "Place names: GeoNames · Natural Earth",
     "clPlaces": "{n} places",
     "clZoom": "Click to zoom in",
-    "ab": "A/B test"
+    "ab": "A/B test",
+    "limitUsed": "{n} of {max} used"
   },
   "sheet": {
     "title": "Print sheet (A4)",

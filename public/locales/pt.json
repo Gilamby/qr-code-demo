@@ -390,7 +390,8 @@
     "expiresTime": "Até (hora)",
     "afterUrl": "Depois de terminar, enviar para",
     "abUrl": "Segundo link (teste A/B)",
-    "abShare": "Parte para o segundo link (%)"
+    "abShare": "Parte para o segundo link (%)",
+    "alertAt": "Avisar-me às … leituras"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "sem resposta",
     "hlNowOk": "O link voltou a funcionar.",
     "hlNowBad": "O link continua sem funcionar.",
-    "scansTotal": "leituras no total"
+    "scansTotal": "leituras no total",
+    "ofLimit": "de {max} leituras"
   },
   "appearance": {
     "title": "Cores",
@@ -612,7 +614,8 @@
     "time": "Opcional. No teu fuso horário. Vazio = o dia todo.",
     "afterUrl": "Quando a data de fim passar ou o máximo de leituras for atingido, os visitantes vão para este link em vez de \"expirado\". Útil para a tua próxima promoção.",
     "abUrl": "Uma parte dos visitantes vai para este link e o resto para o link normal. Ativa também \"Acompanhar no Google Analytics\" para ver as conversões por versão (utm_content=a ou b).",
-    "abShare": "Por defeito 50: metade para cada link."
+    "abShare": "Por defeito 50: metade para cada link.",
+    "alertAt": "Recebes um email quando este código chegar a este número de leituras. Útil para promoções e cartazes."
   },
   "more": {
     "title": "Mais opções",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exportar",
     "allCountries": "Todos os países",
     "drillHint": "Clica num país para ver as cidades e numa cidade para todos os detalhes.",
-    "cityHint": "Todos os cartões mostram agora só esta cidade."
+    "cityHint": "Todos os cartões mostram agora só esta cidade.",
+    "folder": "Pasta",
+    "folderAll": "Todas as pastas"
   },
   "auth": {
     "loginTitle": "Bem-vindo de volta",
@@ -1590,7 +1595,13 @@
     "remindTrialSubject": "O seu período de teste termina em breve",
     "remindTrialText": "O seu período de teste gratuito termina a {date}. Nessa altura é cobrado automaticamente o primeiro pagamento de {amount}. Não quer continuar? Cancele antes em A minha conta.",
     "remindRenewSubject": "A sua subscrição QR-Codex renova-se em breve",
-    "remindRenewText": "A sua subscrição renova-se a {date} por {amount}. Não precisa de fazer nada: tudo continua a funcionar. Quer alterar ou cancelar? Vá a A minha conta antes dessa data."
+    "remindRenewText": "A sua subscrição renova-se a {date} por {amount}. Não precisa de fazer nada: tudo continua a funcionar. Quer alterar ou cancelar? Vá a A minha conta antes dessa data.",
+    "scanTargetSubject": "“{name}” foi lido {n} vezes",
+    "scanTargetText": "O teu código QR “{name}” chegou às {n} leituras, o número de que querias ser avisado.",
+    "linkDownSubject": "O link de “{name}” já não funciona",
+    "linkDownText": "Quem lê “{name}” vai parar a um link que não funciona: {url}. Verifica o link ou escolhe um novo; o teu código QR impresso continua igual.",
+    "linkDownButton": "Alterar link",
+    "linkDownFooter": "Podes desativar estes emails em A minha conta > Notificações."
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",
@@ -2236,7 +2247,9 @@
     "firstScan": "Primeira leitura",
     "firstScanText": "Um e-mail quando um código QR novo é lido pela primeira vez.",
     "milestones": "Marcos",
-    "milestonesText": "Um e-mail aos 100, 1.000, 10.000 … leituras de um código."
+    "milestonesText": "Um e-mail aos 100, 1.000, 10.000 … leituras de um código.",
+    "brokenLinks": "Links partidos",
+    "brokenLinksText": "Um email quando o link de um código QR deixa de funcionar."
   },
   "ac": {
     "lead": "Todos os códigos QR de todos os clientes. Pesquise, filtre, selecione vários códigos ou abra um código para ver todos os detalhes.",
@@ -2926,7 +2939,8 @@
     "placesCredit": "Nomes de locais: GeoNames · Natural Earth",
     "clPlaces": "{n} locais",
     "clZoom": "Clique para aproximar",
-    "ab": "Teste A/B"
+    "ab": "Teste A/B",
+    "limitUsed": "{n} de {max} usadas"
   },
   "sheet": {
     "title": "Folha para imprimir (A4)",

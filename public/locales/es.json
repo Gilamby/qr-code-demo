@@ -390,7 +390,8 @@
     "expiresTime": "Hasta (hora)",
     "afterUrl": "Al terminar, enviar a",
     "abUrl": "Segundo enlace (test A/B)",
-    "abShare": "Parte al segundo enlace (%)"
+    "abShare": "Parte al segundo enlace (%)",
+    "alertAt": "Avisarme a los … escaneos"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "sin respuesta",
     "hlNowOk": "El enlace vuelve a funcionar.",
     "hlNowBad": "El enlace sigue sin funcionar.",
-    "scansTotal": "escaneos en total"
+    "scansTotal": "escaneos en total",
+    "ofLimit": "de {max} escaneos"
   },
   "appearance": {
     "title": "Colores",
@@ -612,7 +614,8 @@
     "time": "Opcional. En tu zona horaria. Vacío = todo el día.",
     "afterUrl": "Cuando pase la fecha de fin o se alcance el máximo de escaneos, los visitantes van a este enlace en lugar de \"caducado\". Útil para tu siguiente promoción.",
     "abUrl": "Una parte de los visitantes va a este enlace y el resto al enlace normal. Activa también \"Seguir en Google Analytics\" para ver las conversiones por versión (utm_content=a o b).",
-    "abShare": "Por defecto 50: la mitad a cada enlace."
+    "abShare": "Por defecto 50: la mitad a cada enlace.",
+    "alertAt": "Recibes un correo cuando este código llegue a este número de escaneos. Útil para promociones y carteles."
   },
   "more": {
     "title": "Más opciones",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exportar",
     "allCountries": "Todos los países",
     "drillHint": "Haz clic en un país para ver sus ciudades, y en una ciudad para ver todos los detalles.",
-    "cityHint": "Todas las tarjetas muestran ahora solo esta ciudad."
+    "cityHint": "Todas las tarjetas muestran ahora solo esta ciudad.",
+    "folder": "Carpeta",
+    "folderAll": "Todas las carpetas"
   },
   "auth": {
     "loginTitle": "Bienvenido de nuevo",
@@ -1600,7 +1605,13 @@
     "remindTrialSubject": "Tu prueba gratuita termina pronto",
     "remindTrialText": "Tu prueba gratuita termina el {date}. Entonces se cobrará automáticamente tu primer pago de {amount}. ¿No quieres continuar? Cancela antes en Mi cuenta.",
     "remindRenewSubject": "Tu suscripción a QR-Codex se renueva pronto",
-    "remindRenewText": "Tu suscripción se renueva el {date} por {amount}. No tienes que hacer nada: todo sigue funcionando. ¿Quieres cambiar o cancelar? Ve a Mi cuenta antes de esa fecha."
+    "remindRenewText": "Tu suscripción se renueva el {date} por {amount}. No tienes que hacer nada: todo sigue funcionando. ¿Quieres cambiar o cancelar? Ve a Mi cuenta antes de esa fecha.",
+    "scanTargetSubject": "“{name}” se ha escaneado {n} veces",
+    "scanTargetText": "Tu código QR “{name}” ha alcanzado {n} escaneos, el número del que querías un aviso.",
+    "linkDownSubject": "El enlace de “{name}” ya no funciona",
+    "linkDownText": "Quien escanea “{name}” llega a un enlace que no funciona: {url}. Revisa el enlace o elige uno nuevo; tu código QR impreso sigue siendo el mismo.",
+    "linkDownButton": "Cambiar enlace",
+    "linkDownFooter": "Puedes desactivar estos correos en Mi cuenta > Notificaciones."
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",
@@ -2246,7 +2257,9 @@
     "firstScan": "Primer escaneo",
     "firstScanText": "Un correo cuando un código QR nuevo se escanea por primera vez.",
     "milestones": "Hitos",
-    "milestonesText": "Un correo a los 100, 1.000, 10.000… escaneos de un código."
+    "milestonesText": "Un correo a los 100, 1.000, 10.000… escaneos de un código.",
+    "brokenLinks": "Enlaces rotos",
+    "brokenLinksText": "Un correo cuando el enlace de un código QR deja de funcionar."
   },
   "ac": {
     "lead": "Todos los códigos QR de todos los clientes. Busca, filtra, selecciona varios códigos o abre un código para ver todos los detalles.",
@@ -2971,7 +2984,8 @@
     "placesCredit": "Nombres de lugares: GeoNames · Natural Earth",
     "clPlaces": "{n} lugares",
     "clZoom": "Haz clic para acercar",
-    "ab": "Test A/B"
+    "ab": "Test A/B",
+    "limitUsed": "{n} de {max} usados"
   },
   "sheet": {
     "title": "Hoja para imprimir (A4)",

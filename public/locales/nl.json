@@ -390,7 +390,8 @@
     "expiresTime": "Tot (tijd)",
     "afterUrl": "Na afloop doorsturen naar",
     "abUrl": "Tweede link (A/B-test)",
-    "abShare": "Deel naar de tweede link (%)"
+    "abShare": "Deel naar de tweede link (%)",
+    "alertAt": "Mail mij bij … scans"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -532,7 +533,8 @@
     "hlNoAnswer": "geen antwoord",
     "hlNowOk": "De link werkt weer.",
     "hlNowBad": "De link werkt nog steeds niet.",
-    "scansTotal": "scans totaal"
+    "scansTotal": "scans totaal",
+    "ofLimit": "van {max} scans"
   },
   "appearance": {
     "title": "Kleuren",
@@ -612,7 +614,8 @@
     "time": "Optioneel. In jouw tijdzone. Leeg = de hele dag.",
     "afterUrl": "Als de einddatum voorbij is of het maximum aantal scans bereikt, gaan bezoekers naar deze link in plaats van \"verlopen\". Handig voor de volgende actie.",
     "abUrl": "Een deel van de bezoekers gaat naar deze link, de rest naar de gewone link. Zet ook \"Volgen in Google Analytics\" aan: dan zie je verkopen per versie (utm_content=a of b).",
-    "abShare": "Standaard 50: de helft naar elke link."
+    "abShare": "Standaard 50: de helft naar elke link.",
+    "alertAt": "Je krijgt één e-mail als deze code dit aantal scans haalt. Handig voor acties en posters."
   },
   "more": {
     "title": "Meer opties",
@@ -1235,7 +1238,9 @@
     "exportShort": "Exporteren",
     "allCountries": "Alle landen",
     "drillHint": "Klik op een land voor de steden, en op een stad voor alle details.",
-    "cityHint": "Alle kaarten tonen nu alleen deze stad."
+    "cityHint": "Alle kaarten tonen nu alleen deze stad.",
+    "folder": "Map",
+    "folderAll": "Alle mappen"
   },
   "auth": {
     "loginTitle": "Welkom terug",
@@ -1600,7 +1605,13 @@
     "remindTrialSubject": "Je gratis proefperiode stopt binnenkort",
     "remindTrialText": "Je gratis proefperiode stopt op {date}. Dan wordt je eerste betaling van {amount} automatisch afgeschreven. Wil je niet verder? Zeg vóór die datum op in Mijn account.",
     "remindRenewSubject": "Je QR-Codex-abonnement wordt binnenkort verlengd",
-    "remindRenewText": "Je abonnement wordt op {date} verlengd voor {amount}. Je hoeft niets te doen: alles blijft werken. Wil je iets veranderen of opzeggen? Ga vóór die datum naar Mijn account."
+    "remindRenewText": "Je abonnement wordt op {date} verlengd voor {amount}. Je hoeft niets te doen: alles blijft werken. Wil je iets veranderen of opzeggen? Ga vóór die datum naar Mijn account.",
+    "scanTargetSubject": "“{name}” is {n} keer gescand",
+    "scanTargetText": "Je QR-code “{name}” heeft de {n} scans gehaald, het aantal waarvoor je een melding wilde.",
+    "linkDownSubject": "De link van “{name}” werkt niet meer",
+    "linkDownText": "Mensen die “{name}” scannen, komen uit op een link die niet werkt: {url}. Controleer de link of kies een nieuwe; je geprinte QR-code blijft gewoon hetzelfde.",
+    "linkDownButton": "Link aanpassen",
+    "linkDownFooter": "Deze meldingen zet je uit in Mijn account > Meldingen."
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2246,7 +2257,9 @@
     "firstScan": "Eerste scan",
     "firstScanText": "Een e-mail als een nieuwe QR-code voor het eerst gescand wordt.",
     "milestones": "Mijlpalen",
-    "milestonesText": "Een e-mail bij 100, 1.000, 10.000 … scans van een code."
+    "milestonesText": "Een e-mail bij 100, 1.000, 10.000 … scans van een code.",
+    "brokenLinks": "Kapotte links",
+    "brokenLinksText": "Een e-mail als de link van een QR-code niet meer werkt."
   },
   "ac": {
     "lead": "Elke QR-code van elke klant. Zoek, filter, selecteer meerdere codes of open een code voor alle details.",
@@ -2971,7 +2984,8 @@
     "placesCredit": "Plaatsnamen: GeoNames · Natural Earth",
     "clPlaces": "{n} plaatsen",
     "clZoom": "Klik om in te zoomen",
-    "ab": "A/B-test"
+    "ab": "A/B-test",
+    "limitUsed": "{n} van {max} gebruikt"
   },
   "sheet": {
     "title": "Printvel (A4)",
