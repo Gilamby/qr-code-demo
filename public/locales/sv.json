@@ -1120,7 +1120,10 @@
     "stSince": "Sedan {date}",
     "stSolved": "löst",
     "stHistory": "Tidigare meddelanden",
-    "stNone": "Inga meddelanden ännu."
+    "stNone": "Inga meddelanden ännu.",
+    "g404OffTitle": "Ingen internetanslutning",
+    "g404OffSub": "Du är offline. Så fort du är ansluten igen laddas sidan om av sig själv.",
+    "g404OffSub2": "Se under tiden hur långt du kan springa."
   },
   "edit": {
     "title": "Redigerar: {name}",

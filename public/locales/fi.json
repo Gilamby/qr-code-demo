@@ -1120,7 +1120,10 @@
     "stSince": "{date} alkaen",
     "stSolved": "korjattu",
     "stHistory": "Aiemmat tiedotteet",
-    "stNone": "Ei vielä tiedotteita."
+    "stNone": "Ei vielä tiedotteita.",
+    "g404OffTitle": "Ei internetyhteyttä",
+    "g404OffSub": "Olet offline-tilassa. Kun yhteys palaa, sivu latautuu uudelleen itsestään.",
+    "g404OffSub2": "Katso sillä välin, kuinka pitkälle juokset."
   },
   "edit": {
     "title": "Muokataan: {name}",

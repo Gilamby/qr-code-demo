@@ -1120,7 +1120,10 @@
     "stSince": "Depuis le {date}",
     "stSolved": "résolu",
     "stHistory": "Annonces précédentes",
-    "stNone": "Aucune annonce pour l’instant."
+    "stNone": "Aucune annonce pour l’instant.",
+    "g404OffTitle": "Pas de connexion internet",
+    "g404OffSub": "Vous êtes hors ligne. Dès que la connexion revient, la page se recharge toute seule.",
+    "g404OffSub2": "En attendant, voyez jusqu’où vous pouvez courir."
   },
   "edit": {
     "title": "Modifier : {name}",

@@ -1120,7 +1120,10 @@
     "stSince": "Sinds {date}",
     "stSolved": "opgelost",
     "stHistory": "Eerdere meldingen",
-    "stNone": "Nog geen meldingen."
+    "stNone": "Nog geen meldingen.",
+    "g404OffTitle": "Geen internetverbinding",
+    "g404OffSub": "Je bent offline. Zodra je weer verbinding hebt, laadt de pagina vanzelf opnieuw.",
+    "g404OffSub2": "Kijk ondertussen hoe ver je kunt rennen."
   },
   "edit": {
     "title": "Bewerken: {name}",

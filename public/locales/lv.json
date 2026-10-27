@@ -1120,7 +1120,10 @@
     "stSince": "Kopš {date}",
     "stSolved": "atrisināts",
     "stHistory": "Iepriekšējie paziņojumi",
-    "stNone": "Paziņojumu vēl nav."
+    "stNone": "Paziņojumu vēl nav.",
+    "g404OffTitle": "Nav interneta savienojuma",
+    "g404OffSub": "Jūs esat bezsaistē. Tiklīdz savienojums atjaunosies, lapa pārlādēsies pati.",
+    "g404OffSub2": "Pa to laiku pārbaudiet, cik tālu varat aizskriet."
   },
   "edit": {
     "title": "Rediģē: {name}",

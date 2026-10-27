@@ -1120,7 +1120,10 @@
     "stSince": "Din {date}",
     "stSolved": "rezolvat",
     "stHistory": "Anunțuri anterioare",
-    "stNone": "Încă nu există anunțuri."
+    "stNone": "Încă nu există anunțuri.",
+    "g404OffTitle": "Nicio conexiune la internet",
+    "g404OffSub": "Ești offline. Imediat ce revine conexiunea, pagina se reîncarcă singură.",
+    "g404OffSub2": "Între timp, vezi cât de departe poți alerga."
   },
   "edit": {
     "title": "Editezi: {name}",

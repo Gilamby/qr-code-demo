@@ -34,14 +34,14 @@ canvas{width:100%;height:auto;aspect-ratio:640/240;image-rendering:pixelated;ima
 .keys{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 kbd{font:inherit;font-weight:700;color:var(--text);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:8px;padding:3px 9px}
 .chip{font:inherit;color:var(--text);background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
-.home{display:inline-block;margin-top:26px;text-decoration:none}
+.home{display:inline-block;margin-top:26px;text-decoration:none}.home[hidden]{display:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="top"><a href="/"><img class="logo" src="/icons/logo-badge.png" alt=""><b>QR-<span>Codex</span></b></a></div>
 <main>
-  <h1>404</h1>
+  <h1 data-t="big">404</h1>
   <p class="sub" data-t="sub">Looks like you scanned the wrong page.</p>
   <p class="sub2" data-t="sub2">While you’re here, see how far you can run.</p>
   <div class="card">
@@ -58,7 +58,7 @@ kbd{font:inherit;font-weight:700;color:var(--text);background:rgba(255,255,255,.
       <button class="chip" id="snd" type="button" data-t="soundOn">Sound on</button>
     </div>
   </div>
-  <a class="btn home" href="/" data-t="home">Go to QR-Codex</a>
+  <a class="btn home" id="home" href="/" data-t="home">Go to QR-Codex</a>
 </main>
 <script id="t404" type="application/json">{}</script>
 <script>
@@ -66,7 +66,9 @@ kbd{font:inherit;font-weight:700;color:var(--text);background:rgba(255,255,255,.
 // Teksten in de taal van de bezoeker (de server vult ze in); anders Engels
 let L={};try{L=JSON.parse(document.getElementById('t404').textContent)||{}}catch(e){}
 const tx=(k,d)=>L[k]||d;
-document.querySelectorAll('[data-t]').forEach(el=>{const v=L[el.getAttribute('data-t')];if(v)el.textContent=v});if(L.lang)document.documentElement.lang=L.lang;if(L.title)document.title='404 · '+L.title;
+document.querySelectorAll('[data-t]').forEach(el=>{const v=L[el.getAttribute('data-t')];if(v)el.textContent=v});if(L.lang)document.documentElement.lang=L.lang;if(L.title)document.title=(L.offline?'':'404 · ')+L.title;
+// Offline-versie (sw.js toont deze zonder internet): knop + vanzelf opnieuw laden zodra de verbinding terug is
+if(L.offline){document.getElementById('home').hidden=true;const ok=()=>location.reload();addEventListener('online',ok);const chk=()=>fetch('/api/health',{cache:'no-store'}).then(r=>{if(r.ok){ok();clearInterval(iv)}}).catch(()=>{});const iv=setInterval(chk,15000)}
 const cv=document.getElementById('g'),c=cv.getContext('2d');c.imageSmoothingEnabled=false;
 const W=640,H=240,GY=196;
 const ov=document.getElementById('ov'),ovT=document.getElementById('ovT'),ovP=document.getElementById('ovP'),ovB=document.getElementById('ovB'),sndB=document.getElementById('snd');

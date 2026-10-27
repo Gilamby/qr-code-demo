@@ -48,6 +48,8 @@ export async function createApp(): Promise<NestExpressApplication> {
      De leesbare broncode (js/, shared/, css/app.css) is dan niet op te vragen. Ontwikkelen: gewoon public/. */
   // Alles op één adres: het beheer zit in de app zelf (wisselknop App / Beheer). Oude links naar /admin gaan naar /.
   app.use((req, res, next) => (req.method === 'GET' && /^\/admin(\/|\.html)?$/.test(req.path) ? res.redirect(302, '/') : next()));
+  // Service worker (alleen voor offline): altijd de nieuwste versie, nooit uit de cache
+  app.use((req, res, next) => (req.method === 'GET' && (req.path === '/sw.js' || req.path === '/offline.html') ? res.set('Cache-Control', 'no-cache').sendFile(path.join(PATHS.public, req.path.slice(1)), { dotfiles: 'allow' }) : next()));
   let bundle = null;
   if (isProduction()) {
     try { bundle = JSON.parse(fs.readFileSync(path.join(PATHS.build, 'manifest.json'), 'utf8')); useBundle(bundle); }

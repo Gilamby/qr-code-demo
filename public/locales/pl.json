@@ -1120,7 +1120,10 @@
     "stSince": "Od {date}",
     "stSolved": "rozwiązano",
     "stHistory": "Wcześniejsze komunikaty",
-    "stNone": "Brak komunikatów."
+    "stNone": "Brak komunikatów.",
+    "g404OffTitle": "Brak połączenia z internetem",
+    "g404OffSub": "Jesteś offline. Gdy tylko połączenie wróci, strona sama się przeładuje.",
+    "g404OffSub2": "W międzyczasie sprawdź, jak daleko dobiegniesz."
   },
   "edit": {
     "title": "Edycja: {name}",

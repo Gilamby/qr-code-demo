@@ -1120,7 +1120,10 @@
     "stSince": "Siden {date}",
     "stSolved": "løst",
     "stHistory": "Tidligere meddelelser",
-    "stNone": "Ingen meddelelser endnu."
+    "stNone": "Ingen meddelelser endnu.",
+    "g404OffTitle": "Ingen internetforbindelse",
+    "g404OffSub": "Du er offline. Så snart du har forbindelse igen, genindlæses siden af sig selv.",
+    "g404OffSub2": "Se i mellemtiden, hvor langt du kan løbe."
   },
   "edit": {
     "title": "Redigerer: {name}",

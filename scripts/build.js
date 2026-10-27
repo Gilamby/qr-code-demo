@@ -16,6 +16,7 @@ const minJs = (code) => esbuild.transformSync(code, { minify: true, legalComment
 const minCss = (code) => esbuild.transformSync(code, { loader: 'css', minify: true, legalComments: 'none', charset: 'utf8' }).code;
 
 fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive: true });
+require('./offline-page').build(root);                                   // public/offline.html (zonder internet) + cachenaam in sw.js
 
 // 1) De app
 let html = fs.readFileSync(path.join(pub, 'index.html'), 'utf8');

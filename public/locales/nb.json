@@ -1120,7 +1120,10 @@
     "stSince": "Siden {date}",
     "stSolved": "løst",
     "stHistory": "Tidligere meldinger",
-    "stNone": "Ingen meldinger ennå."
+    "stNone": "Ingen meldinger ennå.",
+    "g404OffTitle": "Ingen internettilkobling",
+    "g404OffSub": "Du er frakoblet. Så snart du er tilkoblet igjen, lastes siden inn på nytt av seg selv.",
+    "g404OffSub2": "Se i mellomtiden hvor langt du kan løpe."
   },
   "edit": {
     "title": "Redigerer: {name}",

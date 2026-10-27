@@ -1120,7 +1120,10 @@
     "stSince": "Des de {date}",
     "stSolved": "resolt",
     "stHistory": "Avisos anteriors",
-    "stNone": "Encara no hi ha avisos."
+    "stNone": "Encara no hi ha avisos.",
+    "g404OffTitle": "Sense connexió a internet",
+    "g404OffSub": "No tens connexió. Quan tornis a tenir-ne, la pàgina es recarregarà sola.",
+    "g404OffSub2": "Mentrestant, a veure fins on arribes corrent."
   },
   "edit": {
     "title": "S'està editant: {name}",

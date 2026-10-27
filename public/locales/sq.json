@@ -1168,7 +1168,10 @@
     "stSince": "Që nga {date}",
     "stSolved": "zgjidhur",
     "stHistory": "Njoftime të mëparshme",
-    "stNone": "Ende nuk ka njoftime."
+    "stNone": "Ende nuk ka njoftime.",
+    "g404OffTitle": "Nuk ka lidhje interneti",
+    "g404OffSub": "Jeni jashtë linje. Sapo të keni sërish lidhje, faqja do të ringarkohet vetë.",
+    "g404OffSub2": "Ndërkohë, shihni sa larg mund të vraponi."
   },
   "edit": {
     "title": "Duke ndryshuar: {name}",

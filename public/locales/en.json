@@ -1120,7 +1120,10 @@
     "stSince": "Since {date}",
     "stSolved": "resolved",
     "stHistory": "Earlier notices",
-    "stNone": "No notices yet."
+    "stNone": "No notices yet.",
+    "g404OffTitle": "No internet connection",
+    "g404OffSub": "You are offline. As soon as you’re connected again, the page reloads by itself.",
+    "g404OffSub2": "Meanwhile, see how far you can run."
   },
   "edit": {
     "title": "Editing: {name}",

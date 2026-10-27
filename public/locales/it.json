@@ -1120,7 +1120,10 @@
     "stSince": "Dal {date}",
     "stSolved": "risolto",
     "stHistory": "Avvisi precedenti",
-    "stNone": "Ancora nessun avviso."
+    "stNone": "Ancora nessun avviso.",
+    "g404OffTitle": "Nessuna connessione a internet",
+    "g404OffSub": "Sei offline. Appena torni connesso, la pagina si ricarica da sola.",
+    "g404OffSub2": "Nel frattempo, vediamo quanto lontano riesci a correre."
   },
   "edit": {
     "title": "Modifica: {name}",

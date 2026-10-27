@@ -1120,7 +1120,10 @@
     "stSince": "Seit {date}",
     "stSolved": "behoben",
     "stHistory": "Frühere Meldungen",
-    "stNone": "Noch keine Meldungen."
+    "stNone": "Noch keine Meldungen.",
+    "g404OffTitle": "Keine Internetverbindung",
+    "g404OffSub": "Sie sind offline. Sobald die Verbindung wieder da ist, lädt die Seite von selbst neu.",
+    "g404OffSub2": "Mal sehen, wie weit Sie inzwischen laufen."
   },
   "edit": {
     "title": "Bearbeiten: {name}",

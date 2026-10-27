@@ -1120,7 +1120,10 @@
     "stSince": "Od {date}",
     "stSolved": "vyriešené",
     "stHistory": "Staršie oznámenia",
-    "stNone": "Zatiaľ žiadne oznámenia."
+    "stNone": "Zatiaľ žiadne oznámenia.",
+    "g404OffTitle": "Žiadne internetové pripojenie",
+    "g404OffSub": "Ste offline. Hneď ako budete znova pripojení, stránka sa sama znova načíta.",
+    "g404OffSub2": "Medzitým skúste, ako ďaleko dobehnete."
   },
   "edit": {
     "title": "Úprava: {name}",

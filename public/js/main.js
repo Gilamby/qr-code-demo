@@ -143,3 +143,6 @@
 /* ---------- Start: opgeslagen taal, anders Engels ---------- */
 if (document.getElementById('locale-en')) i18n.render();
 i18n.set(i18n.detect());
+
+/* ---------- Zonder internet: offline-pagina (QR Runner) in plaats van de foutpagina van de browser (zie sw.js) ---------- */
+try { if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); } catch (e) { /* niet ondersteund */ }
