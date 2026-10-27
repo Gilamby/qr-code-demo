@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Opiniones",
       "desc": "Pregunta qué opinan tus clientes"
+    },
+    "email": {
+      "name": "Correo",
+      "desc": "Abre un correo listo para enviar"
+    },
+    "phone": {
+      "name": "Llamar",
+      "desc": "Llama con un toque"
+    },
+    "location": {
+      "name": "Ubicación",
+      "desc": "Abre en el mapa"
+    },
+    "text": {
+      "name": "Texto",
+      "desc": "Muestra un texto corto"
+    },
+    "payment": {
+      "name": "Pago",
+      "desc": "Paga o deja propina con un toque"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Tu perfil de TikTok"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Tu perfil o página de LinkedIn"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Tu canal o vídeo"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Lista, álbum o pódcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Chat o canal"
+    },
+    "booking": {
+      "name": "Reservas",
+      "desc": "Reserva mesa o cita"
+    },
+    "meeting": {
+      "name": "Reunión",
+      "desc": "Únete a Zoom, Teams o Meet"
+    },
+    "lostfound": {
+      "name": "Objeto perdido",
+      "desc": "Etiqueta para mascotas, llaves o bolsos"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Marca la casilla para compartir tu correo.",
       "tooMany": "Demasiados mensajes. Inténtalo más tarde.",
       "failed": "No se pudo enviar. Inténtalo de nuevo."
+    },
+    "ext": {
+      "mail": "Escribir correo",
+      "call": "Llamar ahora",
+      "route": "Cómo llegar",
+      "open": "Abrir"
+    },
+    "text": {
+      "copy": "Copiar texto",
+      "copied": "Copiado"
+    },
+    "lost": {
+      "tag": "¿Me has encontrado?",
+      "reward": "Recompensa: {reward}",
+      "call": "Llamar al dueño",
+      "mail": "Escribir al dueño",
+      "note": "¡Gracias por ayudar!",
+      "subject": "Encontrado: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Pregunta",
     "fbAskEmail": "Pedir un correo (opcional)",
     "fbThanks": "Mensaje de agradecimiento",
-    "fbReview": "Enlace de reseña de Google"
+    "fbReview": "Enlace de reseña de Google",
+    "subject": "Asunto",
+    "body": "Mensaje",
+    "textBody": "Texto",
+    "payUrl": "Enlace de pago",
+    "tiktokUrl": "Enlace de TikTok",
+    "linkedinUrl": "Enlace de LinkedIn",
+    "youtubeUrl": "Enlace de YouTube",
+    "spotifyUrl": "Enlace de Spotify",
+    "telegramUrl": "Enlace de Telegram",
+    "bookingUrl": "Enlace de reserva",
+    "meetingUrl": "Enlace de reunión",
+    "photo": "Foto",
+    "lostName": "Nombre de la mascota u objeto",
+    "lostMsg": "Mensaje para quien lo encuentre",
+    "reward": "Recompensa (opcional)"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -681,7 +766,11 @@
     "eventUrl": "Por ejemplo, tu tienda de entradas o tu web.",
     "route": "Envía a quien escanea a otro enlace según el idioma de su móvil, su país, la hora o su dispositivo. No se guarda nada sobre quién escanea.",
     "fbAskEmail": "Los visitantes pueden dejar su correo para que les respondas. Solo con su consentimiento.",
-    "fbReview": "Tras 4 o 5 estrellas, invitamos a dejar también una reseña pública aquí."
+    "fbReview": "Tras 4 o 5 estrellas, invitamos a dejar también una reseña pública aquí.",
+    "payUrl": "Por ejemplo PayPal.me, Stripe, SumUp o la página de pago de tu tienda.",
+    "bookingUrl": "Por ejemplo tu página de reservas, TheFork o Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby o Webex.",
+    "reward": "Se muestra en la página, p. ej. “Recompensa de 20 €”."
   },
   "more": {
     "title": "Más opciones",
@@ -1153,7 +1242,22 @@
     "eventName": "Noche de jazz de verano",
     "eventDesc": "Música en directo en la terraza con tapas y bebidas. Entrada libre.",
     "fbQuestion": "¿Qué tal tu visita?",
-    "fbThanks": "¡Gracias por tu opinión!"
+    "fbThanks": "¡Gracias por tu opinión!",
+    "mailSubject": "Pregunta sobre mi pedido",
+    "mailBody": "Hola, tengo una pregunta sobre …",
+    "textTitle": "Normas de la casa",
+    "textBody": "¡Bienvenido! Haz poco ruido a partir de las 22:00 y deja la llave en la caja al salir. ¡Disfruta!",
+    "lostName": "Max",
+    "lostMsg": "¡Hola! Me he perdido. Llama a mi dueño, ¡gracias!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Esta página está protegida",
@@ -3310,7 +3414,7 @@
   },
   "wh": {
     "title": "Webhooks",
-    "lead": "Avisa a tu propio sistema al momento cuando se escanea o cambia un código, p. ej. para actualizar un CRM o enviar un mensaje.",
+    "lead": "Para desarrolladores: enviamos un mensaje a tu propia web o sistema en cuanto se escanea o cambia un código.",
     "secretTitle": "Tu secreto de firma",
     "secretLead": "Cópialo ahora; no lo volverás a ver. Sirve para comprobar que los mensajes vienen de nosotros.",
     "evScan": "Cada escaneo",

@@ -45,7 +45,7 @@
   // Voor alle dynamische codes (niet vCard en wifi: die bevatten alles zelf en gaan niet via onze server):
   // - Plannen (KB Q224): startdatum en einddatum onder "Meer opties"
   // - Google Analytics (KB Q222): UTM-labels aan de links van de pagina, als die links heeft
-  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review', 'feedback'];
+  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review', 'feedback', 'email', 'phone', 'location', 'text', 'payment', 'tiktok', 'linkedin', 'youtube', 'spotify', 'telegram', 'meeting', 'lostfound'];
   data.forEach(function (type) {
     if (type.id === 'vcard' || type.id === 'wifi') return;
     var has = function (k) { return type.fields.some(function (f) { return f.key === k; }); };
@@ -205,5 +205,54 @@
       { key: 'question', label: 'fields.fbQuestion', max: 140, sample: { t: 'sample.fbQuestion' } },
       { key: 'askEmail', type: 'toggle', label: 'fields.fbAskEmail', hint: 'hint.fbAskEmail' },
       { key: 'thanks', label: 'fields.fbThanks', max: 200, sample: { t: 'sample.fbThanks' } },
-      { key: 'reviewUrl', type: 'url', label: 'fields.fbReview', hint: 'hint.fbReview', advanced: true } ] }
+      { key: 'reviewUrl', type: 'url', label: 'fields.fbReview', hint: 'hint.fbReview', advanced: true } ] },
+  // ---------- Extra soorten (pagina 2 van de carrousel) ----------
+  // E-mail, bellen, locatie: bij het scannen meteen de mail-app, de telefoon of de kaart (server: short-links.controller.ts)
+  { id: 'email', page: false, icon: 'mail', contentType: 'email', previewType: 'card', color: '#2563eb', theme: ['#2563eb', '#0f172a'],
+    fields: [ { key: 'email', type: 'email', label: 'fields.email', required: true, sample: { t: 'sample.mailTo' } },
+      { key: 'subject', label: 'fields.subject', max: 150, sample: { t: 'sample.mailSubject' } },
+      { key: 'body', label: 'fields.body', max: 1000, sample: { t: 'sample.mailBody' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'phone', page: false, icon: 'call', contentType: 'phone', previewType: 'card', color: '#16a34a', theme: ['#16a34a', '#0f172a'],
+    fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', required: true, sample: { t: 'sample.waPhone' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'location', page: false, icon: 'pin', contentType: 'location', previewType: 'card', color: '#dc2626', theme: ['#dc2626', '#0f172a'],
+    fields: [ { key: 'address', type: 'address', label: 'fields.address', required: true, sample: { t: 'sample.bizAddress' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  // Tekst: een eenvoudige pagina met een titel en tekst (instructies, huisregels, gedicht …)
+  { id: 'text', icon: 'text', contentType: 'text', previewType: 'card', color: '#475569', theme: ['#475569', '#0f172a'],
+    fields: [ { key: 'title', label: 'fields.title', max: 100, sample: { t: 'sample.textTitle' } },
+      { key: 'text', label: 'fields.textBody', required: true, max: 3000, sample: { t: 'sample.textBody' } } ] },
+  { id: 'payment', page: false, icon: 'pay', contentType: 'url', previewType: 'card', color: '#0891b2', theme: ['#0891b2', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.payUrl', required: true, sample: { t: 'sample.payUrl' }, hint: 'hint.payUrl' },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'tiktok', page: false, icon: 'tiktok', contentType: 'url', previewType: 'card', color: '#111827', theme: ['#111827', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.tiktokUrl', required: true, domains: ['tiktok.com', 'vm.tiktok.com'], sample: { t: 'sample.tiktokUrl' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'linkedin', page: false, icon: 'linkedin', contentType: 'url', previewType: 'card', color: '#0a66c2', theme: ['#0a66c2', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.linkedinUrl', required: true, domains: ['linkedin.com', 'lnkd.in'], sample: { t: 'sample.linkedinUrl' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'youtube', page: false, icon: 'youtube', contentType: 'url', previewType: 'card', color: '#ff0000', theme: ['#ff0000', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.youtubeUrl', required: true, domains: ['youtube.com', 'youtu.be'], sample: { t: 'sample.youtubeUrl' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'spotify', page: false, icon: 'spotify', contentType: 'url', previewType: 'card', color: '#1db954', theme: ['#1db954', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.spotifyUrl', required: true, domains: ['spotify.com', 'open.spotify.com', 'spotify.link'], sample: { t: 'sample.spotifyUrl' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'telegram', page: false, icon: 'telegram', contentType: 'url', previewType: 'card', color: '#229ed9', theme: ['#229ed9', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.telegramUrl', required: true, domains: ['t.me', 'telegram.me'], sample: { t: 'sample.telegramUrl' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'booking', page: false, icon: 'booking', contentType: 'url', previewType: 'card', color: '#7c3aed', theme: ['#7c3aed', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.bookingUrl', required: true, sample: { t: 'sample.bookingUrl' }, hint: 'hint.bookingUrl' },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'meeting', page: false, icon: 'meeting', contentType: 'url', previewType: 'card', color: '#4f46e5', theme: ['#4f46e5', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.meetingUrl', required: true, domains: ['zoom.us', 'teams.microsoft.com', 'teams.live.com', 'meet.google.com', 'whereby.com', 'webex.com'], sample: { t: 'sample.meetingUrl' }, hint: 'hint.meetingUrl' },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  // Gevonden?: label voor huisdier, sleutels, tas of koffer; de vinder belt of mailt de eigenaar
+  { id: 'lostfound', icon: 'lost', contentType: 'lost', previewType: 'card', color: '#ea580c', theme: ['#ea580c', '#431407'],
+    fields: [ { key: 'photo', type: 'image', label: 'fields.photo' },
+      { key: 'name', label: 'fields.lostName', required: true, max: 60, sample: { t: 'sample.lostName' } },
+      { key: 'message', label: 'fields.lostMsg', max: 300, sample: { t: 'sample.lostMsg' } },
+      { key: 'phone', type: 'tel', label: 'fields.phone', required: true, or: 'email', sample: { t: 'sample.waPhone' } },
+      { key: 'email', type: 'email', label: 'fields.email', or: 'phone' },
+      { key: 'reward', label: 'fields.reward', max: 60, hint: 'hint.reward' } ] }
 ]);

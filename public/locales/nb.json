@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Tilbakemelding",
       "desc": "Spør hva gjestene synes"
+    },
+    "email": {
+      "name": "E-post",
+      "desc": "Åpne en ferdig e-post"
+    },
+    "phone": {
+      "name": "Ring",
+      "desc": "Ring med ett trykk"
+    },
+    "location": {
+      "name": "Sted",
+      "desc": "Åpne på kartet"
+    },
+    "text": {
+      "name": "Tekst",
+      "desc": "Vis en kort tekst"
+    },
+    "payment": {
+      "name": "Betaling",
+      "desc": "Betal eller gi tips"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "TikTok-profilen din"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "LinkedIn-profilen eller -siden din"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Kanalen eller videoen din"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Spilleliste, album eller podkast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Chat eller kanal"
+    },
+    "booking": {
+      "name": "Booking",
+      "desc": "Bestill bord eller time"
+    },
+    "meeting": {
+      "name": "Møte",
+      "desc": "Bli med i Zoom, Teams eller Meet"
+    },
+    "lostfound": {
+      "name": "Hittegods",
+      "desc": "Merke for kjæledyr, nøkler eller vesker"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Huk av for å dele e-posten din.",
       "tooMany": "For mange meldinger. Prøv igjen senere.",
       "failed": "Kunne ikke sende. Prøv igjen."
+    },
+    "ext": {
+      "mail": "Skriv e-post",
+      "call": "Ring nå",
+      "route": "Veibeskrivelse",
+      "open": "Åpne"
+    },
+    "text": {
+      "copy": "Kopier tekst",
+      "copied": "Kopiert"
+    },
+    "lost": {
+      "tag": "Fant du meg?",
+      "reward": "Finnerlønn: {reward}",
+      "call": "Ring eieren",
+      "mail": "Send e-post til eieren",
+      "note": "Takk for hjelpen!",
+      "subject": "Funnet: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Spørsmål",
     "fbAskEmail": "Be om e-postadresse (valgfritt)",
     "fbThanks": "Takketekst",
-    "fbReview": "Lenke til Google-anmeldelse"
+    "fbReview": "Lenke til Google-anmeldelse",
+    "subject": "Emne",
+    "body": "Melding",
+    "textBody": "Tekst",
+    "payUrl": "Betalingslenke",
+    "tiktokUrl": "TikTok-lenke",
+    "linkedinUrl": "LinkedIn-lenke",
+    "youtubeUrl": "YouTube-lenke",
+    "spotifyUrl": "Spotify-lenke",
+    "telegramUrl": "Telegram-lenke",
+    "bookingUrl": "Bookinglenke",
+    "meetingUrl": "Møtelenke",
+    "photo": "Bilde",
+    "lostName": "Navn på dyr eller ting",
+    "lostMsg": "Melding til finneren",
+    "reward": "Finnerlønn (valgfritt)"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -681,7 +766,11 @@
     "eventUrl": "For eksempel billettbutikken eller nettstedet ditt.",
     "route": "Send de som skanner til en annen lenke etter telefonens språk, land, klokkeslett eller enhet. Ingenting lagres om hvem som skanner.",
     "fbAskEmail": "Besøkende kan legge igjen e-post så du kan svare. Bare med samtykke.",
-    "fbReview": "Etter 4 eller 5 stjerner ber vi dem også skrive en offentlig anmeldelse her."
+    "fbReview": "Etter 4 eller 5 stjerner ber vi dem også skrive en offentlig anmeldelse her.",
+    "payUrl": "For eksempel PayPal.me, Stripe, SumUp eller butikkens betalingsside.",
+    "bookingUrl": "For eksempel bookingsiden din, TheFork eller Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby eller Webex.",
+    "reward": "Vises på siden, f.eks. «200 kr i finnerlønn»."
   },
   "more": {
     "title": "Flere alternativer",
@@ -1153,7 +1242,22 @@
     "eventName": "Sommerjazzkveld",
     "eventDesc": "Livemusikk på terrassen med tapas og drikke. Gratis inngang.",
     "fbQuestion": "Hvordan var besøket?",
-    "fbThanks": "Takk for tilbakemeldingen!"
+    "fbThanks": "Takk for tilbakemeldingen!",
+    "mailSubject": "Spørsmål om bestillingen min",
+    "mailBody": "Hei, jeg har et spørsmål om …",
+    "textTitle": "Husregler",
+    "textBody": "Velkommen! Vær stille etter kl. 22 og legg nøkkelen i boksen når du drar. God tur!",
+    "lostName": "Max",
+    "lostMsg": "Hei! Jeg har gått meg bort. Ring eieren min, takk!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Denne siden er beskyttet",
@@ -3265,7 +3369,7 @@
   },
   "wh": {
     "title": "Webhooks",
-    "lead": "Gi ditt eget system beskjed med en gang når en kode skannes eller endres, f.eks. for å oppdatere et CRM eller sende en melding.",
+    "lead": "For utviklere: vi sender en melding til ditt eget nettsted eller system så snart en kode skannes eller endres.",
     "secretTitle": "Signeringshemmeligheten din",
     "secretLead": "Kopier den nå; du ser den ikke igjen. Bruk den til å sjekke at meldinger faktisk kommer fra oss.",
     "evScan": "Hver skanning",

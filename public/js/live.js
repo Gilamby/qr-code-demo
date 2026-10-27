@@ -70,6 +70,15 @@
   function icsText(x) { return String(x || '').replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1'); }
 
   var WIRE = {
+    text: function () {
+      var b = $('.tx-copy'); if (!b) return; b.setAttribute('data-go', '');
+      b.onclick = function () { if (navigator.clipboard) navigator.clipboard.writeText(c.text || '').then(function () { toast(t('pv.text.copied')); }); };
+    },
+    lostfound: function () {
+      var call = $('.lf-call'), m = $('.lf-mail');
+      if (call) { if (c.phone) go(call, tel(c.phone)); else call.remove(); }
+      if (m) { if (c.email) go(m, mail(c.email) + '?subject=' + encodeURIComponent(t('pv.lost.subject', { name: c.name || '' }))); else m.remove(); }
+    },
     feedback: function () {
       var rating = 0, box = $('.ph-fb'); if (!box) return;
       $$('.fb-star').forEach(function (b) { b.classList.remove('on'); b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', 'false');

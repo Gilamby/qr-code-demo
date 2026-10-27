@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Feedback",
       "desc": "Ask what guests think"
+    },
+    "email": {
+      "name": "Email",
+      "desc": "Open a ready-made email"
+    },
+    "phone": {
+      "name": "Call",
+      "desc": "Call with one tap"
+    },
+    "location": {
+      "name": "Location",
+      "desc": "Open on the map"
+    },
+    "text": {
+      "name": "Text",
+      "desc": "Show a short text"
+    },
+    "payment": {
+      "name": "Payment",
+      "desc": "Pay or tip in one tap"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Your TikTok profile"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Your LinkedIn profile or page"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Your channel or video"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Playlist, album or podcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Chat or channel"
+    },
+    "booking": {
+      "name": "Booking",
+      "desc": "Book a table or appointment"
+    },
+    "meeting": {
+      "name": "Meeting",
+      "desc": "Join a Zoom, Teams or Meet call"
+    },
+    "lostfound": {
+      "name": "Lost & found",
+      "desc": "Tag for pets, keys or bags"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Tick the box to share your email.",
       "tooMany": "Too many messages. Please try again later.",
       "failed": "Couldn’t send. Please try again."
+    },
+    "ext": {
+      "mail": "Write email",
+      "call": "Call now",
+      "route": "Directions",
+      "open": "Open"
+    },
+    "text": {
+      "copy": "Copy text",
+      "copied": "Copied"
+    },
+    "lost": {
+      "tag": "Found me?",
+      "reward": "Reward: {reward}",
+      "call": "Call the owner",
+      "mail": "Email the owner",
+      "note": "Thank you for helping!",
+      "subject": "Found: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Question",
     "fbAskEmail": "Ask for an email address (optional)",
     "fbThanks": "Thank-you message",
-    "fbReview": "Google review link"
+    "fbReview": "Google review link",
+    "subject": "Subject",
+    "body": "Message",
+    "textBody": "Text",
+    "payUrl": "Payment link",
+    "tiktokUrl": "TikTok link",
+    "linkedinUrl": "LinkedIn link",
+    "youtubeUrl": "YouTube link",
+    "spotifyUrl": "Spotify link",
+    "telegramUrl": "Telegram link",
+    "bookingUrl": "Booking link",
+    "meetingUrl": "Meeting link",
+    "photo": "Photo",
+    "lostName": "Name of pet or item",
+    "lostMsg": "Message for the finder",
+    "reward": "Reward (optional)"
   },
   "panel": {
     "selected": "{type} selected"
@@ -681,7 +766,11 @@
     "eventUrl": "For example your ticket shop or website.",
     "route": "Send scanners to a different link based on their phone's language, their country, the time of day or their device. Nothing is stored about who scans.",
     "fbAskEmail": "Visitors can leave their email so you can reply. Only with their consent.",
-    "fbReview": "After 4 or 5 stars, visitors are invited to also leave a public review here."
+    "fbReview": "After 4 or 5 stars, visitors are invited to also leave a public review here.",
+    "payUrl": "For example PayPal.me, Stripe, SumUp or your shop’s payment page.",
+    "bookingUrl": "For example your booking page, TheFork or Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby or Webex.",
+    "reward": "Shown on the page, e.g. “€20 reward”."
   },
   "more": {
     "title": "More options",
@@ -1153,7 +1242,22 @@
     "eventName": "Summer jazz night",
     "eventDesc": "Live music on the terrace with tapas and drinks. Free entry.",
     "fbQuestion": "How was your visit?",
-    "fbThanks": "Thank you for your feedback!"
+    "fbThanks": "Thank you for your feedback!",
+    "mailSubject": "Question about my order",
+    "mailBody": "Hello, I have a question about …",
+    "textTitle": "House rules",
+    "textBody": "Welcome! Please keep the noise down after 22:00 and leave the key in the box when you go. Enjoy your stay!",
+    "lostName": "Max",
+    "lostMsg": "Hi! I’m lost. Please call my owner, thank you!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "This page is protected",
@@ -3310,7 +3414,7 @@
   },
   "wh": {
     "title": "Webhooks",
-    "lead": "Let your own system know straight away when a code is scanned or changed, e.g. to update a CRM or send a message.",
+    "lead": "For developers: we send a message to your own website or system as soon as a code is scanned or changed.",
     "secretTitle": "Your signing secret",
     "secretLead": "Copy it now; you won’t see it again. Use it to check that messages really come from us.",
     "evScan": "Each scan",

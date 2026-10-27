@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Palaute",
       "desc": "Kysy, mitä asiakkaat ajattelevat"
+    },
+    "email": {
+      "name": "Sähköposti",
+      "desc": "Avaa valmis sähköposti"
+    },
+    "phone": {
+      "name": "Soita",
+      "desc": "Soita yhdellä napautuksella"
+    },
+    "location": {
+      "name": "Sijainti",
+      "desc": "Avaa kartalla"
+    },
+    "text": {
+      "name": "Teksti",
+      "desc": "Näytä lyhyt teksti"
+    },
+    "payment": {
+      "name": "Maksu",
+      "desc": "Maksa tai anna tippi"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "TikTok-profiilisi"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "LinkedIn-profiilisi tai -sivusi"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Kanavasi tai videosi"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Soittolista, albumi tai podcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Keskustelu tai kanava"
+    },
+    "booking": {
+      "name": "Varaus",
+      "desc": "Varaa pöytä tai aika"
+    },
+    "meeting": {
+      "name": "Kokous",
+      "desc": "Liity Zoomiin, Teamsiin tai Meetiin"
+    },
+    "lostfound": {
+      "name": "Löytötavara",
+      "desc": "Merkki lemmikille, avaimille tai laukulle"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Merkitse ruutu jakaaksesi sähköpostisi.",
       "tooMany": "Liian monta viestiä. Yritä myöhemmin.",
       "failed": "Lähetys epäonnistui. Yritä uudelleen."
+    },
+    "ext": {
+      "mail": "Kirjoita sähköposti",
+      "call": "Soita nyt",
+      "route": "Reittiohjeet",
+      "open": "Avaa"
+    },
+    "text": {
+      "copy": "Kopioi teksti",
+      "copied": "Kopioitu"
+    },
+    "lost": {
+      "tag": "Löysitkö minut?",
+      "reward": "Löytöpalkkio: {reward}",
+      "call": "Soita omistajalle",
+      "mail": "Lähetä omistajalle sähköpostia",
+      "note": "Kiitos avusta!",
+      "subject": "Löydetty: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Kysymys",
     "fbAskEmail": "Pyydä sähköpostiosoite (valinnainen)",
     "fbThanks": "Kiitosviesti",
-    "fbReview": "Google-arvostelulinkki"
+    "fbReview": "Google-arvostelulinkki",
+    "subject": "Aihe",
+    "body": "Viesti",
+    "textBody": "Teksti",
+    "payUrl": "Maksulinkki",
+    "tiktokUrl": "TikTok-linkki",
+    "linkedinUrl": "LinkedIn-linkki",
+    "youtubeUrl": "YouTube-linkki",
+    "spotifyUrl": "Spotify-linkki",
+    "telegramUrl": "Telegram-linkki",
+    "bookingUrl": "Varauslinkki",
+    "meetingUrl": "Kokouslinkki",
+    "photo": "Kuva",
+    "lostName": "Lemmikin tai esineen nimi",
+    "lostMsg": "Viesti löytäjälle",
+    "reward": "Löytöpalkkio (valinnainen)"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -681,7 +766,11 @@
     "eventUrl": "Esimerkiksi lippukauppasi tai verkkosivusi.",
     "route": "Ohjaa skannaajat eri linkkiin puhelimen kielen, maan, kellonajan tai laitteen mukaan. Skannaajista ei tallenneta mitään.",
     "fbAskEmail": "Kävijät voivat jättää sähköpostinsa, jotta voit vastata. Vain heidän suostumuksellaan.",
-    "fbReview": "4 tai 5 tähden jälkeen pyydämme jättämään myös julkisen arvostelun tänne."
+    "fbReview": "4 tai 5 tähden jälkeen pyydämme jättämään myös julkisen arvostelun tänne.",
+    "payUrl": "Esimerkiksi PayPal.me, Stripe, SumUp tai kauppasi maksusivu.",
+    "bookingUrl": "Esimerkiksi varaussivusi, TheFork tai Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby tai Webex.",
+    "reward": "Näkyy sivulla, esim. ”20 € löytöpalkkio”."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -1153,7 +1242,22 @@
     "eventName": "Kesäinen jazzilta",
     "eventDesc": "Elävää musiikkia terassilla, tapaksia ja juomia. Vapaa pääsy.",
     "fbQuestion": "Millainen käyntisi oli?",
-    "fbThanks": "Kiitos palautteestasi!"
+    "fbThanks": "Kiitos palautteestasi!",
+    "mailSubject": "Kysymys tilauksestani",
+    "mailBody": "Hei, minulla on kysymys …",
+    "textTitle": "Talon säännöt",
+    "textBody": "Tervetuloa! Ole hiljaa klo 22 jälkeen ja jätä avain laatikkoon lähtiessäsi. Mukavaa oleskelua!",
+    "lostName": "Max",
+    "lostMsg": "Hei! Olen eksynyt. Soita omistajalleni, kiitos!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Tämä sivu on suojattu",
@@ -3265,7 +3369,7 @@
   },
   "wh": {
     "title": "Webhookit",
-    "lead": "Kerro omalle järjestelmällesi heti, kun koodi skannataan tai sitä muutetaan, esim. CRM:n päivittämiseksi tai viestin lähettämiseksi.",
+    "lead": "Kehittäjille: lähetämme viestin omalle sivustollesi tai järjestelmääsi heti, kun koodi skannataan tai sitä muutetaan.",
     "secretTitle": "Allekirjoitussalaisuutesi",
     "secretLead": "Kopioi se nyt; et näe sitä uudelleen. Sillä tarkistat, että viestit tulevat todella meiltä.",
     "evScan": "Jokainen skannaus",

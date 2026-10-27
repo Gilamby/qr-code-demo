@@ -5669,3 +5669,26 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .br-foot { display: flex; justify-content: flex-end; gap: 8px; }
 .api-form.wh-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
 .api-form.wh-form .btn { justify-self: start; }
+
+/* Tekst en Gevonden? (phone-templates.js) */
+.ph-tx { background: color-mix(in srgb, var(--pc, #475569) 6%, #fff); color: #0f172a; min-height: 100%; }
+.tx-page { padding: 22px 20px 28px; display: flex; flex-direction: column; gap: 12px; }
+.tx-ic { width: 44px; height: 44px; border-radius: 12px; background: var(--pc, #475569); color: var(--pc-ink, #fff); display: grid; place-items: center; }
+.tx-ic svg { width: 22px; height: 22px; }
+.tx-page h4 { margin: 0; font-size: 22px; font-weight: 800; line-height: 1.2; letter-spacing: -.01em; }
+.tx-body { margin: 0; font-size: 15.5px; line-height: 1.6; color: #334155; overflow-wrap: anywhere; display: grid; gap: 6px; }
+.tx-copy { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid #cbd5e1; background: #fff; color: #0f172a; font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }
+.tx-copy svg { width: 16px; height: 16px; }
+.ph-lf { background: #fff; color: #0f172a; min-height: 100%; }
+.lf-top { position: relative; height: 46%; min-height: 230px; background: color-mix(in srgb, var(--pc, #ea580c) 16%, #fff); }
+.lf-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lf-ph { display: grid; place-items: center; color: var(--pc, #ea580c); } .lf-ph svg { width: 64px; height: 64px; }
+.lf-tag { position: absolute; left: 16px; bottom: 14px; padding: 6px 12px; border-radius: 999px; background: var(--pc, #ea580c); color: var(--pc-ink, #fff); font-weight: 800; font-size: 13px; }
+.lf-sheet { padding: 18px 18px 26px; display: flex; flex-direction: column; gap: 10px; }
+.lf-sheet h4 { margin: 0; font-size: 24px; font-weight: 800; }
+.lf-msg { margin: 0; font-size: 15px; line-height: 1.5; color: #334155; }
+.lf-reward { margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #b45309; font-size: 14px; } .lf-reward svg { width: 18px; height: 18px; }
+.lf-call, .lf-mail { height: 50px; border-radius: 12px; border: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.lf-call { background: var(--pc, #ea580c); color: var(--pc-ink, #fff); } .lf-mail { background: #f1f5f9; color: #0f172a; }
+.lf-call svg, .lf-mail svg { width: 18px; height: 18px; }
+.lf-note { margin: 4px 0 0; font-size: 12px; color: #64748b; text-align: center; }

@@ -22,6 +22,11 @@ function previewRows(type, c) {
     case 'menu':      return [c.restaurant, t('pv.menu.dish1') + ' · ' + f.eur(18.5), t('pv.menu.cta')];
     case 'apps':      return [c.appName, 'App Store', 'Google Play'];
     case 'coupon':    return [c.title, c.code + ' · ' + f.pct((parseFloat(c.discount) || 0) / 100), t('pv.coupon.cta')];
+    case 'email':     return [c.email, c.subject, t('pv.ext.mail')];
+    case 'phone':     return [c.phone, c.title, t('pv.ext.call')];
+    case 'location':  return [ADDRESS.text(c.address), c.title, t('pv.ext.route')];
+    case 'payment': case 'tiktok': case 'linkedin': case 'youtube': case 'spotify': case 'telegram': case 'booking': case 'meeting':
+                      return [c.title || typeName(type), String(c.url || '').replace(/^https?:\/\/(www\.)?/, ''), t('pv.ext.open')];
     case 'feedback':  return [c.title, c.question || t('sample.fbQuestion'), t('pv.feedback.send')];
     case 'review':    return [c.title, c.url.replace(/^https?:\/\//, ''), t('pv.review.post')];
     case 'event':     return [c.title, c.startDate, t('pv.event.add')];

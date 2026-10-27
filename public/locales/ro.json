@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Feedback",
       "desc": "Întreabă clienții ce cred"
+    },
+    "email": {
+      "name": "E-mail",
+      "desc": "Deschide un e-mail gata scris"
+    },
+    "phone": {
+      "name": "Apel",
+      "desc": "Sună cu o atingere"
+    },
+    "location": {
+      "name": "Locație",
+      "desc": "Deschide pe hartă"
+    },
+    "text": {
+      "name": "Text",
+      "desc": "Arată un text scurt"
+    },
+    "payment": {
+      "name": "Plată",
+      "desc": "Plătește sau lasă bacșiș"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Profilul tău TikTok"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Profilul sau pagina ta LinkedIn"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Canalul sau videoclipul tău"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Playlist, album sau podcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Chat sau canal"
+    },
+    "booking": {
+      "name": "Rezervare",
+      "desc": "Rezervă o masă sau o programare"
+    },
+    "meeting": {
+      "name": "Întâlnire",
+      "desc": "Intră pe Zoom, Teams sau Meet"
+    },
+    "lostfound": {
+      "name": "Obiecte pierdute",
+      "desc": "Etichetă pentru animale, chei sau genți"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Bifează căsuța pentru a-ți împărtăși e-mailul.",
       "tooMany": "Prea multe mesaje. Încearcă mai târziu.",
       "failed": "Nu s-a putut trimite. Încearcă din nou."
+    },
+    "ext": {
+      "mail": "Scrie e-mail",
+      "call": "Sună acum",
+      "route": "Indicații",
+      "open": "Deschide"
+    },
+    "text": {
+      "copy": "Copiază textul",
+      "copied": "Copiat"
+    },
+    "lost": {
+      "tag": "M-ai găsit?",
+      "reward": "Recompensă: {reward}",
+      "call": "Sună proprietarul",
+      "mail": "Scrie proprietarului",
+      "note": "Mulțumim pentru ajutor!",
+      "subject": "Găsit: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Întrebare",
     "fbAskEmail": "Cere o adresă de e-mail (opțional)",
     "fbThanks": "Mesaj de mulțumire",
-    "fbReview": "Link recenzie Google"
+    "fbReview": "Link recenzie Google",
+    "subject": "Subiect",
+    "body": "Mesaj",
+    "textBody": "Text",
+    "payUrl": "Link de plată",
+    "tiktokUrl": "Link TikTok",
+    "linkedinUrl": "Link LinkedIn",
+    "youtubeUrl": "Link YouTube",
+    "spotifyUrl": "Link Spotify",
+    "telegramUrl": "Link Telegram",
+    "bookingUrl": "Link de rezervare",
+    "meetingUrl": "Link de întâlnire",
+    "photo": "Fotografie",
+    "lostName": "Numele animalului sau obiectului",
+    "lostMsg": "Mesaj pentru cel care îl găsește",
+    "reward": "Recompensă (opțional)"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -681,7 +766,11 @@
     "eventUrl": "De exemplu, magazinul de bilete sau site-ul tău.",
     "route": "Trimite pe cei care scanează la alt link în funcție de limba telefonului, țară, oră sau dispozitiv. Nu se salvează nimic despre cine scanează.",
     "fbAskEmail": "Vizitatorii își pot lăsa e-mailul ca să le poți răspunde. Doar cu acordul lor.",
-    "fbReview": "După 4 sau 5 stele, îi invităm să lase și o recenzie publică aici."
+    "fbReview": "După 4 sau 5 stele, îi invităm să lase și o recenzie publică aici.",
+    "payUrl": "De exemplu PayPal.me, Stripe, SumUp sau pagina de plată a magazinului tău.",
+    "bookingUrl": "De exemplu pagina ta de rezervări, TheFork sau Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby sau Webex.",
+    "reward": "Apare pe pagină, de ex. „Recompensă 100 lei”."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -1153,7 +1242,22 @@
     "eventName": "Seară de jazz de vară",
     "eventDesc": "Muzică live pe terasă, cu tapas și băuturi. Intrare liberă.",
     "fbQuestion": "Cum a fost vizita?",
-    "fbThanks": "Mulțumim pentru feedback!"
+    "fbThanks": "Mulțumim pentru feedback!",
+    "mailSubject": "Întrebare despre comanda mea",
+    "mailBody": "Bună, am o întrebare despre …",
+    "textTitle": "Regulile casei",
+    "textBody": "Bun venit! Te rugăm să fii liniștit după ora 22 și să lași cheia în cutie la plecare. Ședere plăcută!",
+    "lostName": "Max",
+    "lostMsg": "Bună! M-am pierdut. Sună-mi stăpânul, mulțumesc!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Această pagină este protejată",
@@ -3265,7 +3369,7 @@
   },
   "wh": {
     "title": "Webhook-uri",
-    "lead": "Anunță imediat sistemul tău când un cod este scanat sau modificat, de ex. pentru a actualiza un CRM sau a trimite un mesaj.",
+    "lead": "Pentru dezvoltatori: trimitem un mesaj către site-ul sau sistemul tău imediat ce un cod este scanat sau modificat.",
     "secretTitle": "Secretul tău de semnare",
     "secretLead": "Copiază-l acum; nu îl vei mai vedea. Cu el verifici că mesajele vin chiar de la noi.",
     "evScan": "Fiecare scanare",

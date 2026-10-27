@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Feedback",
       "desc": "Vraag wat gasten vinden"
+    },
+    "email": {
+      "name": "E-mail",
+      "desc": "Open een kant-en-klare e-mail"
+    },
+    "phone": {
+      "name": "Bellen",
+      "desc": "Bel met één tik"
+    },
+    "location": {
+      "name": "Locatie",
+      "desc": "Open op de kaart"
+    },
+    "text": {
+      "name": "Tekst",
+      "desc": "Toon een korte tekst"
+    },
+    "payment": {
+      "name": "Betalen",
+      "desc": "Betalen of fooi geven met één tik"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Je TikTok-profiel"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Je LinkedIn-profiel of -pagina"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Je kanaal of video"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Playlist, album of podcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Chat of kanaal"
+    },
+    "booking": {
+      "name": "Reserveren",
+      "desc": "Reserveer een tafel of afspraak"
+    },
+    "meeting": {
+      "name": "Meeting",
+      "desc": "Doe mee met Zoom, Teams of Meet"
+    },
+    "lostfound": {
+      "name": "Gevonden?",
+      "desc": "Label voor huisdier, sleutels of tas"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Vink het vakje aan om je e-mail te delen.",
       "tooMany": "Te veel berichten. Probeer het later nog eens.",
       "failed": "Versturen lukte niet. Probeer het nog eens."
+    },
+    "ext": {
+      "mail": "E-mail schrijven",
+      "call": "Nu bellen",
+      "route": "Route",
+      "open": "Openen"
+    },
+    "text": {
+      "copy": "Tekst kopiëren",
+      "copied": "Gekopieerd"
+    },
+    "lost": {
+      "tag": "Gevonden?",
+      "reward": "Beloning: {reward}",
+      "call": "Bel de eigenaar",
+      "mail": "Mail de eigenaar",
+      "note": "Bedankt voor je hulp!",
+      "subject": "Gevonden: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Vraag",
     "fbAskEmail": "Vraag om een e-mailadres (optioneel)",
     "fbThanks": "Bedankt-tekst",
-    "fbReview": "Link voor Google-review"
+    "fbReview": "Link voor Google-review",
+    "subject": "Onderwerp",
+    "body": "Bericht",
+    "textBody": "Tekst",
+    "payUrl": "Betaallink",
+    "tiktokUrl": "TikTok-link",
+    "linkedinUrl": "LinkedIn-link",
+    "youtubeUrl": "YouTube-link",
+    "spotifyUrl": "Spotify-link",
+    "telegramUrl": "Telegram-link",
+    "bookingUrl": "Reserveerlink",
+    "meetingUrl": "Meetinglink",
+    "photo": "Foto",
+    "lostName": "Naam van huisdier of voorwerp",
+    "lostMsg": "Bericht voor de vinder",
+    "reward": "Beloning (optioneel)"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -681,7 +766,11 @@
     "eventUrl": "Bijvoorbeeld je ticketshop of website.",
     "route": "Stuur scanners naar een andere link op basis van de taal van hun telefoon, hun land, het tijdstip of hun apparaat. Er wordt niets opgeslagen over wie scant.",
     "fbAskEmail": "Bezoekers kunnen hun e-mail achterlaten zodat je kunt reageren. Alleen met hun toestemming.",
-    "fbReview": "Na 4 of 5 sterren vragen we bezoekers om ook hier een openbare review te plaatsen."
+    "fbReview": "Na 4 of 5 sterren vragen we bezoekers om ook hier een openbare review te plaatsen.",
+    "payUrl": "Bijvoorbeeld PayPal.me, Stripe, SumUp of de betaalpagina van je winkel.",
+    "bookingUrl": "Bijvoorbeeld je reserveringspagina, TheFork of Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby of Webex.",
+    "reward": "Staat op de pagina, bijv. “€20 beloning”."
   },
   "more": {
     "title": "Meer opties",
@@ -1153,7 +1242,22 @@
     "eventName": "Zomerse jazzavond",
     "eventDesc": "Livemuziek op het terras met tapas en drankjes. Gratis toegang.",
     "fbQuestion": "Hoe was je bezoek?",
-    "fbThanks": "Bedankt voor je feedback!"
+    "fbThanks": "Bedankt voor je feedback!",
+    "mailSubject": "Vraag over mijn bestelling",
+    "mailBody": "Hallo, ik heb een vraag over …",
+    "textTitle": "Huisregels",
+    "textBody": "Welkom! Wees na 22:00 graag stil en laat de sleutel bij vertrek in het kastje. Fijn verblijf!",
+    "lostName": "Max",
+    "lostMsg": "Hoi! Ik ben verdwaald. Bel alsjeblieft mijn baasje, dankjewel!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Deze pagina is beveiligd",
@@ -3310,7 +3414,7 @@
   },
   "wh": {
     "title": "Webhooks",
-    "lead": "Laat je eigen systeem meteen weten als een code gescand of gewijzigd wordt, bijvoorbeeld om een CRM bij te werken of een bericht te sturen.",
+    "lead": "Voor ontwikkelaars: we sturen een bericht naar je eigen website of systeem zodra een code gescand of gewijzigd wordt.",
     "secretTitle": "Je ondertekeningsgeheim",
     "secretLead": "Kopieer het nu; je ziet het niet nog eens. Hiermee controleer je dat berichten echt van ons komen.",
     "evScan": "Elke scan",

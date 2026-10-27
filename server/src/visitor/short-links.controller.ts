@@ -127,6 +127,13 @@ export class ShortLinksController {
     // WhatsApp of SMS. SMS: berichtenprogramma openen met nummer en tekst ("?&body=" werkt op iPhone én Android)
     if (q.contentType === 'message' && c.channel === 'sms' && c.phone) return res.redirect('sms:' + c.phone.replace(/[^\d+]/g, '') + (c.message ? '?&body=' + encodeURIComponent(c.message) : ''));
     if (q.contentType === 'message' && c.phone) return res.redirect('https://wa.me/' + c.phone.replace(/\D/g, '') + (c.message ? '?text=' + encodeURIComponent(c.message) : ''));
+    // Extra soorten: e-mail, bellen en locatie openen meteen de juiste app
+    if (q.typeId === 'email' && c.email) { const qs = [c.subject && 'subject=' + encodeURIComponent(c.subject), c.body && 'body=' + encodeURIComponent(c.body)].filter(Boolean).join('&'); return res.redirect('mailto:' + c.email + (qs ? '?' + qs : '')); }
+    if (q.typeId === 'phone' && c.phone) return res.redirect('tel:' + String(c.phone).replace(/[^\d+]/g, ''));
+    if (q.typeId === 'location' && c.address) {
+      let a: any = null; try { a = JSON.parse(c.address); } catch (e) { a = { l: c.address }; }
+      return res.redirect('https://www.google.com/maps/search/?api=1&query=' + (a && a.lat != null ? a.lat + ',' + a.lon : encodeURIComponent((a && a.l) || '')));
+    }
     // Doorsturen naar wat al bestaat
     const ua = req.get('user-agent') || '';
     if (q.typeId === 'facebook' && c.url) return res.redirect(c.url);

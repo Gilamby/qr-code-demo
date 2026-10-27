@@ -509,6 +509,27 @@ var PHONE = (function () {
       '</div>';
     },
 
+    /* ---------- Tekst: titel en tekst, rustig leesbaar ---------- */
+    text: function (c, ex) {
+      var body = c.text || (ex ? t('sample.textBody') : '');
+      return '<div class="ph ph-tx">' + statusBar() + '<article class="tx-page"><span class="tx-ic">' + ic('note') + '</span>' +
+        '<h4>' + v(c.title || (ex ? t('sample.textTitle') : ''), '60%') + '</h4>' +
+        (body ? '<div class="tx-body">' + esc(body).replace(/\n/g, '<br>') + '</div>' : '<p class="tx-body"><i class="sk" style="width:90%"></i><i class="sk" style="width:75%"></i><i class="sk" style="width:82%"></i></p>') +
+        '<button type="button" class="tx-copy">' + ic('copy') + '<span>' + esc(t('pv.text.copy')) + '</span></button></article></div>';
+    },
+
+    /* ---------- Gevonden?: foto, naam, bericht, bellen / mailen ---------- */
+    lostfound: function (c, ex) {
+      var name = c.name || (ex ? t('sample.lostName') : ''), msg = c.message || (ex ? t('sample.lostMsg') : '');
+      var photo = c.photo ? '<img class="lf-photo" src="' + c.photo + '" alt="">' : '<span class="lf-photo lf-ph">' + ic('home') + '</span>';
+      return '<div class="ph ph-lf">' + statusBar(true) + '<div class="lf-top">' + photo + '<span class="lf-tag">' + esc(t('pv.lost.tag')) + '</span></div>' +
+        '<div class="lf-sheet"><h4>' + v(name, '50%') + '</h4>' + (msg ? '<p class="lf-msg">' + esc(msg) + '</p>' : '') +
+          (c.reward ? '<p class="lf-reward">' + ic('gift') + '<span>' + esc(t('pv.lost.reward', { reward: c.reward })) + '</span></p>' : '') +
+          '<button type="button" class="lf-call">' + ic('call') + '<span>' + esc(t('pv.lost.call')) + '</span></button>' +
+          (c.email || ex ? '<button type="button" class="lf-mail">' + ic('mail') + '<span>' + esc(t('pv.lost.mail')) + '</span></button>' : '') +
+          '<p class="lf-note">' + esc(t('pv.lost.note')) + '</p></div></div>';
+    },
+
     /* ---------- Feedback: sterren, opmerking, eventueel e-mail (met toestemming) ---------- */
     feedback: function (c, ex) {
       var name = c.title || (ex ? t('sample.bizName') : ''), q = c.question || t('sample.fbQuestion');

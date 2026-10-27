@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Opinions",
       "desc": "Pregunta què en pensen els clients"
+    },
+    "email": {
+      "name": "Correu",
+      "desc": "Obre un correu a punt"
+    },
+    "phone": {
+      "name": "Trucar",
+      "desc": "Truca amb un toc"
+    },
+    "location": {
+      "name": "Ubicació",
+      "desc": "Obre al mapa"
+    },
+    "text": {
+      "name": "Text",
+      "desc": "Mostra un text curt"
+    },
+    "payment": {
+      "name": "Pagament",
+      "desc": "Paga o deixa propina"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "El teu perfil de TikTok"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "El teu perfil o pàgina de LinkedIn"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "El teu canal o vídeo"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Llista, àlbum o pòdcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Xat o canal"
+    },
+    "booking": {
+      "name": "Reserves",
+      "desc": "Reserva taula o cita"
+    },
+    "meeting": {
+      "name": "Reunió",
+      "desc": "Uneix-te a Zoom, Teams o Meet"
+    },
+    "lostfound": {
+      "name": "Objecte perdut",
+      "desc": "Etiqueta per a mascotes, claus o bosses"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Marca la casella per compartir el correu.",
       "tooMany": "Massa missatges. Torna-ho a provar més tard.",
       "failed": "No s’ha pogut enviar. Torna-ho a provar."
+    },
+    "ext": {
+      "mail": "Escriure correu",
+      "call": "Truca ara",
+      "route": "Com arribar",
+      "open": "Obre"
+    },
+    "text": {
+      "copy": "Copia el text",
+      "copied": "Copiat"
+    },
+    "lost": {
+      "tag": "M’has trobat?",
+      "reward": "Recompensa: {reward}",
+      "call": "Truca al propietari",
+      "mail": "Escriu al propietari",
+      "note": "Gràcies per ajudar!",
+      "subject": "Trobat: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Pregunta",
     "fbAskEmail": "Demanar un correu (opcional)",
     "fbThanks": "Missatge d’agraïment",
-    "fbReview": "Enllaç de ressenya de Google"
+    "fbReview": "Enllaç de ressenya de Google",
+    "subject": "Assumpte",
+    "body": "Missatge",
+    "textBody": "Text",
+    "payUrl": "Enllaç de pagament",
+    "tiktokUrl": "Enllaç de TikTok",
+    "linkedinUrl": "Enllaç de LinkedIn",
+    "youtubeUrl": "Enllaç de YouTube",
+    "spotifyUrl": "Enllaç de Spotify",
+    "telegramUrl": "Enllaç de Telegram",
+    "bookingUrl": "Enllaç de reserva",
+    "meetingUrl": "Enllaç de reunió",
+    "photo": "Foto",
+    "lostName": "Nom de la mascota o objecte",
+    "lostMsg": "Missatge per a qui el trobi",
+    "reward": "Recompensa (opcional)"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -681,7 +766,11 @@
     "eventUrl": "Per exemple, la teva botiga d’entrades o el web.",
     "route": "Envia qui escaneja a un altre enllaç segons l’idioma del mòbil, el país, l’hora o el dispositiu. No es desa res sobre qui escaneja.",
     "fbAskEmail": "Els visitants poden deixar el correu perquè els responguis. Només amb el seu consentiment.",
-    "fbReview": "Després de 4 o 5 estrelles, convidem a deixar també una ressenya pública aquí."
+    "fbReview": "Després de 4 o 5 estrelles, convidem a deixar també una ressenya pública aquí.",
+    "payUrl": "Per exemple PayPal.me, Stripe, SumUp o la pàgina de pagament de la teva botiga.",
+    "bookingUrl": "Per exemple la teva pàgina de reserves, TheFork o Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby o Webex.",
+    "reward": "Es mostra a la pàgina, p. ex. “Recompensa de 20 €”."
   },
   "more": {
     "title": "Més opcions",
@@ -1153,7 +1242,22 @@
     "eventName": "Nit de jazz d’estiu",
     "eventDesc": "Música en directe a la terrassa amb tapes i begudes. Entrada lliure.",
     "fbQuestion": "Com ha anat la visita?",
-    "fbThanks": "Gràcies per la teva opinió!"
+    "fbThanks": "Gràcies per la teva opinió!",
+    "mailSubject": "Pregunta sobre la meva comanda",
+    "mailBody": "Hola, tinc una pregunta sobre …",
+    "textTitle": "Normes de la casa",
+    "textBody": "Benvingut! Fes poc soroll després de les 22:00 i deixa la clau a la caixa en marxar. Bona estada!",
+    "lostName": "Max",
+    "lostMsg": "Hola! M’he perdut. Truca al meu amo, gràcies!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Aquesta pàgina està protegida",
@@ -3265,7 +3369,7 @@
   },
   "wh": {
     "title": "Webhooks",
-    "lead": "Avisa el teu sistema al moment quan s’escaneja o es canvia un codi, p. ex. per actualitzar un CRM o enviar un missatge.",
+    "lead": "Per a desenvolupadors: enviem un missatge al teu web o sistema quan s’escaneja o es canvia un codi.",
     "secretTitle": "El teu secret de signatura",
     "secretLead": "Copia’l ara; no el tornaràs a veure. Serveix per comprovar que els missatges són nostres.",
     "evScan": "Cada escaneig",

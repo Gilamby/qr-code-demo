@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Spätná väzba",
       "desc": "Opýtajte sa hostí na názor"
+    },
+    "email": {
+      "name": "E-mail",
+      "desc": "Otvoriť pripravený e-mail"
+    },
+    "phone": {
+      "name": "Volať",
+      "desc": "Zavolať jedným ťuknutím"
+    },
+    "location": {
+      "name": "Poloha",
+      "desc": "Otvoriť na mape"
+    },
+    "text": {
+      "name": "Text",
+      "desc": "Zobraziť krátky text"
+    },
+    "payment": {
+      "name": "Platba",
+      "desc": "Zaplatiť alebo dať prepitné"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Váš profil TikTok"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Váš profil alebo stránka LinkedIn"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Váš kanál alebo video"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Playlist, album alebo podcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Chat alebo kanál"
+    },
+    "booking": {
+      "name": "Rezervácia",
+      "desc": "Rezervovať stôl alebo termín"
+    },
+    "meeting": {
+      "name": "Stretnutie",
+      "desc": "Pripojiť sa k Zoom, Teams alebo Meet"
+    },
+    "lostfound": {
+      "name": "Stratené a nájdené",
+      "desc": "Štítok pre zvieratá, kľúče alebo tašky"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Zaškrtnite políčko na zdieľanie e-mailu.",
       "tooMany": "Príliš veľa správ. Skúste to neskôr.",
       "failed": "Odoslanie zlyhalo. Skúste znova."
+    },
+    "ext": {
+      "mail": "Napísať e-mail",
+      "call": "Zavolať",
+      "route": "Navigovať",
+      "open": "Otvoriť"
+    },
+    "text": {
+      "copy": "Kopírovať text",
+      "copied": "Skopírované"
+    },
+    "lost": {
+      "tag": "Našli ste ma?",
+      "reward": "Odmena: {reward}",
+      "call": "Zavolať majiteľovi",
+      "mail": "Napísať majiteľovi",
+      "note": "Ďakujeme za pomoc!",
+      "subject": "Nájdené: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Otázka",
     "fbAskEmail": "Žiadať e-mail (voliteľné)",
     "fbThanks": "Poďakovanie",
-    "fbReview": "Odkaz na Google recenziu"
+    "fbReview": "Odkaz na Google recenziu",
+    "subject": "Predmet",
+    "body": "Správa",
+    "textBody": "Text",
+    "payUrl": "Platobný odkaz",
+    "tiktokUrl": "Odkaz na TikTok",
+    "linkedinUrl": "Odkaz na LinkedIn",
+    "youtubeUrl": "Odkaz na YouTube",
+    "spotifyUrl": "Odkaz na Spotify",
+    "telegramUrl": "Odkaz na Telegram",
+    "bookingUrl": "Odkaz na rezerváciu",
+    "meetingUrl": "Odkaz na stretnutie",
+    "photo": "Fotka",
+    "lostName": "Meno zvieraťa alebo vecí",
+    "lostMsg": "Správa pre nálezcu",
+    "reward": "Odmena (voliteľné)"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -681,7 +766,11 @@
     "eventUrl": "Napríklad váš predaj vstupeniek alebo web.",
     "route": "Posielajte skenujúcich na iný odkaz podľa jazyka telefónu, krajiny, času alebo zariadenia. O tom, kto skenuje, sa nič neukladá.",
     "fbAskEmail": "Návštevníci môžu zanechať e-mail, aby ste mohli odpovedať. Len s ich súhlasom.",
-    "fbReview": "Po 4 alebo 5 hviezdičkách ich požiadame aj o verejnú recenziu tu."
+    "fbReview": "Po 4 alebo 5 hviezdičkách ich požiadame aj o verejnú recenziu tu.",
+    "payUrl": "Napríklad PayPal.me, Stripe, SumUp alebo platobná stránka vášho obchodu.",
+    "bookingUrl": "Napríklad vaša rezervačná stránka, TheFork alebo Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby alebo Webex.",
+    "reward": "Zobrazí sa na stránke, napr. „Odmena 20 €“."
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -1153,7 +1242,22 @@
     "eventName": "Letný jazzový večer",
     "eventDesc": "Živá hudba na terase s tapas a nápojmi. Vstup voľný.",
     "fbQuestion": "Aká bola vaša návšteva?",
-    "fbThanks": "Ďakujeme za spätnú väzbu!"
+    "fbThanks": "Ďakujeme za spätnú väzbu!",
+    "mailSubject": "Otázka k mojej objednávke",
+    "mailBody": "Dobrý deň, mám otázku k …",
+    "textTitle": "Domáci poriadok",
+    "textBody": "Vitajte! Po 22:00 prosím buďte potichu a pri odchode nechajte kľúč v schránke. Príjemný pobyt!",
+    "lostName": "Max",
+    "lostMsg": "Ahoj! Stratil som sa. Zavolaj prosím môjmu pánovi, ďakujem!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Táto stránka je chránená",
@@ -3265,7 +3369,7 @@
   },
   "wh": {
     "title": "Webhooky",
-    "lead": "Dajte svojmu systému hneď vedieť, keď sa kód naskenuje alebo zmení, napr. na aktualizáciu CRM alebo odoslanie správy.",
+    "lead": "Pre vývojárov: pošleme správu na váš web alebo systém hneď, ako sa kód naskenuje alebo zmení.",
     "secretTitle": "Váš podpisový kľúč",
     "secretLead": "Skopírujte ho teraz; znova ho neuvidíte. Slúži na overenie, že správy naozaj prichádzajú od nás.",
     "evScan": "Každý sken",

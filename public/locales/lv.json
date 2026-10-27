@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Atsauksmes",
       "desc": "Pajautājiet viesiem viņu viedokli"
+    },
+    "email": {
+      "name": "E-pasts",
+      "desc": "Atvērt gatavu e-pastu"
+    },
+    "phone": {
+      "name": "Zvanīt",
+      "desc": "Zvanīt ar vienu pieskārienu"
+    },
+    "location": {
+      "name": "Atrašanās vieta",
+      "desc": "Atvērt kartē"
+    },
+    "text": {
+      "name": "Teksts",
+      "desc": "Rādīt īsu tekstu"
+    },
+    "payment": {
+      "name": "Maksājums",
+      "desc": "Samaksāt vai atstāt dzeramnaudu"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Jūsu TikTok profils"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Jūsu LinkedIn profils vai lapa"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Jūsu kanāls vai video"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Atskaņošanas saraksts, albums vai podkāsts"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Tērzēšana vai kanāls"
+    },
+    "booking": {
+      "name": "Rezervācija",
+      "desc": "Rezervēt galdiņu vai laiku"
+    },
+    "meeting": {
+      "name": "Sapulce",
+      "desc": "Pievienoties Zoom, Teams vai Meet"
+    },
+    "lostfound": {
+      "name": "Atrastās mantas",
+      "desc": "Birka mājdzīvniekam, atslēgām vai somai"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Atzīmējiet lodziņu, lai dalītos ar e-pastu.",
       "tooMany": "Pārāk daudz ziņu. Mēģiniet vēlāk.",
       "failed": "Neizdevās nosūtīt. Mēģiniet vēlreiz."
+    },
+    "ext": {
+      "mail": "Rakstīt e-pastu",
+      "call": "Zvanīt tagad",
+      "route": "Maršruts",
+      "open": "Atvērt"
+    },
+    "text": {
+      "copy": "Kopēt tekstu",
+      "copied": "Nokopēts"
+    },
+    "lost": {
+      "tag": "Atradāt mani?",
+      "reward": "Atlīdzība: {reward}",
+      "call": "Zvanīt īpašniekam",
+      "mail": "Rakstīt īpašniekam",
+      "note": "Paldies par palīdzību!",
+      "subject": "Atrasts: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Jautājums",
     "fbAskEmail": "Prasīt e-pastu (neobligāti)",
     "fbThanks": "Pateicības teksts",
-    "fbReview": "Google atsauksmes saite"
+    "fbReview": "Google atsauksmes saite",
+    "subject": "Temats",
+    "body": "Ziņa",
+    "textBody": "Teksts",
+    "payUrl": "Maksājuma saite",
+    "tiktokUrl": "TikTok saite",
+    "linkedinUrl": "LinkedIn saite",
+    "youtubeUrl": "YouTube saite",
+    "spotifyUrl": "Spotify saite",
+    "telegramUrl": "Telegram saite",
+    "bookingUrl": "Rezervācijas saite",
+    "meetingUrl": "Sapulces saite",
+    "photo": "Foto",
+    "lostName": "Mājdzīvnieka vai lietas nosaukums",
+    "lostMsg": "Ziņa atradējam",
+    "reward": "Atlīdzība (neobligāti)"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -681,7 +766,11 @@
     "eventUrl": "Piemēram, jūsu biļešu veikals vai vietne.",
     "route": "Sūtiet skenētājus uz citu saiti pēc tālruņa valodas, valsts, laika vai ierīces. Par skenētājiem nekas netiek saglabāts.",
     "fbAskEmail": "Apmeklētāji var atstāt e-pastu, lai jūs varētu atbildēt. Tikai ar viņu piekrišanu.",
-    "fbReview": "Pēc 4 vai 5 zvaigznēm aicinām atstāt arī publisku atsauksmi šeit."
+    "fbReview": "Pēc 4 vai 5 zvaigznēm aicinām atstāt arī publisku atsauksmi šeit.",
+    "payUrl": "Piemēram, PayPal.me, Stripe, SumUp vai jūsu veikala maksājumu lapa.",
+    "bookingUrl": "Piemēram, jūsu rezervāciju lapa, TheFork vai Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby vai Webex.",
+    "reward": "Redzama lapā, piem., “Atlīdzība 20 €”."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -1153,7 +1242,22 @@
     "eventName": "Vasaras džeza vakars",
     "eventDesc": "Dzīvā mūzika uz terases ar tapas un dzērieniem. Ieeja brīva.",
     "fbQuestion": "Kā jums patika apmeklējums?",
-    "fbThanks": "Paldies par atsauksmi!"
+    "fbThanks": "Paldies par atsauksmi!",
+    "mailSubject": "Jautājums par manu pasūtījumu",
+    "mailBody": "Sveiki, man ir jautājums par …",
+    "textTitle": "Mājas noteikumi",
+    "textBody": "Laipni lūdzam! Pēc 22:00 lūdzam ievērot klusumu un izbraucot atstāt atslēgu kastītē. Patīkamu uzturēšanos!",
+    "lostName": "Makss",
+    "lostMsg": "Sveiki! Esmu apmaldījies. Lūdzu, piezvaniet manam saimniekam, paldies!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Šī lapa ir aizsargāta",
@@ -3265,7 +3369,7 @@
   },
   "wh": {
     "title": "Tīmekļa āķi",
-    "lead": "Uzreiz paziņojiet savai sistēmai, kad kods tiek skenēts vai mainīts, piem., lai atjauninātu CRM vai nosūtītu ziņu.",
+    "lead": "Izstrādātājiem: nosūtām ziņu uz jūsu vietni vai sistēmu, tiklīdz kods tiek skenēts vai mainīts.",
     "secretTitle": "Jūsu parakstīšanas noslēpums",
     "secretLead": "Nokopējiet to tagad; vēlreiz to neredzēsiet. Ar to pārbaudāt, ka ziņas tiešām nāk no mums.",
     "evScan": "Katrs skenējums",

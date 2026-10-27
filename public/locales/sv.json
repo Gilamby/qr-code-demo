@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Feedback",
       "desc": "Fråga vad gästerna tycker"
+    },
+    "email": {
+      "name": "E-post",
+      "desc": "Öppna ett färdigt mejl"
+    },
+    "phone": {
+      "name": "Ring",
+      "desc": "Ring med ett tryck"
+    },
+    "location": {
+      "name": "Plats",
+      "desc": "Öppna på kartan"
+    },
+    "text": {
+      "name": "Text",
+      "desc": "Visa en kort text"
+    },
+    "payment": {
+      "name": "Betalning",
+      "desc": "Betala eller ge dricks"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Din TikTok-profil"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Din LinkedIn-profil eller sida"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Din kanal eller video"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Spellista, album eller podd"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Chatt eller kanal"
+    },
+    "booking": {
+      "name": "Bokning",
+      "desc": "Boka bord eller tid"
+    },
+    "meeting": {
+      "name": "Möte",
+      "desc": "Gå med i Zoom, Teams eller Meet"
+    },
+    "lostfound": {
+      "name": "Hittegods",
+      "desc": "Bricka för husdjur, nycklar eller väskor"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Kryssa i rutan för att dela din e-post.",
       "tooMany": "För många meddelanden. Försök igen senare.",
       "failed": "Kunde inte skicka. Försök igen."
+    },
+    "ext": {
+      "mail": "Skriv mejl",
+      "call": "Ring nu",
+      "route": "Vägbeskrivning",
+      "open": "Öppna"
+    },
+    "text": {
+      "copy": "Kopiera text",
+      "copied": "Kopierat"
+    },
+    "lost": {
+      "tag": "Hittade du mig?",
+      "reward": "Hittelön: {reward}",
+      "call": "Ring ägaren",
+      "mail": "Mejla ägaren",
+      "note": "Tack för hjälpen!",
+      "subject": "Hittad: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Fråga",
     "fbAskEmail": "Be om e-postadress (valfritt)",
     "fbThanks": "Tacktext",
-    "fbReview": "Länk till Google-recension"
+    "fbReview": "Länk till Google-recension",
+    "subject": "Ämne",
+    "body": "Meddelande",
+    "textBody": "Text",
+    "payUrl": "Betallänk",
+    "tiktokUrl": "TikTok-länk",
+    "linkedinUrl": "LinkedIn-länk",
+    "youtubeUrl": "YouTube-länk",
+    "spotifyUrl": "Spotify-länk",
+    "telegramUrl": "Telegram-länk",
+    "bookingUrl": "Bokningslänk",
+    "meetingUrl": "Möteslänk",
+    "photo": "Foto",
+    "lostName": "Namn på djur eller sak",
+    "lostMsg": "Meddelande till upphittaren",
+    "reward": "Hittelön (valfritt)"
   },
   "panel": {
     "selected": "{type} vald"
@@ -681,7 +766,11 @@
     "eventUrl": "Till exempel din biljettbutik eller webbplats.",
     "route": "Skicka den som skannar till en annan länk beroende på telefonens språk, land, tid eller enhet. Inget sparas om vem som skannar.",
     "fbAskEmail": "Besökare kan lämna sin e-post så att du kan svara. Bara med samtycke.",
-    "fbReview": "Efter 4 eller 5 stjärnor ber vi dem även lämna en offentlig recension här."
+    "fbReview": "Efter 4 eller 5 stjärnor ber vi dem även lämna en offentlig recension här.",
+    "payUrl": "T.ex. PayPal.me, Stripe, SumUp eller din butiks betalsida.",
+    "bookingUrl": "T.ex. din bokningssida, TheFork eller Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby eller Webex.",
+    "reward": "Visas på sidan, t.ex. ”200 kr i hittelön”."
   },
   "more": {
     "title": "Fler alternativ",
@@ -1153,7 +1242,22 @@
     "eventName": "Sommarjazzkväll",
     "eventDesc": "Livemusik på terrassen med tapas och drinkar. Fri entré.",
     "fbQuestion": "Hur var ditt besök?",
-    "fbThanks": "Tack för din feedback!"
+    "fbThanks": "Tack för din feedback!",
+    "mailSubject": "Fråga om min beställning",
+    "mailBody": "Hej, jag har en fråga om …",
+    "textTitle": "Husregler",
+    "textBody": "Välkommen! Var tyst efter kl. 22 och lämna nyckeln i lådan när du går. Trevlig vistelse!",
+    "lostName": "Max",
+    "lostMsg": "Hej! Jag har gått vilse. Ring min ägare, tack!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "visit": {
     "locked": "Den här sidan är skyddad",
@@ -3265,7 +3369,7 @@
   },
   "wh": {
     "title": "Webhooks",
-    "lead": "Meddela ditt eget system direkt när en kod skannas eller ändras, t.ex. för att uppdatera ett CRM eller skicka ett meddelande.",
+    "lead": "För utvecklare: vi skickar ett meddelande till din egen webbplats eller ditt system så fort en kod skannas eller ändras.",
     "secretTitle": "Din signeringshemlighet",
     "secretLead": "Kopiera den nu; du ser den inte igen. Med den kontrollerar du att meddelanden verkligen kommer från oss.",
     "evScan": "Varje skanning",

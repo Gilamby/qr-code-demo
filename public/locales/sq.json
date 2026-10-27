@@ -124,6 +124,58 @@
     "feedback": {
       "name": "Komente",
       "desc": "Pyetni klientët çfarë mendojnë"
+    },
+    "email": {
+      "name": "Email",
+      "desc": "Hap një email të gatshëm"
+    },
+    "phone": {
+      "name": "Telefono",
+      "desc": "Telefono me një prekje"
+    },
+    "location": {
+      "name": "Vendndodhja",
+      "desc": "Hap në hartë"
+    },
+    "text": {
+      "name": "Tekst",
+      "desc": "Shfaq një tekst të shkurtër"
+    },
+    "payment": {
+      "name": "Pagesa",
+      "desc": "Paguaj ose lër bakshish"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "desc": "Profili juaj në TikTok"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "desc": "Profili ose faqja juaj në LinkedIn"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "desc": "Kanali ose videoja juaj"
+    },
+    "spotify": {
+      "name": "Spotify",
+      "desc": "Listë, album ose podcast"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "desc": "Bisedë ose kanal"
+    },
+    "booking": {
+      "name": "Rezervim",
+      "desc": "Rezervo tavolinë ose takim"
+    },
+    "meeting": {
+      "name": "Takim online",
+      "desc": "Bashkohu në Zoom, Teams ose Meet"
+    },
+    "lostfound": {
+      "name": "Sende të humbura",
+      "desc": "Etiketë për kafshë, çelësa ose çanta"
     }
   },
   "pv": {
@@ -330,6 +382,24 @@
       "needConsent": "Shënoni kutinë për të ndarë email-in.",
       "tooMany": "Shumë mesazhe. Provoni më vonë.",
       "failed": "Dërgimi dështoi. Provoni përsëri."
+    },
+    "ext": {
+      "mail": "Shkruaj email",
+      "call": "Telefono tani",
+      "route": "Udhëzime",
+      "open": "Hap"
+    },
+    "text": {
+      "copy": "Kopjo tekstin",
+      "copied": "U kopjua"
+    },
+    "lost": {
+      "tag": "Më gjete?",
+      "reward": "Shpërblim: {reward}",
+      "call": "Telefono pronarin",
+      "mail": "Shkruaji pronarit",
+      "note": "Faleminderit për ndihmën!",
+      "subject": "U gjet: {name}"
     }
   },
   "hero": {
@@ -449,7 +519,22 @@
     "fbQuestion": "Pyetja",
     "fbAskEmail": "Kërko email (opsionale)",
     "fbThanks": "Mesazh falënderimi",
-    "fbReview": "Lidhja e vlerësimit në Google"
+    "fbReview": "Lidhja e vlerësimit në Google",
+    "subject": "Subjekti",
+    "body": "Mesazhi",
+    "textBody": "Teksti",
+    "payUrl": "Lidhja e pagesës",
+    "tiktokUrl": "Lidhja e TikTok",
+    "linkedinUrl": "Lidhja e LinkedIn",
+    "youtubeUrl": "Lidhja e YouTube",
+    "spotifyUrl": "Lidhja e Spotify",
+    "telegramUrl": "Lidhja e Telegram",
+    "bookingUrl": "Lidhja e rezervimit",
+    "meetingUrl": "Lidhja e takimit",
+    "photo": "Foto",
+    "lostName": "Emri i kafshës ose sendit",
+    "lostMsg": "Mesazh për gjetësin",
+    "reward": "Shpërblim (opsional)"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -681,7 +766,11 @@
     "eventUrl": "Për shembull dyqani i biletave ose faqja juaj.",
     "route": "Dërgojini skanuesit te një lidhje tjetër sipas gjuhës së telefonit, vendit, orës ose pajisjes. Nuk ruhet asgjë për ata që skanojnë.",
     "fbAskEmail": "Vizitorët mund të lënë email-in që t’u përgjigjeni. Vetëm me pëlqimin e tyre.",
-    "fbReview": "Pas 4 ose 5 yjeve, i ftojmë të lënë edhe një vlerësim publik këtu."
+    "fbReview": "Pas 4 ose 5 yjeve, i ftojmë të lënë edhe një vlerësim publik këtu.",
+    "payUrl": "Për shembull PayPal.me, Stripe, SumUp ose faqja e pagesës së dyqanit tuaj.",
+    "bookingUrl": "Për shembull faqja juaj e rezervimeve, TheFork ose Calendly.",
+    "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby ose Webex.",
+    "reward": "Shfaqet në faqe, p.sh. “Shpërblim 20 €”."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -1153,7 +1242,22 @@
     "eventName": "Mbrëmje vere me xhaz",
     "eventDesc": "Muzikë live në tarracë me tapas dhe pije. Hyrja falas.",
     "fbQuestion": "Si ishte vizita juaj?",
-    "fbThanks": "Faleminderit për komentin!"
+    "fbThanks": "Faleminderit për komentin!",
+    "mailSubject": "Pyetje për porosinë time",
+    "mailBody": "Përshëndetje, kam një pyetje për …",
+    "textTitle": "Rregullat e shtëpisë",
+    "textBody": "Mirë se erdhët! Ju lutemi heshtje pas orës 22:00 dhe lini çelësin në kuti kur largoheni. Qëndrim të këndshëm!",
+    "lostName": "Maks",
+    "lostMsg": "Përshëndetje! Kam humbur. Telefononi pronarin tim, faleminderit!",
+    "mailTo": "hello@cafe-lumen.example",
+    "payUrl": "https://paypal.me/cafelumen",
+    "tiktokUrl": "https://www.tiktok.com/@cafelumen",
+    "linkedinUrl": "https://www.linkedin.com/company/cafe-lumen",
+    "youtubeUrl": "https://www.youtube.com/@cafelumen",
+    "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
+    "telegramUrl": "https://t.me/cafelumen",
+    "bookingUrl": "https://cafe-lumen.example/book",
+    "meetingUrl": "https://zoom.us/j/123456789"
   },
   "fmt": {
     "months": [
@@ -3371,7 +3475,7 @@
   },
   "wh": {
     "title": "Webhooks",
-    "lead": "Njoftoni menjëherë sistemin tuaj kur një kod skanohet ose ndryshohet, p.sh. për të përditësuar një CRM ose për të dërguar një mesazh.",
+    "lead": "Për zhvilluesit: dërgojmë një mesazh në faqen ose sistemin tuaj sapo një kod skanohet ose ndryshohet.",
     "secretTitle": "Sekreti juaj i nënshkrimit",
     "secretLead": "Kopjojeni tani; nuk do ta shihni më. Me të kontrolloni që mesazhet vijnë vërtet nga ne.",
     "evScan": "Çdo skanim",
