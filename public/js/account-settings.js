@@ -314,7 +314,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     av.setAttribute('aria-label', t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd')); av.title = t(user.avatar ? 'acct.photoChange' : 'acct.photoAdd');
     document.getElementById('acctName').textContent = user.name || user.email;
     var role = user.role || (user.superAdmin ? 'super' : user.admin ? 'admin' : 'user');
-    document.getElementById('acctBadges').innerHTML = '<span class="acct-chip role-' + role + '">' + (role !== 'user' ? SVG + ICON.shield + '</svg>' : '') + t('acct.role_' + role) + '</span>' +
+    document.getElementById('acctBadges').innerHTML = (role !== 'user' ? '<span class="acct-chip role-' + role + '">' + SVG + ICON.shield + '</svg>' + t('acct.role_' + role) + '</span>' : '') +
       '<span class="acct-chip ok"><i></i>' + t('acct.statusActive') + '</span>';
     var since = sum && sum.createdAt ? i18n.fmt.stamp(sum.createdAt, 'long') : '';
     var em = document.getElementById('acctEmail'); em.removeAttribute('data-i18n');
@@ -593,8 +593,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
             '<div class="acct-wide">' + btns(t('acct.emailSend')) + '</div></form>' }) +
         row('tz', t('acct.timezone'), esc(tzLabel) + '<small>' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</small>', { edit: true, icon: 'clock', msg: m.tz,
           form: '<form data-form="tz">' + field(t('acct.timezone'), '<select name="timezone">' + opts + '</select>', { icon: 'clock', hint: '<span id="acctTzNow">' + esc(t('acct.tzHint', { time: nowIn(tz) })) + '</span>' }) + btns() + '</form>' }) +
-        row('role', t('acct.role'), '<span class="acct-chip role-' + role + '">' + (role !== 'user' ? SVG + ICON.shield + '</svg>' : '') + t('acct.role_' + role) + '</span>', { locked: true, icon: 'shield',
-          why: t(role === 'super' ? 'acct.whyRoleSuper' : 'acct.whyRole') }) +
+        // Rol alleen tonen voor beheerders; gewone gebruikers weten niet wat "User/Admin" is en hebben er niets aan
+        (role !== 'user' ? row('role', t('acct.role'), '<span class="acct-chip role-' + role + '">' + SVG + ICON.shield + '</svg>' + t('acct.role_' + role) + '</span>', { locked: true, icon: 'shield',
+          why: t(role === 'super' ? 'acct.whyRoleSuper' : 'acct.whyRole') }) : '') +
       '</div></div>';   // Account verwijderen staat niet meer onder je gegevens: zie Privacy > Mijn gegevens / Account verwijderen
   }
   /* ---------- Beveiliging: wachtwoord, apparaten, recente activiteit ---------- */
