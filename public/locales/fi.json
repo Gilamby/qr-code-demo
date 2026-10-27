@@ -3299,5 +3299,26 @@
     "csv": "Lataa CSV",
     "delete": "Poista vastaus",
     "deleteConfirm": "Poistetaanko vastaus pysyvästi?"
+  },
+  "brand": {
+    "nav": "Oma brändi",
+    "title": "Oma brändisi",
+    "lead": "Näytä logosi ja nimesi skannaussivuilla QR-Codexin sijaan.",
+    "name": "Brändin nimi",
+    "namePh": "esim. Café Lumen",
+    "logo": "Logo",
+    "logoHint": "Neliö toimii parhaiten. PNG, JPG tai WebP.",
+    "upload": "Lataa logo",
+    "change": "Vaihda logo",
+    "removeLogo": "Poista logo",
+    "preview": "Esikatselu",
+    "sample": "Tämä QR-koodi on hetken tauolla.",
+    "save": "Tallenna",
+    "saved": "Tallennettu. Skannaussivusi näyttävät nyt brändisi.",
+    "off": "Käytä taas QR-Codexia",
+    "offDone": "QR-Codex näytetään taas.",
+    "where": "Näkyy kuvakkeena selaimen välilehdellä ja sivuilla, jotka kävijät näkevät, kun koodi on tauolla, vanhentunut, ei ole vielä alkanut tai on salasanasuojattu.",
+    "errLogo": "Käytä PNG-, JPG- tai WebP-kuvaa, enintään 5 Mt.",
+    "errEmpty": "Anna nimi tai lataa logo."
   }
 }

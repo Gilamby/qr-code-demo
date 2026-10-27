@@ -195,12 +195,13 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     'delete': '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     x: '<path d="M6 6l12 12M18 6L6 18"/>',
     api: '<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5.5l-3 13"/>',
+    brand: '<path d="M4 4h9l7 7-9 9-7-7z"/><circle cx="8.5" cy="8.5" r="1.5"/>',
     domain: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
     team: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.3.2 3.9 1.8 4.5 4.8"/>'
   };
   var GROUPS = [
     ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
-    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav'], ['domain', 'dom.nav']]],
+    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav'], ['brand', 'brand.nav'], ['domain', 'dom.nav']]],
     ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
   ];
   var ALL_TABS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
@@ -208,7 +209,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
   function isMember() { return !!(window.Team && Team.member()); }
-  function shown(id) { return (id !== 'delete' || canDelete()) && !((isMember() || (user && user.admin)) && (id === 'billing' || id === 'plan' || id === 'api')) && !(id === 'domain' && (!(api.info && api.info().customDomains) || isMember() || (user && user.admin))) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html). Admins (Optimasys-team) zijn gratis: geen facturen, pakket, API of team
+  function shown(id) { return (id !== 'delete' || canDelete()) && !((isMember() || (user && user.admin)) && (id === 'billing' || id === 'plan' || id === 'api' || id === 'brand')) && !(id === 'domain' && (!(api.info && api.info().customDomains) || isMember() || (user && user.admin))) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html). Admins (Optimasys-team) zijn gratis: geen facturen, pakket, API of team
   function tabIds() { return ALL_TABS.filter(shown); }
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
@@ -554,6 +555,49 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (a === 'remove') api.account.domainRemove().then(function () { domBusy = false; loadDom(); }, function (x) { domBusy = false; domMsg = [domErr(x), 'bad']; draw(); });
   });
 
+  /* ---------- Eigen merk (Business): jouw logo en naam op je scanpagina's in plaats van QR-Codex ---------- */
+  var brandInfo = null, brandMsg = null, brandDraft = null;
+  function loadBrand() { api.account.brand().then(function (r) { brandInfo = r; brandDraft = { name: (r.brand && r.brand.name) || '', logo: (r.brand && r.brand.logo) || null }; if (tab === 'brand') draw(); }, function () { brandInfo = { error: true }; if (tab === 'brand') draw(); }); }
+  function brandPanel() {
+    var head = '<h2>' + t('brand.title') + '</h2><p>' + t('brand.lead') + '</p>';
+    if (!brandInfo) return '<div class="glass bg-card acct">' + head + '<p class="acct-note">' + t('plan.loading') + '</p></div>';
+    if (brandInfo.error) return '<div class="glass bg-card acct">' + head + '<p class="acct-msg bad" role="alert">' + t('plan.loadError') + '</p></div>';
+    if (!brandInfo.allowed) return '<div class="glass bg-card acct api-lock">' + head + '<button type="button" class="btn primary" data-gate-open="business" data-gate-reason="api">' + PlanGate.lock + ' ' + esc(t('pw.upgradeTo', { plan: t('plan.n_business') })) + '</button></div>';
+    var d = brandDraft, logo = d.logo ? '<img src="' + d.logo + '" alt="">' : '<span>' + esc((d.name || '?').slice(0, 1).toUpperCase()) + '</span>';
+    return '<div class="glass bg-card acct">' + head +
+      '<form class="br-form" data-form="brand"><label class="auth-f"><span>' + t('brand.name') + '</span><span class="auth-in"><input name="name" maxlength="60" value="' + esc(d.name) + '" placeholder="' + esc(t('brand.namePh')) + '"></span></label>' +
+      '<div class="br-logo"><span class="br-thumb">' + logo + '</span><div><b>' + t('brand.logo') + '</b><small>' + t('brand.logoHint') + '</small>' +
+        '<span class="br-acts"><label class="btn ghost sm"><input type="file" accept="image/png,image/jpeg,image/webp" data-brand-file hidden>' + t(d.logo ? 'brand.change' : 'brand.upload') + '</label>' + (d.logo ? '<button type="button" class="btn ghost sm" data-brand-nologo>' + t('brand.removeLogo') + '</button>' : '') + '</span></div></div>' +
+      '<div class="br-prev" aria-hidden="true"><small>' + t('brand.preview') + '</small><div class="br-tab">' + (d.logo ? '<img src="' + d.logo + '" alt="">' : '<i></i>') + '<span>' + esc(d.name || t('brand.namePh')) + '</span></div>' +
+        '<div class="br-card">' + (d.logo ? '<img src="' + d.logo + '" alt="">' : '') + '<b>' + esc(d.name || '') + '</b><p>' + t('brand.sample') + '</p></div></div>' +
+      (brandMsg ? '<p class="acct-msg ' + brandMsg[1] + '" role="status">' + esc(brandMsg[0]) + '</p>' : '') +
+      '<div class="br-foot">' + (brandInfo.brand ? '<button type="button" class="btn ghost danger-ghost" data-brand-off>' + t('brand.off') + '</button>' : '') + '<button type="submit" class="btn primary">' + t('brand.save') + '</button></div></form>' +
+      '<p class="acct-note">' + t('brand.where') + '</p></div>';
+  }
+  /** Logo verkleinen tot max. 192 px (PNG) zodat het klein blijft */
+  function shrinkLogo(file) {
+    return new Promise(function (ok, no) {
+      if (!file || !/^image\/(png|jpeg|webp)$/.test(file.type) || file.size > 5e6) return no();
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function () { var s = Math.min(1, 192 / Math.max(img.width, img.height)), c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); ok(c.toDataURL('image/png')); };
+      img.onerror = function () { URL.revokeObjectURL(url); no(); }; img.src = url;
+    });
+  }
+  box.addEventListener('change', function (e) {
+    if (!e.target.matches || !e.target.matches('[data-brand-file]')) return;
+    var f = box.querySelector('[data-form="brand"]'); if (f) brandDraft.name = f.name.value;
+    shrinkLogo(e.target.files[0]).then(function (d) { brandDraft.logo = d; brandMsg = null; draw(); }, function () { brandMsg = [t('brand.errLogo'), 'bad']; draw(); });
+  });
+  box.addEventListener('input', function (e) { if (e.target.closest && e.target.closest('[data-form="brand"]') && e.target.name === 'name') { brandDraft.name = e.target.value; var s = box.querySelector('.br-tab span'), b = box.querySelector('.br-card b'); if (s) s.textContent = e.target.value || t('brand.namePh'); if (b) b.textContent = e.target.value; } });
+  box.addEventListener('click', function (e) {
+    if (e.target.closest('[data-brand-nologo]')) { brandDraft.logo = null; return draw(); }
+    if (e.target.closest('[data-brand-off]')) { return api.account.brandOff().then(function () { brandMsg = [t('brand.offDone'), 'ok']; loadBrand(); }); }
+  });
+  box.addEventListener('submit', function (e) {
+    var f = e.target.closest('[data-form="brand"]'); if (!f) return; e.preventDefault();
+    brandDraft.name = f.name.value.trim(); if (!brandDraft.name && !brandDraft.logo) { brandMsg = [t('brand.errEmpty'), 'bad']; return draw(); }
+    api.account.brandSave(brandDraft).then(function (r) { brandInfo.brand = r.brand; brandMsg = [t('brand.saved'), 'ok']; draw(); }, function (x) { brandMsg = [t(x && x.code === 'logo' ? 'brand.errLogo' : 'myCodes.failed'), 'bad']; draw(); });
+  });
   function apiPanel() {
     if (!apiInfo) return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p class="acct-note">' + t('plan.loading') + '</p></div>';
     if (apiInfo.error) return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p class="acct-msg bad" role="alert">' + t('plan.loadError') + '</p></div>';
@@ -794,6 +838,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (tab === 'plan') return planPanel();
     if (tab === 'api') return apiPanel();
     if (tab === 'domain') return domPanel();
+    if (tab === 'brand') return brandPanel();
     if (tab === 'team') return window.Team ? Team.html() : '';
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
       '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + SVG + ICON.download + '</svg>' + t('acct.download') + '</button></div>' + note('export') + '</div>' + dangerCard(m);
@@ -825,7 +870,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function open(id, focus) {
     if (!shown(id)) id = 'profile';
     if (id === 'team' && window.Team) Team.ensure();
-    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; pmInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); } if (id === 'domain') { domInfo = null; domMsg = null; loadDom(); }
+    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; pmInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); } if (id === 'brand') { brandInfo = null; brandMsg = null; loadBrand(); } if (id === 'domain') { domInfo = null; domMsg = null; loadDom(); }
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     document.dispatchEvent(new CustomEvent('accounttab', { detail: id }));   // adresbalk bijwerken (#/account/…)

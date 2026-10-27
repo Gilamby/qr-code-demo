@@ -3299,5 +3299,26 @@
     "csv": "Lejupielādēt CSV",
     "delete": "Dzēst atbildi",
     "deleteConfirm": "Dzēst šo atbildi neatgriezeniski?"
+  },
+  "brand": {
+    "nav": "Savs zīmols",
+    "title": "Jūsu zīmols",
+    "lead": "Rādiet savu logotipu un nosaukumu skenēšanas lapās QR-Codex vietā.",
+    "name": "Zīmola nosaukums",
+    "namePh": "piem., Café Lumen",
+    "logo": "Logotips",
+    "logoHint": "Vislabāk kvadrātveida. PNG, JPG vai WebP.",
+    "upload": "Augšupielādēt logotipu",
+    "change": "Mainīt logotipu",
+    "removeLogo": "Noņemt logotipu",
+    "preview": "Priekšskatījums",
+    "sample": "Šis QR kods uz brīdi ir apturēts.",
+    "save": "Saglabāt",
+    "saved": "Saglabāts. Jūsu skenēšanas lapās tagad redzams jūsu zīmols.",
+    "off": "Atkal izmantot QR-Codex",
+    "offDone": "Atkal tiek rādīts QR-Codex.",
+    "where": "Redzams kā ikona pārlūka cilnē un lapās, ko apmeklētāji redz, kad kods ir apturēts, beidzies, vēl nav sācies vai aizsargāts ar paroli.",
+    "errLogo": "Izmantojiet PNG, JPG vai WebP attēlu līdz 5 MB.",
+    "errEmpty": "Ievadiet nosaukumu vai augšupielādējiet logotipu."
   }
 }

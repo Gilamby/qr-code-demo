@@ -338,6 +338,9 @@ var api = (function () {
       // Abonnement (demo: altijd de testfase)
       apiKeys: function () { return request('GET', 'api/account/api-keys'); },
       apiKeyNew: function (d) { return request('POST', 'api/account/api-keys', d); },
+      brand:     function ()      { return request('GET', 'api/account/brand'); },
+      brandSave: function (d)     { return request('PUT', 'api/account/brand', d); },
+      brandOff:  function ()      { return request('DELETE', 'api/account/brand'); },
       hooks:     function ()      { return request('GET', 'api/account/webhooks'); },
       hookNew:   function (d)     { return request('POST', 'api/account/webhooks', d); },
       hookEdit:  function (id, d) { return request('PATCH', 'api/account/webhooks/' + encodeURIComponent(id), d); },

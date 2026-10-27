@@ -3299,5 +3299,26 @@
     "csv": "Scarica CSV",
     "delete": "Elimina risposta",
     "deleteConfirm": "Eliminare definitivamente questa risposta?"
+  },
+  "brand": {
+    "nav": "Marchio proprio",
+    "title": "Il tuo marchio",
+    "lead": "Mostra logo e nome sulle tue pagine di scansione al posto di QR-Codex.",
+    "name": "Nome del marchio",
+    "namePh": "es. Café Lumen",
+    "logo": "Logo",
+    "logoHint": "Meglio quadrato. PNG, JPG o WebP.",
+    "upload": "Carica logo",
+    "change": "Cambia logo",
+    "removeLogo": "Rimuovi logo",
+    "preview": "Anteprima",
+    "sample": "Questo codice QR è in pausa per un momento.",
+    "save": "Salva",
+    "saved": "Salvato. Le tue pagine di scansione mostrano ora il tuo marchio.",
+    "off": "Torna a QR-Codex",
+    "offDone": "QR-Codex viene di nuovo mostrato.",
+    "where": "Visibile come icona nella scheda del browser e nelle pagine che i visitatori vedono quando un codice è in pausa, scaduto, non ancora iniziato o protetto da password.",
+    "errLogo": "Usa un’immagine PNG, JPG o WebP fino a 5 MB.",
+    "errEmpty": "Inserisci un nome o carica un logo."
   }
 }

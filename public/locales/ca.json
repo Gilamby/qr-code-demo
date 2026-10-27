@@ -3299,5 +3299,26 @@
     "csv": "Baixa el CSV",
     "delete": "Esborra la resposta",
     "deleteConfirm": "Vols esborrar aquesta resposta per sempre?"
+  },
+  "brand": {
+    "nav": "Marca pròpia",
+    "title": "La teva marca",
+    "lead": "Mostra el teu logo i nom a les pàgines d’escaneig en lloc de QR-Codex.",
+    "name": "Nom de la marca",
+    "namePh": "p. ex. Café Lumen",
+    "logo": "Logo",
+    "logoHint": "Millor quadrat. PNG, JPG o WebP.",
+    "upload": "Puja el logo",
+    "change": "Canvia el logo",
+    "removeLogo": "Treu el logo",
+    "preview": "Vista prèvia",
+    "sample": "Aquest codi QR està en pausa un moment.",
+    "save": "Desa",
+    "saved": "Desat. Les teves pàgines d’escaneig ara mostren la teva marca.",
+    "off": "Torna a usar QR-Codex",
+    "offDone": "Es torna a mostrar QR-Codex.",
+    "where": "Es veu com a icona a la pestanya del navegador i a les pàgines que veuen els visitants quan un codi està en pausa, caducat, encara no ha començat o té contrasenya.",
+    "errLogo": "Fes servir una imatge PNG, JPG o WebP de fins a 5 MB.",
+    "errEmpty": "Escriu un nom o puja un logo."
   }
 }

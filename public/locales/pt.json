@@ -3299,5 +3299,26 @@
     "csv": "Descarregar CSV",
     "delete": "Apagar resposta",
     "deleteConfirm": "Apagar esta resposta de vez?"
+  },
+  "brand": {
+    "nav": "Marca própria",
+    "title": "A sua marca",
+    "lead": "Mostre o seu logótipo e nome nas páginas de leitura em vez de QR-Codex.",
+    "name": "Nome da marca",
+    "namePh": "p. ex. Café Lumen",
+    "logo": "Logótipo",
+    "logoHint": "Quadrado funciona melhor. PNG, JPG ou WebP.",
+    "upload": "Carregar logótipo",
+    "change": "Mudar logótipo",
+    "removeLogo": "Remover logótipo",
+    "preview": "Pré-visualização",
+    "sample": "Este código QR está em pausa por um momento.",
+    "save": "Guardar",
+    "saved": "Guardado. As suas páginas de leitura mostram agora a sua marca.",
+    "off": "Voltar a usar QR-Codex",
+    "offDone": "QR-Codex volta a ser mostrado.",
+    "where": "Aparece como ícone no separador do navegador e nas páginas que os visitantes veem quando um código está em pausa, expirado, ainda não começou ou tem palavra-passe.",
+    "errLogo": "Use uma imagem PNG, JPG ou WebP até 5 MB.",
+    "errEmpty": "Introduza um nome ou carregue um logótipo."
   }
 }

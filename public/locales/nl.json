@@ -3344,5 +3344,26 @@
     "csv": "CSV downloaden",
     "delete": "Antwoord wissen",
     "deleteConfirm": "Dit antwoord voorgoed wissen?"
+  },
+  "brand": {
+    "nav": "Eigen merk",
+    "title": "Je eigen merk",
+    "lead": "Toon je logo en naam op je scanpagina's in plaats van QR-Codex.",
+    "name": "Merknaam",
+    "namePh": "bijv. Café Lumen",
+    "logo": "Logo",
+    "logoHint": "Vierkant werkt het best. PNG, JPG of WebP.",
+    "upload": "Logo uploaden",
+    "change": "Logo wijzigen",
+    "removeLogo": "Logo weghalen",
+    "preview": "Voorbeeld",
+    "sample": "Deze QR-code staat even op pauze.",
+    "save": "Opslaan",
+    "saved": "Opgeslagen. Je scanpagina's tonen nu je eigen merk.",
+    "off": "Weer QR-Codex gebruiken",
+    "offDone": "QR-Codex wordt weer getoond.",
+    "where": "Te zien als icoon in het browsertabblad en op de pagina's die bezoekers zien als een code gepauzeerd, verlopen, nog niet begonnen of met wachtwoord beveiligd is.",
+    "errLogo": "Gebruik een PNG, JPG of WebP tot 5 MB.",
+    "errEmpty": "Vul een naam in of upload een logo."
   }
 }
