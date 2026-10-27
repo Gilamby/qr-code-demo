@@ -2560,7 +2560,8 @@
     "trSame": "Questo codice appartiene già a quell’account.",
     "trBad": "Non puoi trasferire un codice a questo account.",
     "log_transfer": "Trasferito",
-    "log_ticket_reply": "Risposta del supporto"
+    "log_ticket_reply": "Risposta del supporto",
+    "transferOk": "Trasferisci"
   },
   "plan": {
     "title": "Abbonamento",

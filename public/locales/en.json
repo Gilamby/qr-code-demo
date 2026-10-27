@@ -2570,7 +2570,8 @@
     "trSame": "This code already belongs to that account.",
     "trBad": "You can’t transfer a code to this account.",
     "log_transfer": "Transferred",
-    "log_ticket_reply": "Support answer"
+    "log_ticket_reply": "Support answer",
+    "transferOk": "Transfer"
   },
   "plan": {
     "title": "Subscription",

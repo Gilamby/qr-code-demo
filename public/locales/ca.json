@@ -2560,7 +2560,8 @@
     "trSame": "Aquest codi ja és d’aquest compte.",
     "trBad": "No pots transferir un codi a aquest compte.",
     "log_transfer": "Transferit",
-    "log_ticket_reply": "Resposta de suport"
+    "log_ticket_reply": "Resposta de suport",
+    "transferOk": "Transfereix"
   },
   "plan": {
     "title": "Subscripció",

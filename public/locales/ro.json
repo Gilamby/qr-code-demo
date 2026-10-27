@@ -2560,7 +2560,8 @@
     "trSame": "Codul aparține deja acelui cont.",
     "trBad": "Nu poți transfera un cod în acest cont.",
     "log_transfer": "Transferat",
-    "log_ticket_reply": "Răspuns de la asistență"
+    "log_ticket_reply": "Răspuns de la asistență",
+    "transferOk": "Transferă"
   },
   "plan": {
     "title": "Abonament",

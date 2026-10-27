@@ -2560,7 +2560,8 @@
     "trSame": "Tento kód už patrí tomu účtu.",
     "trBad": "Na tento účet nemôžete presunúť kód.",
     "log_transfer": "Presunuté",
-    "log_ticket_reply": "Odpoveď podpory"
+    "log_ticket_reply": "Odpoveď podpory",
+    "transferOk": "Presunúť"
   },
   "plan": {
     "title": "Predplatné",

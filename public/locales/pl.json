@@ -2560,7 +2560,8 @@
     "trSame": "Ten kod już należy do tego konta.",
     "trBad": "Nie można przenieść kodu na to konto.",
     "log_transfer": "Przeniesiono",
-    "log_ticket_reply": "Odpowiedź wsparcia"
+    "log_ticket_reply": "Odpowiedź wsparcia",
+    "transferOk": "Przenieś"
   },
   "plan": {
     "title": "Subskrypcja",

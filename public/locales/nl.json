@@ -2570,7 +2570,8 @@
     "trSame": "Deze code is al van dat account.",
     "trBad": "Naar dit account kun je geen code overzetten.",
     "log_transfer": "Overgezet",
-    "log_ticket_reply": "Support-antwoord"
+    "log_ticket_reply": "Support-antwoord",
+    "transferOk": "Overzetten"
   },
   "plan": {
     "title": "Abonnement",

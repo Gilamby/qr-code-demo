@@ -2560,7 +2560,8 @@
     "trSame": "Koodi kuuluu jo tälle tilille.",
     "trBad": "Tälle tilille ei voi siirtää koodia.",
     "log_transfer": "Siirretty",
-    "log_ticket_reply": "Tuen vastaus"
+    "log_ticket_reply": "Tuen vastaus",
+    "transferOk": "Siirrä"
   },
   "plan": {
     "title": "Tilaus",

@@ -2560,7 +2560,8 @@
     "trSame": "Este código já pertence a essa conta.",
     "trBad": "Não pode transferir um código para esta conta.",
     "log_transfer": "Transferido",
-    "log_ticket_reply": "Resposta do suporte"
+    "log_ticket_reply": "Resposta do suporte",
+    "transferOk": "Transferir"
   },
   "plan": {
     "title": "Assinatura",

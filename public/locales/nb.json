@@ -2560,7 +2560,8 @@
     "trSame": "Koden tilhører allerede den kontoen.",
     "trBad": "Du kan ikke overføre en kode til denne kontoen.",
     "log_transfer": "Overført",
-    "log_ticket_reply": "Støttesvar"
+    "log_ticket_reply": "Støttesvar",
+    "transferOk": "Overfør"
   },
   "plan": {
     "title": "Abonnement",

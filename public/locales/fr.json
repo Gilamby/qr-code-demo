@@ -2566,7 +2566,8 @@
     "trSame": "Ce code appartient déjà à ce compte.",
     "trBad": "Impossible de transférer un code vers ce compte.",
     "log_transfer": "Transféré",
-    "log_ticket_reply": "Réponse du support"
+    "log_ticket_reply": "Réponse du support",
+    "transferOk": "Transférer"
   },
   "plan": {
     "title": "Abonnement",

@@ -310,7 +310,7 @@ var AdminCodes = (function () {
   }
   /* Code naar een ander klantaccount (bv. van een bureau naar de klant zelf) */
   function transferOne(r) {
-    confirmBox({ icon: 'user', title: t('ac.transferTitle', { name: esc(CodeUtil.displayName(r)) }), text: t('ac.transferText', { owner: esc(r.owner ? r.owner.name || r.owner.email : '') }), ok: t('ac.transfer'),
+    confirmBox({ icon: 'user', title: t('ac.transferTitle', { name: esc(CodeUtil.displayName(r)) }), text: t('ac.transferText', { owner: esc(r.owner ? r.owner.name || r.owner.email : '') }), ok: t('ac.transferOk'),
       extra: '<label class="auth-f ac-dlg-f"><span>' + t('ac.transferEmail') + '</span><input type="email" name="to" required autocomplete="off" placeholder="naam@bedrijf.nl"></label>',
       onOk: function () {
         var to = dlg.querySelector('[name=to]'), email = to ? to.value.trim() : '';

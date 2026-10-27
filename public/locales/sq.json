@@ -2666,7 +2666,8 @@
     "trSame": "Ky kod i përket tashmë asaj llogarie.",
     "trBad": "Nuk mund të transferoni kod në këtë llogari.",
     "log_transfer": "U transferua",
-    "log_ticket_reply": "Përgjigje nga mbështetja"
+    "log_ticket_reply": "Përgjigje nga mbështetja",
+    "transferOk": "Transfero"
   },
   "plan": {
     "title": "Abonimi",

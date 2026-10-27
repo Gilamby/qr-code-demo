@@ -2560,7 +2560,8 @@
     "trSame": "Šis kods jau pieder tam kontam.",
     "trBad": "Uz šo kontu kodu pārvietot nevar.",
     "log_transfer": "Pārvietots",
-    "log_ticket_reply": "Atbalsta atbilde"
+    "log_ticket_reply": "Atbalsta atbilde",
+    "transferOk": "Pārvietot"
   },
   "plan": {
     "title": "Abonements",
