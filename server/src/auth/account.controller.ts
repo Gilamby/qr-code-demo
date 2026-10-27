@@ -3,6 +3,8 @@
    Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond, factuurgegevens,
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
+import { MAX_HOOKS, deliver, listHooks, newHook, publicHook, saveHooks } from '../webhooks';
+import { assertPublic } from '../helpers/url-check';
 import { pwnedCount } from './pwned';
 import * as crypto from 'crypto';
 import { isBlocked } from './blocklist';
@@ -190,6 +192,56 @@ export class AccountController {
   async apiKeyDel(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string) {
     if ((req as any).member) throw fail(403, 'team');
     if (!(await revokeKey(this.db, user.id, String(id)))) throw fail(404, 'not_found');
+  }
+
+  /* ---------- Webhooks (Business, Mijn account > API) ---------- */
+  @Get('account/webhooks')
+  async hooks(@Req() req: Request, @CurrentUser() user: User) {
+    if ((req as any).member) throw fail(403, 'team');
+    return { allowed: (await planFor(this.db, user.id)).api, hooks: (await listHooks(this.db, user.id)).map(publicHook), max: MAX_HOOKS };
+  }
+  @Post('account/webhooks')
+  @HttpCode(201)
+  async hookNew(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if ((req as any).member) throw fail(403, 'team');
+    if (!(await planFor(this.db, user.id)).api) throw fail(403, 'plan_api');
+    if (this.auth.limited('hook-new:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    const url = String(b.url || '').trim(), events = Array.isArray(b.events) ? b.events.filter((e: any) => e === 'scan' || e === 'code') : [];
+    const dev = process.env.WEBHOOK_ALLOW_PRIVATE === '1';
+    let ok = false; try { const u = new URL(url); ok = (u.protocol === 'https:' || (dev && u.protocol === 'http:')) && url.length <= 500; } catch (e) { ok = false; }
+    if (!ok) throw fail(400, 'url');
+    if (!events.length) throw fail(400, 'events');
+    if (!dev) { try { await assertPublic(url); } catch (e) { throw fail(400, 'url_private'); } }
+    const list = await listHooks(this.db, user.id); if (list.length >= MAX_HOOKS) throw fail(400, 'max_hooks', { max: MAX_HOOKS });
+    const h = newHook(url, events); list.push(h); await saveHooks(this.db, user.id, list);
+    await this.db.addActivity(user.id, 'webhook_created', this.auth.meta(req)).catch(() => {});
+    return { hook: publicHook(h), secret: h.secret };   // het geheim alleen nu volledig
+  }
+  @Patch('account/webhooks/:id')
+  async hookEdit(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string, @Body() b: any = {}) {
+    if ((req as any).member) throw fail(403, 'team');
+    const list = await listHooks(this.db, user.id), h = list.find((x) => x.id === id); if (!h) throw fail(404, 'not_found');
+    if (b.on !== undefined) { h.on = !!b.on; if (h.on) h.fails = 0; }
+    if (Array.isArray(b.events)) { const ev = b.events.filter((e: any) => e === 'scan' || e === 'code'); if (!ev.length) throw fail(400, 'events'); h.events = ev; }
+    await saveHooks(this.db, user.id, list); return { hook: publicHook(h) };
+  }
+  @Delete('account/webhooks/:id')
+  @HttpCode(204)
+  async hookDel(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string) {
+    if ((req as any).member) throw fail(403, 'team');
+    const list = await listHooks(this.db, user.id); if (!list.some((x) => x.id === id)) throw fail(404, 'not_found');
+    await saveHooks(this.db, user.id, list.filter((x) => x.id !== id));
+  }
+  /** Proberen: een voorbeeld-bericht sturen en laten zien wat de server van de klant antwoordde */
+  @Post('account/webhooks/:id/test')
+  @HttpCode(200)
+  async hookTest(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string) {
+    if ((req as any).member) throw fail(403, 'team');
+    if (this.auth.limited('hook-test:' + user.id, 20, 10)) throw fail(429, 'too_many');
+    const list = await listHooks(this.db, user.id), h = list.find((x) => x.id === id); if (!h) throw fail(404, 'not_found');
+    const r = await deliver(h, { event: 'test', at: new Date().toISOString(), code: { id: 'example', name: 'Example', type: 'website', shortUrl: null }, scan: { country: 'ES', device: 'mobile', os: 'iOS' } });
+    h.last = { at: new Date().toISOString(), ok: r.ok, status: r.status }; await saveHooks(this.db, user.id, list);
+    return { ok: r.ok, status: r.status, hook: publicHook(h) };
   }
 
   /** Facturen: met Stripe de echte facturen (link naar factuur en PDF), anders de demo-betalingen */

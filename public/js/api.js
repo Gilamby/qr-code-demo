@@ -336,6 +336,11 @@ var api = (function () {
       // Abonnement (demo: altijd de testfase)
       apiKeys: function () { return request('GET', 'api/account/api-keys'); },
       apiKeyNew: function (d) { return request('POST', 'api/account/api-keys', d); },
+      hooks:     function ()      { return request('GET', 'api/account/webhooks'); },
+      hookNew:   function (d)     { return request('POST', 'api/account/webhooks', d); },
+      hookEdit:  function (id, d) { return request('PATCH', 'api/account/webhooks/' + encodeURIComponent(id), d); },
+      hookDel:   function (id)    { return request('DELETE', 'api/account/webhooks/' + encodeURIComponent(id)); },
+      hookTest:  function (id)    { return request('POST', 'api/account/webhooks/' + encodeURIComponent(id) + '/test', {}); },
       apiKeyDel: function (id) { return request('DELETE', 'api/account/api-keys/' + encodeURIComponent(id)); },
       invoices: function () { return request('GET', 'api/account/invoices'); },
       checkoutDemo: function (d) { return request('POST', 'api/account/checkout-demo', d); },

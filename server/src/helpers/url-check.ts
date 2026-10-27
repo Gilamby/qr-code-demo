@@ -15,7 +15,7 @@ function isPrivate(ip: string) {
   const v = ip.toLowerCase();
   return v === '::1' || v === '::' || v.startsWith('fc') || v.startsWith('fd') || v.startsWith('fe80') || v.startsWith('::ffff:127.') || v.startsWith('::ffff:10.') || v.startsWith('::ffff:192.168.');
 }
-async function assertPublic(url: string) {
+export async function assertPublic(url: string) {
   const u = new URL(url);
   if (!/^https?:$/.test(u.protocol)) throw new Error('protocol');
   if (u.hostname === 'localhost' || u.hostname.endsWith('.local')) throw new Error('private');
