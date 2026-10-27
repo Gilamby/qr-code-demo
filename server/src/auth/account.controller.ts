@@ -48,6 +48,8 @@ export function maskIp(ip: string | null) {
 
 const START_PAGES = ['home', 'create', 'myCodes', 'analytics'];
 
+const TOUR_SINCE = '2026-10-27';   // accounts van vóór de rondleiding krijgen hem niet automatisch (wel via Help > Rondleiding opnieuw)
+
 @Controller('api')
 @UseGuards(LoggedIn)
 export class AccountController {
@@ -245,7 +247,8 @@ export class AccountController {
   @Get('account/prefs')
   async prefs(@CurrentUser() user: User) {
     let p: any = {}; try { p = JSON.parse((await this.db.getSetting('uprefs:' + user.id)) || '{}'); } catch (e) { p = {}; }
-    return { start: START_PAGES.includes(p.start) ? p.start : 'home', tour: !!p.tour };
+    // tour: korte rondleiding alleen voor nieuwe accounts (gemaakt vanaf TOUR_SINCE); bestaande klanten zien hem niet vanzelf
+    return { start: START_PAGES.includes(p.start) ? p.start : 'home', tour: !!p.tour || String(user.createdAt || '') < TOUR_SINCE };
   }
   @Patch('account/prefs')
   async savePrefs(@CurrentUser() user: User, @Body() b: any = {}) {
