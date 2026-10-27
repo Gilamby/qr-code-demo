@@ -164,7 +164,7 @@ nav { margin-top: 30px; display: flex; flex-direction: column; gap: 2px; flex: 1
 .qr-card .title { font-size: 14.5px; font-weight: 600; line-height: 1.2; }
 .qr-card:hover { border-color: color-mix(in srgb, var(--fg) 22%, transparent); color: var(--fg); transform: translateY(-1px); }
 .qr-card:hover .ic { opacity: 1; }
-.qr-card.selected { border-color: var(--accent); background: var(--tile-on); color: var(--fg); box-shadow: 0 0 0 1px var(--accent), 0 0 26px -6px var(--accent); }
+.qr-card.selected { border-color: var(--accent); background: var(--tile-on); color: var(--fg); box-shadow: 0 0 0 1px var(--accent); }   /* geen gloed: die werd in de carrousel vierkant afgeknipt */
 .qr-card.selected .ic { color: var(--accent); opacity: 1; }
 .qr-card.selected .title { font-weight: 700; }
 .qr-card:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
