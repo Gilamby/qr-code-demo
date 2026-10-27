@@ -371,6 +371,13 @@ var api = (function () {
       get:  function ()  { return request('GET', 'api/admin/settings'); },
       save: function (d) { return request('PATCH', 'api/admin/settings', d).then(function (r) { info.maintenance = { on: !!(r.maintenance && r.maintenance.on), message: (r.maintenance && r.maintenance.message) || '' }; info.legal = Object.assign({}, info.legal, r.company || {}); document.dispatchEvent(new CustomEvent('maintenance-change')); return r; }); }
     },
+    // Storingen en meldingen (Beheer > Instellingen > Onderhoud); openbaar: /status
+    incidents: {
+      list:   function ()      { return request('GET', 'api/admin/incidents'); },
+      add:    function (d)     { return request('POST', 'api/admin/incidents', d); },
+      edit:   function (id, d) { return request('PATCH', 'api/admin/incidents/' + encodeURIComponent(id), d); },
+      remove: function (id)    { return request('DELETE', 'api/admin/incidents/' + encodeURIComponent(id)); },
+    },
     // Klanten (alleen voor het team, alleen met server)
     customers: {
       list:     function ()       { return request('GET', 'api/admin/customers'); },

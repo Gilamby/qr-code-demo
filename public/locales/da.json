@@ -1097,7 +1097,30 @@
     "inactive": "Denne QR-kode er ikke aktiv",
     "inactiveText": "Denne kode er midlertidigt utilgængelig. Prøv igen senere.",
     "notYet": "Denne QR-kode er ikke aktiv endnu",
-    "notYetText": "Denne QR-kode virker fra {date}. Prøv igen til den tid."
+    "notYetText": "Denne QR-kode virker fra {date}. Prøv igen til den tid.",
+    "page404Title": "Siden blev ikke fundet",
+    "page404Btn": "Gå til QR-Codex",
+    "g404Sub": "Denne side findes ikke.",
+    "g404Sub2": "Når du nu er her: se hvor langt du kan løbe.",
+    "g404Start": "Tryk på mellemrum eller tryk for at starte",
+    "g404StartBtn": "Start",
+    "g404Hint": "hop · hold for at hoppe højere · tryk på mobil",
+    "g404Lost": "Signal tabt",
+    "g404Again": "Prøv igen",
+    "g404NewBest": "Ny rekord!",
+    "g404SoundOn": "Lyd til",
+    "g404SoundOff": "Lyd fra",
+    "stTitle": "Driftsforstyrrelser og meddelelser",
+    "stLead": "Her melder vi driftsforstyrrelser og vedligeholdelse og holder dig opdateret, indtil alt virker igen.",
+    "stOk": "Alt virker",
+    "stOkText": "Der er ingen driftsforstyrrelser lige nu.",
+    "stDown": "Driftsforstyrrelse",
+    "stMaint": "Vedligeholdelse",
+    "stMaintText": "Visning og scanning af QR-koder virker som normalt; ændringer er kortvarigt ikke mulige.",
+    "stSince": "Siden {date}",
+    "stSolved": "løst",
+    "stHistory": "Tidligere meddelelser",
+    "stNone": "Ingen meddelelser endnu."
   },
   "edit": {
     "title": "Redigerer: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Downloadet",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Firmaoplysninger ændret",
+    "log_settings_platform": "Platformindstillinger ændret",
+    "log_maintenance_on": "Vedligeholdelsestilstand til",
+    "log_maintenance_off": "Vedligeholdelsestilstand fra",
+    "log_incident_open": "Driftsforstyrrelse meldt",
+    "log_incident_solved": "Driftsforstyrrelse løst",
+    "log_incident_update": "Opdatering om driftsforstyrrelse sendt",
+    "log_incident_edit": "Meddelelse om driftsforstyrrelse redigeret",
+    "log_incident_delete": "Meddelelse om driftsforstyrrelse slettet"
   },
   "plan": {
     "title": "Abonnement",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} er ikke længere blokeret.",
     "bAdded": "{v} er blokeret.",
     "bSelf": "Du kan ikke blokere din egen e-mailadresse eller dit eget domæne.",
-    "bBad": "Indtast en gyldig e-mailadresse eller et gyldigt domæne."
+    "bBad": "Indtast en gyldig e-mailadresse eller et gyldigt domæne.",
+    "iTitle": "Driftsforstyrrelser og meddelelser",
+    "iLead": "Meld en driftsforstyrrelse her: kunderne ser så en rød bjælke i appen og meddelelsen på statussiden. Markér den som løst, når alt virker igen.",
+    "iNew": "Ny meddelelse",
+    "iTitleF": "Titel",
+    "iText": "Hvad sker der?",
+    "iAdd": "Meld driftsforstyrrelse",
+    "iSolve": "Løst",
+    "iReopen": "Genåbn",
+    "iDelete": "Slet",
+    "iOpen": "i gang",
+    "iSolved": "løst",
+    "iPage": "Se statussiden",
+    "iUpdate": "Tilføj opdatering",
+    "iUpdateAdd": "Send opdatering",
+    "iEmpty": "Ingen meddelelser endnu.",
+    "iConfirm": "Slet denne meddelelse?"
   },
   "st": {
     "lead": "Alt om din konto, dit privatliv og appen samlet ét sted.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Dette domæne bruges allerede af en anden konto.",
     "errOther": "Noget gik galt. Prøv igen senere.",
     "ph": "qr.ditfirma.dk"
+  },
+  "status": {
+    "bar": "Driftsforstyrrelse",
+    "more": "Mere info"
   }
 }

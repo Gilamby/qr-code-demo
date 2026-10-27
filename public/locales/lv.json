@@ -1097,7 +1097,30 @@
     "inactive": "Šis QR kods nav aktīvs",
     "inactiveText": "Šis kods īslaicīgi nav pieejams. Mēģini vēlāk vēlreiz.",
     "notYet": "Šis QR kods vēl nav aktīvs",
-    "notYetText": "Šis QR kods darbojas no {date}. Mēģini vēlreiz tad."
+    "notYetText": "Šis QR kods darbojas no {date}. Mēģini vēlreiz tad.",
+    "page404Title": "Lapa nav atrasta",
+    "page404Btn": "Uz QR-Codex",
+    "g404Sub": "Šķiet, šī lapa neeksistē.",
+    "g404Sub2": "Kad jau esat šeit, pārbaudiet, cik tālu varat aizskriet.",
+    "g404Start": "Nospiediet atstarpi vai pieskarieties, lai sāktu",
+    "g404StartBtn": "Sākt",
+    "g404Hint": "lēkt · turiet, lai lēktu augstāk · pieskarieties tālrunī",
+    "g404Lost": "Signāls zudis",
+    "g404Again": "Vēlreiz",
+    "g404NewBest": "Jauns rekords!",
+    "g404SoundOn": "Skaņa ieslēgta",
+    "g404SoundOff": "Skaņa izslēgta",
+    "stTitle": "Traucējumi un paziņojumi",
+    "stLead": "Šeit ziņojam par traucējumiem un apkopi un informējam, līdz viss atkal darbojas.",
+    "stOk": "Viss darbojas",
+    "stOkText": "Pašlaik traucējumu nav.",
+    "stDown": "Traucējums",
+    "stMaint": "Apkope",
+    "stMaintText": "QR kodu skatīšana un skenēšana darbojas kā parasti; izmaiņas īslaicīgi nav iespējamas.",
+    "stSince": "Kopš {date}",
+    "stSolved": "atrisināts",
+    "stHistory": "Iepriekšējie paziņojumi",
+    "stNone": "Paziņojumu vēl nav."
   },
   "edit": {
     "title": "Rediģē: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Lejupielādēts",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Uzņēmuma dati mainīti",
+    "log_settings_platform": "Platformas iestatījumi mainīti",
+    "log_maintenance_on": "Apkopes režīms ieslēgts",
+    "log_maintenance_off": "Apkopes režīms izslēgts",
+    "log_incident_open": "Ziņots par traucējumu",
+    "log_incident_solved": "Traucējums atrisināts",
+    "log_incident_update": "Publicēti jaunumi par traucējumu",
+    "log_incident_edit": "Traucējuma paziņojums rediģēts",
+    "log_incident_delete": "Traucējuma paziņojums dzēsts"
   },
   "plan": {
     "title": "Abonements",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} vairs nav bloķēts.",
     "bAdded": "{v} ir bloķēts.",
     "bSelf": "Tu nevari bloķēt savu e-pasta adresi vai domēnu.",
-    "bBad": "Ievadi derīgu e-pasta adresi vai domēnu."
+    "bBad": "Ievadi derīgu e-pasta adresi vai domēnu.",
+    "iTitle": "Traucējumi un paziņojumi",
+    "iLead": "Ziņojiet šeit par traucējumu: klienti tad redz sarkanu joslu lietotnē un paziņojumu statusa lapā. Atzīmējiet kā atrisinātu, kad viss atkal darbojas.",
+    "iNew": "Jauns paziņojums",
+    "iTitleF": "Virsraksts",
+    "iText": "Kas notiek?",
+    "iAdd": "Ziņot par traucējumu",
+    "iSolve": "Atrisināts",
+    "iReopen": "Atvērt vēlreiz",
+    "iDelete": "Dzēst",
+    "iOpen": "notiek",
+    "iSolved": "atrisināts",
+    "iPage": "Skatīt statusa lapu",
+    "iUpdate": "Pievienot jaunumus",
+    "iUpdateAdd": "Publicēt jaunumus",
+    "iEmpty": "Paziņojumu vēl nav.",
+    "iConfirm": "Dzēst šo paziņojumu?"
   },
   "st": {
     "lead": "Viss par tavu kontu, privātumu un lietotni vienuviet.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Šo domēnu jau izmanto cits konts.",
     "errOther": "Kaut kas nogāja greizi. Mēģini vēlāk vēlreiz.",
     "ph": "qr.uznemums.lv"
+  },
+  "status": {
+    "bar": "Traucējums",
+    "more": "Vairāk"
   }
 }

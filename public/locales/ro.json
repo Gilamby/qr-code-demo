@@ -1097,7 +1097,30 @@
     "inactive": "Acest cod QR nu este activ",
     "inactiveText": "Acest cod nu este disponibil momentan. Încearcă din nou mai târziu.",
     "notYet": "Acest cod QR nu este încă activ",
-    "notYetText": "Acest cod QR funcționează de la {date}. Încearcă din nou atunci."
+    "notYetText": "Acest cod QR funcționează de la {date}. Încearcă din nou atunci.",
+    "page404Title": "Pagina nu a fost găsită",
+    "page404Btn": "Mergi la QR-Codex",
+    "g404Sub": "Se pare că această pagină nu există.",
+    "g404Sub2": "Dacă tot ești aici, vezi cât de departe poți alerga.",
+    "g404Start": "Apasă Spațiu sau atinge pentru a începe",
+    "g404StartBtn": "Start",
+    "g404Hint": "sari · ține apăsat pentru a sări mai sus · atinge pe mobil",
+    "g404Lost": "Semnal pierdut",
+    "g404Again": "Încă o dată",
+    "g404NewBest": "Record nou!",
+    "g404SoundOn": "Sunet pornit",
+    "g404SoundOff": "Sunet oprit",
+    "stTitle": "Defecțiuni și anunțuri",
+    "stLead": "Aici anunțăm defecțiunile și lucrările de mentenanță și te ținem la curent până când totul funcționează din nou.",
+    "stOk": "Totul funcționează",
+    "stOkText": "Momentan nu există defecțiuni.",
+    "stDown": "Defecțiune",
+    "stMaint": "Mentenanță",
+    "stMaintText": "Vizualizarea și scanarea codurilor QR funcționează normal; modificările nu sunt posibile pentru scurt timp.",
+    "stSince": "Din {date}",
+    "stSolved": "rezolvat",
+    "stHistory": "Anunțuri anterioare",
+    "stNone": "Încă nu există anunțuri."
   },
   "edit": {
     "title": "Editezi: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Descărcat",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Datele firmei modificate",
+    "log_settings_platform": "Setările platformei modificate",
+    "log_maintenance_on": "Mod mentenanță pornit",
+    "log_maintenance_off": "Mod mentenanță oprit",
+    "log_incident_open": "Defecțiune anunțată",
+    "log_incident_solved": "Defecțiune rezolvată",
+    "log_incident_update": "Actualizare defecțiune publicată",
+    "log_incident_edit": "Anunț de defecțiune editat",
+    "log_incident_delete": "Anunț de defecțiune șters"
   },
   "plan": {
     "title": "Abonament",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} nu mai este blocat.",
     "bAdded": "{v} este blocat.",
     "bSelf": "Nu îți poți bloca propria adresă sau propriul domeniu.",
-    "bBad": "Introdu o adresă de e-mail sau un domeniu valid."
+    "bBad": "Introdu o adresă de e-mail sau un domeniu valid.",
+    "iTitle": "Defecțiuni și anunțuri",
+    "iLead": "Anunță aici o defecțiune: clienții văd atunci o bară roșie în aplicație și anunțul pe pagina de stare. Marcheaz-o ca rezolvată când totul funcționează din nou.",
+    "iNew": "Anunț nou",
+    "iTitleF": "Titlu",
+    "iText": "Ce se întâmplă?",
+    "iAdd": "Anunță defecțiunea",
+    "iSolve": "Rezolvat",
+    "iReopen": "Redeschide",
+    "iDelete": "Șterge",
+    "iOpen": "în curs",
+    "iSolved": "rezolvat",
+    "iPage": "Vezi pagina de stare",
+    "iUpdate": "Adaugă o actualizare",
+    "iUpdateAdd": "Publică actualizarea",
+    "iEmpty": "Încă nu există anunțuri.",
+    "iConfirm": "Ștergi acest anunț?"
   },
   "st": {
     "lead": "Tot ce ține de contul tău, confidențialitate și aplicație, într-un singur loc.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Acest domeniu este deja folosit de alt cont.",
     "errOther": "Ceva nu a mers bine. Încearcă din nou mai târziu.",
     "ph": "qr.firmata.ro"
+  },
+  "status": {
+    "bar": "Defecțiune",
+    "more": "Mai multe"
   }
 }

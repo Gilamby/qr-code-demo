@@ -1097,7 +1097,30 @@
     "inactive": "Deze QR-code is niet actief",
     "inactiveText": "Deze code is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
     "notYet": "Deze QR-code is nog niet actief",
-    "notYetText": "Deze QR-code werkt vanaf {date}. Probeer het dan nog eens."
+    "notYetText": "Deze QR-code werkt vanaf {date}. Probeer het dan nog eens.",
+    "page404Title": "Pagina niet gevonden",
+    "page404Btn": "Naar QR-Codex",
+    "g404Sub": "Deze pagina bestaat niet (meer).",
+    "g404Sub2": "Nu je hier toch bent: kijk hoe ver je kunt rennen.",
+    "g404Start": "Druk op spatie of tik om te starten",
+    "g404StartBtn": "Start",
+    "g404Hint": "springen · ingedrukt houden springt hoger · tikken op mobiel",
+    "g404Lost": "Signaal kwijt",
+    "g404Again": "Opnieuw",
+    "g404NewBest": "Nieuw record!",
+    "g404SoundOn": "Geluid aan",
+    "g404SoundOff": "Geluid uit",
+    "stTitle": "Storingen en meldingen",
+    "stLead": "Hier melden we storingen en onderhoud, en houden we je op de hoogte tot alles weer werkt.",
+    "stOk": "Alles werkt",
+    "stOkText": "Er zijn op dit moment geen storingen.",
+    "stDown": "Storing",
+    "stMaint": "Onderhoud",
+    "stMaintText": "Bekijken en scannen van QR-codes werkt gewoon; wijzigen kan even niet.",
+    "stSince": "Sinds {date}",
+    "stSolved": "opgelost",
+    "stHistory": "Eerdere meldingen",
+    "stNone": "Nog geen meldingen."
   },
   "edit": {
     "title": "Bewerken: {name}",
@@ -2442,7 +2465,16 @@
     "log_download": "Gedownload",
     "plan_standard": "Standaard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Bedrijfsgegevens gewijzigd",
+    "log_settings_platform": "Platforminstellingen gewijzigd",
+    "log_maintenance_on": "Onderhoudsmodus aan",
+    "log_maintenance_off": "Onderhoudsmodus uit",
+    "log_incident_open": "Storing gemeld",
+    "log_incident_solved": "Storing opgelost",
+    "log_incident_update": "Update bij storing geplaatst",
+    "log_incident_edit": "Storingsmelding bewerkt",
+    "log_incident_delete": "Storingsmelding verwijderd"
   },
   "plan": {
     "title": "Abonnement",
@@ -2597,7 +2629,23 @@
     "mailTestBtn": "Testmail sturen",
     "mailTestOk": "Testmail verstuurd naar {email}. Kijk ook in je spam.",
     "mailTestBad": "Versturen mislukt: {msg}",
-    "statusLead": "Hoe het platform er nu voor staat."
+    "statusLead": "Hoe het platform er nu voor staat.",
+    "iTitle": "Storingen en meldingen",
+    "iLead": "Meld hier een storing: klanten zien dan een rode balk in de app en de melding op de statuspagina. Zet hem op opgelost als alles weer werkt.",
+    "iNew": "Nieuwe melding",
+    "iTitleF": "Titel",
+    "iText": "Wat is er aan de hand?",
+    "iAdd": "Storing melden",
+    "iSolve": "Opgelost",
+    "iReopen": "Weer openen",
+    "iDelete": "Verwijderen",
+    "iOpen": "bezig",
+    "iSolved": "opgelost",
+    "iPage": "Statuspagina bekijken",
+    "iUpdate": "Update toevoegen",
+    "iUpdateAdd": "Update plaatsen",
+    "iEmpty": "Nog geen meldingen.",
+    "iConfirm": "Deze melding verwijderen?"
   },
   "st": {
     "lead": "Alles over je account, privacy en de app op één plek.",
@@ -3028,5 +3076,9 @@
     "errTaken": "Dit domein is al in gebruik bij een ander account.",
     "errOther": "Er ging iets mis. Probeer het later opnieuw.",
     "ph": "qr.jouwbedrijf.nl"
+  },
+  "status": {
+    "bar": "Storing",
+    "more": "Meer info"
   }
 }

@@ -108,3 +108,49 @@ const FILE_SECRET = process.env.FILE_SECRET || crypto.randomBytes(32).toString('
 export function fileToken(q: QrCode, key: string) { return crypto.createHmac('sha256', FILE_SECRET).update(q.id + ':' + key + ':' + String((q.content || {}).password || '')).digest('base64url').slice(0, 22); }
 export function fileTokenOk(q: QrCode, key: string, token: unknown) { const a = Buffer.from(fileToken(q, key)), b = Buffer.from(String(token || '')); return a.length === b.length && crypto.timingSafeEqual(a, b); }
 
+
+/** Onbekend adres op de site zelf (geen QR-code): 404 met het QR Runner-spelletje (public/404.html), in de taal van de bezoeker */
+let tpl404: string | null = null;
+export function appNotFoundPage(req: Request) {
+  const t = text(req), l = lang(req);
+  if (tpl404 == null) { try { tpl404 = fs.readFileSync(path.join(PATHS.public, '404.html'), 'utf8'); } catch (e) { tpl404 = ''; } }
+  const k = ['sub', 'sub2', 'start', 'startBtn', 'hint', 'lost', 'again', 'newBest', 'soundOn', 'soundOff'];
+  const L: Record<string, string> = { lang: l, title: t.page404Title, home: t.page404Btn };
+  k.forEach((x) => { L[x] = t['g404' + x[0].toUpperCase() + x.slice(1)]; });
+  const json = JSON.stringify(L).replace(/</g, '\\u003c');
+  if (!tpl404) return page(t.page404Title, '<div class="ic">?</div><h1>' + esc(t.page404Title) + '</h1><p><a href="/">' + esc(t.page404Btn) + '</a></p>', l);
+  return tpl404.replace('<script id="t404" type="application/json">{}</script>', () => '<script id="t404" type="application/json">' + json + '</script>');
+}
+
+/** Openbare pagina "Storingen en meldingen" (/status): werkt alles, lopende storing of onderhoud, en eerdere meldingen */
+type StatusData = { state: string; maintenance: { on: boolean; message: string }; open: any[]; history: any[] };
+export function statusPage(req: Request, s: StatusData) {
+  const t = text(req), l = lang(req);
+  const when = (iso: string) => { try { return new Intl.DateTimeFormat(l, { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' }).format(new Date(iso)); } catch (e) { return iso.slice(0, 16).replace('T', ' '); } };
+  const day = (iso: string) => { try { return new Intl.DateTimeFormat(l, { dateStyle: 'short', timeZone: 'Europe/Madrid' }).format(new Date(iso)); } catch (e) { return iso.slice(0, 10); } };
+  const para = (x: string) => x ? '<p>' + esc(x).replace(/\n/g, '<br>') + '</p>' : '';
+  const ups = (u: any[]) => (u && u.length ? '<ol class="ups">' + u.slice().reverse().map((x) => '<li><time>' + esc(when(x.at)) + '</time>' + para(x.text) + '</li>').join('') + '</ol>' : '');
+  const now = s.state === 'incident'
+    ? s.open.map((i) => '<section class="now bad" role="alert"><div class="dot"></div><div><h2>' + esc(t.stDown) + ': ' + esc(i.title) + '</h2><small>' + esc(String(t.stSince).replace('{date}', when(i.at))) + '</small>' + para(i.text) + ups(i.updates) + '</div></section>').join('')
+    : s.state === 'maintenance'
+      ? '<section class="now warn" role="status"><div class="dot"></div><div><h2>' + esc(t.stMaint) + '</h2>' + para(s.maintenance.message || t.stMaintText) + (s.maintenance.message ? para(t.stMaintText) : '') + '</div></section>'
+      : '<section class="now ok" role="status"><div class="dot"></div><div><h2>' + esc(t.stOk) + '</h2><p>' + esc(t.stOkText) + '</p></div></section>';
+  const hist = s.history.length
+    ? '<ul class="hist">' + s.history.map((i) => '<li><details><summary><span class="d">' + esc(day(i.at)) + '</span> <span class="tt">' + esc(i.title) + '</span> <span class="tag">' + esc(t.stSolved) + '</span></summary>' + para(i.text) + ups(i.updates) +
+        (i.solvedAt ? '<p class="sv">' + esc(t.stSolved) + ': ' + esc(when(i.solvedAt)) + '</p>' : '') + '</details></li>').join('') + '</ul>'
+    : '<p class="none">' + esc(t.stNone) + '</p>';
+  return '<!doctype html><html lang="' + l + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(t.stTitle) + ' · QR-Codex</title><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/fonts.css">' +
+    '<meta http-equiv="refresh" content="60"><style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse 80% 50% at 50% 0,rgba(30,90,170,.28),transparent 70%),#050b17;color:#eef3fb;font:16px/1.5 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}' +
+    '.top{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:820px;margin:0 auto;padding:22px 20px}.top a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:10px;font-weight:700}.top img{width:34px;height:34px}.top b span{color:#3aa8f0}.top .back{font-weight:600;color:#3aa8f0;font-size:14px}' +
+    'main{max-width:820px;margin:0 auto;padding:10px 20px 60px}h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.02em;margin:10px 0 6px}.lead{color:#9aa6b5;margin:0 0 26px}' +
+    '.now{display:flex;gap:14px;padding:20px 22px;border-radius:18px;border:1px solid rgba(255,255,255,.1);margin-bottom:14px}.now h2{margin:0;font-size:19px}.now p{margin:8px 0 0;color:#d5deea}.now small{color:#9aa6b5}' +
+    '.dot{flex:none;width:14px;height:14px;border-radius:50%;margin-top:6px}.ok{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.35)}.ok .dot{background:#22c55e;box-shadow:0 0 0 5px rgba(34,197,94,.2)}' +
+    '.bad{background:rgba(255,84,112,.1);border-color:rgba(255,84,112,.45)}.bad .dot{background:#ff5470;box-shadow:0 0 0 5px rgba(255,84,112,.22);animation:p 1.6s infinite}.warn{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.45)}.warn .dot{background:#f59e0b;box-shadow:0 0 0 5px rgba(245,158,11,.2)}' +
+    '@keyframes p{50%{box-shadow:0 0 0 9px rgba(255,84,112,0)}}@media (prefers-reduced-motion:reduce){.bad .dot{animation:none}}' +
+    '.ups{list-style:none;margin:12px 0 0;padding:0 0 0 14px;border-left:2px solid rgba(255,255,255,.12)}.ups li{margin:0 0 10px}.ups time{font-size:13px;color:#9aa6b5}.ups p{margin:2px 0 0}' +
+    'h3{font-size:18px;margin:36px 0 8px}.hist{list-style:none;margin:0;padding:0}.hist li{border-bottom:1px solid rgba(255,255,255,.1)}summary{cursor:pointer;padding:14px 0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}summary::-webkit-details-marker{display:none}' +
+    '.d{color:#9aa6b5;font-variant-numeric:tabular-nums}.tt{font-weight:600}.tag{font-size:12px;font-weight:700;color:#22c55e;background:rgba(34,197,94,.12);border-radius:999px;padding:2px 9px}details p{margin:0 0 10px;color:#d5deea}.sv{font-size:13px;color:#9aa6b5!important}.none{color:#9aa6b5}' +
+    'a:focus-visible,summary:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}</style></head><body>' +
+    '<div class="top"><a href="/"><img src="/icons/logo-badge.png" alt=""><b>QR-<span>Codex</span></b></a><a class="back" href="/">' + esc(t.page404Btn) + ' →</a></div>' +
+    '<main><h1>' + esc(t.stTitle) + '</h1><p class="lead">' + esc(t.stLead) + '</p>' + now + '<h3>' + esc(t.stHistory) + '</h3>' + hist + '</main></body></html>';
+}

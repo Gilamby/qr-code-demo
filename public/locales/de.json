@@ -1097,7 +1097,30 @@
     "inactive": "Dieser QR-Code ist nicht aktiv",
     "inactiveText": "Dieser Code ist vorübergehend nicht verfügbar. Bitte versuch es später erneut.",
     "notYet": "Dieser QR-Code ist noch nicht aktiv",
-    "notYetText": "Dieser QR-Code funktioniert ab {date}. Versuche es dann noch einmal."
+    "notYetText": "Dieser QR-Code funktioniert ab {date}. Versuche es dann noch einmal.",
+    "page404Title": "Seite nicht gefunden",
+    "page404Btn": "Zu QR-Codex",
+    "g404Sub": "Diese Seite gibt es leider nicht.",
+    "g404Sub2": "Wo Sie schon hier sind: Mal sehen, wie weit Sie laufen.",
+    "g404Start": "Leertaste drücken oder tippen zum Starten",
+    "g404StartBtn": "Start",
+    "g404Hint": "springen · gedrückt halten für höher · auf dem Handy tippen",
+    "g404Lost": "Signal verloren",
+    "g404Again": "Nochmal",
+    "g404NewBest": "Neuer Rekord!",
+    "g404SoundOn": "Ton an",
+    "g404SoundOff": "Ton aus",
+    "stTitle": "Störungen und Meldungen",
+    "stLead": "Hier melden wir Störungen und Wartungen und halten Sie auf dem Laufenden, bis alles wieder funktioniert.",
+    "stOk": "Alles funktioniert",
+    "stOkText": "Derzeit gibt es keine Störungen.",
+    "stDown": "Störung",
+    "stMaint": "Wartung",
+    "stMaintText": "Ansehen und Scannen von QR-Codes funktioniert wie gewohnt; Änderungen sind kurz nicht möglich.",
+    "stSince": "Seit {date}",
+    "stSolved": "behoben",
+    "stHistory": "Frühere Meldungen",
+    "stNone": "Noch keine Meldungen."
   },
   "edit": {
     "title": "Bearbeiten: {name}",
@@ -2438,7 +2461,16 @@
     "log_download": "Heruntergeladen",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Firmendaten geändert",
+    "log_settings_platform": "Plattform-Einstellungen geändert",
+    "log_maintenance_on": "Wartungsmodus an",
+    "log_maintenance_off": "Wartungsmodus aus",
+    "log_incident_open": "Störung gemeldet",
+    "log_incident_solved": "Störung behoben",
+    "log_incident_update": "Update zur Störung veröffentlicht",
+    "log_incident_edit": "Störungsmeldung bearbeitet",
+    "log_incident_delete": "Störungsmeldung gelöscht"
   },
   "plan": {
     "title": "Abonnement",
@@ -2558,7 +2590,23 @@
     "bRemoved": "{v} ist nicht mehr gesperrt.",
     "bAdded": "{v} ist gesperrt.",
     "bSelf": "Du kannst deine eigene E-Mail-Adresse oder Domain nicht sperren.",
-    "bBad": "Gib eine gültige E-Mail-Adresse oder Domain ein."
+    "bBad": "Gib eine gültige E-Mail-Adresse oder Domain ein.",
+    "iTitle": "Störungen und Meldungen",
+    "iLead": "Melden Sie hier eine Störung: Kunden sehen dann einen roten Balken in der App und die Meldung auf der Statusseite. Setzen Sie sie auf behoben, sobald alles wieder funktioniert.",
+    "iNew": "Neue Meldung",
+    "iTitleF": "Titel",
+    "iText": "Was ist los?",
+    "iAdd": "Störung melden",
+    "iSolve": "Behoben",
+    "iReopen": "Wieder öffnen",
+    "iDelete": "Löschen",
+    "iOpen": "läuft",
+    "iSolved": "behoben",
+    "iPage": "Statusseite ansehen",
+    "iUpdate": "Update hinzufügen",
+    "iUpdateAdd": "Update veröffentlichen",
+    "iEmpty": "Noch keine Meldungen.",
+    "iConfirm": "Diese Meldung löschen?"
   },
   "st": {
     "lead": "Alles zu deinem Konto, Datenschutz und der App an einem Ort.",
@@ -2989,5 +3037,9 @@
     "errTaken": "Diese Domain wird schon von einem anderen Konto genutzt.",
     "errOther": "Etwas ist schiefgelaufen. Bitte versuche es später erneut.",
     "ph": "qr.deinefirma.de"
+  },
+  "status": {
+    "bar": "Störung",
+    "more": "Mehr Infos"
   }
 }

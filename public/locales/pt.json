@@ -1097,7 +1097,30 @@
     "inactive": "Este código QR não está ativo",
     "inactiveText": "Este código está temporariamente indisponível. Tente novamente mais tarde.",
     "notYet": "Este código QR ainda não está ativo",
-    "notYetText": "Este código QR funciona a partir de {date}. Tenta novamente nessa altura."
+    "notYetText": "Este código QR funciona a partir de {date}. Tenta novamente nessa altura.",
+    "page404Title": "Página não encontrada",
+    "page404Btn": "Ir para o QR-Codex",
+    "g404Sub": "Parece que esta página não existe.",
+    "g404Sub2": "Já que está aqui, veja até onde consegue correr.",
+    "g404Start": "Prima Espaço ou toque para começar",
+    "g404StartBtn": "Começar",
+    "g404Hint": "saltar · mantenha premido para saltar mais alto · toque no telemóvel",
+    "g404Lost": "Sinal perdido",
+    "g404Again": "Tentar de novo",
+    "g404NewBest": "Novo recorde!",
+    "g404SoundOn": "Som ligado",
+    "g404SoundOff": "Som desligado",
+    "stTitle": "Falhas e avisos",
+    "stLead": "Aqui comunicamos falhas e manutenção e mantemo-lo informado até tudo voltar a funcionar.",
+    "stOk": "Tudo a funcionar",
+    "stOkText": "Não há falhas neste momento.",
+    "stDown": "Falha",
+    "stMaint": "Manutenção",
+    "stMaintText": "Ver e ler códigos QR funciona normalmente; alterações não são possíveis por breves momentos.",
+    "stSince": "Desde {date}",
+    "stSolved": "resolvido",
+    "stHistory": "Avisos anteriores",
+    "stNone": "Ainda não há avisos."
   },
   "edit": {
     "title": "A editar: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Transferido",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Dados da empresa alterados",
+    "log_settings_platform": "Definições da plataforma alteradas",
+    "log_maintenance_on": "Modo de manutenção ligado",
+    "log_maintenance_off": "Modo de manutenção desligado",
+    "log_incident_open": "Falha comunicada",
+    "log_incident_solved": "Falha resolvida",
+    "log_incident_update": "Atualização da falha publicada",
+    "log_incident_edit": "Aviso de falha editado",
+    "log_incident_delete": "Aviso de falha eliminado"
   },
   "plan": {
     "title": "Assinatura",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} já não está bloqueado.",
     "bAdded": "{v} está bloqueado.",
     "bSelf": "Não podes bloquear o teu próprio e-mail ou domínio.",
-    "bBad": "Introduz um e-mail ou domínio válido."
+    "bBad": "Introduz um e-mail ou domínio válido.",
+    "iTitle": "Falhas e avisos",
+    "iLead": "Comunique aqui uma falha: os clientes veem uma barra vermelha na app e o aviso na página de estado. Marque-a como resolvida quando tudo voltar a funcionar.",
+    "iNew": "Novo aviso",
+    "iTitleF": "Título",
+    "iText": "O que se passa?",
+    "iAdd": "Comunicar falha",
+    "iSolve": "Resolvido",
+    "iReopen": "Reabrir",
+    "iDelete": "Eliminar",
+    "iOpen": "em curso",
+    "iSolved": "resolvido",
+    "iPage": "Ver página de estado",
+    "iUpdate": "Adicionar atualização",
+    "iUpdateAdd": "Publicar atualização",
+    "iEmpty": "Ainda não há avisos.",
+    "iConfirm": "Eliminar este aviso?"
   },
   "st": {
     "lead": "Tudo sobre a sua conta, privacidade e a app num só lugar.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Este domínio já é usado por outra conta.",
     "errOther": "Algo correu mal. Tenta mais tarde.",
     "ph": "qr.tuaempresa.pt"
+  },
+  "status": {
+    "bar": "Falha",
+    "more": "Mais info"
   }
 }

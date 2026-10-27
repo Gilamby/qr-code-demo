@@ -551,6 +551,7 @@
 :root[data-theme="light"] .dom-status.wait span { color: #b45309; }
 :root[data-theme="light"] .dom-rec { background: rgba(255,255,255,0.8); }
 :root[data-theme="light"] .mc-limit { background: rgba(13,19,32,0.09); }
+:root[data-theme="light"] .inc-tag { color: #16a34a; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

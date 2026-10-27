@@ -1097,7 +1097,30 @@
     "inactive": "Ce code QR n’est pas actif",
     "inactiveText": "Ce code est temporairement indisponible. Veuillez réessayer plus tard.",
     "notYet": "Ce QR code n'est pas encore actif",
-    "notYetText": "Ce QR code fonctionne à partir du {date}. Réessayez à ce moment-là."
+    "notYetText": "Ce QR code fonctionne à partir du {date}. Réessayez à ce moment-là.",
+    "page404Title": "Page introuvable",
+    "page404Btn": "Aller sur QR-Codex",
+    "g404Sub": "On dirait que cette page n’existe pas.",
+    "g404Sub2": "Tant que vous êtes là, voyez jusqu’où vous pouvez courir.",
+    "g404Start": "Appuyez sur Espace ou touchez pour commencer",
+    "g404StartBtn": "Commencer",
+    "g404Hint": "sauter · maintenir pour sauter plus haut · toucher sur mobile",
+    "g404Lost": "Signal perdu",
+    "g404Again": "Réessayer",
+    "g404NewBest": "Nouveau record !",
+    "g404SoundOn": "Son activé",
+    "g404SoundOff": "Son désactivé",
+    "stTitle": "Incidents et annonces",
+    "stLead": "Nous signalons ici les incidents et la maintenance, et vous tenons informé jusqu’au retour à la normale.",
+    "stOk": "Tout fonctionne",
+    "stOkText": "Aucun incident en ce moment.",
+    "stDown": "Incident",
+    "stMaint": "Maintenance",
+    "stMaintText": "Consulter et scanner les QR codes fonctionne normalement ; les modifications sont brièvement impossibles.",
+    "stSince": "Depuis le {date}",
+    "stSolved": "résolu",
+    "stHistory": "Annonces précédentes",
+    "stNone": "Aucune annonce pour l’instant."
   },
   "edit": {
     "title": "Modifier : {name}",
@@ -2438,7 +2461,16 @@
     "log_download": "Téléchargé",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Coordonnées de l’entreprise modifiées",
+    "log_settings_platform": "Paramètres de la plateforme modifiés",
+    "log_maintenance_on": "Mode maintenance activé",
+    "log_maintenance_off": "Mode maintenance désactivé",
+    "log_incident_open": "Incident signalé",
+    "log_incident_solved": "Incident résolu",
+    "log_incident_update": "Mise à jour d’incident publiée",
+    "log_incident_edit": "Annonce d’incident modifiée",
+    "log_incident_delete": "Annonce d’incident supprimée"
   },
   "plan": {
     "title": "Abonnement",
@@ -2558,7 +2590,23 @@
     "bRemoved": "{v} n’est plus bloqué.",
     "bAdded": "{v} est bloqué.",
     "bSelf": "Tu ne peux pas bloquer ta propre adresse ou ton propre domaine.",
-    "bBad": "Saisis une adresse e-mail ou un domaine valide."
+    "bBad": "Saisis une adresse e-mail ou un domaine valide.",
+    "iTitle": "Incidents et annonces",
+    "iLead": "Signalez un incident ici : les clients voient alors une barre rouge dans l’app et l’annonce sur la page d’état. Marquez-le résolu quand tout fonctionne à nouveau.",
+    "iNew": "Nouvelle annonce",
+    "iTitleF": "Titre",
+    "iText": "Que se passe-t-il ?",
+    "iAdd": "Signaler l’incident",
+    "iSolve": "Résolu",
+    "iReopen": "Rouvrir",
+    "iDelete": "Supprimer",
+    "iOpen": "en cours",
+    "iSolved": "résolu",
+    "iPage": "Voir la page d’état",
+    "iUpdate": "Ajouter une mise à jour",
+    "iUpdateAdd": "Publier la mise à jour",
+    "iEmpty": "Aucune annonce pour l’instant.",
+    "iConfirm": "Supprimer cette annonce ?"
   },
   "st": {
     "lead": "Tout sur votre compte, la confidentialité et l’application au même endroit.",
@@ -2989,5 +3037,9 @@
     "errTaken": "Ce domaine est déjà utilisé par un autre compte.",
     "errOther": "Une erreur s'est produite. Réessaie plus tard.",
     "ph": "qr.tonentreprise.fr"
+  },
+  "status": {
+    "bar": "Incident",
+    "more": "Plus d’infos"
   }
 }

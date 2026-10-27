@@ -1097,7 +1097,30 @@
     "inactive": "Questo codice QR non è attivo",
     "inactiveText": "Questo codice non è disponibile al momento. Riprova più tardi.",
     "notYet": "Questo QR code non è ancora attivo",
-    "notYetText": "Questo QR code funziona dal {date}. Riprova allora."
+    "notYetText": "Questo QR code funziona dal {date}. Riprova allora.",
+    "page404Title": "Pagina non trovata",
+    "page404Btn": "Vai a QR-Codex",
+    "g404Sub": "Sembra che questa pagina non esista.",
+    "g404Sub2": "Già che sei qui, vediamo quanto lontano riesci a correre.",
+    "g404Start": "Premi Spazio o tocca per iniziare",
+    "g404StartBtn": "Inizia",
+    "g404Hint": "salta · tieni premuto per saltare più in alto · tocca su mobile",
+    "g404Lost": "Segnale perso",
+    "g404Again": "Riprova",
+    "g404NewBest": "Nuovo record!",
+    "g404SoundOn": "Audio attivo",
+    "g404SoundOff": "Audio disattivato",
+    "stTitle": "Disservizi e avvisi",
+    "stLead": "Qui segnaliamo disservizi e manutenzioni e ti teniamo aggiornato finché tutto torna a funzionare.",
+    "stOk": "Tutto funziona",
+    "stOkText": "Al momento non ci sono disservizi.",
+    "stDown": "Disservizio",
+    "stMaint": "Manutenzione",
+    "stMaintText": "Visualizzare e scansionare i QR code funziona normalmente; per poco non è possibile apportare modifiche.",
+    "stSince": "Dal {date}",
+    "stSolved": "risolto",
+    "stHistory": "Avvisi precedenti",
+    "stNone": "Ancora nessun avviso."
   },
   "edit": {
     "title": "Modifica: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Scaricato",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Dati aziendali modificati",
+    "log_settings_platform": "Impostazioni piattaforma modificate",
+    "log_maintenance_on": "Modalità manutenzione attiva",
+    "log_maintenance_off": "Modalità manutenzione disattivata",
+    "log_incident_open": "Disservizio segnalato",
+    "log_incident_solved": "Disservizio risolto",
+    "log_incident_update": "Aggiornamento disservizio pubblicato",
+    "log_incident_edit": "Avviso disservizio modificato",
+    "log_incident_delete": "Avviso disservizio eliminato"
   },
   "plan": {
     "title": "Abbonamento",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} non è più bloccato.",
     "bAdded": "{v} è bloccato.",
     "bSelf": "Non puoi bloccare il tuo indirizzo o dominio.",
-    "bBad": "Inserisci un indirizzo e-mail o un dominio valido."
+    "bBad": "Inserisci un indirizzo e-mail o un dominio valido.",
+    "iTitle": "Disservizi e avvisi",
+    "iLead": "Segnala qui un disservizio: i clienti vedranno una barra rossa nell’app e l’avviso nella pagina di stato. Segnalo come risolto quando tutto funziona di nuovo.",
+    "iNew": "Nuovo avviso",
+    "iTitleF": "Titolo",
+    "iText": "Cosa sta succedendo?",
+    "iAdd": "Segnala disservizio",
+    "iSolve": "Risolto",
+    "iReopen": "Riapri",
+    "iDelete": "Elimina",
+    "iOpen": "in corso",
+    "iSolved": "risolto",
+    "iPage": "Vedi pagina di stato",
+    "iUpdate": "Aggiungi aggiornamento",
+    "iUpdateAdd": "Pubblica aggiornamento",
+    "iEmpty": "Ancora nessun avviso.",
+    "iConfirm": "Eliminare questo avviso?"
   },
   "st": {
     "lead": "Tutto su account, privacy e app in un unico posto.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Questo dominio è già usato da un altro account.",
     "errOther": "Qualcosa è andato storto. Riprova più tardi.",
     "ph": "qr.tuaazienda.it"
+  },
+  "status": {
+    "bar": "Disservizio",
+    "more": "Più info"
   }
 }

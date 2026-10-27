@@ -1097,7 +1097,30 @@
     "inactive": "Den här QR-koden är inte aktiv",
     "inactiveText": "Den här koden är tillfälligt otillgänglig. Försök igen senare.",
     "notYet": "Den här QR-koden är inte aktiv än",
-    "notYetText": "Den här QR-koden fungerar från {date}. Försök igen då."
+    "notYetText": "Den här QR-koden fungerar från {date}. Försök igen då.",
+    "page404Title": "Sidan hittades inte",
+    "page404Btn": "Till QR-Codex",
+    "g404Sub": "Den här sidan finns inte.",
+    "g404Sub2": "När du ändå är här: se hur långt du kan springa.",
+    "g404Start": "Tryck på mellanslag eller tryck för att starta",
+    "g404StartBtn": "Starta",
+    "g404Hint": "hoppa · håll in för att hoppa högre · tryck på mobilen",
+    "g404Lost": "Signalen borta",
+    "g404Again": "Försök igen",
+    "g404NewBest": "Nytt rekord!",
+    "g404SoundOn": "Ljud på",
+    "g404SoundOff": "Ljud av",
+    "stTitle": "Störningar och meddelanden",
+    "stLead": "Här rapporterar vi störningar och underhåll och håller dig uppdaterad tills allt fungerar igen.",
+    "stOk": "Allt fungerar",
+    "stOkText": "Det finns inga störningar just nu.",
+    "stDown": "Störning",
+    "stMaint": "Underhåll",
+    "stMaintText": "Att visa och skanna QR-koder fungerar som vanligt; ändringar går inte att göra en kort stund.",
+    "stSince": "Sedan {date}",
+    "stSolved": "löst",
+    "stHistory": "Tidigare meddelanden",
+    "stNone": "Inga meddelanden ännu."
   },
   "edit": {
     "title": "Redigerar: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Nedladdad",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Företagsuppgifter ändrade",
+    "log_settings_platform": "Plattformsinställningar ändrade",
+    "log_maintenance_on": "Underhållsläge på",
+    "log_maintenance_off": "Underhållsläge av",
+    "log_incident_open": "Störning rapporterad",
+    "log_incident_solved": "Störning löst",
+    "log_incident_update": "Uppdatering om störning publicerad",
+    "log_incident_edit": "Störningsmeddelande redigerat",
+    "log_incident_delete": "Störningsmeddelande borttaget"
   },
   "plan": {
     "title": "Abonnemang",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} är inte längre blockerad.",
     "bAdded": "{v} är blockerad.",
     "bSelf": "Du kan inte blockera din egen e-postadress eller domän.",
-    "bBad": "Ange en giltig e-postadress eller domän."
+    "bBad": "Ange en giltig e-postadress eller domän.",
+    "iTitle": "Störningar och meddelanden",
+    "iLead": "Rapportera en störning här: kunderna ser då en röd list i appen och meddelandet på statussidan. Markera den som löst när allt fungerar igen.",
+    "iNew": "Nytt meddelande",
+    "iTitleF": "Rubrik",
+    "iText": "Vad händer?",
+    "iAdd": "Rapportera störning",
+    "iSolve": "Löst",
+    "iReopen": "Öppna igen",
+    "iDelete": "Ta bort",
+    "iOpen": "pågår",
+    "iSolved": "löst",
+    "iPage": "Visa statussidan",
+    "iUpdate": "Lägg till uppdatering",
+    "iUpdateAdd": "Publicera uppdatering",
+    "iEmpty": "Inga meddelanden ännu.",
+    "iConfirm": "Ta bort det här meddelandet?"
   },
   "st": {
     "lead": "Allt om ditt konto, din integritet och appen på ett ställe.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Den här domänen används redan av ett annat konto.",
     "errOther": "Något gick fel. Försök igen senare.",
     "ph": "qr.dittforetag.se"
+  },
+  "status": {
+    "bar": "Störning",
+    "more": "Mer info"
   }
 }

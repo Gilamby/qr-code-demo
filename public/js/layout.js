@@ -198,13 +198,25 @@
 (function () {
   var bar = document.createElement('div'); bar.className = 'maint-bar'; bar.setAttribute('role', 'status'); bar.hidden = true;
   var main = document.querySelector('.main'); if (main) main.insertBefore(bar, main.children[1] || null);
+  var inc = null;   // lopende storing (Beheer > Instellingen > Storingen): rode balk voor iedereen, met link naar /status
   function show() {
     var m = (window.api && api.info && api.info().maintenance) || {}, me = window.Session && Session.user ? Session.user() : null;
-    bar.hidden = !m.on || !me;
-    if (!bar.hidden) bar.innerHTML = '<b>' + esc(t(me && me.admin ? 'set.bannerAdmin' : 'set.bannerUser')) + '</b>' + (m.message ? ' <span>' + esc(m.message) + '</span>' : '');
+    var open = inc && inc.open && inc.open[0];
+    bar.hidden = !me || (!m.on && !open);
+    bar.classList.toggle('is-incident', !!open);
+    if (bar.hidden) return;
+    bar.innerHTML = open
+      ? '<b>' + esc(t('status.bar')) + ': ' + esc(open.title) + '</b>' + (open.text ? ' <span>' + esc(open.text.split('\n')[0].slice(0, 160)) + '</span>' : '') + ' <a href="status" target="_blank" rel="noopener">' + esc(t('status.more')) + ' →</a>'
+      : '<b>' + esc(t(me && me.admin ? 'set.bannerAdmin' : 'set.bannerUser')) + '</b>' + (m.message ? ' <span>' + esc(m.message) + '</span>' : '');
   }
+  function poll() {
+    if (!window.api || (api.isDemo && api.isDemo())) return;
+    fetch('api/status', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d) { inc = d; show(); } }).catch(function () {});
+  }
+  setTimeout(poll, 1200); setInterval(poll, 120000);
+  document.addEventListener('incidents-change', poll);
   document.addEventListener('maintenance-change', show);
-  document.addEventListener('pagechange', show);
+  document.addEventListener('pagechange', function () { setTimeout(show, 0); if (!inc) poll(); });
   if (window.i18n) i18n.onChange(show);
   setTimeout(show, 1500);
 })();

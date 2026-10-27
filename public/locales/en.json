@@ -1097,7 +1097,30 @@
     "inactive": "This QR code is not active",
     "inactiveText": "This code is temporarily unavailable. Please try again later.",
     "notYet": "This QR code isn't active yet",
-    "notYetText": "This QR code works from {date}. Please try again then."
+    "notYetText": "This QR code works from {date}. Please try again then.",
+    "page404Title": "Page not found",
+    "page404Btn": "Go to QR-Codex",
+    "g404Sub": "Looks like you scanned the wrong page.",
+    "g404Sub2": "While you’re here, see how far you can run.",
+    "g404Start": "Press Space or tap to start",
+    "g404StartBtn": "Start",
+    "g404Hint": "jump · hold to jump higher · tap on mobile",
+    "g404Lost": "Signal lost",
+    "g404Again": "Try again",
+    "g404NewBest": "New high score!",
+    "g404SoundOn": "Sound on",
+    "g404SoundOff": "Sound off",
+    "stTitle": "Outages and notices",
+    "stLead": "Here we report outages and maintenance and keep you updated until everything works again.",
+    "stOk": "Everything is working",
+    "stOkText": "There are no outages at the moment.",
+    "stDown": "Outage",
+    "stMaint": "Maintenance",
+    "stMaintText": "Viewing and scanning QR codes works as usual; making changes is briefly not possible.",
+    "stSince": "Since {date}",
+    "stSolved": "resolved",
+    "stHistory": "Earlier notices",
+    "stNone": "No notices yet."
   },
   "edit": {
     "title": "Editing: {name}",
@@ -2442,7 +2465,16 @@
     "log_download": "Downloaded",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Company details changed",
+    "log_settings_platform": "Platform settings changed",
+    "log_maintenance_on": "Maintenance mode on",
+    "log_maintenance_off": "Maintenance mode off",
+    "log_incident_open": "Outage reported",
+    "log_incident_solved": "Outage resolved",
+    "log_incident_update": "Outage update posted",
+    "log_incident_edit": "Outage notice edited",
+    "log_incident_delete": "Outage notice deleted"
   },
   "plan": {
     "title": "Subscription",
@@ -2597,7 +2629,23 @@
     "mailTestBtn": "Send test email",
     "mailTestOk": "Test email sent to {email}. Check your spam too.",
     "mailTestBad": "Sending failed: {msg}",
-    "statusLead": "How the platform is doing right now."
+    "statusLead": "How the platform is doing right now.",
+    "iTitle": "Outages and notices",
+    "iLead": "Report an outage here: customers then see a red bar in the app and the notice on the status page. Mark it resolved when everything works again.",
+    "iNew": "New notice",
+    "iTitleF": "Title",
+    "iText": "What is going on?",
+    "iAdd": "Report outage",
+    "iSolve": "Resolved",
+    "iReopen": "Reopen",
+    "iDelete": "Delete",
+    "iOpen": "ongoing",
+    "iSolved": "resolved",
+    "iPage": "View status page",
+    "iUpdate": "Add an update",
+    "iUpdateAdd": "Post update",
+    "iEmpty": "No notices yet.",
+    "iConfirm": "Delete this notice?"
   },
   "st": {
     "lead": "Everything about your account, privacy and the app in one place.",
@@ -3028,5 +3076,9 @@
     "errTaken": "This domain is already used by another account.",
     "errOther": "Something went wrong. Please try again later.",
     "ph": "qr.yourcompany.com"
+  },
+  "status": {
+    "bar": "Outage",
+    "more": "More info"
   }
 }

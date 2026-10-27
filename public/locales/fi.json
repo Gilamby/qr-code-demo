@@ -1097,7 +1097,30 @@
     "inactive": "Tämä QR-koodi ei ole aktiivinen",
     "inactiveText": "Tämä koodi ei ole tilapäisesti käytettävissä. Yritä myöhemmin uudelleen.",
     "notYet": "Tämä QR-koodi ei ole vielä käytössä",
-    "notYetText": "Tämä QR-koodi toimii {date} alkaen. Yritä silloin uudelleen."
+    "notYetText": "Tämä QR-koodi toimii {date} alkaen. Yritä silloin uudelleen.",
+    "page404Title": "Sivua ei löytynyt",
+    "page404Btn": "Siirry QR-Codexiin",
+    "g404Sub": "Tätä sivua ei näytä olevan.",
+    "g404Sub2": "Kun kerran olet täällä, katso kuinka pitkälle juokset.",
+    "g404Start": "Paina välilyöntiä tai napauta aloittaaksesi",
+    "g404StartBtn": "Aloita",
+    "g404Hint": "hyppää · pidä pohjassa hypätäksesi korkeammalle · napauta mobiilissa",
+    "g404Lost": "Signaali katosi",
+    "g404Again": "Yritä uudelleen",
+    "g404NewBest": "Uusi ennätys!",
+    "g404SoundOn": "Ääni päällä",
+    "g404SoundOff": "Ääni pois",
+    "stTitle": "Häiriöt ja tiedotteet",
+    "stLead": "Kerromme täällä häiriöistä ja huolloista ja pidämme sinut ajan tasalla, kunnes kaikki toimii taas.",
+    "stOk": "Kaikki toimii",
+    "stOkText": "Tällä hetkellä ei ole häiriöitä.",
+    "stDown": "Häiriö",
+    "stMaint": "Huolto",
+    "stMaintText": "QR-koodien katselu ja skannaus toimii normaalisti; muutoksia ei voi hetkeen tehdä.",
+    "stSince": "{date} alkaen",
+    "stSolved": "korjattu",
+    "stHistory": "Aiemmat tiedotteet",
+    "stNone": "Ei vielä tiedotteita."
   },
   "edit": {
     "title": "Muokataan: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Ladattu",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Yrityksen tiedot muutettu",
+    "log_settings_platform": "Alustan asetukset muutettu",
+    "log_maintenance_on": "Huoltotila päällä",
+    "log_maintenance_off": "Huoltotila pois",
+    "log_incident_open": "Häiriö ilmoitettu",
+    "log_incident_solved": "Häiriö korjattu",
+    "log_incident_update": "Häiriöpäivitys julkaistu",
+    "log_incident_edit": "Häiriötiedotetta muokattu",
+    "log_incident_delete": "Häiriötiedote poistettu"
   },
   "plan": {
     "title": "Tilaus",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} ei ole enää estetty.",
     "bAdded": "{v} on estetty.",
     "bSelf": "Et voi estää omaa sähköpostiosoitettasi tai verkkotunnustasi.",
-    "bBad": "Anna kelvollinen sähköpostiosoite tai verkkotunnus."
+    "bBad": "Anna kelvollinen sähköpostiosoite tai verkkotunnus.",
+    "iTitle": "Häiriöt ja tiedotteet",
+    "iLead": "Ilmoita häiriöstä täällä: asiakkaat näkevät silloin punaisen palkin sovelluksessa ja tiedotteen tilasivulla. Merkitse se korjatuksi, kun kaikki toimii taas.",
+    "iNew": "Uusi tiedote",
+    "iTitleF": "Otsikko",
+    "iText": "Mitä on tapahtunut?",
+    "iAdd": "Ilmoita häiriöstä",
+    "iSolve": "Korjattu",
+    "iReopen": "Avaa uudelleen",
+    "iDelete": "Poista",
+    "iOpen": "käynnissä",
+    "iSolved": "korjattu",
+    "iPage": "Näytä tilasivu",
+    "iUpdate": "Lisää päivitys",
+    "iUpdateAdd": "Julkaise päivitys",
+    "iEmpty": "Ei vielä tiedotteita.",
+    "iConfirm": "Poistetaanko tämä tiedote?"
   },
   "st": {
     "lead": "Kaikki tilistäsi, tietosuojasta ja sovelluksesta yhdessä paikassa.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Tämä verkkotunnus on jo toisen tilin käytössä.",
     "errOther": "Jokin meni vikaan. Yritä myöhemmin uudelleen.",
     "ph": "qr.yrityksesi.fi"
+  },
+  "status": {
+    "bar": "Häiriö",
+    "more": "Lisätietoja"
   }
 }

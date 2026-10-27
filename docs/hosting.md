@@ -110,6 +110,12 @@ Copy `deploy/nginx-optimasys-qr.conf` and replace the domain. Two things matter:
 
 Cloudflare: SSL mode *Full (strict)* with an Origin Certificate. Do not cache `/api/*` or `/q/*`; caching static files is fine.
 
+### Outage page
+
+When the app itself does not respond (stopped, restarting, crashed), nginx shows `public/storing.html` instead of a bare "502 Bad Gateway" (see `error_page` in `deploy/nginx-optimasys-qr.conf`; set `root` to the app's `public` folder). The page needs no other files, is shown in the visitor's language and checks `/api/health` every 20 seconds; as soon as the app answers again it reloads, so a scanned QR code then simply opens.
+
+For outages the team knows about (the app still runs), use **Admin → Settings → Maintenance → Outages and notices**: customers then see a red bar in the app and the notice on the public page `/status`, with updates and "resolved" afterwards.
+
 ## 7. Developer access (without root)
 
 The developer logs in over SSH as `optimasys-qr` and can:

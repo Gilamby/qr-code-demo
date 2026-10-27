@@ -1097,7 +1097,30 @@
     "inactive": "Tento QR kód nie je aktívny",
     "inactiveText": "Tento kód je dočasne nedostupný. Skús to znova neskôr.",
     "notYet": "Tento QR kód ešte nie je aktívny",
-    "notYetText": "Tento QR kód funguje od {date}. Skús to znova potom."
+    "notYetText": "Tento QR kód funguje od {date}. Skús to znova potom.",
+    "page404Title": "Stránka sa nenašla",
+    "page404Btn": "Prejsť na QR-Codex",
+    "g404Sub": "Zdá sa, že táto stránka neexistuje.",
+    "g404Sub2": "Keď už ste tu, skúste, ako ďaleko dobehnete.",
+    "g404Start": "Stlačte medzerník alebo ťuknite pre štart",
+    "g404StartBtn": "Štart",
+    "g404Hint": "skok · podržte pre vyšší skok · ťuknite na mobile",
+    "g404Lost": "Signál stratený",
+    "g404Again": "Znova",
+    "g404NewBest": "Nový rekord!",
+    "g404SoundOn": "Zvuk zap.",
+    "g404SoundOff": "Zvuk vyp.",
+    "stTitle": "Poruchy a oznámenia",
+    "stLead": "Tu oznamujeme poruchy a údržbu a informujeme vás, kým všetko opäť nefunguje.",
+    "stOk": "Všetko funguje",
+    "stOkText": "Momentálne nie sú žiadne poruchy.",
+    "stDown": "Porucha",
+    "stMaint": "Údržba",
+    "stMaintText": "Prezeranie a skenovanie QR kódov funguje normálne; zmeny chvíľu nie sú možné.",
+    "stSince": "Od {date}",
+    "stSolved": "vyriešené",
+    "stHistory": "Staršie oznámenia",
+    "stNone": "Zatiaľ žiadne oznámenia."
   },
   "edit": {
     "title": "Úprava: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Stiahnuté",
     "plan_standard": "Standard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Údaje firmy zmenené",
+    "log_settings_platform": "Nastavenia platformy zmenené",
+    "log_maintenance_on": "Režim údržby zapnutý",
+    "log_maintenance_off": "Režim údržby vypnutý",
+    "log_incident_open": "Porucha nahlásená",
+    "log_incident_solved": "Porucha vyriešená",
+    "log_incident_update": "Aktualizácia poruchy zverejnená",
+    "log_incident_edit": "Oznámenie o poruche upravené",
+    "log_incident_delete": "Oznámenie o poruche odstránené"
   },
   "plan": {
     "title": "Predplatné",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} už nie je zablokované.",
     "bAdded": "{v} je zablokované.",
     "bSelf": "Nemôžeš zablokovať vlastnú e-mailovú adresu ani doménu.",
-    "bBad": "Zadaj platnú e-mailovú adresu alebo doménu."
+    "bBad": "Zadaj platnú e-mailovú adresu alebo doménu.",
+    "iTitle": "Poruchy a oznámenia",
+    "iLead": "Tu nahláste poruchu: zákazníci potom uvidia červený pruh v aplikácii a oznámenie na stránke stavu. Keď všetko opäť funguje, označte ju ako vyriešenú.",
+    "iNew": "Nové oznámenie",
+    "iTitleF": "Názov",
+    "iText": "Čo sa deje?",
+    "iAdd": "Nahlásiť poruchu",
+    "iSolve": "Vyriešené",
+    "iReopen": "Znova otvoriť",
+    "iDelete": "Odstrániť",
+    "iOpen": "prebieha",
+    "iSolved": "vyriešené",
+    "iPage": "Zobraziť stránku stavu",
+    "iUpdate": "Pridať aktualizáciu",
+    "iUpdateAdd": "Zverejniť aktualizáciu",
+    "iEmpty": "Zatiaľ žiadne oznámenia.",
+    "iConfirm": "Odstrániť toto oznámenie?"
   },
   "st": {
     "lead": "Všetko o tvojom účte, súkromí a aplikácii na jednom mieste.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Túto doménu už používa iný účet.",
     "errOther": "Niečo sa pokazilo. Skús to neskôr znova.",
     "ph": "qr.tvojafirma.sk"
+  },
+  "status": {
+    "bar": "Porucha",
+    "more": "Viac info"
   }
 }

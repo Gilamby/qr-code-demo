@@ -3758,6 +3758,9 @@ body { margin: 0; }   /* standaardmarge van de browser weg: anders scrolt elke p
 .ast-card { padding: 20px; border-radius: 20px; margin-top: 14px; }
 .maint-bar { margin: 10px 32px 0; padding: 10px 14px; border-radius: 12px; background: rgba(245,158,11,.14); border: 1px solid rgba(245,158,11,.4); color: #fde68a; font-size: 14px; }
 .maint-bar[hidden] { display: none; }
+.maint-bar.is-incident { background: rgba(255,84,112,.14); border-color: rgba(255,84,112,.5); color: #ffd1d9; }
+.maint-bar a { color: inherit; font-weight: 700; text-decoration: underline; white-space: nowrap; }
+[data-theme="light"] .maint-bar.is-incident { background: #fff1f3; color: #9f1239; }
 @media (max-width: 760px) { .set-grid { grid-template-columns: minmax(0, 1fr); } .maint-bar { margin: 8px 10px 0; } }
 
 .wa-input span { color: #667781; }   /* contrast (voorbeeld van WhatsApp) */
@@ -5373,3 +5376,20 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 [data-theme="light"] .mc-limit { background: rgba(15,23,42,.1); }
 
 .mc-more { grid-column: 1 / -1; display: flex; justify-content: center; padding: 8px 0 4px; }
+
+/* Beheer > Onderhoud: storingen en meldingen */
+.inc-new { display: grid; gap: 10px; padding: 18px 24px 4px; }
+.inc-new .set-save { padding: 4px 0 0; }
+.inc-new textarea { width: 100%; resize: vertical; min-height: 70px; background: transparent; border: 0; color: inherit; font: inherit; padding: 10px 0; outline: none; }
+.inc-list { list-style: none; margin: 0; padding: 14px 24px 24px; display: grid; gap: 10px; border-top: 1px solid var(--line); }
+.ast-card > .muted-msg, .ast-card > .acct-msg { margin: 14px 24px 22px; }
+@media (max-width: 760px) { .inc-new, .inc-list { padding-left: 18px; padding-right: 18px; } }
+.inc { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 6px; }
+.inc.open { border-color: rgba(255,84,112,.5); background: rgba(255,84,112,.07); }
+.inc-h { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+.inc-tag { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 2px 9px; background: rgba(34,197,94,.14); color: #22c55e; }
+.inc.open .inc-tag { background: rgba(255,84,112,.16); color: #ff5470; }
+.inc p { margin: 0; } .inc small { color: var(--dim); }
+.inc-ups { margin: 2px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
+.inc-upd { display: flex; gap: 8px; align-items: center; } .inc-upd .auth-in { flex: 1; }
+.inc-acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }

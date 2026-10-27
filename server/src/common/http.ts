@@ -5,6 +5,8 @@
 import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import type { NextFunction, Request, Response } from 'express';
 import { codespaceHost, publicUrl } from '../config/env';
+import { appNotFoundPage, notFoundPage } from '../visitor/rules';
+import { isCustomHost } from '../domains';
 
 /** API-fout met onze vaste vorm: throw fail(400, 'Invalid QR code', { details }) */
 export const fail = (status: number, error: string, extra: Record<string, unknown> = {}) => new HttpException({ error, ...extra }, status);
@@ -20,7 +22,7 @@ export class ErrorFilter implements ExceptionFilter {
     if (err && err.constructor === HttpException) return res.status(err.getStatus()).json(err.getResponse());   // onze eigen fouten (fail, reply)
     if (err instanceof NotFoundException) {
       // Onbekende route (Nest zelf)
-      return req.path.startsWith('/api') ? res.status(404).json({ error: 'Not found' }) : res.status(404).type('text').send('Not found');
+      return req.path.startsWith('/api') ? res.status(404).json({ error: 'Not found' }) : res.status(404).type('html').send(isCustomHost(req.hostname) ? notFoundPage(req) : appNotFoundPage(req));   // eigen domein klant: neutraal, zonder ons merk
     }
     if (err instanceof BadRequestException) {
       // Nest zet kapotte JSON (body-parser) en kapotte adressen om naar een 400 met technische tekst: die tonen we niet

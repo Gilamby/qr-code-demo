@@ -1097,7 +1097,30 @@
     "inactive": "Este código QR no está activo",
     "inactiveText": "Este código no está disponible temporalmente. Inténtalo más tarde.",
     "notYet": "Este código QR aún no está activo",
-    "notYetText": "Este código QR funciona a partir del {date}. Vuelve a intentarlo entonces."
+    "notYetText": "Este código QR funciona a partir del {date}. Vuelve a intentarlo entonces.",
+    "page404Title": "Página no encontrada",
+    "page404Btn": "Ir a QR-Codex",
+    "g404Sub": "Parece que esta página no existe.",
+    "g404Sub2": "Ya que estás aquí, a ver hasta dónde llegas corriendo.",
+    "g404Start": "Pulsa Espacio o toca para empezar",
+    "g404StartBtn": "Empezar",
+    "g404Hint": "saltar · mantén pulsado para saltar más · toca en el móvil",
+    "g404Lost": "Señal perdida",
+    "g404Again": "Otra vez",
+    "g404NewBest": "¡Nuevo récord!",
+    "g404SoundOn": "Sonido activado",
+    "g404SoundOff": "Sonido desactivado",
+    "stTitle": "Incidencias y avisos",
+    "stLead": "Aquí informamos de incidencias y mantenimiento, y te mantenemos al día hasta que todo vuelva a funcionar.",
+    "stOk": "Todo funciona",
+    "stOkText": "No hay incidencias en este momento.",
+    "stDown": "Incidencia",
+    "stMaint": "Mantenimiento",
+    "stMaintText": "Ver y escanear códigos QR funciona con normalidad; hacer cambios no es posible por un momento.",
+    "stSince": "Desde {date}",
+    "stSolved": "resuelto",
+    "stHistory": "Avisos anteriores",
+    "stNone": "Todavía no hay avisos."
   },
   "edit": {
     "title": "Editando: {name}",
@@ -2442,7 +2465,16 @@
     "log_download": "Descargado",
     "plan_standard": "Estándar",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Datos de la empresa modificados",
+    "log_settings_platform": "Ajustes de la plataforma modificados",
+    "log_maintenance_on": "Modo mantenimiento activado",
+    "log_maintenance_off": "Modo mantenimiento desactivado",
+    "log_incident_open": "Incidencia comunicada",
+    "log_incident_solved": "Incidencia resuelta",
+    "log_incident_update": "Actualización de incidencia publicada",
+    "log_incident_edit": "Aviso de incidencia editado",
+    "log_incident_delete": "Aviso de incidencia eliminado"
   },
   "plan": {
     "title": "Suscripción",
@@ -2597,7 +2629,23 @@
     "mailTestBtn": "Enviar correo de prueba",
     "mailTestOk": "Correo de prueba enviado a {email}. Revisa también el spam.",
     "mailTestBad": "Error al enviar: {msg}",
-    "statusLead": "Cómo está la plataforma ahora mismo."
+    "statusLead": "Cómo está la plataforma ahora mismo.",
+    "iTitle": "Incidencias y avisos",
+    "iLead": "Informa aquí de una incidencia: los clientes verán una barra roja en la app y el aviso en la página de estado. Márcala como resuelta cuando todo vuelva a funcionar.",
+    "iNew": "Nuevo aviso",
+    "iTitleF": "Título",
+    "iText": "¿Qué está pasando?",
+    "iAdd": "Informar incidencia",
+    "iSolve": "Resuelto",
+    "iReopen": "Reabrir",
+    "iDelete": "Eliminar",
+    "iOpen": "en curso",
+    "iSolved": "resuelto",
+    "iPage": "Ver página de estado",
+    "iUpdate": "Añadir actualización",
+    "iUpdateAdd": "Publicar actualización",
+    "iEmpty": "Todavía no hay avisos.",
+    "iConfirm": "¿Eliminar este aviso?"
   },
   "st": {
     "lead": "Todo sobre tu cuenta, la privacidad y la app en un solo lugar.",
@@ -3028,5 +3076,9 @@
     "errTaken": "Este dominio ya lo usa otra cuenta.",
     "errOther": "Algo salió mal. Inténtalo de nuevo más tarde.",
     "ph": "qr.tuempresa.es"
+  },
+  "status": {
+    "bar": "Incidencia",
+    "more": "Más info"
   }
 }

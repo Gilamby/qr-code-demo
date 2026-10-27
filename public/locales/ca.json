@@ -1097,7 +1097,30 @@
     "inactive": "Aquest codi QR no està actiu",
     "inactiveText": "Aquest codi no està disponible temporalment. Torna-ho a provar més tard.",
     "notYet": "Aquest codi QR encara no està actiu",
-    "notYetText": "Aquest codi QR funciona a partir del {date}. Torna-ho a provar llavors."
+    "notYetText": "Aquest codi QR funciona a partir del {date}. Torna-ho a provar llavors.",
+    "page404Title": "Pàgina no trobada",
+    "page404Btn": "Anar a QR-Codex",
+    "g404Sub": "Sembla que aquesta pàgina no existeix.",
+    "g404Sub2": "Ja que ets aquí, a veure fins on arribes corrent.",
+    "g404Start": "Prem Espai o toca per començar",
+    "g404StartBtn": "Començar",
+    "g404Hint": "saltar · mantén premut per saltar més · toca al mòbil",
+    "g404Lost": "Senyal perdut",
+    "g404Again": "Torna-hi",
+    "g404NewBest": "Nou rècord!",
+    "g404SoundOn": "So activat",
+    "g404SoundOff": "So desactivat",
+    "stTitle": "Incidències i avisos",
+    "stLead": "Aquí informem d’incidències i manteniment, i et mantenim al dia fins que tot torni a funcionar.",
+    "stOk": "Tot funciona",
+    "stOkText": "Ara mateix no hi ha incidències.",
+    "stDown": "Incidència",
+    "stMaint": "Manteniment",
+    "stMaintText": "Veure i escanejar codis QR funciona amb normalitat; fer canvis no és possible durant una estona.",
+    "stSince": "Des de {date}",
+    "stSolved": "resolt",
+    "stHistory": "Avisos anteriors",
+    "stNone": "Encara no hi ha avisos."
   },
   "edit": {
     "title": "S'està editant: {name}",
@@ -2432,7 +2455,16 @@
     "log_download": "Baixat",
     "plan_standard": "Estàndard",
     "plan_pro": "Pro",
-    "plan_business": "Business"
+    "plan_business": "Business",
+    "log_settings_company": "Dades de l’empresa modificades",
+    "log_settings_platform": "Configuració de la plataforma modificada",
+    "log_maintenance_on": "Mode manteniment activat",
+    "log_maintenance_off": "Mode manteniment desactivat",
+    "log_incident_open": "Incidència comunicada",
+    "log_incident_solved": "Incidència resolta",
+    "log_incident_update": "Actualització d’incidència publicada",
+    "log_incident_edit": "Avís d’incidència editat",
+    "log_incident_delete": "Avís d’incidència eliminat"
   },
   "plan": {
     "title": "Subscripció",
@@ -2552,7 +2584,23 @@
     "bRemoved": "{v} ja no està bloquejat.",
     "bAdded": "{v} està bloquejat.",
     "bSelf": "No pots bloquejar el teu propi correu o domini.",
-    "bBad": "Escriu un correu o domini vàlid."
+    "bBad": "Escriu un correu o domini vàlid.",
+    "iTitle": "Incidències i avisos",
+    "iLead": "Informa aquí d’una incidència: els clients veuran una barra vermella a l’app i l’avís a la pàgina d’estat. Marca-la com a resolta quan tot torni a funcionar.",
+    "iNew": "Nou avís",
+    "iTitleF": "Títol",
+    "iText": "Què està passant?",
+    "iAdd": "Informar d’incidència",
+    "iSolve": "Resolt",
+    "iReopen": "Reobrir",
+    "iDelete": "Eliminar",
+    "iOpen": "en curs",
+    "iSolved": "resolt",
+    "iPage": "Veure pàgina d’estat",
+    "iUpdate": "Afegir actualització",
+    "iUpdateAdd": "Publicar actualització",
+    "iEmpty": "Encara no hi ha avisos.",
+    "iConfirm": "Eliminar aquest avís?"
   },
   "st": {
     "lead": "Tot sobre el teu compte, la privadesa i l'aplicació en un sol lloc.",
@@ -2983,5 +3031,9 @@
     "errTaken": "Aquest domini ja el fa servir un altre compte.",
     "errOther": "Alguna cosa ha anat malament. Torna-ho a provar més tard.",
     "ph": "qr.lateva-empresa.cat"
+  },
+  "status": {
+    "bar": "Incidència",
+    "more": "Més info"
   }
 }

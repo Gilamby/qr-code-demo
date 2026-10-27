@@ -77,6 +77,7 @@ var AdminSettings = (function () {
       '<div class="ast-layout">' + tabs() + '<div id="asPanel" class="ast-main' + (tab === 'texts' ? ' wide' : '') + '">' + P() + '</div></div>';
     if (['company', 'signup', 'maint', 'mail', 'system'].indexOf(tab) >= 0 && !sets) loadSets();
     if (tab === 'block' && !blocks) loadBlocks();
+    if (tab === 'maint' && !incs) loadIncs();
   }
   function textsPanel() {
     // Onderdelen met een leesbare naam ("Beheer › Alle QR-codes" i.p.v. "ac"), op naam gesorteerd
@@ -190,7 +191,30 @@ var AdminSettings = (function () {
     return sec(t('set.mTitle'), t('set.mLead'),
       srow(t('set.mOn'), m.on && m.by ? esc(m.by) + (m.at ? ' · ' + esc(i18n.fmt.stamp(m.at, 'long')) : '') : '', sw('on', m.on)) +
       srow(t('set.mMsg'), '', '<span class="auth-in"><input name="message" maxlength="300" value="' + esc(m.message || '') + '" placeholder="' + esc(t('set.mPh')) + '"></span>') +
-      saveBar('maintenance'), ' data-set="maintenance"');
+      saveBar('maintenance'), ' data-set="maintenance"') + incPanel();
+  }
+  /* Storingen en meldingen: klanten zien een rode balk in de app en de melding op /status */
+  var incs = null, incMsg = null;
+  function loadIncs() { api.incidents.list().then(function (r) { incs = r.incidents || []; draw(); }).catch(function () { incs = []; draw(); }); }
+  function incDone(r) { incs = r.incidents || []; incMsg = null; draw(); document.dispatchEvent(new Event('incidents-change')); }
+  function incFail() { incMsg = t('myCodes.failed'); draw(); }
+  function incPanel() {
+    var when = function (iso) { return esc(i18n.fmt.stamp(iso, 'time')); };
+    var list = !incs ? '<p class="muted-msg">' + t('myCodes.loading') + '</p>' : !incs.length ? '<p class="muted-msg">' + t('set.iEmpty') + '</p>' :
+      '<ul class="inc-list">' + incs.map(function (i) {
+        var open = i.status === 'open';
+        return '<li class="inc ' + (open ? 'open' : 'solved') + '" data-inc="' + esc(i.id) + '"><div class="inc-h"><b>' + esc(i.title) + '</b><span class="inc-tag">' + t(open ? 'set.iOpen' : 'set.iSolved') + '</span></div>' +
+          '<small>' + when(i.at) + (i.solvedAt ? ' → ' + when(i.solvedAt) : '') + '</small>' + (i.text ? '<p>' + esc(i.text).replace(/\n/g, '<br>') + '</p>' : '') +
+          ((i.updates || []).length ? '<ol class="inc-ups">' + i.updates.map(function (u) { return '<li><small>' + when(u.at) + '</small> ' + esc(u.text) + '</li>'; }).join('') + '</ol>' : '') +
+          (open ? '<form class="inc-upd" data-incupd><span class="auth-in"><input name="update" maxlength="1000" placeholder="' + esc(t('set.iUpdate')) + '" aria-label="' + esc(t('set.iUpdate')) + '"></span><button type="submit" class="btn ghost sm">' + t('set.iUpdateAdd') + '</button></form>' : '') +
+          '<div class="inc-acts"><button type="button" class="btn ' + (open ? 'primary' : 'ghost') + ' sm" data-incstate="' + (open ? 'solved' : 'open') + '">' + t(open ? 'set.iSolve' : 'set.iReopen') + '</button>' +
+          '<button type="button" class="btn ghost sm" data-incdel>' + t('set.iDelete') + '</button></div></li>';
+      }).join('') + '</ul>';
+    return '<div class="glass ast-card set-sec"><header class="set-sec-h"><h3>' + t('set.iTitle') + '</h3><p>' + t('set.iLead') + ' <a href="status" target="_blank" rel="noopener">' + t('set.iPage') + ' →</a></p></header>' +
+      '<form class="inc-new" data-incform><b>' + t('set.iNew') + '</b><label class="auth-f"><span>' + t('set.iTitleF') + '</span><span class="auth-in"><input name="title" maxlength="120" required></span></label>' +
+      '<label class="auth-f"><span>' + t('set.iText') + '</span><span class="auth-in"><textarea name="text" rows="3" maxlength="2000"></textarea></span></label>' +
+      '<div class="set-save"><button type="submit" class="btn primary">' + t('set.iAdd') + '</button></div></form>' +
+      (incMsg ? '<p class="acct-msg bad" role="alert">' + esc(incMsg) + '</p>' : '') + list + '</div>';
   }
   var testMsg = null;
   function mailPanel() {
@@ -244,6 +268,8 @@ var AdminSettings = (function () {
   body.addEventListener('click', function (e) {
     var b;
     if ((b = e.target.closest('[data-tab]'))) { tab = b.getAttribute('data-tab'); return draw(); }
+    if ((b = e.target.closest('[data-incstate]'))) { b.disabled = true; return api.incidents.edit(b.closest('[data-inc]').getAttribute('data-inc'), { status: b.getAttribute('data-incstate') }).then(incDone).catch(incFail); }
+    if ((b = e.target.closest('[data-incdel]'))) { if (!confirm(t('set.iConfirm'))) return; b.disabled = true; return api.incidents.remove(b.closest('[data-inc]').getAttribute('data-inc')).then(incDone).catch(incFail); }
     if ((b = e.target.closest('[data-lang]'))) { f.lang = b.getAttribute('data-lang'); if (f.ref === f.lang) f.ref = f.lang === 'en' ? 'nl' : 'en'; shown = PAGE; return draw(); }
     if ((b = e.target.closest('[data-status]'))) { f.status = b.getAttribute('data-status'); shown = PAGE; return draw(); }
     if (e.target.closest('[data-more]')) { shown += PAGE * 2; return draw(); }
@@ -282,6 +308,10 @@ var AdminSettings = (function () {
   });
   function deeplErr(x) { var c = x && x.code; return t(c === 'deepl_key' ? 'as.badKey' : c === 'deepl_quota' ? 'as.quota' : c === 'unsupported_lang' ? 'as.unsupported' : c === 'too_many' ? 'auth.errTooMany' : 'as.unreachable'); }
   body.addEventListener('submit', function (e) {
+    var nf = e.target.closest('[data-incform]');
+    if (nf) { e.preventDefault(); nf.querySelector('[type=submit]').disabled = true; return api.incidents.add({ title: nf.title.value, text: nf.text.value }).then(incDone).catch(incFail); }
+    var uf = e.target.closest('[data-incupd]');
+    if (uf) { e.preventDefault(); if (!uf.update.value.trim()) return; uf.querySelector('[type=submit]').disabled = true; return api.incidents.edit(uf.closest('[data-inc]').getAttribute('data-inc'), { update: uf.update.value }).then(incDone).catch(incFail); }
     var bf = e.target.closest('[data-blockform]');
     if (bf) {
       e.preventDefault(); var bb = bf.querySelector('[type=submit]'); bb.disabled = true;
