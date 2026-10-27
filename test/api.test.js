@@ -1197,3 +1197,13 @@ test('eigen merk: logo als icoon en op de kleine pagina\'s; ongeldig logo geweig
   const ic = await fetch(base + '/b/' + me.id + '/icon'); assert.equal(ic.status, 200); assert.equal(ic.headers.get('content-type'), 'image/png');
   assert.equal((await k('DELETE', '/api/account/brand')).status, 204);
 });
+
+test('foutmelding voor het team: pas bij 10 fouten in 15 minuten, dan max. één per uur', async () => {
+  const { recentErrors } = require('../server/dist/common/http'); const { checkErrors, resetErrorAlert } = require('../server/dist/error-alerts');
+  const keep = recentErrors.splice(0); resetErrorAlert(); const sent = []; const m = { sendErrorAlert: async (n, lines) => { sent.push([n, lines]); } };
+  const now = Date.now(), add = (k) => { for (let i = 0; i < k; i++) recentErrors.unshift({ at: new Date(now - i * 1000).toISOString(), method: 'GET', path: '/api/x', message: 'boom' }); };
+  add(5); assert.equal(await checkErrors(m, now), false);
+  add(6); assert.equal(await checkErrors(m, now), true); assert.equal(sent[0][0], 11); assert.ok(sent[0][1][0].startsWith('11× GET /api/x'));
+  assert.equal(await checkErrors(m, now + 60e3), false, 'binnen het uur niet nog eens');
+  recentErrors.splice(0); recentErrors.push(...keep); resetErrorAlert();
+});

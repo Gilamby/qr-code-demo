@@ -187,3 +187,10 @@ Business customers can use their own subdomain for short links (`https://qr.thei
 4. Without Cloudflare: use Caddy with on-demand TLS and `ask http://127.0.0.1:3000/api/domains/ask` so certificates are only issued for domains a customer added.
 
 On a customer domain only `/q/…` of that customer's own codes works (plus the static files those pages need). The app, `/api` and other customers' codes return 404; `/` redirects to `PUBLIC_URL`.
+
+## Monitoring and alerts
+
+- **Server errors:** every 5 minutes the app checks its own unexpected errors (HTTP 500). With 10 or more in 15 minutes it emails the team address (Admin > Settings > Company) once per hour, with the most frequent error messages and paths. Turn off with `ERROR_ALERTS=off`.
+- **Uptime from outside:** the app cannot report that it is completely down. Use an external uptime check (for example UptimeRobot or Better Stack) on `https://<domain>/api/health` every minute, with alerts to the team.
+- **Leaked passwords:** at sign-up, reset and password change the app checks the password against Have I Been Pwned (k-anonymity: only the first 5 characters of the SHA-1 hash leave the server). If the service is unreachable the check is skipped. Turn off with `PWNED_CHECK=off`. The server needs outbound HTTPS to `api.pwnedpasswords.com`.
+- **Webhooks (Business):** outgoing POSTs to customer URLs (https only, no internal addresses, 5 s timeout, no redirects). `WEBHOOK_ALLOW_PRIVATE=1` is for tests only.

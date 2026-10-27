@@ -107,6 +107,13 @@ export class MailerService {
     if (!this.transport) throw new Error('not_configured');
     await this.transport.sendMail({ from: this.from(), to, subject: 'QR-Codex: test e-mail', text: 'Deze test-e-mail komt van QR-Codex (' + (this.base() || 'server') + '). De mailserver werkt.\n\nThis test email was sent from QR-Codex. Your mail server works.' });
   }
+  /** Melding aan het team: veel serverfouten in korte tijd (error-alerts.ts) */
+  async sendErrorAlert(count: number, lines: string[]) {
+    const to = await teamEmail(this.db); if (!to) return;
+    const body = count + ' serverfouten in de laatste 15 minuten / server errors in the last 15 minutes\n\n' + lines.join('\n') + '\n\nBeheer > Instellingen > Status: ' + (this.base() || '') + '/';
+    if (!this.transport) { console.log('[e-mail niet ingesteld] Foutmelding: ' + count + ' fouten'); return; }
+    await this.transport.sendMail({ from: this.from(), to, subject: '[QR-Codex] ' + count + ' serverfouten in 15 min', text: body });
+  }
   /** Melding aan het team: nieuwe klant (aan te zetten in Beheer > Instellingen > Aanmelden) */
   async notifySignup(email: string, name: string, via: string) {
     try {

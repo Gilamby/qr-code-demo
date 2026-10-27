@@ -9,6 +9,7 @@ import { needsVies, checkVies } from './billing/tax';
 import { planFor, EXTRA_PRICE } from './plans';
 import { healthSweep } from './health';
 import { quietSweep } from './quiet-alerts';
+import { checkErrors } from './error-alerts';
 import { domainSweep } from './domains';
 import { TRASH_DAYS, codeName } from './qr-codes/qr-codes.controller';
 import { notePurged } from './qr-codes/purged';
@@ -23,12 +24,14 @@ async function dropLegacy(db: DatabaseService, userId: string, codeId: string) {
 @Injectable()
 export class HousekeepingService implements OnApplicationBootstrap, OnApplicationShutdown {
   private timer: NodeJS.Timeout;
+  private errTimer: NodeJS.Timeout;
   constructor(private readonly db: DatabaseService, private readonly mailer: MailerService) {}
 
   onApplicationBootstrap() {
     const tidy = () => { this.db.cleanup().catch((e) => console.error('Opruimen mislukt:', e.message)); sendDueReports(this.db, this.mailer).catch((e) => console.error('Scanoverzichten mislukt:', e.message)); this.subscriptions().catch((e) => console.error('Abonnementen nakijken mislukt:', e.message)); this.legacyReminders().catch((e) => console.error('Herinneringen oude QR-app mislukt:', e.message)); if (process.env.HEALTH_CHECK !== 'off') healthSweep(this.db as any, Date.now(), this.mailer).catch((e) => console.error('Health check mislukt:', e.message)); domainSweep(this.db).catch((e) => console.error('Eigen domeinen nakijken mislukt:', e.message));  this.trashSweep().catch((e) => console.error('Prullenbak legen mislukt:', e.message)); quietSweep(this.db, this.mailer).catch((e) => console.error('Stil-meldingen mislukt:', e.message));};
     tidy();
     this.timer = setInterval(tidy, 3600e3); this.timer.unref();
+    this.errTimer = setInterval(() => { checkErrors(this.mailer).catch(() => {}); }, 300e3); this.errTimer.unref();   // veel serverfouten: mail aan het team
   }
   /** Prullenbak: codes die langer dan 30 dagen geleden zijn verwijderd, nu echt verwijderen (met statistieken en bestanden) */
   async trashSweep(now = Date.now()) {
@@ -142,5 +145,5 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
       if (changed) await this.db.setSetting('legacyUntil:' + c.id, Object.keys(m).length ? JSON.stringify(m) : null);
     }
   }
-  onApplicationShutdown() { clearInterval(this.timer); }
+  onApplicationShutdown() { clearInterval(this.timer); clearInterval(this.errTimer); }
 }
