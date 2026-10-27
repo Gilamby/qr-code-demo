@@ -1378,7 +1378,8 @@
     "checkSpam": "Ingen e-post? Sjekk søppelpostmappen.",
     "verifiedTitle": "E-post bekreftet",
     "verifiedLead": "Kontoen din er klar. Du kan lukke denne siden: på enheten der du opprettet kontoen, fortsetter du automatisk.",
-    "continueHere": "Fortsett på denne enheten"
+    "continueHere": "Fortsett på denne enheten",
+    "errPwned": "Dette passordet finnes i kjente datalekkasjer. Velg et annet."
   },
   "acct": {
     "profile": "Profil",

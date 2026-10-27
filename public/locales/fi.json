@@ -1378,7 +1378,8 @@
     "checkSpam": "Eikö viestiä tullut? Tarkista roskapostikansio.",
     "verifiedTitle": "Sähköposti vahvistettu",
     "verifiedLead": "Tilisi on valmis. Voit sulkea tämän sivun: laitteella, jolla loit tilin, jatkat automaattisesti.",
-    "continueHere": "Jatka tällä laitteella"
+    "continueHere": "Jatka tällä laitteella",
+    "errPwned": "Tämä salasana löytyy tunnetuista tietovuodoista. Valitse toinen."
   },
   "acct": {
     "profile": "Profiili",

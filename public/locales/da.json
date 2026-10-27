@@ -1378,7 +1378,8 @@
     "checkSpam": "Ingen e-mail? Tjek din spammappe.",
     "verifiedTitle": "E-mail bekræftet",
     "verifiedLead": "Din konto er klar. Du kan lukke denne side: på den enhed, hvor du oprettede kontoen, fortsætter du automatisk.",
-    "continueHere": "Fortsæt på denne enhed"
+    "continueHere": "Fortsæt på denne enhed",
+    "errPwned": "Denne adgangskode findes i kendte datalæk. Vælg en anden."
   },
   "acct": {
     "profile": "Profil",

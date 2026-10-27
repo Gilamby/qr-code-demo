@@ -5,6 +5,7 @@
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
    - Te veel pogingen = even wachten (429).
    ========================================================= */
+import { pwnedCount } from './pwned';
 import { isBlocked } from './blocklist';
 import { acceptTerms } from './terms';
 import { isDisposable, canonicalEmail } from './email-rules';
@@ -41,6 +42,7 @@ export class AuthController {
     if (isDisposable(email)) throw fail(400, 'email_disposable');             // tijdelijke mailbox: geen account
     if (await isBlocked(this.db, email)) throw fail(403, 'blocked');            // geblokkeerd (Terms punt 14): geen nieuw account
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
+    if (await pwnedCount(b.password)) throw fail(400, 'password_pwned');           // komt voor in bekende datalekken
     if (b.accept !== true) throw fail(400, 'terms');                            // 18+ en akkoord met Terms en Privacy (Terms punt 1 en 3)
     const existing = await this.db.userByEmail(email);
     // Variant van een adres dat al een account heeft (jan.devries+2@gmail.com = jandevries@gmail.com): geen tweede account
@@ -180,6 +182,7 @@ export class AuthController {
   async reset(@Req() req: Request, @Res({ passthrough: true }) res: Response, @Body() b: any = {}) {
     if (this.auth.limited('reset:' + req.ip, 20, 60)) throw fail(429, 'too_many');
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
+    if (await pwnedCount(b.password)) throw fail(400, 'password_pwned');           // komt voor in bekende datalekken
     const userId = await this.db.useReset(String(b.token || '')); if (!userId) throw fail(400, 'token');
     if ((await this.db.getUser(userId)).disabledAt) throw fail(403, 'disabled');
     await this.db.updateUser(userId, { passwordHash: await this.auth.hashPassword(b.password), passwordChangedAt: new Date().toISOString() });

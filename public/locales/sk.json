@@ -1378,7 +1378,8 @@
     "checkSpam": "Neprišiel e-mail? Pozrite sa do priečinka so spamom.",
     "verifiedTitle": "E-mail potvrdený",
     "verifiedLead": "Váš účet je pripravený. Túto stránku môžete zavrieť: na zariadení, kde ste účet vytvorili, budete pokračovať automaticky.",
-    "continueHere": "Pokračovať na tomto zariadení"
+    "continueHere": "Pokračovať na tomto zariadení",
+    "errPwned": "Toto heslo sa nachádza v známych únikoch údajov. Zvoľte iné."
   },
   "acct": {
     "profile": "Profil",

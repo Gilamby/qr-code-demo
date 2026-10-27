@@ -1378,7 +1378,8 @@
     "checkSpam": "Keine E-Mail? Schau auch im Spam-Ordner nach.",
     "verifiedTitle": "E-Mail bestätigt",
     "verifiedLead": "Dein Konto ist bereit. Du kannst diese Seite schließen: Auf dem Gerät, auf dem du das Konto erstellt hast, geht es automatisch weiter.",
-    "continueHere": "Auf diesem Gerät fortfahren"
+    "continueHere": "Auf diesem Gerät fortfahren",
+    "errPwned": "Dieses Passwort kommt in bekannten Datenlecks vor. Bitte wählen Sie ein anderes."
   },
   "acct": {
     "profile": "Profil",

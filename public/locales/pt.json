@@ -1378,7 +1378,8 @@
     "checkSpam": "Não recebeu? Verifique a pasta de spam.",
     "verifiedTitle": "E-mail confirmado",
     "verifiedLead": "A sua conta está pronta. Pode fechar esta página: no dispositivo onde criou a conta, continua automaticamente.",
-    "continueHere": "Continuar neste dispositivo"
+    "continueHere": "Continuar neste dispositivo",
+    "errPwned": "Esta palavra-passe aparece em fugas de dados conhecidas. Escolha outra."
   },
   "acct": {
     "profile": "Perfil",

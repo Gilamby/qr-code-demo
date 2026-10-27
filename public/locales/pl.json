@@ -1378,7 +1378,8 @@
     "checkSpam": "Brak e-maila? Sprawdź folder spam.",
     "verifiedTitle": "E-mail potwierdzony",
     "verifiedLead": "Twoje konto jest gotowe. Możesz zamknąć tę stronę: na urządzeniu, na którym założono konto, przejdziesz dalej automatycznie.",
-    "continueHere": "Kontynuuj na tym urządzeniu"
+    "continueHere": "Kontynuuj na tym urządzeniu",
+    "errPwned": "To hasło występuje w znanych wyciekach danych. Wybierz inne."
   },
   "acct": {
     "profile": "Profil",

@@ -33,6 +33,6 @@ var PasswordRules = (function () {
     list: list,
     /** '' = goed, anders 'short' | 'upper' | 'digit' | 'special' (zelfde codes als de server, met "password_" ervoor) */
     problem: function (pw) { var s = String(pw || ''); for (var i = 0; i < RULES.length; i++) if (!RULES[i][1](s)) return CODE[RULES[i][0]]; return ''; },
-    errorKey: function (code) { return { password_short: 'auth.errShort', password_long: 'auth.errLong', password_common: 'auth.errCommon', password_upper: 'auth.errUpper', password_digit: 'auth.errDigit', password_special: 'auth.errSpecial' }[code]; }
+    errorKey: function (code) { return { password_short: 'auth.errShort', password_long: 'auth.errLong', password_common: 'auth.errCommon', password_upper: 'auth.errUpper', password_digit: 'auth.errDigit', password_special: 'auth.errSpecial', password_pwned: 'auth.errPwned' }[code]; }
   };
 })();

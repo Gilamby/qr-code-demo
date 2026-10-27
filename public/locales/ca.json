@@ -1378,7 +1378,8 @@
     "checkSpam": "No t'ha arribat? Revisa la carpeta de correu brossa.",
     "verifiedTitle": "Correu confirmat",
     "verifiedLead": "El teu compte està a punt. Pots tancar aquesta pàgina: al dispositiu on vas crear el compte continuaràs automàticament.",
-    "continueHere": "Continua en aquest dispositiu"
+    "continueHere": "Continua en aquest dispositiu",
+    "errPwned": "Aquesta contrasenya apareix en filtracions de dades conegudes. Tria’n una altra."
   },
   "acct": {
     "profile": "Perfil",

@@ -1378,7 +1378,8 @@
     "checkSpam": "¿No te ha llegado? Revisa la carpeta de spam.",
     "verifiedTitle": "Correo confirmado",
     "verifiedLead": "Tu cuenta está lista. Puedes cerrar esta página: en el dispositivo donde creaste la cuenta continuarás automáticamente.",
-    "continueHere": "Continuar en este dispositivo"
+    "continueHere": "Continuar en este dispositivo",
+    "errPwned": "Esta contraseña aparece en filtraciones de datos conocidas. Elige otra."
   },
   "acct": {
     "profile": "Perfil",

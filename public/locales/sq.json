@@ -1484,7 +1484,8 @@
     "checkSpam": "S'ka email? Kontrollo dosjen e spam-it.",
     "verifiedTitle": "Emaili u konfirmua",
     "verifiedLead": "Llogaria jote është gati. Mund ta mbyllësh këtë faqe: në pajisjen ku krijove llogarinë vazhdon automatikisht.",
-    "continueHere": "Vazhdo në këtë pajisje"
+    "continueHere": "Vazhdo në këtë pajisje",
+    "errPwned": "Ky fjalëkalim gjendet në rrjedhje të njohura të të dhënave. Zgjidhni një tjetër."
   },
   "acct": {
     "profile": "Profili",

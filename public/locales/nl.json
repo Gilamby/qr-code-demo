@@ -1378,7 +1378,8 @@
     "checkSpam": "Geen e-mail? Kijk ook in je spammap.",
     "verifiedTitle": "E-mail bevestigd",
     "verifiedLead": "Je account is klaar. Je kunt deze pagina sluiten: op het apparaat waar je het account maakte, ga je vanzelf verder.",
-    "continueHere": "Op dit apparaat verder"
+    "continueHere": "Op dit apparaat verder",
+    "errPwned": "Dit wachtwoord komt voor in bekende datalekken. Kies een ander wachtwoord."
   },
   "acct": {
     "profile": "Profiel",

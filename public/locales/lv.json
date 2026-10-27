@@ -1378,7 +1378,8 @@
     "checkSpam": "Nav e-pasta? Pārbaudiet surogātpasta mapi.",
     "verifiedTitle": "E-pasts apstiprināts",
     "verifiedLead": "Jūsu konts ir gatavs. Varat aizvērt šo lapu: ierīcē, kurā izveidojāt kontu, turpināsiet automātiski.",
-    "continueHere": "Turpināt šajā ierīcē"
+    "continueHere": "Turpināt šajā ierīcē",
+    "errPwned": "Šī parole ir atrodama zināmās datu noplūdēs. Izvēlieties citu."
   },
   "acct": {
     "profile": "Profils",

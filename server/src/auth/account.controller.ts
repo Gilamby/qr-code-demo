@@ -3,6 +3,7 @@
    Naam, wachtwoord, overzicht, uitloggen op andere apparaten, achtergrond, factuurgegevens,
    en de AVG-rechten: al je gegevens downloaden en je account verwijderen.
    ========================================================= */
+import { pwnedCount } from './pwned';
 import * as crypto from 'crypto';
 import { isBlocked } from './blocklist';
 import { cleanupTeam } from './team.controller';
@@ -87,6 +88,7 @@ export class AccountController {
     if (this.auth.limited('pw:' + user.id, 10, 15)) throw fail(429, 'too_many');
     if (!(await this.auth.checkPassword(b.current || '', await this.db.passwordHashOf(user.id)))) throw fail(403, 'wrong');   // 403: wel ingelogd, verkeerd wachtwoord
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
+    if (await pwnedCount(b.password)) throw fail(400, 'password_pwned');           // komt voor in bekende datalekken
     await this.db.updateUser(user.id, { passwordHash: await this.auth.hashPassword(b.password), passwordChangedAt: new Date().toISOString() });
     await this.db.deleteSessionsOf(user.id, req.sid);                  // andere apparaten uitloggen
     await this.db.addActivity(user.id, 'password', this.auth.meta(req));

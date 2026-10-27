@@ -1378,7 +1378,8 @@
     "checkSpam": "Nu ai primit e-mailul? Verifică dosarul spam.",
     "verifiedTitle": "E-mail confirmat",
     "verifiedLead": "Contul tău este gata. Poți închide această pagină: pe dispozitivul pe care ai creat contul vei continua automat.",
-    "continueHere": "Continuă pe acest dispozitiv"
+    "continueHere": "Continuă pe acest dispozitiv",
+    "errPwned": "Această parolă apare în scurgeri de date cunoscute. Alege alta."
   },
   "acct": {
     "profile": "Profil",

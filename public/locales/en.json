@@ -1378,7 +1378,8 @@
     "checkSpam": "No email? Check your spam folder.",
     "verifiedTitle": "Email confirmed",
     "verifiedLead": "Your account is ready. You can close this page: on the device where you created your account, you continue automatically.",
-    "continueHere": "Continue on this device"
+    "continueHere": "Continue on this device",
+    "errPwned": "This password appears in known data breaches. Please choose a different one."
   },
   "acct": {
     "profile": "Profile",

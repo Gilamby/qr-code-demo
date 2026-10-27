@@ -1378,7 +1378,8 @@
     "checkSpam": "Nessuna e-mail? Controlla la cartella spam.",
     "verifiedTitle": "E-mail confermata",
     "verifiedLead": "Il tuo account è pronto. Puoi chiudere questa pagina: sul dispositivo dove hai creato l'account continuerai automaticamente.",
-    "continueHere": "Continua su questo dispositivo"
+    "continueHere": "Continua su questo dispositivo",
+    "errPwned": "Questa password compare in violazioni di dati note. Scegline un’altra."
   },
   "acct": {
     "profile": "Profilo",

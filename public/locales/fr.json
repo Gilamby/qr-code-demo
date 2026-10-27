@@ -1378,7 +1378,8 @@
     "checkSpam": "Pas d'e-mail ? Vérifiez votre dossier spam.",
     "verifiedTitle": "E-mail confirmé",
     "verifiedLead": "Votre compte est prêt. Vous pouvez fermer cette page : sur l'appareil où vous avez créé le compte, vous continuez automatiquement.",
-    "continueHere": "Continuer sur cet appareil"
+    "continueHere": "Continuer sur cet appareil",
+    "errPwned": "Ce mot de passe figure dans des fuites de données connues. Choisissez-en un autre."
   },
   "acct": {
     "profile": "Profil",

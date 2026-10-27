@@ -1378,7 +1378,8 @@
     "checkSpam": "Inget mejl? Kolla skräppostmappen.",
     "verifiedTitle": "E-post bekräftad",
     "verifiedLead": "Ditt konto är klart. Du kan stänga den här sidan: på enheten där du skapade kontot fortsätter du automatiskt.",
-    "continueHere": "Fortsätt på den här enheten"
+    "continueHere": "Fortsätt på den här enheten",
+    "errPwned": "Lösenordet finns i kända dataläckor. Välj ett annat."
   },
   "acct": {
     "profile": "Profil",
