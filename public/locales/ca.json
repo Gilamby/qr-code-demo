@@ -3097,7 +3097,11 @@
     "leftOne": "Es pot restaurar 1 dia més",
     "restore": "Restaura",
     "note": "Els codis eliminats no funcionen. Pots restaurar-los durant 30 dies; després s’eliminen definitivament.",
-    "empty": "No hi ha res a Eliminats recentment."
+    "empty": "No hi ha res a Eliminats recentment.",
+    "logTitle": "Eliminats definitivament",
+    "logLead": "Aquests codis ja no existeixen i no es poden restaurar. Es mostren aquí durant un any perquè vegis què ha passat.",
+    "logAuto": "Automàticament després de 30 dies",
+    "logBy": "Per {name}"
   },
   "hist": {
     "menu": "Historial",

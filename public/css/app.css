@@ -5524,3 +5524,23 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .tour-dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--line-strong); transition: width .2s, background .2s; }
 .tour-dots i.on { width: 16px; background: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .tour-hole, .tour-card { transition: none; animation: none; } }
+
+/* Logboek: definitief verwijderd */
+.mc-purged { grid-column: 1 / -1; border-radius: 14px; padding: 0; margin-top: 6px; }
+.mc-purged summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; cursor: pointer; color: var(--muted); font-size: 14px; }
+.mc-purged summary::-webkit-details-marker { display: none; }
+.mc-purged summary > span { display: flex; align-items: center; gap: 10px; }
+.mc-purged summary b { color: var(--fg); font-weight: 700; }
+.mc-purged summary em { font-style: normal; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--hover); }
+.mc-purged summary > .mc-i:last-child { width: 18px; height: 18px; transition: transform .2s; }
+.mc-purged[open] summary > .mc-i:last-child { transform: rotate(180deg); }
+.mc-purged summary .mc-i { width: 18px; height: 18px; }
+.mc-purged-lead { margin: -4px 16px 8px; font-size: 13px; color: var(--muted); }
+.mc-purged ol { list-style: none; margin: 0; padding: 0 8px 8px; }
+.mc-purged li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px 8px; border-top: 1px solid var(--line); }
+.mc-purged li > i { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: var(--hover); color: var(--muted); }
+.mc-purged li > i svg { width: 16px; height: 16px; }
+.mc-purged li b { display: block; font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mc-purged li small { display: block; font-size: 12.5px; color: var(--muted); }
+.mc-purged-when { text-align: right; font-size: 13px; color: var(--fg); }
+@media (max-width: 560px) { .mc-purged li { grid-template-columns: 32px minmax(0, 1fr); } .mc-purged-when { grid-column: 2; text-align: left; } }

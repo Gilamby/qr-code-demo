@@ -263,6 +263,7 @@ var api = (function () {
     deleteQrCode: either(function (id) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id)); }, local.remove),
     bulkQrCodes:  function (d) { return request('POST', 'api/qr-codes/bulk', d); },   // veel tegelijk (Pro, Business)
     // Prullenbak (alleen met server; in de demo wordt gewoon verwijderd)
+    purgedLog:      function ()   { return api.isDemo() ? Promise.resolve([]) : request('GET', 'api/qr-codes/purged').then(function (r) { return (r && r.purged) || []; }); },
     trash:          function ()   { return api.isDemo() ? Promise.resolve([]) : request('GET', 'api/qr-codes/trash'); },
     restoreQrCode:  function (id) { return request('POST', 'api/qr-codes/' + encodeURIComponent(id) + '/restore', {}); },
     purgeQrCode:    function (id) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id) + '/permanent'); },

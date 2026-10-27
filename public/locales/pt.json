@@ -3097,7 +3097,11 @@
     "leftOne": "Pode ser reposto durante mais 1 dia",
     "restore": "Repor",
     "note": "Os códigos eliminados não funcionam. Pode repô-los durante 30 dias; depois são eliminados definitivamente.",
-    "empty": "Nada em Eliminados recentemente."
+    "empty": "Nada em Eliminados recentemente.",
+    "logTitle": "Eliminados definitivamente",
+    "logLead": "Estes códigos desapareceram de vez e não podem ser repostos. Ficam aqui durante um ano para que veja o que aconteceu.",
+    "logAuto": "Automaticamente após 30 dias",
+    "logBy": "Por {name}"
   },
   "hist": {
     "menu": "Histórico",

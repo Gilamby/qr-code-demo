@@ -150,6 +150,8 @@ test('codes zijn per klant, bestanden op schijf, scannen en statistieken', async
   assert.equal((await b('POST', '/api/qr-codes/' + id + '/restore')).status, 404, 'andere klant kan niet terugzetten');
   assert.equal((await a('DELETE', '/api/qr-codes/' + id + '/permanent')).status, 204);
   assert.equal(filesOnDisk(), before);
+  const log = (await a('GET', '/api/qr-codes/purged')).json.purged; assert.equal(log.length, 1); assert.equal(log[0].auto, false); assert.ok(log[0].by && log[0].at);
+  assert.equal((await b('GET', '/api/qr-codes/purged')).json.purged.length, 0, 'logboek is per klant');
   // na 30 dagen: de prullenbak wordt vanzelf geleegd
   const old = await a('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com/oud' } });
   await a('DELETE', '/api/qr-codes/' + old.json.id);
@@ -157,6 +159,7 @@ test('codes zijn per klant, bestanden op schijf, scannen en statistieken', async
   const hk = app.get(HousekeepingService);
   assert.equal(await hk.trashSweep(Date.now()), 0, 'nog geen 30 dagen: blijft');
   assert.equal(await hk.trashSweep(Date.now() + 31 * 864e5), 1, 'na 30 dagen: echt weg');
+  const log2 = (await a('GET', '/api/qr-codes/purged')).json.purged; assert.equal(log2.length, 2); assert.equal(log2[0].auto, true); assert.equal(log2[0].name, 'https://example.com/oud');
   assert.equal((await a('GET', '/api/qr-codes/trash')).json.length, 0);
   assert.equal((await fetch(base + '/q/' + id)).status, 410, 'verwijderd: 410 (komt nooit meer terug)');
   assert.equal((await fetch(base + '/q/nooitgebruikt')).status, 404);

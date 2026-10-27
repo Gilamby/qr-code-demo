@@ -9,7 +9,8 @@ import { needsVies, checkVies } from './billing/tax';
 import { planFor, EXTRA_PRICE } from './plans';
 import { healthSweep } from './health';
 import { domainSweep } from './domains';
-import { TRASH_DAYS } from './qr-codes/qr-codes.controller';
+import { TRASH_DAYS, codeName } from './qr-codes/qr-codes.controller';
+import { notePurged } from './qr-codes/purged';
 
 /** Overgezette code (legacy) echt weg: ook uit de lijst met oude apps */
 async function dropLegacy(db: DatabaseService, userId: string, codeId: string) {
@@ -32,7 +33,11 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
   async trashSweep(now = Date.now()) {
     let n = 0;
     for (const x of await this.db.trashedBefore(new Date(now - TRASH_DAYS * 864e5).toISOString())) {
-      if (await this.db.deleteQrCode(x.id, x.userId).catch(() => false)) { n++; await dropLegacy(this.db, x.userId, x.id).catch(() => {}); }
+      const q = await this.db.getQrCode(x.id).catch(() => null);
+      if (await this.db.deleteQrCode(x.id, x.userId).catch(() => false)) {
+        n++; await dropLegacy(this.db, x.userId, x.id).catch(() => {});
+        if (q) await notePurged(this.db, x.userId, { name: codeName(q), type: q.typeId, by: null, auto: true }, now).catch(() => {});
+      }
     }
     return n;
   }

@@ -17,8 +17,11 @@ import { AuthService } from '../auth/auth.service';
 import { checkCode, readHealth } from '../health';
 import { publicVersion, readHistory, remember, restorable } from './history';
 import { destinationOf } from './moderation';
+import { notePurged, readPurged } from './purged';
 
 /** Zo lang blijft een verwijderde code in de prullenbak */
+/** Naam voor het logboek: eigen naam, anders titel of link */
+export const codeName = (q: any) => String(q.name || (q.content && (q.content.title || q.content.url || q.content.name)) || '').trim();
 export const TRASH_DAYS = 30;
 
 @Controller('api/qr-codes')
@@ -37,6 +40,10 @@ export class QrCodesController {
   async trash(@Req() req: Request, @CurrentUser() user: User) {
     return Promise.all((await this.db.listTrash(user.id)).map(async (q) => ({ ...(await this.codes.out(req, q)), trashedAt: q.trashedAt, purgeAt: new Date(Date.parse(q.trashedAt) + TRASH_DAYS * 864e5).toISOString() })));
   }
+
+  /** Logboek: wat is er definitief verwijderd (alleen naam, soort, datum, door wie) */
+  @Get('purged')
+  async purged(@CurrentUser() user: User) { return { purged: await readPurged(this.db, user.id) }; }
 
   /** Health check: werkt de bestemming van mijn codes nog? { [code-id]: { state, at, bad } } */
   @Get('health')
@@ -265,5 +272,6 @@ export class QrCodesController {
   async purge(@CurrentUser() user: User, @Param('id') id: string) {
     const q = await this.db.getQrCode(id); if (!q || q.userId !== user.id || !q.trashedAt) throw fail(404, 'QR code not found');
     await this.db.deleteQrCode(id, user.id); await this.codes.setLegacy(user.id, id, null);
+    await notePurged(this.db, user.id, { name: codeName(q), type: q.typeId, by: user.name || user.email, auto: false }).catch(() => {});
   }
 }

@@ -3097,7 +3097,11 @@
     "leftOne": "Można przywrócić jeszcze przez 1 dzień",
     "restore": "Przywróć",
     "note": "Usunięte kody nie działają. Możesz je przywrócić przez 30 dni; potem są usuwane na zawsze.",
-    "empty": "Brak elementów w Ostatnio usuniętych."
+    "empty": "Brak elementów w Ostatnio usuniętych.",
+    "logTitle": "Usunięte na zawsze",
+    "logLead": "Te kody zniknęły na dobre i nie da się ich przywrócić. Widać je tu przez rok, żebyś wiedział, co się stało.",
+    "logAuto": "Automatycznie po 30 dniach",
+    "logBy": "Przez: {name}"
   },
   "hist": {
     "menu": "Historia",

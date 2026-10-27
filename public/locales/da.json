@@ -3097,7 +3097,11 @@
     "leftOne": "Kan gendannes i 1 dag mere",
     "restore": "Gendan",
     "note": "Slettede koder virker ikke. Du kan gendanne dem i 30 dage; derefter slettes de permanent.",
-    "empty": "Intet i Slettet for nylig."
+    "empty": "Intet i Slettet for nylig.",
+    "logTitle": "Slettet permanent",
+    "logLead": "Disse koder er væk for altid og kan ikke gendannes. De står her i et år, så du kan se, hvad der skete.",
+    "logAuto": "Automatisk efter 30 dage",
+    "logBy": "Af {name}"
   },
   "hist": {
     "menu": "Historik",

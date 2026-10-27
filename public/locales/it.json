@@ -3097,7 +3097,11 @@
     "leftOne": "Ripristinabile ancora per 1 giorno",
     "restore": "Ripristina",
     "note": "I codici eliminati non funzionano. Puoi ripristinarli per 30 giorni; poi vengono eliminati definitivamente.",
-    "empty": "Niente in Eliminati di recente."
+    "empty": "Niente in Eliminati di recente.",
+    "logTitle": "Eliminati definitivamente",
+    "logLead": "Questi codici non esistono più e non si possono ripristinare. Restano elencati qui per un anno, così vedi cosa è successo.",
+    "logAuto": "Automaticamente dopo 30 giorni",
+    "logBy": "Da {name}"
   },
   "hist": {
     "menu": "Cronologia",

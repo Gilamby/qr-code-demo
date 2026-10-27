@@ -3097,7 +3097,11 @@
     "leftOne": "Var atjaunot vēl 1 dienu",
     "restore": "Atjaunot",
     "note": "Dzēstie kodi nedarbojas. Tos var atjaunot 30 dienas; pēc tam tie tiek dzēsti neatgriezeniski.",
-    "empty": "Nesen dzēstajos nekā nav."
+    "empty": "Nesen dzēstajos nekā nav.",
+    "logTitle": "Neatgriezeniski dzēsti",
+    "logLead": "Šie kodi ir zuduši pavisam, un tos nevar atjaunot. Tie šeit redzami gadu, lai jūs zinātu, kas notika.",
+    "logAuto": "Automātiski pēc 30 dienām",
+    "logBy": "Dzēsa: {name}"
   },
   "hist": {
     "menu": "Vēsture",

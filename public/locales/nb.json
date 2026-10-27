@@ -3097,7 +3097,11 @@
     "leftOne": "Kan gjenopprettes i 1 dag til",
     "restore": "Gjenopprett",
     "note": "Slettede koder virker ikke. Du kan gjenopprette dem i 30 dager; deretter slettes de permanent.",
-    "empty": "Ingenting i Nylig slettet."
+    "empty": "Ingenting i Nylig slettet.",
+    "logTitle": "Slettet permanent",
+    "logLead": "Disse kodene er borte for godt og kan ikke gjenopprettes. De vises her i ett år, så du kan se hva som skjedde.",
+    "logAuto": "Automatisk etter 30 dager",
+    "logBy": "Av {name}"
   },
   "hist": {
     "menu": "Historikk",

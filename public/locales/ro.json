@@ -3097,7 +3097,11 @@
     "leftOne": "Poate fi restaurat încă 1 zi",
     "restore": "Restaurează",
     "note": "Codurile șterse nu funcționează. Le poți restaura 30 de zile; apoi sunt șterse definitiv.",
-    "empty": "Nimic în Șterse recent."
+    "empty": "Nimic în Șterse recent.",
+    "logTitle": "Șterse definitiv",
+    "logLead": "Aceste coduri au dispărut definitiv și nu mai pot fi restaurate. Rămân afișate aici un an, ca să vezi ce s-a întâmplat.",
+    "logAuto": "Automat după 30 de zile",
+    "logBy": "De către {name}"
   },
   "hist": {
     "menu": "Istoric",

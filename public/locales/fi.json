@@ -3097,7 +3097,11 @@
     "leftOne": "Palautettavissa vielä 1 päivän",
     "restore": "Palauta",
     "note": "Poistetut koodit eivät toimi. Voit palauttaa ne 30 päivän ajan; sen jälkeen ne poistetaan pysyvästi.",
-    "empty": "Äskettäin poistetuissa ei ole mitään."
+    "empty": "Äskettäin poistetuissa ei ole mitään.",
+    "logTitle": "Poistettu pysyvästi",
+    "logLead": "Nämä koodit ovat poissa lopullisesti, eikä niitä voi palauttaa. Ne näkyvät tässä vuoden, jotta näet mitä tapahtui.",
+    "logAuto": "Automaattisesti 30 päivän jälkeen",
+    "logBy": "Poistaja: {name}"
   },
   "hist": {
     "menu": "Historia",

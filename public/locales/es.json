@@ -3142,7 +3142,11 @@
     "leftOne": "Se puede restaurar durante 1 día más",
     "restore": "Restaurar",
     "note": "Los códigos eliminados no funcionan. Puedes restaurarlos durante 30 días; después se eliminan definitivamente.",
-    "empty": "No hay nada en Eliminados recientemente."
+    "empty": "No hay nada en Eliminados recientemente.",
+    "logTitle": "Eliminados definitivamente",
+    "logLead": "Estos códigos ya no existen y no se pueden restaurar. Se muestran aquí durante un año para que veas qué pasó.",
+    "logAuto": "Automáticamente tras 30 días",
+    "logBy": "Por {name}"
   },
   "hist": {
     "menu": "Historial",

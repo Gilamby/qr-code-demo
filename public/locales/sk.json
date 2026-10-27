@@ -3097,7 +3097,11 @@
     "leftOne": "Dá sa obnoviť ešte 1 deň",
     "restore": "Obnoviť",
     "note": "Odstránené kódy nefungujú. Môžete ich obnoviť 30 dní; potom sa odstránia natrvalo.",
-    "empty": "V Nedávno odstránených nič nie je."
+    "empty": "V Nedávno odstránených nič nie je.",
+    "logTitle": "Natrvalo odstránené",
+    "logLead": "Tieto kódy sú nenávratne preč a nedajú sa obnoviť. Zostávajú tu rok, aby ste videli, čo sa stalo.",
+    "logAuto": "Automaticky po 30 dňoch",
+    "logBy": "Odstránil(a): {name}"
   },
   "hist": {
     "menu": "História",

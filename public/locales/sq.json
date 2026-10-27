@@ -3203,7 +3203,11 @@
     "leftOne": "Mund të rikthehet edhe 1 ditë",
     "restore": "Rikthe",
     "note": "Kodet e fshira nuk funksionojnë. Mund t’i riktheni për 30 ditë; pas kësaj fshihen përgjithmonë.",
-    "empty": "Asgjë te Fshirë së fundmi."
+    "empty": "Asgjë te Fshirë së fundmi.",
+    "logTitle": "Të fshira përgjithmonë",
+    "logLead": "Këto kode janë fshirë përgjithmonë dhe nuk mund të rikthehen. Shfaqen këtu për një vit, që të shihni çfarë ndodhi.",
+    "logAuto": "Automatikisht pas 30 ditësh",
+    "logBy": "Nga {name}"
   },
   "hist": {
     "menu": "Historiku",

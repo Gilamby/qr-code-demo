@@ -3142,7 +3142,11 @@
     "leftOne": "Nog 1 dag terug te zetten",
     "restore": "Terugzetten",
     "note": "Verwijderde codes werken niet. Je kunt ze 30 dagen terugzetten; daarna worden ze definitief verwijderd.",
-    "empty": "Er staat niets in Onlangs verwijderd."
+    "empty": "Er staat niets in Onlangs verwijderd.",
+    "logTitle": "Definitief verwijderd",
+    "logLead": "Deze codes zijn voorgoed weg en kunnen niet meer terug. Ze staan hier een jaar, zodat je kunt zien wat er gebeurd is.",
+    "logAuto": "Automatisch na 30 dagen",
+    "logBy": "Door {name}"
   },
   "hist": {
     "menu": "Geschiedenis",

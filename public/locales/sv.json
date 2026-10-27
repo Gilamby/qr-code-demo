@@ -3097,7 +3097,11 @@
     "leftOne": "Kan återställas i 1 dag till",
     "restore": "Återställ",
     "note": "Raderade koder fungerar inte. Du kan återställa dem i 30 dagar; sedan raderas de permanent.",
-    "empty": "Inget i Nyligen raderade."
+    "empty": "Inget i Nyligen raderade.",
+    "logTitle": "Raderade permanent",
+    "logLead": "De här koderna är borta för gott och kan inte återställas. De visas här i ett år så att du kan se vad som hänt.",
+    "logAuto": "Automatiskt efter 30 dagar",
+    "logBy": "Av {name}"
   },
   "hist": {
     "menu": "Historik",

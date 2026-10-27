@@ -47,6 +47,7 @@ var MyCodes = (function () {
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList'), tools = document.getElementById('mcTools');
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
   var bin = [];   // Onlangs verwijderd (prullenbak, 30 dagen)
+  var purged = [], purgedOpen = false;   // logboek: definitief verwijderd
   var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '', label: '' }, renaming = null, toastTimer = null;
   // Veel codes: niet alles tegelijk tekenen (elke kaart maakt een QR-plaatje), maar per blok; meer bij het scrollen
   var STEP = 60, limit = STEP, limitKey = '', moreObs = null;
@@ -111,7 +112,7 @@ var MyCodes = (function () {
         chip('fav', '<span class="mf-star">' + ico('star') + '</span><span>' + t('folders.fav') + '</span>', count(function (r) { return r.favorite; })) +
         // "Zonder map" alleen als het iets toevoegt: niet als alle codes zonder map zijn (dan is het hetzelfde als "Alle codes")
         (noneN && noneN < rows.length || filter.folder === 'none' ? chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', noneN) : '') +
-        (bin.length || filter.folder === 'bin' ? chip('bin', ico('trash') + '<span>' + t('bin.title') + '</span>', bin.length) : '') +
+        (bin.length || purged.length || filter.folder === 'bin' ? chip('bin', ico('trash') + '<span>' + t('bin.title') + '</span>', bin.length) : '') +
         '<button type="button" class="mf-chip mf-add" data-folder-new aria-label="' + esc(t('folders.new')) + '">' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
       // Mappen op een eigen regel: volledige namen, lopen door naar een volgende regel, te verslepen
@@ -126,7 +127,7 @@ var MyCodes = (function () {
         '<button type="button" class="btn ghost sm" data-folder-edit>' + ico('pen') + '<span>' + t('folders.edit') + '</span></button>' +
         '<button type="button" class="btn ghost sm mf-del" data-folder-delete>' + ico('trash') + '<span>' + t('folders.delete') + '</span></button></div>' : '') +
       (folders.length ? '' : '<p class="mf-tip">' + t('folders.tip') + '</p>');
-    bar.hidden = !rows.length && !folders.length && !bin.length;
+    bar.hidden = !rows.length && !folders.length && !bin.length && !purged.length;
     fitFolders();
   }
   /* Dicht: mappen die niet op de eerste regel passen verbergen, met "+N meer" erachter (de gekozen map blijft altijd zichtbaar).
@@ -399,8 +400,8 @@ var MyCodes = (function () {
   function message(key) { list.innerHTML = '<p class="muted-msg">' + t(key) + '</p>'; }
   function load() {
     if (!loaded) message('myCodes.loading');
-    return Promise.all([api.listQrCodes(), api.folders.list().catch(function () { return { folders: [] }; }), api.trash ? api.trash().catch(function () { return []; }) : []])
-      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; bin = res[2] || []; if (filter.folder === 'bin' && !bin.length) filter.folder = ''; loaded = true; label(); drawTools(); draw();
+    return Promise.all([api.listQrCodes(), api.folders.list().catch(function () { return { folders: [] }; }), api.trash ? api.trash().catch(function () { return []; }) : [], api.purgedLog ? api.purgedLog().catch(function () { return []; }) : []])
+      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; bin = res[2] || []; purged = res[3] || []; if (filter.folder === 'bin' && !bin.length && !purged.length) filter.folder = ''; loaded = true; label(); drawTools(); draw();
         if (api.codeHealth) api.codeHealth().then(function (h) { health = h || {}; draw(); document.dispatchEvent(new CustomEvent('health-loaded', { detail: health })); }).catch(function () {}); })
       .catch(function () { message('myCodes.error'); });
   }
@@ -475,7 +476,7 @@ var MyCodes = (function () {
     Promise.all(ids.map(function (id) { return api.restoreQrCode(id).then(function (r) { return r; }).catch(function () { return null; }); })).then(function (res) {
       var ok = res.filter(Boolean), paused = ok.some(function (r) { return r.paused; });
       ok.forEach(function (r) { rows.unshift(r.code); bin = bin.filter(function (x) { return x.id !== r.code.id; }); });
-      if (filter.folder === 'bin' && !bin.length) filter.folder = '';
+      if (filter.folder === 'bin' && !bin.length && !purged.length) filter.folder = '';
       drawTools(); draw();
       if (!ok.length) return toast('myCodes.failed');
       toastText(paused ? t('bin.restoredPaused') : ok.length === 1 ? t('bin.restored') : t('bin.restoredMany', { n: ok.length }));
@@ -487,7 +488,7 @@ var MyCodes = (function () {
       '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok">' + t('bin.purge') + '</button></div></form>';
     dialog.onclose = function () {
       if (dialog.returnValue !== 'ok') return;
-      api.purgeQrCode(r.id).then(function () { bin = bin.filter(function (x) { return x.id !== r.id; }); if (!bin.length) filter.folder = ''; drawTools(); draw(); toastText(t('bin.purged')); })
+      api.purgeQrCode(r.id).then(function () { bin = bin.filter(function (x) { return x.id !== r.id; }); return api.purgedLog().catch(function () { return purged; }); }).then(function (p) { purged = p || []; drawTools(); draw(); toastText(t('bin.purged')); })
         .catch(function () { toast('myCodes.failed'); });
     };
     dialog.returnValue = ''; dialog.showModal(); dialog.querySelector('[value="cancel"]').focus();
@@ -502,8 +503,19 @@ var MyCodes = (function () {
       '<div class="mc-binacts"><button type="button" class="btn primary sm" data-bin-restore>' + ico('undo') + '<span>' + t('bin.restore') + '</span></button>' +
         '<button type="button" class="btn ghost sm mf-del" data-bin-purge>' + ico('trash') + '<span>' + t('bin.purge') + '</span></button></div></article>';
   }
+  /* Logboek: definitief verwijderd (alleen naam, soort, datum, door wie) */
+  function purgedLog() {
+    if (!purged.length) return '';
+    return '<details class="mc-purged glass"' + (purgedOpen ? ' open' : '') + '><summary><span>' + ico('trash') + '<b>' + t('bin.logTitle') + '</b><em>' + purged.length + '</em></span>' + ico('chev') + '</summary>' +
+      '<p class="mc-purged-lead">' + t('bin.logLead') + '</p><ol>' + purged.map(function (x) {
+        var tp = getType(x.type) || { icon: 'link' };
+        return '<li><i>' + svg(tp.icon, 1.8) + '</i><span><b>' + esc(x.name || typeName(tp)) + '</b><small>' + esc(typeName(tp)) + '</small></span>' +
+          '<span class="mc-purged-when">' + esc(i18n.fmt.stamp(x.at, 'time')) + '<small>' + esc(x.auto ? t('bin.logAuto') : t('bin.logBy', { name: x.by || '' })) + '</small></span></li>';
+      }).join('') + '</ol></details>';
+  }
   function drawBin() {
-    list.innerHTML = '<div class="mc-binnote glass">' + ico('trash') + '<span>' + t('bin.note') + '</span></div>' + (bin.length ? bin.map(binCard).join('') : '<div class="mc-empty small glass"><h3>' + t('bin.empty') + '</h3></div>');
+    list.innerHTML = '<div class="mc-binnote glass">' + ico('trash') + '<span>' + t('bin.note') + '</span></div>' + (bin.length ? bin.map(binCard).join('') : '<div class="mc-empty small glass"><h3>' + t('bin.empty') + '</h3></div>') + purgedLog();
+    var d = list.querySelector('.mc-purged'); if (d) d.addEventListener('toggle', function () { purgedOpen = d.open; });
   }
   list.addEventListener('click', function (e) {
     var c = e.target.closest('[data-bin]'); if (!c) return;

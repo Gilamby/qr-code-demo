@@ -3103,7 +3103,11 @@
     "leftOne": "Restaurable encore 1 jour",
     "restore": "Restaurer",
     "note": "Les codes supprimés ne fonctionnent pas. Vous pouvez les restaurer pendant 30 jours ; ensuite ils sont supprimés définitivement.",
-    "empty": "Rien dans Supprimés récemment."
+    "empty": "Rien dans Supprimés récemment.",
+    "logTitle": "Supprimés définitivement",
+    "logLead": "Ces codes ont disparu pour de bon et ne peuvent pas être restaurés. Ils restent listés ici un an pour que vous sachiez ce qui s’est passé.",
+    "logAuto": "Automatiquement après 30 jours",
+    "logBy": "Par {name}"
   },
   "hist": {
     "menu": "Historique",

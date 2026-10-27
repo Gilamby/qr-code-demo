@@ -3103,7 +3103,11 @@
     "leftOne": "Noch 1 Tag wiederherstellbar",
     "restore": "Wiederherstellen",
     "note": "Gelöschte Codes funktionieren nicht. Sie können sie 30 Tage lang wiederherstellen; danach werden sie endgültig gelöscht.",
-    "empty": "Nichts in „Zuletzt gelöscht“."
+    "empty": "Nichts in „Zuletzt gelöscht“.",
+    "logTitle": "Endgültig gelöscht",
+    "logLead": "Diese Codes sind für immer weg und lassen sich nicht wiederherstellen. Sie stehen hier ein Jahr lang, damit Sie sehen, was passiert ist.",
+    "logAuto": "Automatisch nach 30 Tagen",
+    "logBy": "Von {name}"
   },
   "hist": {
     "menu": "Verlauf",

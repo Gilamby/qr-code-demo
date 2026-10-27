@@ -3142,7 +3142,11 @@
     "leftOne": "Can be restored for 1 more day",
     "restore": "Restore",
     "note": "Deleted codes don’t work. You can restore them for 30 days; after that they are deleted permanently.",
-    "empty": "Nothing in Recently deleted."
+    "empty": "Nothing in Recently deleted.",
+    "logTitle": "Permanently deleted",
+    "logLead": "These codes are gone for good and can't be restored. Kept here for a year so you can see what happened.",
+    "logAuto": "Automatically after 30 days",
+    "logBy": "By {name}"
   },
   "hist": {
     "menu": "History",
