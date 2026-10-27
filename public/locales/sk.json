@@ -1670,7 +1670,13 @@
     "linkDownSubject": "Odkaz v „{name}“ už nefunguje",
     "linkDownText": "Kto naskenuje „{name}“, dostane sa na nefunkčný odkaz: {url}. Skontroluj odkaz alebo vyber nový; tvoj vytlačený QR kód zostáva rovnaký.",
     "linkDownButton": "Zmeniť odkaz",
-    "linkDownFooter": "Tieto e-maily vypneš v Môj účet > Upozornenia."
+    "linkDownFooter": "Tieto e-maily vypneš v Môj účet > Upozornenia.",
+    "quietStoppedSubject": "„{name}“ nikto neskenoval 7 dní",
+    "quietStoppedText": "Váš QR kód „{name}“ sa bežne skenuje asi {before}-krát týždenne, ale za posledných 7 dní ho nikto neskenoval.",
+    "quietDropSubject": "Skeny „{name}“ klesli o {pct} %",
+    "quietDropText": "Váš QR kód „{name}“ sa bežne skenuje asi {before}-krát týždenne. Za posledných 7 dní: {now}.",
+    "quietTip": "Visí plagát, nálepka alebo menu stále na mieste a je kód dobre vidieť? Poškodený alebo zakrytý kód býva častou príčinou.",
+    "quietFooter": "Tieto upozornenia môžete vypnúť v Môj účet > Upozornenia."
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2318,7 +2324,9 @@
     "milestones": "Míľniky",
     "milestonesText": "E-mail pri 100, 1 000, 10 000 … skenoch kódu.",
     "brokenLinks": "Nefunkčné odkazy",
-    "brokenLinksText": "E-mail, keď odkaz QR kódu prestane fungovať."
+    "brokenLinksText": "E-mail, keď odkaz QR kódu prestane fungovať.",
+    "quietCodes": "Menej skenov",
+    "quietCodesText": "E-mail, keď kód, ktorý sa bežne skenuje, zrazu nikto neskenuje alebo oveľa menej."
   },
   "ac": {
     "lead": "Každý QR kód každého zákazníka. Hľadaj, filtruj, vyber viac kódov naraz alebo otvor kód a uvidíš všetky podrobnosti.",

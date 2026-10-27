@@ -1776,7 +1776,13 @@
     "linkDownSubject": "Lidhja e “{name}” nuk funksionon më",
     "linkDownText": "Kush skanon “{name}” përfundon te një lidhje që nuk funksionon: {url}. Kontrollo lidhjen ose zgjidh një të re; kodi yt QR i printuar mbetet i njëjtë.",
     "linkDownButton": "Ndrysho lidhjen",
-    "linkDownFooter": "Këto email-e i çaktivizon te Llogaria ime > Njoftimet."
+    "linkDownFooter": "Këto email-e i çaktivizon te Llogaria ime > Njoftimet.",
+    "quietStoppedSubject": "“{name}” nuk është skanuar prej 7 ditësh",
+    "quietStoppedText": "Kodi juaj QR “{name}” zakonisht skanohet rreth {before} herë në javë, por askush nuk e ka skanuar në 7 ditët e fundit.",
+    "quietDropSubject": "Skanimet e “{name}” ranë me {pct}%",
+    "quietDropText": "Kodi juaj QR “{name}” zakonisht skanohet rreth {before} herë në javë. Në 7 ditët e fundit: {now}.",
+    "quietTip": "A është ende aty posteri, ngjitësja ose menuja dhe a duket mirë kodi? Një kod i dëmtuar ose i mbuluar shpesh është shkaku.",
+    "quietFooter": "Mund t’i çaktivizoni këto njoftime te Llogaria ime > Njoftimet."
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -2424,7 +2430,9 @@
     "milestones": "Pikë kyçe",
     "milestonesText": "Një email në 100, 1.000, 10.000 … skanime të një kodi.",
     "brokenLinks": "Lidhje që nuk funksionojnë",
-    "brokenLinksText": "Një email kur lidhja e një kodi QR ndalon së funksionuari."
+    "brokenLinksText": "Një email kur lidhja e një kodi QR ndalon së funksionuari.",
+    "quietCodes": "Më pak skanime",
+    "quietCodesText": "Një email kur një kod që zakonisht skanohet papritur nuk skanohet më ose skanohet shumë më pak."
   },
   "ac": {
     "lead": "Çdo kod QR i çdo klienti. Kërko, filtro, zgjidh disa kode ose hap një kod për të gjitha detajet.",

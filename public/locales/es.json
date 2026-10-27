@@ -1680,7 +1680,13 @@
     "linkDownSubject": "El enlace de “{name}” ya no funciona",
     "linkDownText": "Quien escanea “{name}” llega a un enlace que no funciona: {url}. Revisa el enlace o elige uno nuevo; tu código QR impreso sigue siendo el mismo.",
     "linkDownButton": "Cambiar enlace",
-    "linkDownFooter": "Puedes desactivar estos correos en Mi cuenta > Notificaciones."
+    "linkDownFooter": "Puedes desactivar estos correos en Mi cuenta > Notificaciones.",
+    "quietStoppedSubject": "“{name}” lleva 7 días sin escanearse",
+    "quietStoppedText": "Tu código QR “{name}” suele tener unos {before} escaneos por semana, pero nadie lo ha escaneado en los últimos 7 días.",
+    "quietDropSubject": "Los escaneos de “{name}” bajaron un {pct}%",
+    "quietDropText": "Tu código QR “{name}” suele tener unos {before} escaneos por semana. En los últimos 7 días tuvo {now}.",
+    "quietTip": "¿Sigue ahí el póster, la pegatina o la carta, y se ve bien el código? Un código dañado o tapado suele ser la causa.",
+    "quietFooter": "Puedes desactivar estos avisos en Mi cuenta > Notificaciones."
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",
@@ -2328,7 +2334,9 @@
     "milestones": "Hitos",
     "milestonesText": "Un correo a los 100, 1.000, 10.000… escaneos de un código.",
     "brokenLinks": "Enlaces rotos",
-    "brokenLinksText": "Un correo cuando el enlace de un código QR deja de funcionar."
+    "brokenLinksText": "Un correo cuando el enlace de un código QR deja de funcionar.",
+    "quietCodes": "Menos escaneos",
+    "quietCodesText": "Un correo cuando un código que se suele escanear de repente no recibe escaneos o recibe muchos menos."
   },
   "ac": {
     "lead": "Todos los códigos QR de todos los clientes. Busca, filtra, selecciona varios códigos o abre un código para ver todos los detalles.",

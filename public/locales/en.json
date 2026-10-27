@@ -1680,7 +1680,13 @@
     "linkDownSubject": "The link of “{name}” no longer works",
     "linkDownText": "People who scan “{name}” end up on a link that doesn't work: {url}. Check the link or choose a new one; your printed QR code stays the same.",
     "linkDownButton": "Change link",
-    "linkDownFooter": "You can turn these emails off in My Account > Notifications."
+    "linkDownFooter": "You can turn these emails off in My Account > Notifications.",
+    "quietStoppedSubject": "“{name}” hasn’t been scanned for 7 days",
+    "quietStoppedText": "Your QR code “{name}” usually gets about {before} scans a week, but nobody has scanned it in the last 7 days.",
+    "quietDropSubject": "Scans of “{name}” dropped by {pct}%",
+    "quietDropText": "Your QR code “{name}” usually gets about {before} scans a week. In the last 7 days it got {now}.",
+    "quietTip": "Is the poster, sticker or menu still there and easy to see? A damaged or covered code often explains it.",
+    "quietFooter": "You can turn these notifications off in My account > Notifications."
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2328,7 +2334,9 @@
     "milestones": "Milestones",
     "milestonesText": "An email at 100, 1,000, 10,000 … scans of a code.",
     "brokenLinks": "Broken links",
-    "brokenLinksText": "An email when the link of a QR code stops working."
+    "brokenLinksText": "An email when the link of a QR code stops working.",
+    "quietCodes": "Fewer scans",
+    "quietCodesText": "An email when a code that's usually scanned suddenly gets no or far fewer scans."
   },
   "ac": {
     "lead": "Every QR code of every customer. Search, filter, select several codes or open a code for all details.",

@@ -1676,7 +1676,13 @@
     "linkDownSubject": "Der Link von „{name}“ funktioniert nicht mehr",
     "linkDownText": "Wer „{name}“ scannt, landet auf einem Link, der nicht funktioniert: {url}. Prüfe den Link oder wähle einen neuen; dein gedruckter QR-Code bleibt gleich.",
     "linkDownButton": "Link ändern",
-    "linkDownFooter": "Diese E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten."
+    "linkDownFooter": "Diese E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten.",
+    "quietStoppedSubject": "„{name}“ wurde seit 7 Tagen nicht gescannt",
+    "quietStoppedText": "Ihr QR-Code „{name}“ wird normalerweise etwa {before}-mal pro Woche gescannt, aber in den letzten 7 Tagen hat ihn niemand gescannt.",
+    "quietDropSubject": "Scans von „{name}“ um {pct} % gesunken",
+    "quietDropText": "Ihr QR-Code „{name}“ wird normalerweise etwa {before}-mal pro Woche gescannt. In den letzten 7 Tagen waren es {now}.",
+    "quietTip": "Hängt das Plakat, der Aufkleber oder die Speisekarte noch und ist der Code gut sichtbar? Ein beschädigter oder verdeckter Code ist oft der Grund.",
+    "quietFooter": "Sie können diese Benachrichtigungen unter Mein Konto > Benachrichtigungen ausschalten."
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2324,7 +2330,9 @@
     "milestones": "Meilensteine",
     "milestonesText": "Eine E-Mail bei 100, 1.000, 10.000 … Scans eines Codes.",
     "brokenLinks": "Defekte Links",
-    "brokenLinksText": "Eine E-Mail, wenn der Link eines QR-Codes nicht mehr funktioniert."
+    "brokenLinksText": "Eine E-Mail, wenn der Link eines QR-Codes nicht mehr funktioniert.",
+    "quietCodes": "Weniger Scans",
+    "quietCodesText": "Eine E-Mail, wenn ein sonst gescannter Code plötzlich gar nicht oder viel seltener gescannt wird."
   },
   "ac": {
     "lead": "Jeder QR-Code jedes Kunden. Suchen, filtern, mehrere Codes auswählen oder einen Code mit allen Details öffnen.",

@@ -1670,7 +1670,13 @@
     "linkDownSubject": "Link w „{name}” już nie działa",
     "linkDownText": "Osoby skanujące „{name}” trafiają na niedziałający link: {url}. Sprawdź link lub wybierz nowy; wydrukowany kod QR pozostaje ten sam.",
     "linkDownButton": "Zmień link",
-    "linkDownFooter": "Możesz wyłączyć te e-maile w Moje konto > Powiadomienia."
+    "linkDownFooter": "Możesz wyłączyć te e-maile w Moje konto > Powiadomienia.",
+    "quietStoppedSubject": "„{name}” nie był skanowany od 7 dni",
+    "quietStoppedText": "Twój kod QR „{name}” jest zwykle skanowany około {before} razy w tygodniu, ale przez ostatnie 7 dni nikt go nie zeskanował.",
+    "quietDropSubject": "Skany „{name}” spadły o {pct}%",
+    "quietDropText": "Twój kod QR „{name}” jest zwykle skanowany około {before} razy w tygodniu. W ostatnich 7 dniach: {now}.",
+    "quietTip": "Czy plakat, naklejka lub menu nadal wiszą, a kod jest dobrze widoczny? Uszkodzony lub zasłonięty kod to częsta przyczyna.",
+    "quietFooter": "Możesz wyłączyć te powiadomienia w Moje konto > Powiadomienia."
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2318,7 +2324,9 @@
     "milestones": "Kamienie milowe",
     "milestonesText": "E-mail przy 100, 1000, 10 000 … skanach kodu.",
     "brokenLinks": "Niedziałające linki",
-    "brokenLinksText": "E-mail, gdy link kodu QR przestaje działać."
+    "brokenLinksText": "E-mail, gdy link kodu QR przestaje działać.",
+    "quietCodes": "Mniej skanów",
+    "quietCodesText": "E-mail, gdy kod zwykle skanowany nagle przestaje być skanowany lub jest skanowany dużo rzadziej."
   },
   "ac": {
     "lead": "Każdy kod QR każdego klienta. Szukaj, filtruj, zaznacz kilka kodów lub otwórz kod, aby zobaczyć wszystkie szczegóły.",

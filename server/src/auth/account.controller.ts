@@ -72,7 +72,8 @@ export class AccountController {
       const e = b.emailPrefs || {}, cur: any = user.emailPrefs || { report: 'off', security: true, product: false, firstScan: true, milestones: true, brokenLinks: true };
       if (e.report !== undefined && !['off', 'weekly', 'monthly'].includes(e.report)) throw fail(400, 'emailPrefs');
       p.emailPrefs = JSON.stringify({ report: e.report !== undefined ? e.report : cur.report, security: e.security !== undefined ? !!e.security : cur.security, product: e.product !== undefined ? !!e.product : cur.product,
-        firstScan: e.firstScan !== undefined ? !!e.firstScan : cur.firstScan !== false, milestones: e.milestones !== undefined ? !!e.milestones : cur.milestones !== false, brokenLinks: e.brokenLinks !== undefined ? !!e.brokenLinks : cur.brokenLinks !== false });
+        firstScan: e.firstScan !== undefined ? !!e.firstScan : cur.firstScan !== false, milestones: e.milestones !== undefined ? !!e.milestones : cur.milestones !== false, brokenLinks: e.brokenLinks !== undefined ? !!e.brokenLinks : cur.brokenLinks !== false,
+        quietCodes: e.quietCodes !== undefined ? !!e.quietCodes : cur.quietCodes !== false });
     }
     if (b.lang !== undefined) { if (!LANGS.includes(b.lang)) throw fail(400, 'lang'); p.lang = b.lang; }
     if (b.theme !== undefined) { if (!['dark', 'light', 'system'].includes(b.theme)) throw fail(400, 'theme'); p.theme = b.theme; }

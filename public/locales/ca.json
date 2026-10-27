@@ -1670,7 +1670,13 @@
     "linkDownSubject": "L'enllaç de “{name}” ja no funciona",
     "linkDownText": "Qui escaneja “{name}” arriba a un enllaç que no funciona: {url}. Revisa l'enllaç o tria'n un de nou; el teu codi QR imprès continua sent el mateix.",
     "linkDownButton": "Canviar enllaç",
-    "linkDownFooter": "Pots desactivar aquests correus a El meu compte > Notificacions."
+    "linkDownFooter": "Pots desactivar aquests correus a El meu compte > Notificacions.",
+    "quietStoppedSubject": "“{name}” fa 7 dies que no s’escaneja",
+    "quietStoppedText": "El teu codi QR “{name}” sol tenir uns {before} escanejos per setmana, però ningú no l’ha escanejat els últims 7 dies.",
+    "quietDropSubject": "Els escanejos de “{name}” han baixat un {pct}%",
+    "quietDropText": "El teu codi QR “{name}” sol tenir uns {before} escanejos per setmana. Els últims 7 dies n’ha tingut {now}.",
+    "quietTip": "El cartell, l’adhesiu o la carta encara hi són i el codi es veu bé? Un codi malmès o tapat sovint n’és la causa.",
+    "quietFooter": "Pots desactivar aquests avisos a El meu compte > Notificacions."
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2318,7 +2324,9 @@
     "milestones": "Fites",
     "milestonesText": "Un correu als 100, 1.000, 10.000… escanejos d’un codi.",
     "brokenLinks": "Enllaços trencats",
-    "brokenLinksText": "Un correu quan l'enllaç d'un codi QR deixa de funcionar."
+    "brokenLinksText": "Un correu quan l'enllaç d'un codi QR deixa de funcionar.",
+    "quietCodes": "Menys escanejos",
+    "quietCodesText": "Un correu quan un codi que s’acostuma a escanejar de cop no rep escanejos o en rep molts menys."
   },
   "ac": {
     "lead": "Tots els codis QR de tots els clients. Cerca, filtra, selecciona diversos codis o obre un codi per veure'n tots els detalls.",

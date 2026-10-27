@@ -64,7 +64,7 @@ export type ClientMeta = { ua?: string; ip?: string };
 /** Recente activiteit: login, login_failed, password, email, sessions_ended, session_ended */
 export type Activity = { kind: string; at: string; ip: string | null; ua: string | null };
 export const SESSION_ID_LEN = 16;
-export const DEFAULT_EMAIL_PREFS = { report: 'off' as const, security: true, product: false, firstScan: true, milestones: true, brokenLinks: true };
+export const DEFAULT_EMAIL_PREFS = { report: 'off' as const, security: true, product: false, firstScan: true, milestones: true, brokenLinks: true, quietCodes: true };
 export function parseMedia(v: unknown) { try { const a = typeof v === 'string' ? JSON.parse(v) : v; return Array.isArray(a) ? a : []; } catch (e) { return []; } }
 export function parsePrefs(v: unknown) { let o: any = {}; try { o = typeof v === 'string' ? JSON.parse(v) : v || {}; } catch (e) { o = {}; } return { ...DEFAULT_EMAIL_PREFS, ...o }; }
 /** Map in Mijn QR-codes */
@@ -183,7 +183,7 @@ export abstract class DatabaseService {
   /** Was dit id van een code die is verwijderd? (dan krijgt de bezoeker "verwijderd" te zien) */
   async wasDeleted(id: string) { return !!(await this.getSetting('gone:' + id)); }
   /** Code echt weg: de link nooit opnieuw uitgeven, en losse gegevens van de code opruimen (geschiedenis, controle, A/B-telling) */
-  protected async markGone(ids: string[]) { for (const id of ids) { await this.setSetting('gone:' + id, now()); for (const k of ['hist:', 'health:', 'ab:']) await this.setSetting(k + id, null).catch(() => {}); } }
+  protected async markGone(ids: string[]) { for (const id of ids) { await this.setSetting('gone:' + id, now()); for (const k of ['hist:', 'health:', 'ab:', 'quiet:']) await this.setSetting(k + id, null).catch(() => {}); } }
   abstract insertQrCode(userId: string, q: NewQrCode): Promise<QrCode>;
   abstract updateQrCode(id: string, patch: QrPatch): Promise<QrCode>;
   /** Echt verwijderen (met statistieken en bestanden); de link wordt nooit opnieuw uitgegeven */

@@ -1075,3 +1075,26 @@ test('slim doorsturen: per taal, apparaat en tijd; ongeldige regels geweigerd', 
   assert.equal(at('2026-11-01', '01:00'), null, 'zondag 01:00 hoort bij zaterdagnacht: weekend, geen regel');
   assert.equal(at('2026-10-27', '17:00'), null);
 });
+
+test('melding bij geen of veel minder scans: één keer, en weer gewapend als het normaal is', async () => {
+  const { judge, quietSweep } = require('../server/dist/quiet-alerts');
+  const today = Date.UTC(2026, 9, 27), day = (n) => new Date(today - n * 864e5).toISOString().slice(0, 10);
+  const mk = (base, last) => { const s = {}; for (let i = 8; i <= 35; i++) s[day(i)] = { k: [base, base] }; for (let i = 1; i <= 7; i++) s[day(i)] = { k: [last, last] }; return { stats: s }; };
+  assert.equal(judge(mk(1, 0), today).kind, 'stopped', '28 scans ervoor, 0 nu');
+  assert.equal(judge(mk(10, 1), today).kind, 'drop', '70/week ervoor, 7 nu');
+  assert.equal(judge(mk(10, 8), today), 'normal');
+  assert.equal(judge(mk(0, 0), today), null, 'nooit gescand: geen melding');
+  // hele ronde met een echte code
+  const k = client(); await signup(k, 'quiet-k@example.com', 'Stille code zin 16!', 'Klant Stil');
+  const c = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://stil.example/' }, design: {} })).json;
+  const db = app.get(require('../server/dist/database/database.service').DatabaseService);
+  const lws = db.listWithStats.bind(db);
+  db.listWithStats = async (uid, r) => (await lws(uid, r)).map((q) => (q.id === c.id ? Object.assign(q, mk(1, 0)) : Object.assign(q, { stats: {} })));
+  const sent = [], m = { sendQuiet: async (u, code, q) => { sent.push([code.id, q.kind]); } };
+  const at = new Date(today + 10 * 3600e3).getTime();
+  await db.setSetting('quietSweep', null); await quietSweep(db, m, at);
+  assert.ok(sent.some((x) => x[0] === c.id && x[1] === 'stopped'));
+  const n = sent.length; await quietSweep(db, m, at); assert.equal(sent.length, n, 'zelfde dag: niet nog eens');
+  await db.setSetting('quietSweep', null); await quietSweep(db, m, at); assert.equal(sent.filter((x) => x[0] === c.id).length, 1, 'zelfde episode: geen tweede mail');
+  db.listWithStats = lws; await db.setSetting('quietSweep', null);
+});

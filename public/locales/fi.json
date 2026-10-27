@@ -1670,7 +1670,13 @@
     "linkDownSubject": "Koodin ”{name}” linkki ei enää toimi",
     "linkDownText": "”{name}”-koodin skannaajat päätyvät linkkiin, joka ei toimi: {url}. Tarkista linkki tai valitse uusi; tulostettu QR-koodisi pysyy samana.",
     "linkDownButton": "Muuta linkkiä",
-    "linkDownFooter": "Voit poistaa nämä viestit käytöstä kohdassa Oma tili > Ilmoitukset."
+    "linkDownFooter": "Voit poistaa nämä viestit käytöstä kohdassa Oma tili > Ilmoitukset.",
+    "quietStoppedSubject": "Koodia ”{name}” ei ole skannattu 7 päivään",
+    "quietStoppedText": "QR-koodiasi ”{name}” skannataan yleensä noin {before} kertaa viikossa, mutta kukaan ei ole skannannut sitä viimeisen 7 päivän aikana.",
+    "quietDropSubject": "Koodin ”{name}” skannaukset laskivat {pct} %",
+    "quietDropText": "QR-koodiasi ”{name}” skannataan yleensä noin {before} kertaa viikossa. Viimeisen 7 päivän aikana: {now}.",
+    "quietTip": "Onko juliste, tarra tai ruokalista yhä paikallaan ja koodi hyvin näkyvissä? Vaurioitunut tai peitetty koodi on usein syy.",
+    "quietFooter": "Voit poistaa nämä ilmoitukset kohdassa Oma tili > Ilmoitukset."
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2318,7 +2324,9 @@
     "milestones": "Virstanpylväät",
     "milestonesText": "Sähköposti, kun koodi on skannattu 100, 1 000, 10 000 … kertaa.",
     "brokenLinks": "Rikkinäiset linkit",
-    "brokenLinksText": "Sähköposti, kun QR-koodin linkki lakkaa toimimasta."
+    "brokenLinksText": "Sähköposti, kun QR-koodin linkki lakkaa toimimasta.",
+    "quietCodes": "Vähemmän skannauksia",
+    "quietCodesText": "Sähköposti, kun yleensä skannattua koodia ei yhtäkkiä skannata lainkaan tai paljon vähemmän."
   },
   "ac": {
     "lead": "Jokaisen asiakkaan jokainen QR-koodi. Hae, suodata, valitse useita koodeja tai avaa koodi nähdäksesi kaikki tiedot.",

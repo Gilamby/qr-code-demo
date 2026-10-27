@@ -65,6 +65,20 @@ export class MailerService {
         '<p style="color:#5a6577;font-size:13px;margin-top:20px">' + esc(t.scanFooter) + '</p></div>' });
   }
 
+  /** Een code wordt niet meer (of veel minder) gescand (quiet-alerts.ts) */
+  async sendQuiet(user: User, code: { id: string; name: string }, q: { kind: 'stopped' | 'drop'; before: number; now: number; pct: number }) {
+    const t = await this.texts(user.lang || 'en'), loc = LANGS.includes(user.lang || '') ? user.lang : 'en', f = (n: number) => new Intl.NumberFormat(loc).format(n);
+    const v = (s: string) => String(s || '').replace(/\{name\}/g, code.name).replace(/\{before\}/g, f(q.before)).replace(/\{now\}/g, f(q.now)).replace(/\{pct\}/g, String(q.pct));
+    const K = q.kind === 'stopped' ? 'quietStopped' : 'quietDrop', subject = v(t[K + 'Subject']), body = v(t[K + 'Text']), tip = t.quietTip || '';
+    const link = (this.base() || '') + '/?go=myCodes';
+    if (!this.transport) { console.log('[e-mail niet ingesteld] Stil-melding voor ' + user.email + ': ' + subject); return; }
+    await this.transport.sendMail({ from: this.from(), to: user.email, subject, text: body + '\n\n' + tip + '\n\n' + link + '\n\n' + t.quietFooter,
+      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px">' + this.logoHtml() +
+        '<h1 style="font-size:21px;margin:0 0 10px">' + esc(subject) + '</h1><p>' + esc(body) + '</p>' + (tip ? '<p style="color:#5a6577">' + esc(tip) + '</p>' : '') +
+        '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.scanButton) + '</a></p>' +
+        '<p style="color:#5a6577;font-size:13px;margin-top:20px">' + esc(t.quietFooter) + '</p></div>' });
+  }
+
   /** Health check: de link van een QR-code werkt niet meer (één keer per keer dat hij stukgaat) */
   async sendLinkDown(user: User, code: { id: string; name: string }, url: string) {
     const t = await this.texts(user.lang || 'en'), v = (s: string) => String(s || '').replace(/\{name\}/g, code.name).replace(/\{url\}/g, url);

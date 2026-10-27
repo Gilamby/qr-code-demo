@@ -1670,7 +1670,13 @@
     "linkDownSubject": "Linkul din „{name}” nu mai funcționează",
     "linkDownText": "Cei care scanează „{name}” ajung la un link care nu funcționează: {url}. Verifică linkul sau alege unul nou; codul QR tipărit rămâne același.",
     "linkDownButton": "Schimbă linkul",
-    "linkDownFooter": "Poți dezactiva aceste e-mailuri în Contul meu > Notificări."
+    "linkDownFooter": "Poți dezactiva aceste e-mailuri în Contul meu > Notificări.",
+    "quietStoppedSubject": "„{name}” nu a mai fost scanat de 7 zile",
+    "quietStoppedText": "Codul tău QR „{name}” are de obicei cam {before} scanări pe săptămână, dar nimeni nu l-a scanat în ultimele 7 zile.",
+    "quietDropSubject": "Scanările „{name}” au scăzut cu {pct}%",
+    "quietDropText": "Codul tău QR „{name}” are de obicei cam {before} scanări pe săptămână. În ultimele 7 zile a avut {now}.",
+    "quietTip": "Mai este afișul, autocolantul sau meniul la locul lui și se vede bine codul? Un cod deteriorat sau acoperit este des cauza.",
+    "quietFooter": "Poți dezactiva aceste notificări în Contul meu > Notificări."
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2318,7 +2324,9 @@
     "milestones": "Praguri",
     "milestonesText": "Un e-mail la 100, 1.000, 10.000 … scanări ale unui cod.",
     "brokenLinks": "Linkuri nefuncționale",
-    "brokenLinksText": "Un e-mail când linkul unui cod QR nu mai funcționează."
+    "brokenLinksText": "Un e-mail când linkul unui cod QR nu mai funcționează.",
+    "quietCodes": "Mai puține scanări",
+    "quietCodesText": "Un e-mail când un cod scanat de obicei brusc nu mai este scanat sau este scanat mult mai rar."
   },
   "ac": {
     "lead": "Fiecare cod QR al fiecărui client. Caută, filtrează, selectează mai multe coduri sau deschide un cod pentru toate detaliile.",

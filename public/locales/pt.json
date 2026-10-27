@@ -1670,7 +1670,13 @@
     "linkDownSubject": "O link de “{name}” já não funciona",
     "linkDownText": "Quem lê “{name}” vai parar a um link que não funciona: {url}. Verifica o link ou escolhe um novo; o teu código QR impresso continua igual.",
     "linkDownButton": "Alterar link",
-    "linkDownFooter": "Podes desativar estes emails em A minha conta > Notificações."
+    "linkDownFooter": "Podes desativar estes emails em A minha conta > Notificações.",
+    "quietStoppedSubject": "“{name}” não é lido há 7 dias",
+    "quietStoppedText": "O seu código QR “{name}” tem normalmente cerca de {before} leituras por semana, mas ninguém o leu nos últimos 7 dias.",
+    "quietDropSubject": "Leituras de “{name}” desceram {pct}%",
+    "quietDropText": "O seu código QR “{name}” tem normalmente cerca de {before} leituras por semana. Nos últimos 7 dias teve {now}.",
+    "quietTip": "O cartaz, o autocolante ou o menu ainda lá estão e o código vê-se bem? Um código danificado ou tapado é muitas vezes a causa.",
+    "quietFooter": "Pode desativar estes avisos em A minha conta > Notificações."
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",
@@ -2318,7 +2324,9 @@
     "milestones": "Marcos",
     "milestonesText": "Um e-mail aos 100, 1.000, 10.000 … leituras de um código.",
     "brokenLinks": "Links partidos",
-    "brokenLinksText": "Um email quando o link de um código QR deixa de funcionar."
+    "brokenLinksText": "Um email quando o link de um código QR deixa de funcionar.",
+    "quietCodes": "Menos leituras",
+    "quietCodesText": "Um e-mail quando um código normalmente lido deixa de ser lido, ou passa a ser muito menos."
   },
   "ac": {
     "lead": "Todos os códigos QR de todos os clientes. Pesquise, filtre, selecione vários códigos ou abra um código para ver todos os detalhes.",

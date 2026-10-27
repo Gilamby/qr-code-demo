@@ -1680,7 +1680,13 @@
     "linkDownSubject": "De link van “{name}” werkt niet meer",
     "linkDownText": "Mensen die “{name}” scannen, komen uit op een link die niet werkt: {url}. Controleer de link of kies een nieuwe; je geprinte QR-code blijft gewoon hetzelfde.",
     "linkDownButton": "Link aanpassen",
-    "linkDownFooter": "Deze meldingen zet je uit in Mijn account > Meldingen."
+    "linkDownFooter": "Deze meldingen zet je uit in Mijn account > Meldingen.",
+    "quietStoppedSubject": "“{name}” is al 7 dagen niet gescand",
+    "quietStoppedText": "Je QR-code “{name}” wordt normaal zo’n {before} keer per week gescand, maar de afgelopen 7 dagen heeft niemand hem gescand.",
+    "quietDropSubject": "Scans van “{name}” {pct}% gedaald",
+    "quietDropText": "Je QR-code “{name}” wordt normaal zo’n {before} keer per week gescand. De afgelopen 7 dagen waren het er {now}.",
+    "quietTip": "Hangt de poster, sticker of menukaart er nog en is de code goed te zien? Een beschadigde of afgedekte code is vaak de oorzaak.",
+    "quietFooter": "Je kunt deze meldingen uitzetten in Mijn account > Meldingen."
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2328,7 +2334,9 @@
     "milestones": "Mijlpalen",
     "milestonesText": "Een e-mail bij 100, 1.000, 10.000 … scans van een code.",
     "brokenLinks": "Kapotte links",
-    "brokenLinksText": "Een e-mail als de link van een QR-code niet meer werkt."
+    "brokenLinksText": "Een e-mail als de link van een QR-code niet meer werkt.",
+    "quietCodes": "Minder scans",
+    "quietCodesText": "Een e-mail als een code die normaal gescand wordt, opeens niet of veel minder gescand wordt."
   },
   "ac": {
     "lead": "Elke QR-code van elke klant. Zoek, filter, selecteer meerdere codes of open een code voor alle details.",

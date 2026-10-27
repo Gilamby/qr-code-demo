@@ -1670,7 +1670,13 @@
     "linkDownSubject": "Länken i ”{name}” fungerar inte längre",
     "linkDownText": "De som skannar ”{name}” hamnar på en länk som inte fungerar: {url}. Kontrollera länken eller välj en ny; din utskrivna QR-kod är densamma.",
     "linkDownButton": "Ändra länk",
-    "linkDownFooter": "Du kan stänga av de här mejlen under Mitt konto > Aviseringar."
+    "linkDownFooter": "Du kan stänga av de här mejlen under Mitt konto > Aviseringar.",
+    "quietStoppedSubject": "”{name}” har inte skannats på 7 dagar",
+    "quietStoppedText": "Din QR-kod ”{name}” skannas normalt cirka {before} gånger i veckan, men ingen har skannat den de senaste 7 dagarna.",
+    "quietDropSubject": "Skanningar av ”{name}” minskade med {pct} %",
+    "quietDropText": "Din QR-kod ”{name}” skannas normalt cirka {before} gånger i veckan. De senaste 7 dagarna blev det {now}.",
+    "quietTip": "Sitter affischen, klistermärket eller menyn kvar och syns koden bra? En skadad eller täckt kod är ofta orsaken.",
+    "quietFooter": "Du kan stänga av aviseringarna under Mitt konto > Aviseringar."
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",
@@ -2318,7 +2324,9 @@
     "milestones": "Milstolpar",
     "milestonesText": "Ett mejl vid 100, 1 000, 10 000 … skanningar av en kod.",
     "brokenLinks": "Trasiga länkar",
-    "brokenLinksText": "Ett mejl när länken i en QR-kod slutar fungera."
+    "brokenLinksText": "Ett mejl när länken i en QR-kod slutar fungera.",
+    "quietCodes": "Färre skanningar",
+    "quietCodesText": "Ett mejl när en kod som brukar skannas plötsligt inte skannas alls eller mycket mindre."
   },
   "ac": {
     "lead": "Alla QR-koder från alla kunder. Sök, filtrera, välj flera koder eller öppna en kod för alla detaljer.",

@@ -1670,7 +1670,13 @@
     "linkDownSubject": "Lenken i «{name}» virker ikke lenger",
     "linkDownText": "De som skanner «{name}», havner på en lenke som ikke virker: {url}. Sjekk lenken eller velg en ny; den utskrevne QR-koden din er den samme.",
     "linkDownButton": "Endre lenke",
-    "linkDownFooter": "Du kan slå av disse e-postene under Min konto > Varsler."
+    "linkDownFooter": "Du kan slå av disse e-postene under Min konto > Varsler.",
+    "quietStoppedSubject": "«{name}» er ikke skannet på 7 dager",
+    "quietStoppedText": "QR-koden «{name}» skannes vanligvis rundt {before} ganger i uken, men ingen har skannet den de siste 7 dagene.",
+    "quietDropSubject": "Skanninger av «{name}» falt med {pct} %",
+    "quietDropText": "QR-koden «{name}» skannes vanligvis rundt {before} ganger i uken. De siste 7 dagene ble det {now}.",
+    "quietTip": "Henger plakaten, klistremerket eller menyen der fortsatt, og er koden lett å se? En skadet eller tildekket kode er ofte grunnen.",
+    "quietFooter": "Du kan slå av disse varslene under Min konto > Varsler."
   },
   "contact": {
     "lead": "Et spørsmål, et problem eller en idé? Send oss en melding.",
@@ -2318,7 +2324,9 @@
     "milestones": "Milepæler",
     "milestonesText": "En e-post ved 100, 1 000, 10 000 … skanninger av en kode.",
     "brokenLinks": "Døde lenker",
-    "brokenLinksText": "En e-post når lenken i en QR-kode slutter å virke."
+    "brokenLinksText": "En e-post når lenken i en QR-kode slutter å virke.",
+    "quietCodes": "Færre skanninger",
+    "quietCodesText": "En e-post når en kode som vanligvis skannes plutselig ikke skannes, eller mye sjeldnere."
   },
   "ac": {
     "lead": "Alle QR-kodene til alle kunder. Søk, filtrer, velg flere koder eller åpne en kode for å se alle detaljer.",

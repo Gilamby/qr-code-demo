@@ -1670,7 +1670,13 @@
     "linkDownSubject": "Il link di “{name}” non funziona più",
     "linkDownText": "Chi scansiona “{name}” arriva a un link che non funziona: {url}. Controlla il link o scegline uno nuovo; il tuo codice QR stampato resta lo stesso.",
     "linkDownButton": "Modifica link",
-    "linkDownFooter": "Puoi disattivare queste email in Il mio account > Notifiche."
+    "linkDownFooter": "Puoi disattivare queste email in Il mio account > Notifiche.",
+    "quietStoppedSubject": "“{name}” non è stato scansionato da 7 giorni",
+    "quietStoppedText": "Il tuo codice QR “{name}” di solito ha circa {before} scansioni a settimana, ma negli ultimi 7 giorni nessuno l’ha scansionato.",
+    "quietDropSubject": "Scansioni di “{name}” calate del {pct}%",
+    "quietDropText": "Il tuo codice QR “{name}” di solito ha circa {before} scansioni a settimana. Negli ultimi 7 giorni: {now}.",
+    "quietTip": "Il poster, l’adesivo o il menu sono ancora lì e il codice si vede bene? Un codice rovinato o coperto è spesso la causa.",
+    "quietFooter": "Puoi disattivare questi avvisi in Il mio account > Notifiche."
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",
@@ -2318,7 +2324,9 @@
     "milestones": "Traguardi",
     "milestonesText": "Un’e-mail a 100, 1.000, 10.000 … scansioni di un codice.",
     "brokenLinks": "Link non funzionanti",
-    "brokenLinksText": "Un'email quando il link di un codice QR smette di funzionare."
+    "brokenLinksText": "Un'email quando il link di un codice QR smette di funzionare.",
+    "quietCodes": "Meno scansioni",
+    "quietCodesText": "Un’e-mail quando un codice di solito scansionato all’improvviso non lo è più, o molto meno."
   },
   "ac": {
     "lead": "Ogni codice QR di ogni cliente. Cerca, filtra, seleziona più codici o apri un codice per tutti i dettagli.",
