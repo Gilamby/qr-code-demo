@@ -36,7 +36,7 @@ async function save(db: DatabaseService, list: Ticket[]) {
 }
 export async function addTicket(db: DatabaseService, user: User, m: { name: string; email: string; topic: string; message: string }) {
   const list = await readTickets(db), at = new Date().toISOString();
-  const tk: Ticket = { id: crypto.randomBytes(5).toString('base64url'), userId: user.id, email: m.email, name: m.name, topic: m.topic, status: 'open', at, updatedAt: at,
+  const tk: Ticket = { id: crypto.randomBytes(4).toString('hex'), userId: user.id, email: m.email, name: m.name, topic: m.topic, status: 'open', at, updatedAt: at,
     messages: [{ at, from: 'customer', by: m.name, text: m.message }] };
   list.unshift(tk); await save(db, list); return tk;
 }

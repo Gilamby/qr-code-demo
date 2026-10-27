@@ -5406,7 +5406,7 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .mc-binnote { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 14px; color: var(--muted); font-size: 14px; }
 .mc-binnote .mc-i { width: 18px; height: 18px; flex: none; }
 .mc-toast.has-action { display: flex; align-items: center; gap: 14px; }
-.mc-toast-btn { background: none; border: 0; padding: 0; color: var(--accent, #2bb5f0); font: inherit; font-weight: 800; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.mc-toast-btn { background: none; border: 0; padding: 0; color: #0668a0; font: inherit; font-weight: 800; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 [data-theme="light"] .mc-toast-btn { color: #7dd3fc; }
 @media (max-width: 760px) { .mc-card.mc-binned { grid-template-columns: 64px minmax(0, 1fr); } .mc-binacts { grid-column: 1 / -1; justify-content: flex-start; } }
 
@@ -5667,3 +5667,5 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .br-card img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; display: block; margin: 0 auto 6px; }
 .br-card b { display: block; font-size: 14px; color: #5b6472; } .br-card p { margin: 6px 0 0; font-size: 13px; }
 .br-foot { display: flex; justify-content: flex-end; gap: 8px; }
+.api-form.wh-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
+.api-form.wh-form .btn { justify-self: start; }

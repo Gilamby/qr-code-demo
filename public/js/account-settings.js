@@ -520,7 +520,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
         '<fieldset class="wh-ev"><legend>' + t('wh.events') + '</legend><label><input type="checkbox" name="scan" checked> ' + t('wh.evScan') + '</label><label><input type="checkbox" name="code"> ' + t('wh.evCode') + '</label></fieldset>' +
         '<button type="submit" class="btn primary">' + t('wh.add') + '</button></form>' : '') +
       (hookMsg ? '<p class="acct-msg ' + hookMsg[1] + '" role="status">' + esc(hookMsg[0]) + '</p>' : '') +
-      '<details class="api-peek"><summary>' + t('wh.howTitle') + '</summary><p class="acct-note">' + t('wh.how') + '</p><pre class="api-pre"><code>' + esc('POST https://your-site.example/qr-hook\nX-QR-Codex-Event: scan\nX-QR-Codex-Signature: sha256=…\n\n{"event":"scan","at":"2026-10-27T15:00:00Z","code":{"id":"abc123","name":"Terrace menu","type":"menu","scans":120},"scan":{"country":"ES","device":"mobile","os":"iOS"}}') + '</code></pre></details></div>';
+      '<details class="api-peek"><summary>' + t('wh.howTitle') + '</summary><p class="acct-note">' + t('wh.how') + '</p><pre class="api-pre" tabindex="0"><code>' + esc('POST https://your-site.example/qr-hook\nX-QR-Codex-Event: scan\nX-QR-Codex-Signature: sha256=…\n\n{"event":"scan","at":"2026-10-27T15:00:00Z","code":{"id":"abc123","name":"Terrace menu","type":"menu","scans":120},"scan":{"country":"ES","device":"mobile","os":"iOS"}}') + '</code></pre></details></div>';
   }
   /* ---------- Eigen domein (Business): korte links op je eigen domein ---------- */
   var domInfo = null, domMsg = null, domBusy = false;
@@ -609,7 +609,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
         ['GET', '/qr-codes', 'api.e1'], ['GET', '/qr-codes/{id}', 'api.e2'], ['POST', '/qr-codes', 'api.e3'], ['POST', '/qr-codes/bulk', 'api.e4'],
         ['PUT', '/qr-codes/{id}', 'api.e5'], ['PATCH', '/qr-codes/{id}', 'api.e6'], ['DELETE', '/qr-codes/{id}', 'api.e7'], ['GET', '/analytics?codes={id}&from=…&to=…', 'api.e8']
       ].map(function (r) { return '<tr><td><b class="api-m m-' + r[0].toLowerCase() + '">' + r[0] + '</b></td><td><code>' + esc(r[1]) + '</code></td><td>' + esc(t(r[2])) + '</td></tr>'; }).join('') + '</tbody></table>' +
-      '<p class="api-ex-t">' + t('api.example') + '</p><pre class="api-pre"><code>' + esc('curl -X POST ' + base + '/qr-codes \\\n  -H "Authorization: Bearer qrc_…" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"typeId":"website","name":"Tafel 1","content":{"url":"https://example.com"},"design":{}}\'') + '</code></pre>' +
+      '<p class="api-ex-t">' + t('api.example') + '</p><pre class="api-pre" tabindex="0"><code>' + esc('curl -X POST ' + base + '/qr-codes \\\n  -H "Authorization: Bearer qrc_…" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"typeId":"website","name":"Tafel 1","content":{"url":"https://example.com"},"design":{}}\'') + '</code></pre>' +
       '<p class="acct-note">' + t('api.limits') + '</p></div>';
     if (!apiInfo.allowed) return '<div class="glass bg-card acct api-lock"><h2>' + t('api.title') + '</h2><p>' + t('api.lockedLead') + '</p>' +
       '<button type="button" class="btn primary" data-gate-open="business" data-gate-reason="api">' + PlanGate.lock + ' ' + esc(t('pw.upgradeTo', { plan: t('plan.n_business') })) + '</button>' +
