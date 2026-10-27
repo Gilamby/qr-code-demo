@@ -18,7 +18,10 @@ background-image:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(30,90,170,.35)
 main{max-width:860px;margin:0 auto;padding:6px 20px 40px;text-align:center}
 h1{font-size:clamp(72px,14vw,132px);line-height:.95;margin:6px 0 10px;font-weight:800;letter-spacing:-.045em;background:linear-gradient(180deg,#fff,#7fb8ea);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{font-size:clamp(18px,3vw,26px);font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
-.sub2{color:var(--mute);margin:0 0 26px}
+.sub2{color:var(--mute);margin:0 auto 26px;max-width:560px;line-height:1.5}
+.pill{display:none;align-items:center;gap:8px;margin:4px 0 0;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fcd34d;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.4);border-radius:999px;padding:6px 14px}
+.pill i{width:8px;height:8px;border-radius:50%;background:#f59e0b;animation:pl 1.8s infinite}@keyframes pl{50%{opacity:.25}}
+html[data-offline] .pill{display:inline-flex}html[data-offline] h1{font-size:clamp(30px,5.5vw,46px);letter-spacing:-.03em;line-height:1.1;margin:16px 0 10px}html[data-offline] .sub{display:none}
 .card{position:relative;padding:14px;border-radius:30px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(70,82,105,.55),rgba(24,31,48,.8));box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .stage{position:relative;border-radius:20px;overflow:hidden;background:#0b1830;line-height:0;touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:pointer}
 canvas{width:100%;height:auto;aspect-ratio:640/240;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
@@ -35,12 +38,13 @@ canvas{width:100%;height:auto;aspect-ratio:640/240;image-rendering:pixelated;ima
 kbd{font:inherit;font-weight:700;color:var(--text);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:8px;padding:3px 9px}
 .chip{font:inherit;color:var(--text);background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
 .home{display:inline-block;margin-top:26px;text-decoration:none}.home[hidden]{display:none}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.pill i{animation:none}}
 </style>
 </head>
 <body>
 <div class="top"><a href="/"><img class="logo" src="/icons/logo-badge.png" alt=""><b>QR-<span>Codex</span></b></a></div>
 <main>
+  <p class="pill" aria-hidden="true"><i></i>Offline</p>
   <h1 data-t="big">404</h1>
   <p class="sub" data-t="sub">Looks like you scanned the wrong page.</p>
   <p class="sub2" data-t="sub2">While you’re here, see how far you can run.</p>

@@ -11,7 +11,7 @@ function build(root) {
   const D = {};
   for (const f of fs.readdirSync(path.join(pub, 'locales')).filter((x) => /^[a-z]{2}\.json$/.test(x))) {
     const v = JSON.parse(fs.readFileSync(path.join(pub, 'locales', f), 'utf8')).visit || {}, l = f.slice(0, 2);
-    const o = { lang: l, offline: 1, big: 'Offline', title: v.g404OffTitle, sub: v.g404OffTitle, sub2: v.g404OffSub + ' ' + v.g404OffSub2 };
+    const o = { lang: l, offline: 1, big: v.g404OffTitle, title: v.g404OffTitle, sub: '', sub2: v.g404OffSub + ' ' + v.g404OffSub2 };
     K.forEach((k) => { o[k] = v['g404' + k[0].toUpperCase() + k.slice(1)]; });
     D[l] = o;
   }
