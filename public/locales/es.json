@@ -3115,5 +3115,12 @@
     "gone": "File replaced",
     "goneTip": "This version used a file that has since been replaced, so it can’t be restored.",
     "close": "Close"
+  },
+  "ptip": {
+    "title": "Print check",
+    "sharp": "Prints sharp up to {cm} cm wide (SVG, PDF and EPS: any size)",
+    "distance": "Scanned from",
+    "min": "✓ Print it at least {cm} cm wide",
+    "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
   }
 }

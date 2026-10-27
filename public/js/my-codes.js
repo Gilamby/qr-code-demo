@@ -54,8 +54,19 @@ var MyCodes = (function () {
   var health = {};                                          // health check per code: { state, at, bad }                                          // geselecteerde codes (id → true)
   var dlSize = 1024; try { var ds = +localStorage.getItem('mc.dlSize'); if (CodeUtil.sizes.indexOf(ds) >= 0) dlSize = ds; } catch (e) {}
   var FMT = [['png', 'myCodes.pngHint'], ['jpg', 'myCodes.jpgHint'], ['webp', 'myCodes.webpHint'], ['svg', 'myCodes.svgHint'], ['pdf', 'myCodes.pdfHint'], ['eps', 'myCodes.epsHint']];
+  /* Printcontrole: tot hoe groot is dit formaat scherp, en hoe groot moet de code zijn voor de scanafstand? (vuistregel: afstand / 10) */
+  var DISTS = [0.3, 0.5, 1, 2, 3, 5, 10], dlDist = 1; try { var dd = +localStorage.getItem('mc.dist'); if (DISTS.indexOf(dd) >= 0) dlDist = dd; } catch (e) {}
+  function cm(n) { return i18n.fmt.num(Math.round(n * 10) / 10); }
+  function ptipInner() {
+    var sharp = dlSize / 300 * 2.54, need = Math.max(2, dlDist * 10), ok = need <= sharp;
+    return '<div class="mc-pt-row"><span>' + t('ptip.sharp', { cm: cm(sharp) }) + '</span></div>' +
+      '<label class="mc-pt-row"><span>' + t('ptip.distance') + '</span><select data-dist aria-label="' + esc(t('ptip.distance')) + '">' + DISTS.map(function (d) { return '<option value="' + d + '"' + (d === dlDist ? ' selected' : '') + '>' + (d < 1 ? i18n.fmt.num(d * 100) + ' cm' : i18n.fmt.num(d) + ' m') + '</option>'; }).join('') + '</select></label>' +
+      '<p class="mc-pt-res' + (ok ? '' : ' bad') + '">' + (ok ? t('ptip.min', { cm: cm(need) }) : t('ptip.tooSmall', { cm: cm(need) })) + '</p>';
+  }
+  function ptip() { return '<div class="mc-ptip" role="group" aria-label="' + esc(t('ptip.title')) + '">' + ptipInner() + '</div>'; }
   function dlMenu(bulk) {
     return '<div class="mc-sizes" role="group" aria-label="' + esc(t('myCodes.size')) + '"><span>' + t('myCodes.size') + '</span>' + CodeUtil.sizes.map(function (z) { return '<button type="button" class="mc-sz' + (z === dlSize ? ' on' : '') + '" data-size="' + z + '" aria-pressed="' + (z === dlSize) + '">' + z + '</button>'; }).join('') + '</div>' +
+      ptip() +
       FMT.map(function (f) { return '<button type="button" role="menuitem" data-' + (bulk ? 'bulk-fmt' : 'act="dl" data-fmt') + '="' + f[0] + '">' + f[0].toUpperCase() + '<small>' + t(f[1]) + '</small></button>'; }).join('') +
       (bulk ? '' : '<div class="mc-dlx"><button type="button" role="menuitem" data-act="print">' + ico('print') + '<span>' + t('myCodes.print') + '<small>' + t('myCodes.printHint') + '</small></span></button>' +
         '<button type="button" role="menuitem" data-act="share">' + ico('share') + '<span>' + t('myCodes.share') + '<small>' + t('myCodes.shareHint') + '</small></span></button></div>');
@@ -303,9 +314,16 @@ var MyCodes = (function () {
     }
   });
   document.addEventListener('click', function (e) { if (!bulk.hidden && !e.target.closest('.mc-bulk .mc-drop')) { var m = bulk.querySelector('.mc-menu'); if (m) m.hidden = true; } });
+  view.addEventListener('change', function (e) {
+    var sel = e.target.closest && e.target.closest('[data-dist]'); if (!sel) return;
+    dlDist = +sel.value; try { localStorage.setItem('mc.dist', String(dlDist)); } catch (x) {}
+    view.querySelectorAll('.mc-ptip').forEach(function (el) { el.innerHTML = ptipInner(); });
+    var again = view.querySelector('.mc-menu:not([hidden]) [data-dist]'); if (again) again.focus();
+  });
   function setSize(z) {
     dlSize = z; try { localStorage.setItem('mc.dlSize', String(z)); } catch (e) {}
     view.querySelectorAll('.mc-sz').forEach(function (b) { var on = +b.getAttribute('data-size') === z; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+    view.querySelectorAll('.mc-ptip').forEach(function (el) { el.innerHTML = ptipInner(); });
   }
   // Labels en notitie bewerken (venster): labels als losse knopjes, suggesties uit je andere codes
   function askLabels(r) {

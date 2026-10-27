@@ -3115,5 +3115,12 @@
     "gone": "Bestand vervangen",
     "goneTip": "Deze versie gebruikte een bestand dat intussen is vervangen. Daarom kan hij niet terug.",
     "close": "Sluiten"
+  },
+  "ptip": {
+    "title": "Printcontrole",
+    "sharp": "Scherp geprint tot {cm} cm breed (SVG, PDF en EPS: elk formaat)",
+    "distance": "Gescand vanaf",
+    "min": "✓ Print hem minstens {cm} cm breed",
+    "tooSmall": "Moet minstens {cm} cm zijn: kies een groter formaat, of SVG, PDF of EPS"
   }
 }

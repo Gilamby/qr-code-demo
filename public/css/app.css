@@ -5422,3 +5422,11 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .hs-items li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
 .hs-items li > div { display: grid; gap: 2px; min-width: 0; }
 .hs-gone { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+
+/* Printcontrole in het downloadmenu */
+.mc-ptip { display: grid; gap: 6px; padding: 8px 8px 10px; margin-bottom: 4px; border-bottom: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.mc-pt-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.mc-pt-row select { font: inherit; font-size: 12.5px; padding: 3px 26px 3px 8px; border-radius: 8px; border: 1px solid var(--line); background-color: transparent; color: var(--fg); }
+.mc-pt-res { margin: 0; font-weight: 700; color: #3ccf7a; }
+.mc-pt-res.bad { color: #f5b041; }
+[data-theme="light"] .mc-pt-res { color: #15803d; } [data-theme="light"] .mc-pt-res.bad { color: #b45309; }
