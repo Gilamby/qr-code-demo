@@ -9,7 +9,7 @@
   );
   console.log('%c👋 Hey developer!', big);
   console.log(
-    '%cYes, you may look around. No, the secret sauce isn’t here: it runs on our server. 🍝🔒\n\n' +
+    '%cCurious how it works? We like that. 👀\n\n' +
     'Go ahead and scan this, but it’s really not a QR code. 😄\n' +
     'Made with ❤️ by Optimasys · optimasys.com',
     txt
