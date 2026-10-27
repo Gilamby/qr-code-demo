@@ -73,8 +73,12 @@ export function targetUrl(q: QrCode, userAgent = '', variant: 'A' | 'B' | null =
 const LOCALES: Record<string, Record<string, string>> = {};
 LANGS.forEach((l) => { try { LOCALES[l] = JSON.parse(fs.readFileSync(path.join(PATHS.locales, l + '.json'), 'utf8')).visit; } catch (e) { /* taal ontbreekt */ } });
 export function lang(req: Request) {
+  const q = String((req.query && (req.query as any).lang) || '').toLowerCase();   // ?lang=nl: de taal die iemand in de app koos (zie PICK_LANG)
+  if (LOCALES[q]) return q;
   return fromAcceptLanguage(req.get('accept-language'), (l) => !!LOCALES[l]);
 }
+/** In de <head> van onze eigen pagina's (404, /status): heeft iemand in de app een taal gekozen, dan die gebruiken in plaats van de browsertaal */
+const PICK_LANG = '<script>try{var s=localStorage.getItem("optimasys-lang");if(s&&/^[a-z]{2}$/.test(s)&&s!==document.documentElement.lang&&!/[?&]lang=/.test(location.search)){var u=new URL(location.href);u.searchParams.set("lang",s);location.replace(u.toString())}}catch(e){}</script>';
 const text = (req: Request) => Object.assign({}, LOCALES.en, LOCALES[lang(req)]);
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
 function page(title: string, body: string, lng?: string) {
@@ -119,7 +123,8 @@ export function appNotFoundPage(req: Request) {
   k.forEach((x) => { L[x] = t['g404' + x[0].toUpperCase() + x.slice(1)]; });
   const json = JSON.stringify(L).replace(/</g, '\\u003c');
   if (!tpl404) return page(t.page404Title, '<div class="ic">?</div><h1>' + esc(t.page404Title) + '</h1><p><a href="/">' + esc(t.page404Btn) + '</a></p>', l);
-  return tpl404.replace('<script id="t404" type="application/json">{}</script>', () => '<script id="t404" type="application/json">' + json + '</script>');
+  return tpl404.replace('<html lang="en" data-404>', '<html lang="' + l + '" data-404>').replace('<meta charset="utf-8">', () => '<meta charset="utf-8">' + PICK_LANG)
+    .replace('<script id="t404" type="application/json">{}</script>', () => '<script id="t404" type="application/json">' + json + '</script>');
 }
 
 /** Openbare pagina "Storingen en meldingen" (/status): werkt alles, lopende storing of onderhoud, en eerdere meldingen */
@@ -140,7 +145,7 @@ export function statusPage(req: Request, s: StatusData) {
         (i.solvedAt ? '<p class="sv">' + esc(t.stSolved) + ': ' + esc(when(i.solvedAt)) + '</p>' : '') + '</details></li>').join('') + '</ul>'
     : '<p class="none">' + esc(t.stNone) + '</p>';
   return '<!doctype html><html lang="' + l + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(t.stTitle) + ' · QR-Codex</title><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/fonts.css">' +
-    '<meta http-equiv="refresh" content="60"><style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse 80% 50% at 50% 0,rgba(30,90,170,.28),transparent 70%),#050b17;color:#eef3fb;font:16px/1.5 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}' +
+    '<meta http-equiv="refresh" content="60">' + PICK_LANG + '<style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse 80% 50% at 50% 0,rgba(30,90,170,.28),transparent 70%),#050b17;color:#eef3fb;font:16px/1.5 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif}' +
     '.top{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:820px;margin:0 auto;padding:22px 20px}.top a{color:inherit;text-decoration:none;display:flex;align-items:center;gap:10px;font-weight:700}.top img{width:34px;height:34px}.top b span{color:#3aa8f0}.top .back{font-weight:600;color:#3aa8f0;font-size:14px}' +
     'main{max-width:820px;margin:0 auto;padding:10px 20px 60px}h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.02em;margin:10px 0 6px}.lead{color:#9aa6b5;margin:0 0 26px}' +
     '.now{display:flex;gap:14px;padding:20px 22px;border-radius:18px;border:1px solid rgba(255,255,255,.1);margin-bottom:14px}.now h2{margin:0;font-size:19px}.now p{margin:8px 0 0;color:#d5deea}.now small{color:#9aa6b5}' +

@@ -15,7 +15,7 @@ function build(root) {
     K.forEach((k) => { o[k] = v['g404' + k[0].toUpperCase() + k.slice(1)]; });
     D[l] = o;
   }
-  const pick = '<script>(function(){var D=' + JSON.stringify(D).replace(/</g, '\\u003c') + ',k="en",L=(navigator.languages||[navigator.language||"en"]);' +
+  const pick = '<script>(function(){var D=' + JSON.stringify(D).replace(/</g, '\\u003c') + ',k="en",L=(navigator.languages||[navigator.language||"en"]);try{var sv=localStorage.getItem("optimasys-lang");if(sv)L=[sv].concat(L)}catch(e){}' +
     'for(var i=0;i<L.length;i++){var x=String(L[i]).toLowerCase().split("-")[0];if(x==="no"||x==="nn")x="nb";if(D[x]){k=x;break}}' +
     'document.getElementById("t404").textContent=JSON.stringify(D[k])})()</script>';
   html = html.replace('<script id="t404" type="application/json">{}</script>', () => '<script id="t404" type="application/json">{}</script>\n' + pick)
