@@ -7,12 +7,11 @@
     '%c▄▄▄▄▄▄▄  ▄  ▄▄▄▄▄▄▄\n█ ▄▄▄ █ ▀█▄ █ ▄▄▄ █\n█ ███ █ ▄▀▄ █ ███ █\n█▄▄▄▄▄█ █▀█ █▄▄▄▄▄█',
     'font: 12px monospace; color: #2bb5f0; line-height: 1;'
   );
-  console.log('%c👋 Hé developer!', big);
+  console.log('%c👋 Hey developer!', big);
   console.log(
-    '%cJa, je mag kijken. Nee, de geheime saus vind je hier niet: die draait op onze server. 🍝🔒\n' +
-    'Yes, you may look around. No, the secret sauce isn’t here: it runs on our server.\n\n' +
-    'Scan dit gerust, maar het is écht geen QR-code. 😄\n' +
-    'Gemaakt met ❤️ door Optimasys · optimasys.com',
+    '%cYes, you may look around. No, the secret sauce isn’t here: it runs on our server. 🍝🔒\n\n' +
+    'Go ahead and scan this, but it’s really not a QR code. 😄\n' +
+    'Made with ❤️ by Optimasys · optimasys.com',
     txt
   );
 })();
