@@ -2528,7 +2528,17 @@
     "log_incident_solved": "Incidencia resuelta",
     "log_incident_update": "Actualización de incidencia publicada",
     "log_incident_edit": "Aviso de incidencia editado",
-    "log_incident_delete": "Aviso de incidencia eliminado"
+    "log_incident_delete": "Aviso de incidencia eliminado",
+    "transfer": "Transferir a otra cuenta",
+    "transferTitle": "¿Transferir “{name}”?",
+    "transferText": "Ahora pertenece a {owner}. El código, sus estadísticas y archivos pasan a la nueva cuenta. El código impreso sigue funcionando.",
+    "transferEmail": "Correo del nuevo propietario",
+    "transferred": "Transferido.",
+    "transferredPaused": "Transferido, pero en pausa: el plan de la nueva cuenta está lleno.",
+    "trNoUser": "No hay ninguna cuenta con este correo.",
+    "trSame": "Este código ya pertenece a esa cuenta.",
+    "trBad": "No puedes transferir un código a esta cuenta.",
+    "log_transfer": "Transferido"
   },
   "plan": {
     "title": "Suscripción",

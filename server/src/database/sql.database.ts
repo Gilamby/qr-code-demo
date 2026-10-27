@@ -297,6 +297,12 @@ export class SqlDatabase extends DatabaseService {
     const q = await this.d.get(SQL.code, [id]); if (!q || q.user_id !== userId || !q.trashed_at) return false;
     await this.d.run('UPDATE qr_codes SET trashed_at = NULL, folder_id = CASE WHEN folder_id IN (SELECT id FROM folders WHERE user_id = ?) THEN folder_id ELSE NULL END WHERE id = ?', [userId, id]); return true;
   }
+  async transferQrCode(id: string, toUserId: string): Promise<boolean> {
+    const q = await this.d.get(SQL.code, [id]); if (!q || q.trashed_at) return false;
+    await this.d.run('UPDATE qr_codes SET user_id = ?, folder_id = NULL, archived = 0 WHERE id = ?', [toUserId, id]);
+    await this.d.run('UPDATE files SET user_id = ? WHERE code_id = ?', [toUserId, id]);
+    return true;
+  }
   async listTrash(userId: string): Promise<QrCode[]> { return (await this.d.all(SQL.trashOf, [userId])).map(codeOut); }
   async trashedBefore(before: string): Promise<{ id: string; userId: string }[]> {
     return (await this.d.all('SELECT id, user_id FROM qr_codes WHERE trashed_at IS NOT NULL AND trashed_at < ?', [before])).map((r) => ({ id: r.id, userId: r.user_id }));

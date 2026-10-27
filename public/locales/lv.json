@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Traucējums atrisināts",
     "log_incident_update": "Publicēti jaunumi par traucējumu",
     "log_incident_edit": "Traucējuma paziņojums rediģēts",
-    "log_incident_delete": "Traucējuma paziņojums dzēsts"
+    "log_incident_delete": "Traucējuma paziņojums dzēsts",
+    "transfer": "Pārvietot uz citu kontu",
+    "transferTitle": "Pārvietot “{name}”?",
+    "transferText": "Pašlaik pieder {owner}. Kods, statistika un faili pāriet uz jauno kontu. Izdrukātais kods turpina darboties.",
+    "transferEmail": "Jaunā īpašnieka e-pasts",
+    "transferred": "Pārvietots.",
+    "transferredPaused": "Pārvietots, bet apturēts: jaunā konta plāns ir pilns.",
+    "trNoUser": "Konts ar šo e-pastu nav atrasts.",
+    "trSame": "Šis kods jau pieder tam kontam.",
+    "trBad": "Uz šo kontu kodu pārvietot nevar.",
+    "log_transfer": "Pārvietots"
   },
   "plan": {
     "title": "Abonements",

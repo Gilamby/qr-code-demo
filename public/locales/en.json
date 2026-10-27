@@ -2528,7 +2528,17 @@
     "log_incident_solved": "Outage resolved",
     "log_incident_update": "Outage update posted",
     "log_incident_edit": "Outage notice edited",
-    "log_incident_delete": "Outage notice deleted"
+    "log_incident_delete": "Outage notice deleted",
+    "transfer": "Transfer to another account",
+    "transferTitle": "Transfer “{name}”?",
+    "transferText": "Now owned by {owner}. The code, its statistics and files move to the new account. The printed code keeps working.",
+    "transferEmail": "Email address of the new owner",
+    "transferred": "Transferred.",
+    "transferredPaused": "Transferred, but paused: the new account’s plan is full.",
+    "trNoUser": "No account found with this email address.",
+    "trSame": "This code already belongs to that account.",
+    "trBad": "You can’t transfer a code to this account.",
+    "log_transfer": "Transferred"
   },
   "plan": {
     "title": "Subscription",

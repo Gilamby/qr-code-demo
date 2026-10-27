@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Porucha vyriešená",
     "log_incident_update": "Aktualizácia poruchy zverejnená",
     "log_incident_edit": "Oznámenie o poruche upravené",
-    "log_incident_delete": "Oznámenie o poruche odstránené"
+    "log_incident_delete": "Oznámenie o poruche odstránené",
+    "transfer": "Presunúť na iný účet",
+    "transferTitle": "Presunúť „{name}“?",
+    "transferText": "Teraz patrí {owner}. Kód, štatistiky a súbory prejdú na nový účet. Vytlačený kód naďalej funguje.",
+    "transferEmail": "E-mail nového vlastníka",
+    "transferred": "Presunuté.",
+    "transferredPaused": "Presunuté, ale pozastavené: balík nového účtu je plný.",
+    "trNoUser": "Účet s týmto e-mailom sa nenašiel.",
+    "trSame": "Tento kód už patrí tomu účtu.",
+    "trBad": "Na tento účet nemôžete presunúť kód.",
+    "log_transfer": "Presunuté"
   },
   "plan": {
     "title": "Predplatné",

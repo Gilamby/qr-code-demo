@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Häiriö korjattu",
     "log_incident_update": "Häiriöpäivitys julkaistu",
     "log_incident_edit": "Häiriötiedotetta muokattu",
-    "log_incident_delete": "Häiriötiedote poistettu"
+    "log_incident_delete": "Häiriötiedote poistettu",
+    "transfer": "Siirrä toiselle tilille",
+    "transferTitle": "Siirretäänkö ”{name}”?",
+    "transferText": "Omistaja nyt {owner}. Koodi, tilastot ja tiedostot siirtyvät uudelle tilille. Tulostettu koodi toimii edelleen.",
+    "transferEmail": "Uuden omistajan sähköposti",
+    "transferred": "Siirretty.",
+    "transferredPaused": "Siirretty mutta keskeytetty: uuden tilin paketti on täynnä.",
+    "trNoUser": "Tällä sähköpostilla ei löytynyt tiliä.",
+    "trSame": "Koodi kuuluu jo tälle tilille.",
+    "trBad": "Tälle tilille ei voi siirtää koodia.",
+    "log_transfer": "Siirretty"
   },
   "plan": {
     "title": "Tilaus",

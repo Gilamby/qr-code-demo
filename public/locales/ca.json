@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Incidència resolta",
     "log_incident_update": "Actualització d’incidència publicada",
     "log_incident_edit": "Avís d’incidència editat",
-    "log_incident_delete": "Avís d’incidència eliminat"
+    "log_incident_delete": "Avís d’incidència eliminat",
+    "transfer": "Transfereix a un altre compte",
+    "transferTitle": "Vols transferir “{name}”?",
+    "transferText": "Ara és de {owner}. El codi, les estadístiques i els fitxers passen al nou compte. El codi imprès continua funcionant.",
+    "transferEmail": "Correu del nou propietari",
+    "transferred": "Transferit.",
+    "transferredPaused": "Transferit, però en pausa: el pla del nou compte és ple.",
+    "trNoUser": "No hi ha cap compte amb aquest correu.",
+    "trSame": "Aquest codi ja és d’aquest compte.",
+    "trBad": "No pots transferir un codi a aquest compte.",
+    "log_transfer": "Transferit"
   },
   "plan": {
     "title": "Subscripció",

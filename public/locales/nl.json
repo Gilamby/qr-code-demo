@@ -2528,7 +2528,17 @@
     "log_incident_solved": "Storing opgelost",
     "log_incident_update": "Update bij storing geplaatst",
     "log_incident_edit": "Storingsmelding bewerkt",
-    "log_incident_delete": "Storingsmelding verwijderd"
+    "log_incident_delete": "Storingsmelding verwijderd",
+    "transfer": "Overzetten naar ander account",
+    "transferTitle": "“{name}” overzetten?",
+    "transferText": "Nu van {owner}. De code, de statistieken en de bestanden gaan naar het nieuwe account. De geprinte code blijft werken.",
+    "transferEmail": "E-mailadres van de nieuwe eigenaar",
+    "transferred": "Overgezet.",
+    "transferredPaused": "Overgezet, maar gepauzeerd: het pakket van het nieuwe account is vol.",
+    "trNoUser": "Geen account gevonden met dit e-mailadres.",
+    "trSame": "Deze code is al van dat account.",
+    "trBad": "Naar dit account kun je geen code overzetten.",
+    "log_transfer": "Overgezet"
   },
   "plan": {
     "title": "Abonnement",

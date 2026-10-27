@@ -26,6 +26,7 @@ import { QR_TYPES, validateQrCode } from './validation';
 import { STATIC, destinationOf, patternSince, problemOf, riskOf, scanPattern } from './moderation';
 import { urlInfo } from '../helpers/url-check';
 import { planFor, usage } from '../plans';
+import { activeCount } from '../plan-limit';
 import { fail, recentErrors } from '../common/http';
 import { MailerService } from '../auth/mailer.service';
 import { addBlock, isBlocked, listBlocks, normBlock, removeBlock } from '../auth/blocklist';
@@ -318,6 +319,29 @@ export class AdminPanelController {
     await this.log(me, 'duplicate', old, newId);
     owner.codes++;
     return this.item(req, me, saved, owner, {});
+  }
+
+  /** Code overzetten naar een ander klantaccount (bv. bureau → klant). Pakket vol: dan gepauzeerd. */
+  @Post('codes/:id/transfer')
+  @HttpCode(200)
+  async transfer(@Req() req: Request, @CurrentUser() me: User, @Param('id') id: string, @Body() b: any = {}) {
+    const q = await this.db.getQrCode(id); if (!q || q.trashedAt) throw fail(404, 'Not found');
+    const owners = await this.owners();
+    if (!this.canTouch(me, owners[q.userId])) throw fail(403, 'team_code');
+    const row = await this.db.userByEmail(String(b.email || '').trim().toLowerCase());
+    if (!row) throw fail(404, 'no_user');
+    const to = await this.db.getUser(row.id);
+    if (!to || this.auth.isAdmin(to) || to.disabledAt) throw fail(400, 'bad_user');
+    if (to.id === q.userId) throw fail(400, 'same_user');
+    const plan = await planFor(this.db, to.id), full = plan.codes != null && (await activeCount(this.db, to.id)) >= plan.codes;
+    await this.db.transferQrCode(id, to.id);
+    const lm: any = await this.codes.legacyMap(q.userId).catch(() => ({}));            // oude app-koppeling verhuist mee
+    if (lm && lm[id]) { await this.codes.setLegacy(to.id, id, lm[id]); await this.codes.setLegacy(q.userId, id, null); }
+    let saved = await this.db.getQrCode(id);
+    if (full && !saved.paused) saved = await this.db.updateQrCode(id, { paused: true });
+    await this.log(me, 'transfer', q, (owners[q.userId] ? owners[q.userId].email : q.userId) + ' → ' + to.email);
+    const all = await this.owners();
+    return { ...(await this.item(req, me, saved, all[to.id] || owners[q.userId], {})), paused: full };
   }
 
   @Get('codes/:id/check')

@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Störning löst",
     "log_incident_update": "Uppdatering om störning publicerad",
     "log_incident_edit": "Störningsmeddelande redigerat",
-    "log_incident_delete": "Störningsmeddelande borttaget"
+    "log_incident_delete": "Störningsmeddelande borttaget",
+    "transfer": "Flytta till annat konto",
+    "transferTitle": "Flytta ”{name}”?",
+    "transferText": "Ägs nu av {owner}. Koden, statistik och filer flyttas till det nya kontot. Den utskrivna koden fungerar fortfarande.",
+    "transferEmail": "E-post till den nya ägaren",
+    "transferred": "Flyttad.",
+    "transferredPaused": "Flyttad men pausad: det nya kontots paket är fullt.",
+    "trNoUser": "Inget konto med den här e-postadressen.",
+    "trSame": "Koden tillhör redan det kontot.",
+    "trBad": "Du kan inte flytta en kod till det här kontot.",
+    "log_transfer": "Flyttad"
   },
   "plan": {
     "title": "Abonnemang",

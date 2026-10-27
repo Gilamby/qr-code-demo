@@ -2524,7 +2524,17 @@
     "log_incident_solved": "Incident résolu",
     "log_incident_update": "Mise à jour d’incident publiée",
     "log_incident_edit": "Annonce d’incident modifiée",
-    "log_incident_delete": "Annonce d’incident supprimée"
+    "log_incident_delete": "Annonce d’incident supprimée",
+    "transfer": "Transférer vers un autre compte",
+    "transferTitle": "Transférer « {name} » ?",
+    "transferText": "Appartient à {owner}. Le code, ses statistiques et ses fichiers passent au nouveau compte. Le code imprimé continue de fonctionner.",
+    "transferEmail": "E-mail du nouveau propriétaire",
+    "transferred": "Transféré.",
+    "transferredPaused": "Transféré, mais en pause : le forfait du nouveau compte est complet.",
+    "trNoUser": "Aucun compte avec cet e-mail.",
+    "trSame": "Ce code appartient déjà à ce compte.",
+    "trBad": "Impossible de transférer un code vers ce compte.",
+    "log_transfer": "Transféré"
   },
   "plan": {
     "title": "Abonnement",

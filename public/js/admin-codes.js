@@ -308,6 +308,17 @@ var AdminCodes = (function () {
     confirmBox({ icon: 'flag', title: t('ac.flagTitle', { name: esc(CodeUtil.displayName(r)) }), text: t('ac.flagText'), reasons: 'flag', ok: t('ac.flag'),
       onOk: function (v) { return api.admin.patchCode(r.id, { flag: true, reason: v.reason }).then(function (x) { toast(t('ac.flaggedMsg')); afterChange(x); }); } });
   }
+  /* Code naar een ander klantaccount (bv. van een bureau naar de klant zelf) */
+  function transferOne(r) {
+    confirmBox({ icon: 'user', title: t('ac.transferTitle', { name: esc(CodeUtil.displayName(r)) }), text: t('ac.transferText', { owner: esc(r.owner ? r.owner.name || r.owner.email : '') }), ok: t('ac.transfer'),
+      extra: '<label class="auth-f ac-dlg-f"><span>' + t('ac.transferEmail') + '</span><input type="email" name="to" required autocomplete="off" placeholder="naam@bedrijf.nl"></label>',
+      onOk: function () {
+        var to = dlg.querySelector('[name=to]'), email = to ? to.value.trim() : '';
+        if (!email) { to.focus(); return Promise.reject({ local: true, message: t('ac.transferEmail') }); }
+        return api.admin.transferCode(r.id, email).then(function (x) { toast(t(x.paused ? 'ac.transferredPaused' : 'ac.transferred')); openDrawer(r.id); load(true); },
+          function (x) { var c = x && (x.message || x.error || ''); throw { local: true, message: t(/no_user/.test(c) || (x && x.status === 404) ? 'ac.trNoUser' : /same_user/.test(c) ? 'ac.trSame' : /bad_user/.test(c) ? 'ac.trBad' : 'auth.errGeneral') }; });
+      } });
+  }
   function duplicateOne(r) {
     confirmBox({ icon: 'dup', title: t('ac.dupTitle', { name: esc(CodeUtil.displayName(r)) }), text: t('ac.dupText', { owner: esc(r.owner ? r.owner.name || r.owner.email : '') }), ok: t('ac.duplicate'),
       onOk: function () { return api.admin.duplicateCode(r.id).then(function (x) { toast(t('ac.duplicated')); openDrawer(x.id); load(true); }); } });
@@ -397,6 +408,7 @@ var AdminCodes = (function () {
       '<div class="acd-acts">' +
         '<button type="button" class="btn ghost" data-d="edit"' + (can ? '' : ' disabled') + '>' + ico('edit') + t('ac.edit') + '</button>' +
         '<button type="button" class="btn ghost" data-d="dup"' + (can ? '' : ' disabled') + '>' + ico('dup') + t('ac.duplicate') + '</button>' +
+        '<button type="button" class="btn ghost" data-d="transfer"' + (can ? '' : ' disabled') + '>' + ico('user') + t('ac.transfer') + '</button>' +
         (st ? '' : '<button type="button" class="btn ghost" data-d="pause"' + (can ? '' : ' disabled') + '>' + ico(d.paused ? 'play' : 'pause') + t(d.paused ? 'adm.resume' : 'adm.pause') + '</button>') +
         '<button type="button" class="btn ghost" data-d="flag"' + (can ? '' : ' disabled') + '>' + ico('flag') + t(flag ? 'ac.unflag' : 'ac.flag') + '</button>' +
         '<button type="button" class="btn ghost" data-d="png">' + ico('dl') + 'PNG</button><button type="button" class="btn ghost" data-d="svg">' + ico('dl') + 'SVG</button>' +
@@ -443,6 +455,7 @@ var AdminCodes = (function () {
     var d = detail, k = b.getAttribute('data-d');
     if (k === 'edit') return editOne(d);
     if (k === 'dup') return duplicateOne(d);
+    if (k === 'transfer') return transferOne(d);
     if (k === 'pause') return pauseOne(d);
     if (k === 'flag') return flagOne(d);
     if (k === 'del') return deleteOne(d);

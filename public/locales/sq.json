@@ -2624,7 +2624,17 @@
     "log_incident_solved": "Ndërprerja u zgjidh",
     "log_incident_update": "U publikua përditësim për ndërprerjen",
     "log_incident_edit": "Njoftimi i ndërprerjes u ndryshua",
-    "log_incident_delete": "Njoftimi i ndërprerjes u fshi"
+    "log_incident_delete": "Njoftimi i ndërprerjes u fshi",
+    "transfer": "Transfero në një llogari tjetër",
+    "transferTitle": "Ta transferoj “{name}”?",
+    "transferText": "Tani i përket {owner}. Kodi, statistikat dhe skedarët kalojnë te llogaria e re. Kodi i printuar vazhdon të funksionojë.",
+    "transferEmail": "Email-i i pronarit të ri",
+    "transferred": "U transferua.",
+    "transferredPaused": "U transferua, por në pauzë: plani i llogarisë së re është plot.",
+    "trNoUser": "Nuk u gjet llogari me këtë email.",
+    "trSame": "Ky kod i përket tashmë asaj llogarie.",
+    "trBad": "Nuk mund të transferoni kod në këtë llogari.",
+    "log_transfer": "U transferua"
   },
   "plan": {
     "title": "Abonimi",

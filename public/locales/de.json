@@ -2524,7 +2524,17 @@
     "log_incident_solved": "Störung behoben",
     "log_incident_update": "Update zur Störung veröffentlicht",
     "log_incident_edit": "Störungsmeldung bearbeitet",
-    "log_incident_delete": "Störungsmeldung gelöscht"
+    "log_incident_delete": "Störungsmeldung gelöscht",
+    "transfer": "An anderes Konto übertragen",
+    "transferTitle": "„{name}“ übertragen?",
+    "transferText": "Gehört jetzt {owner}. Code, Statistiken und Dateien gehen an das neue Konto. Der gedruckte Code funktioniert weiter.",
+    "transferEmail": "E-Mail des neuen Inhabers",
+    "transferred": "Übertragen.",
+    "transferredPaused": "Übertragen, aber pausiert: Das Paket des neuen Kontos ist voll.",
+    "trNoUser": "Kein Konto mit dieser E-Mail gefunden.",
+    "trSame": "Dieser Code gehört bereits zu diesem Konto.",
+    "trBad": "An dieses Konto kann kein Code übertragen werden.",
+    "log_transfer": "Übertragen"
   },
   "plan": {
     "title": "Abonnement",

@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Awaria rozwiązana",
     "log_incident_update": "Opublikowano aktualizację awarii",
     "log_incident_edit": "Edytowano komunikat o awarii",
-    "log_incident_delete": "Usunięto komunikat o awarii"
+    "log_incident_delete": "Usunięto komunikat o awarii",
+    "transfer": "Przenieś na inne konto",
+    "transferTitle": "Przenieść „{name}”?",
+    "transferText": "Teraz należy do {owner}. Kod, statystyki i pliki przejdą na nowe konto. Wydrukowany kod nadal działa.",
+    "transferEmail": "E-mail nowego właściciela",
+    "transferred": "Przeniesiono.",
+    "transferredPaused": "Przeniesiono, ale wstrzymano: plan nowego konta jest pełny.",
+    "trNoUser": "Nie znaleziono konta z tym e-mailem.",
+    "trSame": "Ten kod już należy do tego konta.",
+    "trBad": "Nie można przenieść kodu na to konto.",
+    "log_transfer": "Przeniesiono"
   },
   "plan": {
     "title": "Subskrypcja",

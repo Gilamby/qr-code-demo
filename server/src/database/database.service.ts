@@ -170,6 +170,8 @@ export abstract class DatabaseService {
   abstract deleteFolder(userId: string, id: string): Promise<boolean>;
   /** Codes (alleen eigen) in een map zetten; folderId null = uit de map. Geeft het aantal verplaatste codes. */
   abstract moveToFolder(userId: string, codeIds: string[], folderId: string | null): Promise<number>;
+  /** Beheer: code (met bestanden en statistieken) naar een ander account; map los, uit archief */
+  abstract transferQrCode(id: string, toUserId: string): Promise<boolean>;
   abstract listQrCodes(userId: string): Promise<QrCode[]>;
   /** Met statistieken (voor /api/analytics): { stats: { dag: { sleutel: [scans, uniek] } } } */
   /** Codes met statistieken. Met days alleen die dagen (veel sneller bij veel scans). */

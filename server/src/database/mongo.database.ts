@@ -375,6 +375,12 @@ export class MongoDatabase extends DatabaseService {
     const keepFolder = q.folderId && (await this.folders.findOne({ _id: q.folderId, userId }, { projection: { _id: 1 } }));
     await this.codes.updateOne({ _id: id }, { $set: { trashedAt: null, folderId: keepFolder ? q.folderId : null } }); return true;
   }
+  async transferQrCode(id: string, toUserId: string): Promise<boolean> {
+    const q = await this.codes.findOne({ _id: id }, { projection: { trashedAt: 1 } }); if (!q || q.trashedAt) return false;
+    await this.codes.updateOne({ _id: id }, { $set: { userId: toUserId, folderId: null, archived: false } });
+    await this.files.updateMany({ codeId: id }, { $set: { userId: toUserId } });
+    return true;
+  }
   async listTrash(userId: string): Promise<QrCode[]> { return (await this.codes.find({ userId, trashedAt: { $ne: null } }).sort({ trashedAt: -1 }).toArray()).map(codeOut); }
   async trashedBefore(before: string): Promise<{ id: string; userId: string }[]> {
     return (await this.codes.find({ trashedAt: { $ne: null, $lt: before } }, { projection: { userId: 1 } }).toArray()).map((d) => ({ id: d._id, userId: d.userId }));

@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Driftsforstyrrelse løst",
     "log_incident_update": "Opdatering om driftsforstyrrelse sendt",
     "log_incident_edit": "Meddelelse om driftsforstyrrelse redigeret",
-    "log_incident_delete": "Meddelelse om driftsforstyrrelse slettet"
+    "log_incident_delete": "Meddelelse om driftsforstyrrelse slettet",
+    "transfer": "Overfør til anden konto",
+    "transferTitle": "Overfør “{name}”?",
+    "transferText": "Ejes nu af {owner}. Koden, statistik og filer flyttes til den nye konto. Den printede kode virker stadig.",
+    "transferEmail": "E-mail på den nye ejer",
+    "transferred": "Overført.",
+    "transferredPaused": "Overført, men sat på pause: den nye kontos plan er fuld.",
+    "trNoUser": "Ingen konto med denne e-mail.",
+    "trSame": "Koden hører allerede til den konto.",
+    "trBad": "Du kan ikke overføre en kode til denne konto.",
+    "log_transfer": "Overført"
   },
   "plan": {
     "title": "Abonnement",

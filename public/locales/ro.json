@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Defecțiune rezolvată",
     "log_incident_update": "Actualizare defecțiune publicată",
     "log_incident_edit": "Anunț de defecțiune editat",
-    "log_incident_delete": "Anunț de defecțiune șters"
+    "log_incident_delete": "Anunț de defecțiune șters",
+    "transfer": "Transferă în alt cont",
+    "transferTitle": "Transferi „{name}”?",
+    "transferText": "Acum aparține lui {owner}. Codul, statisticile și fișierele trec în noul cont. Codul tipărit funcționează în continuare.",
+    "transferEmail": "E-mailul noului proprietar",
+    "transferred": "Transferat.",
+    "transferredPaused": "Transferat, dar pus pe pauză: planul noului cont este plin.",
+    "trNoUser": "Nu există niciun cont cu acest e-mail.",
+    "trSame": "Codul aparține deja acelui cont.",
+    "trBad": "Nu poți transfera un cod în acest cont.",
+    "log_transfer": "Transferat"
   },
   "plan": {
     "title": "Abonament",

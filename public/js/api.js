@@ -435,6 +435,7 @@ var api = (function () {
       codes:      function (f)     { var q = Object.keys(f || {}).filter(function (k) { return f[k] !== '' && f[k] != null; }).map(function (k) { return k + '=' + encodeURIComponent(f[k]); }).join('&'); return request('GET', 'api/admin/codes' + (q ? '?' + q : '')); },
       code:       function (id, q) { return request('GET', 'api/admin/codes/' + encodeURIComponent(id) + (q ? '?' + q : '')); },
       patchCode:  function (id, d) { return request('PATCH', 'api/admin/codes/' + encodeURIComponent(id), d); },   // { paused, reason, lock } | { flag, reason } | { name, content }
+      transferCode: function (id, email) { return request('POST', 'api/admin/codes/' + encodeURIComponent(id) + '/transfer', { email: email }); },
       duplicateCode: function (id) { return request('POST', 'api/admin/codes/' + encodeURIComponent(id) + '/duplicate', {}); },
       checkCode:  function (id)    { return request('GET', 'api/admin/codes/' + encodeURIComponent(id) + '/check'); },
       removeCode: function (id)    { return request('DELETE', 'api/admin/codes/' + encodeURIComponent(id)); },

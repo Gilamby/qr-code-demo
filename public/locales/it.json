@@ -2518,7 +2518,17 @@
     "log_incident_solved": "Disservizio risolto",
     "log_incident_update": "Aggiornamento disservizio pubblicato",
     "log_incident_edit": "Avviso disservizio modificato",
-    "log_incident_delete": "Avviso disservizio eliminato"
+    "log_incident_delete": "Avviso disservizio eliminato",
+    "transfer": "Trasferisci a un altro account",
+    "transferTitle": "Trasferire “{name}”?",
+    "transferText": "Ora appartiene a {owner}. Il codice, le statistiche e i file passano al nuovo account. Il codice stampato continua a funzionare.",
+    "transferEmail": "E-mail del nuovo proprietario",
+    "transferred": "Trasferito.",
+    "transferredPaused": "Trasferito, ma in pausa: il piano del nuovo account è pieno.",
+    "trNoUser": "Nessun account con questa e-mail.",
+    "trSame": "Questo codice appartiene già a quell’account.",
+    "trBad": "Non puoi trasferire un codice a questo account.",
+    "log_transfer": "Trasferito"
   },
   "plan": {
     "title": "Abbonamento",

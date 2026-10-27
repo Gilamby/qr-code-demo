@@ -1109,3 +1109,18 @@ test('archief: code uit de lijst, blijft werken, weer terug te halen', async () 
   await k('PATCH', '/api/qr-codes/' + c.id, { archived: false });
   assert.equal((await k('GET', '/api/qr-codes')).json.find((q) => q.id === c.id).archived, false);
 });
+
+test('beheer: code overzetten naar een ander account (met bestanden), niet naar onbekend of hetzelfde', async () => {
+  const team = client(); await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  const a = client(); await signup(a, 'tr-a@example.com', 'Overzetten zin 18!', 'Bureau A');
+  const b = client(); await signup(b, 'tr-b@example.com', 'Overzetten zin 19!', 'Klant B');
+  const c = (await a('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://over.example/' }, design: {} })).json;
+  assert.equal((await team('POST', '/api/admin/codes/' + c.id + '/transfer', { email: 'niemand@example.com' })).status, 404);
+  assert.equal((await team('POST', '/api/admin/codes/' + c.id + '/transfer', { email: 'tr-a@example.com' })).status, 400, 'zelfde eigenaar');
+  assert.equal((await a('POST', '/api/admin/codes/' + c.id + '/transfer', { email: 'tr-b@example.com' })).status, 403, 'klant mag niet');
+  const r = await team('POST', '/api/admin/codes/' + c.id + '/transfer', { email: 'TR-B@example.com ' }); assert.equal(r.status, 200);
+  assert.ok(!(await a('GET', '/api/qr-codes')).json.some((q) => q.id === c.id), 'weg bij A');
+  assert.ok((await b('GET', '/api/qr-codes')).json.some((q) => q.id === c.id), 'nu bij B');
+  assert.equal((await fetch(base + '/q/' + c.id, { redirect: 'manual' })).status, 302, 'blijft werken');
+  assert.ok((await team('GET', '/api/admin/log')).json.some((e) => e.action === 'transfer'));
+});
