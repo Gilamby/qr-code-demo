@@ -2,7 +2,7 @@
    Pagina's komen altijd gewoon van de server; lukt dat niet omdat er geen verbinding is (wifi weg, vliegtuigmodus),
    dan toont hij offline.html (QR Runner) en laadt de pagina vanzelf opnieuw zodra de verbinding terug is.
    Niets anders wordt bewaard: geen oude versies van de app, geen API-antwoorden. */
-const CACHE = 'qrc-offline-ef13182043';
+const CACHE = 'qrc-offline-720eaadb17';
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.add(new Request('/offline.html', { cache: 'reload' }))).then(() => self.skipWaiting()));
 });
