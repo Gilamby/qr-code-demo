@@ -19,7 +19,7 @@ var AdminSettings = (function () {
     lang: '<path d="M4 5h9M8.5 3v2M6 5c0 4 3 7 6 8M11 5c-.5 3-3 7-7 8"/><path d="M13 21l4-9 4 9M14.5 18h5"/>',
     key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>', search: '<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/>',
     undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>', spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
-    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', home: '<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>', tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>', ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>', user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>', mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/>', pulse: '<path d="M3 12h4l2.5-6 5 12 2.5-6h4"/>'
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', home: '<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>', tool: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>', warn: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>', ban: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>', user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>', mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/>', pulse: '<path d="M3 12h4l2.5-6 5 12 2.5-6h4"/>', chat: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'
   };
   var ico = function (k) { return SVG(IC[k]); };
   function langName(c) { var l = LANGUAGES.filter(function (x) { return x.code === c; })[0]; return l ? l.name : c; }
@@ -59,7 +59,7 @@ var AdminSettings = (function () {
   // Menu links, in groepen (zoals bij Stripe/Notion). Op de telefoon: een rij knoppen om te schuiven.
   var GROUPS = [
     ['set.gGeneral', [['company', 'home', 'set.tabCompany'], ['signup', 'user', 'set.tabSignup'], ['maint', 'tool', 'set.tabMaint']]],
-    ['set.gComms', [['mail', 'mail', 'set.tabMail']]],
+    ['set.gComms', [['support', 'chat', 'tk.admTab'], ['mail', 'mail', 'set.tabMail']]],
     ['set.gTexts', [['texts', 'lang', 'as.tabTexts'], ['deepl', 'spark', 'as.tabDeepl']]],
     ['set.gSecurity', [['block', 'ban', 'set.tabBlock']]],
     ['set.gSystem', [['system', 'pulse', 'set.tabStatus']]]
@@ -72,12 +72,13 @@ var AdminSettings = (function () {
   }
   function draw() {
     if (!info) return;
-    var P = { texts: textsPanel, deepl: deeplPanel, company: companyPanel, signup: signupPanel, maint: maintPanel, mail: mailPanel, block: blockPanel, system: systemPanel }[tab] || companyPanel;
+    var P = { texts: textsPanel, deepl: deeplPanel, company: companyPanel, signup: signupPanel, maint: maintPanel, mail: mailPanel, block: blockPanel, system: systemPanel, support: supportPanel }[tab] || companyPanel;
     body.innerHTML = '<header class="ast-head"><div><h2>' + t('nav.adminSettings') + '</h2><p>' + t('set.lead') + '</p></div></header>' +
       '<div class="ast-layout">' + tabs() + '<div id="asPanel" class="ast-main' + (tab === 'texts' ? ' wide' : '') + '">' + P() + '</div></div>';
     if (['company', 'signup', 'maint', 'mail', 'system'].indexOf(tab) >= 0 && !sets) loadSets();
     if (tab === 'block' && !blocks) loadBlocks();
     if (tab === 'maint' && !incs) loadIncs();
+    if (tab === 'support' && !tks) loadTks();
   }
   function textsPanel() {
     // Onderdelen met een leesbare naam ("Beheer › Alle QR-codes" i.p.v. "ac"), op naam gesorteerd
@@ -193,6 +194,38 @@ var AdminSettings = (function () {
       srow(t('set.mMsg'), '', '<span class="auth-in"><input name="message" maxlength="300" value="' + esc(m.message || '') + '" placeholder="' + esc(t('set.mPh')) + '"></span>') +
       saveBar('maintenance'), ' data-set="maintenance"') + incPanel();
   }
+  /* Supportvragen van klanten: beantwoorden (klant krijgt een mail), status zetten */
+  var tks = null, tkFilter = 'open', tkSel = null;
+  function loadTks() { api.adminTickets.list().then(function (r) { tks = r.tickets || []; draw(); }).catch(function () { tks = []; draw(); }); }
+  function supportPanel() {
+    if (!tks) return '<p class="muted-msg">' + t('myCodes.loading') + '</p>';
+    var when = function (iso) { return esc(i18n.fmt.stamp(iso, 'time')); };
+    var n = function (s) { return tks.filter(function (x) { return s === 'all' || x.status === s; }).length; };
+    var list = tks.filter(function (x) { return tkFilter === 'all' || x.status === tkFilter; });
+    return '<div class="glass ast-card set-sec"><header class="set-sec-h"><h3>' + t('tk.admTitle') + '</h3><p>' + t('tk.admLead') + '</p></header>' +
+      '<div class="tk-filt" role="group">' + ['open', 'answered', 'closed', 'all'].map(function (s) { return '<button type="button" class="chip" data-tkf="' + s + '" aria-pressed="' + (tkFilter === s) + '">' + t(s === 'all' ? 'tk.all' : 'tk.s_' + s) + ' <em>' + n(s) + '</em></button>'; }).join('') + '</div>' +
+      (!list.length ? '<p class="muted-msg">' + t('tk.none') + '</p>' : '<ul class="tk-list adm">' + list.map(function (x) {
+        var open = tkSel === x.id, last = x.messages[x.messages.length - 1];
+        return '<li class="tk-item" data-atk="' + esc(x.id) + '"><button type="button" class="tk-head" data-atk-toggle aria-expanded="' + open + '"><span class="tk-st ' + x.status + '">' + t('tk.s_' + x.status) + '</span>' +
+          '<span class="tk-sub"><b>' + esc(x.name) + ' · ' + esc(t('contact.topics.' + x.topic)) + ' · #' + esc(x.id) + '</b><small>' + esc(x.email) + ' — ' + esc(last.text.slice(0, 80)) + '</small></span><span class="tk-when">' + when(x.updatedAt) + '</span></button>' +
+          (open ? '<div class="tk-body"><ol class="tk-thread">' + x.messages.map(function (m) { return '<li class="tk-msg ' + (m.from === 'team' ? 'customer' : 'team') + '"><small>' + esc(m.by) + ' · ' + when(m.at) + '</small><p>' + esc(m.text) + '</p></li>'; }).join('') + '</ol>' +
+            '<form class="tk-reply" data-atk-reply><textarea name="text" rows="4" maxlength="4000" placeholder="' + esc(t('tk.admReplyPh')) + '" aria-label="' + esc(t('tk.reply')) + '"></textarea>' +
+            '<div class="tk-acts">' + (x.status !== 'closed' ? '<button type="button" class="btn ghost sm" data-atk-st="closed">' + t('tk.close') + '</button>' : '<button type="button" class="btn ghost sm" data-atk-st="open">' + t('tk.reopen') + '</button>') +
+            '<button class="btn primary sm" type="submit">' + t('tk.admSend') + '</button></div></form></div>' : '') + '</li>';
+      }).join('') + '</ul>') + '</div>';
+  }
+  body.addEventListener('click', function (e) {
+    var b;
+    if ((b = e.target.closest('[data-tkf]'))) { tkFilter = b.getAttribute('data-tkf'); return draw(); }
+    if ((b = e.target.closest('[data-atk-toggle]'))) { var id = b.closest('[data-atk]').getAttribute('data-atk'); tkSel = tkSel === id ? null : id; draw(); var f = body.querySelector('[data-atk="' + id + '"] textarea'); if (f) f.focus(); return; }
+    if ((b = e.target.closest('[data-atk-st]'))) { b.disabled = true; return api.adminTickets.status(b.closest('[data-atk]').getAttribute('data-atk'), b.getAttribute('data-atk-st')).then(function (r) { tks = r.tickets; draw(); }); }
+  });
+  body.addEventListener('submit', function (e) {
+    var f = e.target.closest('[data-atk-reply]'); if (!f) return; e.preventDefault();
+    var txt = f.text.value.trim(); if (txt.length < 2) return f.text.focus();
+    f.querySelector('[type=submit]').disabled = true;
+    api.adminTickets.reply(f.closest('[data-atk]').getAttribute('data-atk'), txt).then(function (r) { tks = r.tickets; draw(); }, function () { f.querySelector('[type=submit]').disabled = false; });
+  });
   /* Storingen en meldingen: klanten zien een rode balk in de app en de melding op /status */
   var incs = null, incMsg = null;
   function loadIncs() { api.incidents.list().then(function (r) { incs = r.incidents || []; draw(); }).catch(function () { incs = []; draw(); }); }

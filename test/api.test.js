@@ -1124,3 +1124,19 @@ test('beheer: code overzetten naar een ander account (met bestanden), niet naar 
   assert.equal((await fetch(base + '/q/' + c.id, { redirect: 'manual' })).status, 302, 'blijft werken');
   assert.ok((await team('GET', '/api/admin/log')).json.some((e) => e.action === 'transfer'));
 });
+
+test('supportvragen: contactbericht wordt een vraag; klant en team praten verder; alleen eigen vragen', async () => {
+  const k = client(); await signup(k, 'tk-k@example.com', 'Vraag stellen zin 20!', 'Klant Vraag');
+  const sent = await k('POST', '/api/contact', { name: 'Klant Vraag', email: 'tk-k@example.com', topic: 'problem', message: 'Mijn code doet het niet op de poster.' });
+  assert.equal(sent.status, 200); const id = sent.json.ticket.id;
+  assert.equal((await k('GET', '/api/tickets')).json.tickets[0].status, 'open');
+  const team = client(); await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
+  assert.equal((await k('GET', '/api/admin/tickets')).status, 403);
+  assert.equal((await team('POST', '/api/admin/tickets/' + id + '/reply', { text: 'We kijken ernaar, probeer het nu nog eens.' })).status, 200);
+  const mine = (await k('GET', '/api/tickets')).json.tickets[0]; assert.equal(mine.status, 'answered'); assert.equal(mine.messages.length, 2);
+  assert.equal((await k('POST', '/api/tickets/' + id + '/reply', { text: 'Werkt weer, dank!' })).json.ticket.status, 'open');
+  const other = client(); await signup(other, 'tk-o@example.com', 'Andere vraag zin 21!', 'Ander');
+  assert.equal((await other('POST', '/api/tickets/' + id + '/reply', { text: 'hoi' })).status, 404, 'niet van een ander');
+  assert.equal((await other('GET', '/api/tickets')).json.tickets.length, 0);
+  assert.equal((await k('POST', '/api/tickets/' + id + '/close')).json.ticket.status, 'closed');
+});

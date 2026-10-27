@@ -1683,7 +1683,9 @@
     "quietDropSubject": "Les scans de « {name} » ont baissé de {pct} %",
     "quietDropText": "Votre QR code « {name} » est scanné environ {before} fois par semaine. Ces 7 derniers jours : {now}.",
     "quietTip": "L’affiche, l’autocollant ou le menu est-il toujours là et bien visible ? Un code abîmé ou caché en est souvent la cause.",
-    "quietFooter": "Vous pouvez désactiver ces notifications dans Mon compte > Notifications."
+    "quietFooter": "Vous pouvez désactiver ces notifications dans Mon compte > Notifications.",
+    "ticketSubject": "Réponse à votre question n° {id}",
+    "ticketButton": "Voir dans l’app"
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",
@@ -2535,7 +2537,8 @@
     "trNoUser": "Aucun compte avec cet e-mail.",
     "trSame": "Ce code appartient déjà à ce compte.",
     "trBad": "Impossible de transférer un code vers ce compte.",
-    "log_transfer": "Transféré"
+    "log_transfer": "Transféré",
+    "log_ticket_reply": "Réponse du support"
   },
   "plan": {
     "title": "Abonnement",
@@ -3214,5 +3217,27 @@
     "doneMany": "{n} codes archivés. Ils continuent de fonctionner.",
     "back": "De retour dans votre liste.",
     "backMany": "{n} codes de retour dans votre liste."
+  },
+  "tk": {
+    "title": "Mes questions",
+    "lead": "Vos messages à notre équipe. Vous recevez aussi un e-mail quand nous répondons.",
+    "s_open": "Ouverte",
+    "s_answered": "Répondue",
+    "s_closed": "Fermée",
+    "team": "{name} de QR-Codex",
+    "you": "Vous",
+    "reply": "Répondre",
+    "replyPh": "Écrivez une réponse…",
+    "send": "Envoyer",
+    "close": "Fermer la question",
+    "reopen": "Rouvrir",
+    "closedNote": "Cette question est fermée. Envoyez un nouveau message ci-dessus si vous avez encore besoin d’aide.",
+    "all": "Toutes",
+    "none": "Aucune question ici.",
+    "admTab": "Support",
+    "admTitle": "Questions des clients",
+    "admLead": "Répondez ici ; le client reçoit votre réponse par e-mail et la voit dans Contact > Mes questions.",
+    "admReplyPh": "Écrivez votre réponse…",
+    "admSend": "Envoyer la réponse"
   }
 }

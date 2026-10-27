@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Leituras de “{name}” desceram {pct}%",
     "quietDropText": "O seu código QR “{name}” tem normalmente cerca de {before} leituras por semana. Nos últimos 7 dias teve {now}.",
     "quietTip": "O cartaz, o autocolante ou o menu ainda lá estão e o código vê-se bem? Um código danificado ou tapado é muitas vezes a causa.",
-    "quietFooter": "Pode desativar estes avisos em A minha conta > Notificações."
+    "quietFooter": "Pode desativar estes avisos em A minha conta > Notificações.",
+    "ticketSubject": "Resposta à sua pergunta #{id}",
+    "ticketButton": "Ver na app"
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Nenhuma conta com este e-mail.",
     "trSame": "Este código já pertence a essa conta.",
     "trBad": "Não pode transferir um código para esta conta.",
-    "log_transfer": "Transferido"
+    "log_transfer": "Transferido",
+    "log_ticket_reply": "Resposta do suporte"
   },
   "plan": {
     "title": "Assinatura",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} códigos arquivados. Continuam a funcionar.",
     "back": "De volta à sua lista.",
     "backMany": "{n} códigos de volta à sua lista."
+  },
+  "tk": {
+    "title": "As minhas perguntas",
+    "lead": "As suas mensagens à nossa equipa. Também recebe um e-mail quando respondermos.",
+    "s_open": "Aberta",
+    "s_answered": "Respondida",
+    "s_closed": "Fechada",
+    "team": "{name} da QR-Codex",
+    "you": "Você",
+    "reply": "Responder",
+    "replyPh": "Escreva uma resposta…",
+    "send": "Enviar",
+    "close": "Fechar pergunta",
+    "reopen": "Reabrir",
+    "closedNote": "Esta pergunta está fechada. Envie uma nova mensagem acima se precisar de mais ajuda.",
+    "all": "Todas",
+    "none": "Sem perguntas aqui.",
+    "admTab": "Suporte",
+    "admTitle": "Perguntas de clientes",
+    "admLead": "Responda aqui; o cliente recebe a resposta por e-mail e vê-a em Contacto > As minhas perguntas.",
+    "admReplyPh": "Escreva a sua resposta…",
+    "admSend": "Enviar resposta"
   }
 }

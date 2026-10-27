@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Els escanejos de “{name}” han baixat un {pct}%",
     "quietDropText": "El teu codi QR “{name}” sol tenir uns {before} escanejos per setmana. Els últims 7 dies n’ha tingut {now}.",
     "quietTip": "El cartell, l’adhesiu o la carta encara hi són i el codi es veu bé? Un codi malmès o tapat sovint n’és la causa.",
-    "quietFooter": "Pots desactivar aquests avisos a El meu compte > Notificacions."
+    "quietFooter": "Pots desactivar aquests avisos a El meu compte > Notificacions.",
+    "ticketSubject": "Resposta a la teva pregunta #{id}",
+    "ticketButton": "Veure a l’app"
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "No hi ha cap compte amb aquest correu.",
     "trSame": "Aquest codi ja és d’aquest compte.",
     "trBad": "No pots transferir un codi a aquest compte.",
-    "log_transfer": "Transferit"
+    "log_transfer": "Transferit",
+    "log_ticket_reply": "Resposta de suport"
   },
   "plan": {
     "title": "Subscripció",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} codis arxivats. Continuen funcionant.",
     "back": "Altre cop a la teva llista.",
     "backMany": "{n} codis altre cop a la teva llista."
+  },
+  "tk": {
+    "title": "Les meves preguntes",
+    "lead": "Els teus missatges al nostre equip. També rebràs un correu quan responguem.",
+    "s_open": "Oberta",
+    "s_answered": "Resposta",
+    "s_closed": "Tancada",
+    "team": "{name} de QR-Codex",
+    "you": "Tu",
+    "reply": "Respon",
+    "replyPh": "Escriu una resposta…",
+    "send": "Envia",
+    "close": "Tanca la pregunta",
+    "reopen": "Reobre",
+    "closedNote": "Aquesta pregunta està tancada. Envia un missatge nou a dalt si necessites més ajuda.",
+    "all": "Totes",
+    "none": "No hi ha preguntes.",
+    "admTab": "Suport",
+    "admTitle": "Preguntes de clients",
+    "admLead": "Respon aquí; el client rep la resposta per correu i la veu a Contacte > Les meves preguntes.",
+    "admReplyPh": "Escriu la teva resposta…",
+    "admSend": "Envia la resposta"
   }
 }

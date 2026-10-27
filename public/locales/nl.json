@@ -1687,7 +1687,9 @@
     "quietDropSubject": "Scans van “{name}” {pct}% gedaald",
     "quietDropText": "Je QR-code “{name}” wordt normaal zo’n {before} keer per week gescand. De afgelopen 7 dagen waren het er {now}.",
     "quietTip": "Hangt de poster, sticker of menukaart er nog en is de code goed te zien? Een beschadigde of afgedekte code is vaak de oorzaak.",
-    "quietFooter": "Je kunt deze meldingen uitzetten in Mijn account > Meldingen."
+    "quietFooter": "Je kunt deze meldingen uitzetten in Mijn account > Meldingen.",
+    "ticketSubject": "Antwoord op je vraag #{id}",
+    "ticketButton": "Bekijk in de app"
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
@@ -2539,7 +2541,8 @@
     "trNoUser": "Geen account gevonden met dit e-mailadres.",
     "trSame": "Deze code is al van dat account.",
     "trBad": "Naar dit account kun je geen code overzetten.",
-    "log_transfer": "Overgezet"
+    "log_transfer": "Overgezet",
+    "log_ticket_reply": "Support-antwoord"
   },
   "plan": {
     "title": "Abonnement",
@@ -3253,5 +3256,27 @@
     "doneMany": "{n} codes gearchiveerd. Ze blijven gewoon werken.",
     "back": "Weer in je lijst.",
     "backMany": "{n} codes weer in je lijst."
+  },
+  "tk": {
+    "title": "Mijn vragen",
+    "lead": "Je berichten aan ons team. Je krijgt ook een e-mail als we antwoorden.",
+    "s_open": "Open",
+    "s_answered": "Beantwoord",
+    "s_closed": "Gesloten",
+    "team": "{name} van QR-Codex",
+    "you": "Jij",
+    "reply": "Reageren",
+    "replyPh": "Schrijf een reactie…",
+    "send": "Versturen",
+    "close": "Vraag sluiten",
+    "reopen": "Heropenen",
+    "closedNote": "Deze vraag is gesloten. Stuur hierboven een nieuw bericht als je nog hulp nodig hebt.",
+    "all": "Alle",
+    "none": "Geen vragen hier.",
+    "admTab": "Support",
+    "admTitle": "Vragen van klanten",
+    "admLead": "Antwoord hier; de klant krijgt je antwoord per e-mail en ziet het bij Contact > Mijn vragen.",
+    "admReplyPh": "Schrijf je antwoord…",
+    "admSend": "Antwoord versturen"
   }
 }

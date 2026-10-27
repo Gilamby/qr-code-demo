@@ -51,6 +51,17 @@ export class MailerService {
       subject: '[QR-Codex] ' + m.topic + ': ' + m.message.slice(0, 60).replace(/\s+/g, ' '), text: body });
   }
 
+  /** Antwoord van het team op een supportvraag */
+  async sendTicketReply(user: User, to: string, id: string, text: string) {
+    const t = await this.texts(user.lang || 'en'), subject = String(t.ticketSubject || 'Reply to your question').replace('{id}', id);
+    const link = (this.base() || '') + '/?go=contact';
+    if (!this.transport) { console.log('[e-mail niet ingesteld] Antwoord op vraag #' + id + ' voor ' + to); return; }
+    await this.transport.sendMail({ from: this.from(), to, subject, text: text + '\n\n' + link,
+      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:520px">' + this.logoHtml() +
+        '<h1 style="font-size:21px;margin:0 0 10px">' + esc(subject) + '</h1><div style="white-space:pre-wrap;background:#f4f6f9;border-radius:10px;padding:14px 16px">' + esc(text) + '</div>' +
+        '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0772ad;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.ticketButton || 'View in the app') + '</a></p></div>' });
+  }
+
   /** Scanmelding: eerste scan van een code of een mijlpaal (100, 1.000, …). Uit te zetten in Mijn account > Meldingen */
   async sendScanAlert(user: User, code: { id: string; name: string; scans: number }, kind: 'first' | 'milestone' | 'target') {
     const t = await this.texts(user.lang || 'en'), loc = LANGS.includes(user.lang || '') ? user.lang : 'en';

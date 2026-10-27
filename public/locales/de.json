@@ -1683,7 +1683,9 @@
     "quietDropSubject": "Scans von „{name}“ um {pct} % gesunken",
     "quietDropText": "Ihr QR-Code „{name}“ wird normalerweise etwa {before}-mal pro Woche gescannt. In den letzten 7 Tagen waren es {now}.",
     "quietTip": "Hängt das Plakat, der Aufkleber oder die Speisekarte noch und ist der Code gut sichtbar? Ein beschädigter oder verdeckter Code ist oft der Grund.",
-    "quietFooter": "Sie können diese Benachrichtigungen unter Mein Konto > Benachrichtigungen ausschalten."
+    "quietFooter": "Sie können diese Benachrichtigungen unter Mein Konto > Benachrichtigungen ausschalten.",
+    "ticketSubject": "Antwort auf Ihre Frage #{id}",
+    "ticketButton": "In der App ansehen"
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",
@@ -2535,7 +2537,8 @@
     "trNoUser": "Kein Konto mit dieser E-Mail gefunden.",
     "trSame": "Dieser Code gehört bereits zu diesem Konto.",
     "trBad": "An dieses Konto kann kein Code übertragen werden.",
-    "log_transfer": "Übertragen"
+    "log_transfer": "Übertragen",
+    "log_ticket_reply": "Support-Antwort"
   },
   "plan": {
     "title": "Abonnement",
@@ -3214,5 +3217,27 @@
     "doneMany": "{n} Codes archiviert. Sie funktionieren weiter.",
     "back": "Wieder in Ihrer Liste.",
     "backMany": "{n} Codes wieder in Ihrer Liste."
+  },
+  "tk": {
+    "title": "Meine Fragen",
+    "lead": "Ihre Nachrichten an unser Team. Sie bekommen auch eine E-Mail, wenn wir antworten.",
+    "s_open": "Offen",
+    "s_answered": "Beantwortet",
+    "s_closed": "Geschlossen",
+    "team": "{name} von QR-Codex",
+    "you": "Sie",
+    "reply": "Antworten",
+    "replyPh": "Antwort schreiben…",
+    "send": "Senden",
+    "close": "Frage schließen",
+    "reopen": "Wieder öffnen",
+    "closedNote": "Diese Frage ist geschlossen. Senden Sie oben eine neue Nachricht, wenn Sie noch Hilfe brauchen.",
+    "all": "Alle",
+    "none": "Keine Fragen hier.",
+    "admTab": "Support",
+    "admTitle": "Kundenfragen",
+    "admLead": "Hier antworten; der Kunde erhält Ihre Antwort per E-Mail und sieht sie unter Kontakt > Meine Fragen.",
+    "admReplyPh": "Ihre Antwort…",
+    "admSend": "Antwort senden"
   }
 }

@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Koodin ”{name}” skannaukset laskivat {pct} %",
     "quietDropText": "QR-koodiasi ”{name}” skannataan yleensä noin {before} kertaa viikossa. Viimeisen 7 päivän aikana: {now}.",
     "quietTip": "Onko juliste, tarra tai ruokalista yhä paikallaan ja koodi hyvin näkyvissä? Vaurioitunut tai peitetty koodi on usein syy.",
-    "quietFooter": "Voit poistaa nämä ilmoitukset kohdassa Oma tili > Ilmoitukset."
+    "quietFooter": "Voit poistaa nämä ilmoitukset kohdassa Oma tili > Ilmoitukset.",
+    "ticketSubject": "Vastaus kysymykseesi #{id}",
+    "ticketButton": "Katso sovelluksessa"
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Tällä sähköpostilla ei löytynyt tiliä.",
     "trSame": "Koodi kuuluu jo tälle tilille.",
     "trBad": "Tälle tilille ei voi siirtää koodia.",
-    "log_transfer": "Siirretty"
+    "log_transfer": "Siirretty",
+    "log_ticket_reply": "Tuen vastaus"
   },
   "plan": {
     "title": "Tilaus",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} koodia arkistoitu. Ne toimivat edelleen.",
     "back": "Takaisin listallasi.",
     "backMany": "{n} koodia takaisin listallasi."
+  },
+  "tk": {
+    "title": "Omat kysymykset",
+    "lead": "Viestisi tiimillemme. Saat myös sähköpostin, kun vastaamme.",
+    "s_open": "Avoin",
+    "s_answered": "Vastattu",
+    "s_closed": "Suljettu",
+    "team": "{name}, QR-Codex",
+    "you": "Sinä",
+    "reply": "Vastaa",
+    "replyPh": "Kirjoita vastaus…",
+    "send": "Lähetä",
+    "close": "Sulje kysymys",
+    "reopen": "Avaa uudelleen",
+    "closedNote": "Kysymys on suljettu. Lähetä uusi viesti yllä, jos tarvitset lisää apua.",
+    "all": "Kaikki",
+    "none": "Ei kysymyksiä.",
+    "admTab": "Tuki",
+    "admTitle": "Asiakkaiden kysymykset",
+    "admLead": "Vastaa tässä; asiakas saa vastauksen sähköpostiin ja näkee sen kohdassa Yhteystiedot > Omat kysymykset.",
+    "admReplyPh": "Kirjoita vastauksesi…",
+    "admSend": "Lähetä vastaus"
   }
 }

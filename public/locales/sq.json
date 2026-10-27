@@ -1783,7 +1783,9 @@
     "quietDropSubject": "Skanimet e “{name}” ranë me {pct}%",
     "quietDropText": "Kodi juaj QR “{name}” zakonisht skanohet rreth {before} herë në javë. Në 7 ditët e fundit: {now}.",
     "quietTip": "A është ende aty posteri, ngjitësja ose menuja dhe a duket mirë kodi? Një kod i dëmtuar ose i mbuluar shpesh është shkaku.",
-    "quietFooter": "Mund t’i çaktivizoni këto njoftime te Llogaria ime > Njoftimet."
+    "quietFooter": "Mund t’i çaktivizoni këto njoftime te Llogaria ime > Njoftimet.",
+    "ticketSubject": "Përgjigje për pyetjen tuaj #{id}",
+    "ticketButton": "Shiko në aplikacion"
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",
@@ -2635,7 +2637,8 @@
     "trNoUser": "Nuk u gjet llogari me këtë email.",
     "trSame": "Ky kod i përket tashmë asaj llogarie.",
     "trBad": "Nuk mund të transferoni kod në këtë llogari.",
-    "log_transfer": "U transferua"
+    "log_transfer": "U transferua",
+    "log_ticket_reply": "Përgjigje nga mbështetja"
   },
   "plan": {
     "title": "Abonimi",
@@ -3314,5 +3317,27 @@
     "doneMany": "{n} kode u arkivuan. Vazhdojnë të funksionojnë.",
     "back": "Përsëri në listën tuaj.",
     "backMany": "{n} kode përsëri në listën tuaj."
+  },
+  "tk": {
+    "title": "Pyetjet e mia",
+    "lead": "Mesazhet tuaja për ekipin tonë. Do të merrni edhe një email kur të përgjigjemi.",
+    "s_open": "E hapur",
+    "s_answered": "E përgjigjur",
+    "s_closed": "E mbyllur",
+    "team": "{name} nga QR-Codex",
+    "you": "Ju",
+    "reply": "Përgjigju",
+    "replyPh": "Shkruani një përgjigje…",
+    "send": "Dërgo",
+    "close": "Mbyll pyetjen",
+    "reopen": "Rihap",
+    "closedNote": "Kjo pyetje është mbyllur. Dërgoni një mesazh të ri më sipër nëse keni nevojë për ndihmë.",
+    "all": "Të gjitha",
+    "none": "Asnjë pyetje.",
+    "admTab": "Mbështetja",
+    "admTitle": "Pyetjet e klientëve",
+    "admLead": "Përgjigjuni këtu; klienti e merr përgjigjen me email dhe e sheh te Kontakti > Pyetjet e mia.",
+    "admReplyPh": "Shkruani përgjigjen…",
+    "admSend": "Dërgo përgjigjen"
   }
 }

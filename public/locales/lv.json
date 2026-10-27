@@ -1677,7 +1677,9 @@
     "quietDropSubject": "“{name}” skenējumi samazinājās par {pct}%",
     "quietDropText": "Jūsu QR kods “{name}” parasti tiek skenēts apmēram {before} reizes nedēļā. Pēdējās 7 dienās: {now}.",
     "quietTip": "Vai plakāts, uzlīme vai ēdienkarte joprojām ir vietā un kods labi redzams? Bieži iemesls ir bojāts vai aizsegts kods.",
-    "quietFooter": "Šos paziņojumus var izslēgt sadaļā Mans konts > Paziņojumi."
+    "quietFooter": "Šos paziņojumus var izslēgt sadaļā Mans konts > Paziņojumi.",
+    "ticketSubject": "Atbilde uz jūsu jautājumu #{id}",
+    "ticketButton": "Skatīt lietotnē"
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Konts ar šo e-pastu nav atrasts.",
     "trSame": "Šis kods jau pieder tam kontam.",
     "trBad": "Uz šo kontu kodu pārvietot nevar.",
-    "log_transfer": "Pārvietots"
+    "log_transfer": "Pārvietots",
+    "log_ticket_reply": "Atbalsta atbilde"
   },
   "plan": {
     "title": "Abonements",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} kodi arhivēti. Tie turpina darboties.",
     "back": "Atkal jūsu sarakstā.",
     "backMany": "{n} kodi atkal jūsu sarakstā."
+  },
+  "tk": {
+    "title": "Mani jautājumi",
+    "lead": "Jūsu ziņas mūsu komandai. Kad atbildēsim, saņemsiet arī e-pastu.",
+    "s_open": "Atvērts",
+    "s_answered": "Atbildēts",
+    "s_closed": "Slēgts",
+    "team": "{name} no QR-Codex",
+    "you": "Jūs",
+    "reply": "Atbildēt",
+    "replyPh": "Uzrakstiet atbildi…",
+    "send": "Sūtīt",
+    "close": "Slēgt jautājumu",
+    "reopen": "Atvērt vēlreiz",
+    "closedNote": "Šis jautājums ir slēgts. Ja vajag palīdzību, augstāk nosūtiet jaunu ziņu.",
+    "all": "Visi",
+    "none": "Nav jautājumu.",
+    "admTab": "Atbalsts",
+    "admTitle": "Klientu jautājumi",
+    "admLead": "Atbildiet šeit; klients saņem atbildi e-pastā un redz to sadaļā Kontakti > Mani jautājumi.",
+    "admReplyPh": "Uzrakstiet atbildi…",
+    "admSend": "Sūtīt atbildi"
   }
 }

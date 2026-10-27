@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Scanările „{name}” au scăzut cu {pct}%",
     "quietDropText": "Codul tău QR „{name}” are de obicei cam {before} scanări pe săptămână. În ultimele 7 zile a avut {now}.",
     "quietTip": "Mai este afișul, autocolantul sau meniul la locul lui și se vede bine codul? Un cod deteriorat sau acoperit este des cauza.",
-    "quietFooter": "Poți dezactiva aceste notificări în Contul meu > Notificări."
+    "quietFooter": "Poți dezactiva aceste notificări în Contul meu > Notificări.",
+    "ticketSubject": "Răspuns la întrebarea ta #{id}",
+    "ticketButton": "Vezi în aplicație"
   },
   "contact": {
     "lead": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Nu există niciun cont cu acest e-mail.",
     "trSame": "Codul aparține deja acelui cont.",
     "trBad": "Nu poți transfera un cod în acest cont.",
-    "log_transfer": "Transferat"
+    "log_transfer": "Transferat",
+    "log_ticket_reply": "Răspuns de la asistență"
   },
   "plan": {
     "title": "Abonament",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} coduri arhivate. Funcționează în continuare.",
     "back": "Din nou în lista ta.",
     "backMany": "{n} coduri din nou în lista ta."
+  },
+  "tk": {
+    "title": "Întrebările mele",
+    "lead": "Mesajele tale către echipa noastră. Primești și un e-mail când răspundem.",
+    "s_open": "Deschisă",
+    "s_answered": "Răspunsă",
+    "s_closed": "Închisă",
+    "team": "{name} de la QR-Codex",
+    "you": "Tu",
+    "reply": "Răspunde",
+    "replyPh": "Scrie un răspuns…",
+    "send": "Trimite",
+    "close": "Închide întrebarea",
+    "reopen": "Redeschide",
+    "closedNote": "Această întrebare este închisă. Trimite un mesaj nou mai sus dacă ai nevoie de ajutor.",
+    "all": "Toate",
+    "none": "Nicio întrebare aici.",
+    "admTab": "Asistență",
+    "admTitle": "Întrebările clienților",
+    "admLead": "Răspunde aici; clientul primește răspunsul pe e-mail și îl vede la Contact > Întrebările mele.",
+    "admReplyPh": "Scrie răspunsul…",
+    "admSend": "Trimite răspunsul"
   }
 }

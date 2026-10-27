@@ -11,13 +11,15 @@ import { MailerService } from '../auth/mailer.service';
 import { EMAIL } from '../qr-codes/validation';
 import { fail } from '../common/http';
 import type { User } from '../types';
+import { DatabaseService } from '../database/database.service';
+import { addTicket } from './tickets.controller';
 
 export const CONTACT_TOPICS = ['problem', 'billing', 'idea', 'other'];   // zoals de KB (Q179): Bugs & technical issues, Invoice and payment, Feedback or suggestions, Other
 
 @Controller('api')
 @UseGuards(LoggedIn)
 export class ContactController {
-  constructor(private readonly auth: AuthService, private readonly mailer: MailerService) {}
+  constructor(private readonly auth: AuthService, private readonly mailer: MailerService, private readonly db: DatabaseService) {}
 
   @Post('contact')
   @HttpCode(200)
@@ -29,8 +31,9 @@ export class ContactController {
     const message = String(b.message || '').replace(/\r\n/g, '\n').trim().slice(0, 4000);
     const errors = [!name && 'name', !EMAIL.test(email) && 'email', !topic && 'topic', message.length < 10 && 'message'].filter(Boolean);
     if (errors.length) throw fail(400, 'Invalid message', { details: errors });
-    await this.mailer.sendContact({ name, email, topic, message, account: user.email })
-      .catch((e) => { console.error('Contactbericht versturen mislukt:', e.message); throw fail(502, 'send'); });
-    return { ok: true };
+    const tk = await addTicket(this.db, user, { name, email, topic, message });          // ook als vraag in "Mijn vragen"
+    await this.mailer.sendContact({ name, email, topic: topic + ' #' + tk.id, message, account: user.email })
+      .catch((e) => { console.error('Contactbericht versturen mislukt:', e.message); });   // staat al bewaard: het team ziet het in Beheer
+    return { ok: true, ticket: tk };
   }
 }

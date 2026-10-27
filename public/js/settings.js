@@ -129,7 +129,9 @@
   // Pakket gekozen op de website (zie session.js): na het inloggen meteen naar Abonnement (max. 1 dag bewaard)
   function wanted() { try { var w = JSON.parse(localStorage.getItem('optimasys-want') || 'null'); localStorage.removeItem('optimasys-want'); if (w && Date.now() - w.at < 864e5) { window.wantedPlan = w; return true; } } catch (e) {} return false; }
   var goCodes = /[?&]go=myCodes\b/.test(location.search);           // herinnering oude QR-app: meteen naar Mijn QR-codes
+  var goContact = /[?&]go=contact\b/.test(location.search);         // antwoord op een supportvraag: meteen naar Contact (Mijn vragen)
   if (window.Session && Session.onUser) Session.onUser(function () {
+    if (goContact) { goContact = false; history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('contact'); }, 600); return; }
     if (goCodes) { goCodes = false; history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('myCodes'); }, 600); return; }
     if (wanted()) goPlan = true;
     if (!goPlan) return; goPlan = false; if (/[?&]go=/.test(location.search)) history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); }, 600); });

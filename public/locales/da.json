@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Scanninger af “{name}” faldt {pct} %",
     "quietDropText": "Din QR-kode “{name}” scannes normalt cirka {before} gange om ugen. De sidste 7 dage var det {now}.",
     "quietTip": "Hænger plakaten, klistermærket eller menuen der stadig, og er koden let at se? En beskadiget eller tildækket kode er ofte årsagen.",
-    "quietFooter": "Du kan slå disse notifikationer fra under Min konto > Notifikationer."
+    "quietFooter": "Du kan slå disse notifikationer fra under Min konto > Notifikationer.",
+    "ticketSubject": "Svar på dit spørgsmål #{id}",
+    "ticketButton": "Se i appen"
   },
   "contact": {
     "lead": "Et spørgsmål, et problem eller en idé? Send os en besked.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Ingen konto med denne e-mail.",
     "trSame": "Koden hører allerede til den konto.",
     "trBad": "Du kan ikke overføre en kode til denne konto.",
-    "log_transfer": "Overført"
+    "log_transfer": "Overført",
+    "log_ticket_reply": "Support-svar"
   },
   "plan": {
     "title": "Abonnement",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} koder arkiveret. De virker stadig.",
     "back": "Tilbage på din liste.",
     "backMany": "{n} koder tilbage på din liste."
+  },
+  "tk": {
+    "title": "Mine spørgsmål",
+    "lead": "Dine beskeder til vores team. Du får også en e-mail, når vi svarer.",
+    "s_open": "Åben",
+    "s_answered": "Besvaret",
+    "s_closed": "Lukket",
+    "team": "{name} fra QR-Codex",
+    "you": "Dig",
+    "reply": "Svar",
+    "replyPh": "Skriv et svar…",
+    "send": "Send",
+    "close": "Luk spørgsmål",
+    "reopen": "Genåbn",
+    "closedNote": "Spørgsmålet er lukket. Send en ny besked ovenfor, hvis du har brug for mere hjælp.",
+    "all": "Alle",
+    "none": "Ingen spørgsmål her.",
+    "admTab": "Support",
+    "admTitle": "Kundespørgsmål",
+    "admLead": "Svar her; kunden får svaret på e-mail og ser det under Kontakt > Mine spørgsmål.",
+    "admReplyPh": "Skriv dit svar…",
+    "admSend": "Send svar"
   }
 }

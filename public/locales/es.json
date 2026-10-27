@@ -1687,7 +1687,9 @@
     "quietDropSubject": "Los escaneos de “{name}” bajaron un {pct}%",
     "quietDropText": "Tu código QR “{name}” suele tener unos {before} escaneos por semana. En los últimos 7 días tuvo {now}.",
     "quietTip": "¿Sigue ahí el póster, la pegatina o la carta, y se ve bien el código? Un código dañado o tapado suele ser la causa.",
-    "quietFooter": "Puedes desactivar estos avisos en Mi cuenta > Notificaciones."
+    "quietFooter": "Puedes desactivar estos avisos en Mi cuenta > Notificaciones.",
+    "ticketSubject": "Respuesta a tu pregunta #{id}",
+    "ticketButton": "Ver en la app"
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",
@@ -2539,7 +2541,8 @@
     "trNoUser": "No hay ninguna cuenta con este correo.",
     "trSame": "Este código ya pertenece a esa cuenta.",
     "trBad": "No puedes transferir un código a esta cuenta.",
-    "log_transfer": "Transferido"
+    "log_transfer": "Transferido",
+    "log_ticket_reply": "Respuesta de soporte"
   },
   "plan": {
     "title": "Suscripción",
@@ -3253,5 +3256,27 @@
     "doneMany": "{n} códigos archivados. Siguen funcionando.",
     "back": "De nuevo en tu lista.",
     "backMany": "{n} códigos de nuevo en tu lista."
+  },
+  "tk": {
+    "title": "Mis preguntas",
+    "lead": "Tus mensajes a nuestro equipo. También recibirás un correo cuando respondamos.",
+    "s_open": "Abierta",
+    "s_answered": "Respondida",
+    "s_closed": "Cerrada",
+    "team": "{name} de QR-Codex",
+    "you": "Tú",
+    "reply": "Responder",
+    "replyPh": "Escribe una respuesta…",
+    "send": "Enviar",
+    "close": "Cerrar pregunta",
+    "reopen": "Reabrir",
+    "closedNote": "Esta pregunta está cerrada. Envía un mensaje nuevo arriba si necesitas más ayuda.",
+    "all": "Todas",
+    "none": "No hay preguntas aquí.",
+    "admTab": "Soporte",
+    "admTitle": "Preguntas de clientes",
+    "admLead": "Responde aquí; el cliente recibe tu respuesta por correo y la ve en Contacto > Mis preguntas.",
+    "admReplyPh": "Escribe tu respuesta…",
+    "admSend": "Enviar respuesta"
   }
 }

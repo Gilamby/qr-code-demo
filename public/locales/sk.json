@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Skeny „{name}“ klesli o {pct} %",
     "quietDropText": "Váš QR kód „{name}“ sa bežne skenuje asi {before}-krát týždenne. Za posledných 7 dní: {now}.",
     "quietTip": "Visí plagát, nálepka alebo menu stále na mieste a je kód dobre vidieť? Poškodený alebo zakrytý kód býva častou príčinou.",
-    "quietFooter": "Tieto upozornenia môžete vypnúť v Môj účet > Upozornenia."
+    "quietFooter": "Tieto upozornenia môžete vypnúť v Môj účet > Upozornenia.",
+    "ticketSubject": "Odpoveď na vašu otázku #{id}",
+    "ticketButton": "Zobraziť v aplikácii"
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Účet s týmto e-mailom sa nenašiel.",
     "trSame": "Tento kód už patrí tomu účtu.",
     "trBad": "Na tento účet nemôžete presunúť kód.",
-    "log_transfer": "Presunuté"
+    "log_transfer": "Presunuté",
+    "log_ticket_reply": "Odpoveď podpory"
   },
   "plan": {
     "title": "Predplatné",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} kódov archivovaných. Naďalej fungujú.",
     "back": "Znova vo vašom zozname.",
     "backMany": "{n} kódov znova vo vašom zozname."
+  },
+  "tk": {
+    "title": "Moje otázky",
+    "lead": "Vaše správy nášmu tímu. Keď odpovieme, dostanete aj e-mail.",
+    "s_open": "Otvorená",
+    "s_answered": "Zodpovedaná",
+    "s_closed": "Uzavretá",
+    "team": "{name} z QR-Codex",
+    "you": "Vy",
+    "reply": "Odpovedať",
+    "replyPh": "Napíšte odpoveď…",
+    "send": "Odoslať",
+    "close": "Uzavrieť otázku",
+    "reopen": "Znova otvoriť",
+    "closedNote": "Táto otázka je uzavretá. Ak potrebujete pomoc, pošlite novú správu vyššie.",
+    "all": "Všetky",
+    "none": "Žiadne otázky.",
+    "admTab": "Podpora",
+    "admTitle": "Otázky zákazníkov",
+    "admLead": "Odpovedzte tu; zákazník dostane odpoveď e-mailom a uvidí ju v Kontakt > Moje otázky.",
+    "admReplyPh": "Napíšte odpoveď…",
+    "admSend": "Odoslať odpoveď"
   }
 }

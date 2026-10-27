@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Scansioni di “{name}” calate del {pct}%",
     "quietDropText": "Il tuo codice QR “{name}” di solito ha circa {before} scansioni a settimana. Negli ultimi 7 giorni: {now}.",
     "quietTip": "Il poster, l’adesivo o il menu sono ancora lì e il codice si vede bene? Un codice rovinato o coperto è spesso la causa.",
-    "quietFooter": "Puoi disattivare questi avvisi in Il mio account > Notifiche."
+    "quietFooter": "Puoi disattivare questi avvisi in Il mio account > Notifiche.",
+    "ticketSubject": "Risposta alla tua domanda #{id}",
+    "ticketButton": "Vedi nell’app"
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Nessun account con questa e-mail.",
     "trSame": "Questo codice appartiene già a quell’account.",
     "trBad": "Non puoi trasferire un codice a questo account.",
-    "log_transfer": "Trasferito"
+    "log_transfer": "Trasferito",
+    "log_ticket_reply": "Risposta del supporto"
   },
   "plan": {
     "title": "Abbonamento",
@@ -3208,5 +3211,27 @@
     "doneMany": "{n} codici archiviati. Continuano a funzionare.",
     "back": "Di nuovo nella tua lista.",
     "backMany": "{n} codici di nuovo nella tua lista."
+  },
+  "tk": {
+    "title": "Le mie domande",
+    "lead": "I tuoi messaggi al nostro team. Riceverai anche un’e-mail quando rispondiamo.",
+    "s_open": "Aperta",
+    "s_answered": "Risposta",
+    "s_closed": "Chiusa",
+    "team": "{name} di QR-Codex",
+    "you": "Tu",
+    "reply": "Rispondi",
+    "replyPh": "Scrivi una risposta…",
+    "send": "Invia",
+    "close": "Chiudi domanda",
+    "reopen": "Riapri",
+    "closedNote": "Questa domanda è chiusa. Invia un nuovo messaggio qui sopra se ti serve altro aiuto.",
+    "all": "Tutte",
+    "none": "Nessuna domanda qui.",
+    "admTab": "Supporto",
+    "admTitle": "Domande dei clienti",
+    "admLead": "Rispondi qui; il cliente riceve la risposta via e-mail e la vede in Contatto > Le mie domande.",
+    "admReplyPh": "Scrivi la tua risposta…",
+    "admSend": "Invia risposta"
   }
 }

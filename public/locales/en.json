@@ -1687,7 +1687,9 @@
     "quietDropSubject": "Scans of “{name}” dropped by {pct}%",
     "quietDropText": "Your QR code “{name}” usually gets about {before} scans a week. In the last 7 days it got {now}.",
     "quietTip": "Is the poster, sticker or menu still there and easy to see? A damaged or covered code often explains it.",
-    "quietFooter": "You can turn these notifications off in My account > Notifications."
+    "quietFooter": "You can turn these notifications off in My account > Notifications.",
+    "ticketSubject": "Reply to your question #{id}",
+    "ticketButton": "View in the app"
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",
@@ -2539,7 +2541,8 @@
     "trNoUser": "No account found with this email address.",
     "trSame": "This code already belongs to that account.",
     "trBad": "You can’t transfer a code to this account.",
-    "log_transfer": "Transferred"
+    "log_transfer": "Transferred",
+    "log_ticket_reply": "Support answer"
   },
   "plan": {
     "title": "Subscription",
@@ -3253,5 +3256,27 @@
     "doneMany": "{n} codes archived. They keep working.",
     "back": "Back in your list.",
     "backMany": "{n} codes back in your list."
+  },
+  "tk": {
+    "title": "My questions",
+    "lead": "Your messages to our team. You’ll also get an email when we reply.",
+    "s_open": "Open",
+    "s_answered": "Answered",
+    "s_closed": "Closed",
+    "team": "{name} from QR-Codex",
+    "you": "You",
+    "reply": "Reply",
+    "replyPh": "Write a reply…",
+    "send": "Send",
+    "close": "Close question",
+    "reopen": "Reopen",
+    "closedNote": "This question is closed. Send a new message above if you need more help.",
+    "all": "All",
+    "none": "No questions here.",
+    "admTab": "Support",
+    "admTitle": "Customer questions",
+    "admLead": "Reply here; the customer gets your answer by email and sees it under Contact > My questions.",
+    "admReplyPh": "Write your answer…",
+    "admSend": "Send answer"
   }
 }

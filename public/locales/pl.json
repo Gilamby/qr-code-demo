@@ -1677,7 +1677,9 @@
     "quietDropSubject": "Skany „{name}” spadły o {pct}%",
     "quietDropText": "Twój kod QR „{name}” jest zwykle skanowany około {before} razy w tygodniu. W ostatnich 7 dniach: {now}.",
     "quietTip": "Czy plakat, naklejka lub menu nadal wiszą, a kod jest dobrze widoczny? Uszkodzony lub zasłonięty kod to częsta przyczyna.",
-    "quietFooter": "Możesz wyłączyć te powiadomienia w Moje konto > Powiadomienia."
+    "quietFooter": "Możesz wyłączyć te powiadomienia w Moje konto > Powiadomienia.",
+    "ticketSubject": "Odpowiedź na Twoje pytanie #{id}",
+    "ticketButton": "Zobacz w aplikacji"
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",
@@ -2529,7 +2531,8 @@
     "trNoUser": "Nie znaleziono konta z tym e-mailem.",
     "trSame": "Ten kod już należy do tego konta.",
     "trBad": "Nie można przenieść kodu na to konto.",
-    "log_transfer": "Przeniesiono"
+    "log_transfer": "Przeniesiono",
+    "log_ticket_reply": "Odpowiedź wsparcia"
   },
   "plan": {
     "title": "Subskrypcja",
@@ -3208,5 +3211,27 @@
     "doneMany": "Zarchiwizowano {n} kodów. Nadal działają.",
     "back": "Znów na Twojej liście.",
     "backMany": "{n} kodów znów na Twojej liście."
+  },
+  "tk": {
+    "title": "Moje pytania",
+    "lead": "Twoje wiadomości do naszego zespołu. Dostaniesz też e-mail, gdy odpowiemy.",
+    "s_open": "Otwarte",
+    "s_answered": "Odpowiedziane",
+    "s_closed": "Zamknięte",
+    "team": "{name} z QR-Codex",
+    "you": "Ty",
+    "reply": "Odpowiedz",
+    "replyPh": "Napisz odpowiedź…",
+    "send": "Wyślij",
+    "close": "Zamknij pytanie",
+    "reopen": "Otwórz ponownie",
+    "closedNote": "To pytanie jest zamknięte. Wyślij nową wiadomość powyżej, jeśli potrzebujesz pomocy.",
+    "all": "Wszystkie",
+    "none": "Brak pytań.",
+    "admTab": "Wsparcie",
+    "admTitle": "Pytania klientów",
+    "admLead": "Odpowiedz tutaj; klient dostanie odpowiedź e-mailem i zobaczy ją w Kontakt > Moje pytania.",
+    "admReplyPh": "Napisz odpowiedź…",
+    "admSend": "Wyślij odpowiedź"
   }
 }

@@ -54,7 +54,24 @@
         '<button class="btn primary" type="submit"' + (busy ? ' disabled' : '') + '>' + SVG + ICON.send + '</svg>' + t('contact.send') + '</button></div>' +
         (failMsg ? '<p class="acct-msg bad" role="alert">' + esc(failMsg) + '</p>' : '') + '</form>';
     }
-    contactBox.innerHTML = '<header class="help-head ct-head"><div><div class="ct-title"><h2>' + t('nav.contact') + '</h2>' + '<div class="ct-globe" aria-hidden="true"><svg viewBox="0 0 120 120">' +'<defs><radialGradient id="ctG" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#7fd6ff"/><stop offset=".55" stop-color="#2bb5f0"/><stop offset="1" stop-color="#0d4f86"/></radialGradient></defs>' +'<circle class="ct-glow" cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="34" fill="url(#ctG)"/>' +'<g class="ct-lines" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"><ellipse class="m1" cx="60" cy="60" rx="34" ry="34"/><ellipse class="m2" cx="60" cy="60" rx="20" ry="34"/><ellipse class="m3" cx="60" cy="60" rx="6" ry="34"/>' +'<path d="M27 48h66M26 60h68M27 72h66"/></g>' +'<g class="ct-orbit"><g class="ct-plane" transform="translate(60 12)"><path d="M-9 2 9-6 3 9 0 3z" fill="#fff"/><path d="M0 3 9-6" stroke="#2bb5f0" stroke-width="1.2"/></g></g>' +'<circle class="ct-ping" cx="74" cy="50" r="3"/><circle cx="74" cy="50" r="2.6" fill="#fff"/></svg></div>' + '</div><p>' + t('contact.lead') + '</p></div></header><div class="help-grid">' + main + side + '</div>';
+    contactBox.innerHTML = '<header class="help-head ct-head"><div><div class="ct-title"><h2>' + t('nav.contact') + '</h2>' + '<div class="ct-globe" aria-hidden="true"><svg viewBox="0 0 120 120">' +'<defs><radialGradient id="ctG" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#7fd6ff"/><stop offset=".55" stop-color="#2bb5f0"/><stop offset="1" stop-color="#0d4f86"/></radialGradient></defs>' +'<circle class="ct-glow" cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="34" fill="url(#ctG)"/>' +'<g class="ct-lines" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"><ellipse class="m1" cx="60" cy="60" rx="34" ry="34"/><ellipse class="m2" cx="60" cy="60" rx="20" ry="34"/><ellipse class="m3" cx="60" cy="60" rx="6" ry="34"/>' +'<path d="M27 48h66M26 60h68M27 72h66"/></g>' +'<g class="ct-orbit"><g class="ct-plane" transform="translate(60 12)"><path d="M-9 2 9-6 3 9 0 3z" fill="#fff"/><path d="M0 3 9-6" stroke="#2bb5f0" stroke-width="1.2"/></g></g>' +'<circle class="ct-ping" cx="74" cy="50" r="3"/><circle cx="74" cy="50" r="2.6" fill="#fff"/></svg></div>' + '</div><p>' + t('contact.lead') + '</p></div></header><div class="help-grid">' + main + side + '</div>' + ticketsHtml();
+  }
+  /* ---------- Mijn vragen: elk bericht wordt een gesprek met het team ---------- */
+  var tickets = null, tkOpen = {}, tkBusy = false;
+  function loadTickets() { if (!api.tickets || api.isDemo()) return; api.tickets.mine().then(function (r) { tickets = r.tickets || []; drawContact(); }).catch(function () {}); }
+  function ticketsHtml() {
+    if (!tickets || !tickets.length) return '';
+    return '<section class="glass bg-card tk-box" aria-labelledby="tkTitle"><h3 id="tkTitle">' + t('tk.title') + '</h3><p class="tk-lead">' + t('tk.lead') + '</p><ul class="tk-list">' + tickets.map(function (x) {
+      var open = !!tkOpen[x.id], last = x.messages[x.messages.length - 1];
+      return '<li class="tk-item" data-tk="' + esc(x.id) + '"><button type="button" class="tk-head" data-tk-toggle aria-expanded="' + open + '">' +
+        '<span class="tk-st ' + x.status + '">' + t('tk.s_' + x.status) + '</span><span class="tk-sub"><b>' + esc(t('contact.topics.' + x.topic)) + ' · #' + esc(x.id) + '</b><small>' + esc(last.text.slice(0, 90)) + '</small></span>' +
+        '<span class="tk-when">' + esc(i18n.fmt.stamp(x.updatedAt, 'time')) + '</span>' + SVG + ICON.chevron + '</svg></button>' +
+        (open ? '<div class="tk-body"><ol class="tk-thread">' + x.messages.map(function (m) {
+          return '<li class="tk-msg ' + m.from + '"><small>' + esc(m.from === 'team' ? t('tk.team', { name: m.by }) : t('tk.you')) + ' · ' + esc(i18n.fmt.stamp(m.at, 'time')) + '</small><p>' + esc(m.text) + '</p></li>'; }).join('') + '</ol>' +
+          (x.status === 'closed' ? '<p class="tk-closed">' + t('tk.closedNote') + '</p>' :
+            '<form class="tk-reply" data-tk-reply><label class="sr-only" for="tkr-' + esc(x.id) + '">' + t('tk.reply') + '</label><textarea id="tkr-' + esc(x.id) + '" name="text" rows="3" maxlength="4000" placeholder="' + esc(t('tk.replyPh')) + '"></textarea>' +
+            '<div class="tk-acts"><button type="button" class="btn ghost sm" data-tk-close>' + t('tk.close') + '</button><button class="btn primary sm" type="submit"' + (tkBusy ? ' disabled' : '') + '>' + t('tk.send') + '</button></div></form>') + '</div>' : '') + '</li>';
+    }).join('') + '</ul></section>';
   }
   function checkContact() {
     var e = [];
@@ -73,15 +90,25 @@
     });
     contactBox.addEventListener('change', function (e) { if (e.target.name === 'topic') form.topic = e.target.value; });
     contactBox.addEventListener('submit', function (e) {
+      var rf = e.target.closest('[data-tk-reply]');
+      if (rf) {
+        e.preventDefault(); var id = rf.closest('[data-tk]').getAttribute('data-tk'), txt = rf.querySelector('textarea').value.trim(); if (txt.length < 2) return rf.querySelector('textarea').focus();
+        tkBusy = true; drawContact();
+        api.tickets.reply(id, txt).then(function (r) { tkBusy = false; tickets = [r.ticket].concat(tickets.filter(function (x) { return x.id !== id; })); drawContact(); }, function () { tkBusy = false; drawContact(); });
+        return;
+      }
       e.preventDefault(); failMsg = '';
       bad = checkContact();
       if (bad.length) { drawContact(); var f = contactBox.querySelector('[aria-invalid="true"]'); if (f) f.focus(); return; }
       busy = true; drawContact();
       api.contact({ name: form.name.trim(), email: form.email.trim(), topic: form.topic, message: form.message.trim(), lang: i18n.lang() })
-        .then(function (r) { busy = false; sent = { email: form.email.trim(), demo: !!(r && r.demo) }; form.message = ''; form.topic = ''; drawContact(); var h = contactBox.querySelector('.help-sent h3'); if (h) { h.tabIndex = -1; h.focus(); } })
+        .then(function (r) { busy = false; sent = { email: form.email.trim(), demo: !!(r && r.demo) }; form.message = ''; form.topic = ''; if (r && r.ticket) { tickets = [r.ticket].concat(tickets || []); } drawContact(); var h = contactBox.querySelector('.help-sent h3'); if (h) { h.tabIndex = -1; h.focus(); } })
         .catch(function (x) { busy = false; bad = (x && x.details) || []; failMsg = x && x.code === 'too_many' ? t('auth.errTooMany') : bad.length ? t('acct.errBilling') : t('contact.errSend'); drawContact(); });
     });
     contactBox.addEventListener('click', function (e) {
+      var tki = e.target.closest('[data-tk]');
+      if (tki && e.target.closest('[data-tk-toggle]')) { var id = tki.getAttribute('data-tk'); tkOpen[id] = !tkOpen[id]; drawContact(); var b = contactBox.querySelector('[data-tk="' + id + '"] [data-tk-toggle]'); if (b) b.focus(); return; }
+      if (tki && e.target.closest('[data-tk-close]')) { api.tickets.close(tki.getAttribute('data-tk')).then(function (r) { tickets = tickets.map(function (x) { return x.id === r.ticket.id ? r.ticket : x; }); drawContact(); }); return; }
       if (e.target.closest('[data-contact-new]')) { sent = null; bad = []; drawContact(); var n = contactBox.querySelector('select[name=topic]'); if (n) n.focus(); }
     });
   }
@@ -174,6 +201,7 @@
     drawContact();
   });
   i18n.onChange(function () { drawContact(); drawFaq(); });
+  document.addEventListener('pagechange', function (e) { if (e.detail === 'contact') loadTickets(); });
   // Vanuit een andere pagina (bv. Abonnement): onderwerp en bericht alvast invullen
   document.addEventListener('contact-preset', function (e) { var d = e.detail || {}; form.topic = d.topic || ''; form.message = d.message || ''; sent = null; bad = []; drawContact(); });
   drawContact(); drawFaq();

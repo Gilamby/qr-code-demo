@@ -380,6 +380,11 @@ var api = (function () {
       save: function (d) { return request('PATCH', 'api/admin/settings', d).then(function (r) { info.maintenance = { on: !!(r.maintenance && r.maintenance.on), message: (r.maintenance && r.maintenance.message) || '' }; info.legal = Object.assign({}, info.legal, r.company || {}); document.dispatchEvent(new CustomEvent('maintenance-change')); return r; }); }
     },
     // Storingen en meldingen (Beheer > Instellingen > Onderhoud); openbaar: /status
+    adminTickets: {
+      list:   function ()       { return request('GET', 'api/admin/tickets'); },
+      reply:  function (id, tx) { return request('POST', 'api/admin/tickets/' + encodeURIComponent(id) + '/reply', { text: tx }); },
+      status: function (id, s)  { return request('PATCH', 'api/admin/tickets/' + encodeURIComponent(id), { status: s }); }
+    },
     incidents: {
       list:   function ()      { return request('GET', 'api/admin/incidents'); },
       add:    function (d)     { return request('POST', 'api/admin/incidents', d); },
@@ -396,6 +401,11 @@ var api = (function () {
       sub:      function (id, d)  { return request('POST', 'api/admin/customers/' + encodeURIComponent(id) + '/subscription', d); }   // { action: 'paid', interval } | { action: 'set', periodEnd, interval }
     },
     // Contactformulier. In de demo wordt er niets verstuurd (dat zegt de pagina er ook bij).
+    tickets: {
+      mine:  function ()       { return request('GET', 'api/tickets'); },
+      reply: function (id, tx) { return request('POST', 'api/tickets/' + encodeURIComponent(id) + '/reply', { text: tx }); },
+      close: function (id)     { return request('POST', 'api/tickets/' + encodeURIComponent(id) + '/close', {}); }
+    },
     contact: either(function (d) { return request('POST', 'api/contact', d); }, function () { return Promise.resolve({ ok: true, demo: true }); }),
     // Video uploaden (groot bestand): rechtstreeks naar de server, met voortgang (0-100). Demo: blijft in deze browser.
     uploadVideo: function (file, onProgress) {
