@@ -5654,7 +5654,7 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .ph-lf { background: #fff; color: #0f172a; min-height: 100%; }
 .lf-top { position: relative; height: 46%; min-height: 230px; background: color-mix(in srgb, var(--pc, #ea580c) 16%, #fff); }
 .lf-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
-.lf-ph { display: grid; place-items: center; color: var(--pc, #ea580c); } .lf-ph svg { width: 64px; height: 64px; }
+.lf-top .lf-ph { position: absolute; inset: 0; display: grid; place-items: center; color: var(--pc, #ea580c); } .lf-ph svg { width: 88px; height: 88px; }
 .lf-tag { position: absolute; left: 16px; bottom: 14px; padding: 6px 12px; border-radius: 999px; background: var(--pc, #ea580c); color: var(--pc-ink, #fff); font-weight: 800; font-size: 13px; }
 .lf-sheet { padding: 18px 18px 26px; display: flex; flex-direction: column; gap: 10px; }
 .lf-sheet h4 { margin: 0; font-size: 24px; font-weight: 800; }
@@ -5664,3 +5664,12 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .lf-call { background: var(--pc, #ea580c); color: var(--pc-ink, #fff); } .lf-mail { background: #f1f5f9; color: #0f172a; }
 .lf-call svg, .lf-mail svg { width: 18px; height: 18px; }
 .lf-note { margin: 4px 0 0; font-size: 12px; color: #64748b; text-align: center; }
+
+/* Contact: formulier links, Mijn vragen rechts, tips eronder (help.js) */
+.help-grid.has-tk { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.help-grid .tk-box { margin-top: 0; }
+.help-tips { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 24px; }
+.help-sentbar { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; margin: -4px 0 16px; border-radius: 12px; background: rgba(19,138,82,.12); border: 1px solid rgba(19,138,82,.3); }
+.help-sentbar > svg { width: 22px; height: 22px; flex: none; color: #22c55e; }
+.help-sentbar > div > b { display: block; font-size: 14.5px; } .help-sentbar span, .help-sentbar small { display: block; font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+@media (max-width: 900px) { .help-grid.has-tk, .help-tips { grid-template-columns: minmax(0, 1fr); } }

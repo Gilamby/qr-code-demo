@@ -1160,3 +1160,17 @@ test('foutmelding voor het team: pas bij 10 fouten in 15 minuten, dan max. één
   assert.equal(await checkErrors(m, now + 60e3), false, 'binnen het uur niet nog eens');
   recentErrors.splice(0); recentErrors.push(...keep); resetErrorAlert();
 });
+
+test('extra soorten: e-mail, bellen en locatie openen de juiste app; links alleen van het juiste domein', async () => {
+  const k = client(); await signup(k, 'ex-k@example.com', 'Extra soorten zin 26!', 'Klant Extra');
+  const mk = (typeId, content) => k('POST', '/api/qr-codes', { typeId, content, design: {} });
+  const loc = async (c) => (await fetch(base + '/q/' + c.json.id, { redirect: 'manual' })).headers.get('location');
+  assert.equal(await loc(await mk('email', { email: 'hallo@cafe.example', subject: 'Vraag', body: 'Hoi daar' })), 'mailto:hallo@cafe.example?subject=Vraag&body=Hoi%20daar');
+  assert.equal(await loc(await mk('phone', { phone: '+34 600 123 456' })), 'tel:+34600123456');
+  assert.ok((await loc(await mk('location', { address: JSON.stringify({ l: 'Calle Larios 1, Málaga', lat: 36.72, lon: -4.42 }) }))).endsWith('query=36.72,-4.42'));
+  assert.equal((await mk('tiktok', { url: 'https://example.com/x' })).status, 400, 'geen TikTok-link');
+  assert.equal(await loc(await mk('tiktok', { url: 'https://www.tiktok.com/@cafe' })), 'https://www.tiktok.com/@cafe');
+  const lost = await mk('lostfound', { name: 'Max', phone: '+34600123456' }); assert.equal(lost.status, 201);
+  assert.equal((await fetch(base + '/q/' + lost.json.id)).status, 200, 'gevonden-pagina');
+  assert.equal((await mk('text', { title: 'Huisregels', text: 'Stil na 22:00' })).status, 201);
+});

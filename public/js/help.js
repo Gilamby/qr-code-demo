@@ -36,13 +36,11 @@
         '<button type="button" class="btn ghost" data-help-go="faq">' + t('contact.faqButton') + SVG + ICON.arrow + '</svg></button></div>' +
       '<div class="glass help-card">' + '<span class="hic hic-bulb" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' +'<g class="hic-rays"><path d="M24 2v4M8.5 8.5l2.8 2.8M39.5 8.5l-2.8 2.8M2 23h4M42 23h4"/></g>' +'<path class="hic-glass" d="M24 11a12 12 0 0 0-7 21.7c1.3 1 2 2.4 2 4V38h10v-1.3c0-1.6.7-3 2-4A12 12 0 0 0 24 11z"/>' +'<path class="hic-fil" d="M20.5 27l3.5-3.5 3.5 3.5M24 23.5V38" stroke-width="2"/><path d="M19.5 42h9"/></svg></span>' + '<h3>' + t('contact.tipsTitle') + '</h3><ul class="help-tips">' +
         ['contact.tip1', 'contact.tip2', 'contact.tip3'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul></div></aside>';
-    var main;
-    if (sent) {
-      main = '<div class="glass bg-card help-main help-sent" role="status"><span class="help-ic big">' + SVG + ICON.ok + '</svg></span><h3>' + t('contact.sentTitle') + '</h3>' +
-        '<p>' + t('contact.sentText', { email: '<b>' + esc(sent.email) + '</b>' }) + '</p>' + (sent.demo ? '<p class="acct-note">' + t('contact.demoNote') + '</p>' : '') +
-        '<button type="button" class="btn ghost" data-contact-new>' + t('contact.another') + '</button></div>';
-    } else {
-      main = '<form class="glass bg-card help-main" data-contact novalidate><h3>' + t('contact.formTitle') + '</h3>' +
+    var main, hasTk = !!(tickets && tickets.length);
+    // Na versturen: geen apart kaartje meer, maar een melding boven hetzelfde (lege) formulier; de vraag staat rechts bij "Mijn vragen"
+    var banner = sent ? '<div class="help-sentbar" role="status">' + SVG + ICON.ok + '</svg><div><b>' + t('contact.sentTitle') + '</b><span>' + t('contact.sentText', { email: '<b>' + esc(sent.email) + '</b>' }) + '</span>' +
+      (sent.demo ? '<small>' + t('contact.demoNote') + '</small>' : '') + '</div></div>' : '';
+    main = '<form class="glass bg-card help-main" data-contact novalidate><h3>' + t('contact.formTitle') + '</h3>' + banner +
         '<div class="acct-grid">' +
         contactField('name', t('auth.name'), '<input name="name" maxlength="80" autocomplete="name" value="' + esc(form.name) + '">') +
         contactField('email', t('auth.email'), '<input name="email" type="email" maxlength="254" autocomplete="email" value="' + esc(form.email) + '">', t('contact.emailHint')) +
@@ -53,15 +51,16 @@
         '</div><div class="help-form-foot"><small class="help-count" aria-live="polite">' + form.message.length + ' / 4000</small>' +
         '<button class="btn primary" type="submit"' + (busy ? ' disabled' : '') + '>' + SVG + ICON.send + '</svg>' + t('contact.send') + '</button></div>' +
         (failMsg ? '<p class="acct-msg bad" role="alert">' + esc(failMsg) + '</p>' : '') + '</form>';
-    }
-    contactBox.innerHTML = '<header class="help-head ct-head"><div><div class="ct-title"><h2>' + t('nav.contact') + '</h2>' + '<div class="ct-globe" aria-hidden="true"><svg viewBox="0 0 120 120">' +'<defs><radialGradient id="ctG" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#7fd6ff"/><stop offset=".55" stop-color="#2bb5f0"/><stop offset="1" stop-color="#0d4f86"/></radialGradient></defs>' +'<circle class="ct-glow" cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="34" fill="url(#ctG)"/>' +'<g class="ct-lines" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"><ellipse class="m1" cx="60" cy="60" rx="34" ry="34"/><ellipse class="m2" cx="60" cy="60" rx="20" ry="34"/><ellipse class="m3" cx="60" cy="60" rx="6" ry="34"/>' +'<path d="M27 48h66M26 60h68M27 72h66"/></g>' +'<g class="ct-orbit"><g class="ct-plane" transform="translate(60 12)"><path d="M-9 2 9-6 3 9 0 3z" fill="#fff"/><path d="M0 3 9-6" stroke="#2bb5f0" stroke-width="1.2"/></g></g>' +'<circle class="ct-ping" cx="74" cy="50" r="3"/><circle cx="74" cy="50" r="2.6" fill="#fff"/></svg></div>' + '</div><p>' + t('contact.lead') + '</p></div></header><div class="help-grid">' + main + side + '</div>' + ticketsHtml();
+    contactBox.innerHTML = '<header class="help-head ct-head"><div><div class="ct-title"><h2>' + t('nav.contact') + '</h2>' + '<div class="ct-globe" aria-hidden="true"><svg viewBox="0 0 120 120">' +'<defs><radialGradient id="ctG" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#7fd6ff"/><stop offset=".55" stop-color="#2bb5f0"/><stop offset="1" stop-color="#0d4f86"/></radialGradient></defs>' +'<circle class="ct-glow" cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="34" fill="url(#ctG)"/>' +'<g class="ct-lines" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2"><ellipse class="m1" cx="60" cy="60" rx="34" ry="34"/><ellipse class="m2" cx="60" cy="60" rx="20" ry="34"/><ellipse class="m3" cx="60" cy="60" rx="6" ry="34"/>' +'<path d="M27 48h66M26 60h68M27 72h66"/></g>' +'<g class="ct-orbit"><g class="ct-plane" transform="translate(60 12)"><path d="M-9 2 9-6 3 9 0 3z" fill="#fff"/><path d="M0 3 9-6" stroke="#2bb5f0" stroke-width="1.2"/></g></g>' +'<circle class="ct-ping" cx="74" cy="50" r="3"/><circle cx="74" cy="50" r="2.6" fill="#fff"/></svg></div>' + '</div><p>' + t('contact.lead') + '</p></div></header>' +
+      // Links het formulier; rechts "Mijn vragen" (als die er zijn), anders de tips. Met vragen staan de tips klein eronder.
+      '<div class="help-grid' + (hasTk ? ' has-tk' : '') + '">' + main + (hasTk ? ticketsHtml() : side) + '</div>' + (hasTk ? side.replace('help-side', 'help-side help-tips') : '');
   }
   /* ---------- Mijn vragen: elk bericht wordt een gesprek met het team ---------- */
   var tickets = null, tkOpen = {}, tkBusy = false;
   function loadTickets() { if (!api.tickets || api.isDemo()) return; api.tickets.mine().then(function (r) { tickets = r.tickets || []; drawContact(); }).catch(function () {}); }
   function ticketsHtml() {
     if (!tickets || !tickets.length) return '';
-    return '<section class="glass bg-card tk-box" aria-labelledby="tkTitle"><h3 id="tkTitle">' + t('tk.title') + '</h3><p class="tk-lead">' + t('tk.lead') + '</p><ul class="tk-list">' + tickets.map(function (x) {
+    return '<section class="glass bg-card help-main tk-box" aria-labelledby="tkTitle"><h3 id="tkTitle">' + t('tk.title') + '</h3><p class="tk-lead">' + t('tk.lead') + '</p><ul class="tk-list">' + tickets.map(function (x) {
       var open = !!tkOpen[x.id], last = x.messages[x.messages.length - 1];
       return '<li class="tk-item" data-tk="' + esc(x.id) + '"><button type="button" class="tk-head" data-tk-toggle aria-expanded="' + open + '">' +
         '<span class="tk-st ' + x.status + '">' + t('tk.s_' + x.status) + '</span><span class="tk-sub"><b>' + esc(t('contact.topics.' + x.topic)) + ' · #' + esc(x.id) + '</b><small>' + esc(last.text.slice(0, 90)) + '</small></span>' +
@@ -97,7 +96,7 @@
         api.tickets.reply(id, txt).then(function (r) { tkBusy = false; tickets = [r.ticket].concat(tickets.filter(function (x) { return x.id !== id; })); drawContact(); }, function () { tkBusy = false; drawContact(); });
         return;
       }
-      e.preventDefault(); failMsg = '';
+      e.preventDefault(); failMsg = ''; sent = null;
       bad = checkContact();
       if (bad.length) { drawContact(); var f = contactBox.querySelector('[aria-invalid="true"]'); if (f) f.focus(); return; }
       busy = true; drawContact();
