@@ -3404,26 +3404,5 @@
     "csv": "Stiahnuť CSV",
     "delete": "Vymazať odpoveď",
     "deleteConfirm": "Natrvalo vymazať túto odpoveď?"
-  },
-  "brand": {
-    "nav": "Vlastná značka",
-    "title": "Vaša vlastná značka",
-    "lead": "Zobrazte svoje logo a názov na stránkach skenovania namiesto QR-Codex.",
-    "name": "Názov značky",
-    "namePh": "napr. Café Lumen",
-    "logo": "Logo",
-    "logoHint": "Najlepšie štvorcové. PNG, JPG alebo WebP.",
-    "upload": "Nahrať logo",
-    "change": "Zmeniť logo",
-    "removeLogo": "Odstrániť logo",
-    "preview": "Náhľad",
-    "sample": "Tento QR kód je na chvíľu pozastavený.",
-    "save": "Uložiť",
-    "saved": "Uložené. Vaše stránky skenovania teraz zobrazujú vašu značku.",
-    "off": "Znova používať QR-Codex",
-    "offDone": "QR-Codex sa znova zobrazuje.",
-    "where": "Zobrazuje sa ako ikona na karte prehliadača a na stránkach, ktoré návštevníci vidia, keď je kód pozastavený, vypršaný, ešte nezačal alebo je chránený heslom.",
-    "errLogo": "Použite obrázok PNG, JPG alebo WebP do 5 MB.",
-    "errEmpty": "Zadajte názov alebo nahrajte logo."
   }
 }

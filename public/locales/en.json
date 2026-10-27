@@ -3449,26 +3449,5 @@
     "csv": "Download CSV",
     "delete": "Delete response",
     "deleteConfirm": "Delete this response for good?"
-  },
-  "brand": {
-    "nav": "Own brand",
-    "title": "Your own brand",
-    "lead": "Show your logo and name on your scan pages instead of QR-Codex.",
-    "name": "Brand name",
-    "namePh": "e.g. Café Lumen",
-    "logo": "Logo",
-    "logoHint": "Square works best. PNG, JPG or WebP.",
-    "upload": "Upload logo",
-    "change": "Change logo",
-    "removeLogo": "Remove logo",
-    "preview": "Preview",
-    "sample": "This QR code is paused for a moment.",
-    "save": "Save",
-    "saved": "Saved. Your scan pages now show your brand.",
-    "off": "Use QR-Codex again",
-    "offDone": "QR-Codex is shown again.",
-    "where": "Shown as the icon in the browser tab and on the pages visitors see when a code is paused, expired, not started yet or password-protected.",
-    "errLogo": "Use a PNG, JPG or WebP image up to 5 MB.",
-    "errEmpty": "Enter a name or upload a logo."
   }
 }

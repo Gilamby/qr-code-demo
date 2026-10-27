@@ -3404,26 +3404,5 @@
     "csv": "Last ned CSV",
     "delete": "Slett svar",
     "deleteConfirm": "Slette dette svaret for godt?"
-  },
-  "brand": {
-    "nav": "Eget merke",
-    "title": "Ditt eget merke",
-    "lead": "Vis logoen og navnet ditt på skannesidene i stedet for QR-Codex.",
-    "name": "Merkenavn",
-    "namePh": "f.eks. Café Lumen",
-    "logo": "Logo",
-    "logoHint": "Kvadratisk fungerer best. PNG, JPG eller WebP.",
-    "upload": "Last opp logo",
-    "change": "Bytt logo",
-    "removeLogo": "Fjern logo",
-    "preview": "Forhåndsvisning",
-    "sample": "Denne QR-koden er satt på pause en liten stund.",
-    "save": "Lagre",
-    "saved": "Lagret. Skannesidene dine viser nå ditt merke.",
-    "off": "Bruk QR-Codex igjen",
-    "offDone": "QR-Codex vises igjen.",
-    "where": "Vises som ikon i nettleserfanen og på sidene besøkende ser når en kode er satt på pause, utløpt, ikke startet ennå eller passordbeskyttet.",
-    "errLogo": "Bruk et PNG-, JPG- eller WebP-bilde på opptil 5 MB.",
-    "errEmpty": "Skriv inn et navn eller last opp en logo."
   }
 }

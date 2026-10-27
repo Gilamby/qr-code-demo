@@ -3510,26 +3510,5 @@
     "csv": "Shkarko CSV",
     "delete": "Fshi përgjigjen",
     "deleteConfirm": "Ta fshij përgjithmonë këtë përgjigje?"
-  },
-  "brand": {
-    "nav": "Marka juaj",
-    "title": "Marka juaj e vetë",
-    "lead": "Shfaqni logon dhe emrin tuaj në faqet e skanimit në vend të QR-Codex.",
-    "name": "Emri i markës",
-    "namePh": "p.sh. Café Lumen",
-    "logo": "Logo",
-    "logoHint": "Katrore funksionon më mirë. PNG, JPG ose WebP.",
-    "upload": "Ngarko logon",
-    "change": "Ndrysho logon",
-    "removeLogo": "Hiq logon",
-    "preview": "Pamje paraprake",
-    "sample": "Ky kod QR është në pauzë për pak.",
-    "save": "Ruaj",
-    "saved": "U ruajt. Faqet e skanimit tani shfaqin markën tuaj.",
-    "off": "Përdor sërish QR-Codex",
-    "offDone": "QR-Codex shfaqet sërish.",
-    "where": "Shfaqet si ikonë në skedën e shfletuesit dhe në faqet që shohin vizitorët kur një kod është në pauzë, ka skaduar, ende nuk ka filluar ose ka fjalëkalim.",
-    "errLogo": "Përdorni një imazh PNG, JPG ose WebP deri në 5 MB.",
-    "errEmpty": "Shkruani një emër ose ngarkoni një logo."
   }
 }

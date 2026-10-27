@@ -3410,26 +3410,5 @@
     "csv": "CSV herunterladen",
     "delete": "Antwort löschen",
     "deleteConfirm": "Diese Antwort endgültig löschen?"
-  },
-  "brand": {
-    "nav": "Eigene Marke",
-    "title": "Ihre eigene Marke",
-    "lead": "Zeigen Sie Ihr Logo und Ihren Namen auf Ihren Scanseiten statt QR-Codex.",
-    "name": "Markenname",
-    "namePh": "z. B. Café Lumen",
-    "logo": "Logo",
-    "logoHint": "Quadratisch ist am besten. PNG, JPG oder WebP.",
-    "upload": "Logo hochladen",
-    "change": "Logo ändern",
-    "removeLogo": "Logo entfernen",
-    "preview": "Vorschau",
-    "sample": "Dieser QR-Code ist kurz pausiert.",
-    "save": "Speichern",
-    "saved": "Gespeichert. Ihre Scanseiten zeigen jetzt Ihre Marke.",
-    "off": "Wieder QR-Codex verwenden",
-    "offDone": "QR-Codex wird wieder angezeigt.",
-    "where": "Sichtbar als Symbol im Browser-Tab und auf den Seiten, die Besucher sehen, wenn ein Code pausiert, abgelaufen, noch nicht gestartet oder passwortgeschützt ist.",
-    "errLogo": "Nutzen Sie ein PNG-, JPG- oder WebP-Bild bis 5 MB.",
-    "errEmpty": "Geben Sie einen Namen ein oder laden Sie ein Logo hoch."
   }
 }

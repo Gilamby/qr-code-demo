@@ -5651,22 +5651,6 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .fbx-list small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
 .fbx-list p { margin: 6px 0 0; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
 
-/* Eigen merk (account-settings.js) */
-.br-form { display: grid; gap: 16px; margin-top: 8px; }
-.br-logo { display: flex; gap: 14px; align-items: center; }
-.br-thumb { width: 64px; height: 64px; border-radius: 16px; border: 1px solid var(--line-strong); display: grid; place-items: center; overflow: hidden; background: var(--hover); flex: none; font-weight: 800; font-size: 22px; color: var(--muted); }
-.br-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.br-logo b { display: block; } .br-logo small { display: block; color: var(--muted); font-size: 13px; margin: 2px 0 8px; }
-.br-acts { display: flex; flex-wrap: wrap; gap: 8px; } .br-acts label { cursor: pointer; }
-.br-prev { display: grid; gap: 8px; padding: 14px; border-radius: 14px; background: var(--hover); }
-.br-prev > small { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
-.br-tab { display: inline-flex; align-items: center; gap: 8px; max-width: 260px; padding: 8px 12px; border-radius: 10px 10px 0 0; background: var(--surface); font-size: 13px; }
-.br-tab img, .br-tab i { width: 16px; height: 16px; border-radius: 4px; object-fit: cover; background: var(--line-strong); flex: none; }
-.br-tab span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.br-card { background: #fff; color: #111; border-radius: 16px; padding: 18px; text-align: center; max-width: 260px; }
-.br-card img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; display: block; margin: 0 auto 6px; }
-.br-card b { display: block; font-size: 14px; color: #5b6472; } .br-card p { margin: 6px 0 0; font-size: 13px; }
-.br-foot { display: flex; justify-content: flex-end; gap: 8px; }
 .api-form.wh-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
 .api-form.wh-form .btn { justify-self: start; }
 

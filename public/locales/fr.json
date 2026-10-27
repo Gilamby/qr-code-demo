@@ -3410,26 +3410,5 @@
     "csv": "Télécharger le CSV",
     "delete": "Supprimer la réponse",
     "deleteConfirm": "Supprimer définitivement cette réponse ?"
-  },
-  "brand": {
-    "nav": "Votre marque",
-    "title": "Votre propre marque",
-    "lead": "Affichez votre logo et votre nom sur vos pages de scan à la place de QR-Codex.",
-    "name": "Nom de la marque",
-    "namePh": "ex. Café Lumen",
-    "logo": "Logo",
-    "logoHint": "Le carré fonctionne le mieux. PNG, JPG ou WebP.",
-    "upload": "Importer un logo",
-    "change": "Changer de logo",
-    "removeLogo": "Retirer le logo",
-    "preview": "Aperçu",
-    "sample": "Ce QR code est en pause pour un moment.",
-    "save": "Enregistrer",
-    "saved": "Enregistré. Vos pages de scan affichent maintenant votre marque.",
-    "off": "Revenir à QR-Codex",
-    "offDone": "QR-Codex est de nouveau affiché.",
-    "where": "Visible comme icône dans l’onglet du navigateur et sur les pages vues quand un code est en pause, expiré, pas encore commencé ou protégé par mot de passe.",
-    "errLogo": "Utilisez une image PNG, JPG ou WebP de 5 Mo max.",
-    "errEmpty": "Saisissez un nom ou importez un logo."
   }
 }

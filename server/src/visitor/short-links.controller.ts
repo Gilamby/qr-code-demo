@@ -14,7 +14,6 @@ import { QR_TYPES } from '../qr-codes/validation';
 import { secretKey } from '../qr-codes/qr-codes.service';
 import { place, device, os } from '../analytics/scan-stats';
 import { fire } from '../webhooks';
-import { activeBrand, withBrand } from '../brand';
 import * as rules from './rules';
 import { livePage } from './live-page';
 import { isCustomHost, ownerOfHost } from '../domains';
@@ -95,22 +94,21 @@ export class ShortLinksController {
     if (found && wrongHost(req, found.userId)) return res.status(404).send(rules.notFoundPage(req));   // eigen domein: alleen codes van die klant
     if (!found) return res.status(/^[A-Za-z0-9_-]{4,16}$/.test(id) && (await this.db.wasDeleted(id)) ? 410 : 404).send(rules.notFoundPage(req));   // 410 = verwijderd, komt niet terug
     if (isBlocked(found.userId)) return res.status(503).set('Retry-After', '3600').send(rules.inactivePage(req));   // abonnement niet betaald: niet tellen
-    const brand = await activeBrand(this.db, found.userId), bp = (html: string) => withBrand(html, found.userId, brand);   // eigen merk (Business)
-    if (found.paused) return res.status(503).set('Retry-After', '3600').send(bp(rules.pausedPage(req)));   // tijdelijk uit: niet tellen
+    if (found.paused) return res.status(503).set('Retry-After', '3600').send(rules.pausedPage(req));   // tijdelijk uit: niet tellen
     const now = rules.nowIn(found.content && (found.content.startsTime || found.content.expiresTime) ? await this.zoneOf(found.userId) : undefined);
     if (rules.isExpired(found, now)) {
       // Na afloop doorsturen naar een andere link (bv. de nieuwe actie), anders "Deze QR-code is verlopen"
       if (found.content.afterUrl && /^https?:\/\//i.test(found.content.afterUrl)) { res.set('Cache-Control', 'no-store'); return res.redirect(found.content.afterUrl); }
-      return res.status(410).send(bp(rules.expiredPage(req)));
+      return res.status(410).send(rules.expiredPage(req));
     }
-    if (rules.notYet(found, now)) return res.status(503).send(bp(rules.notYetPage(req, found.content.starts)));   // nog niet begonnen: niet tellen
+    if (rules.notYet(found, now)) return res.status(503).send(rules.notYetPage(req, found.content.starts));   // nog niet begonnen: niet tellen
     const key = secretKey(found.typeId);
     if (key && found.content[key] && !passwordOk) {
       // Na het juiste wachtwoord stuurt het formulier door naar de bestemming (een andere website).
       // De browser staat dat alleen toe als form-action dat ook toestaat: hier dus ook http(s)-adressen.
       const csp = String(res.getHeader('Content-Security-Policy') || '');
       if (csp) res.set('Content-Security-Policy', csp.replace("form-action 'self'", "form-action 'self' https: http:"));
-      return res.send(bp(rules.passwordPage(req, req.method === 'POST')));
+      return res.send(rules.passwordPage(req, req.method === 'POST'));
     }
     const q = await this.db.addScan(found.id, describe(found, req));
     setImmediate(() => { scanAlert(this.db, this.mailer, q); });           // eerste scan / mijlpaal: mail (na het antwoord)
@@ -151,7 +149,7 @@ export class ShortLinksController {
     // Alle andere types: de echte pagina, met dezelfde sjablonen als de telefoon in de tool
     const type = QR_TYPES.find((t) => t.id === q.typeId);
     if (!type) return res.status(404).send(rules.notFoundPage(req));
-    res.send(bp(livePage(req, q, type, type.id === 'event' ? await this.zoneOf(q.userId) : undefined)));   // evenement: tijden in de tijdzone van de eigenaar (voor de agenda)
+    res.send(livePage(req, q, type, type.id === 'event' ? await this.zoneOf(q.userId) : undefined));   // evenement: tijden in de tijdzone van de eigenaar (voor de agenda)
   }
 
   private async sendFile(res: Response, q: QrCode, key: string) {

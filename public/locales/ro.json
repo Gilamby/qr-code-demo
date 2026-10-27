@@ -3404,26 +3404,5 @@
     "csv": "Descarcă CSV",
     "delete": "Șterge răspunsul",
     "deleteConfirm": "Ștergi definitiv acest răspuns?"
-  },
-  "brand": {
-    "nav": "Marcă proprie",
-    "title": "Marca ta",
-    "lead": "Afișează logoul și numele tău pe paginile de scanare în loc de QR-Codex.",
-    "name": "Numele mărcii",
-    "namePh": "ex. Café Lumen",
-    "logo": "Logo",
-    "logoHint": "Pătratul arată cel mai bine. PNG, JPG sau WebP.",
-    "upload": "Încarcă logo",
-    "change": "Schimbă logoul",
-    "removeLogo": "Elimină logoul",
-    "preview": "Previzualizare",
-    "sample": "Acest cod QR este pe pauză pentru moment.",
-    "save": "Salvează",
-    "saved": "Salvat. Paginile de scanare arată acum marca ta.",
-    "off": "Folosește din nou QR-Codex",
-    "offDone": "QR-Codex este afișat din nou.",
-    "where": "Apare ca pictogramă în fila browserului și pe paginile pe care le văd vizitatorii când un cod e pe pauză, expirat, încă neînceput sau protejat cu parolă.",
-    "errLogo": "Folosește o imagine PNG, JPG sau WebP de până la 5 MB.",
-    "errEmpty": "Introdu un nume sau încarcă un logo."
   }
 }

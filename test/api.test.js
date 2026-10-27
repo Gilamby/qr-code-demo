@@ -1184,20 +1184,6 @@ test('feedback: bezoeker stuurt sterren, e-mail alleen met toestemming, eigenaar
   assert.equal((await fetch(base + '/api/feedback/' + web.id, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"rating":5}' })).status, 404, 'alleen feedback-codes');
 });
 
-test('eigen merk: logo als icoon en op de kleine pagina\'s; ongeldig logo geweigerd', async () => {
-  const k = client(); await signup(k, 'br-k@example.com', 'Eigen merk zin 25!', 'Klant Merk');
-  const png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
-  assert.equal((await k('PUT', '/api/account/brand', { name: 'X', logo: 'data:text/html;base64,PHNjcmlwdD4=' })).status, 400);
-  assert.equal((await k('PUT', '/api/account/brand', { name: 'Café Lumen', logo: png })).status, 200);
-  const c = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://merk.example/' }, design: {} })).json;
-  await k('PATCH', '/api/qr-codes/' + c.id, { paused: true });
-  const html = await (await fetch(base + '/q/' + c.id)).text();
-  assert.ok(html.includes('Café Lumen') && html.includes('/icon'), 'gepauzeerd: merk zichtbaar');
-  const me = (await k('GET', '/api/auth/me')).json;
-  const ic = await fetch(base + '/b/' + me.id + '/icon'); assert.equal(ic.status, 200); assert.equal(ic.headers.get('content-type'), 'image/png');
-  assert.equal((await k('DELETE', '/api/account/brand')).status, 204);
-});
-
 test('foutmelding voor het team: pas bij 10 fouten in 15 minuten, dan max. één per uur', async () => {
   const { recentErrors } = require('../server/dist/common/http'); const { checkErrors, resetErrorAlert } = require('../server/dist/error-alerts');
   const keep = recentErrors.splice(0); resetErrorAlert(); const sent = []; const m = { sendErrorAlert: async (n, lines) => { sent.push([n, lines]); } };
