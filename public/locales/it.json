@@ -2941,5 +2941,33 @@
     "sumOne": "Lo stesso codice {n} volte su 1 foglio.",
     "make": "Crea PDF",
     "busy": "Creazione del foglio…"
+  },
+  "dom": {
+    "nav": "Dominio personalizzato",
+    "title": "Il tuo dominio per i link brevi",
+    "lead": "Fai usare ai tuoi codici QR il tuo dominio, ad esempio qr.tuaazienda.it/q/… invece di my.qr-codex.com/q/…. Così i clienti vedono il tuo marchio quando scansionano.",
+    "host": "Sottodominio",
+    "hostHint": "Usa un sottodominio che non usi ancora, ad esempio qr.tuaazienda.it o scan.tuaazienda.it.",
+    "add": "Aggiungi dominio",
+    "stepsTitle": "Come collegare il tuo dominio",
+    "step1": "Accedi dove gestisci il tuo dominio (ad esempio Aruba, GoDaddy o Cloudflare).",
+    "step2": "Crea questo record DNS:",
+    "type": "Tipo",
+    "name": "Nome",
+    "value": "Valore",
+    "step3": "Torna qui e clicca su Verifica. Una modifica DNS può richiedere alcune ore.",
+    "check": "Verifica",
+    "remove": "Rimuovi dominio",
+    "active": "Attivo",
+    "waitDns": "In attesa del record DNS",
+    "waitSsl": "Il DNS è corretto, il certificato di sicurezza è in creazione. Di solito ci vogliono pochi minuti.",
+    "activeNote": "Il tuo dominio è attivo. I nuovi download dei tuoi codici QR ora usano {example}.",
+    "printed": "I codici già stampati continuano a funzionare, anche se cambi o rimuovi il dominio.",
+    "nowActive": "Il tuo dominio è attivo.",
+    "notYet": "Il record DNS non è ancora stato trovato. Controllalo e riprova più tardi.",
+    "errHost": "Inserisci un sottodominio, ad esempio qr.tuaazienda.it.",
+    "errTaken": "Questo dominio è già usato da un altro account.",
+    "errOther": "Qualcosa è andato storto. Riprova più tardi.",
+    "ph": "qr.tuaazienda.it"
   }
 }

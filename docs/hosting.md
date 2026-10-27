@@ -164,3 +164,20 @@ Add one line to the crontab: every night at 03:15 a backup goes to `~/qr-backups
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM` | Sending emails: password reset, invitations, email change, security alerts and the weekly/monthly scan summary. Without these, links are written to the log. |
 | `DEEPL_API_KEY` | Auto-translate in Admin > Settings. The super admin can also paste the key in that page (stored encrypted). |
 | `LEGAL_NAME`, `LEGAL_ADDRESS`, `LEGAL_KVK`, `LEGAL_VAT`, `LEGAL_EMAIL` | Company details shown in the privacy policy, terms and cookie page (Help > Privacy and terms, and on the login screen). Empty = not shown. |
+
+## 9. Custom domains for customers (Business)
+
+Business customers can use their own subdomain for short links (`https://qr.theirbrand.com/q/…`). The feature is **off** until `CUSTOM_DOMAIN_TARGET` is set; the menu item only appears then.
+
+1. **Cloudflare for SaaS** (recommended, the main domain already runs on Cloudflare): in the `qr-codex.com` zone, enable *SSL/TLS → Custom Hostnames*, add a fallback origin (e.g. `domains.qr-codex.com`, proxied DNS record pointing to this server). The first 100 custom hostnames are free.
+2. `.env`:
+   ```
+   CUSTOM_DOMAIN_TARGET=domains.qr-codex.com   # customers make a CNAME to this name
+   CF_API_TOKEN=<token with "SSL and Certificates: Edit" on the zone>
+   CF_ZONE_ID=<zone id of qr-codex.com>
+   ```
+   The app then registers each customer hostname at Cloudflare and Cloudflare issues the certificate.
+3. **nginx:** let the QR-Codex server block also answer unknown hostnames (`server_name my.qr-codex.com domains.qr-codex.com _;` or a `default_server`) and pass `Host` through (`proxy_set_header Host $host;`, already in the sample config).
+4. Without Cloudflare: use Caddy with on-demand TLS and `ask http://127.0.0.1:3000/api/domains/ask` so certificates are only issued for domains a customer added.
+
+On a customer domain only `/q/…` of that customer's own codes works (plus the static files those pages need). The app, `/api` and other customers' codes return 404; `/` redirects to `PUBLIC_URL`.

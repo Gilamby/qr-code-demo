@@ -18,6 +18,7 @@ import { AppModule } from './app.module';
 import { AuthService } from './auth/auth.service';
 import { DatabaseService } from './database/database.service';
 import { expressError, sameOrigin, securityHeaders } from './common/http';
+import { loadDomains, isCustomHost } from './domains';
 import { useBundle } from './visitor/live-page';
 
 /** Maakt de app klaar (database open, routes geregistreerd), zonder te luisteren. Gebruikt door main(), tests en scripts. */
@@ -33,6 +34,14 @@ export async function createApp(): Promise<NestExpressApplication> {
   // ruimte voor een PDF/MP3 (max. 10 MB) of een fotogalerij; de webhook van Stripe heeft de onbewerkte tekst nodig (handtekening)
   app.use(express.json({ limit: '16mb', verify: (req: any, _res, buf) => { if (req.url && req.url.startsWith('/api/billing/webhook')) req.rawBody = Buffer.from(buf); } }));
   app.use(express.urlencoded({ extended: false, limit: '10kb' }));
+  /* Eigen domein van een klant (qr.jouwmerk.nl): alleen QR-codes en de bestanden voor die pagina's, niet de app of de API */
+  await loadDomains(app.get(DatabaseService)).catch(() => {});
+  app.use((req, res, next) => {
+    if (!isCustomHost(req.hostname)) return next();
+    if (req.path === '/' || req.path === '/index.html') return res.redirect(302, publicUrl() || 'https://qr-codex.com');
+    if (req.path.startsWith('/api/') && req.path !== '/api/domains/ask') return res.status(404).end();
+    return next();
+  });
 
   /* De app zelf.
      Productie (NODE_ENV=production + npm run build): alleen de samengevoegde, gecomprimeerde bestanden uit build/.

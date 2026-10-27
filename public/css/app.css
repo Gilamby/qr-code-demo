@@ -5356,3 +5356,13 @@ select:not([multiple]):not([size]) {
   padding-right: 38px !important;
 }
 select:not([multiple]):not([size])::-ms-expand { display: none; }
+/* Eigen domein */
+.dom-form { display: grid; gap: 10px; max-width: 520px; }
+.dom-status { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); margin: 6px 0 14px; }
+.dom-status.ok { border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.08); } .dom-status.ok span { color: #4ade80; font-weight: 600; }
+.dom-status.wait { border-color: rgba(251,191,36,.45); background: rgba(251,191,36,.08); } .dom-status.wait span { color: #fbbf24; font-weight: 600; font-size: 14px; }
+[data-theme="light"] .dom-status.ok span { color: #15803d; } [data-theme="light"] .dom-status.wait span { color: #b45309; }
+.dom-h { margin: 8px 0 6px; font-size: 16px; } .dom-steps { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 8px; font-size: 14.5px; }
+.dom-rec { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin-top: 8px; padding: 10px 12px; border-radius: 10px; background: rgba(0,0,0,.2); font-size: 13.5px; }
+.dom-rec span { color: var(--muted); } .dom-rec code { word-break: break-all; }
+.dom-acts { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 4px; }

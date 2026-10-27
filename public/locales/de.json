@@ -2947,5 +2947,33 @@
     "sumOne": "Derselbe Code {n}-mal auf 1 Bogen.",
     "make": "PDF erstellen",
     "busy": "Druckbogen wird erstellt…"
+  },
+  "dom": {
+    "nav": "Eigene Domain",
+    "title": "Deine eigene Domain für Kurzlinks",
+    "lead": "Lass deine QR-Codes deine eigene Domain nutzen, zum Beispiel qr.deinefirma.de/q/… statt my.qr-codex.com/q/…. So sehen Kunden beim Scannen deine Marke.",
+    "host": "Subdomain",
+    "hostHint": "Nutze eine Subdomain, die du noch nicht verwendest, zum Beispiel qr.deinefirma.de oder scan.deinefirma.de.",
+    "add": "Domain hinzufügen",
+    "stepsTitle": "So verbindest du deine Domain",
+    "step1": "Melde dich dort an, wo deine Domain verwaltet wird (zum Beispiel IONOS, Strato oder Cloudflare).",
+    "step2": "Lege diesen DNS-Eintrag an:",
+    "type": "Typ",
+    "name": "Name",
+    "value": "Wert",
+    "step3": "Komm zurück und klicke auf Prüfen. Eine DNS-Änderung kann einige Stunden dauern.",
+    "check": "Prüfen",
+    "remove": "Domain entfernen",
+    "active": "Aktiv",
+    "waitDns": "Warte auf den DNS-Eintrag",
+    "waitSsl": "DNS stimmt, das Sicherheitszertifikat wird erstellt. Das dauert meist ein paar Minuten.",
+    "activeNote": "Deine Domain ist aktiv. Neue Downloads deiner QR-Codes nutzen jetzt {example}.",
+    "printed": "Bereits gedruckte Codes funktionieren weiter, auch wenn du die Domain wechselst oder entfernst.",
+    "nowActive": "Deine Domain ist aktiv.",
+    "notYet": "Der DNS-Eintrag wurde noch nicht gefunden. Prüfe ihn und versuche es später erneut.",
+    "errHost": "Gib eine Subdomain ein, zum Beispiel qr.deinefirma.de.",
+    "errTaken": "Diese Domain wird schon von einem anderen Konto genutzt.",
+    "errOther": "Etwas ist schiefgelaufen. Bitte versuche es später erneut.",
+    "ph": "qr.deinefirma.de"
   }
 }

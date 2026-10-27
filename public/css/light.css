@@ -547,6 +547,9 @@
 :root[data-theme="light"] .hm-alert-i svg { color: #dc2626; }
 :root[data-theme="light"] .acct-type-lock { border: 1px solid var(--line, rgba(13,19,32,0.108)); }
 :root[data-theme="light"] .acct-legal:hover { background: rgba(13,19,32,0.038); }
+:root[data-theme="light"] .dom-status.ok span { color: #15803d; }
+:root[data-theme="light"] .dom-status.wait span { color: #b45309; }
+:root[data-theme="light"] .dom-rec { background: rgba(255,255,255,0.8); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

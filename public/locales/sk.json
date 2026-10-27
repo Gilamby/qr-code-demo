@@ -2941,5 +2941,33 @@
     "sumOne": "Ten istý kód {n}-krát na 1 hárku.",
     "make": "Vytvoriť PDF",
     "busy": "Vytvára sa hárok…"
+  },
+  "dom": {
+    "nav": "Vlastná doména",
+    "title": "Tvoja vlastná doména pre krátke odkazy",
+    "lead": "Nechaj svoje QR kódy používať tvoju doménu, napríklad qr.tvojafirma.sk/q/… namiesto my.qr-codex.com/q/…. Zákazníci pri skenovaní uvidia tvoju značku.",
+    "host": "Subdoména",
+    "hostHint": "Použi subdoménu, ktorú ešte nepoužívaš, napríklad qr.tvojafirma.sk.",
+    "add": "Pridať doménu",
+    "stepsTitle": "Ako pripojiť doménu",
+    "step1": "Prihlás sa tam, kde spravuješ doménu (napríklad WebSupport, GoDaddy alebo Cloudflare).",
+    "step2": "Vytvor tento DNS záznam:",
+    "type": "Typ",
+    "name": "Názov",
+    "value": "Hodnota",
+    "step3": "Vráť sa a klikni na Skontrolovať. Zmena DNS môže trvať niekoľko hodín.",
+    "check": "Skontrolovať",
+    "remove": "Odstrániť doménu",
+    "active": "Aktívna",
+    "waitDns": "Čaká sa na DNS záznam",
+    "waitSsl": "DNS je v poriadku, vytvára sa bezpečnostný certifikát. Zvyčajne to trvá pár minút.",
+    "activeNote": "Tvoja doména je aktívna. Nové stiahnutia tvojich QR kódov teraz používajú {example}.",
+    "printed": "Už vytlačené kódy fungujú ďalej, aj keď doménu zmeníš alebo odstrániš.",
+    "nowActive": "Tvoja doména je aktívna.",
+    "notYet": "DNS záznam sa zatiaľ nenašiel. Skontroluj ho a skús to neskôr znova.",
+    "errHost": "Zadaj subdoménu, napríklad qr.tvojafirma.sk.",
+    "errTaken": "Túto doménu už používa iný účet.",
+    "errOther": "Niečo sa pokazilo. Skús to neskôr znova.",
+    "ph": "qr.tvojafirma.sk"
   }
 }

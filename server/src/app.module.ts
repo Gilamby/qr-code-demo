@@ -24,6 +24,7 @@ import { ContactController } from './helpers/contact.controller';
 import { TranslationsController } from './helpers/translations.controller';
 import { ShortLinksController } from './visitor/short-links.controller';
 import { HousekeepingService } from './housekeeping.service';
+import { DomainsController } from './helpers/domains.controller';
 import { ErrorFilter } from './common/http';
 
 @Module({ controllers: [QrCodesController, UploadsController, MediaController, AdminPanelController, FoldersController], providers: [QrCodesService], imports: [AuthModule] })
@@ -32,7 +33,7 @@ export class QrCodesModule {}
 @Module({ controllers: [AnalyticsController], imports: [AuthModule] })
 export class AnalyticsModule {}
 
-@Module({ controllers: [SystemController, HelpersController, ContactController, TranslationsController, UnsubscribeController], imports: [AuthModule] })
+@Module({ controllers: [SystemController, HelpersController, ContactController, TranslationsController, UnsubscribeController, DomainsController], imports: [AuthModule] })
 export class HelpersModule {}
 
 @Module({ controllers: [ShortLinksController], imports: [AuthModule] })

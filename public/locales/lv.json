@@ -2941,5 +2941,33 @@
     "sumOne": "Tas pats kods {n} reizes uz 1 lapas.",
     "make": "Izveidot PDF",
     "busy": "Veido drukas lapu…"
+  },
+  "dom": {
+    "nav": "Savs domēns",
+    "title": "Tavs domēns īsajām saitēm",
+    "lead": "Ļauj saviem QR kodiem izmantot tavu domēnu, piemēram, qr.uznemums.lv/q/… nevis my.qr-codex.com/q/…. Klienti redz tavu zīmolu, kad skenē.",
+    "host": "Apakšdomēns",
+    "hostHint": "Izmanto apakšdomēnu, ko vēl neizmanto, piemēram, qr.uznemums.lv.",
+    "add": "Pievienot domēnu",
+    "stepsTitle": "Kā pievienot savu domēnu",
+    "step1": "Pieslēdzies tur, kur pārvaldi savu domēnu (piemēram, Nic.lv, GoDaddy vai Cloudflare).",
+    "step2": "Izveido šo DNS ierakstu:",
+    "type": "Tips",
+    "name": "Nosaukums",
+    "value": "Vērtība",
+    "step3": "Atgriezies un noklikšķini Pārbaudīt. DNS izmaiņas var aizņemt dažas stundas.",
+    "check": "Pārbaudīt",
+    "remove": "Noņemt domēnu",
+    "active": "Aktīvs",
+    "waitDns": "Gaida DNS ierakstu",
+    "waitSsl": "DNS ir pareizs, tiek veidots drošības sertifikāts. Parasti tas aizņem dažas minūtes.",
+    "activeNote": "Tavs domēns ir aktīvs. Jaunās tavu QR kodu lejupielādes tagad izmanto {example}.",
+    "printed": "Jau izdrukātie kodi turpina darboties, arī ja nomaini vai noņem domēnu.",
+    "nowActive": "Tavs domēns ir aktīvs.",
+    "notYet": "DNS ieraksts vēl nav atrasts. Pārbaudi to un mēģini vēlāk vēlreiz.",
+    "errHost": "Ievadi apakšdomēnu, piemēram, qr.uznemums.lv.",
+    "errTaken": "Šo domēnu jau izmanto cits konts.",
+    "errOther": "Kaut kas nogāja greizi. Mēģini vēlāk vēlreiz.",
+    "ph": "qr.uznemums.lv"
   }
 }

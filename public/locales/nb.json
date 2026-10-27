@@ -2941,5 +2941,33 @@
     "sumOne": "Samme kode {n} ganger på 1 ark.",
     "make": "Lag PDF",
     "busy": "Lager utskriftsark…"
+  },
+  "dom": {
+    "nav": "Eget domene",
+    "title": "Ditt eget domene for korte lenker",
+    "lead": "La QR-kodene dine bruke ditt eget domene, for eksempel qr.dittfirma.no/q/… i stedet for my.qr-codex.com/q/…. Da ser kundene merkevaren din når de skanner.",
+    "host": "Underdomene",
+    "hostHint": "Bruk et underdomene du ikke bruker ennå, for eksempel qr.dittfirma.no.",
+    "add": "Legg til domene",
+    "stepsTitle": "Slik kobler du til domenet ditt",
+    "step1": "Logg inn der domenet ditt administreres (for eksempel Domeneshop, GoDaddy eller Cloudflare).",
+    "step2": "Opprett denne DNS-oppføringen:",
+    "type": "Type",
+    "name": "Navn",
+    "value": "Verdi",
+    "step3": "Kom tilbake og klikk på Sjekk. En DNS-endring kan ta noen timer.",
+    "check": "Sjekk",
+    "remove": "Fjern domene",
+    "active": "Aktiv",
+    "waitDns": "Venter på DNS-oppføringen",
+    "waitSsl": "DNS stemmer, sikkerhetssertifikatet lages. Det tar vanligvis noen minutter.",
+    "activeNote": "Domenet ditt er aktivt. Nye nedlastinger av QR-kodene dine bruker nå {example}.",
+    "printed": "Koder du allerede har skrevet ut, fungerer fortsatt, også hvis du bytter eller fjerner domenet.",
+    "nowActive": "Domenet ditt er aktivt.",
+    "notYet": "DNS-oppføringen er ikke funnet ennå. Sjekk den og prøv igjen senere.",
+    "errHost": "Skriv inn et underdomene, for eksempel qr.dittfirma.no.",
+    "errTaken": "Dette domenet brukes allerede av en annen konto.",
+    "errOther": "Noe gikk galt. Prøv igjen senere.",
+    "ph": "qr.dittfirma.no"
   }
 }

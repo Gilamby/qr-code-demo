@@ -3047,5 +3047,33 @@
     "sumOne": "I njëjti kod {n} herë në 1 fletë.",
     "make": "Krijo PDF",
     "busy": "Po krijohet fleta…"
+  },
+  "dom": {
+    "nav": "Domen i vetë",
+    "title": "Domeni yt për lidhjet e shkurtra",
+    "lead": "Bëj që kodet e tua QR të përdorin domenin tënd, p.sh. qr.kompania.al/q/… në vend të my.qr-codex.com/q/…. Klientët shohin markën tënde kur skanojnë.",
+    "host": "Nëndomen",
+    "hostHint": "Përdor një nëndomen që nuk e përdor ende, p.sh. qr.kompania.al.",
+    "add": "Shto domen",
+    "stepsTitle": "Si ta lidhësh domenin",
+    "step1": "Hyr aty ku menaxhon domenin tënd (p.sh. GoDaddy ose Cloudflare).",
+    "step2": "Krijo këtë regjistrim DNS:",
+    "type": "Lloji",
+    "name": "Emri",
+    "value": "Vlera",
+    "step3": "Kthehu dhe kliko Kontrollo. Një ndryshim DNS mund të zgjasë disa orë.",
+    "check": "Kontrollo",
+    "remove": "Hiq domenin",
+    "active": "Aktiv",
+    "waitDns": "Në pritje të regjistrimit DNS",
+    "waitSsl": "DNS është në rregull, po krijohet certifikata e sigurisë. Zakonisht zgjat pak minuta.",
+    "activeNote": "Domeni yt është aktiv. Shkarkimet e reja të kodeve të tua QR përdorin tani {example}.",
+    "printed": "Kodet që ke printuar tashmë vazhdojnë të funksionojnë, edhe nëse e ndryshon ose e heq domenin.",
+    "nowActive": "Domeni yt është aktiv.",
+    "notYet": "Regjistrimi DNS nuk është gjetur ende. Kontrolloje dhe provo sërish më vonë.",
+    "errHost": "Shkruaj një nëndomen, p.sh. qr.kompania.al.",
+    "errTaken": "Ky domen përdoret tashmë nga një llogari tjetër.",
+    "errOther": "Diçka shkoi keq. Provo sërish më vonë.",
+    "ph": "qr.kompania.al"
   }
 }

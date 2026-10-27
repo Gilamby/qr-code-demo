@@ -2986,5 +2986,33 @@
     "sumOne": "The same code {n} times on 1 sheet.",
     "make": "Create PDF",
     "busy": "Creating print sheet…"
+  },
+  "dom": {
+    "nav": "Custom domain",
+    "title": "Your own domain for short links",
+    "lead": "Let your QR codes use your own domain, for example qr.yourcompany.com/q/… instead of my.qr-codex.com/q/…. Customers see your brand when they scan.",
+    "host": "Subdomain",
+    "hostHint": "Use a subdomain you don't use yet, for example qr.yourcompany.com or scan.yourcompany.com.",
+    "add": "Add domain",
+    "stepsTitle": "How to connect your domain",
+    "step1": "Log in where your domain is managed (for example GoDaddy, Namecheap or Cloudflare).",
+    "step2": "Create this DNS record:",
+    "type": "Type",
+    "name": "Name",
+    "value": "Value",
+    "step3": "Come back and click Check. A DNS change can take up to a few hours.",
+    "check": "Check",
+    "remove": "Remove domain",
+    "active": "Active",
+    "waitDns": "Waiting for the DNS record",
+    "waitSsl": "DNS is correct, the security certificate is being created. This usually takes a few minutes.",
+    "activeNote": "Your domain is active. New downloads of your QR codes now use {example}.",
+    "printed": "Codes you have already printed keep working, also after changing or removing your domain.",
+    "nowActive": "Your domain is active.",
+    "notYet": "The DNS record hasn't been found yet. Check it and try again later.",
+    "errHost": "Enter a subdomain, for example qr.yourcompany.com.",
+    "errTaken": "This domain is already used by another account.",
+    "errOther": "Something went wrong. Please try again later.",
+    "ph": "qr.yourcompany.com"
   }
 }

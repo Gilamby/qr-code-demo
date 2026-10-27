@@ -16,6 +16,7 @@ import { DatabaseService } from '../database/database.service';
 import { LoggedIn } from '../auth/auth.guard';
 import { baseUrl, phoneReachable, isDevUrl, checkCodespaceAccess } from '../config/env';
 import { EMAIL, QR_TYPES } from '../qr-codes/validation';
+import { domainsOn } from '../domains';
 import { urlInfo } from './url-check';
 
 @Controller('api')
@@ -37,7 +38,7 @@ export class SystemController {
       // Standaard: de gegevens van OptimaSys Group Spain (zoals op optimasys.es); Beheer > Instellingen > Bedrijf of .env gaat voor
       const legal = { name: pick('name', 'LEGAL_NAME') || 'OptimaSys Group Spain', address: pick('address', 'LEGAL_ADDRESS') || 'Calle Alfredo Palma s/n, Edificio Torrevigia B3 L3, 29603 Marbella, Málaga, Spain', kvk: pick('kvk', 'LEGAL_KVK'), vat: pick('vat', 'LEGAL_VAT') || 'ESB93185981', email: pick('email', 'LEGAL_EMAIL') || 'support@optimasys.es' /* niet het inlogadres van de super-admin */, phone: pick('phone', 'LEGAL_PHONE') || '+34 952 770 306', website: pick('website', 'LEGAL_WEBSITE') || 'https://optimasys.es' };
       let maintenance = { on: false, message: '' }; try { const m = JSON.parse((await this.db.getSetting('maintenance')) || '{}'); maintenance = { on: !!m.on, message: String(m.message || '') }; } catch (e) { /* uit */ }
-      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: await signupOpen(this.db), google: googleOn(), microsoft: microsoftOn(), stripe: stripeOn(), stripePk: stripePk() || undefined, demoCheckout: demoCheckoutOn(), legal, maintenance, mail: !!process.env.SMTP_HOST };
+      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: await signupOpen(this.db), google: googleOn(), microsoft: microsoftOn(), stripe: stripeOn(), customDomains: domainsOn(), stripePk: stripePk() || undefined, demoCheckout: demoCheckoutOn(), legal, maintenance, mail: !!process.env.SMTP_HOST };
     } catch (e) { throw reply(503, { ok: false }); }
   }
 

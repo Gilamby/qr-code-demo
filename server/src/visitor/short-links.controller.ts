@@ -14,6 +14,7 @@ import { QR_TYPES } from '../qr-codes/validation';
 import { secretKey } from '../qr-codes/qr-codes.service';
 import * as rules from './rules';
 import { livePage } from './live-page';
+import { isCustomHost, ownerOfHost } from '../domains';
 import type { QrCode } from '../types';
 
 /* A/B-test: scans per versie, per code in instelling "ab:<id>" = { A, B, since }. Eén schrijver per code tegelijk. */
@@ -27,6 +28,9 @@ function countAb(db: DatabaseService, id: string, v: 'A' | 'B') {
   }).catch(() => {});
   abQueue.set(id, next); next.then(() => { if (abQueue.get(id) === next) abQueue.delete(id); });
 }
+
+/** Verzoek op een eigen domein van een klant, maar de code is van iemand anders? */
+const wrongHost = (req: Request, uid: string) => isCustomHost(req.hostname) && ownerOfHost(req.hostname) !== uid;
 
 @Controller('q')
 export class ShortLinksController {
@@ -47,7 +51,7 @@ export class ShortLinksController {
   @Get(':id/file/:key')
   async file(@Req() req: Request, @Res() res: Response, @Param('id') id: string, @Param('key') key: string, @Query('t') token: string) {
     const q = await this.db.getQrCode(id);
-    if (!q || q.paused || rules.isExpired(q) || isBlocked(q.userId)) return res.status(404).send(rules.notFoundPage(req));
+    if (!q || q.paused || rules.isExpired(q) || isBlocked(q.userId) || wrongHost(req, q.userId)) return res.status(404).send(rules.notFoundPage(req));
     const secret = secretKey(q.typeId);
     if (secret && q.content[secret] && !rules.fileTokenOk(q, key, token)) return res.status(403).send(rules.passwordPage(req, false));
     return this.sendFile(res, q, key);
@@ -57,7 +61,7 @@ export class ShortLinksController {
   @Get(':id/photo/:n')
   async photo(@Req() req: Request, @Res() res: Response, @Param('id') id: string, @Param('n') n: string) {
     const q = await this.db.getQrCode(id);
-    if (!q || q.paused || rules.isExpired(q) || isBlocked(q.userId)) return res.status(404).send(rules.notFoundPage(req));
+    if (!q || q.paused || rules.isExpired(q) || isBlocked(q.userId) || wrongHost(req, q.userId)) return res.status(404).send(rules.notFoundPage(req));
     const field = (QR_TYPES.find((t) => t.id === q.typeId)?.fields || []).find((f: any) => f.type === 'gallery');
     let list: any[] = []; try { list = field ? JSON.parse(q.content[field.key] || '[]') : []; } catch (e) { /* leeg */ }
     const x = /^\d{1,3}$/.test(n) ? list[Number(n)] : null;
@@ -82,6 +86,7 @@ export class ShortLinksController {
   }
   private async openCode(req: Request, res: Response, id: string, passwordOk: boolean) {
     const found = await this.db.getQrCode(id);
+    if (found && wrongHost(req, found.userId)) return res.status(404).send(rules.notFoundPage(req));   // eigen domein: alleen codes van die klant
     if (!found) return res.status(/^[A-Za-z0-9_-]{4,16}$/.test(id) && (await this.db.wasDeleted(id)) ? 410 : 404).send(rules.notFoundPage(req));   // 410 = verwijderd, komt niet terug
     if (isBlocked(found.userId)) return res.status(503).set('Retry-After', '3600').send(rules.inactivePage(req));   // abonnement niet betaald: niet tellen
     if (found.paused) return res.status(503).set('Retry-After', '3600').send(rules.pausedPage(req));   // tijdelijk uit: niet tellen

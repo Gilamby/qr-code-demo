@@ -2941,5 +2941,33 @@
     "sumOne": "Ten sam kod {n} razy na 1 arkuszu.",
     "make": "Utwórz PDF",
     "busy": "Tworzenie arkusza…"
+  },
+  "dom": {
+    "nav": "Własna domena",
+    "title": "Twoja własna domena dla krótkich linków",
+    "lead": "Niech Twoje kody QR używają Twojej domeny, np. qr.twojafirma.pl/q/… zamiast my.qr-codex.com/q/…. Klienci widzą Twoją markę podczas skanowania.",
+    "host": "Subdomena",
+    "hostHint": "Użyj subdomeny, której jeszcze nie używasz, np. qr.twojafirma.pl.",
+    "add": "Dodaj domenę",
+    "stepsTitle": "Jak połączyć domenę",
+    "step1": "Zaloguj się tam, gdzie zarządzasz domeną (np. OVH, home.pl lub Cloudflare).",
+    "step2": "Utwórz ten rekord DNS:",
+    "type": "Typ",
+    "name": "Nazwa",
+    "value": "Wartość",
+    "step3": "Wróć i kliknij Sprawdź. Zmiana DNS może potrwać kilka godzin.",
+    "check": "Sprawdź",
+    "remove": "Usuń domenę",
+    "active": "Aktywna",
+    "waitDns": "Czekamy na rekord DNS",
+    "waitSsl": "DNS jest poprawny, certyfikat bezpieczeństwa jest tworzony. Zwykle trwa to kilka minut.",
+    "activeNote": "Twoja domena jest aktywna. Nowe pobrania Twoich kodów QR używają teraz {example}.",
+    "printed": "Już wydrukowane kody nadal działają, także po zmianie lub usunięciu domeny.",
+    "nowActive": "Twoja domena jest aktywna.",
+    "notYet": "Rekord DNS nie został jeszcze znaleziony. Sprawdź go i spróbuj ponownie później.",
+    "errHost": "Wpisz subdomenę, np. qr.twojafirma.pl.",
+    "errTaken": "Ta domena jest już używana przez inne konto.",
+    "errOther": "Coś poszło nie tak. Spróbuj ponownie później.",
+    "ph": "qr.twojafirma.pl"
   }
 }

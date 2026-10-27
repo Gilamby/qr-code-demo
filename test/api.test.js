@@ -955,3 +955,37 @@ test('factuurgegevens: bedrijf of particulier één keer kiezen, daarna niet wis
   const r = await c('PUT', '/api/account/billing', { type: 'private', firstName: 'Tim', lastName: 'Vast', address: 'Straat 1', postalCode: '1000AA', city: 'Amsterdam', country: 'NL' });
   assert.equal(r.status, 409); assert.equal(r.json.error, 'type_locked');
 });
+
+test('eigen domein (Business): toevoegen, korte links op dat domein, alleen eigen codes op dat domein', async () => {
+  const http = require('http');
+  const get = (host, p) => new Promise((ok) => { const u = new URL(base); http.get({ host: u.hostname, port: u.port, path: p, headers: { Host: host } }, (r) => { r.resume(); ok({ status: r.statusCode, location: r.headers.location }); }); });
+  const c = client(); await signup(c, 'domein@example.com', 'Eigen domein zin 9!', 'Do');
+  delete process.env.CUSTOM_DOMAIN_TARGET;
+  assert.equal((await c('GET', '/api/account/domain')).json.available, false, 'zonder instelling: functie uit');
+  process.env.CUSTOM_DOMAIN_TARGET = 'domains.qr-codex.test';
+  const u = await db.userByEmail('domein@example.com');
+  await db.setSetting('plan:' + u.id, 'standard');
+  assert.equal((await c('POST', '/api/account/domain', { host: 'qr.voorbeeld.nl' })).status, 403, 'alleen Business');
+  await db.setSetting('plan:' + u.id, 'business');
+  assert.equal((await c('POST', '/api/account/domain', { host: 'voorbeeld.nl' })).status, 400, 'hoofddomein: nee, een subdomein');
+  const r = await c('POST', '/api/account/domain', { host: 'https://QR.Voorbeeld.nl/' });
+  assert.equal(r.status, 200); assert.equal(r.json.host, 'qr.voorbeeld.nl'); assert.equal(r.json.state, 'pending');
+  const other = client(); await signup(other, 'domein2@example.com', 'Eigen domein zin 8!', 'Do2');
+  const u2 = await db.userByEmail('domein2@example.com'); await db.setSetting('plan:' + u2.id, 'business');
+  assert.equal((await other('POST', '/api/account/domain', { host: 'qr.voorbeeld.nl' })).status, 409, 'al van een ander');
+  // DNS klopt (in de test zetten we het zelf op actief)
+  const { loadDomains } = require('../server/dist/domains');
+  const m = JSON.parse(await db.getSetting('domains')); m['qr.voorbeeld.nl'].state = 'active'; await db.setSetting('domains', JSON.stringify(m)); await loadDomains(db);
+  const mine = (await c('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://voorbeeld.nl/' } })).json;
+  assert.equal(mine.shortUrl, 'https://qr.voorbeeld.nl/q/' + mine.id, 'korte link op het eigen domein');
+  const theirs = (await other('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://ander.nl/' } })).json;
+  assert.equal((await get('qr.voorbeeld.nl', '/q/' + mine.id)).location, 'https://voorbeeld.nl/');
+  assert.equal((await get('qr.voorbeeld.nl', '/q/' + theirs.id)).status, 404, 'codes van anderen niet via dit domein');
+  assert.equal((await get('qr.voorbeeld.nl', '/api/me')).status, 404, 'geen app/API op het eigen domein');
+  assert.equal((await get('qr.voorbeeld.nl', '/')).status, 302);
+  assert.equal((await fetch(base + '/api/domains/ask?domain=qr.voorbeeld.nl')).status, 200);
+  assert.equal((await fetch(base + '/api/domains/ask?domain=onbekend.voorbeeld.nl')).status, 404);
+  assert.equal((await c('DELETE', '/api/account/domain')).status, 200);
+  assert.doesNotMatch((await c('GET', '/api/qr-codes/' + mine.id)).json.shortUrl, /voorbeeld\.nl/, 'na verwijderen weer het gewone adres');
+  delete process.env.CUSTOM_DOMAIN_TARGET;
+});

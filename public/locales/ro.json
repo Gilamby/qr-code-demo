@@ -2941,5 +2941,33 @@
     "sumOne": "Același cod de {n} ori pe 1 coală.",
     "make": "Creează PDF",
     "busy": "Se creează coala…"
+  },
+  "dom": {
+    "nav": "Domeniu propriu",
+    "title": "Domeniul tău pentru linkurile scurte",
+    "lead": "Fă ca codurile tale QR să folosească domeniul tău, de exemplu qr.firmata.ro/q/… în loc de my.qr-codex.com/q/…. Clienții îți văd marca atunci când scanează.",
+    "host": "Subdomeniu",
+    "hostHint": "Folosește un subdomeniu pe care nu îl folosești încă, de exemplu qr.firmata.ro.",
+    "add": "Adaugă domeniu",
+    "stepsTitle": "Cum îți conectezi domeniul",
+    "step1": "Conectează-te unde îți administrezi domeniul (de exemplu ROTLD, GoDaddy sau Cloudflare).",
+    "step2": "Creează această înregistrare DNS:",
+    "type": "Tip",
+    "name": "Nume",
+    "value": "Valoare",
+    "step3": "Revino și apasă pe Verifică. O modificare DNS poate dura câteva ore.",
+    "check": "Verifică",
+    "remove": "Elimină domeniul",
+    "active": "Activ",
+    "waitDns": "Se așteaptă înregistrarea DNS",
+    "waitSsl": "DNS-ul este corect, certificatul de securitate este în curs de creare. De obicei durează câteva minute.",
+    "activeNote": "Domeniul tău este activ. Descărcările noi ale codurilor tale QR folosesc acum {example}.",
+    "printed": "Codurile deja tipărite continuă să funcționeze, chiar dacă schimbi sau elimini domeniul.",
+    "nowActive": "Domeniul tău este activ.",
+    "notYet": "Înregistrarea DNS nu a fost găsită încă. Verific-o și încearcă din nou mai târziu.",
+    "errHost": "Introdu un subdomeniu, de exemplu qr.firmata.ro.",
+    "errTaken": "Acest domeniu este deja folosit de alt cont.",
+    "errOther": "Ceva nu a mers bine. Încearcă din nou mai târziu.",
+    "ph": "qr.firmata.ro"
   }
 }

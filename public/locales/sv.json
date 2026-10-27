@@ -2941,5 +2941,33 @@
     "sumOne": "Samma kod {n} gånger på 1 ark.",
     "make": "Skapa PDF",
     "busy": "Skapar utskriftsark…"
+  },
+  "dom": {
+    "nav": "Egen domän",
+    "title": "Din egen domän för korta länkar",
+    "lead": "Låt dina QR-koder använda din egen domän, till exempel qr.dittforetag.se/q/… i stället för my.qr-codex.com/q/…. Då ser kunderna ditt varumärke när de skannar.",
+    "host": "Underdomän",
+    "hostHint": "Använd en underdomän som du inte använder än, till exempel qr.dittforetag.se.",
+    "add": "Lägg till domän",
+    "stepsTitle": "Så kopplar du din domän",
+    "step1": "Logga in där din domän hanteras (till exempel Loopia, GoDaddy eller Cloudflare).",
+    "step2": "Skapa den här DNS-posten:",
+    "type": "Typ",
+    "name": "Namn",
+    "value": "Värde",
+    "step3": "Kom tillbaka och klicka på Kontrollera. En DNS-ändring kan ta några timmar.",
+    "check": "Kontrollera",
+    "remove": "Ta bort domän",
+    "active": "Aktiv",
+    "waitDns": "Väntar på DNS-posten",
+    "waitSsl": "DNS stämmer, säkerhetscertifikatet skapas. Det tar oftast några minuter.",
+    "activeNote": "Din domän är aktiv. Nya nedladdningar av dina QR-koder använder nu {example}.",
+    "printed": "Koder som du redan har skrivit ut fortsätter att fungera, även om du byter eller tar bort domänen.",
+    "nowActive": "Din domän är aktiv.",
+    "notYet": "DNS-posten hittas inte än. Kontrollera den och försök igen senare.",
+    "errHost": "Ange en underdomän, till exempel qr.dittforetag.se.",
+    "errTaken": "Den här domänen används redan av ett annat konto.",
+    "errOther": "Något gick fel. Försök igen senare.",
+    "ph": "qr.dittforetag.se"
   }
 }

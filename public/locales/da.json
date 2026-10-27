@@ -2941,5 +2941,33 @@
     "sumOne": "Den samme kode {n} gange på 1 ark.",
     "make": "Lav PDF",
     "busy": "Laver printark…"
+  },
+  "dom": {
+    "nav": "Eget domæne",
+    "title": "Dit eget domæne til korte links",
+    "lead": "Lad dine QR-koder bruge dit eget domæne, for eksempel qr.ditfirma.dk/q/… i stedet for my.qr-codex.com/q/…. Så ser kunderne dit brand, når de scanner.",
+    "host": "Underdomæne",
+    "hostHint": "Brug et underdomæne, du ikke bruger endnu, for eksempel qr.ditfirma.dk.",
+    "add": "Tilføj domæne",
+    "stepsTitle": "Sådan forbinder du dit domæne",
+    "step1": "Log ind, hvor dit domæne administreres (for eksempel Simply, GoDaddy eller Cloudflare).",
+    "step2": "Opret denne DNS-post:",
+    "type": "Type",
+    "name": "Navn",
+    "value": "Værdi",
+    "step3": "Kom tilbage og klik på Tjek. En DNS-ændring kan tage et par timer.",
+    "check": "Tjek",
+    "remove": "Fjern domæne",
+    "active": "Aktiv",
+    "waitDns": "Venter på DNS-posten",
+    "waitSsl": "DNS er korrekt, sikkerhedscertifikatet oprettes. Det tager normalt et par minutter.",
+    "activeNote": "Dit domæne er aktivt. Nye downloads af dine QR-koder bruger nu {example}.",
+    "printed": "Koder, du allerede har printet, virker stadig, også hvis du skifter eller fjerner dit domæne.",
+    "nowActive": "Dit domæne er aktivt.",
+    "notYet": "DNS-posten er ikke fundet endnu. Tjek den og prøv igen senere.",
+    "errHost": "Skriv et underdomæne, for eksempel qr.ditfirma.dk.",
+    "errTaken": "Dette domæne bruges allerede af en anden konto.",
+    "errOther": "Noget gik galt. Prøv igen senere.",
+    "ph": "qr.ditfirma.dk"
   }
 }

@@ -2986,5 +2986,33 @@
     "sumOne": "{n} keer dezelfde code op 1 vel.",
     "make": "PDF maken",
     "busy": "Printvel wordt gemaakt…"
+  },
+  "dom": {
+    "nav": "Eigen domein",
+    "title": "Eigen domein voor je korte links",
+    "lead": "Laat je QR-codes naar je eigen domein wijzen, bijvoorbeeld qr.jouwbedrijf.nl/q/… in plaats van my.qr-codex.com/q/…. Zo zien klanten je eigen merk als ze scannen.",
+    "host": "Subdomein",
+    "hostHint": "Gebruik een subdomein dat je nog niet gebruikt, bijvoorbeeld qr.jouwbedrijf.nl of scan.jouwbedrijf.nl.",
+    "add": "Domein toevoegen",
+    "stepsTitle": "Zo koppel je je domein",
+    "step1": "Log in bij de plek waar je domein staat (bijvoorbeeld TransIP, GoDaddy of Cloudflare).",
+    "step2": "Maak dit DNS-record aan:",
+    "type": "Type",
+    "name": "Naam",
+    "value": "Waarde",
+    "step3": "Kom terug en klik op Controleren. Een DNS-wijziging kan tot een paar uur duren.",
+    "check": "Controleren",
+    "remove": "Domein verwijderen",
+    "active": "Actief",
+    "waitDns": "Wacht op het DNS-record",
+    "waitSsl": "DNS klopt, het beveiligingscertificaat wordt aangemaakt. Dat duurt meestal een paar minuten.",
+    "activeNote": "Je domein is actief. Nieuwe downloads van je QR-codes gebruiken nu {example}.",
+    "printed": "Codes die je al hebt geprint blijven werken, ook na het wisselen of verwijderen van je domein.",
+    "nowActive": "Je domein is actief.",
+    "notYet": "Het DNS-record is nog niet gevonden. Controleer het en probeer het later opnieuw.",
+    "errHost": "Vul een subdomein in, bijvoorbeeld qr.jouwbedrijf.nl.",
+    "errTaken": "Dit domein is al in gebruik bij een ander account.",
+    "errOther": "Er ging iets mis. Probeer het later opnieuw.",
+    "ph": "qr.jouwbedrijf.nl"
   }
 }

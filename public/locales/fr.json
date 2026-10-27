@@ -2947,5 +2947,33 @@
     "sumOne": "Le même code {n} fois sur 1 feuille.",
     "make": "Créer le PDF",
     "busy": "Création de la planche…"
+  },
+  "dom": {
+    "nav": "Domaine personnalisé",
+    "title": "Ton propre domaine pour les liens courts",
+    "lead": "Fais utiliser ton propre domaine à tes codes QR, par exemple qr.tonentreprise.fr/q/… au lieu de my.qr-codex.com/q/…. Tes clients voient ta marque en scannant.",
+    "host": "Sous-domaine",
+    "hostHint": "Utilise un sous-domaine que tu n'utilises pas encore, par exemple qr.tonentreprise.fr ou scan.tonentreprise.fr.",
+    "add": "Ajouter le domaine",
+    "stepsTitle": "Comment connecter ton domaine",
+    "step1": "Connecte-toi là où ton domaine est géré (par exemple OVH, GoDaddy ou Cloudflare).",
+    "step2": "Crée cet enregistrement DNS :",
+    "type": "Type",
+    "name": "Nom",
+    "value": "Valeur",
+    "step3": "Reviens et clique sur Vérifier. Un changement DNS peut prendre quelques heures.",
+    "check": "Vérifier",
+    "remove": "Supprimer le domaine",
+    "active": "Actif",
+    "waitDns": "En attente de l'enregistrement DNS",
+    "waitSsl": "Le DNS est correct, le certificat de sécurité est en cours de création. Cela prend généralement quelques minutes.",
+    "activeNote": "Ton domaine est actif. Les nouveaux téléchargements de tes codes QR utilisent maintenant {example}.",
+    "printed": "Les codes déjà imprimés continuent de fonctionner, même si tu changes ou supprimes ton domaine.",
+    "nowActive": "Ton domaine est actif.",
+    "notYet": "L'enregistrement DNS n'est pas encore trouvé. Vérifie-le et réessaie plus tard.",
+    "errHost": "Saisis un sous-domaine, par exemple qr.tonentreprise.fr.",
+    "errTaken": "Ce domaine est déjà utilisé par un autre compte.",
+    "errOther": "Une erreur s'est produite. Réessaie plus tard.",
+    "ph": "qr.tonentreprise.fr"
   }
 }

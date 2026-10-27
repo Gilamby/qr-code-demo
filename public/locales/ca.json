@@ -2941,5 +2941,33 @@
     "sumOne": "El mateix codi {n} vegades en 1 full.",
     "make": "Crea el PDF",
     "busy": "Creant el full…"
+  },
+  "dom": {
+    "nav": "Domini propi",
+    "title": "El teu domini per als enllaços curts",
+    "lead": "Fes que els teus codis QR facin servir el teu domini, per exemple qr.lateva-empresa.cat/q/… en lloc de my.qr-codex.com/q/…. Així els clients veuen la teva marca en escanejar.",
+    "host": "Subdomini",
+    "hostHint": "Fes servir un subdomini que encara no utilitzis, per exemple qr.lateva-empresa.cat.",
+    "add": "Afegir domini",
+    "stepsTitle": "Com connectar el teu domini",
+    "step1": "Entra on gestiones el teu domini (per exemple IONOS, GoDaddy o Cloudflare).",
+    "step2": "Crea aquest registre DNS:",
+    "type": "Tipus",
+    "name": "Nom",
+    "value": "Valor",
+    "step3": "Torna i fes clic a Comprovar. Un canvi de DNS pot trigar unes hores.",
+    "check": "Comprovar",
+    "remove": "Eliminar domini",
+    "active": "Actiu",
+    "waitDns": "Esperant el registre DNS",
+    "waitSsl": "El DNS és correcte, s'està creant el certificat de seguretat. Sol trigar uns minuts.",
+    "activeNote": "El teu domini està actiu. Les noves descàrregues dels teus codis QR fan servir ara {example}.",
+    "printed": "Els codis que ja has imprès continuen funcionant, també si canvies o elimines el domini.",
+    "nowActive": "El teu domini està actiu.",
+    "notYet": "Encara no es troba el registre DNS. Revisa'l i torna-ho a provar més tard.",
+    "errHost": "Escriu un subdomini, per exemple qr.lateva-empresa.cat.",
+    "errTaken": "Aquest domini ja el fa servir un altre compte.",
+    "errOther": "Alguna cosa ha anat malament. Torna-ho a provar més tard.",
+    "ph": "qr.lateva-empresa.cat"
   }
 }

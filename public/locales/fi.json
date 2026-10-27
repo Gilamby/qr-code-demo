@@ -2941,5 +2941,33 @@
     "sumOne": "Sama koodi {n} kertaa yhdellä arkilla.",
     "make": "Luo PDF",
     "busy": "Luodaan tulostusarkkia…"
+  },
+  "dom": {
+    "nav": "Oma verkkotunnus",
+    "title": "Oma verkkotunnus lyhytlinkeille",
+    "lead": "Anna QR-koodiesi käyttää omaa verkkotunnustasi, esimerkiksi qr.yrityksesi.fi/q/… eikä my.qr-codex.com/q/…. Asiakkaat näkevät brändisi skannatessaan.",
+    "host": "Aliverkkotunnus",
+    "hostHint": "Käytä aliverkkotunnusta, jota et vielä käytä, esimerkiksi qr.yrityksesi.fi.",
+    "add": "Lisää verkkotunnus",
+    "stepsTitle": "Näin yhdistät verkkotunnuksesi",
+    "step1": "Kirjaudu palveluun, jossa verkkotunnustasi hallitaan (esimerkiksi Zoner, GoDaddy tai Cloudflare).",
+    "step2": "Luo tämä DNS-tietue:",
+    "type": "Tyyppi",
+    "name": "Nimi",
+    "value": "Arvo",
+    "step3": "Palaa ja napsauta Tarkista. DNS-muutos voi kestää muutaman tunnin.",
+    "check": "Tarkista",
+    "remove": "Poista verkkotunnus",
+    "active": "Aktiivinen",
+    "waitDns": "Odotetaan DNS-tietuetta",
+    "waitSsl": "DNS on kunnossa, tietoturvavarmennetta luodaan. Se kestää yleensä muutaman minuutin.",
+    "activeNote": "Verkkotunnuksesi on aktiivinen. QR-koodiesi uudet lataukset käyttävät nyt osoitetta {example}.",
+    "printed": "Jo tulostetut koodit toimivat edelleen, vaikka vaihtaisit tai poistaisit verkkotunnuksen.",
+    "nowActive": "Verkkotunnuksesi on aktiivinen.",
+    "notYet": "DNS-tietuetta ei vielä löydy. Tarkista se ja yritä myöhemmin uudelleen.",
+    "errHost": "Kirjoita aliverkkotunnus, esimerkiksi qr.yrityksesi.fi.",
+    "errTaken": "Tämä verkkotunnus on jo toisen tilin käytössä.",
+    "errOther": "Jokin meni vikaan. Yritä myöhemmin uudelleen.",
+    "ph": "qr.yrityksesi.fi"
   }
 }

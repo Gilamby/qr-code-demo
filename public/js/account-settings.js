@@ -195,11 +195,12 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     'delete': '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     x: '<path d="M6 6l12 12M18 6L6 18"/>',
     api: '<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5.5l-3 13"/>',
+    domain: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
     team: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.3.2 3.9 1.8 4.5 4.8"/>'
   };
   var GROUPS = [
     ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
-    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav']]],
+    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav'], ['domain', 'dom.nav']]],
     ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
   ];
   var ALL_TABS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
@@ -207,7 +208,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
   function isMember() { return !!(window.Team && Team.member()); }
-  function shown(id) { return (id !== 'delete' || canDelete()) && !((isMember() || (user && user.admin)) && (id === 'billing' || id === 'plan' || id === 'api')) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html). Admins (Optimasys-team) zijn gratis: geen facturen, pakket, API of team
+  function shown(id) { return (id !== 'delete' || canDelete()) && !((isMember() || (user && user.admin)) && (id === 'billing' || id === 'plan' || id === 'api')) && !(id === 'domain' && (!(api.info && api.info().customDomains) || isMember() || (user && user.admin))) && !(id === 'team' && (user && user.admin || !window.Team)); }   // Team: altijd zichtbaar; bij Standard met een slotje (Team.html). Admins (Optimasys-team) zijn gratis: geen facturen, pakket, API of team
   function tabIds() { return ALL_TABS.filter(shown); }
   var BILLING_KEYS = ['companyName', 'taxId', 'firstName', 'lastName', 'email', 'address', 'postalCode', 'city', 'country'];
 
@@ -498,6 +499,39 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   /* ---------- API (Business): sleutels maken en intrekken, korte uitleg met voorbeelden ---------- */
   var apiInfo = null, apiNew = null, apiErr = '';
   function loadApi() { api.account.apiKeys().then(function (r) { apiInfo = r; if (tab === 'api') draw(); }, function () { apiInfo = { error: true }; if (tab === 'api') draw(); }); }
+  /* ---------- Eigen domein (Business): korte links op je eigen domein ---------- */
+  var domInfo = null, domMsg = null, domBusy = false;
+  function loadDom() { api.account.domain().then(function (r) { domInfo = r; if (tab === 'domain') draw(); }, function () { domInfo = { loadFailed: true }; if (tab === 'domain') draw(); }); }
+  function domPanel() {
+    var head = '<h2>' + t('dom.title') + '</h2><p>' + t('dom.lead') + '</p>';
+    if (!domInfo) return '<div class="glass bg-card acct">' + head + '<p class="acct-note">' + t('plan.loading') + '</p></div>';
+    if (domInfo.loadFailed) return '<div class="glass bg-card acct">' + head + '<p class="acct-msg bad" role="alert">' + esc(t('dom.errOther')) + '</p></div>';
+    if (!domInfo.allowed) return '<div class="glass bg-card acct api-lock">' + head +
+      '<button type="button" class="btn primary" data-gate-open="business" data-gate-reason="domain">' + PlanGate.lock + ' ' + esc(t('pw.upgradeTo', { plan: t('plan.n_business') })) + '</button></div>';
+    var msg = domMsg ? '<p class="acct-msg ' + (domMsg[1] || '') + '" role="status">' + esc(domMsg[0]) + '</p>' : '';
+    if (!domInfo.host) return '<div class="glass bg-card acct">' + head +
+      '<form data-dom-form class="dom-form"><label class="auth-f"><span>' + t('dom.host') + '</span><span class="auth-in"><input name="host" placeholder="' + esc(t('dom.ph')) + '" spellcheck="false" autocomplete="off" maxlength="200" required></span></label>' +
+      '<p class="acct-note">' + t('dom.hostHint') + '</p>' + msg + '<button type="submit" class="btn primary"' + (domBusy ? ' disabled' : '') + '>' + t('dom.add') + '</button></form></div>';
+    var on = domInfo.state === 'active';
+    return '<div class="glass bg-card acct">' + head +
+      '<div class="dom-status ' + (on ? 'ok' : 'wait') + '"><b>' + esc(domInfo.host) + '</b><span>' + esc(t(on ? 'dom.active' : domInfo.error === 'ssl' ? 'dom.waitSsl' : 'dom.waitDns')) + '</span></div>' +
+      (on ? '<p class="acct-note">' + esc(t('dom.activeNote', { example: 'https://' + domInfo.host + '/q/abc123' })) + '</p>'
+        : '<h3 class="dom-h">' + t('dom.stepsTitle') + '</h3><ol class="dom-steps"><li>' + t('dom.step1') + '</li><li>' + t('dom.step2') + '<div class="dom-rec"><span>' + t('dom.type') + '</span><code>CNAME</code><span>' + t('dom.name') + '</span><code>' + esc(domInfo.host) + '</code><span>' + t('dom.value') + '</span><code>' + esc(domInfo.target) + '</code></div></li><li>' + t('dom.step3') + '</li></ol>') +
+      msg + '<div class="dom-acts">' + (on ? '' : '<button type="button" class="btn primary" data-dom="check"' + (domBusy ? ' disabled' : '') + '>' + t('dom.check') + '</button>') +
+      '<button type="button" class="btn ghost danger-ghost" data-dom="remove"' + (domBusy ? ' disabled' : '') + '>' + t('dom.remove') + '</button></div>' +
+      '<p class="acct-note">' + t('dom.printed') + '</p></div>';
+  }
+  function domErr(x) { var c = x && x.code; return t(c === 'host' ? 'dom.errHost' : c === 'taken' ? 'dom.errTaken' : c === 'too_many' ? 'auth.errTooMany' : 'dom.errOther'); }
+  box.addEventListener('submit', function (e) {
+    var f = e.target.closest('[data-dom-form]'); if (!f) return; e.preventDefault(); domBusy = true; domMsg = null; draw();
+    api.account.domainAdd({ host: f.host.value }).then(function () { domBusy = false; loadDom(); }, function (x) { domBusy = false; domMsg = [domErr(x), 'bad']; draw(); });
+  });
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-dom]'); if (!b) return; var a = b.getAttribute('data-dom'); domBusy = true; domMsg = null; draw();
+    if (a === 'check') api.account.domainCheck().then(function (r) { domBusy = false; domInfo = Object.assign({}, domInfo, r); domMsg = r.state === 'active' ? [t('dom.nowActive'), 'ok'] : [t(r.error === 'ssl' ? 'dom.waitSsl' : 'dom.notYet'), '']; draw(); }, function (x) { domBusy = false; domMsg = [domErr(x), 'bad']; draw(); });
+    if (a === 'remove') api.account.domainRemove().then(function () { domBusy = false; loadDom(); }, function (x) { domBusy = false; domMsg = [domErr(x), 'bad']; draw(); });
+  });
+
   function apiPanel() {
     if (!apiInfo) return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p class="acct-note">' + t('plan.loading') + '</p></div>';
     if (apiInfo.error) return '<div class="glass bg-card acct"><h2>' + t('api.title') + '</h2><p class="acct-msg bad" role="alert">' + t('plan.loadError') + '</p></div>';
@@ -735,6 +769,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (tab === 'billing') return billingPanel(m);
     if (tab === 'plan') return planPanel();
     if (tab === 'api') return apiPanel();
+    if (tab === 'domain') return domPanel();
     if (tab === 'team') return window.Team ? Team.html() : '';
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
       '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + SVG + ICON.download + '</svg>' + t('acct.download') + '</button></div>' + note('export') + '</div>' + dangerCard(m);
@@ -766,7 +801,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function open(id, focus) {
     if (!shown(id)) id = 'profile';
     if (id === 'team' && window.Team) Team.ensure();
-    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; pmInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); }
+    tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; pmInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); } if (id === 'domain') { domInfo = null; domMsg = null; loadDom(); }
     if (id === 'billing' && billingLoaded) draft = startDraft();
     draw();
     document.dispatchEvent(new CustomEvent('accounttab', { detail: id }));   // adresbalk bijwerken (#/account/…)
