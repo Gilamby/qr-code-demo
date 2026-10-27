@@ -120,6 +120,10 @@
     "event": {
       "name": "Podujatie",
       "desc": "Dátum, miesto a pridanie do kalendára"
+    },
+    "feedback": {
+      "name": "Spätná väzba",
+      "desc": "Opýtajte sa hostí na názor"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Trasa",
       "more": "Vstupenky a info",
       "allDay": "Celý deň"
+    },
+    "feedback": {
+      "stars": "{n} hviezdičiek",
+      "comment": "Ešte niečo? (voliteľné)",
+      "commentPh": "Čo bolo dobré, čo sa dá zlepšiť?",
+      "email": "Váš e-mail (voliteľné)",
+      "consent": "{name} mi môže napísať k mojej spätnej väzbe.",
+      "send": "Odoslať",
+      "note": "Anonymne, ak nezanecháte e-mail.",
+      "review": "Napíšte aj Google recenziu",
+      "needStars": "Najprv ťuknite na hviezdičky.",
+      "needConsent": "Zaškrtnite políčko na zdieľanie e-mailu.",
+      "tooMany": "Príliš veľa správ. Skúste to neskôr.",
+      "failed": "Odoslanie zlyhalo. Skúste znova."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Čas konca",
     "eventPlace": "Miesto",
     "eventUrl": "Vstupenky alebo viac info",
-    "route": "Inteligentné presmerovanie"
+    "route": "Inteligentné presmerovanie",
+    "logo": "Logo",
+    "fbName": "Názov firmy",
+    "fbQuestion": "Otázka",
+    "fbAskEmail": "Žiadať e-mail (voliteľné)",
+    "fbThanks": "Poďakovanie",
+    "fbReview": "Odkaz na Google recenziu"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -655,7 +679,9 @@
     "reviewName": "Zobrazí sa v náhľade a pomôže vám kód rozpoznať.",
     "eventEnd": "Pri jednodňovom podujatí nechajte prázdne.",
     "eventUrl": "Napríklad váš predaj vstupeniek alebo web.",
-    "route": "Posielajte skenujúcich na iný odkaz podľa jazyka telefónu, krajiny, času alebo zariadenia. O tom, kto skenuje, sa nič neukladá."
+    "route": "Posielajte skenujúcich na iný odkaz podľa jazyka telefónu, krajiny, času alebo zariadenia. O tom, kto skenuje, sa nič neukladá.",
+    "fbAskEmail": "Návštevníci môžu zanechať e-mail, aby ste mohli odpovedať. Len s ich súhlasom.",
+    "fbReview": "Po 4 alebo 5 hviezdičkách ich požiadame aj o verejnú recenziu tu."
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://tvojarestauracia.sk/menu",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Letný jazzový večer",
-    "eventDesc": "Živá hudba na terase s tapas a nápojmi. Vstup voľný."
+    "eventDesc": "Živá hudba na terase s tapas a nápojmi. Vstup voľný.",
+    "fbQuestion": "Aká bola vaša návšteva?",
+    "fbThanks": "Ďakujeme za spätnú väzbu!"
   },
   "visit": {
     "locked": "Táto stránka je chránená",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Táto adresa nie je povolená (interná sieť).",
     "errEvents": "Vyberte aspoň jednu udalosť.",
     "errMax": "Dosiahli ste maximálny počet webhookov."
+  },
+  "fb": {
+    "menu": "Odpovede",
+    "title": "Odpovede pre „{name}“",
+    "none": "Zatiaľ žiadne odpovede. Zobrazia sa tu, keď niekto pošle spätnú väzbu.",
+    "count": "{n} odpovedí",
+    "csv": "Stiahnuť CSV",
+    "delete": "Vymazať odpoveď",
+    "deleteConfirm": "Natrvalo vymazať túto odpoveď?"
   }
 }

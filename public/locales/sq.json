@@ -120,6 +120,10 @@
     "event": {
       "name": "Event",
       "desc": "Data, vendi dhe shto në kalendar"
+    },
+    "feedback": {
+      "name": "Komente",
+      "desc": "Pyetni klientët çfarë mendojnë"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Udhëzime",
       "more": "Bileta dhe info",
       "allDay": "Gjithë ditën"
+    },
+    "feedback": {
+      "stars": "{n} yje",
+      "comment": "Diçka për të shtuar? (opsionale)",
+      "commentPh": "Çfarë shkoi mirë, çfarë mund të përmirësohet?",
+      "email": "Email-i juaj (opsional)",
+      "consent": "{name} mund të më shkruajë për komentin tim.",
+      "send": "Dërgo",
+      "note": "Anonim, përveç nëse lini email-in.",
+      "review": "Lini edhe një vlerësim në Google",
+      "needStars": "Prekni fillimisht yjet.",
+      "needConsent": "Shënoni kutinë për të ndarë email-in.",
+      "tooMany": "Shumë mesazhe. Provoni më vonë.",
+      "failed": "Dërgimi dështoi. Provoni përsëri."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Ora e mbarimit",
     "eventPlace": "Vendndodhja",
     "eventUrl": "Bileta ose më shumë info",
-    "route": "Ridrejtim i zgjuar"
+    "route": "Ridrejtim i zgjuar",
+    "logo": "Logo",
+    "fbName": "Emri i biznesit",
+    "fbQuestion": "Pyetja",
+    "fbAskEmail": "Kërko email (opsionale)",
+    "fbThanks": "Mesazh falënderimi",
+    "fbReview": "Lidhja e vlerësimit në Google"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -655,7 +679,9 @@
     "reviewName": "Shfaqet në pamjen paraprake dhe ju ndihmon ta njihni kodin.",
     "eventEnd": "Lëreni bosh për një event njëditor.",
     "eventUrl": "Për shembull dyqani i biletave ose faqja juaj.",
-    "route": "Dërgojini skanuesit te një lidhje tjetër sipas gjuhës së telefonit, vendit, orës ose pajisjes. Nuk ruhet asgjë për ata që skanojnë."
+    "route": "Dërgojini skanuesit te një lidhje tjetër sipas gjuhës së telefonit, vendit, orës ose pajisjes. Nuk ruhet asgjë për ata që skanojnë.",
+    "fbAskEmail": "Vizitorët mund të lënë email-in që t’u përgjigjeni. Vetëm me pëlqimin e tyre.",
+    "fbReview": "Pas 4 ose 5 yjeve, i ftojmë të lënë edhe një vlerësim publik këtu."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://restoranti-yt.al/menu",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Mbrëmje vere me xhaz",
-    "eventDesc": "Muzikë live në tarracë me tapas dhe pije. Hyrja falas."
+    "eventDesc": "Muzikë live në tarracë me tapas dhe pije. Hyrja falas.",
+    "fbQuestion": "Si ishte vizita juaj?",
+    "fbThanks": "Faleminderit për komentin!"
   },
   "fmt": {
     "months": [
@@ -3368,5 +3396,14 @@
     "errPrivate": "Kjo adresë nuk lejohet (rrjet i brendshëm).",
     "errEvents": "Zgjidhni të paktën një ngjarje.",
     "errMax": "Keni arritur numrin maksimal të webhooks."
+  },
+  "fb": {
+    "menu": "Përgjigjet",
+    "title": "Përgjigjet për “{name}”",
+    "none": "Ende pa përgjigje. Do të shfaqen këtu sapo dikush të dërgojë koment.",
+    "count": "{n} përgjigje",
+    "csv": "Shkarko CSV",
+    "delete": "Fshi përgjigjen",
+    "deleteConfirm": "Ta fshij përgjithmonë këtë përgjigje?"
   }
 }

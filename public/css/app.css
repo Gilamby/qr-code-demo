@@ -5607,3 +5607,46 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .wh-ev { border: 0; padding: 0; margin: 4px 0 12px; display: flex; flex-wrap: wrap; gap: 16px; }
 .wh-ev legend { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; padding: 0; }
 .wh-ev label { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+
+/* Feedback (phone-templates.js + live.js) */
+.ph-fb { background: color-mix(in srgb, var(--pc, #0e9f6e) 7%, #fff); color: #0f172a; min-height: 100%; }
+.fb-form, .fb-done { padding: 14px 18px 22px; display: flex; flex-direction: column; gap: 12px; }
+.fb-head { display: flex; align-items: center; gap: 10px; }
+.fb-logo { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; flex: none; }
+.fb-ini { display: grid; place-items: center; background: var(--pc, #0e9f6e); color: var(--pc-ink, #fff); font-weight: 800; font-size: 15px; }
+.fb-head b { font-size: 15px; }
+.fb-q { margin: 6px 0 0; font-size: 20px; line-height: 1.25; font-weight: 800; letter-spacing: -.01em; }
+.fb-stars { display: flex; gap: 6px; }
+.fb-star { width: 44px; height: 44px; padding: 6px; border: 0; border-radius: 12px; background: #fff; color: #cbd5e1; cursor: pointer; box-shadow: 0 1px 2px rgba(15,23,42,.08); }
+.fb-star svg { width: 100%; height: 100%; fill: currentColor; stroke: none; }
+.fb-star.on { color: #f5b301; }
+.fb-lbl { display: grid; gap: 5px; font-size: 13px; font-weight: 700; color: #475569; }
+.fb-text, .fb-email { width: 100%; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 12px; padding: 10px 12px; font: inherit; font-size: 15px; font-weight: 400; color: #0f172a; background: #fff; resize: none; }
+.fb-consent { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: #475569; line-height: 1.4; }
+.fb-consent input { margin-top: 2px; }
+.fb-send, .fb-review { height: 48px; border: 0; border-radius: 12px; background: var(--pc, #0e9f6e); color: var(--pc-ink, #fff); font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.fb-send:disabled { opacity: .6; }
+.fb-err { margin: 0; color: #b42318; font-size: 13px; font-weight: 600; }
+.fb-note { margin: 0; font-size: 11.5px; color: #64748b; text-align: center; }
+.fb-done { align-items: center; text-align: center; padding-top: 60px; }
+.fb-done h4 { margin: 0; font-size: 20px; font-weight: 800; }
+.fb-check { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--pc, #0e9f6e); color: #fff; }
+.fb-check svg { width: 30px; height: 30px; fill: currentColor; stroke: none; }
+.fb-review { width: 100%; background: #fff; color: #0f172a; border: 1px solid #cbd5e1; }
+.fb-done[hidden], .fb-form[hidden], .fb-review[hidden], .fb-err[hidden] { display: none; }
+
+/* Feedback-antwoorden (my-codes.js) */
+.mc-dialog:has(.fbx-dlg) { width: min(560px, calc(100vw - 24px)); }
+.fbx { max-height: 60vh; overflow-y: auto; text-align: left; margin: 8px 0 4px; }
+.fbx-sum { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px; align-items: center; padding: 6px 2px 14px; border-bottom: 1px solid var(--line); }
+.fbx-avg { display: grid; justify-items: center; gap: 2px; }
+.fbx-avg b { font-size: 34px; font-weight: 800; line-height: 1; }
+.fbx-avg small { color: var(--muted); font-size: 12.5px; }
+.fbx-stars { color: #f5b301; letter-spacing: 1px; font-size: 14px; } .fbx-stars i { color: var(--line-strong); font-style: normal; }
+.fbx-dist { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 12.5px; color: var(--muted); }
+.fbx-dist li { display: grid; grid-template-columns: 26px minmax(0, 1fr) 28px; gap: 8px; align-items: center; }
+.fbx-dist i { height: 8px; border-radius: 4px; background: var(--hover); overflow: hidden; } .fbx-dist em { display: block; height: 100%; background: #f5b301; border-radius: 4px; }
+.fbx-list { list-style: none; margin: 0; padding: 0; }
+.fbx-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; padding: 12px 2px; border-bottom: 1px solid var(--line); }
+.fbx-list small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.fbx-list p { margin: 6px 0 0; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -120,6 +120,10 @@
     "event": {
       "name": "Begivenhed",
       "desc": "Dato, sted og tilføj til kalender"
+    },
+    "feedback": {
+      "name": "Feedback",
+      "desc": "Spørg, hvad gæsterne synes"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Rutevejledning",
       "more": "Billetter og info",
       "allDay": "Hele dagen"
+    },
+    "feedback": {
+      "stars": "{n} stjerner",
+      "comment": "Noget at tilføje? (valgfrit)",
+      "commentPh": "Hvad gik godt, hvad kan blive bedre?",
+      "email": "Din e-mail (valgfri)",
+      "consent": "{name} må skrive til mig om min feedback.",
+      "send": "Send",
+      "note": "Anonymt, medmindre du efterlader din e-mail.",
+      "review": "Skriv også en Google-anmeldelse",
+      "needStars": "Tryk først på stjernerne.",
+      "needConsent": "Sæt flueben for at dele din e-mail.",
+      "tooMany": "For mange beskeder. Prøv igen senere.",
+      "failed": "Kunne ikke sende. Prøv igen."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Sluttid",
     "eventPlace": "Sted",
     "eventUrl": "Billetter eller mere info",
-    "route": "Smart viderestilling"
+    "route": "Smart viderestilling",
+    "logo": "Logo",
+    "fbName": "Virksomhedsnavn",
+    "fbQuestion": "Spørgsmål",
+    "fbAskEmail": "Bed om en e-mailadresse (valgfrit)",
+    "fbThanks": "Taktekst",
+    "fbReview": "Link til Google-anmeldelse"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -655,7 +679,9 @@
     "reviewName": "Vises i forhåndsvisningen og hjælper dig med at genkende koden.",
     "eventEnd": "Lad stå tom ved en endagsbegivenhed.",
     "eventUrl": "For eksempel din billetshop eller dit website.",
-    "route": "Send scannere til et andet link afhængigt af telefonens sprog, land, tidspunkt eller enhed. Der gemmes intet om, hvem der scanner."
+    "route": "Send scannere til et andet link afhængigt af telefonens sprog, land, tidspunkt eller enhed. Der gemmes intet om, hvem der scanner.",
+    "fbAskEmail": "Besøgende kan efterlade deres e-mail, så du kan svare. Kun med samtykke.",
+    "fbReview": "Efter 4 eller 5 stjerner beder vi om også at skrive en offentlig anmeldelse her."
   },
   "more": {
     "title": "Flere muligheder",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://dinrestaurant.dk/menu",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Sommerjazzaften",
-    "eventDesc": "Livemusik på terrassen med tapas og drinks. Gratis adgang."
+    "eventDesc": "Livemusik på terrassen med tapas og drinks. Gratis adgang.",
+    "fbQuestion": "Hvordan var dit besøg?",
+    "fbThanks": "Tak for din feedback!"
   },
   "visit": {
     "locked": "Denne side er beskyttet",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Denne adresse er ikke tilladt (internt netværk).",
     "errEvents": "Vælg mindst én hændelse.",
     "errMax": "Du har nået det maksimale antal webhooks."
+  },
+  "fb": {
+    "menu": "Svar",
+    "title": "Svar for “{name}”",
+    "none": "Ingen svar endnu. De vises her, så snart nogen sender feedback.",
+    "count": "{n} svar",
+    "csv": "Download CSV",
+    "delete": "Slet svar",
+    "deleteConfirm": "Slet dette svar for altid?"
   }
 }

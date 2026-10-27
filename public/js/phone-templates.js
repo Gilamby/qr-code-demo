@@ -509,6 +509,23 @@ var PHONE = (function () {
       '</div>';
     },
 
+    /* ---------- Feedback: sterren, opmerking, eventueel e-mail (met toestemming) ---------- */
+    feedback: function (c, ex) {
+      var name = c.title || (ex ? t('sample.bizName') : ''), q = c.question || t('sample.fbQuestion');
+      var stars = [1, 2, 3, 4, 5].map(function (i) { return '<button type="button" class="fb-star' + (ex && i <= 4 ? ' on' : '') + '" data-n="' + i + '" aria-label="' + esc(t('pv.feedback.stars', { n: i })) + '">' + ic('star') + '</button>'; }).join('');
+      return '<div class="ph ph-fb">' + statusBar() +
+        '<div class="fb-form"><div class="fb-head">' + (c.logo ? '<img class="fb-logo" src="' + c.logo + '" alt="">' : '<span class="fb-logo fb-ini">' + esc(initials(name) || '★') + '</span>') + '<b>' + v(name, '50%') + '</b></div>' +
+          '<h4 class="fb-q">' + esc(q) + '</h4><div class="fb-stars" role="radiogroup" aria-label="' + esc(q) + '">' + stars + '</div>' +
+          '<label class="fb-lbl"><span>' + esc(t('pv.feedback.comment')) + '</span><textarea class="fb-text" rows="3" maxlength="1000" placeholder="' + esc(t('pv.feedback.commentPh')) + '"></textarea></label>' +
+          (c.askEmail ? '<label class="fb-lbl"><span>' + esc(t('pv.feedback.email')) + '</span><input class="fb-email" type="email" maxlength="200" autocomplete="email" placeholder="name@example.com"></label>' +
+            '<label class="fb-consent"><input type="checkbox" class="fb-ok"><span>' + esc(t('pv.feedback.consent', { name: name || 'QR-Codex' })) + '</span></label>' : '') +
+          '<button type="button" class="fb-send">' + esc(t('pv.feedback.send')) + '</button><p class="fb-err" hidden></p>' +
+          '<p class="fb-note">' + esc(t('pv.feedback.note')) + '</p></div>' +
+        '<div class="fb-done" hidden><span class="fb-check">' + ic('star') + '</span><h4>' + esc(c.thanks || t('sample.fbThanks')) + '</h4>' +
+          (c.reviewUrl ? '<button type="button" class="fb-review" hidden>' + esc(t('pv.feedback.review')) + '</button>' : '') + '</div>' +
+      '</div>';
+    },
+
     /* ---------- Evenement: datum, tijd, plaats en "Zet in agenda" ---------- */
     event: function (c, ex) {
       var sd = c.startDate || (ex ? new Date(Date.now() + 16 * 864e5).toISOString().slice(0, 10) : ''), st = c.startTime || (ex ? '19:30' : ''), et = c.endTime || (ex ? '23:00' : ''), ed = c.endDate;

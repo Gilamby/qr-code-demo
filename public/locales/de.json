@@ -120,6 +120,10 @@
     "event": {
       "name": "Veranstaltung",
       "desc": "Datum, Ort und in den Kalender"
+    },
+    "feedback": {
+      "name": "Feedback",
+      "desc": "Fragen Sie Ihre Gäste"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Route",
       "more": "Tickets & Infos",
       "allDay": "Ganztägig"
+    },
+    "feedback": {
+      "stars": "{n} Sterne",
+      "comment": "Noch etwas? (optional)",
+      "commentPh": "Was war gut, was geht besser?",
+      "email": "Ihre E-Mail (optional)",
+      "consent": "{name} darf mir zu meinem Feedback schreiben.",
+      "send": "Senden",
+      "note": "Anonym, außer Sie hinterlassen Ihre E-Mail.",
+      "review": "Auch eine Google-Bewertung schreiben",
+      "needStars": "Tippen Sie zuerst auf die Sterne.",
+      "needConsent": "Haken setzen, um Ihre E-Mail zu teilen.",
+      "tooMany": "Zu viele Nachrichten. Bitte später erneut versuchen.",
+      "failed": "Senden fehlgeschlagen. Bitte erneut versuchen."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Ende",
     "eventPlace": "Ort",
     "eventUrl": "Tickets oder mehr Infos",
-    "route": "Intelligente Weiterleitung"
+    "route": "Intelligente Weiterleitung",
+    "logo": "Logo",
+    "fbName": "Firmenname",
+    "fbQuestion": "Frage",
+    "fbAskEmail": "Nach E-Mail-Adresse fragen (optional)",
+    "fbThanks": "Dankestext",
+    "fbReview": "Google-Bewertungslink"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -655,7 +679,9 @@
     "reviewName": "Steht in der Vorschau und hilft Ihnen, den Code wiederzuerkennen.",
     "eventEnd": "Leer lassen bei einer eintägigen Veranstaltung.",
     "eventUrl": "Zum Beispiel Ihr Ticketshop oder Ihre Website.",
-    "route": "Leiten Sie Scanner je nach Sprache ihres Handys, Land, Uhrzeit oder Gerät auf einen anderen Link. Über die Scanner wird nichts gespeichert."
+    "route": "Leiten Sie Scanner je nach Sprache ihres Handys, Land, Uhrzeit oder Gerät auf einen anderen Link. Über die Scanner wird nichts gespeichert.",
+    "fbAskEmail": "Besucher können ihre E-Mail hinterlassen, damit Sie antworten können. Nur mit Einwilligung.",
+    "fbReview": "Nach 4 oder 5 Sternen bitten wir, hier auch eine öffentliche Bewertung zu schreiben."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://deinrestaurant.de/menu",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Sommerlicher Jazzabend",
-    "eventDesc": "Livemusik auf der Terrasse mit Tapas und Drinks. Eintritt frei."
+    "eventDesc": "Livemusik auf der Terrasse mit Tapas und Drinks. Eintritt frei.",
+    "fbQuestion": "Wie war Ihr Besuch?",
+    "fbThanks": "Danke für Ihr Feedback!"
   },
   "visit": {
     "locked": "Diese Seite ist geschützt",
@@ -3268,5 +3296,14 @@
     "errPrivate": "Diese Adresse ist nicht erlaubt (internes Netz).",
     "errEvents": "Wählen Sie mindestens ein Ereignis.",
     "errMax": "Sie haben die maximale Anzahl Webhooks erreicht."
+  },
+  "fb": {
+    "menu": "Antworten",
+    "title": "Antworten zu „{name}“",
+    "none": "Noch keine Antworten. Sie erscheinen hier, sobald jemand Feedback sendet.",
+    "count": "{n} Antworten",
+    "csv": "CSV herunterladen",
+    "delete": "Antwort löschen",
+    "deleteConfirm": "Diese Antwort endgültig löschen?"
   }
 }

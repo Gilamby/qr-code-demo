@@ -120,6 +120,10 @@
     "event": {
       "name": "Eveniment",
       "desc": "Dată, loc și adaugă în calendar"
+    },
+    "feedback": {
+      "name": "Feedback",
+      "desc": "Întreabă clienții ce cred"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Indicații",
       "more": "Bilete și informații",
       "allDay": "Toată ziua"
+    },
+    "feedback": {
+      "stars": "{n} stele",
+      "comment": "Mai ai ceva de adăugat? (opțional)",
+      "commentPh": "Ce a mers bine, ce se poate îmbunătăți?",
+      "email": "E-mailul tău (opțional)",
+      "consent": "{name} îmi poate scrie despre feedbackul meu.",
+      "send": "Trimite",
+      "note": "Anonim, dacă nu îți lași e-mailul.",
+      "review": "Lasă și o recenzie pe Google",
+      "needStars": "Atinge mai întâi stelele.",
+      "needConsent": "Bifează căsuța pentru a-ți împărtăși e-mailul.",
+      "tooMany": "Prea multe mesaje. Încearcă mai târziu.",
+      "failed": "Nu s-a putut trimite. Încearcă din nou."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Ora de sfârșit",
     "eventPlace": "Locație",
     "eventUrl": "Bilete sau mai multe informații",
-    "route": "Redirecționare inteligentă"
+    "route": "Redirecționare inteligentă",
+    "logo": "Logo",
+    "fbName": "Numele afacerii",
+    "fbQuestion": "Întrebare",
+    "fbAskEmail": "Cere o adresă de e-mail (opțional)",
+    "fbThanks": "Mesaj de mulțumire",
+    "fbReview": "Link recenzie Google"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -655,7 +679,9 @@
     "reviewName": "Apare în previzualizare și te ajută să recunoști codul.",
     "eventEnd": "Lasă gol pentru un eveniment de o zi.",
     "eventUrl": "De exemplu, magazinul de bilete sau site-ul tău.",
-    "route": "Trimite pe cei care scanează la alt link în funcție de limba telefonului, țară, oră sau dispozitiv. Nu se salvează nimic despre cine scanează."
+    "route": "Trimite pe cei care scanează la alt link în funcție de limba telefonului, țară, oră sau dispozitiv. Nu se salvează nimic despre cine scanează.",
+    "fbAskEmail": "Vizitatorii își pot lăsa e-mailul ca să le poți răspunde. Doar cu acordul lor.",
+    "fbReview": "După 4 sau 5 stele, îi invităm să lase și o recenzie publică aici."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://restaurantultau.ro/meniu",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Seară de jazz de vară",
-    "eventDesc": "Muzică live pe terasă, cu tapas și băuturi. Intrare liberă."
+    "eventDesc": "Muzică live pe terasă, cu tapas și băuturi. Intrare liberă.",
+    "fbQuestion": "Cum a fost vizita?",
+    "fbThanks": "Mulțumim pentru feedback!"
   },
   "visit": {
     "locked": "Această pagină este protejată",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Această adresă nu este permisă (rețea internă).",
     "errEvents": "Alege cel puțin un eveniment.",
     "errMax": "Ai atins numărul maxim de webhook-uri."
+  },
+  "fb": {
+    "menu": "Răspunsuri",
+    "title": "Răspunsuri pentru „{name}”",
+    "none": "Încă niciun răspuns. Apar aici imediat ce cineva trimite feedback.",
+    "count": "{n} răspunsuri",
+    "csv": "Descarcă CSV",
+    "delete": "Șterge răspunsul",
+    "deleteConfirm": "Ștergi definitiv acest răspuns?"
   }
 }

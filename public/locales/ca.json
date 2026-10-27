@@ -120,6 +120,10 @@
     "event": {
       "name": "Esdeveniment",
       "desc": "Data, lloc i afegir al calendari"
+    },
+    "feedback": {
+      "name": "Opinions",
+      "desc": "Pregunta què en pensen els clients"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Com arribar",
       "more": "Entrades i info",
       "allDay": "Tot el dia"
+    },
+    "feedback": {
+      "stars": "{n} estrelles",
+      "comment": "Alguna cosa més? (opcional)",
+      "commentPh": "Què ha anat bé, què es pot millorar?",
+      "email": "El teu correu (opcional)",
+      "consent": "{name} em pot escriure sobre la meva opinió.",
+      "send": "Envia",
+      "note": "Anònim, tret que deixis el correu.",
+      "review": "Deixa també una ressenya a Google",
+      "needStars": "Toca primer les estrelles.",
+      "needConsent": "Marca la casella per compartir el correu.",
+      "tooMany": "Massa missatges. Torna-ho a provar més tard.",
+      "failed": "No s’ha pogut enviar. Torna-ho a provar."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Hora de fi",
     "eventPlace": "Lloc",
     "eventUrl": "Entrades o més informació",
-    "route": "Redirecció intel·ligent"
+    "route": "Redirecció intel·ligent",
+    "logo": "Logotip",
+    "fbName": "Nom del negoci",
+    "fbQuestion": "Pregunta",
+    "fbAskEmail": "Demanar un correu (opcional)",
+    "fbThanks": "Missatge d’agraïment",
+    "fbReview": "Enllaç de ressenya de Google"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -655,7 +679,9 @@
     "reviewName": "Apareix a la vista prèvia i t’ajuda a reconèixer el codi.",
     "eventEnd": "Deixa-ho buit si l’esdeveniment dura un dia.",
     "eventUrl": "Per exemple, la teva botiga d’entrades o el web.",
-    "route": "Envia qui escaneja a un altre enllaç segons l’idioma del mòbil, el país, l’hora o el dispositiu. No es desa res sobre qui escaneja."
+    "route": "Envia qui escaneja a un altre enllaç segons l’idioma del mòbil, el país, l’hora o el dispositiu. No es desa res sobre qui escaneja.",
+    "fbAskEmail": "Els visitants poden deixar el correu perquè els responguis. Només amb el seu consentiment.",
+    "fbReview": "Després de 4 o 5 estrelles, convidem a deixar també una ressenya pública aquí."
   },
   "more": {
     "title": "Més opcions",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://elteurestaurant.cat/carta",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Nit de jazz d’estiu",
-    "eventDesc": "Música en directe a la terrassa amb tapes i begudes. Entrada lliure."
+    "eventDesc": "Música en directe a la terrassa amb tapes i begudes. Entrada lliure.",
+    "fbQuestion": "Com ha anat la visita?",
+    "fbThanks": "Gràcies per la teva opinió!"
   },
   "visit": {
     "locked": "Aquesta pàgina està protegida",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Aquesta adreça no es permet (xarxa interna).",
     "errEvents": "Tria almenys un esdeveniment.",
     "errMax": "Has arribat al màxim de webhooks."
+  },
+  "fb": {
+    "menu": "Respostes",
+    "title": "Respostes de “{name}”",
+    "none": "Encara no hi ha respostes. Apareixeran aquí quan algú enviï una opinió.",
+    "count": "{n} respostes",
+    "csv": "Baixa el CSV",
+    "delete": "Esborra la resposta",
+    "deleteConfirm": "Vols esborrar aquesta resposta per sempre?"
   }
 }

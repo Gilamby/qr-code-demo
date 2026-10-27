@@ -120,6 +120,10 @@
     "event": {
       "name": "Evenement",
       "desc": "Datum, plaats en in de agenda"
+    },
+    "feedback": {
+      "name": "Feedback",
+      "desc": "Vraag wat gasten vinden"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Route",
       "more": "Tickets en info",
       "allDay": "Hele dag"
+    },
+    "feedback": {
+      "stars": "{n} sterren",
+      "comment": "Nog iets toe te voegen? (optioneel)",
+      "commentPh": "Wat ging goed, wat kan beter?",
+      "email": "Je e-mail (optioneel)",
+      "consent": "{name} mag mij mailen over mijn feedback.",
+      "send": "Versturen",
+      "note": "Anoniem, tenzij je je e-mail achterlaat.",
+      "review": "Laat ook een Google-review achter",
+      "needStars": "Tik eerst op de sterren.",
+      "needConsent": "Vink het vakje aan om je e-mail te delen.",
+      "tooMany": "Te veel berichten. Probeer het later nog eens.",
+      "failed": "Versturen lukte niet. Probeer het nog eens."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Eindtijd",
     "eventPlace": "Locatie",
     "eventUrl": "Tickets of meer info",
-    "route": "Slim doorsturen"
+    "route": "Slim doorsturen",
+    "logo": "Logo",
+    "fbName": "Bedrijfsnaam",
+    "fbQuestion": "Vraag",
+    "fbAskEmail": "Vraag om een e-mailadres (optioneel)",
+    "fbThanks": "Bedankt-tekst",
+    "fbReview": "Link voor Google-review"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -655,7 +679,9 @@
     "reviewName": "Staat in het voorbeeld en helpt je de code te herkennen.",
     "eventEnd": "Leeg laten bij een evenement van één dag.",
     "eventUrl": "Bijvoorbeeld je ticketshop of website.",
-    "route": "Stuur scanners naar een andere link op basis van de taal van hun telefoon, hun land, het tijdstip of hun apparaat. Er wordt niets opgeslagen over wie scant."
+    "route": "Stuur scanners naar een andere link op basis van de taal van hun telefoon, hun land, het tijdstip of hun apparaat. Er wordt niets opgeslagen over wie scant.",
+    "fbAskEmail": "Bezoekers kunnen hun e-mail achterlaten zodat je kunt reageren. Alleen met hun toestemming.",
+    "fbReview": "Na 4 of 5 sterren vragen we bezoekers om ook hier een openbare review te plaatsen."
   },
   "more": {
     "title": "Meer opties",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://jouwrestaurant.nl/menu",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Zomerse jazzavond",
-    "eventDesc": "Livemuziek op het terras met tapas en drankjes. Gratis toegang."
+    "eventDesc": "Livemuziek op het terras met tapas en drankjes. Gratis toegang.",
+    "fbQuestion": "Hoe was je bezoek?",
+    "fbThanks": "Bedankt voor je feedback!"
   },
   "visit": {
     "locked": "Deze pagina is beveiligd",
@@ -3307,5 +3335,14 @@
     "errPrivate": "Dit adres mag niet (intern netwerk).",
     "errEvents": "Kies minstens één gebeurtenis.",
     "errMax": "Je hebt het maximale aantal webhooks."
+  },
+  "fb": {
+    "menu": "Antwoorden",
+    "title": "Antwoorden voor “{name}”",
+    "none": "Nog geen antwoorden. Ze verschijnen hier zodra iemand feedback stuurt.",
+    "count": "{n} antwoorden",
+    "csv": "CSV downloaden",
+    "delete": "Antwoord wissen",
+    "deleteConfirm": "Dit antwoord voorgoed wissen?"
   }
 }

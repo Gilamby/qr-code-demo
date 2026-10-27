@@ -1162,3 +1162,24 @@ test('webhooks: scan en wijziging naar de klant, ondertekend, zonder IP; alleen 
     const body = JSON.parse(scan.b); assert.equal(body.code.id, c.id); assert.equal(body.scan.os, 'iOS'); assert.ok(!/81\.2\.69|ip/i.test(JSON.stringify(body.scan)), 'geen IP');
   } finally { process.env.WEBHOOK_ALLOW_PRIVATE = ''; srv.close(); }
 });
+
+test('feedback: bezoeker stuurt sterren, e-mail alleen met toestemming, eigenaar ziet en wist antwoorden', async () => {
+  const k = client(); await signup(k, 'fb-k@example.com', 'Feedback zin 23!', 'Klant Feedback');
+  const c = (await k('POST', '/api/qr-codes', { typeId: 'feedback', content: { title: 'Café Lumen', askEmail: '1' }, design: {} }));
+  assert.equal(c.status, 201, JSON.stringify(c.json)); const id = c.json.id;
+  assert.equal((await fetch(base + '/q/' + id)).status, 200, 'feedbackpagina');
+  const post = (b) => fetch(base + '/api/feedback/' + id, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) });
+  assert.equal((await post({ rating: 6 })).status, 400);
+  assert.equal((await post({ rating: 5, comment: 'Heerlijk!', email: 'gast@example.com', consent: true })).status, 201);
+  assert.equal((await post({ rating: 2, comment: 'Lang wachten', email: 'stil@example.com', consent: false })).status, 201);
+  const r = (await k('GET', '/api/qr-codes/' + id + '/feedback')).json;
+  assert.equal(r.count, 2); assert.equal(r.avg, 3.5); assert.deepEqual(r.dist, [0, 1, 0, 0, 1]);
+  assert.equal(r.items.find((a) => a.rating === 2).email, null, 'zonder toestemming geen e-mail');
+  assert.equal(r.items.find((a) => a.rating === 5).email, 'gast@example.com');
+  const other = client(); await signup(other, 'fb-o@example.com', 'Andere feedback zin 24!', 'Ander');
+  assert.equal((await other('GET', '/api/qr-codes/' + id + '/feedback')).status, 404);
+  assert.equal((await k('DELETE', '/api/qr-codes/' + id + '/feedback/' + r.items[0].id)).status, 204);
+  assert.equal((await k('GET', '/api/qr-codes/' + id + '/feedback')).json.count, 1);
+  const web = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://x.example/' }, design: {} })).json;
+  assert.equal((await fetch(base + '/api/feedback/' + web.id, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"rating":5}' })).status, 404, 'alleen feedback-codes');
+});

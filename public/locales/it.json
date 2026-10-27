@@ -120,6 +120,10 @@
     "event": {
       "name": "Evento",
       "desc": "Data, luogo e aggiungi al calendario"
+    },
+    "feedback": {
+      "name": "Feedback",
+      "desc": "Chiedi cosa ne pensano i clienti"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Indicazioni",
       "more": "Biglietti e info",
       "allDay": "Tutto il giorno"
+    },
+    "feedback": {
+      "stars": "{n} stelle",
+      "comment": "Vuoi aggiungere qualcosa? (facoltativo)",
+      "commentPh": "Cosa è andato bene, cosa si può migliorare?",
+      "email": "La tua e-mail (facoltativa)",
+      "consent": "{name} può scrivermi riguardo al mio feedback.",
+      "send": "Invia",
+      "note": "Anonimo, a meno che lasci la tua e-mail.",
+      "review": "Lascia anche una recensione Google",
+      "needStars": "Tocca prima le stelle.",
+      "needConsent": "Spunta la casella per condividere l’e-mail.",
+      "tooMany": "Troppi messaggi. Riprova più tardi.",
+      "failed": "Invio non riuscito. Riprova."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Ora di fine",
     "eventPlace": "Luogo",
     "eventUrl": "Biglietti o più info",
-    "route": "Reindirizzamento intelligente"
+    "route": "Reindirizzamento intelligente",
+    "logo": "Logo",
+    "fbName": "Nome dell’attività",
+    "fbQuestion": "Domanda",
+    "fbAskEmail": "Chiedi un indirizzo e-mail (facoltativo)",
+    "fbThanks": "Messaggio di ringraziamento",
+    "fbReview": "Link recensione Google"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -655,7 +679,9 @@
     "reviewName": "Appare nell’anteprima e ti aiuta a riconoscere il codice.",
     "eventEnd": "Lascia vuoto per un evento di un giorno.",
     "eventUrl": "Per esempio la tua biglietteria o il tuo sito.",
-    "route": "Manda chi scansiona a un altro link in base alla lingua del telefono, al paese, all’ora o al dispositivo. Non viene salvato nulla su chi scansiona."
+    "route": "Manda chi scansiona a un altro link in base alla lingua del telefono, al paese, all’ora o al dispositivo. Non viene salvato nulla su chi scansiona.",
+    "fbAskEmail": "I visitatori possono lasciare la loro e-mail per una risposta. Solo con il loro consenso.",
+    "fbReview": "Dopo 4 o 5 stelle invitiamo a lasciare anche una recensione pubblica qui."
   },
   "more": {
     "title": "Altre opzioni",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://iltuoristorante.it/menu",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Serata jazz d’estate",
-    "eventDesc": "Musica dal vivo in terrazza con tapas e drink. Ingresso libero."
+    "eventDesc": "Musica dal vivo in terrazza con tapas e drink. Ingresso libero.",
+    "fbQuestion": "Com’è andata la visita?",
+    "fbThanks": "Grazie per il tuo feedback!"
   },
   "visit": {
     "locked": "Questa pagina è protetta",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Questo indirizzo non è consentito (rete interna).",
     "errEvents": "Scegli almeno un evento.",
     "errMax": "Hai raggiunto il numero massimo di webhook."
+  },
+  "fb": {
+    "menu": "Risposte",
+    "title": "Risposte per “{name}”",
+    "none": "Ancora nessuna risposta. Appariranno qui appena qualcuno invia un feedback.",
+    "count": "{n} risposte",
+    "csv": "Scarica CSV",
+    "delete": "Elimina risposta",
+    "deleteConfirm": "Eliminare definitivamente questa risposta?"
   }
 }

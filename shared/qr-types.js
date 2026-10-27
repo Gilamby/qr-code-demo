@@ -45,7 +45,7 @@
   // Voor alle dynamische codes (niet vCard en wifi: die bevatten alles zelf en gaan niet via onze server):
   // - Plannen (KB Q224): startdatum en einddatum onder "Meer opties"
   // - Google Analytics (KB Q222): UTM-labels aan de links van de pagina, als die links heeft
-  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review'];
+  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review', 'feedback'];
   data.forEach(function (type) {
     if (type.id === 'vcard' || type.id === 'wifi') return;
     var has = function (k) { return type.fields.some(function (f) { return f.key === k; }); };
@@ -196,5 +196,14 @@
       { key: 'endTime', type: 'time', label: 'fields.eventEndTime' },
       { key: 'address', type: 'address', label: 'fields.eventPlace', sample: { t: 'sample.bizAddress' } },
       { key: 'description', label: 'fields.description', max: 1000, sample: { t: 'sample.eventDesc' } },
-      { key: 'url', type: 'url', label: 'fields.eventUrl', sample: { t: 'sample.bizWebsite' }, hint: 'hint.eventUrl' } ] }
+      { key: 'url', type: 'url', label: 'fields.eventUrl', sample: { t: 'sample.bizWebsite' }, hint: 'hint.eventUrl' } ] },
+  // Feedback: sterren + opmerking, eventueel e-mail (alleen met toestemming). Antwoorden: Mijn QR-codes > ⋯ > Antwoorden (server: feedback.controller.ts)
+  { id: 'feedback', icon: 'feedback', contentType: 'feedback', previewType: 'card', color: '#0e9f6e', theme: ['#0e9f6e', '#064e3b'],
+    fields: [
+      { key: 'logo', type: 'image', label: 'fields.logo', small: true },
+      { key: 'title', label: 'fields.fbName', required: true, max: 80, sample: { t: 'sample.bizName' } },
+      { key: 'question', label: 'fields.fbQuestion', max: 140, sample: { t: 'sample.fbQuestion' } },
+      { key: 'askEmail', type: 'toggle', label: 'fields.fbAskEmail', hint: 'hint.fbAskEmail' },
+      { key: 'thanks', label: 'fields.fbThanks', max: 200, sample: { t: 'sample.fbThanks' } },
+      { key: 'reviewUrl', type: 'url', label: 'fields.fbReview', hint: 'hint.fbReview', advanced: true } ] }
 ]);

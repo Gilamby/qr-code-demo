@@ -120,6 +120,10 @@
     "event": {
       "name": "Pasākums",
       "desc": "Datums, vieta un pievienot kalendāram"
+    },
+    "feedback": {
+      "name": "Atsauksmes",
+      "desc": "Pajautājiet viesiem viņu viedokli"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Maršruts",
       "more": "Biļetes un informācija",
       "allDay": "Visu dienu"
+    },
+    "feedback": {
+      "stars": "{n} zvaigznes",
+      "comment": "Vēl kaut kas? (neobligāti)",
+      "commentPh": "Kas bija labi, ko varētu uzlabot?",
+      "email": "Jūsu e-pasts (neobligāti)",
+      "consent": "{name} drīkst man rakstīt par manu atsauksmi.",
+      "send": "Sūtīt",
+      "note": "Anonīmi, ja vien neatstājat e-pastu.",
+      "review": "Atstājiet arī Google atsauksmi",
+      "needStars": "Vispirms pieskarieties zvaigznēm.",
+      "needConsent": "Atzīmējiet lodziņu, lai dalītos ar e-pastu.",
+      "tooMany": "Pārāk daudz ziņu. Mēģiniet vēlāk.",
+      "failed": "Neizdevās nosūtīt. Mēģiniet vēlreiz."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Beigu laiks",
     "eventPlace": "Vieta",
     "eventUrl": "Biļetes vai vairāk informācijas",
-    "route": "Gudrā pāradresācija"
+    "route": "Gudrā pāradresācija",
+    "logo": "Logotips",
+    "fbName": "Uzņēmuma nosaukums",
+    "fbQuestion": "Jautājums",
+    "fbAskEmail": "Prasīt e-pastu (neobligāti)",
+    "fbThanks": "Pateicības teksts",
+    "fbReview": "Google atsauksmes saite"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -655,7 +679,9 @@
     "reviewName": "Redzams priekšskatījumā un palīdz atpazīt kodu.",
     "eventEnd": "Atstājiet tukšu vienas dienas pasākumam.",
     "eventUrl": "Piemēram, jūsu biļešu veikals vai vietne.",
-    "route": "Sūtiet skenētājus uz citu saiti pēc tālruņa valodas, valsts, laika vai ierīces. Par skenētājiem nekas netiek saglabāts."
+    "route": "Sūtiet skenētājus uz citu saiti pēc tālruņa valodas, valsts, laika vai ierīces. Par skenētājiem nekas netiek saglabāts.",
+    "fbAskEmail": "Apmeklētāji var atstāt e-pastu, lai jūs varētu atbildēt. Tikai ar viņu piekrišanu.",
+    "fbReview": "Pēc 4 vai 5 zvaigznēm aicinām atstāt arī publisku atsauksmi šeit."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://tavsrestorans.lv/edienkarte",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Vasaras džeza vakars",
-    "eventDesc": "Dzīvā mūzika uz terases ar tapas un dzērieniem. Ieeja brīva."
+    "eventDesc": "Dzīvā mūzika uz terases ar tapas un dzērieniem. Ieeja brīva.",
+    "fbQuestion": "Kā jums patika apmeklējums?",
+    "fbThanks": "Paldies par atsauksmi!"
   },
   "visit": {
     "locked": "Šī lapa ir aizsargāta",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Šī adrese nav atļauta (iekšējais tīkls).",
     "errEvents": "Izvēlieties vismaz vienu notikumu.",
     "errMax": "Sasniegts maksimālais tīmekļa āķu skaits."
+  },
+  "fb": {
+    "menu": "Atbildes",
+    "title": "Atbildes par “{name}”",
+    "none": "Vēl nav atbilžu. Tās parādīsies šeit, tiklīdz kāds nosūtīs atsauksmi.",
+    "count": "{n} atbildes",
+    "csv": "Lejupielādēt CSV",
+    "delete": "Dzēst atbildi",
+    "deleteConfirm": "Dzēst šo atbildi neatgriezeniski?"
   }
 }

@@ -70,6 +70,22 @@
   function icsText(x) { return String(x || '').replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1'); }
 
   var WIRE = {
+    feedback: function () {
+      var rating = 0, box = $('.ph-fb'); if (!box) return;
+      $$('.fb-star').forEach(function (b) { b.classList.remove('on'); b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', 'false');
+        b.onclick = function () { rating = +b.getAttribute('data-n'); $$('.fb-star').forEach(function (x) { var on = +x.getAttribute('data-n') <= rating; x.classList.toggle('on', on); x.setAttribute('aria-checked', String(+x.getAttribute('data-n') === rating)); }); err(''); }; });
+      function err(m) { var e = $('.fb-err'); if (!e) return; e.textContent = m; e.hidden = !m; }
+      var send = $('.fb-send'); if (!send) return;
+      send.onclick = function () {
+        if (!rating) return err(t('pv.feedback.needStars'));
+        var em = $('.fb-email'), ok = $('.fb-ok'), email = em ? em.value.trim() : '';
+        if (email && !(ok && ok.checked)) return err(t('pv.feedback.needConsent'));
+        send.disabled = true; err('');
+        fetch('/api/feedback/' + encodeURIComponent(L.id), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rating: rating, comment: ($('.fb-text') || {}).value || '', email: email, consent: !!(ok && ok.checked) }) })
+          .then(function (r) { if (!r.ok) throw r; $('.fb-form').hidden = true; $('.fb-done').hidden = false; var rv = $('.fb-review'); if (rv && rating >= 4) { rv.hidden = false; go(rv, href(c.reviewUrl)); } })
+          .catch(function (r) { send.disabled = false; err(t(r && r.status === 429 ? 'pv.feedback.tooMany' : 'pv.feedback.failed')); });
+      };
+    },
     event: function () {
       if (!c.startDate) return;
       var tm = eventTimes(), a = ADDRESS.parse(c.address), place = a ? a.l : '', more = href(c.url), details = (c.description || '') + (more ? (c.description ? '\n\n' : '') + more : '');

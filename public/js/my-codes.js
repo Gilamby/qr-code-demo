@@ -23,6 +23,7 @@ var MyCodes = (function () {
     share: '<path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
     chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
     history: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
+    chat: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
     archive: '<rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"/><path d="M10 12h4"/>',
     undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
@@ -228,6 +229,7 @@ var MyCodes = (function () {
             '<button type="button" role="menuitem" data-act="where">' + ico('pin') + t('cd.menu') + '</button>' +
             (stat ? '' : (api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="open">' + ico('open') + t('myCodes.open') + '</button>') + '<button type="button" role="menuitem" data-act="copy">' + ico('copy') + t('myCodes.copy') + '</button>') +
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
+            (r.typeId === 'feedback' && !api.isDemo() ? '<button type="button" role="menuitem" data-act="answers">' + ico('chat') + t('fb.menu') + '</button>' : '') +
             (stat || api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="history">' + ico('history') + t('hist.menu') + '</button>') +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
             '<button type="button" role="menuitem" data-act="labels">' + ico('tag') + t('labels.menu') + '</button>' +
@@ -448,6 +450,37 @@ var MyCodes = (function () {
     r.paused = next; draw();                                   // meteen zichtbaar; terugzetten als het mislukt
     api.patchQrCode(r.id, { paused: next }).then(function (rec) { replace(rec); if (window.PlanGate) PlanGate.load(); draw(); toast(next ? 'myCodes.pausedToast' : 'myCodes.activeToast'); })
       .catch(function (x) { r.paused = !next; draw(); if (x && x.code === 'plan_limit' && window.PlanGate) return PlanGate.upgrade(null, 'limit'); toast(x && x.code === 'admin_hold' ? 'myCodes.heldLocked' : 'myCodes.failed'); });
+  }
+  /* Feedback-antwoorden: gemiddelde, verdeling, lijst; wissen per antwoord; CSV */
+  function askAnswers(r) {
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg fbx-dlg"><span class="mc-dlg-ic">' + ico('chat') + '</span><h3>' + esc(t('fb.title', { name: displayName(r) })) + '</h3><div class="fbx"><p class="muted-msg">' + t('myCodes.loading') + '</p></div>' +
+      '<div class="mc-dlg-btns"><button type="button" class="btn ghost" data-fbx-csv hidden>' + ico('dl') + t('fb.csv') + '</button><button class="btn primary" value="cancel">' + t('hist.close') + '</button></div></form>';
+    var box = dialog.querySelector('.fbx'), csvBtn = dialog.querySelector('[data-fbx-csv]'), data = null;
+    dialog.onclose = null; dialog.returnValue = ''; dialog.showModal();
+    function star(n) { return '<span class="fbx-stars" aria-label="' + n + '/5">' + '★★★★★'.slice(0, n) + '<i>' + '★★★★★'.slice(n) + '</i></span>'; }
+    function paint() {
+      if (!data.count) { box.innerHTML = '<p class="hs-empty">' + t('fb.none') + '</p>'; csvBtn.hidden = true; return; }
+      csvBtn.hidden = false;
+      var max = Math.max.apply(null, data.dist) || 1;
+      box.innerHTML = '<div class="fbx-sum"><div class="fbx-avg"><b>' + i18n.fmt.num(data.avg) + '</b>' + star(Math.round(data.avg)) + '<small>' + t('fb.count', { n: i18n.fmt.num(data.count) }) + '</small></div>' +
+        '<ol class="fbx-dist">' + [5, 4, 3, 2, 1].map(function (n) { var c = data.dist[n - 1]; return '<li><span>' + n + '★</span><i><em style="width:' + Math.round(c / max * 100) + '%"></em></i><span>' + c + '</span></li>'; }).join('') + '</ol></div>' +
+        '<ul class="fbx-list">' + data.items.map(function (a) {
+          return '<li data-fid="' + esc(a.id) + '"><div>' + star(a.rating) + '<small>' + esc(i18n.fmt.stamp(a.at, 'time')) + (a.email ? ' · <a href="mailto:' + esc(a.email) + '">' + esc(a.email) + '</a>' : '') + '</small>' +
+            (a.comment ? '<p>' + esc(a.comment) + '</p>' : '') + '</div><button type="button" class="mc-ico" data-fbx-del aria-label="' + esc(t('fb.delete')) + '" title="' + esc(t('fb.delete')) + '">' + ico('trash') + '</button></li>';
+        }).join('') + '</ul>';
+    }
+    api.codeFeedback(r.id).then(function (d) { data = d; paint(); }, function () { box.innerHTML = '<p class="hs-empty">' + t('myCodes.failed') + '</p>'; });
+    box.onclick = function (e) {
+      var b = e.target.closest('[data-fbx-del]'); if (!b) return; var id = b.closest('[data-fid]').getAttribute('data-fid');
+      if (!window.confirm(t('fb.deleteConfirm'))) return;
+      api.codeFeedbackDel(r.id, id).then(function () { var a = data.items.filter(function (x) { return x.id === id; })[0]; data.items = data.items.filter(function (x) { return x.id !== id; }); if (a) data.dist[a.rating - 1]--; data.count = data.items.length; data.avg = data.count ? Math.round(data.items.reduce(function (s, x) { return s + x.rating; }, 0) / data.count * 10) / 10 : null; paint(); });
+    };
+    csvBtn.onclick = function () {
+      var q = function (v) { v = String(v == null ? '' : v); if (/^[=+\-@]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; };
+      var rows = [['date', 'rating', 'comment', 'email']].concat(data.items.map(function (a) { return [a.at, a.rating, a.comment, a.email || '']; }));
+      var blob = new Blob(['\ufeff' + rows.map(function (x) { return x.map(q).join(','); }).join('\r\n')], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'feedback-' + r.id + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    };
   }
   /* Archief: uit de gewone lijst, de code blijft gewoon werken. Met "ongedaan maken". */
   function archive(list, on, quiet) {
@@ -934,6 +967,7 @@ var MyCodes = (function () {
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'history') { closeMenus(); return askHistory(r); }
     if (act === 'archive') { closeMenus(); return archive([r], !r.archived); }
+    if (act === 'answers') { closeMenus(); return askAnswers(r); }
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });
     if (act === 'where') return Analytics.open({ codes: [r.id], detail: true });   // klik op scans: detailpagina van deze code

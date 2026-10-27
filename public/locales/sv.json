@@ -120,6 +120,10 @@
     "event": {
       "name": "Evenemang",
       "desc": "Datum, plats och lägg till i kalendern"
+    },
+    "feedback": {
+      "name": "Feedback",
+      "desc": "Fråga vad gästerna tycker"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Vägbeskrivning",
       "more": "Biljetter och info",
       "allDay": "Hela dagen"
+    },
+    "feedback": {
+      "stars": "{n} stjärnor",
+      "comment": "Något att lägga till? (valfritt)",
+      "commentPh": "Vad var bra, vad kan bli bättre?",
+      "email": "Din e-post (valfritt)",
+      "consent": "{name} får mejla mig om min feedback.",
+      "send": "Skicka",
+      "note": "Anonymt, om du inte lämnar din e-post.",
+      "review": "Lämna även en Google-recension",
+      "needStars": "Tryck på stjärnorna först.",
+      "needConsent": "Kryssa i rutan för att dela din e-post.",
+      "tooMany": "För många meddelanden. Försök igen senare.",
+      "failed": "Kunde inte skicka. Försök igen."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Sluttid",
     "eventPlace": "Plats",
     "eventUrl": "Biljetter eller mer info",
-    "route": "Smart vidarebefordran"
+    "route": "Smart vidarebefordran",
+    "logo": "Logotyp",
+    "fbName": "Företagsnamn",
+    "fbQuestion": "Fråga",
+    "fbAskEmail": "Be om e-postadress (valfritt)",
+    "fbThanks": "Tacktext",
+    "fbReview": "Länk till Google-recension"
   },
   "panel": {
     "selected": "{type} vald"
@@ -655,7 +679,9 @@
     "reviewName": "Visas i förhandsvisningen och hjälper dig att känna igen koden.",
     "eventEnd": "Lämna tomt för ett endagsevenemang.",
     "eventUrl": "Till exempel din biljettbutik eller webbplats.",
-    "route": "Skicka den som skannar till en annan länk beroende på telefonens språk, land, tid eller enhet. Inget sparas om vem som skannar."
+    "route": "Skicka den som skannar till en annan länk beroende på telefonens språk, land, tid eller enhet. Inget sparas om vem som skannar.",
+    "fbAskEmail": "Besökare kan lämna sin e-post så att du kan svara. Bara med samtycke.",
+    "fbReview": "Efter 4 eller 5 stjärnor ber vi dem även lämna en offentlig recension här."
   },
   "more": {
     "title": "Fler alternativ",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://dinrestaurang.se/meny",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Sommarjazzkväll",
-    "eventDesc": "Livemusik på terrassen med tapas och drinkar. Fri entré."
+    "eventDesc": "Livemusik på terrassen med tapas och drinkar. Fri entré.",
+    "fbQuestion": "Hur var ditt besök?",
+    "fbThanks": "Tack för din feedback!"
   },
   "visit": {
     "locked": "Den här sidan är skyddad",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Adressen är inte tillåten (internt nätverk).",
     "errEvents": "Välj minst en händelse.",
     "errMax": "Du har nått max antal webhooks."
+  },
+  "fb": {
+    "menu": "Svar",
+    "title": "Svar för ”{name}”",
+    "none": "Inga svar än. De visas här så fort någon skickar feedback.",
+    "count": "{n} svar",
+    "csv": "Ladda ner CSV",
+    "delete": "Radera svar",
+    "deleteConfirm": "Radera svaret för gott?"
   }
 }

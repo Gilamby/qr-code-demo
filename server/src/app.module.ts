@@ -14,6 +14,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { QrCodesController } from './qr-codes/qr-codes.controller';
+import { FeedbackController } from './qr-codes/feedback.controller';
 import { QrCodesService } from './qr-codes/qr-codes.service';
 import { AdminPanelController } from './qr-codes/admin-panel.controller';
 import { FoldersController } from './qr-codes/folders.controller';
@@ -29,7 +30,7 @@ import { TicketsController } from './helpers/tickets.controller';
 import { StatusController } from './helpers/status.controller';
 import { ErrorFilter } from './common/http';
 
-@Module({ controllers: [QrCodesController, UploadsController, MediaController, AdminPanelController, FoldersController], providers: [QrCodesService], imports: [AuthModule] })
+@Module({ controllers: [FeedbackController, QrCodesController, UploadsController, MediaController, AdminPanelController, FoldersController], providers: [QrCodesService], imports: [AuthModule] })
 export class QrCodesModule {}
 
 @Module({ controllers: [AnalyticsController], imports: [AuthModule] })

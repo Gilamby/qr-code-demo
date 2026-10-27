@@ -120,6 +120,10 @@
     "event": {
       "name": "Tapahtuma",
       "desc": "Päivä, paikka ja lisää kalenteriin"
+    },
+    "feedback": {
+      "name": "Palaute",
+      "desc": "Kysy, mitä asiakkaat ajattelevat"
     }
   },
   "pv": {
@@ -312,6 +316,20 @@
       "route": "Reittiohjeet",
       "more": "Liput ja tiedot",
       "allDay": "Koko päivän"
+    },
+    "feedback": {
+      "stars": "{n} tähteä",
+      "comment": "Lisättävää? (valinnainen)",
+      "commentPh": "Mikä meni hyvin, mitä voisi parantaa?",
+      "email": "Sähköpostisi (valinnainen)",
+      "consent": "{name} saa lähettää minulle sähköpostia palautteestani.",
+      "send": "Lähetä",
+      "note": "Nimetön, ellei jätä sähköpostia.",
+      "review": "Jätä myös Google-arvostelu",
+      "needStars": "Napauta ensin tähtiä.",
+      "needConsent": "Merkitse ruutu jakaaksesi sähköpostisi.",
+      "tooMany": "Liian monta viestiä. Yritä myöhemmin.",
+      "failed": "Lähetys epäonnistui. Yritä uudelleen."
     }
   },
   "hero": {
@@ -425,7 +443,13 @@
     "eventEndTime": "Päättymisaika",
     "eventPlace": "Paikka",
     "eventUrl": "Liput tai lisätietoa",
-    "route": "Älykäs ohjaus"
+    "route": "Älykäs ohjaus",
+    "logo": "Logo",
+    "fbName": "Yrityksen nimi",
+    "fbQuestion": "Kysymys",
+    "fbAskEmail": "Pyydä sähköpostiosoite (valinnainen)",
+    "fbThanks": "Kiitosviesti",
+    "fbReview": "Google-arvostelulinkki"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -655,7 +679,9 @@
     "reviewName": "Näkyy esikatselussa ja auttaa tunnistamaan koodin.",
     "eventEnd": "Jätä tyhjäksi, jos tapahtuma kestää yhden päivän.",
     "eventUrl": "Esimerkiksi lippukauppasi tai verkkosivusi.",
-    "route": "Ohjaa skannaajat eri linkkiin puhelimen kielen, maan, kellonajan tai laitteen mukaan. Skannaajista ei tallenneta mitään."
+    "route": "Ohjaa skannaajat eri linkkiin puhelimen kielen, maan, kellonajan tai laitteen mukaan. Skannaajista ei tallenneta mitään.",
+    "fbAskEmail": "Kävijät voivat jättää sähköpostinsa, jotta voit vastata. Vain heidän suostumuksellaan.",
+    "fbReview": "4 tai 5 tähden jälkeen pyydämme jättämään myös julkisen arvostelun tänne."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -1125,7 +1151,9 @@
     "menuUrl": "https://ravintolasi.fi/ruokalista",
     "reviewUrl": "https://g.page/r/CafeLumen/review",
     "eventName": "Kesäinen jazzilta",
-    "eventDesc": "Elävää musiikkia terassilla, tapaksia ja juomia. Vapaa pääsy."
+    "eventDesc": "Elävää musiikkia terassilla, tapaksia ja juomia. Vapaa pääsy.",
+    "fbQuestion": "Millainen käyntisi oli?",
+    "fbThanks": "Kiitos palautteestasi!"
   },
   "visit": {
     "locked": "Tämä sivu on suojattu",
@@ -3262,5 +3290,14 @@
     "errPrivate": "Osoite ei ole sallittu (sisäverkko).",
     "errEvents": "Valitse vähintään yksi tapahtuma.",
     "errMax": "Webhookien enimmäismäärä on täynnä."
+  },
+  "fb": {
+    "menu": "Vastaukset",
+    "title": "Vastaukset: ”{name}”",
+    "none": "Ei vielä vastauksia. Ne näkyvät tässä heti, kun joku lähettää palautetta.",
+    "count": "{n} vastausta",
+    "csv": "Lataa CSV",
+    "delete": "Poista vastaus",
+    "deleteConfirm": "Poistetaanko vastaus pysyvästi?"
   }
 }
