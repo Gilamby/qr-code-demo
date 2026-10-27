@@ -86,11 +86,11 @@ var MyCodes = (function () {
     var present = QR_TYPES.filter(function (tp) { return rows.some(function (r) { return r.typeId === tp.id; }); });
     tools.innerHTML =
       '<label class="mc-search">' + ico('search') + '<input type="search" id="mcQ" value="' + esc(filter.q) + '" placeholder="' + esc(t('myCodes.search')) + '" aria-label="' + esc(t('myCodes.search')) + '"></label>' +
-      '<label class="mc-sel"><span>' + t('myCodes.type') + '</span><select id="mcType"><option value="">' + t('myCodes.allTypes') + '</option>' +
+      '<label class="mc-sel"><span>' + t('myCodes.type') + '</span><select id="mcType" aria-label="' + esc(t('myCodes.type')) + '"><option value="">' + t('myCodes.allTypes') + '</option>' +
         present.map(function (tp) { return '<option value="' + tp.id + '"' + (filter.type === tp.id ? ' selected' : '') + '>' + esc(typeName(tp)) + '</option>'; }).join('') + '</select></label>' +
-      (allLabels().length ? '<label class="mc-sel"><span>' + t('labels.label') + '</span><select id="mcLabel"><option value="">' + t('labels.all') + '</option>' +
+      (allLabels().length ? '<label class="mc-sel"><span>' + t('labels.label') + '</span><select id="mcLabel" aria-label="' + esc(t('labels.label')) + '"><option value="">' + t('labels.all') + '</option>' +
         allLabels().map(function (l) { return '<option value="' + esc(l) + '"' + (filter.label === l ? ' selected' : '') + '>' + esc(l) + '</option>'; }).join('') + '</select></label>' : '') +
-      '<label class="mc-sel"><span>' + t('myCodes.sort') + '</span><select id="mcSort">' + ['new', 'old', 'scans', 'name'].map(function (k) {
+      '<label class="mc-sel"><span>' + t('myCodes.sort') + '</span><select id="mcSort" aria-label="' + esc(t('myCodes.sort')) + '">' + ['new', 'old', 'scans', 'name'].map(function (k) {
         return '<option value="' + k + '"' + (filter.sort === k ? ' selected' : '') + '>' + t('myCodes.sort_' + k) + '</option>'; }).join('') + '</select></label>';
     tools.hidden = !rows.length;
   }
@@ -214,11 +214,11 @@ var MyCodes = (function () {
           // Scanlimiet: hoe ver is de actie? (balkje, oranje vanaf 80%, rood als het op is)
           (r.content && r.content.maxScans ? (function () { var pct = Math.min(100, Math.round((r.scans || 0) / Number(r.content.maxScans) * 100)); return '<i class="mc-limit' + (pct >= 100 ? ' full' : pct >= 80 ? ' near' : '') + '"><i style="width:' + pct + '%"></i></i>'; })() : '') + '</button>') +
       '<div class="mc-state">' + (stat ? '<span class="mc-pill on">' + t('myCodes.always') + '</span>'
-        : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" data-act="toggle"' + (off && r.hold && r.hold.lock ? ' aria-disabled="true" title="' + esc(t('myCodes.heldLocked')) + '"' : '') + '><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
+        : '<button type="button" class="mc-switch" role="switch" aria-checked="' + !off + '" aria-label="' + esc(t('myCodes.onLabel') + ': ' + displayName(r)) + '" data-act="toggle"' + (off && r.hold && r.hold.lock ? ' aria-disabled="true" title="' + esc(t('myCodes.heldLocked')) + '"' : '') + '><span class="sw"></span><span>' + t(off ? 'myCodes.offLabel' : 'myCodes.onLabel') + '</span></button>') + '</div>' +
       '<div class="mc-acts">' +
-        '<div class="mc-drop"><button type="button" class="btn ghost sm" data-act="dlmenu" aria-haspopup="true" aria-expanded="false">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button>' +
+        '<div class="mc-drop"><button type="button" class="btn ghost sm" data-act="dlmenu" aria-haspopup="true" aria-expanded="false" aria-label="' + esc(t('myCodes.download')) + '">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button>' +
           '<div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(false) + '</div></div>' +
-        '<button type="button" class="btn ghost sm" data-act="edit">' + ico('edit') + '<span>' + t('myCodes.edit') + '</span></button>' +
+        '<button type="button" class="btn ghost sm" data-act="edit" aria-label="' + esc(t('myCodes.edit')) + '">' + ico('edit') + '<span>' + t('myCodes.edit') + '</span></button>' +
         '<div class="mc-drop"><button type="button" class="mc-ico big" data-act="more" aria-haspopup="true" aria-expanded="false" aria-label="' + esc(t('myCodes.more')) + '" title="' + esc(t('myCodes.more')) + '">' + ico('more') + '</button>' +
           '<div class="mc-menu right" role="menu" hidden>' +
             '<button type="button" role="menuitem" data-act="where">' + ico('pin') + t('cd.menu') + '</button>' +

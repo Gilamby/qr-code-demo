@@ -98,6 +98,17 @@ const HAND = `
 :root[data-theme="light"] .wp-anim { filter: invert(1) hue-rotate(180deg) saturate(1.1); }
 /* Eigen video: lichter en zachter, zodat de lichte panelen niet grijs worden */
 :root[data-theme="light"] .wp-video { opacity: .35; }
+/* Telefoon: het maak-scherm was alleen op donker ontworpen (witte titel, donker paneel) */
+:root[data-theme="light"] .stepper .current button { color: var(--accent) !important; background: rgba(255,255,255,.9) !important; border-color: color-mix(in srgb, var(--accent) 45%, transparent) !important; }
+:root[data-theme="light"] .field.invalid label, :root[data-theme="light"] .field-err { color: #b42318; }
+:root[data-theme="light"] .stepper .s button { color: rgba(13,19,32,.74); }
+:root[data-theme="light"] .hm-tab.on, :root[data-theme="light"] [data-hm-tab][aria-selected="true"] { color: #fff !important; }
+@media (max-width: 760px) {
+  :root[data-theme="light"] body:not(.pv-open) #createView .pv-title { color: var(--fg); }
+  :root[data-theme="light"] body:not(.pv-open) #createView .panel-card { background: rgba(255,255,255,.97) !important; box-shadow: 0 -12px 30px -12px rgba(13,19,32,.22); }
+  :root[data-theme="light"] body:not(.pv-open) #createView .panel-card .actions { background: rgba(255,255,255,.99) !important; border-top-color: rgba(13,19,32,.1) !important; }
+  :root[data-theme="light"] body:not(.pv-open) #createView .panel-card .actions .btn.ghost { background: #eef1f5 !important; color: var(--fg) !important; }
+}
 `;
 
 function build(root) {

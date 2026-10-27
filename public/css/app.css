@@ -10,7 +10,7 @@
   --line: rgba(13,19,32,.08);
   --line-strong: rgba(13,19,32,.14);
   --hover: rgba(13,19,32,.045);
-  --accent: #0b8fd8;
+  --accent: #0772ad;   /* was #0b8fd8: wit op blauw nu 5.2:1 (WCAG AA) */
   --accent-ink: #ffffff;
   --accent-soft: rgba(11,143,216,.11);
   --glow: rgba(11,143,216,.13);
@@ -585,7 +585,7 @@ b .sk, h4 .sk { display: inline-block; vertical-align: middle; height: 11px; }
 .web-hero h4 { margin: 0 0 8px; font-size: 25px; line-height: 1.15; font-weight: 800; letter-spacing: -.02em; }
 .web-hero p { margin: 0; font-size: 13.5px; color: #555; line-height: 1.45; }
 .web-hero .sk { margin-top: 8px; }
-.web-btn { display: inline-block; margin-top: 16px; padding: 11px 18px; border-radius: 10px; background: #0b8fd8; color: #fff; font-weight: 700; font-size: 13.5px; }
+.web-btn { display: inline-block; margin-top: 16px; padding: 11px 18px; border-radius: 10px; background: #0772ad; color: #fff; font-weight: 700; font-size: 13.5px; }
 .web-img { margin: 0 18px; height: 130px; border-radius: 14px; background: linear-gradient(135deg, #1e3a8a, #2bb5f0); position: relative; overflow: hidden; }
 .web-img span { position: absolute; border-radius: 8px; background: rgba(255,255,255,.85); }
 .web-img span:nth-child(1) { left: 14px; top: 14px; width: 55%; height: 14px; }
