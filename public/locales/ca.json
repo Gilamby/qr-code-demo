@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Connecta't a una xarxa Wi-Fi"
+    },
+    "review": {
+      "name": "Ressenya",
+      "desc": "Aconsegueix més ressenyes"
+    },
+    "event": {
+      "name": "Esdeveniment",
+      "desc": "Data, lloc i afegir al calendari"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Hola! M'agradaria més informació.",
       "new": "Missatge nou",
       "send": "Envia SMS"
+    },
+    "review": {
+      "head": "Escriu una ressenya",
+      "post": "Publica",
+      "public": "Es publicarà públicament",
+      "tap": "Toca una estrella per valorar",
+      "placeholder": "Explica la teva experiència",
+      "sample": "Terrassa preciosa, personal amable i el millor cafè de la ciutat!",
+      "addPhoto": "Afegeix fotos"
+    },
+    "event": {
+      "add": "Afegeix al calendari",
+      "google": "Google Calendar",
+      "route": "Com arribar",
+      "more": "Entrades i info",
+      "allDay": "Tot el dia"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "En acabar, enviar a",
     "abUrl": "Segon enllaç (prova A/B)",
     "abShare": "Part al segon enllaç (%)",
-    "alertAt": "Avisa'm als … escanejos"
+    "alertAt": "Avisa'm als … escanejos",
+    "reviewUrl": "Enllaç de ressenyes",
+    "bizName": "Nom del negoci",
+    "eventName": "Nom de l’esdeveniment",
+    "eventStart": "Data",
+    "eventStartTime": "Hora d’inici",
+    "eventEnd": "Data de fi",
+    "eventEndTime": "Hora de fi",
+    "eventPlace": "Lloc",
+    "eventUrl": "Entrades o més informació"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -616,7 +649,11 @@
     "afterUrl": "Quan passi la data de fi o s'arribi al màxim d'escanejos, els visitants van a aquest enllaç en lloc de \"caducat\". Útil per a la teva propera promoció.",
     "abUrl": "Una part dels visitants va a aquest enllaç i la resta a l'enllaç normal. Activa també \"Seguir a Google Analytics\" per veure les conversions per versió (utm_content=a o b).",
     "abShare": "Per defecte 50: la meitat a cada enllaç.",
-    "alertAt": "Reps un correu quan aquest codi arribi a aquest nombre d'escanejos. Útil per a promocions i cartells."
+    "alertAt": "Reps un correu quan aquest codi arribi a aquest nombre d'escanejos. Útil per a promocions i cartells.",
+    "reviewUrl": "Google: obre el teu Perfil d’Empresa, tria “Demana ressenyes” i copia l’enllaç. També funcionen enllaços de Tripadvisor, Trustpilot o Booking.com.",
+    "reviewName": "Apareix a la vista prèvia i t’ajuda a reconèixer el codi.",
+    "eventEnd": "Deixa-ho buit si l’esdeveniment dura un dia.",
+    "eventUrl": "Per exemple, la teva botiga d’entrades o el web."
   },
   "more": {
     "title": "Més opcions",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
     "videoUrl": "https://escolaweb.cat/llico-1-html",
     "igUrl": "https://www.instagram.com/marc.fotografia/",
-    "menuUrl": "https://elteurestaurant.cat/carta"
+    "menuUrl": "https://elteurestaurant.cat/carta",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Nit de jazz d’estiu",
+    "eventDesc": "Música en directe a la terrassa amb tapes i begudes. Entrada lliure."
   },
   "visit": {
     "locked": "Aquesta pàgina està protegida",
@@ -3077,5 +3117,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "1 tipus més"
   }
 }

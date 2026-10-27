@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Conectare la o rețea Wi-Fi"
+    },
+    "review": {
+      "name": "Recenzie",
+      "desc": "Primește mai multe recenzii"
+    },
+    "event": {
+      "name": "Eveniment",
+      "desc": "Dată, loc și adaugă în calendar"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Bună! Aș dori mai multe informații.",
       "new": "Mesaj nou",
       "send": "Trimite SMS"
+    },
+    "review": {
+      "head": "Scrie o recenzie",
+      "post": "Publică",
+      "public": "Se publică public",
+      "tap": "Atinge o stea pentru a evalua",
+      "placeholder": "Povestește-ți experiența",
+      "sample": "Terasă minunată, personal amabil și cea mai bună cafea din oraș!",
+      "addPhoto": "Adaugă fotografii"
+    },
+    "event": {
+      "add": "Adaugă în calendar",
+      "google": "Google Calendar",
+      "route": "Indicații",
+      "more": "Bilete și informații",
+      "allDay": "Toată ziua"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "După final, trimite la",
     "abUrl": "Al doilea link (test A/B)",
     "abShare": "Procent către al doilea link (%)",
-    "alertAt": "Anunță-mă la … scanări"
+    "alertAt": "Anunță-mă la … scanări",
+    "reviewUrl": "Link pentru recenzii",
+    "bizName": "Numele afacerii",
+    "eventName": "Numele evenimentului",
+    "eventStart": "Data",
+    "eventStartTime": "Ora de început",
+    "eventEnd": "Data de sfârșit",
+    "eventEndTime": "Ora de sfârșit",
+    "eventPlace": "Locație",
+    "eventUrl": "Bilete sau mai multe informații"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -616,7 +649,11 @@
     "afterUrl": "După data de final sau după numărul maxim de scanări, vizitatorii ajung la acest link în loc de „expirat”. Util pentru următoarea promoție.",
     "abUrl": "O parte dintre vizitatori ajung la acest link, restul la linkul obișnuit. Activează și „Urmărește în Google Analytics” ca să vezi conversiile pe versiuni (utm_content=a sau b).",
     "abShare": "Implicit 50: jumătate la fiecare link.",
-    "alertAt": "Primești un e-mail când codul ajunge la acest număr de scanări. Util pentru promoții și afișe."
+    "alertAt": "Primești un e-mail când codul ajunge la acest număr de scanări. Util pentru promoții și afișe.",
+    "reviewUrl": "Google: deschide Profilul companiei, alege „Cere recenzii” și copiază linkul. Merg și linkuri de pe Tripadvisor, Trustpilot sau Booking.com.",
+    "reviewName": "Apare în previzualizare și te ajută să recunoști codul.",
+    "eventEnd": "Lasă gol pentru un eveniment de o zi.",
+    "eventUrl": "De exemplu, magazinul de bilete sau site-ul tău."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
     "videoUrl": "https://scoalaweb.ro/lectia-1-html",
     "igUrl": "https://www.instagram.com/radu.foto/",
-    "menuUrl": "https://restaurantultau.ro/meniu"
+    "menuUrl": "https://restaurantultau.ro/meniu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Seară de jazz de vară",
+    "eventDesc": "Muzică live pe terasă, cu tapas și băuturi. Intrare liberă."
   },
   "visit": {
     "locked": "Această pagină este protejată",
@@ -3077,5 +3117,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "Încă 1 tip"
   }
 }

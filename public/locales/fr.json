@@ -112,6 +112,14 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Se connecter à un réseau Wi-Fi"
+    },
+    "review": {
+      "name": "Avis",
+      "desc": "Obtenez plus d’avis"
+    },
+    "event": {
+      "name": "Événement",
+      "desc": "Date, lieu et ajout à l’agenda"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Bonjour ! J'aimerais plus d'informations.",
       "new": "Nouveau message",
       "send": "Envoyer le SMS"
+    },
+    "review": {
+      "head": "Écrire un avis",
+      "post": "Publier",
+      "public": "Publié publiquement",
+      "tap": "Touchez une étoile pour noter",
+      "placeholder": "Partagez votre expérience",
+      "sample": "Terrasse superbe, équipe sympa et le meilleur café de la ville !",
+      "addPhoto": "Ajouter des photos"
+    },
+    "event": {
+      "add": "Ajouter à l’agenda",
+      "google": "Google Agenda",
+      "route": "Itinéraire",
+      "more": "Billets et infos",
+      "allDay": "Toute la journée"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Une fois terminé, envoyer vers",
     "abUrl": "Deuxième lien (test A/B)",
     "abShare": "Part vers le deuxième lien (%)",
-    "alertAt": "M'avertir à … scans"
+    "alertAt": "M'avertir à … scans",
+    "reviewUrl": "Lien d’avis",
+    "bizName": "Nom de l’entreprise",
+    "eventName": "Nom de l’événement",
+    "eventStart": "Date",
+    "eventStartTime": "Heure de début",
+    "eventEnd": "Date de fin",
+    "eventEndTime": "Heure de fin",
+    "eventPlace": "Lieu",
+    "eventUrl": "Billets ou plus d’infos"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -616,7 +649,11 @@
     "afterUrl": "Une fois la date de fin passée ou le nombre maximal de scans atteint, les visiteurs arrivent sur ce lien au lieu de « expiré ». Pratique pour ta prochaine offre.",
     "abUrl": "Une partie des visiteurs va vers ce lien, le reste vers le lien normal. Active aussi « Suivre dans Google Analytics » pour voir les conversions par version (utm_content=a ou b).",
     "abShare": "Par défaut 50 : la moitié vers chaque lien.",
-    "alertAt": "Tu reçois un e-mail quand ce code atteint ce nombre de scans. Pratique pour les offres et les affiches."
+    "alertAt": "Tu reçois un e-mail quand ce code atteint ce nombre de scans. Pratique pour les offres et les affiches.",
+    "reviewUrl": "Google : ouvrez votre fiche d’établissement, choisissez « Demander des avis » et copiez le lien. Les liens Tripadvisor, Trustpilot ou Booking.com fonctionnent aussi.",
+    "reviewName": "Affiché dans l’aperçu, pour reconnaître le code.",
+    "eventEnd": "Laissez vide pour un événement d’un jour.",
+    "eventUrl": "Par exemple votre billetterie ou votre site."
   },
   "more": {
     "title": "Plus d'options",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.formeplus.app",
     "videoUrl": "https://ecoleweb.fr/lecon-1-html",
     "igUrl": "https://www.instagram.com/thijs.photographie/",
-    "menuUrl": "https://votrerestaurant.fr/menu"
+    "menuUrl": "https://votrerestaurant.fr/menu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Soirée jazz d’été",
+    "eventDesc": "Musique live en terrasse avec tapas et boissons. Entrée libre."
   },
   "visit": {
     "locked": "Cette page est protégée",
@@ -3083,5 +3123,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "1 type de plus"
   }
 }

@@ -22,6 +22,8 @@ function previewRows(type, c) {
     case 'menu':      return [c.restaurant, t('pv.menu.dish1') + ' · ' + f.eur(18.5), t('pv.menu.cta')];
     case 'apps':      return [c.appName, 'App Store', 'Google Play'];
     case 'coupon':    return [c.title, c.code + ' · ' + f.pct((parseFloat(c.discount) || 0) / 100), t('pv.coupon.cta')];
+    case 'review':    return [c.title, c.url.replace(/^https?:\/\//, ''), t('pv.review.post')];
+    case 'event':     return [c.title, c.startDate, t('pv.event.add')];
     case 'wifi':      return [c.ssid, c.security === 'nopass' ? t('fields.securityNone') : c.security, t('pv.wifi.cta')];
   }
 }

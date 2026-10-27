@@ -552,6 +552,9 @@
 :root[data-theme="light"] .dom-rec { background: rgba(255,255,255,0.8); }
 :root[data-theme="light"] .mc-limit { background: rgba(13,19,32,0.09); }
 :root[data-theme="light"] .inc-tag { color: #16a34a; }
+:root[data-theme="light"] .ev-cover::after { background: linear-gradient(180deg, rgba(255,255,255,1), transparent 55%); }
+:root[data-theme="light"] .ev-date { box-shadow: 0 1px 0 rgba(13,19,32,0.021), 0 0 0 1px #e5e7eb; }
+:root[data-theme="light"] .tg-dot { background: var(--line-strong, rgba(13,19,32,0.188)); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

@@ -38,7 +38,7 @@
   // Lege velden: geen grijze balkjes zoals in de tool, maar gewoon weglaten
   function tidy() {
     $$('.sk').forEach(function (sk) {
-      var row = sk.closest('.vc-row, .gm-row, .gm-desc, .lk2-list > .lk2-row, .pd-file, .mn-row, .wl-f, .vc-acts > span, .sx-card, .ap-badge, .bz-row, p, small');
+      var row = sk.closest('.ev-row, .ev-desc, .vc-row, .gm-row, .gm-desc, .lk2-list > .lk2-row, .pd-file, .mn-row, .wl-f, .vc-acts > span, .sx-card, .ap-badge, .bz-row, p, small');
       if (row && !row.textContent.trim()) row.remove(); else sk.remove();
     });
     // Rijen met een label maar zonder waarde, en lege fotovakjes
@@ -47,7 +47,46 @@
     $$('.gx-none').forEach(function (x) { x.remove(); });
   }
 
+  /* Evenement: tijd in de tijdzone van de eigenaar (L.tz) omzetten naar UTC, voor de agenda */
+  function zoned(date, time, tz) {
+    var p = date.split('-').map(Number), h = time ? +time.slice(0, 2) : 0, m = time ? +time.slice(3, 5) : 0;
+    var guess = Date.UTC(p[0], p[1] - 1, p[2], h, m);
+    if (!tz) return new Date(guess);
+    try {
+      var o = {}; new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })
+        .formatToParts(new Date(guess)).forEach(function (x) { o[x.type] = x.value; });
+      var asUtc = Date.UTC(+o.year, +o.month - 1, +o.day, +o.hour % 24, +o.minute, +o.second);
+      return new Date(guess - (asUtc - guess));
+    } catch (e) { return new Date(guess); }
+  }
+  function eventTimes() {
+    var day = function (d) { return d.replace(/-/g, ''); }, utc = function (d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); };
+    var next = function (d) { var x = new Date(d + 'T12:00:00Z'); x.setUTCDate(x.getUTCDate() + 1); return x.toISOString().slice(0, 10); };
+    if (!c.startTime) return { allDay: true, start: day(c.startDate), end: day(next(c.endDate || c.startDate)) };   // hele dag(en)
+    var s = zoned(c.startDate, c.startTime, L.tz), e = c.endTime ? zoned(c.endDate || c.startDate, c.endTime, L.tz) : new Date(s.getTime() + 2 * 3600e3);   // geen eindtijd: 2 uur
+    if (e <= s) e = new Date(s.getTime() + 2 * 3600e3);
+    return { allDay: false, start: utc(s), end: utc(e) };
+  }
+  function icsText(x) { return String(x || '').replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1'); }
+
   var WIRE = {
+    event: function () {
+      if (!c.startDate) return;
+      var tm = eventTimes(), a = ADDRESS.parse(c.address), place = a ? a.l : '', more = href(c.url), details = (c.description || '') + (more ? (c.description ? '\n\n' : '') + more : '');
+      var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//QR-Codex//Event//EN', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', 'UID:' + L.id + '@qr-codex',
+        'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''),
+        tm.allDay ? 'DTSTART;VALUE=DATE:' + tm.start : 'DTSTART:' + tm.start, tm.allDay ? 'DTEND;VALUE=DATE:' + tm.end : 'DTEND:' + tm.end,
+        'SUMMARY:' + icsText(c.title), place ? 'LOCATION:' + icsText(place) : '', details ? 'DESCRIPTION:' + icsText(details) : '', more ? 'URL:' + more : '',
+        'END:VEVENT', 'END:VCALENDAR'].filter(Boolean).join('\r\n');
+      go($('.ev-add'), 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics), (c.title || 'event').replace(/[^\w ]+/g, '').trim().slice(0, 60) + '.ics');
+      var g = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(c.title || '') + '&dates=' + tm.start + '/' + tm.end +
+        (details ? '&details=' + encodeURIComponent(details) : '') + (place ? '&location=' + encodeURIComponent(place) : '') + (!tm.allDay && L.tz ? '&ctz=' + encodeURIComponent(L.tz) : '');
+      go($('.ev-gcal'), g);
+      go($('.ev-route'), a ? ADDRESS.mapUrl(a) : ''); go($('.ev-place'), a ? ADDRESS.mapUrl(a) : '');
+      go($('.ev-more'), more);
+      var sh = $('.gm-tb span:last-child'); if (sh) { sh.setAttribute('data-go', ''); sh.onclick = share; }
+      var bk = $('.gm-tb span:first-child'); if (bk) bk.remove();
+    },
     links: function () {
       $$('.lk2-row').forEach(function (el) { go(el, href(c[el.getAttribute('data-k')])); });
       var s = $('.lk2-share'); if (s) { s.setAttribute('data-go', ''); s.onclick = share; }

@@ -45,7 +45,7 @@
   // Voor alle dynamische codes (niet vCard en wifi: die bevatten alles zelf en gaan niet via onze server):
   // - Plannen (KB Q224): startdatum en einddatum onder "Meer opties"
   // - Google Analytics (KB Q222): UTM-labels aan de links van de pagina, als die links heeft
-  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp'];
+  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review'];
   data.forEach(function (type) {
     if (type.id === 'vcard' || type.id === 'wifi') return;
     var has = function (k) { return type.fields.some(function (f) { return f.key === k; }); };
@@ -177,5 +177,22 @@
       { key: 'buttonLabel', label: 'fields.buttonLabel', max: 30, needs: 'buttonUrl', sample: { t: 'pv.coupon.shopNow' } } ] },
   { id: 'wifi', page: false,      icon: 'wifi',   image: 'assets/qr-types/wifi.jpg',      contentType: 'wifi',     previewType: 'card',    color: '#2bb5f0', theme: ['#2bb5f0', '#0f172a'],
     fields: [ { key: 'ssid', label: 'fields.ssid', sample: { t: 'sample.wifiSsid' } }, { key: 'password', label: 'fields.password', sample: '' },
-              { key: 'security', type: 'select', label: 'fields.security', options: [ { value: 'WPA', label: 'WPA/WPA2' }, { value: 'WEP', label: 'WEP' }, { value: 'nopass', label: { t: 'fields.securityNone' } } ], sample: 'WPA' } ] }
+              { key: 'security', type: 'select', label: 'fields.security', options: [ { value: 'WPA', label: 'WPA/WPA2' }, { value: 'WEP', label: 'WEP' }, { value: 'nopass', label: { t: 'fields.securityNone' } } ], sample: 'WPA' } ] },
+  // Review: klanten in één scan naar het venster "Review schrijven" (Google, Tripadvisor, Trustpilot …). Doorsturen, geen eigen pagina.
+  { id: 'review', page: false, icon: 'review', contentType: 'url', previewType: 'card', color: '#f5a524', theme: ['#f5a524', '#1f2937'],
+    fields: [
+      { key: 'url', type: 'url', label: 'fields.reviewUrl', required: true, check: true, sample: { t: 'sample.reviewUrl' }, hint: 'hint.reviewUrl' },
+      { key: 'title', label: 'fields.bizName', sample: { t: 'sample.bizName' }, hint: 'hint.reviewName' } ] },
+  // Evenement: pagina met datum, tijd, plaats en "Zet in agenda" (.ics voor iPhone/Outlook, plus Google Agenda)
+  { id: 'event', icon: 'event', contentType: 'event', previewType: 'card', color: '#7c3aed', theme: ['#7c3aed', '#1e1b4b'],
+    fields: [
+      { key: 'cover', type: 'image', label: 'fields.cover' },
+      { key: 'title', label: 'fields.eventName', required: true, max: 100, sample: { t: 'sample.eventName' } },
+      { key: 'startDate', type: 'date', label: 'fields.eventStart', required: true },
+      { key: 'startTime', type: 'time', label: 'fields.eventStartTime' },
+      { key: 'endDate', type: 'date', label: 'fields.eventEnd', hint: 'hint.eventEnd' },
+      { key: 'endTime', type: 'time', label: 'fields.eventEndTime' },
+      { key: 'address', type: 'address', label: 'fields.eventPlace', sample: { t: 'sample.bizAddress' } },
+      { key: 'description', label: 'fields.description', max: 1000, sample: { t: 'sample.eventDesc' } },
+      { key: 'url', type: 'url', label: 'fields.eventUrl', sample: { t: 'sample.bizWebsite' }, hint: 'hint.eventUrl' } ] }
 ]);

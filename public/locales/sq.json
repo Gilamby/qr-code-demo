@@ -112,6 +112,14 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Lidhu me një rrjet Wi-Fi"
+    },
+    "review": {
+      "name": "Vlerësim",
+      "desc": "Merrni më shumë vlerësime"
+    },
+    "event": {
+      "name": "Event",
+      "desc": "Data, vendi dhe shto në kalendar"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Përshëndetje! Do të doja më shumë informacion.",
       "new": "Mesazh i ri",
       "send": "Dërgo SMS"
+    },
+    "review": {
+      "head": "Shkruaj një vlerësim",
+      "post": "Publiko",
+      "public": "Publikohet publikisht",
+      "tap": "Prekni një yll për të vlerësuar",
+      "placeholder": "Tregoni për përvojën tuaj",
+      "sample": "Tarracë e mrekullueshme, staf i sjellshëm dhe kafeja më e mirë në qytet!",
+      "addPhoto": "Shto foto"
+    },
+    "event": {
+      "add": "Shto në kalendar",
+      "google": "Google Calendar",
+      "route": "Udhëzime",
+      "more": "Bileta dhe info",
+      "allDay": "Gjithë ditën"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Pas përfundimit, dërgo te",
     "abUrl": "Lidhja e dytë (test A/B)",
     "abShare": "Pjesa te lidhja e dytë (%)",
-    "alertAt": "Më njofto në … skanime"
+    "alertAt": "Më njofto në … skanime",
+    "reviewUrl": "Lidhja e vlerësimit",
+    "bizName": "Emri i biznesit",
+    "eventName": "Emri i eventit",
+    "eventStart": "Data",
+    "eventStartTime": "Ora e fillimit",
+    "eventEnd": "Data e mbarimit",
+    "eventEndTime": "Ora e mbarimit",
+    "eventPlace": "Vendndodhja",
+    "eventUrl": "Bileta ose më shumë info"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -616,7 +649,11 @@
     "afterUrl": "Kur kalon data e mbarimit ose arrihet numri maksimal i skanimeve, vizitorët shkojnë te kjo lidhje në vend të \"skaduar\". E dobishme për ofertën e radhës.",
     "abUrl": "Një pjesë e vizitorëve shkon te kjo lidhje, pjesa tjetër te lidhja e zakonshme. Aktivizo edhe \"Ndiq në Google Analytics\" për të parë konvertimet sipas versionit (utm_content=a ose b).",
     "abShare": "Si parazgjedhje 50: gjysma te secila lidhje.",
-    "alertAt": "Merr një email kur ky kod arrin këtë numër skanimesh. E dobishme për oferta dhe postera."
+    "alertAt": "Merr një email kur ky kod arrin këtë numër skanimesh. E dobishme për oferta dhe postera.",
+    "reviewUrl": "Google: hapni Profilin e Biznesit, zgjidhni “Kërko vlerësime” dhe kopjoni lidhjen. Funksionojnë edhe lidhjet nga Tripadvisor, Trustpilot ose Booking.com.",
+    "reviewName": "Shfaqet në pamjen paraprake dhe ju ndihmon ta njihni kodin.",
+    "eventEnd": "Lëreni bosh për një event njëditor.",
+    "eventUrl": "Për shembull dyqani i biletave ose faqja juaj."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.stervitu.app",
     "videoUrl": "https://shkollaweb.al/mesimi-1-html",
     "igUrl": "https://www.instagram.com/thijs.fotografi/",
-    "menuUrl": "https://restoranti-yt.al/menu"
+    "menuUrl": "https://restoranti-yt.al/menu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Mbrëmje vere me xhaz",
+    "eventDesc": "Muzikë live në tarracë me tapas dhe pije. Hyrja falas."
   },
   "fmt": {
     "months": [
@@ -3183,5 +3223,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "Edhe 1 lloj"
   }
 }

@@ -42,13 +42,13 @@ function publicContent(q: QrCode, type: any) {
   return out;
 }
 
-export function livePage(req: Request, q: QrCode, type: any) {
+export function livePage(req: Request, q: QrCode, type: any, tz?: string) {
   const d = q.design || {};
   const pc = HEX.test(d.pageColor || '') ? d.pageColor : (type.theme || ['#2bb5f0'])[0];
   const ac = HEX.test(d.accentColor || '') ? d.accentColor : (type.theme || ['', '#0f172a'])[1];
   const content = publicContent(q, type);
   const title = content.title || content.name || content.restaurant || content.appName || content.pageName || 'QR';
-  const data = JSON.stringify({ id: q.id, typeId: q.typeId, content, lang: visitorLang(req) }).replace(/</g, '\\u003c');
+  const data = JSON.stringify({ id: q.id, typeId: q.typeId, content, lang: visitorLang(req), tz: tz || null }).replace(/</g, '\\u003c');
   const js = ['js/i18n.js', 'js/config.js', 'js/qr-render.js', 'js/preview.js', 'js/business-fields.js', 'js/content-fields.js', 'js/phone-templates.js', 'js/live.js'];
   return '<!doctype html><html lang="' + visitorLang(req) + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">' +
     '<base href="/"><title>' + esc(title) + '</title><meta name="theme-color" content="' + pc + '">' +

@@ -112,6 +112,14 @@
     "wifi": {
       "name": "Wi-Fi",
       "desc": "Conéctate a una red wifi"
+    },
+    "review": {
+      "name": "Reseña",
+      "desc": "Consigue más reseñas"
+    },
+    "event": {
+      "name": "Evento",
+      "desc": "Fecha, lugar y añadir al calendario"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "¡Hola! Me gustaría más información.",
       "new": "Nuevo mensaje",
       "send": "Enviar SMS"
+    },
+    "review": {
+      "head": "Escribir una reseña",
+      "post": "Publicar",
+      "public": "Se publicará públicamente",
+      "tap": "Toca una estrella para valorar",
+      "placeholder": "Cuenta tu propia experiencia",
+      "sample": "¡Terraza preciosa, personal amable y el mejor café de la ciudad!",
+      "addPhoto": "Añadir fotos"
+    },
+    "event": {
+      "add": "Añadir al calendario",
+      "google": "Google Calendar",
+      "route": "Cómo llegar",
+      "more": "Entradas e info",
+      "allDay": "Todo el día"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Al terminar, enviar a",
     "abUrl": "Segundo enlace (test A/B)",
     "abShare": "Parte al segundo enlace (%)",
-    "alertAt": "Avisarme a los … escaneos"
+    "alertAt": "Avisarme a los … escaneos",
+    "reviewUrl": "Enlace de reseñas",
+    "bizName": "Nombre del negocio",
+    "eventName": "Nombre del evento",
+    "eventStart": "Fecha",
+    "eventStartTime": "Hora de inicio",
+    "eventEnd": "Fecha de fin",
+    "eventEndTime": "Hora de fin",
+    "eventPlace": "Lugar",
+    "eventUrl": "Entradas o más información"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -616,7 +649,11 @@
     "afterUrl": "Cuando pase la fecha de fin o se alcance el máximo de escaneos, los visitantes van a este enlace en lugar de \"caducado\". Útil para tu siguiente promoción.",
     "abUrl": "Una parte de los visitantes va a este enlace y el resto al enlace normal. Activa también \"Seguir en Google Analytics\" para ver las conversiones por versión (utm_content=a o b).",
     "abShare": "Por defecto 50: la mitad a cada enlace.",
-    "alertAt": "Recibes un correo cuando este código llegue a este número de escaneos. Útil para promociones y carteles."
+    "alertAt": "Recibes un correo cuando este código llegue a este número de escaneos. Útil para promociones y carteles.",
+    "reviewUrl": "Google: abre tu Perfil de Empresa, elige “Pedir reseñas” y copia el enlace. También sirven enlaces de Tripadvisor, Trustpilot o Booking.com.",
+    "reviewName": "Aparece en la vista previa y te ayuda a reconocer el código.",
+    "eventEnd": "Déjalo vacío si el evento dura un día.",
+    "eventUrl": "Por ejemplo, tu tienda de entradas o tu web."
   },
   "more": {
     "title": "Más opciones",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.entrenaya.app",
     "videoUrl": "https://escuelaweb.es/leccion-1-html",
     "igUrl": "https://www.instagram.com/thijs.fotografia/",
-    "menuUrl": "https://turestaurante.es/menu"
+    "menuUrl": "https://turestaurante.es/menu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Noche de jazz de verano",
+    "eventDesc": "Música en directo en la terraza con tapas y bebidas. Entrada libre."
   },
   "visit": {
     "locked": "Esta página está protegida",
@@ -3122,5 +3162,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "1 tipo más"
   }
 }

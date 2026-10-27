@@ -24,17 +24,42 @@ function renderHero(state) {
   document.getElementById('heroTitle').textContent = state.editing ? t('edit.title', { name: state.editing.label || typeName(getType(state.typeId)) }) : t(HERO_TEXT[state.step][0]);
 }
 
+/* Soorten QR-code: per pagina een raster van 4 × 4 (16). Zijn er meer, dan een carrousel: pijltjes, puntjes en vegen op de telefoon. */
+var TG_PAGE = 16, tgPage = 0;
 var TypeGrid = {
+  card: function (type, state) {
+    var on = type.id === state.typeId, locked = window.PlanGate && !PlanGate.typeOk(type.id);   // niet in je pakket: slotje, klik = pakketten
+    return '<button class="qr-card' + (on ? ' selected' : '') + (locked ? ' locked' : '') + '" type="button" data-type="' + type.id + '" aria-pressed="' + on + '"' + (locked ? ' data-locked="pro"' : '') + '>' +
+      '<span class="ic" aria-hidden="true">' + svg(type.icon, 1.6) + '</span><span class="title">' + typeName(type) + '</span>' + (locked ? PlanGate.badge('pro') : '') + '</button>';
+  },
   render: function (el, state) {
-    el.innerHTML = '<div class="grid" role="group" aria-label="' + esc(t('steps.type')) + '">' + QR_TYPES.map(function (type) {
-      var on = type.id === state.typeId, locked = window.PlanGate && !PlanGate.typeOk(type.id);   // niet in je pakket: slotje, klik = pakketten
-      return '<button class="qr-card' + (on ? ' selected' : '') + (locked ? ' locked' : '') + '" type="button" data-type="' + type.id + '" aria-pressed="' + on + '"' + (locked ? ' data-locked="pro"' : '') + '>' +
-        '<span class="ic" aria-hidden="true">' + svg(type.icon, 1.6) + '</span><span class="title">' + typeName(type) + '</span>' + (locked ? PlanGate.badge('pro') : '') + '</button>';
-    }).join('') + '</div>' +
+    TypeGrid.el = el; TypeGrid.state = state;
+    var pages = []; for (var i = 0; i < QR_TYPES.length; i += TG_PAGE) pages.push(QR_TYPES.slice(i, i + TG_PAGE));
+    var sel = QR_TYPES.map(function (x) { return x.id; }).indexOf(state.typeId);
+    if (sel >= 0 && state.typeId !== TypeGrid.lastSel) tgPage = Math.floor(sel / TG_PAGE);   // gekozen soort staat op een andere pagina: die tonen
+    TypeGrid.lastSel = state.typeId; if (tgPage >= pages.length) tgPage = 0;
+    var grid = function (list, i) { return '<div class="grid' + (pages.length > 1 ? ' tg-page' : '') + '" role="group" aria-label="' + esc(t('steps.type') + (pages.length > 1 ? ' · ' + t('tg.page', { n: i + 1, total: pages.length }) : '')) + '"' + (pages.length > 1 && i !== tgPage ? ' inert' : '') + '>' +
+      list.map(function (type) { return TypeGrid.card(type, state); }).join('') + '</div>'; };
+    var nav = pages.length < 2 ? '' : '<div class="tg-nav">' +
+      '<button type="button" class="tg-arrow" data-tg="-1" aria-label="' + esc(t('tg.prev')) + '"' + (tgPage === 0 ? ' disabled' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+      '<span class="tg-dots">' + pages.map(function (p, i) { return '<button type="button" class="tg-dot' + (i === tgPage ? ' on' : '') + '" data-tgp="' + i + '" aria-label="' + esc(t('tg.page', { n: i + 1, total: pages.length })) + '" aria-current="' + (i === tgPage) + '"></button>'; }).join('') + '</span>' +
+      (tgPage < pages.length - 1 ? '<button type="button" class="tg-more" data-tg="1">' + (function (n) { return esc(t(n === 1 ? 'tg.moreOne' : 'tg.more', { n: n })); })(pages.slice(tgPage + 1).reduce(function (n, p) { return n + p.length; }, 0)) + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>'
+        : '<button type="button" class="tg-arrow" data-tg="1" aria-label="' + esc(t('tg.next')) + '" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>') +
+      '</div>';
+    el.innerHTML = (pages.length > 1 ? '<div class="tg-car"><div class="tg-track" style="--tg:' + tgPage + '">' + pages.map(grid).join('') + '</div></div>' + nav : grid(pages[0], 0)) +
       // Al een QR-code uit een andere app (bv. al geprint)? Overzetten: alleen voor het team
       (window.api && !api.isDemo() && window.Session && Session.user && (Session.user() || {}).admin ? '<button type="button" class="imp-banner" data-import><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/></svg></span><span><b>' + t('imp.banner') + '</b><small>' + t('imp.bannerGo') + ' →</small></span></button>' : '') +
       Actions.html(state);
+    var car = el.querySelector('.tg-car');
+    if (car) {   // vegen op de telefoon
+      var x0 = null;
+      car.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      car.addEventListener('touchend', function (e) { if (x0 == null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; var n = el.querySelectorAll('.tg-page').length;
+        if (Math.abs(dx) > 50) { var p = tgPage + (dx < 0 ? 1 : -1); if (p >= 0 && p < n) TypeGrid.go(el, TypeGrid.state, p); } }, { passive: true });
+    }
   },
+  /* Naar een andere pagina van de carrousel (pijltjes, puntjes, vegen) */
+  go: function (el, state, page) { tgPage = page; TypeGrid.render(el, state); var f = el.querySelector('.tg-page:not([inert]) .qr-card'); if (f && document.activeElement && document.activeElement.closest && document.activeElement.closest('.tg-nav')) { var b = el.querySelector('.tg-nav [data-tgp="' + page + '"]'); if (b) b.focus(); } },
   update: function (el, state) { el.querySelectorAll('.qr-card').forEach(function (b) { var on = b.getAttribute('data-type') === state.typeId; b.classList.toggle('selected', on); b.setAttribute('aria-pressed', String(on)); }); }
 };
 

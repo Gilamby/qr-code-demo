@@ -26,6 +26,9 @@
 
   panel.addEventListener('click', function (e) {
     var card = e.target.closest('.qr-card'); if (card) return actions.selectType(card.getAttribute('data-type'));
+    var tg = e.target.closest('[data-tg], [data-tgp]');   // carrousel met soorten: pijltjes en puntjes
+    if (tg && TypeGrid.el) { var n = TypeGrid.el.querySelectorAll('.tg-page').length, cur = +(TypeGrid.el.querySelector('.tg-track') || { style: {} }).style.getPropertyValue('--tg') || 0;
+      var to = tg.hasAttribute('data-tgp') ? +tg.getAttribute('data-tgp') : cur + (+tg.getAttribute('data-tg')); if (to >= 0 && to < n) TypeGrid.go(TypeGrid.el, store.get(), to); return; }
     var go = e.target.closest('[data-go]');
     if (go) {
       var to = go.getAttribute('data-go'), st = store.get();

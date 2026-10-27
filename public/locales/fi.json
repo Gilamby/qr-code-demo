@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Yhdistä Wi-Fi-verkkoon"
+    },
+    "review": {
+      "name": "Arvostelu",
+      "desc": "Saa lisää arvosteluja"
+    },
+    "event": {
+      "name": "Tapahtuma",
+      "desc": "Päivä, paikka ja lisää kalenteriin"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Hei! Haluaisin lisätietoja.",
       "new": "Uusi viesti",
       "send": "Lähetä tekstiviesti"
+    },
+    "review": {
+      "head": "Kirjoita arvostelu",
+      "post": "Julkaise",
+      "public": "Julkaistaan julkisesti",
+      "tap": "Arvioi napauttamalla tähteä",
+      "placeholder": "Kerro omasta kokemuksestasi",
+      "sample": "Ihana terassi, ystävällinen henkilökunta ja kaupungin paras kahvi!",
+      "addPhoto": "Lisää kuvia"
+    },
+    "event": {
+      "add": "Lisää kalenteriin",
+      "google": "Google-kalenteri",
+      "route": "Reittiohjeet",
+      "more": "Liput ja tiedot",
+      "allDay": "Koko päivän"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Päättymisen jälkeen ohjaa",
     "abUrl": "Toinen linkki (A/B-testi)",
     "abShare": "Osuus toiseen linkkiin (%)",
-    "alertAt": "Ilmoita … skannauksen kohdalla"
+    "alertAt": "Ilmoita … skannauksen kohdalla",
+    "reviewUrl": "Arvostelulinkki",
+    "bizName": "Yrityksen nimi",
+    "eventName": "Tapahtuman nimi",
+    "eventStart": "Päivämäärä",
+    "eventStartTime": "Alkamisaika",
+    "eventEnd": "Päättymispäivä",
+    "eventEndTime": "Päättymisaika",
+    "eventPlace": "Paikka",
+    "eventUrl": "Liput tai lisätietoa"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -616,7 +649,11 @@
     "afterUrl": "Kun päättymispäivä on ohi tai skannausten enimmäismäärä täynnä, kävijät ohjataan tähän linkkiin \"vanhentunut\"-sivun sijaan. Kätevä seuraavaa kampanjaa varten.",
     "abUrl": "Osa kävijöistä ohjataan tähän linkkiin, loput tavalliseen linkkiin. Laita päälle myös \"Seuraa Google Analyticsissa\", niin näet konversiot versioittain (utm_content=a tai b).",
     "abShare": "Oletus 50: puolet kumpaankin linkkiin.",
-    "alertAt": "Saat yhden sähköpostin, kun koodi saavuttaa tämän skannausmäärän. Kätevä kampanjoihin ja julisteisiin."
+    "alertAt": "Saat yhden sähköpostin, kun koodi saavuttaa tämän skannausmäärän. Kätevä kampanjoihin ja julisteisiin.",
+    "reviewUrl": "Google: avaa yritysprofiilisi, valitse ”Pyydä arvosteluja” ja kopioi linkki. Myös Tripadvisorin, Trustpilotin tai Booking.comin linkit toimivat.",
+    "reviewName": "Näkyy esikatselussa ja auttaa tunnistamaan koodin.",
+    "eventEnd": "Jätä tyhjäksi, jos tapahtuma kestää yhden päivän.",
+    "eventUrl": "Esimerkiksi lippukauppasi tai verkkosivusi."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
     "videoUrl": "https://verkkokoulu.fi/oppitunti-1-html",
     "igUrl": "https://www.instagram.com/eero.kuvaa/",
-    "menuUrl": "https://ravintolasi.fi/ruokalista"
+    "menuUrl": "https://ravintolasi.fi/ruokalista",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Kesäinen jazzilta",
+    "eventDesc": "Elävää musiikkia terassilla, tapaksia ja juomia. Vapaa pääsy."
   },
   "visit": {
     "locked": "Tämä sivu on suojattu",
@@ -3077,5 +3117,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "1 tyyppi lisää"
   }
 }

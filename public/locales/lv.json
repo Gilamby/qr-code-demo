@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Pieslēgties Wi-Fi tīklam"
+    },
+    "review": {
+      "name": "Atsauksme",
+      "desc": "Iegūstiet vairāk atsauksmju"
+    },
+    "event": {
+      "name": "Pasākums",
+      "desc": "Datums, vieta un pievienot kalendāram"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Sveiki! Es vēlētos vairāk informācijas.",
       "new": "Jauna ziņa",
       "send": "Sūtīt SMS"
+    },
+    "review": {
+      "head": "Uzrakstīt atsauksmi",
+      "post": "Publicēt",
+      "public": "Tiks publicēta publiski",
+      "tap": "Pieskarieties zvaigznei, lai novērtētu",
+      "placeholder": "Pastāstiet par savu pieredzi",
+      "sample": "Lieliska terase, laipns personāls un labākā kafija pilsētā!",
+      "addPhoto": "Pievienot fotoattēlus"
+    },
+    "event": {
+      "add": "Pievienot kalendāram",
+      "google": "Google kalendārs",
+      "route": "Maršruts",
+      "more": "Biļetes un informācija",
+      "allDay": "Visu dienu"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Pēc beigām sūtīt uz",
     "abUrl": "Otrā saite (A/B tests)",
     "abShare": "Daļa uz otro saiti (%)",
-    "alertAt": "Paziņot pie … skenējumiem"
+    "alertAt": "Paziņot pie … skenējumiem",
+    "reviewUrl": "Atsauksmes saite",
+    "bizName": "Uzņēmuma nosaukums",
+    "eventName": "Pasākuma nosaukums",
+    "eventStart": "Datums",
+    "eventStartTime": "Sākuma laiks",
+    "eventEnd": "Beigu datums",
+    "eventEndTime": "Beigu laiks",
+    "eventPlace": "Vieta",
+    "eventUrl": "Biļetes vai vairāk informācijas"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -616,7 +649,11 @@
     "afterUrl": "Kad beigu datums pagājis vai sasniegts maksimālais skenējumu skaits, apmeklētāji nonāk šajā saitē, nevis \"beidzies\". Ērti nākamajai akcijai.",
     "abUrl": "Daļa apmeklētāju nonāk šajā saitē, pārējie parastajā saitē. Ieslēdz arī \"Sekot Google Analytics\", lai redzētu konversijas pa versijām (utm_content=a vai b).",
     "abShare": "Pēc noklusējuma 50: puse uz katru saiti.",
-    "alertAt": "Saņemsi vienu e-pastu, kad kods sasniegs šo skenējumu skaitu. Noderīgi akcijām un plakātiem."
+    "alertAt": "Saņemsi vienu e-pastu, kad kods sasniegs šo skenējumu skaitu. Noderīgi akcijām un plakātiem.",
+    "reviewUrl": "Google: atveriet uzņēmuma profilu, izvēlieties “Lūgt atsauksmes” un nokopējiet saiti. Der arī Tripadvisor, Trustpilot vai Booking.com saites.",
+    "reviewName": "Redzams priekšskatījumā un palīdz atpazīt kodu.",
+    "eventEnd": "Atstājiet tukšu vienas dienas pasākumam.",
+    "eventUrl": "Piemēram, jūsu biļešu veikals vai vietne."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
     "videoUrl": "https://webskola.lv/nodarbiba-1-html",
     "igUrl": "https://www.instagram.com/martins.foto/",
-    "menuUrl": "https://tavsrestorans.lv/edienkarte"
+    "menuUrl": "https://tavsrestorans.lv/edienkarte",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Vasaras džeza vakars",
+    "eventDesc": "Dzīvā mūzika uz terases ar tapas un dzērieniem. Ieeja brīva."
   },
   "visit": {
     "locked": "Šī lapa ir aizsargāta",
@@ -3077,5 +3117,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "Vēl 1 veids"
   }
 }

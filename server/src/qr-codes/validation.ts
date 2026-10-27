@@ -107,6 +107,12 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
   for (const key of Object.keys(input)) if (!type.fields.some((f) => f.key === key)) errors.push(key + ': unknown field');
   for (const f of type.fields) if (f.required && (QR_TYPES as any).active(type, f, input) && !content[f.key] && !(f.or && content[f.or])) errors.push(f.key + ': required');   // or: het andere veld mag ook
 
+  // Evenement: einde niet vóór het begin
+  if (type.id === 'event' && content.startDate) {
+    const at = (d: string, t?: string) => d + 'T' + (t || '00:00');
+    if (content.endDate && at(content.endDate, content.endTime || '23:59') < at(content.startDate, content.startTime)) errors.push('endDate: before start');
+    if (!content.endDate && content.endTime && content.startTime && content.endTime < content.startTime) errors.push('endTime: before start');
+  }
   const dv = validateDesign(body.design || {}, errors);
   return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: dv } };
 }

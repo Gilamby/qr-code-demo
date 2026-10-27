@@ -112,6 +112,14 @@
     "wifi": {
       "name": "Wifi",
       "desc": "Verbind met een wifi-netwerk"
+    },
+    "review": {
+      "name": "Review",
+      "desc": "Krijg meer reviews"
+    },
+    "event": {
+      "name": "Evenement",
+      "desc": "Datum, plaats en in de agenda"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Hallo! Ik wil graag meer informatie.",
       "new": "Nieuw bericht",
       "send": "Verstuur sms"
+    },
+    "review": {
+      "head": "Review schrijven",
+      "post": "Plaatsen",
+      "public": "Wordt openbaar geplaatst",
+      "tap": "Tik op een ster om te beoordelen",
+      "placeholder": "Vertel over je eigen ervaring",
+      "sample": "Heerlijk terras, vriendelijk personeel en de beste koffie van de stad!",
+      "addPhoto": "Foto’s toevoegen"
+    },
+    "event": {
+      "add": "Zet in agenda",
+      "google": "Google Agenda",
+      "route": "Route",
+      "more": "Tickets en info",
+      "allDay": "Hele dag"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Na afloop doorsturen naar",
     "abUrl": "Tweede link (A/B-test)",
     "abShare": "Deel naar de tweede link (%)",
-    "alertAt": "Mail mij bij … scans"
+    "alertAt": "Mail mij bij … scans",
+    "reviewUrl": "Reviewlink",
+    "bizName": "Bedrijfsnaam",
+    "eventName": "Naam van het evenement",
+    "eventStart": "Datum",
+    "eventStartTime": "Begintijd",
+    "eventEnd": "Einddatum",
+    "eventEndTime": "Eindtijd",
+    "eventPlace": "Locatie",
+    "eventUrl": "Tickets of meer info"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -616,7 +649,11 @@
     "afterUrl": "Als de einddatum voorbij is of het maximum aantal scans bereikt, gaan bezoekers naar deze link in plaats van \"verlopen\". Handig voor de volgende actie.",
     "abUrl": "Een deel van de bezoekers gaat naar deze link, de rest naar de gewone link. Zet ook \"Volgen in Google Analytics\" aan: dan zie je verkopen per versie (utm_content=a of b).",
     "abShare": "Standaard 50: de helft naar elke link.",
-    "alertAt": "Je krijgt één e-mail als deze code dit aantal scans haalt. Handig voor acties en posters."
+    "alertAt": "Je krijgt één e-mail als deze code dit aantal scans haalt. Handig voor acties en posters.",
+    "reviewUrl": "Google: open je bedrijfsprofiel, kies “Vraag om reviews” en kopieer de link. Een link van Tripadvisor, Trustpilot of Booking.com kan ook.",
+    "reviewName": "Staat in het voorbeeld en helpt je de code te herkennen.",
+    "eventEnd": "Leeg laten bij een evenement van één dag.",
+    "eventUrl": "Bijvoorbeeld je ticketshop of website."
   },
   "more": {
     "title": "Meer opties",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.trainfit.app",
     "videoUrl": "https://webschool.nl/les-1-html",
     "igUrl": "https://www.instagram.com/thijs.fotografie/",
-    "menuUrl": "https://jouwrestaurant.nl/menu"
+    "menuUrl": "https://jouwrestaurant.nl/menu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Zomerse jazzavond",
+    "eventDesc": "Livemuziek op het terras met tapas en drankjes. Gratis toegang."
   },
   "visit": {
     "locked": "Deze pagina is beveiligd",
@@ -3122,5 +3162,12 @@
     "distance": "Gescand vanaf",
     "min": "✓ Print hem minstens {cm} cm breed",
     "tooSmall": "Moet minstens {cm} cm zijn: kies een groter formaat, of SVG, PDF of EPS"
+  },
+  "tg": {
+    "prev": "Vorige soorten",
+    "next": "Meer soorten",
+    "page": "Pagina {n} van {total}",
+    "more": "Nog {n} soorten",
+    "moreOne": "Nog 1 soort"
   }
 }

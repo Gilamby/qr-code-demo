@@ -54,6 +54,7 @@ var PHONE = (function () {
     copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
     star: '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z" fill="currentColor" stroke="none"/>',
     img: '<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
+    cal: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/>',
     gift: '<path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1s3 1 5 1zM12 7c1.5-3 5-3.5 5-1s-3 1-5 1z"/>'
   };
   function ic(k, cls) { return '<svg class="' + (cls || 'i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + I[k] + '</svg>'; }
@@ -488,6 +489,47 @@ var PHONE = (function () {
           '<div class="gm-row">' + ic('mail') + '<span>' + v(c.email, '65%') + '</span></div>' +
           '<div class="gm-row">' + ic('globe') + '<span>' + v(c.website ? c.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '', '50%') + '</span></div>' +
           (nets.length ? '<div class="gm-soc">' + nets.map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') +
+        '</div>' +
+      '</div>';
+    },
+
+    /* ---------- Review: het venster "review schrijven" waar de scan naartoe gaat (algemeen, zonder merklogo's) ---------- */
+    review: function (c, ex) {
+      var name = c.title || (ex ? t('sample.bizName') : ''), host = domain(c.url) || (ex ? 'g.page' : '');
+      var stars = [0, 1, 2, 3, 4].map(function (i) { return '<i class="rv-star' + (ex && i < 4 ? ' on' : '') + '">' + ic('star') + '</i>'; }).join('');
+      return '<div class="ph ph-rv">' + statusBar() +
+        '<div class="rv-url">' + ic('lock') + '<span>' + (host ? esc(host) : '<i class="sk" style="width:90px"></i>') + '</span></div>' +
+        '<div class="rv-top">' + ic('back') + '<b>' + esc(t('pv.review.head')) + '</b><span class="rv-post-top">' + esc(t('pv.review.post')) + '</span></div>' +
+        '<div class="rv-biz"><span class="rv-av">' + esc(initials(name) || '★') + '</span><div><b>' + v(name, '60%') + '</b><small>' + esc(t('pv.review.public')) + '</small></div></div>' +
+        '<div class="rv-stars" aria-hidden="true">' + stars + '</div>' +
+        '<p class="rv-hint">' + esc(t('pv.review.tap')) + '</p>' +
+        '<div class="rv-text">' + (ex ? esc(t('pv.review.sample')) : '<span>' + esc(t('pv.review.placeholder')) + '</span>') + '</div>' +
+        '<div class="rv-photo">' + ic('cam') + '<span>' + esc(t('pv.review.addPhoto')) + '</span></div>' +
+        '<div class="rv-foot"><button type="button" class="rv-post">' + esc(t('pv.review.post')) + '</button></div>' +
+      '</div>';
+    },
+
+    /* ---------- Evenement: datum, tijd, plaats en "Zet in agenda" ---------- */
+    event: function (c, ex) {
+      var sd = c.startDate || (ex ? new Date(Date.now() + 16 * 864e5).toISOString().slice(0, 10) : ''), st = c.startTime || (ex ? '19:30' : ''), et = c.endTime || (ex ? '23:00' : ''), ed = c.endDate;
+      var d = sd ? new Date(sd + 'T12:00:00') : null, e2 = ed && ed !== sd ? new Date(ed + 'T12:00:00') : null;
+      var mon = ''; try { mon = d ? new Intl.DateTimeFormat(i18n.lang(), { month: 'short' }).format(d).replace('.', '') : ''; } catch (x) { mon = ''; }
+      var when = d ? i18n.fmt.weekday((d.getDay() + 6) % 7) + ', ' + i18n.fmt.date(d, 'long') + (e2 ? ' – ' + i18n.fmt.date(e2, 'long') : '') : '';
+      var time = st ? i18n.fmt.time(st) + (et ? ' – ' + i18n.fmt.time(et) : '') : (d ? t('pv.event.allDay') : '');
+      var addr = ADDRESS.parse(c.address), place = addr ? addr.l.split(',') : [];
+      var cover = c.cover ? '<img decoding="sync" src="' + c.cover + '" alt="">' : '<div class="ev-art" aria-hidden="true"><b>' + (d ? d.getDate() : '') + '</b><span>' + esc(mon) + '</span></div>';
+      return '<div class="ph ph-ev">' +
+        '<div class="ev-cover">' + cover + statusBar(true) + '<div class="gm-tb"><span>' + ic('back') + '</span><span>' + ic('share') + '</span></div></div>' +
+        '<div class="ev-sheet">' +
+          '<div class="ev-head"><div class="ev-date"><small>' + (mon ? esc(mon) : '<i class="sk" style="width:22px"></i>') + '</small><b>' + (d ? d.getDate() : '<i class="sk" style="width:20px;height:18px"></i>') + '</b></div>' +
+            '<h4>' + v(c.title, '70%') + '</h4></div>' +
+          '<div class="ev-row">' + ic('clock') + '<span><b>' + (when ? esc(when) : '<i class="sk" style="width:70%"></i>') + '</b>' + (time ? '<small>' + esc(time) + '</small>' : '') + '</span></div>' +
+          '<div class="ev-row ev-place">' + ic('pin') + '<span><b>' + (place.length ? esc(place[0]) : '<i class="sk" style="width:55%"></i>') + '</b>' + (place.length > 1 ? '<small>' + esc(place.slice(1).join(',').trim()) + '</small>' : '') + '</span></div>' +
+          (c.description ? '<p class="ev-desc">' + esc(c.description) + '</p>' : '<p class="ev-desc"><i class="sk" style="width:90%"></i><i class="sk" style="width:60%"></i></p>') +
+          '<div class="ev-acts"><button type="button" class="ev-add">' + ic('cal') + '<span>' + esc(t('pv.event.add')) + '</span></button>' +
+            '<div class="ev-sub"><button type="button" class="ev-gcal">' + esc(t('pv.event.google')) + '</button>' +
+            (addr ? '<button type="button" class="ev-route">' + ic('pin') + '<span>' + esc(t('pv.event.route')) + '</span></button>' : '') + '</div>' +
+            (c.url ? '<button type="button" class="ev-more">' + ic('globe') + '<span>' + esc(t('pv.event.more')) + '</span></button>' : '') + '</div>' +
         '</div>' +
       '</div>';
     }

@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Anslut till ett Wi-Fi-nätverk"
+    },
+    "review": {
+      "name": "Recension",
+      "desc": "Få fler recensioner"
+    },
+    "event": {
+      "name": "Evenemang",
+      "desc": "Datum, plats och lägg till i kalendern"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Hej! Jag skulle vilja ha mer information.",
       "new": "Nytt meddelande",
       "send": "Skicka sms"
+    },
+    "review": {
+      "head": "Skriv en recension",
+      "post": "Publicera",
+      "public": "Publiceras offentligt",
+      "tap": "Tryck på en stjärna för att betygsätta",
+      "placeholder": "Berätta om din egen upplevelse",
+      "sample": "Härlig terrass, trevlig personal och stadens bästa kaffe!",
+      "addPhoto": "Lägg till foton"
+    },
+    "event": {
+      "add": "Lägg till i kalendern",
+      "google": "Google Kalender",
+      "route": "Vägbeskrivning",
+      "more": "Biljetter och info",
+      "allDay": "Hela dagen"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "När den är slut, skicka till",
     "abUrl": "Andra länk (A/B-test)",
     "abShare": "Andel till den andra länken (%)",
-    "alertAt": "Mejla mig vid … skanningar"
+    "alertAt": "Mejla mig vid … skanningar",
+    "reviewUrl": "Recensionslänk",
+    "bizName": "Företagets namn",
+    "eventName": "Evenemangets namn",
+    "eventStart": "Datum",
+    "eventStartTime": "Starttid",
+    "eventEnd": "Slutdatum",
+    "eventEndTime": "Sluttid",
+    "eventPlace": "Plats",
+    "eventUrl": "Biljetter eller mer info"
   },
   "panel": {
     "selected": "{type} vald"
@@ -616,7 +649,11 @@
     "afterUrl": "När slutdatumet passerat eller max antal skanningar nåtts hamnar besökare på den här länken i stället för \"utgången\". Smidigt för nästa kampanj.",
     "abUrl": "En del av besökarna går till den här länken, resten till den vanliga länken. Slå även på \"Följ i Google Analytics\" för att se konverteringar per version (utm_content=a eller b).",
     "abShare": "Standard 50: hälften till varje länk.",
-    "alertAt": "Du får ett mejl när koden når detta antal skanningar. Smidigt för kampanjer och affischer."
+    "alertAt": "Du får ett mejl när koden når detta antal skanningar. Smidigt för kampanjer och affischer.",
+    "reviewUrl": "Google: öppna din företagsprofil, välj ”Be om recensioner” och kopiera länken. Länkar från Tripadvisor, Trustpilot eller Booking.com fungerar också.",
+    "reviewName": "Visas i förhandsvisningen och hjälper dig att känna igen koden.",
+    "eventEnd": "Lämna tomt för ett endagsevenemang.",
+    "eventUrl": "Till exempel din biljettbutik eller webbplats."
   },
   "more": {
     "title": "Fler alternativ",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
     "videoUrl": "https://webbskolan.se/lektion-1-html",
     "igUrl": "https://www.instagram.com/oskar.foto/",
-    "menuUrl": "https://dinrestaurang.se/meny"
+    "menuUrl": "https://dinrestaurang.se/meny",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Sommarjazzkväll",
+    "eventDesc": "Livemusik på terrassen med tapas och drinkar. Fri entré."
   },
   "visit": {
     "locked": "Den här sidan är skyddad",
@@ -3077,5 +3117,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "1 typ till"
   }
 }

@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Pripojiť sa k sieti Wi-Fi"
+    },
+    "review": {
+      "name": "Recenzia",
+      "desc": "Získajte viac recenzií"
+    },
+    "event": {
+      "name": "Podujatie",
+      "desc": "Dátum, miesto a pridanie do kalendára"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Dobrý deň! Chcel by som viac informácií.",
       "new": "Nová správa",
       "send": "Odoslať SMS"
+    },
+    "review": {
+      "head": "Napísať recenziu",
+      "post": "Uverejniť",
+      "public": "Uverejní sa verejne",
+      "tap": "Hodnoťte ťuknutím na hviezdu",
+      "placeholder": "Opíšte svoju skúsenosť",
+      "sample": "Krásna terasa, milý personál a najlepšia káva v meste!",
+      "addPhoto": "Pridať fotky"
+    },
+    "event": {
+      "add": "Pridať do kalendára",
+      "google": "Kalendár Google",
+      "route": "Trasa",
+      "more": "Vstupenky a info",
+      "allDay": "Celý deň"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Po skončení posielať na",
     "abUrl": "Druhý odkaz (A/B test)",
     "abShare": "Podiel pre druhý odkaz (%)",
-    "alertAt": "Upozorniť pri … skenoch"
+    "alertAt": "Upozorniť pri … skenoch",
+    "reviewUrl": "Odkaz na recenziu",
+    "bizName": "Názov firmy",
+    "eventName": "Názov podujatia",
+    "eventStart": "Dátum",
+    "eventStartTime": "Čas začiatku",
+    "eventEnd": "Dátum konca",
+    "eventEndTime": "Čas konca",
+    "eventPlace": "Miesto",
+    "eventUrl": "Vstupenky alebo viac info"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -616,7 +649,11 @@
     "afterUrl": "Keď uplynie dátum konca alebo sa dosiahne maximum skenov, návštevníci prídu na tento odkaz namiesto „vypršalo“. Praktické pre ďalšiu akciu.",
     "abUrl": "Časť návštevníkov ide na tento odkaz, zvyšok na bežný odkaz. Zapni aj „Sledovať v Google Analytics“, aby si videl konverzie pre každú verziu (utm_content=a alebo b).",
     "abShare": "Predvolene 50: polovica na každý odkaz.",
-    "alertAt": "Dostaneš jeden e-mail, keď kód dosiahne tento počet skenov. Praktické pre akcie a plagáty."
+    "alertAt": "Dostaneš jeden e-mail, keď kód dosiahne tento počet skenov. Praktické pre akcie a plagáty.",
+    "reviewUrl": "Google: otvorte svoj Firemný profil, vyberte „Požiadať o recenzie“ a skopírujte odkaz. Fungujú aj odkazy z Tripadvisor, Trustpilot alebo Booking.com.",
+    "reviewName": "Zobrazí sa v náhľade a pomôže vám kód rozpoznať.",
+    "eventEnd": "Pri jednodňovom podujatí nechajte prázdne.",
+    "eventUrl": "Napríklad váš predaj vstupeniek alebo web."
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
     "videoUrl": "https://webskola.sk/lekcia-1-html",
     "igUrl": "https://www.instagram.com/martin.foto/",
-    "menuUrl": "https://tvojarestauracia.sk/menu"
+    "menuUrl": "https://tvojarestauracia.sk/menu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Letný jazzový večer",
+    "eventDesc": "Živá hudba na terase s tapas a nápojmi. Vstup voľný."
   },
   "visit": {
     "locked": "Táto stránka je chránená",
@@ -3077,5 +3117,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "Ešte 1 typ"
   }
 }

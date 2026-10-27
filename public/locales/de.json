@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WLAN",
       "desc": "Mit einem WLAN verbinden"
+    },
+    "review": {
+      "name": "Bewertung",
+      "desc": "Mehr Bewertungen bekommen"
+    },
+    "event": {
+      "name": "Veranstaltung",
+      "desc": "Datum, Ort und in den Kalender"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Hallo! Ich hätte gern mehr Informationen.",
       "new": "Neue Nachricht",
       "send": "SMS senden"
+    },
+    "review": {
+      "head": "Bewertung schreiben",
+      "post": "Posten",
+      "public": "Wird öffentlich gepostet",
+      "tap": "Tippen Sie auf einen Stern",
+      "placeholder": "Erzählen Sie von Ihrer Erfahrung",
+      "sample": "Schöne Terrasse, freundliches Personal und der beste Kaffee der Stadt!",
+      "addPhoto": "Fotos hinzufügen"
+    },
+    "event": {
+      "add": "In den Kalender",
+      "google": "Google Kalender",
+      "route": "Route",
+      "more": "Tickets & Infos",
+      "allDay": "Ganztägig"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "Danach weiterleiten zu",
     "abUrl": "Zweiter Link (A/B-Test)",
     "abShare": "Anteil zum zweiten Link (%)",
-    "alertAt": "Mail bei … Scans"
+    "alertAt": "Mail bei … Scans",
+    "reviewUrl": "Bewertungslink",
+    "bizName": "Name des Unternehmens",
+    "eventName": "Name der Veranstaltung",
+    "eventStart": "Datum",
+    "eventStartTime": "Beginn",
+    "eventEnd": "Enddatum",
+    "eventEndTime": "Ende",
+    "eventPlace": "Ort",
+    "eventUrl": "Tickets oder mehr Infos"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -616,7 +649,11 @@
     "afterUrl": "Ist das Enddatum vorbei oder die maximale Anzahl Scans erreicht, landen Besucher auf diesem Link statt auf „abgelaufen“. Praktisch für die nächste Aktion.",
     "abUrl": "Ein Teil der Besucher landet auf diesem Link, der Rest auf dem normalen Link. Schalte auch „In Google Analytics verfolgen“ ein, um Conversions pro Version zu sehen (utm_content=a oder b).",
     "abShare": "Standard 50: die Hälfte zu jedem Link.",
-    "alertAt": "Du bekommst eine E-Mail, wenn dieser Code diese Anzahl Scans erreicht. Praktisch für Aktionen und Plakate."
+    "alertAt": "Du bekommst eine E-Mail, wenn dieser Code diese Anzahl Scans erreicht. Praktisch für Aktionen und Plakate.",
+    "reviewUrl": "Google: Öffnen Sie Ihr Unternehmensprofil, wählen Sie „Rezensionen anfordern“ und kopieren Sie den Link. Links von Tripadvisor, Trustpilot oder Booking.com gehen auch.",
+    "reviewName": "Steht in der Vorschau und hilft Ihnen, den Code wiederzuerkennen.",
+    "eventEnd": "Leer lassen bei einer eintägigen Veranstaltung.",
+    "eventUrl": "Zum Beispiel Ihr Ticketshop oder Ihre Website."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplaner.app",
     "videoUrl": "https://webschule.de/lektion-1-html",
     "igUrl": "https://www.instagram.com/thijs.fotografie/",
-    "menuUrl": "https://deinrestaurant.de/menu"
+    "menuUrl": "https://deinrestaurant.de/menu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Sommerlicher Jazzabend",
+    "eventDesc": "Livemusik auf der Terrasse mit Tapas und Drinks. Eintritt frei."
   },
   "visit": {
     "locked": "Diese Seite ist geschützt",
@@ -3083,5 +3123,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "1 weitere Art"
   }
 }

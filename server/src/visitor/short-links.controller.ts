@@ -136,7 +136,7 @@ export class ShortLinksController {
     // Alle andere types: de echte pagina, met dezelfde sjablonen als de telefoon in de tool
     const type = QR_TYPES.find((t) => t.id === q.typeId);
     if (!type) return res.status(404).send(rules.notFoundPage(req));
-    res.send(livePage(req, q, type));
+    res.send(livePage(req, q, type, type.id === 'event' ? await this.zoneOf(q.userId) : undefined));   // evenement: tijden in de tijdzone van de eigenaar (voor de agenda)
   }
 
   private async sendFile(res: Response, q: QrCode, key: string) {

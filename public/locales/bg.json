@@ -112,6 +112,14 @@
     "wifi": {
       "name": "WiFi",
       "desc": "Свързване с Wi-Fi мрежа"
+    },
+    "review": {
+      "name": "Отзив",
+      "desc": "Получете повече отзиви"
+    },
+    "event": {
+      "name": "Събитие",
+      "desc": "Дата, място и добавяне в календара"
     }
   },
   "pv": {
@@ -288,6 +296,22 @@
       "msg": "Здравейте! Бих искал повече информация.",
       "new": "Ново съобщение",
       "send": "Изпрати SMS"
+    },
+    "review": {
+      "head": "Напишете отзив",
+      "post": "Публикувай",
+      "public": "Публикува се публично",
+      "tap": "Докоснете звезда, за да оцените",
+      "placeholder": "Разкажете за преживяването си",
+      "sample": "Прекрасна тераса, любезен персонал и най-хубавото кафе в града!",
+      "addPhoto": "Добавете снимки"
+    },
+    "event": {
+      "add": "Добави в календара",
+      "google": "Google Календар",
+      "route": "Маршрут",
+      "more": "Билети и информация",
+      "allDay": "Цял ден"
     }
   },
   "hero": {
@@ -391,7 +415,16 @@
     "afterUrl": "След края изпращай към",
     "abUrl": "Втора връзка (A/B тест)",
     "abShare": "Дял към втората връзка (%)",
-    "alertAt": "Известие при … сканирания"
+    "alertAt": "Известие при … сканирания",
+    "reviewUrl": "Линк за отзиви",
+    "bizName": "Име на бизнеса",
+    "eventName": "Име на събитието",
+    "eventStart": "Дата",
+    "eventStartTime": "Начален час",
+    "eventEnd": "Крайна дата",
+    "eventEndTime": "Краен час",
+    "eventPlace": "Място",
+    "eventUrl": "Билети или повече информация"
   },
   "panel": {
     "selected": "Избран: {type}"
@@ -616,7 +649,11 @@
     "afterUrl": "Когато крайната дата мине или се достигне максималният брой сканирания, посетителите отиват на тази връзка вместо „изтекъл“. Удобно за следващата промоция.",
     "abUrl": "Част от посетителите отиват на тази връзка, останалите на обичайната. Включете и „Проследяване в Google Analytics“, за да виждате конверсиите по версия (utm_content=a или b).",
     "abShare": "По подразбиране 50: половината към всяка връзка.",
-    "alertAt": "Получавате един имейл, когато кодът достигне този брой сканирания. Удобно за промоции и плакати."
+    "alertAt": "Получавате един имейл, когато кодът достигне този брой сканирания. Удобно за промоции и плакати.",
+    "reviewUrl": "Google: отворете бизнес профила си, изберете „Поискайте отзиви“ и копирайте линка. Работят и линкове от Tripadvisor, Trustpilot или Booking.com.",
+    "reviewName": "Показва се в прегледа и помага да разпознаете кода.",
+    "eventEnd": "Оставете празно за еднодневно събитие.",
+    "eventUrl": "Например вашият магазин за билети или сайт."
   },
   "more": {
     "title": "Още опции",
@@ -1083,7 +1120,10 @@
     "appAndroid": "https://play.google.com/store/apps/details?id=com.fitplan.app",
     "videoUrl": "https://uebshkola.bg/urok-1-html",
     "igUrl": "https://www.instagram.com/georgi.foto/",
-    "menuUrl": "https://tvoyatrestorant.bg/menu"
+    "menuUrl": "https://tvoyatrestorant.bg/menu",
+    "reviewUrl": "https://g.page/r/CafeLumen/review",
+    "eventName": "Лятна джаз вечер",
+    "eventDesc": "Музика на живо на терасата с тапас и напитки. Вход свободен."
   },
   "visit": {
     "locked": "Тази страница е защитена",
@@ -3077,5 +3117,12 @@
     "distance": "Scanned from",
     "min": "✓ Print it at least {cm} cm wide",
     "tooSmall": "Needs at least {cm} cm: choose a bigger size, or SVG, PDF or EPS"
+  },
+  "tg": {
+    "prev": "Previous types",
+    "next": "More types",
+    "page": "Page {n} of {total}",
+    "more": "{n} more types",
+    "moreOne": "Още 1 вид"
   }
 }
