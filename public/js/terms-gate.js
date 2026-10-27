@@ -14,7 +14,7 @@ var TermsGate = (function () {
   function draw() {
     if (!box) { box = document.createElement('div'); box.className = 'paywall terms-gate'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-labelledby', 'tgTitle'); document.body.appendChild(box); }
     box.innerHTML = '<div class="pw-inner tg-inner">' +
-      '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
+      '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/logo-badge.png" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
       '<button type="button" class="link-btn" data-tg-logout>' + esc(t('nav.logout')) + '</button></div>' +
       '<h1 id="tgTitle">' + esc(t('terms.title')) + '</h1><p class="pw-lead">' + esc(t('terms.lead')) + '</p>' +
       (err ? '<p class="auth-msg bad" role="alert">' + esc(t('terms.err')) + '</p>' : '') +

@@ -27,7 +27,7 @@ var Plans = (function () {
   function upFrom(id) { var c = curPlan(); return !!c && ORDER.indexOf(id) > ORDER.indexOf(c); }
   function plans() { return (info.plans || []).filter(function (p) { return p.price != null; }); }
   function top() {
-    return '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/favicon.svg" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
+    return '<div class="pw-top"><span class="auth-logo"><img class="logo-mark" src="icons/logo-badge.png" alt=""><b>QR-<small>Codex</small></b><em class="auth-by">by Optimasys</em></span>' +
       (mode === 'change' ? '<button type="button" class="btn ghost pw-close" data-pw-close>← ' + esc(t('pw.backApp')) + '</button>' : '<button type="button" class="link-btn" data-pw-logout>' + esc(t('nav.logout')) + '</button>') + '</div>';
   }
   /* ---------- Minder QR-codes (bv. Pro → Standard): de klant kiest welke codes aan blijven, de rest wordt gepauzeerd (niet verwijderd) ---------- */

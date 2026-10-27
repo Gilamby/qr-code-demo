@@ -59,7 +59,7 @@ export class MailerService {
     const link = (this.base() || '') + '/?go=myCodes';
     if (!this.transport) { console.log('[e-mail niet ingesteld] Scanmelding voor ' + user.email + ': ' + subject); return; }
     await this.transport.sendMail({ from: this.from(), to: user.email, subject, text: body + '\n\n' + link + '\n\n' + t.scanFooter,
-      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px"><p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">QR-Codex</p>' +
+      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px">' + this.logoHtml() +
         '<h1 style="font-size:21px;margin:0 0 10px">' + esc(subject) + '</h1><p>' + esc(body) + '</p>' +
         '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.scanButton) + '</a></p>' +
         '<p style="color:#5a6577;font-size:13px;margin-top:20px">' + esc(t.scanFooter) + '</p></div>' });
@@ -71,7 +71,7 @@ export class MailerService {
     const subject = v(t.linkDownSubject), body = v(t.linkDownText), link = (this.base() || '') + '/#/codes';
     if (!this.transport) { console.log('[e-mail niet ingesteld] Link werkt niet voor ' + user.email + ': ' + subject); return; }
     await this.transport.sendMail({ from: this.from(), to: user.email, subject, text: body + '\n\n' + link + '\n\n' + t.linkDownFooter,
-      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px"><p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">QR-Codex</p>' +
+      html: '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:480px">' + this.logoHtml() +
         '<h1 style="font-size:21px;margin:0 0 10px">' + esc(subject) + '</h1><p>' + esc(body) + '</p>' +
         '<p><a href="' + esc(link) + '" style="display:inline-block;background:#0b8fd8;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:bold">' + esc(t.linkDownButton) + '</a></p>' +
         '<p style="color:#5a6577;font-size:13px;margin-top:20px">' + esc(t.linkDownFooter) + '</p></div>' });
@@ -102,6 +102,13 @@ export class MailerService {
   private from() { return process.env.MAIL_FROM || 'QR-Codex <no-reply@optimasys.com>'; }
   private base() { return String(process.env.PUBLIC_URL || '').replace(/\/$/, ''); }
 
+  /** Logo bovenaan de mails (het ronde QR-Codex-logo); zonder PUBLIC_URL gewoon de naam */
+  private logoHtml() {
+    const b = this.base();
+    return b ? '<p style="margin:0 0 10px"><img src="' + esc(b) + '/icons/logo-badge.png" width="64" height="64" alt="QR-Codex" style="display:block"></p>'
+      : '<p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">QR-Codex</p>';
+  }
+
   /** Scanoverzicht: onderwerp + HTML (ook gebruikt voor het voorbeeld in Mijn account) */
   async renderReport(lang: string, user: User, d: ReportData, base?: string) {
     const t = await this.texts(lang), v = (s: string, vars: Record<string, string | number>) => String(s || '').replace(/\{(\w+)\}/g, (m, k) => (vars[k] != null ? String(vars[k]) : m));
@@ -114,7 +121,7 @@ export class MailerService {
     const link = (base || this.base() || '') + '/', unsub = this.unsubLink(user, base);
     const tile = (n: string, l: string) => '<td style="padding:14px 16px;background:#f1f6fb;border-radius:12px;width:50%"><div style="font-size:28px;font-weight:800;color:#0d1320">' + n + '</div><div style="font-size:13px;color:#5a6577">' + esc(l) + '</div></td>';
     const html = '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#111;max-width:520px">' +
-      '<p style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0b8fd8;font-weight:700;margin:0 0 6px">QR-Codex</p>' +
+      this.logoHtml() +
       '<h1 style="font-size:22px;margin:0 0 4px">' + esc(subject) + '</h1>' +
       '<p style="margin:0 0 16px;color:#5a6577">' + esc(v(name ? t.reportHello : t.reportHelloPlain, { name })) + '<br>' + esc(t.reportLead) + '</p>' +
       '<table role="presentation" style="width:100%;border-spacing:8px 0;margin:0 -8px 12px"><tr>' + tile(num(d.total), t.reportTotal) + tile(num(d.unique), t.reportUnique) + '</tr></table>' +
