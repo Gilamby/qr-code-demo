@@ -462,7 +462,7 @@
     "pngHint": "για οθόνη και web",
     "svgHint": "για εκτύπωση, καθαρό σε κάθε μέγεθος",
     "edit": "Επεξεργασία",
-    "more": "Εμφάνιση περισσότερων ({n} ακόμη)",
+    "more": "Περισσότερα",
     "open": "Άνοιγμα συνδέσμου",
     "delete": "Διαγραφή",
     "emptyTitle": "Δεν έχεις ακόμα κωδικούς QR",
@@ -476,8 +476,8 @@
     "pausedToast": "Ο κωδικός QR είναι ανενεργός",
     "activeToast": "Ο κωδικός QR είναι ενεργός",
     "deleteTitle": "Διαγραφή «{name}»;",
-    "deleteText": "Ο σύνδεσμος θα σταματήσει να λειτουργεί, όπως και οι τυπωμένοι κωδικοί. Δεν αναιρείται.",
-    "deleteTextStatic": "Ο κωδικός θα συνεχίσει να λειτουργεί, αλλά δεν θα είναι πια στη λίστα σου. Δεν αναιρείται.",
+    "deleteText": "The link stops working right away, so printed codes won’t work either. You can restore it from Recently deleted for 30 days.",
+    "deleteTextStatic": "The code itself keeps working, but it leaves your list. You can restore it from Recently deleted for 30 days.",
     "cancel": "Ακύρωση",
     "deleted": "Ο κωδικός QR διαγράφηκε",
     "viewStats": "Δες στατιστικά",
@@ -504,7 +504,7 @@
     "bulkPaused": "{n} κωδικοί σε παύση",
     "bulkResumed": "{n} κωδικοί ενεργοί",
     "bulkDeleteTitle": "Διαγραφή {n} κωδικών QR;",
-    "bulkDeleteText": "Οι σύνδεσμοι θα σταματήσουν να λειτουργούν και τα στατιστικά θα χαθούν. Δεν αναιρείται.",
+    "bulkDeleteText": "Their links stop working right away. You can restore them from Recently deleted for 30 days.",
     "bulkDeleted": "Διαγράφηκαν {n} κωδικοί QR",
     "bulkMoveTitle": "Μετακίνηση {n} κωδικών QR σε",
     "preparing": "Δημιουργία ZIP…",
@@ -534,7 +534,8 @@
     "hlNowOk": "Ο σύνδεσμος λειτουργεί ξανά.",
     "hlNowBad": "Ο σύνδεσμος εξακολουθεί να μη λειτουργεί.",
     "scansTotal": "σαρώσεις συνολικά",
-    "ofLimit": "από {max} σαρώσεις"
+    "ofLimit": "από {max} σαρώσεις",
+    "showMore": "Εμφάνιση περισσότερων ({n} ακόμη)"
   },
   "appearance": {
     "title": "Χρώματα",
@@ -3038,5 +3039,24 @@
   "status": {
     "bar": "Διακοπή",
     "more": "Περισσότερα"
+  },
+  "bin": {
+    "title": "Recently deleted",
+    "moved": "Moved to Recently deleted. The link no longer works.",
+    "movedMany": "{n} codes moved to Recently deleted.",
+    "undo": "Undo",
+    "restored": "Restored. The link works again.",
+    "restoredMany": "{n} codes restored.",
+    "restoredPaused": "Restored, but paused: your plan is full.",
+    "purgeTitle": "Delete “{name}” permanently?",
+    "purgeText": "The code, its statistics and files will be deleted. The link never comes back. You can’t undo this.",
+    "purge": "Delete permanently",
+    "purged": "Deleted permanently.",
+    "deletedOn": "Deleted on {date}",
+    "left": "Can be restored for {n} more days",
+    "leftOne": "Can be restored for 1 more day",
+    "restore": "Restore",
+    "note": "Deleted codes don’t work. You can restore them for 30 days; after that they are deleted permanently.",
+    "empty": "Nothing in Recently deleted."
   }
 }

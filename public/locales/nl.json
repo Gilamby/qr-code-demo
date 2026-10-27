@@ -462,7 +462,7 @@
     "pngHint": "voor scherm en web",
     "svgHint": "voor drukwerk, scherp op elk formaat",
     "edit": "Bewerken",
-    "more": "Meer tonen (nog {n})",
+    "more": "Meer",
     "open": "Link openen",
     "delete": "Verwijderen",
     "emptyTitle": "Nog geen QR-codes",
@@ -476,8 +476,8 @@
     "pausedToast": "QR-code staat uit",
     "activeToast": "QR-code staat aan",
     "deleteTitle": "“{name}” verwijderen?",
-    "deleteText": "De link werkt daarna niet meer. Geprinte codes doen het dan ook niet meer. Dit kun je niet terugdraaien.",
-    "deleteTextStatic": "De code zelf blijft werken, maar hij staat niet meer in je lijst. Dit kun je niet terugdraaien.",
+    "deleteText": "De link werkt meteen niet meer, ook niet op geprinte codes. Je kunt hem 30 dagen terugzetten via Onlangs verwijderd.",
+    "deleteTextStatic": "De code zelf blijft werken, maar hij gaat uit je lijst. Je kunt hem 30 dagen terugzetten via Onlangs verwijderd.",
     "cancel": "Annuleren",
     "deleted": "QR-code verwijderd",
     "viewStats": "Bekijk statistieken",
@@ -504,7 +504,7 @@
     "bulkPaused": "{n} codes gepauzeerd",
     "bulkResumed": "{n} codes aangezet",
     "bulkDeleteTitle": "{n} QR-codes verwijderen?",
-    "bulkDeleteText": "De links werken daarna niet meer en de statistieken zijn weg. Dit kun je niet terugdraaien.",
+    "bulkDeleteText": "De links werken meteen niet meer. Je kunt ze 30 dagen terugzetten via Onlangs verwijderd.",
     "bulkDeleted": "{n} QR-codes verwijderd",
     "bulkMoveTitle": "{n} QR-codes verplaatsen naar",
     "preparing": "ZIP wordt gemaakt…",
@@ -534,7 +534,8 @@
     "hlNowOk": "De link werkt weer.",
     "hlNowBad": "De link werkt nog steeds niet.",
     "scansTotal": "scans totaal",
-    "ofLimit": "van {max} scans"
+    "ofLimit": "van {max} scans",
+    "showMore": "Meer tonen (nog {n})"
   },
   "appearance": {
     "title": "Kleuren",
@@ -3083,5 +3084,24 @@
   "status": {
     "bar": "Storing",
     "more": "Meer info"
+  },
+  "bin": {
+    "title": "Onlangs verwijderd",
+    "moved": "Naar Onlangs verwijderd. De link werkt niet meer.",
+    "movedMany": "{n} codes naar Onlangs verwijderd.",
+    "undo": "Ongedaan maken",
+    "restored": "Teruggezet. De link werkt weer.",
+    "restoredMany": "{n} codes teruggezet.",
+    "restoredPaused": "Teruggezet, maar gepauzeerd: je pakket zit vol.",
+    "purgeTitle": "“{name}” definitief verwijderen?",
+    "purgeText": "De code, de statistieken en de bestanden worden verwijderd. De link komt nooit meer terug. Dit kun je niet terugdraaien.",
+    "purge": "Definitief verwijderen",
+    "purged": "Definitief verwijderd.",
+    "deletedOn": "Verwijderd op {date}",
+    "left": "Nog {n} dagen terug te zetten",
+    "leftOne": "Nog 1 dag terug te zetten",
+    "restore": "Terugzetten",
+    "note": "Verwijderde codes werken niet. Je kunt ze 30 dagen terugzetten; daarna worden ze definitief verwijderd.",
+    "empty": "Er staat niets in Onlangs verwijderd."
   }
 }

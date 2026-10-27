@@ -462,7 +462,7 @@
     "pngHint": "for screen and web",
     "svgHint": "for print, sharp at any size",
     "edit": "Edit",
-    "more": "Show more ({n} left)",
+    "more": "More",
     "open": "Open link",
     "delete": "Delete",
     "emptyTitle": "No QR codes yet",
@@ -476,8 +476,8 @@
     "pausedToast": "QR code is off",
     "activeToast": "QR code is on",
     "deleteTitle": "Delete “{name}”?",
-    "deleteText": "The link will stop working, so printed codes won't work either. You can't undo this.",
-    "deleteTextStatic": "The code itself keeps working, but it won't be in your list any more. You can't undo this.",
+    "deleteText": "The link stops working right away, so printed codes won’t work either. You can restore it from Recently deleted for 30 days.",
+    "deleteTextStatic": "The code itself keeps working, but it leaves your list. You can restore it from Recently deleted for 30 days.",
     "cancel": "Cancel",
     "deleted": "QR code deleted",
     "viewStats": "View statistics",
@@ -504,7 +504,7 @@
     "bulkPaused": "{n} codes paused",
     "bulkResumed": "{n} codes turned on",
     "bulkDeleteTitle": "Delete {n} QR codes?",
-    "bulkDeleteText": "Their links will stop working and the statistics will be gone. This cannot be undone.",
+    "bulkDeleteText": "Their links stop working right away. You can restore them from Recently deleted for 30 days.",
     "bulkDeleted": "{n} QR codes deleted",
     "bulkMoveTitle": "Move {n} QR codes to",
     "preparing": "Creating ZIP…",
@@ -534,7 +534,8 @@
     "hlNowOk": "The link works again.",
     "hlNowBad": "The link still isn't working.",
     "scansTotal": "scans in total",
-    "ofLimit": "of {max} scans"
+    "ofLimit": "of {max} scans",
+    "showMore": "Show more ({n} left)"
   },
   "appearance": {
     "title": "Colours",
@@ -3083,5 +3084,24 @@
   "status": {
     "bar": "Outage",
     "more": "More info"
+  },
+  "bin": {
+    "title": "Recently deleted",
+    "moved": "Moved to Recently deleted. The link no longer works.",
+    "movedMany": "{n} codes moved to Recently deleted.",
+    "undo": "Undo",
+    "restored": "Restored. The link works again.",
+    "restoredMany": "{n} codes restored.",
+    "restoredPaused": "Restored, but paused: your plan is full.",
+    "purgeTitle": "Delete “{name}” permanently?",
+    "purgeText": "The code, its statistics and files will be deleted. The link never comes back. You can’t undo this.",
+    "purge": "Delete permanently",
+    "purged": "Deleted permanently.",
+    "deletedOn": "Deleted on {date}",
+    "left": "Can be restored for {n} more days",
+    "leftOne": "Can be restored for 1 more day",
+    "restore": "Restore",
+    "note": "Deleted codes don’t work. You can restore them for 30 days; after that they are deleted permanently.",
+    "empty": "Nothing in Recently deleted."
   }
 }

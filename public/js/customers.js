@@ -83,7 +83,7 @@
             (canEdit && (c.active || c.disabledAt) ? '<button type="button" class="btn ghost ' + (c.disabledAt ? '' : 'warn-ghost') + '" data-toggle title="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable')) + '" aria-label="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable') + ': ' + (c.name || c.email)) + '">' + SVG + (c.disabledAt ? ICON.on : ICON.off) + '</svg>' + t(c.disabledAt ? 'adm.enable' : 'adm.disable') + '</button>' : '') +
             (canEdit && !c.fixed ? '<button type="button" class="btn ghost danger-ghost cust-del" data-remove aria-label="' + esc(t('cust.remove') + ': ' + (c.name || c.email)) + '" title="' + esc(t('cust.remove')) + '">' + SVG + ICON.trash + '</svg></button>' : '') + '</span>' +
         '</div>';
-      }).join('') + '</div>' + (rest > 0 ? '<div class="mc-more"><button type="button" class="btn ghost" data-umore>' + esc(t('myCodes.more', { n: i18n.fmt.num(rest) })) + '</button></div>' : '');
+      }).join('') + '</div>' + (rest > 0 ? '<div class="mc-more"><button type="button" class="btn ghost" data-umore>' + esc(t('myCodes.showMore', { n: i18n.fmt.num(rest) })) + '</button></div>' : '');
   }
   // Betaalstatus per klant (tot Stripe dit doet zet het team de periode: knop Betaling)
   function subCell(c, canEdit) {

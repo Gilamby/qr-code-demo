@@ -462,7 +462,7 @@
     "pngHint": "ekrānam un tīmeklim",
     "svgHint": "drukai, ass jebkurā izmērā",
     "edit": "Rediģēt",
-    "more": "Rādīt vairāk (vēl {n})",
+    "more": "Vairāk",
     "open": "Atvērt saiti",
     "delete": "Dzēst",
     "emptyTitle": "Vēl nav QR kodu",
@@ -476,8 +476,8 @@
     "pausedToast": "QR kods ir izslēgts",
     "activeToast": "QR kods ir ieslēgts",
     "deleteTitle": "Dzēst “{name}”?",
-    "deleteText": "Saite pārstās darboties, tāpēc nedarbosies arī izdrukātie kodi. To nevar atsaukt.",
-    "deleteTextStatic": "Pats kods turpina darboties, bet tavā sarakstā tā vairs nebūs. To nevar atsaukt.",
+    "deleteText": "The link stops working right away, so printed codes won’t work either. You can restore it from Recently deleted for 30 days.",
+    "deleteTextStatic": "The code itself keeps working, but it leaves your list. You can restore it from Recently deleted for 30 days.",
     "cancel": "Atcelt",
     "deleted": "QR kods izdzēsts",
     "viewStats": "Skatīt statistiku",
@@ -504,7 +504,7 @@
     "bulkPaused": "Apturēti kodi: {n}",
     "bulkResumed": "Ieslēgti kodi: {n}",
     "bulkDeleteTitle": "Dzēst {n} QR kodus?",
-    "bulkDeleteText": "To saites pārstās darboties un statistika pazudīs. To nevar atsaukt.",
+    "bulkDeleteText": "Their links stop working right away. You can restore them from Recently deleted for 30 days.",
     "bulkDeleted": "Izdzēsti QR kodi: {n}",
     "bulkMoveTitle": "Pārvietot {n} QR kodus uz",
     "preparing": "Veido ZIP…",
@@ -534,7 +534,8 @@
     "hlNowOk": "Saite atkal darbojas.",
     "hlNowBad": "Saite joprojām nedarbojas.",
     "scansTotal": "skenējumi kopā",
-    "ofLimit": "no {max} skenējumiem"
+    "ofLimit": "no {max} skenējumiem",
+    "showMore": "Rādīt vairāk (vēl {n})"
   },
   "appearance": {
     "title": "Krāsas",
@@ -3038,5 +3039,24 @@
   "status": {
     "bar": "Traucējums",
     "more": "Vairāk"
+  },
+  "bin": {
+    "title": "Recently deleted",
+    "moved": "Moved to Recently deleted. The link no longer works.",
+    "movedMany": "{n} codes moved to Recently deleted.",
+    "undo": "Undo",
+    "restored": "Restored. The link works again.",
+    "restoredMany": "{n} codes restored.",
+    "restoredPaused": "Restored, but paused: your plan is full.",
+    "purgeTitle": "Delete “{name}” permanently?",
+    "purgeText": "The code, its statistics and files will be deleted. The link never comes back. You can’t undo this.",
+    "purge": "Delete permanently",
+    "purged": "Deleted permanently.",
+    "deletedOn": "Deleted on {date}",
+    "left": "Can be restored for {n} more days",
+    "leftOne": "Can be restored for 1 more day",
+    "restore": "Restore",
+    "note": "Deleted codes don’t work. You can restore them for 30 days; after that they are deleted permanently.",
+    "empty": "Nothing in Recently deleted."
   }
 }

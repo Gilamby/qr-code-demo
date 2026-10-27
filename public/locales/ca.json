@@ -462,7 +462,7 @@
     "pngHint": "per a pantalla i web",
     "svgHint": "per imprimir, nítid a qualsevol mida",
     "edit": "Edita",
-    "more": "Mostra més ({n} restants)",
+    "more": "Més",
     "open": "Obre l'enllaç",
     "delete": "Elimina",
     "emptyTitle": "Encara no hi ha codis QR",
@@ -476,8 +476,8 @@
     "pausedToast": "El codi QR està desactivat",
     "activeToast": "El codi QR està activat",
     "deleteTitle": "Vols eliminar «{name}»?",
-    "deleteText": "L'enllaç deixarà de funcionar, i els codis impresos tampoc no funcionaran. No es pot desfer.",
-    "deleteTextStatic": "El codi en si continua funcionant, però ja no apareixerà a la teva llista. No es pot desfer.",
+    "deleteText": "The link stops working right away, so printed codes won’t work either. You can restore it from Recently deleted for 30 days.",
+    "deleteTextStatic": "The code itself keeps working, but it leaves your list. You can restore it from Recently deleted for 30 days.",
     "cancel": "Cancel·la",
     "deleted": "Codi QR eliminat",
     "viewStats": "Mira les estadístiques",
@@ -504,7 +504,7 @@
     "bulkPaused": "{n} codis aturats",
     "bulkResumed": "{n} codis activats",
     "bulkDeleteTitle": "Vols eliminar {n} codis QR?",
-    "bulkDeleteText": "Els seus enllaços deixaran de funcionar i les estadístiques desapareixeran. No es pot desfer.",
+    "bulkDeleteText": "Their links stop working right away. You can restore them from Recently deleted for 30 days.",
     "bulkDeleted": "{n} codis QR eliminats",
     "bulkMoveTitle": "Mou {n} codis QR a",
     "preparing": "S'està creant el ZIP…",
@@ -534,7 +534,8 @@
     "hlNowOk": "L'enllaç torna a funcionar.",
     "hlNowBad": "L'enllaç encara no funciona.",
     "scansTotal": "escanejos en total",
-    "ofLimit": "de {max} escanejos"
+    "ofLimit": "de {max} escanejos",
+    "showMore": "Mostra més ({n} restants)"
   },
   "appearance": {
     "title": "Colors",
@@ -3038,5 +3039,24 @@
   "status": {
     "bar": "Incidència",
     "more": "Més info"
+  },
+  "bin": {
+    "title": "Recently deleted",
+    "moved": "Moved to Recently deleted. The link no longer works.",
+    "movedMany": "{n} codes moved to Recently deleted.",
+    "undo": "Undo",
+    "restored": "Restored. The link works again.",
+    "restoredMany": "{n} codes restored.",
+    "restoredPaused": "Restored, but paused: your plan is full.",
+    "purgeTitle": "Delete “{name}” permanently?",
+    "purgeText": "The code, its statistics and files will be deleted. The link never comes back. You can’t undo this.",
+    "purge": "Delete permanently",
+    "purged": "Deleted permanently.",
+    "deletedOn": "Deleted on {date}",
+    "left": "Can be restored for {n} more days",
+    "leftOne": "Can be restored for 1 more day",
+    "restore": "Restore",
+    "note": "Deleted codes don’t work. You can restore them for 30 days; after that they are deleted permanently.",
+    "empty": "Nothing in Recently deleted."
   }
 }

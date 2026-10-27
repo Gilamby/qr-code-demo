@@ -22,6 +22,7 @@ var MyCodes = (function () {
     print: '<path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7" rx="1"/>',
     share: '<path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
     chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
     scan: '<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/>',
@@ -44,6 +45,7 @@ var MyCodes = (function () {
 
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList'), tools = document.getElementById('mcTools');
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
+  var bin = [];   // Onlangs verwijderd (prullenbak, 30 dagen)
   var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '', label: '' }, renaming = null, toastTimer = null;
   // Veel codes: niet alles tegelijk tekenen (elke kaart maakt een QR-plaatje), maar per blok; meer bij het scrollen
   var STEP = 60, limit = STEP, limitKey = '', moreObs = null;
@@ -84,7 +86,7 @@ var MyCodes = (function () {
   function hasLabel(r, l) { return (r.labels || []).some(function (x) { return x.toLowerCase() === l.toLowerCase(); }); }
   /* ---------- Mappen: balk bovenaan ---------- */
   function drawFolders() {
-    if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && !folderOf(filter.folder)) filter.folder = '';
+    if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && filter.folder !== 'bin' && !folderOf(filter.folder)) filter.folder = '';
     var count = function (fn) { return rows.filter(fn).length; };
     var chip = function (key, label, n, extra) {
       var on = filter.folder === key;
@@ -97,6 +99,7 @@ var MyCodes = (function () {
         chip('fav', '<span class="mf-star">' + ico('star') + '</span><span>' + t('folders.fav') + '</span>', count(function (r) { return r.favorite; })) +
         // "Zonder map" alleen als het iets toevoegt: niet als alle codes zonder map zijn (dan is het hetzelfde als "Alle codes")
         (noneN && noneN < rows.length || filter.folder === 'none' ? chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', noneN) : '') +
+        (bin.length || filter.folder === 'bin' ? chip('bin', ico('trash') + '<span>' + t('bin.title') + '</span>', bin.length) : '') +
         '<button type="button" class="mf-chip mf-add" data-folder-new aria-label="' + esc(t('folders.new')) + '">' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
       // Mappen op een eigen regel: volledige namen, lopen door naar een volgende regel, te verslepen
@@ -111,7 +114,7 @@ var MyCodes = (function () {
         '<button type="button" class="btn ghost sm" data-folder-edit>' + ico('pen') + '<span>' + t('folders.edit') + '</span></button>' +
         '<button type="button" class="btn ghost sm mf-del" data-folder-delete>' + ico('trash') + '<span>' + t('folders.delete') + '</span></button></div>' : '') +
       (folders.length ? '' : '<p class="mf-tip">' + t('folders.tip') + '</p>');
-    bar.hidden = !rows.length && !folders.length;
+    bar.hidden = !rows.length && !folders.length && !bin.length;
     fitFolders();
   }
   /* Dicht: mappen die niet op de eerste regel passen verbergen, met "+N meer" erachter (de gekozen map blijft altijd zichtbaar).
@@ -224,6 +227,7 @@ var MyCodes = (function () {
     drawFolders();
     document.getElementById('mcCount').textContent = loaded ? t(rows.length === 1 ? 'myCodes.countOne' : 'myCodes.count', { n: i18n.fmt.num(rows.length) }) : '';
     var demo = document.getElementById('mcDemo'); demo.hidden = !api.isDemo(); demo.textContent = t('myCodes.demoNote');
+    if (filter.folder === 'bin') { drawBin(); drawBulk(); return; }
     if (!rows.length) {
       list.innerHTML = '<div class="mc-empty glass">' + ico('empty') + '<h3>' + t('myCodes.emptyTitle') + '</h3><p>' + t('myCodes.emptyText') + '</p>' +
         '<span class="mc-empty-btns"><button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('myCodes.first') + '</button>' +
@@ -239,7 +243,7 @@ var MyCodes = (function () {
       '<button type="button" class="btn primary sm" data-gate-open="" data-gate-reason="limit">' + esc(t('myCodes.planBarBtn')) + '</button></div>';
     var lk = [filter.q, filter.type, filter.sort, filter.folder, filter.label].join('|'); if (lk !== limitKey) { limitKey = lk; limit = STEP; }
     var shown = vis.slice(0, limit), rest = vis.length - shown.length;
-    list.innerHTML = dueHtml + (vis.length ? shown.map(card).join('') + (rest > 0 ? '<div class="mc-more"><button type="button" class="btn ghost" data-more>' + esc(t('myCodes.more', { n: i18n.fmt.num(rest) })) + '</button></div>' : '')
+    list.innerHTML = dueHtml + (vis.length ? shown.map(card).join('') + (rest > 0 ? '<div class="mc-more"><button type="button" class="btn ghost" data-more>' + esc(t('myCodes.showMore', { n: i18n.fmt.num(rest) })) + '</button></div>' : '')
       : !searching && filter.folder === 'fav' ? '<div class="mc-empty small glass">' + ico('star') + '<h3>' + t('folders.favEmpty') + '</h3><p>' + t('folders.favEmptyText') + '</p></div>'
       : !searching && filter.folder ? '<div class="mc-empty small glass">' + ico('folder') + '<h3>' + t(filter.folder === 'none' ? 'folders.noneEmpty' : 'folders.empty') + '</h3><p>' + t(filter.folder === 'none' ? 'folders.noneEmptyText' : 'folders.emptyText') + '</p>' +
           (filter.folder !== 'none' ? '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('folders.newHere') + '</button>' : '') + '</div>'
@@ -366,7 +370,7 @@ var MyCodes = (function () {
       if (dialog.returnValue !== 'ok') return;
       Promise.all(sel.map(function (r) { return api.deleteQrCode(r.id).then(function () { return r.id; }).catch(function () { return null; }); })).then(function (ids) {
         var gone = ids.filter(Boolean); rows = rows.filter(function (x) { return gone.indexOf(x.id) < 0; }); gone.forEach(function (id) { delete picked[id]; });
-        drawTools(); draw(); toastText(t('myCodes.bulkDeleted', { n: gone.length }));
+        drawTools(); draw(); afterDelete(sel.filter(function (r) { return gone.indexOf(r.id) >= 0; }));
       });
     };
     dialog.returnValue = ''; dialog.showModal(); dialog.querySelector('[value="cancel"]').focus();
@@ -374,8 +378,8 @@ var MyCodes = (function () {
   function message(key) { list.innerHTML = '<p class="muted-msg">' + t(key) + '</p>'; }
   function load() {
     if (!loaded) message('myCodes.loading');
-    return Promise.all([api.listQrCodes(), api.folders.list().catch(function () { return { folders: [] }; })])
-      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; loaded = true; label(); drawTools(); draw();
+    return Promise.all([api.listQrCodes(), api.folders.list().catch(function () { return { folders: [] }; }), api.trash ? api.trash().catch(function () { return []; }) : []])
+      .then(function (res) { rows = res[0] || []; folders = (res[1] && res[1].folders) || []; bin = res[2] || []; if (filter.folder === 'bin' && !bin.length) filter.folder = ''; loaded = true; label(); drawTools(); draw();
         if (api.codeHealth) api.codeHealth().then(function (h) { health = h || {}; draw(); document.dispatchEvent(new CustomEvent('health-loaded', { detail: health })); }).catch(function () {}); })
       .catch(function () { message('myCodes.error'); });
   }
@@ -392,7 +396,7 @@ var MyCodes = (function () {
   function find(id) { return rows.filter(function (r) { return r.id === id; })[0]; }
   function replace(rec) { rows = rows.map(function (r) { return r.id === rec.id ? rec : r; }); }
   function toast(key) {
-    toastEl.textContent = t(key); toastEl.hidden = false; toastEl.classList.add('show');
+    toastEl.textContent = t(key); toastEl.classList.remove('has-action'); toastEl.hidden = false; toastEl.classList.add('show');
     clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('show'); setTimeout(function () { toastEl.hidden = true; }, 250); }, 2200);
   }
   function closeMenus(except) { list.querySelectorAll('.mc-menu').forEach(function (m) { if (m !== except) { m.hidden = true; var b = m.previousElementSibling; if (b) b.setAttribute('aria-expanded', 'false'); } }); }
@@ -434,11 +438,64 @@ var MyCodes = (function () {
       '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok">' + t('myCodes.delete') + '</button></div></form>';
     dialog.onclose = function () {
       if (dialog.returnValue !== 'ok') return;
-      api.deleteQrCode(r.id).then(function () { rows = rows.filter(function (x) { return x.id !== r.id; }); drawTools(); draw(); toast('myCodes.deleted'); })
+      api.deleteQrCode(r.id).then(function () { rows = rows.filter(function (x) { return x.id !== r.id; }); drawTools(); draw(); afterDelete([r]); })
         .catch(function () { toast('myCodes.failed'); });
     };
     dialog.returnValue = ''; dialog.showModal();
     dialog.querySelector('[value="cancel"]').focus();
+  }
+  /* ---------- Prullenbak (Onlangs verwijderd): 30 dagen terug te zetten ---------- */
+  function afterDelete(list) {
+    if (api.isDemo()) return toastText(list.length === 1 ? t('myCodes.deleted') : t('myCodes.bulkDeleted', { n: list.length }));
+    api.trash().then(function (b) { bin = b || []; drawFolders(); }).catch(function () {});
+    toastAction(list.length === 1 ? t('bin.moved') : t('bin.movedMany', { n: list.length }), t('bin.undo'), function () { restore(list.map(function (r) { return r.id; }), true); });
+  }
+  function restore(ids, quiet) {
+    Promise.all(ids.map(function (id) { return api.restoreQrCode(id).then(function (r) { return r; }).catch(function () { return null; }); })).then(function (res) {
+      var ok = res.filter(Boolean), paused = ok.some(function (r) { return r.paused; });
+      ok.forEach(function (r) { rows.unshift(r.code); bin = bin.filter(function (x) { return x.id !== r.code.id; }); });
+      if (filter.folder === 'bin' && !bin.length) filter.folder = '';
+      drawTools(); draw();
+      if (!ok.length) return toast('myCodes.failed');
+      toastText(paused ? t('bin.restoredPaused') : ok.length === 1 ? t('bin.restored') : t('bin.restoredMany', { n: ok.length }));
+    });
+  }
+  function askPurge(r) {
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg"><span class="mc-dlg-ic">' + ico('trash') + '</span>' +
+      '<h3>' + esc(t('bin.purgeTitle', { name: displayName(r) })) + '</h3><p>' + t('bin.purgeText') + '</p>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('myCodes.cancel') + '</button><button class="btn danger" value="ok">' + t('bin.purge') + '</button></div></form>';
+    dialog.onclose = function () {
+      if (dialog.returnValue !== 'ok') return;
+      api.purgeQrCode(r.id).then(function () { bin = bin.filter(function (x) { return x.id !== r.id; }); if (!bin.length) filter.folder = ''; drawTools(); draw(); toastText(t('bin.purged')); })
+        .catch(function () { toast('myCodes.failed'); });
+    };
+    dialog.returnValue = ''; dialog.showModal(); dialog.querySelector('[value="cancel"]').focus();
+  }
+  function binCard(r) {
+    var tp = getType(r.typeId), left = Math.max(0, Math.ceil((new Date(r.purgeAt) - new Date()) / 864e5));
+    return '<article class="mc-card glass mc-binned" data-bin="' + esc(r.id) + '">' +
+      '<div class="mc-qr"><span aria-hidden="true">' + QRRender.svg(qrData(r), qrDesign(r)) + '</span></div>' +
+      '<div class="mc-info"><h3 class="mc-name">' + esc(displayName(r)) + '</h3>' +
+        '<div class="mc-meta"><span class="mc-type"><i>' + svg(tp.icon, 1.8) + '</i>' + esc(typeName(tp)) + '</span><span class="mc-dot">·</span><span>' + esc(t('bin.deletedOn', { date: i18n.fmt.date(new Date(r.trashedAt), 'short') })) + '</span></div>' +
+        '<p class="mc-binleft' + (left <= 3 ? ' soon' : '') + '">' + esc(left === 1 ? t('bin.leftOne') : t('bin.left', { n: left })) + '</p></div>' +
+      '<div class="mc-binacts"><button type="button" class="btn primary sm" data-bin-restore>' + ico('undo') + '<span>' + t('bin.restore') + '</span></button>' +
+        '<button type="button" class="btn ghost sm mf-del" data-bin-purge>' + ico('trash') + '<span>' + t('bin.purge') + '</span></button></div></article>';
+  }
+  function drawBin() {
+    list.innerHTML = '<div class="mc-binnote glass">' + ico('trash') + '<span>' + t('bin.note') + '</span></div>' + (bin.length ? bin.map(binCard).join('') : '<div class="mc-empty small glass"><h3>' + t('bin.empty') + '</h3></div>');
+  }
+  list.addEventListener('click', function (e) {
+    var c = e.target.closest('[data-bin]'); if (!c) return;
+    var r = bin.filter(function (x) { return x.id === c.getAttribute('data-bin'); })[0]; if (!r) return;
+    if (e.target.closest('[data-bin-restore]')) { e.target.closest('button').disabled = true; return restore([r.id]); }
+    if (e.target.closest('[data-bin-purge]')) return askPurge(r);
+  });
+  function toastAction(text, label, fn) {
+    toastEl.innerHTML = ''; var s = document.createElement('span'); s.textContent = text; toastEl.appendChild(s);
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'mc-toast-btn'; b.textContent = label;
+    b.onclick = function () { b.disabled = true; toastEl.classList.remove('show'); toastEl.hidden = true; fn(); }; toastEl.appendChild(b);
+    toastEl.hidden = false; toastEl.classList.add('show', 'has-action');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('show', 'has-action'); setTimeout(function () { toastEl.hidden = true; }, 250); }, 7000);
   }
   function edit(r) {
     // Met bestanden erbij ophalen (de lijst laat ze weg)
@@ -703,7 +760,7 @@ var MyCodes = (function () {
     var cur = dialog.querySelector('.mf-pick.on') || dialog.querySelector('.mf-pick'); if (cur) cur.focus();
   }
   function toastText(text) {
-    toastEl.textContent = text; toastEl.hidden = false; toastEl.classList.add('show');
+    toastEl.textContent = text; toastEl.classList.remove('has-action'); toastEl.hidden = false; toastEl.classList.add('show');
     clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('show'); setTimeout(function () { toastEl.hidden = true; }, 250); }, 2200);
   }
 

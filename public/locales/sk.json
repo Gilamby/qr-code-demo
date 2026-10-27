@@ -462,7 +462,7 @@
     "pngHint": "na obrazovku a web",
     "svgHint": "na tlač, ostrý v každej veľkosti",
     "edit": "Upraviť",
-    "more": "Zobraziť viac (zostáva {n})",
+    "more": "Viac",
     "open": "Otvoriť odkaz",
     "delete": "Odstrániť",
     "emptyTitle": "Zatiaľ žiadne QR kódy",
@@ -476,8 +476,8 @@
     "pausedToast": "QR kód je vypnutý",
     "activeToast": "QR kód je zapnutý",
     "deleteTitle": "Odstrániť „{name}“?",
-    "deleteText": "Odkaz prestane fungovať, takže nebudú fungovať ani vytlačené kódy. Nedá sa to vrátiť späť.",
-    "deleteTextStatic": "Samotný kód funguje ďalej, ale už nebude v tvojom zozname. Nedá sa to vrátiť späť.",
+    "deleteText": "The link stops working right away, so printed codes won’t work either. You can restore it from Recently deleted for 30 days.",
+    "deleteTextStatic": "The code itself keeps working, but it leaves your list. You can restore it from Recently deleted for 30 days.",
     "cancel": "Zrušiť",
     "deleted": "QR kód odstránený",
     "viewStats": "Zobraziť štatistiky",
@@ -504,7 +504,7 @@
     "bulkPaused": "Pozastavené kódy: {n}",
     "bulkResumed": "Zapnuté kódy: {n}",
     "bulkDeleteTitle": "Odstrániť {n} QR kódov?",
-    "bulkDeleteText": "Ich odkazy prestanú fungovať a štatistiky zmiznú. Nedá sa to vrátiť späť.",
+    "bulkDeleteText": "Their links stop working right away. You can restore them from Recently deleted for 30 days.",
     "bulkDeleted": "Odstránené QR kódy: {n}",
     "bulkMoveTitle": "Presunúť {n} QR kódov do",
     "preparing": "Vytvára sa ZIP…",
@@ -534,7 +534,8 @@
     "hlNowOk": "Odkaz opäť funguje.",
     "hlNowBad": "Odkaz stále nefunguje.",
     "scansTotal": "skenov celkom",
-    "ofLimit": "z {max} skenov"
+    "ofLimit": "z {max} skenov",
+    "showMore": "Zobraziť viac (zostáva {n})"
   },
   "appearance": {
     "title": "Farby",
@@ -3038,5 +3039,24 @@
   "status": {
     "bar": "Porucha",
     "more": "Viac info"
+  },
+  "bin": {
+    "title": "Recently deleted",
+    "moved": "Moved to Recently deleted. The link no longer works.",
+    "movedMany": "{n} codes moved to Recently deleted.",
+    "undo": "Undo",
+    "restored": "Restored. The link works again.",
+    "restoredMany": "{n} codes restored.",
+    "restoredPaused": "Restored, but paused: your plan is full.",
+    "purgeTitle": "Delete “{name}” permanently?",
+    "purgeText": "The code, its statistics and files will be deleted. The link never comes back. You can’t undo this.",
+    "purge": "Delete permanently",
+    "purged": "Deleted permanently.",
+    "deletedOn": "Deleted on {date}",
+    "left": "Can be restored for {n} more days",
+    "leftOne": "Can be restored for 1 more day",
+    "restore": "Restore",
+    "note": "Deleted codes don’t work. You can restore them for 30 days; after that they are deleted permanently.",
+    "empty": "Nothing in Recently deleted."
   }
 }
