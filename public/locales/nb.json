@@ -3058,5 +3058,17 @@
     "restore": "Restore",
     "note": "Deleted codes don’t work. You can restore them for 30 days; after that they are deleted permanently.",
     "empty": "Nothing in Recently deleted."
+  },
+  "hist": {
+    "menu": "History",
+    "title": "History of “{name}”",
+    "now": "Now goes to",
+    "lead": "Earlier versions. Restoring one takes effect immediately, also on printed codes.",
+    "empty": "No changes yet. As soon as you change this code, the previous version appears here.",
+    "restore": "Restore",
+    "restored": "Earlier version restored. Scans now go there.",
+    "gone": "File replaced",
+    "goneTip": "This version used a file that has since been replaced, so it can’t be restored.",
+    "close": "Close"
   }
 }

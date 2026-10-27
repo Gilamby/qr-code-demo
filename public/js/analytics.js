@@ -429,7 +429,7 @@ var Analytics = (function () {
           (c.note ? row(t('labels.note'), esc(c.note)) : '') + '</div>' +
         '<div class="cd-acts"><button type="button" class="btn primary sm" data-cd="edit">' + ico('pen') + t('myCodes.edit') + '</button>' +
           '<button type="button" class="btn ghost sm" data-cd="png">' + ico('dl') + 'PNG</button><button type="button" class="btn ghost sm" data-cd="svg">' + ico('dl') + 'SVG</button>' +
-          '<button type="button" class="btn ghost sm" data-cd="labels">' + t('labels.menu') + '</button>' + (stat ? '' : '<button type="button" class="btn ghost sm" data-cd="copy">' + t('myCodes.copy') + '</button>') + '</div>' +
+          '<button type="button" class="btn ghost sm" data-cd="labels">' + t('labels.menu') + '</button>' + (stat || api.isDemo() ? '' : '<button type="button" class="btn ghost sm" data-cd="history">' + t('hist.menu') + '</button>') + (stat ? '' : '<button type="button" class="btn ghost sm" data-cd="copy">' + t('myCodes.copy') + '</button>') + '</div>' +
       '</div></div>';
   }
 
@@ -861,6 +861,7 @@ var Analytics = (function () {
       if (k === 'edit') return MyCodes.edit(cc);
       if (k === 'png' || k === 'svg') return CodeUtil.download(cc, k, 1024);
       if (k === 'labels') return MyCodes.labelsOf(cc);
+      if (k === 'history') return MyCodes.history(cc);
       if (k === 'copy') { if (navigator.clipboard) navigator.clipboard.writeText(cc.shortUrl); cdb.textContent = t('myCodes.copied'); return; }
     }
   });
@@ -889,6 +890,7 @@ var Analytics = (function () {
     if (e.detail === 'analytics') { if (detailId) { detailId = null; f.codes = []; f.cc = []; f.city = []; } if (head) head.textContent = t('nav.analytics'); view.classList.remove('is-detail'); names = {}; load(); }
     if (e.detail === 'codeDetail') { if (head) head.textContent = t('cd.pageTitle'); view.classList.add('is-detail'); data = null; scansD = null; mapView = null; names = {}; window.scrollTo(0, 0); load(); }   // altijd vers: nooit eerst de oude statistiek
   });
+  document.addEventListener('code-changed', function () { if (isDetail()) { data = null; load(); } });   // bv. versie teruggezet vanuit Geschiedenis
   i18n.onChange(function () { labels(); var hd = view.querySelector('.an-head h2'); if (hd && detailId) hd.textContent = t('cd.pageTitle'); if (!view.hidden && data) { drawFilters(); draw(); } });
 
   // Vanuit Mijn QR-codes: meteen de statistieken van één code

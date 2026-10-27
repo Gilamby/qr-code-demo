@@ -5028,6 +5028,7 @@ body.paywall-open { overflow: hidden; }
   .mc-head-btns .btn[hidden] { display: none !important; }
   .mc-head-btns:has(.btn[data-import]:not([hidden])) { grid-template-columns: 1fr 1fr 1fr; }
   #mcTools { display: grid !important; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px !important; }
+  #mcTools[hidden] { display: none !important; }
   #mcTools .mc-search { grid-column: 1 / -1; }
   #mcTools input, #mcTools select { height: 40px !important; font-size: 14px !important; }
   .mc-list { gap: 8px !important; }
@@ -5393,3 +5394,31 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .inc-ups { margin: 2px 0 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
 .inc-upd { display: flex; gap: 8px; align-items: center; } .inc-upd .auth-in { flex: 1; }
 .inc-acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+/* Onlangs verwijderd (prullenbak) */
+.mc-card.mc-binned { grid-template-columns: 92px minmax(0, 1fr) auto; grid-template-areas: none; }
+.mc-card.mc-binned > * { grid-area: auto; }
+.mc-binned .mc-qr { opacity: .45; filter: grayscale(1); }
+.mc-binned .mc-name { margin: 0 0 4px -6px; font-size: 17px; font-weight: 700; cursor: default; }
+.mc-binleft { margin: 6px 0 0; font-size: 13.5px; color: var(--muted); }
+.mc-binleft.soon { color: #f5b041; font-weight: 600; }
+.mc-binacts { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.mc-binnote { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 14px; color: var(--muted); font-size: 14px; }
+.mc-binnote .mc-i { width: 18px; height: 18px; flex: none; }
+.mc-toast.has-action { display: flex; align-items: center; gap: 14px; }
+.mc-toast-btn { background: none; border: 0; padding: 0; color: var(--accent, #2bb5f0); font: inherit; font-weight: 800; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+[data-theme="light"] .mc-toast-btn { color: #7dd3fc; }
+@media (max-width: 760px) { .mc-card.mc-binned { grid-template-columns: 64px minmax(0, 1fr); } .mc-binacts { grid-column: 1 / -1; justify-content: flex-start; } }
+
+/* Geschiedenis van een QR-code */
+.mc-dialog:has(.hs-dlg) { width: min(580px, 94vw); max-width: none; }
+.hs-dlg { text-align: left; }
+.hs-dlg .mc-dlg-ic { background: var(--accent-soft); color: var(--accent); }
+.hs-now { display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; background: var(--accent-soft, rgba(43,181,240,.12)); margin: 6px 0 14px; }
+.hs-now small, .hs-items small { color: var(--muted); font-size: 12.5px; }
+.hs-now b, .hs-items b { overflow-wrap: anywhere; font-weight: 700; }
+.hs-lead, .hs-empty { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+.hs-items { list-style: none; margin: 0; padding: 0; max-height: 46vh; overflow: auto; }
+.hs-items li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.hs-items li > div { display: grid; gap: 2px; min-width: 0; }
+.hs-gone { font-size: 12.5px; color: var(--muted); white-space: nowrap; }

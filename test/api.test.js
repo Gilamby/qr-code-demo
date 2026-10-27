@@ -135,9 +135,29 @@ test('codes zijn per klant, bestanden op schijf, scannen en statistieken', async
   // aan/uit
   await a('PATCH', '/api/qr-codes/' + id, { paused: true });
   assert.equal((await fetch(base + '/q/' + id)).status, 503);
-  // verwijderen: bestand weg
+  // verwijderen = prullenbak: link werkt niet meer, bestand blijft, terugzetten kan
   assert.equal((await a('DELETE', '/api/qr-codes/' + id)).status, 204);
+  assert.equal(filesOnDisk(), before + 1);
+  assert.equal((await fetch(base + '/q/' + id)).status, 404, 'in de prullenbak: link werkt niet');
+  assert.ok(!(await a('GET', '/api/qr-codes')).json.some((q) => q.id === id), 'niet meer in de lijst');
+  const bin = await a('GET', '/api/qr-codes/trash'); assert.equal(bin.json.length, 1); assert.ok(bin.json[0].purgeAt);
+  assert.equal((await a('PUT', '/api/qr-codes/' + id, { content: { title: 'x' } })).status, 404, 'in de prullenbak niet te bewerken');
+  const back = await a('POST', '/api/qr-codes/' + id + '/restore'); assert.equal(back.status, 200); assert.equal(back.json.code.id, id);
+  assert.equal((await a('GET', '/api/qr-codes/trash')).json.length, 0);
+  // definitief: alleen vanuit de prullenbak, dan bestand weg en 410
+  assert.equal((await a('DELETE', '/api/qr-codes/' + id + '/permanent')).status, 404, 'eerst naar de prullenbak');
+  assert.equal((await a('DELETE', '/api/qr-codes/' + id)).status, 204);
+  assert.equal((await b('POST', '/api/qr-codes/' + id + '/restore')).status, 404, 'andere klant kan niet terugzetten');
+  assert.equal((await a('DELETE', '/api/qr-codes/' + id + '/permanent')).status, 204);
   assert.equal(filesOnDisk(), before);
+  // na 30 dagen: de prullenbak wordt vanzelf geleegd
+  const old = await a('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://example.com/oud' } });
+  await a('DELETE', '/api/qr-codes/' + old.json.id);
+  const { HousekeepingService } = require('../server/dist/housekeeping.service');
+  const hk = app.get(HousekeepingService);
+  assert.equal(await hk.trashSweep(Date.now()), 0, 'nog geen 30 dagen: blijft');
+  assert.equal(await hk.trashSweep(Date.now() + 31 * 864e5), 1, 'na 30 dagen: echt weg');
+  assert.equal((await a('GET', '/api/qr-codes/trash')).json.length, 0);
   assert.equal((await fetch(base + '/q/' + id)).status, 410, 'verwijderd: 410 (komt nooit meer terug)');
   assert.equal((await fetch(base + '/q/nooitgebruikt')).status, 404);
 });
@@ -1010,4 +1030,25 @@ test('melding bij zelfgekozen aantal scans en mail als een link stukgaat (één 
   await healthSweep(db, t0 + 3700e3, m); assert.equal(down.length, 1, 'tweede keer mis: mail'); assert.equal(down[0].id, bad.id);
   await healthSweep(db, t0 + 7400e3, m); assert.equal(down.length, 1, 'blijft stuk: geen nieuwe mail');
   db.allQrCodes = all; m.sendScanAlert = oldScan; m.sendLinkDown = oldDown;
+});
+
+test('geschiedenis: vorige bestemming bewaren en terugzetten (ook het terugzetten kan terug)', async () => {
+  const k = client(); await signup(k, 'hist-k@example.com', 'Geschiedenis zin 13!', 'Klant Hist');
+  const c = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://een.example', password: 'geheim123' }, design: {} })).json;
+  assert.equal((await k('GET', '/api/qr-codes/' + c.id + '/history')).json.length, 0, 'nog niets veranderd');
+  await k('PUT', '/api/qr-codes/' + c.id, { content: { url: 'https://een.example' }, keepPassword: true, design: {} });
+  assert.equal((await k('GET', '/api/qr-codes/' + c.id + '/history')).json.length, 0, 'zelfde inhoud: geen versie');
+  await k('PUT', '/api/qr-codes/' + c.id, { content: { url: 'https://twee.example' }, keepPassword: true, design: {} });
+  await k('PUT', '/api/qr-codes/' + c.id, { content: { url: 'https://drie.example' }, keepPassword: true, design: {} });
+  const h = (await k('GET', '/api/qr-codes/' + c.id + '/history')).json;
+  assert.deepEqual(h.map((v) => v.content.url), ['https://twee.example', 'https://een.example']);
+  assert.ok(h[0].hasPassword && !('password' in h[0].content), 'geen wachtwoord-hash naar de browser');
+  assert.ok(h[0].restorable && h[0].by);
+  const back = await k('POST', '/api/qr-codes/' + c.id + '/history/1/restore');
+  assert.equal(back.status, 200); assert.equal(back.json.content.url, 'https://een.example');
+  assert.equal((await fetch(base + '/q/' + c.id, { method: 'POST', body: new URLSearchParams({ password: 'geheim123' }), redirect: 'manual' })).headers.get('location'), 'https://een.example', 'wachtwoord werkt nog na terugzetten');
+  assert.equal((await k('GET', '/api/qr-codes/' + c.id + '/history')).json[0].content.url, 'https://drie.example', 'terugzetten is zelf ook weer terug te draaien');
+  const other = client(); await signup(other, 'hist-o@example.com', 'Andere klant zin 14!', 'Ander');
+  assert.equal((await other('GET', '/api/qr-codes/' + c.id + '/history')).status, 404, 'niet van een ander');
+  assert.equal((await k('POST', '/api/qr-codes/' + c.id + '/history/9/restore')).status, 404);
 });

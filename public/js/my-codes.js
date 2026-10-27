@@ -22,6 +22,7 @@ var MyCodes = (function () {
     print: '<path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="7" y="14" width="10" height="7" rx="1"/>',
     share: '<path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
     chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    history: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
     undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
@@ -211,6 +212,7 @@ var MyCodes = (function () {
             '<button type="button" role="menuitem" data-act="where">' + ico('pin') + t('cd.menu') + '</button>' +
             (stat ? '' : (api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="open">' + ico('open') + t('myCodes.open') + '</button>') + '<button type="button" role="menuitem" data-act="copy">' + ico('copy') + t('myCodes.copy') + '</button>') +
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
+            (stat || api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="history">' + ico('history') + t('hist.menu') + '</button>') +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
             '<button type="button" role="menuitem" data-act="labels">' + ico('tag') + t('labels.menu') + '</button>' +
             '<button type="button" role="menuitem" data-act="sheet">' + ico('print') + t('sheet.title') + '</button>' +
@@ -227,6 +229,7 @@ var MyCodes = (function () {
     drawFolders();
     document.getElementById('mcCount').textContent = loaded ? t(rows.length === 1 ? 'myCodes.countOne' : 'myCodes.count', { n: i18n.fmt.num(rows.length) }) : '';
     var demo = document.getElementById('mcDemo'); demo.hidden = !api.isDemo(); demo.textContent = t('myCodes.demoNote');
+    tools.hidden = !rows.length || filter.folder === 'bin';
     if (filter.folder === 'bin') { drawBin(); drawBulk(); return; }
     if (!rows.length) {
       list.innerHTML = '<div class="mc-empty glass">' + ico('empty') + '<h3>' + t('myCodes.emptyTitle') + '</h3><p>' + t('myCodes.emptyText') + '</p>' +
@@ -496,6 +499,32 @@ var MyCodes = (function () {
     b.onclick = function () { b.disabled = true; toastEl.classList.remove('show'); toastEl.hidden = true; fn(); }; toastEl.appendChild(b);
     toastEl.hidden = false; toastEl.classList.add('show', 'has-action');
     clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('show', 'has-action'); setTimeout(function () { toastEl.hidden = true; }, 250); }, 7000);
+  }
+  /* ---------- Geschiedenis: vorige versies van de inhoud, terugzetten met één klik ---------- */
+  function askHistory(r) {
+    var when = function (iso) { return i18n.fmt.stamp(iso, 'time'); };
+    var destOf = function (x) { return x.dest && x.dest.value ? x.dest.value.replace(/^https?:\/\/(www\.)?/, '') : t('myCodes.ownPage'); };
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg hs-dlg"><span class="mc-dlg-ic">' + ico('history') + '</span><h3>' + esc(t('hist.title', { name: displayName(r) })) + '</h3>' +
+      '<div class="hs-now"><small>' + t('hist.now') + '</small><b>' + esc(destText(r)) + '</b></div><div class="hs-list"><p class="muted-msg">' + t('myCodes.loading') + '</p></div>' +
+      '<div class="mc-dlg-btns"><button class="btn ghost" value="cancel">' + t('hist.close') + '</button></div></form>';
+    var box = dialog.querySelector('.hs-list');
+    dialog.onclose = null; dialog.returnValue = ''; dialog.showModal();
+    api.codeHistory(r.id).then(function (list) {
+      if (!list.length) { box.innerHTML = '<p class="hs-empty">' + t('hist.empty') + '</p>'; return; }
+      box.innerHTML = '<p class="hs-lead">' + t('hist.lead') + '</p><ol class="hs-items">' + list.map(function (v) {
+        return '<li><div><b>' + esc(destOf(v)) + '</b><small>' + esc(when(v.at)) + (v.by ? ' · ' + esc(v.by) : '') + '</small></div>' +
+          (v.restorable ? '<button type="button" class="btn ghost sm" data-hs="' + v.n + '">' + ico('undo') + '<span>' + t('hist.restore') + '</span></button>' : '<span class="hs-gone" title="' + esc(t('hist.goneTip')) + '">' + t('hist.gone') + '</span>') + '</li>';
+      }).join('') + '</ol>';
+    }).catch(function () { box.innerHTML = '<p class="acct-msg bad">' + t('myCodes.failed') + '</p>'; });
+    box.onclick = function (e) {
+      var b = e.target.closest('[data-hs]'); if (!b) return;
+      b.disabled = true;
+      api.restoreVersion(r.id, b.getAttribute('data-hs')).then(function (saved) {
+        rows = rows.map(function (x) { return x.id === r.id ? Object.assign({}, x, saved) : x; });
+        dialog.close(); draw(); toastText(t('hist.restored'));
+        document.dispatchEvent(new CustomEvent('code-changed', { detail: saved }));
+      }).catch(function (x) { b.disabled = false; toastText(t(x && x.code === 'files_gone' ? 'hist.goneTip' : 'myCodes.failed')); });
+    };
   }
   function edit(r) {
     // Met bestanden erbij ophalen (de lijst laat ze weg)
@@ -855,6 +884,7 @@ var MyCodes = (function () {
     if (act === 'copydest') return copy(destVal(r) || r.shortUrl);
     if (act === 'recheck') { var hb = e.target.closest('[data-act]'); if (hb) hb.disabled = true; return api.codeHealthNow(r.id).then(function (h) { if (h && h.state !== 'none') health[r.id] = h; else delete health[r.id]; draw(); toast(h && h.state === 'ok' ? 'myCodes.hlNowOk' : 'myCodes.hlNowBad'); }).catch(function () { draw(); }); }
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
+    if (act === 'history') { closeMenus(); return askHistory(r); }
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });
     if (act === 'where') return Analytics.open({ codes: [r.id], detail: true });   // klik op scans: detailpagina van deze code
@@ -904,5 +934,5 @@ var MyCodes = (function () {
   function folderForNew() { var f = newIn; newIn = null; return f; }
   /** Vanaf het Overzicht: meteen een map (of 'fav') openen */
   function showFolder(key) { filter.folder = key; if (loaded) draw(); }
-  return { reload: load, rows: function () { return rows; }, displayName: displayName, folderForNew: folderForNew, showFolder: showFolder, edit: edit, labelsOf: askLabels };
+  return { reload: load, rows: function () { return rows; }, displayName: displayName, folderForNew: folderForNew, showFolder: showFolder, edit: edit, labelsOf: askLabels, history: askHistory };
 })();

@@ -32,7 +32,7 @@ const DUPLICATE = 11000;
 function codeOut(d: Doc): QrCode {
   if (!d) return null;
   return { id: d._id, userId: d.userId, typeId: d.typeId, contentType: d.contentType, content: openContent(d.contentType, d.content || {}), design: d.design || {},
-    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite, labels: parseLabels(d.labels), note: d.note || '', moderation: parseModeration(d.moderation) };
+    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite, labels: parseLabels(d.labels), note: d.note || '', moderation: parseModeration(d.moderation), trashedAt: d.trashedAt || null };
 }
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 function userOut(d: Doc): User {
@@ -228,7 +228,7 @@ export class MongoDatabase extends DatabaseService {
   }
   async summary(userId: string): Promise<Summary> {
     return {
-      codes: await this.codes.countDocuments({ userId }),
+      codes: await this.codes.countDocuments({ userId, trashedAt: null }),
       scans: await this.sumScans({ userId }),
       scans30: await this.sumScans({ userId, day: { $gte: since30() } }),
       sessions: await this.sessions.countDocuments({ userId, expiresAt: { $gt: now() } }),
@@ -266,14 +266,14 @@ export class MongoDatabase extends DatabaseService {
   async listCustomers(): Promise<Customer[]> {
     const users = await this.users.find({}, { projection: { email: 1, name: 1, createdAt: 1, emailVerifiedAt: 1, role: 1, disabledAt: 1, lastLoginAt: 1 } }).sort({ createdAt: -1 }).toArray();
     const counts: Record<string, number> = {}, scans: Record<string, number> = {}, invites: Record<string, string> = {};
-    for (const r of await this.codes.aggregate([{ $group: { _id: '$userId', n: { $sum: 1 }, s: { $sum: '$scans' } } }]).toArray()) { counts[r._id] = Number(r.n) || 0; scans[r._id] = Number(r.s) || 0; }
+    for (const r of await this.codes.aggregate([{ $match: { trashedAt: null } }, { $group: { _id: '$userId', n: { $sum: 1 }, s: { $sum: '$scans' } } }]).toArray()) { counts[r._id] = Number(r.n) || 0; scans[r._id] = Number(r.s) || 0; }
     for (const r of await this.resets.find({}).toArray()) if (!invites[r.userId] || r.expiresAt > invites[r.userId]) invites[r.userId] = r.expiresAt;
     return users.map((u) => ({ id: u._id, email: u.email, name: u.name, createdAt: u.createdAt, active: !!u.emailVerifiedAt, codes: counts[u._id] || 0, inviteUntil: u.emailVerifiedAt ? null : invites[u._id] || null,
       role: u.role || null, disabledAt: u.disabledAt || null, lastLoginAt: u.lastLoginAt || null, scans: scans[u._id] || 0 }));
   }
 
   /* ---------- Beheer ---------- */
-  async allQrCodes(): Promise<QrCode[]> { return (await this.codes.find({}).sort({ createdAt: -1 }).toArray()).map(codeOut); }
+  async allQrCodes(): Promise<QrCode[]> { return (await this.codes.find({ trashedAt: null }).sort({ createdAt: -1 }).toArray()).map(codeOut); }
   async scansPerDay(since: string): Promise<DayCount[]> {
     return (await this.stats.aggregate([{ $match: { day: { $gte: since } } }, { $group: { _id: '$day', scans: { $sum: '$scans' }, uniq: { $sum: '$uniq' } } }, { $sort: { _id: 1 } }]).toArray())
       .map((r) => ({ day: r._id, scans: Number(r.scans) || 0, uniq: Number(r.uniq) || 0 }));
@@ -301,7 +301,7 @@ export class MongoDatabase extends DatabaseService {
   }
 
   /* ---------- QR-codes ---------- */
-  private codesOf(userId: string) { return this.codes.find({ userId }).sort({ createdAt: -1 }).toArray(); }
+  private codesOf(userId: string) { return this.codes.find({ userId, trashedAt: null }).sort({ createdAt: -1 }).toArray(); }
   async listQrCodes(userId: string): Promise<QrCode[]> { return (await this.codesOf(userId)).map(codeOut); }
   async listWithStats(userId: string, days?: { from?: string; to?: string }): Promise<QrCode[]> {
     const df: Doc = {}; if (days && days.from) df.$gte = days.from; if (days && days.to) df.$lte = days.to; const f: Doc = Object.keys(df).length ? { userId, day: df } : { userId };
@@ -363,6 +363,20 @@ export class MongoDatabase extends DatabaseService {
     if (!Object.keys(set).length) return this.getQrCode(id);
     await this.codes.updateOne({ _id: id }, { $set: set });
     return this.getQrCode(id);
+  }
+  /* Prullenbak: zie sql.database.ts */
+  async trashQrCode(id: string, userId: string) {
+    const q = await this.codes.findOne({ _id: id }, { projection: { userId: 1, trashedAt: 1 } }); if (!q || q.userId !== userId || q.trashedAt) return false;
+    await this.codes.updateOne({ _id: id }, { $set: { trashedAt: now() } }); return true;
+  }
+  async restoreQrCode(id: string, userId: string) {
+    const q = await this.codes.findOne({ _id: id }, { projection: { userId: 1, trashedAt: 1, folderId: 1 } }); if (!q || q.userId !== userId || !q.trashedAt) return false;
+    const keepFolder = q.folderId && (await this.folders.findOne({ _id: q.folderId, userId }, { projection: { _id: 1 } }));
+    await this.codes.updateOne({ _id: id }, { $set: { trashedAt: null, folderId: keepFolder ? q.folderId : null } }); return true;
+  }
+  async listTrash(userId: string): Promise<QrCode[]> { return (await this.codes.find({ userId, trashedAt: { $ne: null } }).sort({ trashedAt: -1 }).toArray()).map(codeOut); }
+  async trashedBefore(before: string): Promise<{ id: string; userId: string }[]> {
+    return (await this.codes.find({ trashedAt: { $ne: null, $lt: before } }, { projection: { userId: 1 } }).toArray()).map((d) => ({ id: d._id, userId: d.userId }));
   }
   async deleteQrCode(id: string, userId: string) {
     const q = await this.codes.findOne({ _id: id }, { projection: { userId: 1 } }); if (!q || q.userId !== userId) return false;

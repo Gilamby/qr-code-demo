@@ -18,7 +18,7 @@ const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : n
 function codeOut(r: any): QrCode {
   if (!r) return null;
   return { id: r.id, userId: r.user_id, typeId: r.type_id, contentType: r.content_type, content: openContent(r.content_type, JSON.parse(r.content)), design: JSON.parse(r.design),
-    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null, favorite: !!Number(r.favorite), labels: parseLabels(r.labels), note: r.note || '', moderation: parseModeration(r.moderation) };
+    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null, favorite: !!Number(r.favorite), labels: parseLabels(r.labels), note: r.note || '', moderation: parseModeration(r.moderation), trashedAt: r.trashed_at || null };
 }
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
@@ -30,7 +30,8 @@ const SQL = {
   userByEmail: 'SELECT * FROM users WHERE lower(email) = lower(?)',
   userById: 'SELECT * FROM users WHERE id = ?',
   code: 'SELECT * FROM qr_codes WHERE id = ?',
-  codesOf: 'SELECT * FROM qr_codes WHERE user_id = ? ORDER BY created_at DESC',
+  codesOf: 'SELECT * FROM qr_codes WHERE user_id = ? AND trashed_at IS NULL ORDER BY created_at DESC',
+  trashOf: 'SELECT * FROM qr_codes WHERE user_id = ? AND trashed_at IS NOT NULL ORDER BY trashed_at DESC',
   filesOfCode: 'SELECT id FROM files WHERE code_id = ?',
 };
 
@@ -150,7 +151,7 @@ export class SqlDatabase extends DatabaseService {
   async summary(userId: string): Promise<Summary> {
     const n = async (sql: string, p: unknown[]) => Number(((await this.d.get(sql, p)) || ({} as any)).n) || 0;
     return {
-      codes: await n('SELECT COUNT(*) AS n FROM qr_codes WHERE user_id = ?', [userId]),
+      codes: await n('SELECT COUNT(*) AS n FROM qr_codes WHERE user_id = ? AND trashed_at IS NULL', [userId]),
       scans: await n('SELECT COALESCE(SUM(s.scans), 0) AS n FROM scan_stats s JOIN qr_codes q ON q.id = s.code_id WHERE q.user_id = ?', [userId]),
       scans30: await n('SELECT COALESCE(SUM(s.scans), 0) AS n FROM scan_stats s JOIN qr_codes q ON q.id = s.code_id WHERE q.user_id = ? AND s.day >= ?', [userId, since30()]),
       sessions: await n('SELECT COUNT(*) AS n FROM sessions WHERE user_id = ? AND expires_at > ?', [userId, now()]),
@@ -188,13 +189,13 @@ export class SqlDatabase extends DatabaseService {
     await this.d.run('DELETE FROM users WHERE email_verified_at IS NULL AND password_hash <> ? AND created_at < ?', [INVITED, new Date(Date.now() - UNVERIFIED_DAYS * 864e5).toISOString()]);
   }
   async listCustomers(): Promise<Customer[]> {
-    const rows = await this.d.all('SELECT u.id, u.email, u.name, u.created_at, u.email_verified_at, u.role, u.disabled_at, u.last_login_at, (SELECT COUNT(*) FROM qr_codes q WHERE q.user_id = u.id) AS codes, (SELECT COALESCE(SUM(q.scans), 0) FROM qr_codes q WHERE q.user_id = u.id) AS scans, (SELECT MAX(r.expires_at) FROM password_resets r WHERE r.user_id = u.id) AS invite_until FROM users u ORDER BY u.created_at DESC');
+    const rows = await this.d.all('SELECT u.id, u.email, u.name, u.created_at, u.email_verified_at, u.role, u.disabled_at, u.last_login_at, (SELECT COUNT(*) FROM qr_codes q WHERE q.user_id = u.id AND q.trashed_at IS NULL) AS codes, (SELECT COALESCE(SUM(q.scans), 0) FROM qr_codes q WHERE q.user_id = u.id) AS scans, (SELECT MAX(r.expires_at) FROM password_resets r WHERE r.user_id = u.id) AS invite_until FROM users u ORDER BY u.created_at DESC');
     return rows.map((r) => ({ id: r.id, email: r.email, name: r.name, createdAt: r.created_at, active: !!r.email_verified_at, codes: Number(r.codes) || 0, inviteUntil: r.email_verified_at ? null : r.invite_until || null,
       role: r.role || null, disabledAt: r.disabled_at || null, lastLoginAt: r.last_login_at || null, scans: Number(r.scans) || 0 }));
   }
 
   /* ---------- Beheer ---------- */
-  async allQrCodes(): Promise<QrCode[]> { return (await this.d.all('SELECT * FROM qr_codes ORDER BY created_at DESC')).map(codeOut); }
+  async allQrCodes(): Promise<QrCode[]> { return (await this.d.all('SELECT * FROM qr_codes WHERE trashed_at IS NULL ORDER BY created_at DESC')).map(codeOut); }
   async scansPerDay(since: string): Promise<DayCount[]> {
     return (await this.d.all('SELECT day, SUM(scans) AS scans, SUM(uniq) AS uniq FROM scan_stats WHERE day >= ? GROUP BY day ORDER BY day', [since]))
       .map((r) => ({ day: r.day, scans: Number(r.scans) || 0, uniq: Number(r.uniq) || 0 }));
@@ -285,6 +286,19 @@ export class SqlDatabase extends DatabaseService {
     if (!sets.length) return this.getQrCode(id);
     await this.d.run('UPDATE qr_codes SET ' + sets.join(', ') + ' WHERE id = ?', [...vals, id]);
     return this.getQrCode(id);
+  }
+  /* Prullenbak: verwijderen = eerst 30 dagen in de prullenbak (link werkt dan niet), daarna echt weg (purgeQrCode) */
+  async trashQrCode(id: string, userId: string) {
+    const q = await this.d.get(SQL.code, [id]); if (!q || q.user_id !== userId || q.trashed_at) return false;
+    await this.d.run('UPDATE qr_codes SET trashed_at = ? WHERE id = ?', [now(), id]); return true;
+  }
+  async restoreQrCode(id: string, userId: string) {
+    const q = await this.d.get(SQL.code, [id]); if (!q || q.user_id !== userId || !q.trashed_at) return false;
+    await this.d.run('UPDATE qr_codes SET trashed_at = NULL, folder_id = CASE WHEN folder_id IN (SELECT id FROM folders WHERE user_id = ?) THEN folder_id ELSE NULL END WHERE id = ?', [userId, id]); return true;
+  }
+  async listTrash(userId: string): Promise<QrCode[]> { return (await this.d.all(SQL.trashOf, [userId])).map(codeOut); }
+  async trashedBefore(before: string): Promise<{ id: string; userId: string }[]> {
+    return (await this.d.all('SELECT id, user_id FROM qr_codes WHERE trashed_at IS NOT NULL AND trashed_at < ?', [before])).map((r) => ({ id: r.id, userId: r.user_id }));
   }
   async deleteQrCode(id: string, userId: string) {
     const q = await this.d.get(SQL.code, [id]); if (!q || q.user_id !== userId) return false;

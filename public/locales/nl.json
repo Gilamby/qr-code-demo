@@ -3103,5 +3103,17 @@
     "restore": "Terugzetten",
     "note": "Verwijderde codes werken niet. Je kunt ze 30 dagen terugzetten; daarna worden ze definitief verwijderd.",
     "empty": "Er staat niets in Onlangs verwijderd."
+  },
+  "hist": {
+    "menu": "Geschiedenis",
+    "title": "Geschiedenis van “{name}”",
+    "now": "Gaat nu naar",
+    "lead": "Eerdere versies. Terugzetten werkt meteen, ook op geprinte codes.",
+    "empty": "Nog geen wijzigingen. Zodra je deze code aanpast, komt de vorige versie hier te staan.",
+    "restore": "Terugzetten",
+    "restored": "Eerdere versie teruggezet. Scans gaan nu daarheen.",
+    "gone": "Bestand vervangen",
+    "goneTip": "Deze versie gebruikte een bestand dat intussen is vervangen. Daarom kan hij niet terug.",
+    "close": "Sluiten"
   }
 }

@@ -54,6 +54,8 @@ export interface QrCode {
   /** Labels (max. 10) en een notitie, om te zoeken en te ordenen in Mijn QR-codes */
   labels?: string[];
   note?: string;
+  /** Prullenbak: verwijderd op (30 dagen terug te zetten, daarna echt weg) */
+  trashedAt?: string | null;
   /** Beheer: gepauzeerd door het team (met reden) en/of gemarkeerd als verdacht */
   moderation?: { hold?: { reason: string; by: string; byName?: string; at: string; lock?: boolean }; flag?: { reason: string; by: string; byName?: string; at: string } } | null;
   /** Alleen bij listWithStats: { dag: { "os|land|stad": [scans, uniek] } } */

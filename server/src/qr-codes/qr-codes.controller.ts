@@ -15,6 +15,11 @@ import { planFor, typeAllowed } from '../plans';
 import { activeCount, forgetPlanPaused } from '../plan-limit';
 import { AuthService } from '../auth/auth.service';
 import { checkCode, readHealth } from '../health';
+import { publicVersion, readHistory, remember, restorable } from './history';
+import { destinationOf } from './moderation';
+
+/** Zo lang blijft een verwijderde code in de prullenbak */
+export const TRASH_DAYS = 30;
 
 @Controller('api/qr-codes')
 @UseGuards(LoggedIn)
@@ -25,6 +30,12 @@ export class QrCodesController {
   async list(@Req() req: Request, @CurrentUser() user: User) {
     const m = await this.codes.legacyMap(user.id), u = await this.codes.untilMap(user.id);
     return Promise.all((await this.db.listQrCodes(user.id)).map((q) => this.codes.outFull(req, q, m, u)));
+  }
+
+  /** Prullenbak: verwijderde codes van de laatste 30 dagen (met de dag waarop ze echt weg gaan) */
+  @Get('trash')
+  async trash(@Req() req: Request, @CurrentUser() user: User) {
+    return Promise.all((await this.db.listTrash(user.id)).map(async (q) => ({ ...(await this.codes.out(req, q)), trashedAt: q.trashedAt, purgeAt: new Date(Date.parse(q.trashedAt) + TRASH_DAYS * 864e5).toISOString() })));
   }
 
   /** Health check: werkt de bestemming van mijn codes nog? { [code-id]: { state, at, bad } } */
@@ -134,10 +145,35 @@ export class QrCodesController {
     await this.db.pruneFiles(old.id, files);                          // vervangen bestanden opruimen
     const patch: any = { content: value.content, design: value.design };
     if (body.name !== undefined) patch.name = cleanName(body.name);
+    await remember(this.db, old, value.content, this.actor(req, user));       // vorige versie bewaren (Geschiedenis)
     await this.db.setSetting('health:' + old.id, null).catch(() => {});      // inhoud veranderd: link opnieuw controleren
     const nc: any = (patch as any).content || {}, oc: any = old.content || {};
     if (nc.abUrl !== oc.abUrl || nc.url !== oc.url) await this.db.setSetting('ab:' + old.id, null).catch(() => {});   // andere links: A/B-test opnieuw tellen
     return this.codes.outFull(req, await this.db.updateQrCode(old.id, patch));
+  }
+
+  private actor(req: Request, user: User) { const m: any = (req as any).member; return (m && (m.name || m.email)) || user.name || user.email; }
+
+  /** Geschiedenis: eerdere versies van de inhoud (nieuwste eerst) */
+  @Get(':id/history')
+  async history(@CurrentUser() user: User, @Param('id') id: string) {
+    const q = await this.db.getOwnedQrCode(id, user.id); if (!q) throw fail(404, 'QR code not found');
+    const list = await readHistory(this.db, q.id);
+    return Promise.all(list.map(async (v, n) => { const d = destinationOf({ ...q, content: v.content || {} }); return { n, ...publicVersion(q.typeId, v), dest: { kind: d.kind, value: d.value || '' }, restorable: await restorable(this.db, q, v) }; }));
+  }
+
+  /** Een eerdere versie terugzetten (de huidige gaat eerst de geschiedenis in, dus ook dit kan weer terug) */
+  @Post(':id/history/:n/restore')
+  @HttpCode(200)
+  async restoreVersion(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string, @Param('n') n: string) {
+    const q = await this.db.getOwnedQrCode(id, user.id); if (!q) throw fail(404, 'QR code not found');
+    await this.typeOk(user, q.typeId);
+    const v = (await readHistory(this.db, q.id))[Number(n)]; if (!/^\d{1,2}$/.test(n) || !v) throw fail(404, 'Version not found');
+    if (!(await restorable(this.db, q, v))) throw fail(409, 'files_gone');
+    await remember(this.db, q, v.content, this.actor(req, user));
+    await this.db.setSetting('health:' + q.id, null).catch(() => {});
+    if ((v.content || {}).url !== (q.content || {}).url || (v.content || {}).abUrl !== (q.content || {}).abUrl) await this.db.setSetting('ab:' + q.id, null).catch(() => {});
+    return this.codes.outFull(req, await this.db.updateQrCode(q.id, { content: v.content }));
   }
 
   /** Kleine wijziging vanuit Mijn QR-codes: naam of aan/uit */
@@ -205,10 +241,29 @@ export class QrCodesController {
     return this.codes.out(req, old.folderId || (old.labels || []).length || old.note ? await this.db.getQrCode(newId) : saved);
   }
 
+  /** Verwijderen = naar de prullenbak: de link werkt meteen niet meer, maar 30 dagen terug te zetten */
   @Delete(':id')
   @HttpCode(204)
   async remove(@CurrentUser() user: User, @Param('id') id: string) {
-    if (!(await this.db.deleteQrCode(id, user.id))) throw fail(404, 'QR code not found');
-    await this.codes.setLegacy(user.id, id, null);
+    if (!(await this.db.trashQrCode(id, user.id))) throw fail(404, 'QR code not found');
+  }
+
+  /** Terugzetten uit de prullenbak. Geen ruimte meer in het pakket: dan terug als gepauzeerd */
+  @Post(':id/restore')
+  @HttpCode(200)
+  async restore(@Req() req: Request, @CurrentUser() user: User, @Param('id') id: string) {
+    const plan = await planFor(this.db, user.id), full = plan.codes != null && (await activeCount(this.db, user.id)) >= plan.codes;
+    if (!(await this.db.restoreQrCode(id, user.id))) throw fail(404, 'QR code not found');
+    let q = await this.db.getQrCode(id);
+    if (full && !q.paused) q = await this.db.updateQrCode(id, { paused: true });
+    return { code: await this.codes.outFull(req, q), paused: full };
+  }
+
+  /** Definitief verwijderen (alleen vanuit de prullenbak) */
+  @Delete(':id/permanent')
+  @HttpCode(204)
+  async purge(@CurrentUser() user: User, @Param('id') id: string) {
+    const q = await this.db.getQrCode(id); if (!q || q.userId !== user.id || !q.trashedAt) throw fail(404, 'QR code not found');
+    await this.db.deleteQrCode(id, user.id); await this.codes.setLegacy(user.id, id, null);
   }
 }

@@ -9,6 +9,14 @@ import { needsVies, checkVies } from './billing/tax';
 import { planFor, EXTRA_PRICE } from './plans';
 import { healthSweep } from './health';
 import { domainSweep } from './domains';
+import { TRASH_DAYS } from './qr-codes/qr-codes.controller';
+
+/** Overgezette code (legacy) echt weg: ook uit de lijst met oude apps */
+async function dropLegacy(db: DatabaseService, userId: string, codeId: string) {
+  let m: Record<string, string> = {}; try { m = JSON.parse((await db.getSetting('legacy:' + userId)) || '{}'); } catch (e) { m = {}; }
+  if (!(codeId in m)) return; delete m[codeId];
+  await db.setSetting('legacy:' + userId, Object.keys(m).length ? JSON.stringify(m) : null);
+}
 
 @Injectable()
 export class HousekeepingService implements OnApplicationBootstrap, OnApplicationShutdown {
@@ -16,9 +24,17 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
   constructor(private readonly db: DatabaseService, private readonly mailer: MailerService) {}
 
   onApplicationBootstrap() {
-    const tidy = () => { this.db.cleanup().catch((e) => console.error('Opruimen mislukt:', e.message)); sendDueReports(this.db, this.mailer).catch((e) => console.error('Scanoverzichten mislukt:', e.message)); this.subscriptions().catch((e) => console.error('Abonnementen nakijken mislukt:', e.message)); this.legacyReminders().catch((e) => console.error('Herinneringen oude QR-app mislukt:', e.message)); if (process.env.HEALTH_CHECK !== 'off') healthSweep(this.db as any, Date.now(), this.mailer).catch((e) => console.error('Health check mislukt:', e.message)); domainSweep(this.db).catch((e) => console.error('Eigen domeinen nakijken mislukt:', e.message)); };
+    const tidy = () => { this.db.cleanup().catch((e) => console.error('Opruimen mislukt:', e.message)); sendDueReports(this.db, this.mailer).catch((e) => console.error('Scanoverzichten mislukt:', e.message)); this.subscriptions().catch((e) => console.error('Abonnementen nakijken mislukt:', e.message)); this.legacyReminders().catch((e) => console.error('Herinneringen oude QR-app mislukt:', e.message)); if (process.env.HEALTH_CHECK !== 'off') healthSweep(this.db as any, Date.now(), this.mailer).catch((e) => console.error('Health check mislukt:', e.message)); domainSweep(this.db).catch((e) => console.error('Eigen domeinen nakijken mislukt:', e.message));  this.trashSweep().catch((e) => console.error('Prullenbak legen mislukt:', e.message));};
     tidy();
     this.timer = setInterval(tidy, 3600e3); this.timer.unref();
+  }
+  /** Prullenbak: codes die langer dan 30 dagen geleden zijn verwijderd, nu echt verwijderen (met statistieken en bestanden) */
+  async trashSweep(now = Date.now()) {
+    let n = 0;
+    for (const x of await this.db.trashedBefore(new Date(now - TRASH_DAYS * 864e5).toISOString())) {
+      if (await this.db.deleteQrCode(x.id, x.userId).catch(() => false)) { n++; await dropLegacy(this.db, x.userId, x.id).catch(() => {}); }
+    }
+    return n;
   }
   /** Abonnementen: bedenktijd vastleggen, waarschuwen, na de bedenktijd de codes verwijderen (regels: subscription.ts) */
   async subscriptions(now = Date.now()) {
@@ -29,7 +45,7 @@ export class HousekeepingService implements OnApplicationBootstrap, OnApplicatio
       const r = tick(s, now);
       if (!r.actions.length && JSON.stringify(r.sub) === JSON.stringify(s)) continue;
       if (r.actions.includes('delete')) {
-        for (const q of await this.db.listQrCodes(u.id)) await this.db.deleteQrCode(q.id, u.id).catch(() => false);
+        for (const q of [...(await this.db.listQrCodes(u.id)), ...(await this.db.listTrash(u.id))]) await this.db.deleteQrCode(q.id, u.id).catch(() => false);
         await this.db.addAdminLog({ adminId: 'system', adminName: 'system', action: 'sub_deleted', codeId: null, ownerId: u.id, detail: u.email }).catch(() => {});
       }
       await saveSub(this.db, u.id, r.sub);

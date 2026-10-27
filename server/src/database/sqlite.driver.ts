@@ -93,7 +93,7 @@ export function openSqlite(file: string): SqlDriver {
   // 14 okt 2026: mappen voor QR-codes
   if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'folder_id'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN folder_id TEXT');
   if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = 'favorite'").get()) db.exec('ALTER TABLE qr_codes ADD COLUMN favorite INTEGER NOT NULL DEFAULT 0');
-  for (const col of ['labels', 'note']) if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = ?").get(col)) db.exec('ALTER TABLE qr_codes ADD COLUMN ' + col + ' TEXT');   // labels (JSON-lijst) en notitie
+  for (const col of ['labels', 'note', 'trashed_at']) if (!db.prepare("SELECT 1 FROM pragma_table_info('qr_codes') WHERE name = ?").get(col)) db.exec('ALTER TABLE qr_codes ADD COLUMN ' + col + ' TEXT');   // labels (JSON-lijst) en notitie
   // 14 okt 2026: scans per uur (UTC) voor Statistieken > wanneer wordt er gescand
   db.exec(`CREATE TABLE IF NOT EXISTS scan_hours (
   code_id TEXT NOT NULL REFERENCES qr_codes(id) ON DELETE CASCADE,

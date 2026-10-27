@@ -176,15 +176,23 @@ export abstract class DatabaseService {
   abstract listWithStats(userId: string, days?: { from?: string; to?: string }): Promise<QrCode[]>;
   /** Openbaar (scannen) */
   abstract getQrCode(id: string): Promise<QrCode | null>;
-  async getOwnedQrCode(id: string, userId: string): Promise<QrCode | null> { const q = await this.getQrCode(id); return q && q.userId === userId ? q : null; }
+  /** Eigen code (niet in de prullenbak; die kun je alleen terugzetten of definitief verwijderen) */
+  async getOwnedQrCode(id: string, userId: string): Promise<QrCode | null> { const q = await this.getQrCode(id); return q && q.userId === userId && !q.trashedAt ? q : null; }
   /** Bestaat dit id al, of was het ooit van een (verwijderde) code? Een verwijderde link wordt nooit opnieuw uitgegeven. */
   abstract idTaken(id: string): Promise<boolean>;
   /** Was dit id van een code die is verwijderd? (dan krijgt de bezoeker "verwijderd" te zien) */
   async wasDeleted(id: string) { return !!(await this.getSetting('gone:' + id)); }
-  protected async markGone(ids: string[]) { for (const id of ids) await this.setSetting('gone:' + id, now()); }
+  /** Code echt weg: de link nooit opnieuw uitgeven, en losse gegevens van de code opruimen (geschiedenis, controle, A/B-telling) */
+  protected async markGone(ids: string[]) { for (const id of ids) { await this.setSetting('gone:' + id, now()); for (const k of ['hist:', 'health:', 'ab:']) await this.setSetting(k + id, null).catch(() => {}); } }
   abstract insertQrCode(userId: string, q: NewQrCode): Promise<QrCode>;
   abstract updateQrCode(id: string, patch: QrPatch): Promise<QrCode>;
+  /** Echt verwijderen (met statistieken en bestanden); de link wordt nooit opnieuw uitgegeven */
   abstract deleteQrCode(id: string, userId: string): Promise<boolean>;
+  /** Prullenbak: 30 dagen bewaren (de link werkt dan niet), terugzetten kan */
+  abstract trashQrCode(id: string, userId: string): Promise<boolean>;
+  abstract restoreQrCode(id: string, userId: string): Promise<boolean>;
+  abstract listTrash(userId: string): Promise<QrCode[]>;
+  abstract trashedBefore(before: string): Promise<{ id: string; userId: string }[]>;
   /** Scan tellen: totaal + per dag per "systeem|land|stad" */
   abstract addScan(id: string, info?: ScanInfo): Promise<QrCode>;
   /** Logboek: losse scans van één code, nieuwste eerst (geen IP-adressen) */
