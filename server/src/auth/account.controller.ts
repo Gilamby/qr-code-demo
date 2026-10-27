@@ -245,13 +245,13 @@ export class AccountController {
   @Get('account/prefs')
   async prefs(@CurrentUser() user: User) {
     let p: any = {}; try { p = JSON.parse((await this.db.getSetting('uprefs:' + user.id)) || '{}'); } catch (e) { p = {}; }
-    return { start: START_PAGES.includes(p.start) ? p.start : 'home' };
+    return { start: START_PAGES.includes(p.start) ? p.start : 'home', tour: !!p.tour };
   }
   @Patch('account/prefs')
   async savePrefs(@CurrentUser() user: User, @Body() b: any = {}) {
     if (b.start !== undefined && !START_PAGES.includes(b.start)) throw fail(400, 'start');
-    const cur = await this.prefs(user), out = { start: b.start !== undefined ? b.start : cur.start };
-    await this.db.setSetting('uprefs:' + user.id, out.start === 'home' ? null : JSON.stringify(out));
+    const cur = await this.prefs(user), out = { start: b.start !== undefined ? b.start : cur.start, tour: b.tour !== undefined ? !!b.tour : cur.tour };   // tour: korte rondleiding gezien/overgeslagen
+    await this.db.setSetting('uprefs:' + user.id, out.start === 'home' && !out.tour ? null : JSON.stringify(out));
     return out;
   }
 

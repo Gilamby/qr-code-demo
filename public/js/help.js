@@ -146,6 +146,7 @@
       '<div class="help-cats" role="group" aria-label="' + esc(t('faq.filter')) + '">' + CATS.map(function (c) { return '<button type="button" class="chip" data-cat="' + c + '" aria-pressed="' + (cat === c) + '">' + t('faq.cats.' + c) + '</button>'; }).join('') +
       '<span class="faq-count" aria-live="polite"></span></div>' +
       '<div class="faq-list"></div>' +
+      '<div class="glass help-card faq-more faq-tour"><div><h3>' + t('tour.replayTitle') + '</h3><p>' + t('tour.replayText') + '</p></div><button type="button" class="btn ghost" data-tour-replay>' + t('tour.replay') + '</button></div>' +
       '<div class="glass help-card faq-more"><div><h3>' + t('faq.moreTitle') + '</h3><p>' + t('faq.moreText') + '</p></div><button type="button" class="btn primary" data-help-go="contact">' + t('faq.askUs') + SVG + ICON.arrow + '</svg></button></div>';
     drawList();
   }

@@ -5487,16 +5487,40 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 
 /* Soorten QR-code: carrousel met pagina's van 4 × 4 */
 .tg-car { overflow: hidden; margin: -6px; padding: 6px; }
-.tg-track { display: flex; transition: transform .35s var(--ease, ease); transform: translateX(calc(var(--tg, 0) * -100%)); }
+.tg-track { display: flex; gap: 24px; transition: transform .35s var(--ease, ease); transform: translateX(calc(var(--tg, 0) * (-100% - 24px))); }   /* gap > padding van .tg-car: geen randje van de andere pagina */
 .tg-page { flex: 0 0 100%; min-width: 0; align-content: start; }
-.tg-page[inert] { opacity: .35; }
 .tg-nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 14px; }
 .tg-arrow { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; }
-.tg-arrow svg, .tg-more svg { width: 16px; height: 16px; }
+.tg-arrow svg { width: 16px; height: 16px; }
 .tg-arrow:disabled { opacity: .3; cursor: default; }
 .tg-dots { display: flex; gap: 6px; }
 .tg-dot { width: 8px; height: 8px; padding: 0; border-radius: 999px; border: 0; background: var(--line-strong, rgba(255,255,255,.25)); cursor: pointer; transition: width .2s, background .2s; }
 .tg-dot.on { width: 22px; background: var(--accent); }
-.tg-more { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px 0 14px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); background: var(--accent-soft); color: var(--accent); font: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; }
 [data-theme="light"] .tg-dot { background: rgba(15,23,42,.18); } [data-theme="light"] .tg-dot.on { background: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .tg-track { transition: none; } }
+
+/* ---------- Korte rondleiding (tour.js) ---------- */
+.tour { position: fixed; inset: 0; z-index: 400; }
+.tour-hole { position: fixed; border-radius: 12px; box-shadow: 0 0 0 9999px rgba(3,8,16,.62), 0 0 0 2px var(--accent), 0 0 24px 4px var(--glow); transition: top .3s var(--ease), left .3s var(--ease), width .3s var(--ease), height .3s var(--ease); pointer-events: none; }
+.tour-center .tour-hole { top: 50%; left: 50%; width: 0; height: 0; }
+.tour-card { position: fixed; width: min(340px, calc(100vw - 24px)); padding: 20px 20px 16px; border-radius: 18px; background: var(--pop); color: var(--fg); box-shadow: var(--shadow), 0 30px 70px -20px rgba(0,0,0,.6); transition: top .3s var(--ease), left .3s var(--ease); animation: tour-in .25s var(--ease); }
+:root[data-theme="dark"] .tour-card { background: linear-gradient(160deg, #18202c, #10151d); border-color: rgba(255,255,255,.12); }
+.tour-center .tour-card { top: 50% !important; left: 50% !important; transform: translate(-50%, -50%); width: min(400px, calc(100vw - 32px)); text-align: center; padding: 28px 26px 22px; }
+@keyframes tour-in { from { opacity: 0; } to { opacity: 1; } }
+.tour-card h2 { margin: 0 0 6px; font-size: 17px; font-weight: 800; letter-spacing: -.01em; }
+.tour-center .tour-card h2 { font-size: 21px; }
+.tour-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.tour-logo img { width: 52px; height: 52px; border-radius: 14px; margin-bottom: 12px; }
+.tour-top { display: flex; align-items: center; justify-content: space-between; margin: -4px -6px 8px 0; }
+.tour-step { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .02em; }
+.tour-x { width: 30px; height: 30px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.tour-x:hover { background: var(--hover); color: var(--fg); }
+.tour-x svg { width: 16px; height: 16px; }
+.tour-acts { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.tour-center .tour-acts { justify-content: center; margin-top: 20px; }
+.tour-acts .btn { height: 38px; padding: 0 16px; font-size: 13.5px; }
+.tour-sp { flex: 1; }
+.tour-dots { display: flex; gap: 5px; }
+.tour-dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--line-strong); transition: width .2s, background .2s; }
+.tour-dots i.on { width: 16px; background: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .tour-hole, .tour-card { transition: none; animation: none; } }

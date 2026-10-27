@@ -321,7 +321,7 @@ var api = (function () {
       remove: function (id)    { return request('DELETE', 'api/account/templates/' + encodeURIComponent(id)); },
     },
     account: {
-      prefs:     function ()  { return api.isDemo && api.isDemo() ? Promise.resolve({ start: 'home' }) : request('GET', 'api/account/prefs'); },
+      prefs:     function ()  { return api.isDemo && api.isDemo() ? Promise.resolve({ start: 'home', tour: true }) : request('GET', 'api/account/prefs'); },
       savePrefs: function (d) { return request('PATCH', 'api/account/prefs', d); },
       update:   either(function (d) { return request('PATCH', 'api/account', d); }, demoAuth.account.update),
       password: either(function (d) { return request('POST', 'api/account/password', d); }, demoAuth.account.password),

@@ -555,6 +555,7 @@
 :root[data-theme="light"] .ev-cover::after { background: linear-gradient(180deg, rgba(255,255,255,1), transparent 55%); }
 :root[data-theme="light"] .ev-date { box-shadow: 0 1px 0 rgba(13,19,32,0.021), 0 0 0 1px #e5e7eb; }
 :root[data-theme="light"] .tg-dot { background: var(--line-strong, rgba(13,19,32,0.188)); }
+:root[data-theme="light"] .tour-card { box-shadow: var(--shadow), 0 30px 70px -20px rgba(13,19,32,0.21); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }
