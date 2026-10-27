@@ -51,11 +51,39 @@ export function abVariant(q: QrCode, rnd = Math.random()): 'A' | 'B' | null {
   const share = Math.min(99, Math.max(1, Number(c.abShare) || 50));
   return rnd * 100 < share ? 'B' : 'A';
 }
-export function targetUrl(q: QrCode, userAgent = '', variant: 'A' | 'B' | null = null) {
+/* ---------- Slim doorsturen (Website > Meer opties > "Slim doorsturen") ----------
+   Regels op volgorde; de eerste die past wint, anders de gewone link. Soorten:
+   lang (taal van de telefoon), country (land, alleen als de land-database er is), time (tijd + dagen in de tijdzone van de eigenaar), device (iPhone/Android/computer).
+   Niets wordt bewaard: we kijken alleen op het moment van scannen. */
+export type RouteCtx = { lang: string; cc: string; now: { d: string; t: string }; ua: string };
+export function parseRoute(v: unknown): any[] { try { const a = JSON.parse(String(v || '[]')); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+export function routeUrl(q: QrCode, ctx: RouteCtx): string | null {
+  const list = parseRoute((q.content || {}).route); if (!list.length) return null;
+  const dow = new Date(ctx.now.d + 'T12:00:00Z').getUTCDay();            // 0 = zondag
+  const dev = /iPhone|iPad|iPod/i.test(ctx.ua) ? 'ios' : /Android/i.test(ctx.ua) ? 'android' : 'desktop';
+  for (const r of list) {
+    if (!r || !r.url) continue;
+    if (r.k === 'lang' && r.v && ctx.lang === r.v) return r.url;
+    if (r.k === 'country' && r.v && ctx.cc && ctx.cc === r.v) return r.url;
+    if (r.k === 'device' && r.v === dev) return r.url;
+    if (r.k === 'time' && r.f && r.t) {
+      const night = r.f > r.t, inTime = night ? ctx.now.t >= r.f || ctx.now.t < r.t : ctx.now.t >= r.f && ctx.now.t < r.t;
+      // bij een nachtregel (22:00–02:00) hoort na middernacht nog bij de dag ervoor
+      const day = night && ctx.now.t < r.t ? (dow + 6) % 7 : dow;
+      const dayOk = r.d === 'wd' ? day >= 1 && day <= 5 : r.d === 'we' ? day === 0 || day === 6 : true;
+      if (inTime && dayOk) return r.url;
+    }
+  }
+  return null;
+}
+/** Eerste taal van de telefoon ("es-ES,es;q=0.9" → "es") */
+export const firstLang = (h: unknown) => String(h || '').split(',')[0].trim().slice(0, 2).toLowerCase();
+
+export function targetUrl(q: QrCode, userAgent = '', variant: 'A' | 'B' | null = null, routed: string | null = null) {
   const c = q.content || {};
-  let url = variant === 'B' && c.abUrl ? c.abUrl : c.url;
-  if (/iPhone|iPad|iPod/i.test(userAgent) && c.iosUrl) url = c.iosUrl;
-  else if (/Android/i.test(userAgent) && c.androidUrl) url = c.androidUrl;
+  let url = routed || (variant === 'B' && c.abUrl ? c.abUrl : c.url);
+  if (!routed && /iPhone|iPad|iPod/i.test(userAgent) && c.iosUrl) url = c.iosUrl;
+  else if (!routed && /Android/i.test(userAgent) && c.androidUrl) url = c.androidUrl;
   if (c.utm && url) {
     const u = new URL(url);
     const campaign = (c.title || q.id).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || q.id;

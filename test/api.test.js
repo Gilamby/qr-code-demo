@@ -1055,3 +1055,23 @@ test('geschiedenis: vorige bestemming bewaren en terugzetten (ook het terugzette
   assert.equal((await other('GET', '/api/qr-codes/' + c.id + '/history')).status, 404, 'niet van een ander');
   assert.equal((await k('POST', '/api/qr-codes/' + c.id + '/history/9/restore')).status, 404);
 });
+
+test('slim doorsturen: per taal, apparaat en tijd; ongeldige regels geweigerd', async () => {
+  const k = client(); await signup(k, 'route-k@example.com', 'Doorsturen zin 15!', 'Klant Route');
+  const route = JSON.stringify([{ k: 'lang', v: 'es', url: 'https://es.example/' }, { k: 'device', v: 'ios', url: 'https://ios.example/' }]);
+  const c = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://gewoon.example/', route }, design: {} })).json;
+  const go = (h) => fetch(base + '/q/' + c.id, { redirect: 'manual', headers: h }).then((r) => r.headers.get('location'));
+  assert.equal(await go({ 'accept-language': 'es-ES,es;q=0.9' }), 'https://es.example/');
+  assert.equal(await go({ 'accept-language': 'nl-NL', 'user-agent': 'Mozilla/5.0 (iPhone)' }), 'https://ios.example/');
+  assert.equal(await go({ 'accept-language': 'nl-NL', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0)' }), 'https://gewoon.example/');
+  const bad = await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://gewoon.example/', route: JSON.stringify([{ k: 'lang', v: 'xx1', url: 'nope' }]) }, design: {} });
+  assert.equal(bad.status, 400);
+  const rules = require('../server/dist/visitor/rules');
+  const q = { content: { route: JSON.stringify([{ k: 'time', d: 'wd', f: '22:00', t: '02:00', url: 'https://nacht.example/' }, { k: 'time', d: 'all', f: '12:00', t: '16:00', url: 'https://lunch.example/' }]) } };
+  const at = (d, t) => rules.routeUrl(q, { lang: 'en', cc: '', ua: '', now: { d, t } });
+  assert.equal(at('2026-10-27', '13:00'), 'https://lunch.example/', 'dinsdag lunch');
+  assert.equal(at('2026-10-27', '23:30'), 'https://nacht.example/', 'dinsdagavond laat');
+  assert.equal(at('2026-10-31', '01:00'), 'https://nacht.example/', 'zaterdag 01:00 hoort bij vrijdagnacht');
+  assert.equal(at('2026-11-01', '01:00'), null, 'zondag 01:00 hoort bij zaterdagnacht: weekend, geen regel');
+  assert.equal(at('2026-10-27', '17:00'), null);
+});

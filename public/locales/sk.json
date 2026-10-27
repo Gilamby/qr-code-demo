@@ -424,7 +424,8 @@
     "eventEnd": "Dátum konca",
     "eventEndTime": "Čas konca",
     "eventPlace": "Miesto",
-    "eventUrl": "Vstupenky alebo viac info"
+    "eventUrl": "Vstupenky alebo viac info",
+    "route": "Inteligentné presmerovanie"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: otvorte svoj Firemný profil, vyberte „Požiadať o recenzie“ a skopírujte odkaz. Fungujú aj odkazy z Tripadvisor, Trustpilot alebo Booking.com.",
     "reviewName": "Zobrazí sa v náhľade a pomôže vám kód rozpoznať.",
     "eventEnd": "Pri jednodňovom podujatí nechajte prázdne.",
-    "eventUrl": "Napríklad váš predaj vstupeniek alebo web."
+    "eventUrl": "Napríklad váš predaj vstupeniek alebo web.",
+    "route": "Posielajte skenujúcich na iný odkaz podľa jazyka telefónu, krajiny, času alebo zariadenia. O tom, kto skenuje, sa nič neukladá."
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Rýchla prehliadka",
     "replayText": "Niečo vám ušlo? Pozrite si 30-sekundovú prehliadku znova.",
     "replay": "Prehliadka znova"
+  },
+  "route": {
+    "add": "Pridať pravidlo",
+    "if": "Ak",
+    "goTo": "Prejsť na",
+    "k_lang": "Jazyk",
+    "k_country": "Krajina",
+    "k_time": "Čas",
+    "k_device": "Zariadenie",
+    "d_all": "Každý deň",
+    "d_wd": "Po–pi",
+    "d_we": "So–ne",
+    "days": "Dni",
+    "from": "Od",
+    "to": "Do",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Počítač",
+    "remove": "Odstrániť pravidlo",
+    "empty": "Zatiaľ žiadne pravidlá. Pridajte napr.: telefóny v španielčine na vašu španielsku stránku.",
+    "note": "Pravidlá sa kontrolujú zhora nadol; vyhráva prvé, ktoré sedí. Ak nesedí žiadne, použije sa bežný odkaz. Časy sú v časovom pásme vášho účtu."
   }
 }

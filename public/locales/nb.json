@@ -424,7 +424,8 @@
     "eventEnd": "Sluttdato",
     "eventEndTime": "Sluttid",
     "eventPlace": "Sted",
-    "eventUrl": "Billetter eller mer info"
+    "eventUrl": "Billetter eller mer info",
+    "route": "Smart videresending"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: åpne bedriftsprofilen din, velg «Be om anmeldelser» og kopier lenken. Lenker fra Tripadvisor, Trustpilot eller Booking.com fungerer også.",
     "reviewName": "Vises i forhåndsvisningen og hjelper deg å kjenne igjen koden.",
     "eventEnd": "La stå tom for et endagsarrangement.",
-    "eventUrl": "For eksempel billettbutikken eller nettstedet ditt."
+    "eventUrl": "For eksempel billettbutikken eller nettstedet ditt.",
+    "route": "Send de som skanner til en annen lenke etter telefonens språk, land, klokkeslett eller enhet. Ingenting lagres om hvem som skanner."
   },
   "more": {
     "title": "Flere alternativer",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Rask omvisning",
     "replayText": "Gikk du glipp av noe? Se omvisningen på 30 sekunder igjen.",
     "replay": "Se omvisningen igjen"
+  },
+  "route": {
+    "add": "Legg til regel",
+    "if": "Hvis",
+    "goTo": "Gå til",
+    "k_lang": "Språk",
+    "k_country": "Land",
+    "k_time": "Tid",
+    "k_device": "Enhet",
+    "d_all": "Hver dag",
+    "d_wd": "Man–fre",
+    "d_we": "Lør–søn",
+    "days": "Dager",
+    "from": "Fra",
+    "to": "Til",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Datamaskin",
+    "remove": "Fjern regel",
+    "empty": "Ingen regler ennå. Legg til en, f.eks. spanske telefoner til den spanske siden din.",
+    "note": "Reglene sjekkes ovenfra og ned; den første som passer vinner. Passer ingen, brukes den vanlige lenken. Tider følger kontoens tidssone."
   }
 }

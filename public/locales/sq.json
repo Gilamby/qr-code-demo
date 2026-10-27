@@ -424,7 +424,8 @@
     "eventEnd": "Data e mbarimit",
     "eventEndTime": "Ora e mbarimit",
     "eventPlace": "Vendndodhja",
-    "eventUrl": "Bileta ose më shumë info"
+    "eventUrl": "Bileta ose më shumë info",
+    "route": "Ridrejtim i zgjuar"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: hapni Profilin e Biznesit, zgjidhni “Kërko vlerësime” dhe kopjoni lidhjen. Funksionojnë edhe lidhjet nga Tripadvisor, Trustpilot ose Booking.com.",
     "reviewName": "Shfaqet në pamjen paraprake dhe ju ndihmon ta njihni kodin.",
     "eventEnd": "Lëreni bosh për një event njëditor.",
-    "eventUrl": "Për shembull dyqani i biletave ose faqja juaj."
+    "eventUrl": "Për shembull dyqani i biletave ose faqja juaj.",
+    "route": "Dërgojini skanuesit te një lidhje tjetër sipas gjuhës së telefonit, vendit, orës ose pajisjes. Nuk ruhet asgjë për ata që skanojnë."
   },
   "more": {
     "title": "Më shumë opsione",
@@ -3263,5 +3265,26 @@
     "replayTitle": "Tur i shpejtë",
     "replayText": "Ju shpëtoi diçka? Shikojeni sërish turin 30 sekondash.",
     "replay": "Shiko turin sërish"
+  },
+  "route": {
+    "add": "Shto rregull",
+    "if": "Nëse",
+    "goTo": "Shko te",
+    "k_lang": "Gjuha",
+    "k_country": "Vendi",
+    "k_time": "Ora",
+    "k_device": "Pajisja",
+    "d_all": "Çdo ditë",
+    "d_wd": "Hën–Pre",
+    "d_we": "Sht–Die",
+    "days": "Ditët",
+    "from": "Nga",
+    "to": "Deri",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Kompjuter",
+    "remove": "Hiq rregullin",
+    "empty": "Ende pa rregulla. Shtoni një, p.sh. telefonat në spanjisht te faqja juaj në spanjisht.",
+    "note": "Rregullat kontrollohen nga lart poshtë; fiton i pari që përputhet. Nëse asnjë nuk përputhet, përdoret lidhja e zakonshme. Oraret janë në zonën kohore të llogarisë suaj."
   }
 }

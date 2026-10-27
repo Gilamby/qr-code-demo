@@ -5544,3 +5544,23 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .mc-purged li small { display: block; font-size: 12.5px; color: var(--muted); }
 .mc-purged-when { text-align: right; font-size: 13px; color: var(--fg); }
 @media (max-width: 560px) { .mc-purged li { grid-template-columns: 32px minmax(0, 1fr); } .mc-purged-when { grid-column: 2; text-align: left; } }
+
+/* Slim doorsturen (route-editor.js) */
+.route { display: grid; gap: 10px; }
+.rt-list { display: grid; gap: 10px; }
+.rt-row { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px 10px; padding: 12px 40px 12px 12px; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--tile, rgba(255,255,255,.03)); }
+.rt-n { grid-row: 1 / 3; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--accent-soft); color: var(--accent); }
+.rt-if, .rt-go { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
+.rt-if small, .rt-go small { flex: 0 0 auto; min-width: 52px; font-size: 12.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+.rt-row select, .rt-row input { height: 38px; border-radius: 9px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg); font: inherit; font-size: 14px; padding: 0 10px; min-width: 0; }
+.rt-row select { flex: 0 1 auto; max-width: 100%; }
+.rt-go input { flex: 1 1 200px; }
+.rt-time { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.rt-time i { color: var(--muted); font-style: normal; }
+.rt-time input { width: 110px; }
+.rt-x { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 8px; border: 0; background: transparent; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer; }
+.rt-x:hover { background: var(--hover); color: var(--fg); }
+.rt-empty, .rt-note { margin: 0; font-size: 13px; color: var(--muted); }
+.field .rt-row select, .field .rt-row input { width: auto; margin: 0; }
+.field .rt-row .rt-go input { width: auto; flex: 1 1 180px; }
+.field .rt-row .rt-time input { width: 116px; }

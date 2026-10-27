@@ -424,7 +424,8 @@
     "eventEnd": "Beigu datums",
     "eventEndTime": "Beigu laiks",
     "eventPlace": "Vieta",
-    "eventUrl": "Biļetes vai vairāk informācijas"
+    "eventUrl": "Biļetes vai vairāk informācijas",
+    "route": "Gudrā pāradresācija"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: atveriet uzņēmuma profilu, izvēlieties “Lūgt atsauksmes” un nokopējiet saiti. Der arī Tripadvisor, Trustpilot vai Booking.com saites.",
     "reviewName": "Redzams priekšskatījumā un palīdz atpazīt kodu.",
     "eventEnd": "Atstājiet tukšu vienas dienas pasākumam.",
-    "eventUrl": "Piemēram, jūsu biļešu veikals vai vietne."
+    "eventUrl": "Piemēram, jūsu biļešu veikals vai vietne.",
+    "route": "Sūtiet skenētājus uz citu saiti pēc tālruņa valodas, valsts, laika vai ierīces. Par skenētājiem nekas netiek saglabāts."
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Īsa ekskursija",
     "replayText": "Kaut ko palaidāt garām? Noskatieties 30 sekunžu ekskursiju vēlreiz.",
     "replay": "Ekskursija vēlreiz"
+  },
+  "route": {
+    "add": "Pievienot noteikumu",
+    "if": "Ja",
+    "goTo": "Doties uz",
+    "k_lang": "Valoda",
+    "k_country": "Valsts",
+    "k_time": "Laiks",
+    "k_device": "Ierīce",
+    "d_all": "Katru dienu",
+    "d_wd": "P–Pk",
+    "d_we": "S–Sv",
+    "days": "Dienas",
+    "from": "No",
+    "to": "Līdz",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Dators",
+    "remove": "Noņemt noteikumu",
+    "empty": "Vēl nav noteikumu. Pievienojiet, piem., tālruņus spāņu valodā uz jūsu spāņu lapu.",
+    "note": "Noteikumi tiek pārbaudīti no augšas uz leju; uzvar pirmais atbilstošais. Ja neviens neatbilst, tiek izmantota parastā saite. Laiks atbilst konta laika joslai."
   }
 }

@@ -424,7 +424,8 @@
     "eventEnd": "Data zakończenia",
     "eventEndTime": "Godzina zakończenia",
     "eventPlace": "Miejsce",
-    "eventUrl": "Bilety lub więcej informacji"
+    "eventUrl": "Bilety lub więcej informacji",
+    "route": "Inteligentne przekierowanie"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: otwórz Profil Firmy, wybierz „Poproś o opinie” i skopiuj link. Działają też linki z Tripadvisor, Trustpilot lub Booking.com.",
     "reviewName": "Widoczne w podglądzie i pomaga rozpoznać kod.",
     "eventEnd": "Zostaw puste, jeśli wydarzenie trwa jeden dzień.",
-    "eventUrl": "Na przykład sklep z biletami lub strona."
+    "eventUrl": "Na przykład sklep z biletami lub strona.",
+    "route": "Kieruj skanujących pod inny link zależnie od języka telefonu, kraju, godziny lub urządzenia. Nic nie jest zapisywane o osobach skanujących."
   },
   "more": {
     "title": "Więcej opcji",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Krótki przewodnik",
     "replayText": "Coś Ci umknęło? Obejrzyj ponownie 30-sekundowy przewodnik.",
     "replay": "Obejrzyj przewodnik ponownie"
+  },
+  "route": {
+    "add": "Dodaj regułę",
+    "if": "Jeśli",
+    "goTo": "Przejdź do",
+    "k_lang": "Język",
+    "k_country": "Kraj",
+    "k_time": "Godzina",
+    "k_device": "Urządzenie",
+    "d_all": "Codziennie",
+    "d_wd": "Pon–pt",
+    "d_we": "Sob–niedz",
+    "days": "Dni",
+    "from": "Od",
+    "to": "Do",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Komputer",
+    "remove": "Usuń regułę",
+    "empty": "Brak reguł. Dodaj np.: telefony po hiszpańsku na Twoją hiszpańską stronę.",
+    "note": "Reguły są sprawdzane od góry do dołu; wygrywa pierwsza pasująca. Jeśli żadna nie pasuje, używany jest zwykły link. Godziny według strefy czasowej konta."
   }
 }

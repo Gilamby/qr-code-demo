@@ -424,7 +424,8 @@
     "eventEnd": "Päättymispäivä",
     "eventEndTime": "Päättymisaika",
     "eventPlace": "Paikka",
-    "eventUrl": "Liput tai lisätietoa"
+    "eventUrl": "Liput tai lisätietoa",
+    "route": "Älykäs ohjaus"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: avaa yritysprofiilisi, valitse ”Pyydä arvosteluja” ja kopioi linkki. Myös Tripadvisorin, Trustpilotin tai Booking.comin linkit toimivat.",
     "reviewName": "Näkyy esikatselussa ja auttaa tunnistamaan koodin.",
     "eventEnd": "Jätä tyhjäksi, jos tapahtuma kestää yhden päivän.",
-    "eventUrl": "Esimerkiksi lippukauppasi tai verkkosivusi."
+    "eventUrl": "Esimerkiksi lippukauppasi tai verkkosivusi.",
+    "route": "Ohjaa skannaajat eri linkkiin puhelimen kielen, maan, kellonajan tai laitteen mukaan. Skannaajista ei tallenneta mitään."
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Nopea esittely",
     "replayText": "Jäikö jotain huomaamatta? Katso 30 sekunnin esittely uudelleen.",
     "replay": "Katso esittely uudelleen"
+  },
+  "route": {
+    "add": "Lisää sääntö",
+    "if": "Jos",
+    "goTo": "Siirry",
+    "k_lang": "Kieli",
+    "k_country": "Maa",
+    "k_time": "Aika",
+    "k_device": "Laite",
+    "d_all": "Joka päivä",
+    "d_wd": "Ma–pe",
+    "d_we": "La–su",
+    "days": "Päivät",
+    "from": "Alkaen",
+    "to": "Asti",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Tietokone",
+    "remove": "Poista sääntö",
+    "empty": "Ei vielä sääntöjä. Lisää esimerkiksi: espanjankieliset puhelimet espanjankieliselle sivullesi.",
+    "note": "Säännöt tarkistetaan ylhäältä alas; ensimmäinen sopiva voittaa. Jos mikään ei sovi, käytetään tavallista linkkiä. Ajat ovat tilisi aikavyöhykkeellä."
   }
 }

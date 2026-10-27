@@ -424,7 +424,8 @@
     "eventEnd": "Enddatum",
     "eventEndTime": "Ende",
     "eventPlace": "Ort",
-    "eventUrl": "Tickets oder mehr Infos"
+    "eventUrl": "Tickets oder mehr Infos",
+    "route": "Intelligente Weiterleitung"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: Öffnen Sie Ihr Unternehmensprofil, wählen Sie „Rezensionen anfordern“ und kopieren Sie den Link. Links von Tripadvisor, Trustpilot oder Booking.com gehen auch.",
     "reviewName": "Steht in der Vorschau und hilft Ihnen, den Code wiederzuerkennen.",
     "eventEnd": "Leer lassen bei einer eintägigen Veranstaltung.",
-    "eventUrl": "Zum Beispiel Ihr Ticketshop oder Ihre Website."
+    "eventUrl": "Zum Beispiel Ihr Ticketshop oder Ihre Website.",
+    "route": "Leiten Sie Scanner je nach Sprache ihres Handys, Land, Uhrzeit oder Gerät auf einen anderen Link. Über die Scanner wird nichts gespeichert."
   },
   "more": {
     "title": "Weitere Optionen",
@@ -3163,5 +3165,26 @@
     "replayTitle": "Kurze Tour",
     "replayText": "Etwas verpasst? Sehen Sie sich die 30-Sekunden-Tour noch einmal an.",
     "replay": "Tour noch einmal"
+  },
+  "route": {
+    "add": "Regel hinzufügen",
+    "if": "Wenn",
+    "goTo": "Gehe zu",
+    "k_lang": "Sprache",
+    "k_country": "Land",
+    "k_time": "Uhrzeit",
+    "k_device": "Gerät",
+    "d_all": "Jeden Tag",
+    "d_wd": "Mo–Fr",
+    "d_we": "Sa–So",
+    "days": "Tage",
+    "from": "Von",
+    "to": "Bis",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Computer",
+    "remove": "Regel entfernen",
+    "empty": "Noch keine Regeln. Fügen Sie eine hinzu, z. B. spanische Handys auf Ihre spanische Seite.",
+    "note": "Die Regeln werden von oben nach unten geprüft; die erste passende gewinnt. Passt keine, gilt der normale Link. Zeiten gelten in der Zeitzone Ihres Kontos."
   }
 }

@@ -424,7 +424,8 @@
     "eventEnd": "Data de sfârșit",
     "eventEndTime": "Ora de sfârșit",
     "eventPlace": "Locație",
-    "eventUrl": "Bilete sau mai multe informații"
+    "eventUrl": "Bilete sau mai multe informații",
+    "route": "Redirecționare inteligentă"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: deschide Profilul companiei, alege „Cere recenzii” și copiază linkul. Merg și linkuri de pe Tripadvisor, Trustpilot sau Booking.com.",
     "reviewName": "Apare în previzualizare și te ajută să recunoști codul.",
     "eventEnd": "Lasă gol pentru un eveniment de o zi.",
-    "eventUrl": "De exemplu, magazinul de bilete sau site-ul tău."
+    "eventUrl": "De exemplu, magazinul de bilete sau site-ul tău.",
+    "route": "Trimite pe cei care scanează la alt link în funcție de limba telefonului, țară, oră sau dispozitiv. Nu se salvează nimic despre cine scanează."
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Tur rapid",
     "replayText": "Ai ratat ceva? Vezi din nou turul de 30 de secunde.",
     "replay": "Vezi turul din nou"
+  },
+  "route": {
+    "add": "Adaugă regulă",
+    "if": "Dacă",
+    "goTo": "Mergi la",
+    "k_lang": "Limbă",
+    "k_country": "Țară",
+    "k_time": "Oră",
+    "k_device": "Dispozitiv",
+    "d_all": "În fiecare zi",
+    "d_wd": "Lun–vin",
+    "d_we": "Sâm–dum",
+    "days": "Zile",
+    "from": "De la",
+    "to": "Până la",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Computer",
+    "remove": "Elimină regula",
+    "empty": "Încă nicio regulă. Adaugă una, de ex. telefoanele în spaniolă către pagina ta în spaniolă.",
+    "note": "Regulile sunt verificate de sus în jos; câștigă prima care se potrivește. Dacă niciuna nu se potrivește, se folosește linkul normal. Orele sunt în fusul orar al contului."
   }
 }

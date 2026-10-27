@@ -12,6 +12,7 @@ import { DatabaseService } from '../database/database.service';
 import { describe } from '../analytics/scan-stats';
 import { QR_TYPES } from '../qr-codes/validation';
 import { secretKey } from '../qr-codes/qr-codes.service';
+import { place } from '../analytics/scan-stats';
 import * as rules from './rules';
 import { livePage } from './live-page';
 import { isCustomHost, ownerOfHost } from '../domains';
@@ -113,8 +114,10 @@ export class ShortLinksController {
     const c = q.content;
     res.set('Cache-Control', 'no-store');                               // elke scan moet bij ons langskomen
     if (q.contentType === 'url' && c.url && !(q.typeId === 'video' && c.file)) {
-      const v = rules.abVariant(q); if (v) countAb(this.db, q.id, v);     // A/B-test: scans per versie tellen
-      return res.redirect(rules.targetUrl(q, req.get('user-agent'), v));
+      // Slim doorsturen (taal, land, tijd, apparaat): past een regel, dan die link (geen A/B-telling)
+      const routed = c.route ? rules.routeUrl(q, { lang: rules.firstLang(req.get('accept-language')), cc: place(req.ip || '').cc, now: rules.nowIn(await this.zoneOf(q.userId)), ua: req.get('user-agent') || '' }) : null;
+      const v = routed ? null : rules.abVariant(q); if (v) countAb(this.db, q.id, v);     // A/B-test: scans per versie tellen
+      return res.redirect(rules.targetUrl(q, req.get('user-agent'), v, routed));
     }   // eigen video: de videopagina met speler
     // WhatsApp of SMS. SMS: berichtenprogramma openen met nummer en tekst ("?&body=" werkt op iPhone én Android)
     if (q.contentType === 'message' && c.channel === 'sms' && c.phone) return res.redirect('sms:' + c.phone.replace(/[^\d+]/g, '') + (c.message ? '?&body=' + encodeURIComponent(c.message) : ''));

@@ -424,7 +424,8 @@
     "eventEnd": "Slutdatum",
     "eventEndTime": "Sluttid",
     "eventPlace": "Plats",
-    "eventUrl": "Biljetter eller mer info"
+    "eventUrl": "Biljetter eller mer info",
+    "route": "Smart vidarebefordran"
   },
   "panel": {
     "selected": "{type} vald"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: öppna din företagsprofil, välj ”Be om recensioner” och kopiera länken. Länkar från Tripadvisor, Trustpilot eller Booking.com fungerar också.",
     "reviewName": "Visas i förhandsvisningen och hjälper dig att känna igen koden.",
     "eventEnd": "Lämna tomt för ett endagsevenemang.",
-    "eventUrl": "Till exempel din biljettbutik eller webbplats."
+    "eventUrl": "Till exempel din biljettbutik eller webbplats.",
+    "route": "Skicka den som skannar till en annan länk beroende på telefonens språk, land, tid eller enhet. Inget sparas om vem som skannar."
   },
   "more": {
     "title": "Fler alternativ",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Snabb rundtur",
     "replayText": "Missade du något? Se rundturen på 30 sekunder igen.",
     "replay": "Se rundturen igen"
+  },
+  "route": {
+    "add": "Lägg till regel",
+    "if": "Om",
+    "goTo": "Gå till",
+    "k_lang": "Språk",
+    "k_country": "Land",
+    "k_time": "Tid",
+    "k_device": "Enhet",
+    "d_all": "Varje dag",
+    "d_wd": "Mån–fre",
+    "d_we": "Lör–sön",
+    "days": "Dagar",
+    "from": "Från",
+    "to": "Till",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Dator",
+    "remove": "Ta bort regel",
+    "empty": "Inga regler än. Lägg till en, t.ex. spanska telefoner till din spanska sida.",
+    "note": "Reglerna kontrolleras uppifrån och ned; den första som stämmer vinner. Stämmer ingen används den vanliga länken. Tider gäller i kontots tidszon."
   }
 }

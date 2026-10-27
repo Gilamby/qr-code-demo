@@ -51,6 +51,15 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
       if (!ok) errors.push(field.key + ': invalid opening hours');
       content[field.key] = v; continue;
     }
+    if (field.type === 'route') {                              // slim doorsturen: max. 10 regels
+      let a: any = null; try { a = JSON.parse(v); } catch (e) {}
+      const ok = Array.isArray(a) && a.length <= 10 && a.every((r: any) => r && typeof r === 'object' && isUrl(String(r.url || '')) && String(r.url).length <= 2000 && (
+        (r.k === 'lang' && /^[a-z]{2}$/.test(r.v)) || (r.k === 'country' && /^[A-Z]{2}$/.test(r.v)) || (r.k === 'device' && ['ios', 'android', 'desktop'].includes(r.v)) ||
+        (r.k === 'time' && TIME.test(r.f) && TIME.test(r.t) && r.f !== r.t && ['all', 'wd', 'we'].includes(r.d))));
+      if (!ok) { errors.push(field.key + ': invalid rule'); continue; }
+      if (a.length) content[field.key] = JSON.stringify(a.map((r: any) => (r.k === 'time' ? { k: r.k, d: r.d, f: r.f, t: r.t, url: r.url } : { k: r.k, v: r.v, url: r.url })));
+      continue;
+    }
     if (field.type === 'address') {
       let a = null; try { a = JSON.parse(v); } catch (e) {}
       if (!a || typeof a.l !== 'string' || !a.l.trim() || a.l.length > 300 || (a.lat != null && !(Math.abs(a.lat) <= 90 && Math.abs(a.lon) <= 180))) errors.push(field.key + ': must be an address chosen from the search');

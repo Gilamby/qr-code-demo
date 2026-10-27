@@ -71,6 +71,8 @@
       { key: 'expires', type: 'date', label: 'fields.expires', advanced: true, hint: 'hint.expires' },
       { key: 'maxScans', type: 'number', min: 1, max: 1000000, label: 'fields.maxScans', advanced: true, hint: 'hint.maxScans' },
       { key: 'alertAt', type: 'number', min: 1, max: 100000000, label: 'fields.alertAt', advanced: true, hint: 'hint.alertAt' },
+      // Slim doorsturen: andere link per taal, land, tijd of apparaat (zie routeUrl in server/src/visitor/rules.ts)
+      { key: 'route', type: 'route', label: 'fields.route', advanced: true, hint: 'hint.route' },
       // A/B-test: een deel van de scans naar een tweede link (zie server/src/visitor/rules.ts)
       { key: 'abUrl', type: 'url', label: 'fields.abUrl', advanced: true, hint: 'hint.abUrl' },
       { key: 'abShare', type: 'number', min: 1, max: 99, label: 'fields.abShare', advanced: true, needs: 'abUrl', sample: '50', hint: 'hint.abShare' },

@@ -424,7 +424,8 @@
     "eventEnd": "Data di fine",
     "eventEndTime": "Ora di fine",
     "eventPlace": "Luogo",
-    "eventUrl": "Biglietti o più info"
+    "eventUrl": "Biglietti o più info",
+    "route": "Reindirizzamento intelligente"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: apri il tuo Profilo dell’attività, scegli “Chiedi recensioni” e copia il link. Funzionano anche link di Tripadvisor, Trustpilot o Booking.com.",
     "reviewName": "Appare nell’anteprima e ti aiuta a riconoscere il codice.",
     "eventEnd": "Lascia vuoto per un evento di un giorno.",
-    "eventUrl": "Per esempio la tua biglietteria o il tuo sito."
+    "eventUrl": "Per esempio la tua biglietteria o il tuo sito.",
+    "route": "Manda chi scansiona a un altro link in base alla lingua del telefono, al paese, all’ora o al dispositivo. Non viene salvato nulla su chi scansiona."
   },
   "more": {
     "title": "Altre opzioni",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Tour veloce",
     "replayText": "Ti sei perso qualcosa? Rivedi il tour di 30 secondi.",
     "replay": "Rivedi il tour"
+  },
+  "route": {
+    "add": "Aggiungi regola",
+    "if": "Se",
+    "goTo": "Vai a",
+    "k_lang": "Lingua",
+    "k_country": "Paese",
+    "k_time": "Orario",
+    "k_device": "Dispositivo",
+    "d_all": "Ogni giorno",
+    "d_wd": "Lun–ven",
+    "d_we": "Sab–dom",
+    "days": "Giorni",
+    "from": "Dalle",
+    "to": "Alle",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Computer",
+    "remove": "Rimuovi regola",
+    "empty": "Ancora nessuna regola. Aggiungine una, ad es. telefoni in spagnolo alla tua pagina spagnola.",
+    "note": "Le regole vengono controllate dall’alto in basso; vince la prima che corrisponde. Se nessuna corrisponde, si usa il link normale. Gli orari seguono il fuso orario del tuo account."
   }
 }

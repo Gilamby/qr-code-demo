@@ -424,7 +424,8 @@
     "eventEnd": "Data de fi",
     "eventEndTime": "Hora de fi",
     "eventPlace": "Lloc",
-    "eventUrl": "Entrades o més informació"
+    "eventUrl": "Entrades o més informació",
+    "route": "Redirecció intel·ligent"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: obre el teu Perfil d’Empresa, tria “Demana ressenyes” i copia l’enllaç. També funcionen enllaços de Tripadvisor, Trustpilot o Booking.com.",
     "reviewName": "Apareix a la vista prèvia i t’ajuda a reconèixer el codi.",
     "eventEnd": "Deixa-ho buit si l’esdeveniment dura un dia.",
-    "eventUrl": "Per exemple, la teva botiga d’entrades o el web."
+    "eventUrl": "Per exemple, la teva botiga d’entrades o el web.",
+    "route": "Envia qui escaneja a un altre enllaç segons l’idioma del mòbil, el país, l’hora o el dispositiu. No es desa res sobre qui escaneja."
   },
   "more": {
     "title": "Més opcions",
@@ -3157,5 +3159,26 @@
     "replayTitle": "Recorregut ràpid",
     "replayText": "T’has perdut alguna cosa? Torna a veure el recorregut de 30 segons.",
     "replay": "Torna a veure el recorregut"
+  },
+  "route": {
+    "add": "Afegeix una regla",
+    "if": "Si",
+    "goTo": "Ves a",
+    "k_lang": "Idioma",
+    "k_country": "País",
+    "k_time": "Hora",
+    "k_device": "Dispositiu",
+    "d_all": "Cada dia",
+    "d_wd": "Dl–dv",
+    "d_we": "Ds–dg",
+    "days": "Dies",
+    "from": "Des de",
+    "to": "Fins a",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Ordinador",
+    "remove": "Treu la regla",
+    "empty": "Encara no hi ha regles. Afegeix-ne una, per ex. mòbils en castellà a la teva pàgina en castellà.",
+    "note": "Les regles es revisen de dalt a baix; guanya la primera que coincideix. Si cap coincideix, s’usa l’enllaç normal. Les hores segueixen el fus horari del teu compte."
   }
 }

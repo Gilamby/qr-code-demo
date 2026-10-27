@@ -424,7 +424,8 @@
     "eventEnd": "Einddatum",
     "eventEndTime": "Eindtijd",
     "eventPlace": "Locatie",
-    "eventUrl": "Tickets of meer info"
+    "eventUrl": "Tickets of meer info",
+    "route": "Slim doorsturen"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -653,7 +654,8 @@
     "reviewUrl": "Google: open je bedrijfsprofiel, kies “Vraag om reviews” en kopieer de link. Een link van Tripadvisor, Trustpilot of Booking.com kan ook.",
     "reviewName": "Staat in het voorbeeld en helpt je de code te herkennen.",
     "eventEnd": "Leeg laten bij een evenement van één dag.",
-    "eventUrl": "Bijvoorbeeld je ticketshop of website."
+    "eventUrl": "Bijvoorbeeld je ticketshop of website.",
+    "route": "Stuur scanners naar een andere link op basis van de taal van hun telefoon, hun land, het tijdstip of hun apparaat. Er wordt niets opgeslagen over wie scant."
   },
   "more": {
     "title": "Meer opties",
@@ -3202,5 +3204,26 @@
     "replayTitle": "Korte rondleiding",
     "replayText": "Iets gemist? Bekijk de rondleiding van 30 seconden opnieuw.",
     "replay": "Rondleiding opnieuw"
+  },
+  "route": {
+    "add": "Regel toevoegen",
+    "if": "Als",
+    "goTo": "Ga naar",
+    "k_lang": "Taal",
+    "k_country": "Land",
+    "k_time": "Tijd",
+    "k_device": "Apparaat",
+    "d_all": "Elke dag",
+    "d_wd": "Ma–vr",
+    "d_we": "Za–zo",
+    "days": "Dagen",
+    "from": "Van",
+    "to": "Tot",
+    "dev_ios": "iPhone / iPad",
+    "dev_android": "Android",
+    "dev_desktop": "Computer",
+    "remove": "Regel verwijderen",
+    "empty": "Nog geen regels. Voeg er een toe, bijvoorbeeld: Spaanse telefoons naar je Spaanse pagina.",
+    "note": "De regels worden van boven naar beneden bekeken; de eerste die past wint. Past er geen, dan geldt de gewone link. Tijden gelden in de tijdzone van je account."
   }
 }
