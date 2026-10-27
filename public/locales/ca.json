@@ -462,7 +462,7 @@
     "pngHint": "per a pantalla i web",
     "svgHint": "per imprimir, nítid a qualsevol mida",
     "edit": "Edita",
-    "more": "Més",
+    "more": "Mostra més ({n} restants)",
     "open": "Obre l'enllaç",
     "delete": "Elimina",
     "emptyTitle": "Encara no hi ha codis QR",

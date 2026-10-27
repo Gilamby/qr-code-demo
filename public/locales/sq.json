@@ -462,7 +462,7 @@
     "pngHint": "për ekran dhe web",
     "svgHint": "për printim, i qartë në çdo madhësi",
     "edit": "Ndrysho",
-    "more": "Më shumë",
+    "more": "Shfaq më shumë (edhe {n})",
     "open": "Hap lidhjen",
     "delete": "Fshi",
     "emptyTitle": "Ende pa kode QR",

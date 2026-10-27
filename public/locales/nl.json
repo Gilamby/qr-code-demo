@@ -462,7 +462,7 @@
     "pngHint": "voor scherm en web",
     "svgHint": "voor drukwerk, scherp op elk formaat",
     "edit": "Bewerken",
-    "more": "Meer",
+    "more": "Meer tonen (nog {n})",
     "open": "Link openen",
     "delete": "Verwijderen",
     "emptyTitle": "Nog geen QR-codes",

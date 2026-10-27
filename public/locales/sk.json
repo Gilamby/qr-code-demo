@@ -462,7 +462,7 @@
     "pngHint": "na obrazovku a web",
     "svgHint": "na tlač, ostrý v každej veľkosti",
     "edit": "Upraviť",
-    "more": "Viac",
+    "more": "Zobraziť viac (zostáva {n})",
     "open": "Otvoriť odkaz",
     "delete": "Odstrániť",
     "emptyTitle": "Zatiaľ žiadne QR kódy",

@@ -551,6 +551,10 @@
 :root[data-theme="light"] .dom-status.wait span { color: #b45309; }
 :root[data-theme="light"] .dom-rec { background: rgba(255,255,255,0.8); }
 :root[data-theme="light"] .mc-limit { background: rgba(13,19,32,0.09); }
+:root[data-theme="light"] .stress-btn { box-shadow: 0 4px 14px rgba(13,19,32,0.122); }
+:root[data-theme="light"] .stress-menu { background: #f1f5f9; }
+:root[data-theme="light"] .stress-menu button:hover,
+:root[data-theme="light"] .stress-menu button.on { background: #e5e7eb; color: #b45309; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

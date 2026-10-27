@@ -462,7 +462,7 @@
     "pngHint": "pour écran et web",
     "svgHint": "pour l’impression, net à toute taille",
     "edit": "Modifier",
-    "more": "Plus",
+    "more": "Afficher plus ({n} restants)",
     "open": "Ouvrir le lien",
     "delete": "Supprimer",
     "emptyTitle": "Pas encore de QR codes",

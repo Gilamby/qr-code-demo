@@ -74,7 +74,7 @@ var Admin = (function () {
     var nice = Math.pow(10, Math.floor(Math.log10(max))), top = Math.ceil(max / nice) * nice; if (top / 4 !== Math.round(top / 4)) top = Math.ceil(top / 4) * 4;
     var x = function (i) { return P.l + i * (W - P.l - P.r) / (days.length - 1); }, y = function (v) { return P.t + (1 - v / top) * (H - P.t - P.b); };
     var path = function (k) { return days.map(function (d, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(d[k]).toFixed(1); }).join(''); };
-    var grid = [0, 1, 2, 3, 4].map(function (g) { var v = top * g / 4; return '<line x1="' + P.l + '" x2="' + (W - P.r) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text x="' + (P.l - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + num(v) + '</text>'; }).join('');
+    var grid = [0, 1, 2, 3, 4].map(function (g) { var v = top * g / 4; return '<line x1="' + P.l + '" x2="' + (W - P.r) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text x="' + (P.l - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + i18n.fmt.axis(v) + '</text>'; }).join('');
     var labels = days.map(function (d, i) { return (i % 7 === 0 && i <= days.length - 4) || i === days.length - 1 ? '<text x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="' + (i === 0 ? 'start' : i === days.length - 1 ? 'end' : 'middle') + '">' + new Date(d.day + 'T12:00:00').toLocaleDateString(i18n.lang(), { day: 'numeric', month: 'short' }) + '</text>' : ''; }).join('');
     return '<svg class="ad-chart" viewBox="0 0 ' + W + ' ' + H + '" data-top="' + top + '" role="img" aria-label="' + esc(t('adm.chartTitle')) + '">' +
       '<defs><linearGradient id="adFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".35"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>' +
@@ -117,11 +117,11 @@ var Admin = (function () {
         '<button type="button" class="btn ghost" data-go-page="adminCodes">' + ico('qr') + t('adm.allCodes') + '</button>' +
         '<button type="button" class="btn primary" data-go-page="customers" data-add-user>' + ico('plus') + t('adm.invite') + '</button></div></header>' +
       '<div class="ad-kpis">' +
-        kpi('users', 'users', t('adm.kUsers'), num(T.users), t('adm.kUsersSub', { active: num(T.active), invited: num(T.invited) }) +
+        kpi('users', 'users', t('adm.kUsers'), i18n.fmt.big(T.users), t('adm.kUsersSub', { active: num(T.active), invited: num(T.invited) }) +
           (data.plans ? '<span class="ad-plans">' + ['free', 'standard', 'pro', 'business'].filter(function (k) { return data.plans[k]; }).map(function (k) { return '<i>' + esc(t('plan.n_' + k)) + ' <b>' + num(data.plans[k]) + '</b></i>'; }).join('') + '</span>' : ''), mix) +
-        kpi('codes', 'qr', t('adm.kCodes'), num(T.codes), T.newCodes30 ? t('adm.kNew30', { n: num(T.newCodes30) }) : t('adm.kPaused', { n: num(T.paused) })) +
-        kpi('scans30', 'pulse', t('adm.kScans30'), num(T.scans30), trend(T.scans30, T.scansPrev30) + ' <span>' + t('adm.vsPrev') + '</span>', spark(last14)) +
-        kpi('scans', 'scan', t('adm.kScans'), num(T.scans), t('adm.kAdmins', { n: num(T.admins) })) +
+        kpi('codes', 'qr', t('adm.kCodes'), i18n.fmt.big(T.codes), T.newCodes30 ? t('adm.kNew30', { n: num(T.newCodes30) }) : t('adm.kPaused', { n: num(T.paused) })) +
+        kpi('scans30', 'pulse', t('adm.kScans30'), i18n.fmt.big(T.scans30), trend(T.scans30, T.scansPrev30) + ' <span>' + t('adm.vsPrev') + '</span>', spark(last14)) +
+        kpi('scans', 'scan', t('adm.kScans'), i18n.fmt.big(T.scans), t('adm.kAdmins', { n: num(T.admins) })) +
       '</div>' +
       '<div class="ad-row">' +
         '<section class="glass ad-card ad-chart-card"><div class="ad-card-head"><h3>' + t('adm.chartTitle') + '</h3><span class="ad-legend"><i class="k-s"></i>' + t('an.scans') + '<i class="k-u"></i>' + t('an.unique') + '</span></div>' +

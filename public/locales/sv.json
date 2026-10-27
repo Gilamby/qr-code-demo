@@ -462,7 +462,7 @@
     "pngHint": "för skärm och webb",
     "svgHint": "för tryck, skarp i alla storlekar",
     "edit": "Redigera",
-    "more": "Mer",
+    "more": "Visa fler ({n} kvar)",
     "open": "Öppna länk",
     "delete": "Ta bort",
     "emptyTitle": "Inga QR-koder än",

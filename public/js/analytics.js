@@ -203,7 +203,7 @@ var Analytics = (function () {
         '<rect x="' + (lx - 32) + '" y="' + Math.max(0, py - 34) + '" width="64" height="22" rx="11" class="an-pbox"/><text x="' + lx + '" y="' + (Math.max(0, py - 34) + 15) + '" class="an-ptxt">' + esc(t('an.peak')) + ' ' + i18n.fmt.num(series[pi].s) + '</text></g>';
     };
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + esc(t('an.chartTitle')) + '">' +
-      ticks.map(function (v) { return '<line class="an-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="an-ax" x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + i18n.fmt.num(v) + '</text>'; }).join('') +
+      ticks.map(function (v) { return '<line class="an-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="an-ax" x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + i18n.fmt.axis(v) + '</text>'; }).join('') +
       series.map(function (p, i) { return i % every === 0 || i === n - 1 && (n - 1) % every > every / 2 ? '<text class="an-ax" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(pointLabel(p, 'axis')) + '</text>' : ''; }).join('') +
       (n > 1 ? '<path class="an-area" d="' + path('s') + 'L' + x(n - 1) + ' ' + y(0) + 'L' + x(0) + ' ' + y(0) + 'Z"/>' +
         '<path class="an-line s1" d="' + path('s') + '"/><path class="an-line s2" d="' + path('u') + '"/>' + peak()
@@ -286,7 +286,7 @@ var Analytics = (function () {
     var gap = segs.length > 1 ? 2 : 0;
     var svg = '<svg class="an-donut" viewBox="0 0 140 140" role="img" aria-label="' + esc(title) + '"><circle cx="70" cy="70" r="' + R + '" class="an-dbg"/>' +
       segs.map(function (g, i) { return '<circle cx="70" cy="70" r="' + R + '" class="an-dseg" style="--i:' + i + '" stroke="' + g.col + '" stroke-dasharray="' + Math.max(0, g.len - gap).toFixed(2) + ' ' + C.toFixed(2) + '" stroke-dashoffset="' + (-g.off).toFixed(2) + '"/>'; }).join('') +
-      '<text x="70" y="68" class="an-dnum">' + i18n.fmt.num(total) + '</text><text x="70" y="86" class="an-dlbl">' + esc(t('an.scans').toLowerCase()) + '</text></svg>';
+      '<text x="70" y="68" class="an-dnum"><title>' + i18n.fmt.num(total) + '</title>' + (total >= 1000000 ? i18n.fmt.compact(total) : i18n.fmt.num(total)) + '</text><text x="70" y="86" class="an-dlbl">' + esc(t('an.scans').toLowerCase()) + '</text></svg>';
     var devIco = function (k) { return dim === 'dev' && /^(mobile|tablet|desktop)$/.test(k) ? ico(k === 'mobile' ? 'phone' : k, 'an-li') : ''; };
     return '<div class="an-card glass an-dcard">' + head + '<div class="an-dwrap">' + svg + '<ul class="an-legend2">' + segs.map(function (g) {
       var pct = total ? g.r.s / total : 0;

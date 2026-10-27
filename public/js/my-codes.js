@@ -45,6 +45,8 @@ var MyCodes = (function () {
   var view = document.getElementById('myCodesView'), list = document.getElementById('codesList'), tools = document.getElementById('mcTools');
   var dialog = document.getElementById('mcDialog'), toastEl = document.getElementById('mcToast');
   var rows = [], loaded = false, filter = { q: '', type: '', sort: 'new', folder: '', label: '' }, renaming = null, toastTimer = null;
+  // Veel codes: niet alles tegelijk tekenen (elke kaart maakt een QR-plaatje), maar per blok; meer bij het scrollen
+  var STEP = 60, limit = STEP, limitKey = '', moreObs = null;
   var picked = {};
   var health = {};                                          // health check per code: { state, at, bad }                                          // geselecteerde codes (id → true)
   var dlSize = 1024; try { var ds = +localStorage.getItem('mc.dlSize'); if (CodeUtil.sizes.indexOf(ds) >= 0) dlSize = ds; } catch (e) {}
@@ -192,7 +194,7 @@ var MyCodes = (function () {
           (r.note ? '<button type="button" class="mc-note" data-act="labels" title="' + esc(r.note) + '">' + ico('note') + '<span>' + esc(r.note.split('\n')[0].slice(0, 60)) + '</span></button>' : '') + '</div>' : '') +
         '<div class="mc-link">' + link + hlBadge(r) + '</div></div>' +
       (stat ? '<div class="mc-scans"><b>–</b><small>' + t('myCodes.noScans') + '</small></div>'
-        : '<button type="button" class="mc-scans" data-act="where" title="' + esc(t('myCodes.whereTip')) + '"><b>' + i18n.fmt.num(r.scans || 0) + '</b><small>' + (r.content && r.content.maxScans ? esc(t('myCodes.ofLimit', { max: i18n.fmt.num(Number(r.content.maxScans)) })) : t('myCodes.scansTotal')) + '</small>' +
+        : '<button type="button" class="mc-scans" data-act="where" title="' + esc(t('myCodes.whereTip')) + '"><b title="' + esc(i18n.fmt.num(r.scans || 0)) + '">' + ((r.scans || 0) >= 1000000 ? i18n.fmt.compact(r.scans) : i18n.fmt.num(r.scans || 0)) + '</b><small>' + (r.content && r.content.maxScans ? esc(t('myCodes.ofLimit', { max: i18n.fmt.num(Number(r.content.maxScans)) })) : t('myCodes.scansTotal')) + '</small>' +
           // Scanlimiet: hoe ver is de actie? (balkje, oranje vanaf 80%, rood als het op is)
           (r.content && r.content.maxScans ? (function () { var pct = Math.min(100, Math.round((r.scans || 0) / Number(r.content.maxScans) * 100)); return '<i class="mc-limit' + (pct >= 100 ? ' full' : pct >= 80 ? ' near' : '') + '"><i style="width:' + pct + '%"></i></i>'; })() : '') + '</button>') +
       '<div class="mc-state">' + (stat ? '<span class="mc-pill on">' + t('myCodes.always') + '</span>'
@@ -235,14 +237,20 @@ var MyCodes = (function () {
     var pp = rows.filter(planPaused).length;
     if (pp) dueHtml += '<div class="mc-due mc-planbar" role="status">' + ico('pause') + '<span><b>' + esc(t(pp === 1 ? 'myCodes.planBarOne' : 'myCodes.planBar', { n: pp })) + '</b> ' + esc(t('myCodes.planBarText')) + '</span>' +
       '<button type="button" class="btn primary sm" data-gate-open="" data-gate-reason="limit">' + esc(t('myCodes.planBarBtn')) + '</button></div>';
-    list.innerHTML = dueHtml + (vis.length ? vis.map(card).join('')
+    var lk = [filter.q, filter.type, filter.sort, filter.folder, filter.label].join('|'); if (lk !== limitKey) { limitKey = lk; limit = STEP; }
+    var shown = vis.slice(0, limit), rest = vis.length - shown.length;
+    list.innerHTML = dueHtml + (vis.length ? shown.map(card).join('') + (rest > 0 ? '<div class="mc-more"><button type="button" class="btn ghost" data-more>' + esc(t('myCodes.more', { n: i18n.fmt.num(rest) })) + '</button></div>' : '')
       : !searching && filter.folder === 'fav' ? '<div class="mc-empty small glass">' + ico('star') + '<h3>' + t('folders.favEmpty') + '</h3><p>' + t('folders.favEmptyText') + '</p></div>'
       : !searching && filter.folder ? '<div class="mc-empty small glass">' + ico('folder') + '<h3>' + t(filter.folder === 'none' ? 'folders.noneEmpty' : 'folders.empty') + '</h3><p>' + t(filter.folder === 'none' ? 'folders.noneEmptyText' : 'folders.emptyText') + '</p>' +
           (filter.folder !== 'none' ? '<button type="button" class="btn primary" data-mc-new>' + ico('plus') + t('folders.newHere') + '</button>' : '') + '</div>'
       : '<div class="mc-empty small glass"><h3>' + t('myCodes.noneFound') + '</h3><button type="button" class="btn ghost" data-act="clear">' + t('myCodes.clear') + '</button></div>');
     if (renaming) { var inp = list.querySelector('[data-rename]'); if (inp) { inp.focus(); inp.select(); } }
+    var mb = list.querySelector('[data-more]');
+    if (moreObs) moreObs.disconnect();
+    if (mb && 'IntersectionObserver' in window) { moreObs = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { moreObs.disconnect(); showMore(); } }, { rootMargin: '600px' }); moreObs.observe(mb); }
     drawBulk();
   }
+  function showMore() { limit += STEP * 2; draw(); }
   /* ---------- Meerdere codes tegelijk ---------- */
   var bulk = document.createElement('div'); bulk.className = 'mc-bulk glass'; bulk.hidden = true; bulk.setAttribute('role', 'region');
   list.parentNode.appendChild(bulk);
@@ -768,6 +776,7 @@ var MyCodes = (function () {
   view.addEventListener('click', function (e) {
     if (e.target.closest('[data-mc-new]')) return startNew();
     if (e.target.closest('[data-bulk-new]')) return window.Bulk && Bulk.open();
+    if (e.target.closest('[data-more]')) return showMore();
     var szb = e.target.closest('.mc-card [data-size]'); if (szb) { e.stopPropagation(); return setSize(+szb.getAttribute('data-size')); }
     var lb = e.target.closest('.mc-tag[data-label]');
     if (lb) { var lv = lb.getAttribute('data-label'); filter.label = filter.label && filter.label.toLowerCase() === lv.toLowerCase() ? '' : lv; drawTools(); return draw(); }

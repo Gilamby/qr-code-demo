@@ -462,7 +462,7 @@
     "pngHint": "näytölle ja verkkoon",
     "svgHint": "tulostukseen, terävä kaikissa koissa",
     "edit": "Muokkaa",
-    "more": "Lisää",
+    "more": "Näytä lisää ({n} jäljellä)",
     "open": "Avaa linkki",
     "delete": "Poista",
     "emptyTitle": "Ei vielä QR-koodeja",

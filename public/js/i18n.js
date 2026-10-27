@@ -101,6 +101,8 @@ var i18n = (function () {
     num: function (n) { return new Intl.NumberFormat(numLoc()).format(n); },
     eur: function (n) { return new Intl.NumberFormat(numLoc(), { style: 'currency', currency: 'EUR' }).format(n); },
     pct: function (n) { var f = new Intl.NumberFormat(numLoc(), { style: 'percent' }); return n > 0 && n < 0.005 ? '<' + f.format(0.01) : f.format(n); },   // heel klein maar niet nul: "<1%" i.p.v. "0%"
+    axis: function (n) { return Math.abs(n) >= 10000 ? fmt.compact(n) : fmt.num(n); },   // grafiek-assen: 2,5 mln past, 2.500.000 niet
+    big: function (n) { return Math.abs(n) >= 10000000 ? fmt.compact(n) : fmt.num(n); },   // tegels: vanaf 10 miljoen kort
     compact: function (n) { var c = own() ? '' : new Intl.NumberFormat(current, { notation: 'compact', maximumFractionDigits: 1 }).format(n); return /\D/.test(c) ? c : fmt.num(n); },   // 3,1K / 3,1 mil; anders gewoon 3.100
     // style: 'long' (8 oktober 2026), 'short' (8 okt 2026) of 'day' (8 oktober)
     date: function (d, style) {

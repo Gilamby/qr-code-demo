@@ -462,7 +462,7 @@
     "pngHint": "na ekran i do sieci",
     "svgHint": "do druku, ostry w każdym rozmiarze",
     "edit": "Edytuj",
-    "more": "Więcej",
+    "more": "Pokaż więcej (zostało {n})",
     "open": "Otwórz link",
     "delete": "Usuń",
     "emptyTitle": "Nie masz jeszcze kodów QR",

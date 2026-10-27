@@ -9,6 +9,7 @@
    ========================================================= */
 (function () {
   var box = document.getElementById('customersPage'), nav = document.getElementById('navCustomers');
+  var ulimit = 50, ukey = '';   // veel gebruikers: per blok tekenen
   var me = null, list = null, query = '', fStatus = '', fRole = '', showForm = false, form = { name: '', email: '', lang: '' }, bad = [], result = null, busy = false, loadErr = false;
   var SVG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
   var ICON = {
@@ -56,7 +57,8 @@
       return (!q || (c.name + ' ' + c.email).toLowerCase().indexOf(q) >= 0) && (!fStatus || statusKey(c) === fStatus) && (!fRole || (fRole === 'team' ? c.level !== 'user' : c.level === 'user'));
     });
     if (!shown.length) return '<p class="cust-empty">' + (q ? t('cust.none', { q: '<b>' + esc(query) + '</b>' }) : list.length ? t('adm.noMatchUsers') : t('cust.empty')) + '</p>';
-    var sup = me && me.superAdmin;
+    var sup = me && me.superAdmin, k = [q, fStatus, fRole].join('|'); if (k !== ukey) { ukey = k; ulimit = 50; }
+    var total = shown.length, rest = total - Math.min(total, ulimit); shown = shown.slice(0, ulimit);
     return '<div class="cust-table ad-users" role="table" aria-label="' + esc(t('nav.users')) + '">' +
       '<div class="cust-tr cust-th" role="row"><span role="columnheader">' + t('adm.user') + '</span><span role="columnheader">' + t('adm.role') + '</span><span role="columnheader">' + t('cust.status') + '</span><span role="columnheader">' + t('acct.codes') + '</span><span role="columnheader">' + t('an.scans') + '</span><span role="columnheader">' + t('adm.lastLogin') + '</span><span role="columnheader"><span class="sr-only">' + t('cust.actions') + '</span></span></div>' +
       shown.map(function (c) {
@@ -81,7 +83,7 @@
             (canEdit && (c.active || c.disabledAt) ? '<button type="button" class="btn ghost ' + (c.disabledAt ? '' : 'warn-ghost') + '" data-toggle title="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable')) + '" aria-label="' + esc(t(c.disabledAt ? 'adm.enable' : 'adm.disable') + ': ' + (c.name || c.email)) + '">' + SVG + (c.disabledAt ? ICON.on : ICON.off) + '</svg>' + t(c.disabledAt ? 'adm.enable' : 'adm.disable') + '</button>' : '') +
             (canEdit && !c.fixed ? '<button type="button" class="btn ghost danger-ghost cust-del" data-remove aria-label="' + esc(t('cust.remove') + ': ' + (c.name || c.email)) + '" title="' + esc(t('cust.remove')) + '">' + SVG + ICON.trash + '</svg></button>' : '') + '</span>' +
         '</div>';
-      }).join('') + '</div>';
+      }).join('') + '</div>' + (rest > 0 ? '<div class="mc-more"><button type="button" class="btn ghost" data-umore>' + esc(t('myCodes.more', { n: i18n.fmt.num(rest) })) + '</button></div>' : '');
   }
   // Betaalstatus per klant (tot Stripe dit doet zet het team de periode: knop Betaling)
   function subCell(c, canEdit) {
@@ -158,6 +160,7 @@
       }).catch(function (x) { busy = false; bad = (x && x.details) || []; result = { kind: 'bad', text: errText(x) }; draw(); });
     });
     box.addEventListener('click', function (e) {
+      if (e.target.closest('[data-umore]')) { ulimit += 100; return redrawRows(); }
       var sbBtn = e.target.closest('[data-sub]'); if (sbBtn) { var sid = sbBtn.closest('[data-id]').getAttribute('data-id'); subDialog(list.filter(function (x) { return x.id === sid; })[0]); return; }
       var row = e.target.closest('[data-id]'), id = row && row.getAttribute('data-id'), c = id && list && list.filter(function (x) { return x.id === id; })[0];
       if (e.target.closest('[data-copy]')) {

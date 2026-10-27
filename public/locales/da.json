@@ -462,7 +462,7 @@
     "pngHint": "til skærm og web",
     "svgHint": "til tryk, skarp i alle størrelser",
     "edit": "Redigér",
-    "more": "Mere",
+    "more": "Vis flere ({n} tilbage)",
     "open": "Åbn link",
     "delete": "Slet",
     "emptyTitle": "Ingen QR-koder endnu",

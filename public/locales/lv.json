@@ -462,7 +462,7 @@
     "pngHint": "ekrānam un tīmeklim",
     "svgHint": "drukai, ass jebkurā izmērā",
     "edit": "Rediģēt",
-    "more": "Vairāk",
+    "more": "Rādīt vairāk (vēl {n})",
     "open": "Atvērt saiti",
     "delete": "Dzēst",
     "emptyTitle": "Vēl nav QR kodu",

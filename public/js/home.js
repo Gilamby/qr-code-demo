@@ -118,7 +118,7 @@ var Home = (function () {
     var days = sr.days, max = Math.max.apply(null, days.map(function (p) { return p.s; }).concat([1]));
     var stepv = max <= 4 ? 1 : Math.ceil(max / 4 / Math.pow(10, Math.floor(Math.log10(max / 4)))) * Math.pow(10, Math.floor(Math.log10(max / 4)));
     var top = Math.ceil(max / stepv) * stepv, W = 720, H = 150, L = 34, R = 6, T = 10, B = 26, iw = W - L - R, ih = H - T - B, n = days.length, bw = iw / n;
-    var grid = ''; for (var v = 0; v <= top; v += stepv) { var y = T + ih - v / top * ih; grid += '<line class="an-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/><text class="an-ax" x="' + (L - 6) + '" y="' + (y + 4) + '" text-anchor="end">' + i18n.fmt.num(v) + '</text>'; }
+    var grid = ''; for (var v = 0; v <= top; v += stepv) { var y = T + ih - v / top * ih; grid += '<line class="an-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/><text class="an-ax" x="' + (L - 6) + '" y="' + (y + 4) + '" text-anchor="end">' + i18n.fmt.axis(v) + '</text>'; }
     var bars = days.map(function (p, i) {
       var h = p.s ? Math.max(3, p.s / top * ih) : 0, x = L + i * bw + 1.5, w = Math.max(2, bw - 3), y = T + ih - h, r = Math.min(4, w / 2, h);
       var path = h ? 'M' + x + ' ' + (T + ih) + 'V' + (y + r) + 'Q' + x + ' ' + y + ' ' + (x + r) + ' ' + y + 'H' + (x + w - r) + 'Q' + (x + w) + ' ' + y + ' ' + (x + w) + ' ' + (y + r) + 'V' + (T + ih) + 'Z' : '';

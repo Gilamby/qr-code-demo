@@ -462,7 +462,7 @@
     "pngHint": "pentru ecran și web",
     "svgHint": "pentru tipar, clar la orice dimensiune",
     "edit": "Editează",
-    "more": "Mai mult",
+    "more": "Arată mai multe (încă {n})",
     "open": "Deschide linkul",
     "delete": "Șterge",
     "emptyTitle": "Încă nu ai coduri QR",
