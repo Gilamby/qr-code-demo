@@ -44,7 +44,7 @@ export function removeFiles(ids: string[]) { ids.forEach((id) => { try { fs.unli
 /** Gebruiker zoals userByEmail hem teruggeeft (met wachtwoord-hash, alleen voor inloggen) */
 export interface UserRow { id: string; email: string; name: string; password_hash: string; email_verified_at: string | null; created_at: string }
 export type NewQrCode = { id: string; typeId: string; contentType: string; content: Record<string, any>; design?: Record<string, any>; name?: string; createdAt?: string };
-export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean; favorite?: boolean; labels?: string[]; note?: string; moderation?: Moderation | null };
+export type QrPatch = { content?: Record<string, any>; design?: Record<string, any>; name?: string; paused?: boolean; favorite?: boolean; archived?: boolean; labels?: string[]; note?: string; moderation?: Moderation | null };
 /** Labels van een code: JSON-lijst in de database (leeg of kapot = geen labels) */
 export function parseLabels(v: any): string[] { try { const a = typeof v === 'string' ? JSON.parse(v) : v; return Array.isArray(a) ? a.filter((x) => typeof x === 'string').slice(0, 10) : []; } catch (e) { return []; } }
 /** Beheer: gepauzeerd door het team (hold, met reden; lock = klant mag hem niet zelf weer aanzetten) en/of gemarkeerd als verdacht (flag) */

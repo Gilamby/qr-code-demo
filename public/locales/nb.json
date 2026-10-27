@@ -3188,5 +3188,14 @@
     "remove": "Fjern regel",
     "empty": "Ingen regler ennå. Legg til en, f.eks. spanske telefoner til den spanske siden din.",
     "note": "Reglene sjekkes ovenfra og ned; den første som passer vinner. Passer ingen, brukes den vanlige lenken. Tider følger kontoens tidssone."
+  },
+  "arch": {
+    "title": "Arkiv",
+    "archive": "Arkiver",
+    "unarchive": "Ta ut av arkivet",
+    "done": "Arkivert. Koden virker fortsatt.",
+    "doneMany": "{n} koder arkivert. De virker fortsatt.",
+    "back": "Tilbake i listen din.",
+    "backMany": "{n} koder tilbake i listen din."
   }
 }

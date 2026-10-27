@@ -51,6 +51,8 @@ export interface QrCode {
   folderId?: string | null;
   /** Favoriet (sterretje) in Mijn QR-codes */
   favorite?: boolean;
+  /** Archief: niet in de gewone lijst, blijft wel werken */
+  archived?: boolean;
   /** Labels (max. 10) en een notitie, om te zoeken en te ordenen in Mijn QR-codes */
   labels?: string[];
   note?: string;

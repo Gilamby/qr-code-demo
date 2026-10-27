@@ -3188,5 +3188,14 @@
     "remove": "Noņemt noteikumu",
     "empty": "Vēl nav noteikumu. Pievienojiet, piem., tālruņus spāņu valodā uz jūsu spāņu lapu.",
     "note": "Noteikumi tiek pārbaudīti no augšas uz leju; uzvar pirmais atbilstošais. Ja neviens neatbilst, tiek izmantota parastā saite. Laiks atbilst konta laika joslai."
+  },
+  "arch": {
+    "title": "Arhīvs",
+    "archive": "Arhivēt",
+    "unarchive": "Izņemt no arhīva",
+    "done": "Arhivēts. Kods turpina darboties.",
+    "doneMany": "{n} kodi arhivēti. Tie turpina darboties.",
+    "back": "Atkal jūsu sarakstā.",
+    "backMany": "{n} kodi atkal jūsu sarakstā."
   }
 }

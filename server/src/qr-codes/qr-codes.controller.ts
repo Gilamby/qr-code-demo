@@ -196,6 +196,7 @@ export class QrCodesController {
       if (plan.codes != null && (await activeCount(this.db, user.id)) >= plan.codes) throw fail(403, 'plan_limit', { limit: plan.codes, plan: plan.id });
     }
     if (b.paused !== undefined) await forgetPlanPaused(this.db, user.id, [id]);
+    if (b.archived !== undefined) { if (typeof b.archived !== 'boolean') errors.push('archived: must be true or false'); else patch.archived = b.archived; }
     if (b.favorite !== undefined) { if (typeof b.favorite !== 'boolean') errors.push('favorite: must be true or false'); else patch.favorite = b.favorite; }
     if (b.labels !== undefined) {                                    // labels: max. 10, elk max. 30 tekens, dubbele (hoofdletters maken niet uit) eruit
       if (!Array.isArray(b.labels)) errors.push('labels: must be a list');

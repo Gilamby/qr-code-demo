@@ -3233,5 +3233,14 @@
     "remove": "Remove rule",
     "empty": "No rules yet. Add one, e.g. Spanish phones go to your Spanish page.",
     "note": "Rules are checked from top to bottom; the first one that matches wins. If none match, the normal link is used. Times are in your account's time zone."
+  },
+  "arch": {
+    "title": "Archive",
+    "archive": "Archive",
+    "unarchive": "Take out of archive",
+    "done": "Archived. The code keeps working.",
+    "doneMany": "{n} codes archived. They keep working.",
+    "back": "Back in your list.",
+    "backMany": "{n} codes back in your list."
   }
 }

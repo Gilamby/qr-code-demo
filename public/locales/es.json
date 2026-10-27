@@ -3233,5 +3233,14 @@
     "remove": "Quitar regla",
     "empty": "Aún no hay reglas. Añade una, por ejemplo: móviles en español a tu página en español.",
     "note": "Las reglas se revisan de arriba abajo; gana la primera que coincide. Si ninguna coincide, se usa el enlace normal. Las horas son las de la zona horaria de tu cuenta."
+  },
+  "arch": {
+    "title": "Archivo",
+    "archive": "Archivar",
+    "unarchive": "Sacar del archivo",
+    "done": "Archivado. El código sigue funcionando.",
+    "doneMany": "{n} códigos archivados. Siguen funcionando.",
+    "back": "De nuevo en tu lista.",
+    "backMany": "{n} códigos de nuevo en tu lista."
   }
 }

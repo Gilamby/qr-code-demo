@@ -93,7 +93,8 @@ export async function openPostgres(url: string): Promise<SqlDriver> {
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS favorite INTEGER NOT NULL DEFAULT 0');
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS labels TEXT');          // labels (JSON-lijst) en notitie bij een code
   await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS note TEXT');
-  await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS trashed_at TEXT');   // prullenbak (30 dagen)
+  await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS trashed_at TEXT');
+  await pool.query('ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS archived INTEGER NOT NULL DEFAULT 0');   // archief: uit de lijst, blijft werken   // prullenbak (30 dagen)
   // 14 okt 2026: scans per uur (UTC) voor Statistieken > wanneer wordt er gescand
   await pool.query(`CREATE TABLE IF NOT EXISTS scan_hours (
   code_id TEXT NOT NULL REFERENCES qr_codes(id) ON DELETE CASCADE,

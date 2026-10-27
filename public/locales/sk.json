@@ -3188,5 +3188,14 @@
     "remove": "Odstrániť pravidlo",
     "empty": "Zatiaľ žiadne pravidlá. Pridajte napr.: telefóny v španielčine na vašu španielsku stránku.",
     "note": "Pravidlá sa kontrolujú zhora nadol; vyhráva prvé, ktoré sedí. Ak nesedí žiadne, použije sa bežný odkaz. Časy sú v časovom pásme vášho účtu."
+  },
+  "arch": {
+    "title": "Archív",
+    "archive": "Archivovať",
+    "unarchive": "Vybrať z archívu",
+    "done": "Archivované. Kód naďalej funguje.",
+    "doneMany": "{n} kódov archivovaných. Naďalej fungujú.",
+    "back": "Znova vo vašom zozname.",
+    "backMany": "{n} kódov znova vo vašom zozname."
   }
 }
