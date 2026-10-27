@@ -3336,15 +3336,6 @@
     "empty": "Încă nicio regulă. Adaugă una, de ex. telefoanele în spaniolă către pagina ta în spaniolă.",
     "note": "Regulile sunt verificate de sus în jos; câștigă prima care se potrivește. Dacă niciuna nu se potrivește, se folosește linkul normal. Orele sunt în fusul orar al contului."
   },
-  "arch": {
-    "title": "Arhivă",
-    "archive": "Arhivează",
-    "unarchive": "Scoate din arhivă",
-    "done": "Arhivat. Codul funcționează în continuare.",
-    "doneMany": "{n} coduri arhivate. Funcționează în continuare.",
-    "back": "Din nou în lista ta.",
-    "backMany": "{n} coduri din nou în lista ta."
-  },
   "tk": {
     "title": "Întrebările mele",
     "lead": "Mesajele tale către echipa noastră. Primești și un e-mail când răspundem.",

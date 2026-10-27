@@ -3336,15 +3336,6 @@
     "empty": "Ingen regler endnu. Tilføj en, fx spanske telefoner til din spanske side.",
     "note": "Reglerne tjekkes oppefra og ned; den første, der passer, vinder. Passer ingen, bruges det normale link. Tider følger din kontos tidszone."
   },
-  "arch": {
-    "title": "Arkiv",
-    "archive": "Arkivér",
-    "unarchive": "Tag ud af arkivet",
-    "done": "Arkiveret. Koden virker stadig.",
-    "doneMany": "{n} koder arkiveret. De virker stadig.",
-    "back": "Tilbage på din liste.",
-    "backMany": "{n} koder tilbage på din liste."
-  },
   "tk": {
     "title": "Mine spørgsmål",
     "lead": "Dine beskeder til vores team. Du får også en e-mail, når vi svarer.",

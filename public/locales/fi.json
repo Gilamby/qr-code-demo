@@ -3336,15 +3336,6 @@
     "empty": "Ei vielä sääntöjä. Lisää esimerkiksi: espanjankieliset puhelimet espanjankieliselle sivullesi.",
     "note": "Säännöt tarkistetaan ylhäältä alas; ensimmäinen sopiva voittaa. Jos mikään ei sovi, käytetään tavallista linkkiä. Ajat ovat tilisi aikavyöhykkeellä."
   },
-  "arch": {
-    "title": "Arkisto",
-    "archive": "Arkistoi",
-    "unarchive": "Palauta arkistosta",
-    "done": "Arkistoitu. Koodi toimii edelleen.",
-    "doneMany": "{n} koodia arkistoitu. Ne toimivat edelleen.",
-    "back": "Takaisin listallasi.",
-    "backMany": "{n} koodia takaisin listallasi."
-  },
   "tk": {
     "title": "Omat kysymykset",
     "lead": "Viestisi tiimillemme. Saat myös sähköpostin, kun vastaamme.",

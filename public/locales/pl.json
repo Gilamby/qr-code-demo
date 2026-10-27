@@ -3336,15 +3336,6 @@
     "empty": "Brak reguł. Dodaj np.: telefony po hiszpańsku na Twoją hiszpańską stronę.",
     "note": "Reguły są sprawdzane od góry do dołu; wygrywa pierwsza pasująca. Jeśli żadna nie pasuje, używany jest zwykły link. Godziny według strefy czasowej konta."
   },
-  "arch": {
-    "title": "Archiwum",
-    "archive": "Archiwizuj",
-    "unarchive": "Przywróć z archiwum",
-    "done": "Zarchiwizowano. Kod nadal działa.",
-    "doneMany": "Zarchiwizowano {n} kodów. Nadal działają.",
-    "back": "Znów na Twojej liście.",
-    "backMany": "{n} kodów znów na Twojej liście."
-  },
   "tk": {
     "title": "Moje pytania",
     "lead": "Twoje wiadomości do naszego zespołu. Dostaniesz też e-mail, gdy odpowiemy.",

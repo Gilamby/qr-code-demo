@@ -3342,15 +3342,6 @@
     "empty": "Noch keine Regeln. Fügen Sie eine hinzu, z. B. spanische Handys auf Ihre spanische Seite.",
     "note": "Die Regeln werden von oben nach unten geprüft; die erste passende gewinnt. Passt keine, gilt der normale Link. Zeiten gelten in der Zeitzone Ihres Kontos."
   },
-  "arch": {
-    "title": "Archiv",
-    "archive": "Archivieren",
-    "unarchive": "Aus dem Archiv holen",
-    "done": "Archiviert. Der Code funktioniert weiter.",
-    "doneMany": "{n} Codes archiviert. Sie funktionieren weiter.",
-    "back": "Wieder in Ihrer Liste.",
-    "backMany": "{n} Codes wieder in Ihrer Liste."
-  },
   "tk": {
     "title": "Meine Fragen",
     "lead": "Ihre Nachrichten an unser Team. Sie bekommen auch eine E-Mail, wenn wir antworten.",

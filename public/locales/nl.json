@@ -3381,15 +3381,6 @@
     "empty": "Nog geen regels. Voeg er een toe, bijvoorbeeld: Spaanse telefoons naar je Spaanse pagina.",
     "note": "De regels worden van boven naar beneden bekeken; de eerste die past wint. Past er geen, dan geldt de gewone link. Tijden gelden in de tijdzone van je account."
   },
-  "arch": {
-    "title": "Archief",
-    "archive": "Archiveren",
-    "unarchive": "Uit archief halen",
-    "done": "Gearchiveerd. De code blijft gewoon werken.",
-    "doneMany": "{n} codes gearchiveerd. Ze blijven gewoon werken.",
-    "back": "Weer in je lijst.",
-    "backMany": "{n} codes weer in je lijst."
-  },
   "tk": {
     "title": "Mijn vragen",
     "lead": "Je berichten aan ons team. Je krijgt ook een e-mail als we antwoorden.",

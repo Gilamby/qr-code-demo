@@ -3336,15 +3336,6 @@
     "empty": "Ainda sem regras. Adicione uma, por ex. telemóveis em espanhol para a sua página em espanhol.",
     "note": "As regras são verificadas de cima para baixo; ganha a primeira que corresponder. Se nenhuma corresponder, usa-se o link normal. As horas seguem o fuso horário da sua conta."
   },
-  "arch": {
-    "title": "Arquivo",
-    "archive": "Arquivar",
-    "unarchive": "Tirar do arquivo",
-    "done": "Arquivado. O código continua a funcionar.",
-    "doneMany": "{n} códigos arquivados. Continuam a funcionar.",
-    "back": "De volta à sua lista.",
-    "backMany": "{n} códigos de volta à sua lista."
-  },
   "tk": {
     "title": "As minhas perguntas",
     "lead": "As suas mensagens à nossa equipa. Também recebe um e-mail quando respondermos.",

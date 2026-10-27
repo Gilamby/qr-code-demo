@@ -1099,17 +1099,6 @@ test('melding bij geen of veel minder scans: één keer, en weer gewapend als he
   db.listWithStats = lws; await db.setSetting('quietSweep', null);
 });
 
-test('archief: code uit de lijst, blijft werken, weer terug te halen', async () => {
-  const k = client(); await signup(k, 'arch-k@example.com', 'Archief zin 17!', 'Klant Archief');
-  const c = (await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://archief.example/' }, design: {} })).json;
-  assert.equal((await k('PATCH', '/api/qr-codes/' + c.id, { archived: 'ja' })).status, 400);
-  const a = await k('PATCH', '/api/qr-codes/' + c.id, { archived: true }); assert.equal(a.status, 200);
-  assert.equal((await k('GET', '/api/qr-codes')).json.find((q) => q.id === c.id).archived, true);
-  assert.equal((await fetch(base + '/q/' + c.id, { redirect: 'manual' })).status, 302, 'gearchiveerd: werkt nog');
-  await k('PATCH', '/api/qr-codes/' + c.id, { archived: false });
-  assert.equal((await k('GET', '/api/qr-codes')).json.find((q) => q.id === c.id).archived, false);
-});
-
 test('beheer: code overzetten naar een ander account (met bestanden), niet naar onbekend of hetzelfde', async () => {
   const team = client(); await team('POST', '/api/auth/login', { email: 'team@example.com', password: 'Team geheime zin 4!' });
   const a = client(); await signup(a, 'tr-a@example.com', 'Overzetten zin 18!', 'Bureau A');

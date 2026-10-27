@@ -32,7 +32,7 @@ const DUPLICATE = 11000;
 function codeOut(d: Doc): QrCode {
   if (!d) return null;
   return { id: d._id, userId: d.userId, typeId: d.typeId, contentType: d.contentType, content: openContent(d.contentType, d.content || {}), design: d.design || {},
-    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite, archived: !!d.archived, labels: parseLabels(d.labels), note: d.note || '', moderation: parseModeration(d.moderation), trashedAt: d.trashedAt || null };
+    name: d.name || undefined, paused: !!d.paused, scans: Number(d.scans) || 0, lastScanAt: d.lastScanAt || null, createdAt: d.createdAt, updatedAt: d.updatedAt || undefined, folderId: d.folderId || null, favorite: !!d.favorite, labels: parseLabels(d.labels), note: d.note || '', moderation: parseModeration(d.moderation), trashedAt: d.trashedAt || null };
 }
 const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : null);
 function userOut(d: Doc): User {
@@ -358,7 +358,6 @@ export class MongoDatabase extends DatabaseService {
     if (Object.keys(set).length) set.updatedAt = now();                 // alleen een sterretje of een markering = geen echte wijziging
     if (patch.moderation !== undefined) set.moderation = patch.moderation && (patch.moderation.hold || patch.moderation.flag) ? patch.moderation : null;
     if (patch.favorite !== undefined) set.favorite = !!patch.favorite;
-    if (patch.archived !== undefined) set.archived = !!patch.archived;
     if (patch.labels !== undefined) set.labels = patch.labels.length ? JSON.stringify(patch.labels) : null;
     if (patch.note !== undefined) set.note = patch.note || null;
     if (!Object.keys(set).length) return this.getQrCode(id);
@@ -377,7 +376,7 @@ export class MongoDatabase extends DatabaseService {
   }
   async transferQrCode(id: string, toUserId: string): Promise<boolean> {
     const q = await this.codes.findOne({ _id: id }, { projection: { trashedAt: 1 } }); if (!q || q.trashedAt) return false;
-    await this.codes.updateOne({ _id: id }, { $set: { userId: toUserId, folderId: null, archived: false } });
+    await this.codes.updateOne({ _id: id }, { $set: { userId: toUserId, folderId: null } });
     await this.files.updateMany({ codeId: id }, { $set: { userId: toUserId } });
     return true;
   }

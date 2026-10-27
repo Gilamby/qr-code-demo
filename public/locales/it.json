@@ -3336,15 +3336,6 @@
     "empty": "Ancora nessuna regola. Aggiungine una, ad es. telefoni in spagnolo alla tua pagina spagnola.",
     "note": "Le regole vengono controllate dall’alto in basso; vince la prima che corrisponde. Se nessuna corrisponde, si usa il link normale. Gli orari seguono il fuso orario del tuo account."
   },
-  "arch": {
-    "title": "Archivio",
-    "archive": "Archivia",
-    "unarchive": "Togli dall’archivio",
-    "done": "Archiviato. Il codice continua a funzionare.",
-    "doneMany": "{n} codici archiviati. Continuano a funzionare.",
-    "back": "Di nuovo nella tua lista.",
-    "backMany": "{n} codici di nuovo nella tua lista."
-  },
   "tk": {
     "title": "Le mie domande",
     "lead": "I tuoi messaggi al nostro team. Riceverai anche un’e-mail quando rispondiamo.",

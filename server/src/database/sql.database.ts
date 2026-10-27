@@ -18,7 +18,7 @@ const cut = (v: string | undefined, n: number) => (v ? String(v).slice(0, n) : n
 function codeOut(r: any): QrCode {
   if (!r) return null;
   return { id: r.id, userId: r.user_id, typeId: r.type_id, contentType: r.content_type, content: openContent(r.content_type, JSON.parse(r.content)), design: JSON.parse(r.design),
-    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null, favorite: !!Number(r.favorite), archived: !!Number(r.archived), labels: parseLabels(r.labels), note: r.note || '', moderation: parseModeration(r.moderation), trashedAt: r.trashed_at || null };
+    name: r.name || undefined, paused: !!r.paused, scans: Number(r.scans) || 0, lastScanAt: r.last_scan_at, createdAt: r.created_at, updatedAt: r.updated_at || undefined, folderId: r.folder_id || null, favorite: !!Number(r.favorite), labels: parseLabels(r.labels), note: r.note || '', moderation: parseModeration(r.moderation), trashedAt: r.trashed_at || null };
 }
 function userOut(r: any): User {
   return r && { id: r.id, email: r.email, name: r.name, background: r.background, customBackground: r.custom_background || null, createdAt: r.created_at,
@@ -280,7 +280,6 @@ export class SqlDatabase extends DatabaseService {
     const real = sets.length > 0;                                      // alleen een sterretje of een markering = geen echte wijziging (Laatst bewerkt blijft)
     if (patch.moderation !== undefined) { sets.push('moderation = ?'); vals.push(patch.moderation && (patch.moderation.hold || patch.moderation.flag) ? JSON.stringify(patch.moderation) : null); }
     if (patch.favorite !== undefined) { sets.push('favorite = ?'); vals.push(patch.favorite ? 1 : 0); }
-    if (patch.archived !== undefined) { sets.push('archived = ?'); vals.push(patch.archived ? 1 : 0); }
     if (patch.labels !== undefined) { sets.push('labels = ?'); vals.push(patch.labels.length ? JSON.stringify(patch.labels) : null); }
     if (patch.note !== undefined) { sets.push('note = ?'); vals.push(patch.note || null); }
     if (real) { sets.push('updated_at = ?'); vals.push(now()); }
@@ -299,7 +298,7 @@ export class SqlDatabase extends DatabaseService {
   }
   async transferQrCode(id: string, toUserId: string): Promise<boolean> {
     const q = await this.d.get(SQL.code, [id]); if (!q || q.trashed_at) return false;
-    await this.d.run('UPDATE qr_codes SET user_id = ?, folder_id = NULL, archived = 0 WHERE id = ?', [toUserId, id]);
+    await this.d.run('UPDATE qr_codes SET user_id = ?, folder_id = NULL WHERE id = ?', [toUserId, id]);
     await this.d.run('UPDATE files SET user_id = ? WHERE code_id = ?', [toUserId, id]);
     return true;
   }

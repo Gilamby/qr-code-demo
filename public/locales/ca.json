@@ -3336,15 +3336,6 @@
     "empty": "Encara no hi ha regles. Afegeix-ne una, per ex. mòbils en castellà a la teva pàgina en castellà.",
     "note": "Les regles es revisen de dalt a baix; guanya la primera que coincideix. Si cap coincideix, s’usa l’enllaç normal. Les hores segueixen el fus horari del teu compte."
   },
-  "arch": {
-    "title": "Arxiu",
-    "archive": "Arxiva",
-    "unarchive": "Treu de l’arxiu",
-    "done": "Arxivat. El codi continua funcionant.",
-    "doneMany": "{n} codis arxivats. Continuen funcionant.",
-    "back": "Altre cop a la teva llista.",
-    "backMany": "{n} codis altre cop a la teva llista."
-  },
   "tk": {
     "title": "Les meves preguntes",
     "lead": "Els teus missatges al nostre equip. També rebràs un correu quan responguem.",

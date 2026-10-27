@@ -3342,15 +3342,6 @@
     "empty": "Aucune règle pour l’instant. Ajoutez-en une, par ex. les téléphones en espagnol vers votre page espagnole.",
     "note": "Les règles sont vérifiées de haut en bas ; la première qui correspond l’emporte. Sinon, le lien normal est utilisé. Les heures suivent le fuseau horaire de votre compte."
   },
-  "arch": {
-    "title": "Archives",
-    "archive": "Archiver",
-    "unarchive": "Désarchiver",
-    "done": "Archivé. Le code continue de fonctionner.",
-    "doneMany": "{n} codes archivés. Ils continuent de fonctionner.",
-    "back": "De retour dans votre liste.",
-    "backMany": "{n} codes de retour dans votre liste."
-  },
   "tk": {
     "title": "Mes questions",
     "lead": "Vos messages à notre équipe. Vous recevez aussi un e-mail quand nous répondons.",

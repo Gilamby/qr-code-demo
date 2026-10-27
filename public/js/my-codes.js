@@ -24,7 +24,6 @@ var MyCodes = (function () {
     chain: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
     history: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
     chat: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
-    archive: '<rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"/><path d="M10 12h4"/>',
     undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
     trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
     pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
@@ -101,9 +100,8 @@ var MyCodes = (function () {
   function hasLabel(r, l) { return (r.labels || []).some(function (x) { return x.toLowerCase() === l.toLowerCase(); }); }
   /* ---------- Mappen: balk bovenaan ---------- */
   function drawFolders() {
-    if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && filter.folder !== 'bin' && filter.folder !== 'archive' && !folderOf(filter.folder)) filter.folder = '';
-    var count = function (fn) { return rows.filter(function (r) { return !r.archived && fn(r); }).length; };   // archief telt niet mee in de gewone lijst
-    var archN = rows.filter(function (r) { return r.archived; }).length;
+    if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && filter.folder !== 'bin' && !folderOf(filter.folder)) filter.folder = '';
+    var count = function (fn) { return rows.filter(fn).length; };
     var chip = function (key, label, n, extra) {
       var on = filter.folder === key;
       return '<button type="button" class="mf-chip' + (on ? ' on' : '') + '" data-folder="' + esc(key) + '" aria-pressed="' + on + '" title="' + esc(String(label).replace(/<[^>]*>/g, '')) + '">' + label + '<span class="mf-n">' + i18n.fmt.num(n) + '</span>' + (extra || '') + '</button>';
@@ -111,11 +109,10 @@ var MyCodes = (function () {
     var cur = folderOf(filter.folder), noneN = count(function (r) { return !r.folderId; });
     var many = folders.length > 8;
     bar.innerHTML = '<div class="mf-row" role="toolbar" aria-label="' + esc(t('folders.title')) + '">' +
-        chip('', ico('grid') + '<span>' + t('folders.all') + '</span>', count(function () { return true; })) +
+        chip('', ico('grid') + '<span>' + t('folders.all') + '</span>', rows.length) +
         chip('fav', '<span class="mf-star">' + ico('star') + '</span><span>' + t('folders.fav') + '</span>', count(function (r) { return r.favorite; })) +
         // "Zonder map" alleen als het iets toevoegt: niet als alle codes zonder map zijn (dan is het hetzelfde als "Alle codes")
         (noneN && noneN < rows.length || filter.folder === 'none' ? chip('none', ico('inbox') + '<span>' + t('folders.none') + '</span>', noneN) : '') +
-        (archN || filter.folder === 'archive' ? chip('archive', ico('archive') + '<span>' + t('arch.title') + '</span>', archN) : '') +
         (bin.length || purged.length || filter.folder === 'bin' ? chip('bin', ico('trash') + '<span>' + t('bin.title') + '</span>', bin.length) : '') +
         '<button type="button" class="mf-chip mf-add" data-folder-new aria-label="' + esc(t('folders.new')) + '">' + ico('folderPlus') + '<span>' + t('folders.new') + '</span></button>' +
       '</div>' +
@@ -169,10 +166,9 @@ var MyCodes = (function () {
     var out = rows.filter(function (r) {
       if (filter.type && r.typeId !== filter.type) return false;
       if (filter.label && !hasLabel(r, filter.label)) return false;
-      if ((filter.folder === 'archive') !== !!r.archived) return false;      // archief: alleen in de archief-weergave
       if (filter.folder === 'fav' && !r.favorite) return false;
       if (filter.folder === 'none' && r.folderId) return false;
-      if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && filter.folder !== 'archive' && r.folderId !== filter.folder) return false;
+      if (filter.folder && filter.folder !== 'none' && filter.folder !== 'fav' && r.folderId !== filter.folder) return false;
       if (!q) return true;
       var dest = Object.keys(r.content || {}).filter(function (k) { return typeof r.content[k] === 'string' && !/password|secret/i.test(k); }).map(function (k) { return r.content[k]; }).join(' ');   // ook de bestemming (link, telefoon, e-mail …)
       return (displayName(r) + ' ' + typeName(getType(r.typeId)) + ' ' + r.id + ' ' + (r.shortUrl || '') + ' ' + dest + ' ' + (r.labels || []).join(' ') + ' ' + (r.note || '')).toLowerCase().indexOf(q) >= 0;   // ook labels en notitie
@@ -235,7 +231,6 @@ var MyCodes = (function () {
             '<button type="button" role="menuitem" data-act="labels">' + ico('tag') + t('labels.menu') + '</button>' +
             '<button type="button" role="menuitem" data-act="sheet">' + ico('print') + t('sheet.title') + '</button>' +
             '<button type="button" role="menuitem" data-act="move">' + ico('move') + t('folders.moveTo') + '</button>' +
-            '<button type="button" role="menuitem" data-act="archive">' + ico('archive') + t(r.archived ? 'arch.unarchive' : 'arch.archive') + '</button>' +
             (r.folderId ? '<button type="button" role="menuitem" data-act="moveout">' + ico('moveOut') + t('folders.moveOut') + '</button>' : '') +
             (!stat && isTeam() ? '<button type="button" role="menuitem" data-act="legacy">' + ico('chain') + t(r.legacyUrl ? 'legacy.menuEdit' : 'legacy.menu') + '</button>' : '') +
             '<button type="button" role="menuitem" class="danger" data-act="delete">' + ico('trash') + t('myCodes.delete') + '</button></div></div>' +
@@ -293,7 +288,6 @@ var MyCodes = (function () {
       '<button type="button" class="btn ghost sm" data-bulk="move" title="' + esc(t('folders.moveTo')) + '">' + ico('move') + '<span>' + t('folders.moveTo') + '</span></button>' +
       (sel.some(function (r) { return r.folderId; }) ? '<button type="button" class="btn ghost sm" data-bulk="moveout" title="' + esc(t('folders.moveOut')) + '">' + ico('moveOut') + '<span>' + t('folders.moveOut') + '</span></button>' : '') +
       '<div class="mc-drop mc-up"><button type="button" class="btn ghost sm" data-bulk="dl" aria-haspopup="true" aria-expanded="false" title="' + esc(t('myCodes.download')) + '">' + ico('dl') + '<span>' + t('myCodes.download') + '</span></button><div class="mc-menu mc-dlm" role="menu" hidden>' + dlMenu(true) + '</div></div>' +
-      '<button type="button" class="btn ghost sm" data-bulk="archive" title="' + esc(t(filter.folder === 'archive' ? 'arch.unarchive' : 'arch.archive')) + '">' + ico('archive') + '<span>' + t(filter.folder === 'archive' ? 'arch.unarchive' : 'arch.archive') + '</span></button>' +
       (dyn.length ? '<button type="button" class="btn ghost sm" data-bulk="pause">' + t('myCodes.bulkPause') + '</button><button type="button" class="btn ghost sm" data-bulk="resume">' + t('myCodes.bulkResume') + '</button>' : '') +
       '<button type="button" class="btn ghost sm" data-bulk="sheet" title="' + esc(t('sheet.title')) + '">' + ico('print') + '<span>' + t('sheet.short') + '</span></button>' +
       '<button type="button" class="btn ghost sm danger-ghost" data-bulk="delete" title="' + esc(t('myCodes.delete')) + '">' + ico('trash') + '<span>' + t('myCodes.delete') + '</span></button>' +
@@ -314,7 +308,6 @@ var MyCodes = (function () {
     if (k === 'moveout') return move(sel.filter(function (r) { return r.folderId; }).map(function (r) { return r.id; }), null);
     if (k === 'delete') return askDeleteMany(sel);
     if (k === 'sheet') return askSheet(sel);
-    if (k === 'archive') return archive(sel, filter.folder !== 'archive');
     if (k === 'pause' || k === 'resume') {
       var next = k === 'pause', todo = sel.filter(function (r) { return !isStatic(r) && !!r.paused !== next && !(r.hold && r.hold.lock); });
       // Na elkaar (niet tegelijk): bij aanzetten telt de limiet van het pakket per code
@@ -481,17 +474,6 @@ var MyCodes = (function () {
       var blob = new Blob(['\ufeff' + rows.map(function (x) { return x.map(q).join(','); }).join('\r\n')], { type: 'text/csv;charset=utf-8' });
       var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'feedback-' + r.id + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     };
-  }
-  /* Archief: uit de gewone lijst, de code blijft gewoon werken. Met "ongedaan maken". */
-  function archive(list, on, quiet) {
-    list = list.filter(function (r) { return !!r.archived !== on; }); if (!list.length) return;
-    list.forEach(function (r) { r.archived = on; }); picked = {}; drawFolders(); draw();
-    Promise.all(list.map(function (r) { return api.patchQrCode(r.id, { archived: on }).then(replace); }))
-      .then(function () {
-        drawFolders(); draw(); if (quiet) return toastText(t(on ? 'arch.done' : 'arch.back', { n: list.length }));
-        toastAction(t(on ? (list.length > 1 ? 'arch.doneMany' : 'arch.done') : (list.length > 1 ? 'arch.backMany' : 'arch.back'), { n: list.length }), t('bin.undo'), function () { archive(list.map(function (r) { return r; }), !on, true); });
-      })
-      .catch(function () { list.forEach(function (r) { r.archived = !on; }); drawFolders(); draw(); toast('myCodes.failed'); });
   }
   function favorite(r) {
     var next = !r.favorite; r.favorite = next; draw();                // meteen zichtbaar; terug als het mislukt
@@ -966,7 +948,6 @@ var MyCodes = (function () {
     if (act === 'recheck') { var hb = e.target.closest('[data-act]'); if (hb) hb.disabled = true; return api.codeHealthNow(r.id).then(function (h) { if (h && h.state !== 'none') health[r.id] = h; else delete health[r.id]; draw(); toast(h && h.state === 'ok' ? 'myCodes.hlNowOk' : 'myCodes.hlNowBad'); }).catch(function () { draw(); }); }
     if (act === 'open') return window.open(r.shortUrl, '_blank', 'noopener');
     if (act === 'history') { closeMenus(); return askHistory(r); }
-    if (act === 'archive') { closeMenus(); return archive([r], !r.archived); }
     if (act === 'answers') { closeMenus(); return askAnswers(r); }
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });

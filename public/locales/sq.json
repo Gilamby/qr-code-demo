@@ -3442,15 +3442,6 @@
     "empty": "Ende pa rregulla. Shtoni një, p.sh. telefonat në spanjisht te faqja juaj në spanjisht.",
     "note": "Rregullat kontrollohen nga lart poshtë; fiton i pari që përputhet. Nëse asnjë nuk përputhet, përdoret lidhja e zakonshme. Oraret janë në zonën kohore të llogarisë suaj."
   },
-  "arch": {
-    "title": "Arkivi",
-    "archive": "Arkivo",
-    "unarchive": "Nxirre nga arkivi",
-    "done": "U arkivua. Kodi vazhdon të funksionojë.",
-    "doneMany": "{n} kode u arkivuan. Vazhdojnë të funksionojnë.",
-    "back": "Përsëri në listën tuaj.",
-    "backMany": "{n} kode përsëri në listën tuaj."
-  },
   "tk": {
     "title": "Pyetjet e mia",
     "lead": "Mesazhet tuaja për ekipin tonë. Do të merrni edhe një email kur të përgjigjemi.",
