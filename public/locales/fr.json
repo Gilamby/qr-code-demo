@@ -1077,7 +1077,8 @@
     "downPrice": "À partir du {date} : {price}",
     "downKeep": "Ensuite, les {n} codes QR que vous avez choisis restent actifs. Les autres sont mis en pause, pas supprimés.",
     "downGo": "Confirmer",
-    "b_location": "Vous êtes actuellement en/au {country}, dans l’UE. Vous ne pouvez donc pas choisir un pays hors de l’UE. Choisissez le pays de l’UE où vous habitez."
+    "b_location": "Vous êtes actuellement en/au {country}, dans l’UE. Vous ne pouvez donc pas choisir un pays hors de l’UE. Choisissez le pays de l’UE où vous habitez.",
+    "b_vatPct": "TVA {pct} %"
   },
   "dz": {
     "lbl": {

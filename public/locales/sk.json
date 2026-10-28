@@ -1077,7 +1077,8 @@
     "downPrice": "Od {date}: {price}",
     "downKeep": "Potom zostane aktívnych {n} QR kódov, ktoré si vybral. Ostatné sa pozastavia, nevymažú.",
     "downGo": "Potvrdiť",
-    "b_location": "Teraz si v krajine {country}, v EÚ. Preto nemôžeš vybrať krajinu mimo EÚ. Vyber krajinu EÚ, v ktorej bývaš."
+    "b_location": "Teraz si v krajine {country}, v EÚ. Preto nemôžeš vybrať krajinu mimo EÚ. Vyber krajinu EÚ, v ktorej bývaš.",
+    "b_vatPct": "DPH {pct} %"
   },
   "dz": {
     "lbl": {

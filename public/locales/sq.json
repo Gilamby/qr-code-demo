@@ -1077,7 +1077,8 @@
     "downPrice": "Nga {date}: {price}",
     "downKeep": "Pastaj {n} kodet QR që zgjodhe mbeten aktive. Të tjerat pezullohen, nuk fshihen.",
     "downGo": "Konfirmo",
-    "b_location": "Tani je në {country}, në BE. Prandaj nuk mund të zgjedhësh një shtet jashtë BE-së. Zgjidh shtetin e BE-së ku jeton."
+    "b_location": "Tani je në {country}, në BE. Prandaj nuk mund të zgjedhësh një shtet jashtë BE-së. Zgjidh shtetin e BE-së ku jeton.",
+    "b_vatPct": "TVSH {pct}%"
   },
   "dz": {
     "lbl": {

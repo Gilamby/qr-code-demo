@@ -1077,7 +1077,8 @@
     "downPrice": "A partir del {date}: {price}",
     "downKeep": "Després, els {n} codis QR que has triat continuen actius. Els altres es posen en pausa, no s'eliminen.",
     "downGo": "Confirma",
-    "b_location": "Ara ets a {country}, dins de la UE. Des d’allà no pots triar un país de fora de la UE. Tria el país de la UE on vius."
+    "b_location": "Ara ets a {country}, dins de la UE. Des d’allà no pots triar un país de fora de la UE. Tria el país de la UE on vius.",
+    "b_vatPct": "IVA {pct}%"
   },
   "dz": {
     "lbl": {

@@ -1077,7 +1077,8 @@
     "downPrice": "Fra {date}: {price}",
     "downKeep": "Deretter forblir de {n} QR-kodene du valgte aktive. De andre settes på pause, ikke slettet.",
     "downGo": "Bekreft",
-    "b_location": "Du er nå i {country}, i EU. Da kan du ikke velge et land utenfor EU. Velg EU-landet der du bor."
+    "b_location": "Du er nå i {country}, i EU. Da kan du ikke velge et land utenfor EU. Velg EU-landet der du bor.",
+    "b_vatPct": "MVA {pct}%"
   },
   "dz": {
     "lbl": {

@@ -273,7 +273,9 @@ var Plans = (function () {
     var line = box.querySelector('#pwTax'), tot = box.querySelector('#pwTotal');
     if (tot && amt(T.total) != null) tot.textContent = amt(T.total);
     if (!line) return;
-    if (tx) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_vatLine') + (T.taxInclusive === tx ? ' (' + t('pw.b_inclVat') + ')' : ''); line.querySelector('b').textContent = amt(tx); }
+    if (tx) {                                                             // percentage uit de bedragen van Stripe (btw / bedrag zonder btw), bv. "Btw 21%"
+      var tc = minor(tx), all = minor(T.total), pct = all && tc && all > tc ? Math.round(tc / (all - tc) * 100) : null;
+      line.hidden = false; line.querySelector('span').textContent = pct ? t('pw.b_vatPct', { pct: pct }) : t('pw.b_vatLine'); line.querySelector('b').textContent = amt(tx); }
     else if (sBuyer && EU.indexOf(sBuyer.country) < 0 && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_noVat'); line.querySelector('b').textContent = euro(0); }
     else if (sBuyer && sBuyer.country === 'ES' && /^(35|38|51|52)\d{3}$/.test(sBuyer.postalCode || '') && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_noVatEs'); line.querySelector('b').textContent = euro(0); }
     else if (sBuyer && sBuyer.type === 'company' && sBuyer.vat && sBuyer.country !== 'ES' && EU.indexOf(sBuyer.country) >= 0 && info && info.billing && info.billing.tax) { line.hidden = false; line.querySelector('span').textContent = t('pw.b_reverse'); line.querySelector('b').textContent = euro(0); }

@@ -1077,7 +1077,8 @@
     "downPrice": "No {date}: {price}",
     "downKeep": "Pēc tam tevis izvēlētie {n} QR kodi paliek aktīvi. Pārējie tiek apturēti, nevis dzēsti.",
     "downGo": "Apstiprināt",
-    "b_location": "Tu tagad atrodies valstī {country}, ES. Tāpēc nevari izvēlēties valsti ārpus ES. Izvēlies ES valsti, kurā dzīvo."
+    "b_location": "Tu tagad atrodies valstī {country}, ES. Tāpēc nevari izvēlēties valsti ārpus ES. Izvēlies ES valsti, kurā dzīvo.",
+    "b_vatPct": "PVN {pct}%"
   },
   "dz": {
     "lbl": {
