@@ -137,6 +137,8 @@
     if (!goPlan) return; goPlan = false; if (/[?&]go=/.test(location.search)) history.replaceState(null, '', location.pathname); setTimeout(function () { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); }, 600); });
   card.addEventListener('click', function (e) { e.preventDefault(); if (window.Plans) Plans.open(); else { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); } });   // rustige pakketten-pagina
   if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(load, 400); });
-  document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes' || e.detail === 'home') load(); });
+  document.addEventListener('pagechange', function (e) { if (e.detail === 'myCodes' || e.detail === 'home' || e.detail === 'account') load(); });
+  // Pakket net betaald, gewijzigd of opnieuw opgehaald: de balk bovenaan meteen bijwerken (anders bleef 'Kies een pakket' staan)
+  ['plan-changed', 'plan-info', 'paywall-done'].forEach(function (ev) { document.addEventListener(ev, function () { setTimeout(load, 300); }); });
   if (window.i18n) i18n.onChange(function () { show(); banner(); });
 })();

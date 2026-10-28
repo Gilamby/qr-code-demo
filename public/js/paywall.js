@@ -357,7 +357,7 @@ var Plans = (function () {
       info = r;
       // Net betaald bij Stripe: even wachten tot Stripe het heeft gemeld (webhook), dan de app in
       if (returned && info.sub && info.sub.state === 'unpaid' && waited < 15) { waited++; mode = 'must'; step = 'wait'; show(); setTimeout(check, 1500); return; }
-      if (returned) { returned = false; if (step === 'wait') { result = { sub: info.sub }; chosen = info.plan.id; period = PlanPeriod.norm(info.sub.interval); step = 'done'; mode = 'must'; return show(); } }
+      if (returned) { returned = false; document.dispatchEvent(new CustomEvent('paywall-done')); if (step === 'wait') { result = { sub: info.sub }; chosen = info.plan.id; period = PlanPeriod.norm(info.sub.interval); step = 'done'; mode = 'must'; return show(); } }
       var w = window.wantedPlan; if (w) { chosen = w.plan || chosen; period = PlanPeriod.norm(w.period); }
       if (needed()) { mode = 'must'; step = 'choose'; show(); } else if (mode === 'must') close();
     }).catch(function () {});
