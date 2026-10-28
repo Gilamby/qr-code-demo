@@ -1649,7 +1649,6 @@
     "errDigit": "Lägg till en siffra.",
     "errSpecial": "Lägg till ett specialtecken, som ! ? @ eller #.",
     "errDisabled": "Det här kontot har inaktiverats av teamet. Kontakta supporten.",
-    "sceneHint": "Klicka och håll in",
     "errDisposable": "Använd din egen e-postadress. Tillfälliga brevlådor kan inte användas.",
     "errAlias": "Det finns redan ett konto med den här e-postadressen (skriven på annat sätt). Logga in med det.",
     "google": "Fortsätt med Google",

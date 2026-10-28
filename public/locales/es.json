@@ -1649,7 +1649,6 @@
     "errDigit": "Añade un número.",
     "errSpecial": "Añade un carácter especial, como ! ? @ o #.",
     "errDisabled": "El equipo ha desactivado esta cuenta. Contacta con soporte.",
-    "sceneHint": "Haz clic y mantén",
     "errDisposable": "Usa tu propio correo. No se admiten buzones temporales.",
     "errAlias": "Ya existe una cuenta con este correo (escrito de otra forma). Inicia sesión con ella.",
     "google": "Continuar con Google",

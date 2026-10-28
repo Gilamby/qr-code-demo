@@ -53,7 +53,7 @@ body:not(.booting) #boot{opacity:0;visibility:hidden;pointer-events:none}
 <script>/* laadscherm: altijd minstens even zichtbaar (geen flits), en nooit langer dan 12 s */window.__bootAt=Date.now();setTimeout(function(){document.body.classList.remove('booting')},12000);</script>
 <div class="auth" id="authView" hidden>
   <!-- Inlogscherm links: interactieve glazen QR-sculptuur (js/login-scene.js laadt anim/login3d.js; alleen computer/tablet) -->
-  <div class="auth-art" aria-hidden="true"><canvas id="authScene"></canvas><p class="auth-art-hint" data-i18n="auth.sceneHint"></p></div>
+  <div class="auth-art" aria-hidden="true"><canvas id="authScene"></canvas></div>
   <div class="auth-card glass" role="dialog" aria-modal="true" aria-labelledby="authTitle"></div>
 </div>
 <script>document.body.classList.add('auth-checking');</script>

@@ -1649,7 +1649,6 @@
     "errDigit": "Add a number.",
     "errSpecial": "Add a special character, like ! ? @ or #.",
     "errDisabled": "This account has been deactivated by the team. Please contact support.",
-    "sceneHint": "Click and hold",
     "errDisposable": "Please use your own email address. Temporary mailboxes can't be used.",
     "errAlias": "There's already an account with this email address (written differently). Please log in with that one.",
     "google": "Continue with Google",

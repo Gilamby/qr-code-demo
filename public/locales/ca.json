@@ -1649,7 +1649,6 @@
     "errDigit": "Afegeix un número.",
     "errSpecial": "Afegeix un caràcter especial, com ! ? @ o #.",
     "errDisabled": "L'equip ha desactivat aquest compte. Contacta amb el suport.",
-    "sceneHint": "Fes clic i mantén premut",
     "errDisposable": "Fes servir el teu propi correu. No s'admeten bústies temporals.",
     "errAlias": "Ja hi ha un compte amb aquest correu (escrit d'una altra manera). Inicia la sessió amb aquell.",
     "google": "Continua amb Google",

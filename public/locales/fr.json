@@ -1649,7 +1649,6 @@
     "errDigit": "Ajoutez un chiffre.",
     "errSpecial": "Ajoutez un caractère spécial, comme ! ? @ ou #.",
     "errDisabled": "Ce compte a été désactivé par l’équipe. Contactez le support.",
-    "sceneHint": "Cliquez et maintenez",
     "errDisposable": "Utilisez votre propre adresse e-mail. Les boîtes mail temporaires ne sont pas acceptées.",
     "errAlias": "Un compte existe déjà avec cette adresse e-mail (écrite autrement). Connectez-vous avec celle-ci.",
     "google": "Continuer avec Google",
