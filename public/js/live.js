@@ -100,7 +100,10 @@
         send.disabled = true; err('');
         fetch('/api/form/' + encodeURIComponent(L.id), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answers: answers, consent: !!(ok && ok.checked) }) })
           .then(function (r) { if (!r.ok) throw r; $('.fm-form').hidden = true; var h = $('.su-hero'); if (h) h.hidden = true; $('.fm-done').hidden = false; })
-          .catch(function (r) { send.disabled = false; err(t(r && r.status === 429 ? 'pv.feedback.tooMany' : r && r.status === 400 ? 'pv.fm.needRequired' : 'pv.feedback.failed')); });
+          .catch(function (r) { send.disabled = false;
+            if (!(r && r.status === 400 && r.json)) return err(t(r && r.status === 429 ? 'pv.feedback.tooMany' : 'pv.feedback.failed'));
+            r.json().then(function (j) { var d = (j && j.details) || [], mail = d.some(function (x) { var q = qs[+x]; return q && q.t === 'email'; });   // precies zeggen wat er mis is
+              err(t(mail ? 'pv.fm.badEmail' : d.indexOf('consent') >= 0 ? 'pv.su.needConsent' : 'pv.fm.needRequired')); }, function () { err(t('pv.fm.needRequired')); }); });
       };
     },
     landing: function () {
@@ -116,7 +119,10 @@
         send.disabled = true; err('');
         fetch('/api/signup/' + encodeURIComponent(L.id), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, email: email, phone: ph ? ph.value.trim() : '', consent: true }) })
           .then(function (r) { if (!r.ok) throw r; $('.su-form').hidden = true; var h = $('.su-hero'); if (h) h.hidden = true; $('.su-done').hidden = false; })
-          .catch(function (r) { send.disabled = false; err(t(r && r.status === 429 ? 'pv.feedback.tooMany' : r && r.status === 400 ? 'pv.su.needFields' : 'pv.feedback.failed')); });
+          .catch(function (r) { send.disabled = false;
+            if (!(r && r.status === 400 && r.json)) return err(t(r && r.status === 429 ? 'pv.feedback.tooMany' : 'pv.feedback.failed'));
+            r.json().then(function (j) { var d = (j && j.details) || [];
+              err(t(d.indexOf('email') >= 0 ? 'pv.fm.badEmail' : d.indexOf('phone') >= 0 ? 'pv.su.badPhone' : 'pv.su.needFields')); }, function () { err(t('pv.su.needFields')); }); });
       };
     },
     manual: function () {

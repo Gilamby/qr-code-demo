@@ -483,18 +483,20 @@ var MyCodes = (function () {
       '<div class="mc-dlg-btns"><button type="button" class="btn ghost" data-fbx-csv hidden>' + ico('dl') + t('fb.csv') + '</button><button class="btn primary" value="cancel">' + t('hist.close') + '</button></div></form>';
     var box = dialog.querySelector('.fbx'), csvBtn = dialog.querySelector('[data-fbx-csv]'), data = null;
     dialog.onclose = null; dialog.returnValue = ''; dialog.showModal();
+    // Antwoord leesbaar maken; elke inzending heeft zijn eigen vragen (zoals ze toen waren), dus later wijzigen geeft geen verkeerde antwoorden
     function shown(q, a) {
-      if (a == null || a === '' || (Array.isArray(a) && !a.length)) return '';
-      if (q.t === 'stars') return '★★★★★'.slice(0, a) + ' (' + a + '/5)';
-      if (q.t === 'choice') return (q.o || [])[a] || '';
-      if (q.t === 'multi') return a.map(function (n) { return (q.o || [])[n] || ''; }).join(', ');
-      return String(a);
+      if (!q || a == null || a === '' || (Array.isArray(a) && !a.length)) return '';
+      if (q.t === 'stars' && typeof a === 'number') return '★★★★★'.slice(0, a) + ' (' + a + '/5)';
+      if (q.t === 'choice' && typeof a === 'number') return (q.o || [])[a] || '';
+      if (q.t === 'multi' && Array.isArray(a)) return a.map(function (n) { return (q.o || [])[n] || ''; }).filter(Boolean).join(', ');
+      return Array.isArray(a) ? a.join(', ') : String(a);
     }
+    function qsOf(e) { return Array.isArray(e.q) && e.q.length ? e.q : data.questions; }
     function paint() {
       if (!data.items.length) { box.innerHTML = '<p class="hs-empty">' + t('fb.none') + '</p>'; csvBtn.hidden = true; return; }
       csvBtn.hidden = false;
       box.innerHTML = '<p class="su-count">' + t('fm.count', { n: i18n.fmt.num(data.items.length) }) + '</p><ul class="fbx-list">' + data.items.map(function (e) {
-        return '<li data-fid="' + esc(e.id) + '"><div><small>' + esc(i18n.fmt.stamp(e.at, 'time')) + '</small><dl class="fm-ans">' + data.questions.map(function (q, i) { var s = shown(q, e.a[i]); return s ? '<dt>' + esc(q.q) + '</dt><dd>' + esc(s) + '</dd>' : ''; }).join('') + '</dl></div>' +
+        return '<li data-fid="' + esc(e.id) + '"><div><small>' + esc(i18n.fmt.stamp(e.at, 'time')) + '</small><dl class="fm-ans">' + qsOf(e).map(function (q, i) { var s = shown(q, e.a[i]); return s ? '<dt>' + esc(q.q) + '</dt><dd>' + esc(s) + '</dd>' : ''; }).join('') + '</dl></div>' +
           '<button type="button" class="mc-ico" data-fbx-del aria-label="' + esc(t('fb.delete')) + '" title="' + esc(t('fb.delete')) + '">' + ico('trash') + '</button></li>';
       }).join('') + '</ul>';
     }
@@ -506,7 +508,9 @@ var MyCodes = (function () {
     };
     csvBtn.onclick = function () {
       var q = function (v) { v = String(v == null ? '' : v); if (/^[=+\-@]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; };
-      var rows = [['date'].concat(data.questions.map(function (x) { return x.q; }))].concat(data.items.map(function (e) { return [e.at].concat(data.questions.map(function (x, i) { return x.t === 'stars' ? (e.a[i] || '') : shown(x, e.a[i]); })); }));
+      // Kolommen = alle vragen (op tekst), ook van oudere versies van het formulier
+      var cols = []; data.items.concat([{ q: data.questions }]).forEach(function (e) { qsOf(e).forEach(function (x) { if (cols.indexOf(x.q) < 0) cols.push(x.q); }); });
+      var rows = [['date'].concat(cols)].concat(data.items.map(function (e) { var qs = qsOf(e); return [e.at].concat(cols.map(function (c) { var i = qs.map(function (x) { return x.q; }).indexOf(c); return i < 0 ? '' : qs[i].t === 'stars' && typeof e.a[i] === 'number' ? e.a[i] : shown(qs[i], e.a[i]); })); }));
       var blob = new Blob(['\ufeff' + rows.map(function (x) { return x.map(q).join(','); }).join('\r\n')], { type: 'text/csv;charset=utf-8' });
       var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'form-' + r.id + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     };

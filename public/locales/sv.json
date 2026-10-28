@@ -509,7 +509,8 @@
       "consent": "Jag godkänner att mina uppgifter bara används för denna anmälan.",
       "send": "Anmäl mig",
       "needFields": "Fyll i ditt namn och en giltig e-postadress.",
-      "needConsent": "Kryssa i rutan för att godkänna."
+      "needConsent": "Kryssa i rutan för att godkänna.",
+      "badPhone": "Fyll i ett telefonnummer med landskod, t.ex. +46 70 123 45 67."
     },
     "fm": {
       "tag": "Formulär",

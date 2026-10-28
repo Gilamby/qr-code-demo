@@ -509,7 +509,8 @@
       "consent": "Pranoj që të dhënat e mia të përdoren vetëm për këtë regjistrim.",
       "send": "Regjistrohu",
       "needFields": "Shkruani emrin dhe një email të vlefshëm.",
-      "needConsent": "Shënoni kutinë për të pranuar."
+      "needConsent": "Shënoni kutinë për të pranuar.",
+      "badPhone": "Shkruani numrin me kodin e vendit, p.sh. +355 69 123 4567."
     },
     "fm": {
       "tag": "Formular",

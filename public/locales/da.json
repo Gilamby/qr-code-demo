@@ -509,7 +509,8 @@
       "consent": "Jeg accepterer, at mine oplysninger kun bruges til denne tilmelding.",
       "send": "Tilmeld",
       "needFields": "Udfyld dit navn og en gyldig e-mailadresse.",
-      "needConsent": "Sæt flueben for at acceptere."
+      "needConsent": "Sæt flueben for at acceptere.",
+      "badPhone": "Udfyld et telefonnummer med landekode, fx +45 20 12 34 56."
     },
     "fm": {
       "tag": "Formular",

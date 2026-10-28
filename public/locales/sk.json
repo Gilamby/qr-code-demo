@@ -509,7 +509,8 @@
       "consent": "Súhlasím, aby sa moje údaje použili len na toto prihlásenie.",
       "send": "Prihlásiť sa",
       "needFields": "Zadajte meno a platný e-mail.",
-      "needConsent": "Začiarknite políčko na súhlas."
+      "needConsent": "Začiarknite políčko na súhlas.",
+      "badPhone": "Zadajte číslo s predvoľbou, napr. +421 912 345 678."
     },
     "fm": {
       "tag": "Formulár",

@@ -509,7 +509,8 @@
       "consent": "Hyväksyn, että tietojani käytetään vain tähän ilmoittautumiseen.",
       "send": "Ilmoittaudu",
       "needFields": "Anna nimesi ja kelvollinen sähköpostiosoite.",
-      "needConsent": "Hyväksy rastittamalla ruutu."
+      "needConsent": "Hyväksy rastittamalla ruutu.",
+      "badPhone": "Anna puhelinnumero maatunnuksella, esim. +358 40 123 4567."
     },
     "fm": {
       "tag": "Lomake",

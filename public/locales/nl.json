@@ -509,7 +509,8 @@
       "consent": "Ik ga akkoord dat mijn gegevens alleen voor deze aanmelding worden gebruikt.",
       "send": "Aanmelden",
       "needFields": "Vul je naam en een geldig e-mailadres in.",
-      "needConsent": "Vink het vakje aan om akkoord te gaan."
+      "needConsent": "Vink het vakje aan om akkoord te gaan.",
+      "badPhone": "Vul een telefoonnummer met landcode in, bijv. +31 6 1234 5678."
     },
     "fm": {
       "tag": "Formulier",

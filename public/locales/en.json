@@ -509,7 +509,8 @@
       "consent": "I agree that my details are used for this sign-up only.",
       "send": "Sign up",
       "needFields": "Please enter your name and a valid email address.",
-      "needConsent": "Please tick the box to agree."
+      "needConsent": "Please tick the box to agree.",
+      "badPhone": "Please enter a phone number with country code, e.g. +34 600 123 456."
     },
     "fm": {
       "tag": "Form",

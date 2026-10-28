@@ -509,7 +509,8 @@
       "consent": "Jeg godtar at opplysningene mine bare brukes til denne påmeldingen.",
       "send": "Meld meg på",
       "needFields": "Fyll inn navnet ditt og en gyldig e-postadresse.",
-      "needConsent": "Huk av i boksen for å godta."
+      "needConsent": "Huk av i boksen for å godta.",
+      "badPhone": "Fyll inn et telefonnummer med landskode, f.eks. +47 412 34 567."
     },
     "fm": {
       "tag": "Skjema",

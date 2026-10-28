@@ -246,6 +246,7 @@
       { key: 'text', label: 'fields.description', max: 500, sample: { t: 'sample.fmText' } },
       { key: 'questions', type: 'questions', label: 'fields.fmQuestions', required: true },
       { key: 'thanks', label: 'fields.fbThanks', max: 200, sample: { t: 'sample.fmThanks' } } ] },
+  // Handleiding: product, model, PDF om te downloaden, eventueel uitlegvideo en contact met de klantenservice
   { id: 'manual', icon: 'manual', contentType: 'manual', previewType: 'card', color: '#0f766e', theme: ['#0f766e', '#042f2e'],
     fields: [ { key: 'photo', type: 'image', label: 'fields.productPhoto' },
       { key: 'title', label: 'fields.productName', required: true, max: 80, sample: { t: 'sample.manualProduct' } },
@@ -264,6 +265,7 @@
       { key: 'text', label: 'fields.description', max: 1000, sample: { t: 'sample.lpText' } },
       { key: 'blocks', type: 'blocks', label: 'fields.lpBlocks' },
       { key: 'photos', type: 'gallery', label: 'fields.lpPhotos', max: 6 } ] },
+  // Gevonden?: label voor huisdier, sleutels, tas of koffer; de vinder belt of mailt de eigenaar
   { id: 'lostfound', previewImage: 'assets/previews/lostfound.jpg', icon: 'lost', contentType: 'lost', previewType: 'card', color: '#ea580c', theme: ['#ea580c', '#431407'],
     fields: [ { key: 'photo', type: 'image', label: 'fields.photo' },
       { key: 'name', label: 'fields.lostName', required: true, max: 60, sample: { t: 'sample.lostName' } },
@@ -271,7 +273,7 @@
       { key: 'phone', type: 'tel', label: 'fields.phone', required: true, or: 'email', sample: { t: 'sample.waPhone' } },
       { key: 'email', type: 'email', label: 'fields.email', or: 'phone' },
       { key: 'reward', label: 'fields.reward', max: 60, hint: 'hint.reward' } ] },
-  // Niet meer in het overzicht (vervangen door Handleiding); bestaande codes blijven werken
+  // Niet meer in het overzicht (Telegram, YouTube, Spotify, Meeting); bestaande codes blijven werken
   { id: 'telegram', hidden: true, page: false, icon: 'telegram', contentType: 'url', previewType: 'card', color: '#229ed9', theme: ['#229ed9', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.telegramUrl', required: true, domains: ['t.me', 'telegram.me'], sample: { t: 'sample.telegramUrl' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
@@ -281,9 +283,7 @@
   { id: 'spotify', hidden: true, previewImage: 'assets/previews/spotify.jpg', page: false, icon: 'spotify', contentType: 'url', previewType: 'card', color: '#1db954', theme: ['#1db954', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.spotifyUrl', required: true, domains: ['spotify.com', 'open.spotify.com', 'spotify.link'], sample: { t: 'sample.spotifyUrl' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
-  // Handleiding: product, model, PDF om te downloaden, eventueel uitlegvideo en contact met de klantenservice,
   { id: 'meeting', hidden: true, page: false, icon: 'meeting', contentType: 'url', previewType: 'card', color: '#4f46e5', theme: ['#4f46e5', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.meetingUrl', required: true, domains: ['zoom.us', 'teams.microsoft.com', 'teams.live.com', 'meet.google.com', 'whereby.com', 'webex.com'], sample: { t: 'sample.meetingUrl' }, hint: 'hint.meetingUrl' },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
-  // Gevonden?: label voor huisdier, sleutels, tas of koffer; de vinder belt of mailt de eigenaar
 ]);

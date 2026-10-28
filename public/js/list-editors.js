@@ -87,7 +87,7 @@ var BlocksEditor = (function () {
   }
   function clean(list) {
     return list.filter(function (b) { return (b.v || '').trim() && (b.k !== 'btn' || /^https?:\/\/\S+\.\S+/.test(b.url || '')); })
-      .map(function (b) { var o = { k: b.k, v: b.v.trim() }; if (b.k === 'btn') o.url = b.url.trim(); return o; });
+      .map(function (b) { var o = { k: b.k, v: b.v.trim().slice(0, b.k === 'p' ? 1000 : b.k === 'h' ? 100 : 40) }; if (b.k === 'btn') o.url = b.url.trim(); return o; });   // na wisselen van soort: inkorten tot wat dat blok mag
   }
   function mount(root, onChange) {
     root.querySelectorAll('[data-blocks]').forEach(function (box) {

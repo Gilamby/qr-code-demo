@@ -5,7 +5,7 @@
    DELETE /api/qr-codes/:id/form-answers/:aid  eigenaar: één inzending wissen
    Antwoord per vraag: tekst (text/long/email), nummer van de keuze (choice), lijst nummers (multi), 1-5 (stars).
    AVG: een e-mailadres alleen met toestemming; geen IP-adres opgeslagen (de limiet staat alleen even in het geheugen);
-   weg bij definitief verwijderen van de code. Settings 'fm:<code-id>', max. 2000 inzendingen.
+   na een jaar of bij definitief verwijderen van de code weg. Settings 'fm:<code-id>', max. 2000 inzendingen.
    ========================================================= */
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
@@ -18,11 +18,11 @@ import { fail } from '../common/http';
 import type { User } from '../types';
 
 type Q = { t: string; q: string; o?: string[]; r?: boolean };
-export type Entry = { id: string; at: string; a: any[] };
-const key = (id: string) => 'fm:' + id, MAX = 2000;
+export type Entry = { id: string; at: string; a: any[]; q?: Q[] };   // q: de vragen zoals ze waren bij het insturen (vragen kunnen later veranderen)
+const key = (id: string) => 'fm:' + id, MAX = 2000, YEAR = 365 * 864e5;
 const questions = (content: any): Q[] => { try { const a = JSON.parse((content && content.questions) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
 export async function readEntries(db: DatabaseService, codeId: string): Promise<Entry[]> {
-  try { const v = JSON.parse((await db.getSetting(key(codeId))) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+  try { const v = JSON.parse((await db.getSetting(key(codeId))) || '[]'); return Array.isArray(v) ? v.filter((x) => Date.now() - Date.parse(x.at) < YEAR) : []; } catch (e) { return []; }   // na een jaar weg (AVG)
 }
 const save = (db: DatabaseService, id: string, list: Entry[]) => db.setSetting(key(id), list.length ? JSON.stringify(list.slice(0, MAX)) : null);
 const text = (v: any, max: number) => String(v == null ? '' : v).replace(/\r\n/g, '\n').replace(/[\u0000-\u0008\u000b-\u001f\u007f]+/g, '').replace(/\n{3,}/g, '\n\n').trim().slice(0, max);
@@ -51,7 +51,7 @@ export class FormController {
     if (out.every((a) => a == null || a === '' || (Array.isArray(a) && !a.length))) errors.push('empty');
     if (errors.length) throw fail(400, 'invalid', { details: [...new Set(errors)] });
     const list = await readEntries(this.db, q.id); if (list.length >= MAX) throw fail(409, 'full');
-    list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), a: out });
+    list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), a: out, q: qs.map((x) => ({ t: x.t, q: x.q, o: x.o })) });
     await save(this.db, q.id, list);
     return { ok: true };
   }

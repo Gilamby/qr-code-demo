@@ -509,7 +509,8 @@
       "consent": "Ich stimme zu, dass meine Daten nur für diese Anmeldung verwendet werden.",
       "send": "Anmelden",
       "needFields": "Bitte Namen und eine gültige E-Mail-Adresse eingeben.",
-      "needConsent": "Bitte das Kästchen ankreuzen."
+      "needConsent": "Bitte das Kästchen ankreuzen.",
+      "badPhone": "Bitte Telefonnummer mit Ländervorwahl eingeben, z. B. +49 151 2345678."
     },
     "fm": {
       "tag": "Formular",

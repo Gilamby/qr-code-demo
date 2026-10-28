@@ -509,7 +509,8 @@
       "consent": "Piekrītu, ka mani dati tiek izmantoti tikai šai pieteikšanās reizei.",
       "send": "Pieteikties",
       "needFields": "Ievadiet vārdu un derīgu e-pasta adresi.",
-      "needConsent": "Atzīmējiet rūtiņu, lai piekristu."
+      "needConsent": "Atzīmējiet rūtiņu, lai piekristu.",
+      "badPhone": "Ievadiet tālruni ar valsts kodu, piem. +371 2012 3456."
     },
     "fm": {
       "tag": "Veidlapa",

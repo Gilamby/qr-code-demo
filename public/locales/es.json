@@ -509,7 +509,8 @@
       "consent": "Acepto que mis datos se usen solo para esta inscripción.",
       "send": "Inscribirme",
       "needFields": "Introduce tu nombre y un correo válido.",
-      "needConsent": "Marca la casilla para aceptar."
+      "needConsent": "Marca la casilla para aceptar.",
+      "badPhone": "Introduce un teléfono con prefijo, p. ej. +34 600 123 456."
     },
     "fm": {
       "tag": "Formulario",

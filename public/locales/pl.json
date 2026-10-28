@@ -509,7 +509,8 @@
       "consent": "Zgadzam się na użycie moich danych wyłącznie do tego zapisu.",
       "send": "Zapisz się",
       "needFields": "Podaj imię i prawidłowy adres e-mail.",
-      "needConsent": "Zaznacz pole, aby wyrazić zgodę."
+      "needConsent": "Zaznacz pole, aby wyrazić zgodę.",
+      "badPhone": "Podaj numer z kierunkowym kraju, np. +48 512 345 678."
     },
     "fm": {
       "tag": "Formularz",

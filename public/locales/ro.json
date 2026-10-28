@@ -509,7 +509,8 @@
       "consent": "Sunt de acord ca datele mele să fie folosite doar pentru această înscriere.",
       "send": "Înscrie-mă",
       "needFields": "Introdu numele și o adresă de e-mail validă.",
-      "needConsent": "Bifează căsuța pentru a accepta."
+      "needConsent": "Bifează căsuța pentru a accepta.",
+      "badPhone": "Introdu un număr cu prefixul țării, ex. +40 712 345 678."
     },
     "fm": {
       "tag": "Formular",

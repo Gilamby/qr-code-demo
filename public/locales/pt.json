@@ -509,7 +509,8 @@
       "consent": "Aceito que os meus dados sejam usados apenas para esta inscrição.",
       "send": "Inscrever-me",
       "needFields": "Indique o seu nome e um e-mail válido.",
-      "needConsent": "Marque a caixa para aceitar."
+      "needConsent": "Marque a caixa para aceitar.",
+      "badPhone": "Indique um número com indicativo, ex. +351 912 345 678."
     },
     "fm": {
       "tag": "Formulário",

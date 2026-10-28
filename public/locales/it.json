@@ -509,7 +509,8 @@
       "consent": "Accetto che i miei dati siano usati solo per questa iscrizione.",
       "send": "Iscriviti",
       "needFields": "Inserisci nome e un indirizzo email valido.",
-      "needConsent": "Spunta la casella per accettare."
+      "needConsent": "Spunta la casella per accettare.",
+      "badPhone": "Inserisci un numero con prefisso, es. +39 312 345 6789."
     },
     "fm": {
       "tag": "Modulo",

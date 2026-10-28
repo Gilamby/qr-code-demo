@@ -1201,6 +1201,10 @@ test('formulier: vragen gecontroleerd, verplicht en e-mail met toestemming; land
   assert.equal((await mk('landing', { title: 'Summit', blocks: JSON.stringify([{ k: 'btn', v: 'Tickets', url: 'geen-link' }]) })).status, 400, 'knop zonder geldige link');
   const lp = await mk('landing', { title: 'Summit', blocks: JSON.stringify([{ k: 'h', v: 'Programma' }, { k: 'p', v: 'Dag 1' }, { k: 'btn', v: 'Tickets', url: 'https://example.com/t' }]) });
   assert.equal(lp.status, 201); assert.equal((await fetch(base + '/q/' + lp.json.id)).status, 200, 'landingspagina');
+  assert.deepEqual(l.json.items[0].q.map((x) => x.t), ['stars', 'choice', 'multi', 'email'], 'vragen bewaard bij elke inzending');
+  assert.equal((await mk('landing', { title: 'Lang', text: 'x'.repeat(900) })).status, 201, 'eigen max (1000) gaat voor 500');
+  assert.equal((await mk('text', { text: 'y'.repeat(2500) })).status, 201, 'tekst tot 3000');
+  assert.equal((await mk('landing', { title: 'Te lang', text: 'x'.repeat(1001) })).status, 400);
 });
 
 test('aanmelden: alleen met toestemming, zelfde e-mail niet dubbel, eigenaar ziet en wist', async () => {
@@ -1211,7 +1215,7 @@ test('aanmelden: alleen met toestemming, zelfde e-mail niet dubbel, eigenaar zie
   assert.equal((await post({ name: 'A', email: 'geen-mail', consent: true })).status, 400);
   assert.equal((await post({ name: 'Ana', email: 'ana@example.com', phone: '+34 600 111 222', consent: true })).status, 201);
   assert.equal((await post({ name: 'Ana Ruiz', email: 'ANA@example.com', consent: true })).status, 201);
-  const l = await k('GET', '/api/qr-codes/' + c.json.id + '/signups'); assert.equal(l.json.count, 1, 'zelfde e-mail = bijgewerkt'); assert.equal(l.json.items[0].name, 'Ana Ruiz');
+  const l = await k('GET', '/api/qr-codes/' + c.json.id + '/signups'); assert.equal(l.json.count, 1, 'zelfde e-mail = niet dubbel'); assert.equal(l.json.items[0].name, 'Ana', 'niet overschreven');
   const other = client(); await signup(other, 'su-o@example.com', 'Aanmelden zin 28!', 'Ander');
   assert.equal((await other('GET', '/api/qr-codes/' + c.json.id + '/signups')).status, 404, 'alleen de eigenaar');
   assert.equal((await k('DELETE', '/api/qr-codes/' + c.json.id + '/signups/' + l.json.items[0].id)).status, 204);

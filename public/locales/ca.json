@@ -509,7 +509,8 @@
       "consent": "Accepto que les meves dades s'utilitzin només per a aquesta inscripció.",
       "send": "Inscriure'm",
       "needFields": "Introdueix el teu nom i un correu vàlid.",
-      "needConsent": "Marca la casella per acceptar."
+      "needConsent": "Marca la casella per acceptar.",
+      "badPhone": "Introdueix un telèfon amb prefix, p. ex. +34 600 123 456."
     },
     "fm": {
       "tag": "Formulari",

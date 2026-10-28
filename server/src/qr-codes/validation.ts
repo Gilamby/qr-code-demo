@@ -116,7 +116,7 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
       if (!/^data:image\/(jpeg|png|webp);base64,/.test(v) || v.length > 3000000) errors.push(field.key + ': must be a JPG/PNG/WebP image under 3 MB');
       content[field.key] = v; continue;
     }
-    if (v.length > MAX_TEXT || (!field.type && typeof field.max === 'number' && v.length > field.max)) errors.push(field.key + ': too long');
+    if ((!field.type && typeof field.max === 'number' ? v.length > field.max : v.length > MAX_TEXT)) errors.push(field.key + ': too long');   // eigen max (bv. tekst 3000) gaat voor de standaard 500
     if (field.type === 'url' && !isUrl(v)) errors.push(field.key + ': must be a http(s) URL');
     else if (field.type === 'url' && field.domains && !onDomain(v, field.domains)) errors.push(field.key + ': must be a link to ' + field.domains[0]);
     if (field.pattern) { v = v.replace(/^@/, ''); if (!new RegExp(field.pattern).test(v)) errors.push(field.key + ': invalid format'); }   // bv. Instagram-naam, zonder @ bewaard
