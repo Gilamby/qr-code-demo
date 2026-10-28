@@ -92,7 +92,11 @@ var PHONE = (function () {
   // Voorbeeldfoto van het type (public/assets/previews/<id>.jpg), alleen in de voorbeeldweergave van stap 1.
   // Pas als álle foto's van dit voorbeeld klaar zijn, tonen we de fotoversie (anders even grijze vlakken).
   // Voorbeeldbedrijf van de extra soorten (pagina 2): een café in Marbella, past bij de voorbeeldfoto's
-  var EX_BIZ = 'Café Lumen', EX_ADDR = 'Calle Ancha 12, 29601 Marbella';
+  // Elk extra type een eigen voorbeeldbedrijf (zoals op pagina 1), passend bij de voorbeeldfoto
+  var EX_NAMES = { review: 'Restaurante La Brisa', feedback: 'Hotel Costa Azul', phone: 'Garage Van Dijk', location: 'Bistro Mar Azul', payment: 'Velo Fietsverhuur',
+    linkedin: 'Mercado Sol', youtube: 'Barista Academy', spotify: 'Mira Concept Store', telegram: 'Hotel Costa Azul', booking: 'Restaurante El Puerto', meeting: 'Studio Noord' };
+  function exBiz(id) { return EX_NAMES[id] || 'Studio Noord'; }
+  var EX_BIZ = 'Studio Noord', EX_ADDR = 'Calle Ancha 12, 29601 Marbella';
   var EX_EXTRA = { instagram: ['ig/1', 'ig/2', 'ig/3', 'ig/4', 'ig/5', 'ig/6', 'ig/7', 'ig/8', 'ig/h1', 'ig/h2', 'ig/h3', 'ig/h4', 'ig/h5'], links: ['links-cover', 'links-feat'], facebook: ['facebook-cover', 'facebook-post'], social: ['social-avatar'] };
   function exPhoto(id, ex) {
     var tp = ex && getType(id), src = tp && tp.previewImage; if (!src || !imageReady(src)) return '';
@@ -500,7 +504,7 @@ var PHONE = (function () {
 
     /* ---------- Review: het venster "review schrijven" waar de scan naartoe gaat (algemeen, zonder merklogo's) ---------- */
     review: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), host = domain(c.url) || (ex ? 'g.page' : '');
+      var name = c.title || (ex ? exBiz('review') : ''), host = domain(c.url) || (ex ? 'g.page' : '');
       var stars = [0, 1, 2, 3, 4].map(function (i) { return '<i class="rv-star' + (ex && i < 4 ? ' on' : '') + '">' + ic('star') + '</i>'; }).join('');
       return '<div class="ph ph-rv">' + statusBar() +
         '<div class="rv-url">' + ic('lock') + '<span>' + (host ? esc(host) : '<i class="sk" style="width:90px"></i>') + '</span></div>' +
@@ -519,7 +523,7 @@ var PHONE = (function () {
 
     /* ---------- Extra soorten: zakelijke schermen zoals de echte apps (alleen voorbeeld; bij het scannen opent de echte app) ---------- */
     phone: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), logo = exPhoto('phone', ex);
+      var name = c.title || (ex ? exBiz('phone') : ''), logo = exPhoto('phone', ex);
       var btn = function (k) { return '<span>' + ic(k) + '</span>'; };
       return '<div class="ph ph-call">' + (logo ? '<div class="cl-bg" style="background-image:url(' + logo + ')"></div>' : '') + statusBar(true) +
         '<div class="cl-top"><small class="cl-time">00:12</small><h4>' + v(name, '55%') + '</h4><small>' + v(c.phone, '45%') + '</small>' +
@@ -537,7 +541,7 @@ var PHONE = (function () {
           '<div class="kb-r"><i class="kb-w">123</i><i class="kb-sp"></i><i class="kb-w kb-ok">⏎</i></div></div></div>';
     },
     location: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), addr = ADDRESS.text(c.address) || (ex ? EX_ADDR : ''), photo = exPhoto('location', ex);
+      var name = c.title || (ex ? exBiz('location') : ''), addr = ADDRESS.text(c.address) || (ex ? EX_ADDR : ''), photo = exPhoto('location', ex);
       return '<div class="ph ph-loc">' + statusBar() + '<div class="lc-map"><i class="lc-r a"></i><i class="lc-r b"></i><i class="lc-r c"></i><i class="lc-r d"></i><i class="lc-park"></i><span class="lc-pin">' + ic('pin') + '</span></div>' +
         '<div class="lc-sheet"><i class="lc-grab"></i>' + (photo ? '<div class="lc-photo"><img src="' + photo + '" alt=""></div>' : '') +
           '<h4>' + v(name, '55%') + '</h4><div class="lc-rate"><b>4,8</b><span>★★★★★</span><small>(' + i18n.fmt.num(312) + ')</small></div>' +
@@ -545,7 +549,7 @@ var PHONE = (function () {
           '<div class="lc-btns"><span class="on">' + ic('pin') + esc(t('pv.ext.route')) + '</span><span>' + ic('call') + esc(t('pv.ext.call')) + '</span><span>' + ic('globe') + esc(t('pv.biz.website')) + '</span></div></div></div>';
     },
     payment: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), logo = exPhoto('payment', ex);
+      var name = c.title || (ex ? exBiz('payment') : ''), logo = exPhoto('payment', ex);
       return '<div class="ph ph-pay">' + statusBar(true) + '<div class="py-head"><span class="py-logo">' + (logo ? '<img src="' + logo + '" alt="">' : esc(initials(name) || '€')) + '</span><b>' + v(name, '50%') + '</b><small>' + ic('lock') + esc(t('pv.pay.secure')) + '</small></div>' +
         '<div class="py-amount"><small>' + esc(t('pv.pay.title')) + '</small><b>' + esc(i18n.fmt.eur(24.5)) + '</b><span>' + esc(t('pv.pay.order')) + '</span></div>' +
         '<div class="py-lines"><span><em>' + esc(t('pv.pay.l1')) + '</em><b>' + esc(i18n.fmt.eur(21)) + '</b></span><span><em>' + esc(t('pv.pay.l2')) + '</em><b>' + esc(i18n.fmt.eur(3.5)) + '</b></span></div>' +
@@ -560,7 +564,7 @@ var PHONE = (function () {
         '<div class="tt-grid">' + th.map(function (n, i) { return '<span' + (on ? ' style="background-image:url(' + asset('assets/previews/' + n + '.jpg') + ')"' : '') + '><em>▶ ' + i18n.fmt.compact([12400, 8100, 31200, 5400, 19800, 7600, 44100, 2900, 15300][i]) + '</em></span>'; }).join('') + '</div></div>';
     },
     linkedin: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), on = exPhoto('linkedin', ex);
+      var name = c.title || (ex ? exBiz('linkedin') : ''), on = exPhoto('linkedin', ex);
       return '<div class="ph ph-li">' + statusBar() + '<div class="li-bar">' + ic('search') + '<span>' + esc(name || 'LinkedIn') + '</span></div>' +
         '<div class="li-cover"' + (on ? ' style="background-image:url(' + asset('assets/previews/location.jpg') + ')"' : '') + '></div>' +
         '<div class="li-main"><span class="li-logo">' + esc(initials(name) || 'in') + '</span><h4>' + v(name, '55%') + '</h4><p>' + esc(t('pv.li.tag')) + '</p>' +
@@ -569,7 +573,7 @@ var PHONE = (function () {
         '<div class="li-post"><b>' + v(name, '40%') + '</b><p>' + esc(t('pv.li.post')) + '</p>' + (on ? '<div class="li-img" style="background-image:url(' + on + ')"></div>' : '') + '</div></div>';
     },
     youtube: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), on = exPhoto('youtube', ex);
+      var name = c.title || (ex ? exBiz('youtube') : ''), on = exPhoto('youtube', ex);
       var vid = function (img, title, views, dur) { return '<div class="yt-vid"><span class="yt-th"' + (on ? ' style="background-image:url(' + asset('assets/previews/' + img + '.jpg') + ')"' : '') + '><em>' + dur + '</em></span><span><b>' + esc(title) + '</b><small>' + esc(t('pv.yt.views', { n: i18n.fmt.compact(views) })) + '</small></span></div>'; };
       return '<div class="ph ph-yt">' + statusBar() + '<div class="yt-banner"' + (on ? ' style="background-image:url(' + asset('assets/previews/menu.jpg') + ')"' : '') + '></div>' +
         '<div class="yt-main"><span class="yt-av">' + esc(initials(name) || '▶') + '</span><div><h4>' + v(name, '60%') + '</h4><small>' + esc(t('pv.yt.meta', { n: i18n.fmt.compact(18200), v: 64 })) + '</small></div></div>' +
@@ -577,14 +581,14 @@ var PHONE = (function () {
         vid('youtube', t('pv.yt.v1'), 23400, '8:12') + vid('event', t('pv.yt.v2'), 9100, '3:45') + '</div>';
     },
     spotify: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), on = exPhoto('spotify', ex), tracks = ['Sunset Terrace', 'Morning Espresso', 'Golden Hour', 'Mediterráneo', 'Slow Sunday'];
+      var name = c.title || (ex ? exBiz('spotify') : ''), on = exPhoto('spotify', ex), tracks = ['Sunset Terrace', 'Morning Espresso', 'Golden Hour', 'Mediterráneo', 'Slow Sunday'];
       return '<div class="ph ph-sp">' + statusBar(true) + '<div class="sp-cover">' + (on ? '<img src="' + on + '" alt="">' : '<span>' + ic('play') + '</span>') + '</div>' +
         '<h4>' + esc(t('pv.sp.title', { name: name || 'Playlist' })) + '</h4><small>' + esc(t('pv.sp.meta', { n: 42 })) + '</small>' +
         '<div class="sp-ctl"><span class="sp-heart">♡</span><span class="sp-play">' + ic('play') + '</span></div>' +
         '<ol class="sp-list">' + tracks.map(function (x, i) { return '<li><span class="sp-n">' + (i + 1) + '</span><span><b>' + esc(x) + '</b><small>' + esc(name || 'QR-Codex') + '</small></span><em>' + ['3:41', '4:02', '3:18', '5:06', '3:55'][i] + '</em></li>'; }).join('') + '</ol></div>';
     },
     telegram: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), on = exPhoto('telegram', ex) || (ex ? asset('assets/previews/menu.jpg') : ''), on2 = on ? asset('assets/previews/location.jpg') : '';
+      var name = c.title || (ex ? exBiz('telegram') : ''), on = exPhoto('telegram', ex) || (ex ? asset('assets/previews/menu.jpg') : ''), on2 = on ? asset('assets/previews/location.jpg') : '';
       var re = function (a, b) { return '<div class="tl-re"><span>❤️ ' + a + '</span><span>🔥 ' + b + '</span></div>'; };
       return '<div class="ph ph-tl">' + statusBar() + '<div class="tl-head">' + ic('back') + '<span class="tl-av">' + esc(initials(name) || 'T') + '</span><span><b>' + v(name, '50%') + '</b><small>' + esc(t('pv.tg.subs', { n: i18n.fmt.num(3420) })) + '</small></span></div>' +
         '<div class="tl-pin"><i></i><span>' + esc(t('pv.tg.m2')) + '</span></div>' +
@@ -593,7 +597,7 @@ var PHONE = (function () {
         '<button type="button" class="tl-join">' + esc(t('pv.tg.join')) + '</button></div>';
     },
     booking: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), on = exPhoto('booking', ex) || (ex ? asset('assets/previews/menu.jpg') : ''), d = new Date();
+      var name = c.title || (ex ? exBiz('booking') : ''), on = exPhoto('booking', ex) || (ex ? asset('assets/previews/menu.jpg') : ''), d = new Date();
       var days = [0, 1, 2, 3, 4].map(function (k) { var x = new Date(d.getTime() + k * 864e5); return '<span' + (k === 1 ? ' class="on"' : '') + '><small>' + esc(i18n.fmt.weekday((x.getDay() + 6) % 7).slice(0, 3)) + '</small><b>' + x.getDate() + '</b></span>'; }).join('');
       return '<div class="ph ph-bk">' + statusBar(!!on) + '<div class="bk-hero"' + (on ? ' style="background-image:url(' + on + ')"' : '') + '><b>' + v(name, '50%') + '</b><small>' + esc(t('pv.bk.title')) + '</small></div>' +
         '<div class="bk-body"><small class="bk-l">' + esc(t('pv.bk.date')) + '</small><div class="bk-days">' + days + '</div>' +
@@ -602,7 +606,7 @@ var PHONE = (function () {
           '<button type="button" class="bk-go">' + esc(t('pv.bk.reserve')) + '</button></div></div>';
     },
     meeting: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : '');
+      var name = c.title || (ex ? exBiz('meeting') : '');
       var tiles = [['Ana V.', 1], ['Jorge M.', 4], ['Lisa K.', 3]].map(function (p, i) { return '<span class="mt-tile" style="' + mesh(p[1]) + '"><b>' + esc(initials(p[0])) + '</b><em>' + (i === 0 ? ic('mic') : '') + esc(p[0]) + '</em></span>'; }).join('');
       return '<div class="ph ph-mt">' + statusBar(true) + '<div class="mt-top"><b>' + esc(t('pv.mt.title', { name: name || '…' })) + '</b><small>' + esc(t('pv.mt.others', { n: 3 })) + '</small></div>' +
         '<div class="mt-tiles">' + tiles + '<span class="mt-tile me"><span class="mt-me">' + ic('user') + '</span></span></div>' +
@@ -648,7 +652,7 @@ var PHONE = (function () {
 
     /* ---------- Feedback: sterren, opmerking, eventueel e-mail (met toestemming) ---------- */
     feedback: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), q = c.question || t('sample.fbQuestion');
+      var name = c.title || (ex ? exBiz('feedback') : ''), q = c.question || t('sample.fbQuestion');
       var stars = [1, 2, 3, 4, 5].map(function (i) { return '<button type="button" class="fb-star' + (ex && i <= 4 ? ' on' : '') + '" data-n="' + i + '" aria-label="' + esc(t('pv.feedback.stars', { n: i })) + '">' + ic('star') + '</button>'; }).join('');
       return '<div class="ph ph-fb">' + statusBar() +
         (exPhoto('feedback', ex) ? '<div class="fb-hero"><img src="' + exPhoto('feedback', ex) + '" alt=""></div>' : '') +
