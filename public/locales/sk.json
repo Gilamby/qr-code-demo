@@ -180,6 +180,10 @@
     "manual": {
       "name": "Návod",
       "desc": "Návod k produktu"
+    },
+    "signup": {
+      "name": "Prihlásenie",
+      "desc": "Newsletter, deň otvorených dverí alebo workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Potrebujete pomoc?",
       "call": "Zavolať",
       "mail": "E-mail"
+    },
+    "su": {
+      "tag": "Prihlásenie",
+      "name": "Meno",
+      "email": "E-mail",
+      "phone": "Telefón",
+      "consent": "Súhlasím, aby sa moje údaje použili len na toto prihlásenie.",
+      "send": "Prihlásiť sa",
+      "needFields": "Zadajte meno a platný e-mail.",
+      "needConsent": "Začiarknite políčko na súhlas."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Návod (PDF)",
     "manualVideo": "Vysvetľujúce video (odkaz)",
     "supportPhone": "Telefón zákazníckeho servisu",
-    "supportEmail": "E-mail zákazníckeho servisu"
+    "supportEmail": "E-mail zákazníckeho servisu",
+    "suTitle": "Na čo sa prihlasujú?",
+    "suAskPhone": "Pýtať sa aj na telefón"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espresso kávovar Barista Pro",
-    "manualModel": "Model BP-200"
+    "manualModel": "Model BP-200",
+    "suTitle": "Deň otvorených dverí v Studio Noord",
+    "suText": "Sobota 15. novembra, 10:00–15:00. Prehliadka, káva a rady k vášmu projektu.",
+    "suThanks": "Ste prihlásený. Uvidíme sa!"
   },
   "visit": {
     "locked": "Táto stránka je chránená",
@@ -3464,5 +3483,13 @@
     "csv": "Stiahnuť CSV",
     "delete": "Vymazať odpoveď",
     "deleteConfirm": "Natrvalo vymazať túto odpoveď?"
+  },
+  "su": {
+    "menu": "Prihlásenia",
+    "title": "Prihlásenia na „{name}“",
+    "none": "Zatiaľ žiadne prihlásenia. Zobrazia sa tu, keď sa niekto prihlási.",
+    "count": "Prihlásenia: {n}",
+    "delete": "Vymazať prihlásenie",
+    "deleteConfirm": "Natrvalo vymazať toto prihlásenie?"
   }
 }

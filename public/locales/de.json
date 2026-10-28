@@ -180,6 +180,10 @@
     "manual": {
       "name": "Anleitung",
       "desc": "Bedienungsanleitung für ein Produkt"
+    },
+    "signup": {
+      "name": "Anmeldung",
+      "desc": "Newsletter, Tag der offenen Tür oder Workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Hilfe nötig?",
       "call": "Anrufen",
       "mail": "E-Mail"
+    },
+    "su": {
+      "tag": "Anmeldung",
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "consent": "Ich stimme zu, dass meine Daten nur für diese Anmeldung verwendet werden.",
+      "send": "Anmelden",
+      "needFields": "Bitte Namen und eine gültige E-Mail-Adresse eingeben.",
+      "needConsent": "Bitte das Kästchen ankreuzen."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Anleitung (PDF)",
     "manualVideo": "Erklärvideo (Link)",
     "supportPhone": "Telefon Kundenservice",
-    "supportEmail": "E-Mail Kundenservice"
+    "supportEmail": "E-Mail Kundenservice",
+    "suTitle": "Wofür meldet man sich an?",
+    "suAskPhone": "Auch nach Telefonnummer fragen"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espressomaschine Barista Pro",
-    "manualModel": "Modell BP-200"
+    "manualModel": "Modell BP-200",
+    "suTitle": "Tag der offenen Tür bei Studio Noord",
+    "suText": "Samstag, 15. November, 10:00–15:00. Führung, Kaffee und Beratung zu Ihrem Projekt.",
+    "suThanks": "Sie sind angemeldet. Bis dann!"
   },
   "visit": {
     "locked": "Diese Seite ist geschützt",
@@ -3470,5 +3489,13 @@
     "csv": "CSV herunterladen",
     "delete": "Antwort löschen",
     "deleteConfirm": "Diese Antwort endgültig löschen?"
+  },
+  "su": {
+    "menu": "Anmeldungen",
+    "title": "Anmeldungen für „{name}“",
+    "none": "Noch keine Anmeldungen. Sie erscheinen hier, sobald sich jemand anmeldet.",
+    "count": "Anmeldungen: {n}",
+    "delete": "Anmeldung löschen",
+    "deleteConfirm": "Diese Anmeldung endgültig löschen?"
   }
 }

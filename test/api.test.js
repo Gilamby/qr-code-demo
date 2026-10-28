@@ -1180,6 +1180,21 @@ test('extra soorten: e-mail, bellen en locatie openen de juiste app; links allee
   assert.equal((await fetch(base + '/q/' + man.json.id)).status, 200, 'handleiding-pagina');
 });
 
+test('aanmelden: alleen met toestemming, zelfde e-mail niet dubbel, eigenaar ziet en wist', async () => {
+  const k = client(); await signup(k, 'su-k@example.com', 'Aanmelden zin 27!', 'Klant Aanmelden');
+  const c = await k('POST', '/api/qr-codes', { typeId: 'signup', content: { title: 'Open dag', askPhone: '1' }, design: {} }); assert.equal(c.status, 201);
+  const post = (b) => fetch(base + '/api/signup/' + c.json.id, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) });
+  assert.equal((await post({ name: 'Ana', email: 'ana@example.com' })).status, 400, 'zonder toestemming');
+  assert.equal((await post({ name: 'A', email: 'geen-mail', consent: true })).status, 400);
+  assert.equal((await post({ name: 'Ana', email: 'ana@example.com', phone: '+34 600 111 222', consent: true })).status, 201);
+  assert.equal((await post({ name: 'Ana Ruiz', email: 'ANA@example.com', consent: true })).status, 201);
+  const l = await k('GET', '/api/qr-codes/' + c.json.id + '/signups'); assert.equal(l.json.count, 1, 'zelfde e-mail = bijgewerkt'); assert.equal(l.json.items[0].name, 'Ana Ruiz');
+  const other = client(); await signup(other, 'su-o@example.com', 'Aanmelden zin 28!', 'Ander');
+  assert.equal((await other('GET', '/api/qr-codes/' + c.json.id + '/signups')).status, 404, 'alleen de eigenaar');
+  assert.equal((await k('DELETE', '/api/qr-codes/' + c.json.id + '/signups/' + l.json.items[0].id)).status, 204);
+  assert.equal((await k('GET', '/api/qr-codes/' + c.json.id + '/signups')).json.count, 0);
+});
+
 test('extra soorten alleen in Pro en Business: Standard krijgt 403', async () => {
   const k = client(); await signup(k, 'std-k@example.com', 'Standaard pakket zin 27!', 'Klant Standard');
   assert.equal((await k('POST', '/api/account/checkout-demo', { plan: 'standard', period: 'month' })).status, 200);

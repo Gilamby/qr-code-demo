@@ -623,6 +623,18 @@ var PHONE = (function () {
         '<button type="button" class="tx-copy">' + ic('copy') + '<span>' + esc(t('pv.text.copy')) + '</span></button></article></div>';
     },
 
+    /* ---------- Aanmelden: titel, korte tekst, naam + e-mail (+ telefoon), toestemming ---------- */
+    signup: function (c, ex) {
+      var title = c.title || (ex ? t('sample.suTitle') : ''), text = c.text || (ex ? t('sample.suText') : ''), cover = c.photo || exPhoto('signup', ex);
+      var inp = function (cls, type, lbl, ac) { return '<label class="su-f"><span>' + esc(t(lbl)) + '</span><input class="' + cls + '" type="' + type + '" maxlength="' + (type === 'email' ? 200 : 80) + '" autocomplete="' + ac + '"></label>'; };
+      return '<div class="ph ph-su">' + statusBar(!!cover) + (cover ? '<div class="su-hero"><img src="' + cover + '" alt=""></div>' : '<div class="su-band"></div>') +
+        '<div class="su-form"><span class="su-tag">' + ic('cal') + esc(t('pv.su.tag')) + '</span><h4>' + v(title, '70%') + '</h4>' + (text ? '<p class="su-txt">' + esc(text) + '</p>' : '') +
+          inp('su-name', 'text', 'pv.su.name', 'name') + inp('su-email', 'email', 'pv.su.email', 'email') + (c.askPhone ? inp('su-phone', 'tel', 'pv.su.phone', 'tel') : '') +
+          '<label class="su-ok"><input type="checkbox" class="su-consent"><span>' + esc(t('pv.su.consent')) + '</span></label>' +
+          '<button type="button" class="su-send">' + esc(t('pv.su.send')) + '</button><p class="su-err" hidden></p></div>' +
+        '<div class="su-done" hidden><span class="su-check">' + ic('check') + '</span><h4>' + esc(c.thanks || t('sample.suThanks')) + '</h4></div></div>';
+    },
+
     /* ---------- Handleiding: product, PDF downloaden, uitlegvideo, klantenservice ---------- */
     manual: function (c, ex) {
       var f = FILES.parse(c.file), name = c.title || (ex ? t('sample.manualProduct') : ''), model = c.model || (ex ? t('sample.manualModel') : '');

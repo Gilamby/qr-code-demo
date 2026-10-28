@@ -180,6 +180,10 @@
     "manual": {
       "name": "Manuale",
       "desc": "Manuale di un prodotto"
+    },
+    "signup": {
+      "name": "Iscrizione",
+      "desc": "Newsletter, open day o workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Serve aiuto?",
       "call": "Chiama",
       "mail": "Email"
+    },
+    "su": {
+      "tag": "Iscrizione",
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefono",
+      "consent": "Accetto che i miei dati siano usati solo per questa iscrizione.",
+      "send": "Iscriviti",
+      "needFields": "Inserisci nome e un indirizzo email valido.",
+      "needConsent": "Spunta la casella per accettare."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Manuale (PDF)",
     "manualVideo": "Video esplicativo (link)",
     "supportPhone": "Telefono assistenza clienti",
-    "supportEmail": "Email assistenza clienti"
+    "supportEmail": "Email assistenza clienti",
+    "suTitle": "Per cosa ci si iscrive?",
+    "suAskPhone": "Chiedi anche il telefono"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Macchina espresso Barista Pro",
-    "manualModel": "Modello BP-200"
+    "manualModel": "Modello BP-200",
+    "suTitle": "Open day da Studio Noord",
+    "suText": "Sabato 15 novembre, 10:00–15:00. Visita, caffè e consigli sul tuo progetto.",
+    "suThanks": "Iscrizione completata. A presto!"
   },
   "visit": {
     "locked": "Questa pagina è protetta",
@@ -3464,5 +3483,13 @@
     "csv": "Scarica CSV",
     "delete": "Elimina risposta",
     "deleteConfirm": "Eliminare definitivamente questa risposta?"
+  },
+  "su": {
+    "menu": "Iscrizioni",
+    "title": "Iscrizioni per “{name}”",
+    "none": "Ancora nessuna iscrizione. Appariranno qui appena qualcuno si iscrive.",
+    "count": "Iscrizioni: {n}",
+    "delete": "Elimina iscrizione",
+    "deleteConfirm": "Eliminare definitivamente questa iscrizione?"
   }
 }

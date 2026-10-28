@@ -180,6 +180,10 @@
     "manual": {
       "name": "Manual",
       "desc": "Manual de um produto"
+    },
+    "signup": {
+      "name": "Inscrição",
+      "desc": "Newsletter, dia aberto ou workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Precisa de ajuda?",
       "call": "Ligar",
       "mail": "E-mail"
+    },
+    "su": {
+      "tag": "Inscrição",
+      "name": "Nome",
+      "email": "E-mail",
+      "phone": "Telefone",
+      "consent": "Aceito que os meus dados sejam usados apenas para esta inscrição.",
+      "send": "Inscrever-me",
+      "needFields": "Indique o seu nome e um e-mail válido.",
+      "needConsent": "Marque a caixa para aceitar."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Manual (PDF)",
     "manualVideo": "Vídeo explicativo (link)",
     "supportPhone": "Telefone do apoio ao cliente",
-    "supportEmail": "E-mail do apoio ao cliente"
+    "supportEmail": "E-mail do apoio ao cliente",
+    "suTitle": "Para que se inscrevem?",
+    "suAskPhone": "Pedir também o telefone"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Máquina de café expresso Barista Pro",
-    "manualModel": "Modelo BP-200"
+    "manualModel": "Modelo BP-200",
+    "suTitle": "Dia aberto no Studio Noord",
+    "suText": "Sábado, 15 de novembro, 10:00–15:00. Visita, café e conselhos sobre o seu projeto.",
+    "suThanks": "Está inscrito. Até breve!"
   },
   "visit": {
     "locked": "Esta página está protegida",
@@ -3464,5 +3483,13 @@
     "csv": "Descarregar CSV",
     "delete": "Apagar resposta",
     "deleteConfirm": "Apagar esta resposta de vez?"
+  },
+  "su": {
+    "menu": "Inscrições",
+    "title": "Inscrições para “{name}”",
+    "none": "Ainda sem inscrições. Aparecem aqui assim que alguém se inscrever.",
+    "count": "Inscrições: {n}",
+    "delete": "Eliminar inscrição",
+    "deleteConfirm": "Eliminar esta inscrição definitivamente?"
   }
 }

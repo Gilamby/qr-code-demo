@@ -271,6 +271,8 @@ var api = (function () {
     codeHistory:    function (id)    { return request('GET', 'api/qr-codes/' + encodeURIComponent(id) + '/history'); },
     restoreVersion: function (id, n) { return request('POST', 'api/qr-codes/' + encodeURIComponent(id) + '/history/' + n + '/restore', {}); },
     codeFeedback: function (id) { return request('GET', 'api/qr-codes/' + encodeURIComponent(id) + '/feedback'); },
+    codeSignups: function (id) { return request('GET', 'api/qr-codes/' + encodeURIComponent(id) + '/signups'); },
+    codeSignupDel: function (id, sid) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id) + '/signups/' + encodeURIComponent(sid)); },
     codeFeedbackDel: function (id, fid) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id) + '/feedback/' + encodeURIComponent(fid)); },
     duplicateQrCode: either(function (id, d) { return request('POST', 'api/qr-codes/' + encodeURIComponent(id) + '/duplicate', d || {}); }, local.duplicate),
     // Mappen in Mijn QR-codes

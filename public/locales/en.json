@@ -180,6 +180,10 @@
     "manual": {
       "name": "Manual",
       "desc": "User manual for a product"
+    },
+    "signup": {
+      "name": "Sign-up",
+      "desc": "Newsletter, open day or workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Need help?",
       "call": "Call",
       "mail": "Email"
+    },
+    "su": {
+      "tag": "Sign up",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "consent": "I agree that my details are used for this sign-up only.",
+      "send": "Sign up",
+      "needFields": "Please enter your name and a valid email address.",
+      "needConsent": "Please tick the box to agree."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Manual (PDF)",
     "manualVideo": "Explainer video (link)",
     "supportPhone": "Customer service phone",
-    "supportEmail": "Customer service email"
+    "supportEmail": "Customer service email",
+    "suTitle": "What are people signing up for?",
+    "suAskPhone": "Also ask for a phone number"
   },
   "panel": {
     "selected": "{type} selected"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Barista Pro espresso machine",
-    "manualModel": "Model BP-200"
+    "manualModel": "Model BP-200",
+    "suTitle": "Open day at Studio Noord",
+    "suText": "Saturday 15 November, 10:00–15:00. Tour, coffee and advice on your own project.",
+    "suThanks": "You're signed up. See you then!"
   },
   "visit": {
     "locked": "This page is protected",
@@ -3509,5 +3528,13 @@
     "csv": "Download CSV",
     "delete": "Delete response",
     "deleteConfirm": "Delete this response for good?"
+  },
+  "su": {
+    "menu": "Sign-ups",
+    "title": "Sign-ups for “{name}”",
+    "none": "No sign-ups yet. They appear here as soon as someone signs up.",
+    "count": "Sign-ups: {n}",
+    "delete": "Delete sign-up",
+    "deleteConfirm": "Delete this sign-up for good?"
   }
 }

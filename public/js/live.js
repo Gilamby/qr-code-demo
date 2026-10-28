@@ -74,6 +74,19 @@
       var b = $('.tx-copy'); if (!b) return; b.setAttribute('data-go', '');
       b.onclick = function () { if (navigator.clipboard) navigator.clipboard.writeText(c.text || '').then(function () { toast(t('pv.text.copied')); }); };
     },
+    signup: function () {
+      var send = $('.su-send'); if (!send) return;
+      function err(m) { var e = $('.su-err'); e.textContent = m; e.hidden = !m; }
+      send.onclick = function () {
+        var name = $('.su-name').value.trim(), email = $('.su-email').value.trim(), ph = $('.su-phone'), ok = $('.su-consent').checked;
+        if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err(t('pv.su.needFields'));
+        if (!ok) return err(t('pv.su.needConsent'));
+        send.disabled = true; err('');
+        fetch('/api/signup/' + encodeURIComponent(L.id), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, email: email, phone: ph ? ph.value.trim() : '', consent: true }) })
+          .then(function (r) { if (!r.ok) throw r; $('.su-form').hidden = true; var h = $('.su-hero'); if (h) h.hidden = true; $('.su-done').hidden = false; })
+          .catch(function (r) { send.disabled = false; err(t(r && r.status === 429 ? 'pv.feedback.tooMany' : r && r.status === 400 ? 'pv.su.needFields' : 'pv.feedback.failed')); });
+      };
+    },
     manual: function () {
       var o = FILES.parse(c.file), dl = $('.mn-dl'), vid = $('.mn-video'), call = $('.mn-call'), m = $('.mn-mail');
       if (dl) { if (o && o.url) go(dl, o.url, o.n); else dl.remove(); }

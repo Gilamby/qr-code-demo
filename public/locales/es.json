@@ -180,6 +180,10 @@
     "manual": {
       "name": "Manual",
       "desc": "Manual de un producto"
+    },
+    "signup": {
+      "name": "Inscripción",
+      "desc": "Boletín, jornada de puertas abiertas o taller"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "¿Necesitas ayuda?",
       "call": "Llamar",
       "mail": "Correo"
+    },
+    "su": {
+      "tag": "Inscripción",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "consent": "Acepto que mis datos se usen solo para esta inscripción.",
+      "send": "Inscribirme",
+      "needFields": "Introduce tu nombre y un correo válido.",
+      "needConsent": "Marca la casilla para aceptar."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Manual (PDF)",
     "manualVideo": "Vídeo explicativo (enlace)",
     "supportPhone": "Teléfono de atención al cliente",
-    "supportEmail": "Correo de atención al cliente"
+    "supportEmail": "Correo de atención al cliente",
+    "suTitle": "¿Para qué se inscriben?",
+    "suAskPhone": "Pedir también el teléfono"
   },
   "panel": {
     "selected": "{type} seleccionado"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Cafetera espresso Barista Pro",
-    "manualModel": "Modelo BP-200"
+    "manualModel": "Modelo BP-200",
+    "suTitle": "Jornada de puertas abiertas en Studio Noord",
+    "suText": "Sábado 15 de noviembre, 10:00–15:00. Visita, café y consejos sobre tu proyecto.",
+    "suThanks": "¡Ya estás inscrito! Nos vemos."
   },
   "visit": {
     "locked": "Esta página está protegida",
@@ -3509,5 +3528,13 @@
     "csv": "Descargar CSV",
     "delete": "Borrar respuesta",
     "deleteConfirm": "¿Borrar esta respuesta para siempre?"
+  },
+  "su": {
+    "menu": "Inscripciones",
+    "title": "Inscripciones para “{name}”",
+    "none": "Aún no hay inscripciones. Aparecerán aquí en cuanto alguien se inscriba.",
+    "count": "Inscripciones: {n}",
+    "delete": "Eliminar inscripción",
+    "deleteConfirm": "¿Eliminar esta inscripción definitivamente?"
   }
 }

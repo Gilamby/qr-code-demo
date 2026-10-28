@@ -19,7 +19,7 @@
     // daarna die van je pagina (per type onthouden).
     var base = state.step === 'type' ? (type.theme || ['#2bb5f0', '#0f172a']) : shown === state.typeId ? [state.pageColor, state.accentColor] : typeColors(shown, state);
     var h = state.hoverTheme || {}, pc = h.pc || base[0], ac = h.ac || base[1];
-    var ink = function (c) { return luminance(c) > 0.42 ? '#14161a' : '#ffffff'; };   // leesbare tekst op elke kleur
+    var ink = function (c) { return luminance(c) > 0.2 ? '#14161a' : '#ffffff'; };   // leesbare tekst op elke kleur: wit of donker, wat het meeste contrast geeft
     screen.style.setProperty('--pc', pc); screen.style.setProperty('--pc-ink', ink(pc));
     screen.style.setProperty('--ac', ac); screen.style.setProperty('--ac-ink', ink(ac));
   }

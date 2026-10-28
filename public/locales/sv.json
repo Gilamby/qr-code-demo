@@ -180,6 +180,10 @@
     "manual": {
       "name": "Bruksanvisning",
       "desc": "Bruksanvisning för en produkt"
+    },
+    "signup": {
+      "name": "Anmälan",
+      "desc": "Nyhetsbrev, öppet hus eller workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Behöver du hjälp?",
       "call": "Ring",
       "mail": "E-post"
+    },
+    "su": {
+      "tag": "Anmälan",
+      "name": "Namn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "consent": "Jag godkänner att mina uppgifter bara används för denna anmälan.",
+      "send": "Anmäl mig",
+      "needFields": "Fyll i ditt namn och en giltig e-postadress.",
+      "needConsent": "Kryssa i rutan för att godkänna."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Bruksanvisning (PDF)",
     "manualVideo": "Instruktionsvideo (länk)",
     "supportPhone": "Telefon kundtjänst",
-    "supportEmail": "E-post kundtjänst"
+    "supportEmail": "E-post kundtjänst",
+    "suTitle": "Vad anmäler man sig till?",
+    "suAskPhone": "Fråga även efter telefonnummer"
   },
   "panel": {
     "selected": "{type} vald"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espressomaskin Barista Pro",
-    "manualModel": "Modell BP-200"
+    "manualModel": "Modell BP-200",
+    "suTitle": "Öppet hus hos Studio Noord",
+    "suText": "Lördag 15 november, 10:00–15:00. Visning, kaffe och råd om ditt projekt.",
+    "suThanks": "Du är anmäld. Vi ses!"
   },
   "visit": {
     "locked": "Den här sidan är skyddad",
@@ -3464,5 +3483,13 @@
     "csv": "Ladda ner CSV",
     "delete": "Radera svar",
     "deleteConfirm": "Radera svaret för gott?"
+  },
+  "su": {
+    "menu": "Anmälningar",
+    "title": "Anmälningar till ”{name}”",
+    "none": "Inga anmälningar än. De visas här så fort någon anmäler sig.",
+    "count": "Anmälningar: {n}",
+    "delete": "Radera anmälan",
+    "deleteConfirm": "Radera denna anmälan för gott?"
   }
 }

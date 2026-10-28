@@ -180,6 +180,10 @@
     "manual": {
       "name": "Mode d'emploi",
       "desc": "Mode d'emploi d'un produit"
+    },
+    "signup": {
+      "name": "Inscription",
+      "desc": "Newsletter, portes ouvertes ou atelier"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Besoin d'aide ?",
       "call": "Appeler",
       "mail": "E-mail"
+    },
+    "su": {
+      "tag": "Inscription",
+      "name": "Nom",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "consent": "J'accepte que mes données soient utilisées uniquement pour cette inscription.",
+      "send": "S'inscrire",
+      "needFields": "Indiquez votre nom et une adresse e-mail valide.",
+      "needConsent": "Cochez la case pour accepter."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Mode d'emploi (PDF)",
     "manualVideo": "Vidéo explicative (lien)",
     "supportPhone": "Téléphone du service client",
-    "supportEmail": "E-mail du service client"
+    "supportEmail": "E-mail du service client",
+    "suTitle": "Pour quoi s'inscrit-on ?",
+    "suAskPhone": "Demander aussi le téléphone"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Machine espresso Barista Pro",
-    "manualModel": "Modèle BP-200"
+    "manualModel": "Modèle BP-200",
+    "suTitle": "Portes ouvertes chez Studio Noord",
+    "suText": "Samedi 15 novembre, 10h00–15h00. Visite, café et conseils pour votre projet.",
+    "suThanks": "Vous êtes inscrit. À bientôt !"
   },
   "visit": {
     "locked": "Cette page est protégée",
@@ -3470,5 +3489,13 @@
     "csv": "Télécharger le CSV",
     "delete": "Supprimer la réponse",
     "deleteConfirm": "Supprimer définitivement cette réponse ?"
+  },
+  "su": {
+    "menu": "Inscriptions",
+    "title": "Inscriptions pour « {name} »",
+    "none": "Pas encore d'inscriptions. Elles apparaîtront ici dès qu'une personne s'inscrit.",
+    "count": "Inscriptions : {n}",
+    "delete": "Supprimer l'inscription",
+    "deleteConfirm": "Supprimer définitivement cette inscription ?"
   }
 }

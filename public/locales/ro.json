@@ -180,6 +180,10 @@
     "manual": {
       "name": "Manual",
       "desc": "Manualul unui produs"
+    },
+    "signup": {
+      "name": "Înscriere",
+      "desc": "Newsletter, zi a porților deschise sau atelier"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Ai nevoie de ajutor?",
       "call": "Sună",
       "mail": "E-mail"
+    },
+    "su": {
+      "tag": "Înscriere",
+      "name": "Nume",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "consent": "Sunt de acord ca datele mele să fie folosite doar pentru această înscriere.",
+      "send": "Înscrie-mă",
+      "needFields": "Introdu numele și o adresă de e-mail validă.",
+      "needConsent": "Bifează căsuța pentru a accepta."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Manual (PDF)",
     "manualVideo": "Video explicativ (link)",
     "supportPhone": "Telefon serviciu clienți",
-    "supportEmail": "E-mail serviciu clienți"
+    "supportEmail": "E-mail serviciu clienți",
+    "suTitle": "Pentru ce se înscriu?",
+    "suAskPhone": "Cere și numărul de telefon"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espressor Barista Pro",
-    "manualModel": "Model BP-200"
+    "manualModel": "Model BP-200",
+    "suTitle": "Ziua porților deschise la Studio Noord",
+    "suText": "Sâmbătă, 15 noiembrie, 10:00–15:00. Tur, cafea și sfaturi pentru proiectul tău.",
+    "suThanks": "Te-ai înscris. Ne vedem!"
   },
   "visit": {
     "locked": "Această pagină este protejată",
@@ -3464,5 +3483,13 @@
     "csv": "Descarcă CSV",
     "delete": "Șterge răspunsul",
     "deleteConfirm": "Ștergi definitiv acest răspuns?"
+  },
+  "su": {
+    "menu": "Înscrieri",
+    "title": "Înscrieri pentru „{name}”",
+    "none": "Încă nu există înscrieri. Apar aici imediat ce se înscrie cineva.",
+    "count": "Înscrieri: {n}",
+    "delete": "Șterge înscrierea",
+    "deleteConfirm": "Ștergi definitiv această înscriere?"
   }
 }

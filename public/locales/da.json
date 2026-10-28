@@ -180,6 +180,10 @@
     "manual": {
       "name": "Vejledning",
       "desc": "Vejledning til et produkt"
+    },
+    "signup": {
+      "name": "Tilmelding",
+      "desc": "Nyhedsbrev, åbent hus eller workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Brug for hjælp?",
       "call": "Ring",
       "mail": "E-mail"
+    },
+    "su": {
+      "tag": "Tilmelding",
+      "name": "Navn",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "consent": "Jeg accepterer, at mine oplysninger kun bruges til denne tilmelding.",
+      "send": "Tilmeld",
+      "needFields": "Udfyld dit navn og en gyldig e-mailadresse.",
+      "needConsent": "Sæt flueben for at acceptere."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Vejledning (PDF)",
     "manualVideo": "Forklaringsvideo (link)",
     "supportPhone": "Telefon kundeservice",
-    "supportEmail": "E-mail kundeservice"
+    "supportEmail": "E-mail kundeservice",
+    "suTitle": "Hvad tilmelder man sig?",
+    "suAskPhone": "Spørg også om telefonnummer"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espressomaskine Barista Pro",
-    "manualModel": "Model BP-200"
+    "manualModel": "Model BP-200",
+    "suTitle": "Åbent hus hos Studio Noord",
+    "suText": "Lørdag 15. november, 10:00–15:00. Rundvisning, kaffe og råd om dit projekt.",
+    "suThanks": "Du er tilmeldt. Vi ses!"
   },
   "visit": {
     "locked": "Denne side er beskyttet",
@@ -3464,5 +3483,13 @@
     "csv": "Download CSV",
     "delete": "Slet svar",
     "deleteConfirm": "Slet dette svar for altid?"
+  },
+  "su": {
+    "menu": "Tilmeldinger",
+    "title": "Tilmeldinger til “{name}”",
+    "none": "Ingen tilmeldinger endnu. De vises her, så snart nogen tilmelder sig.",
+    "count": "Tilmeldinger: {n}",
+    "delete": "Slet tilmelding",
+    "deleteConfirm": "Slet denne tilmelding permanent?"
   }
 }

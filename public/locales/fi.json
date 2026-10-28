@@ -180,6 +180,10 @@
     "manual": {
       "name": "Käyttöohje",
       "desc": "Tuotteen käyttöohje"
+    },
+    "signup": {
+      "name": "Ilmoittautuminen",
+      "desc": "Uutiskirje, avoimet ovet tai työpaja"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Tarvitsetko apua?",
       "call": "Soita",
       "mail": "Sähköposti"
+    },
+    "su": {
+      "tag": "Ilmoittautuminen",
+      "name": "Nimi",
+      "email": "Sähköposti",
+      "phone": "Puhelin",
+      "consent": "Hyväksyn, että tietojani käytetään vain tähän ilmoittautumiseen.",
+      "send": "Ilmoittaudu",
+      "needFields": "Anna nimesi ja kelvollinen sähköpostiosoite.",
+      "needConsent": "Hyväksy rastittamalla ruutu."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Käyttöohje (PDF)",
     "manualVideo": "Opastusvideo (linkki)",
     "supportPhone": "Asiakaspalvelun puhelin",
-    "supportEmail": "Asiakaspalvelun sähköposti"
+    "supportEmail": "Asiakaspalvelun sähköposti",
+    "suTitle": "Mihin ilmoittaudutaan?",
+    "suAskPhone": "Kysy myös puhelinnumeroa"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espressokeitin Barista Pro",
-    "manualModel": "Malli BP-200"
+    "manualModel": "Malli BP-200",
+    "suTitle": "Avoimet ovet Studio Noordissa",
+    "suText": "Lauantai 15. marraskuuta klo 10–15. Esittely, kahvia ja neuvoja omaan projektiisi.",
+    "suThanks": "Olet ilmoittautunut. Nähdään!"
   },
   "visit": {
     "locked": "Tämä sivu on suojattu",
@@ -3464,5 +3483,13 @@
     "csv": "Lataa CSV",
     "delete": "Poista vastaus",
     "deleteConfirm": "Poistetaanko vastaus pysyvästi?"
+  },
+  "su": {
+    "menu": "Ilmoittautumiset",
+    "title": "Ilmoittautumiset: ”{name}”",
+    "none": "Ei vielä ilmoittautumisia. Ne näkyvät täällä heti, kun joku ilmoittautuu.",
+    "count": "Ilmoittautumisia: {n}",
+    "delete": "Poista ilmoittautuminen",
+    "deleteConfirm": "Poistetaanko ilmoittautuminen pysyvästi?"
   }
 }

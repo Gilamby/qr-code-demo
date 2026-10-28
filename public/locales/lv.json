@@ -180,6 +180,10 @@
     "manual": {
       "name": "Rokasgrāmata",
       "desc": "Produkta lietošanas instrukcija"
+    },
+    "signup": {
+      "name": "Pieteikšanās",
+      "desc": "Jaunumu vēstule, atvērto durvju diena vai darbnīca"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Vajadzīga palīdzība?",
       "call": "Zvanīt",
       "mail": "E-pasts"
+    },
+    "su": {
+      "tag": "Pieteikšanās",
+      "name": "Vārds",
+      "email": "E-pasts",
+      "phone": "Tālrunis",
+      "consent": "Piekrītu, ka mani dati tiek izmantoti tikai šai pieteikšanās reizei.",
+      "send": "Pieteikties",
+      "needFields": "Ievadiet vārdu un derīgu e-pasta adresi.",
+      "needConsent": "Atzīmējiet rūtiņu, lai piekristu."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Instrukcija (PDF)",
     "manualVideo": "Skaidrojošs video (saite)",
     "supportPhone": "Klientu apkalpošanas tālrunis",
-    "supportEmail": "Klientu apkalpošanas e-pasts"
+    "supportEmail": "Klientu apkalpošanas e-pasts",
+    "suTitle": "Kam piesakās?",
+    "suAskPhone": "Prasīt arī tālruni"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espresso automāts Barista Pro",
-    "manualModel": "Modelis BP-200"
+    "manualModel": "Modelis BP-200",
+    "suTitle": "Atvērto durvju diena Studio Noord",
+    "suText": "Sestdiena, 15. novembris, 10:00–15:00. Ekskursija, kafija un padomi jūsu projektam.",
+    "suThanks": "Jūs esat pieteicies. Uz tikšanos!"
   },
   "visit": {
     "locked": "Šī lapa ir aizsargāta",
@@ -3464,5 +3483,13 @@
     "csv": "Lejupielādēt CSV",
     "delete": "Dzēst atbildi",
     "deleteConfirm": "Dzēst šo atbildi neatgriezeniski?"
+  },
+  "su": {
+    "menu": "Pieteikumi",
+    "title": "Pieteikumi: “{name}”",
+    "none": "Vēl nav pieteikumu. Tie parādīsies šeit, tiklīdz kāds pieteiksies.",
+    "count": "Pieteikumi: {n}",
+    "delete": "Dzēst pieteikumu",
+    "deleteConfirm": "Neatgriezeniski dzēst šo pieteikumu?"
   }
 }

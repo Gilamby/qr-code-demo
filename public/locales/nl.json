@@ -180,6 +180,10 @@
     "manual": {
       "name": "Handleiding",
       "desc": "Handleiding bij een product"
+    },
+    "signup": {
+      "name": "Aanmelden",
+      "desc": "Nieuwsbrief, open dag of workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Hulp nodig?",
       "call": "Bellen",
       "mail": "E-mailen"
+    },
+    "su": {
+      "tag": "Aanmelden",
+      "name": "Naam",
+      "email": "E-mail",
+      "phone": "Telefoon",
+      "consent": "Ik ga akkoord dat mijn gegevens alleen voor deze aanmelding worden gebruikt.",
+      "send": "Aanmelden",
+      "needFields": "Vul je naam en een geldig e-mailadres in.",
+      "needConsent": "Vink het vakje aan om akkoord te gaan."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Handleiding (PDF)",
     "manualVideo": "Uitlegvideo (link)",
     "supportPhone": "Telefoon klantenservice",
-    "supportEmail": "E-mail klantenservice"
+    "supportEmail": "E-mail klantenservice",
+    "suTitle": "Waarvoor meldt men zich aan?",
+    "suAskPhone": "Ook om telefoonnummer vragen"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espressomachine Barista Pro",
-    "manualModel": "Model BP-200"
+    "manualModel": "Model BP-200",
+    "suTitle": "Open dag bij Studio Noord",
+    "suText": "Zaterdag 15 november, 10:00–15:00. Rondleiding, koffie en advies over je eigen project.",
+    "suThanks": "Je bent aangemeld. Tot dan!"
   },
   "visit": {
     "locked": "Deze pagina is beveiligd",
@@ -3509,5 +3528,13 @@
     "csv": "CSV downloaden",
     "delete": "Antwoord wissen",
     "deleteConfirm": "Dit antwoord voorgoed wissen?"
+  },
+  "su": {
+    "menu": "Aanmeldingen",
+    "title": "Aanmeldingen voor “{name}”",
+    "none": "Nog geen aanmeldingen. Ze verschijnen hier zodra iemand zich aanmeldt.",
+    "count": "Aanmeldingen: {n}",
+    "delete": "Aanmelding wissen",
+    "deleteConfirm": "Deze aanmelding voorgoed wissen?"
   }
 }

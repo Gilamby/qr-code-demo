@@ -85,7 +85,7 @@ var DesignPanel = (function () {
 
     // Logo
     var logo = 
-      '<div class="dz-logo">' + ImageUpload.html({ key: 'logo' }, 'dzLogo', d.logo) + '</div>';
+      '<div class="dz-logo">' + ImageUpload.html({ key: 'logo' }, 'dzLogo', d.logo).replace('<input id="dzLogo"', '<input id="dzLogo" aria-label="' + esc(t('fields.logo')) + '"') + '</div>';
 
     // Patroon en kleuren · Frame · Hoeken: elk een eigen kaart
     var colors = '<div class="dz-sub">' + t('dz.lbl.pattern') + '</div>' + tiles('pattern', DESIGN_PATTERNS, sw('pattern'), 'pattern') +

@@ -180,6 +180,10 @@
     "manual": {
       "name": "Bruksanvisning",
       "desc": "Bruksanvisning for et produkt"
+    },
+    "signup": {
+      "name": "Påmelding",
+      "desc": "Nyhetsbrev, åpen dag eller workshop"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Trenger du hjelp?",
       "call": "Ring",
       "mail": "E-post"
+    },
+    "su": {
+      "tag": "Påmelding",
+      "name": "Navn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "consent": "Jeg godtar at opplysningene mine bare brukes til denne påmeldingen.",
+      "send": "Meld meg på",
+      "needFields": "Fyll inn navnet ditt og en gyldig e-postadresse.",
+      "needConsent": "Huk av i boksen for å godta."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Bruksanvisning (PDF)",
     "manualVideo": "Forklaringsvideo (lenke)",
     "supportPhone": "Telefon kundeservice",
-    "supportEmail": "E-post kundeservice"
+    "supportEmail": "E-post kundeservice",
+    "suTitle": "Hva melder man seg på?",
+    "suAskPhone": "Spør også om telefonnummer"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Espressomaskin Barista Pro",
-    "manualModel": "Modell BP-200"
+    "manualModel": "Modell BP-200",
+    "suTitle": "Åpen dag hos Studio Noord",
+    "suText": "Lørdag 15. november, 10:00–15:00. Omvisning, kaffe og råd om prosjektet ditt.",
+    "suThanks": "Du er påmeldt. Vi ses!"
   },
   "visit": {
     "locked": "Denne siden er beskyttet",
@@ -3464,5 +3483,13 @@
     "csv": "Last ned CSV",
     "delete": "Slett svar",
     "deleteConfirm": "Slette dette svaret for godt?"
+  },
+  "su": {
+    "menu": "Påmeldinger",
+    "title": "Påmeldinger til «{name}»",
+    "none": "Ingen påmeldinger ennå. De vises her så snart noen melder seg på.",
+    "count": "Påmeldinger: {n}",
+    "delete": "Slett påmelding",
+    "deleteConfirm": "Slette denne påmeldingen for godt?"
   }
 }

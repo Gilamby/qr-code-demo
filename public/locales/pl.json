@@ -180,6 +180,10 @@
     "manual": {
       "name": "Instrukcja",
       "desc": "Instrukcja obsługi produktu"
+    },
+    "signup": {
+      "name": "Zapisy",
+      "desc": "Newsletter, dzień otwarty lub warsztat"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Potrzebujesz pomocy?",
       "call": "Zadzwoń",
       "mail": "E-mail"
+    },
+    "su": {
+      "tag": "Zapisy",
+      "name": "Imię i nazwisko",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "consent": "Zgadzam się na użycie moich danych wyłącznie do tego zapisu.",
+      "send": "Zapisz się",
+      "needFields": "Podaj imię i prawidłowy adres e-mail.",
+      "needConsent": "Zaznacz pole, aby wyrazić zgodę."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Instrukcja (PDF)",
     "manualVideo": "Film instruktażowy (link)",
     "supportPhone": "Telefon obsługi klienta",
-    "supportEmail": "E-mail obsługi klienta"
+    "supportEmail": "E-mail obsługi klienta",
+    "suTitle": "Na co się zapisują?",
+    "suAskPhone": "Pytaj też o numer telefonu"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Ekspres do kawy Barista Pro",
-    "manualModel": "Model BP-200"
+    "manualModel": "Model BP-200",
+    "suTitle": "Dzień otwarty w Studio Noord",
+    "suText": "Sobota 15 listopada, 10:00–15:00. Zwiedzanie, kawa i porady dotyczące Twojego projektu.",
+    "suThanks": "Jesteś zapisany. Do zobaczenia!"
   },
   "visit": {
     "locked": "Ta strona jest chroniona",
@@ -3464,5 +3483,13 @@
     "csv": "Pobierz CSV",
     "delete": "Usuń odpowiedź",
     "deleteConfirm": "Usunąć tę odpowiedź na zawsze?"
+  },
+  "su": {
+    "menu": "Zapisy",
+    "title": "Zapisy na „{name}”",
+    "none": "Brak zapisów. Pojawią się tutaj, gdy ktoś się zapisze.",
+    "count": "Zapisy: {n}",
+    "delete": "Usuń zapis",
+    "deleteConfirm": "Usunąć ten zapis na zawsze?"
   }
 }

@@ -45,7 +45,7 @@
   // Voor alle dynamische codes (niet vCard en wifi: die bevatten alles zelf en gaan niet via onze server):
   // - Plannen (KB Q224): startdatum en einddatum onder "Meer opties"
   // - Google Analytics (KB Q222): UTM-labels aan de links van de pagina, als die links heeft
-  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review', 'feedback', 'email', 'phone', 'location', 'text', 'payment', 'tiktok', 'linkedin', 'youtube', 'spotify', 'telegram', 'meeting', 'lostfound', 'manual'];
+  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review', 'feedback', 'email', 'phone', 'location', 'text', 'payment', 'tiktok', 'linkedin', 'youtube', 'spotify', 'telegram', 'meeting', 'lostfound', 'manual', 'signup'];
   data.forEach(function (type) {
     if (type.id === 'vcard' || type.id === 'wifi') return;
     var has = function (k) { return type.fields.some(function (f) { return f.key === k; }); };
@@ -232,9 +232,13 @@
   { id: 'linkedin', previewImage: 'assets/previews/linkedin.jpg', page: false, icon: 'linkedin', contentType: 'url', previewType: 'card', color: '#0a66c2', theme: ['#0a66c2', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.linkedinUrl', required: true, domains: ['linkedin.com', 'lnkd.in'], sample: { t: 'sample.linkedinUrl' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
-  { id: 'youtube', previewImage: 'assets/previews/youtube.jpg', page: false, icon: 'youtube', contentType: 'url', previewType: 'card', color: '#ff0000', theme: ['#ff0000', '#0f172a'],
-    fields: [ { key: 'url', type: 'url', label: 'fields.youtubeUrl', required: true, domains: ['youtube.com', 'youtu.be'], sample: { t: 'sample.youtubeUrl' } },
-      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  // Aanmelden: naam + e-mail achterlaten (nieuwsbrief, open dag, workshop). Lijst: Mijn QR-codes > ⋯ > Aanmeldingen (server: signup.controller.ts)
+  { id: 'signup', previewImage: 'assets/previews/linkedin.jpg', icon: 'signup', contentType: 'signup', previewType: 'card', color: '#be185d', theme: ['#be185d', '#500724'],
+    fields: [ { key: 'photo', type: 'image', label: 'fields.photo' },
+      { key: 'title', label: 'fields.suTitle', required: true, max: 100, sample: { t: 'sample.suTitle' } },
+      { key: 'text', label: 'fields.description', max: 500, sample: { t: 'sample.suText' } },
+      { key: 'askPhone', type: 'toggle', label: 'fields.suAskPhone' },
+      { key: 'thanks', label: 'fields.fbThanks', max: 200, sample: { t: 'sample.suThanks' } } ] },
   { id: 'spotify', previewImage: 'assets/previews/spotify.jpg', page: false, icon: 'spotify', contentType: 'url', previewType: 'card', color: '#1db954', theme: ['#1db954', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.spotifyUrl', required: true, domains: ['spotify.com', 'open.spotify.com', 'spotify.link'], sample: { t: 'sample.spotifyUrl' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
@@ -264,5 +268,8 @@
   // Niet meer in het overzicht (vervangen door Handleiding); bestaande codes blijven werken
   { id: 'telegram', hidden: true, page: false, icon: 'telegram', contentType: 'url', previewType: 'card', color: '#229ed9', theme: ['#229ed9', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.telegramUrl', required: true, domains: ['t.me', 'telegram.me'], sample: { t: 'sample.telegramUrl' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  { id: 'youtube', hidden: true, previewImage: 'assets/previews/youtube.jpg', page: false, icon: 'youtube', contentType: 'url', previewType: 'card', color: '#ff0000', theme: ['#ff0000', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.youtubeUrl', required: true, domains: ['youtube.com', 'youtu.be'], sample: { t: 'sample.youtubeUrl' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] }
 ]);

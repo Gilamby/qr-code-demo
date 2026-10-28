@@ -180,6 +180,10 @@
     "manual": {
       "name": "Manual",
       "desc": "Manual d'un producte"
+    },
+    "signup": {
+      "name": "Inscripció",
+      "desc": "Butlletí, jornada de portes obertes o taller"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Necessites ajuda?",
       "call": "Trucar",
       "mail": "Correu"
+    },
+    "su": {
+      "tag": "Inscripció",
+      "name": "Nom",
+      "email": "Correu electrònic",
+      "phone": "Telèfon",
+      "consent": "Accepto que les meves dades s'utilitzin només per a aquesta inscripció.",
+      "send": "Inscriure'm",
+      "needFields": "Introdueix el teu nom i un correu vàlid.",
+      "needConsent": "Marca la casella per acceptar."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Manual (PDF)",
     "manualVideo": "Vídeo explicatiu (enllaç)",
     "supportPhone": "Telèfon d'atenció al client",
-    "supportEmail": "Correu d'atenció al client"
+    "supportEmail": "Correu d'atenció al client",
+    "suTitle": "Per a què s'inscriuen?",
+    "suAskPhone": "Demanar també el telèfon"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Cafetera espresso Barista Pro",
-    "manualModel": "Model BP-200"
+    "manualModel": "Model BP-200",
+    "suTitle": "Portes obertes a Studio Noord",
+    "suText": "Dissabte 15 de novembre, 10:00–15:00. Visita, cafè i consells sobre el teu projecte.",
+    "suThanks": "Ja estàs inscrit. Fins aviat!"
   },
   "visit": {
     "locked": "Aquesta pàgina està protegida",
@@ -3464,5 +3483,13 @@
     "csv": "Baixa el CSV",
     "delete": "Esborra la resposta",
     "deleteConfirm": "Vols esborrar aquesta resposta per sempre?"
+  },
+  "su": {
+    "menu": "Inscripcions",
+    "title": "Inscripcions per a “{name}”",
+    "none": "Encara no hi ha inscripcions. Apareixeran aquí quan algú s'inscrigui.",
+    "count": "Inscripcions: {n}",
+    "delete": "Esborrar inscripció",
+    "deleteConfirm": "Esborrar aquesta inscripció definitivament?"
   }
 }

@@ -180,6 +180,10 @@
     "manual": {
       "name": "Manual",
       "desc": "Manual i një produkti"
+    },
+    "signup": {
+      "name": "Regjistrim",
+      "desc": "Buletin, ditë e hapur ose punëtori"
     }
   },
   "pv": {
@@ -488,6 +492,16 @@
       "help": "Keni nevojë për ndihmë?",
       "call": "Telefono",
       "mail": "Email"
+    },
+    "su": {
+      "tag": "Regjistrim",
+      "name": "Emri",
+      "email": "Email",
+      "phone": "Telefoni",
+      "consent": "Pranoj që të dhënat e mia të përdoren vetëm për këtë regjistrim.",
+      "send": "Regjistrohu",
+      "needFields": "Shkruani emrin dhe një email të vlefshëm.",
+      "needConsent": "Shënoni kutinë për të pranuar."
     }
   },
   "hero": {
@@ -629,7 +643,9 @@
     "manualFile": "Manuali (PDF)",
     "manualVideo": "Video shpjeguese (lidhje)",
     "supportPhone": "Telefoni i shërbimit ndaj klientit",
-    "supportEmail": "Email-i i shërbimit ndaj klientit"
+    "supportEmail": "Email-i i shërbimit ndaj klientit",
+    "suTitle": "Për çfarë regjistrohen?",
+    "suAskPhone": "Kërko edhe numrin e telefonit"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -1355,7 +1371,10 @@
     "bookingUrl": "https://elpuerto.example/reservar",
     "meetingUrl": "https://zoom.us/j/123456789",
     "manualProduct": "Makinë espresso Barista Pro",
-    "manualModel": "Modeli BP-200"
+    "manualModel": "Modeli BP-200",
+    "suTitle": "Ditë e hapur te Studio Noord",
+    "suText": "E shtunë, 15 nëntor, 10:00–15:00. Vizitë, kafe dhe këshilla për projektin tuaj.",
+    "suThanks": "U regjistruat. Shihemi!"
   },
   "fmt": {
     "months": [
@@ -3570,5 +3589,13 @@
     "csv": "Shkarko CSV",
     "delete": "Fshi përgjigjen",
     "deleteConfirm": "Ta fshij përgjithmonë këtë përgjigje?"
+  },
+  "su": {
+    "menu": "Regjistrimet",
+    "title": "Regjistrimet për “{name}”",
+    "none": "Ende nuk ka regjistrime. Do të shfaqen këtu sapo dikush të regjistrohet.",
+    "count": "Regjistrime: {n}",
+    "delete": "Fshi regjistrimin",
+    "deleteConfirm": "Ta fshij përgjithmonë këtë regjistrim?"
   }
 }

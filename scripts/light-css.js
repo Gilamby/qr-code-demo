@@ -83,6 +83,8 @@ const HAND = `
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="light"] body { background: #eef2f7; }
+:root[data-theme="light"] .pv-toggle { background: rgba(255,255,255,.88); border-color: rgba(15,23,42,.12); }
+:root[data-theme="light"] .pv-toggle button:not([aria-selected="true"]) { color: #3d4757; }
 :root[data-theme="light"] body::after { background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,.55)); }
 :root[data-theme="light"] .glass { background: linear-gradient(140deg, rgba(255,255,255,.92), rgba(255,255,255,.78) 45%, rgba(255,255,255,.86)); border: 1px solid rgba(13,19,32,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 24px 60px -32px rgba(13,19,32,.28); }
 :root[data-theme="light"] .sidebar { background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.78)) !important; border-right: 1px solid rgba(13,19,32,.08) !important; box-shadow: none; }
