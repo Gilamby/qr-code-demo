@@ -185,7 +185,7 @@ var Session = (function () {
     e.preventDefault(); e.stopPropagation();
     api.auth.logout().catch(function () {}).then(function () { user = null; location.replace(location.pathname); });
   }, true);
-  document.addEventListener('auth:required', function () { if (user || view.hidden) { user = null; show('login'); } });
+  document.addEventListener('auth:required', function (e) { if (user || view.hidden) { user = null; if (e && e.detail === 'device_limit') flash = ['auth.deviceLimit', 'bad']; show('login'); } });   // device_limit: op te veel apparaten ingelogd
 
   // Starten
   var m = location.search.match(/[?&](reset|invite)=([^&]+)/);
@@ -216,7 +216,8 @@ var Session = (function () {
       if (ADMIN && !u.admin) { flash = ['adminApp.notAdmin', 'bad']; return show('login'); }
       user = u; i18n.setZone(u && u.timezone); landing = note ? 'account' : null; ready(); syncTz(u); listeners.forEach(function (f) { f(u); });
       if (note) document.dispatchEvent(new CustomEvent('account:email-note', { detail: note }));
-    }).catch(function () {
+    }).catch(function (x) {
+      if (x && x.code === 'device_limit') flash = ['auth.deviceLimit', 'bad'];
       if (note) flash = note.ok ? ['acct.emailChangedLogin', 'ok'] : [note.code === 'exists' ? 'acct.emailErrExists' : 'acct.emailErrToken', 'bad'];
       if (note) return show('login');
       // Net een account gemaakt in deze browser (en pagina herladen)? Dan weer wachten op de bevestiging, of meteen binnen

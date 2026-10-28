@@ -103,7 +103,7 @@ export class GoogleController {
 
   private async enter(req: Request, res: Response, userId: string) {
     const meta = this.auth.meta(req);
-    this.auth.setSession(req, res, await this.db.createSession(userId, meta));
+    this.auth.setSession(req, res, await this.db.startSession(userId, meta));
     await this.db.addActivity(userId, 'login', meta);
     await this.db.updateUser(userId, { lastLoginAt: new Date().toISOString() });
   }

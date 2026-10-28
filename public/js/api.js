@@ -20,7 +20,7 @@ var api = (function () {
         return res.json().catch(function () { return {}; }).then(function (data) {
           if (!res.ok) {
             var err = new Error(data.error || ('HTTP ' + res.status)); err.status = res.status; err.code = data.error; err.details = data.details; err.data = data; if (data.error === 'subscription_lapsed') setTimeout(function () { document.dispatchEvent(new CustomEvent('sub-lapsed')); }, 0); if (data.error === 'viewer') setTimeout(function () { document.dispatchEvent(new CustomEvent('team-viewer')); }, 0); if (data.error === 'maintenance') { info.maintenance = { on: true, message: data.message || '' }; setTimeout(function () { document.dispatchEvent(new CustomEvent('maintenance-change')); }, 0); }
-            if (res.status === 401 && url.indexOf('api/auth/') !== 0) document.dispatchEvent(new Event('auth:required'));   // sessie verlopen: opnieuw inloggen
+            if (res.status === 401 && url.indexOf('api/auth/') !== 0) document.dispatchEvent(new CustomEvent('auth:required', { detail: data.error }));   // sessie verlopen: opnieuw inloggen
             throw err;
           }
           return data;

@@ -1260,3 +1260,15 @@ test('controle-fixes: bestand niet stelen, einde na start, tijdzone van het appa
   assert.equal(require('../server/dist/common/ip').maskIp('203.0.113.77'), '203.0.113.•••');
   assert.equal(require('../server/dist/common/ip').maskIp('203.0.113.•••'), '203.0.113.•••', 'twee keer inkorten = hetzelfde');
 });
+
+test('max. 3 apparaten tegelijk: een vierde login logt het oudste uit, met de reden erbij', async () => {
+  // Account van de vorige test (nog een nieuw account maken loopt tegen de registratielimiet per uur aan)
+  const cred = { email: 'fix-k@example.com', password: 'Fixes zin 30 ok!' }, devs = [];
+  for (let i = 0; i < 4; i++) { const c = client(), r = await c('POST', '/api/auth/login', cred); assert.equal(r.status, 200, JSON.stringify(r.json)); devs.push(c); }
+  const c1 = devs[0];
+  const first = await c1('GET', '/api/auth/me');
+  assert.equal(first.status, 401); assert.equal(first.json.error, 'device_limit', 'oudste apparaat: uitgelogd met reden');
+  for (const c of devs.slice(1)) assert.equal((await c('GET', '/api/auth/me')).status, 200, 'de laatste 3 blijven ingelogd');
+  assert.equal((await devs[3]('GET', '/api/account/sessions')).json.sessions.length, 3);
+  assert.ok((await devs[3]('GET', '/api/account/activity')).json.activity.some((a) => a.kind === 'device_limit'));
+});

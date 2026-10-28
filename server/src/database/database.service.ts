@@ -64,6 +64,15 @@ export type ClientMeta = { ua?: string; ip?: string };
 /** Recente activiteit: login, login_failed, password, email, sessions_ended, session_ended */
 export type Activity = { kind: string; at: string; ip: string | null; ua: string | null };
 export const SESSION_ID_LEN = 16;
+export const MAX_DEVICES = Number(process.env.MAX_DEVICES) || 3;
+/** Uitgelogd omdat er op een ander apparaat is ingelogd (id → tijd), 7 dagen onthouden: dan zegt de app waarom */
+export const kicked = new Map<string, number>();
+export function wasKicked(token: string) {
+  if (!token) return false;
+  const id = hash(token).slice(0, SESSION_ID_LEN), at = kicked.get(id);
+  for (const [k, v] of kicked) if (Date.now() - v > 7 * 864e5) kicked.delete(k);
+  return !!at && Date.now() - at < 7 * 864e5;
+}
 export const DEFAULT_EMAIL_PREFS = { report: 'off' as const, security: true, product: false, firstScan: true, milestones: true, brokenLinks: true, quietCodes: true };
 export function parseMedia(v: unknown) { try { const a = typeof v === 'string' ? JSON.parse(v) : v; return Array.isArray(a) ? a : []; } catch (e) { return []; } }
 export function parsePrefs(v: unknown) { let o: any = {}; try { o = typeof v === 'string' ? JSON.parse(v) : v || {}; } catch (e) { o = {}; } return { ...DEFAULT_EMAIL_PREFS, ...o }; }
@@ -126,6 +135,16 @@ export abstract class DatabaseService {
   abstract listSessions(userId: string, currentToken?: string): Promise<SessionInfo[]>;
   /** Eén apparaat uitloggen (id uit listSessions). true = gevonden */
   abstract endSession(userId: string, id: string): Promise<boolean>;
+  /** Inloggen met een maximum aantal apparaten tegelijk (MAX_DEVICES): het langst niet gebruikte apparaat wordt uitgelogd.
+      Zo blijft een account van één persoon (laptop, telefoon, werk) en heeft delen met een groep geen zin: gebruik Team. */
+  async startSession(userId: string, meta: ClientMeta = {}) {
+    const s = await this.createSession(userId, meta), mine = hash(s.token).slice(0, SESSION_ID_LEN);
+    const list = (await this.listSessions(userId)).filter((x) => x.id !== mine);   // nieuwste (laatst gebruikt) eerst
+    const out = list.slice(MAX_DEVICES - 1);
+    for (const x of out) { await this.endSession(userId, x.id); kicked.set(x.id, Date.now()); }
+    if (out.length) await this.addActivity(userId, 'device_limit', meta).catch(() => {});
+    return s;
+  }
   /* Recente activiteit (max. 90 dagen bewaard) */
   abstract addActivity(userId: string, kind: string, meta?: ClientMeta): Promise<void>;
   abstract listActivity(userId: string, limit?: number): Promise<Activity[]>;

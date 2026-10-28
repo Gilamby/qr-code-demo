@@ -5,6 +5,7 @@
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
    - Te veel pogingen = even wachten (429).
    ========================================================= */
+import { wasKicked } from '../database/database.service';
 import { pwnedCount } from './pwned';
 import { isBlocked } from './blocklist';
 import { acceptTerms } from './terms';
@@ -28,7 +29,7 @@ export class AuthController {
 
   @Get('me')
   me(@Req() req: Request) {
-    if (!req.user) throw fail(401, 'Not logged in');
+    if (!req.user) throw fail(401, req.sid && wasKicked(req.sid) ? 'device_limit' : 'Not logged in');
     return this.auth.me(req.user);
   }
 
@@ -106,7 +107,7 @@ export class AuthController {
   /** Inloggen zonder wachtwoord na het bevestigen (alleen via verify/pending hierboven) */
   private async signIn(req: Request, res: Response, uid: string) {
     const meta = this.auth.meta(req);
-    this.auth.setSession(req, res, await this.db.createSession(uid, meta));
+    this.auth.setSession(req, res, await this.db.startSession(uid, meta));
     await this.db.addActivity(uid, 'login', meta);
     return this.auth.me(await this.db.updateUser(uid, { lastLoginAt: new Date().toISOString() }));
   }
@@ -150,7 +151,7 @@ export class AuthController {
     const meta = this.auth.meta(req), dev = (ua: string | null) => { const d = device(ua); return d.browser + '|' + d.os; };
     const seen = (await this.db.listActivity(row.id, 100)).some((a) => a.kind === 'login' && dev(a.ua) === dev(meta.ua));
     const hadLogins = (await this.db.listActivity(row.id, 100)).some((a) => a.kind === 'login');
-    this.auth.setSession(req, res, await this.db.createSession(row.id, meta));
+    this.auth.setSession(req, res, await this.db.startSession(row.id, meta));
     await this.db.addActivity(row.id, 'login', meta);
     if (hadLogins && !seen) { const d = device(meta.ua); this.mailer.sendSecurity(user, 'login', { device: [d.browser, d.os].filter(Boolean).join(' / ') || '?', ip: maskIp(meta.ip) || '?', time: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC' }).catch(() => {}); }
     return this.auth.me(await this.db.updateUser(row.id, { lastLoginAt: new Date().toISOString() }));
@@ -188,7 +189,7 @@ export class AuthController {
     await this.db.updateUser(userId, { passwordHash: await this.auth.hashPassword(b.password), passwordChangedAt: new Date().toISOString() });
     await this.db.markVerified(userId);                                // link uit de mail = e-mailadres is van jou
     await this.db.deleteSessionsOf(userId);                            // overal uitloggen
-    this.auth.setSession(req, res, await this.db.createSession(userId, this.auth.meta(req)));
+    this.auth.setSession(req, res, await this.db.startSession(userId, this.auth.meta(req)));
     await this.db.addActivity(userId, 'password', this.auth.meta(req));
     const fresh = await this.db.getUser(userId);
     this.mailer.sendSecurity(fresh, 'password', { time: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC' }).catch(() => {});

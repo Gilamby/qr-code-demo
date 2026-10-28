@@ -80,7 +80,7 @@ export class MicrosoftController {
       const totp = await readTotp(this.db, row.id);
       if (totp && totp.on) return res.redirect('/?g2fa=' + startSecondStep(row.id));   // de app vraagt nu om de code
       const meta = this.auth.meta(req);
-      this.auth.setSession(req, res, await this.db.createSession(row.id, meta));
+      this.auth.setSession(req, res, await this.db.startSession(row.id, meta));
       await this.db.addActivity(row.id, 'login', meta);
       await this.db.updateUser(row.id, { lastLoginAt: new Date().toISOString() });
       res.redirect('/');
