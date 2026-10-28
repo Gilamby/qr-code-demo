@@ -108,8 +108,7 @@ var Plans = (function () {
       }).join('') + '</div>' +
       '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
       (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', limitArgs())) + '</p>' : '') +
-      (stripeOn() ? '<p class="pw-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p>' : '') +
-      '<p class="pw-note">' + esc(t('pw.reassure')) + ' ' + esc(t('pw.vatNote')) + '</p></div>';
+      '</div>';
   }
   // Afrekenen (DEMO): zoals straks de betaalpagina van Stripe, met PayPal, iDEAL, Bancontact of kaart. Er wordt niets afgeschreven.
   var method = 'paypal', BANKS = ['ABN AMRO', 'ING', 'Rabobank', 'ASN Bank', 'bunq', 'Knab', 'SNS', 'Triodos Bank', 'Revolut'];
@@ -348,11 +347,12 @@ var Plans = (function () {
   function show() {
     // Gaat het tekenen mis, dan nooit een leeg scherm: sluiten en naar Mijn account > Abonnement
     try { draw(); } catch (e) { console.error('Pakketten-scherm:', e); close(); goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
-    document.body.classList.add('paywall-open'); var f = box.querySelector('.pw-card.on') || box.querySelector('[data-pw-go]'); if (f) f.focus(); }
+    document.body.classList.add('paywall-open'); unwait(); var f = box.querySelector('.pw-card.on') || box.querySelector('[data-pw-go]'); if (f) f.focus(); }
   function close() { stripeReset(); if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
+  function unwait() { document.body.classList.remove('pw-wait'); }
   function check() {
-    if (!api.account || !api.account.plan) return;
-    if (window.TermsGate && TermsGate.waiting()) return;                 // eerst akkoord met de voorwaarden (terms-gate.js)
+    if (!api.account || !api.account.plan) return unwait();
+    if (window.TermsGate && TermsGate.waiting()) return unwait();        // eerst akkoord met de voorwaarden (terms-gate.js)
     api.account.plan().then(function (r) {
       info = r;
       // Net betaald bij Stripe: even wachten tot Stripe het heeft gemeld (webhook), dan de app in
@@ -360,7 +360,8 @@ var Plans = (function () {
       if (returned) { returned = false; document.dispatchEvent(new CustomEvent('paywall-done')); if (step === 'wait') { result = { sub: info.sub }; chosen = info.plan.id; period = PlanPeriod.norm(info.sub.interval); step = 'done'; mode = 'must'; return show(); } }
       var w = window.wantedPlan; if (w) { chosen = w.plan || chosen; period = PlanPeriod.norm(w.period); }
       if (needed()) { mode = 'must'; step = 'choose'; show(); } else if (mode === 'must') close();
-    }).catch(function () {});
+      unwait();
+    }).catch(unwait);
   }
   /** Betaalmethode wijzigen (Mijn account > Abonnement): eigen scherm met de velden van Stripe */
   function changeMethod() {
@@ -413,7 +414,8 @@ var Plans = (function () {
   document.addEventListener('change', function (e) { var k = box && e.target.getAttribute && e.target.getAttribute('data-pw-b'); if (k === 'country') { draftBuyer().country = e.target.value; draw(); } });
   document.addEventListener('keydown', function (e) { if (box && mode === 'change' && e.key === 'Escape') close(); });
   document.addEventListener('submit', function (e) { if (box && e.target.closest('[data-pw-form]')) { e.preventDefault(); if (inApp()) confirmStripe(); else pay(); } });
-  if (window.Session && Session.onUser) Session.onUser(function () { setTimeout(check, 300); });
+  // Na inloggen: laadscherm laten staan tot bekend is of er eerst een pakket gekozen moet worden (anders flitst de app even)
+  if (window.Session && Session.onUser) Session.onUser(function () { if (!blocked()) { document.body.classList.add('pw-wait'); setTimeout(unwait, 8000); } setTimeout(check, 300); });
   document.addEventListener('sub-lapsed', check);
   document.addEventListener('terms-ok', check);
   if (window.i18n) i18n.onChange(function () { if (box) draw(); });

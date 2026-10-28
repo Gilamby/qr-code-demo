@@ -75,15 +75,17 @@
 
   function check() {
     if (!launcher || !launcher.isConnected) launcher = hidden && hidden.isConnected ? hidden : find();
-    btn.hidden = !launcher;
-    var app = document.body.classList.contains('auth-open') ? false : !!(window.Session && Session.user());   // ingelogd en in de app
-    rootsOff(!app);
+    var off = outside();
+    btn.hidden = !launcher || off;
+    rootsOff(off);
     if (!launcher) { show(); return; }
     copyLook(launcher);
     if (inView()) { if (hidden !== launcher || launcher.style.getPropertyValue('visibility') !== 'hidden') hide(launcher); }
     else show();
   }
 
+  // Niet in de app: inlogscherm, pakket kiezen/betalen, voorwaarden-scherm, of uitgelogd
+  function outside() { var c = document.body.classList; return c.contains('auth-open') || c.contains('paywall-open') || c.contains('pw-wait') || !(window.Session && Session.user()); }
   // Alles van de chatbot verbergen (knopje, begroeting, venster): op het inlogscherm hoort hij niet
   function rootsOff(off) {
     [].slice.call(document.body.children).filter(isChatRoot).forEach(function (r) {
@@ -111,7 +113,8 @@
     timer = setInterval(function () { check(); if (++tries > 120 && !launcher) clearInterval(timer); }, 1000);
   }
   if (window.Session && Session.onUser) Session.onUser(function (u) { if (u) load(); });
-  setInterval(function () { if (loaded) rootsOff(document.body.classList.contains('auth-open') || !(window.Session && Session.user())); }, 1500);   // uitgelogd of sessie verlopen: weer weg
+  setInterval(function () { if (loaded) { var off = outside(); rootsOff(off); if (off) btn.hidden = true; else if (launcher) btn.hidden = false; } }, 1500);   // uitgelogd, sessie verlopen of betaalscherm: weg
+  new MutationObserver(function () { if (loaded) { var off = outside(); rootsOff(off); if (off) btn.hidden = true; } }).observe(document.body, { attributes: true, attributeFilter: ['class'] });   // meteen weg bij het betaalscherm
   document.addEventListener('pagechange', function () { setTimeout(check, 100); });
   addEventListener('resize', function () { launcher = hidden; check(); });
 })();

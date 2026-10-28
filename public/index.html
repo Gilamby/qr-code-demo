@@ -16,7 +16,7 @@
 <style>/* Laadscherm (bij openen of verversen): staat in de pagina zelf, zodat het er meteen is */
 #boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(60% 50% at 50% 40%,rgba(43,181,240,.16),transparent 70%),#080b10;transition:opacity .45s ease,visibility .45s}
 :root[data-theme="light"] #boot{background:radial-gradient(60% 50% at 50% 40%,rgba(43,181,240,.18),transparent 70%),#eef2f7}
-body:not(.booting) #boot{opacity:0;visibility:hidden;pointer-events:none}
+body:not(.booting):not(.pw-wait) #boot{opacity:0;visibility:hidden;pointer-events:none}
 .boot-in{display:grid;justify-items:center;gap:22px;animation:bootIn .6s cubic-bezier(.2,.8,.2,1) both}
 .boot-mark{position:relative;width:96px;height:96px;filter:drop-shadow(0 12px 36px rgba(37,99,235,.45))}
 .boot-mark svg{width:100%;height:100%;display:block}
