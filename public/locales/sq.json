@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Sende të humbura",
       "desc": "Etiketë për kafshë, çelësa ose çanta"
+    },
+    "manual": {
+      "name": "Manual",
+      "desc": "Manual i një produkti"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} persona janë në këtë telefonatë",
       "ready": "Gati të hyni?",
       "join": "Hyr tani"
+    },
+    "man": {
+      "tag": "Manual",
+      "download": "Shkarko manualin",
+      "video": "Shiko videon shpjeguese",
+      "help": "Keni nevojë për ndihmë?",
+      "call": "Telefono",
+      "mail": "Email"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Foto",
     "lostName": "Emri i kafshës ose sendit",
     "lostMsg": "Mesazh për gjetësin",
-    "reward": "Shpërblim (opsional)"
+    "reward": "Shpërblim (opsional)",
+    "productPhoto": "Foto e produktit",
+    "productName": "Emri i produktit",
+    "productModel": "Modeli ose kodi",
+    "manualFile": "Manuali (PDF)",
+    "manualVideo": "Video shpjeguese (lidhje)",
+    "supportPhone": "Telefoni i shërbimit ndaj klientit",
+    "supportEmail": "Email-i i shërbimit ndaj klientit"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -846,7 +865,8 @@
     "payUrl": "Për shembull PayPal.me, Stripe, SumUp ose faqja e pagesës së dyqanit tuaj.",
     "bookingUrl": "Për shembull faqja juaj e rezervimeve, TheFork ose Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby ose Webex.",
-    "reward": "Shfaqet në faqe, p.sh. “Shpërblim 20 €”."
+    "reward": "Shfaqet në faqe, p.sh. “Shpërblim 20 €”.",
+    "manualVideo": "Për shembull një video në YouTube që tregon si funksionon"
   },
   "more": {
     "title": "Më shumë opsione",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Makinë espresso Barista Pro",
+    "manualModel": "Modeli BP-200"
   },
   "fmt": {
     "months": [

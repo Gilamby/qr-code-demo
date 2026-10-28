@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Stratené a nájdené",
       "desc": "Štítok pre zvieratá, kľúče alebo tašky"
+    },
+    "manual": {
+      "name": "Návod",
+      "desc": "Návod k produktu"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} osoby sú v tomto hovore",
       "ready": "Pripravení pripojiť sa?",
       "join": "Pripojiť sa teraz"
+    },
+    "man": {
+      "tag": "Návod",
+      "download": "Stiahnuť návod",
+      "video": "Pozrieť vysvetľujúce video",
+      "help": "Potrebujete pomoc?",
+      "call": "Zavolať",
+      "mail": "E-mail"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Fotka",
     "lostName": "Meno zvieraťa alebo vecí",
     "lostMsg": "Správa pre nálezcu",
-    "reward": "Odmena (voliteľné)"
+    "reward": "Odmena (voliteľné)",
+    "productPhoto": "Fotka produktu",
+    "productName": "Názov produktu",
+    "productModel": "Model alebo typové číslo",
+    "manualFile": "Návod (PDF)",
+    "manualVideo": "Vysvetľujúce video (odkaz)",
+    "supportPhone": "Telefón zákazníckeho servisu",
+    "supportEmail": "E-mail zákazníckeho servisu"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -846,7 +865,8 @@
     "payUrl": "Napríklad PayPal.me, Stripe, SumUp alebo platobná stránka vášho obchodu.",
     "bookingUrl": "Napríklad vaša rezervačná stránka, TheFork alebo Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby alebo Webex.",
-    "reward": "Zobrazí sa na stránke, napr. „Odmena 20 €“."
+    "reward": "Zobrazí sa na stránke, napr. „Odmena 20 €“.",
+    "manualVideo": "Napríklad video na YouTube, ktoré ukazuje, ako to funguje"
   },
   "more": {
     "title": "Ďalšie možnosti",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espresso kávovar Barista Pro",
+    "manualModel": "Model BP-200"
   },
   "visit": {
     "locked": "Táto stránka je chránená",

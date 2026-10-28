@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Изгубено",
       "desc": "Етикет за любимци, ключове или чанти"
+    },
+    "manual": {
+      "name": "Ръководство",
+      "desc": "Ръководство за продукт"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} души са в този разговор",
       "ready": "Готови ли сте да влезете?",
       "join": "Влез сега"
+    },
+    "man": {
+      "tag": "Ръководство",
+      "download": "Изтегли ръководството",
+      "video": "Гледай обяснителното видео",
+      "help": "Нужда от помощ?",
+      "call": "Обади се",
+      "mail": "Имейл"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Снимка",
     "lostName": "Име на любимеца или вещта",
     "lostMsg": "Съобщение за намерилия",
-    "reward": "Награда (по избор)"
+    "reward": "Награда (по избор)",
+    "productPhoto": "Снимка на продукта",
+    "productName": "Име на продукта",
+    "productModel": "Модел или номер",
+    "manualFile": "Ръководство (PDF)",
+    "manualVideo": "Обяснително видео (линк)",
+    "supportPhone": "Телефон за обслужване на клиенти",
+    "supportEmail": "Имейл за обслужване на клиенти"
   },
   "panel": {
     "selected": "Избран: {type}"
@@ -846,7 +865,8 @@
     "payUrl": "Например PayPal.me, Stripe, SumUp или страницата за плащане на магазина ви.",
     "bookingUrl": "Например страницата ви за резервации, TheFork или Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby или Webex.",
-    "reward": "Показва се на страницата, напр. „Награда 40 лв.“."
+    "reward": "Показва се на страницата, напр. „Награда 40 лв.“.",
+    "manualVideo": "Например видео в YouTube, което показва как работи"
   },
   "more": {
     "title": "Още опции",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Еспресо машина Barista Pro",
+    "manualModel": "Модел BP-200"
   },
   "visit": {
     "locked": "Тази страница е защитена",

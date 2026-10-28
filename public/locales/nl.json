@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Gevonden?",
       "desc": "Label voor huisdier, sleutels of tas"
+    },
+    "manual": {
+      "name": "Handleiding",
+      "desc": "Handleiding bij een product"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} personen zitten in dit gesprek",
       "ready": "Klaar om deel te nemen?",
       "join": "Nu deelnemen"
+    },
+    "man": {
+      "tag": "Handleiding",
+      "download": "Handleiding downloaden",
+      "video": "Bekijk de uitlegvideo",
+      "help": "Hulp nodig?",
+      "call": "Bellen",
+      "mail": "E-mailen"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Foto",
     "lostName": "Naam van huisdier of voorwerp",
     "lostMsg": "Bericht voor de vinder",
-    "reward": "Beloning (optioneel)"
+    "reward": "Beloning (optioneel)",
+    "productPhoto": "Productfoto",
+    "productName": "Productnaam",
+    "productModel": "Model of typenummer",
+    "manualFile": "Handleiding (PDF)",
+    "manualVideo": "Uitlegvideo (link)",
+    "supportPhone": "Telefoon klantenservice",
+    "supportEmail": "E-mail klantenservice"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -846,7 +865,8 @@
     "payUrl": "Bijvoorbeeld PayPal.me, Stripe, SumUp of de betaalpagina van je winkel.",
     "bookingUrl": "Bijvoorbeeld je reserveringspagina, TheFork of Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby of Webex.",
-    "reward": "Staat op de pagina, bijv. “€20 beloning”."
+    "reward": "Staat op de pagina, bijv. “€20 beloning”.",
+    "manualVideo": "Bijvoorbeeld een YouTube-video die laat zien hoe het werkt"
   },
   "more": {
     "title": "Meer opties",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espressomachine Barista Pro",
+    "manualModel": "Model BP-200"
   },
   "visit": {
     "locked": "Deze pagina is beveiligd",

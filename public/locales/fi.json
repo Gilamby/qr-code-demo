@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Löytötavara",
       "desc": "Merkki lemmikille, avaimille tai laukulle"
+    },
+    "manual": {
+      "name": "Käyttöohje",
+      "desc": "Tuotteen käyttöohje"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} henkeä on puhelussa",
       "ready": "Valmis liittymään?",
       "join": "Liity nyt"
+    },
+    "man": {
+      "tag": "Käyttöohje",
+      "download": "Lataa käyttöohje",
+      "video": "Katso opastusvideo",
+      "help": "Tarvitsetko apua?",
+      "call": "Soita",
+      "mail": "Sähköposti"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Kuva",
     "lostName": "Lemmikin tai esineen nimi",
     "lostMsg": "Viesti löytäjälle",
-    "reward": "Löytöpalkkio (valinnainen)"
+    "reward": "Löytöpalkkio (valinnainen)",
+    "productPhoto": "Tuotekuva",
+    "productName": "Tuotteen nimi",
+    "productModel": "Malli tai tyyppinumero",
+    "manualFile": "Käyttöohje (PDF)",
+    "manualVideo": "Opastusvideo (linkki)",
+    "supportPhone": "Asiakaspalvelun puhelin",
+    "supportEmail": "Asiakaspalvelun sähköposti"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -846,7 +865,8 @@
     "payUrl": "Esimerkiksi PayPal.me, Stripe, SumUp tai kauppasi maksusivu.",
     "bookingUrl": "Esimerkiksi varaussivusi, TheFork tai Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby tai Webex.",
-    "reward": "Näkyy sivulla, esim. ”20 € löytöpalkkio”."
+    "reward": "Näkyy sivulla, esim. ”20 € löytöpalkkio”.",
+    "manualVideo": "Esimerkiksi YouTube-video, joka näyttää miten se toimii"
   },
   "more": {
     "title": "Lisää vaihtoehtoja",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espressokeitin Barista Pro",
+    "manualModel": "Malli BP-200"
   },
   "visit": {
     "locked": "Tämä sivu on suojattu",

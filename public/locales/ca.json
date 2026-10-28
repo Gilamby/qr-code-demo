@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Objecte perdut",
       "desc": "Etiqueta per a mascotes, claus o bosses"
+    },
+    "manual": {
+      "name": "Manual",
+      "desc": "Manual d'un producte"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} persones són en aquesta trucada",
       "ready": "A punt per entrar?",
       "join": "Entra ara"
+    },
+    "man": {
+      "tag": "Manual",
+      "download": "Descarregar el manual",
+      "video": "Mira el vídeo explicatiu",
+      "help": "Necessites ajuda?",
+      "call": "Trucar",
+      "mail": "Correu"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Foto",
     "lostName": "Nom de la mascota o objecte",
     "lostMsg": "Missatge per a qui el trobi",
-    "reward": "Recompensa (opcional)"
+    "reward": "Recompensa (opcional)",
+    "productPhoto": "Foto del producte",
+    "productName": "Nom del producte",
+    "productModel": "Model o referència",
+    "manualFile": "Manual (PDF)",
+    "manualVideo": "Vídeo explicatiu (enllaç)",
+    "supportPhone": "Telèfon d'atenció al client",
+    "supportEmail": "Correu d'atenció al client"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -846,7 +865,8 @@
     "payUrl": "Per exemple PayPal.me, Stripe, SumUp o la pàgina de pagament de la teva botiga.",
     "bookingUrl": "Per exemple la teva pàgina de reserves, TheFork o Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby o Webex.",
-    "reward": "Es mostra a la pàgina, p. ex. “Recompensa de 20 €”."
+    "reward": "Es mostra a la pàgina, p. ex. “Recompensa de 20 €”.",
+    "manualVideo": "Per exemple, un vídeo de YouTube que mostri com funciona"
   },
   "more": {
     "title": "Més opcions",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Cafetera espresso Barista Pro",
+    "manualModel": "Model BP-200"
   },
   "visit": {
     "locked": "Aquesta pàgina està protegida",

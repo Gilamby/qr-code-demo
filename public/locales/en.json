@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Lost & found",
       "desc": "Tag for pets, keys or bags"
+    },
+    "manual": {
+      "name": "Manual",
+      "desc": "User manual for a product"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} people are in this call",
       "ready": "Ready to join?",
       "join": "Join now"
+    },
+    "man": {
+      "tag": "Manual",
+      "download": "Download the manual",
+      "video": "Watch the explainer video",
+      "help": "Need help?",
+      "call": "Call",
+      "mail": "Email"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Photo",
     "lostName": "Name of pet or item",
     "lostMsg": "Message for the finder",
-    "reward": "Reward (optional)"
+    "reward": "Reward (optional)",
+    "productPhoto": "Product photo",
+    "productName": "Product name",
+    "productModel": "Model or type number",
+    "manualFile": "Manual (PDF)",
+    "manualVideo": "Explainer video (link)",
+    "supportPhone": "Customer service phone",
+    "supportEmail": "Customer service email"
   },
   "panel": {
     "selected": "{type} selected"
@@ -846,7 +865,8 @@
     "payUrl": "For example PayPal.me, Stripe, SumUp or your shop’s payment page.",
     "bookingUrl": "For example your booking page, TheFork or Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby or Webex.",
-    "reward": "Shown on the page, e.g. “€20 reward”."
+    "reward": "Shown on the page, e.g. “€20 reward”.",
+    "manualVideo": "For example a YouTube video that shows how it works"
   },
   "more": {
     "title": "More options",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Barista Pro espresso machine",
+    "manualModel": "Model BP-200"
   },
   "visit": {
     "locked": "This page is protected",

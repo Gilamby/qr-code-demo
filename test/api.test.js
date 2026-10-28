@@ -1173,6 +1173,11 @@ test('extra soorten: e-mail, bellen en locatie openen de juiste app; links allee
   const lost = await mk('lostfound', { name: 'Max', phone: '+34600123456' }); assert.equal(lost.status, 201);
   assert.equal((await fetch(base + '/q/' + lost.json.id)).status, 200, 'gevonden-pagina');
   assert.equal((await mk('text', { title: 'Huisregels', text: 'Stil na 22:00' })).status, 201);
+  // Handleiding: PDF is verplicht, daarna een eigen pagina
+  assert.equal((await mk('manual', { title: 'Koffiemachine' })).status, 400, 'zonder PDF');
+  const pdf = 'data:application/pdf;base64,' + Buffer.from('%PDF-1.4\n%%EOF').toString('base64');
+  const man = await mk('manual', { title: 'Koffiemachine', model: 'BP-200', file: JSON.stringify({ n: 'handleiding.pdf', s: 12, d: pdf }) }); assert.equal(man.status, 201);
+  assert.equal((await fetch(base + '/q/' + man.json.id)).status, 200, 'handleiding-pagina');
 });
 
 test('extra soorten alleen in Pro en Business: Standard krijgt 403', async () => {

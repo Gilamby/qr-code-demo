@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Atrastās mantas",
       "desc": "Birka mājdzīvniekam, atslēgām vai somai"
+    },
+    "manual": {
+      "name": "Rokasgrāmata",
+      "desc": "Produkta lietošanas instrukcija"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} cilvēki ir šajā zvanā",
       "ready": "Gatavs pievienoties?",
       "join": "Pievienoties tagad"
+    },
+    "man": {
+      "tag": "Instrukcija",
+      "download": "Lejupielādēt instrukciju",
+      "video": "Skatīt skaidrojošo video",
+      "help": "Vajadzīga palīdzība?",
+      "call": "Zvanīt",
+      "mail": "E-pasts"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Foto",
     "lostName": "Mājdzīvnieka vai lietas nosaukums",
     "lostMsg": "Ziņa atradējam",
-    "reward": "Atlīdzība (neobligāti)"
+    "reward": "Atlīdzība (neobligāti)",
+    "productPhoto": "Produkta foto",
+    "productName": "Produkta nosaukums",
+    "productModel": "Modelis vai tipa numurs",
+    "manualFile": "Instrukcija (PDF)",
+    "manualVideo": "Skaidrojošs video (saite)",
+    "supportPhone": "Klientu apkalpošanas tālrunis",
+    "supportEmail": "Klientu apkalpošanas e-pasts"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -846,7 +865,8 @@
     "payUrl": "Piemēram, PayPal.me, Stripe, SumUp vai jūsu veikala maksājumu lapa.",
     "bookingUrl": "Piemēram, jūsu rezervāciju lapa, TheFork vai Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby vai Webex.",
-    "reward": "Redzama lapā, piem., “Atlīdzība 20 €”."
+    "reward": "Redzama lapā, piem., “Atlīdzība 20 €”.",
+    "manualVideo": "Piemēram, YouTube video, kas parāda, kā tas darbojas"
   },
   "more": {
     "title": "Vairāk iespēju",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espresso automāts Barista Pro",
+    "manualModel": "Modelis BP-200"
   },
   "visit": {
     "locked": "Šī lapa ir aizsargāta",

@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Objet trouvé",
       "desc": "Étiquette pour animal, clés ou sac"
+    },
+    "manual": {
+      "name": "Mode d'emploi",
+      "desc": "Mode d'emploi d'un produit"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} personnes sont dans cet appel",
       "ready": "Prêt à rejoindre ?",
       "join": "Rejoindre"
+    },
+    "man": {
+      "tag": "Mode d'emploi",
+      "download": "Télécharger le mode d'emploi",
+      "video": "Voir la vidéo explicative",
+      "help": "Besoin d'aide ?",
+      "call": "Appeler",
+      "mail": "E-mail"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Photo",
     "lostName": "Nom de l’animal ou de l’objet",
     "lostMsg": "Message pour la personne qui le trouve",
-    "reward": "Récompense (facultatif)"
+    "reward": "Récompense (facultatif)",
+    "productPhoto": "Photo du produit",
+    "productName": "Nom du produit",
+    "productModel": "Modèle ou référence",
+    "manualFile": "Mode d'emploi (PDF)",
+    "manualVideo": "Vidéo explicative (lien)",
+    "supportPhone": "Téléphone du service client",
+    "supportEmail": "E-mail du service client"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -846,7 +865,8 @@
     "payUrl": "Par exemple PayPal.me, Stripe, SumUp ou la page de paiement de votre boutique.",
     "bookingUrl": "Par exemple votre page de réservation, TheFork ou Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby ou Webex.",
-    "reward": "Affiché sur la page, ex. « 20 € de récompense »."
+    "reward": "Affiché sur la page, ex. « 20 € de récompense ».",
+    "manualVideo": "Par exemple une vidéo YouTube qui montre comment ça marche"
   },
   "more": {
     "title": "Plus d'options",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Machine espresso Barista Pro",
+    "manualModel": "Modèle BP-200"
   },
   "visit": {
     "locked": "Cette page est protégée",

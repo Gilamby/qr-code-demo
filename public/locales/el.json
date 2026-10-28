@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Απολεσθέντα",
       "desc": "Ετικέτα για κατοικίδια, κλειδιά ή τσάντες"
+    },
+    "manual": {
+      "name": "Εγχειρίδιο",
+      "desc": "Εγχειρίδιο προϊόντος"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} άτομα είναι στην κλήση",
       "ready": "Έτοιμοι να συμμετάσχετε;",
       "join": "Συμμετοχή τώρα"
+    },
+    "man": {
+      "tag": "Εγχειρίδιο",
+      "download": "Λήψη εγχειριδίου",
+      "video": "Δείτε το επεξηγηματικό βίντεο",
+      "help": "Χρειάζεστε βοήθεια;",
+      "call": "Κλήση",
+      "mail": "Email"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Φωτογραφία",
     "lostName": "Όνομα κατοικιδίου ή αντικειμένου",
     "lostMsg": "Μήνυμα για όποιον το βρει",
-    "reward": "Αμοιβή (προαιρετικό)"
+    "reward": "Αμοιβή (προαιρετικό)",
+    "productPhoto": "Φωτογραφία προϊόντος",
+    "productName": "Όνομα προϊόντος",
+    "productModel": "Μοντέλο ή κωδικός",
+    "manualFile": "Εγχειρίδιο (PDF)",
+    "manualVideo": "Επεξηγηματικό βίντεο (σύνδεσμος)",
+    "supportPhone": "Τηλέφωνο εξυπηρέτησης πελατών",
+    "supportEmail": "Email εξυπηρέτησης πελατών"
   },
   "panel": {
     "selected": "Επιλέχθηκε: {type}"
@@ -846,7 +865,8 @@
     "payUrl": "Για παράδειγμα PayPal.me, Stripe, SumUp ή τη σελίδα πληρωμής του καταστήματός σας.",
     "bookingUrl": "Για παράδειγμα τη σελίδα κρατήσεων, TheFork ή Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby ή Webex.",
-    "reward": "Εμφανίζεται στη σελίδα, π.χ. «Αμοιβή 20 €»."
+    "reward": "Εμφανίζεται στη σελίδα, π.χ. «Αμοιβή 20 €».",
+    "manualVideo": "Για παράδειγμα ένα βίντεο YouTube που δείχνει πώς λειτουργεί"
   },
   "more": {
     "title": "Περισσότερες επιλογές",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Μηχανή espresso Barista Pro",
+    "manualModel": "Μοντέλο BP-200"
   },
   "visit": {
     "locked": "Αυτή η σελίδα είναι προστατευμένη",

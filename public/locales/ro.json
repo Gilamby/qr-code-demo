@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Obiecte pierdute",
       "desc": "Etichetă pentru animale, chei sau genți"
+    },
+    "manual": {
+      "name": "Manual",
+      "desc": "Manualul unui produs"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} persoane sunt în acest apel",
       "ready": "Gata să intri?",
       "join": "Intră acum"
+    },
+    "man": {
+      "tag": "Manual",
+      "download": "Descarcă manualul",
+      "video": "Vezi videoclipul explicativ",
+      "help": "Ai nevoie de ajutor?",
+      "call": "Sună",
+      "mail": "E-mail"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Fotografie",
     "lostName": "Numele animalului sau obiectului",
     "lostMsg": "Mesaj pentru cel care îl găsește",
-    "reward": "Recompensă (opțional)"
+    "reward": "Recompensă (opțional)",
+    "productPhoto": "Fotografia produsului",
+    "productName": "Numele produsului",
+    "productModel": "Model sau cod",
+    "manualFile": "Manual (PDF)",
+    "manualVideo": "Video explicativ (link)",
+    "supportPhone": "Telefon serviciu clienți",
+    "supportEmail": "E-mail serviciu clienți"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -846,7 +865,8 @@
     "payUrl": "De exemplu PayPal.me, Stripe, SumUp sau pagina de plată a magazinului tău.",
     "bookingUrl": "De exemplu pagina ta de rezervări, TheFork sau Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby sau Webex.",
-    "reward": "Apare pe pagină, de ex. „Recompensă 100 lei”."
+    "reward": "Apare pe pagină, de ex. „Recompensă 100 lei”.",
+    "manualVideo": "De exemplu, un video YouTube care arată cum funcționează"
   },
   "more": {
     "title": "Mai multe opțiuni",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espressor Barista Pro",
+    "manualModel": "Model BP-200"
   },
   "visit": {
     "locked": "Această pagină este protejată",

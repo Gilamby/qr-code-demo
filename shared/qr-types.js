@@ -45,7 +45,7 @@
   // Voor alle dynamische codes (niet vCard en wifi: die bevatten alles zelf en gaan niet via onze server):
   // - Plannen (KB Q224): startdatum en einddatum onder "Meer opties"
   // - Google Analytics (KB Q222): UTM-labels aan de links van de pagina, als die links heeft
-  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review', 'feedback', 'email', 'phone', 'location', 'text', 'payment', 'tiktok', 'linkedin', 'youtube', 'spotify', 'telegram', 'meeting', 'lostfound'];
+  var NO_LINKS = ['pdf', 'facebook', 'instagram', 'whatsapp', 'review', 'feedback', 'email', 'phone', 'location', 'text', 'payment', 'tiktok', 'linkedin', 'youtube', 'spotify', 'telegram', 'meeting', 'lostfound', 'manual'];
   data.forEach(function (type) {
     if (type.id === 'vcard' || type.id === 'wifi') return;
     var has = function (k) { return type.fields.some(function (f) { return f.key === k; }); };
@@ -238,9 +238,15 @@
   { id: 'spotify', previewImage: 'assets/previews/spotify.jpg', page: false, icon: 'spotify', contentType: 'url', previewType: 'card', color: '#1db954', theme: ['#1db954', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.spotifyUrl', required: true, domains: ['spotify.com', 'open.spotify.com', 'spotify.link'], sample: { t: 'sample.spotifyUrl' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
-  { id: 'telegram', page: false, icon: 'telegram', contentType: 'url', previewType: 'card', color: '#229ed9', theme: ['#229ed9', '#0f172a'],
-    fields: [ { key: 'url', type: 'url', label: 'fields.telegramUrl', required: true, domains: ['t.me', 'telegram.me'], sample: { t: 'sample.telegramUrl' } },
-      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
+  // Handleiding: product, model, PDF om te downloaden, eventueel uitlegvideo en contact met de klantenservice
+  { id: 'manual', icon: 'manual', contentType: 'manual', previewType: 'card', color: '#0f766e', theme: ['#0f766e', '#042f2e'],
+    fields: [ { key: 'photo', type: 'image', label: 'fields.productPhoto' },
+      { key: 'title', label: 'fields.productName', required: true, max: 80, sample: { t: 'sample.manualProduct' } },
+      { key: 'model', label: 'fields.productModel', max: 60, sample: { t: 'sample.manualModel' } },
+      { key: 'file', type: 'file', accept: 'application/pdf', label: 'fields.manualFile', required: true, sample: { t: 'sample.pdfFile' } },
+      { key: 'video', type: 'url', label: 'fields.manualVideo', hint: 'hint.manualVideo' },
+      { key: 'phone', type: 'tel', label: 'fields.supportPhone' },
+      { key: 'email', type: 'email', label: 'fields.supportEmail' } ] },
   { id: 'booking', page: false, icon: 'booking', contentType: 'url', previewType: 'card', color: '#7c3aed', theme: ['#7c3aed', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.bookingUrl', required: true, sample: { t: 'sample.bookingUrl' }, hint: 'hint.bookingUrl' },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
@@ -254,5 +260,9 @@
       { key: 'message', label: 'fields.lostMsg', max: 300, sample: { t: 'sample.lostMsg' } },
       { key: 'phone', type: 'tel', label: 'fields.phone', required: true, or: 'email', sample: { t: 'sample.waPhone' } },
       { key: 'email', type: 'email', label: 'fields.email', or: 'phone' },
-      { key: 'reward', label: 'fields.reward', max: 60, hint: 'hint.reward' } ] }
+      { key: 'reward', label: 'fields.reward', max: 60, hint: 'hint.reward' } ] },
+  // Niet meer in het overzicht (vervangen door Handleiding); bestaande codes blijven werken
+  { id: 'telegram', hidden: true, page: false, icon: 'telegram', contentType: 'url', previewType: 'card', color: '#229ed9', theme: ['#229ed9', '#0f172a'],
+    fields: [ { key: 'url', type: 'url', label: 'fields.telegramUrl', required: true, domains: ['t.me', 'telegram.me'], sample: { t: 'sample.telegramUrl' } },
+      { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] }
 ]);

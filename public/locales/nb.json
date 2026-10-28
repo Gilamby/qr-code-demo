@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Hittegods",
       "desc": "Merke for kjæledyr, nøkler eller vesker"
+    },
+    "manual": {
+      "name": "Bruksanvisning",
+      "desc": "Bruksanvisning for et produkt"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} personer er i samtalen",
       "ready": "Klar til å bli med?",
       "join": "Bli med nå"
+    },
+    "man": {
+      "tag": "Bruksanvisning",
+      "download": "Last ned bruksanvisningen",
+      "video": "Se forklaringsvideoen",
+      "help": "Trenger du hjelp?",
+      "call": "Ring",
+      "mail": "E-post"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Bilde",
     "lostName": "Navn på dyr eller ting",
     "lostMsg": "Melding til finneren",
-    "reward": "Finnerlønn (valgfritt)"
+    "reward": "Finnerlønn (valgfritt)",
+    "productPhoto": "Produktbilde",
+    "productName": "Produktnavn",
+    "productModel": "Modell eller typenummer",
+    "manualFile": "Bruksanvisning (PDF)",
+    "manualVideo": "Forklaringsvideo (lenke)",
+    "supportPhone": "Telefon kundeservice",
+    "supportEmail": "E-post kundeservice"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -846,7 +865,8 @@
     "payUrl": "For eksempel PayPal.me, Stripe, SumUp eller butikkens betalingsside.",
     "bookingUrl": "For eksempel bookingsiden din, TheFork eller Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby eller Webex.",
-    "reward": "Vises på siden, f.eks. «200 kr i finnerlønn»."
+    "reward": "Vises på siden, f.eks. «200 kr i finnerlønn».",
+    "manualVideo": "For eksempel en YouTube-video som viser hvordan det virker"
   },
   "more": {
     "title": "Flere alternativer",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espressomaskin Barista Pro",
+    "manualModel": "Modell BP-200"
   },
   "visit": {
     "locked": "Denne siden er beskyttet",

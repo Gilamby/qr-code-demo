@@ -5855,3 +5855,22 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .tx-body { gap: 8px; }
 .tx-li { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; border-radius: 12px; background: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.08); font-size: 14.5px; line-height: 1.4; }
 .tx-li b { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--pc, #475569); color: var(--pc-ink, #fff); display: grid; place-items: center; font-size: 12px; }
+
+/* Handleiding (phone-templates.js) */
+.ph-mn { background: #f4f7f6; color: #0f172a; }
+.mn-top { height: 38%; min-height: 200px; flex: none; background: linear-gradient(160deg, color-mix(in srgb, var(--pc, #0f766e) 85%, #fff), var(--pc, #0f766e)); display: grid; place-items: center; overflow: hidden; margin-top: -50px; }
+.mn-top img { width: 100%; height: 100%; object-fit: cover; }
+.mn-ph { width: 96px; height: 96px; border-radius: 26px; background: rgba(255,255,255,.18); color: #fff; display: grid; place-items: center; } .mn-ph svg { width: 50px; height: 50px; }
+.mn-sheet { flex: 1; margin-top: -18px; border-radius: 20px 20px 0 0; background: #f4f7f6; padding: 18px 16px 24px; display: flex; flex-direction: column; gap: 10px; position: relative; }
+.mn-tag { align-self: flex-start; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--pc, #0f766e) 14%, #fff); color: var(--pc, #0f766e); font-size: 12px; font-weight: 800; }
+.mn-sheet h4 { margin: 0; font-size: 22px; font-weight: 800; line-height: 1.2; } .mn-model { margin-top: -6px; font-size: 13.5px; color: #64748b; }
+.mn-dl { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 0; border-radius: 14px; background: var(--pc, #0f766e); color: var(--pc-ink, #fff); font: inherit; text-align: left; cursor: pointer; }
+.mn-dl > svg { width: 24px; height: 24px; flex: none; } .mn-dl b { display: block; font-size: 15px; } .mn-dl small { font-size: 12px; opacity: .85; }
+.mn-row { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 14px; border: 0; border-radius: 14px; background: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.08); color: #0f172a; font: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+.mn-row svg { width: 20px; height: 20px; color: var(--pc, #0f766e); }
+.mn-help { margin: 6px 0 0; font-size: 13px; font-weight: 700; color: #475569; }
+.mn-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mn-acts button { height: 46px; border-radius: 12px; border: 1px solid #dbe3e1; background: #fff; color: #0f172a; font: inherit; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
+.mn-acts svg { width: 17px; height: 17px; color: var(--pc, #0f766e); }
+.ph-mn .sb { position: relative; z-index: 1; }
+.mn-ph .i, .mn-ph svg { width: 50px; height: 50px; }

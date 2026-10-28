@@ -34,8 +34,10 @@ var TypeGrid = {
   },
   render: function (el, state) {
     TypeGrid.el = el; TypeGrid.state = state;
-    var pages = []; for (var i = 0; i < QR_TYPES.length; i += TG_PAGE) pages.push(QR_TYPES.slice(i, i + TG_PAGE));
-    var sel = QR_TYPES.map(function (x) { return x.id; }).indexOf(state.typeId);
+    // Verborgen soorten (oude codes) alleen tonen als je zo'n code bewerkt
+    var list = QR_TYPES.filter(function (x) { return !x.hidden || x.id === state.typeId; });
+    var pages = []; for (var i = 0; i < list.length; i += TG_PAGE) pages.push(list.slice(i, i + TG_PAGE));
+    var sel = list.map(function (x) { return x.id; }).indexOf(state.typeId);
     if (sel >= 0 && state.typeId !== TypeGrid.lastSel) tgPage = Math.floor(sel / TG_PAGE);   // gekozen soort staat op een andere pagina: die tonen
     TypeGrid.lastSel = state.typeId; if (tgPage >= pages.length) tgPage = 0;
     var grid = function (list, i) { return '<div class="grid' + (pages.length > 1 ? ' tg-page' : '') + '" role="group" aria-label="' + esc(t('steps.type') + (pages.length > 1 ? ' · ' + t('tg.page', { n: i + 1, total: pages.length }) : '')) + '"' + (pages.length > 1 && i !== tgPage ? ' inert' : '') + '>' +

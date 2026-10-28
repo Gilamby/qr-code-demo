@@ -74,6 +74,13 @@
       var b = $('.tx-copy'); if (!b) return; b.setAttribute('data-go', '');
       b.onclick = function () { if (navigator.clipboard) navigator.clipboard.writeText(c.text || '').then(function () { toast(t('pv.text.copied')); }); };
     },
+    manual: function () {
+      var o = FILES.parse(c.file), dl = $('.mn-dl'), vid = $('.mn-video'), call = $('.mn-call'), m = $('.mn-mail');
+      if (dl) { if (o && o.url) go(dl, o.url, o.n); else dl.remove(); }
+      if (vid) { if (href(c.video)) go(vid, href(c.video)); else vid.remove(); }
+      if (call) { if (c.phone) go(call, tel(c.phone)); else call.remove(); }
+      if (m) { if (c.email) go(m, mail(c.email) + '?subject=' + encodeURIComponent(c.title || '')); else m.remove(); }
+    },
     lostfound: function () {
       var call = $('.lf-call'), m = $('.lf-mail');
       if (call) { if (c.phone) go(call, tel(c.phone)); else call.remove(); }

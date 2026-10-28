@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Zguba",
       "desc": "Zawieszka dla zwierzaka, kluczy lub torby"
+    },
+    "manual": {
+      "name": "Instrukcja",
+      "desc": "Instrukcja obsługi produktu"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} osoby są na tym połączeniu",
       "ready": "Gotowy, by dołączyć?",
       "join": "Dołącz teraz"
+    },
+    "man": {
+      "tag": "Instrukcja",
+      "download": "Pobierz instrukcję",
+      "video": "Obejrzyj film instruktażowy",
+      "help": "Potrzebujesz pomocy?",
+      "call": "Zadzwoń",
+      "mail": "E-mail"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Zdjęcie",
     "lostName": "Imię zwierzaka lub nazwa rzeczy",
     "lostMsg": "Wiadomość dla znalazcy",
-    "reward": "Nagroda (opcjonalnie)"
+    "reward": "Nagroda (opcjonalnie)",
+    "productPhoto": "Zdjęcie produktu",
+    "productName": "Nazwa produktu",
+    "productModel": "Model lub numer typu",
+    "manualFile": "Instrukcja (PDF)",
+    "manualVideo": "Film instruktażowy (link)",
+    "supportPhone": "Telefon obsługi klienta",
+    "supportEmail": "E-mail obsługi klienta"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -846,7 +865,8 @@
     "payUrl": "Na przykład PayPal.me, Stripe, SumUp lub strona płatności Twojego sklepu.",
     "bookingUrl": "Na przykład Twoja strona rezerwacji, TheFork lub Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby lub Webex.",
-    "reward": "Widoczna na stronie, np. „Nagroda 100 zł”."
+    "reward": "Widoczna na stronie, np. „Nagroda 100 zł”.",
+    "manualVideo": "Na przykład film na YouTube, który pokazuje, jak to działa"
   },
   "more": {
     "title": "Więcej opcji",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Ekspres do kawy Barista Pro",
+    "manualModel": "Model BP-200"
   },
   "visit": {
     "locked": "Ta strona jest chroniona",

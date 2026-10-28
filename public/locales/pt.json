@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Perdidos e achados",
       "desc": "Etiqueta para animais, chaves ou malas"
+    },
+    "manual": {
+      "name": "Manual",
+      "desc": "Manual de um produto"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} pessoas estão nesta chamada",
       "ready": "Pronto para entrar?",
       "join": "Entrar agora"
+    },
+    "man": {
+      "tag": "Manual",
+      "download": "Descarregar o manual",
+      "video": "Ver o vídeo explicativo",
+      "help": "Precisa de ajuda?",
+      "call": "Ligar",
+      "mail": "E-mail"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Foto",
     "lostName": "Nome do animal ou objeto",
     "lostMsg": "Mensagem para quem encontrar",
-    "reward": "Recompensa (opcional)"
+    "reward": "Recompensa (opcional)",
+    "productPhoto": "Foto do produto",
+    "productName": "Nome do produto",
+    "productModel": "Modelo ou referência",
+    "manualFile": "Manual (PDF)",
+    "manualVideo": "Vídeo explicativo (link)",
+    "supportPhone": "Telefone do apoio ao cliente",
+    "supportEmail": "E-mail do apoio ao cliente"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -846,7 +865,8 @@
     "payUrl": "Por exemplo PayPal.me, Stripe, SumUp ou a página de pagamento da sua loja.",
     "bookingUrl": "Por exemplo a sua página de reservas, TheFork ou Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby ou Webex.",
-    "reward": "Aparece na página, p. ex. “Recompensa de 20 €”."
+    "reward": "Aparece na página, p. ex. “Recompensa de 20 €”.",
+    "manualVideo": "Por exemplo, um vídeo do YouTube que mostra como funciona"
   },
   "more": {
     "title": "Mais opções",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Máquina de café expresso Barista Pro",
+    "manualModel": "Modelo BP-200"
   },
   "visit": {
     "locked": "Esta página está protegida",

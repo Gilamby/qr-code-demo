@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Hittegods",
       "desc": "Bricka för husdjur, nycklar eller väskor"
+    },
+    "manual": {
+      "name": "Bruksanvisning",
+      "desc": "Bruksanvisning för en produkt"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} personer är med i samtalet",
       "ready": "Redo att gå med?",
       "join": "Gå med nu"
+    },
+    "man": {
+      "tag": "Bruksanvisning",
+      "download": "Ladda ner bruksanvisningen",
+      "video": "Se instruktionsvideon",
+      "help": "Behöver du hjälp?",
+      "call": "Ring",
+      "mail": "E-post"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Foto",
     "lostName": "Namn på djur eller sak",
     "lostMsg": "Meddelande till upphittaren",
-    "reward": "Hittelön (valfritt)"
+    "reward": "Hittelön (valfritt)",
+    "productPhoto": "Produktfoto",
+    "productName": "Produktnamn",
+    "productModel": "Modell eller typnummer",
+    "manualFile": "Bruksanvisning (PDF)",
+    "manualVideo": "Instruktionsvideo (länk)",
+    "supportPhone": "Telefon kundtjänst",
+    "supportEmail": "E-post kundtjänst"
   },
   "panel": {
     "selected": "{type} vald"
@@ -846,7 +865,8 @@
     "payUrl": "T.ex. PayPal.me, Stripe, SumUp eller din butiks betalsida.",
     "bookingUrl": "T.ex. din bokningssida, TheFork eller Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby eller Webex.",
-    "reward": "Visas på sidan, t.ex. ”200 kr i hittelön”."
+    "reward": "Visas på sidan, t.ex. ”200 kr i hittelön”.",
+    "manualVideo": "Till exempel en YouTube-video som visar hur det fungerar"
   },
   "more": {
     "title": "Fler alternativ",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espressomaskin Barista Pro",
+    "manualModel": "Modell BP-200"
   },
   "visit": {
     "locked": "Den här sidan är skyddad",

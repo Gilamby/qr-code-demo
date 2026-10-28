@@ -619,6 +619,21 @@ var PHONE = (function () {
         '<button type="button" class="tx-copy">' + ic('copy') + '<span>' + esc(t('pv.text.copy')) + '</span></button></article></div>';
     },
 
+    /* ---------- Handleiding: product, PDF downloaden, uitlegvideo, klantenservice ---------- */
+    manual: function (c, ex) {
+      var f = FILES.parse(c.file), name = c.title || (ex ? t('sample.manualProduct') : ''), model = c.model || (ex ? t('sample.manualModel') : '');
+      var size = f && f.s ? i18n.fmt.num(Math.round(f.s / 104857.6) / 10) + ' MB' : '';
+      var exP = exPhoto('manual', ex), photo = c.photo || exP ? '<img src="' + (c.photo || exP) + '" alt="">' : '<span class="mn-ph">' + ic('book') + '</span>';
+      return '<div class="ph ph-mn">' + statusBar(true) + '<div class="mn-top">' + photo + '</div>' +
+        '<div class="mn-sheet"><span class="mn-tag">' + esc(t('pv.man.tag')) + '</span><h4>' + v(name, '60%') + '</h4>' + (model ? '<small class="mn-model">' + esc(model) + '</small>' : '') +
+          '<button type="button" class="mn-dl">' + ic('save') + '<span><b>' + esc(t('pv.man.download')) + '</b><small>PDF' + (size ? ' · ' + size : '') + '</small></span></button>' +
+          (c.video || ex ? '<button type="button" class="mn-row mn-video">' + ic('play') + '<span>' + esc(t('pv.man.video')) + '</span></button>' : '') +
+          (c.phone || c.email || ex ? '<p class="mn-help">' + esc(t('pv.man.help')) + '</p><div class="mn-acts">' +
+            (c.phone || ex ? '<button type="button" class="mn-call">' + ic('call') + '<span>' + esc(t('pv.man.call')) + '</span></button>' : '') +
+            (c.email || ex ? '<button type="button" class="mn-mail">' + ic('mail') + '<span>' + esc(t('pv.man.mail')) + '</span></button>' : '') + '</div>' : '') +
+        '</div></div>';
+    },
+
     /* ---------- Gevonden?: foto, naam, bericht, bellen / mailen ---------- */
     lostfound: function (c, ex) {
       var name = c.name || (ex ? t('sample.lostName') : ''), msg = c.message || (ex ? t('sample.lostMsg') : '');

@@ -176,6 +176,10 @@
     "lostfound": {
       "name": "Hittegods",
       "desc": "Mærke til kæledyr, nøgler eller tasker"
+    },
+    "manual": {
+      "name": "Vejledning",
+      "desc": "Vejledning til et produkt"
     }
   },
   "pv": {
@@ -476,6 +480,14 @@
       "others": "{n} personer er med i opkaldet",
       "ready": "Klar til at deltage?",
       "join": "Deltag nu"
+    },
+    "man": {
+      "tag": "Vejledning",
+      "download": "Download vejledningen",
+      "video": "Se forklaringsvideoen",
+      "help": "Brug for hjælp?",
+      "call": "Ring",
+      "mail": "E-mail"
     }
   },
   "hero": {
@@ -610,7 +622,14 @@
     "photo": "Foto",
     "lostName": "Navn på dyr eller ting",
     "lostMsg": "Besked til finderen",
-    "reward": "Findeløn (valgfri)"
+    "reward": "Findeløn (valgfri)",
+    "productPhoto": "Produktfoto",
+    "productName": "Produktnavn",
+    "productModel": "Model eller typenummer",
+    "manualFile": "Vejledning (PDF)",
+    "manualVideo": "Forklaringsvideo (link)",
+    "supportPhone": "Telefon kundeservice",
+    "supportEmail": "E-mail kundeservice"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -846,7 +865,8 @@
     "payUrl": "Fx PayPal.me, Stripe, SumUp eller din butiks betalingsside.",
     "bookingUrl": "Fx din bookingside, TheFork eller Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby eller Webex.",
-    "reward": "Vises på siden, fx “200 kr. i findeløn”."
+    "reward": "Vises på siden, fx “200 kr. i findeløn”.",
+    "manualVideo": "For eksempel en YouTube-video, der viser, hvordan det virker"
   },
   "more": {
     "title": "Flere muligheder",
@@ -1333,7 +1353,9 @@
     "spotifyUrl": "https://open.spotify.com/playlist/cafe-lumen",
     "telegramUrl": "https://t.me/cafelumen",
     "bookingUrl": "https://cafe-lumen.example/book",
-    "meetingUrl": "https://zoom.us/j/123456789"
+    "meetingUrl": "https://zoom.us/j/123456789",
+    "manualProduct": "Espressomaskine Barista Pro",
+    "manualModel": "Model BP-200"
   },
   "visit": {
     "locked": "Denne side er beskyttet",
