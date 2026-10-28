@@ -40,12 +40,8 @@ export function device(ua: string | null) {
   return { browser, os, mobile: /Mobi|iPhone|Android/.test(s) };
 }
 /** 84.104.12.7 -> 84.104.12.•••  (IPv6: alleen het begin) */
-export function maskIp(ip: string | null) {
-  const v = String(ip || '').replace(/^::ffff:/, '');
-  if (!v) return null;
-  if (/^\d+\.\d+\.\d+\.\d+$/.test(v)) return v.replace(/\.\d+$/, '.•••');
-  return v.split(':').slice(0, 3).join(':') + ':•••';
-}
+import { maskIp } from '../common/ip';
+export { maskIp };
 
 const START_PAGES = ['home', 'create', 'myCodes', 'analytics'];
 
@@ -252,6 +248,14 @@ export class AccountController {
     let p: any = {}; try { p = JSON.parse((await this.db.getSetting('uprefs:' + user.id)) || '{}'); } catch (e) { p = {}; }
     // tour: korte rondleiding alleen voor nieuwe accounts (gemaakt vanaf TOUR_SINCE); bestaande klanten zien hem niet vanzelf
     return { start: START_PAGES.includes(p.start) ? p.start : 'home', tour: !!p.tour || String(user.createdAt || '') < TOUR_SINCE };
+  }
+  /* Tijdzone van het apparaat, voor accounts met tijdzone 'automatisch': start- en eindtijden van codes gelden dan in die tijd */
+  @Put('account/device-tz')
+  async deviceTz(@CurrentUser() user: User, @Body() b: any = {}) {
+    const tz = String((b && b.tz) || '').slice(0, 64); try { new Intl.DateTimeFormat('en', { timeZone: tz }); } catch { throw fail(400, 'timezone'); }
+    if (!tz) throw fail(400, 'timezone');
+    if ((await this.db.getSetting('devtz:' + user.id)) !== tz) await this.db.setSetting('devtz:' + user.id, tz);
+    return { ok: true };
   }
   @Patch('account/prefs')
   async savePrefs(@CurrentUser() user: User, @Body() b: any = {}) {

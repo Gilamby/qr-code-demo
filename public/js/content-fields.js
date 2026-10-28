@@ -185,13 +185,15 @@ var DishesEditor = (function () {
     return '<div class="ds" data-dishes="' + f.key + '" id="' + id + '"><div class="ds-list">' + rows(list) + '</div>' +
       '<button type="button" class="pw-act ds-add" data-ds-add>+ ' + t('dish.add') + '</button></div>';
   }
+  var PRICE = /^\d{0,5}([.,]\d{0,2})?$/;
   function mount(root, onChange) {
     root.querySelectorAll('[data-dishes]').forEach(function (box) {
       var key = box.getAttribute('data-dishes'), listEl = box.querySelector('.ds-list');
       var list = FILES.list((store.get().content[store.get().typeId] || {})[key]); if (!list.length) list = [{ n: '', p: '' }];
       function save(redraw) {
         if (redraw) listEl.innerHTML = rows(list);
-        var clean = list.filter(function (d) { return d.n && d.n.trim(); });
+        // Prijs zoals de server hem accepteert (max. 99999,99); een verkeerde prijs wordt rood en gaat niet mee
+        var clean = list.filter(function (d) { return d.n && d.n.trim(); }).map(function (d) { return PRICE.test(d.p || '') ? d : { n: d.n, p: '' }; });
         onChange(key, clean.length ? JSON.stringify(clean) : '');
       }
       box.addEventListener('click', function (e) {
@@ -201,7 +203,7 @@ var DishesEditor = (function () {
       });
       box.addEventListener('input', function (e) {
         var k = e.target.getAttribute('data-ds'); if (!k) return; e.stopPropagation();
-        var v = e.target.value; if (k === 'p') { v = v.replace(/[^0-9.,]/g, ''); e.target.value = v; }
+        var v = e.target.value; if (k === 'p') { v = v.replace(/[^0-9.,]/g, ''); e.target.value = v; var bad = !PRICE.test(v); e.target.classList.toggle('ds-bad', bad); e.target.setAttribute('aria-invalid', String(bad)); }
         list[+e.target.getAttribute('data-i')][k] = v; save(false);
       });
     });

@@ -187,7 +187,8 @@
       var acts = $$('.gm-acts > *'); [maps, tel(c.phone), href(c.website), ''].forEach(function (u, i) { if (acts[i] && u && acts[i].tagName !== 'A') go(acts[i], u); });
       if (acts[3]) acts[3].addEventListener('click', share);
       go($('.gm-map'), maps); if (!a) { var m = $('.gm-map'); if (m) m.remove(); }
-      var rows = $$('.gm-row'); go(rows[0], maps); go(rows[2], tel(c.phone)); go(rows[3], mail(c.email)); go(rows[4], href(c.website));
+      var row = function (k) { return $('.gm-row[data-k="' + k + '"]'); };   // op naam, want lege regels zijn al weggehaald
+      go(row('addr'), maps); go(row('phone'), tel(c.phone)); go(row('email'), mail(c.email)); go(row('web'), href(c.website));
       var sh = $('.gm-tb span:last-child'); if (sh) { sh.setAttribute('data-go', ''); sh.onclick = share; }
       var so = SOCIALS.parse(c.socials), nets = SOCIALS.LIST.filter(function (n) { return n.id in so; });
       $$('.gm-soc .br').forEach(function (el, i) { go(el, href(so[nets[i].id])); });

@@ -5949,3 +5949,4 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .ph-fm, .ph-su, .ph-fb { color-scheme: light; }
 .le .le-req input[type="checkbox"] { width: 16px; height: 16px; min-height: 0; padding: 0; margin: 0; border-radius: 4px; flex: none; accent-color: var(--accent); appearance: auto; -webkit-appearance: checkbox; background: none; box-shadow: none; }
 .le .le-req { flex-direction: row; white-space: nowrap; }
+.ds-price input.ds-bad { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,.18); }

@@ -12,10 +12,10 @@ function themeDesign(th, state) {
   if (th.brand) {                                       // eigen merk: donkerste paginakleur als code, de andere als hoeken
     var a = state.pageColor, b = state.accentColor, dark = luminance(a) < luminance(b) ? a : b, light = dark === a ? b : a;
     return Object.assign({}, QR_DEFAULT_DESIGN, { color: dark, pattern: 'rounded', cornerOuter: 'rounded', cornerInner: 'rounded', cornerColor: contrastRatio(light, '#ffffff') >= 3 ? light : dark,
-      frame: 'label', frameColor: dark, frameText: t('dz.text.scan') });
+      frame: 'label', frameColor: dark, frameText: t('dz.text.scan').slice(0, 32) });
   }
   var d = Object.assign({}, QR_DEFAULT_DESIGN, th.d);
-  if (d.frameText) d.frameText = t(d.frameText);
+  if (d.frameText) d.frameText = t(d.frameText).slice(0, 32);   // de server staat max. 32 tekens toe
   return d;
 }
 function themeById(id) { return DESIGN_THEMES.filter(function (x) { return x.id === id; })[0]; }

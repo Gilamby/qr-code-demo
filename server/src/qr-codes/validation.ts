@@ -139,6 +139,8 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
     if (content.endDate && at(content.endDate, content.endTime || '23:59') < at(content.startDate, content.startTime)) errors.push('endDate: before start');
     if (!content.endDate && content.endTime && content.startTime && content.endTime < content.startTime) errors.push('endTime: before start');
   }
+  // Plannen: einde niet vóór (of gelijk aan) de start, anders werkt de code nooit
+  if (content.starts && content.expires && content.expires + 'T' + (content.expiresTime || '23:59') <= content.starts + 'T' + (content.startsTime || '00:00')) errors.push('expires: before start');
   const dv = validateDesign(body.design || {}, errors);
   return { errors, value: { typeId: type.id, contentType: type.contentType, content, design: dv } };
 }

@@ -491,13 +491,13 @@ var PHONE = (function () {
           '<div class="gm-open"><b class="' + st + '">' + esc(t(st === 'open' ? 'pv.business.openNow' : 'pv.business.closedNow')) + '</b> · ' + esc(todayTxt) + '</div>' +
           '<div class="gm-acts">' + act('pin', t('pv.vcard.route'), addr ? ADDRESS.mapUrl(addr) : '') + act('call', t('pv.vcard.call')) + act('globe', t('pv.vcard.website')) + act('share', t('pv.business.share')) + '</div>' +
           (c.description ? '<p class="gm-desc">' + esc(c.description) + '</p>' : (ex ? '' : '<p class="gm-desc"><i class="sk"></i><i class="sk" style="width:70%"></i></p>')) +
-          '<div class="gm-row">' + ic('pin') + '<span>' + (addr ? '<b>' + esc(addr.l) + '</b>' : '<i class="sk" style="width:80%"></i>') + '</span></div>' +
+          '<div class="gm-row" data-k="addr">' + ic('pin') + '<span>' + (addr ? '<b>' + esc(addr.l) + '</b>' : '<i class="sk" style="width:80%"></i>') + '</span></div>' +
           '<div class="gm-map">' + '<svg viewBox="0 0 300 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="90" fill="#e8eef3"/><path d="M0 60H300M0 20H300M70 0V90M190 0V90M250 0V90" stroke="#fff" stroke-width="7"/><path d="M0 40Q120 30 300 75" stroke="#fcd34d" stroke-width="6" fill="none"/><rect x="88" y="28" width="40" height="22" rx="3" fill="#c8e6c9"/><rect x="205" y="30" width="30" height="20" rx="3" fill="#dfe6ec"/></svg>' +
             '<span class="gm-pin">' + ic('pin') + '</span></div>' +
-          '<div class="gm-row">' + ic('clock') + '<span><b>' + esc(t('pv.business.hours')) + '</b><div class="gm-table">' + table + '</div></span></div>' +
-          '<div class="gm-row">' + ic('call') + '<span>' + v(c.phone, '55%') + '</span></div>' +
-          '<div class="gm-row">' + ic('mail') + '<span>' + v(c.email, '65%') + '</span></div>' +
-          '<div class="gm-row">' + ic('globe') + '<span>' + v(c.website ? c.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '', '50%') + '</span></div>' +
+          '<div class="gm-row" data-k="hours">' + ic('clock') + '<span><b>' + esc(t('pv.business.hours')) + '</b><div class="gm-table">' + table + '</div></span></div>' +
+          '<div class="gm-row" data-k="phone">' + ic('call') + '<span>' + v(c.phone, '55%') + '</span></div>' +
+          '<div class="gm-row" data-k="email">' + ic('mail') + '<span>' + v(c.email, '65%') + '</span></div>' +
+          '<div class="gm-row" data-k="web">' + ic('globe') + '<span>' + v(c.website ? c.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '', '50%') + '</span></div>' +
           (nets.length ? '<div class="gm-soc">' + nets.map(function (n) { return SOCIALS.icon(n.id); }).join('') + '</div>' : '') +
         '</div>' +
       '</div>';

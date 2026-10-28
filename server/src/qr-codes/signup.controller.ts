@@ -16,6 +16,7 @@ import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { EMAIL } from './validation';
 import { fail } from '../common/http';
 import { locked } from '../common/lock';
+import { openForInput } from '../visitor/open';
 import type { User } from '../types';
 
 export type Signup = { id: string; at: string; name: string; email: string; phone: string | null };
@@ -34,7 +35,7 @@ export class SignupController {
   @HttpCode(201)
   async send(@Req() req: Request, @Param('id') id: string, @Body() b: any = {}) {
     if (this.auth.limited('su:' + req.ip, 10, 60) || this.auth.limited('su-code:' + id, 300, 60)) throw fail(429, 'too_many');
-    const q = await this.db.getQrCode(String(id)); if (!q || q.typeId !== 'signup' || q.trashedAt || q.paused) throw fail(404, 'Not found');
+    const q = await this.db.getQrCode(String(id)); if (!(await openForInput(this.db, q, 'signup'))) throw fail(404, 'Not found');   // zelfde regels als de code openen (uit, verlopen, niet betaald …)
     const name = clean(b.name, 80), email = clean(b.email, 200).toLowerCase(), errors: string[] = [];
     if (name.length < 2) errors.push('name');
     if (!EMAIL.test(email)) errors.push('email');

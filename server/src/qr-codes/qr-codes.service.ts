@@ -121,7 +121,7 @@ export class QrCodesService {
         content[key] = JSON.stringify({ n: o.n, s: buffer.length, f: id }); keep.push(id);
       } else if (o.f) {
         const f = await this.db.getFile(o.f);                           // alleen een eigen bestand van deze code
-        if (!f || f.user_id !== userId || (codeId && f.code_id && f.code_id !== codeId)) delete content[key];
+        if (!f || f.user_id !== userId || (codeId ? f.code_id && f.code_id !== codeId : f.code_id)) delete content[key];   // nieuwe code: alleen een los geüpload bestand, nooit dat van een andere code
         else { content[key] = JSON.stringify({ n: o.n, s: f.size, f: f.id }); keep.push(f.id); }
       } else delete content[key];
     }

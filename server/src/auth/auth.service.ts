@@ -5,6 +5,7 @@
      Je blijft ingelogd tot je uitlogt: 1 jaar, en elke dag dat je de app gebruikt schuift dat op.
      In de database staat alleen een hash van die code. Noodzakelijke cookie: geen cookiebanner nodig.
    ========================================================= */
+import { maskIp } from '../common/ip';
 import { signupOpen } from '../platform';
 import { userOfKey } from './api-keys';
 import { planFor } from '../plans';
@@ -143,7 +144,7 @@ export class AuthService implements OnModuleDestroy {
   me(u: User) { return { id: u.id, email: u.email, name: u.name, background: u.background, customBackground: u.customBackground, createdAt: u.createdAt, avatar: u.avatar || null, timezone: u.timezone || null, verified: u.verified !== false, passwordChangedAt: u.passwordChangedAt || null, theme: u.theme || null, emailPrefs: u.emailPrefs || { report: 'off', security: true, product: false }, lang: u.lang || null, emailLocked: this.emailLocked(u), role: this.isSuper(u) ? 'super' : this.isAdmin(u) ? 'admin' : 'user', admin: this.isAdmin(u), superAdmin: this.isSuper(u) }; }
 
   /** Browser en IP van een verzoek (voor Apparaten en Recente activiteit) */
-  meta(req: Request) { return { ua: String(req.get('user-agent') || ''), ip: String(req.ip || '') }; }
+  meta(req: Request) { return { ua: String(req.get('user-agent') || ''), ip: maskIp(req.ip) || '' }; }   // IP alleen ingekort bewaren (AVG)
   /** E-mail staat vast in de serverinstellingen (SUPPORT_EMAIL / ADMIN_EMAILS): wijzigen zou de rechten kapotmaken */
   emailLocked(u: { email?: string }) {
     return this.envTeam().indexOf(String(u.email || '').toLowerCase()) >= 0;

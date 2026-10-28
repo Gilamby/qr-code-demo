@@ -14,6 +14,7 @@ import { QR_TYPES } from '../qr-codes/validation';
 import { secretKey } from '../qr-codes/qr-codes.service';
 import { place, device, os } from '../analytics/scan-stats';
 import * as rules from './rules';
+import { ownerZone } from './open';
 import { livePage } from './live-page';
 import { isCustomHost, ownerOfHost } from '../domains';
 import type { QrCode } from '../types';
@@ -85,7 +86,7 @@ export class ShortLinksController {
   private zones = new Map<string, { at: number; tz: string }>();
   private async zoneOf(userId: string) {
     const z = this.zones.get(userId); if (z && Date.now() - z.at < 600e3) return z.tz;
-    const u: any = await this.db.getUser(userId).catch(() => null), tz = (u && u.timezone) || 'Europe/Madrid';
+    const tz = await ownerZone(this.db, userId);   // gekozen tijdzone, anders die van het apparaat van de eigenaar
     this.zones.set(userId, { at: Date.now(), tz }); return tz;
   }
   private async openCode(req: Request, res: Response, id: string, passwordOk: boolean) {
@@ -94,7 +95,7 @@ export class ShortLinksController {
     if (!found) return res.status(/^[A-Za-z0-9_-]{4,16}$/.test(id) && (await this.db.wasDeleted(id)) ? 410 : 404).send(rules.notFoundPage(req));   // 410 = verwijderd, komt niet terug
     if (isBlocked(found.userId)) return res.status(503).set('Retry-After', '3600').send(rules.inactivePage(req));   // abonnement niet betaald: niet tellen
     if (found.paused) return res.status(503).set('Retry-After', '3600').send(rules.pausedPage(req));   // tijdelijk uit: niet tellen
-    const now = rules.nowIn(found.content && (found.content.startsTime || found.content.expiresTime) ? await this.zoneOf(found.userId) : undefined);
+    const c0 = found.content || {}, now = rules.nowIn(c0.starts || c0.expires || c0.startsTime || c0.expiresTime ? await this.zoneOf(found.userId) : undefined);   // ook een datum zonder tijd: de dag van de eigenaar
     if (rules.isExpired(found, now)) {
       // Na afloop doorsturen naar een andere link (bv. de nieuwe actie), anders "Deze QR-code is verlopen"
       if (found.content.afterUrl && /^https?:\/\//i.test(found.content.afterUrl)) { res.set('Cache-Control', 'no-store'); return res.redirect(found.content.afterUrl); }

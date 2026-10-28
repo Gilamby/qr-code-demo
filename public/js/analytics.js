@@ -45,7 +45,8 @@ var Analytics = (function () {
     phone: '<rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/>', tablet: '<rect x="4.5" y="3" width="15" height="18" rx="2.5"/><path d="M11 18h2"/>', desktop: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M9 20h6M12 16v4"/>', info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>', chev: '<path d="M6 9l6 6 6-6"/>'
   };
   function ico(k, cls) { return '<svg class="' + (cls || 'an-i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + '</svg>'; }
-  function iso(d) { return d.toISOString().slice(0, 10); }
+  // Datum (jjjj-mm-dd) in de tijdzone van de gebruiker, niet in UTC (anders is "vandaag" na middernacht nog gisteren)
+  function iso(d) { try { return new Intl.DateTimeFormat('en-CA', { timeZone: i18n.fmt.zone(), year: 'numeric', month: '2-digit', day: '2-digit' }).format(d); } catch (e) { return d.toISOString().slice(0, 10); } }
   /** Periode langer dan je pakket toont? Dan 'pro' of 'business' (vanaf welk pakket), anders null */
   function periodLocked(p) {
     var d = window.PlanGate && PlanGate.statsDays(); if (!d) return null;

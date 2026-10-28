@@ -15,6 +15,7 @@ import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { EMAIL } from './validation';
 import { fail } from '../common/http';
 import { locked } from '../common/lock';
+import { openForInput } from '../visitor/open';
 import type { User } from '../types';
 
 export type Answer = { id: string; at: string; rating: number; comment: string; email: string | null };
@@ -32,7 +33,7 @@ export class FeedbackController {
   @HttpCode(201)
   async send(@Req() req: Request, @Param('id') id: string, @Body() b: any = {}) {
     if (this.auth.limited('fb:' + req.ip, 10, 60) || this.auth.limited('fb-code:' + id, 300, 60)) throw fail(429, 'too_many');
-    const q = await this.db.getQrCode(String(id)); if (!q || q.typeId !== 'feedback' || q.trashedAt || q.paused) throw fail(404, 'Not found');
+    const q = await this.db.getQrCode(String(id)); if (!(await openForInput(this.db, q, 'feedback'))) throw fail(404, 'Not found');   // zelfde regels als de code openen (uit, verlopen, niet betaald …)
     const rating = Number(b.rating); if (!Number.isInteger(rating) || rating < 1 || rating > 5) throw fail(400, 'rating');
     const comment = String(b.comment || '').replace(/\r\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim().slice(0, 1000);
     let email: string | null = null;

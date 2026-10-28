@@ -4,6 +4,7 @@
    deze klasse weet niet welke het is.
    Tabellen: users, sessions, password_resets, email_verifications, email_changes, activity, qr_codes, scan_stats, files, settings.
    ========================================================= */
+import { maskIp } from '../common/ip';
 import * as fs from 'fs';
 import * as path from 'path';
 import type { Billing, QrCode, SqlDriver, StoredFile, User } from '../types';
@@ -66,7 +67,7 @@ export class SqlDatabase extends DatabaseService {
     const media = parseMedia(((await this.d.get('SELECT media FROM users WHERE id = ?', [id])) || ({} as any)).media).map((m: any) => m.id);
     await this.d.run('DELETE FROM users WHERE id = ?', [id]);
     removeFiles(media);                                               // eigen achtergronden (foto's/video's)
-    await this.setSetting('bghide:' + id, null); await this.setSetting('plan:' + id, null); await this.setSetting('disabled:' + id, null); await this.setSetting('totp:' + id, null); await this.setSetting('terms:' + id, null); await this.setSetting('stripe:' + id, null); await this.setSetting('extra:' + id, null); await this.setSetting('planPaused:' + id, null); await this.setSetting('keep:' + id, null); await this.setSetting('payments:' + id, null); await this.setSetting('paymeta:' + id, null); await this.setSetting('uprefs:' + id, null); await this.setSetting('templates:' + id, null); await this.setSetting('purged:' + id, null); try { const tl = JSON.parse((await this.getSetting('tickets')) || '[]'); if (Array.isArray(tl) && tl.some((x: any) => x.userId === id)) await this.setSetting('tickets', JSON.stringify(tl.filter((x: any) => x.userId !== id))); } catch (e) { /* geen vragen */ }
+    await this.setSetting('bghide:' + id, null); await this.setSetting('plan:' + id, null); await this.setSetting('disabled:' + id, null); await this.setSetting('totp:' + id, null); await this.setSetting('terms:' + id, null); await this.setSetting('stripe:' + id, null); await this.setSetting('extra:' + id, null); await this.setSetting('planPaused:' + id, null); await this.setSetting('keep:' + id, null); await this.setSetting('payments:' + id, null); await this.setSetting('paymeta:' + id, null); await this.setSetting('uprefs:' + id, null); await this.setSetting('templates:' + id, null); await this.setSetting('purged:' + id, null); await this.setSetting('devtz:' + id, null); try { const tl = JSON.parse((await this.getSetting('tickets')) || '[]'); if (Array.isArray(tl) && tl.some((x: any) => x.userId === id)) await this.setSetting('tickets', JSON.stringify(tl.filter((x: any) => x.userId !== id))); } catch (e) { /* geen vragen */ }
     await this.markGone(codes);       // de rest gaat mee (ON DELETE CASCADE)
     removeFiles(files);
   }
@@ -97,7 +98,7 @@ export class SqlDatabase extends DatabaseService {
 
   async createSession(userId: string, meta: ClientMeta = {}) {
     const token = newId(32), exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString(), t = now();
-    await this.d.run('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, ua, ip, seen_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [hash(token), userId, t, exp, cut(meta.ua, 300), cut(meta.ip, 64), t]);
+    await this.d.run('INSERT INTO sessions (token_hash, user_id, created_at, expires_at, ua, ip, seen_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [hash(token), userId, t, exp, cut(meta.ua, 300), cut(maskIp(meta.ip), 64), t]);
     return { token, expires: exp };
   }
   async listSessions(userId: string, currentToken?: string): Promise<SessionInfo[]> {
@@ -110,7 +111,7 @@ export class SqlDatabase extends DatabaseService {
     return !!(await this.d.run('DELETE FROM sessions WHERE user_id = ? AND substr(token_hash, 1, 16) = ?', [userId, id])).changes;
   }
   async addActivity(userId: string, kind: string, meta: ClientMeta = {}) {
-    await this.d.run('INSERT INTO activity (id, user_id, kind, at, ip, ua) VALUES (?, ?, ?, ?, ?, ?)', [newId(16), userId, kind, now(), cut(meta.ip, 64), cut(meta.ua, 300)]);
+    await this.d.run('INSERT INTO activity (id, user_id, kind, at, ip, ua) VALUES (?, ?, ?, ?, ?, ?)', [newId(16), userId, kind, now(), cut(maskIp(meta.ip), 64), cut(meta.ua, 300)]);
   }
   async listActivity(userId: string, limit = 20): Promise<Activity[]> {
     return (await this.d.all('SELECT kind, at, ip, ua FROM activity WHERE user_id = ? ORDER BY at DESC LIMIT ' + Math.min(100, Math.max(1, limit | 0)), [userId]))
@@ -173,6 +174,8 @@ export class SqlDatabase extends DatabaseService {
   }
 
   async cleanup() {
+    // Oude, volledige IP-adressen (van vóór 28-10-2026) alsnog inkorten (AVG)
+    for (const tb of ['sessions', 'activity']) for (const r of await this.d.all('SELECT DISTINCT ip FROM ' + tb + " WHERE ip IS NOT NULL AND ip <> '' AND ip NOT LIKE ?", ['%•••%'])) await this.d.run('UPDATE ' + tb + ' SET ip = ? WHERE ip = ?', [maskIp(r.ip), r.ip]);
     const t = now();
     await this.d.run('DELETE FROM sessions WHERE expires_at < ?', [t]);
     await this.d.run('DELETE FROM password_resets WHERE expires_at < ?', [t]);

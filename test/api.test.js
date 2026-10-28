@@ -1235,3 +1235,28 @@ test('extra soorten alleen in Pro en Business: Standard krijgt 403', async () =>
   await k('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'month' });
   assert.equal((await k('POST', '/api/qr-codes', { typeId: 'tiktok', content: { url: 'https://www.tiktok.com/@x' }, design: {} })).status, 201);
 });
+
+test('controle-fixes: bestand niet stelen, einde na start, tijdzone van het apparaat, insturen alleen als de code werkt, IP ingekort', async () => {
+  const k = client(); await signup(k, 'fix-k@example.com', 'Fixes zin 30 ok!', 'Klant Fixes');
+  const mk = (typeId, content) => k('POST', '/api/qr-codes', { typeId, content, design: {} });
+  const pdf = 'data:application/pdf;base64,' + Buffer.from('%PDF-1.4\n%%EOF').toString('base64');
+  // 1. Een nieuwe code mag het bestand van een andere code niet overnemen
+  const a = await mk('pdf', { file: JSON.stringify({ n: 'a.pdf', s: 12, d: pdf }) }); assert.equal(a.status, 201);
+  const ref = JSON.parse(a.json.content.file);
+  const b = await mk('pdf', { file: JSON.stringify({ n: 'a.pdf', s: 12, f: ref.f }) });
+  assert.equal(b.status, 400, 'bestand van A hoort niet bij B (verplicht veld leeg)');
+  assert.equal((await fetch(base + '/q/' + a.json.id + '/file/file', { redirect: 'manual' })).status, 200, 'A houdt zijn bestand');
+  // 6. Einde voor de start
+  const bad = await mk('website', { url: 'https://example.com', starts: '2026-11-10', expires: '2026-11-05' });
+  assert.equal(bad.status, 400); assert.ok(bad.json.details.some((d) => /before start/.test(d)));
+  // 2. Tijdzone van het apparaat: alleen geldige zones
+  assert.equal((await k('PUT', '/api/account/device-tz', { tz: 'Mars/Base' })).status, 400);
+  assert.equal((await k('PUT', '/api/account/device-tz', { tz: 'America/New_York' })).status, 200);
+  // 9. Feedback op een verlopen code: niet aannemen
+  const fb = await mk('feedback', { title: 'Bistro', expires: '2020-01-01' }); assert.equal(fb.status, 201);
+  const r = await fetch(base + '/api/feedback/' + fb.json.id, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rating: 5 }) });
+  assert.equal(r.status, 404, 'verlopen code: geen antwoorden meer');
+  // 8. IP wordt alleen ingekort bewaard
+  assert.equal(require('../server/dist/common/ip').maskIp('203.0.113.77'), '203.0.113.•••');
+  assert.equal(require('../server/dist/common/ip').maskIp('203.0.113.•••'), '203.0.113.•••', 'twee keer inkorten = hetzelfde');
+});

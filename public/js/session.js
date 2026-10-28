@@ -11,6 +11,8 @@
    ========================================================= */
 var Session = (function () {
   var view = document.getElementById('authView'), card = view.querySelector('.auth-card');
+  // Tijdzone 'automatisch' (leeg in het account): de server krijgt die van dit apparaat, zodat start- en eindtijden van codes in jouw tijd gelden
+  function syncTz(u) { try { var z = Intl.DateTimeFormat().resolvedOptions().timeZone; if (u && !u.timezone && z && api.account && api.account.deviceTz) api.account.deviceTz(z).catch(function () {}); } catch (e) {} }
   var landing = null, user = null, mode = 'login', resetToken = '', listeners = [], pendingEmail = '', pendingToken = null, prefill = '', flash = null;   // flash: melding die blijft staan als de taal (opnieuw) laadt
   var EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var LOGO = '<img class="logo-mark" src="icons/logo-badge.png" alt="">';
@@ -202,7 +204,7 @@ var Session = (function () {
   if (gerr) { history.replaceState(null, '', location.pathname); flash = [{ signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', too_many: 'auth.errTooMany', '2fa': 'auth.g2fa' }[gerr[2]] || (gerr[1] === 'm' ? (gerr[2] === 'unverified' ? 'auth.mUnverified' : 'auth.mErr') : 'auth.gErr'), 'bad']; }
   api.available().then(function (online) {
     if (g2) { tfa = { google: g2[1] }; show('twofa'); return; }
-    if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });
+    if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); syncTz(u); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); return verify(decodeURIComponent(v[1])); }
@@ -212,7 +214,7 @@ var Session = (function () {
       .then(function (r) { note = { ok: true, email: r.email }; prefill = r.email; }, function (x) { note = { ok: false, code: x && x.code }; })) : Promise.resolve();
     return first.then(function () { return api.auth.me(); }).then(function (u) {
       if (ADMIN && !u.admin) { flash = ['adminApp.notAdmin', 'bad']; return show('login'); }
-      user = u; i18n.setZone(u && u.timezone); landing = note ? 'account' : null; ready(); listeners.forEach(function (f) { f(u); });
+      user = u; i18n.setZone(u && u.timezone); landing = note ? 'account' : null; ready(); syncTz(u); listeners.forEach(function (f) { f(u); });
       if (note) document.dispatchEvent(new CustomEvent('account:email-note', { detail: note }));
     }).catch(function () {
       if (note) flash = note.ok ? ['acct.emailChangedLogin', 'ok'] : [note.code === 'exists' ? 'acct.emailErrExists' : 'acct.emailErrToken', 'bad'];

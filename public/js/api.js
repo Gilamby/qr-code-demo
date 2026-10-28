@@ -330,6 +330,7 @@ var api = (function () {
     account: {
       prefs:     function ()  { return api.isDemo && api.isDemo() ? Promise.resolve({ start: 'home', tour: true }) : request('GET', 'api/account/prefs'); },
       savePrefs: function (d) { return request('PATCH', 'api/account/prefs', d); },
+      deviceTz: function (tz) { return request('PUT', 'api/account/device-tz', { tz: tz }); },
       update:   either(function (d) { return request('PATCH', 'api/account', d); }, demoAuth.account.update),
       password: either(function (d) { return request('POST', 'api/account/password', d); }, demoAuth.account.password),
       remove:   either(function (d) { return request('DELETE', 'api/account', d); }, demoAuth.account.remove),

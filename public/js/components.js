@@ -112,7 +112,7 @@ var ContentForm = {
         var input = f.type === 'select'
           ? '<select id="' + id + '" name="' + f.key + '">' + f.options.map(function (o) { var cur = v || f.sample; return '<option value="' + o.value + '"' + (o.value === cur ? ' selected' : '') + '>' + resolveSample(o.label) + '</option>'; }).join('') + '</select>'
           : '<input id="' + id + '" name="' + f.key + '" type="' + (f.type || 'text') + '" value="' + esc(v) + '" placeholder="' + esc(keepPw ? t('edit.pwKeep') : resolveSample(f.sample)) + '"' +
-            (f.type === 'date' ? ' min="' + new Date().toISOString().slice(0, 10) + '"' : '') + (f.min != null ? ' min="' + f.min + '"' : '') + (f.max != null ? ' max="' + f.max + '"' : '') +
+            (f.type === 'date' ? ' min="' + ((f.key === 'expires' && values.starts) || (f.key === 'endDate' && values.startDate) || new Date().toISOString().slice(0, 10)) + '"' : '') + (f.min != null ? ' min="' + f.min + '"' : '') + (f.max != null ? ' max="' + f.max + '"' : '') +
             ' autocomplete="' + (f.type === 'password' ? 'new-password' : 'off') + '">';
         if (f.type === 'password') input = '<input class="sr" type="text" name="" autocomplete="username" tabindex="-1" aria-hidden="true" data-pw-user value="' + esc(pwUser(values)) + '">' + '<div class="pw-wrap">' + input + '<button type="button" class="pw-eye" data-eye aria-pressed="false" aria-label="' + esc(t('pw.show')) + '">' +
           '<svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>' +

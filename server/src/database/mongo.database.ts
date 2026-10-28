@@ -17,6 +17,7 @@
    - Werkt met een losse MongoDB-server (geen replica set nodig): er worden geen transacties gebruikt.
      Elke stap is op zichzelf veilig (bv. een bevestigingslink kan maar één keer gebruikt worden).
    ========================================================= */
+import { maskIp } from '../common/ip';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
@@ -148,7 +149,7 @@ export class MongoDatabase extends DatabaseService {
     await this.emailChanges.deleteMany({ userId: id });
     await this.folders.deleteMany({ userId: id });
     await this.users.deleteOne({ _id: id });
-    await this.setSetting('bghide:' + id, null); await this.setSetting('plan:' + id, null); await this.setSetting('disabled:' + id, null); await this.setSetting('totp:' + id, null); await this.setSetting('terms:' + id, null); await this.setSetting('stripe:' + id, null); await this.setSetting('extra:' + id, null); await this.setSetting('planPaused:' + id, null); await this.setSetting('keep:' + id, null); await this.setSetting('payments:' + id, null); await this.setSetting('paymeta:' + id, null); await this.setSetting('uprefs:' + id, null); await this.setSetting('templates:' + id, null); await this.setSetting('purged:' + id, null); try { const tl = JSON.parse((await this.getSetting('tickets')) || '[]'); if (Array.isArray(tl) && tl.some((x: any) => x.userId === id)) await this.setSetting('tickets', JSON.stringify(tl.filter((x: any) => x.userId !== id))); } catch (e) { /* geen vragen */ }
+    await this.setSetting('bghide:' + id, null); await this.setSetting('plan:' + id, null); await this.setSetting('disabled:' + id, null); await this.setSetting('totp:' + id, null); await this.setSetting('terms:' + id, null); await this.setSetting('stripe:' + id, null); await this.setSetting('extra:' + id, null); await this.setSetting('planPaused:' + id, null); await this.setSetting('keep:' + id, null); await this.setSetting('payments:' + id, null); await this.setSetting('paymeta:' + id, null); await this.setSetting('uprefs:' + id, null); await this.setSetting('templates:' + id, null); await this.setSetting('purged:' + id, null); await this.setSetting('devtz:' + id, null); try { const tl = JSON.parse((await this.getSetting('tickets')) || '[]'); if (Array.isArray(tl) && tl.some((x: any) => x.userId === id)) await this.setSetting('tickets', JSON.stringify(tl.filter((x: any) => x.userId !== id))); } catch (e) { /* geen vragen */ }
     removeFiles(files);
   }
 
@@ -175,7 +176,7 @@ export class MongoDatabase extends DatabaseService {
 
   async createSession(userId: string, meta: ClientMeta = {}) {
     const token = newId(32), exp = new Date(Date.now() + SESSION_DAYS * 864e5).toISOString(), t = now();
-    await this.sessions.insertOne({ _id: hash(token), userId, createdAt: t, expiresAt: exp, ua: cut(meta.ua, 300), ip: cut(meta.ip, 64), seenAt: t });
+    await this.sessions.insertOne({ _id: hash(token), userId, createdAt: t, expiresAt: exp, ua: cut(meta.ua, 300), ip: cut(maskIp(meta.ip), 64), seenAt: t });
     return { token, expires: exp };
   }
   async listSessions(userId: string, currentToken?: string): Promise<SessionInfo[]> {
@@ -189,7 +190,7 @@ export class MongoDatabase extends DatabaseService {
     return (await this.sessions.deleteMany({ userId, _id: { $regex: '^' + id } })).deletedCount > 0;
   }
   async addActivity(userId: string, kind: string, meta: ClientMeta = {}) {
-    await this.activity.insertOne({ _id: newId(16), userId, kind, at: now(), ip: cut(meta.ip, 64), ua: cut(meta.ua, 300) });
+    await this.activity.insertOne({ _id: newId(16), userId, kind, at: now(), ip: cut(maskIp(meta.ip), 64), ua: cut(meta.ua, 300) });
   }
   async listActivity(userId: string, limit = 20): Promise<Activity[]> {
     return (await this.activity.find({ userId }).sort({ at: -1 }).limit(Math.min(100, Math.max(1, limit | 0))).toArray())
@@ -247,6 +248,8 @@ export class MongoDatabase extends DatabaseService {
   }
 
   async cleanup() {
+    // Oude, volledige IP-adressen (van vóór 28-10-2026) alsnog inkorten (AVG)
+    for (const col of [this.sessions, this.activity] as any[]) for (const ip of await col.distinct('ip', { ip: { $nin: [null, ''], $not: /•••/ } })) await col.updateMany({ ip }, { $set: { ip: maskIp(ip) } });
     const t = now();
     await this.sessions.deleteMany({ expiresAt: { $lt: t } });
     await this.resets.deleteMany({ expiresAt: { $lt: t } });

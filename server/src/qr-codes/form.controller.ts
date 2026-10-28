@@ -16,6 +16,7 @@ import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { EMAIL } from './validation';
 import { fail } from '../common/http';
 import { locked } from '../common/lock';
+import { openForInput } from '../visitor/open';
 import type { User } from '../types';
 
 type Q = { t: string; q: string; o?: string[]; r?: boolean };
@@ -36,7 +37,7 @@ export class FormController {
   @HttpCode(201)
   async send(@Req() req: Request, @Param('id') id: string, @Body() b: any = {}) {
     if (this.auth.limited('fm:' + req.ip, 10, 60) || this.auth.limited('fm-code:' + id, 300, 60)) throw fail(429, 'too_many');
-    const q = await this.db.getQrCode(String(id)); if (!q || q.typeId !== 'form' || q.trashedAt || q.paused) throw fail(404, 'Not found');
+    const q = await this.db.getQrCode(String(id)); if (!(await openForInput(this.db, q, 'form'))) throw fail(404, 'Not found');   // zelfde regels als de code openen (uit, verlopen, niet betaald …)
     const qs = questions(q.content), input = Array.isArray(b.answers) ? b.answers : [], errors: string[] = [];
     const out = qs.map((x, i) => {
       const v = input[i];

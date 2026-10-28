@@ -14,3 +14,12 @@ if (!tsc) {
 }
 try { execFileSync(process.execPath, [tsc, '-p', path.join(__dirname, '..', 'server')], { stdio: 'inherit' }); }
 catch (e) { console.error('\nDe server kon niet gebouwd worden (zie de fouten hierboven).'); process.exit(1); }
+// Oude bestanden opruimen: .js in dist zonder .ts in src (bv. van een weggehaalde functie) gaan weg, zodat ze niet mee de server op gaan
+(function prune(dir, src) {
+  for (const n of fs.readdirSync(dir)) {
+    const p = path.join(dir, n), s = path.join(src, n);
+    if (fs.statSync(p).isDirectory()) { if (!fs.existsSync(s)) fs.rmSync(p, { recursive: true, force: true }); else prune(p, s); continue; }
+    const base = n.replace(/\.js(\.map)?$/, '').replace(/\.d\.ts$/, '');
+    if (/\.(js|js\.map)$/.test(n) && !fs.existsSync(path.join(src, base + '.ts'))) fs.rmSync(p, { force: true });
+  }
+})(path.join(__dirname, '..', 'server', 'dist'), path.join(__dirname, '..', 'server', 'src'));

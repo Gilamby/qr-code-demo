@@ -63,7 +63,8 @@ var actions = {
       : api.createQrCode({ id: s.draftId, typeId: s.typeId, content: content, design: design, folderId: typeof MyCodes !== 'undefined' ? MyCodes.folderForNew() : null });
     job.then(function (record) {
       store.set({ saving: false, created: true, saved: record, draftId: s.editing ? s.draftId : newDraftId() });   // nieuwe code: de volgende krijgt weer een eigen id
-    }).catch(function (e) { store.set({ saving: false, error: e && e.code === 'plan_limit' ? 'plan.limitCreate' : 'design.saveError' }); if (e && /^plan_(limit|type)$/.test(e.code) && window.PlanGate) PlanGate.upgrade(null, e.code === 'plan_type' ? 'type' : 'limit'); });
+    }).catch(function (e) { var d = (e && e.details) || [], has = function (re) { return d.some(function (x) { return re.test(String(x)); }); };   // zeggen wat er mis is, als we dat weten
+      store.set({ saving: false, error: e && e.code === 'plan_limit' ? 'plan.limitCreate' : has(/before start/) ? 'validate.endBeforeStart' : has(/too long/) ? 'validate.tooLong' : 'design.saveError' }); if (e && /^plan_(limit|type)$/.test(e.code) && window.PlanGate) PlanGate.upgrade(null, e.code === 'plan_type' ? 'type' : 'limit'); });
   },
   // Bestaande code openen in de stappen (vanuit Mijn QR-codes)
   startEdit: function (r) {
