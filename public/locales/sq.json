@@ -184,6 +184,14 @@
     "signup": {
       "name": "Regjistrim",
       "desc": "Buletin, ditë e hapur ose punëtori"
+    },
+    "form": {
+      "name": "Formular",
+      "desc": "Pyetje ose anketë e juaj"
+    },
+    "landing": {
+      "name": "Faqe hyrëse",
+      "desc": "Ndërtoni faqen tuaj"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Regjistrohu",
       "needFields": "Shkruani emrin dhe një email të vlefshëm.",
       "needConsent": "Shënoni kutinë për të pranuar."
+    },
+    "fm": {
+      "tag": "Formular",
+      "consent": "Pranoj që email-i im të përdoret për t'u kontaktuar për këtë formular.",
+      "needRequired": "Përgjigjuni pyetjeve me *.",
+      "badEmail": "Shkruani një email të vlefshëm."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefoni i shërbimit ndaj klientit",
     "supportEmail": "Email-i i shërbimit ndaj klientit",
     "suTitle": "Për çfarë regjistrohen?",
-    "suAskPhone": "Kërko edhe numrin e telefonit"
+    "suAskPhone": "Kërko edhe numrin e telefonit",
+    "fmTitle": "Titulli i formularit",
+    "fmQuestions": "Pyetjet",
+    "coverPhoto": "Foto e kopertinës",
+    "lpBlocks": "Përmbajtja e faqes",
+    "lpPhotos": "Foto"
   },
   "panel": {
     "selected": "U zgjodh: {type}"
@@ -1374,7 +1393,22 @@
     "manualModel": "Modeli BP-200",
     "suTitle": "Ditë e hapur te Studio Noord",
     "suText": "E shtunë, 15 nëntor, 10:00–15:00. Vizitë, kafe dhe këshilla për projektin tuaj.",
-    "suThanks": "U regjistruat. Shihemi!"
+    "suThanks": "U regjistruat. Shihemi!",
+    "fmTitle": "Anketë për mysafirët Bistro Mar Azul",
+    "fmText": "Tre pyetje të shkurtra, një minutë.",
+    "fmThanks": "Faleminderit për përgjigjet!",
+    "fmQ1": "Sa i kënaqur jeni me vizitën?",
+    "fmQ2": "Si na gjetët?",
+    "fmO1": "Google",
+    "fmO2": "Miq ose familje",
+    "fmO3": "Rrjete sociale",
+    "fmQ3": "Çfarë mund të bëjmë më mirë?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Dy ditë folës, punëtori dhe networking në Marbella.",
+    "lpH1": "Programi",
+    "lpP1": "Dita 1: fjalime dhe punëtori. Dita 2: panele dhe networking.",
+    "lpBtn1": "Bli bileta",
+    "lpBtn2": "Shiko folësit"
   },
   "fmt": {
     "months": [
@@ -3597,5 +3631,38 @@
     "count": "Regjistrime: {n}",
     "delete": "Fshi regjistrimin",
     "deleteConfirm": "Ta fshij përgjithmonë këtë regjistrim?"
+  },
+  "fq": {
+    "add": "Shto pyetje",
+    "empty": "Ende nuk ka pyetje. Shtoni të paktën një.",
+    "question": "Pyetje",
+    "kind": "Lloji i përgjigjes",
+    "k_text": "Tekst i shkurtër",
+    "k_long": "Tekst i gjatë",
+    "k_choice": "Një zgjedhje",
+    "k_multi": "Zgjedhje të shumta",
+    "k_stars": "Yje (1-5)",
+    "k_email": "Adresa email",
+    "required": "E detyrueshme",
+    "option": "Opsioni {n}",
+    "addOption": "Shto opsion",
+    "removeOption": "Hiq opsionin",
+    "up": "Lëviz lart",
+    "down": "Lëviz poshtë",
+    "remove": "Hiq"
+  },
+  "lb": {
+    "kind": "Lloji i bllokut",
+    "k_h": "Titull",
+    "k_p": "Tekst",
+    "k_btn": "Buton",
+    "heading": "Titull",
+    "text": "Tekst",
+    "btnLabel": "Teksti i butonit",
+    "btnUrl": "Lidhja e butonit",
+    "empty": "Shtoni tituj, tekst dhe butona."
+  },
+  "fm": {
+    "count": "Përgjigje: {n}"
   }
 }

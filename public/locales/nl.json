@@ -184,6 +184,14 @@
     "signup": {
       "name": "Aanmelden",
       "desc": "Nieuwsbrief, open dag of workshop"
+    },
+    "form": {
+      "name": "Formulier",
+      "desc": "Eigen vragen of enquête"
+    },
+    "landing": {
+      "name": "Landingspagina",
+      "desc": "Bouw je eigen pagina"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Aanmelden",
       "needFields": "Vul je naam en een geldig e-mailadres in.",
       "needConsent": "Vink het vakje aan om akkoord te gaan."
+    },
+    "fm": {
+      "tag": "Formulier",
+      "consent": "Ik ga akkoord dat mijn e-mailadres wordt gebruikt om contact op te nemen over dit formulier.",
+      "needRequired": "Beantwoord de vragen met een *.",
+      "badEmail": "Vul een geldig e-mailadres in."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefoon klantenservice",
     "supportEmail": "E-mail klantenservice",
     "suTitle": "Waarvoor meldt men zich aan?",
-    "suAskPhone": "Ook om telefoonnummer vragen"
+    "suAskPhone": "Ook om telefoonnummer vragen",
+    "fmTitle": "Titel van het formulier",
+    "fmQuestions": "Vragen",
+    "coverPhoto": "Omslagfoto",
+    "lpBlocks": "Inhoud van de pagina",
+    "lpPhotos": "Foto's"
   },
   "panel": {
     "selected": "{type} geselecteerd"
@@ -1374,7 +1393,22 @@
     "manualModel": "Model BP-200",
     "suTitle": "Open dag bij Studio Noord",
     "suText": "Zaterdag 15 november, 10:00–15:00. Rondleiding, koffie en advies over je eigen project.",
-    "suThanks": "Je bent aangemeld. Tot dan!"
+    "suThanks": "Je bent aangemeld. Tot dan!",
+    "fmTitle": "Gastenenquête Bistro Mar Azul",
+    "fmText": "Drie korte vragen, kost één minuut.",
+    "fmThanks": "Bedankt voor je antwoorden!",
+    "fmQ1": "Hoe tevreden ben je over je bezoek?",
+    "fmQ2": "Hoe heb je ons gevonden?",
+    "fmO1": "Google",
+    "fmO2": "Vrienden of familie",
+    "fmO3": "Social media",
+    "fmQ3": "Wat kunnen we beter doen?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Twee dagen sprekers, workshops en netwerken in Marbella.",
+    "lpH1": "Programma",
+    "lpP1": "Dag 1: keynotes en workshops. Dag 2: panels en netwerkborrel.",
+    "lpBtn1": "Tickets bestellen",
+    "lpBtn2": "Bekijk de sprekers"
   },
   "visit": {
     "locked": "Deze pagina is beveiligd",
@@ -3536,5 +3570,38 @@
     "count": "Aanmeldingen: {n}",
     "delete": "Aanmelding wissen",
     "deleteConfirm": "Deze aanmelding voorgoed wissen?"
+  },
+  "fq": {
+    "add": "Vraag toevoegen",
+    "empty": "Nog geen vragen. Voeg er minstens één toe.",
+    "question": "Vraag",
+    "kind": "Soort antwoord",
+    "k_text": "Korte tekst",
+    "k_long": "Lange tekst",
+    "k_choice": "Eén keuze",
+    "k_multi": "Meerdere keuzes",
+    "k_stars": "Sterren (1-5)",
+    "k_email": "E-mailadres",
+    "required": "Verplicht",
+    "option": "Keuze {n}",
+    "addOption": "Keuze toevoegen",
+    "removeOption": "Keuze verwijderen",
+    "up": "Omhoog",
+    "down": "Omlaag",
+    "remove": "Verwijderen"
+  },
+  "lb": {
+    "kind": "Soort blok",
+    "k_h": "Kopje",
+    "k_p": "Tekst",
+    "k_btn": "Knop",
+    "heading": "Kopje",
+    "text": "Tekst",
+    "btnLabel": "Tekst op de knop",
+    "btnUrl": "Link van de knop",
+    "empty": "Voeg kopjes, tekst en knoppen toe aan je pagina."
+  },
+  "fm": {
+    "count": "Inzendingen: {n}"
   }
 }

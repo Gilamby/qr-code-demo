@@ -184,6 +184,14 @@
     "signup": {
       "name": "Sign-up",
       "desc": "Newsletter, open day or workshop"
+    },
+    "form": {
+      "name": "Form",
+      "desc": "Your own questions or survey"
+    },
+    "landing": {
+      "name": "Landing page",
+      "desc": "Build your own page"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Sign up",
       "needFields": "Please enter your name and a valid email address.",
       "needConsent": "Please tick the box to agree."
+    },
+    "fm": {
+      "tag": "Form",
+      "consent": "I agree that my email address is used to contact me about this form.",
+      "needRequired": "Please answer the questions marked with *.",
+      "badEmail": "Please enter a valid email address."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Customer service phone",
     "supportEmail": "Customer service email",
     "suTitle": "What are people signing up for?",
-    "suAskPhone": "Also ask for a phone number"
+    "suAskPhone": "Also ask for a phone number",
+    "fmTitle": "Form title",
+    "fmQuestions": "Questions",
+    "coverPhoto": "Cover photo",
+    "lpBlocks": "Page content",
+    "lpPhotos": "Photos"
   },
   "panel": {
     "selected": "{type} selected"
@@ -1374,7 +1393,22 @@
     "manualModel": "Model BP-200",
     "suTitle": "Open day at Studio Noord",
     "suText": "Saturday 15 November, 10:00–15:00. Tour, coffee and advice on your own project.",
-    "suThanks": "You're signed up. See you then!"
+    "suThanks": "You're signed up. See you then!",
+    "fmTitle": "Guest survey Bistro Mar Azul",
+    "fmText": "Three short questions, takes one minute.",
+    "fmThanks": "Thanks for your answers!",
+    "fmQ1": "How satisfied are you with your visit?",
+    "fmQ2": "How did you find us?",
+    "fmO1": "Google",
+    "fmO2": "Friends or family",
+    "fmO3": "Social media",
+    "fmQ3": "What could we do better?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Two days of speakers, workshops and networking in Marbella.",
+    "lpH1": "Programme",
+    "lpP1": "Day 1: keynotes and workshops. Day 2: panels and networking drinks.",
+    "lpBtn1": "Get tickets",
+    "lpBtn2": "See the speakers"
   },
   "visit": {
     "locked": "This page is protected",
@@ -3536,5 +3570,38 @@
     "count": "Sign-ups: {n}",
     "delete": "Delete sign-up",
     "deleteConfirm": "Delete this sign-up for good?"
+  },
+  "fq": {
+    "add": "Add question",
+    "empty": "No questions yet. Add at least one.",
+    "question": "Question",
+    "kind": "Answer type",
+    "k_text": "Short text",
+    "k_long": "Long text",
+    "k_choice": "One choice",
+    "k_multi": "Multiple choice",
+    "k_stars": "Stars (1-5)",
+    "k_email": "Email address",
+    "required": "Required",
+    "option": "Option {n}",
+    "addOption": "Add option",
+    "removeOption": "Remove option",
+    "up": "Move up",
+    "down": "Move down",
+    "remove": "Remove"
+  },
+  "lb": {
+    "kind": "Block type",
+    "k_h": "Heading",
+    "k_p": "Text",
+    "k_btn": "Button",
+    "heading": "Heading",
+    "text": "Text",
+    "btnLabel": "Button text",
+    "btnUrl": "Button link",
+    "empty": "Add headings, text and buttons to your page."
+  },
+  "fm": {
+    "count": "Responses: {n}"
   }
 }

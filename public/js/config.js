@@ -33,6 +33,8 @@ var ICONS = {
     spotify: '<circle cx="12" cy="12" r="9"/><path d="M7.5 9.5c3-1 6.5-.7 9 .8M8 12.5c2.5-.7 5.3-.4 7.3.8M8.5 15.3c2-.5 4-.3 5.5.6"/>',
     telegram: '<path d="M21 4L3 11l6 2.5L19 7l-8 8 .5 5 3-3.5 4.5 3.5z"/>',
     signup: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5"/><path d="M14 17l2 2 4-4"/>',
+    form: '<rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="8" cy="8.5" r="1"/><path d="M11 8.5h5"/><circle cx="8" cy="12.5" r="1"/><path d="M11 12.5h5"/><circle cx="8" cy="16.5" r="1"/><path d="M11 16.5h3"/>',
+    landing: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M7 14h6M7 17h10"/>',
     manual: '<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7.5h6M9 11h4"/>',
     booking: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>',
     meeting: '<rect x="2.5" y="6" width="13" height="12" rx="2.5"/><path d="M15.5 10.5l6-3.5v10l-6-3.5"/>',

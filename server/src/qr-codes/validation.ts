@@ -51,6 +51,23 @@ export function validateQrCode(body: any): { errors: string[]; value?: { typeId:
       if (!ok) errors.push(field.key + ': invalid opening hours');
       content[field.key] = v; continue;
     }
+    if (field.type === 'questions') {                          // formulier: max. 15 vragen
+      let a: any = null; try { a = JSON.parse(v); } catch (e) {}
+      const ok = Array.isArray(a) && a.length >= 1 && a.length <= 15 && a.every((q: any) => q && typeof q === 'object' && ['text', 'long', 'choice', 'multi', 'stars', 'email'].includes(q.t) &&
+        typeof q.q === 'string' && q.q.trim().length >= 1 && q.q.length <= 140 &&
+        (!['choice', 'multi'].includes(q.t) || (Array.isArray(q.o) && q.o.length >= 2 && q.o.length <= 8 && q.o.every((o: any) => typeof o === 'string' && o.trim() && o.length <= 60))));
+      if (!ok) { errors.push(field.key + ': 1-15 questions'); continue; }
+      content[field.key] = JSON.stringify(a.map((q: any) => { const o: any = { t: q.t, q: q.q.trim() }; if (q.r) o.r = true; if (['choice', 'multi'].includes(q.t)) o.o = q.o.map((x: string) => x.trim()); return o; }));
+      continue;
+    }
+    if (field.type === 'blocks') {                             // landingspagina: max. 12 blokken
+      let a: any = null; try { a = JSON.parse(v); } catch (e) {}
+      const ok = Array.isArray(a) && a.length <= 12 && a.every((b: any) => b && typeof b === 'object' && ['h', 'p', 'btn'].includes(b.k) && typeof b.v === 'string' && b.v.trim() &&
+        b.v.length <= (b.k === 'p' ? 1000 : b.k === 'h' ? 100 : 40) && (b.k !== 'btn' || (isUrl(String(b.url || '')) && String(b.url).length <= 2000)));
+      if (!ok) { errors.push(field.key + ': invalid blocks'); continue; }
+      if (a.length) content[field.key] = JSON.stringify(a.map((b: any) => (b.k === 'btn' ? { k: b.k, v: b.v.trim(), url: b.url } : { k: b.k, v: b.v.trim() })));
+      continue;
+    }
     if (field.type === 'route') {                              // slim doorsturen: max. 10 regels
       let a: any = null; try { a = JSON.parse(v); } catch (e) {}
       const ok = Array.isArray(a) && a.length <= 10 && a.every((r: any) => r && typeof r === 'object' && isUrl(String(r.url || '')) && String(r.url).length <= 2000 && (

@@ -74,6 +74,38 @@
       var b = $('.tx-copy'); if (!b) return; b.setAttribute('data-go', '');
       b.onclick = function () { if (navigator.clipboard) navigator.clipboard.writeText(c.text || '').then(function () { toast(t('pv.text.copied')); }); };
     },
+    form: function () {
+      var send = $('.fm-send'); if (!send) return;
+      var qs = []; try { qs = JSON.parse(c.questions || '[]'); } catch (e) {}
+      function err(m) { var e = $('.fm-err'); e.textContent = m; e.hidden = !m; }
+      $$('.fm-q[data-t="stars"]').forEach(function (g) {
+        var bs = g.querySelectorAll('.fm-star'); g.setAttribute('data-v', '');
+        bs.forEach(function (b) { b.classList.remove('on'); b.onclick = function () { var n = +b.getAttribute('data-n'); g.setAttribute('data-v', n); bs.forEach(function (x) { x.classList.toggle('on', +x.getAttribute('data-n') <= n); x.setAttribute('aria-pressed', String(+x.getAttribute('data-n') === n)); }); err(''); }; });
+      });
+      $$('.fm-opt input').forEach(function (x) { x.checked = false; });
+      send.onclick = function () {
+        var answers = qs.map(function (q, i) {
+          var g = $('.fm-q[data-i="' + i + '"]'); if (!g) return '';
+          if (q.t === 'stars') return +g.getAttribute('data-v') || '';
+          if (q.t === 'choice') { var r = g.querySelector('input:checked'); return r ? +r.value : ''; }
+          if (q.t === 'multi') return [].map.call(g.querySelectorAll('input:checked'), function (x) { return +x.value; });
+          return (g.querySelector('input,textarea') || {}).value.trim();
+        });
+        var miss = qs.some(function (q, i) { var a = answers[i]; return q.r && (a === '' || (Array.isArray(a) && !a.length)); });
+        if (miss) return err(t('pv.fm.needRequired'));
+        var badMail = qs.some(function (q, i) { return q.t === 'email' && answers[i] && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(answers[i]); });
+        if (badMail) return err(t('pv.fm.badEmail'));
+        var ok = $('.fm-consent'), mailGiven = qs.some(function (q, i) { return q.t === 'email' && answers[i]; });
+        if (mailGiven && !(ok && ok.checked)) return err(t('pv.su.needConsent'));
+        send.disabled = true; err('');
+        fetch('/api/form/' + encodeURIComponent(L.id), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answers: answers, consent: !!(ok && ok.checked) }) })
+          .then(function (r) { if (!r.ok) throw r; $('.fm-form').hidden = true; var h = $('.su-hero'); if (h) h.hidden = true; $('.fm-done').hidden = false; })
+          .catch(function (r) { send.disabled = false; err(t(r && r.status === 429 ? 'pv.feedback.tooMany' : r && r.status === 400 ? 'pv.fm.needRequired' : 'pv.feedback.failed')); });
+      };
+    },
+    landing: function () {
+      $$('.lp-btn').forEach(function (b) { var u = href(b.getAttribute('data-url')); if (u) go(b, u); else b.remove(); });
+    },
     signup: function () {
       var send = $('.su-send'); if (!send) return;
       function err(m) { var e = $('.su-err'); e.textContent = m; e.hidden = !m; }

@@ -95,6 +95,7 @@ var PHONE = (function () {
   // Elk extra type een eigen voorbeeldbedrijf (zoals op pagina 1), passend bij de voorbeeldfoto
   var EX_NAMES = { review: 'Restaurante La Brisa', feedback: 'Hotel Costa Azul', phone: 'Garage Van Dijk', location: 'Bistro Mar Azul', payment: 'Velo Fietsverhuur',
     linkedin: 'Mercado Sol', youtube: 'Barista Academy', spotify: 'Mira Concept Store', telegram: 'Hotel Costa Azul', booking: 'Restaurante El Puerto', meeting: 'Studio Noord' };
+  function jsonList(v) { try { var a = JSON.parse(v || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
   function exBiz(id) { return EX_NAMES[id] || 'Studio Noord'; }
   var EX_BIZ = 'Studio Noord', EX_ADDR = 'Calle Ancha 12, 29601 Marbella';
   var EX_EXTRA = { instagram: ['ig/1', 'ig/2', 'ig/3', 'ig/4', 'ig/5', 'ig/6', 'ig/7', 'ig/8', 'ig/h1', 'ig/h2', 'ig/h3', 'ig/h4', 'ig/h5'], links: ['links-cover', 'links-feat'], facebook: ['facebook-cover', 'facebook-post'], social: ['social-avatar'] };
@@ -621,6 +622,44 @@ var PHONE = (function () {
         '<h4>' + v(c.title || (ex ? t('sample.textTitle') : ''), '60%') + '</h4>' +
         (body ? '<div class="tx-body">' + body.split('\n').map(function (l) { var m = /^\s*(\d+)[.)]\s+(.*)$/.exec(l); return m ? '<span class="tx-li"><b>' + m[1] + '</b><span>' + esc(m[2]) + '</span></span>' : (l.trim() ? '<span>' + esc(l) + '</span>' : ''); }).join('') + '</div>' : '<p class="tx-body"><i class="sk" style="width:90%"></i><i class="sk" style="width:75%"></i><i class="sk" style="width:82%"></i></p>') +
         '<button type="button" class="tx-copy">' + ic('copy') + '<span>' + esc(t('pv.text.copy')) + '</span></button></article></div>';
+    },
+
+    /* ---------- Formulier: eigen vragen (tekst, keuze, meerkeuze, sterren, e-mail); live.js verstuurt ---------- */
+    form: function (c, ex) {
+      var qs = jsonList(c.questions);
+      if (!qs.length && ex) qs = [{ t: 'stars', q: t('sample.fmQ1'), r: true }, { t: 'choice', q: t('sample.fmQ2'), o: [t('sample.fmO1'), t('sample.fmO2'), t('sample.fmO3')] }, { t: 'long', q: t('sample.fmQ3') }];
+      var title = c.title || (ex ? t('sample.fmTitle') : ''), text = c.text || (ex ? t('sample.fmText') : ''), cover = c.photo || exPhoto('form', ex);
+      var hasMail = qs.some(function (q) { return q.t === 'email'; });
+      var field = function (q, i) {
+        var nm = 'fq' + i, lab = '<span class="fm-l">' + esc(q.q) + (q.r ? ' <em aria-hidden="true">*</em>' : '') + '</span>';
+        if (q.t === 'stars') return '<div class="fm-q" data-i="' + i + '" data-t="stars" role="group" aria-label="' + esc(q.q) + '">' + lab + '<div class="fm-stars">' + [1, 2, 3, 4, 5].map(function (n) { return '<button type="button" class="fm-star' + (ex && i === 0 && n <= 4 ? ' on' : '') + '" data-n="' + n + '" aria-label="' + esc(t('pv.feedback.stars', { n: n })) + '">' + ic('star') + '</button>'; }).join('') + '</div></div>';
+        if (q.t === 'choice' || q.t === 'multi') return '<div class="fm-q" data-i="' + i + '" data-t="' + q.t + '" role="group" aria-label="' + esc(q.q) + '">' + lab + '<div class="fm-opts">' + (q.o || []).map(function (o, k) { return '<label class="fm-opt"><input type="' + (q.t === 'multi' ? 'checkbox' : 'radio') + '" name="' + nm + '" value="' + k + '"' + (ex && i === 1 && k === 0 ? ' checked' : '') + '><span>' + esc(o) + '</span></label>'; }).join('') + '</div></div>';
+        var inp = q.t === 'long' ? '<textarea rows="3" maxlength="1000"></textarea>' : '<input type="' + (q.t === 'email' ? 'email' : 'text') + '" maxlength="' + (q.t === 'email' ? 200 : 200) + '"' + (q.t === 'email' ? ' autocomplete="email"' : '') + '>';
+        return '<label class="fm-q" data-i="' + i + '" data-t="' + q.t + '">' + lab + inp + '</label>';
+      };
+      return '<div class="ph ph-fm">' + statusBar(!!cover) + (cover ? '<div class="su-hero"><img src="' + cover + '" alt=""></div>' : '<div class="su-band"></div>') +
+        '<div class="fm-form"><span class="su-tag">' + ic('doc') + esc(t('pv.fm.tag')) + '</span><h4>' + v(title, '70%') + '</h4>' + (text ? '<p class="su-txt">' + esc(text) + '</p>' : '') +
+          (qs.length ? qs.map(field).join('') : '<p class="su-txt"><i class="sk" style="width:80%"></i><i class="sk" style="width:60%"></i></p>') +
+          (hasMail ? '<label class="su-ok"><input type="checkbox" class="fm-consent"><span>' + esc(t('pv.fm.consent')) + '</span></label>' : '') +
+          '<button type="button" class="su-send fm-send">' + esc(t('pv.feedback.send')) + '</button><p class="su-err fm-err" hidden></p></div>' +
+        '<div class="su-done fm-done" hidden><span class="su-check">' + ic('check') + '</span><h4>' + esc(c.thanks || t('sample.fmThanks')) + '</h4></div></div>';
+    },
+
+    /* ---------- Landingspagina: omslagfoto met titel, intro, kopjes/tekst/knoppen, foto's ---------- */
+    landing: function (c, ex) {
+      var bl = jsonList(c.blocks);
+      if (!bl.length && ex) bl = [{ k: 'h', v: t('sample.lpH1') }, { k: 'p', v: t('sample.lpP1') }, { k: 'btn', v: t('sample.lpBtn1'), url: '#' }, { k: 'btn', v: t('sample.lpBtn2'), url: '#' }];
+      var title = c.title || (ex ? t('sample.lpTitle') : ''), text = c.text || (ex ? t('sample.lpText') : ''), cover = c.photo || exPhoto('landing', ex);
+      var photos = FILES.photos ? FILES.photos(c.photos) : [], first = true;
+      var body = bl.map(function (b) {
+        if (b.k === 'h') return '<h5 class="lp-h">' + esc(b.v) + '</h5>';
+        if (b.k === 'p') return '<p class="lp-p">' + esc(b.v).replace(/\n/g, '<br>') + '</p>';
+        var cls = first ? 'lp-btn' : 'lp-btn alt'; first = false;
+        return '<button type="button" class="' + cls + '" data-url="' + esc(b.url || '') + '">' + esc(b.v) + '</button>';
+      }).join('');
+      return '<div class="ph ph-lp">' + statusBar(true) + '<div class="lp-hero">' + (cover ? '<img src="' + cover + '" alt="">' : '') + '<div class="lp-over"><h4>' + v(title, '70%') + '</h4></div></div>' +
+        '<div class="lp-body">' + (text ? '<p class="lp-intro">' + esc(text) + '</p>' : '') + body +
+          (photos.length ? '<div class="lp-photos">' + photos.map(function (p) { return '<img src="' + esc(p.src) + '" alt="" loading="lazy">'; }).join('') + '</div>' : '') + '</div></div>';
     },
 
     /* ---------- Aanmelden: titel, korte tekst, naam + e-mail (+ telefoon), toestemming ---------- */

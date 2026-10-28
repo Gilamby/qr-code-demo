@@ -184,6 +184,14 @@
     "signup": {
       "name": "Ilmoittautuminen",
       "desc": "Uutiskirje, avoimet ovet tai työpaja"
+    },
+    "form": {
+      "name": "Lomake",
+      "desc": "Omat kysymykset tai kysely"
+    },
+    "landing": {
+      "name": "Laskeutumissivu",
+      "desc": "Rakenna oma sivu"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Ilmoittaudu",
       "needFields": "Anna nimesi ja kelvollinen sähköpostiosoite.",
       "needConsent": "Hyväksy rastittamalla ruutu."
+    },
+    "fm": {
+      "tag": "Lomake",
+      "consent": "Hyväksyn, että sähköpostiani käytetään yhteydenottoon tästä lomakkeesta.",
+      "needRequired": "Vastaa *-merkittyihin kysymyksiin.",
+      "badEmail": "Anna kelvollinen sähköpostiosoite."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Asiakaspalvelun puhelin",
     "supportEmail": "Asiakaspalvelun sähköposti",
     "suTitle": "Mihin ilmoittaudutaan?",
-    "suAskPhone": "Kysy myös puhelinnumeroa"
+    "suAskPhone": "Kysy myös puhelinnumeroa",
+    "fmTitle": "Lomakkeen otsikko",
+    "fmQuestions": "Kysymykset",
+    "coverPhoto": "Kansikuva",
+    "lpBlocks": "Sivun sisältö",
+    "lpPhotos": "Kuvat"
   },
   "panel": {
     "selected": "{type} valittu"
@@ -1374,7 +1393,22 @@
     "manualModel": "Malli BP-200",
     "suTitle": "Avoimet ovet Studio Noordissa",
     "suText": "Lauantai 15. marraskuuta klo 10–15. Esittely, kahvia ja neuvoja omaan projektiisi.",
-    "suThanks": "Olet ilmoittautunut. Nähdään!"
+    "suThanks": "Olet ilmoittautunut. Nähdään!",
+    "fmTitle": "Asiakaskysely Bistro Mar Azul",
+    "fmText": "Kolme lyhyttä kysymystä, vie minuutin.",
+    "fmThanks": "Kiitos vastauksistasi!",
+    "fmQ1": "Kuinka tyytyväinen olet käyntiisi?",
+    "fmQ2": "Miten löysit meidät?",
+    "fmO1": "Google",
+    "fmO2": "Ystävät tai perhe",
+    "fmO3": "Sosiaalinen media",
+    "fmQ3": "Mitä voisimme tehdä paremmin?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Kaksi päivää puhujia, työpajoja ja verkostoitumista Marbellassa.",
+    "lpH1": "Ohjelma",
+    "lpP1": "Päivä 1: pääpuheet ja työpajat. Päivä 2: paneelit ja verkostoituminen.",
+    "lpBtn1": "Osta liput",
+    "lpBtn2": "Katso puhujat"
   },
   "visit": {
     "locked": "Tämä sivu on suojattu",
@@ -3491,5 +3525,38 @@
     "count": "Ilmoittautumisia: {n}",
     "delete": "Poista ilmoittautuminen",
     "deleteConfirm": "Poistetaanko ilmoittautuminen pysyvästi?"
+  },
+  "fq": {
+    "add": "Lisää kysymys",
+    "empty": "Ei vielä kysymyksiä. Lisää vähintään yksi.",
+    "question": "Kysymys",
+    "kind": "Vastauksen tyyppi",
+    "k_text": "Lyhyt teksti",
+    "k_long": "Pitkä teksti",
+    "k_choice": "Yksi valinta",
+    "k_multi": "Monivalinta",
+    "k_stars": "Tähdet (1-5)",
+    "k_email": "Sähköpostiosoite",
+    "required": "Pakollinen",
+    "option": "Vaihtoehto {n}",
+    "addOption": "Lisää vaihtoehto",
+    "removeOption": "Poista vaihtoehto",
+    "up": "Siirrä ylös",
+    "down": "Siirrä alas",
+    "remove": "Poista"
+  },
+  "lb": {
+    "kind": "Lohkon tyyppi",
+    "k_h": "Otsikko",
+    "k_p": "Teksti",
+    "k_btn": "Painike",
+    "heading": "Otsikko",
+    "text": "Teksti",
+    "btnLabel": "Painikkeen teksti",
+    "btnUrl": "Painikkeen linkki",
+    "empty": "Lisää otsikoita, tekstiä ja painikkeita."
+  },
+  "fm": {
+    "count": "Vastauksia: {n}"
   }
 }

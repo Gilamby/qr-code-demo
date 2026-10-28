@@ -580,6 +580,11 @@
 :root[data-theme="light"] .ph-pay .py-logo { border: 2px solid rgba(13,19,32,0.63); }
 :root[data-theme="light"] .mt-tile b { background: rgba(255,255,255,0.88); }
 :root[data-theme="light"] .mt-tile em { text-shadow: 0 1px 2px rgba(13,19,32,0.175); }
+:root[data-theme="light"] .fm-star svg { color: #475569; }
+:root[data-theme="light"] .lp-hero { background: linear-gradient(150deg, var(--pc, #e2e8f0), var(--ac, #2563eb)); }
+:root[data-theme="light"] .lp-over { background: linear-gradient(180deg, transparent, rgba(255,255,255,1)); }
+:root[data-theme="light"] .lp-btn { background: var(--pc, #e2e8f0); }
+:root[data-theme="light"] .le-row { background: var(--input-bg, rgba(13,19,32,0.023)); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

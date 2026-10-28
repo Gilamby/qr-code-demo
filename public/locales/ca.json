@@ -184,6 +184,14 @@
     "signup": {
       "name": "Inscripció",
       "desc": "Butlletí, jornada de portes obertes o taller"
+    },
+    "form": {
+      "name": "Formulari",
+      "desc": "Preguntes o enquesta pròpies"
+    },
+    "landing": {
+      "name": "Pàgina de destinació",
+      "desc": "Crea la teva pàgina"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Inscriure'm",
       "needFields": "Introdueix el teu nom i un correu vàlid.",
       "needConsent": "Marca la casella per acceptar."
+    },
+    "fm": {
+      "tag": "Formulari",
+      "consent": "Accepto que facin servir el meu correu per contactar-me sobre aquest formulari.",
+      "needRequired": "Respon les preguntes marcades amb *.",
+      "badEmail": "Introdueix un correu vàlid."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telèfon d'atenció al client",
     "supportEmail": "Correu d'atenció al client",
     "suTitle": "Per a què s'inscriuen?",
-    "suAskPhone": "Demanar també el telèfon"
+    "suAskPhone": "Demanar també el telèfon",
+    "fmTitle": "Títol del formulari",
+    "fmQuestions": "Preguntes",
+    "coverPhoto": "Foto de portada",
+    "lpBlocks": "Contingut de la pàgina",
+    "lpPhotos": "Fotos"
   },
   "panel": {
     "selected": "{type} seleccionat"
@@ -1374,7 +1393,22 @@
     "manualModel": "Model BP-200",
     "suTitle": "Portes obertes a Studio Noord",
     "suText": "Dissabte 15 de novembre, 10:00–15:00. Visita, cafè i consells sobre el teu projecte.",
-    "suThanks": "Ja estàs inscrit. Fins aviat!"
+    "suThanks": "Ja estàs inscrit. Fins aviat!",
+    "fmTitle": "Enquesta de clients Bistro Mar Azul",
+    "fmText": "Tres preguntes curtes, un minut.",
+    "fmThanks": "Gràcies per les respostes!",
+    "fmQ1": "Com de satisfet estàs amb la visita?",
+    "fmQ2": "Com ens has trobat?",
+    "fmO1": "Google",
+    "fmO2": "Amics o família",
+    "fmO3": "Xarxes socials",
+    "fmQ3": "Què podem millorar?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Dos dies de ponents, tallers i networking a Marbella.",
+    "lpH1": "Programa",
+    "lpP1": "Dia 1: ponències i tallers. Dia 2: taules rodones i networking.",
+    "lpBtn1": "Comprar entrades",
+    "lpBtn2": "Veure els ponents"
   },
   "visit": {
     "locked": "Aquesta pàgina està protegida",
@@ -3491,5 +3525,38 @@
     "count": "Inscripcions: {n}",
     "delete": "Esborrar inscripció",
     "deleteConfirm": "Esborrar aquesta inscripció definitivament?"
+  },
+  "fq": {
+    "add": "Afegir pregunta",
+    "empty": "Encara no hi ha preguntes. Afegeix-ne almenys una.",
+    "question": "Pregunta",
+    "kind": "Tipus de resposta",
+    "k_text": "Text curt",
+    "k_long": "Text llarg",
+    "k_choice": "Una opció",
+    "k_multi": "Diverses opcions",
+    "k_stars": "Estrelles (1-5)",
+    "k_email": "Adreça electrònica",
+    "required": "Obligatòria",
+    "option": "Opció {n}",
+    "addOption": "Afegir opció",
+    "removeOption": "Treure opció",
+    "up": "Puja",
+    "down": "Baixa",
+    "remove": "Treure"
+  },
+  "lb": {
+    "kind": "Tipus de bloc",
+    "k_h": "Títol",
+    "k_p": "Text",
+    "k_btn": "Botó",
+    "heading": "Títol",
+    "text": "Text",
+    "btnLabel": "Text del botó",
+    "btnUrl": "Enllaç del botó",
+    "empty": "Afegeix títols, text i botons a la pàgina."
+  },
+  "fm": {
+    "count": "Respostes: {n}"
   }
 }

@@ -104,6 +104,8 @@ var ContentForm = {
         if (f.type === 'dishes') return wrap(DishesEditor.html(f, id, v));
         if (f.type === 'hours') return wrap(HoursEditor.html(f, id, v));
         if (f.type === 'route') return wrap(RouteEditor.html(f, id, v));
+        if (f.type === 'questions') return wrap(FormEditor.html(f, id, v));
+        if (f.type === 'blocks') return wrap(BlocksEditor.html(f, id, v));
         if (f.type === 'address') return wrap(AddressSearch.html(f, id, v));
         if (f.type === 'socials') return wrap(SocialsEditor.html(f, id, v));
         if (f.type === 'tel') return wrap(PhoneInput.html(f, id, v));
@@ -131,7 +133,7 @@ var ContentForm = {
     })() + '</form>' +
       (type.page === false || type.colors === false ? '' : '<section class="appearance" id="appearance"' + (hasPage(type, values) ? '' : ' hidden') + '></section>') +
       Actions.html(state);
-    ImageUpload.mount(el, actions.setField); FileUpload.mount(el, actions.setField); GalleryUpload.mount(el, actions.setField); DishesEditor.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); RouteEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); PhoneInput.mount(el, actions.setField); EmailCheck.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
+    ImageUpload.mount(el, actions.setField); FileUpload.mount(el, actions.setField); GalleryUpload.mount(el, actions.setField); DishesEditor.mount(el, actions.setField); HoursEditor.mount(el, actions.setField); RouteEditor.mount(el, actions.setField); FormEditor.mount(el, actions.setField); BlocksEditor.mount(el, actions.setField); AddressSearch.mount(el, actions.setField); PhoneInput.mount(el, actions.setField); EmailCheck.mount(el, actions.setField); SocialsEditor.mount(el, actions.setField);
     var ap = el.querySelector('#appearance'); if (ap) Appearance.mount(ap);
     // Meer opties: teller bijwerken
     // Meer opties: knopjes voegen één optie toe, × haalt hem weer weg (en wist de waarde). Teller bijwerken.

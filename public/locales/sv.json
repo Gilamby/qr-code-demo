@@ -184,6 +184,14 @@
     "signup": {
       "name": "Anmälan",
       "desc": "Nyhetsbrev, öppet hus eller workshop"
+    },
+    "form": {
+      "name": "Formulär",
+      "desc": "Egna frågor eller enkät"
+    },
+    "landing": {
+      "name": "Landningssida",
+      "desc": "Bygg din egen sida"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Anmäl mig",
       "needFields": "Fyll i ditt namn och en giltig e-postadress.",
       "needConsent": "Kryssa i rutan för att godkänna."
+    },
+    "fm": {
+      "tag": "Formulär",
+      "consent": "Jag godkänner att min e-post används för att kontakta mig om formuläret.",
+      "needRequired": "Svara på frågorna markerade med *.",
+      "badEmail": "Fyll i en giltig e-postadress."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefon kundtjänst",
     "supportEmail": "E-post kundtjänst",
     "suTitle": "Vad anmäler man sig till?",
-    "suAskPhone": "Fråga även efter telefonnummer"
+    "suAskPhone": "Fråga även efter telefonnummer",
+    "fmTitle": "Formulärets titel",
+    "fmQuestions": "Frågor",
+    "coverPhoto": "Omslagsbild",
+    "lpBlocks": "Sidans innehåll",
+    "lpPhotos": "Bilder"
   },
   "panel": {
     "selected": "{type} vald"
@@ -1374,7 +1393,22 @@
     "manualModel": "Modell BP-200",
     "suTitle": "Öppet hus hos Studio Noord",
     "suText": "Lördag 15 november, 10:00–15:00. Visning, kaffe och råd om ditt projekt.",
-    "suThanks": "Du är anmäld. Vi ses!"
+    "suThanks": "Du är anmäld. Vi ses!",
+    "fmTitle": "Gästenkät Bistro Mar Azul",
+    "fmText": "Tre korta frågor, tar en minut.",
+    "fmThanks": "Tack för dina svar!",
+    "fmQ1": "Hur nöjd är du med ditt besök?",
+    "fmQ2": "Hur hittade du oss?",
+    "fmO1": "Google",
+    "fmO2": "Vänner eller familj",
+    "fmO3": "Sociala medier",
+    "fmQ3": "Vad kan vi göra bättre?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Två dagar med talare, workshops och nätverkande i Marbella.",
+    "lpH1": "Program",
+    "lpP1": "Dag 1: keynotes och workshops. Dag 2: paneler och mingel.",
+    "lpBtn1": "Köp biljetter",
+    "lpBtn2": "Se talarna"
   },
   "visit": {
     "locked": "Den här sidan är skyddad",
@@ -3491,5 +3525,38 @@
     "count": "Anmälningar: {n}",
     "delete": "Radera anmälan",
     "deleteConfirm": "Radera denna anmälan för gott?"
+  },
+  "fq": {
+    "add": "Lägg till fråga",
+    "empty": "Inga frågor än. Lägg till minst en.",
+    "question": "Fråga",
+    "kind": "Svarstyp",
+    "k_text": "Kort text",
+    "k_long": "Lång text",
+    "k_choice": "Ett val",
+    "k_multi": "Flera val",
+    "k_stars": "Stjärnor (1-5)",
+    "k_email": "E-postadress",
+    "required": "Obligatorisk",
+    "option": "Alternativ {n}",
+    "addOption": "Lägg till alternativ",
+    "removeOption": "Ta bort alternativ",
+    "up": "Flytta upp",
+    "down": "Flytta ner",
+    "remove": "Ta bort"
+  },
+  "lb": {
+    "kind": "Blocktyp",
+    "k_h": "Rubrik",
+    "k_p": "Text",
+    "k_btn": "Knapp",
+    "heading": "Rubrik",
+    "text": "Text",
+    "btnLabel": "Text på knappen",
+    "btnUrl": "Knappens länk",
+    "empty": "Lägg till rubriker, text och knappar."
+  },
+  "fm": {
+    "count": "Svar: {n}"
   }
 }

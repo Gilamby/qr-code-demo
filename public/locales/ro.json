@@ -184,6 +184,14 @@
     "signup": {
       "name": "Înscriere",
       "desc": "Newsletter, zi a porților deschise sau atelier"
+    },
+    "form": {
+      "name": "Formular",
+      "desc": "Întrebări proprii sau sondaj"
+    },
+    "landing": {
+      "name": "Pagină de destinație",
+      "desc": "Construiește-ți pagina"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Înscrie-mă",
       "needFields": "Introdu numele și o adresă de e-mail validă.",
       "needConsent": "Bifează căsuța pentru a accepta."
+    },
+    "fm": {
+      "tag": "Formular",
+      "consent": "Sunt de acord ca e-mailul meu să fie folosit pentru a fi contactat despre acest formular.",
+      "needRequired": "Răspunde la întrebările marcate cu *.",
+      "badEmail": "Introdu o adresă de e-mail validă."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefon serviciu clienți",
     "supportEmail": "E-mail serviciu clienți",
     "suTitle": "Pentru ce se înscriu?",
-    "suAskPhone": "Cere și numărul de telefon"
+    "suAskPhone": "Cere și numărul de telefon",
+    "fmTitle": "Titlul formularului",
+    "fmQuestions": "Întrebări",
+    "coverPhoto": "Fotografie de copertă",
+    "lpBlocks": "Conținutul paginii",
+    "lpPhotos": "Fotografii"
   },
   "panel": {
     "selected": "{type} selectat"
@@ -1374,7 +1393,22 @@
     "manualModel": "Model BP-200",
     "suTitle": "Ziua porților deschise la Studio Noord",
     "suText": "Sâmbătă, 15 noiembrie, 10:00–15:00. Tur, cafea și sfaturi pentru proiectul tău.",
-    "suThanks": "Te-ai înscris. Ne vedem!"
+    "suThanks": "Te-ai înscris. Ne vedem!",
+    "fmTitle": "Sondaj clienți Bistro Mar Azul",
+    "fmText": "Trei întrebări scurte, durează un minut.",
+    "fmThanks": "Mulțumim pentru răspunsuri!",
+    "fmQ1": "Cât de mulțumit ești de vizită?",
+    "fmQ2": "Cum ne-ai găsit?",
+    "fmO1": "Google",
+    "fmO2": "Prieteni sau familie",
+    "fmO3": "Rețele sociale",
+    "fmQ3": "Ce putem face mai bine?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Două zile de vorbitori, ateliere și networking în Marbella.",
+    "lpH1": "Program",
+    "lpP1": "Ziua 1: keynote-uri și ateliere. Ziua 2: paneluri și networking.",
+    "lpBtn1": "Cumpără bilete",
+    "lpBtn2": "Vezi vorbitorii"
   },
   "visit": {
     "locked": "Această pagină este protejată",
@@ -3491,5 +3525,38 @@
     "count": "Înscrieri: {n}",
     "delete": "Șterge înscrierea",
     "deleteConfirm": "Ștergi definitiv această înscriere?"
+  },
+  "fq": {
+    "add": "Adaugă întrebare",
+    "empty": "Încă nu există întrebări. Adaugă cel puțin una.",
+    "question": "Întrebare",
+    "kind": "Tip de răspuns",
+    "k_text": "Text scurt",
+    "k_long": "Text lung",
+    "k_choice": "O alegere",
+    "k_multi": "Alegeri multiple",
+    "k_stars": "Stele (1-5)",
+    "k_email": "Adresă de e-mail",
+    "required": "Obligatoriu",
+    "option": "Opțiunea {n}",
+    "addOption": "Adaugă opțiune",
+    "removeOption": "Elimină opțiunea",
+    "up": "Mută în sus",
+    "down": "Mută în jos",
+    "remove": "Elimină"
+  },
+  "lb": {
+    "kind": "Tip de bloc",
+    "k_h": "Titlu",
+    "k_p": "Text",
+    "k_btn": "Buton",
+    "heading": "Titlu",
+    "text": "Text",
+    "btnLabel": "Textul butonului",
+    "btnUrl": "Linkul butonului",
+    "empty": "Adaugă titluri, text și butoane."
+  },
+  "fm": {
+    "count": "Răspunsuri: {n}"
   }
 }

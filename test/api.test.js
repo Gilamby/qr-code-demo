@@ -1180,6 +1180,29 @@ test('extra soorten: e-mail, bellen en locatie openen de juiste app; links allee
   assert.equal((await fetch(base + '/q/' + man.json.id)).status, 200, 'handleiding-pagina');
 });
 
+test('formulier: vragen gecontroleerd, verplicht en e-mail met toestemming; landingspagina met blokken', async () => {
+  const k = client(); await signup(k, 'fm-k@example.com', 'Formulier zin 29!', 'Klant Formulier');
+  const mk = (typeId, content) => k('POST', '/api/qr-codes', { typeId, content, design: {} });
+  assert.equal((await mk('form', { title: 'Enquête', questions: '[]' })).status, 400, 'minstens één vraag');
+  assert.equal((await mk('form', { title: 'Enquête', questions: JSON.stringify([{ t: 'choice', q: 'Kies', o: ['alleen één'] }]) })).status, 400, 'keuze: min. 2 opties');
+  const qs = [{ t: 'stars', q: 'Tevreden?', r: true }, { t: 'choice', q: 'Hoe gevonden?', o: ['Google', 'Vrienden'] }, { t: 'multi', q: 'Wat vond je goed?', o: ['Eten', 'Service', 'Sfeer'] }, { t: 'email', q: 'E-mail' }];
+  const c = await mk('form', { title: 'Enquête', questions: JSON.stringify(qs) }); assert.equal(c.status, 201);
+  const post = (b) => fetch(base + '/api/form/' + c.json.id, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) });
+  assert.equal((await post({ answers: ['', 0, [], ''] })).status, 400, 'verplichte sterren');
+  assert.equal((await post({ answers: [4, 5, [], ''] })).status, 400, 'keuze bestaat niet');
+  assert.equal((await post({ answers: [4, 1, [0, 2], 'ana@example.com'] })).status, 400, 'e-mail zonder toestemming');
+  assert.equal((await post({ answers: [4, 1, [0, 2], 'ana@example.com'], consent: true })).status, 201);
+  assert.equal((await post({ answers: [5, '', [], ''] })).status, 201);
+  const l = await k('GET', '/api/qr-codes/' + c.json.id + '/form-answers'); assert.equal(l.json.count, 2); assert.equal(l.json.questions.length, 4);
+  assert.deepEqual(l.json.items[1].a, [4, 1, [0, 2], 'ana@example.com']);
+  assert.equal((await k('DELETE', '/api/qr-codes/' + c.json.id + '/form-answers/' + l.json.items[0].id)).status, 204);
+  assert.equal((await fetch(base + '/q/' + c.json.id)).status, 200, 'formulierpagina');
+  // Landingspagina
+  assert.equal((await mk('landing', { title: 'Summit', blocks: JSON.stringify([{ k: 'btn', v: 'Tickets', url: 'geen-link' }]) })).status, 400, 'knop zonder geldige link');
+  const lp = await mk('landing', { title: 'Summit', blocks: JSON.stringify([{ k: 'h', v: 'Programma' }, { k: 'p', v: 'Dag 1' }, { k: 'btn', v: 'Tickets', url: 'https://example.com/t' }]) });
+  assert.equal(lp.status, 201); assert.equal((await fetch(base + '/q/' + lp.json.id)).status, 200, 'landingspagina');
+});
+
 test('aanmelden: alleen met toestemming, zelfde e-mail niet dubbel, eigenaar ziet en wist', async () => {
   const k = client(); await signup(k, 'su-k@example.com', 'Aanmelden zin 27!', 'Klant Aanmelden');
   const c = await k('POST', '/api/qr-codes', { typeId: 'signup', content: { title: 'Open dag', askPhone: '1' }, design: {} }); assert.equal(c.status, 201);

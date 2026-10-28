@@ -184,6 +184,14 @@
     "signup": {
       "name": "Prihlásenie",
       "desc": "Newsletter, deň otvorených dverí alebo workshop"
+    },
+    "form": {
+      "name": "Formulár",
+      "desc": "Vlastné otázky alebo anketa"
+    },
+    "landing": {
+      "name": "Vstupná stránka",
+      "desc": "Vytvorte si vlastnú stránku"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Prihlásiť sa",
       "needFields": "Zadajte meno a platný e-mail.",
       "needConsent": "Začiarknite políčko na súhlas."
+    },
+    "fm": {
+      "tag": "Formulár",
+      "consent": "Súhlasím, aby sa môj e-mail použil na kontakt ohľadom tohto formulára.",
+      "needRequired": "Odpovedzte na otázky označené *.",
+      "badEmail": "Zadajte platný e-mail."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefón zákazníckeho servisu",
     "supportEmail": "E-mail zákazníckeho servisu",
     "suTitle": "Na čo sa prihlasujú?",
-    "suAskPhone": "Pýtať sa aj na telefón"
+    "suAskPhone": "Pýtať sa aj na telefón",
+    "fmTitle": "Názov formulára",
+    "fmQuestions": "Otázky",
+    "coverPhoto": "Titulná fotka",
+    "lpBlocks": "Obsah stránky",
+    "lpPhotos": "Fotky"
   },
   "panel": {
     "selected": "Vybraté: {type}"
@@ -1374,7 +1393,22 @@
     "manualModel": "Model BP-200",
     "suTitle": "Deň otvorených dverí v Studio Noord",
     "suText": "Sobota 15. novembra, 10:00–15:00. Prehliadka, káva a rady k vášmu projektu.",
-    "suThanks": "Ste prihlásený. Uvidíme sa!"
+    "suThanks": "Ste prihlásený. Uvidíme sa!",
+    "fmTitle": "Anketa hostí Bistro Mar Azul",
+    "fmText": "Tri krátke otázky, zaberie minútu.",
+    "fmThanks": "Ďakujeme za odpovede!",
+    "fmQ1": "Ako ste spokojný s návštevou?",
+    "fmQ2": "Ako ste nás našli?",
+    "fmO1": "Google",
+    "fmO2": "Priatelia alebo rodina",
+    "fmO3": "Sociálne siete",
+    "fmQ3": "Čo môžeme zlepšiť?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Dva dni rečníkov, workshopov a networkingu v Marbelle.",
+    "lpH1": "Program",
+    "lpP1": "Deň 1: prednášky a workshopy. Deň 2: panely a networking.",
+    "lpBtn1": "Kúpiť vstupenky",
+    "lpBtn2": "Pozrieť rečníkov"
   },
   "visit": {
     "locked": "Táto stránka je chránená",
@@ -3491,5 +3525,38 @@
     "count": "Prihlásenia: {n}",
     "delete": "Vymazať prihlásenie",
     "deleteConfirm": "Natrvalo vymazať toto prihlásenie?"
+  },
+  "fq": {
+    "add": "Pridať otázku",
+    "empty": "Zatiaľ žiadne otázky. Pridajte aspoň jednu.",
+    "question": "Otázka",
+    "kind": "Typ odpovede",
+    "k_text": "Krátky text",
+    "k_long": "Dlhý text",
+    "k_choice": "Jedna voľba",
+    "k_multi": "Viac volieb",
+    "k_stars": "Hviezdičky (1-5)",
+    "k_email": "E-mailová adresa",
+    "required": "Povinné",
+    "option": "Možnosť {n}",
+    "addOption": "Pridať možnosť",
+    "removeOption": "Odstrániť možnosť",
+    "up": "Posunúť hore",
+    "down": "Posunúť dole",
+    "remove": "Odstrániť"
+  },
+  "lb": {
+    "kind": "Typ bloku",
+    "k_h": "Nadpis",
+    "k_p": "Text",
+    "k_btn": "Tlačidlo",
+    "heading": "Nadpis",
+    "text": "Text",
+    "btnLabel": "Text tlačidla",
+    "btnUrl": "Odkaz tlačidla",
+    "empty": "Pridajte nadpisy, text a tlačidlá."
+  },
+  "fm": {
+    "count": "Odpovede: {n}"
   }
 }

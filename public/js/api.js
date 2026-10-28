@@ -271,6 +271,8 @@ var api = (function () {
     codeHistory:    function (id)    { return request('GET', 'api/qr-codes/' + encodeURIComponent(id) + '/history'); },
     restoreVersion: function (id, n) { return request('POST', 'api/qr-codes/' + encodeURIComponent(id) + '/history/' + n + '/restore', {}); },
     codeFeedback: function (id) { return request('GET', 'api/qr-codes/' + encodeURIComponent(id) + '/feedback'); },
+    codeForm: function (id) { return request('GET', 'api/qr-codes/' + encodeURIComponent(id) + '/form-answers'); },
+    codeFormDel: function (id, aid) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id) + '/form-answers/' + encodeURIComponent(aid)); },
     codeSignups: function (id) { return request('GET', 'api/qr-codes/' + encodeURIComponent(id) + '/signups'); },
     codeSignupDel: function (id, sid) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id) + '/signups/' + encodeURIComponent(sid)); },
     codeFeedbackDel: function (id, fid) { return request('DELETE', 'api/qr-codes/' + encodeURIComponent(id) + '/feedback/' + encodeURIComponent(fid)); },

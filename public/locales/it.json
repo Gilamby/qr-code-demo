@@ -184,6 +184,14 @@
     "signup": {
       "name": "Iscrizione",
       "desc": "Newsletter, open day o workshop"
+    },
+    "form": {
+      "name": "Modulo",
+      "desc": "Domande o sondaggio"
+    },
+    "landing": {
+      "name": "Landing page",
+      "desc": "Crea la tua pagina"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Iscriviti",
       "needFields": "Inserisci nome e un indirizzo email valido.",
       "needConsent": "Spunta la casella per accettare."
+    },
+    "fm": {
+      "tag": "Modulo",
+      "consent": "Accetto che la mia email sia usata per contattarmi su questo modulo.",
+      "needRequired": "Rispondi alle domande con *.",
+      "badEmail": "Inserisci un indirizzo email valido."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefono assistenza clienti",
     "supportEmail": "Email assistenza clienti",
     "suTitle": "Per cosa ci si iscrive?",
-    "suAskPhone": "Chiedi anche il telefono"
+    "suAskPhone": "Chiedi anche il telefono",
+    "fmTitle": "Titolo del modulo",
+    "fmQuestions": "Domande",
+    "coverPhoto": "Foto di copertina",
+    "lpBlocks": "Contenuto della pagina",
+    "lpPhotos": "Foto"
   },
   "panel": {
     "selected": "{type} selezionato"
@@ -1374,7 +1393,22 @@
     "manualModel": "Modello BP-200",
     "suTitle": "Open day da Studio Noord",
     "suText": "Sabato 15 novembre, 10:00–15:00. Visita, caffè e consigli sul tuo progetto.",
-    "suThanks": "Iscrizione completata. A presto!"
+    "suThanks": "Iscrizione completata. A presto!",
+    "fmTitle": "Sondaggio ospiti Bistro Mar Azul",
+    "fmText": "Tre domande brevi, un minuto.",
+    "fmThanks": "Grazie per le risposte!",
+    "fmQ1": "Quanto sei soddisfatto della visita?",
+    "fmQ2": "Come ci hai trovato?",
+    "fmO1": "Google",
+    "fmO2": "Amici o famiglia",
+    "fmO3": "Social media",
+    "fmQ3": "Cosa possiamo migliorare?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Due giorni di relatori, workshop e networking a Marbella.",
+    "lpH1": "Programma",
+    "lpP1": "Giorno 1: keynote e workshop. Giorno 2: panel e networking.",
+    "lpBtn1": "Acquista i biglietti",
+    "lpBtn2": "Vedi i relatori"
   },
   "visit": {
     "locked": "Questa pagina è protetta",
@@ -3491,5 +3525,38 @@
     "count": "Iscrizioni: {n}",
     "delete": "Elimina iscrizione",
     "deleteConfirm": "Eliminare definitivamente questa iscrizione?"
+  },
+  "fq": {
+    "add": "Aggiungi domanda",
+    "empty": "Nessuna domanda. Aggiungine almeno una.",
+    "question": "Domanda",
+    "kind": "Tipo di risposta",
+    "k_text": "Testo breve",
+    "k_long": "Testo lungo",
+    "k_choice": "Una scelta",
+    "k_multi": "Scelta multipla",
+    "k_stars": "Stelle (1-5)",
+    "k_email": "Indirizzo email",
+    "required": "Obbligatoria",
+    "option": "Opzione {n}",
+    "addOption": "Aggiungi opzione",
+    "removeOption": "Rimuovi opzione",
+    "up": "Sposta su",
+    "down": "Sposta giù",
+    "remove": "Rimuovi"
+  },
+  "lb": {
+    "kind": "Tipo di blocco",
+    "k_h": "Titolo",
+    "k_p": "Testo",
+    "k_btn": "Pulsante",
+    "heading": "Titolo",
+    "text": "Testo",
+    "btnLabel": "Testo del pulsante",
+    "btnUrl": "Link del pulsante",
+    "empty": "Aggiungi titoli, testo e pulsanti alla pagina."
+  },
+  "fm": {
+    "count": "Risposte: {n}"
   }
 }

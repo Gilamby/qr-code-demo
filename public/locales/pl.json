@@ -184,6 +184,14 @@
     "signup": {
       "name": "Zapisy",
       "desc": "Newsletter, dzień otwarty lub warsztat"
+    },
+    "form": {
+      "name": "Formularz",
+      "desc": "Własne pytania lub ankieta"
+    },
+    "landing": {
+      "name": "Strona docelowa",
+      "desc": "Zbuduj własną stronę"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Zapisz się",
       "needFields": "Podaj imię i prawidłowy adres e-mail.",
       "needConsent": "Zaznacz pole, aby wyrazić zgodę."
+    },
+    "fm": {
+      "tag": "Formularz",
+      "consent": "Zgadzam się na kontakt na mój e-mail w sprawie tego formularza.",
+      "needRequired": "Odpowiedz na pytania oznaczone *.",
+      "badEmail": "Podaj prawidłowy adres e-mail."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefon obsługi klienta",
     "supportEmail": "E-mail obsługi klienta",
     "suTitle": "Na co się zapisują?",
-    "suAskPhone": "Pytaj też o numer telefonu"
+    "suAskPhone": "Pytaj też o numer telefonu",
+    "fmTitle": "Tytuł formularza",
+    "fmQuestions": "Pytania",
+    "coverPhoto": "Zdjęcie w tle",
+    "lpBlocks": "Treść strony",
+    "lpPhotos": "Zdjęcia"
   },
   "panel": {
     "selected": "Wybrano: {type}"
@@ -1374,7 +1393,22 @@
     "manualModel": "Model BP-200",
     "suTitle": "Dzień otwarty w Studio Noord",
     "suText": "Sobota 15 listopada, 10:00–15:00. Zwiedzanie, kawa i porady dotyczące Twojego projektu.",
-    "suThanks": "Jesteś zapisany. Do zobaczenia!"
+    "suThanks": "Jesteś zapisany. Do zobaczenia!",
+    "fmTitle": "Ankieta gości Bistro Mar Azul",
+    "fmText": "Trzy krótkie pytania, zajmie minutę.",
+    "fmThanks": "Dziękujemy za odpowiedzi!",
+    "fmQ1": "Jak bardzo jesteś zadowolony z wizyty?",
+    "fmQ2": "Jak nas znalazłeś?",
+    "fmO1": "Google",
+    "fmO2": "Znajomi lub rodzina",
+    "fmO3": "Media społecznościowe",
+    "fmQ3": "Co możemy poprawić?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Dwa dni prelegentów, warsztatów i networkingu w Marbelli.",
+    "lpH1": "Program",
+    "lpP1": "Dzień 1: wystąpienia i warsztaty. Dzień 2: panele i networking.",
+    "lpBtn1": "Kup bilety",
+    "lpBtn2": "Zobacz prelegentów"
   },
   "visit": {
     "locked": "Ta strona jest chroniona",
@@ -3491,5 +3525,38 @@
     "count": "Zapisy: {n}",
     "delete": "Usuń zapis",
     "deleteConfirm": "Usunąć ten zapis na zawsze?"
+  },
+  "fq": {
+    "add": "Dodaj pytanie",
+    "empty": "Brak pytań. Dodaj co najmniej jedno.",
+    "question": "Pytanie",
+    "kind": "Rodzaj odpowiedzi",
+    "k_text": "Krótki tekst",
+    "k_long": "Długi tekst",
+    "k_choice": "Jeden wybór",
+    "k_multi": "Wielokrotny wybór",
+    "k_stars": "Gwiazdki (1-5)",
+    "k_email": "Adres e-mail",
+    "required": "Wymagane",
+    "option": "Opcja {n}",
+    "addOption": "Dodaj opcję",
+    "removeOption": "Usuń opcję",
+    "up": "W górę",
+    "down": "W dół",
+    "remove": "Usuń"
+  },
+  "lb": {
+    "kind": "Rodzaj bloku",
+    "k_h": "Nagłówek",
+    "k_p": "Tekst",
+    "k_btn": "Przycisk",
+    "heading": "Nagłówek",
+    "text": "Tekst",
+    "btnLabel": "Tekst przycisku",
+    "btnUrl": "Link przycisku",
+    "empty": "Dodaj nagłówki, tekst i przyciski."
+  },
+  "fm": {
+    "count": "Odpowiedzi: {n}"
   }
 }

@@ -184,6 +184,14 @@
     "signup": {
       "name": "Inscrição",
       "desc": "Newsletter, dia aberto ou workshop"
+    },
+    "form": {
+      "name": "Formulário",
+      "desc": "Perguntas ou inquérito próprios"
+    },
+    "landing": {
+      "name": "Página de destino",
+      "desc": "Crie a sua própria página"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Inscrever-me",
       "needFields": "Indique o seu nome e um e-mail válido.",
       "needConsent": "Marque a caixa para aceitar."
+    },
+    "fm": {
+      "tag": "Formulário",
+      "consent": "Aceito que o meu e-mail seja usado para me contactarem sobre este formulário.",
+      "needRequired": "Responda às perguntas marcadas com *.",
+      "badEmail": "Indique um e-mail válido."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefone do apoio ao cliente",
     "supportEmail": "E-mail do apoio ao cliente",
     "suTitle": "Para que se inscrevem?",
-    "suAskPhone": "Pedir também o telefone"
+    "suAskPhone": "Pedir também o telefone",
+    "fmTitle": "Título do formulário",
+    "fmQuestions": "Perguntas",
+    "coverPhoto": "Foto de capa",
+    "lpBlocks": "Conteúdo da página",
+    "lpPhotos": "Fotos"
   },
   "panel": {
     "selected": "{type} selecionado"
@@ -1374,7 +1393,22 @@
     "manualModel": "Modelo BP-200",
     "suTitle": "Dia aberto no Studio Noord",
     "suText": "Sábado, 15 de novembro, 10:00–15:00. Visita, café e conselhos sobre o seu projeto.",
-    "suThanks": "Está inscrito. Até breve!"
+    "suThanks": "Está inscrito. Até breve!",
+    "fmTitle": "Inquérito a clientes Bistro Mar Azul",
+    "fmText": "Três perguntas curtas, um minuto.",
+    "fmThanks": "Obrigado pelas respostas!",
+    "fmQ1": "Quão satisfeito está com a visita?",
+    "fmQ2": "Como nos encontrou?",
+    "fmO1": "Google",
+    "fmO2": "Amigos ou família",
+    "fmO3": "Redes sociais",
+    "fmQ3": "O que podemos melhorar?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Dois dias de oradores, workshops e networking em Marbella.",
+    "lpH1": "Programa",
+    "lpP1": "Dia 1: keynotes e workshops. Dia 2: painéis e networking.",
+    "lpBtn1": "Comprar bilhetes",
+    "lpBtn2": "Ver os oradores"
   },
   "visit": {
     "locked": "Esta página está protegida",
@@ -3491,5 +3525,38 @@
     "count": "Inscrições: {n}",
     "delete": "Eliminar inscrição",
     "deleteConfirm": "Eliminar esta inscrição definitivamente?"
+  },
+  "fq": {
+    "add": "Adicionar pergunta",
+    "empty": "Ainda sem perguntas. Adicione pelo menos uma.",
+    "question": "Pergunta",
+    "kind": "Tipo de resposta",
+    "k_text": "Texto curto",
+    "k_long": "Texto longo",
+    "k_choice": "Uma escolha",
+    "k_multi": "Várias escolhas",
+    "k_stars": "Estrelas (1-5)",
+    "k_email": "Endereço de e-mail",
+    "required": "Obrigatória",
+    "option": "Opção {n}",
+    "addOption": "Adicionar opção",
+    "removeOption": "Remover opção",
+    "up": "Mover para cima",
+    "down": "Mover para baixo",
+    "remove": "Remover"
+  },
+  "lb": {
+    "kind": "Tipo de bloco",
+    "k_h": "Título",
+    "k_p": "Texto",
+    "k_btn": "Botão",
+    "heading": "Título",
+    "text": "Texto",
+    "btnLabel": "Texto do botão",
+    "btnUrl": "Link do botão",
+    "empty": "Adicione títulos, texto e botões à página."
+  },
+  "fm": {
+    "count": "Respostas: {n}"
   }
 }

@@ -184,6 +184,14 @@
     "signup": {
       "name": "Pieteikšanās",
       "desc": "Jaunumu vēstule, atvērto durvju diena vai darbnīca"
+    },
+    "form": {
+      "name": "Veidlapa",
+      "desc": "Savi jautājumi vai aptauja"
+    },
+    "landing": {
+      "name": "Galvenā lapa",
+      "desc": "Izveidojiet savu lapu"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Pieteikties",
       "needFields": "Ievadiet vārdu un derīgu e-pasta adresi.",
       "needConsent": "Atzīmējiet rūtiņu, lai piekristu."
+    },
+    "fm": {
+      "tag": "Veidlapa",
+      "consent": "Piekrītu, ka mans e-pasts tiek izmantots saziņai par šo veidlapu.",
+      "needRequired": "Atbildiet uz jautājumiem ar *.",
+      "badEmail": "Ievadiet derīgu e-pasta adresi."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Klientu apkalpošanas tālrunis",
     "supportEmail": "Klientu apkalpošanas e-pasts",
     "suTitle": "Kam piesakās?",
-    "suAskPhone": "Prasīt arī tālruni"
+    "suAskPhone": "Prasīt arī tālruni",
+    "fmTitle": "Veidlapas nosaukums",
+    "fmQuestions": "Jautājumi",
+    "coverPhoto": "Vāka foto",
+    "lpBlocks": "Lapas saturs",
+    "lpPhotos": "Foto"
   },
   "panel": {
     "selected": "Izvēlēts: {type}"
@@ -1374,7 +1393,22 @@
     "manualModel": "Modelis BP-200",
     "suTitle": "Atvērto durvju diena Studio Noord",
     "suText": "Sestdiena, 15. novembris, 10:00–15:00. Ekskursija, kafija un padomi jūsu projektam.",
-    "suThanks": "Jūs esat pieteicies. Uz tikšanos!"
+    "suThanks": "Jūs esat pieteicies. Uz tikšanos!",
+    "fmTitle": "Viesu aptauja Bistro Mar Azul",
+    "fmText": "Trīs īsi jautājumi, aizņem minūti.",
+    "fmThanks": "Paldies par atbildēm!",
+    "fmQ1": "Cik apmierināts esat ar apmeklējumu?",
+    "fmQ2": "Kā jūs mūs atradāt?",
+    "fmO1": "Google",
+    "fmO2": "Draugi vai ģimene",
+    "fmO3": "Sociālie tīkli",
+    "fmQ3": "Ko mēs varam uzlabot?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Divas dienas ar runātājiem, darbnīcām un tīklošanos Marbeljā.",
+    "lpH1": "Programma",
+    "lpP1": "1. diena: lekcijas un darbnīcas. 2. diena: paneļi un tīklošanās.",
+    "lpBtn1": "Pirkt biļetes",
+    "lpBtn2": "Skatīt runātājus"
   },
   "visit": {
     "locked": "Šī lapa ir aizsargāta",
@@ -3491,5 +3525,38 @@
     "count": "Pieteikumi: {n}",
     "delete": "Dzēst pieteikumu",
     "deleteConfirm": "Neatgriezeniski dzēst šo pieteikumu?"
+  },
+  "fq": {
+    "add": "Pievienot jautājumu",
+    "empty": "Vēl nav jautājumu. Pievienojiet vismaz vienu.",
+    "question": "Jautājums",
+    "kind": "Atbildes veids",
+    "k_text": "Īss teksts",
+    "k_long": "Garš teksts",
+    "k_choice": "Viena izvēle",
+    "k_multi": "Vairākas izvēles",
+    "k_stars": "Zvaigznes (1-5)",
+    "k_email": "E-pasta adrese",
+    "required": "Obligāts",
+    "option": "Izvēle {n}",
+    "addOption": "Pievienot izvēli",
+    "removeOption": "Noņemt izvēli",
+    "up": "Uz augšu",
+    "down": "Uz leju",
+    "remove": "Noņemt"
+  },
+  "lb": {
+    "kind": "Bloka veids",
+    "k_h": "Virsraksts",
+    "k_p": "Teksts",
+    "k_btn": "Poga",
+    "heading": "Virsraksts",
+    "text": "Teksts",
+    "btnLabel": "Pogas teksts",
+    "btnUrl": "Pogas saite",
+    "empty": "Pievienojiet virsrakstus, tekstu un pogas."
+  },
+  "fm": {
+    "count": "Atbildes: {n}"
   }
 }

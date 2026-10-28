@@ -184,6 +184,14 @@
     "signup": {
       "name": "Tilmelding",
       "desc": "Nyhedsbrev, åbent hus eller workshop"
+    },
+    "form": {
+      "name": "Formular",
+      "desc": "Egne spørgsmål eller undersøgelse"
+    },
+    "landing": {
+      "name": "Landingside",
+      "desc": "Byg din egen side"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Tilmeld",
       "needFields": "Udfyld dit navn og en gyldig e-mailadresse.",
       "needConsent": "Sæt flueben for at acceptere."
+    },
+    "fm": {
+      "tag": "Formular",
+      "consent": "Jeg accepterer, at min e-mail bruges til at kontakte mig om denne formular.",
+      "needRequired": "Besvar spørgsmålene markeret med *.",
+      "badEmail": "Udfyld en gyldig e-mailadresse."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefon kundeservice",
     "supportEmail": "E-mail kundeservice",
     "suTitle": "Hvad tilmelder man sig?",
-    "suAskPhone": "Spørg også om telefonnummer"
+    "suAskPhone": "Spørg også om telefonnummer",
+    "fmTitle": "Formularens titel",
+    "fmQuestions": "Spørgsmål",
+    "coverPhoto": "Forsidebillede",
+    "lpBlocks": "Sidens indhold",
+    "lpPhotos": "Billeder"
   },
   "panel": {
     "selected": "{type} valgt"
@@ -1374,7 +1393,22 @@
     "manualModel": "Model BP-200",
     "suTitle": "Åbent hus hos Studio Noord",
     "suText": "Lørdag 15. november, 10:00–15:00. Rundvisning, kaffe og råd om dit projekt.",
-    "suThanks": "Du er tilmeldt. Vi ses!"
+    "suThanks": "Du er tilmeldt. Vi ses!",
+    "fmTitle": "Gæsteundersøgelse Bistro Mar Azul",
+    "fmText": "Tre korte spørgsmål, tager ét minut.",
+    "fmThanks": "Tak for dine svar!",
+    "fmQ1": "Hvor tilfreds er du med dit besøg?",
+    "fmQ2": "Hvordan fandt du os?",
+    "fmO1": "Google",
+    "fmO2": "Venner eller familie",
+    "fmO3": "Sociale medier",
+    "fmQ3": "Hvad kan vi gøre bedre?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "To dage med talere, workshops og netværk i Marbella.",
+    "lpH1": "Program",
+    "lpP1": "Dag 1: keynotes og workshops. Dag 2: paneler og netværk.",
+    "lpBtn1": "Køb billetter",
+    "lpBtn2": "Se talerne"
   },
   "visit": {
     "locked": "Denne side er beskyttet",
@@ -3491,5 +3525,38 @@
     "count": "Tilmeldinger: {n}",
     "delete": "Slet tilmelding",
     "deleteConfirm": "Slet denne tilmelding permanent?"
+  },
+  "fq": {
+    "add": "Tilføj spørgsmål",
+    "empty": "Ingen spørgsmål endnu. Tilføj mindst ét.",
+    "question": "Spørgsmål",
+    "kind": "Svartype",
+    "k_text": "Kort tekst",
+    "k_long": "Lang tekst",
+    "k_choice": "Ét valg",
+    "k_multi": "Flere valg",
+    "k_stars": "Stjerner (1-5)",
+    "k_email": "E-mailadresse",
+    "required": "Påkrævet",
+    "option": "Valg {n}",
+    "addOption": "Tilføj valg",
+    "removeOption": "Fjern valg",
+    "up": "Flyt op",
+    "down": "Flyt ned",
+    "remove": "Fjern"
+  },
+  "lb": {
+    "kind": "Bloktype",
+    "k_h": "Overskrift",
+    "k_p": "Tekst",
+    "k_btn": "Knap",
+    "heading": "Overskrift",
+    "text": "Tekst",
+    "btnLabel": "Tekst på knappen",
+    "btnUrl": "Knappens link",
+    "empty": "Tilføj overskrifter, tekst og knapper."
+  },
+  "fm": {
+    "count": "Svar: {n}"
   }
 }

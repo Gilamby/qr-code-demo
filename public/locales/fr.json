@@ -184,6 +184,14 @@
     "signup": {
       "name": "Inscription",
       "desc": "Newsletter, portes ouvertes ou atelier"
+    },
+    "form": {
+      "name": "Formulaire",
+      "desc": "Vos questions ou sondage"
+    },
+    "landing": {
+      "name": "Page d'accueil",
+      "desc": "Créez votre propre page"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "S'inscrire",
       "needFields": "Indiquez votre nom et une adresse e-mail valide.",
       "needConsent": "Cochez la case pour accepter."
+    },
+    "fm": {
+      "tag": "Formulaire",
+      "consent": "J'accepte que mon e-mail soit utilisé pour me contacter au sujet de ce formulaire.",
+      "needRequired": "Répondez aux questions marquées d'un *.",
+      "badEmail": "Indiquez une adresse e-mail valide."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Téléphone du service client",
     "supportEmail": "E-mail du service client",
     "suTitle": "Pour quoi s'inscrit-on ?",
-    "suAskPhone": "Demander aussi le téléphone"
+    "suAskPhone": "Demander aussi le téléphone",
+    "fmTitle": "Titre du formulaire",
+    "fmQuestions": "Questions",
+    "coverPhoto": "Photo de couverture",
+    "lpBlocks": "Contenu de la page",
+    "lpPhotos": "Photos"
   },
   "panel": {
     "selected": "{type} sélectionné"
@@ -1374,7 +1393,22 @@
     "manualModel": "Modèle BP-200",
     "suTitle": "Portes ouvertes chez Studio Noord",
     "suText": "Samedi 15 novembre, 10h00–15h00. Visite, café et conseils pour votre projet.",
-    "suThanks": "Vous êtes inscrit. À bientôt !"
+    "suThanks": "Vous êtes inscrit. À bientôt !",
+    "fmTitle": "Enquête clients Bistro Mar Azul",
+    "fmText": "Trois questions courtes, une minute.",
+    "fmThanks": "Merci pour vos réponses !",
+    "fmQ1": "Êtes-vous satisfait de votre visite ?",
+    "fmQ2": "Comment nous avez-vous trouvés ?",
+    "fmO1": "Google",
+    "fmO2": "Amis ou famille",
+    "fmO3": "Réseaux sociaux",
+    "fmQ3": "Que pourrions-nous améliorer ?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Deux jours de conférences, ateliers et networking à Marbella.",
+    "lpH1": "Programme",
+    "lpP1": "Jour 1 : keynotes et ateliers. Jour 2 : tables rondes et networking.",
+    "lpBtn1": "Réserver des billets",
+    "lpBtn2": "Voir les intervenants"
   },
   "visit": {
     "locked": "Cette page est protégée",
@@ -3497,5 +3531,38 @@
     "count": "Inscriptions : {n}",
     "delete": "Supprimer l'inscription",
     "deleteConfirm": "Supprimer définitivement cette inscription ?"
+  },
+  "fq": {
+    "add": "Ajouter une question",
+    "empty": "Pas encore de questions. Ajoutez-en au moins une.",
+    "question": "Question",
+    "kind": "Type de réponse",
+    "k_text": "Texte court",
+    "k_long": "Texte long",
+    "k_choice": "Un choix",
+    "k_multi": "Choix multiples",
+    "k_stars": "Étoiles (1-5)",
+    "k_email": "Adresse e-mail",
+    "required": "Obligatoire",
+    "option": "Option {n}",
+    "addOption": "Ajouter une option",
+    "removeOption": "Supprimer l'option",
+    "up": "Monter",
+    "down": "Descendre",
+    "remove": "Supprimer"
+  },
+  "lb": {
+    "kind": "Type de bloc",
+    "k_h": "Titre",
+    "k_p": "Texte",
+    "k_btn": "Bouton",
+    "heading": "Titre",
+    "text": "Texte",
+    "btnLabel": "Texte du bouton",
+    "btnUrl": "Lien du bouton",
+    "empty": "Ajoutez des titres, du texte et des boutons."
+  },
+  "fm": {
+    "count": "Réponses : {n}"
   }
 }

@@ -184,6 +184,14 @@
     "signup": {
       "name": "Anmeldung",
       "desc": "Newsletter, Tag der offenen Tür oder Workshop"
+    },
+    "form": {
+      "name": "Formular",
+      "desc": "Eigene Fragen oder Umfrage"
+    },
+    "landing": {
+      "name": "Landingpage",
+      "desc": "Eigene Seite bauen"
     }
   },
   "pv": {
@@ -502,6 +510,12 @@
       "send": "Anmelden",
       "needFields": "Bitte Namen und eine gültige E-Mail-Adresse eingeben.",
       "needConsent": "Bitte das Kästchen ankreuzen."
+    },
+    "fm": {
+      "tag": "Formular",
+      "consent": "Ich stimme zu, dass meine E-Mail-Adresse für Rückfragen zu diesem Formular verwendet wird.",
+      "needRequired": "Bitte beantworten Sie die mit * markierten Fragen.",
+      "badEmail": "Bitte eine gültige E-Mail-Adresse eingeben."
     }
   },
   "hero": {
@@ -645,7 +659,12 @@
     "supportPhone": "Telefon Kundenservice",
     "supportEmail": "E-Mail Kundenservice",
     "suTitle": "Wofür meldet man sich an?",
-    "suAskPhone": "Auch nach Telefonnummer fragen"
+    "suAskPhone": "Auch nach Telefonnummer fragen",
+    "fmTitle": "Titel des Formulars",
+    "fmQuestions": "Fragen",
+    "coverPhoto": "Titelbild",
+    "lpBlocks": "Seiteninhalt",
+    "lpPhotos": "Fotos"
   },
   "panel": {
     "selected": "{type} ausgewählt"
@@ -1374,7 +1393,22 @@
     "manualModel": "Modell BP-200",
     "suTitle": "Tag der offenen Tür bei Studio Noord",
     "suText": "Samstag, 15. November, 10:00–15:00. Führung, Kaffee und Beratung zu Ihrem Projekt.",
-    "suThanks": "Sie sind angemeldet. Bis dann!"
+    "suThanks": "Sie sind angemeldet. Bis dann!",
+    "fmTitle": "Gästeumfrage Bistro Mar Azul",
+    "fmText": "Drei kurze Fragen, dauert eine Minute.",
+    "fmThanks": "Danke für Ihre Antworten!",
+    "fmQ1": "Wie zufrieden sind Sie mit Ihrem Besuch?",
+    "fmQ2": "Wie haben Sie uns gefunden?",
+    "fmO1": "Google",
+    "fmO2": "Freunde oder Familie",
+    "fmO3": "Soziale Medien",
+    "fmQ3": "Was können wir besser machen?",
+    "lpTitle": "Business Summit 2026",
+    "lpText": "Zwei Tage Vorträge, Workshops und Networking in Marbella.",
+    "lpH1": "Programm",
+    "lpP1": "Tag 1: Keynotes und Workshops. Tag 2: Panels und Networking.",
+    "lpBtn1": "Tickets kaufen",
+    "lpBtn2": "Referenten ansehen"
   },
   "visit": {
     "locked": "Diese Seite ist geschützt",
@@ -3497,5 +3531,38 @@
     "count": "Anmeldungen: {n}",
     "delete": "Anmeldung löschen",
     "deleteConfirm": "Diese Anmeldung endgültig löschen?"
+  },
+  "fq": {
+    "add": "Frage hinzufügen",
+    "empty": "Noch keine Fragen. Fügen Sie mindestens eine hinzu.",
+    "question": "Frage",
+    "kind": "Antworttyp",
+    "k_text": "Kurzer Text",
+    "k_long": "Langer Text",
+    "k_choice": "Eine Auswahl",
+    "k_multi": "Mehrfachauswahl",
+    "k_stars": "Sterne (1-5)",
+    "k_email": "E-Mail-Adresse",
+    "required": "Pflicht",
+    "option": "Option {n}",
+    "addOption": "Option hinzufügen",
+    "removeOption": "Option entfernen",
+    "up": "Nach oben",
+    "down": "Nach unten",
+    "remove": "Entfernen"
+  },
+  "lb": {
+    "kind": "Blocktyp",
+    "k_h": "Überschrift",
+    "k_p": "Text",
+    "k_btn": "Schaltfläche",
+    "heading": "Überschrift",
+    "text": "Text",
+    "btnLabel": "Text der Schaltfläche",
+    "btnUrl": "Link der Schaltfläche",
+    "empty": "Fügen Sie Überschriften, Text und Schaltflächen hinzu."
+  },
+  "fm": {
+    "count": "Antworten: {n}"
   }
 }

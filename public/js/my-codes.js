@@ -226,6 +226,7 @@ var MyCodes = (function () {
             (stat ? '' : (api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="open">' + ico('open') + t('myCodes.open') + '</button>') + '<button type="button" role="menuitem" data-act="copy">' + ico('copy') + t('myCodes.copy') + '</button>') +
             '<button type="button" role="menuitem" data-act="rename">' + ico('pen') + t('myCodes.rename') + '</button>' +
             (r.typeId === 'feedback' && !api.isDemo() ? '<button type="button" role="menuitem" data-act="answers">' + ico('chat') + t('fb.menu') + '</button>' : '') +
+            (r.typeId === 'form' && !api.isDemo() ? '<button type="button" role="menuitem" data-act="formAnswers">' + ico('chat') + t('fb.menu') + '</button>' : '') +
             (r.typeId === 'signup' && !api.isDemo() ? '<button type="button" role="menuitem" data-act="signups">' + ico('chat') + t('su.menu') + '</button>' : '') +
             (stat || api.isDemo() ? '' : '<button type="button" role="menuitem" data-act="history">' + ico('history') + t('hist.menu') + '</button>') +
             '<button type="button" role="menuitem" data-act="duplicate">' + ico('dup') + t('myCodes.duplicate') + '</button>' +
@@ -474,6 +475,40 @@ var MyCodes = (function () {
       var rows = [['date', 'rating', 'comment', 'email']].concat(data.items.map(function (a) { return [a.at, a.rating, a.comment, a.email || '']; }));
       var blob = new Blob(['\ufeff' + rows.map(function (x) { return x.map(q).join(','); }).join('\r\n')], { type: 'text/csv;charset=utf-8' });
       var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'feedback-' + r.id + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    };
+  }
+  /* Formulier-inzendingen: per inzending de vragen met antwoord; wissen; CSV (één kolom per vraag) */
+  function askFormAnswers(r) {
+    dialog.innerHTML = '<form method="dialog" class="mc-dlg fbx-dlg"><span class="mc-dlg-ic">' + ico('chat') + '</span><h3>' + esc(t('fb.title', { name: displayName(r) })) + '</h3><div class="fbx"><p class="muted-msg">' + t('myCodes.loading') + '</p></div>' +
+      '<div class="mc-dlg-btns"><button type="button" class="btn ghost" data-fbx-csv hidden>' + ico('dl') + t('fb.csv') + '</button><button class="btn primary" value="cancel">' + t('hist.close') + '</button></div></form>';
+    var box = dialog.querySelector('.fbx'), csvBtn = dialog.querySelector('[data-fbx-csv]'), data = null;
+    dialog.onclose = null; dialog.returnValue = ''; dialog.showModal();
+    function shown(q, a) {
+      if (a == null || a === '' || (Array.isArray(a) && !a.length)) return '';
+      if (q.t === 'stars') return '★★★★★'.slice(0, a) + ' (' + a + '/5)';
+      if (q.t === 'choice') return (q.o || [])[a] || '';
+      if (q.t === 'multi') return a.map(function (n) { return (q.o || [])[n] || ''; }).join(', ');
+      return String(a);
+    }
+    function paint() {
+      if (!data.items.length) { box.innerHTML = '<p class="hs-empty">' + t('fb.none') + '</p>'; csvBtn.hidden = true; return; }
+      csvBtn.hidden = false;
+      box.innerHTML = '<p class="su-count">' + t('fm.count', { n: i18n.fmt.num(data.items.length) }) + '</p><ul class="fbx-list">' + data.items.map(function (e) {
+        return '<li data-fid="' + esc(e.id) + '"><div><small>' + esc(i18n.fmt.stamp(e.at, 'time')) + '</small><dl class="fm-ans">' + data.questions.map(function (q, i) { var s = shown(q, e.a[i]); return s ? '<dt>' + esc(q.q) + '</dt><dd>' + esc(s) + '</dd>' : ''; }).join('') + '</dl></div>' +
+          '<button type="button" class="mc-ico" data-fbx-del aria-label="' + esc(t('fb.delete')) + '" title="' + esc(t('fb.delete')) + '">' + ico('trash') + '</button></li>';
+      }).join('') + '</ul>';
+    }
+    api.codeForm(r.id).then(function (d) { data = d; paint(); }, function () { box.innerHTML = '<p class="hs-empty">' + t('myCodes.failed') + '</p>'; });
+    box.onclick = function (e) {
+      var b = e.target.closest('[data-fbx-del]'); if (!b) return; var id = b.closest('[data-fid]').getAttribute('data-fid');
+      if (!window.confirm(t('fb.deleteConfirm'))) return;
+      api.codeFormDel(r.id, id).then(function () { data.items = data.items.filter(function (x) { return x.id !== id; }); paint(); });
+    };
+    csvBtn.onclick = function () {
+      var q = function (v) { v = String(v == null ? '' : v); if (/^[=+\-@]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; };
+      var rows = [['date'].concat(data.questions.map(function (x) { return x.q; }))].concat(data.items.map(function (e) { return [e.at].concat(data.questions.map(function (x, i) { return x.t === 'stars' ? (e.a[i] || '') : shown(x, e.a[i]); })); }));
+      var blob = new Blob(['\ufeff' + rows.map(function (x) { return x.map(q).join(','); }).join('\r\n')], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'form-' + r.id + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     };
   }
   /* Aanmeldingen: lijst (naam, e-mail, telefoon, datum); wissen per aanmelding; CSV */
@@ -978,6 +1013,7 @@ var MyCodes = (function () {
     if (act === 'history') { closeMenus(); return askHistory(r); }
     if (act === 'answers') { closeMenus(); return askAnswers(r); }
     if (act === 'signups') { closeMenus(); return askSignups(r); }
+    if (act === 'formAnswers') { closeMenus(); return askFormAnswers(r); }
     if (act === 'edit') return edit(r);
     if (act === 'stats') return Analytics.open({ codes: [r.id] });
     if (act === 'where') return Analytics.open({ codes: [r.id], detail: true });   // klik op scans: detailpagina van deze code
