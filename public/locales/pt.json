@@ -1691,7 +1691,7 @@
     "devices": "Dispositivos com sessão iniciada: {n}",
     "logoutOthers": "Terminar sessão noutros dispositivos",
     "loggedOutOthers": "Os outros dispositivos terminaram a sessão.",
-    "lead": "Gere os teus dados, a segurança e as preferências.",
+    "lead": "Gerencie os seus dados, a segurança e o seu plano.",
     "sections": "Secções de A minha conta",
     "security": "Segurança",
     "profileLead": "O teu nome aparece na app. Inicias sessão com o teu e-mail.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Estado"
   },
   "st": {
-    "lead": "Tudo sobre a sua conta, privacidade e a app num só lugar.",
-    "d_profile": "Nome, e-mail e fuso horário",
-    "d_security": "Palavra-passe, verificação em dois passos e dispositivos",
-    "d_notify": "Que e-mails recebe de nós",
-    "d_prefs": "Idioma da app e dos seus e-mails",
-    "d_background": "Fundo e aspeto da app",
-    "d_billing": "Nome da empresa, morada e NIF",
-    "d_plan": "O seu plano e faturas",
-    "d_privacy": "Como tratamos os seus dados",
-    "d_terms": "Os termos de utilização da app",
-    "d_cookies": "Que cookies e armazenamento usamos",
-    "d_data": "Ver ou transferir os seus dados",
-    "d_delete": "Eliminar definitivamente a conta e todos os códigos QR",
-    "d_contact": "Uma pergunta, problema ou ideia? Envie-nos uma mensagem",
-    "d_faq": "Respostas a perguntas frequentes"
+    "lead": "Notificações, idioma e o seu fundo."
   },
   "legacy": {
     "menu": "Transferir código QR existente",

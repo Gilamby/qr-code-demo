@@ -1691,7 +1691,7 @@
     "devices": "Appareils connectés : {n}",
     "logoutOthers": "Se déconnecter des autres appareils",
     "loggedOutOthers": "Les autres appareils ont été déconnectés.",
-    "lead": "Gérez vos informations, votre sécurité et vos préférences.",
+    "lead": "Gérez vos informations, votre sécurité et votre abonnement.",
     "sections": "Sections de Mon compte",
     "security": "Sécurité",
     "profileLead": "Votre nom s'affiche dans l'application. Vous vous connectez avec votre adresse e-mail.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "État"
   },
   "st": {
-    "lead": "Tout sur votre compte, la confidentialité et l’application au même endroit.",
-    "d_profile": "Nom, adresse e-mail et fuseau horaire",
-    "d_security": "Mot de passe, validation en deux étapes et appareils",
-    "d_notify": "Les e-mails que vous recevez de notre part",
-    "d_prefs": "Langue de l’application et de vos e-mails",
-    "d_background": "Arrière-plan et apparence de l’application",
-    "d_billing": "Nom de l’entreprise, adresse et n° de TVA",
-    "d_plan": "Votre abonnement et vos factures",
-    "d_privacy": "Comment nous traitons vos données",
-    "d_terms": "Les conditions d’utilisation de l’application",
-    "d_cookies": "Les cookies et le stockage que nous utilisons",
-    "d_data": "Consulter ou télécharger vos données",
-    "d_delete": "Supprimer définitivement votre compte et tous vos codes QR",
-    "d_contact": "Une question, un problème ou une idée ? Écrivez-nous",
-    "d_faq": "Réponses aux questions fréquentes"
+    "lead": "Notifications, langue et votre arrière-plan."
   },
   "legacy": {
     "menu": "Transférer un code QR existant",

@@ -1797,7 +1797,7 @@
     "devices": "Pajisje të identifikuara: {n}",
     "logoutOthers": "Dil nga pajisjet e tjera",
     "loggedOutOthers": "Pajisjet e tjera u nxorën.",
-    "lead": "Menaxho të dhënat, sigurinë dhe preferencat e tua.",
+    "lead": "Menaxho të dhënat, sigurinë dhe planin tënd.",
     "sections": "Seksionet e Llogarisë sime",
     "security": "Siguria",
     "profileLead": "Emri yt shfaqet në aplikacion. Hyn me adresën tënde të email-it.",
@@ -3108,21 +3108,7 @@
     "tabStatus": "Statusi"
   },
   "st": {
-    "lead": "Gjithçka për llogarinë, privatësinë dhe aplikacionin në një vend.",
-    "d_profile": "Emri, email-i dhe zona kohore",
-    "d_security": "Fjalëkalimi, verifikimi me dy hapa dhe pajisjet",
-    "d_notify": "Cilat email-e merr nga ne",
-    "d_prefs": "Gjuha e aplikacionit dhe e email-eve",
-    "d_background": "Sfondi dhe pamja e aplikacionit",
-    "d_billing": "Emri i kompanisë, adresa dhe NIPT",
-    "d_plan": "Plani dhe faturat e tua",
-    "d_privacy": "Si i trajtojmë të dhënat e tua",
-    "d_terms": "Kushtet e përdorimit të aplikacionit",
-    "d_cookies": "Cilat cookies dhe ruajtje përdorim",
-    "d_data": "Shiko ose shkarko të dhënat e tua",
-    "d_delete": "Fshi përgjithmonë llogarinë dhe të gjitha kodet QR",
-    "d_contact": "Pyetje, problem apo ide? Na shkruaj",
-    "d_faq": "Përgjigje për pyetjet e shpeshta"
+    "lead": "Njoftimet, gjuha dhe sfondi yt."
   },
   "legacy": {
     "menu": "Transfero kodin QR ekzistues",

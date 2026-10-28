@@ -1691,7 +1691,7 @@
     "devices": "Inloggade enheter: {n}",
     "logoutOthers": "Logga ut på andra enheter",
     "loggedOutOthers": "Andra enheter har loggats ut.",
-    "lead": "Hantera dina uppgifter, din säkerhet och dina inställningar.",
+    "lead": "Hantera dina uppgifter, säkerhet och abonnemang.",
     "sections": "Delar av Mitt konto",
     "security": "Säkerhet",
     "profileLead": "Ditt namn visas i appen. Du loggar in med din e-postadress.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Allt om ditt konto, din integritet och appen på ett ställe.",
-    "d_profile": "Namn, e-postadress och tidszon",
-    "d_security": "Lösenord, tvåstegsverifiering och enheter",
-    "d_notify": "Vilka mejl du får från oss",
-    "d_prefs": "Språket i appen och i dina mejl",
-    "d_background": "Appens bakgrund och utseende",
-    "d_billing": "Företagsnamn, adress och momsregistreringsnummer",
-    "d_plan": "Ditt abonnemang och dina fakturor",
-    "d_privacy": "Hur vi hanterar dina uppgifter",
-    "d_terms": "Villkoren för att använda appen",
-    "d_cookies": "Vilka cookies och vilken lagring vi använder",
-    "d_data": "Se eller ladda ned dina uppgifter",
-    "d_delete": "Ta bort ditt konto och alla dina QR-koder för gott",
-    "d_contact": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss",
-    "d_faq": "Svar på vanliga frågor"
+    "lead": "Aviseringar, språk och din bakgrund."
   },
   "legacy": {
     "menu": "Flytta befintlig QR-kod",

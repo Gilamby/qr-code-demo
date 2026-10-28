@@ -1691,7 +1691,7 @@
     "devices": "Dispositivos con sesión iniciada: {n}",
     "logoutOthers": "Cerrar sesión en otros dispositivos",
     "loggedOutOthers": "Se ha cerrado la sesión en los demás dispositivos.",
-    "lead": "Gestiona tus datos, tu seguridad y tus preferencias.",
+    "lead": "Gestiona tus datos, la seguridad y tu plan.",
     "sections": "Secciones de Mi cuenta",
     "security": "Seguridad",
     "profileLead": "Tu nombre aparece en la app. Inicias sesión con tu correo electrónico.",
@@ -3002,21 +3002,7 @@
     "iConfirm": "¿Eliminar este aviso?"
   },
   "st": {
-    "lead": "Todo sobre tu cuenta, la privacidad y la app en un solo lugar.",
-    "d_profile": "Nombre, correo y zona horaria",
-    "d_security": "Contraseña, verificación en dos pasos y dispositivos",
-    "d_notify": "Qué correos recibes de nosotros",
-    "d_prefs": "Idioma de la app y de tus correos",
-    "d_background": "Fondo y apariencia de la app",
-    "d_billing": "Nombre de empresa, dirección y NIF/IVA",
-    "d_plan": "Tu plan y tus facturas",
-    "d_privacy": "Cómo tratamos tus datos",
-    "d_terms": "Las condiciones de uso de la app",
-    "d_cookies": "Qué cookies y almacenamiento usamos",
-    "d_data": "Ver o descargar tus datos",
-    "d_delete": "Eliminar definitivamente tu cuenta y todos tus códigos QR",
-    "d_contact": "¿Una pregunta, un problema o una idea? Escríbenos",
-    "d_faq": "Respuestas a preguntas frecuentes"
+    "lead": "Notificaciones, idioma y tu fondo."
   },
   "legacy": {
     "menu": "Trasladar código QR existente",

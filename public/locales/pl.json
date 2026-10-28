@@ -1691,7 +1691,7 @@
     "devices": "Zalogowane urządzenia: {n}",
     "logoutOthers": "Wyloguj na innych urządzeniach",
     "loggedOutOthers": "Inne urządzenia zostały wylogowane.",
-    "lead": "Zarządzaj swoimi danymi, bezpieczeństwem i ustawieniami.",
+    "lead": "Zarządzaj swoimi danymi, bezpieczeństwem i planem.",
     "sections": "Sekcje Mojego konta",
     "security": "Bezpieczeństwo",
     "profileLead": "Twoje imię jest widoczne w aplikacji. Logujesz się adresem e-mail.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Wszystko o koncie, prywatności i aplikacji w jednym miejscu.",
-    "d_profile": "Imię, e-mail i strefa czasowa",
-    "d_security": "Hasło, weryfikacja dwuetapowa i urządzenia",
-    "d_notify": "Jakie e-maile od nas dostajesz",
-    "d_prefs": "Język aplikacji i e-maili",
-    "d_background": "Tło i wygląd aplikacji",
-    "d_billing": "Nazwa firmy, adres i NIP",
-    "d_plan": "Twój plan i faktury",
-    "d_privacy": "Jak traktujemy Twoje dane",
-    "d_terms": "Zasady korzystania z aplikacji",
-    "d_cookies": "Jakich plików cookie i pamięci używamy",
-    "d_data": "Zobacz lub pobierz swoje dane",
-    "d_delete": "Trwale usuń konto i wszystkie kody QR",
-    "d_contact": "Pytanie, problem lub pomysł? Napisz do nas",
-    "d_faq": "Odpowiedzi na częste pytania"
+    "lead": "Powiadomienia, język i Twoje tło."
   },
   "legacy": {
     "menu": "Przenieś istniejący kod QR",

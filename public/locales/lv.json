@@ -1691,7 +1691,7 @@
     "devices": "Pieteiktās ierīces: {n}",
     "logoutOthers": "Izrakstīties citās ierīcēs",
     "loggedOutOthers": "Citas ierīces ir izrakstītas.",
-    "lead": "Pārvaldi savus datus, drošību un preferences.",
+    "lead": "Pārvaldi savus datus, drošību un plānu.",
     "sections": "Sadaļas “Mans konts”",
     "security": "Drošība",
     "profileLead": "Tavs vārds tiek rādīts lietotnē. Tu piesakies ar savu e-pasta adresi.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Statuss"
   },
   "st": {
-    "lead": "Viss par tavu kontu, privātumu un lietotni vienuviet.",
-    "d_profile": "Vārds, e-pasta adrese un laika josla",
-    "d_security": "Parole, divpakāpju verifikācija un ierīces",
-    "d_notify": "Kādus e-pastus saņem no mums",
-    "d_prefs": "Lietotnes un tavu e-pastu valoda",
-    "d_background": "Lietotnes fons un izskats",
-    "d_billing": "Uzņēmuma nosaukums, adrese un PVN numurs",
-    "d_plan": "Tavs plāns un rēķini",
-    "d_privacy": "Kā mēs rīkojamies ar taviem datiem",
-    "d_terms": "Lietotnes lietošanas noteikumi",
-    "d_cookies": "Kādas sīkdatnes un krātuvi mēs izmantojam",
-    "d_data": "Skatīt vai lejupielādēt savus datus",
-    "d_delete": "Neatgriezeniski dzēst savu kontu un visus QR kodus",
-    "d_contact": "Jautājums, problēma vai ideja? Uzraksti mums",
-    "d_faq": "Atbildes uz biežāk uzdotajiem jautājumiem"
+    "lead": "Paziņojumi, valoda un tavs fons."
   },
   "legacy": {
     "menu": "Pārvietot esošu QR kodu",

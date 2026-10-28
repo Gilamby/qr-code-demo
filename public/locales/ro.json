@@ -1691,7 +1691,7 @@
     "devices": "Dispozitive conectate: {n}",
     "logoutOthers": "Deconectează celelalte dispozitive",
     "loggedOutOthers": "Celelalte dispozitive au fost deconectate.",
-    "lead": "Gestionează-ți datele, securitatea și preferințele.",
+    "lead": "Gestionează-ți datele, securitatea și abonamentul.",
     "sections": "Secțiunile Contului meu",
     "security": "Securitate",
     "profileLead": "Numele tău apare în aplicație. Te conectezi cu adresa de e-mail.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Stare"
   },
   "st": {
-    "lead": "Tot ce ține de contul tău, confidențialitate și aplicație, într-un singur loc.",
-    "d_profile": "Nume, adresă de e-mail și fus orar",
-    "d_security": "Parolă, verificare în doi pași și dispozitive",
-    "d_notify": "Ce e-mailuri primești de la noi",
-    "d_prefs": "Limba aplicației și a e-mailurilor tale",
-    "d_background": "Fundalul și aspectul aplicației",
-    "d_billing": "Numele companiei, adresa și codul TVA",
-    "d_plan": "Abonamentul tău și facturile",
-    "d_privacy": "Cum tratăm datele tale",
-    "d_terms": "Condițiile de utilizare a aplicației",
-    "d_cookies": "Ce cookie-uri și ce stocare folosim",
-    "d_data": "Vezi sau descarcă-ți datele",
-    "d_delete": "Șterge definitiv contul și toate codurile tale QR",
-    "d_contact": "O întrebare, o problemă sau o idee? Trimite-ne un mesaj",
-    "d_faq": "Răspunsuri la întrebările frecvente"
+    "lead": "Notificări, limbă și fundalul tău."
   },
   "legacy": {
     "menu": "Mută un cod QR existent",

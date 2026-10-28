@@ -1691,7 +1691,7 @@
     "devices": "Prihlásené zariadenia: {n}",
     "logoutOthers": "Odhlásiť na ostatných zariadeniach",
     "loggedOutOthers": "Ostatné zariadenia boli odhlásené.",
-    "lead": "Spravuj svoje údaje, zabezpečenie a predvoľby.",
+    "lead": "Spravuj svoje údaje, zabezpečenie a predplatné.",
     "sections": "Časti Môjho účtu",
     "security": "Zabezpečenie",
     "profileLead": "Tvoje meno sa zobrazuje v aplikácii. Prihlasuješ sa e-mailovou adresou.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Stav"
   },
   "st": {
-    "lead": "Všetko o tvojom účte, súkromí a aplikácii na jednom mieste.",
-    "d_profile": "Meno, e-mailová adresa a časové pásmo",
-    "d_security": "Heslo, dvojstupňové overenie a zariadenia",
-    "d_notify": "Aké e-maily od nás dostávaš",
-    "d_prefs": "Jazyk aplikácie a tvojich e-mailov",
-    "d_background": "Pozadie a vzhľad aplikácie",
-    "d_billing": "Názov firmy, adresa a IČ DPH",
-    "d_plan": "Tvoje predplatné a faktúry",
-    "d_privacy": "Ako narábame s tvojimi údajmi",
-    "d_terms": "Podmienky používania aplikácie",
-    "d_cookies": "Aké cookies a úložisko používame",
-    "d_data": "Pozri si alebo stiahni svoje údaje",
-    "d_delete": "Natrvalo odstráň svoj účet a všetky QR kódy",
-    "d_contact": "Otázka, problém alebo nápad? Pošli nám správu",
-    "d_faq": "Odpovede na časté otázky"
+    "lead": "Upozornenia, jazyk a tvoje pozadie."
   },
   "legacy": {
     "menu": "Presunúť existujúci QR kód",

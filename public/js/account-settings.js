@@ -198,12 +198,19 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     domain: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
     team: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.3.2 3.9 1.8 4.5 4.8"/>'
   };
-  var GROUPS = [
-    ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
-    ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav'], ['domain', 'dom.nav']]],
-    ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
-  ];
-  var ALL_TABS = [].concat.apply([], GROUPS.map(function (g) { return g[1].map(function (x) { return x[0]; }); }));
+  // Twee pagina's op hetzelfde scherm: Mijn account (wie je bent, beveiliging, betalen) en Instellingen (meldingen, voorkeuren, achtergrond)
+  var SCOPES = {
+    account: [
+      ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security']]],
+      ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav'], ['domain', 'dom.nav']]],
+      ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
+    ],
+    settings: [['nav.settings', [['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]]]
+  };
+  var scope = 'account';
+  function ids(sc) { return [].concat.apply([], SCOPES[sc].map(function (g) { return g[1].map(function (x) { return x[0]; }); })); }
+  function scopeOf(id) { return ids('settings').indexOf(id) >= 0 ? 'settings' : 'account'; }
+  var GROUPS = SCOPES.account, ALL_TABS = ids('account');
   /** Het hoofdaccount (super-admin) kan niet verwijderd worden: dan ook geen knop of onderdeel daarvoor */
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
@@ -285,17 +292,17 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   /* ---------- Menu ---------- */
   function drawMenu() {
     menu.innerHTML = '<div class="acct-tabs" role="tablist" aria-orientation="vertical" aria-label="' + esc(t('acct.sections')) + '">' + GROUPS.filter(function (g) { return g[1].some(function (x) { return shown(x[0]); }); }).map(function (g) {
-      return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].filter(function (x) { return shown(x[0]); }).map(function (x) {
+      return (scope === 'settings' ? '' : '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>') + g[1].filter(function (x) { return shown(x[0]); }).map(function (x) {
         var on = x[0] === tab;
         return '<button type="button" role="tab"' + (x[0] === 'delete' ? ' class="acct-tab-danger"' : '') + ' id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
           (x[0] === 'billing' && billingLoaded && !billing && !user.admin && !viaStripe() ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
       }).join('');
     }).join('') + '</div>' +
     // Juridisch (stond eerst op een aparte pagina "Instellingen"; nu hier, zodat er maar één plek is)
-    '<div class="acct-legal-links"><p class="acct-group" aria-hidden="true">' + t('nav.legal') + '</p>' + ['privacy', 'terms', 'cookies'].map(function (k) {
+    (scope !== 'account' ? '' : '<div class="acct-legal-links"><p class="acct-group" aria-hidden="true">' + t('nav.legal') + '</p>' + ['privacy', 'terms', 'cookies'].map(function (k) {
       return '<button type="button" class="acct-legal" data-legal="' + k + '">' + esc(t('legal.' + k + '.title')) + '</button>'; }).join('') + '</div>' +
     '<span class="acct-menu-line" aria-hidden="true"></span>' +
-    '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>';
+    '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>');
     requestAnimationFrame(tabFades);
   }
   /* Telefoon: de tabbladen schuiven opzij. Vervaagde rand = er is nog meer; het open tabblad komt in beeld. */
@@ -793,15 +800,21 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function draw(msg) {
     if (!msg && sticky) msg = sticky();                                  // melding blijft staan als de cijfers later binnenkomen
     if (!user) { box.innerHTML = ''; menu.innerHTML = ''; stats.innerHTML = ''; return; }
-    if (tabIds().indexOf(tab) < 0) tab = 'profile';
+    if (tabIds().indexOf(tab) < 0) tab = tabIds()[0];
+    var sec = box.closest('.account'); if (sec) sec.classList.toggle('is-settings', scope === 'settings');
+    document.getElementById('acctTitle').textContent = t(scope === 'settings' ? 'nav.settings' : 'nav.account');
+    document.getElementById('acctLead').textContent = t(scope === 'settings' ? 'st.lead' : 'acct.lead');
     head(msg); drawMenu();
     var isBg = tab === 'background';
     bgSection.hidden = !isBg; box.hidden = isBg;
     (isBg ? bgSection : box).setAttribute('aria-labelledby', 'acctTab-' + tab);
     box.innerHTML = isBg ? '' : panel(msg || {});
   }
+  function setScope(sc) { scope = sc; GROUPS = SCOPES[sc]; ALL_TABS = ids(sc); }
   function open(id, focus) {
     if (!shown(id)) id = 'profile';
+    var sc = scopeOf(id);
+    if (sc !== scope || !document.body.classList.contains('page-' + sc)) { setScope(sc); tab = id; window.goToPage(sc); }   // onderdeel hoort op de andere pagina: daarheen
     if (id === 'team' && window.Team) Team.ensure();
     tab = id; sticky = null; bad = []; delStep = 1; delErr = ''; editing = null; if (id === 'security') { loadSecurity(); tfaSetup = null; tfaCodes = null; tfaOff = false; tfaMsg = null; loadTfa(); } if (id === 'plan') { planInfo = null; invInfo = null; pmInfo = null; loadPlan(); loadInv(); } if (id === 'api') { apiInfo = null; apiNew = null; loadApi(); } if (id === 'domain') { domInfo = null; domMsg = null; loadDom(); }
     if (id === 'billing' && billingLoaded) draft = startDraft();
@@ -810,7 +823,12 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (focus) { var b = document.getElementById('acctTab-' + id); if (b) b.focus(); }
   }
   window.openAccountTab = function (id) { open(id); };
-  document.addEventListener('pagechange', function (e) { if (e.detail === 'account') document.dispatchEvent(new CustomEvent('accounttab', { detail: tab })); });   // adres: welk tabblad open staat
+  document.addEventListener('pagechange', function (e) {
+    document.body.classList.toggle('page-account', e.detail === 'account'); document.body.classList.toggle('page-settings', e.detail === 'settings');
+    if (e.detail !== 'account' && e.detail !== 'settings') return;
+    if (e.detail !== scope) { setScope(e.detail); if (ids(scope).indexOf(tab) < 0) tab = ids(scope)[0]; if (user) draw(); }
+    document.dispatchEvent(new CustomEvent('accounttab', { detail: tab }));   // adres: welk tabblad open staat
+  });
   document.addEventListener('plan-changed', function () { planInfo = null; invInfo = null; if (tab === 'plan' && user) { loadPlan(); loadInv(); } });
   document.addEventListener('team-loaded', function () { if (user && menu.innerHTML) drawMenu(); });
 

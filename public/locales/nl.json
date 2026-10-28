@@ -1691,7 +1691,7 @@
     "devices": "Ingelogde apparaten: {n}",
     "logoutOthers": "Uitloggen op andere apparaten",
     "loggedOutOthers": "Andere apparaten zijn uitgelogd.",
-    "lead": "Beheer je gegevens, beveiliging en voorkeuren.",
+    "lead": "Beheer je gegevens, beveiliging en abonnement.",
     "sections": "Onderdelen van Mijn account",
     "security": "Beveiliging",
     "profileLead": "Je naam zie je terug in de app. Met je e-mailadres log je in.",
@@ -3002,21 +3002,7 @@
     "iConfirm": "Deze melding verwijderen?"
   },
   "st": {
-    "lead": "Alles over je account, privacy en de app op één plek.",
-    "d_profile": "Naam, e-mailadres en tijdzone",
-    "d_security": "Wachtwoord, tweestapsverificatie en apparaten",
-    "d_notify": "Welke e-mails je van ons krijgt",
-    "d_prefs": "Taal van de app en van je e-mails",
-    "d_background": "Achtergrond en weergave van de app",
-    "d_billing": "Bedrijfsnaam, adres en btw-nummer",
-    "d_plan": "Je abonnement en facturen",
-    "d_privacy": "Hoe we met je gegevens omgaan",
-    "d_terms": "De afspraken voor het gebruik van de app",
-    "d_cookies": "Welke cookies en opslag we gebruiken",
-    "d_data": "Bekijk of download je gegevens",
-    "d_delete": "Je account en al je QR-codes definitief verwijderen",
-    "d_contact": "Vraag, probleem of idee? Stuur ons een bericht",
-    "d_faq": "Antwoorden op veelgestelde vragen"
+    "lead": "Meldingen, taal en je achtergrond."
   },
   "legacy": {
     "menu": "Bestaande QR-code overzetten",

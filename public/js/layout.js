@@ -58,7 +58,7 @@
     // Elke pagina heeft een eigen <main id="…View">; de rest is verborgen
     var VIEWS = ['home', 'account', 'myCodes', 'analytics', 'contact', 'faq', 'legal', 'settings', 'adminDash', 'adminCodes', 'customers', 'adminSettings'];
     // Detailpagina van één QR-code gebruikt het scherm van de statistiek, maar is een eigen pagina (eigen titel, Mijn QR-codes actief)
-    var shown = page === 'codeDetail' ? 'analytics' : page;
+    var shown = page === 'codeDetail' ? 'analytics' : page === 'settings' ? 'account' : page;   // Instellingen: zelfde scherm als Mijn account, andere onderdelen
     VIEWS.forEach(function (p) { var v = document.getElementById(p + 'View'); if (v) v.hidden = shown !== p; });
     document.getElementById('emptyView').hidden = page === 'create' || VIEWS.indexOf(shown) >= 0;
     document.dispatchEvent(new CustomEvent('pagechange', { detail: page }));
@@ -100,7 +100,7 @@
   var ADMIN = ['adminDash', 'adminCodes', 'customers', 'adminSettings'];
   var page = null, tab = null, applying = false, timer = 0, booted = false;
   function parse(h) { var m = String(h || '').match(/^#\/([a-z-]+)(?:\/([a-z]+))?/); return m && PAGE[m[1]] ? { page: PAGE[m[1]], tab: m[2] || null } : null; }
-  function want() { var s = SLUG[page]; if (!s) return null; return '#/' + s + (page === 'account' && tab ? '/' + tab : ''); }
+  function want() { var s = SLUG[page]; if (!s) return null; return '#/' + s + ((page === 'account' || page === 'settings') && tab ? '/' + tab : ''); }
   function sync() {
     clearTimeout(timer);
     timer = setTimeout(function () {                                           // één keer per klik (pagina + tabblad samen)
@@ -109,11 +109,11 @@
       applying = false;
     }, 0);
   }
-  document.addEventListener('pagechange', function (e) { page = e.detail; if (page !== 'account') tab = null; if (page === 'logout') { booted = false; history.replaceState(null, '', location.pathname + location.search); return; } sync(); });
+  document.addEventListener('pagechange', function (e) { page = e.detail; if (page !== 'account' && page !== 'settings') tab = null; if (page === 'logout') { booted = false; history.replaceState(null, '', location.pathname + location.search); return; } sync(); });
   document.addEventListener('accounttab', function (e) { tab = e.detail; sync(); });
   function go(r) {
     applying = true; goToPage(r.page);
-    if (r.page === 'account' && window.openAccountTab) openAccountTab(r.tab || 'profile');
+    if ((r.page === 'account' || r.page === 'settings') && window.openAccountTab) openAccountTab(r.tab || (r.page === 'settings' ? 'notify' : 'profile'));
   }
   addEventListener('popstate', function () { var r = parse(location.hash); if (r && booted) go(r); });
   window.Route = {

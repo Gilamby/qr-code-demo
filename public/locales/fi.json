@@ -1691,7 +1691,7 @@
     "devices": "Kirjautuneita laitteita: {n}",
     "logoutOthers": "Kirjaudu ulos muilla laitteilla",
     "loggedOutOthers": "Muut laitteet on kirjattu ulos.",
-    "lead": "Hallitse tietojasi, tietoturvaa ja asetuksia.",
+    "lead": "Hallitse tietojasi, tietoturvaa ja tilaustasi.",
     "sections": "Oman tilin osiot",
     "security": "Tietoturva",
     "profileLead": "Nimesi näkyy sovelluksessa. Kirjaudut sisään sähköpostiosoitteellasi.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Tila"
   },
   "st": {
-    "lead": "Kaikki tilistäsi, tietosuojasta ja sovelluksesta yhdessä paikassa.",
-    "d_profile": "Nimi, sähköpostiosoite ja aikavyöhyke",
-    "d_security": "Salasana, kaksivaiheinen tunnistautuminen ja laitteet",
-    "d_notify": "Mitä sähköposteja saat meiltä",
-    "d_prefs": "Sovelluksen ja sähköpostiesi kieli",
-    "d_background": "Sovelluksen tausta ja ulkoasu",
-    "d_billing": "Yrityksen nimi, osoite ja ALV-numero",
-    "d_plan": "Tilauksesi ja laskut",
-    "d_privacy": "Miten käsittelemme tietojasi",
-    "d_terms": "Sovelluksen käyttöehdot",
-    "d_cookies": "Mitä evästeitä ja tallennusta käytämme",
-    "d_data": "Katso tai lataa tietosi",
-    "d_delete": "Poista tilisi ja kaikki QR-koodisi pysyvästi",
-    "d_contact": "Kysymys, ongelma tai idea? Lähetä meille viesti",
-    "d_faq": "Vastauksia usein kysyttyihin kysymyksiin"
+    "lead": "Ilmoitukset, kieli ja taustasi."
   },
   "legacy": {
     "menu": "Siirrä olemassa oleva QR-koodi",

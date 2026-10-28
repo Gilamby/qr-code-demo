@@ -1691,7 +1691,7 @@
     "devices": "Enheder logget ind: {n}",
     "logoutOthers": "Log ud på andre enheder",
     "loggedOutOthers": "Andre enheder er blevet logget ud.",
-    "lead": "Administrer dine oplysninger, din sikkerhed og dine præferencer.",
+    "lead": "Administrer dine oplysninger, sikkerhed og abonnement.",
     "sections": "Afsnit i Min konto",
     "security": "Sikkerhed",
     "profileLead": "Dit navn vises i appen. Du logger ind med din e-mailadresse.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Alt om din konto, dit privatliv og appen samlet ét sted.",
-    "d_profile": "Navn, e-mailadresse og tidszone",
-    "d_security": "Adgangskode, totrinsbekræftelse og enheder",
-    "d_notify": "Hvilke e-mails du får fra os",
-    "d_prefs": "Sproget i appen og dine e-mails",
-    "d_background": "Baggrund og appens udseende",
-    "d_billing": "Virksomhedsnavn, adresse og momsnummer",
-    "d_plan": "Dit abonnement og dine fakturaer",
-    "d_privacy": "Sådan håndterer vi dine data",
-    "d_terms": "Vilkårene for brug af appen",
-    "d_cookies": "Hvilke cookies og hvilken lagring vi bruger",
-    "d_data": "Se eller download dine data",
-    "d_delete": "Slet din konto og alle dine QR-koder permanent",
-    "d_contact": "Et spørgsmål, et problem eller en idé? Send os en besked",
-    "d_faq": "Svar på ofte stillede spørgsmål"
+    "lead": "Notifikationer, sprog og din baggrund."
   },
   "legacy": {
     "menu": "Flyt eksisterende QR-kode",

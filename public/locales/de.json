@@ -1691,7 +1691,7 @@
     "devices": "Angemeldete Geräte: {n}",
     "logoutOthers": "Auf anderen Geräten abmelden",
     "loggedOutOthers": "Andere Geräte wurden abgemeldet.",
-    "lead": "Verwalte deine Daten, Sicherheit und Einstellungen.",
+    "lead": "Verwalte deine Daten, Sicherheit und dein Abo.",
     "sections": "Bereiche von Mein Konto",
     "security": "Sicherheit",
     "profileLead": "Dein Name wird in der App angezeigt. Du meldest dich mit deiner E-Mail-Adresse an.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Alles zu deinem Konto, Datenschutz und der App an einem Ort.",
-    "d_profile": "Name, E-Mail-Adresse und Zeitzone",
-    "d_security": "Passwort, Zwei-Schritt-Verifizierung und Geräte",
-    "d_notify": "Welche E-Mails du von uns bekommst",
-    "d_prefs": "Sprache der App und deiner E-Mails",
-    "d_background": "Hintergrund und Darstellung der App",
-    "d_billing": "Firmenname, Adresse und USt-IdNr.",
-    "d_plan": "Dein Abo und deine Rechnungen",
-    "d_privacy": "Wie wir mit deinen Daten umgehen",
-    "d_terms": "Die Bedingungen für die Nutzung der App",
-    "d_cookies": "Welche Cookies und Speicher wir nutzen",
-    "d_data": "Deine Daten ansehen oder herunterladen",
-    "d_delete": "Dein Konto und alle QR-Codes endgültig löschen",
-    "d_contact": "Frage, Problem oder Idee? Schreib uns",
-    "d_faq": "Antworten auf häufige Fragen"
+    "lead": "Benachrichtigungen, Sprache und dein Hintergrund."
   },
   "legacy": {
     "menu": "Bestehenden QR-Code übernehmen",

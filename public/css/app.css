@@ -3995,24 +3995,6 @@ body.an-printing #anRange { display: block; }
 .auth-in { min-width: 0; }
 .auth-in input, .auth-in select, .auth-in textarea { width: 100%; box-sizing: border-box; }
 
-/* Instellingen: groepen als kaarten, elke regel een knop met icoon, uitleg en pijltje */
-.st-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 22px; align-items: start; }
-.st-card { padding: 18px 16px 12px; border-radius: 20px; min-width: 0; }
-.st-card h3 { margin: 0 0 8px 8px; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.st-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
-.st-row { display: grid; grid-template-columns: 40px minmax(0, 1fr) 18px; align-items: center; gap: 14px; width: 100%; padding: 10px; border: 0; border-radius: 14px; background: none; color: var(--fg); font: inherit; text-align: left; cursor: pointer; transition: background .15s; }
-.st-row:hover, .st-row:focus-visible { background: rgba(255,255,255,.07); outline: none; }
-.st-row:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
-.st-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,.07); color: var(--accent); }
-.st-i { width: 20px; height: 20px; }
-.st-txt { display: grid; gap: 2px; min-width: 0; }
-.st-txt b { font-size: 15px; font-weight: 700; }
-.st-txt small { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
-.st-chev { width: 18px; height: 18px; color: var(--muted); transition: transform .15s; }
-.st-row:hover .st-chev { transform: translateX(3px); color: var(--fg); }
-.st-row.danger .st-ic { color: #f87171; background: rgba(248,113,113,.12); }
-.st-row.danger b { color: #fca5a5; }
-@media (max-width: 900px) { .st-grid { grid-template-columns: minmax(0, 1fr); } }
 .dz-ftext { margin-bottom: 14px; }   /* tekst in het frame: als eerste in de kaart */
 
 /* Statistieken als dashboard: alles in één oogopslag (geen tabbladen; past in het scherm zoals Overzicht) */
@@ -5937,3 +5919,6 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .le .le-req input[type="checkbox"] { width: 16px; height: 16px; min-height: 0; padding: 0; margin: 0; border-radius: 4px; flex: none; accent-color: var(--accent); appearance: auto; -webkit-appearance: checkbox; background: none; box-shadow: none; }
 .le .le-req { flex-direction: row; white-space: nowrap; }
 .ds-price input.ds-bad { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,.18); }
+
+/* Instellingen: zelfde scherm als Mijn account, zonder het visitekaartje */
+.account.is-settings .acct-idc { display: none; }

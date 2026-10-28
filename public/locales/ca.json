@@ -1691,7 +1691,7 @@
     "devices": "Dispositius amb la sessió iniciada: {n}",
     "logoutOthers": "Tanca la sessió als altres dispositius",
     "loggedOutOthers": "S'ha tancat la sessió als altres dispositius.",
-    "lead": "Gestiona les teves dades, la seguretat i les preferències.",
+    "lead": "Gestiona les teves dades, la seguretat i el teu pla.",
     "sections": "Seccions d'El meu compte",
     "security": "Seguretat",
     "profileLead": "El teu nom es mostra a l'aplicació. Inicies la sessió amb la teva adreça electrònica.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Estat"
   },
   "st": {
-    "lead": "Tot sobre el teu compte, la privadesa i l'aplicació en un sol lloc.",
-    "d_profile": "Nom, adreça electrònica i zona horària",
-    "d_security": "Contrasenya, verificació en dos passos i dispositius",
-    "d_notify": "Quins correus reps de nosaltres",
-    "d_prefs": "Idioma de l'aplicació i dels teus correus",
-    "d_background": "Fons i aspecte de l'aplicació",
-    "d_billing": "Nom de l'empresa, adreça i número d'IVA",
-    "d_plan": "El teu pla i les factures",
-    "d_privacy": "Com tractem les teves dades",
-    "d_terms": "Les condicions d'ús de l'aplicació",
-    "d_cookies": "Quines galetes i quin emmagatzematge fem servir",
-    "d_data": "Consulta o baixa les teves dades",
-    "d_delete": "Elimina definitivament el compte i tots els teus codis QR",
-    "d_contact": "Tens una pregunta, un problema o una idea? Envia'ns un missatge",
-    "d_faq": "Respostes a les preguntes freqüents"
+    "lead": "Notificacions, idioma i el teu fons."
   },
   "legacy": {
     "menu": "Trasllada un codi QR existent",

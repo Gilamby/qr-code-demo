@@ -1691,7 +1691,7 @@
     "devices": "Dispositivi connessi: {n}",
     "logoutOthers": "Esci dagli altri dispositivi",
     "loggedOutOthers": "Gli altri dispositivi sono stati disconnessi.",
-    "lead": "Gestisci i tuoi dati, la sicurezza e le preferenze.",
+    "lead": "Gestisci i tuoi dati, la sicurezza e il tuo piano.",
     "sections": "Sezioni di Il mio account",
     "security": "Sicurezza",
     "profileLead": "Il tuo nome compare nell'app. Accedi con il tuo indirizzo email.",
@@ -3002,21 +3002,7 @@
     "tabStatus": "Stato"
   },
   "st": {
-    "lead": "Tutto su account, privacy e app in un unico posto.",
-    "d_profile": "Nome, e-mail e fuso orario",
-    "d_security": "Password, verifica in due passaggi e dispositivi",
-    "d_notify": "Quali e-mail ricevi da noi",
-    "d_prefs": "Lingua dell’app e delle tue e-mail",
-    "d_background": "Sfondo e aspetto dell’app",
-    "d_billing": "Ragione sociale, indirizzo e partita IVA",
-    "d_plan": "Il tuo piano e le fatture",
-    "d_privacy": "Come trattiamo i tuoi dati",
-    "d_terms": "Le condizioni d’uso dell’app",
-    "d_cookies": "Quali cookie e archiviazione usiamo",
-    "d_data": "Visualizza o scarica i tuoi dati",
-    "d_delete": "Elimina definitivamente account e tutti i codici QR",
-    "d_contact": "Una domanda, un problema o un’idea? Scrivici",
-    "d_faq": "Risposte alle domande frequenti"
+    "lead": "Notifiche, lingua e il tuo sfondo."
   },
   "legacy": {
     "menu": "Trasferisci codice QR esistente",
