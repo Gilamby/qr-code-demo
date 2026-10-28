@@ -76,10 +76,20 @@
   function check() {
     if (!launcher || !launcher.isConnected) launcher = hidden && hidden.isConnected ? hidden : find();
     btn.hidden = !launcher;
+    var app = document.body.classList.contains('auth-open') ? false : !!(window.Session && Session.user());   // ingelogd en in de app
+    rootsOff(!app);
     if (!launcher) { show(); return; }
     copyLook(launcher);
     if (inView()) { if (hidden !== launcher || launcher.style.getPropertyValue('visibility') !== 'hidden') hide(launcher); }
     else show();
+  }
+
+  // Alles van de chatbot verbergen (knopje, begroeting, venster): op het inlogscherm hoort hij niet
+  function rootsOff(off) {
+    [].slice.call(document.body.children).filter(isChatRoot).forEach(function (r) {
+      if (off) { r.setAttribute('data-qrc-off', '1'); r.style.setProperty('display', 'none', 'important'); }
+      else if (r.getAttribute('data-qrc-off')) { r.removeAttribute('data-qrc-off'); r.style.removeProperty('display'); }
+    });
   }
 
   btn.addEventListener('click', function () {
@@ -90,8 +100,18 @@
     setTimeout(check, 50);
   });
 
-  // De chatbot laadt los van de app (async) en kan zijn knopje later maken of vervangen: rustig blijven kijken
-  var tries = 0, timer = setInterval(function () { check(); if (++tries > 120 && !launcher) clearInterval(timer); }, 1000);
+  // De chatbot pas laden na het inloggen (het script staat als type="text/plain" in index.html, met zijn eigen gegevens)
+  var loaded = false, tries = 0, timer = null;
+  function load() {
+    var tpl = document.getElementById('chatbotScript'); if (loaded || !tpl) return; loaded = true;
+    var s = document.createElement('script'); s.async = true;
+    [].slice.call(tpl.attributes).forEach(function (a) { if (/^data-/.test(a.name) && a.name !== 'data-src') s.setAttribute(a.name, a.value); });
+    s.src = tpl.getAttribute('data-src'); document.body.appendChild(s);
+    // De chatbot laadt los van de app (async) en kan zijn knopje later maken of vervangen: rustig blijven kijken
+    timer = setInterval(function () { check(); if (++tries > 120 && !launcher) clearInterval(timer); }, 1000);
+  }
+  if (window.Session && Session.onUser) Session.onUser(function (u) { if (u) load(); });
+  setInterval(function () { if (loaded) rootsOff(document.body.classList.contains('auth-open') || !(window.Session && Session.user())); }, 1500);   // uitgelogd of sessie verlopen: weer weg
   document.addEventListener('pagechange', function () { setTimeout(check, 100); });
   addEventListener('resize', function () { launcher = hidden; check(); });
 })();

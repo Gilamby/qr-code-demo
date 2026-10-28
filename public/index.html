@@ -351,7 +351,8 @@ body:not(.booting) #boot{opacity:0;visibility:hidden;pointer-events:none}
 <script src="js/main.js"></script>
 <script src="js/hello.js"></script>
 <dialog class="lg-dialog" id="legalDialog"></dialog>
-<!-- Chatbot (Optimasys webchat). Mag laden via de CSP in server/src/common/http.ts -->
-<script src="https://webchat-api.optimasys.es/widget.js" data-agency-key="qr-generator-f9ff45" async></script>
+<!-- Chatbot (Optimasys webchat). Mag laden via de CSP in server/src/common/http.ts.
+     Laadt pas na het inloggen (js/chatbot.js), niet op het inlogscherm. -->
+<script type="text/plain" id="chatbotScript" data-src="https://webchat-api.optimasys.es/widget.js" data-agency-key="qr-generator-f9ff45"></script>
 </body>
 </html>
