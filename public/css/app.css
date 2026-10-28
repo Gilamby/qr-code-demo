@@ -5678,3 +5678,9 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
   .grid > .qr-card { justify-content: flex-start; padding-top: 14px; gap: 8px; }
   .grid > .qr-card .title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; min-height: 2.4em; line-height: 1.2; text-align: center; }
 }
+
+/* Voorbeeldfoto's van de nieuwe soorten (alleen in het voorbeeld, zoals bij de oude 16) */
+.rv-av img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
+.rv-av:has(img) { overflow: hidden; padding: 0; }
+.fb-hero, .tx-hero { height: 150px; flex: none; overflow: hidden; }
+.fb-hero img, .tx-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }

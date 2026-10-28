@@ -500,7 +500,7 @@ var PHONE = (function () {
       return '<div class="ph ph-rv">' + statusBar() +
         '<div class="rv-url">' + ic('lock') + '<span>' + (host ? esc(host) : '<i class="sk" style="width:90px"></i>') + '</span></div>' +
         '<div class="rv-top">' + ic('back') + '<b>' + esc(t('pv.review.head')) + '</b><span class="rv-post-top">' + esc(t('pv.review.post')) + '</span></div>' +
-        '<div class="rv-biz"><span class="rv-av">' + esc(initials(name) || '★') + '</span><div><b>' + v(name, '60%') + '</b><small>' + esc(t('pv.review.public')) + '</small></div></div>' +
+        '<div class="rv-biz"><span class="rv-av">' + (exPhoto('review', ex) ? '<img src="' + exPhoto('review', ex) + '" alt="">' : esc(initials(name) || '★')) + '</span><div><b>' + v(name, '60%') + '</b><small>' + esc(t('pv.review.public')) + '</small></div></div>' +
         '<div class="rv-stars" aria-hidden="true">' + stars + '</div>' +
         '<p class="rv-hint">' + esc(t('pv.review.tap')) + '</p>' +
         '<div class="rv-text">' + (ex ? esc(t('pv.review.sample')) : '<span>' + esc(t('pv.review.placeholder')) + '</span>') + '</div>' +
@@ -512,7 +512,7 @@ var PHONE = (function () {
     /* ---------- Tekst: titel en tekst, rustig leesbaar ---------- */
     text: function (c, ex) {
       var body = c.text || (ex ? t('sample.textBody') : '');
-      return '<div class="ph ph-tx">' + statusBar() + '<article class="tx-page"><span class="tx-ic">' + ic('doc') + '</span>' +
+      return '<div class="ph ph-tx">' + statusBar() + (exPhoto('text', ex) ? '<div class="tx-hero"><img src="' + exPhoto('text', ex) + '" alt=""></div>' : '') + '<article class="tx-page"><span class="tx-ic">' + ic('doc') + '</span>' +
         '<h4>' + v(c.title || (ex ? t('sample.textTitle') : ''), '60%') + '</h4>' +
         (body ? '<div class="tx-body">' + esc(body).replace(/\n/g, '<br>') + '</div>' : '<p class="tx-body"><i class="sk" style="width:90%"></i><i class="sk" style="width:75%"></i><i class="sk" style="width:82%"></i></p>') +
         '<button type="button" class="tx-copy">' + ic('copy') + '<span>' + esc(t('pv.text.copy')) + '</span></button></article></div>';
@@ -535,6 +535,7 @@ var PHONE = (function () {
       var name = c.title || (ex ? t('sample.bizName') : ''), q = c.question || t('sample.fbQuestion');
       var stars = [1, 2, 3, 4, 5].map(function (i) { return '<button type="button" class="fb-star' + (ex && i <= 4 ? ' on' : '') + '" data-n="' + i + '" aria-label="' + esc(t('pv.feedback.stars', { n: i })) + '">' + ic('star') + '</button>'; }).join('');
       return '<div class="ph ph-fb">' + statusBar() +
+        (exPhoto('feedback', ex) ? '<div class="fb-hero"><img src="' + exPhoto('feedback', ex) + '" alt=""></div>' : '') +
         '<div class="fb-form"><div class="fb-head">' + (c.logo ? '<img class="fb-logo" src="' + c.logo + '" alt="">' : '<span class="fb-logo fb-ini">' + esc(initials(name) || '★') + '</span>') + '<b>' + v(name, '50%') + '</b></div>' +
           '<h4 class="fb-q">' + esc(q) + '</h4><div class="fb-stars" role="radiogroup" aria-label="' + esc(q) + '">' + stars + '</div>' +
           '<label class="fb-lbl"><span>' + esc(t('pv.feedback.comment')) + '</span><textarea class="fb-text" rows="3" maxlength="1000" placeholder="' + esc(t('pv.feedback.commentPh')) + '"></textarea></label>' +
@@ -555,7 +556,8 @@ var PHONE = (function () {
       var when = d ? i18n.fmt.weekday((d.getDay() + 6) % 7) + ', ' + i18n.fmt.date(d, 'long') + (e2 ? ' – ' + i18n.fmt.date(e2, 'long') : '') : '';
       var time = st ? i18n.fmt.time(st) + (et ? ' – ' + i18n.fmt.time(et) : '') : (d ? t('pv.event.allDay') : '');
       var addr = ADDRESS.parse(c.address), place = addr ? addr.l.split(',') : [];
-      var cover = c.cover ? '<img decoding="sync" src="' + c.cover + '" alt="">' : '<div class="ev-art" aria-hidden="true"><b>' + (d ? d.getDate() : '') + '</b><span>' + esc(mon) + '</span></div>';
+      var exc = !c.cover && exPhoto('event', ex);
+      var cover = c.cover || exc ? '<img decoding="sync" src="' + (c.cover || exc) + '" alt="">' : '<div class="ev-art" aria-hidden="true"><b>' + (d ? d.getDate() : '') + '</b><span>' + esc(mon) + '</span></div>';
       return '<div class="ph ph-ev">' +
         '<div class="ev-cover">' + cover + statusBar(true) + '<div class="gm-tb"><span>' + ic('back') + '</span><span>' + ic('share') + '</span></div></div>' +
         '<div class="ev-sheet">' +
