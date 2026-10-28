@@ -1322,7 +1322,7 @@
     "mailSubject": "Vraag over mijn bestelling",
     "mailBody": "Hallo, ik heb een vraag over …",
     "textTitle": "Bedrijfsregels",
-    "textBody": "Welkom! Meld je bij de receptie, draag je bezoekerspas zichtbaar en houd de nooduitgangen vrij. Gasten-wifi: Lumen-Gast.",
+    "textBody": "1. Meld je bij de receptie\n2. Draag je bezoekerspas zichtbaar\n3. Houd nooduitgangen vrij\n4. Niet roken in het gebouw\n5. Gasten-wifi: Lumen-Gast",
     "lostName": "Max",
     "lostMsg": "Hoi! Ik ben verdwaald. Bel alsjeblieft mijn baasje, dankjewel!",
     "mailTo": "hello@cafe-lumen.example",

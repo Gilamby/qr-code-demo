@@ -1322,7 +1322,7 @@
     "mailSubject": "Spørsmål om bestillingen min",
     "mailBody": "Hei, jeg har et spørsmål om …",
     "textTitle": "Bedriftens regler",
-    "textBody": "Velkommen! Meld deg i resepsjonen, bær besøkskortet synlig og hold nødutgangene frie. Gjeste-wifi: Lumen-Guest.",
+    "textBody": "1. Meld deg i resepsjonen\n2. Bær besøkskortet synlig\n3. Hold nødutgangene frie\n4. Røyking forbudt i bygningen\n5. Gjeste-wifi: Lumen-Guest",
     "lostName": "Max",
     "lostMsg": "Hei! Jeg har gått meg bort. Ring eieren min, takk!",
     "mailTo": "hello@cafe-lumen.example",

@@ -1322,7 +1322,7 @@
     "mailSubject": "Kysymys tilauksestani",
     "mailBody": "Hei, minulla on kysymys …",
     "textTitle": "Yrityksen säännöt",
-    "textBody": "Tervetuloa! Ilmoittaudu vastaanotossa, pidä vierailijakortti näkyvillä ja jätä hätäuloskäynnit vapaiksi. Vieras-wifi: Lumen-Guest.",
+    "textBody": "1. Ilmoittaudu vastaanotossa\n2. Pidä vierailijakortti näkyvillä\n3. Pidä hätäuloskäynnit vapaina\n4. Tupakointi kielletty rakennuksessa\n5. Vieras-wifi: Lumen-Guest",
     "lostName": "Max",
     "lostMsg": "Hei! Olen eksynyt. Soita omistajalleni, kiitos!",
     "mailTo": "hello@cafe-lumen.example",

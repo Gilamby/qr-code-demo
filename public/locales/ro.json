@@ -1322,7 +1322,7 @@
     "mailSubject": "Întrebare despre comanda mea",
     "mailBody": "Bună, am o întrebare despre …",
     "textTitle": "Regulile companiei",
-    "textBody": "Bun venit! Prezintă-te la recepție, poartă ecusonul de vizitator la vedere și lasă libere ieșirile de urgență. Wi-Fi pentru oaspeți: Lumen-Guest.",
+    "textBody": "1. Prezintă-te la recepție\n2. Poartă ecusonul de vizitator la vedere\n3. Păstrează libere ieșirile de urgență\n4. Fumatul interzis în clădire\n5. Wi-Fi oaspeți: Lumen-Guest",
     "lostName": "Max",
     "lostMsg": "Bună! M-am pierdut. Sună-mi stăpânul, mulțumesc!",
     "mailTo": "hello@cafe-lumen.example",

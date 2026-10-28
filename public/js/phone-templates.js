@@ -55,7 +55,10 @@ var PHONE = (function () {
     star: '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z" fill="currentColor" stroke="none"/>',
     img: '<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
     cal: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/>',
-    gift: '<path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1s3 1 5 1zM12 7c1.5-3 5-3.5 5-1s-3 1-5 1z"/>'
+    gift: '<path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1s3 1 5 1zM12 7c1.5-3 5-3.5 5-1s-3 1-5 1z"/>',
+    mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+    keypad: '<circle cx="6" cy="5" r="1.2"/><circle cx="12" cy="5" r="1.2"/><circle cx="18" cy="5" r="1.2"/><circle cx="6" cy="11" r="1.2"/><circle cx="12" cy="11" r="1.2"/><circle cx="18" cy="11" r="1.2"/><circle cx="6" cy="17" r="1.2"/><circle cx="12" cy="17" r="1.2"/><circle cx="18" cy="17" r="1.2"/>',
+    spk: '<path d="M4 9.5h4l5-4v13l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>'
   };
   function ic(k, cls) { return '<svg class="' + (cls || 'i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + I[k] + '</svg>'; }
   // Waarde of grijs balkje
@@ -503,6 +506,8 @@ var PHONE = (function () {
         '<div class="rv-url">' + ic('lock') + '<span>' + (host ? esc(host) : '<i class="sk" style="width:90px"></i>') + '</span></div>' +
         '<div class="rv-top">' + ic('back') + '<b>' + esc(t('pv.review.head')) + '</b><span class="rv-post-top">' + esc(t('pv.review.post')) + '</span></div>' +
         '<div class="rv-biz"><span class="rv-av">' + (exPhoto('review', ex) ? '<img src="' + exPhoto('review', ex) + '" alt="">' : esc(initials(name) || '★')) + '</span><div><b>' + v(name, '60%') + '</b><small>' + esc(t('pv.review.public')) + '</small></div></div>' +
+        (ex ? '<div class="rv-sum"><div class="rv-score"><b>' + esc(i18n.fmt.num(4.8)) + '</b><span>★★★★★</span><small>' + i18n.fmt.num(312) + '</small></div><div class="rv-bars">' +
+          [82, 12, 4, 1, 1].map(function (pc, i) { return '<span><em>' + (5 - i) + '</em><i><i style="width:' + pc + '%"></i></i></span>'; }).join('') + '</div></div>' : '') +
         '<div class="rv-stars" aria-hidden="true">' + stars + '</div>' +
         '<p class="rv-hint">' + esc(t('pv.review.tap')) + '</p>' +
         '<div class="rv-text">' + (ex ? esc(t('pv.review.sample')) : '<span>' + esc(t('pv.review.placeholder')) + '</span>') + '</div>' +
@@ -515,19 +520,21 @@ var PHONE = (function () {
     /* ---------- Extra soorten: zakelijke schermen zoals de echte apps (alleen voorbeeld; bij het scannen opent de echte app) ---------- */
     phone: function (c, ex) {
       var name = c.title || (ex ? EX_BIZ : ''), logo = exPhoto('phone', ex);
-      return '<div class="ph ph-call">' + statusBar() + '<div class="cl-top"><span class="cl-av">' + (logo ? '<img src="' + logo + '" alt="">' : esc(initials(name) || '☎')) + '</span>' +
-        '<h4>' + v(name, '55%') + '</h4><small>' + esc(t('pv.biz.open', { time: i18n.fmt.time('18:00') })) + '</small></div>' +
-        '<div class="cl-acts"><span>' + ic('chat') + '<em>' + esc(t('pv.biz.message')) + '</em></span><span class="on">' + ic('call') + '<em>' + esc(t('pv.ext.call')) + '</em></span><span>' + ic('globe') + '<em>' + esc(t('pv.biz.website')) + '</em></span><span>' + ic('pin') + '<em>' + esc(t('pv.ext.route')) + '</em></span></div>' +
-        '<div class="cl-card"><small>' + esc(t('pv.biz.work')) + '</small><b>' + v(c.phone, '50%') + '</b></div>' +
-        '<div class="cl-card"><small>' + esc(t('pv.biz.hours')) + '</small><b>' + esc(t('pv.biz.hoursVal', { from: i18n.fmt.time('09:00'), to: i18n.fmt.time('18:00') })) + '</b></div>' +
-        '<button type="button" class="cl-big">' + ic('call') + '<span>' + esc(t('pv.ext.call')) + '</span></button></div>';
+      var btn = function (k) { return '<span>' + ic(k) + '</span>'; };
+      return '<div class="ph ph-call">' + (logo ? '<div class="cl-bg" style="background-image:url(' + logo + ')"></div>' : '') + statusBar(true) +
+        '<div class="cl-top"><small class="cl-time">00:12</small><h4>' + v(name, '55%') + '</h4><small>' + v(c.phone, '45%') + '</small>' +
+          '<span class="cl-av">' + (logo ? '<img src="' + logo + '" alt="">' : esc(initials(name) || '☎')) + '</span></div>' +
+        '<div class="cl-grid">' + btn('mic') + btn('keypad') + btn('spk') + btn('addp') + btn('video') + btn('user') + '</div>' +
+        '<span class="cl-end">' + ic('call') + '</span></div>';
     },
     email: function (c, ex) {
       return '<div class="ph ph-mail">' + statusBar() + '<div class="ml-bar"><span>' + esc(t('pv.mail.cancel')) + '</span><b>' + esc(t('pv.mail.new')) + '</b><span class="ml-send">' + ic('send') + '</span></div>' +
         '<div class="ml-row"><small>' + esc(t('pv.mail.to')) + '</small><span class="ml-chip">' + v(c.email, '60%') + '</span></div>' +
         '<div class="ml-row"><small>' + esc(t('pv.mail.subject')) + '</small><b>' + v(c.subject || (ex ? t('sample.mailSubject') : ''), '50%') + '</b></div>' +
         '<div class="ml-body">' + (c.body || ex ? esc(c.body || t('sample.mailBody')) : '<i class="sk" style="width:80%"></i><i class="sk" style="width:60%"></i>') + '</div>' +
-        '<div class="ml-sig">' + esc(t('pv.mail.sig')) + '</div></div>';
+        '<div class="ml-sig">' + esc(t('pv.mail.sig')) + '</div>' +
+        '<div class="ml-kb" aria-hidden="true">' + ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map(function (r, i) { return '<div class="kb-r' + (i === 1 ? ' r2' : '') + '">' + (i === 2 ? '<i class="kb-w">⇧</i>' : '') + r.split('').map(function (k) { return '<i>' + k + '</i>'; }).join('') + (i === 2 ? '<i class="kb-w">⌫</i>' : '') + '</div>'; }).join('') +
+          '<div class="kb-r"><i class="kb-w">123</i><i class="kb-sp"></i><i class="kb-w kb-ok">⏎</i></div></div></div>';
     },
     location: function (c, ex) {
       var name = c.title || (ex ? EX_BIZ : ''), addr = ADDRESS.text(c.address) || (ex ? EX_ADDR : ''), photo = exPhoto('location', ex);
@@ -539,7 +546,7 @@ var PHONE = (function () {
     },
     payment: function (c, ex) {
       var name = c.title || (ex ? EX_BIZ : ''), logo = exPhoto('payment', ex);
-      return '<div class="ph ph-pay">' + statusBar() + '<div class="py-head"><span class="py-logo">' + (logo ? '<img src="' + logo + '" alt="">' : esc(initials(name) || '€')) + '</span><b>' + v(name, '50%') + '</b><small>' + ic('lock') + esc(t('pv.pay.secure')) + '</small></div>' +
+      return '<div class="ph ph-pay">' + statusBar(true) + '<div class="py-head"><span class="py-logo">' + (logo ? '<img src="' + logo + '" alt="">' : esc(initials(name) || '€')) + '</span><b>' + v(name, '50%') + '</b><small>' + ic('lock') + esc(t('pv.pay.secure')) + '</small></div>' +
         '<div class="py-amount"><small>' + esc(t('pv.pay.title')) + '</small><b>' + esc(i18n.fmt.eur(24.5)) + '</b><span>' + esc(t('pv.pay.order')) + '</span></div>' +
         '<div class="py-lines"><span><em>' + esc(t('pv.pay.l1')) + '</em><b>' + esc(i18n.fmt.eur(21)) + '</b></span><span><em>' + esc(t('pv.pay.l2')) + '</em><b>' + esc(i18n.fmt.eur(3.5)) + '</b></span></div>' +
         '<div class="py-btns"><button type="button" class="py-dark">' + ic('flash') + '<span>' + esc(t('pv.pay.phone')) + '</span></button><button type="button" class="py-card">' + esc(t('pv.pay.card')) + '</button></div>' +
@@ -577,10 +584,12 @@ var PHONE = (function () {
         '<ol class="sp-list">' + tracks.map(function (x, i) { return '<li><span class="sp-n">' + (i + 1) + '</span><span><b>' + esc(x) + '</b><small>' + esc(name || 'QR-Codex') + '</small></span><em>' + ['3:41', '4:02', '3:18', '5:06', '3:55'][i] + '</em></li>'; }).join('') + '</ol></div>';
     },
     telegram: function (c, ex) {
-      var name = c.title || (ex ? EX_BIZ : ''), on = exPhoto('telegram', ex) || (ex ? asset('assets/previews/menu.jpg') : '');
+      var name = c.title || (ex ? EX_BIZ : ''), on = exPhoto('telegram', ex) || (ex ? asset('assets/previews/menu.jpg') : ''), on2 = on ? asset('assets/previews/location.jpg') : '';
+      var re = function (a, b) { return '<div class="tl-re"><span>❤️ ' + a + '</span><span>🔥 ' + b + '</span></div>'; };
       return '<div class="ph ph-tl">' + statusBar() + '<div class="tl-head">' + ic('back') + '<span class="tl-av">' + esc(initials(name) || 'T') + '</span><span><b>' + v(name, '50%') + '</b><small>' + esc(t('pv.tg.subs', { n: i18n.fmt.num(3420) })) + '</small></span></div>' +
-        '<div class="tl-chat"><div class="tl-msg">' + (on ? '<div class="tl-img" style="background-image:url(' + on + ')"></div>' : '') + '<p>' + esc(t('pv.tg.m1')) + '</p><small>10:24 · 👁 ' + i18n.fmt.compact(2100) + '</small></div>' +
-          '<div class="tl-msg"><p>' + esc(t('pv.tg.m2')) + '</p><small>17:02 · 👁 ' + i18n.fmt.compact(1800) + '</small></div></div>' +
+        '<div class="tl-pin"><i></i><span>' + esc(t('pv.tg.m2')) + '</span></div>' +
+        '<div class="tl-chat"><div class="tl-msg">' + (on ? '<div class="tl-img" style="background-image:url(' + on + ')"></div>' : '') + '<p>' + esc(t('pv.tg.m1')) + '</p>' + re(48, 12) + '<small>10:24 · 👁 ' + i18n.fmt.compact(2100) + '</small></div>' +
+          '<div class="tl-msg">' + (on2 ? '<div class="tl-img s" style="background-image:url(' + on2 + ')"></div>' : '') + '<p>' + esc(t('pv.tg.m2')) + '</p>' + re(31, 7) + '<small>17:02 · 👁 ' + i18n.fmt.compact(1800) + '</small></div></div>' +
         '<button type="button" class="tl-join">' + esc(t('pv.tg.join')) + '</button></div>';
     },
     booking: function (c, ex) {
@@ -594,10 +603,11 @@ var PHONE = (function () {
     },
     meeting: function (c, ex) {
       var name = c.title || (ex ? EX_BIZ : '');
+      var tiles = [['Ana V.', 1], ['Jorge M.', 4], ['Lisa K.', 3]].map(function (p, i) { return '<span class="mt-tile" style="' + mesh(p[1]) + '"><b>' + esc(initials(p[0])) + '</b><em>' + (i === 0 ? ic('mic') : '') + esc(p[0]) + '</em></span>'; }).join('');
       return '<div class="ph ph-mt">' + statusBar(true) + '<div class="mt-top"><b>' + esc(t('pv.mt.title', { name: name || '…' })) + '</b><small>' + esc(t('pv.mt.others', { n: 3 })) + '</small></div>' +
-        '<div class="mt-cam"><span class="mt-me">' + ic('user') + '</span><div class="mt-ctl"><span>' + ic('chat') + '</span><span>' + ic('video') + '</span></div></div>' +
-        '<div class="mt-people">' + ['AV', 'JM', 'LK'].map(function (x, i) { return '<span style="' + mesh(i + 1) + '">' + x + '</span>'; }).join('') + '</div>' +
-        '<b class="mt-ready">' + esc(t('pv.mt.ready')) + '</b><button type="button" class="mt-join">' + esc(t('pv.mt.join')) + '</button></div>';
+        '<div class="mt-tiles">' + tiles + '<span class="mt-tile me"><span class="mt-me">' + ic('user') + '</span></span></div>' +
+        '<div class="mt-ctl"><span>' + ic('mic') + '</span><span>' + ic('video') + '</span><span>' + ic('chat') + '</span><span class="end">' + ic('call') + '</span></div>' +
+        '<button type="button" class="mt-join">' + esc(t('pv.mt.join')) + '</button></div>';
     },
 
     /* ---------- Tekst: titel en tekst, rustig leesbaar ---------- */
@@ -605,7 +615,7 @@ var PHONE = (function () {
       var body = c.text || (ex ? t('sample.textBody') : '');
       return '<div class="ph ph-tx">' + statusBar() + (exPhoto('text', ex) ? '<div class="tx-hero"><img src="' + exPhoto('text', ex) + '" alt=""></div>' : '') + '<article class="tx-page"><span class="tx-ic">' + ic('doc') + '</span>' +
         '<h4>' + v(c.title || (ex ? t('sample.textTitle') : ''), '60%') + '</h4>' +
-        (body ? '<div class="tx-body">' + esc(body).replace(/\n/g, '<br>') + '</div>' : '<p class="tx-body"><i class="sk" style="width:90%"></i><i class="sk" style="width:75%"></i><i class="sk" style="width:82%"></i></p>') +
+        (body ? '<div class="tx-body">' + body.split('\n').map(function (l) { var m = /^\s*(\d+)[.)]\s+(.*)$/.exec(l); return m ? '<span class="tx-li"><b>' + m[1] + '</b><span>' + esc(m[2]) + '</span></span>' : (l.trim() ? '<span>' + esc(l) + '</span>' : ''); }).join('') + '</div>' : '<p class="tx-body"><i class="sk" style="width:90%"></i><i class="sk" style="width:75%"></i><i class="sk" style="width:82%"></i></p>') +
         '<button type="button" class="tx-copy">' + ic('copy') + '<span>' + esc(t('pv.text.copy')) + '</span></button></article></div>';
     },
 

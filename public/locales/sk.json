@@ -1322,7 +1322,7 @@
     "mailSubject": "Otázka k mojej objednávke",
     "mailBody": "Dobrý deň, mám otázku k …",
     "textTitle": "Pravidlá firmy",
-    "textBody": "Vitajte! Prihláste sa na recepcii, noste návštevnícky preukaz viditeľne a nechajte núdzové východy voľné. Wi-Fi pre hostí: Lumen-Guest.",
+    "textBody": "1. Prihláste sa na recepcii\n2. Noste návštevnícku kartu viditeľne\n3. Udržujte núdzové východy voľné\n4. Fajčenie v budove zakázané\n5. Wi-Fi pre hostí: Lumen-Guest",
     "lostName": "Max",
     "lostMsg": "Ahoj! Stratil som sa. Zavolaj prosím môjmu pánovi, ďakujem!",
     "mailTo": "hello@cafe-lumen.example",

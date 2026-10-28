@@ -1322,7 +1322,7 @@
     "mailSubject": "Pyetje për porosinë time",
     "mailBody": "Përshëndetje, kam një pyetje për …",
     "textTitle": "Rregullat e kompanisë",
-    "textBody": "Mirë se vini! Regjistrohuni në recepsion, mbani kartën e vizitorit të dukshme dhe lini të lira daljet e emergjencës. Wi-Fi për mysafirët: Lumen-Guest.",
+    "textBody": "1. Regjistrohuni në recepsion\n2. Mbajeni kartën e vizitorit të dukshme\n3. Mbani të lira daljet e emergjencës\n4. Ndalohet duhani në ndërtesë\n5. Wi-Fi për mysafirët: Lumen-Guest",
     "lostName": "Maks",
     "lostMsg": "Përshëndetje! Kam humbur. Telefononi pronarin tim, faleminderit!",
     "mailTo": "hello@cafe-lumen.example",

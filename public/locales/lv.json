@@ -1322,7 +1322,7 @@
     "mailSubject": "Jautājums par manu pasūtījumu",
     "mailBody": "Sveiki, man ir jautājums par …",
     "textTitle": "Uzņēmuma noteikumi",
-    "textBody": "Laipni lūdzam! Piesakieties reģistratūrā, nēsājiet apmeklētāja karti redzami un atstājiet avārijas izejas brīvas. Viesu Wi-Fi: Lumen-Guest.",
+    "textBody": "1. Piesakieties reģistratūrā\n2. Nēsājiet apmeklētāja karti redzamā vietā\n3. Neaizsprostojiet avārijas izejas\n4. Smēķēt ēkā aizliegts\n5. Viesu Wi-Fi: Lumen-Guest",
     "lostName": "Makss",
     "lostMsg": "Sveiki! Esmu apmaldījies. Lūdzu, piezvaniet manam saimniekam, paldies!",
     "mailTo": "hello@cafe-lumen.example",

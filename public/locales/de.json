@@ -1322,7 +1322,7 @@
     "mailSubject": "Frage zu meiner Bestellung",
     "mailBody": "Hallo, ich habe eine Frage zu …",
     "textTitle": "Hausordnung des Unternehmens",
-    "textBody": "Willkommen! Bitte melden Sie sich am Empfang, tragen Sie Ihren Besucherausweis sichtbar und halten Sie die Notausgänge frei. Gäste-WLAN: Lumen-Gast.",
+    "textBody": "1. Am Empfang anmelden\n2. Besucherausweis sichtbar tragen\n3. Notausgänge freihalten\n4. Rauchen im Gebäude verboten\n5. Gäste-WLAN: Lumen-Guest",
     "lostName": "Max",
     "lostMsg": "Hallo! Ich habe mich verlaufen. Bitte ruf mein Herrchen an, danke!",
     "mailTo": "hello@cafe-lumen.example",

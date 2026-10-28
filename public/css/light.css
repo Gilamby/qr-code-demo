@@ -571,6 +571,15 @@
 :root[data-theme="light"] .bk-times span.on { background: #e2e8f0; }
 :root[data-theme="light"] .bk-days span.on small { color: #475569; }
 :root[data-theme="light"] .bk-go { background: #e2e8f0; }
+:root[data-theme="light"] .cl-time { color: rgba(13,19,32,0.63); }
+:root[data-theme="light"] .cl-top > small:not(.cl-time) { color: rgba(13,19,32,0.675); }
+:root[data-theme="light"] .cl-av { background: rgba(13,19,32,0.15); box-shadow: 0 10px 30px -10px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .cl-grid span { background: rgba(13,19,32,0.12); }
+:root[data-theme="light"] .kb-r i { box-shadow: 0 1px 0 rgba(13,19,32,0.105); }
+:root[data-theme="light"] .ph-pay .py-head small { color: rgba(13,19,32,0.72); }
+:root[data-theme="light"] .ph-pay .py-logo { border: 2px solid rgba(13,19,32,0.63); }
+:root[data-theme="light"] .mt-tile b { background: rgba(255,255,255,0.88); }
+:root[data-theme="light"] .mt-tile em { text-shadow: 0 1px 2px rgba(13,19,32,0.175); }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

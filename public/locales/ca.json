@@ -1322,7 +1322,7 @@
     "mailSubject": "Pregunta sobre la meva comanda",
     "mailBody": "Hola, tinc una pregunta sobre …",
     "textTitle": "Normes de l’empresa",
-    "textBody": "Benvingut! Registra’t a recepció, porta el passi de visitant a la vista i deixa lliures les sortides d’emergència. Wifi de convidats: Lumen-Guest.",
+    "textBody": "1. Registra't a recepció\n2. Porta la targeta de visitant a la vista\n3. Deixa lliures les sortides d'emergència\n4. Prohibit fumar a l'edifici\n5. Wifi de convidats: Lumen-Guest",
     "lostName": "Max",
     "lostMsg": "Hola! M’he perdut. Truca al meu amo, gràcies!",
     "mailTo": "hello@cafe-lumen.example",
