@@ -167,8 +167,9 @@ var api = (function () {
         var email = String(d.email || '').trim().toLowerCase(), acc = get(ACCOUNTS) || {};
         if (!EMAIL_RE.test(email)) return fail('email', 400);
         var pp = PasswordRules.problem(d.password); if (pp) return fail('password_' + pp, 400);
+        if (acc[email] && acc[email].verified) return fail('exists', 409);   // al een account: de app stuurt je naar inloggen
         return digest(d.password).then(function (h) {
-          if (!acc[email] || !acc[email].verified) acc[email] = { email: email, name: String(d.name || '').trim() || email.split('@')[0], pw: h, verified: false, createdAt: new Date().toISOString() };
+          acc[email] = { email: email, name: String(d.name || '').trim() || email.split('@')[0], pw: h, verified: false, createdAt: new Date().toISOString() };
           put(ACCOUNTS, acc); return { verify: true, email: email };
         });
       },

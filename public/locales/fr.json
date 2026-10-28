@@ -1885,7 +1885,7 @@
     "resetButton": "Choisir un nouveau mot de passe",
     "resetIgnore": "Vous n’avez rien demandé ? Alors ne faites rien ; votre mot de passe reste le même.",
     "verifySubject": "Confirmez votre compte QR-Codex",
-    "verifyText": "Cliquez sur le bouton pour confirmer votre adresse e-mail. Vous pourrez ensuite vous connecter. Le lien est valable 24 heures.",
+    "verifyText": "Cliquez sur le bouton pour confirmer votre adresse e-mail. Vous pourrez ensuite vous connecter. Le lien est valable 15 minutes.",
     "verifyButton": "Confirmer l'adresse e-mail",
     "verifyIgnore": "Vous n'avez pas créé de compte ? Vous n'avez rien à faire ; sans confirmation, le compte est supprimé après 7 jours.",
     "inviteSubject": "Votre compte QR-Codex",
@@ -1979,11 +1979,7 @@
     "quietTip": "L’affiche, l’autocollant ou le menu est-il toujours là et bien visible ? Un code abîmé ou caché en est souvent la cause.",
     "quietFooter": "Vous pouvez désactiver ces notifications dans Mon compte > Notifications.",
     "ticketSubject": "Réponse à votre question n° {id}",
-    "ticketButton": "Voir dans l’app",
-    "existsSubject": "Vous avez déjà un compte QR-Codex",
-    "existsText": "Quelqu’un (probablement vous) a essayé de créer un nouveau compte avec cette adresse. Vous avez déjà un compte : connectez-vous. Mot de passe oublié ? Choisissez-en un nouveau sur la page de connexion.",
-    "existsButton": "Se connecter",
-    "existsIgnore": "Ce n’était pas vous ? Vous n’avez rien à faire ; rien n’a changé."
+    "ticketButton": "Voir dans l’app"
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",

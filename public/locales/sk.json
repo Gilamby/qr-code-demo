@@ -1885,7 +1885,7 @@
     "resetButton": "Vybrať nové heslo",
     "resetIgnore": "Nežiadal si o to? Potom nemusíš nič robiť; tvoje heslo zostáva rovnaké.",
     "verifySubject": "Potvrď svoj účet QR-Codex",
-    "verifyText": "Klikni na tlačidlo a potvrď svoju e-mailovú adresu. Potom sa môžeš prihlásiť. Odkaz platí 24 hodín.",
+    "verifyText": "Klikni na tlačidlo a potvrď svoju e-mailovú adresu. Potom sa môžeš prihlásiť. Odkaz platí 15 minút.",
     "verifyButton": "Potvrdiť e-mailovú adresu",
     "verifyIgnore": "Nevytvoril si účet? Nemusíš nič robiť; bez potvrdenia sa účet po 7 dňoch odstráni.",
     "inviteSubject": "Tvoj účet QR-Codex",
@@ -1979,11 +1979,7 @@
     "scanFirstText": "Dobrá správa: „{name}“ bol práve prvýkrát naskenovaný. Teraz uvidíš, kde a kedy sa skenuje.",
     "scanFooter": "Tieto upozornenia môžeš vypnúť v časti Môj účet > Upozornenia.",
     "scanMilestoneSubject": "„{name}“ bol naskenovaný {n}-krát",
-    "scanMilestoneText": "Super: tvoj QR kód „{name}“ dosiahol {n} skenov.",
-    "existsSubject": "Už máte účet QR-Codex",
-    "existsText": "Niekto (pravdepodobne vy) sa pokúsil vytvoriť nový účet s touto e-mailovou adresou. Účet už máte: stačí sa prihlásiť. Zabudli ste heslo? Zvoľte nové na prihlasovacej stránke.",
-    "existsButton": "Prihlásiť sa",
-    "existsIgnore": "Neboli ste to vy? Nemusíte nič robiť; nič sa nezmenilo."
+    "scanMilestoneText": "Super: tvoj QR kód „{name}“ dosiahol {n} skenov."
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",

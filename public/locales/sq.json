@@ -1991,7 +1991,7 @@
     "resetButton": "Zgjidh fjalëkalim të ri",
     "resetIgnore": "Nuk e kërkove ti? Atëherë s’ke nevojë të bësh asgjë; fjalëkalimi mbetet i njëjti.",
     "verifySubject": "Konfirmo llogarinë tënde QR-Codex",
-    "verifyText": "Kliko butonin për të konfirmuar adresën e emailit. Pastaj mund të hysh. Lidhja vlen 24 orë.",
+    "verifyText": "Kliko butonin për të konfirmuar adresën e emailit. Pastaj mund të hysh. Lidhja vlen 15 minuta.",
     "verifyButton": "Konfirmo adresën e emailit",
     "verifyIgnore": "Nuk ke krijuar llogari? Nuk ke nevojë të bësh asgjë; pa konfirmim llogaria fshihet pas 7 ditësh.",
     "inviteSubject": "Llogaria juaj në QR-Codex",
@@ -2085,11 +2085,7 @@
     "scanFirstText": "Lajm i mirë: “{name}” sapo u skanua për herë të parë. Tani mund të shohësh ku dhe kur skanohet.",
     "scanFooter": "Këto njoftime mund t’i çaktivizosh te Llogaria ime > Njoftimet.",
     "scanMilestoneSubject": "“{name}” është skanuar {n} herë",
-    "scanMilestoneText": "Bukur: kodi yt QR “{name}” arriti {n} skanime.",
-    "existsSubject": "Ju keni tashmë një llogari QR-Codex",
-    "existsText": "Dikush (ndoshta ju) provoi të krijonte një llogari të re me këtë email. Ju keni tashmë një llogari: thjesht hyni. Keni harruar fjalëkalimin? Zgjidhni një të ri te faqja e hyrjes.",
-    "existsButton": "Hyr",
-    "existsIgnore": "Nuk ishit ju? S’keni nevojë të bëni asgjë; asgjë nuk ka ndryshuar."
+    "scanMilestoneText": "Bukur: kodi yt QR “{name}” arriti {n} skanime."
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",

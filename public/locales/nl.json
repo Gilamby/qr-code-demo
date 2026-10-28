@@ -1885,7 +1885,7 @@
     "resetButton": "Nieuw wachtwoord kiezen",
     "resetIgnore": "Heb jij dit niet gevraagd? Dan hoef je niets te doen; je wachtwoord blijft hetzelfde.",
     "verifySubject": "Bevestig je account bij QR-Codex",
-    "verifyText": "Klik op de knop om je e-mailadres te bevestigen. Daarna kun je inloggen. De link werkt 24 uur.",
+    "verifyText": "Klik op de knop om je e-mailadres te bevestigen. Daarna kun je inloggen. De link werkt 15 minuten.",
     "verifyButton": "E-mailadres bevestigen",
     "verifyIgnore": "Heb jij geen account gemaakt? Dan hoef je niets te doen; zonder bevestiging wordt het account na 7 dagen verwijderd.",
     "inviteSubject": "Je account bij QR-Codex",
@@ -1979,11 +1979,7 @@
     "quietTip": "Hangt de poster, sticker of menukaart er nog en is de code goed te zien? Een beschadigde of afgedekte code is vaak de oorzaak.",
     "quietFooter": "Je kunt deze meldingen uitzetten in Mijn account > Meldingen.",
     "ticketSubject": "Antwoord op je vraag #{id}",
-    "ticketButton": "Bekijk in de app",
-    "existsSubject": "Je hebt al een QR-Codex-account",
-    "existsText": "Iemand (waarschijnlijk jij) probeerde een nieuw account te maken met dit e-mailadres. Je hebt al een account: log gewoon in. Wachtwoord vergeten? Kies een nieuw op de inlogpagina.",
-    "existsButton": "Inloggen",
-    "existsIgnore": "Was jij dit niet? Dan hoef je niets te doen; er is niets veranderd."
+    "ticketButton": "Bekijk in de app"
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",

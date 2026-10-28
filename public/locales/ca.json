@@ -1885,7 +1885,7 @@
     "resetButton": "Tria una contrasenya nova",
     "resetIgnore": "No ho has demanat tu? No cal que facis res; la teva contrasenya continua igual.",
     "verifySubject": "Confirma el teu compte d'QR-Codex",
-    "verifyText": "Fes clic al botó per confirmar la teva adreça electrònica. Després ja podràs iniciar la sessió. L'enllaç funciona durant 24 hores.",
+    "verifyText": "Fes clic al botó per confirmar la teva adreça electrònica. Després ja podràs iniciar la sessió. L'enllaç funciona durant 15 minuts.",
     "verifyButton": "Confirma l'adreça electrònica",
     "verifyIgnore": "No has creat cap compte? No cal que facis res; sense confirmació, el compte s'elimina al cap de 7 dies.",
     "inviteSubject": "El teu compte d'QR-Codex",
@@ -1979,11 +1979,7 @@
     "scanFirstText": "Bones notícies: «{name}» s’acaba d’escanejar per primera vegada. Ara pots veure on i quan s’escaneja.",
     "scanFooter": "Pots desactivar aquestes notificacions a El meu compte > Notificacions.",
     "scanMilestoneSubject": "«{name}» s’ha escanejat {n} vegades",
-    "scanMilestoneText": "Genial: el teu codi QR «{name}» ha arribat a {n} escanejos.",
-    "existsSubject": "Ja tens un compte de QR-Codex",
-    "existsText": "Algú (probablement tu) ha intentat crear un compte nou amb aquest correu. Ja tens un compte: inicia la sessió. Has oblidat la contrasenya? Tria’n una de nova a la pàgina d’inici de sessió.",
-    "existsButton": "Inicia la sessió",
-    "existsIgnore": "No has estat tu? No cal fer res; no ha canviat res."
+    "scanMilestoneText": "Genial: el teu codi QR «{name}» ha arribat a {n} escanejos."
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",

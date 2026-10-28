@@ -1885,7 +1885,7 @@
     "resetButton": "Elegir contraseña nueva",
     "resetIgnore": "¿No lo has pedido tú? Entonces no tienes que hacer nada; tu contraseña sigue igual.",
     "verifySubject": "Confirma tu cuenta de QR-Codex",
-    "verifyText": "Haz clic en el botón para confirmar tu correo electrónico. Después podrás iniciar sesión. El enlace es válido 24 horas.",
+    "verifyText": "Haz clic en el botón para confirmar tu correo electrónico. Después podrás iniciar sesión. El enlace es válido 15 minutos.",
     "verifyButton": "Confirmar correo electrónico",
     "verifyIgnore": "¿No has creado una cuenta? No tienes que hacer nada; sin confirmación, la cuenta se elimina a los 7 días.",
     "inviteSubject": "Tu cuenta de QR-Codex",
@@ -1979,11 +1979,7 @@
     "quietTip": "¿Sigue ahí el póster, la pegatina o la carta, y se ve bien el código? Un código dañado o tapado suele ser la causa.",
     "quietFooter": "Puedes desactivar estos avisos en Mi cuenta > Notificaciones.",
     "ticketSubject": "Respuesta a tu pregunta #{id}",
-    "ticketButton": "Ver en la app",
-    "existsSubject": "Ya tienes una cuenta de QR-Codex",
-    "existsText": "Alguien (probablemente tú) intentó crear una cuenta nueva con este correo. Ya tienes una cuenta: inicia sesión. ¿Olvidaste la contraseña? Elige una nueva en la página de inicio de sesión.",
-    "existsButton": "Iniciar sesión",
-    "existsIgnore": "¿No fuiste tú? No tienes que hacer nada; no ha cambiado nada."
+    "ticketButton": "Ver en la app"
   },
   "contact": {
     "lead": "¿Una pregunta, un problema o una idea? Envíanos un mensaje.",

@@ -1885,7 +1885,7 @@
     "resetButton": "Välj ett nytt lösenord",
     "resetIgnore": "Har du inte bett om detta? Då behöver du inte göra något; ditt lösenord förblir detsamma.",
     "verifySubject": "Bekräfta ditt konto på QR-Codex",
-    "verifyText": "Klicka på knappen för att bekräfta din e-postadress. Sedan kan du logga in. Länken fungerar i 24 timmar.",
+    "verifyText": "Klicka på knappen för att bekräfta din e-postadress. Sedan kan du logga in. Länken fungerar i 15 minuter.",
     "verifyButton": "Bekräfta e-postadressen",
     "verifyIgnore": "Har du inte skapat något konto? Då behöver du inte göra något; utan bekräftelse tas kontot bort efter 7 dagar.",
     "inviteSubject": "Ditt konto på QR-Codex",
@@ -1979,11 +1979,7 @@
     "scanFirstText": "Goda nyheter: ”{name}” har precis skannats för första gången. Nu kan du se var och när den skannas.",
     "scanFooter": "Du kan stänga av de här aviseringarna under Mitt konto > Aviseringar.",
     "scanMilestoneSubject": "”{name}” har skannats {n} gånger",
-    "scanMilestoneText": "Snyggt: din QR-kod ”{name}” har nått {n} skanningar.",
-    "existsSubject": "Du har redan ett QR-Codex-konto",
-    "existsText": "Någon (troligen du) försökte skapa ett nytt konto med den här e-postadressen. Du har redan ett konto: logga bara in. Glömt lösenordet? Välj ett nytt på inloggningssidan.",
-    "existsButton": "Logga in",
-    "existsIgnore": "Var det inte du? Då behöver du inte göra något; inget har ändrats."
+    "scanMilestoneText": "Snyggt: din QR-kod ”{name}” har nått {n} skanningar."
   },
   "contact": {
     "lead": "En fråga, ett problem eller en idé? Skicka ett meddelande till oss.",

@@ -1885,7 +1885,7 @@
     "resetButton": "Scegli una nuova password",
     "resetIgnore": "Non l’hai chiesto tu? Allora non devi fare nulla; la password resta la stessa.",
     "verifySubject": "Conferma il tuo account QR-Codex",
-    "verifyText": "Clicca sul pulsante per confermare il tuo indirizzo e-mail. Poi potrai accedere. Il link è valido 24 ore.",
+    "verifyText": "Clicca sul pulsante per confermare il tuo indirizzo e-mail. Poi potrai accedere. Il link è valido 15 minuti.",
     "verifyButton": "Conferma indirizzo e-mail",
     "verifyIgnore": "Non hai creato un account? Non devi fare nulla; senza conferma l'account viene eliminato dopo 7 giorni.",
     "inviteSubject": "Il tuo account QR-Codex",
@@ -1979,11 +1979,7 @@
     "scanFirstText": "Buone notizie: «{name}» è appena stato scansionato per la prima volta. Ora puoi vedere dove e quando viene scansionato.",
     "scanFooter": "Puoi disattivare queste notifiche in Il mio account > Notifiche.",
     "scanMilestoneSubject": "«{name}» è stato scansionato {n} volte",
-    "scanMilestoneText": "Ottimo: il tuo codice QR «{name}» ha raggiunto {n} scansioni.",
-    "existsSubject": "Hai già un account QR-Codex",
-    "existsText": "Qualcuno (probabilmente tu) ha provato a creare un nuovo account con questo indirizzo. Hai già un account: accedi. Password dimenticata? Scegline una nuova nella pagina di accesso.",
-    "existsButton": "Accedi",
-    "existsIgnore": "Non eri tu? Non devi fare nulla; non è cambiato niente."
+    "scanMilestoneText": "Ottimo: il tuo codice QR «{name}» ha raggiunto {n} scansioni."
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",

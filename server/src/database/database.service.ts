@@ -24,7 +24,7 @@ export const now = () => new Date().toISOString();
 export const newId = (n = 9) => crypto.randomBytes(n).toString('base64url');
 export const hash = (token: string) => crypto.createHash('sha256').update(String(token)).digest('base64url');
 export const SESSION_DAYS = 365;              // ingelogd blijven tot je zelf uitlogt; elke dag dat je de app gebruikt, schuift dit op
-export const VERIFY_HOURS = 24, RESET_HOURS = 1, UNVERIFIED_DAYS = 7;
+export const VERIFY_MINUTES = 15, RESET_HOURS = 1, UNVERIFIED_DAYS = 7;
 /** Begin van de "laatste 30 dagen" (vandaag meegerekend), als JJJJ-MM-DD */
 export const since30 = () => new Date(Date.now() - 29 * 864e5).toISOString().slice(0, 10);
 

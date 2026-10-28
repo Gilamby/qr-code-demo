@@ -1885,7 +1885,7 @@
     "resetButton": "Neues Passwort wählen",
     "resetIgnore": "Hast du das nicht angefordert? Dann musst du nichts tun; dein Passwort bleibt gleich.",
     "verifySubject": "Bestätige dein QR-Codex-Konto",
-    "verifyText": "Klicke auf den Button, um deine E-Mail-Adresse zu bestätigen. Danach kannst du dich anmelden. Der Link gilt 24 Stunden.",
+    "verifyText": "Klicke auf den Button, um deine E-Mail-Adresse zu bestätigen. Danach kannst du dich anmelden. Der Link gilt 15 Minuten.",
     "verifyButton": "E-Mail-Adresse bestätigen",
     "verifyIgnore": "Du hast kein Konto erstellt? Dann musst du nichts tun; ohne Bestätigung wird das Konto nach 7 Tagen gelöscht.",
     "inviteSubject": "Dein Konto bei QR-Codex",
@@ -1979,11 +1979,7 @@
     "quietTip": "Hängt das Plakat, der Aufkleber oder die Speisekarte noch und ist der Code gut sichtbar? Ein beschädigter oder verdeckter Code ist oft der Grund.",
     "quietFooter": "Du kannst diese Benachrichtigungen unter Mein Konto > Benachrichtigungen ausschalten.",
     "ticketSubject": "Antwort auf deine Frage #{id}",
-    "ticketButton": "In der App ansehen",
-    "existsSubject": "Du hast bereits ein QR-Codex-Konto",
-    "existsText": "Jemand (wahrscheinlich du) wollte ein neues Konto mit dieser E-Mail-Adresse erstellen. Du hast bereits ein Konto: melde dich einfach an. Passwort vergessen? Wähle auf der Anmeldeseite ein neues.",
-    "existsButton": "Anmelden",
-    "existsIgnore": "Das warst nicht du? Dann musst du nichts tun; es hat sich nichts geändert."
+    "ticketButton": "In der App ansehen"
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",

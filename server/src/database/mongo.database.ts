@@ -23,7 +23,7 @@ import * as path from 'path';
 import { Collection, Db, MongoClient, MongoServerError } from 'mongodb';
 import type { Billing, QrCode, StoredFile, User } from '../types';
 import {
-  Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_HOURS,
+  Activity, AdminLogEntry, parseMedia, ADMIN_LOG_DAYS, ClientMeta, CodeTotals, parseModeration, Customer, Folder, parsePrefs, DatabaseService, DayCount, EMAIL_CHANGE_HOURS, SESSION_ID_LEN, SessionInfo, FILES_DIR, INVITED, NewQrCode, QrPatch, RESET_HOURS, SENSITIVE_TYPES, SESSION_DAYS, Summary, UNVERIFIED_DAYS, UserPatch, UserRow, VERIFY_MINUTES,
   hash, newId, now, openContent, removeFiles, sealContent, since30, parseLabels, SCAN_LOG_DAYS, ScanQuery } from './database.service';
 import type { ScanInfo } from './database.service';
 
@@ -165,7 +165,7 @@ export class MongoDatabase extends DatabaseService {
   async createVerification(userId: string) {
     const token = newId(32);
     await this.verifications.deleteMany({ userId });
-    await this.verifications.insertOne({ _id: hash(token), userId, expiresAt: new Date(Date.now() + VERIFY_HOURS * 3600e3).toISOString() });
+    await this.verifications.insertOne({ _id: hash(token), userId, expiresAt: new Date(Date.now() + VERIFY_MINUTES * 60e3).toISOString() });
     return token;
   }
   async useVerification(token: string): Promise<string | null> {

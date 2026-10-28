@@ -1885,7 +1885,7 @@
     "resetButton": "Izvēlēties jaunu paroli",
     "resetIgnore": "Neesi to pieprasījis? Tad tev nekas nav jādara; tava parole paliek nemainīga.",
     "verifySubject": "Apstiprini savu QR-Codex kontu",
-    "verifyText": "Noklikšķini uz pogas, lai apstiprinātu savu e-pasta adresi. Pēc tam vari pieteikties. Saite darbojas 24 stundas.",
+    "verifyText": "Noklikšķini uz pogas, lai apstiprinātu savu e-pasta adresi. Pēc tam vari pieteikties. Saite darbojas 15 minūtes.",
     "verifyButton": "Apstiprināt e-pasta adresi",
     "verifyIgnore": "Neesi veidojis kontu? Tev nekas nav jādara; bez apstiprinājuma konts tiek dzēsts pēc 7 dienām.",
     "inviteSubject": "Tavs QR-Codex konts",
@@ -1979,11 +1979,7 @@
     "scanFirstText": "Labas ziņas: “{name}” tikko noskenēts pirmo reizi. Tagad vari redzēt, kur un kad tas tiek skenēts.",
     "scanFooter": "Šos paziņojumus vari izslēgt sadaļā Mans konts > Paziņojumi.",
     "scanMilestoneSubject": "“{name}” noskenēts {n} reizes",
-    "scanMilestoneText": "Lieliski: tavs QR kods “{name}” sasniedzis {n} skenējumus.",
-    "existsSubject": "Jums jau ir QR-Codex konts",
-    "existsText": "Kāds (visticamāk, jūs) mēģināja izveidot jaunu kontu ar šo e-pastu. Jums jau ir konts: vienkārši piesakieties. Aizmirsāt paroli? Izvēlieties jaunu pieteikšanās lapā.",
-    "existsButton": "Pieteikties",
-    "existsIgnore": "Tas nebijāt jūs? Jums nekas nav jādara; nekas nav mainījies."
+    "scanMilestoneText": "Lieliski: tavs QR kods “{name}” sasniedzis {n} skenējumus."
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",

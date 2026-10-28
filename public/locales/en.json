@@ -1885,7 +1885,7 @@
     "resetButton": "Choose a new password",
     "resetIgnore": "Didn’t ask for this? Then you don’t need to do anything; your password stays the same.",
     "verifySubject": "Confirm your QR-Codex account",
-    "verifyText": "Click the button to confirm your email address. Then you can log in. The link works for 24 hours.",
+    "verifyText": "Click the button to confirm your email address. Then you can log in. The link works for 15 minutes.",
     "verifyButton": "Confirm email address",
     "verifyIgnore": "Didn't create an account? You don't need to do anything; without confirmation the account is deleted after 7 days.",
     "inviteSubject": "Your QR-Codex account",
@@ -1979,11 +1979,7 @@
     "quietTip": "Is the poster, sticker or menu still there and easy to see? A damaged or covered code often explains it.",
     "quietFooter": "You can turn these notifications off in My account > Notifications.",
     "ticketSubject": "Reply to your question #{id}",
-    "ticketButton": "View in the app",
-    "existsSubject": "You already have a QR-Codex account",
-    "existsText": "Someone (probably you) tried to create a new account with this email address. You already have an account: just log in. Forgot your password? Choose a new one on the login page.",
-    "existsButton": "Log in",
-    "existsIgnore": "Wasn't you? You don't need to do anything; nothing has changed."
+    "ticketButton": "View in the app"
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",

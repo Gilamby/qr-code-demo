@@ -60,9 +60,7 @@ export class AuthController {
       token = await this.sendVerifyMail(req, existing.id, email, lang);
       // Alleen met hetzelfde wachtwoord gaat deze browser vanzelf verder (anders kon iemand anders zo in dit account komen)
       if (await this.auth.checkPassword(b.password || '', existing.password_hash)) await startPending(this.db, existing.id, res, this.auth.secure(req));
-    } else {                                                                 // al bevestigd: een mail "je hebt al een account" (het scherm zegt hetzelfde als altijd)
-      this.mailer.sendExists(email, baseUrl(req) + '/', lang).catch((e) => console.error('E-mail versturen mislukt:', e.message));
-    }
+    } else throw fail(409, 'exists');                                       // al bevestigd: de app stuurt je naar inloggen
     return { verify: true, email, ...this.demoToken(token) };
   }
 

@@ -17,7 +17,7 @@ import type { ReportData } from '../reports';
 import type { User } from '../types';
 
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
-type Kind = 'verify' | 'reset' | 'invite' | 'teamInvite' | 'emailChange' | 'emailChanged' | 'exists';
+type Kind = 'verify' | 'reset' | 'invite' | 'teamInvite' | 'emailChange' | 'emailChanged';
 
 @Injectable()
 export class MailerService {
@@ -35,7 +35,6 @@ export class MailerService {
   sendVerify(to: string, link: string, lang: string) { return this.send('verify', to, link, lang); }
   sendReset(to: string, link: string, lang: string) { return this.send('reset', to, link, lang); }
   /** Iemand maakte een account met een adres dat al een account heeft: geen nieuw account, wel een mail (zonder te verraden dat het adres bestaat) */
-  sendExists(to: string, link: string, lang: string) { return this.send('exists', to, link, lang); }
   sendInvite(to: string, link: string, lang: string) { return this.send('invite', to, link, lang); }
   /** Uitnodiging voor een team (Business): {name} = wie uitnodigt */
   sendTeamInvite(to: string, link: string, lang: string, name: string) { return this.send('teamInvite', to, link, lang, { name }); }
@@ -252,7 +251,7 @@ export class MailerService {
   private async send(kind: Kind, to: string, link: string, lang: string, vars: Record<string, string> = {}) {
     const t = await this.texts(lang);
     for (const k of Object.keys(t)) t[k] = String(t[k]).replace(/\{(\w+)\}/g, (m, v) => (vars[v] != null ? vars[v] : m));
-    if (!this.transport) { console.log('[e-mail niet ingesteld] ' + ({ verify: 'Bevestigingslink', reset: 'Wachtwoord-link', invite: 'Uitnodiging', emailChange: 'Nieuw e-mailadres bevestigen', emailChanged: 'Melding e-mail gewijzigd', exists: 'Melding: er is al een account' } as any)[kind] + ' voor ' + to + ':\n  ' + (link || vars.email || '')); return; }
+    if (!this.transport) { console.log('[e-mail niet ingesteld] ' + ({ verify: 'Bevestigingslink', reset: 'Wachtwoord-link', invite: 'Uitnodiging', emailChange: 'Nieuw e-mailadres bevestigen', emailChanged: 'Melding e-mail gewijzigd' } as any)[kind] + ' voor ' + to + ':\n  ' + (link || vars.email || '')); return; }
     await this.transport.sendMail({
       from: process.env.MAIL_FROM || 'QR-Codex <no-reply@optimasys.com>', to, subject: t[kind + 'Subject'],
       text: (t[kind + 'Hello'] || t.resetHello) + '\n\n' + t[kind + 'Text'] + '\n' + (link ? link + '\n' : '') + '\n' + t[kind + 'Ignore'],

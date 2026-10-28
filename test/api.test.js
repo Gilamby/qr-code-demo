@@ -95,7 +95,7 @@ test('inloggen en accounts (met e-mailbevestiging)', async () => {
   await a('POST', '/api/auth/logout');
   assert.equal((await a('GET', '/api/auth/me')).status, 401);
   const dup = await client()('POST', '/api/auth/register', { accept: true, email: 'A@example.com', password: 'Nog een zin hier 6!' });
-  assert.equal(dup.status, 201, 'bestaand adres: zelfde antwoord (niet te zien wie een account heeft)');
+  assert.equal(dup.status, 409, 'bestaand adres: de app stuurt je naar inloggen'); assert.equal(dup.json.error, 'exists');
   assert.equal((await client()('POST', '/api/auth/login', { email: 'a@example.com', password: 'Nog een zin hier 6!' })).status, 401, 'wachtwoord niet overschreven');
   assert.equal((await client()('POST', '/api/auth/login', { email: 'a@example.com', password: 'fout fout fout' })).status, 401);
   assert.equal((await a('POST', '/api/auth/login', { email: 'a@example.com', password: 'Mijn geheime zin 1!' })).status, 200);
@@ -1271,4 +1271,13 @@ test('max. 3 apparaten tegelijk: een vierde login logt het oudste uit, met de re
   for (const c of devs.slice(1)) assert.equal((await c('GET', '/api/auth/me')).status, 200, 'de laatste 3 blijven ingelogd');
   assert.equal((await devs[3]('GET', '/api/account/sessions')).json.sessions.length, 3);
   assert.ok((await devs[3]('GET', '/api/account/activity')).json.activity.some((a) => a.kind === 'device_limit'));
+});
+
+test('registreren met een bevestigd e-mailadres: 409 exists (de app stuurt naar inloggen), geen mail; link werkt 15 minuten', async () => {
+  const c = client(), r = await c('POST', '/api/auth/register', { accept: true, email: 'fix-k@example.com', password: 'Nog een zin 31 ok!', name: 'X' });
+  assert.equal(r.status, 409); assert.equal(r.json.error, 'exists');
+  const { DatabaseService, VERIFY_MINUTES } = require('../server/dist/database/database.service');
+  assert.equal(VERIFY_MINUTES, 15);
+  const db = app.get(DatabaseService), u = await db.userByEmail('fix-k@example.com'), tok = await db.createVerification(u.id);
+  assert.ok(tok);
 });

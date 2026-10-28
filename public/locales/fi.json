@@ -1885,7 +1885,7 @@
     "resetButton": "Valitse uusi salasana",
     "resetIgnore": "Etkö pyytänyt tätä? Sinun ei tarvitse tehdä mitään; salasanasi pysyy ennallaan.",
     "verifySubject": "Vahvista QR-Codex -tilisi",
-    "verifyText": "Vahvista sähköpostiosoitteesi napsauttamalla painiketta. Sen jälkeen voit kirjautua sisään. Linkki toimii 24 tuntia.",
+    "verifyText": "Vahvista sähköpostiosoitteesi napsauttamalla painiketta. Sen jälkeen voit kirjautua sisään. Linkki toimii 15 minuuttia.",
     "verifyButton": "Vahvista sähköpostiosoite",
     "verifyIgnore": "Etkö luonut tiliä? Sinun ei tarvitse tehdä mitään; vahvistamaton tili poistetaan 7 päivän kuluttua.",
     "inviteSubject": "QR-Codex -tilisi",
@@ -1979,11 +1979,7 @@
     "scanFirstText": "Hyviä uutisia: ”{name}” skannattiin juuri ensimmäistä kertaa. Nyt näet, missä ja milloin sitä skannataan.",
     "scanFooter": "Voit poistaa nämä ilmoitukset käytöstä kohdassa Oma tili > Ilmoitukset.",
     "scanMilestoneSubject": "”{name}” on skannattu {n} kertaa",
-    "scanMilestoneText": "Hienoa: QR-koodisi ”{name}” on saavuttanut {n} skannausta.",
-    "existsSubject": "Sinulla on jo QR-Codex-tili",
-    "existsText": "Joku (luultavasti sinä) yritti luoda uuden tilin tällä sähköpostiosoitteella. Sinulla on jo tili: kirjaudu sisään. Unohditko salasanan? Valitse uusi kirjautumissivulla.",
-    "existsButton": "Kirjaudu sisään",
-    "existsIgnore": "Etkö se ollut sinä? Sinun ei tarvitse tehdä mitään; mikään ei muuttunut."
+    "scanMilestoneText": "Hienoa: QR-koodisi ”{name}” on saavuttanut {n} skannausta."
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",

@@ -157,20 +157,23 @@ var Session = (function () {
     var eye = e.target.closest('[data-eye]');
     if (eye) { var inp = eye.parentNode.querySelector('input'), on = inp.type === 'password'; inp.type = on ? 'text' : 'password'; eye.setAttribute('aria-pressed', String(on)); eye.setAttribute('aria-label', t(on ? 'pw.hide' : 'pw.show')); }
   });
-  card.addEventListener('change', function (e) { if (e.target.classList.contains('auth-lang')) i18n.set(e.target.value); });
+  card.addEventListener('change', function (e) {
+    if (e.target.classList.contains('auth-lang')) return i18n.set(e.target.value);
+    if (e.target.name === 'accept') { accepted = e.target.checked; var tm = card.querySelector('.auth-msg[data-terms]'); if (accepted && tm) tm.remove(); }   // aangevinkt: melding weg
+  });
   card.addEventListener('submit', function (e) {
     e.preventDefault(); flash = null;
     var f = e.target, val = function (n) { var i = f.querySelector('[name=' + n + ']'); return i ? i.value.trim() : ''; }, btn = f.querySelector('.auth-go');
     var pw = (f.querySelector('[name=password]') || {}).value || '';
     var acc = f.querySelector('[name=accept]'); if (acc) accepted = acc.checked;
-    if (acc && !acc.checked) {                                            // melding zonder opnieuw tekenen: ingevuld wachtwoord blijft staan
-      var m = card.querySelector('.auth-msg') || document.createElement('p'); m.className = 'auth-msg bad'; m.setAttribute('role', 'alert'); m.textContent = t('terms.err');
-      if (!m.parentNode) f.parentNode.insertBefore(m, f); acc.focus(); return;
-    }
     if (f.querySelector('[name=email]') && !EmailCheck.valid(val('email')) || f.querySelector('[name=email]') && !val('email')) return draw(t('auth.errEmail'));
     if (f.querySelector('[name=password]') && !pw) return draw(t('auth.errPassword'));
     var np = f.querySelector('[data-pw-rules]'), prob = np && PasswordRules.problem(pw);    // nieuw wachtwoord: eerst zelf controleren
     if (prob) return draw(t(PasswordRules.errorKey('password_' + prob)));
+    if (acc && !acc.checked) {                                            // pas na de velden: melding zonder opnieuw tekenen, ingevuld wachtwoord blijft staan
+      var m = card.querySelector('.auth-msg') || document.createElement('p'); m.className = 'auth-msg bad'; m.setAttribute('role', 'alert'); m.textContent = t('terms.err'); m.setAttribute('data-terms', '');
+      if (!m.parentNode) f.parentNode.insertBefore(m, f); acc.focus(); return;
+    }
     btn.disabled = true;
     if (mode === 'twofa' && !val('code')) { btn.disabled = false; return draw(t('tfa.errEmpty')); }
     var job = mode === 'twofa' && tfa && tfa.google ? api.auth.google2fa({ token: tfa.google, code: val('code') })
@@ -182,6 +185,7 @@ var Session = (function () {
     job.then(function (u) { if (u) enter(u); }).catch(function (err) {
       if (err && err.code === '2fa_required' && mode === 'login') { tfa = { email: val('email'), password: pw }; mode = 'twofa'; draw(); var ci = card.querySelector('[name=code]'); if (ci) ci.focus(); return; }
       if (err && err.code === '2fa_wrong') { draw(t('tfa.errWrong')); var cb = card.querySelector('.auth-go'); if (cb) cb.disabled = false; var ci2 = card.querySelector('[name=code]'); if (ci2) { ci2.value = ''; ci2.focus(); } return; }
+      if (err && err.code === 'exists' && mode === 'register') { prefill = val('email'); mode = 'login'; flash = ['auth.errExists', 'bad']; var em = card.querySelector('input[name=email]'); if (em) em.value = prefill; draw(); return; }   // al een account: naar inloggen
       if (err && err.code === 'unverified') { pendingEmail = val('email'); pendingToken = null; mode = 'check'; flash = ['auth.errUnverified', 'bad']; draw(); return watch(); }
       draw(errorText(err)); var b = card.querySelector('.auth-go'); if (b) b.disabled = false; });
   });
