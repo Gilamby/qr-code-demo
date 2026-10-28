@@ -400,6 +400,82 @@
       "mail": "Napísať majiteľovi",
       "note": "Ďakujeme za pomoc!",
       "subject": "Nájdené: {name}"
+    },
+    "biz": {
+      "open": "Otvorené · zatvára o {time}",
+      "message": "Správa",
+      "website": "Web",
+      "work": "práca",
+      "hours": "Otváracie hodiny",
+      "hoursVal": "Po–so {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Zrušiť",
+      "new": "Nová správa",
+      "to": "Komu:",
+      "subject": "Predmet:",
+      "sig": "Odoslané z môjho iPhonu"
+    },
+    "pay": {
+      "secure": "Bezpečná platba",
+      "title": "Na úhradu",
+      "order": "Objednávka č. 1042",
+      "l1": "Produkty",
+      "l2": "Obsluha",
+      "phone": "Zaplatiť telefónom",
+      "card": "Zaplatiť kartou",
+      "note": "Údaje vašej karty sa nikdy nezdieľajú s obchodom."
+    },
+    "tt": {
+      "following": "Sledované",
+      "followers": "Sledovatelia",
+      "likes": "Páči sa",
+      "follow": "Sledovať",
+      "bio": "Káva, brunch a západy slnka v Marbelle"
+    },
+    "li": {
+      "tag": "Obchod a kaviareň v starom meste Marbelly",
+      "meta": "Maloobchod · Marbella · {n} sledovateľov",
+      "follow": "+ Sledovať",
+      "visit": "Navštíviť web",
+      "home": "Domov",
+      "about": "O nás",
+      "posts": "Príspevky",
+      "jobs": "Pracovné miesta",
+      "post": "Hľadáme posily na letnú sezónu. Pridajte sa k nám!"
+    },
+    "yt": {
+      "meta": "{n} odberateľov · {v} videí",
+      "subscribe": "Odoberať",
+      "home": "Domov",
+      "videos": "Videá",
+      "v1": "Takto robíme dokonalé latte",
+      "v2": "Večer živej hudby na našej terase",
+      "views": "{n} zhliadnutí"
+    },
+    "sp": {
+      "title": "{name} – Hudba v obchode",
+      "meta": "{n} skladieb, asi 2 h 30 min"
+    },
+    "tg": {
+      "subs": "{n} odberateľov",
+      "m1": "Denné menu: grilovaný morský vlk s citrónom",
+      "m2": "Dnes happy hour od 18:00 do 20:00",
+      "join": "Pripojiť sa"
+    },
+    "bk": {
+      "title": "Rezervovať stôl",
+      "date": "Dátum",
+      "time": "Čas",
+      "guests": "Hostia",
+      "reserve": "Rezervovať",
+      "people": "{n} osoby"
+    },
+    "mt": {
+      "title": "Stretnutie s {name}",
+      "others": "{n} osoby sú v tomto hovore",
+      "ready": "Pripravení pripojiť sa?",
+      "join": "Pripojiť sa teraz"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Ďakujeme za spätnú väzbu!",
     "mailSubject": "Otázka k mojej objednávke",
     "mailBody": "Dobrý deň, mám otázku k …",
-    "textTitle": "Domáci poriadok",
-    "textBody": "Vitajte! Po 22:00 prosím buďte potichu a pri odchode nechajte kľúč v schránke. Príjemný pobyt!",
+    "textTitle": "Pravidlá firmy",
+    "textBody": "Vitajte! Prihláste sa na recepcii, noste návštevnícky preukaz viditeľne a nechajte núdzové východy voľné. Wi-Fi pre hostí: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Ahoj! Stratil som sa. Zavolaj prosím môjmu pánovi, ďakujem!",
     "mailTo": "hello@cafe-lumen.example",

@@ -400,6 +400,82 @@
       "mail": "Napisz do właściciela",
       "note": "Dziękujemy za pomoc!",
       "subject": "Znaleziono: {name}"
+    },
+    "biz": {
+      "open": "Otwarte · zamknięcie o {time}",
+      "message": "Wiadomość",
+      "website": "Strona",
+      "work": "praca",
+      "hours": "Godziny otwarcia",
+      "hoursVal": "Pon–sob {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Anuluj",
+      "new": "Nowa wiadomość",
+      "to": "Do:",
+      "subject": "Temat:",
+      "sig": "Wysłano z iPhone’a"
+    },
+    "pay": {
+      "secure": "Bezpieczna płatność",
+      "title": "Do zapłaty",
+      "order": "Zamówienie nr 1042",
+      "l1": "Produkty",
+      "l2": "Obsługa",
+      "phone": "Zapłać telefonem",
+      "card": "Zapłać kartą",
+      "note": "Dane Twojej karty nigdy nie trafiają do sklepu."
+    },
+    "tt": {
+      "following": "Obserwowani",
+      "followers": "Obserwujący",
+      "likes": "Polubienia",
+      "follow": "Obserwuj",
+      "bio": "Kawa, brunch i zachody słońca w Marbelli"
+    },
+    "li": {
+      "tag": "Sklep i kawiarnia na starówce w Marbelli",
+      "meta": "Handel · Marbella · {n} obserwujących",
+      "follow": "+ Obserwuj",
+      "visit": "Odwiedź stronę",
+      "home": "Główna",
+      "about": "Informacje",
+      "posts": "Posty",
+      "jobs": "Praca",
+      "post": "Szukamy ludzi na sezon letni. Dołącz do zespołu!"
+    },
+    "yt": {
+      "meta": "{n} subskrybentów · {v} filmów",
+      "subscribe": "Subskrybuj",
+      "home": "Główna",
+      "videos": "Filmy",
+      "v1": "Tak robimy idealne latte",
+      "v2": "Wieczór z muzyką na żywo na naszym tarasie",
+      "views": "{n} wyświetleń"
+    },
+    "sp": {
+      "title": "{name} – Muzyka w sklepie",
+      "meta": "{n} utworów, ok. 2 godz. 30 min"
+    },
+    "tg": {
+      "subs": "{n} subskrybentów",
+      "m1": "Danie dnia: grillowany labraks z cytryną",
+      "m2": "Dziś happy hour od 18:00 do 20:00",
+      "join": "Dołącz"
+    },
+    "bk": {
+      "title": "Zarezerwuj stolik",
+      "date": "Data",
+      "time": "Godzina",
+      "guests": "Goście",
+      "reserve": "Rezerwuj",
+      "people": "{n} osoby"
+    },
+    "mt": {
+      "title": "Spotkanie z {name}",
+      "others": "{n} osoby są na tym połączeniu",
+      "ready": "Gotowy, by dołączyć?",
+      "join": "Dołącz teraz"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Dziękujemy za opinię!",
     "mailSubject": "Pytanie o moje zamówienie",
     "mailBody": "Dzień dobry, mam pytanie o …",
-    "textTitle": "Regulamin domu",
-    "textBody": "Witaj! Po 22:00 prosimy o ciszę, a wychodząc zostaw klucz w skrzynce. Miłego pobytu!",
+    "textTitle": "Zasady firmy",
+    "textBody": "Witaj! Zgłoś się w recepcji, noś identyfikator gościa w widocznym miejscu i nie zastawiaj wyjść ewakuacyjnych. Wi-Fi dla gości: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Cześć! Zgubiłem się. Zadzwoń do mojego właściciela, dziękuję!",
     "mailTo": "hello@cafe-lumen.example",

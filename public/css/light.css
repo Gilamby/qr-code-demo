@@ -558,6 +558,19 @@
 :root[data-theme="light"] .tour-card { box-shadow: var(--shadow), 0 30px 70px -20px rgba(13,19,32,0.21); }
 :root[data-theme="light"] .rt-row { background: var(--tile, rgba(13,19,32,0.023)); }
 :root[data-theme="light"] .help-sentbar > svg { color: #16a34a; }
+:root[data-theme="light"] .lc-pin { box-shadow: 0 6px 14px -4px rgba(13,19,32,0.14); }
+:root[data-theme="light"] .py-dark { background: #e2e8f0; }
+:root[data-theme="light"] .tt-grid em { text-shadow: 0 1px 3px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .yt-av { background: #e2e8f0; }
+:root[data-theme="light"] .yt-th em { background: rgba(255,255,255,1); }
+:root[data-theme="light"] .sp-cover { box-shadow: 0 14px 30px -8px rgba(13,19,32,0.21); }
+:root[data-theme="light"] .ph-tl { background: #e4ebd8 radial-gradient(circle at 20% 30%, rgba(13,19,32,0.262) 0 2px, transparent 3px) 0 0 / 22px 22px; }
+:root[data-theme="light"] .tl-msg { box-shadow: 0 1px 1px rgba(13,19,32,0.028); }
+:root[data-theme="light"] .bk-hero::before { background: linear-gradient(180deg, transparent 20%, rgba(255,255,255,1)); }
+:root[data-theme="light"] .bk-days span.on,
+:root[data-theme="light"] .bk-times span.on { background: #e2e8f0; }
+:root[data-theme="light"] .bk-days span.on small { color: #475569; }
+:root[data-theme="light"] .bk-go { background: #e2e8f0; }
 
 /* ---------- Met de hand: glas, zijbalk, achtergrond ---------- */
 :root[data-theme="light"] { color-scheme: light; }

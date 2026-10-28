@@ -400,6 +400,82 @@
       "mail": "Lähetä omistajalle sähköpostia",
       "note": "Kiitos avusta!",
       "subject": "Löydetty: {name}"
+    },
+    "biz": {
+      "open": "Auki · sulkeutuu klo {time}",
+      "message": "Viesti",
+      "website": "Verkkosivu",
+      "work": "työ",
+      "hours": "Aukioloajat",
+      "hoursVal": "Ma–la {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Kumoa",
+      "new": "Uusi viesti",
+      "to": "Vastaanottaja:",
+      "subject": "Aihe:",
+      "sig": "Lähetetty iPhonesta"
+    },
+    "pay": {
+      "secure": "Turvallinen maksu",
+      "title": "Maksettava",
+      "order": "Tilaus nro 1042",
+      "l1": "Tuotteet",
+      "l2": "Palvelu",
+      "phone": "Maksa puhelimella",
+      "card": "Maksa kortilla",
+      "note": "Korttitietojasi ei koskaan jaeta kaupalle."
+    },
+    "tt": {
+      "following": "Seurataan",
+      "followers": "Seuraajat",
+      "likes": "Tykkäykset",
+      "follow": "Seuraa",
+      "bio": "Kahvia, brunssia ja auringonlaskuja Marbellassa"
+    },
+    "li": {
+      "tag": "Kauppa ja kahvila Marbellan vanhassakaupungissa",
+      "meta": "Vähittäiskauppa · Marbella · {n} seuraajaa",
+      "follow": "+ Seuraa",
+      "visit": "Siirry sivustolle",
+      "home": "Etusivu",
+      "about": "Tietoja",
+      "posts": "Julkaisut",
+      "jobs": "Työpaikat",
+      "post": "Haemme tekijöitä kesäkaudelle. Liity tiimiimme!"
+    },
+    "yt": {
+      "meta": "{n} tilaajaa · {v} videota",
+      "subscribe": "Tilaa",
+      "home": "Etusivu",
+      "videos": "Videot",
+      "v1": "Näin teemme täydellisen latten",
+      "v2": "Livemusiikkia terassillamme",
+      "views": "{n} katselukertaa"
+    },
+    "sp": {
+      "title": "{name} – Myymälän musiikki",
+      "meta": "{n} kappaletta, noin 2 t 30 min"
+    },
+    "tg": {
+      "subs": "{n} tilaajaa",
+      "m1": "Päivän annos: grillattua meribassia sitruunalla",
+      "m2": "Tänään happy hour klo 18–20",
+      "join": "Liity"
+    },
+    "bk": {
+      "title": "Varaa pöytä",
+      "date": "Päivä",
+      "time": "Aika",
+      "guests": "Henkilöt",
+      "reserve": "Varaa",
+      "people": "{n} henkeä"
+    },
+    "mt": {
+      "title": "Kokous: {name}",
+      "others": "{n} henkeä on puhelussa",
+      "ready": "Valmis liittymään?",
+      "join": "Liity nyt"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Kiitos palautteestasi!",
     "mailSubject": "Kysymys tilauksestani",
     "mailBody": "Hei, minulla on kysymys …",
-    "textTitle": "Talon säännöt",
-    "textBody": "Tervetuloa! Ole hiljaa klo 22 jälkeen ja jätä avain laatikkoon lähtiessäsi. Mukavaa oleskelua!",
+    "textTitle": "Yrityksen säännöt",
+    "textBody": "Tervetuloa! Ilmoittaudu vastaanotossa, pidä vierailijakortti näkyvillä ja jätä hätäuloskäynnit vapaiksi. Vieras-wifi: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Hei! Olen eksynyt. Soita omistajalleni, kiitos!",
     "mailTo": "hello@cafe-lumen.example",

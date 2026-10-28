@@ -400,6 +400,82 @@
       "mail": "Escriu al propietari",
       "note": "Gràcies per ajudar!",
       "subject": "Trobat: {name}"
+    },
+    "biz": {
+      "open": "Obert · tanca a les {time}",
+      "message": "Missatge",
+      "website": "Web",
+      "work": "feina",
+      "hours": "Horari",
+      "hoursVal": "Dl–ds {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Cancel·la",
+      "new": "Missatge nou",
+      "to": "Per a:",
+      "subject": "Assumpte:",
+      "sig": "Enviat des del meu iPhone"
+    },
+    "pay": {
+      "secure": "Pagament segur",
+      "title": "Import a pagar",
+      "order": "Comanda núm. 1042",
+      "l1": "Productes",
+      "l2": "Servei",
+      "phone": "Paga amb el mòbil",
+      "card": "Paga amb targeta",
+      "note": "Les dades de la targeta mai no es comparteixen amb la botiga."
+    },
+    "tt": {
+      "following": "Seguint",
+      "followers": "Seguidors",
+      "likes": "M’agrada",
+      "follow": "Segueix",
+      "bio": "Cafè, brunch i postes de sol a Marbella"
+    },
+    "li": {
+      "tag": "Botiga i cafè al nucli antic de Marbella",
+      "meta": "Comerç · Marbella · {n} seguidors",
+      "follow": "+ Segueix",
+      "visit": "Visita el web",
+      "home": "Inici",
+      "about": "Quant a",
+      "posts": "Publicacions",
+      "jobs": "Feines",
+      "post": "Busquem personal per a la temporada d’estiu. Uneix-te a l’equip!"
+    },
+    "yt": {
+      "meta": "{n} subscriptors · {v} vídeos",
+      "subscribe": "Subscriu-te",
+      "home": "Inici",
+      "videos": "Vídeos",
+      "v1": "Així fem el latte perfecte",
+      "v2": "Nit de música en directe a la terrassa",
+      "views": "{n} visualitzacions"
+    },
+    "sp": {
+      "title": "{name} – Música de botiga",
+      "meta": "{n} cançons, unes 2 h 30 min"
+    },
+    "tg": {
+      "subs": "{n} subscriptors",
+      "m1": "Plat del dia: llobarro a la planxa amb llimona",
+      "m2": "Avui happy hour de 18:00 a 20:00",
+      "join": "Uneix-t’hi"
+    },
+    "bk": {
+      "title": "Reserva una taula",
+      "date": "Data",
+      "time": "Hora",
+      "guests": "Persones",
+      "reserve": "Reserva",
+      "people": "{n} persones"
+    },
+    "mt": {
+      "title": "Reunió amb {name}",
+      "others": "{n} persones són en aquesta trucada",
+      "ready": "A punt per entrar?",
+      "join": "Entra ara"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Gràcies per la teva opinió!",
     "mailSubject": "Pregunta sobre la meva comanda",
     "mailBody": "Hola, tinc una pregunta sobre …",
-    "textTitle": "Normes de la casa",
-    "textBody": "Benvingut! Fes poc soroll després de les 22:00 i deixa la clau a la caixa en marxar. Bona estada!",
+    "textTitle": "Normes de l’empresa",
+    "textBody": "Benvingut! Registra’t a recepció, porta el passi de visitant a la vista i deixa lliures les sortides d’emergència. Wifi de convidats: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Hola! M’he perdut. Truca al meu amo, gràcies!",
     "mailTo": "hello@cafe-lumen.example",

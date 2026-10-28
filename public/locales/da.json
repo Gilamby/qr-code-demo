@@ -400,6 +400,82 @@
       "mail": "Skriv til ejeren",
       "note": "Tak for hjælpen!",
       "subject": "Fundet: {name}"
+    },
+    "biz": {
+      "open": "Åben · lukker kl. {time}",
+      "message": "Besked",
+      "website": "Website",
+      "work": "arbejde",
+      "hours": "Åbningstider",
+      "hoursVal": "Man–lør {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Annuller",
+      "new": "Ny besked",
+      "to": "Til:",
+      "subject": "Emne:",
+      "sig": "Sendt fra min iPhone"
+    },
+    "pay": {
+      "secure": "Sikker betaling",
+      "title": "Beløb",
+      "order": "Ordre nr. 1042",
+      "l1": "Varer",
+      "l2": "Service",
+      "phone": "Betal med telefonen",
+      "card": "Betal med kort",
+      "note": "Dine kortoplysninger deles aldrig med butikken."
+    },
+    "tt": {
+      "following": "Følger",
+      "followers": "Følgere",
+      "likes": "Likes",
+      "follow": "Følg",
+      "bio": "Kaffe, brunch og solnedgange i Marbella"
+    },
+    "li": {
+      "tag": "Butik og café i Marbellas gamle bydel",
+      "meta": "Detailhandel · Marbella · {n} følgere",
+      "follow": "+ Følg",
+      "visit": "Besøg website",
+      "home": "Hjem",
+      "about": "Om",
+      "posts": "Opslag",
+      "jobs": "Job",
+      "post": "Vi ansætter til sommersæsonen. Bliv en del af holdet!"
+    },
+    "yt": {
+      "meta": "{n} abonnenter · {v} videoer",
+      "subscribe": "Abonnér",
+      "home": "Hjem",
+      "videos": "Videoer",
+      "v1": "Sådan laver vi den perfekte latte",
+      "v2": "Livemusik på vores terrasse",
+      "views": "{n} visninger"
+    },
+    "sp": {
+      "title": "{name} – Musik i butikken",
+      "meta": "{n} sange, ca. 2 t 30 min"
+    },
+    "tg": {
+      "subs": "{n} abonnenter",
+      "m1": "Dagens ret: grillet havbars med citron",
+      "m2": "Happy hour i dag fra 18:00 til 20:00",
+      "join": "Deltag"
+    },
+    "bk": {
+      "title": "Book et bord",
+      "date": "Dato",
+      "time": "Tid",
+      "guests": "Gæster",
+      "reserve": "Reservér",
+      "people": "{n} personer"
+    },
+    "mt": {
+      "title": "Møde med {name}",
+      "others": "{n} personer er med i opkaldet",
+      "ready": "Klar til at deltage?",
+      "join": "Deltag nu"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Tak for din feedback!",
     "mailSubject": "Spørgsmål om min ordre",
     "mailBody": "Hej, jeg har et spørgsmål om …",
-    "textTitle": "Husregler",
-    "textBody": "Velkommen! Vær stille efter kl. 22 og læg nøglen i boksen, når du går. God fornøjelse!",
+    "textTitle": "Virksomhedens regler",
+    "textBody": "Velkommen! Meld dig i receptionen, bær dit gæstekort synligt og hold nødudgangene fri. Gæste-wifi: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Hej! Jeg er blevet væk. Ring til min ejer, tak!",
     "mailTo": "hello@cafe-lumen.example",

@@ -400,6 +400,82 @@
       "mail": "Email the owner",
       "note": "Thank you for helping!",
       "subject": "Found: {name}"
+    },
+    "biz": {
+      "open": "Open · closes {time}",
+      "message": "Message",
+      "website": "Website",
+      "work": "work",
+      "hours": "Opening hours",
+      "hoursVal": "Mon–Sat {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Cancel",
+      "new": "New message",
+      "to": "To:",
+      "subject": "Subject:",
+      "sig": "Sent from my iPhone"
+    },
+    "pay": {
+      "secure": "Secure payment",
+      "title": "Amount to pay",
+      "order": "Order #1042",
+      "l1": "Products",
+      "l2": "Service",
+      "phone": "Pay with phone",
+      "card": "Pay with card",
+      "note": "Your card details are never shared with the shop."
+    },
+    "tt": {
+      "following": "Following",
+      "followers": "Followers",
+      "likes": "Likes",
+      "follow": "Follow",
+      "bio": "Coffee, brunch & sunsets in Marbella"
+    },
+    "li": {
+      "tag": "Shop and café in the old town of Marbella",
+      "meta": "Retail · Marbella · {n} followers",
+      "follow": "+ Follow",
+      "visit": "Visit website",
+      "home": "Home",
+      "about": "About",
+      "posts": "Posts",
+      "jobs": "Jobs",
+      "post": "We’re hiring for the summer season. Join our team!"
+    },
+    "yt": {
+      "meta": "{n} subscribers · {v} videos",
+      "subscribe": "Subscribe",
+      "home": "Home",
+      "videos": "Videos",
+      "v1": "How we make the perfect latte",
+      "v2": "Live music night on our terrace",
+      "views": "{n} views"
+    },
+    "sp": {
+      "title": "{name} – In-store playlist",
+      "meta": "{n} songs, about 2 h 30 min"
+    },
+    "tg": {
+      "subs": "{n} subscribers",
+      "m1": "Today’s special: grilled sea bass with lemon",
+      "m2": "Happy hour today from 18:00 to 20:00",
+      "join": "Join"
+    },
+    "bk": {
+      "title": "Book a table",
+      "date": "Date",
+      "time": "Time",
+      "guests": "Guests",
+      "reserve": "Reserve",
+      "people": "{n} people"
+    },
+    "mt": {
+      "title": "Meeting with {name}",
+      "others": "{n} people are in this call",
+      "ready": "Ready to join?",
+      "join": "Join now"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Thank you for your feedback!",
     "mailSubject": "Question about my order",
     "mailBody": "Hello, I have a question about …",
-    "textTitle": "House rules",
-    "textBody": "Welcome! Please keep the noise down after 22:00 and leave the key in the box when you go. Enjoy your stay!",
+    "textTitle": "Company rules",
+    "textBody": "Welcome! Please sign in at reception, wear your visitor badge visibly and keep the emergency exits clear. Guest Wi-Fi: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Hi! I’m lost. Please call my owner, thank you!",
     "mailTo": "hello@cafe-lumen.example",

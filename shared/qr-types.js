@@ -181,7 +181,7 @@
     fields: [ { key: 'ssid', label: 'fields.ssid', sample: { t: 'sample.wifiSsid' } }, { key: 'password', label: 'fields.password', sample: '' },
               { key: 'security', type: 'select', label: 'fields.security', options: [ { value: 'WPA', label: 'WPA/WPA2' }, { value: 'WEP', label: 'WEP' }, { value: 'nopass', label: { t: 'fields.securityNone' } } ], sample: 'WPA' } ] },
   // Review: klanten in één scan naar het venster "Review schrijven" (Google, Tripadvisor, Trustpilot …). Doorsturen, geen eigen pagina.
-  { id: 'review', previewImage: 'assets/previews/review.jpg', page: false, icon: 'review', contentType: 'url', previewType: 'card', color: '#f5a524', theme: ['#f5a524', '#1f2937'],
+  { id: 'review', previewImage: 'assets/previews/business.jpg', page: false, icon: 'review', contentType: 'url', previewType: 'card', color: '#f5a524', theme: ['#f5a524', '#1f2937'],
     fields: [
       { key: 'url', type: 'url', label: 'fields.reviewUrl', required: true, check: true, sample: { t: 'sample.reviewUrl' }, hint: 'hint.reviewUrl' },
       { key: 'title', label: 'fields.bizName', sample: { t: 'sample.bizName' }, hint: 'hint.reviewName' } ] },
@@ -198,7 +198,7 @@
       { key: 'description', label: 'fields.description', max: 1000, sample: { t: 'sample.eventDesc' } },
       { key: 'url', type: 'url', label: 'fields.eventUrl', sample: { t: 'sample.bizWebsite' }, hint: 'hint.eventUrl' } ] },
   // Feedback: sterren + opmerking, eventueel e-mail (alleen met toestemming). Antwoorden: Mijn QR-codes > ⋯ > Antwoorden (server: feedback.controller.ts)
-  { id: 'feedback', previewImage: 'assets/previews/feedback.jpg', icon: 'feedback', contentType: 'feedback', previewType: 'card', color: '#0e9f6e', theme: ['#0e9f6e', '#064e3b'],
+  { id: 'feedback', previewImage: 'assets/previews/menu.jpg', icon: 'feedback', contentType: 'feedback', previewType: 'card', color: '#0e9f6e', theme: ['#0e9f6e', '#064e3b'],
     fields: [
       { key: 'logo', type: 'image', label: 'fields.logo', small: true },
       { key: 'title', label: 'fields.fbName', required: true, max: 80, sample: { t: 'sample.bizName' } },
@@ -213,20 +213,20 @@
       { key: 'subject', label: 'fields.subject', max: 150, sample: { t: 'sample.mailSubject' } },
       { key: 'body', label: 'fields.body', max: 1000, sample: { t: 'sample.mailBody' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
-  { id: 'phone', previewImage: 'assets/previews/phone.jpg', page: false, icon: 'call', contentType: 'phone', previewType: 'card', color: '#16a34a', theme: ['#16a34a', '#0f172a'],
+  { id: 'phone', previewImage: 'assets/previews/business.jpg', page: false, icon: 'call', contentType: 'phone', previewType: 'card', color: '#16a34a', theme: ['#16a34a', '#0f172a'],
     fields: [ { key: 'phone', type: 'tel', label: 'fields.phone', required: true, sample: { t: 'sample.waPhone' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
   { id: 'location', previewImage: 'assets/previews/location.jpg', page: false, icon: 'pin', contentType: 'location', previewType: 'card', color: '#dc2626', theme: ['#dc2626', '#0f172a'],
     fields: [ { key: 'address', type: 'address', label: 'fields.address', required: true, sample: { t: 'sample.bizAddress' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
   // Tekst: een eenvoudige pagina met een titel en tekst (instructies, huisregels, gedicht …)
-  { id: 'text', previewImage: 'assets/previews/text.jpg', icon: 'text', contentType: 'text', previewType: 'card', color: '#475569', theme: ['#475569', '#0f172a'],
+  { id: 'text', previewImage: 'assets/previews/facebook-cover.jpg', icon: 'text', contentType: 'text', previewType: 'card', color: '#475569', theme: ['#475569', '#0f172a'],
     fields: [ { key: 'title', label: 'fields.title', max: 100, sample: { t: 'sample.textTitle' } },
       { key: 'text', label: 'fields.textBody', required: true, max: 3000, sample: { t: 'sample.textBody' } } ] },
-  { id: 'payment', previewImage: 'assets/previews/payment.jpg', page: false, icon: 'pay', contentType: 'url', previewType: 'card', color: '#0891b2', theme: ['#0891b2', '#0f172a'],
+  { id: 'payment', previewImage: 'assets/previews/business.jpg', page: false, icon: 'pay', contentType: 'url', previewType: 'card', color: '#0891b2', theme: ['#0891b2', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.payUrl', required: true, sample: { t: 'sample.payUrl' }, hint: 'hint.payUrl' },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
-  { id: 'tiktok', previewImage: 'assets/previews/tiktok.jpg', page: false, icon: 'tiktok', contentType: 'url', previewType: 'card', color: '#111827', theme: ['#111827', '#0f172a'],
+  { id: 'tiktok', previewImage: 'assets/previews/business.jpg', page: false, icon: 'tiktok', contentType: 'url', previewType: 'card', color: '#111827', theme: ['#111827', '#0f172a'],
     fields: [ { key: 'url', type: 'url', label: 'fields.tiktokUrl', required: true, domains: ['tiktok.com', 'vm.tiktok.com'], sample: { t: 'sample.tiktokUrl' } },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
   { id: 'linkedin', previewImage: 'assets/previews/linkedin.jpg', page: false, icon: 'linkedin', contentType: 'url', previewType: 'card', color: '#0a66c2', theme: ['#0a66c2', '#0f172a'],

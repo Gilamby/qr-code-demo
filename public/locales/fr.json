@@ -400,6 +400,82 @@
       "mail": "Écrire au propriétaire",
       "note": "Merci de votre aide !",
       "subject": "Trouvé : {name}"
+    },
+    "biz": {
+      "open": "Ouvert · ferme à {time}",
+      "message": "Message",
+      "website": "Site web",
+      "work": "travail",
+      "hours": "Horaires",
+      "hoursVal": "Lun–sam {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Annuler",
+      "new": "Nouveau message",
+      "to": "À :",
+      "subject": "Objet :",
+      "sig": "Envoyé de mon iPhone"
+    },
+    "pay": {
+      "secure": "Paiement sécurisé",
+      "title": "Montant à payer",
+      "order": "Commande n° 1042",
+      "l1": "Produits",
+      "l2": "Service",
+      "phone": "Payer avec le téléphone",
+      "card": "Payer par carte",
+      "note": "Vos données de carte ne sont jamais transmises à la boutique."
+    },
+    "tt": {
+      "following": "Abonnements",
+      "followers": "Abonnés",
+      "likes": "J’aime",
+      "follow": "Suivre",
+      "bio": "Café, brunch et couchers de soleil à Marbella"
+    },
+    "li": {
+      "tag": "Boutique et café dans la vieille ville de Marbella",
+      "meta": "Commerce · Marbella · {n} abonnés",
+      "follow": "+ Suivre",
+      "visit": "Voir le site",
+      "home": "Accueil",
+      "about": "À propos",
+      "posts": "Posts",
+      "jobs": "Emplois",
+      "post": "Nous recrutons pour la saison d’été. Rejoignez notre équipe !"
+    },
+    "yt": {
+      "meta": "{n} abonnés · {v} vidéos",
+      "subscribe": "S’abonner",
+      "home": "Accueil",
+      "videos": "Vidéos",
+      "v1": "Comment nous préparons le latte parfait",
+      "v2": "Soirée musique live sur notre terrasse",
+      "views": "{n} vues"
+    },
+    "sp": {
+      "title": "{name} – Playlist boutique",
+      "meta": "{n} titres, environ 2 h 30"
+    },
+    "tg": {
+      "subs": "{n} abonnés",
+      "m1": "Plat du jour : bar grillé au citron",
+      "m2": "Happy hour aujourd’hui de 18 h à 20 h",
+      "join": "Rejoindre"
+    },
+    "bk": {
+      "title": "Réserver une table",
+      "date": "Date",
+      "time": "Heure",
+      "guests": "Personnes",
+      "reserve": "Réserver",
+      "people": "{n} personnes"
+    },
+    "mt": {
+      "title": "Réunion avec {name}",
+      "others": "{n} personnes sont dans cet appel",
+      "ready": "Prêt à rejoindre ?",
+      "join": "Rejoindre"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Merci pour votre avis !",
     "mailSubject": "Question sur ma commande",
     "mailBody": "Bonjour, j’ai une question sur …",
-    "textTitle": "Règlement intérieur",
-    "textBody": "Bienvenue ! Merci de rester calme après 22 h et de laisser la clé dans la boîte en partant. Bon séjour !",
+    "textTitle": "Règlement de l’entreprise",
+    "textBody": "Bienvenue ! Présentez-vous à l’accueil, portez votre badge visiteur de façon visible et laissez les sorties de secours dégagées. Wi-Fi invités : Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Coucou ! Je suis perdu. Appelez mon maître, merci !",
     "mailTo": "hello@cafe-lumen.example",

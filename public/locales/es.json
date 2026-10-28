@@ -400,6 +400,82 @@
       "mail": "Escribir al dueño",
       "note": "¡Gracias por ayudar!",
       "subject": "Encontrado: {name}"
+    },
+    "biz": {
+      "open": "Abierto · cierra a las {time}",
+      "message": "Mensaje",
+      "website": "Web",
+      "work": "trabajo",
+      "hours": "Horario",
+      "hoursVal": "Lun–sáb {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Cancelar",
+      "new": "Nuevo mensaje",
+      "to": "Para:",
+      "subject": "Asunto:",
+      "sig": "Enviado desde mi iPhone"
+    },
+    "pay": {
+      "secure": "Pago seguro",
+      "title": "Importe a pagar",
+      "order": "Pedido n.º 1042",
+      "l1": "Productos",
+      "l2": "Servicio",
+      "phone": "Pagar con el móvil",
+      "card": "Pagar con tarjeta",
+      "note": "Los datos de tu tarjeta nunca se comparten con la tienda."
+    },
+    "tt": {
+      "following": "Siguiendo",
+      "followers": "Seguidores",
+      "likes": "Me gusta",
+      "follow": "Seguir",
+      "bio": "Café, brunch y atardeceres en Marbella"
+    },
+    "li": {
+      "tag": "Tienda y café en el casco antiguo de Marbella",
+      "meta": "Comercio · Marbella · {n} seguidores",
+      "follow": "+ Seguir",
+      "visit": "Visitar web",
+      "home": "Inicio",
+      "about": "Acerca de",
+      "posts": "Publicaciones",
+      "jobs": "Empleos",
+      "post": "Buscamos personal para la temporada de verano. ¡Únete a nuestro equipo!"
+    },
+    "yt": {
+      "meta": "{n} suscriptores · {v} vídeos",
+      "subscribe": "Suscribirse",
+      "home": "Inicio",
+      "videos": "Vídeos",
+      "v1": "Así preparamos el latte perfecto",
+      "v2": "Noche de música en vivo en nuestra terraza",
+      "views": "{n} visualizaciones"
+    },
+    "sp": {
+      "title": "{name} – Música en tienda",
+      "meta": "{n} canciones, unas 2 h 30 min"
+    },
+    "tg": {
+      "subs": "{n} suscriptores",
+      "m1": "Plato del día: lubina a la plancha con limón",
+      "m2": "Hoy happy hour de 18:00 a 20:00",
+      "join": "Unirse"
+    },
+    "bk": {
+      "title": "Reservar mesa",
+      "date": "Fecha",
+      "time": "Hora",
+      "guests": "Personas",
+      "reserve": "Reservar",
+      "people": "{n} personas"
+    },
+    "mt": {
+      "title": "Reunión con {name}",
+      "others": "{n} personas están en esta llamada",
+      "ready": "¿Listo para unirte?",
+      "join": "Unirse ahora"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "¡Gracias por tu opinión!",
     "mailSubject": "Pregunta sobre mi pedido",
     "mailBody": "Hola, tengo una pregunta sobre …",
-    "textTitle": "Normas de la casa",
-    "textBody": "¡Bienvenido! Haz poco ruido a partir de las 22:00 y deja la llave en la caja al salir. ¡Disfruta!",
+    "textTitle": "Normas de la empresa",
+    "textBody": "¡Bienvenido! Regístrate en recepción, lleva tu pase de visitante a la vista y deja libres las salidas de emergencia. Wifi de invitados: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "¡Hola! Me he perdido. Llama a mi dueño, ¡gracias!",
     "mailTo": "hello@cafe-lumen.example",

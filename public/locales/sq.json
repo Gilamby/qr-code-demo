@@ -400,6 +400,82 @@
       "mail": "Shkruaji pronarit",
       "note": "Faleminderit për ndihmën!",
       "subject": "U gjet: {name}"
+    },
+    "biz": {
+      "open": "Hapur · mbyllet në {time}",
+      "message": "Mesazh",
+      "website": "Faqja",
+      "work": "punë",
+      "hours": "Orari",
+      "hoursVal": "Hën–Sht {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Anulo",
+      "new": "Mesazh i ri",
+      "to": "Për:",
+      "subject": "Subjekti:",
+      "sig": "Dërguar nga iPhone-i im"
+    },
+    "pay": {
+      "secure": "Pagesë e sigurt",
+      "title": "Për t’u paguar",
+      "order": "Porosia nr. 1042",
+      "l1": "Produkte",
+      "l2": "Shërbim",
+      "phone": "Paguaj me telefon",
+      "card": "Paguaj me kartë",
+      "note": "Të dhënat e kartës nuk ndahen kurrë me dyqanin."
+    },
+    "tt": {
+      "following": "Ndjek",
+      "followers": "Ndjekës",
+      "likes": "Pëlqime",
+      "follow": "Ndiq",
+      "bio": "Kafe, brunch dhe perëndime dielli në Marbella"
+    },
+    "li": {
+      "tag": "Dyqan dhe kafene në qytetin e vjetër të Marbellës",
+      "meta": "Tregti · Marbella · {n} ndjekës",
+      "follow": "+ Ndiq",
+      "visit": "Vizito faqen",
+      "home": "Kreu",
+      "about": "Rreth",
+      "posts": "Postime",
+      "jobs": "Punë",
+      "post": "Po punësojmë për sezonin e verës. Bashkohu me ekipin!"
+    },
+    "yt": {
+      "meta": "{n} abonentë · {v} video",
+      "subscribe": "Abonohu",
+      "home": "Kreu",
+      "videos": "Video",
+      "v1": "Si e përgatisim latte-n perfekte",
+      "v2": "Mbrëmje me muzikë live në tarracën tonë",
+      "views": "{n} shikime"
+    },
+    "sp": {
+      "title": "{name} – Muzika e dyqanit",
+      "meta": "{n} këngë, rreth 2 orë 30 min"
+    },
+    "tg": {
+      "subs": "{n} abonentë",
+      "m1": "Pjata e ditës: levrek në skarë me limon",
+      "m2": "Sot happy hour nga 18:00 deri 20:00",
+      "join": "Bashkohu"
+    },
+    "bk": {
+      "title": "Rezervo një tavolinë",
+      "date": "Data",
+      "time": "Ora",
+      "guests": "Persona",
+      "reserve": "Rezervo",
+      "people": "{n} persona"
+    },
+    "mt": {
+      "title": "Takim me {name}",
+      "others": "{n} persona janë në këtë telefonatë",
+      "ready": "Gati të hyni?",
+      "join": "Hyr tani"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Faleminderit për komentin!",
     "mailSubject": "Pyetje për porosinë time",
     "mailBody": "Përshëndetje, kam një pyetje për …",
-    "textTitle": "Rregullat e shtëpisë",
-    "textBody": "Mirë se erdhët! Ju lutemi heshtje pas orës 22:00 dhe lini çelësin në kuti kur largoheni. Qëndrim të këndshëm!",
+    "textTitle": "Rregullat e kompanisë",
+    "textBody": "Mirë se vini! Regjistrohuni në recepsion, mbani kartën e vizitorit të dukshme dhe lini të lira daljet e emergjencës. Wi-Fi për mysafirët: Lumen-Guest.",
     "lostName": "Maks",
     "lostMsg": "Përshëndetje! Kam humbur. Telefononi pronarin tim, faleminderit!",
     "mailTo": "hello@cafe-lumen.example",

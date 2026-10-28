@@ -400,6 +400,82 @@
       "mail": "Scrie proprietarului",
       "note": "Mulțumim pentru ajutor!",
       "subject": "Găsit: {name}"
+    },
+    "biz": {
+      "open": "Deschis · închide la {time}",
+      "message": "Mesaj",
+      "website": "Site",
+      "work": "serviciu",
+      "hours": "Program",
+      "hoursVal": "Lun–sâm {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Anulează",
+      "new": "Mesaj nou",
+      "to": "Către:",
+      "subject": "Subiect:",
+      "sig": "Trimis de pe iPhone"
+    },
+    "pay": {
+      "secure": "Plată sigură",
+      "title": "De plată",
+      "order": "Comanda nr. 1042",
+      "l1": "Produse",
+      "l2": "Serviciu",
+      "phone": "Plătește cu telefonul",
+      "card": "Plătește cu cardul",
+      "note": "Datele cardului nu sunt niciodată transmise magazinului."
+    },
+    "tt": {
+      "following": "Urmăriți",
+      "followers": "Urmăritori",
+      "likes": "Aprecieri",
+      "follow": "Urmărește",
+      "bio": "Cafea, brunch și apusuri în Marbella"
+    },
+    "li": {
+      "tag": "Magazin și cafenea în centrul vechi din Marbella",
+      "meta": "Comerț · Marbella · {n} urmăritori",
+      "follow": "+ Urmărește",
+      "visit": "Vizitează site-ul",
+      "home": "Acasă",
+      "about": "Despre",
+      "posts": "Postări",
+      "jobs": "Joburi",
+      "post": "Angajăm pentru sezonul de vară. Alătură-te echipei!"
+    },
+    "yt": {
+      "meta": "{n} abonați · {v} videoclipuri",
+      "subscribe": "Abonează-te",
+      "home": "Acasă",
+      "videos": "Videoclipuri",
+      "v1": "Cum facem latte-ul perfect",
+      "v2": "Seară cu muzică live pe terasa noastră",
+      "views": "{n} vizionări"
+    },
+    "sp": {
+      "title": "{name} – Muzică în magazin",
+      "meta": "{n} melodii, cam 2 h 30 min"
+    },
+    "tg": {
+      "subs": "{n} abonați",
+      "m1": "Felul zilei: biban de mare la grătar cu lămâie",
+      "m2": "Azi happy hour între 18:00 și 20:00",
+      "join": "Alătură-te"
+    },
+    "bk": {
+      "title": "Rezervă o masă",
+      "date": "Data",
+      "time": "Ora",
+      "guests": "Persoane",
+      "reserve": "Rezervă",
+      "people": "{n} persoane"
+    },
+    "mt": {
+      "title": "Întâlnire cu {name}",
+      "others": "{n} persoane sunt în acest apel",
+      "ready": "Gata să intri?",
+      "join": "Intră acum"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Mulțumim pentru feedback!",
     "mailSubject": "Întrebare despre comanda mea",
     "mailBody": "Bună, am o întrebare despre …",
-    "textTitle": "Regulile casei",
-    "textBody": "Bun venit! Te rugăm să fii liniștit după ora 22 și să lași cheia în cutie la plecare. Ședere plăcută!",
+    "textTitle": "Regulile companiei",
+    "textBody": "Bun venit! Prezintă-te la recepție, poartă ecusonul de vizitator la vedere și lasă libere ieșirile de urgență. Wi-Fi pentru oaspeți: Lumen-Guest.",
     "lostName": "Max",
     "lostMsg": "Bună! M-am pierdut. Sună-mi stăpânul, mulțumesc!",
     "mailTo": "hello@cafe-lumen.example",

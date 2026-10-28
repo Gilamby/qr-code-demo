@@ -400,6 +400,82 @@
       "mail": "Mail de eigenaar",
       "note": "Bedankt voor je hulp!",
       "subject": "Gevonden: {name}"
+    },
+    "biz": {
+      "open": "Open · sluit om {time}",
+      "message": "Bericht",
+      "website": "Website",
+      "work": "werk",
+      "hours": "Openingstijden",
+      "hoursVal": "Ma–za {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Annuleer",
+      "new": "Nieuw bericht",
+      "to": "Aan:",
+      "subject": "Onderwerp:",
+      "sig": "Verzonden vanaf mijn iPhone"
+    },
+    "pay": {
+      "secure": "Veilig betalen",
+      "title": "Te betalen",
+      "order": "Bestelling #1042",
+      "l1": "Producten",
+      "l2": "Service",
+      "phone": "Betalen met telefoon",
+      "card": "Betalen met kaart",
+      "note": "Je kaartgegevens worden nooit gedeeld met de winkel."
+    },
+    "tt": {
+      "following": "Volgend",
+      "followers": "Volgers",
+      "likes": "Likes",
+      "follow": "Volgen",
+      "bio": "Koffie, brunch en zonsondergangen in Marbella"
+    },
+    "li": {
+      "tag": "Winkel en café in de oude stad van Marbella",
+      "meta": "Retail · Marbella · {n} volgers",
+      "follow": "+ Volgen",
+      "visit": "Website bezoeken",
+      "home": "Home",
+      "about": "Over",
+      "posts": "Berichten",
+      "jobs": "Vacatures",
+      "post": "We zoeken versterking voor het zomerseizoen. Kom bij ons team!"
+    },
+    "yt": {
+      "meta": "{n} abonnees · {v} video’s",
+      "subscribe": "Abonneren",
+      "home": "Home",
+      "videos": "Video’s",
+      "v1": "Zo maken wij de perfecte latte",
+      "v2": "Livemuziek op ons terras",
+      "views": "{n} weergaven"
+    },
+    "sp": {
+      "title": "{name} – Muziek in de winkel",
+      "meta": "{n} nummers, ongeveer 2 u 30 min"
+    },
+    "tg": {
+      "subs": "{n} abonnees",
+      "m1": "Dagspecial: gegrilde zeebaars met citroen",
+      "m2": "Vandaag happy hour van 18:00 tot 20:00",
+      "join": "Deelnemen"
+    },
+    "bk": {
+      "title": "Reserveer een tafel",
+      "date": "Datum",
+      "time": "Tijd",
+      "guests": "Gasten",
+      "reserve": "Reserveren",
+      "people": "{n} personen"
+    },
+    "mt": {
+      "title": "Meeting met {name}",
+      "others": "{n} personen zitten in dit gesprek",
+      "ready": "Klaar om deel te nemen?",
+      "join": "Nu deelnemen"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Bedankt voor je feedback!",
     "mailSubject": "Vraag over mijn bestelling",
     "mailBody": "Hallo, ik heb een vraag over …",
-    "textTitle": "Huisregels",
-    "textBody": "Welkom! Wees na 22:00 graag stil en laat de sleutel bij vertrek in het kastje. Fijn verblijf!",
+    "textTitle": "Bedrijfsregels",
+    "textBody": "Welkom! Meld je bij de receptie, draag je bezoekerspas zichtbaar en houd de nooduitgangen vrij. Gasten-wifi: Lumen-Gast.",
     "lostName": "Max",
     "lostMsg": "Hoi! Ik ben verdwaald. Bel alsjeblieft mijn baasje, dankjewel!",
     "mailTo": "hello@cafe-lumen.example",

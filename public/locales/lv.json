@@ -400,6 +400,82 @@
       "mail": "Rakstīt īpašniekam",
       "note": "Paldies par palīdzību!",
       "subject": "Atrasts: {name}"
+    },
+    "biz": {
+      "open": "Atvērts · slēdz {time}",
+      "message": "Ziņa",
+      "website": "Vietne",
+      "work": "darbs",
+      "hours": "Darba laiks",
+      "hoursVal": "P–S {from} – {to}"
+    },
+    "mail": {
+      "cancel": "Atcelt",
+      "new": "Jauna ziņa",
+      "to": "Kam:",
+      "subject": "Temats:",
+      "sig": "Nosūtīts no mana iPhone"
+    },
+    "pay": {
+      "secure": "Droša maksāšana",
+      "title": "Maksājamā summa",
+      "order": "Pasūtījums nr. 1042",
+      "l1": "Preces",
+      "l2": "Apkalpošana",
+      "phone": "Maksāt ar tālruni",
+      "card": "Maksāt ar karti",
+      "note": "Jūsu kartes dati nekad netiek nodoti veikalam."
+    },
+    "tt": {
+      "following": "Seko",
+      "followers": "Sekotāji",
+      "likes": "Patīk",
+      "follow": "Sekot",
+      "bio": "Kafija, brančs un saulrieti Marbeljā"
+    },
+    "li": {
+      "tag": "Veikals un kafejnīca Marbeljas vecpilsētā",
+      "meta": "Mazumtirdzniecība · Marbelja · {n} sekotāji",
+      "follow": "+ Sekot",
+      "visit": "Apmeklēt vietni",
+      "home": "Sākums",
+      "about": "Par",
+      "posts": "Ieraksti",
+      "jobs": "Darbs",
+      "post": "Meklējam darbiniekus vasaras sezonai. Pievienojies komandai!"
+    },
+    "yt": {
+      "meta": "{n} abonenti · {v} video",
+      "subscribe": "Abonēt",
+      "home": "Sākums",
+      "videos": "Video",
+      "v1": "Kā mēs gatavojam perfekto latte",
+      "v2": "Dzīvās mūzikas vakars mūsu terasē",
+      "views": "{n} skatījumi"
+    },
+    "sp": {
+      "title": "{name} – Veikala mūzika",
+      "meta": "{n} dziesmas, ap 2 h 30 min"
+    },
+    "tg": {
+      "subs": "{n} abonenti",
+      "m1": "Dienas ēdiens: grilēta jūras asaris ar citronu",
+      "m2": "Šodien happy hour no 18:00 līdz 20:00",
+      "join": "Pievienoties"
+    },
+    "bk": {
+      "title": "Rezervēt galdiņu",
+      "date": "Datums",
+      "time": "Laiks",
+      "guests": "Viesi",
+      "reserve": "Rezervēt",
+      "people": "{n} personas"
+    },
+    "mt": {
+      "title": "Sapulce ar {name}",
+      "others": "{n} cilvēki ir šajā zvanā",
+      "ready": "Gatavs pievienoties?",
+      "join": "Pievienoties tagad"
     }
   },
   "hero": {
@@ -1245,8 +1321,8 @@
     "fbThanks": "Paldies par atsauksmi!",
     "mailSubject": "Jautājums par manu pasūtījumu",
     "mailBody": "Sveiki, man ir jautājums par …",
-    "textTitle": "Mājas noteikumi",
-    "textBody": "Laipni lūdzam! Pēc 22:00 lūdzam ievērot klusumu un izbraucot atstāt atslēgu kastītē. Patīkamu uzturēšanos!",
+    "textTitle": "Uzņēmuma noteikumi",
+    "textBody": "Laipni lūdzam! Piesakieties reģistratūrā, nēsājiet apmeklētāja karti redzami un atstājiet avārijas izejas brīvas. Viesu Wi-Fi: Lumen-Guest.",
     "lostName": "Makss",
     "lostMsg": "Sveiki! Esmu apmaldījies. Lūdzu, piezvaniet manam saimniekam, paldies!",
     "mailTo": "hello@cafe-lumen.example",
