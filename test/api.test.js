@@ -1218,8 +1218,13 @@ test('aanmelden: alleen met toestemming, zelfde e-mail niet dubbel, eigenaar zie
   const l = await k('GET', '/api/qr-codes/' + c.json.id + '/signups'); assert.equal(l.json.count, 1, 'zelfde e-mail = niet dubbel'); assert.equal(l.json.items[0].name, 'Ana', 'niet overschreven');
   const other = client(); await signup(other, 'su-o@example.com', 'Aanmelden zin 28!', 'Ander');
   assert.equal((await other('GET', '/api/qr-codes/' + c.json.id + '/signups')).status, 404, 'alleen de eigenaar');
+  // 8 tegelijk: geen enkele mag verloren gaan
+  const many = await Promise.all([1, 2, 3, 4, 5, 6, 7, 8].map((n) => post({ name: 'Gast ' + n, email: 'gast' + n + '@example.com', consent: true })));
+  assert.ok(many.every((r) => r.status === 201 || r.status === 429));
+  const ok = many.filter((r) => r.status === 201).length;
+  assert.equal((await k('GET', '/api/qr-codes/' + c.json.id + '/signups')).json.count, 1 + ok, 'tegelijk insturen: niets kwijt');
   assert.equal((await k('DELETE', '/api/qr-codes/' + c.json.id + '/signups/' + l.json.items[0].id)).status, 204);
-  assert.equal((await k('GET', '/api/qr-codes/' + c.json.id + '/signups')).json.count, 0);
+  assert.equal((await k('GET', '/api/qr-codes/' + c.json.id + '/signups')).json.count, ok);
 });
 
 test('extra soorten alleen in Pro en Business: Standard krijgt 403', async () => {

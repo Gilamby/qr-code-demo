@@ -14,6 +14,7 @@ import { AuthService } from '../auth/auth.service';
 import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { EMAIL } from './validation';
 import { fail } from '../common/http';
+import { locked } from '../common/lock';
 import type { User } from '../types';
 
 export type Answer = { id: string; at: string; rating: number; comment: string; email: string | null };
@@ -36,10 +37,12 @@ export class FeedbackController {
     const comment = String(b.comment || '').replace(/\r\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim().slice(0, 1000);
     let email: string | null = null;
     if (q.content && q.content.askEmail && b.consent === true && b.email) { const e = String(b.email).trim().toLowerCase().slice(0, 200); if (!EMAIL.test(e)) throw fail(400, 'email'); email = e; }
-    const list = await readAnswers(this.db, q.id);
-    list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), rating, comment, email });
-    await save(this.db, q.id, list);
-    return { ok: true };
+    return locked('fb:' + q.id, async () => {
+      const list = await readAnswers(this.db, q.id);
+      list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), rating, comment, email });
+      await save(this.db, q.id, list);
+      return { ok: true };
+    });
   }
 
   @Get('qr-codes/:id/feedback')
@@ -57,7 +60,9 @@ export class FeedbackController {
   @HttpCode(204)
   async remove(@CurrentUser() u: User, @Param('id') id: string, @Param('fid') fid: string) {
     const q = await this.db.getOwnedQrCode(id, u.id); if (!q) throw fail(404, 'QR code not found');
-    const list = await readAnswers(this.db, q.id); if (!list.some((a) => a.id === fid)) throw fail(404, 'Not found');
-    await save(this.db, q.id, list.filter((a) => a.id !== fid));
+    return locked('fb:' + q.id, async () => {
+      const list = await readAnswers(this.db, q.id); if (!list.some((a) => a.id === fid)) throw fail(404, 'Not found');
+      await save(this.db, q.id, list.filter((a) => a.id !== fid));
+    });
   }
 }

@@ -15,6 +15,7 @@ import { AuthService } from '../auth/auth.service';
 import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { EMAIL } from './validation';
 import { fail } from '../common/http';
+import { locked } from '../common/lock';
 import type { User } from '../types';
 
 export type Signup = { id: string; at: string; name: string; email: string; phone: string | null };
@@ -41,12 +42,14 @@ export class SignupController {
     if (q.content && q.content.askPhone && b.phone) { phone = clean(b.phone, 30); if (!/^\+?[\d\s().-]{6,30}$/.test(phone)) errors.push('phone'); }
     if (b.consent !== true) errors.push('consent');
     if (errors.length) throw fail(400, 'invalid', { details: errors });
-    const list = await readSignups(this.db, q.id);
-    if (list.some((s) => s.email === email)) return { ok: true };   // al aangemeld: niets overschrijven (anders kan iemand met jouw e-mail je gegevens wijzigen)
-    if (list.length >= MAX) throw fail(409, 'full');
-    list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), name, email, phone });
-    await save(this.db, q.id, list);
-    return { ok: true };
+    return locked('su:' + q.id, async () => {
+      const list = await readSignups(this.db, q.id);
+      if (list.some((s) => s.email === email)) return { ok: true };   // al aangemeld: niets overschrijven (anders kan iemand met jouw e-mail je gegevens wijzigen)
+      if (list.length >= MAX) throw fail(409, 'full');
+      list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), name, email, phone });
+      await save(this.db, q.id, list);
+      return { ok: true };
+    });
   }
 
   @Get('qr-codes/:id/signups')
@@ -62,7 +65,9 @@ export class SignupController {
   @HttpCode(204)
   async remove(@CurrentUser() u: User, @Param('id') id: string, @Param('sid') sid: string) {
     const q = await this.db.getOwnedQrCode(id, u.id); if (!q) throw fail(404, 'QR code not found');
-    const list = await readSignups(this.db, q.id); if (!list.some((s) => s.id === sid)) throw fail(404, 'Not found');
-    await save(this.db, q.id, list.filter((s) => s.id !== sid));
+    return locked('su:' + q.id, async () => {
+      const list = await readSignups(this.db, q.id); if (!list.some((s) => s.id === sid)) throw fail(404, 'Not found');
+      await save(this.db, q.id, list.filter((s) => s.id !== sid));
+    });
   }
 }

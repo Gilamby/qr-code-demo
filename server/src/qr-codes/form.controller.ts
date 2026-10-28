@@ -15,6 +15,7 @@ import { AuthService } from '../auth/auth.service';
 import { CurrentUser, LoggedIn } from '../auth/auth.guard';
 import { EMAIL } from './validation';
 import { fail } from '../common/http';
+import { locked } from '../common/lock';
 import type { User } from '../types';
 
 type Q = { t: string; q: string; o?: string[]; r?: boolean };
@@ -50,10 +51,12 @@ export class FormController {
     if (qs.some((x, i) => x.t === 'email' && out[i]) && b.consent !== true) errors.push('consent');
     if (out.every((a) => a == null || a === '' || (Array.isArray(a) && !a.length))) errors.push('empty');
     if (errors.length) throw fail(400, 'invalid', { details: [...new Set(errors)] });
-    const list = await readEntries(this.db, q.id); if (list.length >= MAX) throw fail(409, 'full');
-    list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), a: out, q: qs.map((x) => ({ t: x.t, q: x.q, o: x.o })) });
-    await save(this.db, q.id, list);
-    return { ok: true };
+    return locked('fm:' + q.id, async () => {
+      const list = await readEntries(this.db, q.id); if (list.length >= MAX) throw fail(409, 'full');
+      list.unshift({ id: crypto.randomBytes(5).toString('hex'), at: new Date().toISOString(), a: out, q: qs.map((x) => ({ t: x.t, q: x.q, o: x.o })) });
+      await save(this.db, q.id, list);
+      return { ok: true };
+    });
   }
 
   @Get('qr-codes/:id/form-answers')
@@ -69,7 +72,9 @@ export class FormController {
   @HttpCode(204)
   async remove(@CurrentUser() u: User, @Param('id') id: string, @Param('aid') aid: string) {
     const q = await this.db.getOwnedQrCode(id, u.id); if (!q) throw fail(404, 'QR code not found');
-    const list = await readEntries(this.db, q.id); if (!list.some((s) => s.id === aid)) throw fail(404, 'Not found');
-    await save(this.db, q.id, list.filter((s) => s.id !== aid));
+    return locked('fm:' + q.id, async () => {
+      const list = await readEntries(this.db, q.id); if (!list.some((s) => s.id === aid)) throw fail(404, 'Not found');
+      await save(this.db, q.id, list.filter((s) => s.id !== aid));
+    });
   }
 }
