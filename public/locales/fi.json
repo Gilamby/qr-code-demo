@@ -1665,7 +1665,10 @@
     "verifiedLead": "Tilisi on valmis. Voit sulkea tämän sivun: laitteella, jolla loit tilin, jatkat automaattisesti.",
     "continueHere": "Jatka tällä laitteella",
     "errPwned": "Tämä salasana löytyy tunnetuista tietovuodoista. Valitse toinen.",
-    "deviceLimit": "Sinut kirjattiin ulos, koska tiliä käytettiin toisella laitteella. Tili voi olla kirjautuneena enintään 3 laitteella kerrallaan. Työskenteletkö kollegoiden kanssa? Käytä Tiimiä."
+    "deviceLimit": "Sinut kirjattiin ulos, koska tiliä käytettiin toisella laitteella. Tili voi olla kirjautuneena enintään 3 laitteella kerrallaan. Työskenteletkö kollegoiden kanssa? Käytä Tiimiä.",
+    "confirmTitle": "Vahvista tilisi",
+    "confirmLead": "Vielä yksi napsautus, niin sähköpostiosoitteesi on vahvistettu.",
+    "confirmBtn": "Vahvista tilini"
   },
   "acct": {
     "profile": "Profiili",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Hyviä uutisia: ”{name}” skannattiin juuri ensimmäistä kertaa. Nyt näet, missä ja milloin sitä skannataan.",
     "scanFooter": "Voit poistaa nämä ilmoitukset käytöstä kohdassa Oma tili > Ilmoitukset.",
     "scanMilestoneSubject": "”{name}” on skannattu {n} kertaa",
-    "scanMilestoneText": "Hienoa: QR-koodisi ”{name}” on saavuttanut {n} skannausta."
+    "scanMilestoneText": "Hienoa: QR-koodisi ”{name}” on saavuttanut {n} skannausta.",
+    "existsSubject": "Sinulla on jo QR-Codex-tili",
+    "existsText": "Joku (luultavasti sinä) yritti luoda uuden tilin tällä sähköpostiosoitteella. Sinulla on jo tili: kirjaudu sisään. Unohditko salasanan? Valitse uusi kirjautumissivulla.",
+    "existsButton": "Kirjaudu sisään",
+    "existsIgnore": "Etkö se ollut sinä? Sinun ei tarvitse tehdä mitään; mikään ei muuttunut."
   },
   "contact": {
     "lead": "Kysymys, ongelma tai idea? Lähetä meille viesti.",

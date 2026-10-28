@@ -1665,7 +1665,10 @@
     "verifiedLead": "Dein Konto ist bereit. Du kannst diese Seite schließen: Auf dem Gerät, auf dem du das Konto erstellt hast, geht es automatisch weiter.",
     "continueHere": "Auf diesem Gerät fortfahren",
     "errPwned": "Dieses Passwort kommt in bekannten Datenlecks vor. Bitte wähle ein anderes.",
-    "deviceLimit": "Du wurdest abgemeldet, weil dieses Konto auf einem anderen Gerät verwendet wurde. Ein Konto kann auf höchstens 3 Geräten gleichzeitig angemeldet sein. Arbeitest du mit Kollegen? Nutze Team."
+    "deviceLimit": "Du wurdest abgemeldet, weil dieses Konto auf einem anderen Gerät verwendet wurde. Ein Konto kann auf höchstens 3 Geräten gleichzeitig angemeldet sein. Arbeitest du mit Kollegen? Nutze Team.",
+    "confirmTitle": "Bestätige dein Konto",
+    "confirmLead": "Noch ein Klick und deine E-Mail-Adresse ist bestätigt.",
+    "confirmBtn": "Mein Konto bestätigen"
   },
   "acct": {
     "profile": "Profil",
@@ -1976,7 +1979,11 @@
     "quietTip": "Hängt das Plakat, der Aufkleber oder die Speisekarte noch und ist der Code gut sichtbar? Ein beschädigter oder verdeckter Code ist oft der Grund.",
     "quietFooter": "Du kannst diese Benachrichtigungen unter Mein Konto > Benachrichtigungen ausschalten.",
     "ticketSubject": "Antwort auf deine Frage #{id}",
-    "ticketButton": "In der App ansehen"
+    "ticketButton": "In der App ansehen",
+    "existsSubject": "Du hast bereits ein QR-Codex-Konto",
+    "existsText": "Jemand (wahrscheinlich du) wollte ein neues Konto mit dieser E-Mail-Adresse erstellen. Du hast bereits ein Konto: melde dich einfach an. Passwort vergessen? Wähle auf der Anmeldeseite ein neues.",
+    "existsButton": "Anmelden",
+    "existsIgnore": "Das warst nicht du? Dann musst du nichts tun; es hat sich nichts geändert."
   },
   "contact": {
     "lead": "Eine Frage, ein Problem oder eine Idee? Schreib uns eine Nachricht.",

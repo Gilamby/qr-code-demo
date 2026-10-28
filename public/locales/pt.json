@@ -1665,7 +1665,10 @@
     "verifiedLead": "A sua conta está pronta. Pode fechar esta página: no dispositivo onde criou a conta, continua automaticamente.",
     "continueHere": "Continuar neste dispositivo",
     "errPwned": "Esta palavra-passe aparece em fugas de dados conhecidas. Escolha outra.",
-    "deviceLimit": "A sua sessão foi terminada porque esta conta foi usada noutro dispositivo. Uma conta pode estar ligada em no máximo 3 dispositivos ao mesmo tempo. Trabalha com colegas? Use a Equipa."
+    "deviceLimit": "A sua sessão foi terminada porque esta conta foi usada noutro dispositivo. Uma conta pode estar ligada em no máximo 3 dispositivos ao mesmo tempo. Trabalha com colegas? Use a Equipa.",
+    "confirmTitle": "Confirme a sua conta",
+    "confirmLead": "Mais um clique e o seu e-mail fica confirmado.",
+    "confirmBtn": "Confirmar a minha conta"
   },
   "acct": {
     "profile": "Perfil",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Boas notícias: «{name}» acabou de ser lido pela primeira vez. Agora podes ver onde e quando é lido.",
     "scanFooter": "Podes desativar estas notificações em A minha conta > Notificações.",
     "scanMilestoneSubject": "«{name}» foi lido {n} vezes",
-    "scanMilestoneText": "Ótimo: o teu código QR «{name}» chegou às {n} leituras."
+    "scanMilestoneText": "Ótimo: o teu código QR «{name}» chegou às {n} leituras.",
+    "existsSubject": "Já tem uma conta QR-Codex",
+    "existsText": "Alguém (provavelmente você) tentou criar uma nova conta com este e-mail. Já tem uma conta: basta iniciar sessão. Esqueceu-se da palavra-passe? Escolha uma nova na página de início de sessão.",
+    "existsButton": "Iniciar sessão",
+    "existsIgnore": "Não foi você? Não precisa de fazer nada; nada mudou."
   },
   "contact": {
     "lead": "Uma pergunta, um problema ou uma ideia? Envie-nos uma mensagem.",

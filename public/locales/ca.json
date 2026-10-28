@@ -1665,7 +1665,10 @@
     "verifiedLead": "El teu compte està a punt. Pots tancar aquesta pàgina: al dispositiu on vas crear el compte continuaràs automàticament.",
     "continueHere": "Continua en aquest dispositiu",
     "errPwned": "Aquesta contrasenya apareix en filtracions de dades conegudes. Tria’n una altra.",
-    "deviceLimit": "S'ha tancat la sessió perquè aquest compte s'ha fet servir en un altre dispositiu. Un compte pot tenir la sessió oberta en 3 dispositius com a màxim. Treballes amb companys? Fes servir Equip."
+    "deviceLimit": "S'ha tancat la sessió perquè aquest compte s'ha fet servir en un altre dispositiu. Un compte pot tenir la sessió oberta en 3 dispositius com a màxim. Treballes amb companys? Fes servir Equip.",
+    "confirmTitle": "Confirma el teu compte",
+    "confirmLead": "Un clic més i el teu correu quedarà confirmat.",
+    "confirmBtn": "Confirmar el meu compte"
   },
   "acct": {
     "profile": "Perfil",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Bones notícies: «{name}» s’acaba d’escanejar per primera vegada. Ara pots veure on i quan s’escaneja.",
     "scanFooter": "Pots desactivar aquestes notificacions a El meu compte > Notificacions.",
     "scanMilestoneSubject": "«{name}» s’ha escanejat {n} vegades",
-    "scanMilestoneText": "Genial: el teu codi QR «{name}» ha arribat a {n} escanejos."
+    "scanMilestoneText": "Genial: el teu codi QR «{name}» ha arribat a {n} escanejos.",
+    "existsSubject": "Ja tens un compte de QR-Codex",
+    "existsText": "Algú (probablement tu) ha intentat crear un compte nou amb aquest correu. Ja tens un compte: inicia la sessió. Has oblidat la contrasenya? Tria’n una de nova a la pàgina d’inici de sessió.",
+    "existsButton": "Inicia la sessió",
+    "existsIgnore": "No has estat tu? No cal fer res; no ha canviat res."
   },
   "contact": {
     "lead": "Una pregunta, un problema o una idea? Envia'ns un missatge.",

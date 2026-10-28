@@ -1665,7 +1665,10 @@
     "verifiedLead": "Jūsu konts ir gatavs. Varat aizvērt šo lapu: ierīcē, kurā izveidojāt kontu, turpināsiet automātiski.",
     "continueHere": "Turpināt šajā ierīcē",
     "errPwned": "Šī parole ir atrodama zināmās datu noplūdēs. Izvēlieties citu.",
-    "deviceLimit": "Jūs tikāt izrakstīts, jo konts tika izmantots citā ierīcē. Konts var būt pieslēgts ne vairāk kā 3 ierīcēs vienlaikus. Strādājat ar kolēģiem? Izmantojiet Komandu."
+    "deviceLimit": "Jūs tikāt izrakstīts, jo konts tika izmantots citā ierīcē. Konts var būt pieslēgts ne vairāk kā 3 ierīcēs vienlaikus. Strādājat ar kolēģiem? Izmantojiet Komandu.",
+    "confirmTitle": "Apstipriniet savu kontu",
+    "confirmLead": "Vēl viens klikšķis, un jūsu e-pasts ir apstiprināts.",
+    "confirmBtn": "Apstiprināt manu kontu"
   },
   "acct": {
     "profile": "Profils",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Labas ziņas: “{name}” tikko noskenēts pirmo reizi. Tagad vari redzēt, kur un kad tas tiek skenēts.",
     "scanFooter": "Šos paziņojumus vari izslēgt sadaļā Mans konts > Paziņojumi.",
     "scanMilestoneSubject": "“{name}” noskenēts {n} reizes",
-    "scanMilestoneText": "Lieliski: tavs QR kods “{name}” sasniedzis {n} skenējumus."
+    "scanMilestoneText": "Lieliski: tavs QR kods “{name}” sasniedzis {n} skenējumus.",
+    "existsSubject": "Jums jau ir QR-Codex konts",
+    "existsText": "Kāds (visticamāk, jūs) mēģināja izveidot jaunu kontu ar šo e-pastu. Jums jau ir konts: vienkārši piesakieties. Aizmirsāt paroli? Izvēlieties jaunu pieteikšanās lapā.",
+    "existsButton": "Pieteikties",
+    "existsIgnore": "Tas nebijāt jūs? Jums nekas nav jādara; nekas nav mainījies."
   },
   "contact": {
     "lead": "Jautājums, problēma vai ideja? Uzraksti mums.",

@@ -1665,7 +1665,10 @@
     "verifiedLead": "Your account is ready. You can close this page: on the device where you created your account, you continue automatically.",
     "continueHere": "Continue on this device",
     "errPwned": "This password appears in known data breaches. Please choose a different one.",
-    "deviceLimit": "You were signed out because this account was used on another device. An account can be signed in on up to 3 devices at once. Working with colleagues? Use Team."
+    "deviceLimit": "You were signed out because this account was used on another device. An account can be signed in on up to 3 devices at once. Working with colleagues? Use Team.",
+    "confirmTitle": "Confirm your account",
+    "confirmLead": "One click and your email address is confirmed.",
+    "confirmBtn": "Confirm my account"
   },
   "acct": {
     "profile": "Profile",
@@ -1976,7 +1979,11 @@
     "quietTip": "Is the poster, sticker or menu still there and easy to see? A damaged or covered code often explains it.",
     "quietFooter": "You can turn these notifications off in My account > Notifications.",
     "ticketSubject": "Reply to your question #{id}",
-    "ticketButton": "View in the app"
+    "ticketButton": "View in the app",
+    "existsSubject": "You already have a QR-Codex account",
+    "existsText": "Someone (probably you) tried to create a new account with this email address. You already have an account: just log in. Forgot your password? Choose a new one on the login page.",
+    "existsButton": "Log in",
+    "existsIgnore": "Wasn't you? You don't need to do anything; nothing has changed."
   },
   "contact": {
     "lead": "A question, a problem or an idea? Send us a message.",

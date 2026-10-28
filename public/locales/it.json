@@ -1665,7 +1665,10 @@
     "verifiedLead": "Il tuo account è pronto. Puoi chiudere questa pagina: sul dispositivo dove hai creato l'account continuerai automaticamente.",
     "continueHere": "Continua su questo dispositivo",
     "errPwned": "Questa password compare in violazioni di dati note. Scegline un’altra.",
-    "deviceLimit": "Sei stato disconnesso perché questo account è stato usato su un altro dispositivo. Un account può essere connesso su massimo 3 dispositivi contemporaneamente. Lavori con colleghi? Usa Team."
+    "deviceLimit": "Sei stato disconnesso perché questo account è stato usato su un altro dispositivo. Un account può essere connesso su massimo 3 dispositivi contemporaneamente. Lavori con colleghi? Usa Team.",
+    "confirmTitle": "Conferma il tuo account",
+    "confirmLead": "Ancora un clic e il tuo indirizzo email è confermato.",
+    "confirmBtn": "Conferma il mio account"
   },
   "acct": {
     "profile": "Profilo",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Buone notizie: «{name}» è appena stato scansionato per la prima volta. Ora puoi vedere dove e quando viene scansionato.",
     "scanFooter": "Puoi disattivare queste notifiche in Il mio account > Notifiche.",
     "scanMilestoneSubject": "«{name}» è stato scansionato {n} volte",
-    "scanMilestoneText": "Ottimo: il tuo codice QR «{name}» ha raggiunto {n} scansioni."
+    "scanMilestoneText": "Ottimo: il tuo codice QR «{name}» ha raggiunto {n} scansioni.",
+    "existsSubject": "Hai già un account QR-Codex",
+    "existsText": "Qualcuno (probabilmente tu) ha provato a creare un nuovo account con questo indirizzo. Hai già un account: accedi. Password dimenticata? Scegline una nuova nella pagina di accesso.",
+    "existsButton": "Accedi",
+    "existsIgnore": "Non eri tu? Non devi fare nulla; non è cambiato niente."
   },
   "contact": {
     "lead": "Una domanda, un problema o un’idea? Inviaci un messaggio.",

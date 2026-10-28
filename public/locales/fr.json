@@ -1665,7 +1665,10 @@
     "verifiedLead": "Votre compte est prêt. Vous pouvez fermer cette page : sur l'appareil où vous avez créé le compte, vous continuez automatiquement.",
     "continueHere": "Continuer sur cet appareil",
     "errPwned": "Ce mot de passe figure dans des fuites de données connues. Choisissez-en un autre.",
-    "deviceLimit": "Vous avez été déconnecté car ce compte a été utilisé sur un autre appareil. Un compte peut être connecté sur 3 appareils maximum en même temps. Vous travaillez avec des collègues ? Utilisez Équipe."
+    "deviceLimit": "Vous avez été déconnecté car ce compte a été utilisé sur un autre appareil. Un compte peut être connecté sur 3 appareils maximum en même temps. Vous travaillez avec des collègues ? Utilisez Équipe.",
+    "confirmTitle": "Confirmez votre compte",
+    "confirmLead": "Encore un clic et votre adresse e-mail est confirmée.",
+    "confirmBtn": "Confirmer mon compte"
   },
   "acct": {
     "profile": "Profil",
@@ -1976,7 +1979,11 @@
     "quietTip": "L’affiche, l’autocollant ou le menu est-il toujours là et bien visible ? Un code abîmé ou caché en est souvent la cause.",
     "quietFooter": "Vous pouvez désactiver ces notifications dans Mon compte > Notifications.",
     "ticketSubject": "Réponse à votre question n° {id}",
-    "ticketButton": "Voir dans l’app"
+    "ticketButton": "Voir dans l’app",
+    "existsSubject": "Vous avez déjà un compte QR-Codex",
+    "existsText": "Quelqu’un (probablement vous) a essayé de créer un nouveau compte avec cette adresse. Vous avez déjà un compte : connectez-vous. Mot de passe oublié ? Choisissez-en un nouveau sur la page de connexion.",
+    "existsButton": "Se connecter",
+    "existsIgnore": "Ce n’était pas vous ? Vous n’avez rien à faire ; rien n’a changé."
   },
   "contact": {
     "lead": "Une question, un problème ou une idée ? Envoyez-nous un message.",

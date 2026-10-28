@@ -1665,7 +1665,10 @@
     "verifiedLead": "Din konto er klar. Du kan lukke denne side: på den enhed, hvor du oprettede kontoen, fortsætter du automatisk.",
     "continueHere": "Fortsæt på denne enhed",
     "errPwned": "Denne adgangskode findes i kendte datalæk. Vælg en anden.",
-    "deviceLimit": "Du er logget ud, fordi kontoen blev brugt på en anden enhed. En konto kan være logget ind på højst 3 enheder ad gangen. Arbejder du med kolleger? Brug Team."
+    "deviceLimit": "Du er logget ud, fordi kontoen blev brugt på en anden enhed. En konto kan være logget ind på højst 3 enheder ad gangen. Arbejder du med kolleger? Brug Team.",
+    "confirmTitle": "Bekræft din konto",
+    "confirmLead": "Ét klik mere, så er din e-mailadresse bekræftet.",
+    "confirmBtn": "Bekræft min konto"
   },
   "acct": {
     "profile": "Profil",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Gode nyheder: “{name}” er netop blevet scannet for første gang. Nu kan du se, hvor og hvornår den bliver scannet.",
     "scanFooter": "Du kan slå disse notifikationer fra under Min konto > Notifikationer.",
     "scanMilestoneSubject": "“{name}” er blevet scannet {n} gange",
-    "scanMilestoneText": "Flot: din QR-kode “{name}” har nået {n} scanninger."
+    "scanMilestoneText": "Flot: din QR-kode “{name}” har nået {n} scanninger.",
+    "existsSubject": "Du har allerede en QR-Codex-konto",
+    "existsText": "Nogen (sikkert dig) prøvede at oprette en ny konto med denne e-mailadresse. Du har allerede en konto: log bare ind. Glemt adgangskoden? Vælg en ny på login-siden.",
+    "existsButton": "Log ind",
+    "existsIgnore": "Var det ikke dig? Så skal du ikke gøre noget; intet er ændret."
   },
   "contact": {
     "lead": "Et spørgsmål, et problem eller en idé? Send os en besked.",

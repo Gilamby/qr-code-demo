@@ -1665,7 +1665,10 @@
     "verifiedLead": "Twoje konto jest gotowe. Możesz zamknąć tę stronę: na urządzeniu, na którym założono konto, przejdziesz dalej automatycznie.",
     "continueHere": "Kontynuuj na tym urządzeniu",
     "errPwned": "To hasło występuje w znanych wyciekach danych. Wybierz inne.",
-    "deviceLimit": "Wylogowano Cię, ponieważ to konto zostało użyte na innym urządzeniu. Konto może być zalogowane na maksymalnie 3 urządzeniach jednocześnie. Pracujesz z innymi? Użyj Zespołu."
+    "deviceLimit": "Wylogowano Cię, ponieważ to konto zostało użyte na innym urządzeniu. Konto może być zalogowane na maksymalnie 3 urządzeniach jednocześnie. Pracujesz z innymi? Użyj Zespołu.",
+    "confirmTitle": "Potwierdź swoje konto",
+    "confirmLead": "Jeszcze jedno kliknięcie i Twój adres e-mail zostanie potwierdzony.",
+    "confirmBtn": "Potwierdź moje konto"
   },
   "acct": {
     "profile": "Profil",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Dobra wiadomość: „{name}” właśnie został zeskanowany po raz pierwszy. Teraz widzisz, gdzie i kiedy jest skanowany.",
     "scanFooter": "Te powiadomienia wyłączysz w Moje konto > Powiadomienia.",
     "scanMilestoneSubject": "„{name}” zeskanowano {n} razy",
-    "scanMilestoneText": "Super: twój kod QR „{name}” osiągnął {n} skanów."
+    "scanMilestoneText": "Super: twój kod QR „{name}” osiągnął {n} skanów.",
+    "existsSubject": "Masz już konto QR-Codex",
+    "existsText": "Ktoś (pewnie Ty) próbował założyć nowe konto z tym adresem e-mail. Masz już konto: po prostu się zaloguj. Nie pamiętasz hasła? Wybierz nowe na stronie logowania.",
+    "existsButton": "Zaloguj się",
+    "existsIgnore": "To nie Ty? Nie musisz nic robić; nic się nie zmieniło."
   },
   "contact": {
     "lead": "Pytanie, problem albo pomysł? Napisz do nas.",

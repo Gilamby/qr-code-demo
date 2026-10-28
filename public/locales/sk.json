@@ -1665,7 +1665,10 @@
     "verifiedLead": "Váš účet je pripravený. Túto stránku môžete zavrieť: na zariadení, kde ste účet vytvorili, budete pokračovať automaticky.",
     "continueHere": "Pokračovať na tomto zariadení",
     "errPwned": "Toto heslo sa nachádza v známych únikoch údajov. Zvoľte iné.",
-    "deviceLimit": "Boli ste odhlásený, pretože účet bol použitý na inom zariadení. Účet môže byť prihlásený najviac na 3 zariadeniach naraz. Pracujete s kolegami? Použite Tím."
+    "deviceLimit": "Boli ste odhlásený, pretože účet bol použitý na inom zariadení. Účet môže byť prihlásený najviac na 3 zariadeniach naraz. Pracujete s kolegami? Použite Tím.",
+    "confirmTitle": "Potvrďte svoj účet",
+    "confirmLead": "Ešte jedno kliknutie a váš e-mail je potvrdený.",
+    "confirmBtn": "Potvrdiť môj účet"
   },
   "acct": {
     "profile": "Profil",
@@ -1976,7 +1979,11 @@
     "scanFirstText": "Dobrá správa: „{name}“ bol práve prvýkrát naskenovaný. Teraz uvidíš, kde a kedy sa skenuje.",
     "scanFooter": "Tieto upozornenia môžeš vypnúť v časti Môj účet > Upozornenia.",
     "scanMilestoneSubject": "„{name}“ bol naskenovaný {n}-krát",
-    "scanMilestoneText": "Super: tvoj QR kód „{name}“ dosiahol {n} skenov."
+    "scanMilestoneText": "Super: tvoj QR kód „{name}“ dosiahol {n} skenov.",
+    "existsSubject": "Už máte účet QR-Codex",
+    "existsText": "Niekto (pravdepodobne vy) sa pokúsil vytvoriť nový účet s touto e-mailovou adresou. Účet už máte: stačí sa prihlásiť. Zabudli ste heslo? Zvoľte nové na prihlasovacej stránke.",
+    "existsButton": "Prihlásiť sa",
+    "existsIgnore": "Neboli ste to vy? Nemusíte nič robiť; nič sa nezmenilo."
   },
   "contact": {
     "lead": "Otázka, problém alebo nápad? Pošli nám správu.",

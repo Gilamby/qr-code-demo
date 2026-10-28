@@ -1771,7 +1771,10 @@
     "verifiedLead": "Llogaria jote është gati. Mund ta mbyllësh këtë faqe: në pajisjen ku krijove llogarinë vazhdon automatikisht.",
     "continueHere": "Vazhdo në këtë pajisje",
     "errPwned": "Ky fjalëkalim gjendet në rrjedhje të njohura të të dhënave. Zgjidhni një tjetër.",
-    "deviceLimit": "U shkëputët sepse llogaria u përdor në një pajisje tjetër. Një llogari mund të jetë e hapur në deri në 3 pajisje njëkohësisht. Punoni me kolegë? Përdorni Ekipin."
+    "deviceLimit": "U shkëputët sepse llogaria u përdor në një pajisje tjetër. Një llogari mund të jetë e hapur në deri në 3 pajisje njëkohësisht. Punoni me kolegë? Përdorni Ekipin.",
+    "confirmTitle": "Konfirmoni llogarinë tuaj",
+    "confirmLead": "Edhe një klikim dhe email-i juaj konfirmohet.",
+    "confirmBtn": "Konfirmo llogarinë time"
   },
   "acct": {
     "profile": "Profili",
@@ -2082,7 +2085,11 @@
     "scanFirstText": "Lajm i mirë: “{name}” sapo u skanua për herë të parë. Tani mund të shohësh ku dhe kur skanohet.",
     "scanFooter": "Këto njoftime mund t’i çaktivizosh te Llogaria ime > Njoftimet.",
     "scanMilestoneSubject": "“{name}” është skanuar {n} herë",
-    "scanMilestoneText": "Bukur: kodi yt QR “{name}” arriti {n} skanime."
+    "scanMilestoneText": "Bukur: kodi yt QR “{name}” arriti {n} skanime.",
+    "existsSubject": "Ju keni tashmë një llogari QR-Codex",
+    "existsText": "Dikush (ndoshta ju) provoi të krijonte një llogari të re me këtë email. Ju keni tashmë një llogari: thjesht hyni. Keni harruar fjalëkalimin? Zgjidhni një të ri te faqja e hyrjes.",
+    "existsButton": "Hyr",
+    "existsIgnore": "Nuk ishit ju? S’keni nevojë të bëni asgjë; asgjë nuk ka ndryshuar."
   },
   "contact": {
     "lead": "Një pyetje, një problem apo një ide? Na dërgoni një mesazh.",

@@ -1665,7 +1665,10 @@
     "verifiedLead": "Je account is klaar. Je kunt deze pagina sluiten: op het apparaat waar je het account maakte, ga je vanzelf verder.",
     "continueHere": "Op dit apparaat verder",
     "errPwned": "Dit wachtwoord komt voor in bekende datalekken. Kies een ander wachtwoord.",
-    "deviceLimit": "Je bent uitgelogd omdat dit account op een ander apparaat is gebruikt. Een account kan op maximaal 3 apparaten tegelijk ingelogd zijn. Werk je met collega's? Gebruik dan Team."
+    "deviceLimit": "Je bent uitgelogd omdat dit account op een ander apparaat is gebruikt. Een account kan op maximaal 3 apparaten tegelijk ingelogd zijn. Werk je met collega's? Gebruik dan Team.",
+    "confirmTitle": "Bevestig je account",
+    "confirmLead": "Nog één klik en je e-mailadres is bevestigd.",
+    "confirmBtn": "Bevestig mijn account"
   },
   "acct": {
     "profile": "Profiel",
@@ -1976,7 +1979,11 @@
     "quietTip": "Hangt de poster, sticker of menukaart er nog en is de code goed te zien? Een beschadigde of afgedekte code is vaak de oorzaak.",
     "quietFooter": "Je kunt deze meldingen uitzetten in Mijn account > Meldingen.",
     "ticketSubject": "Antwoord op je vraag #{id}",
-    "ticketButton": "Bekijk in de app"
+    "ticketButton": "Bekijk in de app",
+    "existsSubject": "Je hebt al een QR-Codex-account",
+    "existsText": "Iemand (waarschijnlijk jij) probeerde een nieuw account te maken met dit e-mailadres. Je hebt al een account: log gewoon in. Wachtwoord vergeten? Kies een nieuw op de inlogpagina.",
+    "existsButton": "Inloggen",
+    "existsIgnore": "Was jij dit niet? Dan hoef je niets te doen; er is niets veranderd."
   },
   "contact": {
     "lead": "Een vraag, een probleem of een idee? Stuur ons een bericht.",
