@@ -248,7 +248,7 @@
     fields: [ { key: 'url', type: 'url', label: 'fields.meetingUrl', required: true, domains: ['zoom.us', 'teams.microsoft.com', 'teams.live.com', 'meet.google.com', 'whereby.com', 'webex.com'], sample: { t: 'sample.meetingUrl' }, hint: 'hint.meetingUrl' },
       { key: 'title', label: 'fields.qrName', hint: 'hint.qrNameOwn', advanced: true } ] },
   // Gevonden?: label voor huisdier, sleutels, tas of koffer; de vinder belt of mailt de eigenaar
-  { id: 'lostfound', icon: 'lost', contentType: 'lost', previewType: 'card', color: '#ea580c', theme: ['#ea580c', '#431407'],
+  { id: 'lostfound', previewImage: 'assets/previews/lostfound.jpg', icon: 'lost', contentType: 'lost', previewType: 'card', color: '#ea580c', theme: ['#ea580c', '#431407'],
     fields: [ { key: 'photo', type: 'image', label: 'fields.photo' },
       { key: 'name', label: 'fields.lostName', required: true, max: 60, sample: { t: 'sample.lostName' } },
       { key: 'message', label: 'fields.lostMsg', max: 300, sample: { t: 'sample.lostMsg' } },

@@ -612,7 +612,7 @@ var PHONE = (function () {
     /* ---------- Gevonden?: foto, naam, bericht, bellen / mailen ---------- */
     lostfound: function (c, ex) {
       var name = c.name || (ex ? t('sample.lostName') : ''), msg = c.message || (ex ? t('sample.lostMsg') : '');
-      var photo = c.photo ? '<img class="lf-photo" src="' + c.photo + '" alt="">' : '<span class="lf-photo lf-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="2"/><circle cx="12" cy="5.5" r="2"/><circle cx="17" cy="8" r="2"/><path d="M12 11c-3 0-6 3.5-6 6.5 0 1.7 1.3 2.5 3 2.5 1.2 0 2-.6 3-.6s1.8.6 3 .6c1.7 0 3-.8 3-2.5 0-3-3-6.5-6-6.5z"/></svg></span>';
+      var exP = exPhoto('lostfound', ex), photo = c.photo ? '<img class="lf-photo" src="' + c.photo + '" alt="">' : exP ? '<img class="lf-photo" src="' + exP + '" alt="">' : '<span class="lf-photo lf-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="2"/><circle cx="12" cy="5.5" r="2"/><circle cx="17" cy="8" r="2"/><path d="M12 11c-3 0-6 3.5-6 6.5 0 1.7 1.3 2.5 3 2.5 1.2 0 2-.6 3-.6s1.8.6 3 .6c1.7 0 3-.8 3-2.5 0-3-3-6.5-6-6.5z"/></svg></span>';
       return '<div class="ph ph-lf">' + statusBar(true) + '<div class="lf-top">' + photo + '<span class="lf-tag">' + esc(t('pv.lost.tag')) + '</span></div>' +
         '<div class="lf-sheet"><h4>' + v(name, '50%') + '</h4>' + (msg ? '<p class="lf-msg">' + esc(msg) + '</p>' : '') +
           (c.reward ? '<p class="lf-reward">' + ic('gift') + '<span>' + esc(t('pv.lost.reward', { reward: c.reward })) + '</span></p>' : '') +
