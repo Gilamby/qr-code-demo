@@ -1576,7 +1576,7 @@
     "planFree": "Bezmaksas",
     "planFreeLead": "Testēšanas posmā tu izmanto QR-Codex bez maksas.",
     "planF1": "Neierobežots QR kodu skaits",
-    "planF2": "Visi 16 QR kodu veidi",
+    "planF2": "Visi 32 QR kodu veidi",
     "planF3": "Statistika pēc valsts, pilsētas un sistēmas",
     "planF4": "Savs dizains, krāsas un logotips",
     "planNote": "Maksas plāni vēl nav pieejami.",
@@ -1898,7 +1898,7 @@
     },
     "a": {
       "make": "Sadaļā {create} izvēlies veidu, piemēram, Vietne. Pēc tam aizpildi saturu un izvēlies dizainu. Uzreiz redzi, kā tas izskatās telefonā. Gatavs? Lejupielādē kodu kā PNG, SVG, PDF vai citā formātā. To atradīsi arī sadaļā {codes}.",
-      "types": "Ir 16 veidi, sākot ar vietni vai PDF un beidzot ar ēdienkarti, kuponu vai Wi-Fi. Visus tos redzēsi sadaļas “Izveidot QR kodu” pirmajā solī.",
+      "types": "Ir 32 veidi, sākot ar vietni vai PDF un beidzot ar ēdienkarti, kuponu vai Wi-Fi. Visus tos redzēsi sadaļas “Izveidot QR kodu” pirmajā solī.",
       "edit": "Jā. Lielākā daļa veidu QR kodā ievieto īsu saiti. Ja maini saturu, kods paliek tas pats, un nekas nav jādrukā no jauna.\nIzņēmums: Wi-Fi un vCard. To saturs ir pašā kodā, tāpēc pēc izmaiņām izmanto jauno kodu.",
       "format": "Vari lejupielādēt PNG, JPG, SVG, PDF un EPS. PNG un JPG ir parasti attēli, ērti vietnēm, e-pastam, Word un PowerPoint. SVG, PDF un EPS vienmēr ir asi, lai cik lieli. Izvēlies tos drukai: skrejlapām, plakātiem un iepakojumiem.",
       "scanFix": "Parūpējies par pietiekamu kontrastu starp kodu un fonu: tumšs uz gaiša darbojas vislabāk. Izdrukā kodu vismaz 2 × 2 cm, un lielāku, ja to skenē no tālākas distances.\nLogotipu turi mazu un atstāj ap kodu nedaudz brīvas vietas. Pirms drukāšanas vienmēr pārbaudi kodu ar savu tālruni.",

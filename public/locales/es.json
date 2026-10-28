@@ -1576,7 +1576,7 @@
     "planFree": "Gratis",
     "planFreeLead": "Usas QR-Codex gratis durante la fase de prueba.",
     "planF1": "Códigos QR ilimitados",
-    "planF2": "Los 16 tipos de códigos QR",
+    "planF2": "Los 32 tipos de códigos QR",
     "planF3": "Estadísticas por país, ciudad y sistema",
     "planF4": "Tu propio diseño, colores y logotipo",
     "planNote": "Aún no hay planes de pago.",
@@ -1908,7 +1908,7 @@
     },
     "a": {
       "make": "En {create}, elige un tipo, por ejemplo Sitio web. Después rellena el contenido y elige un diseño. Ves al momento cómo queda en un móvil. ¿Listo? Descarga tu código en PNG, SVG, PDF u otro formato. También lo encuentras en {codes}.",
-      "types": "Hay 16 tipos, desde un sitio web o un PDF hasta un menú, un cupón o el wifi. Los ves todos en el primer paso de Crear código QR.",
+      "types": "Hay 32 tipos, desde un sitio web o un PDF hasta un menú, un cupón o el wifi. Los ves todos en el primer paso de Crear código QR.",
       "edit": "Sí. En la mayoría de los tipos, el código QR lleva un enlace corto. Si cambias el contenido, el código sigue igual y no hace falta volver a imprimir.\nExcepción: wifi y vCard. Su contenido va dentro del propio código, así que tras un cambio usas el código nuevo.",
       "format": "Puedes descargar PNG, JPG, SVG, PDF y EPS. PNG y JPG son imágenes normales, útiles para webs, correo, Word y PowerPoint. SVG, PDF y EPS siempre se ven nítidos, por grandes que sean. Elígelos para imprimir: folletos, pósteres y envases.",
       "scanFix": "Asegúrate de que haya contraste entre el código y el fondo: oscuro sobre claro funciona mejor. Imprime el código de al menos 2 × 2 cm, y más grande si se escanea de lejos.\nUsa un logotipo pequeño y deja espacio alrededor del código. Prueba siempre el código con tu propio móvil antes de imprimirlo.",

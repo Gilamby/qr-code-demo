@@ -1576,7 +1576,7 @@
     "planFree": "Ilmainen",
     "planFreeLead": "Käytät QR-Codex:ää ilmaiseksi testivaiheen aikana.",
     "planF1": "Rajattomasti QR-koodeja",
-    "planF2": "Kaikki 16 QR-koodityyppiä",
+    "planF2": "Kaikki 32 QR-koodityyppiä",
     "planF3": "Tilastot maittain, kaupungeittain ja järjestelmittäin",
     "planF4": "Oma ulkoasu, värit ja logo",
     "planNote": "Maksullisia tilauksia ei ole vielä saatavilla.",
@@ -1898,7 +1898,7 @@
     },
     "a": {
       "make": "Valitse kohdassa {create} tyyppi, esimerkiksi Verkkosivu. Täytä sitten sisältö ja valitse ulkoasu. Näet heti, miltä se näyttää puhelimessa. Valmis? Lataa koodisi PNG-, SVG-, PDF- tai muussa muodossa. Löydät sen myös kohdasta {codes}.",
-      "types": "Tyyppejä on 16, verkkosivusta tai PDF:stä ruokalistaan, kuponkiin tai Wi-Fiin. Näet ne kaikki Luo QR-koodi -toiminnon ensimmäisessä vaiheessa.",
+      "types": "Tyyppejä on 32, verkkosivusta tai PDF:stä ruokalistaan, kuponkiin tai Wi-Fiin. Näet ne kaikki Luo QR-koodi -toiminnon ensimmäisessä vaiheessa.",
       "edit": "Kyllä. Useimmat tyypit laittavat QR-koodiin lyhyen linkin. Jos muutat sisältöä, koodi pysyy samana eikä mitään tarvitse tulostaa uudelleen.\nPoikkeus: Wi-Fi ja vCard. Niiden sisältö on itse koodissa, joten muutoksen jälkeen käytät uutta koodia.",
       "format": "Voit ladata PNG-, JPG-, SVG-, PDF- ja EPS-tiedostoja. PNG ja JPG ovat tavallisia kuvia, käteviä verkkosivuille, sähköpostiin, Wordiin ja PowerPointiin. SVG, PDF ja EPS pysyvät aina terävinä, olivatpa ne kuinka suuria tahansa. Valitse ne painotuotteisiin, kuten esitteisiin, julisteisiin ja pakkauksiin.",
       "scanFix": "Varmista, että koodin ja taustan välillä on tarpeeksi kontrastia: tumma vaalealla toimii parhaiten. Tulosta koodi vähintään 2 × 2 cm:n kokoisena, ja isompana, jos sitä skannataan kauempaa.\nPidä logo pienenä ja jätä koodin ympärille vähän tilaa. Testaa koodi aina omalla puhelimellasi ennen tulostusta.",

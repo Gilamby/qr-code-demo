@@ -1576,7 +1576,7 @@
     "planFree": "Gratis",
     "planFreeLead": "Je gebruikt QR-Codex gratis tijdens de testfase.",
     "planF1": "Onbeperkt QR-codes maken",
-    "planF2": "Alle 16 soorten QR-codes",
+    "planF2": "Alle 32 soorten QR-codes",
     "planF3": "Statistieken per land, stad en systeem",
     "planF4": "Eigen ontwerp, kleuren en logo",
     "planNote": "Betaalde abonnementen zijn er nog niet.",
@@ -1908,7 +1908,7 @@
     },
     "a": {
       "make": "Kies bij {create} een soort, bijvoorbeeld Website. Vul daarna de inhoud in en kies een ontwerp. Je ziet meteen hoe het eruitziet op een telefoon. Klaar? Download je code als PNG, SVG, PDF of een ander formaat. Je vindt hem ook terug bij {codes}.",
-      "types": "Er zijn 16 soorten, van een website of PDF tot een menukaart, coupon of wifi. Je ziet ze allemaal in de eerste stap van QR-code maken.",
+      "types": "Er zijn 32 soorten, van een website of PDF tot een menukaart, coupon of wifi. Je ziet ze allemaal in de eerste stap van QR-code maken.",
       "edit": "Ja. Bij de meeste soorten staat er een korte link in de QR-code. Pas je de inhoud aan, dan blijft de code hetzelfde en hoef je niets opnieuw te printen.\nUitzondering: Wifi en vCard. Daar staat de inhoud in de code zelf. Na een wijziging gebruik je dus de nieuwe code.",
       "format": "Je kunt PNG, JPG, SVG, PDF en EPS downloaden. PNG en JPG zijn gewone afbeeldingen, handig voor websites, e-mail, Word en PowerPoint. SVG, PDF en EPS blijven altijd scherp, hoe groot je ze ook maakt. Kies die voor drukwerk, zoals flyers, posters en verpakkingen.",
       "scanFix": "Zorg voor genoeg verschil tussen de code en de achtergrond: donker op licht werkt het best. Print de code minstens 2 bij 2 cm, en groter als mensen van verder weg scannen.\nHoud een logo klein en laat wat ruimte rond de code. Test je code altijd met je eigen telefoon voordat je hem laat drukken.",

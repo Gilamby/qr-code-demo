@@ -1576,7 +1576,7 @@
     "planFree": "Free",
     "planFreeLead": "You’re using QR-Codex for free during the test phase.",
     "planF1": "Unlimited QR codes",
-    "planF2": "All 16 types of QR codes",
+    "planF2": "All 32 types of QR codes",
     "planF3": "Analytics by country, city and system",
     "planF4": "Your own design, colours and logo",
     "planNote": "Paid plans are not available yet.",
@@ -1908,7 +1908,7 @@
     },
     "a": {
       "make": "In {create}, choose a type, for example Website. Then fill in the content and choose a design. You immediately see how it looks on a phone. Done? Download your code as PNG, SVG, PDF or another format. You'll also find it in {codes}.",
-      "types": "There are 16 types, from a website or PDF to a menu, coupon or Wi-Fi. You see them all in the first step of Create QR Code.",
+      "types": "There are 32 types, from a website or PDF to a menu, coupon or Wi-Fi. You see them all in the first step of Create QR Code.",
       "edit": "Yes. Most types put a short link in the QR code. If you change the content, the code stays the same and you don’t need to print anything again.\nException: Wi-Fi and vCard. Their content is inside the code itself, so after a change you use the new code.",
       "format": "You can download PNG, JPG, SVG, PDF and EPS. PNG and JPG are normal images, handy for websites, email, Word and PowerPoint. SVG, PDF and EPS always stay sharp, however large you make them. Choose those for print, such as flyers, posters and packaging.",
       "scanFix": "Make sure there is enough contrast between the code and the background: dark on light works best. Print the code at least 2 by 2 cm, and larger if people scan from further away.\nKeep a logo small and leave some space around the code. Always test your code with your own phone before printing.",

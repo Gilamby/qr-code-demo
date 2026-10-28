@@ -1576,7 +1576,7 @@
     "planFree": "Zadarmo",
     "planFreeLead": "Počas testovacej fázy používaš QR-Codex zadarmo.",
     "planF1": "Neobmedzený počet QR kódov",
-    "planF2": "Všetkých 16 typov QR kódov",
+    "planF2": "Všetkých 32 typov QR kódov",
     "planF3": "Štatistiky podľa krajiny, mesta a systému",
     "planF4": "Vlastný dizajn, farby a logo",
     "planNote": "Platené predplatné zatiaľ nie je dostupné.",
@@ -1898,7 +1898,7 @@
     },
     "a": {
       "make": "V {create} vyber typ, napríklad Webová stránka. Potom vyplň obsah a vyber dizajn. Hneď vidíš, ako to vyzerá na telefóne. Hotovo? Stiahni kód ako PNG, SVG, PDF alebo v inom formáte. Nájdeš ho aj v {codes}.",
-      "types": "Je ich 16, od webovej stránky či PDF po menu, kupón alebo Wi-Fi. Všetky ich vidíš v prvom kroku Vytvoriť QR kód.",
+      "types": "Je ich 32, od webovej stránky či PDF po menu, kupón alebo Wi-Fi. Všetky ich vidíš v prvom kroku Vytvoriť QR kód.",
       "edit": "Áno. Väčšina typov vloží do QR kódu krátky odkaz. Keď zmeníš obsah, kód zostane rovnaký a nemusíš nič tlačiť znova.\nVýnimka: Wi-Fi a vCard. Ich obsah je priamo v kóde, takže po zmene použiješ nový kód.",
       "format": "Môžeš stiahnuť PNG, JPG, SVG, PDF a EPS. PNG a JPG sú bežné obrázky, praktické pre weby, e-mail, Word a PowerPoint. SVG, PDF a EPS sú vždy ostré, nech sú akokoľvek veľké. Vyber ich na tlač: letáky, plagáty a obaly.",
       "scanFix": "Daj pozor na dostatočný kontrast medzi kódom a pozadím: najlepšie funguje tmavé na svetlom. Tlač kód aspoň 2 × 2 cm, a väčší, ak ľudia skenujú z väčšej diaľky.\nLogo nechaj malé a okolo kódu nechaj trochu miesta. Pred tlačou kód vždy otestuj vlastným telefónom.",

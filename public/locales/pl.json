@@ -1576,7 +1576,7 @@
     "planFree": "Darmowy",
     "planFreeLead": "Korzystasz z QR-Codex za darmo w fazie testów.",
     "planF1": "Bez limitu kodów QR",
-    "planF2": "Wszystkie 16 rodzajów kodów QR",
+    "planF2": "Wszystkie 32 rodzajów kodów QR",
     "planF3": "Statystyki według kraju, miasta i systemu",
     "planF4": "Własny wygląd, kolory i logo",
     "planNote": "Płatnych planów jeszcze nie ma.",
@@ -1898,7 +1898,7 @@
     },
     "a": {
       "make": "W {create} wybierz typ, np. Strona internetowa. Potem wypełnij treść i wybierz wygląd. Od razu widzisz, jak to wygląda na telefonie. Gotowe? Pobierz kod jako PNG, SVG, PDF lub w innym formacie. Znajdziesz go też w {codes}.",
-      "types": "Jest 16 rodzajów, od strony internetowej czy PDF po menu, kupon lub Wi-Fi. Wszystkie zobaczysz w pierwszym kroku Utwórz kod QR.",
+      "types": "Jest 32 rodzajów, od strony internetowej czy PDF po menu, kupon lub Wi-Fi. Wszystkie zobaczysz w pierwszym kroku Utwórz kod QR.",
       "edit": "Tak. W większości rodzajów kod QR zawiera krótki link. Gdy zmienisz treść, kod zostaje ten sam i nie trzeba niczego drukować ponownie.\nWyjątek: Wi-Fi i vCard. Ich treść jest w samym kodzie, więc po zmianie używasz nowego kodu.",
       "format": "Możesz pobrać PNG, JPG, SVG, PDF i EPS. PNG i JPG to zwykłe obrazy, wygodne na strony, e-mail, Word i PowerPoint. SVG, PDF i EPS są zawsze ostre, niezależnie od rozmiaru. Wybierz je do druku: ulotek, plakatów i opakowań.",
       "scanFix": "Zadbaj o kontrast między kodem a tłem: ciemne na jasnym działa najlepiej. Drukuj kod w rozmiarze co najmniej 2 × 2 cm, większym, jeśli skanuje się go z daleka.\nUżyj małego logo i zostaw trochę miejsca wokół kodu. Zawsze sprawdź kod swoim telefonem przed drukiem.",

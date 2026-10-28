@@ -1576,7 +1576,7 @@
     "planFree": "Gratuit",
     "planFreeLead": "Folosești QR-Codex gratuit în faza de testare.",
     "planF1": "Coduri QR nelimitate",
-    "planF2": "Toate cele 16 tipuri de coduri QR",
+    "planF2": "Toate cele 32 tipuri de coduri QR",
     "planF3": "Statistici pe țară, oraș și sistem",
     "planF4": "Design, culori și logo proprii",
     "planNote": "Abonamentele plătite nu sunt încă disponibile.",
@@ -1898,7 +1898,7 @@
     },
     "a": {
       "make": "În {create} alege un tip, de exemplu Site web. Apoi completează conținutul și alege un design. Vezi imediat cum arată pe telefon. Gata? Descarcă codul ca PNG, SVG, PDF sau alt format. Îl găsești și în {codes}.",
-      "types": "Sunt 16 tipuri, de la site web sau PDF până la meniu, cupon sau Wi-Fi. Le vezi pe toate în primul pas din Creează cod QR.",
+      "types": "Sunt 32 tipuri, de la site web sau PDF până la meniu, cupon sau Wi-Fi. Le vezi pe toate în primul pas din Creează cod QR.",
       "edit": "Da. La majoritatea tipurilor, codul QR conține un link scurt. Dacă modifici conținutul, codul rămâne același și nu trebuie să tipărești nimic din nou.\nExcepție: Wi-Fi și vCard. Conținutul lor se află în codul însuși, așa că după o modificare folosești noul cod.",
       "format": "Poți descărca PNG, JPG, SVG, PDF și EPS. PNG și JPG sunt imagini obișnuite, utile pentru site-uri, e-mail, Word și PowerPoint. SVG, PDF și EPS rămân mereu clare, oricât de mari. Alege-le pentru tipar: fluturași, afișe și ambalaje.",
       "scanFix": "Asigură-te că există suficient contrast între cod și fundal: închis pe deschis funcționează cel mai bine. Tipărește codul la cel puțin 2 × 2 cm și mai mare dacă oamenii scanează de mai departe.\nPăstrează logoul mic și lasă puțin spațiu în jurul codului. Testează-ți mereu codul cu propriul telefon înainte de tipărire.",

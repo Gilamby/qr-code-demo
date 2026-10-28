@@ -1682,7 +1682,7 @@
     "planFree": "Falas",
     "planFreeLead": "Po e përdorni QR-Codex falas gjatë fazës së testimit.",
     "planF1": "Kode QR pa kufi",
-    "planF2": "Të 16 llojet e kodeve QR",
+    "planF2": "Të 32 llojet e kodeve QR",
     "planF3": "Statistika sipas shtetit, qytetit dhe sistemit",
     "planF4": "Dizajni, ngjyrat dhe logoja juaj",
     "planNote": "Planet me pagesë nuk ekzistojnë ende.",
@@ -2004,7 +2004,7 @@
     },
     "a": {
       "make": "Te {create} zgjidhni një lloj, për shembull Faqe interneti. Pastaj plotësoni përmbajtjen dhe zgjidhni një dizajn. E shihni menjëherë si duket në telefon. Gati? Shkarkoni kodin si PNG, SVG, PDF ose format tjetër. E gjeni edhe te {codes}.",
-      "types": "Ka 16 lloje, nga një faqe interneti ose PDF deri te një menu, kupon ose Wi-Fi. I shihni të gjitha në hapin e parë të Krijo kod QR.",
+      "types": "Ka 32 lloje, nga një faqe interneti ose PDF deri te një menu, kupon ose Wi-Fi. I shihni të gjitha në hapin e parë të Krijo kod QR.",
       "edit": "Po. Te shumica e llojeve, kodi QR përmban një lidhje të shkurtër. Nëse ndryshoni përmbajtjen, kodi mbetet i njëjtë dhe nuk duhet të printoni sërish.\nPërjashtim: Wi-Fi dhe vCard. Përmbajtja e tyre është brenda vetë kodit, prandaj pas një ndryshimi përdorni kodin e ri.",
       "format": "Mund të shkarkoni PNG, JPG, SVG, PDF dhe EPS. PNG dhe JPG janë imazhe të zakonshme, të dobishme për faqe, email, Word dhe PowerPoint. SVG, PDF dhe EPS mbeten gjithmonë të qarta, sado të mëdha. Zgjidhini për shtyp: fletëpalosje, postera dhe paketime.",
       "scanFix": "Sigurohuni që ka kontrast të mjaftueshëm mes kodit dhe sfondit: e errët mbi të çelët funksionon më mirë. Printojeni kodin të paktën 2 × 2 cm, më të madh nëse skanohet nga larg.\nMbajeni logon të vogël dhe lini hapësirë rreth kodit. Testojeni gjithmonë kodin me telefonin tuaj para se ta printoni.",

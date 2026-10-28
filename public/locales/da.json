@@ -1576,7 +1576,7 @@
     "planFree": "Gratis",
     "planFreeLead": "Du bruger QR-Codex gratis i testfasen.",
     "planF1": "Ubegrænset antal QR-koder",
-    "planF2": "Alle 16 typer QR-koder",
+    "planF2": "Alle 32 typer QR-koder",
     "planF3": "Statistik efter land, by og system",
     "planF4": "Dit eget design, farver og logo",
     "planNote": "Betalte abonnementer er ikke tilgængelige endnu.",
@@ -1898,7 +1898,7 @@
     },
     "a": {
       "make": "Vælg en type under {create}, fx Hjemmeside. Udfyld så indholdet og vælg et design. Du ser med det samme, hvordan det ser ud på en telefon. Færdig? Hent din kode som PNG, SVG, PDF eller et andet format. Du finder den også under {codes}.",
-      "types": "Der er 16 typer, fra en hjemmeside eller PDF til et menukort, en kupon eller Wi-Fi. Du ser dem alle i første trin af Opret QR-kode.",
+      "types": "Der er 32 typer, fra en hjemmeside eller PDF til et menukort, en kupon eller Wi-Fi. Du ser dem alle i første trin af Opret QR-kode.",
       "edit": "Ja. De fleste typer lægger et kort link i QR-koden. Ændrer du indholdet, forbliver koden den samme, og du behøver ikke at trykke noget igen.\nUndtagelse: Wi-Fi og vCard. Deres indhold ligger i selve koden, så efter en ændring bruger du den nye kode.",
       "format": "Du kan hente PNG, JPG, SVG, PDF og EPS. PNG og JPG er almindelige billeder, smarte til hjemmesider, e-mail, Word og PowerPoint. SVG, PDF og EPS er altid skarpe, uanset størrelse. Vælg dem til tryk som flyers, plakater og emballage.",
       "scanFix": "Sørg for nok kontrast mellem koden og baggrunden: mørk på lys virker bedst. Print koden mindst 2 × 2 cm, og større, hvis folk scanner længere væk fra.\nHold et logo lille, og lad der være lidt plads omkring koden. Test altid din kode med din egen telefon, før du trykker den.",

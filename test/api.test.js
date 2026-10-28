@@ -1174,3 +1174,12 @@ test('extra soorten: e-mail, bellen en locatie openen de juiste app; links allee
   assert.equal((await fetch(base + '/q/' + lost.json.id)).status, 200, 'gevonden-pagina');
   assert.equal((await mk('text', { title: 'Huisregels', text: 'Stil na 22:00' })).status, 201);
 });
+
+test('extra soorten alleen in Pro en Business: Standard krijgt 403', async () => {
+  const k = client(); await signup(k, 'std-k@example.com', 'Standaard pakket zin 27!', 'Klant Standard');
+  assert.equal((await k('POST', '/api/account/checkout-demo', { plan: 'standard', period: 'month' })).status, 200);
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'tiktok', content: { url: 'https://www.tiktok.com/@x' }, design: {} })).status, 403);
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'website', content: { url: 'https://x.example/' }, design: {} })).status, 201);
+  await k('POST', '/api/account/checkout-demo', { plan: 'pro', period: 'month' });
+  assert.equal((await k('POST', '/api/qr-codes', { typeId: 'tiktok', content: { url: 'https://www.tiktok.com/@x' }, design: {} })).status, 201);
+});

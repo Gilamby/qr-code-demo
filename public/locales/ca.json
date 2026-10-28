@@ -1576,7 +1576,7 @@
     "planFree": "Gratuït",
     "planFreeLead": "Fas servir QR-Codex gratuïtament durant la fase de proves.",
     "planF1": "Codis QR il·limitats",
-    "planF2": "Els 16 tipus de codis QR",
+    "planF2": "Els 32 tipus de codis QR",
     "planF3": "Estadístiques per país, ciutat i sistema",
     "planF4": "Disseny, colors i logotip propis",
     "planNote": "Els plans de pagament encara no estan disponibles.",
@@ -1898,7 +1898,7 @@
     },
     "a": {
       "make": "A {create}, tria un tipus, per exemple Lloc web. Després omple el contingut i tria un disseny. Veus de seguida com queda en un mòbil. Llest? Baixa el codi en PNG, SVG, PDF o un altre format. També el trobes a {codes}.",
-      "types": "Hi ha 16 tipus, des d'un lloc web o un PDF fins a una carta, un cupó o la Wi-Fi. Els veuràs tots al primer pas de Crea un codi QR.",
+      "types": "Hi ha 32 tipus, des d'un lloc web o un PDF fins a una carta, un cupó o la Wi-Fi. Els veuràs tots al primer pas de Crea un codi QR.",
       "edit": "Sí. La majoria de tipus posen un enllaç curt al codi QR. Si canvies el contingut, el codi continua igual i no cal tornar a imprimir res.\nExcepció: Wi-Fi i vCard. El seu contingut és dins del mateix codi, així que després d'un canvi fas servir el codi nou.",
       "format": "Pots baixar PNG, JPG, SVG, PDF i EPS. PNG i JPG són imatges normals, útils per a webs, correu, Word i PowerPoint. SVG, PDF i EPS sempre es veuen nítids, per grans que siguin. Tria'ls per imprimir: fullets, pòsters i envasos.",
       "scanFix": "Assegura't que hi hagi prou contrast entre el codi i el fons: fosc sobre clar és el que funciona millor. Imprimeix el codi com a mínim de 2 per 2 cm, i més gran si l'escanegen de més lluny.\nFes el logotip petit i deixa una mica d'espai al voltant del codi. Prova sempre el codi amb el teu mòbil abans d'imprimir-lo.",
