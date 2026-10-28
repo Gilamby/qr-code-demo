@@ -15,7 +15,7 @@
     "contact": "Kontakt",
     "faq": "Häufige Fragen",
     "logout": "Abmelden",
-    "loggedOut": "Sie sind abgemeldet",
+    "loggedOut": "Du bist abgemeldet",
     "customers": "Kunden",
     "admin": "Verwaltung",
     "adminDash": "Dashboard",
@@ -67,7 +67,7 @@
     },
     "business": {
       "name": "Unternehmen",
-      "desc": "Infos über Ihr Unternehmen teilen"
+      "desc": "Infos über dein Unternehmen teilen"
     },
     "video": {
       "name": "Video",
@@ -79,15 +79,15 @@
     },
     "facebook": {
       "name": "Facebook",
-      "desc": "Ihre Facebook-Seite teilen"
+      "desc": "Deine Facebook-Seite teilen"
     },
     "instagram": {
       "name": "Instagram",
-      "desc": "Ihr Instagram teilen"
+      "desc": "Dein Instagram teilen"
     },
     "social": {
       "name": "Social Media",
-      "desc": "Ihre Social-Media-Kanäle teilen"
+      "desc": "Deine Social-Media-Kanäle teilen"
     },
     "whatsapp": {
       "name": "WhatsApp / SMS",
@@ -123,7 +123,7 @@
     },
     "feedback": {
       "name": "Feedback",
-      "desc": "Fragen Sie Ihre Gäste"
+      "desc": "Frag deine Gäste"
     },
     "email": {
       "name": "E-Mail",
@@ -147,15 +147,15 @@
     },
     "tiktok": {
       "name": "TikTok",
-      "desc": "Ihr TikTok-Profil"
+      "desc": "Dein TikTok-Profil"
     },
     "linkedin": {
       "name": "LinkedIn",
-      "desc": "Ihr LinkedIn-Profil oder Ihre Seite"
+      "desc": "Dein LinkedIn-Profil oder deine Seite"
     },
     "youtube": {
       "name": "YouTube",
-      "desc": "Ihr Kanal oder Video"
+      "desc": "Dein Kanal oder Video"
     },
     "spotify": {
       "name": "Spotify",
@@ -197,7 +197,7 @@
   "pv": {
     "website": {
       "title": "Software für Immobilienmakler",
-      "text": "Entdecken Sie unsere Produkte und fordern Sie eine Demo an.",
+      "text": "Entdecke unsere Produkte und fordere eine Demo an.",
       "cta": "Website öffnen",
       "locked": "Diese Seite ist geschützt",
       "enterPw": "Gib das Passwort ein, um fortzufahren.",
@@ -294,7 +294,7 @@
       "bio": "Hochzeiten und Porträts in München · Reist um die Welt"
     },
     "social": {
-      "sub": "Folgen Sie uns",
+      "sub": "Folge uns",
       "desc": "Folge uns auf allen Kanälen",
       "follow": "Folgen"
     },
@@ -373,8 +373,8 @@
       "head": "Bewertung schreiben",
       "post": "Posten",
       "public": "Wird öffentlich gepostet",
-      "tap": "Tippen Sie auf einen Stern",
-      "placeholder": "Erzählen Sie von Ihrer Erfahrung",
+      "tap": "Tippe auf einen Stern",
+      "placeholder": "Erzähl von deiner Erfahrung",
       "sample": "Schöne Terrasse, freundliches Personal und der beste Kaffee der Stadt!",
       "addPhoto": "Fotos hinzufügen"
     },
@@ -389,13 +389,13 @@
       "stars": "{n} Sterne",
       "comment": "Noch etwas? (optional)",
       "commentPh": "Was war gut, was geht besser?",
-      "email": "Ihre E-Mail (optional)",
+      "email": "Deine E-Mail (optional)",
       "consent": "{name} darf mir zu meinem Feedback schreiben.",
       "send": "Senden",
-      "note": "Anonym, außer Sie hinterlassen Ihre E-Mail.",
+      "note": "Anonym, außer du hinterlässt deine E-Mail.",
       "review": "Auch eine Google-Bewertung schreiben",
-      "needStars": "Tippen Sie zuerst auf die Sterne.",
-      "needConsent": "Haken setzen, um Ihre E-Mail zu teilen.",
+      "needStars": "Tippe zuerst auf die Sterne.",
+      "needConsent": "Haken setzen, um deine E-Mail zu teilen.",
       "tooMany": "Zu viele Nachrichten. Bitte später erneut versuchen.",
       "failed": "Senden fehlgeschlagen. Bitte erneut versuchen."
     },
@@ -414,7 +414,7 @@
       "reward": "Finderlohn: {reward}",
       "call": "Besitzer anrufen",
       "mail": "Besitzer mailen",
-      "note": "Danke für Ihre Hilfe!",
+      "note": "Danke für deine Hilfe!",
       "subject": "Gefunden: {name}"
     },
     "biz": {
@@ -440,7 +440,7 @@
       "l2": "Service",
       "phone": "Mit dem Handy zahlen",
       "card": "Mit Karte zahlen",
-      "note": "Ihre Kartendaten werden nie an das Geschäft weitergegeben."
+      "note": "Deine Kartendaten werden nie an das Geschäft weitergegeben."
     },
     "tt": {
       "following": "Folge ich",
@@ -515,31 +515,31 @@
     "fm": {
       "tag": "Formular",
       "consent": "Ich stimme zu, dass meine E-Mail-Adresse für Rückfragen zu diesem Formular verwendet wird.",
-      "needRequired": "Bitte beantworten Sie die mit * markierten Fragen.",
+      "needRequired": "Bitte beantworte die mit * markierten Fragen.",
       "badEmail": "Bitte eine gültige E-Mail-Adresse eingeben."
     }
   },
   "hero": {
-    "title": "Welche Art von QR-Code möchten Sie erstellen?",
-    "lead": "Wählen Sie einen QR-Typ, um zu beginnen."
+    "title": "Welche Art von QR-Code möchtest du erstellen?",
+    "lead": "Wähle einen QR-Typ, um zu beginnen."
   },
   "content": {
     "title": "Inhalt hinzufügen",
-    "lead": "Füllen Sie die Angaben aus. Die Vorschau aktualisiert sich beim Tippen."
+    "lead": "Fülle die Angaben aus. Die Vorschau aktualisiert sich beim Tippen."
   },
   "design": {
     "title": "QR-Code gestalten",
-    "lead": "Wählen Sie Farben, die zu Ihrer Marke passen.",
+    "lead": "Wähle Farben, die zu deiner Marke passen.",
     "color": "Farbe des Codes",
     "background": "Hintergrund",
     "contrastLow": "Geringer Kontrast. Dieser QR-Code lässt sich möglicherweise schlecht scannen.",
     "contrastOk": "Guter Kontrast. Dieser Code lässt sich leicht scannen.",
-    "done": "Ihr QR-Code ist fertig.",
+    "done": "Dein QR-Code ist fertig.",
     "qrAlt": "QR-Code für {type}",
-    "saveError": "Speichern fehlgeschlagen. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+    "saveError": "Speichern fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut.",
     "saving": "Wird gespeichert…",
     "retry": "Erneut versuchen",
-    "demoMode": "Demo-Modus: nicht gespeichert. Starten Sie den Server zum Speichern.",
+    "demoMode": "Demo-Modus: nicht gespeichert. Starte den Server zum Speichern.",
     "demoScan": "Demo: Dieser Code funktioniert erst, wenn die App online ist. WLAN und Kontaktkarte funktionieren schon.",
     "localScan": "Achtung: Dein Handy kann diese Adresse nicht öffnen. Setze PUBLIC_URL in .env (siehe docs/installatie.md).",
     "privateScan": "Achtung: Dieser QR-Code öffnet gerade die GitHub-Anmeldeseite, weil Port 3000 deines Codespace auf Private steht. Stelle ihn auf Public: Tab Ports > Rechtsklick auf 3000 > Port Visibility > Public. Lade dann diese Seite neu.",
@@ -673,12 +673,12 @@
   "account": {
     "demo": "Demo-Konto",
     "background": "Hintergrund",
-    "backgroundLead": "Wählen Sie die Umgebung, in der Sie Ihre QR-Codes erstellen. Nur Sie sehen sie."
+    "backgroundLead": "Wähle die Umgebung, in der du deine QR-Codes erstellst. Nur du siehst sie."
   },
   "bg": {
     "optimasys": "Optimasys",
     "aurora": "Polarlicht",
-    "custom": "Ihr Foto",
+    "custom": "Dein Foto",
     "upload": "Foto oder Video hinzufügen",
     "uploadError": "Das Hochladen ist fehlgeschlagen. Bitte versuche es erneut.",
     "animated": "Animiert",
@@ -702,11 +702,11 @@
     "none": "Kein Hintergrund"
   },
   "myCodes": {
-    "lead": "Alle QR-Codes, die Sie erstellt haben.",
+    "lead": "Alle QR-Codes, die du erstellt hast.",
     "loading": "Wird geladen…",
-    "offline": "Diese Online-Demo speichert keine QR-Codes. Starten Sie das Projekt mit dem Server (npm start), um sie hier zu sehen.",
-    "empty": "Sie haben noch keine QR-Codes erstellt.",
-    "error": "Ihre QR-Codes konnten nicht geladen werden. Laden Sie die Seite neu, um es erneut zu versuchen.",
+    "offline": "Diese Online-Demo speichert keine QR-Codes. Starte das Projekt mit dem Server (npm start), um sie hier zu sehen.",
+    "empty": "Du hast noch keine QR-Codes erstellt.",
+    "error": "Deine QR-Codes konnten nicht geladen werden. Lade die Seite neu, um es erneut zu versuchen.",
     "colType": "Typ",
     "colLink": "Link",
     "colCreated": "Erstellt",
@@ -750,8 +750,8 @@
     "pausedToast": "QR-Code ist aus",
     "activeToast": "QR-Code ist an",
     "deleteTitle": "„{name}“ löschen?",
-    "deleteText": "Der Link funktioniert sofort nicht mehr, auch nicht auf gedruckten Codes. Sie können ihn 30 Tage lang über „Zuletzt gelöscht“ wiederherstellen.",
-    "deleteTextStatic": "Der Code selbst funktioniert weiter, verschwindet aber aus Ihrer Liste. Sie können ihn 30 Tage lang über „Zuletzt gelöscht“ wiederherstellen.",
+    "deleteText": "Der Link funktioniert sofort nicht mehr, auch nicht auf gedruckten Codes. Du kannst ihn 30 Tage lang über „Zuletzt gelöscht“ wiederherstellen.",
+    "deleteTextStatic": "Der Code selbst funktioniert weiter, verschwindet aber aus deiner Liste. Du kannst ihn 30 Tage lang über „Zuletzt gelöscht“ wiederherstellen.",
     "cancel": "Abbrechen",
     "deleted": "QR-Code gelöscht",
     "viewStats": "Statistiken ansehen",
@@ -778,7 +778,7 @@
     "bulkPaused": "{n} Codes pausiert",
     "bulkResumed": "{n} Codes eingeschaltet",
     "bulkDeleteTitle": "{n} QR-Codes löschen?",
-    "bulkDeleteText": "Ihre Links funktionieren sofort nicht mehr. Sie können sie 30 Tage lang über „Zuletzt gelöscht“ wiederherstellen.",
+    "bulkDeleteText": "Deine Links funktionieren sofort nicht mehr. Du kannst sie 30 Tage lang über „Zuletzt gelöscht“ wiederherstellen.",
     "bulkDeleted": "{n} QR-Codes gelöscht",
     "bulkMoveTitle": "{n} QR-Codes verschieben nach",
     "preparing": "ZIP wird erstellt…",
@@ -790,11 +790,11 @@
     "share": "Teilen",
     "shareHint": "Per E-Mail, WhatsApp, AirDrop …",
     "shareFallback": "Teilen ist hier nicht möglich: das PNG wurde heruntergeladen.",
-    "planPaused": "Durch Ihr Paket pausiert",
+    "planPaused": "Durch dein Paket pausiert",
     "planPausedTip": "Funktioniert wieder nach einem Upgrade oder mit einem zusätzlichen QR-Code",
-    "planBar": "{n} QR-Codes sind durch Ihr Paket pausiert.",
-    "planBarOne": "1 QR-Code ist durch Ihr Paket pausiert.",
-    "planBarText": "Sie sind gespeichert. Upgraden Sie oder kaufen Sie einen QR-Code dazu, um sie wieder einzuschalten.",
+    "planBar": "{n} QR-Codes sind durch dein Paket pausiert.",
+    "planBarOne": "1 QR-Code ist durch dein Paket pausiert.",
+    "planBarText": "Sie sind gespeichert. Upgrade oder kauf einen QR-Code dazu, um sie wieder einzuschalten.",
     "planBarBtn": "Wieder einschalten",
     "whereTip": "Sieh, wo dieser Code gescannt wurde",
     "whereTitle": "Wo wurde „{name}“ gescannt?",
@@ -870,8 +870,8 @@
   "validate": {
     "required": "Pflichtfeld",
     "igUser": "Ein Instagram-Name besteht nur aus Buchstaben, Ziffern, Punkten und _ (max. 30 Zeichen).",
-    "endBeforeStart": "Das Ende liegt vor dem Start. Prüfen Sie die Daten unter Weitere Optionen.",
-    "tooLong": "Einer der Texte ist zu lang. Kürzen Sie ihn und versuchen Sie es erneut."
+    "endBeforeStart": "Das Ende liegt vor dem Start. Prüfe die Daten unter Weitere Optionen.",
+    "tooLong": "Einer der Texte ist zu lang. Kürze ihn und versuche es erneut."
   },
   "hint": {
     "qrName": "Wird automatisch mit dem Titel deiner Website ausgefüllt. Nur du siehst diesen Namen.",
@@ -893,15 +893,15 @@
     "abUrl": "Ein Teil der Besucher landet auf diesem Link, der Rest auf dem normalen Link. Schalte auch „In Google Analytics verfolgen“ ein, um Conversions pro Version zu sehen (utm_content=a oder b).",
     "abShare": "Standard 50: die Hälfte zu jedem Link.",
     "alertAt": "Du bekommst eine E-Mail, wenn dieser Code diese Anzahl Scans erreicht. Praktisch für Aktionen und Plakate.",
-    "reviewUrl": "Google: Öffnen Sie Ihr Unternehmensprofil, wählen Sie „Rezensionen anfordern“ und kopieren Sie den Link. Links von Tripadvisor, Trustpilot oder Booking.com gehen auch.",
-    "reviewName": "Steht in der Vorschau und hilft Ihnen, den Code wiederzuerkennen.",
+    "reviewUrl": "Google: Öffne dein Unternehmensprofil, wähle „Rezensionen anfordern“ und kopiere den Link. Links von Tripadvisor, Trustpilot oder Booking.com gehen auch.",
+    "reviewName": "Steht in der Vorschau und hilft dir, den Code wiederzuerkennen.",
     "eventEnd": "Leer lassen bei einer eintägigen Veranstaltung.",
-    "eventUrl": "Zum Beispiel Ihr Ticketshop oder Ihre Website.",
-    "route": "Leiten Sie Scanner je nach Sprache ihres Handys, Land, Uhrzeit oder Gerät auf einen anderen Link. Über die Scanner wird nichts gespeichert.",
-    "fbAskEmail": "Besucher können ihre E-Mail hinterlassen, damit Sie antworten können. Nur mit Einwilligung.",
+    "eventUrl": "Zum Beispiel dein Ticketshop oder deine Website.",
+    "route": "Leite Scanner je nach Sprache ihres Handys, Land, Uhrzeit oder Gerät auf einen anderen Link. Über die Scanner wird nichts gespeichert.",
+    "fbAskEmail": "Besucher können ihre E-Mail hinterlassen, damit du antworten kannst. Nur mit Einwilligung.",
     "fbReview": "Nach 4 oder 5 Sternen bitten wir, hier auch eine öffentliche Bewertung zu schreiben.",
-    "payUrl": "Zum Beispiel PayPal.me, Stripe, SumUp oder die Zahlungsseite Ihres Shops.",
-    "bookingUrl": "Zum Beispiel Ihre Buchungsseite, TheFork oder Calendly.",
+    "payUrl": "Zum Beispiel PayPal.me, Stripe, SumUp oder die Zahlungsseite deines Shops.",
+    "bookingUrl": "Zum Beispiel deine Buchungsseite, TheFork oder Calendly.",
     "meetingUrl": "Zoom, Microsoft Teams, Google Meet, Whereby oder Webex.",
     "reward": "Steht auf der Seite, z. B. „20 € Finderlohn“.",
     "manualVideo": "Zum Beispiel ein YouTube-Video, das zeigt, wie es funktioniert"
@@ -987,34 +987,34 @@
     "bought": "QR-Code hinzugefügt",
     "boughtLead": "Du kannst jetzt deinen nächsten QR-Code erstellen.",
     "goOn": "Weiter",
-    "keepTitle": "Wählen Sie, welche {n} QR-Codes weiter funktionieren",
-    "keepLead": "{plan} bietet Platz für {limit} QR-Codes{plus}. Sie haben jetzt {used} aktiv.",
-    "keepSafe": "Nichts wird gelöscht. Die anderen Codes werden pausiert. Upgraden Sie später oder kaufen Sie einen QR-Code dazu, dann funktionieren sie wieder.",
+    "keepTitle": "Wähle, welche {n} QR-Codes weiter funktionieren",
+    "keepLead": "{plan} bietet Platz für {limit} QR-Codes{plus}. Du hast jetzt {used} aktiv.",
+    "keepSafe": "Nichts wird gelöscht. Die anderen Codes werden pausiert. Upgrade später oder kauf einen QR-Code dazu, dann funktionieren sie wieder.",
     "keepCount": "{n} von {max} gewählt",
     "keepOff": "{n} werden pausiert",
     "keepScans": "{n} Scans",
     "keepOn": "Bleibt an",
     "keepPaused": "Pausiert",
     "keepGo": "Weiter zu {plan}",
-    "lessWarn": "{plan} hat {limit} QR-Codes{plus}. Sie haben {used}. Gleich wählen Sie, welche an bleiben. Der Rest wird pausiert, nicht gelöscht.",
+    "lessWarn": "{plan} hat {limit} QR-Codes{plus}. Du hast {used}. Gleich wählst du, welche an bleiben. Der Rest wird pausiert, nicht gelöscht.",
     "payPaused": "{n} QR-Codes werden pausiert. Sie bleiben gespeichert.",
-    "stripeDemo": "Demo: So bezahlen Sie künftig über Stripe. Es wird nichts abgebucht.",
+    "stripeDemo": "Demo: So bezahlst du künftig über Stripe. Es wird nichts abgebucht.",
     "coTrial": "{plan} 14 Tage kostenlos testen",
     "coSub": "{plan} abonnieren",
     "email": "E-Mail",
     "method": "Zahlungsmethode",
     "mCard": "Karte",
-    "paypalNote": "Sie melden sich bei PayPal an und bestätigen dort. Danach läuft es automatisch.",
-    "idealBank": "Wählen Sie Ihre Bank",
-    "idealNote": "Sie bestätigen in Ihrer Banking-App. Danach wird automatisch abgebucht.",
-    "bancontactNote": "Sie bestätigen mit der Bancontact-App. Danach wird automatisch abgebucht.",
+    "paypalNote": "Du meldest dich bei PayPal an und bestätigst dort. Danach läuft es automatisch.",
+    "idealBank": "Wähle deine Bank",
+    "idealNote": "Du bestätigst in deiner Banking-App. Danach wird automatisch abgebucht.",
+    "bancontactNote": "Du bestätigst mit der Bancontact-App. Danach wird automatisch abgebucht.",
     "startTrial": "Testphase starten",
     "subscribe": "Abonnieren",
-    "fineTrial": "Nach 14 Tagen zahlen Sie automatisch. Jederzeit kündbar, auch in der Testphase.",
-    "fine": "Sie zahlen {price}. Jederzeit kündbar.",
+    "fineTrial": "Nach 14 Tagen zahlst du automatisch. Jederzeit kündbar, auch in der Testphase.",
+    "fine": "Du zahlst {price}. Jederzeit kündbar.",
     "rcPaid": "Zahlung erfolgreich",
-    "rcTrial": "Ihre Testphase hat begonnen",
-    "rcLead": "{plan} ist aktiv. Sie können sofort weitermachen.",
+    "rcTrial": "Deine Testphase hat begonnen",
+    "rcLead": "{plan} ist aktiv. Du kannst sofort weitermachen.",
     "rcPlan": "Paket",
     "rcPeriod": "Abrechnungszeitraum",
     "rcToday": "Heute bezahlt",
@@ -1028,7 +1028,7 @@
     "firstMonthLabel": "erster Monat",
     "thenMonth": "Danach {price} pro Monat",
     "perMonthEq": "Das sind {price} pro Monat",
-    "youSave": "Sie sparen {price}",
+    "youSave": "Du sparst {price}",
     "plusExtra": " + {n} zusätzlich gekaufte",
     "promoShort": "{n} Tage gratis",
     "sCodes": "{n} QR-Codes",
@@ -1375,8 +1375,8 @@
     "reviewUrl": "https://g.page/r/LaBrisa/review",
     "eventName": "Business-Networking-Abend",
     "eventDesc": "Lokale Unternehmer treffen, kurze Vorträge und Drinks. Eintritt frei, bitte anmelden.",
-    "fbQuestion": "Wie war Ihr Besuch?",
-    "fbThanks": "Danke für Ihr Feedback!",
+    "fbQuestion": "Wie war dein Besuch?",
+    "fbThanks": "Danke für dein Feedback!",
     "mailSubject": "Frage zu meiner Bestellung",
     "mailBody": "Hallo, ich habe eine Frage zu …",
     "textTitle": "Hausordnung des Unternehmens",
@@ -1395,13 +1395,13 @@
     "manualProduct": "Espressomaschine Barista Pro",
     "manualModel": "Modell BP-200",
     "suTitle": "Tag der offenen Tür bei Studio Noord",
-    "suText": "Samstag, 15. November, 10:00–15:00. Führung, Kaffee und Beratung zu Ihrem Projekt.",
-    "suThanks": "Sie sind angemeldet. Bis dann!",
+    "suText": "Samstag, 15. November, 10:00–15:00. Führung, Kaffee und Beratung zu deinem Projekt.",
+    "suThanks": "Du bist angemeldet. Bis dann!",
     "fmTitle": "Gästeumfrage Bistro Mar Azul",
     "fmText": "Drei kurze Fragen, dauert eine Minute.",
-    "fmThanks": "Danke für Ihre Antworten!",
-    "fmQ1": "Wie zufrieden sind Sie mit Ihrem Besuch?",
-    "fmQ2": "Wie haben Sie uns gefunden?",
+    "fmThanks": "Danke für deine Antworten!",
+    "fmQ1": "Wie zufrieden bist du mit deinem Besuch?",
+    "fmQ2": "Wie hast du uns gefunden?",
     "fmO1": "Google",
     "fmO2": "Freunde oder Familie",
     "fmO3": "Soziale Medien",
@@ -1430,7 +1430,7 @@
     "page404Title": "Seite nicht gefunden",
     "page404Btn": "Zu QR-Codex",
     "g404Sub": "Diese Seite gibt es leider nicht.",
-    "g404Sub2": "Wo Sie schon hier sind: Mal sehen, wie weit Sie laufen.",
+    "g404Sub2": "Wo du schon hier bist: Mal sehen, wie weit du läufst.",
     "g404Start": "Leertaste drücken oder tippen zum Starten",
     "g404StartBtn": "Start",
     "g404Hint": "springen · gedrückt halten für höher · auf dem Handy tippen",
@@ -1440,7 +1440,7 @@
     "g404SoundOn": "Ton an",
     "g404SoundOff": "Ton aus",
     "stTitle": "Störungen und Meldungen",
-    "stLead": "Hier melden wir Störungen und Wartungen und halten Sie auf dem Laufenden, bis alles wieder funktioniert.",
+    "stLead": "Hier melden wir Störungen und Wartungen und halten dich auf dem Laufenden, bis alles wieder funktioniert.",
     "stOk": "Alles funktioniert",
     "stOkText": "Derzeit gibt es keine Störungen.",
     "stDown": "Störung",
@@ -1451,8 +1451,8 @@
     "stHistory": "Frühere Meldungen",
     "stNone": "Noch keine Meldungen.",
     "g404OffTitle": "Keine Internetverbindung",
-    "g404OffSub": "Sie sind offline. Sobald die Verbindung wieder da ist, lädt die Seite von selbst neu.",
-    "g404OffSub2": "Mal sehen, wie weit Sie inzwischen laufen."
+    "g404OffSub": "Du bist offline. Sobald die Verbindung wieder da ist, lädt die Seite von selbst neu.",
+    "g404OffSub2": "Mal sehen, wie weit du inzwischen läufst."
   },
   "edit": {
     "title": "Bearbeiten: {name}",
@@ -1664,8 +1664,8 @@
     "verifiedTitle": "E-Mail bestätigt",
     "verifiedLead": "Dein Konto ist bereit. Du kannst diese Seite schließen: Auf dem Gerät, auf dem du das Konto erstellt hast, geht es automatisch weiter.",
     "continueHere": "Auf diesem Gerät fortfahren",
-    "errPwned": "Dieses Passwort kommt in bekannten Datenlecks vor. Bitte wählen Sie ein anderes.",
-    "deviceLimit": "Sie wurden abgemeldet, weil dieses Konto auf einem anderen Gerät verwendet wurde. Ein Konto kann auf höchstens 3 Geräten gleichzeitig angemeldet sein. Arbeiten Sie mit Kollegen? Nutzen Sie Team."
+    "errPwned": "Dieses Passwort kommt in bekannten Datenlecks vor. Bitte wähle ein anderes.",
+    "deviceLimit": "Du wurdest abgemeldet, weil dieses Konto auf einem anderen Gerät verwendet wurde. Ein Konto kann auf höchstens 3 Geräten gleichzeitig angemeldet sein. Arbeitest du mit Kollegen? Nutze Team."
   },
   "acct": {
     "profile": "Profil",
@@ -1869,7 +1869,11 @@
     "billingAuto": "Wird beim Bezahlen automatisch ausgefüllt. Du kannst es hier ändern.",
     "typeLocked": "Du hast diesen Typ gewählt. Brauchst du etwas anderes?",
     "typeLockedLink": "Kontaktiere uns",
-    "act_device_limit": "Ältestes Gerät abgemeldet (max. 3 Geräte)"
+    "act_device_limit": "Ältestes Gerät abgemeldet (max. 3 Geräte)",
+    "prefStart": "Startseite",
+    "prefStartHelp": "Wo du nach dem Anmelden landest.",
+    "prefThemeHelp": "Dunkel, hell oder wie auf deinem Gerät.",
+    "prefsLead2": "Wie die App aussieht und funktioniert. Nur für dich, auf all deinen Geräten."
   },
   "mail": {
     "resetSubject": "Neues Passwort für QR-Codex",
@@ -1947,11 +1951,11 @@
     "unsubBadTitle": "Link ungültig",
     "unsubBadText": "Dieser Link ist (nicht mehr) gültig. E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten.",
     "scanFirstSubject": "Dein QR-Code „{name}“ wurde zum ersten Mal gescannt",
-    "scanFirstText": "Gute Nachricht: „{name}“ wurde gerade zum ersten Mal gescannt. Du siehst jetzt, wo und wann gescannt wird.",
+    "scanFirstText": "Gute Nachricht: „{name}“ wurde gerade zum ersten Mal gescannt. Jetzt siehst du, wo und wann gescannt wird.",
     "scanMilestoneSubject": "„{name}“ wurde {n}-mal gescannt",
     "scanMilestoneText": "Super: Dein QR-Code „{name}“ hat {n} Scans erreicht.",
-    "scanButton": "QR-Codes ansehen",
-    "scanFooter": "Diese Benachrichtigungen schaltest du unter Mein Konto > Benachrichtigungen aus.",
+    "scanButton": "Deine QR-Codes ansehen",
+    "scanFooter": "Diese Benachrichtigungen kannst du unter Mein Konto > Benachrichtigungen ausschalten.",
     "cancelTrialText": "Wir haben deine kostenlose Testphase gekündigt. Sie ist sofort beendet und es wurde nichts abgebucht. Deine QR-Codes sind pausiert; wähle innerhalb von 30 Tagen ein Paket, um alles zurückzubekommen.",
     "remindEndSubject": "Dein QR-Codex-Abo endet bald",
     "remindEndText": "Dein Abo endet am {date}. Danach funktionieren deine QR-Codes nicht mehr. Möchtest du sie behalten? Setze dein Abo unter Mein Konto fort.",
@@ -1966,12 +1970,12 @@
     "linkDownButton": "Link ändern",
     "linkDownFooter": "Diese E-Mails kannst du unter Mein Konto > Benachrichtigungen ausschalten.",
     "quietStoppedSubject": "„{name}“ wurde seit 7 Tagen nicht gescannt",
-    "quietStoppedText": "Ihr QR-Code „{name}“ wird normalerweise etwa {before}-mal pro Woche gescannt, aber in den letzten 7 Tagen hat ihn niemand gescannt.",
+    "quietStoppedText": "Dein QR-Code „{name}“ wird normalerweise etwa {before}-mal pro Woche gescannt, aber in den letzten 7 Tagen hat ihn niemand gescannt.",
     "quietDropSubject": "Scans von „{name}“ um {pct} % gesunken",
-    "quietDropText": "Ihr QR-Code „{name}“ wird normalerweise etwa {before}-mal pro Woche gescannt. In den letzten 7 Tagen waren es {now}.",
+    "quietDropText": "Dein QR-Code „{name}“ wird normalerweise etwa {before}-mal pro Woche gescannt. In den letzten 7 Tagen waren es {now}.",
     "quietTip": "Hängt das Plakat, der Aufkleber oder die Speisekarte noch und ist der Code gut sichtbar? Ein beschädigter oder verdeckter Code ist oft der Grund.",
-    "quietFooter": "Sie können diese Benachrichtigungen unter Mein Konto > Benachrichtigungen ausschalten.",
-    "ticketSubject": "Antwort auf Ihre Frage #{id}",
+    "quietFooter": "Du kannst diese Benachrichtigungen unter Mein Konto > Benachrichtigungen ausschalten.",
+    "ticketSubject": "Antwort auf deine Frage #{id}",
     "ticketButton": "In der App ansehen"
   },
   "contact": {
@@ -2948,7 +2952,7 @@
     "bSelf": "Du kannst deine eigene E-Mail-Adresse oder Domain nicht sperren.",
     "bBad": "Gib eine gültige E-Mail-Adresse oder Domain ein.",
     "iTitle": "Störungen und Meldungen",
-    "iLead": "Melden Sie hier eine Störung: Kunden sehen dann einen roten Balken in der App und die Meldung auf der Statusseite. Setzen Sie sie auf behoben, sobald alles wieder funktioniert.",
+    "iLead": "Melde hier eine Störung: Kunden sehen dann einen roten Balken in der App und die Meldung auf der Statusseite. Setze sie auf behoben, sobald alles wieder funktioniert.",
     "iNew": "Neue Meldung",
     "iTitleF": "Titel",
     "iText": "Was ist los?",
@@ -2962,7 +2966,42 @@
     "iUpdate": "Update hinzufügen",
     "iUpdateAdd": "Update veröffentlichen",
     "iEmpty": "Noch keine Meldungen.",
-    "iConfirm": "Diese Meldung löschen?"
+    "iConfirm": "Diese Meldung löschen?",
+    "gComms": "Kommunikation",
+    "gGeneral": "Allgemein",
+    "gSecurity": "Sicherheit",
+    "gSystem": "System",
+    "gTexts": "Texte",
+    "lead": "Alles für die Plattform: Firmendaten, Registrierung, E-Mail, Texte, Sicherheit und System.",
+    "mailFrom": "Absender",
+    "mailFromHelp": "Als MAIL_FROM in .env auf dem Server festgelegt.",
+    "mailLead": "Der Mailserver verschickt Bestätigungen, Passwort-Links, Scan-Berichte und Benachrichtigungen.",
+    "mailOffHelp": "Nicht eingerichtet: Trage SMTP_HOST, SMTP_PORT, SMTP_USER und SMTP_PASS in .env auf dem Server ein.",
+    "mailServer": "Mailserver (SMTP)",
+    "mailTeam": "E-Mail-Adresse des Teams",
+    "mailTeamHelp": "Hier kommen das Kontaktformular und Benachrichtigungen an. Leer = die Adresse aus den Servereinstellungen.",
+    "mailTest": "Test-E-Mail",
+    "mailTestBad": "Senden fehlgeschlagen: {msg}",
+    "mailTestBtn": "Test-E-Mail senden",
+    "mailTestHelp": "Schickt eine Test-E-Mail an deine Adresse ({email}).",
+    "mailTestOk": "Test-E-Mail an {email} gesendet. Schau auch in deinen Spam-Ordner.",
+    "mailTitle": "E-Mail",
+    "stClosed": "geschlossen",
+    "stOpen": "offen",
+    "statusLead": "Der aktuelle Zustand der Plattform.",
+    "suClosed": "Geschlossen",
+    "suEnv": "Laut Server ({state})",
+    "suLead": "Leg fest, ob neue Kunden selbst ein Konto anlegen können und ob das Team benachrichtigt wird.",
+    "suMode": "Selbstregistrierung",
+    "suModeHelp": "Geschlossen: Nur das Team legt Konten an (Lizenz). Bestehende Kunden können sich immer anmelden.",
+    "suNotify": "Benachrichtigung bei neuem Kunden",
+    "suNotifyHelp": "Eine E-Mail an {email} bei jedem neuen Kunden (E-Mail, Google oder Microsoft).",
+    "suOpen": "Offen",
+    "suTitle": "Registrierung",
+    "tabMail": "E-Mail",
+    "tabMaint": "Wartung",
+    "tabSignup": "Registrierung",
+    "tabStatus": "Status"
   },
   "st": {
     "lead": "Alles zu deinem Konto, Datenschutz und der App an einem Ort.",
@@ -3133,7 +3172,7 @@
     "err": "Setze das Häkchen, um fortzufahren."
   },
   "bill": {
-    "yourPlan": "Ihr Paket",
+    "yourPlan": "Dein Paket",
     "stActive": "Aktiv",
     "stTrial": "Testphase",
     "stCancel": "Gekündigt",
@@ -3144,7 +3183,7 @@
     "on": "am {date}",
     "afterTrial": "nach der Testphase, am {date}",
     "endsOn": "Endet am",
-    "endsSub": "Danach funktionieren Ihre QR-Codes nicht mehr",
+    "endsSub": "Danach funktionieren deine QR-Codes nicht mehr",
     "period": "Abrechnungszeitraum",
     "method": "Zahlungsmethode",
     "demoTag": "Demo",
@@ -3200,8 +3239,8 @@
   "bulk": {
     "button": "Mehrere auf einmal",
     "title": "Viele QR-Codes auf einmal erstellen",
-    "lead": "Erstellen Sie bis zu {max} QR-Codes auf einmal aus einer Excel- oder CSV-Datei. Jede Zeile wird ein QR-Code.",
-    "s1": "Wählen Sie die Art und laden Sie die Beispieldatei herunter",
+    "lead": "Erstelle bis zu {max} QR-Codes auf einmal aus einer Excel- oder CSV-Datei. Jede Zeile wird ein QR-Code.",
+    "s1": "Wähle die Art und lade die Beispieldatei herunter",
     "type": "Art des QR-Codes",
     "template": "Beispieldatei {type} herunterladen (öffnet in Excel)",
     "s2": "Datei ausfüllen und hier auswählen",
@@ -3209,11 +3248,11 @@
     "pickHint": "Erste Zeile = Spaltennamen, wie im Beispiel. Excel: .xlsx oder als CSV speichern.",
     "s3": "Prüfen: {n} Zeilen",
     "s4": "Design und Ordner",
-    "noColumns": "Wir erkennen die Spalten nicht. Verwenden Sie die Spaltennamen aus der Beispieldatei.",
-    "someErrors": "{n} Zeilen stimmen noch nicht. Passen Sie die Datei an und wählen Sie sie erneut.",
-    "overLimit": "Sie möchten {n} erstellen, aber es passen nur noch {room} in Ihr Paket.",
+    "noColumns": "Wir erkennen die Spalten nicht. Verwende die Spaltennamen aus der Beispieldatei.",
+    "someErrors": "{n} Zeilen stimmen noch nicht. Pass die Datei an und wähle sie erneut.",
+    "overLimit": "Du möchtest {n} erstellen, aber es passen nur noch {room} in dein Paket.",
     "moreRoom": "Mehr Platz",
-    "tooMany": "Höchstens {max} auf einmal. Teilen Sie die Datei auf.",
+    "tooMany": "Höchstens {max} auf einmal. Teile die Datei auf.",
     "colName": "Name des QR-Codes",
     "colContent": "Inhalt",
     "design": "Design",
@@ -3224,7 +3263,7 @@
     "go": "{n} QR-Codes erstellen",
     "making": "Wird erstellt…",
     "doneTitle": "{n} QR-Codes erstellt",
-    "doneLead": "Sie finden sie unter Meine QR-Codes. Laden Sie hier alle auf einmal herunter.",
+    "doneLead": "Du findest sie unter Meine QR-Codes. Lade hier alle auf einmal herunter.",
     "close": "Schließen",
     "zip": "Alle herunterladen (ZIP)",
     "zipping": "Wird heruntergeladen…",
@@ -3235,18 +3274,18 @@
     "errServer": "Diese Zeile stimmt nicht",
     "defaultName": "QR-Code {n}",
     "locked": "Viele QR-Codes auf einmal gibt es ab Pro.",
-    "demo": "Dafür brauchen Sie ein Konto (nicht in der Demo).",
+    "demo": "Dafür brauchst du ein Konto (nicht in der Demo).",
     "empty": "Die Datei enthält keine Zeilen.",
-    "oldExcel": "Alte Excel-Dateien (.xls) können wir nicht lesen. Speichern Sie als .xlsx oder CSV.",
-    "readError": "Diese Datei können wir nicht lesen. Verwenden Sie .xlsx oder CSV."
+    "oldExcel": "Alte Excel-Dateien (.xls) können wir nicht lesen. Speichere als .xlsx oder CSV.",
+    "readError": "Diese Datei können wir nicht lesen. Verwende .xlsx oder CSV."
   },
   "api": {
     "nav": "API",
     "title": "API-Schlüssel",
-    "lead": "Verbinden Sie Ihre eigene Software (z. B. ein CRM) mit QR-Codex. Mit einem Schlüssel kann Ihre Software QR-Codes erstellen, ändern und Statistiken abrufen.",
-    "lockedLead": "Die API ist Teil von Business. Damit verbinden Sie Ihre eigene Software mit QR-Codex.",
-    "docsTitle": "So nutzen Sie die API",
-    "docsLead": "Senden Sie bei jeder Anfrage Ihren Schlüssel mit. Antworten sind JSON.",
+    "lead": "Verbinde deine eigene Software (z. B. ein CRM) mit QR-Codex. Mit einem Schlüssel kann deine Software QR-Codes erstellen, ändern und Statistiken abrufen.",
+    "lockedLead": "Die API ist Teil von Business. Damit verbindest du deine eigene Software mit QR-Codex.",
+    "docsTitle": "So nutzt du die API",
+    "docsLead": "Sende bei jeder Anfrage deinen Schlüssel mit. Antworten sind JSON.",
     "base": "Adresse",
     "auth": "Schlüssel",
     "e1": "Alle QR-Codes",
@@ -3258,9 +3297,9 @@
     "e7": "Löschen",
     "e8": "Statistiken",
     "example": "Beispiel",
-    "limits": "Höchstens 300 Anfragen pro Minute. Die Grenzen Ihres Pakets gelten auch über die API.",
-    "newTitle": "Ihr neuer Schlüssel",
-    "newLead": "Jetzt kopieren und speichern. Sie sehen ihn nur einmal.",
+    "limits": "Höchstens 300 Anfragen pro Minute. Die Grenzen deines Pakets gelten auch über die API.",
+    "newTitle": "Dein neuer Schlüssel",
+    "newLead": "Jetzt kopieren und speichern. Du siehst ihn nur einmal.",
     "copy": "Kopieren",
     "copied": "Kopiert",
     "created": "erstellt {date}",
@@ -3272,7 +3311,7 @@
     "name": "Name (wofür?)",
     "namePh": "Zum Beispiel: Optima-CRM",
     "create": "Schlüssel erstellen",
-    "max": "Sie haben die Höchstzahl an Schlüsseln erreicht.",
+    "max": "Du hast die Höchstzahl an Schlüsseln erreicht.",
     "peek": "Sieh dir an, was du mit der API machen kannst"
   },
   "labels": {
@@ -3405,7 +3444,7 @@
     "undo": "Rückgängig",
     "restored": "Wiederhergestellt. Der Link funktioniert wieder.",
     "restoredMany": "{n} Codes wiederhergestellt.",
-    "restoredPaused": "Wiederhergestellt, aber pausiert: Ihr Paket ist voll.",
+    "restoredPaused": "Wiederhergestellt, aber pausiert: Dein Paket ist voll.",
     "purgeTitle": "„{name}“ endgültig löschen?",
     "purgeText": "Der Code, seine Statistiken und Dateien werden gelöscht. Der Link kommt nie zurück. Das lässt sich nicht rückgängig machen.",
     "purge": "Endgültig löschen",
@@ -3414,10 +3453,10 @@
     "left": "Noch {n} Tage wiederherstellbar",
     "leftOne": "Noch 1 Tag wiederherstellbar",
     "restore": "Wiederherstellen",
-    "note": "Gelöschte Codes funktionieren nicht. Sie können sie 30 Tage lang wiederherstellen; danach werden sie endgültig gelöscht.",
+    "note": "Gelöschte Codes funktionieren nicht. Du kannst sie 30 Tage lang wiederherstellen; danach werden sie endgültig gelöscht.",
     "empty": "Nichts in „Zuletzt gelöscht“.",
     "logTitle": "Endgültig gelöscht",
-    "logLead": "Diese Codes sind für immer weg und lassen sich nicht wiederherstellen. Sie stehen hier ein Jahr lang, damit Sie sehen, was passiert ist.",
+    "logLead": "Diese Codes sind für immer weg und lassen sich nicht wiederherstellen. Sie stehen hier ein Jahr lang, damit du siehst, was passiert ist.",
     "logAuto": "Automatisch nach 30 Tagen",
     "logBy": "Von {name}"
   },
@@ -3426,7 +3465,7 @@
     "title": "Verlauf von „{name}“",
     "now": "Führt jetzt zu",
     "lead": "Frühere Versionen. Wiederherstellen wirkt sofort, auch auf gedruckten Codes.",
-    "empty": "Noch keine Änderungen. Sobald Sie diesen Code ändern, erscheint die vorige Version hier.",
+    "empty": "Noch keine Änderungen. Sobald du diesen Code änderst, erscheint die vorige Version hier.",
     "restore": "Wiederherstellen",
     "restored": "Frühere Version wiederhergestellt. Scans führen jetzt dorthin.",
     "gone": "Datei ersetzt",
@@ -3438,7 +3477,7 @@
     "sharp": "Scharf gedruckt bis {cm} cm Breite (SVG, PDF und EPS: jede Größe)",
     "distance": "Gescannt aus",
     "min": "✓ Mindestens {cm} cm breit drucken",
-    "tooSmall": "Braucht mindestens {cm} cm: wählen Sie eine größere Größe oder SVG, PDF oder EPS"
+    "tooSmall": "Braucht mindestens {cm} cm: wähle eine größere Größe oder SVG, PDF oder EPS"
   },
   "tg": {
     "prev": "Vorherige Arten",
@@ -3449,7 +3488,7 @@
   },
   "tour": {
     "welcomeTitle": "Willkommen bei QR-Codex",
-    "welcomeText": "Eine kurze Tour von 30 Sekunden, damit Sie wissen, wo alles ist. Sie können sie jederzeit überspringen.",
+    "welcomeText": "Eine kurze Tour von 30 Sekunden, damit du weißt, wo alles ist. Du kannst sie jederzeit überspringen.",
     "skip": "Überspringen",
     "start": "Tour starten",
     "step": "Schritt {n} von {total}",
@@ -3459,21 +3498,21 @@
     "close": "Schließen",
     "firstCode": "Meinen ersten Code erstellen",
     "doneTitle": "Alles bereit",
-    "doneText": "Das war’s. Erstellen Sie jetzt Ihren ersten QR-Code oder sehen Sie sich selbst um.",
+    "doneText": "Das war’s. Erstelle jetzt deinen ersten QR-Code oder sieh dich selbst um.",
     "createTitle": "QR-Code erstellen",
-    "createText": "Wählen Sie eine Art, füllen Sie den Inhalt aus und wählen Sie ein Design. In einer Minute ist Ihr Code fertig.",
+    "createText": "Wähle eine Art, fülle den Inhalt aus und wähle ein Design. In einer Minute ist dein Code fertig.",
     "myCodesTitle": "Meine QR-Codes",
-    "myCodesText": "Alle Ihre Codes an einem Ort. Ändern Sie jederzeit, wohin ein Code führt, auch wenn er schon gedruckt ist.",
+    "myCodesText": "Alle deine Codes an einem Ort. Ändere jederzeit, wohin ein Code führt, auch wenn er schon gedruckt ist.",
     "analyticsTitle": "Statistiken",
-    "analyticsText": "Sehen Sie, wie oft Ihre Codes gescannt werden, wann und mit welchen Geräten.",
+    "analyticsText": "Sieh, wie oft deine Codes gescannt werden, wann und mit welchen Geräten.",
     "homeTitle": "Übersicht",
-    "homeText": "Ihre Codes und Scans auf einen Blick, bei jeder Anmeldung.",
+    "homeText": "Deine Codes und Scans auf einen Blick, bei jeder Anmeldung.",
     "helpTitle": "Hilfe",
-    "helpText": "Fragen? Hier finden Sie Antworten, oder kontaktieren Sie uns direkt.",
-    "accountTitle": "Ihr Konto",
-    "accountText": "Ihr Paket, Rechnungen, Sprache und Benachrichtigungen.",
+    "helpText": "Fragen? Hier findest du Antworten, oder kontaktiere uns direkt.",
+    "accountTitle": "Dein Konto",
+    "accountText": "Dein Paket, Rechnungen, Sprache und Benachrichtigungen.",
     "replayTitle": "Kurze Tour",
-    "replayText": "Etwas verpasst? Sehen Sie sich die 30-Sekunden-Tour noch einmal an.",
+    "replayText": "Etwas verpasst? Sieh dir die 30-Sekunden-Tour noch einmal an.",
     "replay": "Tour noch einmal"
   },
   "route": {
@@ -3494,29 +3533,29 @@
     "dev_android": "Android",
     "dev_desktop": "Computer",
     "remove": "Regel entfernen",
-    "empty": "Noch keine Regeln. Fügen Sie eine hinzu, z. B. spanische Handys auf Ihre spanische Seite.",
-    "note": "Die Regeln werden von oben nach unten geprüft; die erste passende gewinnt. Passt keine, gilt der normale Link. Zeiten gelten in der Zeitzone Ihres Kontos."
+    "empty": "Noch keine Regeln. Füge eine hinzu, z. B. spanische Handys auf deine spanische Seite.",
+    "note": "Die Regeln werden von oben nach unten geprüft; die erste passende gewinnt. Passt keine, gilt der normale Link. Zeiten gelten in der Zeitzone deines Kontos."
   },
   "tk": {
     "title": "Meine Fragen",
-    "lead": "Ihre Nachrichten an unser Team. Sie bekommen auch eine E-Mail, wenn wir antworten.",
+    "lead": "Deine Nachrichten an unser Team. Du bekommst auch eine E-Mail, wenn wir antworten.",
     "s_open": "Offen",
     "s_answered": "Beantwortet",
     "s_closed": "Geschlossen",
     "team": "{name} von QR-Codex",
-    "you": "Sie",
+    "you": "Du",
     "reply": "Antworten",
     "replyPh": "Antwort schreiben…",
     "send": "Senden",
     "close": "Frage schließen",
     "reopen": "Wieder öffnen",
-    "closedNote": "Diese Frage ist geschlossen. Senden Sie oben eine neue Nachricht, wenn Sie noch Hilfe brauchen.",
+    "closedNote": "Diese Frage ist geschlossen. Sende oben eine neue Nachricht, wenn du noch Hilfe brauchst.",
     "all": "Alle",
     "none": "Keine Fragen hier.",
     "admTab": "Support",
     "admTitle": "Kundenfragen",
-    "admLead": "Hier antworten; der Kunde erhält Ihre Antwort per E-Mail und sieht sie unter Kontakt > Meine Fragen.",
-    "admReplyPh": "Ihre Antwort…",
+    "admLead": "Hier antworten; der Kunde erhält deine Antwort per E-Mail und sieht sie unter Kontakt > Meine Fragen.",
+    "admReplyPh": "Deine Antwort…",
     "admSend": "Antwort senden"
   },
   "fb": {
@@ -3538,7 +3577,7 @@
   },
   "fq": {
     "add": "Frage hinzufügen",
-    "empty": "Noch keine Fragen. Fügen Sie mindestens eine hinzu.",
+    "empty": "Noch keine Fragen. Füge mindestens eine hinzu.",
     "question": "Frage",
     "kind": "Antworttyp",
     "k_text": "Kurzer Text",
@@ -3564,7 +3603,7 @@
     "text": "Text",
     "btnLabel": "Text der Schaltfläche",
     "btnUrl": "Link der Schaltfläche",
-    "empty": "Fügen Sie Überschriften, Text und Schaltflächen hinzu."
+    "empty": "Füge Überschriften, Text und Schaltflächen hinzu."
   },
   "fm": {
     "count": "Antworten: {n}"

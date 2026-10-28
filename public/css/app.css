@@ -5665,11 +5665,11 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 /* Contact: formulier links, Mijn vragen rechts, tips eronder (help.js) */
 .help-grid.has-tk { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
 .help-grid .tk-box { margin-top: 0; }
-.help-tips { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 24px; }
+.help-row { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 24px; }
 .help-sentbar { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; margin: -4px 0 16px; border-radius: 12px; background: rgba(19,138,82,.12); border: 1px solid rgba(19,138,82,.3); }
 .help-sentbar > svg { width: 22px; height: 22px; flex: none; color: #22c55e; }
 .help-sentbar > div > b { display: block; font-size: 14.5px; } .help-sentbar span, .help-sentbar small { display: block; font-size: 13.5px; color: var(--muted); margin-top: 2px; }
-@media (max-width: 900px) { .help-grid.has-tk, .help-tips { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 900px) { .help-grid.has-tk, .help-row { grid-template-columns: minmax(0, 1fr); } }
 /* Soorten: elke tegel even hoog, ook als een naam over twee regels loopt ("WhatsApp / SMS"); icoon en tekst overal op dezelfde hoogte */
 @media (min-width: 761px) {
   .grid > .qr-card { justify-content: flex-start; padding-top: 14px; gap: 8px; }
