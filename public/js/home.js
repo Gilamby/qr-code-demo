@@ -12,7 +12,7 @@
 var Home = (function () {
   var view = document.getElementById('homeView'), body = document.getElementById('homeBody');
   var health = {};
-  var codes = null, stats = null, statsP = null, acts = null, me = null, seq = 0, period = 30, plan = null;
+  var codes = null, stats = null, statsP = null, acts = null, me = null, seq = 0, period = 30;
   try { var sp = +localStorage.getItem('home.period'); if ([1, 7, 30, 90].indexOf(sp) >= 0) period = sp; } catch (e) {}
   var SVG = function (p, cls) { return '<svg class="' + (cls || 'hm-i') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
   var IC = {
@@ -47,11 +47,10 @@ var Home = (function () {
       api.analytics({ from: iso(from), to: iso(to), codes: [], os: [], cc: [], city: [] }).catch(function () { return null; }),
       api.analytics({ from: iso(new Date(Date.now() - (period - 1) * 864e5)), to: iso(to), codes: [], os: [], cc: [], city: [], tz: i18n.fmt.zone() }).catch(function () { return null; }),
       api.account.activity ? api.account.activity().catch(function () { return { activity: [] }; }) : Promise.resolve({ activity: [] }),
-      api.account.plan ? api.account.plan().catch(function () { return null; }) : Promise.resolve(null),
       api.codeHealth ? api.codeHealth().catch(function () { return {}; }) : Promise.resolve({})
     ]).then(function (r) {
       if (my !== seq) return;
-      codes = r[0] || []; stats = r[1]; statsP = r[2]; acts = (r[3] && r[3].activity) || []; plan = r[4]; health = r[5] || {};
+      codes = r[0] || []; stats = r[1]; statsP = r[2]; acts = (r[3] && r[3].activity) || []; health = r[4] || {};
       draw();
     });
   }
@@ -182,14 +181,6 @@ var Home = (function () {
       '<div class="hm-wqr" aria-hidden="true">' + QRRender.svg('https://optimasys.com', { color: '#0b1220', background: '#ffffff' }) + '</div></div>';
   }
 
-  /* Abonnement in één regel: welk pakket en tot wanneer betaald (straks komt dit uit Stripe). Klik = Abonnement. */
-  function subLine() {
-    var sb = plan && plan.sub, p = plan && plan.plan;
-    if (!sb || !p || (window.Team && Team.member && Team.member())) return '';
-    if (sb.state === 'active' && sb.periodEnd) return '<button type="button" class="hm-sub" data-hm-plan><b>' + esc(t('plan.n_' + p.id)) + '</b> · ' + esc(t('sub.paidUntil', { date: i18n.fmt.stamp(sb.periodEnd, 'short') })) + '</button>';
-    return '';
-  }
-
   /* Telefoon (≤ 760 px): alles op één scherm. Onder de grafiek tabbladjes: Meest gescand · Activiteit · Favorieten */
   var phoneMq = matchMedia('(max-width: 760px)'), mtab = 'top';
   function mpane() { return mtab === 'act' ? activity() : mtab === 'fav' ? favorites() : top(); }
@@ -201,7 +192,7 @@ var Home = (function () {
   function draw() {
     if (!codes) return;
     var sr = series30();
-    body.innerHTML = '<header class="hm-hero"><div><h2>' + esc(greeting()) + '</h2><p>' + t(codes.length ? 'home.welcomeBack' : 'home.leadNew') + '</p>' + subLine() + '</div>' +
+    body.innerHTML = '<header class="hm-hero"><div><h2>' + esc(greeting()) + '</h2><p>' + t(codes.length ? 'home.welcomeBack' : 'home.leadNew') + '</p>' + '</div>' +
         '<div class="hm-acts"><label class="ad-sel hm-period"><span class="sr-only">' + t('an.period') + '</span><select id="hmPeriod">' + [1, 7, 30, 90].map(function (n) { return '<option value="' + n + '"' + (n === period ? ' selected' : '') + '>' + t(n === 1 ? 'an.p_today' : 'an.p_' + n) + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn primary" data-hm-new>' + ico('plus') + t('nav.create') + '</button></div></header>' +
       (stats && stats.demo ? '<p class="mc-demo">' + t('an.demoNote') + '</p>' : '') + alerts() +
@@ -226,7 +217,6 @@ var Home = (function () {
     var mt = e.target.closest('[data-hm-tab]');
     if (mt) { mtab = mt.getAttribute('data-hm-tab'); body.querySelectorAll('[data-hm-tab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === mt)); }); body.querySelector('#hmMPane').innerHTML = mpane(); return; }
     if (e.target.closest('[data-hm-new]')) { actions.startNew(); return goToPage('create'); }
-    if (e.target.closest('[data-hm-plan]')) { goToPage('account'); if (window.openAccountTab) openAccountTab('plan'); return; }
     var g = e.target.closest('[data-goto]'); if (g) return goToPage(g.getAttribute('data-goto'));
     if (e.target.closest('[data-goto-sec]')) { goToPage('account'); if (window.openAccountTab) openAccountTab('security'); return; }
     if (e.target.closest('[data-goto-fav]')) { goToPage('myCodes'); if (window.MyCodes && MyCodes.showFolder) MyCodes.showFolder('fav'); return; }

@@ -961,7 +961,6 @@
     "choosePlan": "Continuer avec {plan}",
     "then": "Ensuite",
     "payNow": "Payer {price}",
-    "safe": "Paiement sécurisé",
     "changed": "Votre formule a été modifiée",
     "lockFrom": "À partir de {plan}",
     "fTypes": "{n} types de codes QR",
@@ -974,7 +973,6 @@
     "reason_team": "Le travail en équipe est possible à partir de Pro.",
     "reason_stats": "Des statistiques plus longues avec une formule supérieure.",
     "reason_limit": "Vous avez utilisé tous les codes QR de votre formule. Choisissez une formule supérieure pour en créer plus.",
-    "viaStripe": "Paiement sécurisé via Stripe. Résiliable à tout moment.",
     "processing": "Traitement de votre paiement…",
     "processingLead": "Cela prend quelques secondes. Gardez cette page ouverte.",
     "payError": "Impossible de lancer le paiement. Réessayez dans un instant.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Vous confirmez avec l'app Bancontact. Ensuite, le prélèvement est automatique.",
     "startTrial": "Démarrer l'essai",
     "subscribe": "S'abonner",
-    "fineTrial": "Après 14 jours, vous payez automatiquement. Résiliable à tout moment, même pendant l'essai.",
-    "fine": "Vous payez {price}. Résiliable à tout moment.",
     "rcPaid": "Paiement réussi",
     "rcTrial": "Votre essai a commencé",
     "rcLead": "{plan} est actif. Vous pouvez continuer tout de suite.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Vous avez été déconnecté car ce compte a été utilisé sur un autre appareil. Un compte peut être connecté sur 3 appareils maximum en même temps. Vous travaillez avec des collègues ? Utilisez Équipe.",
     "confirmTitle": "Confirmez votre compte",
     "confirmLead": "Encore un clic et votre adresse e-mail est confirmée.",
-    "confirmBtn": "Confirmer mon compte"
+    "confirmBtn": "Confirmer mon compte",
+    "errVerifyExpired": "Ce lien a expiré. Nous vous en avons envoyé un nouveau, consultez vos e-mails."
   },
   "acct": {
     "profile": "Profil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% de réduction",
     "perYear": "par an",
     "perQuarter": "par trimestre",
-    "paidUntil": "Payé jusqu’au {date}",
     "graceRule": "Si votre abonnement prend fin, vos QR codes cessent immédiatement de fonctionner, mais nous les conservons 30 jours. Renouvelez dans ce délai et tout fonctionne à nouveau, y compris vos codes imprimés. Après 30 jours, ils sont supprimés.",
     "graceMsg": "Votre abonnement a expiré. Vos codes QR ne fonctionnent pas et vous ne pouvez rien modifier. Renouvelez avant le {date}, sinon tous vos codes QR seront supprimés.",
     "endedMsg": "Votre abonnement a expiré et vos codes QR ont été supprimés. Souscrivez un abonnement pour créer de nouveaux codes.",

@@ -961,7 +961,6 @@
     "choosePlan": "Continua con {plan}",
     "then": "Poi",
     "payNow": "Paga {price}",
-    "safe": "Pagamento sicuro",
     "changed": "Il tuo piano è cambiato",
     "lockFrom": "Da {plan}",
     "fTypes": "{n} tipi di codici QR",
@@ -974,7 +973,6 @@
     "reason_team": "Lavorare in team è possibile da Pro.",
     "reason_stats": "Statistiche più lunghe con un piano più grande.",
     "reason_limit": "Hai usato tutti i codici QR del tuo piano. Scegli un piano più grande per crearne altri.",
-    "viaStripe": "Pagamento sicuro con Stripe. Disdici quando vuoi.",
     "processing": "Elaborazione del pagamento…",
     "processingLead": "Ci vuole qualche secondo. Tieni aperta questa pagina.",
     "payError": "Impossibile avviare il pagamento. Riprova tra poco.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Confermi con l'app Bancontact. Poi l'addebito è automatico.",
     "startTrial": "Inizia la prova",
     "subscribe": "Abbonati",
-    "fineTrial": "Dopo 14 giorni paghi automaticamente. Puoi disdire quando vuoi, anche durante la prova.",
-    "fine": "Paghi {price}. Puoi disdire quando vuoi.",
     "rcPaid": "Pagamento riuscito",
     "rcTrial": "La tua prova è iniziata",
     "rcLead": "{plan} è attivo. Puoi continuare subito.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Sei stato disconnesso perché questo account è stato usato su un altro dispositivo. Un account può essere connesso su massimo 3 dispositivi contemporaneamente. Lavori con colleghi? Usa Team.",
     "confirmTitle": "Conferma il tuo account",
     "confirmLead": "Ancora un clic e il tuo indirizzo email è confermato.",
-    "confirmBtn": "Conferma il mio account"
+    "confirmBtn": "Conferma il mio account",
+    "errVerifyExpired": "Questo link è scaduto. Te ne abbiamo inviato uno nuovo, controlla la tua e-mail."
   },
   "acct": {
     "profile": "Profilo",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% di sconto",
     "perYear": "all’anno",
     "perQuarter": "al trimestre",
-    "paidUntil": "Pagato fino al {date}",
     "graceRule": "Se l’abbonamento termina, i tuoi QR code smettono subito di funzionare, ma li conserviamo per 30 giorni. Rinnova entro quel periodo e tutto torna a funzionare, anche i codici stampati. Dopo 30 giorni vengono eliminati.",
     "graceMsg": "Il tuo abbonamento è scaduto. I tuoi codici QR non funzionano e non puoi modificare nulla. Rinnova entro il {date}, altrimenti tutti i tuoi codici QR verranno eliminati.",
     "endedMsg": "Il tuo abbonamento è scaduto e i tuoi codici QR sono stati eliminati. Sottoscrivi un abbonamento per creare nuovi codici.",

@@ -1281,3 +1281,15 @@ test('registreren met een bevestigd e-mailadres: 409 exists (de app stuurt naar 
   const db = app.get(DatabaseService), u = await db.userByEmail('fix-k@example.com'), tok = await db.createVerification(u.id);
   assert.ok(tok);
 });
+
+test('verlopen bevestigingslink: token_expired en meteen een nieuwe link', async () => {
+  const c = client(); await c('POST', '/api/auth/register', { accept: true, email: 'verlopen@example.com', password: 'Verlopen zin 41 ok!', name: 'V' });
+  const { DatabaseService } = require('../server/dist/database/database.service'), db = app.get(DatabaseService);
+  const old = tokenFor('verlopen@example.com');
+  await db.d.run('UPDATE email_verifications SET expires_at = ?', ['2000-01-01T00:00:00.000Z']);
+  const r = await c('POST', '/api/auth/verify', { token: old });
+  assert.equal(r.status, 400); assert.equal(r.json.error, 'token_expired');
+  const fresh = tokenFor('verlopen@example.com'); assert.notEqual(fresh, old, 'nieuwe link gemaakt');
+  assert.equal((await c('POST', '/api/auth/verify', { token: fresh })).status, 200);
+  assert.equal((await c('POST', '/api/auth/verify', { token: 'onzin' })).json.error, 'token');
+});

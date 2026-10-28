@@ -78,7 +78,13 @@ export class AuthController {
   @HttpCode(200)
   async verify(@Req() req: Request, @Res({ passthrough: true }) res: Response, @Body() b: any = {}) {
     if (this.auth.limited('verify:' + req.ip, 30, 60)) throw fail(429, 'too_many');
-    const userId = await this.db.useVerification(String(b.token || ''));
+    const token = String(b.token || ''), old = await this.db.expiredVerification(token);
+    if (old) {                                                               // verlopen: meteen een nieuwe link sturen (niet eerst laten inloggen)
+      const u = await this.db.getUser(old);
+      if (u && !u.disabledAt && !(await this.db.isVerified(old)) && !this.auth.limited('resend:' + u.email, 3, 60)) await this.sendVerifyMail(req, old, u.email, String(b.lang || u.lang || 'en'));
+      throw fail(400, 'token_expired');
+    }
+    const userId = await this.db.useVerification(token);
     if (!userId) throw fail(400, 'token');
     const user = await this.db.getUser(userId);
     // Link geopend in dezelfde browser als waar het account gemaakt is: meteen ingelogd

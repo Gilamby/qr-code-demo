@@ -156,8 +156,6 @@ var Plans = (function () {
             (on ? '<div class="pw-co-body">' + methodBody(m) + '</div>' : '') + '</div>';
         }).join('') + '</div></div>') +
         (inApp() && !sBuyer ? '' : '<button type="submit" class="pw-co-go"' + (busy || (inApp() && !sReady) ? ' disabled' : '') + '>' + (busy ? '<span class="pw-spin sm" aria-hidden="true"></span>' : '') + esc(t(trial ? 'pw.startTrial' : 'pw.subscribe')) + '</button>') +
-        '<p class="pw-co-fine">' + esc(t(trial ? 'pw.fineTrial' : 'pw.fine', { price: euro(price) + ' ' + per })) + '</p>' +
-        '<p class="pw-co-safe">🔒 ' + esc(t(inApp() ? 'pw.viaStripe' : 'pw.safe')) + '</p>' +
         '<button type="button" class="link-btn pw-co-back" data-pw-back>' + esc(t('pw.back')) + '</button>' +
       '</form></div></div>';
     if (inApp() && sBuyer) mountStripe();
@@ -171,7 +169,7 @@ var Plans = (function () {
       '<form class="pw-co-form" data-pw-form><div class="pw-co-f"><span>' + esc(t('pw.method')) + '</span><div id="pwPe" class="pw-pe"><span class="pw-spin sm" aria-hidden="true"></span></div></div>' +
       '<p class="acct-msg bad" id="pwErr" role="alert" hidden></p>' +
       '<button type="submit" class="pw-co-go"' + (busy || !sReady ? ' disabled' : '') + '>' + esc(t('bill.pmSave')) + '</button>' +
-      '<p class="pw-co-safe">🔒 ' + esc(t('pw.viaStripe')) + '</p></form></div></div>';
+      '</form></div></div>';
     mountStripe();
   }
   // Losse QR-codes die je erbij kocht: gaan mee in het abonnement
@@ -352,7 +350,7 @@ var Plans = (function () {
   function unwait() { document.body.classList.remove('pw-wait'); }
   function check() {
     if (!api.account || !api.account.plan) return unwait();
-    if (window.TermsGate && TermsGate.waiting()) return unwait();        // eerst akkoord met de voorwaarden (terms-gate.js)
+    if (window.TermsGate && TermsGate.waiting()) return;                 // eerst akkoord met de voorwaarden (terms-gate.js); laadscherm blijft tot 'terms-ok' (of het voorwaarden-scherm opent)
     api.account.plan().then(function (r) {
       info = r;
       // Net betaald bij Stripe: even wachten tot Stripe het heeft gemeld (webhook), dan de app in

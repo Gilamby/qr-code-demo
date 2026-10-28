@@ -961,7 +961,6 @@
     "choosePlan": "Verder met {plan}",
     "then": "Daarna",
     "payNow": "Betaal {price}",
-    "safe": "Veilig betalen",
     "changed": "Je pakket is gewijzigd",
     "lockFrom": "Vanaf {plan}",
     "fTypes": "{n} soorten QR-codes",
@@ -974,7 +973,6 @@
     "reason_team": "Samenwerken in een team kan vanaf Pro.",
     "reason_stats": "Langere statistieken krijg je met een groter pakket.",
     "reason_limit": "Je hebt alle QR-codes van je pakket gebruikt. Kies een groter pakket om er meer te maken.",
-    "viaStripe": "Veilig betalen via Stripe. Altijd opzegbaar.",
     "processing": "We verwerken je betaling…",
     "processingLead": "Dit duurt een paar seconden. Houd deze pagina open.",
     "payError": "Betalen lukte niet. Probeer het zo nog eens.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Je bevestigt met de Bancontact-app. Daarna wordt het automatisch afgeschreven.",
     "startTrial": "Proefperiode starten",
     "subscribe": "Abonneren",
-    "fineTrial": "Na 14 dagen betaal je automatisch. Opzeggen kan altijd, ook tijdens de proefperiode.",
-    "fine": "Je betaalt {price}. Opzeggen kan altijd.",
     "rcPaid": "Betaling gelukt",
     "rcTrial": "Je proefperiode is gestart",
     "rcLead": "{plan} staat aan. Je kunt meteen verder.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Je bent uitgelogd omdat dit account op een ander apparaat is gebruikt. Een account kan op maximaal 3 apparaten tegelijk ingelogd zijn. Werk je met collega's? Gebruik dan Team.",
     "confirmTitle": "Bevestig je account",
     "confirmLead": "Nog één klik en je e-mailadres is bevestigd.",
-    "confirmBtn": "Bevestig mijn account"
+    "confirmBtn": "Bevestig mijn account",
+    "errVerifyExpired": "Deze link is verlopen. We hebben je een nieuwe gestuurd, kijk in je e-mail."
   },
   "acct": {
     "profile": "Profiel",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% korting",
     "perYear": "per jaar",
     "perQuarter": "per kwartaal",
-    "paidUntil": "Betaald tot {date}",
     "graceRule": "Verloopt je abonnement, dan werken je QR-codes meteen niet meer, maar we bewaren ze 30 dagen. Verleng je in die tijd, dan werkt alles weer, ook je geprinte codes. Na 30 dagen worden ze verwijderd.",
     "graceMsg": "Je abonnement is verlopen. Je QR-codes werken niet en je kunt niets wijzigen. Verleng vóór {date}, anders worden al je QR-codes verwijderd.",
     "endedMsg": "Je abonnement is verlopen en je QR-codes zijn verwijderd. Neem een abonnement om nieuwe codes te maken.",

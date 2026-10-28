@@ -100,11 +100,11 @@ var Session = (function () {
   }
   // Link uit de bevestigingsmail
   function verify(token) {
-    return api.auth.verify({ token: token }).then(function (r) {
+    return api.auth.verify({ token: token, lang: i18n.lang() }).then(function (r) {
       if (r && r.loggedIn && r.user) return enter(r.user);              // zelfde browser als waar het account gemaakt is: meteen binnen
       prefill = (r && r.email) || pendingEmail; flash = null; show(api.isDemo() ? 'login' : 'verified');
     })
-      .catch(function () { flash = ['auth.errVerifyToken', 'bad']; show('login'); });
+      .catch(function (e) { flash = [e && e.code === 'token_expired' ? 'auth.errVerifyExpired' : 'auth.errVerifyToken', 'bad']; show('login'); });   // verlopen: er is al een nieuwe link gestuurd
   }
   /** Vinkje: 18+ en akkoord met Terms en Privacy (Terms punt 1 en 3). Ook gebruikt door TermsGate. */
   function termsBox(on) {

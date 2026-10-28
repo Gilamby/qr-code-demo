@@ -961,7 +961,6 @@
     "choosePlan": "Continua amb {plan}",
     "then": "Després",
     "payNow": "Paga {price}",
-    "safe": "Pagament segur",
     "changed": "El teu pla ha canviat",
     "lockFrom": "Des de {plan}",
     "fTypes": "{n} tipus de codis QR",
@@ -974,7 +973,6 @@
     "reason_team": "Treballar en equip és possible des de Pro.",
     "reason_stats": "Estadístiques més llargues amb un pla més gran.",
     "reason_limit": "Has fet servir tots els codis QR del teu pla. Tria un pla més gran per crear-ne més.",
-    "viaStripe": "Pagament segur amb Stripe. Cancel·la quan vulguis.",
     "processing": "Processant el pagament…",
     "processingLead": "Triga uns segons. Mantén aquesta pàgina oberta.",
     "payError": "No s’ha pogut iniciar el pagament. Torna-ho a provar d’aquí a una estona.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Confirmes amb l'app de Bancontact. Després es cobra automàticament.",
     "startTrial": "Comença la prova",
     "subscribe": "Subscriu-te",
-    "fineTrial": "Després de 14 dies pagues automàticament. Cancel·la quan vulguis, també durant la prova.",
-    "fine": "Pagues {price}. Cancel·la quan vulguis.",
     "rcPaid": "Pagament fet",
     "rcTrial": "La teva prova ha començat",
     "rcLead": "{plan} està actiu. Pots continuar ara mateix.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "S'ha tancat la sessió perquè aquest compte s'ha fet servir en un altre dispositiu. Un compte pot tenir la sessió oberta en 3 dispositius com a màxim. Treballes amb companys? Fes servir Equip.",
     "confirmTitle": "Confirma el teu compte",
     "confirmLead": "Un clic més i el teu correu quedarà confirmat.",
-    "confirmBtn": "Confirmar el meu compte"
+    "confirmBtn": "Confirmar el meu compte",
+    "errVerifyExpired": "Aquest enllaç ha caducat. T'hem enviat un de nou, revisa el teu correu."
   },
   "acct": {
     "profile": "Perfil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% de descompte",
     "perYear": "l'any",
     "perQuarter": "per trimestre",
-    "paidUntil": "Pagat fins al {date}",
     "graceRule": "Si la teva subscripció acaba, els teus codis QR deixen de funcionar de seguida, però els guardem 30 dies. Si renoves en aquest termini, tot torna a funcionar, també els codis impresos. Després de 30 dies s’eliminen.",
     "graceMsg": "La teva subscripció ha caducat. Els teus codis QR no funcionen i no pots canviar res. Renova-la abans del {date} o s'eliminaran tots els teus codis QR.",
     "endedMsg": "La teva subscripció ha caducat i s'han eliminat els teus codis QR. Contracta una subscripció per crear codis nous.",

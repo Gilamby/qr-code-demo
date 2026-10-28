@@ -961,7 +961,6 @@
     "choosePlan": "Dalej z {plan}",
     "then": "Potem",
     "payNow": "Zapłać {price}",
-    "safe": "Bezpieczna płatność",
     "changed": "Twój pakiet został zmieniony",
     "lockFrom": "Od {plan}",
     "fTypes": "{n} rodzajów kodów QR",
@@ -974,7 +973,6 @@
     "reason_team": "Praca w zespole jest dostępna od Pro.",
     "reason_stats": "Dłuższe statystyki w większym pakiecie.",
     "reason_limit": "Wykorzystałeś wszystkie kody QR w pakiecie. Wybierz większy pakiet, aby tworzyć więcej.",
-    "viaStripe": "Bezpieczna płatność przez Stripe. Możesz zrezygnować w każdej chwili.",
     "processing": "Przetwarzamy Twoją płatność…",
     "processingLead": "To potrwa kilka sekund. Nie zamykaj tej strony.",
     "payError": "Nie udało się rozpocząć płatności. Spróbuj ponownie za chwilę.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Potwierdzasz w aplikacji Bancontact. Potem płatność pobierana jest automatycznie.",
     "startTrial": "Rozpocznij okres próbny",
     "subscribe": "Subskrybuj",
-    "fineTrial": "Po 14 dniach płacisz automatycznie. Możesz zrezygnować w każdej chwili, także w okresie próbnym.",
-    "fine": "Płacisz {price}. Możesz zrezygnować w każdej chwili.",
     "rcPaid": "Płatność zakończona",
     "rcTrial": "Okres próbny się rozpoczął",
     "rcLead": "{plan} jest aktywny. Możesz od razu kontynuować.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Wylogowano Cię, ponieważ to konto zostało użyte na innym urządzeniu. Konto może być zalogowane na maksymalnie 3 urządzeniach jednocześnie. Pracujesz z innymi? Użyj Zespołu.",
     "confirmTitle": "Potwierdź swoje konto",
     "confirmLead": "Jeszcze jedno kliknięcie i Twój adres e-mail zostanie potwierdzony.",
-    "confirmBtn": "Potwierdź moje konto"
+    "confirmBtn": "Potwierdź moje konto",
+    "errVerifyExpired": "Ten link wygasł. Wysłaliśmy Ci nowy, sprawdź swoją skrzynkę."
   },
   "acct": {
     "profile": "Profil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% zniżki",
     "perYear": "rocznie",
     "perQuarter": "na kwartał",
-    "paidUntil": "Opłacone do {date}",
     "graceRule": "Gdy subskrypcja się skończy, Twoje kody QR od razu przestają działać, ale przechowujemy je przez 30 dni. Odnów ją w tym czasie, a wszystko znów zadziała, także wydrukowane kody. Po 30 dniach zostaną usunięte.",
     "graceMsg": "Twoja subskrypcja wygasła. Twoje kody QR nie działają i nie możesz niczego zmieniać. Odnów ją przed {date}, inaczej wszystkie Twoje kody QR zostaną usunięte.",
     "endedMsg": "Twoja subskrypcja wygasła, a Twoje kody QR zostały usunięte. Wykup subskrypcję, aby tworzyć nowe kody.",

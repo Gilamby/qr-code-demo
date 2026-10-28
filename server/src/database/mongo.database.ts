@@ -168,6 +168,10 @@ export class MongoDatabase extends DatabaseService {
     await this.verifications.insertOne({ _id: hash(token), userId, expiresAt: new Date(Date.now() + VERIFY_MINUTES * 60e3).toISOString() });
     return token;
   }
+  async expiredVerification(token: string): Promise<string | null> {
+    const r = await this.verifications.findOne({ _id: hash(token) });
+    return r && r.expiresAt < now() ? r.userId : null;
+  }
   async useVerification(token: string): Promise<string | null> {
     const r = await this.verifications.findOneAndDelete({ _id: hash(token) });      // in één stap: werkt maar één keer
     if (!r || r.expiresAt < now()) return null;

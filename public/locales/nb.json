@@ -961,7 +961,6 @@
     "choosePlan": "Fortsett med {plan}",
     "then": "Deretter",
     "payNow": "Betal {price}",
-    "safe": "Sikker betaling",
     "changed": "Pakken din er endret",
     "lockFrom": "Fra {plan}",
     "fTypes": "{n} typer QR-koder",
@@ -974,7 +973,6 @@
     "reason_team": "Samarbeid i team er mulig fra Pro.",
     "reason_stats": "Lengre statistikk med en større pakke.",
     "reason_limit": "Du har brukt alle QR-kodene i pakken din. Velg en større pakke for å lage flere.",
-    "viaStripe": "Sikker betaling via Stripe. Kan sies opp når som helst.",
     "processing": "Vi behandler betalingen din…",
     "processingLead": "Det tar noen sekunder. Hold siden åpen.",
     "payError": "Betalingen kunne ikke startes. Prøv igjen om litt.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Du bekrefter med Bancontact-appen. Deretter trekkes beløpet automatisk.",
     "startTrial": "Start prøveperiode",
     "subscribe": "Abonner",
-    "fineTrial": "Etter 14 dager betaler du automatisk. Kan alltid sies opp, også i prøveperioden.",
-    "fine": "Du betaler {price}. Kan alltid sies opp.",
     "rcPaid": "Betaling fullført",
     "rcTrial": "Prøveperioden din har startet",
     "rcLead": "{plan} er aktiv. Du kan fortsette med en gang.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Du er logget ut fordi kontoen ble brukt på en annen enhet. En konto kan være logget inn på maks 3 enheter samtidig. Jobber du med kolleger? Bruk Team.",
     "confirmTitle": "Bekreft kontoen din",
     "confirmLead": "Ett klikk til, så er e-postadressen din bekreftet.",
-    "confirmBtn": "Bekreft kontoen min"
+    "confirmBtn": "Bekreft kontoen min",
+    "errVerifyExpired": "Denne lenken er utløpt. Vi har sendt deg en ny, sjekk e-posten din."
   },
   "acct": {
     "profile": "Profil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% rabatt",
     "perYear": "per år",
     "perQuarter": "per kvartal",
-    "paidUntil": "Betalt til {date}",
     "graceRule": "Hvis abonnementet ditt avsluttes, slutter QR-kodene dine å virke med en gang, men vi tar vare på dem i 30 dager. Forny innen den tid, så virker alt igjen, også de trykte kodene. Etter 30 dager slettes de.",
     "graceMsg": "Abonnementet ditt har utløpt. QR-kodene dine virker ikke, og du kan ikke endre noe. Forny før {date}, ellers slettes alle QR-kodene dine.",
     "endedMsg": "Abonnementet ditt har utløpt, og QR-kodene dine er slettet. Ta et abonnement for å lage nye koder.",

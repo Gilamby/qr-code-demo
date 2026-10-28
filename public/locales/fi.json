@@ -961,7 +961,6 @@
     "choosePlan": "Jatka paketilla {plan}",
     "then": "Sen jälkeen",
     "payNow": "Maksa {price}",
-    "safe": "Turvallinen maksu",
     "changed": "Pakettisi on vaihdettu",
     "lockFrom": "Alkaen {plan}",
     "fTypes": "{n} QR-koodityyppiä",
@@ -974,7 +973,6 @@
     "reason_team": "Tiimityö onnistuu Pro-paketista alkaen.",
     "reason_stats": "Pidemmät tilastot isommalla paketilla.",
     "reason_limit": "Olet käyttänyt kaikki pakettisi QR-koodit. Valitse isompi paketti tehdäksesi lisää.",
-    "viaStripe": "Turvallinen maksu Stripen kautta. Voit perua milloin vain.",
     "processing": "Käsittelemme maksuasi…",
     "processingLead": "Tämä kestää muutaman sekunnin. Pidä sivu auki.",
     "payError": "Maksua ei voitu aloittaa. Yritä hetken päästä uudelleen.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Vahvistat Bancontact-sovelluksella. Sen jälkeen veloitus on automaattinen.",
     "startTrial": "Aloita kokeilu",
     "subscribe": "Tilaa",
-    "fineTrial": "14 päivän jälkeen maksat automaattisesti. Voit perua milloin vain, myös kokeilun aikana.",
-    "fine": "Maksat {price}. Voit perua milloin vain.",
     "rcPaid": "Maksu onnistui",
     "rcTrial": "Kokeilujaksosi alkoi",
     "rcLead": "{plan} on käytössä. Voit jatkaa heti.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Sinut kirjattiin ulos, koska tiliä käytettiin toisella laitteella. Tili voi olla kirjautuneena enintään 3 laitteella kerrallaan. Työskenteletkö kollegoiden kanssa? Käytä Tiimiä.",
     "confirmTitle": "Vahvista tilisi",
     "confirmLead": "Vielä yksi napsautus, niin sähköpostiosoitteesi on vahvistettu.",
-    "confirmBtn": "Vahvista tilini"
+    "confirmBtn": "Vahvista tilini",
+    "errVerifyExpired": "Tämä linkki on vanhentunut. Lähetimme sinulle uuden, tarkista sähköpostisi."
   },
   "acct": {
     "profile": "Profiili",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% alennus",
     "perYear": "vuodessa",
     "perQuarter": "neljännesvuodessa",
-    "paidUntil": "Maksettu {date} asti",
     "graceRule": "Jos tilauksesi päättyy, QR-koodisi lakkaavat toimimasta heti, mutta säilytämme ne 30 päivää. Uusi tilaus sinä aikana, niin kaikki toimii taas, myös tulostetut koodit. 30 päivän jälkeen ne poistetaan.",
     "graceMsg": "Tilauksesi on päättynyt. QR-koodisi eivät toimi etkä voi muuttaa mitään. Uusi tilaus ennen {date}, muuten kaikki QR-koodisi poistetaan.",
     "endedMsg": "Tilauksesi on päättynyt ja QR-koodisi on poistettu. Tee tilaus luodaksesi uusia koodeja.",

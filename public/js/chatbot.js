@@ -89,7 +89,8 @@
   // Alles van de chatbot verbergen (knopje, begroeting, venster): op het inlogscherm hoort hij niet
   function rootsOff(off) {
     [].slice.call(document.body.children).filter(isChatRoot).forEach(function (r) {
-      if (off) { r.setAttribute('data-qrc-off', '1'); r.style.setProperty('display', 'none', 'important'); }
+      // De begroeting ("Hi I'm Clara…") nooit: in de app staat Clara al als knop bovenin
+      if (off || /greet/i.test(r.id + ' ' + (typeof r.className === 'string' ? r.className : ''))) { r.setAttribute('data-qrc-off', '1'); r.style.setProperty('display', 'none', 'important'); }
       else if (r.getAttribute('data-qrc-off')) { r.removeAttribute('data-qrc-off'); r.style.removeProperty('display'); }
     });
   }

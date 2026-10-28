@@ -20,7 +20,7 @@ var TermsGate = (function () {
       (err ? '<p class="auth-msg bad" role="alert">' + esc(t('terms.err')) + '</p>' : '') +
       '<form data-tg-form>' + window.TermsBox(false) + '<button type="submit" class="btn primary pw-go">' + esc(t('terms.go')) + '</button></form></div>';
   }
-  function open() { state = 'open'; draw(); document.body.classList.add('paywall-open'); var c = box.querySelector('input'); if (c) c.focus(); }
+  function open() { state = 'open'; draw(); document.body.classList.add('paywall-open'); document.body.classList.remove('pw-wait'); var c = box.querySelector('input'); if (c) c.focus(); }
   function close() { if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
   function done() { state = 'ok'; close(); document.dispatchEvent(new CustomEvent('terms-ok')); }
   function check() {

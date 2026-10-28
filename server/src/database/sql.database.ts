@@ -89,6 +89,10 @@ export class SqlDatabase extends DatabaseService {
     ]);
     return token;
   }
+  async expiredVerification(token: string): Promise<string | null> {
+    const r = await this.d.get('SELECT * FROM email_verifications WHERE token_hash = ?', [hash(token)]);
+    return r && r.expires_at < now() ? r.user_id : null;
+  }
   async useVerification(token: string): Promise<string | null> {
     const r = await this.d.get('SELECT * FROM email_verifications WHERE token_hash = ?', [hash(token)]); if (!r) return null;
     const del = await this.d.run('DELETE FROM email_verifications WHERE token_hash = ?', [hash(token)]);

@@ -4406,9 +4406,6 @@ body.team-viewer [data-mc-new], body.team-viewer .item[data-page="create"], body
 .auth-google + .auth-ms { margin-top: 10px; }
 .auth-or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; margin: 16px 0; }
 .auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--line, rgba(255,255,255,.12)); }
-.hm-sub { margin-top: 8px; background: none; border: 0; padding: 0; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; text-align: left; }
-.hm-sub b { color: var(--accent); }
-.hm-sub:hover { color: var(--fg); }
 
 /* Pakket kiezen (verplicht na aanmelden, zoals bij Slack) */
 body.paywall-open { overflow: hidden; }
@@ -4740,8 +4737,7 @@ body.paywall-open { overflow: hidden; }
   .hm-mpane .hm-head { justify-content: flex-end; }
   .an-mpane .an-mini li:nth-child(n+5) { display: none; }
   .hm-hero h2 { font-size: 20px; }
-  .hm-hero p, .hm-hero .hm-sub { display: none; }
-  .hm-acts { display: flex; gap: 8px; flex: 1 1 100% !important; width: 100% !important; }
+  .hm-hero p, .hm-hero   .hm-acts { display: flex; gap: 8px; flex: 1 1 100% !important; width: 100% !important; }
   .hm-acts .hm-period { flex: 1; } .hm-acts .hm-period select { max-width: none !important; width: 100%; }
   .hm-acts .hm-period select { height: 38px; font-size: 13px; padding: 0 26px 0 10px; max-width: 128px; }
   .hm-hero > div:first-child { min-width: 0; flex: 1 1 100%; }

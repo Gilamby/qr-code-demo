@@ -961,7 +961,6 @@
     "choosePlan": "Vazhdo me {plan}",
     "then": "Pastaj",
     "payNow": "Paguaj {price}",
-    "safe": "Pagesë e sigurt",
     "changed": "Paketa jote u ndryshua",
     "lockFrom": "Nga {plan}",
     "fTypes": "{n} lloje kodesh QR",
@@ -974,7 +973,6 @@
     "reason_team": "Puna në ekip është e mundur nga Pro.",
     "reason_stats": "Statistika më të gjata me një paketë më të madhe.",
     "reason_limit": "Ke përdorur të gjitha kodet QR të paketës. Zgjidh një paketë më të madhe për të krijuar më shumë.",
-    "viaStripe": "Pagesë e sigurt përmes Stripe. Mund ta anulosh kurdo.",
     "processing": "Po përpunojmë pagesën tënde…",
     "processingLead": "Zgjat disa sekonda. Mbaje faqen të hapur.",
     "payError": "Pagesa nuk mund të niste. Provo përsëri pas pak.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Konfirmoni me aplikacionin Bancontact. Pastaj tërhiqet automatikisht.",
     "startTrial": "Fillo provën",
     "subscribe": "Abonohu",
-    "fineTrial": "Pas 14 ditësh paguani automatikisht. Mund ta anuloni kurdo, edhe gjatë provës.",
-    "fine": "Paguani {price}. Mund ta anuloni kurdo.",
     "rcPaid": "Pagesa u krye",
     "rcTrial": "Prova juaj filloi",
     "rcLead": "{plan} është aktiv. Mund të vazhdoni menjëherë.",
@@ -1772,7 +1768,8 @@
     "deviceLimit": "U shkëputët sepse llogaria u përdor në një pajisje tjetër. Një llogari mund të jetë e hapur në deri në 3 pajisje njëkohësisht. Punoni me kolegë? Përdorni Ekipin.",
     "confirmTitle": "Konfirmoni llogarinë tuaj",
     "confirmLead": "Edhe një klikim dhe email-i juaj konfirmohet.",
-    "confirmBtn": "Konfirmo llogarinë time"
+    "confirmBtn": "Konfirmo llogarinë time",
+    "errVerifyExpired": "Kjo lidhje ka skaduar. Të dërguam një të re, kontrollo emailin."
   },
   "acct": {
     "profile": "Profili",
@@ -3199,7 +3196,6 @@
     "quarterSave": "10% zbritje",
     "perYear": "në vit",
     "perQuarter": "në tremujor",
-    "paidUntil": "Paguar deri më {date}",
     "graceRule": "Nëse abonimi përfundon, kodet tuaja QR ndalojnë së punuari menjëherë, por i ruajmë për 30 ditë. Rinovojeni brenda kësaj kohe dhe gjithçka funksionon përsëri, edhe kodet e printuara. Pas 30 ditësh ato fshihen.",
     "graceMsg": "Abonimi yt ka skaduar. Kodet e tua QR nuk funksionojnë dhe nuk mund të ndryshosh asgjë. Rinovoje para {date}, përndryshe të gjitha kodet e tua QR do të fshihen.",
     "endedMsg": "Abonimi yt ka skaduar dhe kodet e tua QR u fshinë. Merr një abonim për të krijuar kode të reja.",

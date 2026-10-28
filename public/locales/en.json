@@ -961,7 +961,6 @@
     "choosePlan": "Continue with {plan}",
     "then": "After that",
     "payNow": "Pay {price}",
-    "safe": "Secure payment",
     "changed": "Your plan has been changed",
     "lockFrom": "From {plan}",
     "fTypes": "{n} types of QR codes",
@@ -974,7 +973,6 @@
     "reason_team": "Working together in a team comes with Pro and Business.",
     "reason_stats": "Longer statistics come with a bigger plan.",
     "reason_limit": "You've used all QR codes in your plan. Choose a bigger plan to make more.",
-    "viaStripe": "Secure payment via Stripe. You can cancel anytime.",
     "processing": "Processing your payment…",
     "processingLead": "This takes a few seconds. Please keep this page open.",
     "payError": "Payment could not be started. Please try again in a moment.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "You confirm with the Bancontact app. After that it is charged automatically.",
     "startTrial": "Start trial",
     "subscribe": "Subscribe",
-    "fineTrial": "After 14 days you pay automatically. Cancel any time, also during the trial.",
-    "fine": "You pay {price}. Cancel any time.",
     "rcPaid": "Payment successful",
     "rcTrial": "Your trial has started",
     "rcLead": "{plan} is active. You can carry on right away.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "You were signed out because this account was used on another device. An account can be signed in on up to 3 devices at once. Working with colleagues? Use Team.",
     "confirmTitle": "Confirm your account",
     "confirmLead": "One click and your email address is confirmed.",
-    "confirmBtn": "Confirm my account"
+    "confirmBtn": "Confirm my account",
+    "errVerifyExpired": "This link has expired. We've sent you a new one, check your email."
   },
   "acct": {
     "profile": "Profile",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% off",
     "perYear": "per year",
     "perQuarter": "per quarter",
-    "paidUntil": "Paid until {date}",
     "graceRule": "If your subscription ends, your QR codes stop working straight away, but we keep them for 30 days. Renew within that time and everything works again, including your printed codes. After 30 days they are deleted.",
     "graceMsg": "Your subscription has expired. Your QR codes are not working and you can't change anything. Renew before {date}, otherwise all your QR codes will be deleted.",
     "endedMsg": "Your subscription has expired and your QR codes have been deleted. Take out a subscription to create new codes.",

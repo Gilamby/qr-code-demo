@@ -961,7 +961,6 @@
     "choosePlan": "Pokračovať s {plan}",
     "then": "Potom",
     "payNow": "Zaplatiť {price}",
-    "safe": "Bezpečná platba",
     "changed": "Tvoj balík bol zmenený",
     "lockFrom": "Od {plan}",
     "fTypes": "{n} druhov QR kódov",
@@ -974,7 +973,6 @@
     "reason_team": "Práca v tíme je možná od Pro.",
     "reason_stats": "Dlhšie štatistiky s väčším balíkom.",
     "reason_limit": "Využil si všetky QR kódy balíka. Vyber väčší balík a vytvor ďalšie.",
-    "viaStripe": "Bezpečná platba cez Stripe. Zrušiť môžeš kedykoľvek.",
     "processing": "Spracúvame tvoju platbu…",
     "processingLead": "Trvá to pár sekúnd. Nechaj túto stránku otvorenú.",
     "payError": "Platbu sa nepodarilo spustiť. Skús to o chvíľu znova.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Potvrdíte v aplikácii Bancontact. Potom sa platba strháva automaticky.",
     "startTrial": "Spustiť skúšobné obdobie",
     "subscribe": "Predplatiť",
-    "fineTrial": "Po 14 dňoch platíte automaticky. Zrušiť môžete kedykoľvek, aj počas skúšobného obdobia.",
-    "fine": "Platíte {price}. Zrušiť môžete kedykoľvek.",
     "rcPaid": "Platba úspešná",
     "rcTrial": "Skúšobné obdobie sa začalo",
     "rcLead": "{plan} je aktívny. Môžete hneď pokračovať.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Boli ste odhlásený, pretože účet bol použitý na inom zariadení. Účet môže byť prihlásený najviac na 3 zariadeniach naraz. Pracujete s kolegami? Použite Tím.",
     "confirmTitle": "Potvrďte svoj účet",
     "confirmLead": "Ešte jedno kliknutie a váš e-mail je potvrdený.",
-    "confirmBtn": "Potvrdiť môj účet"
+    "confirmBtn": "Potvrdiť môj účet",
+    "errVerifyExpired": "Tento odkaz vypršal. Poslali sme ti nový, pozri si e-mail."
   },
   "acct": {
     "profile": "Profil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% zľava",
     "perYear": "ročne",
     "perQuarter": "za štvrťrok",
-    "paidUntil": "Zaplatené do {date}",
     "graceRule": "Ak sa predplatné skončí, vaše QR kódy hneď prestanú fungovať, ale uchováme ich 30 dní. Ak ho v tomto čase obnovíte, všetko bude znova fungovať, aj vytlačené kódy. Po 30 dňoch sa vymažú.",
     "graceMsg": "Tvoje predplatné vypršalo. Tvoje QR kódy nefungujú a nemôžeš nič meniť. Obnov ho do {date}, inak sa všetky tvoje QR kódy odstránia.",
     "endedMsg": "Tvoje predplatné vypršalo a tvoje QR kódy boli odstránené. Zaplať predplatné a vytváraj nové kódy.",

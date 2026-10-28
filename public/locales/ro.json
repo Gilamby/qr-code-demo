@@ -961,7 +961,6 @@
     "choosePlan": "Continuă cu {plan}",
     "then": "Apoi",
     "payNow": "Plătește {price}",
-    "safe": "Plată sigură",
     "changed": "Pachetul tău a fost schimbat",
     "lockFrom": "De la {plan}",
     "fTypes": "{n} tipuri de coduri QR",
@@ -974,7 +973,6 @@
     "reason_team": "Lucrul în echipă este posibil de la Pro.",
     "reason_stats": "Statistici mai lungi cu un pachet mai mare.",
     "reason_limit": "Ai folosit toate codurile QR din pachet. Alege un pachet mai mare pentru a crea mai multe.",
-    "viaStripe": "Plată sigură prin Stripe. Poți anula oricând.",
     "processing": "Îți procesăm plata…",
     "processingLead": "Durează câteva secunde. Păstrează pagina deschisă.",
     "payError": "Plata nu a putut fi pornită. Încearcă din nou peste puțin timp.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Confirmați cu aplicația Bancontact. Apoi plata se face automat.",
     "startTrial": "Începeți perioada de probă",
     "subscribe": "Abonare",
-    "fineTrial": "După 14 zile plătiți automat. Puteți anula oricând, și în perioada de probă.",
-    "fine": "Plătiți {price}. Puteți anula oricând.",
     "rcPaid": "Plată reușită",
     "rcTrial": "Perioada de probă a început",
     "rcLead": "{plan} este activ. Puteți continua imediat.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Ai fost deconectat deoarece contul a fost folosit pe alt dispozitiv. Un cont poate fi conectat pe cel mult 3 dispozitive simultan. Lucrezi cu colegi? Folosește Echipa.",
     "confirmTitle": "Confirmă-ți contul",
     "confirmLead": "Încă un clic și adresa ta de e-mail este confirmată.",
-    "confirmBtn": "Confirmă-mi contul"
+    "confirmBtn": "Confirmă-mi contul",
+    "errVerifyExpired": "Acest link a expirat. Ți-am trimis unul nou, verifică-ți e-mailul."
   },
   "acct": {
     "profile": "Profil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% reducere",
     "perYear": "pe an",
     "perQuarter": "pe trimestru",
-    "paidUntil": "Plătit până la {date}",
     "graceRule": "Dacă abonamentul se încheie, codurile QR nu mai funcționează imediat, dar le păstrăm 30 de zile. Reînnoiește în acest timp și totul funcționează din nou, inclusiv codurile tipărite. După 30 de zile sunt șterse.",
     "graceMsg": "Abonamentul tău a expirat. Codurile tale QR nu funcționează și nu poți modifica nimic. Reînnoiește-l înainte de {date}, altfel toate codurile tale QR vor fi șterse.",
     "endedMsg": "Abonamentul tău a expirat și codurile tale QR au fost șterse. Ia un abonament ca să creezi coduri noi.",

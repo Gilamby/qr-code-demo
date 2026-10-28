@@ -961,7 +961,6 @@
     "choosePlan": "Fortsätt med {plan}",
     "then": "Därefter",
     "payNow": "Betala {price}",
-    "safe": "Säker betalning",
     "changed": "Ditt paket har ändrats",
     "lockFrom": "Från {plan}",
     "fTypes": "{n} typer av QR-koder",
@@ -974,7 +973,6 @@
     "reason_team": "Arbeta i team går från Pro.",
     "reason_stats": "Längre statistik med ett större paket.",
     "reason_limit": "Du har använt alla QR-koder i ditt paket. Välj ett större paket för att skapa fler.",
-    "viaStripe": "Säker betalning via Stripe. Kan sägas upp när som helst.",
     "processing": "Vi behandlar din betalning…",
     "processingLead": "Det tar några sekunder. Håll sidan öppen.",
     "payError": "Betalningen kunde inte startas. Försök igen om en stund.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Du bekräftar med Bancontact-appen. Sedan dras beloppet automatiskt.",
     "startTrial": "Starta provperiod",
     "subscribe": "Prenumerera",
-    "fineTrial": "Efter 14 dagar betalar du automatiskt. Kan alltid sägas upp, även under provperioden.",
-    "fine": "Du betalar {price}. Kan alltid sägas upp.",
     "rcPaid": "Betalningen lyckades",
     "rcTrial": "Din provperiod har startat",
     "rcLead": "{plan} är aktivt. Du kan fortsätta direkt.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Du har loggats ut eftersom kontot användes på en annan enhet. Ett konto kan vara inloggat på högst 3 enheter samtidigt. Jobbar du med kollegor? Använd Team.",
     "confirmTitle": "Bekräfta ditt konto",
     "confirmLead": "Ett klick till så är din e-postadress bekräftad.",
-    "confirmBtn": "Bekräfta mitt konto"
+    "confirmBtn": "Bekräfta mitt konto",
+    "errVerifyExpired": "Den här länken har gått ut. Vi har skickat en ny, kolla din e-post."
   },
   "acct": {
     "profile": "Profil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% rabatt",
     "perYear": "per år",
     "perQuarter": "per kvartal",
-    "paidUntil": "Betalt till {date}",
     "graceRule": "Om ditt abonnemang upphör slutar dina QR-koder fungera direkt, men vi sparar dem i 30 dagar. Förnya inom den tiden så fungerar allt igen, även dina tryckta koder. Efter 30 dagar raderas de.",
     "graceMsg": "Ditt abonnemang har gått ut. Dina QR-koder fungerar inte och du kan inte ändra något. Förnya före {date}, annars raderas alla dina QR-koder.",
     "endedMsg": "Ditt abonnemang har gått ut och dina QR-koder har raderats. Teckna ett abonnemang för att skapa nya koder.",

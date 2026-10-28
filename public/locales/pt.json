@@ -961,7 +961,6 @@
     "choosePlan": "Continuar com {plan}",
     "then": "Depois",
     "payNow": "Pagar {price}",
-    "safe": "Pagamento seguro",
     "changed": "O seu plano foi alterado",
     "lockFrom": "A partir de {plan}",
     "fTypes": "{n} tipos de códigos QR",
@@ -974,7 +973,6 @@
     "reason_team": "Trabalhar em equipa é possível a partir do Pro.",
     "reason_stats": "Estatísticas mais longas com um plano maior.",
     "reason_limit": "Usou todos os códigos QR do seu plano. Escolha um plano maior para criar mais.",
-    "viaStripe": "Pagamento seguro via Stripe. Cancele quando quiser.",
     "processing": "A processar o seu pagamento…",
     "processingLead": "Demora alguns segundos. Mantenha esta página aberta.",
     "payError": "Não foi possível iniciar o pagamento. Tente novamente daqui a pouco.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Confirma com a app Bancontact. Depois é cobrado automaticamente.",
     "startTrial": "Iniciar período de teste",
     "subscribe": "Subscrever",
-    "fineTrial": "Após 14 dias paga automaticamente. Cancele quando quiser, também durante o teste.",
-    "fine": "Paga {price}. Cancele quando quiser.",
     "rcPaid": "Pagamento concluído",
     "rcTrial": "O seu período de teste começou",
     "rcLead": "{plan} está ativo. Pode continuar já.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "A sua sessão foi terminada porque esta conta foi usada noutro dispositivo. Uma conta pode estar ligada em no máximo 3 dispositivos ao mesmo tempo. Trabalha com colegas? Use a Equipa.",
     "confirmTitle": "Confirme a sua conta",
     "confirmLead": "Mais um clique e o seu e-mail fica confirmado.",
-    "confirmBtn": "Confirmar a minha conta"
+    "confirmBtn": "Confirmar a minha conta",
+    "errVerifyExpired": "Este link expirou. Enviámos-lhe um novo, verifique o seu e-mail."
   },
   "acct": {
     "profile": "Perfil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% de desconto",
     "perYear": "por ano",
     "perQuarter": "por trimestre",
-    "paidUntil": "Pago até {date}",
     "graceRule": "Se a tua subscrição terminar, os teus códigos QR deixam logo de funcionar, mas guardamo-los durante 30 dias. Renova nesse prazo e tudo volta a funcionar, incluindo os códigos impressos. Após 30 dias são eliminados.",
     "graceMsg": "A sua subscrição expirou. Os seus códigos QR não funcionam e não pode alterar nada. Renove antes de {date}, caso contrário todos os seus códigos QR serão eliminados.",
     "endedMsg": "A sua subscrição expirou e os seus códigos QR foram eliminados. Subscreva um plano para criar novos códigos.",

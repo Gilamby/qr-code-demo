@@ -961,7 +961,6 @@
     "choosePlan": "Continuar con {plan}",
     "then": "Después",
     "payNow": "Pagar {price}",
-    "safe": "Pago seguro",
     "changed": "Tu plan ha cambiado",
     "lockFrom": "Desde {plan}",
     "fTypes": "{n} tipos de códigos QR",
@@ -974,7 +973,6 @@
     "reason_team": "Trabajar en equipo es posible desde Pro.",
     "reason_stats": "Estadísticas más largas con un plan mayor.",
     "reason_limit": "Has usado todos los códigos QR de tu plan. Elige un plan mayor para crear más.",
-    "viaStripe": "Pago seguro con Stripe. Cancela cuando quieras.",
     "processing": "Procesando tu pago…",
     "processingLead": "Tarda unos segundos. Mantén esta página abierta.",
     "payError": "No se pudo iniciar el pago. Inténtalo de nuevo en un momento.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Confirmas con la app de Bancontact. Después se cobra automáticamente.",
     "startTrial": "Empezar prueba",
     "subscribe": "Suscribirse",
-    "fineTrial": "Tras 14 días pagas automáticamente. Cancela cuando quieras, también durante la prueba.",
-    "fine": "Pagas {price}. Cancela cuando quieras.",
     "rcPaid": "Pago realizado",
     "rcTrial": "Tu prueba ha empezado",
     "rcLead": "{plan} está activo. Puedes seguir ahora mismo.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Se cerró tu sesión porque esta cuenta se usó en otro dispositivo. Una cuenta puede estar abierta en 3 dispositivos a la vez como máximo. ¿Trabajas con compañeros? Usa Equipo.",
     "confirmTitle": "Confirma tu cuenta",
     "confirmLead": "Un clic más y tu correo quedará confirmado.",
-    "confirmBtn": "Confirmar mi cuenta"
+    "confirmBtn": "Confirmar mi cuenta",
+    "errVerifyExpired": "Este enlace ha caducado. Te hemos enviado uno nuevo, revisa tu correo."
   },
   "acct": {
     "profile": "Perfil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% de descuento",
     "perYear": "al año",
     "perQuarter": "al trimestre",
-    "paidUntil": "Pagado hasta el {date}",
     "graceRule": "Si tu suscripción termina, tus códigos QR dejan de funcionar al instante, pero los guardamos 30 días. Si renuevas en ese plazo, todo vuelve a funcionar, también tus códigos impresos. Después de 30 días se eliminan.",
     "graceMsg": "Tu suscripción ha caducado. Tus códigos QR no funcionan y no puedes cambiar nada. Renueva antes del {date} o se eliminarán todos tus códigos QR.",
     "endedMsg": "Tu suscripción ha caducado y tus códigos QR se han eliminado. Contrata una suscripción para crear códigos nuevos.",

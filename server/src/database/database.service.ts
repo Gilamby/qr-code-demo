@@ -128,6 +128,8 @@ export abstract class DatabaseService {
   /* Bevestigingslink: 24 uur geldig, één keer te gebruiken */
   abstract createVerification(userId: string): Promise<string>;
   abstract useVerification(token: string): Promise<string | null>;
+  /** Verlopen bevestigingslink: van wie was hij? (alleen lezen; null als de link niet bestaat of nog geldig is) */
+  abstract expiredVerification(token: string): Promise<string | null>;
 
   /* Sessies */
   abstract createSession(userId: string, meta?: ClientMeta): Promise<{ token: string; expires: string }>;

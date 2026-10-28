@@ -961,7 +961,6 @@
     "choosePlan": "Weiter mit {plan}",
     "then": "Danach",
     "payNow": "{price} bezahlen",
-    "safe": "Sichere Zahlung",
     "changed": "Dein Paket wurde geändert",
     "lockFrom": "Ab {plan}",
     "fTypes": "{n} Arten von QR-Codes",
@@ -974,7 +973,6 @@
     "reason_team": "Im Team arbeiten geht ab Pro.",
     "reason_stats": "Längere Statistiken gibt es mit einem größeren Paket.",
     "reason_limit": "Du hast alle QR-Codes deines Pakets genutzt. Wähle ein größeres Paket, um mehr zu erstellen.",
-    "viaStripe": "Sicher bezahlen mit Stripe. Jederzeit kündbar.",
     "processing": "Deine Zahlung wird verarbeitet…",
     "processingLead": "Das dauert ein paar Sekunden. Bitte lass diese Seite geöffnet.",
     "payError": "Die Zahlung konnte nicht gestartet werden. Versuche es gleich noch einmal.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Du bestätigst mit der Bancontact-App. Danach wird automatisch abgebucht.",
     "startTrial": "Testphase starten",
     "subscribe": "Abonnieren",
-    "fineTrial": "Nach 14 Tagen zahlst du automatisch. Jederzeit kündbar, auch in der Testphase.",
-    "fine": "Du zahlst {price}. Jederzeit kündbar.",
     "rcPaid": "Zahlung erfolgreich",
     "rcTrial": "Deine Testphase hat begonnen",
     "rcLead": "{plan} ist aktiv. Du kannst sofort weitermachen.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Du wurdest abgemeldet, weil dieses Konto auf einem anderen Gerät verwendet wurde. Ein Konto kann auf höchstens 3 Geräten gleichzeitig angemeldet sein. Arbeitest du mit Kollegen? Nutze Team.",
     "confirmTitle": "Bestätige dein Konto",
     "confirmLead": "Noch ein Klick und deine E-Mail-Adresse ist bestätigt.",
-    "confirmBtn": "Mein Konto bestätigen"
+    "confirmBtn": "Mein Konto bestätigen",
+    "errVerifyExpired": "Dieser Link ist abgelaufen. Wir haben dir einen neuen geschickt, schau in deine E-Mails."
   },
   "acct": {
     "profile": "Profil",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% Rabatt",
     "perYear": "pro Jahr",
     "perQuarter": "pro Quartal",
-    "paidUntil": "Bezahlt bis {date}",
     "graceRule": "Endet dein Abo, funktionieren deine QR-Codes sofort nicht mehr, aber wir bewahren sie 30 Tage auf. Verlängerst du in dieser Zeit, funktioniert alles wieder, auch deine gedruckten Codes. Nach 30 Tagen werden sie gelöscht.",
     "graceMsg": "Dein Abo ist abgelaufen. Deine QR-Codes funktionieren nicht und du kannst nichts ändern. Verlängere vor dem {date}, sonst werden alle deine QR-Codes gelöscht.",
     "endedMsg": "Dein Abo ist abgelaufen und deine QR-Codes wurden gelöscht. Schließ ein Abo ab, um neue Codes zu erstellen.",

@@ -961,7 +961,6 @@
     "choosePlan": "Turpināt ar {plan}",
     "then": "Pēc tam",
     "payNow": "Maksāt {price}",
-    "safe": "Droša maksāšana",
     "changed": "Tava pakete ir mainīta",
     "lockFrom": "No {plan}",
     "fTypes": "{n} QR kodu veidi",
@@ -974,7 +973,6 @@
     "reason_team": "Darbs komandā iespējams no Pro.",
     "reason_stats": "Garāka statistika ar lielāku paketi.",
     "reason_limit": "Tu esi izmantojis visus paketes QR kodus. Izvēlies lielāku paketi, lai izveidotu vairāk.",
-    "viaStripe": "Droša maksāšana caur Stripe. Vari atteikt jebkurā laikā.",
     "processing": "Apstrādājam tavu maksājumu…",
     "processingLead": "Tas aizņem dažas sekundes. Neaizver lapu.",
     "payError": "Maksājumu neizdevās sākt. Pēc brīža mēģini vēlreiz.",
@@ -1009,8 +1007,6 @@
     "bancontactNote": "Jūs apstiprināt ar Bancontact lietotni. Pēc tam maksa tiek iekasēta automātiski.",
     "startTrial": "Sākt izmēģinājumu",
     "subscribe": "Abonēt",
-    "fineTrial": "Pēc 14 dienām jūs maksājat automātiski. Atteikties var jebkurā laikā, arī izmēģinājuma laikā.",
-    "fine": "Jūs maksājat {price}. Atteikties var jebkurā laikā.",
     "rcPaid": "Maksājums veiksmīgs",
     "rcTrial": "Izmēģinājums ir sācies",
     "rcLead": "{plan} ir aktīvs. Varat turpināt uzreiz.",
@@ -1666,7 +1662,8 @@
     "deviceLimit": "Jūs tikāt izrakstīts, jo konts tika izmantots citā ierīcē. Konts var būt pieslēgts ne vairāk kā 3 ierīcēs vienlaikus. Strādājat ar kolēģiem? Izmantojiet Komandu.",
     "confirmTitle": "Apstipriniet savu kontu",
     "confirmLead": "Vēl viens klikšķis, un jūsu e-pasts ir apstiprināts.",
-    "confirmBtn": "Apstiprināt manu kontu"
+    "confirmBtn": "Apstiprināt manu kontu",
+    "errVerifyExpired": "Šī saite ir novecojusi. Mēs nosūtījām tev jaunu, pārbaudi savu e-pastu."
   },
   "acct": {
     "profile": "Profils",
@@ -3093,7 +3090,6 @@
     "quarterSave": "10% atlaide",
     "perYear": "gadā",
     "perQuarter": "ceturksnī",
-    "paidUntil": "Apmaksāts līdz {date}",
     "graceRule": "Ja abonements beidzas, jūsu QR kodi uzreiz pārstāj darboties, bet mēs tos glabājam 30 dienas. Atjaunojiet to šajā laikā, un viss atkal darbojas, arī izdrukātie kodi. Pēc 30 dienām tie tiek dzēsti.",
     "graceMsg": "Tavs abonements ir beidzies. Tavi QR kodi nedarbojas, un tu neko nevari mainīt. Atjauno to līdz {date}, citādi visi tavi QR kodi tiks dzēsti.",
     "endedMsg": "Tavs abonements ir beidzies, un tavi QR kodi ir dzēsti. Noformē abonementu, lai veidotu jaunus kodus.",
