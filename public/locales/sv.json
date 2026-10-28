@@ -1077,7 +1077,7 @@
     "downPrice": "Från {date}: {price}",
     "downKeep": "Därefter är de {n} QR-koder du valde kvar. De andra pausas, de raderas inte.",
     "downGo": "Bekräfta",
-    "b_location": "Landet stämmer inte med var du är nu ({country}). Välj landet där du bor eller där ditt företag finns."
+    "b_location": "Du är just nu i {country}, i EU. Då kan du inte välja ett land utanför EU. Välj det EU-land där du bor."
   },
   "dz": {
     "lbl": {

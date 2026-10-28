@@ -1077,7 +1077,7 @@
     "downPrice": "Din {date}: {price}",
     "downKeep": "Apoi cele {n} coduri QR alese rămân active. Celelalte sunt puse pe pauză, nu șterse.",
     "downGo": "Confirmă",
-    "b_location": "Această țară nu corespunde cu locul în care ești acum ({country}). Alege țara în care locuiești sau în care are sediul firma ta."
+    "b_location": "Acum ești în {country}, în UE. Astfel nu poți alege o țară din afara UE. Alege țara din UE în care locuiești."
   },
   "dz": {
     "lbl": {

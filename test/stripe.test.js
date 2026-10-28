@@ -404,9 +404,13 @@ test('btw: het gekozen land moet kloppen met waar je bent (anders geen land zond
   const priv = (country, postalCode = '') => ({ type: 'private', country, postalCode });
   assert.equal(locationMismatch(priv('SR'), { cc: 'NL' }), 'NL', 'in Nederland, Suriname gekozen: geweigerd');
   assert.equal(locationMismatch(priv('NL'), { cc: 'NL' }), null);
+  assert.equal(locationMismatch(priv('NL'), { cc: 'ES', region: 'Andalusia' }), null, 'Nederlander in Spanje kiest Nederland: mag (gewoon btw)');
+  assert.equal(locationMismatch(priv('ZA'), { cc: 'ES', region: 'Andalusia' }), 'ES', 'Zuid-Afrika vanuit Spanje: geweigerd');
+  assert.equal(locationMismatch(priv('NL'), { cc: 'US' }), null, 'buiten de EU op reis en een EU-land kiezen: mag');
   assert.equal(locationMismatch(priv('NL'), { cc: '' }), null, 'locatie onbekend: niet blokkeren');
   assert.equal(locationMismatch(priv('ES', '35001'), { cc: 'ES', region: 'Andalusia' }), 'ES', 'Canarias kiezen vanaf het vasteland: geweigerd');
   assert.equal(locationMismatch(priv('ES', '35001'), { cc: 'ES', region: 'Canary Islands' }), null);
   assert.equal(locationMismatch({ type: 'company', country: 'DE', postalCode: '' }, { cc: 'NL' }), null, 'EU-bedrijf: VIES is het bewijs');
   assert.equal(locationMismatch({ type: 'company', country: 'US', postalCode: '' }, { cc: 'NL' }), 'NL', 'bedrijf buiten de EU vanuit Nederland: geweigerd');
+  assert.equal(locationMismatch(priv('US'), { cc: 'US' }), null);
 });

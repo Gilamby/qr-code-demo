@@ -1077,7 +1077,7 @@
     "downPrice": "Vanaf {date}: {price}",
     "downKeep": "Daarna blijven de {n} QR-codes die je koos aan. De andere worden gepauzeerd, niet verwijderd.",
     "downGo": "Bevestigen",
-    "b_location": "Dit land klopt niet met waar je nu bent ({country}). Kies het land waar je woont of waar je bedrijf gevestigd is."
+    "b_location": "Je bent nu in {country}, in de EU. Dan kun je geen land buiten de EU kiezen. Kies het EU-land waar je woont."
   },
   "dz": {
     "lbl": {

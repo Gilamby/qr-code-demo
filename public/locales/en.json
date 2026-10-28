@@ -1077,7 +1077,7 @@
     "downPrice": "From {date}: {price}",
     "downKeep": "After that the {n} QR codes you chose stay on. The others are paused, not deleted.",
     "downGo": "Confirm",
-    "b_location": "This country doesn't match where you are now ({country}). Choose the country where you live or where your company is based."
+    "b_location": "You're in {country} right now, which is in the EU. From there you can't choose a country outside the EU. Choose the EU country where you live."
   },
   "dz": {
     "lbl": {

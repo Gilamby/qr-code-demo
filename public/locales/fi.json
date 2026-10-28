@@ -1077,7 +1077,7 @@
     "downPrice": "{date} alkaen: {price}",
     "downKeep": "Sen jälkeen valitsemasi {n} QR-koodia pysyvät käytössä. Muut keskeytetään, niitä ei poisteta.",
     "downGo": "Vahvista",
-    "b_location": "Maa ei vastaa nykyistä sijaintiasi ({country}). Valitse maa, jossa asut tai jossa yrityksesi toimii."
+    "b_location": "Olet nyt maassa {country}, EU:ssa. Silloin et voi valita EU:n ulkopuolista maata. Valitse EU-maa, jossa asut."
   },
   "dz": {
     "lbl": {

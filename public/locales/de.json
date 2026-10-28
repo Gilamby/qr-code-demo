@@ -1077,7 +1077,7 @@
     "downPrice": "Ab dem {date}: {price}",
     "downKeep": "Danach bleiben die {n} QR-Codes, die du gewählt hast, aktiv. Die anderen werden pausiert, nicht gelöscht.",
     "downGo": "Bestätigen",
-    "b_location": "Dieses Land passt nicht zu deinem aktuellen Standort ({country}). Wähle das Land, in dem du wohnst oder in dem dein Unternehmen sitzt."
+    "b_location": "Du bist gerade in {country}, also in der EU. Dann kannst du kein Land außerhalb der EU wählen. Wähle das EU-Land, in dem du wohnst."
   },
   "dz": {
     "lbl": {

@@ -50,15 +50,19 @@ export const esSpecialB2cAllowed = () => String(process.env.ES_SPECIAL_B2C || ''
    Stripe daar automatisch de lokale btw. Alleen particulieren in de EU toestaan kan nog met PRIVATE_EU_ONLY=true in .env. */
 export const privateAllowed = (country: string) => EU.includes(country) || String(process.env.PRIVATE_EU_ONLY || '').toLowerCase() !== 'true';
 export const esNoVat = (country: string, postalCode: string) => country === 'ES' && /^(35|38|51|52)\d{3}$/.test(postalCode || '');
-/** Klopt het gekozen land met waar de koper nu is (IP-adres, GeoIP)? Anders kan iemand een land zonder btw kiezen.
- *  Twee bewijzen voor de btw (EU-regel): het opgegeven land en de locatie. Bedrijf in de EU: al gecontroleerd via VIES.
- *  Geeft het land van de verbinding terug als het niet klopt, anders null (ook als de locatie onbekend is). */
+/** Een land zonder btw kiezen terwijl je in de EU bent (bv. Suriname vanuit Nederland): niet toegestaan.
+ *  Van het ene EU-land naar het andere mag wel (bv. Nederlander die in Spanje is): dan betaal je gewoon btw.
+ *  Bedrijf in de EU: al gecontroleerd via VIES. Locatie onbekend: niet blokkeren.
+ *  Geeft het land van de verbinding terug als het niet mag, anders null. */
 export function locationMismatch(b: Buyer, where: { cc: string; region?: string }): string | null {
   if (!where || !where.cc) return null;
   if (b.type === 'company' && EU.includes(b.country)) return null;
-  if (where.cc !== b.country) return where.cc;
-  if (esNoVat(b.country, b.postalCode) && where.region && !/canar|ceuta|melilla/i.test(where.region)) return 'ES';   // Canarias/Ceuta/Melilla: geen IVA, dan ook echt daar
-  return null;
+  const noVat = !EU.includes(b.country) || esNoVat(b.country, b.postalCode);
+  if (!noVat) return null;
+  const inEuWithVat = EU.includes(where.cc) && !(where.cc === 'ES' && where.region && /canar|ceuta|melilla/i.test(where.region));
+  if (!inEuWithVat) return null;
+  if (esNoVat(b.country, b.postalCode) && where.cc === 'ES' && !where.region) return null;   // Spanje zonder regio: niet zeker, niet blokkeren
+  return where.cc;
 }
 export const taxBehavior = (type?: string) => (type === 'company' ? 'exclusive' : 'inclusive');
 
