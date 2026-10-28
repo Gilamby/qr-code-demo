@@ -285,9 +285,6 @@ body:not(.booting):not(.pw-wait) #boot{opacity:0;visibility:hidden;pointer-event
     </main>
 
     <!-- Instellingen (voor iedereen): overzicht van account, facturatie, privacy/juridisch en hulp -->
-    <main class="canvas" id="legalView" hidden>
-      <section class="lg" id="legalBody"></section>
-    </main>
 
     <main class="canvas" id="emptyView" hidden>
       <div class="empty"><p data-i18n="empty.text"></p></div>
@@ -350,7 +347,6 @@ body:not(.booting):not(.pw-wait) #boot{opacity:0;visibility:hidden;pointer-event
 <script src="js/chatbot.js"></script>
 <script src="js/main.js"></script>
 <script src="js/hello.js"></script>
-<dialog class="lg-dialog" id="legalDialog"></dialog>
 <!-- Chatbot (Optimasys webchat). Mag laden via de CSP in server/src/common/http.ts.
      Laadt pas na het inloggen (js/chatbot.js), niet op het inlogscherm. -->
 <script type="text/plain" id="chatbotScript" data-src="https://webchat-api.optimasys.es/widget.js" data-agency-key="qr-generator-f9ff45"></script>

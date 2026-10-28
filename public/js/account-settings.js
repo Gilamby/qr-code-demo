@@ -803,7 +803,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   /* Privacyverklaring, voorwaarden en cookies: lezen in een venster */
   function legalPanel() {
     return '<div class="glass bg-card acct"><h2>' + t('nav.legal') + '</h2><p>' + t('st.legalLead') + '</p><div class="nf-list">' + ['privacy', 'terms', 'cookies'].map(function (k) {
-      return '<div class="nf-row"><span class="nf-txt"><b>' + esc(t('legal.' + k + '.title')) + '</b></span><button type="button" class="btn ghost sm" data-legal="' + k + '">' + esc(t('st.read')) + '</button></div>'; }).join('') + '</div></div>';
+      return '<div class="nf-row"><span class="nf-txt"><b>' + esc(t('legal.' + k + '.title')) + '</b></span><a class="btn ghost sm" href="' + esc(Legal.url(k)) + '" target="_blank" rel="noopener">' + esc(t('st.read')) + '<span class="sr-only"> (' + esc(t('legal.' + k + '.title')) + ')</span></a></div>'; }).join('') + '</div></div>';
   }
   // Voorkeuren: rijen (uitleg links, keuze rechts), zelfde stijl als Beheer > Instellingen
   var uprefs = null;
@@ -946,7 +946,6 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (e.target.name === 'country' && draft) draft.country = e.target.value;
   });
   box.addEventListener('click', function (e) {
-    var lgl = e.target.closest('[data-legal]'); if (lgl && window.Legal) return Legal.dialog(lgl.getAttribute('data-legal'));
     var tb = e.target.closest('[data-tfa]');
     if (tb) {
       var k = tb.getAttribute('data-tfa'); tfaMsg = null;

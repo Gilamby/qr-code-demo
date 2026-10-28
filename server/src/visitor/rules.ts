@@ -106,7 +106,7 @@ export function lang(req: Request) {
   return fromAcceptLanguage(req.get('accept-language'), (l) => !!LOCALES[l]);
 }
 /** In de <head> van onze eigen pagina's (404, /status): heeft iemand in de app een taal gekozen, dan die gebruiken in plaats van de browsertaal */
-const PICK_LANG = '<script>try{var s=localStorage.getItem("optimasys-lang");if(s&&/^[a-z]{2}$/.test(s)&&s!==document.documentElement.lang&&!/[?&]lang=/.test(location.search)){var u=new URL(location.href);u.searchParams.set("lang",s);location.replace(u.toString())}}catch(e){}</script>';
+export const PICK_LANG = '<script>try{var s=localStorage.getItem("optimasys-lang");if(s&&/^[a-z]{2}$/.test(s)&&s!==document.documentElement.lang&&!/[?&]lang=/.test(location.search)){var u=new URL(location.href);u.searchParams.set("lang",s);location.replace(u.toString())}}catch(e){}</script>';
 const text = (req: Request) => Object.assign({}, LOCALES.en, LOCALES[lang(req)]);
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
 function page(title: string, body: string, lng?: string) {

@@ -19,6 +19,14 @@ import { EMAIL, QR_TYPES } from '../qr-codes/validation';
 import { domainsOn } from '../domains';
 import { urlInfo } from './url-check';
 
+/** Bedrijfsgegevens voor de privacyverklaring en voorwaarden. Beheer > Instellingen > Bedrijf gaat voor .env; standaard OptimaSys Group Spain (zoals op optimasys.es). */
+export async function legalInfo(db: DatabaseService) {
+  const env = (k: string) => String(process.env[k] || '').trim() || undefined;
+  let co: any = {}; try { co = JSON.parse((await db.getSetting('company')) || '{}'); } catch (e) { co = {}; }
+  const pick = (k: string, e: string) => String(co[k] || '').trim() || env(e);
+  return { name: pick('name', 'LEGAL_NAME') || 'OptimaSys Group Spain', address: pick('address', 'LEGAL_ADDRESS') || 'Calle Alfredo Palma s/n, Edificio Torrevigia B3 L3, 29603 Marbella, Málaga, Spain', kvk: pick('kvk', 'LEGAL_KVK'), vat: pick('vat', 'LEGAL_VAT') || 'ESB93185981', email: pick('email', 'LEGAL_EMAIL') || 'support@optimasys.es' /* niet het inlogadres van de super-admin */, phone: pick('phone', 'LEGAL_PHONE') || '+34 952 770 306', website: pick('website', 'LEGAL_WEBSITE') || 'https://optimasys.es' };
+}
+
 @Controller('api')
 export class SystemController {
   constructor(private readonly db: DatabaseService) {}
@@ -31,12 +39,7 @@ export class SystemController {
       const qrBase = baseUrl(req), dev = isDevUrl(qrBase);
       // Codespaces: controleren of de poort openbaar is (anders opent een scan de GitHub-inlogpagina)
       const access = dev && !req.query.probe ? await checkCodespaceAccess() : undefined;
-      // Bedrijfsgegevens voor de privacyverklaring en voorwaarden (in .env; wat leeg is, wordt niet getoond)
-      const env = (k: string) => String(process.env[k] || '').trim() || undefined;
-      let co: any = {}; try { co = JSON.parse((await this.db.getSetting('company')) || '{}'); } catch (e) { co = {}; }   // Beheer > Instellingen > Bedrijf gaat voor .env
-      const pick = (k: string, e: string) => String(co[k] || '').trim() || env(e);
-      // Standaard: de gegevens van OptimaSys Group Spain (zoals op optimasys.es); Beheer > Instellingen > Bedrijf of .env gaat voor
-      const legal = { name: pick('name', 'LEGAL_NAME') || 'OptimaSys Group Spain', address: pick('address', 'LEGAL_ADDRESS') || 'Calle Alfredo Palma s/n, Edificio Torrevigia B3 L3, 29603 Marbella, Málaga, Spain', kvk: pick('kvk', 'LEGAL_KVK'), vat: pick('vat', 'LEGAL_VAT') || 'ESB93185981', email: pick('email', 'LEGAL_EMAIL') || 'support@optimasys.es' /* niet het inlogadres van de super-admin */, phone: pick('phone', 'LEGAL_PHONE') || '+34 952 770 306', website: pick('website', 'LEGAL_WEBSITE') || 'https://optimasys.es' };
+      const legal = await legalInfo(this.db);   // bedrijfsgegevens voor de privacyverklaring en voorwaarden
       let maintenance = { on: false, message: '' }; try { const m = JSON.parse((await this.db.getSetting('maintenance')) || '{}'); maintenance = { on: !!m.on, message: String(m.message || '') }; } catch (e) { /* uit */ }
       return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: await signupOpen(this.db), google: googleOn(), microsoft: microsoftOn(), stripe: stripeOn(), customDomains: domainsOn(), stripePk: stripePk() || undefined, demoCheckout: demoCheckoutOn(), legal, maintenance, mail: !!process.env.SMTP_HOST };
     } catch (e) { throw reply(503, { ok: false }); }

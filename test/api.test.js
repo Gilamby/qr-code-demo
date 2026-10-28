@@ -1293,3 +1293,11 @@ test('verlopen bevestigingslink: token_expired en meteen een nieuwe link', async
   assert.equal((await c('POST', '/api/auth/verify', { token: fresh })).status, 200);
   assert.equal((await c('POST', '/api/auth/verify', { token: 'onzin' })).json.error, 'token');
 });
+
+test('privacyverklaring, voorwaarden en cookies: eigen openbare pagina, in de gekozen taal', async () => {
+  for (const d of ['privacy', 'terms', 'cookies']) {
+    const r = await fetch(base + '/' + d + '?lang=nl'); assert.equal(r.status, 200); const h = await r.text();
+    assert.match(h, /<html lang="nl"/); assert.match(h, /<h1>/); assert.match(h, /aria-current="page"/);
+  }
+  assert.match(await (await fetch(base + '/privacy', { headers: { 'accept-language': 'de-DE,de;q=0.9' } })).text(), /<html lang="de"/);
+});

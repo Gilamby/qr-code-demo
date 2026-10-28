@@ -2,9 +2,6 @@
    ZIJBALK-EXTRA'S: upgrade-kaartje en de balk bovenin over het abonnement.
    (Instellingen zelf: account-settings.js, pagina 'settings'.)
    ========================================================= */
-/* De privacy-pagina heeft geen eigen knop in de zijbalk: "Mijn account" blijft dan oplichten */
-document.addEventListener('pagechange', function (e) { if (e.detail === 'legal') { var it = document.querySelector('.item[data-page="account"]'); if (it) it.classList.add('active'); } });
-
 /* Upgrade-kaartje in de zijbalk: rustig, niet opdringerig. Laat het huidige pakket en het gebruik zien; klik = Abonnement. */
 (function () {
   var card = document.getElementById('upCard'), info = null;
