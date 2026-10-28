@@ -66,8 +66,7 @@ var Session = (function () {
         '<button type="button" class="link-btn auth-link" data-mode="login">← ' + t('auth.backToLogin') + '</button>';
     } else if (mode === 'check') {
       // Account gemaakt: eerst e-mail bevestigen
-      body = '<span class="auth-mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>' +
-        '<h1 id="authTitle">' + t('auth.checkTitle') + '</h1><p class="auth-lead">' + t('auth.checkLead', { email: '<b>' + esc(pendingEmail) + '</b>' }) + '</p>' + note +
+      body = '<h1 id="authTitle">' + t('auth.checkTitle') + '</h1><p class="auth-lead">' + t('auth.checkLead', { email: '<b>' + esc(pendingEmail) + '</b>' }) + '</p>' + note +
         '<p class="auth-wait"><span class="pw-spin sm" aria-hidden="true"></span>' + esc(t('auth.checkAuto')) + '</p><p class="auth-small">' + esc(t('auth.checkSpam')) + '</p>' +
         (api.isDemo() || pendingToken ? '<button type="button" class="btn primary auth-go" data-demo-verify>' + t('auth.demoVerify') + '</button>' : '') +
         '<button type="button" class="btn ghost auth-go" data-resend>' + t('auth.resend') + '</button>' +
@@ -75,13 +74,11 @@ var Session = (function () {
     } else if (mode === 'confirm') {
       // Link uit de bevestigingsmail: pas bevestigen na een klik. Mailscanners (bv. Microsoft op school- en werkadressen)
       // openen links al voordat de mail aankomt; zonder deze knop bevestigden zij het account in plaats van jij.
-      body = '<span class="auth-mail" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>' +
-        '<h1 id="authTitle">' + t('auth.confirmTitle') + '</h1><p class="auth-lead">' + esc(t('auth.confirmLead')) + '</p>' + note +
+      body = '<h1 id="authTitle">' + t('auth.confirmTitle') + '</h1><p class="auth-lead">' + esc(t('auth.confirmLead')) + '</p>' + note +
         '<button type="button" class="btn primary auth-go" data-confirm-verify>' + esc(t('auth.confirmBtn')) + '</button>';
     } else if (mode === 'verified') {
       // Link geopend op een ander apparaat (bv. telefoon): klaar; de computer gaat vanzelf verder
-      body = '<span class="auth-mail auth-ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
-        '<h1 id="authTitle">' + t('auth.verifiedTitle') + '</h1><p class="auth-lead">' + esc(t('auth.verifiedLead')) + '</p>' + note +
+      body = '<h1 id="authTitle">' + t('auth.verifiedTitle') + '</h1><p class="auth-lead">' + esc(t('auth.verifiedLead')) + '</p>' + note +
         '<button type="button" class="btn ghost auth-go" data-mode="login">' + esc(t('auth.continueHere')) + '</button>';
     } else if (mode === 'forgot') {
       body = '<h1 id="authTitle">' + t('auth.forgotTitle') + '</h1><p class="auth-lead">' + t('auth.forgotLead') + '</p>' + note +
