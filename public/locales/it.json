@@ -3002,7 +3002,10 @@
     "tabStatus": "Stato"
   },
   "st": {
-    "lead": "Notifiche, lingua e il tuo sfondo."
+    "lead": "Scorciatoie, privacy e i tuoi dati.",
+    "groupGeneral": "Generale",
+    "legalLead": "Leggi come trattiamo i tuoi dati e le regole di QR-Codex.",
+    "read": "Leggi"
   },
   "legacy": {
     "menu": "Trasferisci codice QR esistente",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Risposte: {n}"
+  },
+  "keys": {
+    "title": "Scorciatoie da tastiera",
+    "lead": "Premi un tasto per andare subito da qualche parte. Non funzionano mentre scrivi in un campo.",
+    "on": "Usa le scorciatoie da tastiera",
+    "onText": "Disattivale se usi un lettore di schermo o premi tasti per sbaglio.",
+    "k_new": "Nuovo codice QR",
+    "k_home": "Panoramica",
+    "k_codes": "I miei codici QR",
+    "k_stats": "Statistiche",
+    "k_search": "Cerca nei tuoi codici QR",
+    "k_help": "Mostra queste scorciatoie"
   }
 }

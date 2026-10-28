@@ -242,12 +242,12 @@ export class AccountController {
     return this.saveTpls(user.id, rest);
   }
 
-  /* Voorkeuren van de app (Mijn account > Voorkeuren): startpagina na inloggen */
+  /* Voorkeuren van de app: startpagina na inloggen (Mijn account > Voorkeuren), sneltoetsen aan/uit (Instellingen) */
   @Get('account/prefs')
   async prefs(@CurrentUser() user: User) {
     let p: any = {}; try { p = JSON.parse((await this.db.getSetting('uprefs:' + user.id)) || '{}'); } catch (e) { p = {}; }
     // tour: korte rondleiding alleen voor nieuwe accounts (gemaakt vanaf TOUR_SINCE); bestaande klanten zien hem niet vanzelf
-    return { start: START_PAGES.includes(p.start) ? p.start : 'home', tour: !!p.tour || String(user.createdAt || '') < TOUR_SINCE };
+    return { start: START_PAGES.includes(p.start) ? p.start : 'home', tour: !!p.tour || String(user.createdAt || '') < TOUR_SINCE, keys: p.keys !== false };   // keys: sneltoetsen aan (standaard)
   }
   /* Tijdzone van het apparaat, voor accounts met tijdzone 'automatisch': start- en eindtijden van codes gelden dan in die tijd */
   @Put('account/device-tz')
@@ -260,8 +260,8 @@ export class AccountController {
   @Patch('account/prefs')
   async savePrefs(@CurrentUser() user: User, @Body() b: any = {}) {
     if (b.start !== undefined && !START_PAGES.includes(b.start)) throw fail(400, 'start');
-    const cur = await this.prefs(user), out = { start: b.start !== undefined ? b.start : cur.start, tour: b.tour !== undefined ? !!b.tour : cur.tour };   // tour: korte rondleiding gezien/overgeslagen
-    await this.db.setSetting('uprefs:' + user.id, out.start === 'home' && !out.tour ? null : JSON.stringify(out));
+    const cur = await this.prefs(user), out = { start: b.start !== undefined ? b.start : cur.start, tour: b.tour !== undefined ? !!b.tour : cur.tour, keys: b.keys !== undefined ? b.keys !== false : cur.keys };   // tour: korte rondleiding gezien/overgeslagen
+    await this.db.setSetting('uprefs:' + user.id, out.start === 'home' && !out.tour && out.keys ? null : JSON.stringify(out));
     return out;
   }
 

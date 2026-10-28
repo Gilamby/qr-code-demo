@@ -1,5 +1,5 @@
 /* ---------- Achtergrondknop: naar Mijn account ---------- */
-document.getElementById('bgBtn').addEventListener('click', function () { window.goToPage('settings'); if (window.openAccountTab) window.openAccountTab('background'); });
+document.getElementById('bgBtn').addEventListener('click', function () { window.goToPage('account'); if (window.openAccountTab) window.openAccountTab('background'); });
 
 /* ---------- Mijn account: achtergrond kiezen ----------
    - Optimasys en Aurora: vast (kunnen niet weg)

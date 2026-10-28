@@ -3108,7 +3108,10 @@
     "tabStatus": "Statusi"
   },
   "st": {
-    "lead": "Njoftimet, gjuha dhe sfondi yt."
+    "lead": "Shkurtoret, privatësia dhe të dhënat e tua.",
+    "groupGeneral": "Të përgjithshme",
+    "legalLead": "Lexo si i trajtojmë të dhënat e tua dhe rregullat e QR-Codex.",
+    "read": "Lexo"
   },
   "legacy": {
     "menu": "Transfero kodin QR ekzistues",
@@ -3696,5 +3699,17 @@
   },
   "fm": {
     "count": "Përgjigje: {n}"
+  },
+  "keys": {
+    "title": "Shkurtoret e tastierës",
+    "lead": "Shtyp një tast për të shkuar shpejt diku. Nuk funksionojnë kur shkruan në një fushë.",
+    "on": "Përdor shkurtoret e tastierës",
+    "onText": "Çaktivizoje nëse përdor lexues ekrani ose shtyp taste pa dashur.",
+    "k_new": "Kod i ri QR",
+    "k_home": "Përmbledhje",
+    "k_codes": "Kodet e mia QR",
+    "k_stats": "Statistikat",
+    "k_search": "Kërko te kodet e tua QR",
+    "k_help": "Shfaq këto shkurtore"
   }
 }

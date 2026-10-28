@@ -3002,7 +3002,10 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Notifikationer, sprog og din baggrund."
+    "lead": "Genveje, privatliv og dine data.",
+    "groupGeneral": "Generelt",
+    "legalLead": "Læs, hvordan vi håndterer dine data, og reglerne for QR-Codex.",
+    "read": "Læs"
   },
   "legacy": {
     "menu": "Flyt eksisterende QR-kode",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Svar: {n}"
+  },
+  "keys": {
+    "title": "Tastaturgenveje",
+    "lead": "Tryk på én tast for hurtigt at komme et sted hen. De virker ikke, mens du skriver i et felt.",
+    "on": "Brug tastaturgenveje",
+    "onText": "Slå det fra, hvis du bruger en skærmlæser eller trykker på taster ved et uheld.",
+    "k_new": "Ny QR-kode",
+    "k_home": "Oversigt",
+    "k_codes": "Mine QR-koder",
+    "k_stats": "Statistik",
+    "k_search": "Søg i dine QR-koder",
+    "k_help": "Vis disse genveje"
   }
 }

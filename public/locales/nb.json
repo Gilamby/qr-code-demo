@@ -3002,7 +3002,10 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Varsler, språk og bakgrunnen din."
+    "lead": "Hurtigtaster, personvern og dataene dine.",
+    "groupGeneral": "Generelt",
+    "legalLead": "Les hvordan vi behandler dataene dine og reglene for QR-Codex.",
+    "read": "Les"
   },
   "legacy": {
     "menu": "Flytt eksisterende QR-kode",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Svar: {n}"
+  },
+  "keys": {
+    "title": "Hurtigtaster",
+    "lead": "Trykk på én tast for å gå raskt et sted. De virker ikke mens du skriver i et felt.",
+    "on": "Bruk hurtigtaster",
+    "onText": "Slå av hvis du bruker skjermleser eller trykker på taster ved et uhell.",
+    "k_new": "Ny QR-kode",
+    "k_home": "Oversikt",
+    "k_codes": "Mine QR-koder",
+    "k_stats": "Statistikk",
+    "k_search": "Søk i QR-kodene dine",
+    "k_help": "Vis disse hurtigtastene"
   }
 }

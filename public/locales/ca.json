@@ -3002,7 +3002,10 @@
     "tabStatus": "Estat"
   },
   "st": {
-    "lead": "Notificacions, idioma i el teu fons."
+    "lead": "Dreceres, privadesa i les teves dades.",
+    "groupGeneral": "General",
+    "legalLead": "Llegeix com tractem les teves dades i les normes d’ús de QR-Codex.",
+    "read": "Llegeix"
   },
   "legacy": {
     "menu": "Trasllada un codi QR existent",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Respostes: {n}"
+  },
+  "keys": {
+    "title": "Dreceres de teclat",
+    "lead": "Prem una tecla per anar ràpidament a algun lloc. No funcionen mentre escrius en un camp.",
+    "on": "Fes servir les dreceres de teclat",
+    "onText": "Desactiva-ho si fas servir un lector de pantalla o prems tecles sense voler.",
+    "k_new": "Nou codi QR",
+    "k_home": "Resum",
+    "k_codes": "Els meus codis QR",
+    "k_stats": "Estadístiques",
+    "k_search": "Cerca als teus codis QR",
+    "k_help": "Mostra aquestes dreceres"
   }
 }

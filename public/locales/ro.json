@@ -3002,7 +3002,10 @@
     "tabStatus": "Stare"
   },
   "st": {
-    "lead": "Notificări, limbă și fundalul tău."
+    "lead": "Comenzi rapide, confidențialitate și datele tale.",
+    "groupGeneral": "General",
+    "legalLead": "Citește cum gestionăm datele tale și regulile de utilizare QR-Codex.",
+    "read": "Citește"
   },
   "legacy": {
     "menu": "Mută un cod QR existent",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Răspunsuri: {n}"
+  },
+  "keys": {
+    "title": "Comenzi rapide",
+    "lead": "Apasă o tastă ca să ajungi rapid undeva. Nu funcționează cât timp scrii într-un câmp.",
+    "on": "Folosește comenzile rapide",
+    "onText": "Dezactivează dacă folosești un cititor de ecran sau apeși taste din greșeală.",
+    "k_new": "Cod QR nou",
+    "k_home": "Prezentare generală",
+    "k_codes": "Codurile mele QR",
+    "k_stats": "Statistici",
+    "k_search": "Caută în codurile tale QR",
+    "k_help": "Arată aceste comenzi rapide"
   }
 }

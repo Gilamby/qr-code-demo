@@ -3002,7 +3002,10 @@
     "tabStatus": "État"
   },
   "st": {
-    "lead": "Notifications, langue et votre arrière-plan."
+    "lead": "Raccourcis, confidentialité et vos données.",
+    "groupGeneral": "Général",
+    "legalLead": "Découvrez comment nous traitons vos données et les règles d’utilisation de QR-Codex.",
+    "read": "Lire"
   },
   "legacy": {
     "menu": "Transférer un code QR existant",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Réponses : {n}"
+  },
+  "keys": {
+    "title": "Raccourcis clavier",
+    "lead": "Appuyez sur une touche pour aller rapidement quelque part. Ils ne fonctionnent pas pendant que vous tapez dans un champ.",
+    "on": "Utiliser les raccourcis clavier",
+    "onText": "Désactivez-les si vous utilisez un lecteur d’écran ou appuyez sur des touches par erreur.",
+    "k_new": "Nouveau code QR",
+    "k_home": "Vue d’ensemble",
+    "k_codes": "Mes codes QR",
+    "k_stats": "Statistiques",
+    "k_search": "Rechercher dans vos codes QR",
+    "k_help": "Afficher ces raccourcis"
   }
 }

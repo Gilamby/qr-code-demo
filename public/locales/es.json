@@ -3002,7 +3002,10 @@
     "iConfirm": "¿Eliminar este aviso?"
   },
   "st": {
-    "lead": "Notificaciones, idioma y tu fondo."
+    "lead": "Atajos, privacidad y tus datos.",
+    "groupGeneral": "General",
+    "legalLead": "Lee cómo tratamos tus datos y las reglas de uso de QR-Codex.",
+    "read": "Leer"
   },
   "legacy": {
     "menu": "Trasladar código QR existente",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Respuestas: {n}"
+  },
+  "keys": {
+    "title": "Atajos de teclado",
+    "lead": "Pulsa una tecla para ir rápido a algún sitio. No funcionan mientras escribes en un campo.",
+    "on": "Usar atajos de teclado",
+    "onText": "Desactívalo si usas un lector de pantalla o pulsas teclas sin querer.",
+    "k_new": "Nuevo código QR",
+    "k_home": "Resumen",
+    "k_codes": "Mis códigos QR",
+    "k_stats": "Estadísticas",
+    "k_search": "Buscar en tus códigos QR",
+    "k_help": "Mostrar estos atajos"
   }
 }

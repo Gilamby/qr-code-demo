@@ -3002,7 +3002,10 @@
     "tabStatus": "Stav"
   },
   "st": {
-    "lead": "Upozornenia, jazyk a tvoje pozadie."
+    "lead": "Klávesové skratky, súkromie a tvoje údaje.",
+    "groupGeneral": "Všeobecné",
+    "legalLead": "Prečítaj si, ako narábame s tvojimi údajmi a aké sú pravidlá QR-Codex.",
+    "read": "Čítať"
   },
   "legacy": {
     "menu": "Presunúť existujúci QR kód",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Odpovede: {n}"
+  },
+  "keys": {
+    "title": "Klávesové skratky",
+    "lead": "Stlač jeden kláves a rýchlo sa niekam presuň. Nefungujú, keď píšeš do poľa.",
+    "on": "Používať klávesové skratky",
+    "onText": "Vypni, ak používaš čítačku obrazovky alebo omylom stláčaš klávesy.",
+    "k_new": "Nový QR kód",
+    "k_home": "Prehľad",
+    "k_codes": "Moje QR kódy",
+    "k_stats": "Štatistiky",
+    "k_search": "Hľadať v tvojich QR kódoch",
+    "k_help": "Zobraziť tieto skratky"
   }
 }

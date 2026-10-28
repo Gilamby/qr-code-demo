@@ -3002,7 +3002,10 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Benachrichtigungen, Sprache und dein Hintergrund."
+    "lead": "Tastenkürzel, Datenschutz und deine Daten.",
+    "groupGeneral": "Allgemein",
+    "legalLead": "Lies, wie wir mit deinen Daten umgehen und welche Regeln für QR-Codex gelten.",
+    "read": "Lesen"
   },
   "legacy": {
     "menu": "Bestehenden QR-Code übernehmen",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Antworten: {n}"
+  },
+  "keys": {
+    "title": "Tastenkürzel",
+    "lead": "Drück eine Taste, um schnell irgendwohin zu gelangen. Sie funktionieren nicht, während du in ein Feld tippst.",
+    "on": "Tastenkürzel verwenden",
+    "onText": "Schalte das aus, wenn du einen Screenreader nutzt oder versehentlich Tasten drückst.",
+    "k_new": "Neuer QR-Code",
+    "k_home": "Übersicht",
+    "k_codes": "Meine QR-Codes",
+    "k_stats": "Statistiken",
+    "k_search": "In deinen QR-Codes suchen",
+    "k_help": "Diese Tastenkürzel zeigen"
   }
 }

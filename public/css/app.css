@@ -5922,3 +5922,10 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 
 /* Instellingen: zelfde scherm als Mijn account, zonder het visitekaartje */
 .account.is-settings .acct-idc { display: none; }
+/* Instellingen > Sneltoetsen */
+.keys-list { display: grid; gap: 6px; margin: 16px 0 0; }
+.keys-list > div { display: flex; align-items: center; gap: 14px; padding: 8px 12px; border-radius: 12px; background: rgba(255,255,255,.03); }
+.keys-list dt { margin: 0; min-width: 34px; }
+.keys-list dd { margin: 0; color: var(--fg); }
+.keys-list.off { opacity: .5; }
+.keys-list kbd { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,.18); border-bottom-width: 2px; background: rgba(255,255,255,.06); font-family: inherit; font-weight: 700; font-size: 13px; line-height: 1; color: var(--fg); }

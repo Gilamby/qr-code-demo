@@ -3002,7 +3002,10 @@
     "iConfirm": "Deze melding verwijderen?"
   },
   "st": {
-    "lead": "Meldingen, taal en je achtergrond."
+    "lead": "Sneltoetsen, privacy en je gegevens.",
+    "groupGeneral": "Algemeen",
+    "legalLead": "Lees hoe we met je gegevens omgaan en wat de regels zijn voor QR-Codex.",
+    "read": "Lezen"
   },
   "legacy": {
     "menu": "Bestaande QR-code overzetten",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Inzendingen: {n}"
+  },
+  "keys": {
+    "title": "Sneltoetsen",
+    "lead": "Druk op één toets om snel ergens heen te gaan. Ze werken niet terwijl je in een veld typt.",
+    "on": "Sneltoetsen gebruiken",
+    "onText": "Zet dit uit als je een schermlezer gebruikt of per ongeluk toetsen indrukt.",
+    "k_new": "Nieuwe QR-code",
+    "k_home": "Overzicht",
+    "k_codes": "Mijn QR-codes",
+    "k_stats": "Statistieken",
+    "k_search": "Zoeken in je QR-codes",
+    "k_help": "Deze sneltoetsen tonen"
   }
 }

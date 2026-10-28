@@ -3002,7 +3002,10 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Aviseringar, språk och din bakgrund."
+    "lead": "Kortkommandon, integritet och dina uppgifter.",
+    "groupGeneral": "Allmänt",
+    "legalLead": "Läs hur vi hanterar dina uppgifter och reglerna för QR-Codex.",
+    "read": "Läs"
   },
   "legacy": {
     "menu": "Flytta befintlig QR-kod",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Svar: {n}"
+  },
+  "keys": {
+    "title": "Kortkommandon",
+    "lead": "Tryck på en tangent för att snabbt komma någonstans. De fungerar inte medan du skriver i ett fält.",
+    "on": "Använd kortkommandon",
+    "onText": "Stäng av om du använder en skärmläsare eller trycker på tangenter av misstag.",
+    "k_new": "Ny QR-kod",
+    "k_home": "Översikt",
+    "k_codes": "Mina QR-koder",
+    "k_stats": "Statistik",
+    "k_search": "Sök bland dina QR-koder",
+    "k_help": "Visa dessa kortkommandon"
   }
 }

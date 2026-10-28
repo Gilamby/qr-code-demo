@@ -3002,7 +3002,10 @@
     "iConfirm": "Delete this notice?"
   },
   "st": {
-    "lead": "Notifications, language and your background."
+    "lead": "Shortcuts, privacy and your data.",
+    "groupGeneral": "General",
+    "legalLead": "Read how we handle your data and the rules for using QR-Codex.",
+    "read": "Read"
   },
   "legacy": {
     "menu": "Move existing QR code",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Responses: {n}"
+  },
+  "keys": {
+    "title": "Keyboard shortcuts",
+    "lead": "Press one key to go somewhere quickly. They don't work while you're typing in a field.",
+    "on": "Use keyboard shortcuts",
+    "onText": "Turn this off if you use a screen reader or press keys by accident.",
+    "k_new": "New QR code",
+    "k_home": "Overview",
+    "k_codes": "My QR codes",
+    "k_stats": "Analytics",
+    "k_search": "Search your QR codes",
+    "k_help": "Show these shortcuts"
   }
 }

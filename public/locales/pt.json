@@ -3002,7 +3002,10 @@
     "tabStatus": "Estado"
   },
   "st": {
-    "lead": "Notificações, idioma e o seu fundo."
+    "lead": "Atalhos, privacidade e os seus dados.",
+    "groupGeneral": "Geral",
+    "legalLead": "Leia como tratamos os seus dados e as regras de utilização do QR-Codex.",
+    "read": "Ler"
   },
   "legacy": {
     "menu": "Transferir código QR existente",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Respostas: {n}"
+  },
+  "keys": {
+    "title": "Atalhos de teclado",
+    "lead": "Prima uma tecla para ir rapidamente a algum lado. Não funcionam enquanto escreve num campo.",
+    "on": "Usar atalhos de teclado",
+    "onText": "Desative se usar um leitor de ecrã ou carregar em teclas sem querer.",
+    "k_new": "Novo código QR",
+    "k_home": "Visão geral",
+    "k_codes": "Os meus códigos QR",
+    "k_stats": "Estatísticas",
+    "k_search": "Pesquisar nos seus códigos QR",
+    "k_help": "Mostrar estes atalhos"
   }
 }

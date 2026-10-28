@@ -3002,7 +3002,10 @@
     "tabStatus": "Tila"
   },
   "st": {
-    "lead": "Ilmoitukset, kieli ja taustasi."
+    "lead": "Pikanäppäimet, yksityisyys ja tietosi.",
+    "groupGeneral": "Yleiset",
+    "legalLead": "Lue, miten käsittelemme tietojasi ja mitkä ovat QR-Codexin säännöt.",
+    "read": "Lue"
   },
   "legacy": {
     "menu": "Siirrä olemassa oleva QR-koodi",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Vastauksia: {n}"
+  },
+  "keys": {
+    "title": "Pikanäppäimet",
+    "lead": "Paina yhtä näppäintä siirtyäksesi nopeasti. Ne eivät toimi, kun kirjoitat kenttään.",
+    "on": "Käytä pikanäppäimiä",
+    "onText": "Poista käytöstä, jos käytät ruudunlukijaa tai painat näppäimiä vahingossa.",
+    "k_new": "Uusi QR-koodi",
+    "k_home": "Yleiskatsaus",
+    "k_codes": "Omat QR-koodit",
+    "k_stats": "Tilastot",
+    "k_search": "Hae QR-koodeistasi",
+    "k_help": "Näytä nämä pikanäppäimet"
   }
 }

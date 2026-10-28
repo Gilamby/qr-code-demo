@@ -3002,7 +3002,10 @@
     "tabStatus": "Status"
   },
   "st": {
-    "lead": "Powiadomienia, język i Twoje tło."
+    "lead": "Skróty, prywatność i Twoje dane.",
+    "groupGeneral": "Ogólne",
+    "legalLead": "Przeczytaj, jak przetwarzamy Twoje dane i jakie są zasady korzystania z QR-Codex.",
+    "read": "Czytaj"
   },
   "legacy": {
     "menu": "Przenieś istniejący kod QR",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Odpowiedzi: {n}"
+  },
+  "keys": {
+    "title": "Skróty klawiszowe",
+    "lead": "Naciśnij jeden klawisz, aby szybko gdzieś przejść. Nie działają podczas pisania w polu.",
+    "on": "Używaj skrótów klawiszowych",
+    "onText": "Wyłącz, jeśli używasz czytnika ekranu lub przypadkowo naciskasz klawisze.",
+    "k_new": "Nowy kod QR",
+    "k_home": "Przegląd",
+    "k_codes": "Moje kody QR",
+    "k_stats": "Statystyki",
+    "k_search": "Szukaj w swoich kodach QR",
+    "k_help": "Pokaż te skróty"
   }
 }

@@ -3002,7 +3002,10 @@
     "tabStatus": "Statuss"
   },
   "st": {
-    "lead": "Paziņojumi, valoda un tavs fons."
+    "lead": "Īsinājumtaustiņi, privātums un tavi dati.",
+    "groupGeneral": "Vispārīgi",
+    "legalLead": "Izlasi, kā mēs apstrādājam tavus datus un kādi ir QR-Codex noteikumi.",
+    "read": "Lasīt"
   },
   "legacy": {
     "menu": "Pārvietot esošu QR kodu",
@@ -3590,5 +3593,17 @@
   },
   "fm": {
     "count": "Atbildes: {n}"
+  },
+  "keys": {
+    "title": "Īsinājumtaustiņi",
+    "lead": "Nospied vienu taustiņu, lai ātri kaut kur nokļūtu. Tie nedarbojas, kamēr raksti laukā.",
+    "on": "Izmantot īsinājumtaustiņus",
+    "onText": "Izslēdz, ja izmanto ekrāna lasītāju vai nejauši nospied taustiņus.",
+    "k_new": "Jauns QR kods",
+    "k_home": "Pārskats",
+    "k_codes": "Mani QR kodi",
+    "k_stats": "Statistika",
+    "k_search": "Meklēt savos QR kodos",
+    "k_help": "Rādīt šos īsinājumtaustiņus"
   }
 }

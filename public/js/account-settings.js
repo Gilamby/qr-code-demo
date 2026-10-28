@@ -163,6 +163,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   var sticky = null, editing = null, emailDraft = '', emailPending = null, sessions = null, activity = null;   // welke regel open staat; e-mail onderweg; apparaten en activiteit                 // factuurgegevens: opgeslagen, in bewerking, foute velden
   var SVG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
   var ICON = {
+    keys: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M7 14h10"/>',
+    legal: '<path d="M12 4v16M6 20h12M5 8h14M5 8l-2.5 6a3 3 0 0 0 5 0zM19 8l-2.5 6a3 3 0 0 0 5 0z"/>',
     profile: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/>',
     security: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
     prefs: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',
@@ -198,19 +200,22 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     domain: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
     team: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.3.2 3.9 1.8 4.5 4.8"/>'
   };
-  // Twee pagina's op hetzelfde scherm: Mijn account (wie je bent, beveiliging, betalen) en Instellingen (meldingen, voorkeuren, achtergrond)
+  // Twee pagina's op hetzelfde scherm: Mijn account (jij, meldingen, voorkeuren, betalen) en Instellingen (sneltoetsen, privacy, juridisch, account verwijderen)
   var SCOPES = {
     account: [
-      ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security']]],
-      ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav'], ['domain', 'dom.nav']]],
-      ['acct.groupPrivacy', [['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
+      ['acct.groupAccount', [['profile', 'acct.profile'], ['security', 'acct.security'], ['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]],
+      ['acct.groupBilling', [['billing', 'acct.billing'], ['plan', 'acct.planNav'], ['team', 'team.nav'], ['api', 'api.nav'], ['domain', 'dom.nav']]]
     ],
-    settings: [['nav.settings', [['notify', 'notify.title'], ['prefs', 'acct.prefsTitle'], ['background', 'account.background']]]]
+    settings: [
+      ['st.groupGeneral', [['keys', 'keys.title']]],
+      ['acct.groupPrivacy', [['legal', 'nav.legal'], ['data', 'acct.dataTitle'], ['delete', 'acct.delete']]]
+    ]
   };
   var scope = 'account';
   function ids(sc) { return [].concat.apply([], SCOPES[sc].map(function (g) { return g[1].map(function (x) { return x[0]; }); })); }
   function scopeOf(id) { return ids('settings').indexOf(id) >= 0 ? 'settings' : 'account'; }
   var GROUPS = SCOPES.account, ALL_TABS = ids('account');
+  var GEAR = '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>';
   /** Het hoofdaccount (super-admin) kan niet verwijderd worden: dan ook geen knop of onderdeel daarvoor */
   function canDelete() { return !(user && user.superAdmin); }
   // Teamlid: betalen en abonnement horen bij de eigenaar, niet bij het lid
@@ -292,16 +297,17 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   /* ---------- Menu ---------- */
   function drawMenu() {
     menu.innerHTML = '<div class="acct-tabs" role="tablist" aria-orientation="vertical" aria-label="' + esc(t('acct.sections')) + '">' + GROUPS.filter(function (g) { return g[1].some(function (x) { return shown(x[0]); }); }).map(function (g) {
-      return (scope === 'settings' ? '' : '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>') + g[1].filter(function (x) { return shown(x[0]); }).map(function (x) {
+      return '<p class="acct-group" aria-hidden="true">' + t(g[0]) + '</p>' + g[1].filter(function (x) { return shown(x[0]); }).map(function (x) {
         var on = x[0] === tab;
         return '<button type="button" role="tab"' + (x[0] === 'delete' ? ' class="acct-tab-danger"' : '') + ' id="acctTab-' + x[0] + '" data-tab="' + x[0] + '" aria-selected="' + on + '" aria-controls="' + (x[0] === 'background' ? 'bgSection' : 'acctCards') + '" tabindex="' + (on ? 0 : -1) + '">' + SVG + ICON[x[0]] + '</svg><span>' + t(x[1]) + '</span>' +
           (x[0] === 'billing' && billingLoaded && !billing && !user.admin && !viaStripe() ? '<i class="acct-dot" title="' + esc(t('acct.billingMissing')) + '"></i>' : '') + '</button>';
       }).join('');
     }).join('') + '</div>' +
     // Juridisch (stond eerst op een aparte pagina "Instellingen"; nu hier, zodat er maar één plek is)
-    (scope !== 'account' ? '' : '<div class="acct-legal-links"><p class="acct-group" aria-hidden="true">' + t('nav.legal') + '</p>' + ['privacy', 'terms', 'cookies'].map(function (k) {
-      return '<button type="button" class="acct-legal" data-legal="' + k + '">' + esc(t('legal.' + k + '.title')) + '</button>'; }).join('') + '</div>' +
-    '<span class="acct-menu-line" aria-hidden="true"></span>' +
+    // Mijn account: knop naar de pagina Instellingen. Instellingen: terug naar Mijn account.
+    (scope === 'account' ? '<span class="acct-menu-line" aria-hidden="true"></span><button type="button" class="acct-out acct-goset" data-go-scope="settings">' + SVG + GEAR + '</svg><span>' + t('nav.settings') + '</span></button>'
+      : '<span class="acct-menu-line" aria-hidden="true"></span><button type="button" class="acct-out acct-goset" data-go-scope="account">' + SVG + ICON.profile + '</svg><span>' + t('nav.account') + '</span></button>') +
+    (scope !== 'account' ? '' : '<span class="acct-menu-line" aria-hidden="true"></span>' +
     '<button type="button" class="acct-out" data-page="logout">' + SVG + ICON.out + '</svg><span>' + t('nav.logout') + '</span></button>');
     requestAnimationFrame(tabFades);
   }
@@ -774,6 +780,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (tab === 'security') return securityPanel(m, note);
     if (tab === 'prefs') return prefsPanel(note);
     if (tab === 'notify') return notifyPanel(m);
+    if (tab === 'keys') return keysPanel(m);
+    if (tab === 'legal') return legalPanel();
     if (tab === 'delete') return deletePanel();
     if (tab === 'billing') return billingPanel(m);
     if (tab === 'plan') return planPanel();
@@ -783,6 +791,19 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (tab === 'data') return '<div class="glass bg-card acct"><h2>' + t('acct.dataTitle') + '</h2><p>' + t('acct.dataLead') + '</p>' +
       '<div class="acct-btns"><button type="button" class="btn ghost" data-export>' + SVG + ICON.download + '</svg>' + t('acct.download') + '</button></div>' + note('export') + '</div>' + dangerCard(m);
     return '';
+  }
+  /* Sneltoetsen (shortcuts.js): overzicht en aan/uit (WCAG 2.1.4: losse lettertoetsen moeten uit kunnen) */
+  function keysPanel(m) {
+    var on = window.Shortcuts ? Shortcuts.on() : true;
+    return '<div class="glass bg-card acct"><h2>' + t('keys.title') + '</h2><p>' + t('keys.lead') + '</p>' +
+      '<div class="nf-list"><label class="nf-row"><span class="nf-txt"><b>' + t('keys.on') + '</b><small>' + t('keys.onText') + '</small></span><span class="nf-sw"><input type="checkbox" data-keys-on' + (on ? ' checked' : '') + '><i></i></span></label></div>' +
+      '<dl class="keys-list' + (on ? '' : ' off') + '">' + (window.Shortcuts ? Shortcuts.list() : []).map(function (k) { return '<div><dt><kbd>' + esc(k[0]) + '</kbd></dt><dd>' + esc(t(k[1])) + '</dd></div>'; }).join('') + '</dl>' +
+      (m.keys ? '<p class="acct-msg ' + m.keys[1] + '" role="status">' + esc(m.keys[0]) + '</p>' : '') + '</div>';
+  }
+  /* Privacyverklaring, voorwaarden en cookies: lezen in een venster */
+  function legalPanel() {
+    return '<div class="glass bg-card acct"><h2>' + t('nav.legal') + '</h2><p>' + t('st.legalLead') + '</p><div class="nf-list">' + ['privacy', 'terms', 'cookies'].map(function (k) {
+      return '<div class="nf-row"><span class="nf-txt"><b>' + esc(t('legal.' + k + '.title')) + '</b></span><button type="button" class="btn ghost sm" data-legal="' + k + '">' + esc(t('st.read')) + '</button></div>'; }).join('') + '</div></div>';
   }
   // Voorkeuren: rijen (uitleg links, keuze rechts), zelfde stijl als Beheer > Instellingen
   var uprefs = null;
@@ -825,6 +846,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   window.openAccountTab = function (id) { open(id); };
   document.addEventListener('pagechange', function (e) {
     document.body.classList.toggle('page-account', e.detail === 'account'); document.body.classList.toggle('page-settings', e.detail === 'settings');
+    if (e.detail === 'settings') { var me = document.querySelector('.item[data-page="account"]'); if (me) me.classList.add('active'); }   // Instellingen hoort bij Mijn account
     if (e.detail !== 'account' && e.detail !== 'settings') return;
     if (e.detail !== scope) { setScope(e.detail); if (ids(scope).indexOf(tab) < 0) tab = ids(scope)[0]; if (user) draw(); }
     document.dispatchEvent(new CustomEvent('accounttab', { detail: tab }));   // adres: welk tabblad open staat
@@ -835,7 +857,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
   function err(e) { return e && e.code === 'wrong' ? t('acct.wrongCurrent') : e && PasswordRules.errorKey(e.code) ? t(PasswordRules.errorKey(e.code)) : e && e.code === 'too_many' ? t('auth.errTooMany') : t('auth.errGeneral'); }
   function readBilling(f) { BILLING_KEYS.forEach(function (k) { if (f.elements[k]) draft[k] = f.elements[k].value; }); }
 
-  menu.addEventListener('click', function (e) { var lg = e.target.closest('[data-legal]'); if (lg && window.Legal) return Legal.open(lg.getAttribute('data-legal')); var b = e.target.closest('[data-tab]'); if (b) open(b.getAttribute('data-tab')); });
+  menu.addEventListener('click', function (e) { var gs = e.target.closest('[data-go-scope]'); if (gs) return window.goToPage(gs.getAttribute('data-go-scope')); var lg = e.target.closest('[data-legal]'); if (lg && window.Legal) return Legal.open(lg.getAttribute('data-legal')); var b = e.target.closest('[data-tab]'); if (b) open(b.getAttribute('data-tab')); });
   menu.addEventListener('keydown', function (e) {   // pijltjes: naar het vorige/volgende onderdeel
     var TAB_IDS = tabIds(), i = TAB_IDS.indexOf(tab), n = null;
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = TAB_IDS[(i + 1) % TAB_IDS.length];
@@ -915,6 +937,8 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (e.target.getAttribute('aria-invalid')) { e.target.removeAttribute('aria-invalid'); var m = document.getElementById('err-' + e.target.name); if (m) m.remove(); bad = bad.filter(function (k) { return k !== e.target.name; }); }
   });
   box.addEventListener('change', function (e) {
+    if (e.target.matches('[data-keys-on]')) { var kv = e.target.checked; if (window.Shortcuts) Shortcuts.set(kv);
+      api.account.savePrefs({ keys: kv }).then(function () { draw({ keys: [t('acct.saved'), 'ok'] }); }).catch(function () { draw({ keys: [t('myCodes.failed'), 'bad'] }); }); return; }
     if (e.target.matches('[data-pref]')) { var o = {}; o[e.target.getAttribute('data-pref')] = e.target.checked; savePrefs(o); return; }
     if (e.target.id === 'acctLang') i18n.set(e.target.value);
     if (e.target.id === 'acctStart') { var v = e.target.value; api.account.savePrefs({ start: v }).then(function (r) { uprefs = r; draw({ prefs: [t('acct.saved'), 'ok'] }); }).catch(function () { draw({ prefs: [t('myCodes.failed'), 'bad'] }); }); }
@@ -922,6 +946,7 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (e.target.name === 'country' && draft) draft.country = e.target.value;
   });
   box.addEventListener('click', function (e) {
+    var lgl = e.target.closest('[data-legal]'); if (lgl && window.Legal) return Legal.dialog(lgl.getAttribute('data-legal'));
     var tb = e.target.closest('[data-tfa]');
     if (tb) {
       var k = tb.getAttribute('data-tfa'); tfaMsg = null;
