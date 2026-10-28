@@ -453,7 +453,10 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     var st = sb.state === 'grace' ? ['bad', 'bill.stGrace'] : sb.state === 'ended' ? ['bad', 'bill.stEnded'] : bl.cancelAtEnd ? ['warn', 'bill.stCancel'] : bl.trial ? ['info', 'bill.stTrial'] : ['ok', 'bill.stActive'];
     var iv = PlanPeriod.norm(sb.interval), paid = sb.state === 'active' && sb.periodEnd, price = free ? null : PlanPeriod.price(p, iv);
     var fact = function (label, value, sub) { return '<div class="bl-fact"><span>' + esc(label) + '</span><b>' + value + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div>'; };
+    // Geplande wissel naar een kleiner pakket: de volgende betaling is al het nieuwe pakket
+    var nx = bl.next, nxPlan = nx && (planInfo.plans || []).filter(function (x) { return x.id === nx.plan; })[0];
     var nextCell = !paid ? fact(t('bill.next'), '—', esc(sb.state === 'none' ? t('bill.byTeam') : ''))
+      : nxPlan ? fact(t('bill.next'), esc(money((Number(PlanPeriod.price(nxPlan, PlanPeriod.norm(nx.period))) || 0) + (nxPlan.codes != null ? (p.extra || 0) * ((planInfo.extraPrice || {})[PlanPeriod.norm(nx.period)] || 0) : 0))), esc(t('bill.on', { date: day(nx.at) })))
       : bl.cancelAtEnd ? fact(t('bill.endsOn'), esc(day(sb.periodEnd)), esc(t('bill.endsSub')))
       : fact(t('bill.next'), esc(money(nextAmount(p, sb, bl))), esc(t(bl.trial ? 'bill.afterTrial' : 'bill.on', { date: day(sb.periodEnd) })));
     var method = bl.method ? esc(methodName(bl.method)) + ' <em class="bl-demo">' + esc(t('bill.demoTag')) + '</em>' : planInfo.portal ? (pmInfo === null ? '…' : pmText(pmInfo)) : '—';
@@ -466,7 +469,9 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
       (member ? '' : '<div class="bl-actions"><button type="button" class="btn primary" data-open-plans>' + t('bill.change') + '</button>' +
         (live && bl.cancelAtEnd ? '<button type="button" class="btn ghost" data-sub-resume' + (subBusy ? ' disabled' : '') + '>' + esc(t('bill.resume')) + '</button>' : '') +
         (live && !bl.cancelAtEnd ? '<button type="button" class="btn ghost danger-ghost" data-sub-cancel' + (subBusy ? ' disabled' : '') + '>' + esc(t('bill.cancelSub')) + '</button>' : '') + '</div>') +
-      (planMsg ? '<p class="acct-msg ' + planMsg[1] + '" role="status">' + esc(t(planMsg[0])) + '</p>' : '') +
+      (nxPlan ? '<div class="bl-next" role="note"><span>' + esc(t('bill.nextPlan', { plan: t('plan.n_' + nx.plan), date: day(nx.at), cur: t('plan.n_' + p.id) })) + '</span>' +
+        (member ? '' : '<button type="button" class="btn ghost sm" data-next-cancel' + (subBusy ? ' disabled' : '') + '>' + esc(t('bill.keepPlan', { plan: t('plan.n_' + p.id) })) + '</button>') + '</div>' : '') +
+      (planMsg ? '<p class="acct-msg ' + planMsg[1] + '" role="status">' + esc(t(planMsg[0], planMsg[2])) + '</p>' : '') +
       '<p class="bl-fine">' + esc(t('sub.graceRule', { n: '' })) + '</p></div>';
     // Gebruik
     var canBuy = p.codes != null && !free && (api.info().demoCheckout || api.info().stripe);
@@ -967,6 +972,12 @@ document.addEventListener('click', function (e) { var g = e.target.closest('[dat
     if (e.target.closest('[data-pm-change]') && window.Plans) { planMsg = null; Plans.method(); return; }
     if (e.target.closest('[data-sub-cancel]')) { planMsg = null; askCancel(); return; }
     if (e.target.closest('[data-sub-resume]')) { planMsg = null; resumeSub(); return; }
+    if (e.target.closest('[data-next-cancel]')) {                        // toch het huidige pakket houden
+      var cur = planInfo && planInfo.plan; subBusy = true; planMsg = null; draw();
+      api.account.downgradeCancel().then(function () { subBusy = false; planMsg = ['bill.nextCancelled', 'ok', { plan: t('plan.n_' + (cur ? cur.id : '')) }]; planInfo = null; loadPlan(); })
+        .catch(function () { subBusy = false; planMsg = ['pw.payError', 'bad']; draw(); });
+      return;
+    }
     var pb = e.target.closest('[data-portal]');
     if (pb) { pb.disabled = true; api.account.stripePortal().then(function (r) { location.href = r.url; }, function () { pb.disabled = false; pb.insertAdjacentHTML('afterend', '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>'); }); return; }
     var ask = e.target.closest('[data-plan-ask]');

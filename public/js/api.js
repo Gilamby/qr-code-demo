@@ -355,6 +355,8 @@ var api = (function () {
       stripeCheckout: function (d) { return request('POST', 'api/billing/checkout', d); },
       cancelSub: function (d) { return request('POST', 'api/billing/cancel', d || {}); },
       resumeSub: function () { return request('POST', 'api/billing/resume', {}); },
+      downgrade: function (d) { return request('POST', 'api/billing/downgrade', d); },
+      downgradeCancel: function () { return request('POST', 'api/billing/downgrade/cancel', {}); },
       payMethod: function () { return request('GET', 'api/billing/method'); },
       newPayMethod: function () { return request('POST', 'api/billing/method', {}); },
       payMethodDone: function (session) { return request('POST', 'api/billing/method/done', { session: session }); },

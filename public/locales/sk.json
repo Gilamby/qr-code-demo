@@ -1070,7 +1070,14 @@
     "b_esB2c": "Súkromným osobám na Kanárskych ostrovoch, v Ceute a Melille zatiaľ nemôžeme predávať pre miestnu daň (IGIC/IPSI). Kupuješ ako firma? Vyber Firma.",
     "b_blocked": "V tejto krajine bohužiaľ nemôžeme predávať.",
     "b_nonEuB2c": "Mimo EÚ zatiaľ predávame len firmám. Kupuješ pre firmu? Vyber Firma.",
-    "b_noVat": "0% DPH"
+    "b_noVat": "0% DPH",
+    "downTo": "Prejsť na {plan}",
+    "downTitle": "Prejsť na {plan}",
+    "downLead": "Všetko z {cur} si ponecháš do {date}. Potom prejdeš na {plan}. Teraz nič neplatíš.",
+    "downPrice": "Od {date}: {price}",
+    "downKeep": "Potom zostane aktívnych {n} QR kódov, ktoré si vybral. Ostatné sa pozastavia, nevymažú.",
+    "downGo": "Potvrdiť",
+    "b_location": "Táto krajina nezodpovedá tomu, kde si teraz ({country}). Vyber krajinu, v ktorej bývaš alebo kde sídli tvoja firma."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Úvodná stránka",
     "prefStartHelp": "Kam sa dostaneš po prihlásení.",
     "prefThemeHelp": "Tmavý, svetlý alebo podľa tvojho zariadenia.",
-    "prefsLead2": "Ako aplikácia vyzerá a funguje. Len pre teba, na všetkých tvojich zariadeniach."
+    "prefsLead2": "Ako aplikácia vyzerá a funguje. Len pre teba, na všetkých tvojich zariadeniach.",
+    "act_plan_scheduled": "Prechod na menší balík naplánovaný"
   },
   "mail": {
     "resetSubject": "Nové heslo pre QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Prechádzam na inú službu",
     "r_unused": "Málo to používam",
     "r_too_complex": "Príliš zložité",
-    "r_other": "Iný dôvod"
+    "r_other": "Iný dôvod",
+    "nextPlan": "{date} prejdeš na {plan}. Dovtedy si ponecháš všetko z {cur}.",
+    "keepPlan": "Predsa ponechať {plan}",
+    "nextCancelled": "Zostávaš na {plan}."
   },
   "bulk": {
     "button": "Viac naraz",

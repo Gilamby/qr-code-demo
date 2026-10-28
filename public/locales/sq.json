@@ -1070,7 +1070,14 @@
     "b_esB2c": "Ende nuk mund t'u shesim personave privatë në Ishujt Kanarie, Ceuta dhe Melilla për shkak të taksës vendore (IGIC/IPSI). Blen si biznes? Zgjidh Biznes.",
     "b_blocked": "Fatkeqësisht nuk mund të shesim në këtë vend.",
     "b_nonEuB2c": "Jashtë BE-së tani për tani u shesim vetëm bizneseve. Blen për një biznes? Zgjidh Biznes.",
-    "b_noVat": "0% TVSH"
+    "b_noVat": "0% TVSH",
+    "downTo": "Kalo te {plan}",
+    "downTitle": "Kalo te {plan}",
+    "downLead": "Mban gjithçka të {cur} deri më {date}. Pastaj kalon te {plan}. Tani nuk paguan asgjë.",
+    "downPrice": "Nga {date}: {price}",
+    "downKeep": "Pastaj {n} kodet QR që zgjodhe mbeten aktive. Të tjerat pezullohen, nuk fshihen.",
+    "downGo": "Konfirmo",
+    "b_location": "Ky shtet nuk përputhet me vendin ku je tani ({country}). Zgjidh shtetin ku jeton ose ku ka seli kompania jote."
   },
   "dz": {
     "lbl": {
@@ -1977,7 +1984,8 @@
     "prefStart": "Faqja e fillimit",
     "prefStartHelp": "Ku përfundon pasi hyn.",
     "prefThemeHelp": "E errët, e çelët ose si në pajisjen tënde.",
-    "prefsLead2": "Si duket dhe funksionon aplikacioni. Vetëm për ty, në të gjitha pajisjet e tua."
+    "prefsLead2": "Si duket dhe funksionon aplikacioni. Vetëm për ty, në të gjitha pajisjet e tua.",
+    "act_plan_scheduled": "U planifikua kalimi te një plan më i vogël"
   },
   "mail": {
     "resetSubject": "Fjalëkalim i ri për QR-Codex",
@@ -3326,7 +3334,10 @@
     "r_switched_service": "Po kaloj te një shërbim tjetër",
     "r_unused": "Nuk e përdor mjaftueshëm",
     "r_too_complex": "Shumë i ndërlikuar",
-    "r_other": "Arsye tjetër"
+    "r_other": "Arsye tjetër",
+    "nextPlan": "Më {date} kalon te {plan}. Deri atëherë mban gjithçka të {cur}.",
+    "keepPlan": "Mbaje {plan} gjithsesi",
+    "nextCancelled": "Mbetesh te {plan}."
   },
   "bulk": {
     "button": "Disa njëherësh",

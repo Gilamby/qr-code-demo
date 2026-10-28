@@ -40,6 +40,11 @@ var Plans = (function () {
     var x = plans().filter(function (p) { return p.id === chosen; })[0] || {}, ex = (info.plan && info.plan.extra) || 0;
     return { plan: t('plan.n_' + chosen), limit: x.codes, plus: ex ? t('pw.plusExtra', { n: ex }) : '', used: info.usage.used };
   }
+  /** Naar een kleiner pakket met een betaald abonnement (Stripe): gaat in aan het einde van de betaalde periode, nu niets betalen */
+  function scheduled() {
+    var b = (info && info.billing) || {};
+    return stripeOn() && mode === 'change' && !!curPlan() && info.sub.state === 'active' && !b.trial && !b.cancelAtEnd && ORDER.indexOf(chosen) < ORDER.indexOf(curPlan());
+  }
   function needKeep() { var L = limitOf(chosen); return mode === 'change' && L != null && info.usage && info.usage.used > L; }
   function startKeep() {
     api.listQrCodes().then(function (list) {
@@ -65,6 +70,24 @@ var Plans = (function () {
       '<button type="button" class="btn primary pw-go" data-pw-keep-go' + (n !== r || busy ? ' disabled' : '') + '>' + esc(t('pw.keepGo', { plan: t('plan.n_' + chosen) })) + '</button>' +
       '<button type="button" class="link-btn" data-pw-back>' + esc(t('pw.back')) + '</button></div>';
   }
+  function drawDown() {
+    var x = plans().filter(function (p) { return p.id === chosen; })[0], date = i18n.fmt.stamp(info.sub.periodEnd, 'long');
+    box.innerHTML = '<div class="pw-inner pw-down">' + top() +
+      '<h1 id="pwTitle">' + esc(t('pw.downTitle', { plan: t('plan.n_' + chosen) })) + '</h1>' +
+      '<p class="pw-lead">' + esc(t('pw.downLead', { cur: t('plan.n_' + curPlan()), plan: t('plan.n_' + chosen), date: date })) + '</p>' +
+      '<p class="pw-down-price">' + esc(t('pw.downPrice', { date: date, price: euro(PlanPeriod.price(x, period)) + ' ' + PlanPeriod.per(period) })) + '</p>' +
+      (needKeep() ? '<p class="pw-keep-safe" role="note">' + esc(t('pw.downKeep', { n: keep.length })) + '</p>' : '') +
+      (downErr ? '<p class="acct-msg bad" role="alert">' + esc(t('pw.payError')) + '</p>' : '') +
+      '<button type="button" class="btn primary pw-go" data-pw-down-go' + (busy ? ' disabled' : '') + '>' + (busy ? '<span class="pw-spin sm" aria-hidden="true"></span>' : '') + esc(t('pw.downGo')) + '</button>' +
+      '<button type="button" class="link-btn" data-pw-back>' + esc(t('pw.back')) + '</button></div>';
+  }
+  var downErr = false;
+  function downgrade() {
+    if (busy) return; busy = true; downErr = false; draw();
+    api.account.downgrade({ plan: chosen, period: period, keep: needKeep() ? keep : undefined }).then(function () {
+      busy = false; close(); document.dispatchEvent(new CustomEvent('plan-changed')); goToPage('account'); if (window.openAccountTab) openAccountTab('plan');
+    }).catch(function () { busy = false; downErr = true; draw(); });
+  }
   function priceBlock(x) {
     // Acties gelden één keer (nieuwe klant): per maand de eerste maand goedkoper, per jaar het eerste jaar 2 maanden gratis
     var promo = mode === 'must' && x.trialDays, first = promo && period === 'month' && x.priceFirstMonth != null, year1 = promo && period === 'year' && x.priceYear != null;
@@ -88,6 +111,7 @@ var Plans = (function () {
     if (step === 'method') return drawMethod();
     if (step === 'pay') return drawPay();
     if (step === 'keep') return drawKeep();
+    if (step === 'down') return drawDown();
     if (step === 'done') return drawDone();
     if (step === 'wait') { box.innerHTML = '<div class="pw-inner">' + top() + '<div class="pw-done"><span class="pw-spin" aria-hidden="true"></span><h1 id="pwTitle">' + esc(t('pw.processing')) + '</h1><p class="pw-lead">' + esc(t('pw.processingLead')) + '</p></div></div>'; return; }
     var cur = curPlan(), list = plans();
@@ -106,7 +130,7 @@ var Plans = (function () {
           // Prijs: actieprijs/korting groot, normale prijs doorgestreept. Nieuwe klant: label "14 dagen gratis" en per maand de actie voor de eerste maand.
           priceBlock(x) + feats(x) + '</button>';
       }).join('') + '</div>' +
-      '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
+      '<button type="button" class="btn primary pw-go" data-pw-go' + (busy || (!stripeOn() && !demo()) ? ' disabled' : '') + '>' + esc(mode === 'change' ? t(upFrom(chosen) ? 'pw.upgradeTo' : scheduled() ? 'pw.downTo' : 'pw.choosePlan', { plan: t('plan.n_' + chosen) }) : t('pw.start')) + '</button>' +
       (needKeep() ? '<p class="pw-less" role="note">' + PlanGate.lock + esc(t('pw.lessWarn', limitArgs())) + '</p>' : '') +
       '</div>';
   }
@@ -184,7 +208,7 @@ var Plans = (function () {
      Na betalen stuurt Stripe terug naar /?checkout=success en verwerkt de webhook het abonnement (zelfde als hiervoor). */
   var sJs = null, sCo = null, sPe = null, sKey = '', sReady = false;
   /* Bedrijf of particulier (voor de btw). Eerst invullen, dan pas de betaalvelden. Ingevuld blijft onthouden in deze sessie. */
-  var sBuyer = null, bDraft = null, bBad = [], sPromo = '', bLocked = false;   // bLocked: type staat vast (factuurgegevens al opgeslagen)
+  var sBuyer = null, bDraft = null, bBad = [], bWhere = '', sPromo = '', bLocked = false;   // bLocked: type staat vast (factuurgegevens al opgeslagen)
   var EU = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
   function draftBuyer() {
     if (bDraft) return bDraft;
@@ -216,7 +240,7 @@ var Plans = (function () {
         bField('vat', t('pw.b_vat'), ' maxlength="24" spellcheck="false" placeholder="' + esc((d.country === 'GR' ? 'EL' : d.country) + '…') + '"', true) + '<p class="pw-co-note">' + esc(t('pw.b_vatHint')) + '</p>' +
         bField('address', t('pw.b_address'), ' maxlength="160" autocomplete="street-address"', true) +
         '<div class="pw-two">' + bField('postalCode', t('pw.b_postal'), ' maxlength="12" autocomplete="postal-code"') + bField('city', t('pw.b_city'), ' maxlength="80" autocomplete="address-level2"') + '</div>' : '') +
-      (bBad.length ? '<p class="acct-msg bad" role="alert">' + esc(t(bBad.indexOf('nonEuB2c') >= 0 ? 'pw.b_nonEuB2c' : bBad.indexOf('esB2c') >= 0 ? 'pw.b_esB2c' : bBad.indexOf('blocked') >= 0 ? 'pw.b_blocked' : bBad.indexOf('vies') >= 0 ? 'pw.b_viesBad' : bBad.indexOf('viesDown') >= 0 ? 'pw.b_viesDown' : 'pw.b_buyerErr')) + '</p>' : '') +
+      (bBad.length ? '<p class="acct-msg bad" role="alert">' + esc(bBad.indexOf('location') >= 0 ? t('pw.b_location', { country: TEL.name(bWhere) || bWhere }) : t(bBad.indexOf('nonEuB2c') >= 0 ? 'pw.b_nonEuB2c' : bBad.indexOf('esB2c') >= 0 ? 'pw.b_esB2c' : bBad.indexOf('blocked') >= 0 ? 'pw.b_blocked' : bBad.indexOf('vies') >= 0 ? 'pw.b_viesBad' : bBad.indexOf('viesDown') >= 0 ? 'pw.b_viesDown' : 'pw.b_buyerErr')) + '</p>' : '') +
       '<button type="button" class="pw-co-go" data-pw-bgo>' + esc(t('pw.b_toPay')) + '</button>';
   }
   // Buiten de EU-btw (ander land buiten de EU, of Canarias/Ceuta/Melilla): 0% btw
@@ -289,7 +313,7 @@ var Plans = (function () {
         if (r && r.url) location.href = r.url;                          // de server viel terug op de betaalpagina van Stripe
         return new Promise(function () {});
       });
-      secret.catch(function (x) { if (x && x.code === 'buyer') { bBad = x.details || ['vat']; sBuyer = null; stripeReset(); return draw(); } stripeErr(); });
+      secret.catch(function (x) { if (x && x.code === 'buyer') { bBad = x.details || ['vat']; bWhere = (x.data && x.data.where) || ''; sBuyer = null; stripeReset(); return draw(); } stripeErr(); });
       sCo = st.initCheckoutElementsSdk({ clientSecret: secret, elementsOptions: { appearance: look(), fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap' }] } });
       sCo.on('change', function (ses) { sReady = !!(ses && ses.canConfirm); setGo(); showTotals(ses); });
       sPe = sCo.createPaymentElement();
@@ -401,8 +425,11 @@ var Plans = (function () {
     if (e.target.closest('[data-pw-enter]')) { location.replace(location.pathname); return; }
     var k = e.target.closest('[data-pw-keep]');
     if (k) { var id = k.getAttribute('data-pw-keep'); keep = keep.filter(function (x) { return x !== id; }); if (k.checked) keep.push(id); return draw(); }
+    if (e.target.closest('[data-pw-down-go]')) return downgrade();
+    if (e.target.closest('[data-pw-go]') && step === 'choose' && scheduled() && !needKeep()) { step = 'down'; downErr = false; return draw(); }
     if (e.target.closest('[data-pw-go]') && step === 'choose' && needKeep()) return startKeep();
     var kg = e.target.closest('[data-pw-keep-go]');
+    if (kg && scheduled()) { step = 'down'; downErr = false; return draw(); }
     if (kg) { if (stripeOn() && !inApp()) { step = 'choose'; return goStripe(); } step = 'pay'; return draw(); }
     if (e.target.closest('[data-pw-go]') && step === 'choose' && inApp()) { step = 'pay'; return draw(); }
     if (e.target.closest('[data-pw-go]') && step === 'choose' && stripeOn()) return goStripe();

@@ -1070,7 +1070,14 @@
     "b_esB2c": "Încă nu putem vinde persoanelor fizice din Insulele Canare, Ceuta și Melilla din cauza taxei locale (IGIC/IPSI). Cumperi ca firmă? Alege Firmă.",
     "b_blocked": "Din păcate nu putem vinde în această țară.",
     "b_nonEuB2c": "În afara UE vindem deocamdată doar firmelor. Cumperi pentru o firmă? Alege Firmă.",
-    "b_noVat": "0% TVA"
+    "b_noVat": "0% TVA",
+    "downTo": "Treci la {plan}",
+    "downTitle": "Treci la {plan}",
+    "downLead": "Păstrezi tot din {cur} până pe {date}. Apoi treci la {plan}. Acum nu plătești nimic.",
+    "downPrice": "Din {date}: {price}",
+    "downKeep": "Apoi cele {n} coduri QR alese rămân active. Celelalte sunt puse pe pauză, nu șterse.",
+    "downGo": "Confirmă",
+    "b_location": "Această țară nu corespunde cu locul în care ești acum ({country}). Alege țara în care locuiești sau în care are sediul firma ta."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Pagina de start",
     "prefStartHelp": "Unde ajungi după conectare.",
     "prefThemeHelp": "Întunecat, luminos sau ca pe dispozitivul tău.",
-    "prefsLead2": "Cum arată și funcționează aplicația. Doar pentru tine, pe toate dispozitivele tale."
+    "prefsLead2": "Cum arată și funcționează aplicația. Doar pentru tine, pe toate dispozitivele tale.",
+    "act_plan_scheduled": "Trecere la un plan mai mic programată"
   },
   "mail": {
     "resetSubject": "Parolă nouă pentru QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Trec la alt serviciu",
     "r_unused": "Nu îl folosesc destul",
     "r_too_complex": "Prea complicat",
-    "r_other": "Alt motiv"
+    "r_other": "Alt motiv",
+    "nextPlan": "Pe {date} treci la {plan}. Până atunci păstrezi tot din {cur}.",
+    "keepPlan": "Păstrează totuși {plan}",
+    "nextCancelled": "Rămâi la {plan}."
   },
   "bulk": {
     "button": "Mai multe deodată",

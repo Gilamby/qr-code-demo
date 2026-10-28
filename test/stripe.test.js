@@ -34,6 +34,9 @@ global.fetch = async (url, o = {}) => {
   if (p === 'checkout/sessions') return body.get('ui_mode') === 'elements'
     ? ok({ id: 'cs_' + (++seq), client_secret: 'cs_' + seq + '_secret_x', version: o.headers['Stripe-Version'] })
     : ok({ id: 'cs_' + (++seq), url: 'https://checkout.stripe.com/c/pay/cs_' + seq });
+  if (p === 'subscription_schedules') { const sub = subs[body.get('from_subscription')]; sub.schedule = 'sub_sched_' + (++seq); return ok({ id: sub.schedule, phases: [{ items: [{ price: 'price_cur', quantity: 1 }], start_date: sec(Date.now() - day), end_date: sub.current_period_end, discounts: [] }] }); }
+  if (/^subscription_schedules\/[^/]+\/release$/.test(p)) { const id = p.split('/')[1]; for (const x of Object.values(subs)) if (x.schedule === id) x.schedule = null; global.__released = (global.__released || 0) + 1; return ok({ id }); }
+  if (/^subscription_schedules\//.test(p)) return ok({ id: p.split('/')[1] });
   if (p === 'billing_portal/sessions') return ok({ url: 'https://billing.stripe.com/p/session/x' });
   if (/^subscriptions\//.test(p)) {
     const id = p.split('/')[1];
@@ -362,4 +365,48 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   await db.setSetting('vies:' + ub.id, null); global.__viesGone = true;
   await hk.viesRecheck(); assert.equal(global.__tax[cusB].length, 0, 'niet meer geldig: btw-nummer weg'); global.__viesGone = false;
   global.__taxOn = false; forgetTax();
+});
+
+test('Stripe: naar een kleiner pakket gaat pas in aan het einde van de betaalde periode', async () => {
+  const c = client(), email = 'stripe-down@example.com', pw = 'Stripe down zin 8!';
+  await c('POST', '/api/auth/register', { accept: true, email, password: pw, name: 'Down' });
+  await c('POST', '/api/auth/verify', { token: decodeURIComponent(mails[email].split('verify=')[1]) });
+  await c('POST', '/api/auth/login', { email, password: pw });
+  const u = await db.userByEmail(email), end = Date.now() + 20 * day;
+  subs.sub_d = { id: 'sub_d', customer: 'cus_d', status: 'active', current_period_end: sec(end), cancel_at_period_end: false, metadata: { uid: u.id, plan: 'pro', period: 'month' } };
+  await hook({ type: 'checkout.session.completed', data: { object: { mode: 'subscription', subscription: 'sub_d', customer: 'cus_d', client_reference_id: u.id } } });
+  assert.equal((await c('GET', '/api/account/plan')).json.plan.id, 'pro');
+  // Groter pakket via deze weg: geweigerd
+  assert.equal((await c('POST', '/api/billing/downgrade', { plan: 'business', period: 'month' })).json.error, 'not_lower');
+  // Naar Standard: geplande wissel bij Stripe, nu nog Pro
+  const r = await c('POST', '/api/billing/downgrade', { plan: 'standard', period: 'month', keep: ['a', 'b'] });
+  assert.equal(r.status, 200, JSON.stringify(r.json));
+  const up = calls.filter((x) => /^subscription_schedules\/sub_sched_/.test(x.path) && !/release/.test(x.path)).pop().body;
+  assert.equal(up.get('phases[0][end_date]'), String(sec(end)), 'huidige pakket tot het einde van de periode');
+  assert.equal(up.get('phases[1][metadata][plan]'), 'standard'); assert.equal(up.get('phases[1][items][0][price_data][unit_amount]'), '499');
+  assert.equal(up.get('proration_behavior'), 'none', 'niets terugbetalen of bijrekenen');
+  let plan = (await c('GET', '/api/account/plan')).json;
+  assert.equal(plan.plan.id, 'pro', 'tot dan alles van Pro'); assert.equal(plan.billing.next.plan, 'standard');
+  // Losse code erbij kan niet zolang de wissel gepland staat
+  assert.equal((await c('POST', '/api/billing/extra', { n: 1 })).json.error, 'pending_change');
+  // Toch niet: planning weg
+  assert.equal((await c('POST', '/api/billing/downgrade/cancel')).status, 200);
+  assert.equal((await c('GET', '/api/account/plan')).json.billing.next, null);
+  // Opnieuw plannen en de periode loopt af: Stripe zet het pakket om → nu Standard, planning weg
+  await c('POST', '/api/billing/downgrade', { plan: 'standard', period: 'month' });
+  await hook({ type: 'customer.subscription.updated', data: { object: { ...subs.sub_d, schedule: null, current_period_end: sec(end + 30 * day), metadata: { uid: u.id, plan: 'standard', period: 'month' } } } });
+  plan = (await c('GET', '/api/account/plan')).json;
+  assert.equal(plan.plan.id, 'standard'); assert.equal(plan.billing.next, null);
+});
+
+test('btw: het gekozen land moet kloppen met waar je bent (anders geen land zonder btw kiezen)', async () => {
+  const { locationMismatch } = require('../server/dist/billing/tax');
+  const priv = (country, postalCode = '') => ({ type: 'private', country, postalCode });
+  assert.equal(locationMismatch(priv('SR'), { cc: 'NL' }), 'NL', 'in Nederland, Suriname gekozen: geweigerd');
+  assert.equal(locationMismatch(priv('NL'), { cc: 'NL' }), null);
+  assert.equal(locationMismatch(priv('NL'), { cc: '' }), null, 'locatie onbekend: niet blokkeren');
+  assert.equal(locationMismatch(priv('ES', '35001'), { cc: 'ES', region: 'Andalusia' }), 'ES', 'Canarias kiezen vanaf het vasteland: geweigerd');
+  assert.equal(locationMismatch(priv('ES', '35001'), { cc: 'ES', region: 'Canary Islands' }), null);
+  assert.equal(locationMismatch({ type: 'company', country: 'DE', postalCode: '' }, { cc: 'NL' }), null, 'EU-bedrijf: VIES is het bewijs');
+  assert.equal(locationMismatch({ type: 'company', country: 'US', postalCode: '' }, { cc: 'NL' }), 'NL', 'bedrijf buiten de EU vanuit Nederland: geweigerd');
 });

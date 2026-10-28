@@ -21,7 +21,8 @@ export const ELEMENTS_VERSION = '2026-09-30.endive';
 /** Demo-betaling (er wordt niets afgeschreven): standaard aan zolang Stripe er niet is. Uitzetten: DEMO_CHECKOUT=false.
  *  Zodra STRIPE_SECRET_KEY er staat, is de demo vanzelf uit. */
 export const demoCheckoutOn = () => !stripeOn() && process.env.DEMO_CHECKOUT !== 'false';
-export type StripeRecord = { customer?: string; subscription?: string; cancelMailed?: string | null; status?: string; cancelAtEnd?: boolean; buyer?: 'private' | 'company' };
+export type StripeRecord = { customer?: string; subscription?: string; cancelMailed?: string | null; status?: string; cancelAtEnd?: boolean; buyer?: 'private' | 'company';
+  next?: { plan: string; period: string; at: string } | null };   // next: naar een kleiner pakket, gaat in op 'at' (einde van de betaalde periode)
 type Settings = { getSetting(k: string): Promise<string | null | undefined>; setSetting(k: string, v: string | null): Promise<void> };
 
 export async function readRecord(db: Settings, userId: string): Promise<StripeRecord> {

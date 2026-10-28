@@ -1070,7 +1070,14 @@
     "b_esB2c": "Vi kan ennå ikke selge til privatpersoner på Kanariøyene, i Ceuta og Melilla på grunn av lokal skatt (IGIC/IPSI). Kjøper du som bedrift? Velg Bedrift.",
     "b_blocked": "Vi kan dessverre ikke selge i dette landet.",
     "b_nonEuB2c": "Utenfor EU selger vi foreløpig bare til bedrifter. Kjøper du for en bedrift? Velg Bedrift.",
-    "b_noVat": "0% mva."
+    "b_noVat": "0% mva.",
+    "downTo": "Bytt til {plan}",
+    "downTitle": "Bytt til {plan}",
+    "downLead": "Du beholder alt i {cur} til {date}. Deretter bytter du til {plan}. Du betaler ingenting nå.",
+    "downPrice": "Fra {date}: {price}",
+    "downKeep": "Deretter forblir de {n} QR-kodene du valgte aktive. De andre settes på pause, ikke slettet.",
+    "downGo": "Bekreft",
+    "b_location": "Dette landet stemmer ikke med hvor du er nå ({country}). Velg landet der du bor eller der bedriften din holder til."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Startside",
     "prefStartHelp": "Der du havner etter at du har logget inn.",
     "prefThemeHelp": "Mørkt, lyst eller som enheten din.",
-    "prefsLead2": "Hvordan appen ser ut og fungerer. Bare for deg, på alle enhetene dine."
+    "prefsLead2": "Hvordan appen ser ut og fungerer. Bare for deg, på alle enhetene dine.",
+    "act_plan_scheduled": "Bytte til mindre pakke planlagt"
   },
   "mail": {
     "resetSubject": "Nytt passord for QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Jeg bytter til en annen tjeneste",
     "r_unused": "Jeg bruker det for lite",
     "r_too_complex": "For komplisert",
-    "r_other": "Annen grunn"
+    "r_other": "Annen grunn",
+    "nextPlan": "{date} bytter du til {plan}. Til da beholder du alt i {cur}.",
+    "keepPlan": "Behold {plan} likevel",
+    "nextCancelled": "Du blir på {plan}."
   },
   "bulk": {
     "button": "Flere samtidig",

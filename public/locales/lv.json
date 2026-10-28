@@ -1070,7 +1070,14 @@
     "b_esB2c": "Mēs vēl nevaram pārdot privātpersonām Kanāriju salās, Seutā un Meliljā vietējā nodokļa (IGIC/IPSI) dēļ. Pērc kā uzņēmums? Izvēlies Uzņēmums.",
     "b_blocked": "Diemžēl šajā valstī mēs nevaram pārdot.",
     "b_nonEuB2c": "Ārpus ES pagaidām pārdodam tikai uzņēmumiem. Pērc uzņēmumam? Izvēlies Uzņēmums.",
-    "b_noVat": "0% PVN"
+    "b_noVat": "0% PVN",
+    "downTo": "Pāriet uz {plan}",
+    "downTitle": "Pāriet uz {plan}",
+    "downLead": "Viss no {cur} tev paliek līdz {date}. Pēc tam tu pāriesi uz {plan}. Tagad tu neko nemaksā.",
+    "downPrice": "No {date}: {price}",
+    "downKeep": "Pēc tam tevis izvēlētie {n} QR kodi paliek aktīvi. Pārējie tiek apturēti, nevis dzēsti.",
+    "downGo": "Apstiprināt",
+    "b_location": "Šī valsts neatbilst tavai pašreizējai atrašanās vietai ({country}). Izvēlies valsti, kurā dzīvo vai kurā atrodas tavs uzņēmums."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Sākumlapa",
     "prefStartHelp": "Kur tu nonāc pēc pieteikšanās.",
     "prefThemeHelp": "Tumšs, gaišs vai kā tavā ierīcē.",
-    "prefsLead2": "Kā lietotne izskatās un darbojas. Tikai tev, visās tavās ierīcēs."
+    "prefsLead2": "Kā lietotne izskatās un darbojas. Tikai tev, visās tavās ierīcēs.",
+    "act_plan_scheduled": "Ieplānota pāreja uz mazāku plānu"
   },
   "mail": {
     "resetSubject": "Jauna parole QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Pāreju uz citu pakalpojumu",
     "r_unused": "Pārāk maz izmantoju",
     "r_too_complex": "Pārāk sarežģīti",
-    "r_other": "Cits iemesls"
+    "r_other": "Cits iemesls",
+    "nextPlan": "{date} tu pāriesi uz {plan}. Līdz tam viss no {cur} paliek tev.",
+    "keepPlan": "Tomēr paturēt {plan}",
+    "nextCancelled": "Tu paliec plānā {plan}."
   },
   "bulk": {
     "button": "Vairāki reizē",

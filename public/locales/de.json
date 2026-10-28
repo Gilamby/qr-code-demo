@@ -1070,7 +1070,14 @@
     "b_esB2c": "An Privatkunden auf den Kanaren, in Ceuta und Melilla können wir wegen der lokalen Steuer (IGIC/IPSI) noch nicht verkaufen. Kaufst du als Unternehmen? Wähle Unternehmen.",
     "b_blocked": "In diesem Land können wir leider nicht verkaufen.",
     "b_nonEuB2c": "Außerhalb der EU verkaufen wir derzeit nur an Unternehmen. Kaufst du für ein Unternehmen? Wähle Unternehmen.",
-    "b_noVat": "0% MwSt."
+    "b_noVat": "0% MwSt.",
+    "downTo": "Zu {plan} wechseln",
+    "downTitle": "Zu {plan} wechseln",
+    "downLead": "Du behältst alles von {cur} bis zum {date}. Danach wechselst du zu {plan}. Du zahlst jetzt nichts.",
+    "downPrice": "Ab dem {date}: {price}",
+    "downKeep": "Danach bleiben die {n} QR-Codes, die du gewählt hast, aktiv. Die anderen werden pausiert, nicht gelöscht.",
+    "downGo": "Bestätigen",
+    "b_location": "Dieses Land passt nicht zu deinem aktuellen Standort ({country}). Wähle das Land, in dem du wohnst oder in dem dein Unternehmen sitzt."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Startseite",
     "prefStartHelp": "Wo du nach dem Anmelden landest.",
     "prefThemeHelp": "Dunkel, hell oder wie auf deinem Gerät.",
-    "prefsLead2": "Wie die App aussieht und funktioniert. Nur für dich, auf all deinen Geräten."
+    "prefsLead2": "Wie die App aussieht und funktioniert. Nur für dich, auf all deinen Geräten.",
+    "act_plan_scheduled": "Wechsel zu kleinerem Paket geplant"
   },
   "mail": {
     "resetSubject": "Neues Passwort für QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Ich wechsle zu einem anderen Dienst",
     "r_unused": "Ich nutze es zu wenig",
     "r_too_complex": "Zu kompliziert",
-    "r_other": "Anderer Grund"
+    "r_other": "Anderer Grund",
+    "nextPlan": "Am {date} wechselst du zu {plan}. Bis dahin behältst du alles von {cur}.",
+    "keepPlan": "Doch bei {plan} bleiben",
+    "nextCancelled": "Du bleibst bei {plan}."
   },
   "bulk": {
     "button": "Mehrere auf einmal",

@@ -158,7 +158,7 @@ export class AccountController {
       trial: demo ? ((pl) => !!pl && pl.status === 'trial' && Date.parse(pl.at) + ((PLANS[pl.plan] && PLANS[pl.plan].trialDays) || 0) * DAY > Date.now())(hist.find((x) => x.kind === 'plan')) : rec.status === 'trialing',
       cancelAtEnd: !!rec.cancelAtEnd, method: demo ? await demoMethod(this.db, user.id) : null,
       teamUsed: 1 + (await membersOf(this.db, user.id)).length,
-      buyer: rec.buyer || null, tax: stripeOn() ? await taxOn() : false,
+      buyer: rec.buyer || null, tax: stripeOn() ? await taxOn() : false, next: rec.next || null,
     };
     return { plan, usage: { ...usage(plan, codes), total: all.length, planPaused }, extraPrice: EXTRA_PRICE, plans: Object.values(PLANS).filter((p) => p.id !== 'free'), payments: stripeOn(), portal: stripeOn() && !!rec.customer, sub: publicSub(await subFor(this.db, user.id)), billing };
   }

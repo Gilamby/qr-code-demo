@@ -1070,7 +1070,14 @@
     "b_esB2c": "Ainda não podemos vender a particulares nas Canárias, em Ceuta e Melilla devido ao imposto local (IGIC/IPSI). Compras como empresa? Escolhe Empresa.",
     "b_blocked": "Infelizmente não podemos vender neste país.",
     "b_nonEuB2c": "Fora da UE, por agora só vendemos a empresas. Compras para uma empresa? Escolhe Empresa.",
-    "b_noVat": "0% IVA"
+    "b_noVat": "0% IVA",
+    "downTo": "Mudar para {plan}",
+    "downTitle": "Mudar para {plan}",
+    "downLead": "Mantém tudo do {cur} até {date}. Depois passa para o {plan}. Não paga nada agora.",
+    "downPrice": "A partir de {date}: {price}",
+    "downKeep": "Depois, os {n} códigos QR que escolheu continuam ativos. Os outros ficam em pausa, não são eliminados.",
+    "downGo": "Confirmar",
+    "b_location": "Este país não corresponde ao local onde está agora ({country}). Escolha o país onde vive ou onde a sua empresa está sediada."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Página inicial",
     "prefStartHelp": "Onde chegas depois de iniciar sessão.",
     "prefThemeHelp": "Escuro, claro ou igual ao teu dispositivo.",
-    "prefsLead2": "Como a app se apresenta e funciona. Só para ti, em todos os teus dispositivos."
+    "prefsLead2": "Como a app se apresenta e funciona. Só para ti, em todos os teus dispositivos.",
+    "act_plan_scheduled": "Mudança para um plano menor agendada"
   },
   "mail": {
     "resetSubject": "Nova palavra-passe para QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Vou mudar para outro serviço",
     "r_unused": "Não uso o suficiente",
     "r_too_complex": "Demasiado complicado",
-    "r_other": "Outro motivo"
+    "r_other": "Outro motivo",
+    "nextPlan": "Em {date} passa para o {plan}. Até lá mantém tudo do {cur}.",
+    "keepPlan": "Manter o {plan}",
+    "nextCancelled": "Fica no {plan}."
   },
   "bulk": {
     "button": "Vários de uma vez",

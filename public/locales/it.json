@@ -1070,7 +1070,14 @@
     "b_esB2c": "Non possiamo ancora vendere a privati alle Canarie, a Ceuta e Melilla a causa dell'imposta locale (IGIC/IPSI). Acquisti come azienda? Scegli Azienda.",
     "b_blocked": "Purtroppo non possiamo vendere in questo paese.",
     "b_nonEuB2c": "Fuori dall'UE al momento vendiamo solo ad aziende. Acquisti per un'azienda? Scegli Azienda.",
-    "b_noVat": "IVA 0%"
+    "b_noVat": "IVA 0%",
+    "downTo": "Passa a {plan}",
+    "downTitle": "Passa a {plan}",
+    "downLead": "Mantieni tutto di {cur} fino al {date}. Poi passi a {plan}. Ora non paghi nulla.",
+    "downPrice": "Dal {date}: {price}",
+    "downKeep": "Dopo, i {n} codici QR che hai scelto restano attivi. Gli altri vengono messi in pausa, non eliminati.",
+    "downGo": "Conferma",
+    "b_location": "Questo paese non corrisponde a dove ti trovi ora ({country}). Scegli il paese in cui vivi o in cui ha sede la tua azienda."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Pagina iniziale",
     "prefStartHelp": "Dove arrivi dopo l’accesso.",
     "prefThemeHelp": "Scuro, chiaro o come il tuo dispositivo.",
-    "prefsLead2": "Come appare e funziona l’app. Solo per te, su tutti i tuoi dispositivi."
+    "prefsLead2": "Come appare e funziona l’app. Solo per te, su tutti i tuoi dispositivi.",
+    "act_plan_scheduled": "Passaggio a un piano inferiore programmato"
   },
   "mail": {
     "resetSubject": "Nuova password per QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Passo a un altro servizio",
     "r_unused": "Non lo uso abbastanza",
     "r_too_complex": "Troppo complicato",
-    "r_other": "Altro motivo"
+    "r_other": "Altro motivo",
+    "nextPlan": "Il {date} passi a {plan}. Fino ad allora mantieni tutto di {cur}.",
+    "keepPlan": "Mantieni {plan}",
+    "nextCancelled": "Resti su {plan}."
   },
   "bulk": {
     "button": "Più insieme",

@@ -5,13 +5,16 @@
    POST webhook                     ← Stripe meldt: betaald, verlengd, mislukt, opgezegd
    Regels:
    - Eerste keer (nog nooit betaald): 14 dagen gratis, kaart vooraf. Daarna geen nieuwe proefperiode.
-   - Ander pakket of andere periode: nieuw abonnement; het oude stopt meteen, het restbedrag wordt verrekend (Stripe).
+   - Groter pakket of andere periode: nieuw abonnement; het oude stopt meteen, het restbedrag wordt verrekend (Stripe).
+   - Kleiner pakket (betaald abonnement): POST downgrade { plan, period, keep } plant de wissel bij Stripe (subscription schedule)
+     aan het einde van de betaalde periode. Tot dan houd je alles van je huidige pakket. POST downgrade/cancel = toch niet.
    - Betaling mislukt of opgezegd en de periode is om: codes stoppen meteen, 30 dagen bewaard (subscription.ts).
    - Opgezegd (loopt nog tot het einde van de periode): bevestigingsmail.
    Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar).
    ========================================================= */
 import { validateBilling } from '../auth/billing';
-import { readBuyer, applyBuyer, taxOn, taxBehavior, needsVies, checkVies } from './tax';
+import { readBuyer, applyBuyer, taxOn, taxBehavior, needsVies, checkVies, locationMismatch } from './tax';
+import { place } from '../analytics/scan-stats';
 import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { DatabaseService } from '../database/database.service';
@@ -64,6 +67,19 @@ export class BillingController {
     const p = await stripe('POST', 'products', { name: 'QR-Codex extra QR-code' });
     await this.db.setSetting('stripe:extraProduct', p.id); return p.id;
   }
+  /** Product per pakket bij Stripe (één keer aangemaakt): nodig voor een geplande wissel (subscription schedule) */
+  private async planProduct(planId: string) {
+    const key = 'stripe:product:' + planId, have = await this.db.getSetting(key); if (have) return have;
+    const p = await stripe('POST', 'products', { name: planName(planId) });
+    await this.db.setSetting(key, p.id); return p.id;
+  }
+  private schedId(sub: any): string | null { return !sub || !sub.schedule ? null : typeof sub.schedule === 'string' ? sub.schedule : sub.schedule.id; }
+  /** Geplande wissel naar een kleiner pakket weghalen (bij Stripe en bij ons) */
+  private async dropNext(uid: string, sub: any) {
+    const id = this.schedId(sub); if (id) await stripe('POST', 'subscription_schedules/' + id + '/release', {});
+    const rec = await readRecord(this.db, uid); if (rec.next) { rec.next = null; await writeRecord(this.db, uid, rec); }
+    await this.db.setSetting('keepNext:' + uid, null);
+  }
   private extraLine(product: string, interval: 'month' | 'quarter' | 'year', quantity: number, buyerType?: string) {
     return { quantity, price_data: { currency: 'eur', product, unit_amount: Math.round(EXTRA_PRICE[interval] * 100), recurring: recurringOf(interval), tax_behavior: taxBehavior(buyerType) } };
   }
@@ -79,6 +95,7 @@ export class BillingController {
     const n = Math.min(10, Math.max(1, Math.floor(Number(b.n) || 1)));
     try {
       const sub = await stripe('GET', 'subscriptions/' + rec.subscription), product = await this.extraProduct();
+      if (this.schedId(sub)) throw fail(409, 'pending_change');                // wissel naar kleiner pakket gepland: eerst die intrekken
       const item = ((sub.items && sub.items.data) || []).find((i: any) => i.price && i.price.product === product);
       const now = item ? item.quantity : 0; if (now + n > EXTRA_MAX) throw fail(400, 'too_many');
       if (item) await stripe('POST', 'subscription_items/' + item.id, { quantity: now + n, proration_behavior: 'create_prorations' });
@@ -109,6 +126,7 @@ export class BillingController {
       let buyerType: string | undefined = rec.buyer;
       if (b.buyer) {
         const r = readBuyer(b.buyer); if (!r.buyer) throw fail(400, 'buyer', { details: r.errors });
+        const away = locationMismatch(r.buyer, place(req.ip)); if (away) throw fail(400, 'buyer', { details: ['location'], where: away });   // land moet kloppen met waar je bent
         // Btw verleggen mag alleen met een btw-nummer dat in VIES geregistreerd staat
         const vies = needsVies(r.buyer) ? await checkVies(r.buyer.vat) : undefined;
         if (vies && vies.state !== 'valid') throw fail(400, 'buyer', { details: [vies.state === 'down' ? 'viesDown' : 'vies'] });
@@ -165,6 +183,54 @@ export class BillingController {
     return { rec, sub: await stripe('GET', 'subscriptions/' + rec.subscription) };
   }
 
+  /** Naar een kleiner pakket: gaat in aan het einde van de betaalde periode (zoals bij de meeste apps). Tot dan blijft alles zoals het is.
+   *  keep = de codes die daarna aan blijven (als het nieuwe pakket minder codes toestaat). */
+  @Post('downgrade')
+  @UseGuards(LoggedIn)
+  @HttpCode(200)
+  async downgrade(@Req() req: Request, @CurrentUser() user: User, @Body() b: any = {}) {
+    if (this.auth.isAdmin(user) || (req as any).member) throw fail(403, 'team');
+    if (!isPlanId(b.plan)) throw fail(400, 'plan');
+    if (this.auth.limited('subchange:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    const ORDER = ['standard', 'pro', 'business'], interval = toInterval(b.period), plan = PLANS[b.plan];
+    try {
+      const { rec, sub } = await this.mySub(user);
+      if (sub.status !== 'active' || sub.cancel_at_period_end) throw fail(409, 'not_active');
+      if (ORDER.indexOf(b.plan) >= ORDER.indexOf(sub.metadata && sub.metadata.plan)) throw fail(400, 'not_lower');
+      if (this.schedId(sub)) await stripe('POST', 'subscription_schedules/' + this.schedId(sub) + '/release', {});   // eerdere planning vervangen
+      const sch = await stripe('POST', 'subscription_schedules', { from_subscription: sub.id }), p0 = sch.phases[0];
+      const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0, tax = await taxOn();
+      const items: any[] = [{ quantity: 1, price_data: { currency: 'eur', product: await this.planProduct(b.plan), unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), tax_behavior: taxBehavior(rec.buyer) } }];
+      if (extras) items.push(this.extraLine(await this.extraProduct(), interval, extras, rec.buyer));
+      const idOf = (x: any) => (x && typeof x === 'object' ? x.id : x);
+      await stripe('POST', 'subscription_schedules/' + sch.id, {
+        end_behavior: 'release', proration_behavior: 'none',
+        phases: [
+          { items: p0.items.map((i: any) => ({ price: idOf(i.price), quantity: i.quantity })), start_date: p0.start_date, end_date: p0.end_date,
+            discounts: (p0.discounts || []).map((d: any) => (d.discount ? { discount: idOf(d.discount) } : d.coupon ? { coupon: idOf(d.coupon) } : null)).filter(Boolean),
+            automatic_tax: p0.automatic_tax && p0.automatic_tax.enabled ? { enabled: true } : undefined },
+          { items, iterations: 1, metadata: { uid: user.id, plan: b.plan, period: interval }, automatic_tax: tax ? { enabled: true } : undefined },
+        ],
+      });
+      const at = new Date(Number(p0.end_date) * 1000).toISOString();
+      rec.next = { plan: b.plan, period: interval, at }; await writeRecord(this.db, user.id, rec);
+      await this.db.setSetting('keepNext:' + user.id, Array.isArray(b.keep) ? JSON.stringify(b.keep.map(String).slice(0, 500)) : null);
+      await this.db.addActivity(user.id, 'plan_scheduled', this.auth.meta(req)).catch(() => {});
+      return { ok: true, next: rec.next };
+    } catch (e: any) { if (e && e.getStatus) throw e; console.error('Wissel plannen mislukt:', e.message); throw fail(502, 'stripe'); }
+  }
+
+  /** Geplande wissel naar een kleiner pakket intrekken */
+  @Post('downgrade/cancel')
+  @UseGuards(LoggedIn)
+  @HttpCode(200)
+  async downgradeCancel(@Req() req: Request, @CurrentUser() user: User) {
+    if ((req as any).member) throw fail(403, 'team');
+    if (this.auth.limited('subchange:' + user.id, 20, 60)) throw fail(429, 'too_many');
+    try { const { sub } = await this.mySub(user); await this.dropNext(user.id, sub); return { ok: true }; }
+    catch (e: any) { if (e && e.getStatus) throw e; console.error('Wissel intrekken mislukt:', e.message); throw fail(502, 'stripe'); }
+  }
+
   /** Opzeggen. In de gratis proef: meteen stoppen (er is niets betaald). Betaald: loopt door tot het einde van de periode. */
   @Post('cancel')
   @UseGuards(LoggedIn)
@@ -174,6 +240,7 @@ export class BillingController {
     if (this.auth.limited('subchange:' + user.id, 20, 60)) throw fail(429, 'too_many');
     try {
       const { sub } = await this.mySub(user);
+      if (this.schedId(sub) || (await readRecord(this.db, user.id)).next) await this.dropNext(user.id, sub);   // opzeggen gaat voor een geplande wissel
       // Reden van opzeggen (optioneel): bij Stripe bewaard, zo zie je waarom klanten stoppen
       const REASONS = ['too_expensive', 'missing_features', 'switched_service', 'unused', 'too_complex', 'other'];
       const why = REASONS.includes(b.reason) ? { feedback: b.reason, comment: String(b.comment || '').slice(0, 500) || undefined } : undefined;
@@ -283,7 +350,7 @@ export class BillingController {
     } else if (ev.type === 'checkout.session.completed' && o.mode === 'subscription' && o.subscription) {
       const uid = o.client_reference_id || (o.metadata && o.metadata.uid); if (!uid || !(await this.db.getUser(uid))) return { ok: true };
       const rec = await readRecord(this.db, uid), old = rec.subscription;
-      rec.customer = o.customer || rec.customer; rec.subscription = o.subscription; rec.cancelMailed = null;
+      rec.customer = o.customer || rec.customer; rec.subscription = o.subscription; rec.cancelMailed = null; rec.next = null;   // ander pakket gekozen: geplande wissel vervalt
       await writeRecord(this.db, uid, rec);
       // Gewisseld van pakket of periode: het oude abonnement stopt meteen, het restbedrag wordt verrekend
       if (old && old !== o.subscription) await stripe('DELETE', 'subscriptions/' + old, { prorate: true, invoice_now: true }).catch((e) => console.error('Oud abonnement stoppen mislukt:', e.message));
@@ -330,6 +397,11 @@ export class BillingController {
     if (s.status === 'active' || s.status === 'trialing') periodEnd = end;
     else if (s.status === 'past_due' || s.status === 'unpaid' || s.status === 'incomplete') periodEnd = Math.min(end || now, now);   // niet betaald: codes stoppen
     else periodEnd = Math.min(cur.periodEnd ? Date.parse(cur.periodEnd) : now, now, end || now);  // canceled / incomplete_expired
+    // Geplande wissel naar een kleiner pakket is ingegaan (of het abonnement is gestopt): gekozen codes toepassen, planning weg
+    if (rec.next && (s.metadata.plan === rec.next.plan || s.status === 'canceled')) {
+      if (s.metadata.plan === rec.next.plan) { const kn = await this.db.getSetting('keepNext:' + uid); if (kn) await this.db.setSetting('keep:' + uid, kn); }
+      rec.next = null; await this.db.setSetting('keepNext:' + uid, null);
+    }
     const before = await this.db.getSetting('plan:' + uid);
     if (isPlanId(s.metadata.plan)) await this.db.setSetting('plan:' + uid, s.metadata.plan);
     const xp = await this.db.getSetting('stripe:extraProduct');                 // losse QR-codes in dit abonnement

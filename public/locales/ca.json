@@ -1070,7 +1070,14 @@
     "b_esB2c": "Encara no podem vendre a particulars a Canàries, Ceuta i Melilla per l'impost local (IGIC/IPSI). Compres com a empresa? Tria Empresa.",
     "b_blocked": "No podem vendre en aquest país.",
     "b_nonEuB2c": "Fora de la UE, de moment només venem a empreses. Compres per a una empresa? Tria Empresa.",
-    "b_noVat": "0% IVA"
+    "b_noVat": "0% IVA",
+    "downTo": "Canvia a {plan}",
+    "downTitle": "Canvia a {plan}",
+    "downLead": "Conserves tot el de {cur} fins al {date}. Després passes a {plan}. Ara no pagues res.",
+    "downPrice": "A partir del {date}: {price}",
+    "downKeep": "Després, els {n} codis QR que has triat continuen actius. Els altres es posen en pausa, no s'eliminen.",
+    "downGo": "Confirma",
+    "b_location": "Aquest país no coincideix amb on ets ara ({country}). Tria el país on vius o on té la seu la teva empresa."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Pàgina d’inici",
     "prefStartHelp": "On arribes després d’iniciar la sessió.",
     "prefThemeHelp": "Fosc, clar o igual que el teu dispositiu.",
-    "prefsLead2": "Com es veu i funciona l’app. Només per a tu, a tots els teus dispositius."
+    "prefsLead2": "Com es veu i funciona l’app. Només per a tu, a tots els teus dispositius.",
+    "act_plan_scheduled": "Canvi a un pla inferior programat"
   },
   "mail": {
     "resetSubject": "Contrasenya nova per a QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Canvio a un altre servei",
     "r_unused": "No ho faig servir prou",
     "r_too_complex": "Massa complicat",
-    "r_other": "Un altre motiu"
+    "r_other": "Un altre motiu",
+    "nextPlan": "El {date} passes a {plan}. Fins aleshores conserves tot el de {cur}.",
+    "keepPlan": "Mantén {plan}",
+    "nextCancelled": "Et quedes a {plan}."
   },
   "bulk": {
     "button": "Diversos alhora",

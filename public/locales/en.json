@@ -1070,7 +1070,14 @@
     "b_esB2c": "We can't sell to private customers in the Canary Islands, Ceuta and Melilla yet because of the local tax (IGIC/IPSI). Buying as a business? Choose Business.",
     "b_blocked": "Unfortunately we can't sell in this country.",
     "b_nonEuB2c": "Outside the EU we currently only sell to businesses. Buying for a business? Choose Business.",
-    "b_noVat": "0% VAT"
+    "b_noVat": "0% VAT",
+    "downTo": "Switch to {plan}",
+    "downTitle": "Switch to {plan}",
+    "downLead": "You keep everything in {cur} until {date}. After that you switch to {plan}. You pay nothing now.",
+    "downPrice": "From {date}: {price}",
+    "downKeep": "After that the {n} QR codes you chose stay on. The others are paused, not deleted.",
+    "downGo": "Confirm",
+    "b_location": "This country doesn't match where you are now ({country}). Choose the country where you live or where your company is based."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "billingAuto": "Filled in automatically when you pay. You can change it here.",
     "typeLocked": "You chose this type. Need something else?",
     "typeLockedLink": "Contact us",
-    "act_device_limit": "Oldest device signed out (max. 3 devices)"
+    "act_device_limit": "Oldest device signed out (max. 3 devices)",
+    "act_plan_scheduled": "Switch to a smaller plan scheduled"
   },
   "mail": {
     "resetSubject": "New password for QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Switching to another service",
     "r_unused": "I don't use it enough",
     "r_too_complex": "Too complicated",
-    "r_other": "Other reason"
+    "r_other": "Other reason",
+    "nextPlan": "On {date} you switch to {plan}. Until then you keep everything in {cur}.",
+    "keepPlan": "Keep {plan} after all",
+    "nextCancelled": "You're staying on {plan}."
   },
   "bulk": {
     "button": "Several at once",

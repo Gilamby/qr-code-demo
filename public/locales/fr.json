@@ -1070,7 +1070,14 @@
     "b_esB2c": "Nous ne pouvons pas encore vendre aux particuliers des Canaries, de Ceuta et de Melilla en raison de la taxe locale (IGIC/IPSI). Vous achetez pour une entreprise ? Choisissez Entreprise.",
     "b_blocked": "Nous ne pouvons malheureusement pas vendre dans ce pays.",
     "b_nonEuB2c": "Hors de l'UE, nous vendons pour l'instant uniquement aux entreprises. Vous achetez pour une entreprise ? Choisissez Entreprise.",
-    "b_noVat": "0% TVA"
+    "b_noVat": "0% TVA",
+    "downTo": "Passer à {plan}",
+    "downTitle": "Passer à {plan}",
+    "downLead": "Vous conservez tout {cur} jusqu’au {date}. Ensuite, vous passez à {plan}. Vous ne payez rien maintenant.",
+    "downPrice": "À partir du {date} : {price}",
+    "downKeep": "Ensuite, les {n} codes QR que vous avez choisis restent actifs. Les autres sont mis en pause, pas supprimés.",
+    "downGo": "Confirmer",
+    "b_location": "Ce pays ne correspond pas à l’endroit où vous êtes ({country}). Choisissez le pays où vous habitez ou où votre entreprise est établie."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Page d’accueil",
     "prefStartHelp": "Là où vous arrivez après la connexion.",
     "prefThemeHelp": "Sombre, clair ou comme votre appareil.",
-    "prefsLead2": "L’apparence et le fonctionnement de l’app. Rien que pour vous, sur tous vos appareils."
+    "prefsLead2": "L’apparence et le fonctionnement de l’app. Rien que pour vous, sur tous vos appareils.",
+    "act_plan_scheduled": "Passage à une offre inférieure programmé"
   },
   "mail": {
     "resetSubject": "Nouveau mot de passe pour QR-Codex",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Je passe à un autre service",
     "r_unused": "Je ne l'utilise pas assez",
     "r_too_complex": "Trop compliqué",
-    "r_other": "Autre raison"
+    "r_other": "Autre raison",
+    "nextPlan": "Le {date}, vous passez à {plan}. D’ici là, vous conservez tout {cur}.",
+    "keepPlan": "Garder {plan}",
+    "nextCancelled": "Vous restez sur {plan}."
   },
   "bulk": {
     "button": "Plusieurs à la fois",

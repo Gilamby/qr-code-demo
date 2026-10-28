@@ -1070,7 +1070,14 @@
     "b_esB2c": "Emme voi vielä myydä yksityishenkilöille Kanariansaarille, Ceutaan ja Melillaan paikallisen veron (IGIC/IPSI) vuoksi. Ostatko yrityksenä? Valitse Yritys.",
     "b_blocked": "Valitettavasti emme voi myydä tähän maahan.",
     "b_nonEuB2c": "EU:n ulkopuolella myymme toistaiseksi vain yrityksille. Ostatko yritykselle? Valitse Yritys.",
-    "b_noVat": "ALV 0%"
+    "b_noVat": "ALV 0%",
+    "downTo": "Vaihda pakettiin {plan}",
+    "downTitle": "Vaihda pakettiin {plan}",
+    "downLead": "Pidät kaiken {cur}-paketista {date} asti. Sen jälkeen siirryt pakettiin {plan}. Et maksa nyt mitään.",
+    "downPrice": "{date} alkaen: {price}",
+    "downKeep": "Sen jälkeen valitsemasi {n} QR-koodia pysyvät käytössä. Muut keskeytetään, niitä ei poisteta.",
+    "downGo": "Vahvista",
+    "b_location": "Maa ei vastaa nykyistä sijaintiasi ({country}). Valitse maa, jossa asut tai jossa yrityksesi toimii."
   },
   "dz": {
     "lbl": {
@@ -1871,7 +1878,8 @@
     "prefStart": "Aloitussivu",
     "prefStartHelp": "Minne päädyt kirjautumisen jälkeen.",
     "prefThemeHelp": "Tumma, vaalea tai sama kuin laitteessasi.",
-    "prefsLead2": "Miltä sovellus näyttää ja miten se toimii. Vain sinulle, kaikilla laitteillasi."
+    "prefsLead2": "Miltä sovellus näyttää ja miten se toimii. Vain sinulle, kaikilla laitteillasi.",
+    "act_plan_scheduled": "Vaihto pienempään pakettiin ajastettu"
   },
   "mail": {
     "resetSubject": "Uusi salasana QR-Codex:ään",
@@ -3220,7 +3228,10 @@
     "r_switched_service": "Vaihdan toiseen palveluun",
     "r_unused": "En käytä sitä tarpeeksi",
     "r_too_complex": "Liian monimutkainen",
-    "r_other": "Muu syy"
+    "r_other": "Muu syy",
+    "nextPlan": "{date} siirryt pakettiin {plan}. Siihen asti pidät kaiken {cur}-paketista.",
+    "keepPlan": "Pidä sittenkin {plan}",
+    "nextCancelled": "Pysyt paketissa {plan}."
   },
   "bulk": {
     "button": "Useita kerralla",

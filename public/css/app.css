@@ -5929,3 +5929,7 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .keys-list dd { margin: 0; color: var(--fg); }
 .keys-list.off { opacity: .5; }
 .keys-list kbd { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,.18); border-bottom-width: 2px; background: rgba(255,255,255,.06); font-family: inherit; font-weight: 700; font-size: 13px; line-height: 1; color: var(--fg); }
+/* Geplande overstap naar een kleiner pakket (Abonnement en facturen, pakketscherm) */
+.bl-next { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: rgba(43,181,240,.08); border: 1px solid rgba(43,181,240,.28); font-size: 14px; }
+.pw-down { max-width: 560px; }
+.pw-down-price { font-size: 18px; font-weight: 700; margin: 4px 0 18px; }
