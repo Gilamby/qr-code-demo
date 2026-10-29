@@ -230,12 +230,13 @@ var Plans = (function () {
       .sort(function (a, b) { return a[1].localeCompare(b[1], i18n.lang()); }).map(function (c) { return '<option value="' + c[0] + '"' + (c[0] === sel ? ' selected' : '') + '>' + TEL.flag(c[0]) + ' ' + esc(c[1]) + '</option>'; }).join('');
   }
   function bField(k, label, attrs, wide) { var d = draftBuyer(); return '<label class="pw-co-f' + (wide ? ' wide' : '') + (bBad.indexOf(k) >= 0 || (k === 'vat' && (bBad.indexOf('vies') >= 0 || bBad.indexOf('viesDown') >= 0)) ? ' bad' : '') + '"><span>' + esc(label) + '</span><input data-pw-b="' + k + '" value="' + esc(d[k] || '') + '"' + (attrs || '') + '></label>'; }
+  function flat() { return !!(api.info && api.info().vatFlat); }   // particulieren altijd 21%: geen land of postcode vragen
   function buyerForm() {
-    var d = draftBuyer(), co = d.type === 'company';
+    var d = draftBuyer(), co = d.type === 'company', noLand = !co && flat();
     return (bLocked ? '' : '<div class="pw-co-f"><span>' + esc(t('pw.b_buyerAs')) + '</span><div class="pw-seg" role="radiogroup">' +
         ['private', 'company'].map(function (k) { return '<button type="button" role="radio" aria-checked="' + (d.type === k) + '" class="' + (d.type === k ? 'on' : '') + '" data-pw-btype="' + k + '">' + esc(t('pw.b_' + k)) + '</button>'; }).join('') + '</div></div>') +
-      '<label class="pw-co-f' + (bBad.indexOf('country') >= 0 ? ' bad' : '') + '"><span>' + esc(t('pw.b_country')) + '</span><select data-pw-b="country">' + countryOpts(d.country) + '</select></label>' +
-      (!co && d.country === 'ES' ? bField('postalCode', t('pw.b_postal'), ' maxlength="5" inputmode="numeric" autocomplete="postal-code"', true) + '<p class="pw-co-note">' + esc(t('pw.b_esPostalHint')) + '</p>' : '') +
+      (noLand ? '' : '<label class="pw-co-f' + (bBad.indexOf('country') >= 0 ? ' bad' : '') + '"><span>' + esc(t('pw.b_country')) + '</span><select data-pw-b="country">' + countryOpts(d.country) + '</select></label>') +
+      (!co && !noLand && d.country === 'ES' ? bField('postalCode', t('pw.b_postal'), ' maxlength="5" inputmode="numeric" autocomplete="postal-code"', true) + '<p class="pw-co-note">' + esc(t('pw.b_esPostalHint')) + '</p>' : '') +
       (co ? bField('companyName', t('pw.b_companyName'), ' maxlength="120" autocomplete="organization"', true) +
         bField('vat', t('pw.b_vat'), ' maxlength="24" spellcheck="false" placeholder="' + esc((d.country === 'GR' ? 'EL' : d.country) + '…') + '"', true) + '<p class="pw-co-note">' + esc(t('pw.b_vatHint')) + '</p>' +
         bField('address', t('pw.b_address'), ' maxlength="160" autocomplete="street-address"', true) +
@@ -244,15 +245,16 @@ var Plans = (function () {
       '<button type="button" class="pw-co-go" data-pw-bgo>' + esc(t('pw.b_toPay')) + '</button>';
   }
   // Buiten de EU-btw (ander land buiten de EU, of Canarias/Ceuta/Melilla): 0% btw
-  function noVatFor(b) { return !!b && (EU.indexOf(b.country) < 0 || (b.country === 'ES' && /^(35|38|51|52)\d{3}$/.test(b.postalCode || ''))); }
+  function noVatFor(b) { return !!b && !(b.type !== 'company' && flat()) && (EU.indexOf(b.country) < 0 || (b.country === 'ES' && /^(35|38|51|52)\d{3}$/.test(b.postalCode || ''))); }
   function buyerLine() {
     var b = sBuyer; if (!b) return '';
-    return '<div class="pw-buyer"><span>' + TEL.flag(b.country) + ' <b>' + esc(b.type === 'company' ? b.companyName : t('pw.b_private')) + '</b>' + (b.vat ? ' · ' + esc(b.vat) : '') + '</span><button type="button" class="link-btn" data-pw-bedit>' + esc(t('pw.b_change')) + '</button></div>';
+    return '<div class="pw-buyer"><span>' + (b.type !== 'company' && flat() ? '' : TEL.flag(b.country) + ' ') + '<b>' + esc(b.type === 'company' ? b.companyName : t('pw.b_private')) + '</b>' + (b.vat ? ' · ' + esc(b.vat) : '') + '</span><button type="button" class="link-btn" data-pw-bedit>' + esc(t('pw.b_change')) + '</button></div>';
   }
-  function useDraft() { var d0 = draftBuyer(); sBuyer = { type: d0.type, country: d0.country, companyName: d0.type === 'company' ? String(d0.companyName).trim() : '', vat: d0.type === 'company' ? d0.vat : '', address: (d0.address || '').trim(), postalCode: (d0.postalCode || '').trim(), city: (d0.city || '').trim() }; }
+  function useDraft() { var d0 = draftBuyer(), fl = d0.type !== 'company' && flat(); sBuyer = { type: d0.type, country: fl ? 'ES' : d0.country, companyName: d0.type === 'company' ? String(d0.companyName).trim() : '', vat: d0.type === 'company' ? d0.vat : '', address: (d0.address || '').trim(), postalCode: fl ? '' : (d0.postalCode || '').trim(), city: (d0.city || '').trim() }; }
   function checkBuyer() {
     var d = draftBuyer(), bad = [], co = d.type === 'company', eu = EU.indexOf(d.country) >= 0;
     d.vat = String(d.vat || '').toUpperCase().replace(/[\s.\-]/g, '');
+    if (!co && flat()) return bad;                                        // particulier: altijd 21%, niets te controleren
     if (!/^[A-Z]{2}$/.test(d.country)) bad.push('country');
     d.postalCode = String(d.postalCode || '').trim().toUpperCase();
     if (d.country === 'ES' && !/^\d{5}$/.test(d.postalCode)) bad.push('postalCode');

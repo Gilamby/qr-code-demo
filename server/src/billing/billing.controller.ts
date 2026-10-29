@@ -13,7 +13,7 @@
    Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar).
    ========================================================= */
 import { validateBilling } from '../auth/billing';
-import { readBuyer, applyBuyer, taxOn, taxBehavior, needsVies, checkVies, locationMismatch } from './tax';
+import { readBuyer, applyBuyer, taxOn, taxBehavior, needsVies, checkVies, locationMismatch, BLOCKED } from './tax';
 import { place } from '../analytics/scan-stats';
 import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
@@ -126,7 +126,9 @@ export class BillingController {
       let buyerType: string | undefined = rec.buyer;
       if (b.buyer) {
         const r = readBuyer(b.buyer); if (!r.buyer) throw fail(400, 'buyer', { details: r.errors });
-        const away = locationMismatch(r.buyer, place(req.ip)); if (away) throw fail(400, 'buyer', { details: ['location'], where: away });   // land moet kloppen met waar je bent
+        const here = place(req.ip);
+        if (BLOCKED.includes(here.cc)) throw fail(400, 'buyer', { details: ['blocked'] });   // sancties: ook als het land niet gevraagd wordt (particulier, altijd 21%)
+        const away = locationMismatch(r.buyer, here); if (away) throw fail(400, 'buyer', { details: ['location'], where: away });   // land moet kloppen met waar je bent
         // Btw verleggen mag alleen met een btw-nummer dat in VIES geregistreerd staat
         const vies = needsVies(r.buyer) ? await checkVies(r.buyer.vat) : undefined;
         if (vies && vies.state !== 'valid') throw fail(400, 'buyer', { details: [vies.state === 'down' ? 'viesDown' : 'vies'] });

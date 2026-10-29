@@ -1,6 +1,8 @@
 /* =========================================================
    BTW BIJ BETALEN (Stripe Tax)
-   - Particulier: de prijs is inclusief btw (wat je ziet, betaal je). Btw van het land van de klant (EU, via OSS).
+   - Particulier: de prijs is inclusief btw (wat je ziet, betaal je). Standaard altijd 21% Spaanse IVA, uit welk land ook
+     (besluit Fabian, 29 okt 2026: mag zolang OptimaSys onder de EU-drempel van €10.000 per jaar aan particulieren in andere
+     EU-landen blijft). Daarboven: PRIVATE_VAT=country in .env, dan de btw van het land van de klant (EU, via OSS).
    - Bedrijf: prijs + btw. Bedrijf in een ander EU-land met een btw-nummer dat GELDIG is in VIES: btw verlegd (0%).
      Het nummer wordt vóór het betalen bij VIES (Europese Commissie) gecontroleerd; niet geldig = niet verder.
      Spaans bedrijf: + 21%. Buiten de EU: meestal geen Spaanse btw.
@@ -11,12 +13,16 @@ import { stripe } from './stripe';
 
 export const EU = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
 export type Buyer = { type: 'private' | 'company'; country: string; postalCode: string; companyName: string; vat: string; address: string; city: string };
+/** Particulieren altijd 21% (Spanje); PRIVATE_VAT=country = btw van het land van de klant */
+export const flatPrivate = () => String(process.env.PRIVATE_VAT || '').toLowerCase() !== 'country';
 const text = (v: unknown, max: number) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, max);
 
 /** Gegevens van de koper uit het betaalscherm controleren. Bedrijf: naam, land en adres verplicht; btw-nummer verplicht binnen de EU. */
 export function readBuyer(b: any): { errors: string[]; buyer?: Buyer } {
   const x = b || {}, errors: string[] = [];
-  const type = x.type === 'company' ? 'company' : 'private', country = text(x.country, 2).toUpperCase();
+  const type = x.type === 'company' ? 'company' : 'private';
+  if (type === 'private' && flatPrivate()) return { errors, buyer: { type, country: 'ES', postalCode: '', companyName: '', vat: '', address: '', city: '' } };   // altijd 21%: geen land nodig
+  const country = text(x.country, 2).toUpperCase();
   const buyer: Buyer = { type, country, postalCode: text(x.postalCode, 12).toUpperCase(), companyName: type === 'company' ? text(x.companyName, 120) : '',
     vat: type === 'company' ? text(x.vat, 24).toUpperCase().replace(/[\s.\-]/g, '') : '', address: text(x.address, 160), city: text(x.city, 80) };
   if (!/^[A-Z]{2}$/.test(country)) errors.push('country');
@@ -104,6 +110,7 @@ export const forgetTax = () => { cache = null; };
 export async function applyBuyer(customer: string, buyer: Buyer, email: string, name: string, vies?: ViesResult) {
   await stripe('POST', 'customers/' + customer, {
     name: buyer.type === 'company' ? buyer.companyName : name || undefined, email,
+    // Particulier (altijd 21%): land Spanje, zodat Stripe Tax de Spaanse IVA rekent; verder geen adres nodig
     address: { country: buyer.country, postal_code: buyer.postalCode || undefined, line1: buyer.address || undefined, city: buyer.city || undefined },
     tax_exempt: esNoVat(buyer.country, buyer.postalCode) ? 'exempt' : 'none',
     metadata: { buyer: buyer.type, vies_checked: vies && vies.state === 'valid' ? buyer.vat + ' ' + vies.date : '' },

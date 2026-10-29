@@ -315,6 +315,12 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   assert.equal(r.status, 400); assert.ok(r.json.details.includes('postalCode'), 'Spanje: postcode verplicht');
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', postalCode: '28013', city: 'Madrid', vat: 'ESB12345678' } });
   assert.equal(global.__cusBody.get('tax_exempt'), 'none');
+  // Standaard: particulier altijd 21% Spaanse IVA, welk land er ook gestuurd wordt (geen land gevraagd)
+  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'SR' } });
+  assert.equal(r.status, 200); assert.equal(global.__cusBody.get('address[country]'), 'ES', 'altijd Spanje = 21%'); assert.equal(global.__cusBody.get('tax_exempt'), 'none');
+  assert.equal(last().get('line_items[0][price_data][tax_behavior]'), 'inclusive');
+  // Hieronder: PRIVATE_VAT=country (btw van het land van de klant, boven de EU-drempel)
+  process.env.PRIVATE_VAT = 'country';
   // Canarische Eilanden: particulier nog niet (IGIC-registratie nodig), bedrijf wel en vrijgesteld van IVA
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES', postalCode: '35001' } });
   assert.equal(r.status, 200); assert.equal(global.__cusBody.get('tax_exempt'), 'exempt', 'Canarias particulier: 0% IVA');
@@ -332,6 +338,7 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   for (const cc of ['KP', 'IR', 'RU']) { r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: cc } }); assert.equal(r.status, 400); assert.ok(r.json.details.includes('blocked'), cc); }
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'ES' } });
   assert.equal(r.status, 400, 'particulier in Spanje zonder postcode');
+  delete process.env.PRIVATE_VAT;
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', postalCode: '28013', city: 'Madrid', vat: 'ESB12345678' } });
   assert.equal(r.status, 200); assert.equal(global.__vies, nv, 'Spanje: geen VIES-aanvraag');
   // Bedrijf buiten de EU (VS): geen btw-nummer bij Stripe
