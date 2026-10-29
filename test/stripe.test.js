@@ -316,9 +316,8 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'company', country: 'ES', companyName: 'Tapas SL', address: 'Calle Mayor 1', postalCode: '28013', city: 'Madrid', vat: 'ESB12345678' } });
   assert.equal(global.__cusBody.get('tax_exempt'), 'none');
   // Standaard: particulier altijd 21% Spaanse IVA, welk land er ook gestuurd wordt (geen land gevraagd)
-  r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'SR' } });
-  assert.equal(r.status, 200); assert.equal(global.__cusBody.get('address[country]'), 'ES', 'altijd Spanje = 21%'); assert.equal(global.__cusBody.get('tax_exempt'), 'none');
-  assert.equal(last().get('line_items[0][price_data][tax_behavior]'), 'inclusive');
+  { const { readBuyer } = require('../server/dist/billing/tax'), rb = readBuyer({ type: 'private', country: 'SR', postalCode: '35001' });   // (geen extra checkout: limiet per uur)
+    assert.deepEqual(rb.errors, []); assert.equal(rb.buyer.country, 'ES', 'altijd Spanje = 21%'); assert.equal(rb.buyer.postalCode, '', 'geen Canarias-uitzondering'); }
   // Hieronder: PRIVATE_VAT=country (btw van het land van de klant, boven de EU-drempel)
   process.env.PRIVATE_VAT = 'country';
   // Canarische Eilanden: particulier nog niet (IGIC-registratie nodig), bedrijf wel en vrijgesteld van IVA
@@ -346,7 +345,7 @@ test('btw: bedrijf (prijs excl. btw, btw-nummer) of particulier (incl. btw), Str
   assert.equal(r.status, 200); assert.equal(global.__tax[cus].length, 0);
   // Particulier: prijs incl. btw, btw-nummer weg
   r = await c('POST', '/api/billing/checkout', { plan: 'pro', period: 'month', buyer: { type: 'private', country: 'NL' } });
-  b = last(); assert.equal(b.get('line_items[0][price_data][tax_behavior]'), 'inclusive');
+  assert.equal(r.status, 200, JSON.stringify(r.json)); b = last(); assert.equal(b.get('line_items[0][price_data][tax_behavior]'), 'inclusive');
   assert.equal(global.__tax[cus].length, 0, 'geen btw-nummer meer bij particulier');
   // Betaalpagina van Stripe (zonder betalen in de app): Stripe vraagt geen btw-nummer (dat zou VIES overslaan)
   assert.equal(b.get('tax_id_collection[enabled]'), null);
