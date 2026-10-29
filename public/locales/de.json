@@ -1671,7 +1671,8 @@
     "confirmTitle": "Bestätige dein Konto",
     "confirmLead": "Noch ein Klick und deine E-Mail-Adresse ist bestätigt.",
     "confirmBtn": "Mein Konto bestätigen",
-    "errVerifyExpired": "Dieser Link ist abgelaufen. Wir haben dir einen neuen geschickt, schau in deine E-Mails."
+    "errVerifyExpired": "Dieser Link ist abgelaufen. Wir haben dir einen neuen geschickt, schau in deine E-Mails.",
+    "errHuman": "Bestätige zuerst, dass du ein Mensch bist (das Feld über dem Button)."
   },
   "acct": {
     "profile": "Profil",

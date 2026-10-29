@@ -1671,7 +1671,8 @@
     "confirmTitle": "Confirme a sua conta",
     "confirmLead": "Mais um clique e o seu e-mail fica confirmado.",
     "confirmBtn": "Confirmar a minha conta",
-    "errVerifyExpired": "Este link expirou. Enviámos-lhe um novo, verifique o seu e-mail."
+    "errVerifyExpired": "Este link expirou. Enviámos-lhe um novo, verifique o seu e-mail.",
+    "errHuman": "Confirme primeiro que é humano (a caixa acima do botão)."
   },
   "acct": {
     "profile": "Perfil",

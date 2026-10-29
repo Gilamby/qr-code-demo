@@ -1777,7 +1777,8 @@
     "confirmTitle": "Konfirmoni llogarinë tuaj",
     "confirmLead": "Edhe një klikim dhe email-i juaj konfirmohet.",
     "confirmBtn": "Konfirmo llogarinë time",
-    "errVerifyExpired": "Kjo lidhje ka skaduar. Të dërguam një të re, kontrollo emailin."
+    "errVerifyExpired": "Kjo lidhje ka skaduar. Të dërguam një të re, kontrollo emailin.",
+    "errHuman": "Konfirmo fillimisht që je njeri (kutia mbi butonin)."
   },
   "acct": {
     "profile": "Profili",

@@ -4,6 +4,7 @@
    - /api/url-info, /api/geocode, /api/email-check: hulp bij het invullen, alleen ingelogd
      (geen open doorgeefluik voor anderen)
    ========================================================= */
+import { turnstileSiteKey } from '../auth/turnstile';
 import { flatPrivate } from '../billing/tax';
 import { signupOpen } from '../platform';
 import { googleOn } from '../auth/google.controller';
@@ -42,7 +43,7 @@ export class SystemController {
       const access = dev && !req.query.probe ? await checkCodespaceAccess() : undefined;
       const legal = await legalInfo(this.db);   // bedrijfsgegevens voor de privacyverklaring en voorwaarden
       let maintenance = { on: false, message: '' }; try { const m = JSON.parse((await this.db.getSetting('maintenance')) || '{}'); maintenance = { on: !!m.on, message: String(m.message || '') }; } catch (e) { /* uit */ }
-      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: await signupOpen(this.db), google: googleOn(), microsoft: microsoftOn(), stripe: stripeOn(), customDomains: domainsOn(), stripePk: stripePk() || undefined, demoCheckout: demoCheckoutOn(), vatFlat: flatPrivate(), legal, maintenance, mail: !!process.env.SMTP_HOST };
+      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: await signupOpen(this.db), google: googleOn(), microsoft: microsoftOn(), stripe: stripeOn(), customDomains: domainsOn(), stripePk: stripePk() || undefined, demoCheckout: demoCheckoutOn(), vatFlat: flatPrivate(), turnstile: turnstileSiteKey() || undefined, legal, maintenance, mail: !!process.env.SMTP_HOST };
     } catch (e) { throw reply(503, { ok: false }); }
   }
 

@@ -1671,7 +1671,8 @@
     "confirmTitle": "Bekreft kontoen din",
     "confirmLead": "Ett klikk til, så er e-postadressen din bekreftet.",
     "confirmBtn": "Bekreft kontoen min",
-    "errVerifyExpired": "Denne lenken er utløpt. Vi har sendt deg en ny, sjekk e-posten din."
+    "errVerifyExpired": "Denne lenken er utløpt. Vi har sendt deg en ny, sjekk e-posten din.",
+    "errHuman": "Bekreft først at du er et menneske (feltet over knappen)."
   },
   "acct": {
     "profile": "Profil",

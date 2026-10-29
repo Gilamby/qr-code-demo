@@ -1671,7 +1671,8 @@
     "confirmTitle": "Apstipriniet savu kontu",
     "confirmLead": "Vēl viens klikšķis, un jūsu e-pasts ir apstiprināts.",
     "confirmBtn": "Apstiprināt manu kontu",
-    "errVerifyExpired": "Šī saite ir novecojusi. Mēs nosūtījām tev jaunu, pārbaudi savu e-pastu."
+    "errVerifyExpired": "Šī saite ir novecojusi. Mēs nosūtījām tev jaunu, pārbaudi savu e-pastu.",
+    "errHuman": "Vispirms apstiprini, ka esi cilvēks (lodziņš virs pogas)."
   },
   "acct": {
     "profile": "Profils",

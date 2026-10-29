@@ -1671,7 +1671,8 @@
     "confirmTitle": "Vahvista tilisi",
     "confirmLead": "Vielä yksi napsautus, niin sähköpostiosoitteesi on vahvistettu.",
     "confirmBtn": "Vahvista tilini",
-    "errVerifyExpired": "Tämä linkki on vanhentunut. Lähetimme sinulle uuden, tarkista sähköpostisi."
+    "errVerifyExpired": "Tämä linkki on vanhentunut. Lähetimme sinulle uuden, tarkista sähköpostisi.",
+    "errHuman": "Vahvista ensin, että olet ihminen (ruutu painikkeen yläpuolella)."
   },
   "acct": {
     "profile": "Profiili",

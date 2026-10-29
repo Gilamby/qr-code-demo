@@ -1671,7 +1671,8 @@
     "confirmTitle": "Potvrďte svoj účet",
     "confirmLead": "Ešte jedno kliknutie a váš e-mail je potvrdený.",
     "confirmBtn": "Potvrdiť môj účet",
-    "errVerifyExpired": "Tento odkaz vypršal. Poslali sme ti nový, pozri si e-mail."
+    "errVerifyExpired": "Tento odkaz vypršal. Poslali sme ti nový, pozri si e-mail.",
+    "errHuman": "Najprv potvrď, že si človek (políčko nad tlačidlom)."
   },
   "acct": {
     "profile": "Profil",

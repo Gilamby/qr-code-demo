@@ -1671,7 +1671,8 @@
     "confirmTitle": "Bekräfta ditt konto",
     "confirmLead": "Ett klick till så är din e-postadress bekräftad.",
     "confirmBtn": "Bekräfta mitt konto",
-    "errVerifyExpired": "Den här länken har gått ut. Vi har skickat en ny, kolla din e-post."
+    "errVerifyExpired": "Den här länken har gått ut. Vi har skickat en ny, kolla din e-post.",
+    "errHuman": "Bekräfta först att du är en människa (rutan ovanför knappen)."
   },
   "acct": {
     "profile": "Profil",

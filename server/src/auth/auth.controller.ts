@@ -5,6 +5,7 @@
    - Wachtwoord vergeten: link per e-mail, 1 uur geldig, één keer te gebruiken.
    - Te veel pogingen = even wachten (429).
    ========================================================= */
+import { turnstileOk } from './turnstile';
 import { wasKicked } from '../database/database.service';
 import { pwnedCount } from './pwned';
 import { isBlocked } from './blocklist';
@@ -40,6 +41,7 @@ export class AuthController {
     const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').trim().slice(0, 80), lang = String(b.lang || 'en');
     if (this.auth.limited('reg:' + req.ip, 50, 60) || this.auth.limited('reg:' + email, 3, 60)) throw fail(429, 'too_many');
     if (!EMAIL.test(email) || email.length > 254) throw fail(400, 'email');
+    if (!(await turnstileOk(b.captcha))) throw fail(400, 'captcha');            // Cloudflare Turnstile (als het aanstaat)
     if (isDisposable(email)) throw fail(400, 'email_disposable');             // tijdelijke mailbox: geen account
     if (await isBlocked(this.db, email)) throw fail(403, 'blocked');            // geblokkeerd (Terms punt 14): geen nieuw account
     const pp = this.auth.passwordProblem(b.password); if (pp) throw fail(400, 'password_' + pp);
@@ -176,6 +178,7 @@ export class AuthController {
   async forgot(@Req() req: Request, @Body() b: any = {}) {
     const email = String(b.email || '').trim().toLowerCase();
     if (this.auth.limited('forgot:' + req.ip, 10, 60) || this.auth.limited('forgot:' + email, 3, 60)) throw fail(429, 'too_many');
+    if (!(await turnstileOk(b.captcha))) throw fail(400, 'captcha');
     const row = EMAIL.test(email) && await this.db.userByEmail(email);
     if (row) {
       const link = baseUrl(req) + '/?reset=' + encodeURIComponent(await this.db.createReset(row.id));

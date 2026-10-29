@@ -1671,7 +1671,8 @@
     "confirmTitle": "Potwierdź swoje konto",
     "confirmLead": "Jeszcze jedno kliknięcie i Twój adres e-mail zostanie potwierdzony.",
     "confirmBtn": "Potwierdź moje konto",
-    "errVerifyExpired": "Ten link wygasł. Wysłaliśmy Ci nowy, sprawdź swoją skrzynkę."
+    "errVerifyExpired": "Ten link wygasł. Wysłaliśmy Ci nowy, sprawdź swoją skrzynkę.",
+    "errHuman": "Najpierw potwierdź, że jesteś człowiekiem (pole nad przyciskiem)."
   },
   "acct": {
     "profile": "Profil",

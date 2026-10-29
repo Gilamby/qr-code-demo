@@ -1671,7 +1671,8 @@
     "confirmTitle": "Confirmă-ți contul",
     "confirmLead": "Încă un clic și adresa ta de e-mail este confirmată.",
     "confirmBtn": "Confirmă-mi contul",
-    "errVerifyExpired": "Acest link a expirat. Ți-am trimis unul nou, verifică-ți e-mailul."
+    "errVerifyExpired": "Acest link a expirat. Ți-am trimis unul nou, verifică-ți e-mailul.",
+    "errHuman": "Confirmă mai întâi că ești om (caseta de deasupra butonului)."
   },
   "acct": {
     "profile": "Profil",

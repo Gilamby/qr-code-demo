@@ -1671,7 +1671,8 @@
     "confirmTitle": "Confirma el teu compte",
     "confirmLead": "Un clic més i el teu correu quedarà confirmat.",
     "confirmBtn": "Confirmar el meu compte",
-    "errVerifyExpired": "Aquest enllaç ha caducat. T'hem enviat un de nou, revisa el teu correu."
+    "errVerifyExpired": "Aquest enllaç ha caducat. T'hem enviat un de nou, revisa el teu correu.",
+    "errHuman": "Confirma primer que ets una persona (la casella damunt del botó)."
   },
   "acct": {
     "profile": "Perfil",

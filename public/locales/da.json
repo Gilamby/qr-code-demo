@@ -1671,7 +1671,8 @@
     "confirmTitle": "Bekræft din konto",
     "confirmLead": "Ét klik mere, så er din e-mailadresse bekræftet.",
     "confirmBtn": "Bekræft min konto",
-    "errVerifyExpired": "Dette link er udløbet. Vi har sendt dig et nyt, tjek din e-mail."
+    "errVerifyExpired": "Dette link er udløbet. Vi har sendt dig et nyt, tjek din e-mail.",
+    "errHuman": "Bekræft først, at du er et menneske (feltet over knappen)."
   },
   "acct": {
     "profile": "Profil",

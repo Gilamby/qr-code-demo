@@ -1671,7 +1671,8 @@
     "confirmTitle": "Bevestig je account",
     "confirmLead": "Nog één klik en je e-mailadres is bevestigd.",
     "confirmBtn": "Bevestig mijn account",
-    "errVerifyExpired": "Deze link is verlopen. We hebben je een nieuwe gestuurd, kijk in je e-mail."
+    "errVerifyExpired": "Deze link is verlopen. We hebben je een nieuwe gestuurd, kijk in je e-mail.",
+    "errHuman": "Bevestig eerst dat je een mens bent (het vakje boven de knop)."
   },
   "acct": {
     "profile": "Profiel",

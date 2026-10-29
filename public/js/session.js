@@ -34,6 +34,19 @@ var Session = (function () {
   function langPicker() {
     return '<select class="auth-lang" aria-label="' + esc(t('header.chooseLanguage')) + '">' + LANGUAGES.map(function (l) { return '<option value="' + l.code + '"' + (l.code === i18n.lang() ? ' selected' : '') + '>' + l.name + '</option>'; }).join('') + '</select>';
   }
+  /* Cloudflare Turnstile ("ben je een mens?") bij Account maken en Wachtwoord vergeten; alleen als de server een sleutel heeft */
+  var tsToken = null, tsId = null, tsJs = null;
+  function ts() { return !ADMIN && !!(api.info && api.info().turnstile) && (mode === 'register' || mode === 'forgot'); }
+  function mountTs() {
+    tsToken = null; var el = document.getElementById('authTs'); if (!el) return;
+    if (!tsJs) tsJs = new Promise(function (ok, bad) { var sc = document.createElement('script'); sc.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'; sc.async = true; sc.onload = ok; sc.onerror = function () { tsJs = null; bad(); }; document.head.appendChild(sc); });
+    tsJs.then(function () {
+      if (!el.isConnected || !window.turnstile) return;
+      if (tsId != null) { try { turnstile.remove(tsId); } catch (e) {} }
+      tsId = turnstile.render(el, { sitekey: api.info().turnstile, theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark', language: i18n.lang(),
+        callback: function (tk) { tsToken = tk; var m = card.querySelector('.auth-msg[data-ts]'); if (m) m.remove(); }, 'expired-callback': function () { tsToken = null; }, 'error-callback': function () { tsToken = null; } });
+    }).catch(function () {});
+  }
   var tfa = null;                                                        // e-mail + wachtwoord bewaren tot de 2FA-code er is (alleen in het geheugen)
   function draw(msg, kind) {
     if (mode !== 'twofa') tfa = null;
@@ -53,7 +66,7 @@ var Session = (function () {
         (signup ? '<div class="auth-tabs" role="tablist"><button type="button" role="tab" data-mode="login" aria-selected="' + (mode === 'login') + '">' + t('auth.login') + '</button><button type="button" role="tab" data-mode="register" aria-selected="' + (mode === 'register') + '">' + t('auth.register') + '</button></div>' : '') + note +
         '<form class="auth-form" novalidate>' + (mode === 'register' ? field('name', 'text', t('auth.name'), 'name', name) : '') +
         field('email', 'email', t('auth.email'), 'email', email) + field('password', 'password', t('auth.password'), mode === 'login' ? 'current-password' : 'new-password') +
-        (mode === 'register' ? termsBox(accepted) : '') +
+        (mode === 'register' ? termsBox(accepted) + (ts() ? '<div class="auth-ts" id="authTs"></div>' : '') + '' : '') +
         '<button class="btn primary auth-go" type="submit">' + t(mode === 'login' ? 'auth.login' : 'auth.createAccount') + '</button></form>' +
         (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>') +
         (mode === 'login' && !signup && !ADMIN ? '<p class="auth-license">' + t('auth.licenseNote') + '</p>' : '') +
@@ -82,7 +95,7 @@ var Session = (function () {
         '<button type="button" class="btn ghost auth-go" data-mode="login">' + esc(t('auth.continueHere')) + '</button>';
     } else if (mode === 'forgot') {
       body = '<h1 id="authTitle">' + t('auth.forgotTitle') + '</h1><p class="auth-lead">' + t('auth.forgotLead') + '</p>' + note +
-        '<form class="auth-form" novalidate>' + field('email', 'email', t('auth.email'), 'email', email) + '<button class="btn primary auth-go" type="submit">' + t('auth.sendLink') + '</button></form>' +
+        '<form class="auth-form" novalidate>' + field('email', 'email', t('auth.email'), 'email', email) + (ts() ? '<div class="auth-ts" id="authTs"></div>' : '') + '<button class="btn primary auth-go" type="submit">' + t('auth.sendLink') + '</button></form>' +
         '<button type="button" class="link-btn auth-link" data-mode="login">← ' + t('auth.backToLogin') + '</button>';
     } else if (mode === 'sent') {
       body = '<h1 id="authTitle">' + t('auth.sentTitle') + '</h1><p class="auth-lead">' + t('auth.sentLead') + '</p><button type="button" class="btn ghost auth-go" data-mode="login">' + t('auth.backToLogin') + '</button>';
@@ -96,6 +109,7 @@ var Session = (function () {
     // Privacy, voorwaarden en cookies: ook te lezen zonder in te loggen
     body += '<nav class="auth-legal" aria-label="' + esc(t('legal.nav')) + '">' + ['privacy', 'terms', 'cookies'].map(function (d) { return '<button type="button" class="link-btn" data-legal="' + d + '">' + t('legal.' + d + '.short') + '</button>'; }).join('<span aria-hidden="true">·</span>') + '</nav>';
     card.innerHTML = head + body;
+    mountTs();
     var first = card.querySelector('input[name=name], input[name=email]:not([value]), input[name=email][value=""], input[name=password]'); if (first) first.focus();
   }
   // Link uit de bevestigingsmail
@@ -113,7 +127,7 @@ var Session = (function () {
   }
   window.TermsBox = termsBox;
   function errorText(e) {
-    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', email_alias: 'auth.errAlias', terms: 'terms.err' };
+    var map = { signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', wrong: 'auth.errWrong', exists: 'auth.errExists', email: 'auth.errEmail', too_many: 'auth.errTooMany', token: 'auth.errToken', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', email_alias: 'auth.errAlias', terms: 'terms.err', captcha: 'auth.errHuman' };
     return t(map[e && e.code] || PasswordRules.errorKey(e && e.code) || 'auth.errGeneral');
   }
   function ready() {
@@ -171,13 +185,17 @@ var Session = (function () {
       var m = card.querySelector('.auth-msg') || document.createElement('p'); m.className = 'auth-msg bad'; m.setAttribute('role', 'alert'); m.textContent = t('terms.err'); m.setAttribute('data-terms', '');
       if (!m.parentNode) f.parentNode.insertBefore(m, f); acc.focus(); return;
     }
+    if (ts() && !tsToken) {                                              // eerst het vakje van Cloudflare (melding zonder opnieuw tekenen)
+      var tm = card.querySelector('.auth-msg') || document.createElement('p'); tm.className = 'auth-msg bad'; tm.setAttribute('role', 'alert'); tm.setAttribute('data-ts', ''); tm.textContent = t('auth.errHuman');
+      if (!tm.parentNode) f.parentNode.insertBefore(tm, f); return;
+    }
     btn.disabled = true;
     if (mode === 'twofa' && !val('code')) { btn.disabled = false; return draw(t('tfa.errEmpty')); }
     var job = mode === 'twofa' && tfa && tfa.google ? api.auth.google2fa({ token: tfa.google, code: val('code') })
       : mode === 'twofa' ? api.auth.login({ email: tfa.email, password: tfa.password, code: val('code') })
       : mode === 'login' ? api.auth.login({ email: val('email'), password: pw })
-      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang(), accept: accepted }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); watch(); return null; })
-      : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang() }).then(function () { mode = 'sent'; draw(); return null; })
+      : mode === 'register' ? api.auth.register({ email: val('email'), password: pw, name: val('name'), lang: i18n.lang(), accept: accepted, captcha: tsToken || undefined }).then(function (r) { pendingEmail = val('email'); pendingToken = (r && r.token) || null; mode = 'check'; draw(); watch(); return null; })
+      : mode === 'forgot' ? api.auth.forgot({ email: val('email'), lang: i18n.lang(), captcha: tsToken || undefined }).then(function () { mode = 'sent'; draw(); return null; })
       : api.auth.reset({ token: resetToken, password: pw });
     job.then(function (u) { if (u) enter(u); }).catch(function (err) {
       if (err && err.code === '2fa_required' && mode === 'login') { tfa = { email: val('email'), password: pw }; mode = 'twofa'; draw(); var ci = card.querySelector('[name=code]'); if (ci) ci.focus(); return; }

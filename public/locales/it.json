@@ -1671,7 +1671,8 @@
     "confirmTitle": "Conferma il tuo account",
     "confirmLead": "Ancora un clic e il tuo indirizzo email è confermato.",
     "confirmBtn": "Conferma il mio account",
-    "errVerifyExpired": "Questo link è scaduto. Te ne abbiamo inviato uno nuovo, controlla la tua e-mail."
+    "errVerifyExpired": "Questo link è scaduto. Te ne abbiamo inviato uno nuovo, controlla la tua e-mail.",
+    "errHuman": "Conferma prima di essere una persona (la casella sopra il pulsante)."
   },
   "acct": {
     "profile": "Profilo",

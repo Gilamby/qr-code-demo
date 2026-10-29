@@ -5933,3 +5933,5 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .bl-next { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: rgba(43,181,240,.08); border: 1px solid rgba(43,181,240,.28); font-size: 14px; }
 .pw-down { max-width: 560px; }
 .pw-down-price { font-size: 18px; font-weight: 700; margin: 4px 0 18px; }
+/* Cloudflare Turnstile op Account maken / Wachtwoord vergeten: ruimte vasthouden zodat er niets verspringt */
+.auth-ts { min-height: 65px; display: flex; justify-content: center; }

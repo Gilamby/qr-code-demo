@@ -1301,3 +1301,20 @@ test('privacyverklaring, voorwaarden en cookies: eigen openbare pagina, in de ge
   }
   assert.match(await (await fetch(base + '/privacy', { headers: { 'accept-language': 'de-DE,de;q=0.9' } })).text(), /<html lang="de"/);
 });
+
+test('Cloudflare Turnstile: uit zonder sleutels; aan = token nodig en bij Cloudflare gecontroleerd', async () => {
+  const ts = require('../server/dist/auth/turnstile');
+  assert.equal(ts.turnstileOn(), false); assert.equal(await ts.turnstileOk(''), true, 'uit: niets veranderd');
+  process.env.TURNSTILE_SITE_KEY = '0x4AAAA-site'; process.env.TURNSTILE_SECRET_KEY = '0x4AAAA-secret';
+  try {
+    assert.equal(ts.turnstileOn(), true);
+    assert.equal(await ts.turnstileOk(''), false, 'geen token: geweigerd');
+    let sent = null; const fake = (ok) => async (url, o) => { sent = { url, body: String(o.body) }; return { json: async () => ({ success: ok }) }; };
+    assert.equal(await ts.turnstileOk('tok', fake(true)), true); assert.match(sent.url, /siteverify$/); assert.match(sent.body, /secret=0x4AAAA-secret/); assert.doesNotMatch(sent.body, /remoteip/, 'geen IP-adres naar Cloudflare');
+    assert.equal(await ts.turnstileOk('tok', fake(false)), false);
+    assert.equal(await ts.turnstileOk('tok', async () => { throw new Error('netwerk'); }), true, 'Cloudflare onbereikbaar: niet blokkeren');
+    assert.equal((await fetch(base + '/api/health').then((r) => r.json())).turnstile, '0x4AAAA-site');
+    const r = await fetch(base + '/api/auth/forgot', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: base }, body: JSON.stringify({ email: 'x@example.com' }) });
+    assert.equal((await r.json()).error, 'captcha');
+  } finally { delete process.env.TURNSTILE_SITE_KEY; delete process.env.TURNSTILE_SECRET_KEY; }
+});
