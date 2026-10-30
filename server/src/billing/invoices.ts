@@ -55,12 +55,22 @@ export function seriesOf(b: { country?: string | null; postalCode?: string | nul
   return 'EX';
 }
 
-/** Volgend nummer in een reeks voor een jaar (één tegelijk, zonder gaten) */
-export async function nextNumber(db: Settings, series: Series, year: number): Promise<string> {
-  const key = 'inv:seq:' + series + ':' + year, n = (Number(await db.getSetting(key)) || 0) + 1;
-  await db.setSetting(key, String(n));
-  return series + '-' + year + '-' + String(n).padStart(4, '0');
+/** Voorvoegsel van een reeks: standaard ES/UE/CN/EX, aan te passen met INVOICE_SERIES_ES=… (hoofdletters/cijfers, max 8) */
+export function seriesLabel(series: Series): string {
+  const v = String(process.env['INVOICE_SERIES_' + series] || '').trim().toUpperCase();
+  return /^[A-Z0-9]{1,8}$/.test(v) ? v : series;
 }
+/** Volgend nummer in een reeks voor een jaar (één tegelijk, zonder gaten).
+ *  Testmodus (Stripe sk_test_): eigen teller en TEST- ervoor, zodat de echte nummering bij live gewoon bij 0001 begint.
+ *  INVOICE_START_ES=15 (enz.): eerste nummer als er dit jaar al facturen buiten dit systeem waren. */
+export async function nextNumber(db: Settings, series: Series, year: number, test = false): Promise<string> {
+  const label = seriesLabel(series), key = 'inv:seq:' + (test ? 'test:' : '') + label + ':' + year;   // nieuw voorvoegsel = nieuwe reeks, begint bij 0001
+  const start = test ? 1 : Math.max(1, Math.floor(Number(process.env['INVOICE_START_' + series]) || 1));
+  const n = Math.max(Number(await db.getSetting(key)) || 0, start - 1) + 1;
+  await db.setSetting(key, String(n));
+  return (test ? 'TEST-' : '') + label + '-' + year + '-' + String(n).padStart(4, '0');
+}
+const yearKey = (year: number, test: boolean) => 'inv:year:' + (test ? 'test:' : '') + year;
 
 async function pushList(db: Settings, key: string, value: string, max = 5000) {
   let list: string[] = [];
@@ -69,6 +79,42 @@ async function pushList(db: Settings, key: string, value: string, max = 5000) {
 }
 async function readList(db: Settings, key: string): Promise<string[]> {
   try { const x = JSON.parse((await db.getSetting(key)) || '[]'); return Array.isArray(x) ? x.map(String) : []; } catch { return []; }
+}
+
+/** Eenmalig: facturen die vóór deze versie in testmodus zijn gemaakt, kregen een gewoon nummer (ES-2026-0001).
+ *  Die krijgen nu TEST- ervoor en hun eigen teller, zodat de echte nummering bij live bij 0001 begint. */
+const MIGRATED = 'inv:migr:test-numbers';
+const migrating = new WeakMap<object, Promise<void>>();
+function migrateTestNumbers(db: Settings): Promise<void> {
+  let p = migrating.get(db as object);
+  if (!p) { p = locked('invoices', () => doMigrate(db)).catch((e) => { migrating.delete(db as object); console.error('Testfacturen hernummeren mislukt:', (e as Error).message); }); migrating.set(db as object, p); }
+  return p;
+}
+async function doMigrate(db: Settings) {
+  if (await db.getSetting(MIGRATED)) return;
+  const now = madridYear(new Date());
+  for (let y = 2025; y <= now; y++) {
+    const live = await readList(db, 'inv:year:' + y); if (!live.length) continue;
+    const keep: string[] = [], seqLive: Record<string, number> = {}, seqTest: Record<string, number> = {};
+    for (const num of live) {
+      const m = /^([A-Z0-9]{1,8})-\d{4}-(\d{4,})$/.exec(num); let doc: InvoiceDoc | null = null;
+      try { doc = JSON.parse((await db.getSetting('inv:doc:' + num)) || 'null'); } catch { doc = null; }
+      if (!m || !doc || doc.test !== true) { keep.push(num); if (m) seqLive[m[1]] = Math.max(seqLive[m[1]] || 0, Number(m[2])); continue; }
+      const nn = 'TEST-' + num; doc.number = nn;
+      await db.setSetting('inv:doc:' + nn, JSON.stringify(doc));
+      await db.setSetting('inv:doc:' + num, null);
+      if (doc.stripeInvoice) await db.setSetting('inv:stripe:' + doc.stripeInvoice, nn);
+      if (doc.uid) { const ul = await readList(db, 'inv:user:' + doc.uid); await db.setSetting('inv:user:' + doc.uid, JSON.stringify(ul.map((x) => (x === num ? nn : x)))); }
+      await pushList(db, 'inv:year:test:' + y, nn, 100000);
+      seqTest[m[1]] = Math.max(seqTest[m[1]] || 0, Number(m[2]));
+    }
+    await db.setSetting('inv:year:' + y, JSON.stringify(keep));
+    for (const [label, n] of Object.entries(seqTest)) {
+      const k = 'inv:seq:test:' + label + ':' + y; await db.setSetting(k, String(Math.max(Number(await db.getSetting(k)) || 0, n)));
+      await db.setSetting('inv:seq:' + label + ':' + y, seqLive[label] ? String(seqLive[label]) : null);   // echte teller: alleen echte facturen
+    }
+  }
+  await db.setSetting(MIGRATED, new Date().toISOString());
 }
 
 export function seller() {
@@ -100,6 +146,7 @@ function productOf(inv: any): string {
 export async function issueInvoice(db: Settings, inv: any, opts: { live?: boolean } = {}): Promise<InvoiceDoc | null> {
   if (!inv || inv.object !== 'invoice' || !/^in_/.test(String(inv.id || ''))) return null;
   if (inv.status !== 'paid' || !(Number(inv.total) > 0)) return null;           // alleen betaald, en niet € 0 (proef)
+  await migrateTestNumbers(db);
   return locked('invoices', async () => {
     const have = await db.getSetting('inv:stripe:' + inv.id);
     if (have) return readInvoice(db, have);
@@ -129,7 +176,7 @@ export async function issueInvoice(db: Settings, inv: any, opts: { live?: boolea
     const net = inv.total_excluding_tax != null ? cents(inv.total_excluding_tax) : round2(total - tax);
     if (series !== 'ES' && tax > 0) console.error('Factuur ' + inv.id + ': reeks ' + series + ' maar er is btw gerekend (' + tax + '). Controleren.');
 
-    const number = await nextNumber(db, series, year);
+    const number = await nextNumber(db, series, year, !live);
     const doc: InvoiceDoc = {
       number, series, date: paidAt.toISOString(), year, currency: String(inv.currency || 'eur').toUpperCase(),
       seller: s,
@@ -144,24 +191,27 @@ export async function issueInvoice(db: Settings, inv: any, opts: { live?: boolea
     };
     await db.setSetting('inv:doc:' + number, JSON.stringify(doc));
     await db.setSetting('inv:stripe:' + inv.id, number);
-    await pushList(db, 'inv:year:' + year, number, 100000);
+    await pushList(db, yearKey(year, !live), number, 100000);
     if (doc.uid) await pushList(db, 'inv:user:' + doc.uid, number, 500);
     return doc;
   });
 }
 
 export async function readInvoice(db: Settings, number: string): Promise<InvoiceDoc | null> {
-  if (!/^(ES|UE|CN|EX)-\d{4}-\d{4,}$/.test(String(number))) return null;
+  if (!/^(TEST-)?[A-Z0-9]{1,8}-\d{4}-\d{4,}$/.test(String(number))) return null;
   try { return JSON.parse((await db.getSetting('inv:doc:' + number)) || 'null'); } catch { return null; }
 }
 export async function invoicesOfUser(db: Settings, uid: string): Promise<InvoiceDoc[]> {
+  await migrateTestNumbers(db);
   const out: InvoiceDoc[] = [];
   for (const n of await readList(db, 'inv:user:' + uid)) { const d = await readInvoice(db, n); if (d) out.push(d); }
   return out;
 }
-export async function invoicesOfYear(db: Settings, year: number): Promise<InvoiceDoc[]> {
+/** Facturen van een jaar: de echte, of (test = true) die uit de testmodus */
+export async function invoicesOfYear(db: Settings, year: number, test = false): Promise<InvoiceDoc[]> {
+  await migrateTestNumbers(db);
   const out: InvoiceDoc[] = [];
-  for (const n of await readList(db, 'inv:year:' + year)) { const d = await readInvoice(db, n); if (d) out.push(d); }
+  for (const n of await readList(db, yearKey(year, test))) { const d = await readInvoice(db, n); if (d) out.push(d); }
   return out.sort((a, b) => a.number.localeCompare(b.number));
 }
 export async function numberForStripe(db: Settings, stripeInvoice: string) { return (await db.getSetting('inv:stripe:' + stripeInvoice)) || null; }

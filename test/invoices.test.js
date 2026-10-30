@@ -60,31 +60,63 @@ test('nummering per reeks en jaar, één factuur per Stripe-factuur, geen factuu
   const db = memDb();
   const a = await inv.issueInvoice(db, stripeInvoice());
   const b = await inv.issueInvoice(db, stripeInvoice());
-  assert.equal(a.number, 'ES-2026-0001'); assert.equal(b.number, 'ES-2026-0002');
+  assert.equal(a.number, 'TEST-ES-2026-0001'); assert.equal(b.number, 'TEST-ES-2026-0002');
   const x = stripeInvoice({ address: { country: 'ES', postal_code: '38002' }, tax: 0, total: 1000 });
-  assert.equal((await inv.issueInvoice(db, x)).number, 'CN-2026-0001', 'eigen reeks begint bij 0001');
-  assert.equal((await inv.issueInvoice(db, x)).number, 'CN-2026-0001', 'zelfde Stripe-factuur twee keer: zelfde nummer');
-  assert.equal(await db.getSetting('inv:seq:CN:2026'), '1', 'geen gat door de herhaling');
+  assert.equal((await inv.issueInvoice(db, x)).number, 'TEST-CN-2026-0001', 'eigen reeks begint bij 0001');
+  assert.equal((await inv.issueInvoice(db, x)).number, 'TEST-CN-2026-0001', 'zelfde Stripe-factuur twee keer: zelfde nummer');
+  assert.equal(await db.getSetting('inv:seq:test:CN:2026'), '1', 'geen gat door de herhaling');
   customers.cus_it = { id: 'cus_it', metadata: {} };
   const it = await inv.issueInvoice(db, stripeInvoice({ customer: 'cus_it', address: { country: 'IT' }, taxIds: [{ type: 'eu_vat', value: 'IT12345678901' }], tax: 0, total: 1000 }));
-  assert.equal(it.number, 'UE-2026-0001'); assert.equal(it.buyer.taxId, 'IT12345678901'); assert.match(it.note, /inversión del sujeto pasivo/);
+  assert.equal(it.number, 'TEST-UE-2026-0001'); assert.equal(it.buyer.taxId, 'IT12345678901'); assert.match(it.note, /inversión del sujeto pasivo/);
   const itBad = await inv.issueInvoice(db, stripeInvoice({ customer: 'cus_it', address: { country: 'IT' }, taxIds: [{ type: 'eu_vat', value: 'IT99999999999' }] }));
   assert.equal(itBad.series, 'ES', 'nummer niet geldig in VIES: geen verlegging');
-  assert.equal((await inv.issueInvoice(db, stripeInvoice({ address: { country: 'US' }, tax: 0, total: 1000 }))).number, 'EX-2026-0001');
+  assert.equal((await inv.issueInvoice(db, stripeInvoice({ address: { country: 'US' }, tax: 0, total: 1000 }))).number, 'TEST-EX-2026-0001');
   // Nieuw jaar (Spaanse tijd): 31 dec 23:30 UTC = 1 januari in Madrid
-  assert.equal((await inv.issueInvoice(db, stripeInvoice({ paidAt: Math.floor(Date.parse('2026-12-31T23:30:00Z') / 1000) }))).number, 'ES-2027-0001');
+  assert.equal((await inv.issueInvoice(db, stripeInvoice({ paidAt: Math.floor(Date.parse('2026-12-31T23:30:00Z') / 1000) }))).number, 'TEST-ES-2027-0001');
   assert.equal(await inv.issueInvoice(db, stripeInvoice({ total: 0, tax: 0, net: 0 })), null, 'proef van € 0: geen factuur');
   assert.equal(await inv.issueInvoice(db, { ...stripeInvoice(), status: 'open' }), null, 'niet betaald: geen factuur');
   // Tegelijk binnen: geen dubbele nummers
   const many = await Promise.all([1, 2, 3, 4, 5].map(() => inv.issueInvoice(db, stripeInvoice())));
   assert.equal(new Set(many.map((d) => d.number)).size, 5);
-  assert.deepEqual((await inv.invoicesOfYear(db, 2026)).filter((d) => d.series === 'ES').map((d) => d.number).slice(0, 3), ['ES-2026-0001', 'ES-2026-0002', 'ES-2026-0003']);
+  assert.deepEqual((await inv.invoicesOfYear(db, 2026, true)).filter((d) => d.series === 'ES').map((d) => d.number).slice(0, 3), ['TEST-ES-2026-0001', 'TEST-ES-2026-0002', 'TEST-ES-2026-0003']);
+});
+
+test('test en live tellen apart; reeks en beginnummer zelf te kiezen', async () => {
+  const db = memDb();
+  assert.equal((await inv.issueInvoice(db, stripeInvoice())).number, 'TEST-ES-2026-0001', 'testmodus: TEST- en eigen teller');
+  assert.equal((await inv.issueInvoice(db, stripeInvoice(), { live: true })).number, 'ES-2026-0001', 'live begint gewoon bij 0001');
+  process.env.INVOICE_SERIES_ES = 'F'; process.env.INVOICE_START_UE = '15';
+  try {
+    assert.equal((await inv.issueInvoice(db, stripeInvoice(), { live: true })).number, 'F-2026-0001', 'eigen voorvoegsel, eigen teller per reeks');
+    customers.cus_it2 = { id: 'cus_it2', metadata: {} };
+    assert.equal((await inv.issueInvoice(db, stripeInvoice({ customer: 'cus_it2', address: { country: 'IT' }, taxIds: [{ type: 'eu_vat', value: 'IT12345678901' }], tax: 0, total: 1000 }), { live: true })).number, 'UE-2026-0015', 'beginnummer');
+  } finally { delete process.env.INVOICE_SERIES_ES; delete process.env.INVOICE_START_UE; }
+  assert.deepEqual((await inv.invoicesOfYear(db, 2026)).map((d) => d.number), ['ES-2026-0001', 'F-2026-0001', 'UE-2026-0015'], 'export: alleen echte facturen');
+  assert.deepEqual((await inv.invoicesOfYear(db, 2026, true)).map((d) => d.number), ['TEST-ES-2026-0001']);
+  assert.ok(await inv.readInvoice(db, 'F-2026-0001'));
+});
+
+test('oude testfacturen (zonder TEST-) worden eenmalig hernummerd; echte nummering begint bij 0001', async () => {
+  const db = memDb();
+  const old = { number: 'ES-2026-0003', series: 'ES', test: true, stripeInvoice: 'in_old', uid: 'u1', buyer: { name: 'x' } };
+  await db.setSetting('inv:doc:ES-2026-0003', JSON.stringify(old));
+  await db.setSetting('inv:stripe:in_old', 'ES-2026-0003');
+  await db.setSetting('inv:year:2026', JSON.stringify(['ES-2026-0003']));
+  await db.setSetting('inv:user:u1', JSON.stringify(['ES-2026-0003']));
+  await db.setSetting('inv:seq:ES:2026', '3');
+  assert.deepEqual((await inv.invoicesOfUser(db, 'u1')).map((d) => d.number), ['TEST-ES-2026-0003']);
+  assert.equal(await db.getSetting('inv:doc:ES-2026-0003'), null);
+  assert.equal(await inv.numberForStripe(db, 'in_old'), 'TEST-ES-2026-0003');
+  assert.equal(await db.getSetting('inv:seq:ES:2026'), null, 'echte teller weer leeg');
+  assert.equal((await inv.issueInvoice(db, stripeInvoice(), { live: true })).number, 'ES-2026-0001');
+  assert.equal((await inv.issueInvoice(db, stripeInvoice())).number, 'TEST-ES-2026-0004', 'testteller gaat verder');
+  assert.deepEqual((await inv.invoicesOfYear(db, 2026)).map((d) => d.number), ['ES-2026-0001']);
 });
 
 test('live zonder CIF: geen factuur', async () => {
   const db = memDb(), keep = process.env.INVOICE_SELLER_TAX_ID; delete process.env.INVOICE_SELLER_TAX_ID;
   await assert.rejects(inv.issueInvoice(db, stripeInvoice(), { live: true }), /CIF/);
-  assert.equal(await db.getSetting('inv:seq:ES:2026'), null, 'ook geen nummer verbruikt');
+  assert.equal(await db.getSetting('inv:seq:test:ES:2026'), null, 'ook geen nummer verbruikt');
   process.env.INVOICE_SELLER_TAX_ID = keep;
 });
 
@@ -92,7 +124,7 @@ test('pdf', async () => {
   const db = memDb(), d = await inv.issueInvoice(db, stripeInvoice({ name: 'Peña & Müller S.L.' }));
   const pdf = invoicePdf(d), s = pdf.toString('latin1');
   assert.match(s, /^%PDF-1\.4/); assert.match(s, /%%EOF\n$/);
-  assert.ok(s.includes('ES-2026-0001')); assert.ok(s.includes('Pe\xf1a & M\xfcller'), 'ñ en ü in WinAnsi');
+  assert.ok(s.includes('TEST-ES-2026-0001')); assert.ok(s.includes('Pe\xf1a & M\xfcller'), 'ñ en ü in WinAnsi');
   assert.ok(s.includes('12,10 \x80'), '€ als WinAnsi-teken');
   assert.ok(d.test && s.includes('PRUEBA / TEST'), 'testsleutel: duidelijk gemarkeerd als test');
   const xref = Number(s.match(/startxref\n(\d+)/)[1]); assert.equal(s.slice(xref, xref + 4), 'xref', 'verwijzing naar de tabel klopt');
@@ -146,11 +178,11 @@ test('webhook invoice.paid: factuur in Mijn account, pdf alleen voor jezelf, mai
   assert.equal(invoiceMails.length, 1, 'maar één mail');
   assert.equal(invoiceMails[0].to, 'k@example.com'); assert.match(invoiceMails[0].pdf.toString('latin1'), /^%PDF/);
   const list = (await c('GET', '/api/account/invoices')).json.items;
-  assert.equal(list[0].number, 'ES-2026-0001', 'ons nummer, niet dat van Stripe');
-  assert.equal(list[0].pdf, 'api/account/invoices/ES-2026-0001/pdf'); assert.equal(list[0].url, null);
+  assert.equal(list[0].number, 'TEST-ES-2026-0001', 'ons nummer, niet dat van Stripe');
+  assert.equal(list[0].pdf, 'api/account/invoices/TEST-ES-2026-0001/pdf'); assert.equal(list[0].url, null);
   const pdf = await c('GET', '/' + list[0].pdf);
   assert.equal(pdf.status, 200); assert.equal(pdf.type, 'application/pdf'); assert.match(pdf.buf.toString('latin1'), /^%PDF/);
-  assert.equal((await other.c('GET', '/api/account/invoices/ES-2026-0001/pdf')).status, 404, 'niet van jou: niet te zien');
+  assert.equal((await other.c('GET', '/api/account/invoices/TEST-ES-2026-0001/pdf')).status, 404, 'niet van jou: niet te zien');
   assert.equal((await c('GET', '/api/account/invoices/..%2Fx/pdf')).status, 404);
   assert.equal((await c('GET', '/api/admin/invoices/export.csv?year=2026')).status, 403, 'export alleen voor het team');
 });

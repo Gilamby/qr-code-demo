@@ -15,6 +15,8 @@ import { invoicePdf } from './invoice-pdf';
 
 const yearOf = (y: unknown) => { const n = Math.floor(Number(y)); return n >= 2020 && n <= 2100 ? n : madridYear(new Date()); };
 const csvCell = (v: unknown) => { const s = String(v == null ? '' : v); return /[;"\n\r]/.test(s) || /^[=+\-@]/.test(s) ? '"' + s.replace(/"/g, '""').replace(/^([=+\-@])/, "'$1") + '"' : s; };
+/** Zolang Stripe in test staat: de testfacturen tonen (TEST-…); live alleen de echte */
+const testMode = () => !/^sk_live_/.test(String(process.env.STRIPE_SECRET_KEY || ''));
 const num = (n: number) => n.toFixed(2).replace('.', ',');
 
 @Controller('api/admin/invoices')
@@ -25,12 +27,12 @@ export class InvoicesAdminController {
   @Get()
   async list(@Query('year') year: string) {
     const y = yearOf(year);
-    return { year: y, items: (await invoicesOfYear(this.db, y)).map((d) => ({ number: d.number, series: d.series, date: d.date, buyer: d.buyer.name, taxId: d.buyer.taxId, country: d.buyer.country, net: d.net, tax: d.tax, total: d.total, product: d.product })) };
+    return { year: y, items: (await invoicesOfYear(this.db, y, testMode())).map((d) => ({ number: d.number, series: d.series, date: d.date, buyer: d.buyer.name, taxId: d.buyer.taxId, country: d.buyer.country, net: d.net, tax: d.tax, total: d.total, product: d.product })) };
   }
 
   @Get('export.csv')
   async csv(@Query('year') year: string, @Res() res: Response) {
-    const y = yearOf(year), rows = await invoicesOfYear(this.db, y);
+    const y = yearOf(year), rows = await invoicesOfYear(this.db, y, testMode());
     const head = ['Numero', 'Serie', 'Fecha', 'Cliente', 'NIF/VAT', 'Pais', 'Base imponible', 'IVA', 'Total', 'Moneda', 'Producto', 'Stripe'];
     const lines = rows.map((d) => [d.number, d.series, d.date.slice(0, 10), d.buyer.name, d.buyer.taxId, d.buyer.country, num(d.net), num(d.tax), num(d.total), d.currency, d.product, d.stripeInvoice].map(csvCell).join(';'));
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
