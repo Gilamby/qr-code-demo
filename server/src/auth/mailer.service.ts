@@ -114,7 +114,7 @@ export class MailerService {
     const body = 'Hola,\n\nAdjuntamos la factura ' + d.number + (d.product ? ' (' + d.product + ')' : '') + ' por ' + d.total + '. El pago se ha recibido correctamente.\n\n' +
       'Hello,\n\nPlease find attached invoice ' + d.number + (d.product ? ' (' + d.product + ')' : '') + ' for ' + d.total + '. Your payment has been received.\n\n' + d.seller;
     if (!this.transport) { console.log('[e-mail niet ingesteld] Factuur ' + d.number + ' voor ' + to); return; }
-    await this.transport.sendMail({ from: process.env.INVOICE_MAIL_FROM || this.from(), to, subject, text: body,
+    await this.transport.sendMail({ from: this.invoiceFrom(d.seller), to, subject, text: body,
       attachments: [{ filename: 'Factura-' + d.number + '.pdf', content: pdf, contentType: 'application/pdf' }] });
   }
   /** Melding aan het team: veel serverfouten in korte tijd (error-alerts.ts) */
@@ -142,6 +142,12 @@ export class MailerService {
     return t;
   }
   private from() { return process.env.MAIL_FROM || 'QR-Codex <no-reply@optimasys.com>'; }
+  /** Facturen gelden voor alle producten (QR-Codex, Flexichat): afzender op naam van de verkoper, niet QR-Codex */
+  private invoiceFrom(seller: string) {
+    if (process.env.INVOICE_MAIL_FROM) return process.env.INVOICE_MAIL_FROM;
+    const m = /<([^>]+)>/.exec(this.from()), addr = m ? m[1] : this.from();
+    return '"' + String(seller || 'OptimaSys').replace(/["\\<>\r\n]/g, '') + '" <' + addr + '>';
+  }
   private base() { return String(process.env.PUBLIC_URL || '').replace(/\/$/, ''); }
 
   /** Logo bovenaan de mails (het ronde QR-Codex-logo); zonder PUBLIC_URL gewoon de naam */
