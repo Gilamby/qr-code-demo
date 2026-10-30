@@ -371,8 +371,10 @@ export class BillingController {
 
   /** Betaalde Stripe-factuur: onze eigen factuur maken (reeks ES/UE/CN/EX, invoices.ts) en als pdf mailen. Eén keer per Stripe-factuur. */
   async invoicePaid(o: any) {
-    const before = o && o.id ? await this.db.getSetting('inv:stripe:' + o.id) : null;
-    const doc = await issueInvoice(this.db, o);
+    if (!o || !/^in_[A-Za-z0-9]+$/.test(String(o.id || ''))) return;
+    const before = await this.db.getSetting('inv:stripe:' + o.id);
+    // Opnieuw ophalen met onze vaste API-versie: de webhook kan in een nieuwere versie komen (andere velden voor btw en regels)
+    const doc = await issueInvoice(this.db, before ? o : await stripe('GET', 'invoices/' + o.id));
     if (!doc || before) return;                                                  // geen factuur nodig, of al gemaakt (en gemaild)
     if (!doc.buyer.email) return;
     this.mailer.sendInvoice(doc.buyer.email, { number: doc.number, total: money(doc.total, doc.currency), product: doc.product, seller: doc.seller.name }, invoicePdf(doc))

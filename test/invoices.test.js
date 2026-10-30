@@ -28,6 +28,7 @@ global.fetch = async (url, o = {}) => {
   const ok = (j) => ({ ok: true, status: 200, json: async () => j });
   if (/^customers\/[^/]+$/.test(p)) return ok(customers[p.split('/')[1]] || { id: p.split('/')[1], metadata: {} });
   if (p === 'invoices') return ok({ data: stripeInvoices });
+  if (/^invoices\/in_/.test(p)) { global.__invGet = (global.__invGet || 0) + 1; return ok(stripeInvoices.find((i) => i.id === p.split('/')[1]) || {}); }
   return { ok: false, status: 404, json: async () => ({ error: { message: 'onbekend ' + p } }) };
 };
 
@@ -138,7 +139,8 @@ test('webhook invoice.paid: factuur in Mijn account, pdf alleen voor jezelf, mai
   customers.cus_u = { id: 'cus_u', email: 'factuur-klant@example.com', metadata: { uid: u.id } };
   const si = stripeInvoice({ customer: 'cus_u' });
   stripeInvoices.push({ ...si, amount_paid: 1210, number: 'L83K9HGV-0001', invoice_pdf: 'https://pay.stripe.com/x.pdf', hosted_invoice_url: 'https://invoice.stripe.com/x' });
-  assert.equal((await hook({ type: 'invoice.paid', data: { object: si } })).status, 200);
+  assert.equal((await hook({ type: 'invoice.paid', data: { object: { id: si.id, object: 'invoice', total_taxes: [] } } })).status, 200, 'melding in nieuwe API-versie: factuur wordt opnieuw opgehaald');
+  assert.equal(global.__invGet, 1);
   assert.equal((await hook({ type: 'invoice.paid', data: { object: si } })).status, 200, 'herhaalde melding');
   assert.equal(invoiceMails.length, 1, 'maar één mail');
   assert.equal(invoiceMails[0].to, 'k@example.com'); assert.match(invoiceMails[0].pdf.toString('latin1'), /^%PDF/);
