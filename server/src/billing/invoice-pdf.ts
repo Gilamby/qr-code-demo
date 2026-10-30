@@ -48,19 +48,22 @@ export function invoicePdf(d: InvoiceDoc): Buffer {
   const line = (x1: number, y1: number, x2: number, y2: number, gray = 0.8, w = 0.6) => ops.push(gray + ' G ' + w + ' w ' + x1 + ' ' + y1 + ' m ' + x2 + ' ' + y2 + ' l S');
   const box = (x: number, y: number, w: number, h: number, r: number, g: number, b: number) => ops.push(r + ' ' + g + ' ' + b + ' rg ' + x + ' ' + y + ' ' + w + ' ' + h + ' re f');
 
+  // Testmodus (Stripe sk_test_): duidelijk geen echte factuur
+  if (d.test) { box(M, H - 40, W - 2 * M, 22, 1, 0.93, 0.8); text(M + 8, H - 33, 'PRUEBA / TEST: sin validez fiscal (Stripe en modo de prueba) / not a valid invoice', 9, 'F2', 0.3); }
   // Kop: verkoper links, FACTURA rechts
   box(0, H - 8, W, 8, 0.082, 0.412, 0.941);
-  let y = H - M - 10;
+  const top = H - M - 10 - (d.test ? 16 : 0);
+  let y = top;
   text(M, y, d.seller.name, 16, 'F2');
   y -= 16; if (d.seller.taxId) { text(M, y, 'CIF/NIF: ' + d.seller.taxId, 9.5, 'F1', 0.25); y -= 13; }
   for (const a of d.seller.address) { text(M, y, a, 9.5, 'F1', 0.25); y -= 13; }
-  right(W - M, H - M - 10, 'FACTURA / INVOICE', 16, 'F2');
-  right(W - M, H - M - 30, 'Nº ' + d.number, 11, 'F2');
-  right(W - M, H - M - 45, 'Fecha / Date: ' + dateEs(d.date), 9.5, 'F1', 0.25);
-  right(W - M, H - M - 58, 'Serie / Series: ' + d.series, 9.5, 'F1', 0.25);
+  right(W - M, top, 'FACTURA / INVOICE', 16, 'F2');
+  right(W - M, top - 20, 'Nº ' + d.number, 11, 'F2');
+  right(W - M, top - 35, 'Fecha / Date: ' + dateEs(d.date), 9.5, 'F1', 0.25);
+  right(W - M, top - 48, 'Serie / Series: ' + d.series, 9.5, 'F1', 0.25);
 
   // Klant
-  y = Math.min(y, H - M - 80) - 22;
+  y = Math.min(y, top - 70) - 22;
   text(M, y, 'CLIENTE / BILL TO', 8.5, 'F2', 0.35); y -= 15;
   text(M, y, d.buyer.name || '-', 11, 'F2'); y -= 14;
   if (d.buyer.taxId) { text(M, y, 'NIF/VAT: ' + d.buyer.taxId, 9.5); y -= 13; }

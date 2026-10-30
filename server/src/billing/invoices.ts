@@ -29,6 +29,7 @@ export type InvoiceDoc = {
   seller: { name: string; taxId: string; address: string[] };
   buyer: { name: string; taxId: string; address: string[]; country: string; email: string; kind: 'company' | 'private' };
   lines: InvoiceLine[]; net: number; tax: number; total: number;
+  test?: boolean;                                                  // gemaakt met een testsleutel: geen echte factuur
   note: string; stripeInvoice: string; stripeCustomer: string; uid: string | null; product: string; createdAt: string;
 };
 
@@ -138,7 +139,7 @@ export async function issueInvoice(db: Settings, inv: any, opts: { live?: boolea
         address: [addr.line1, addr.line2, [addr.postal_code, addr.city].filter(Boolean).join(' '), addr.state].filter(Boolean).map(String),
         country: cc, email: String(inv.customer_email || (customer && customer.email) || ''), kind: company ? 'company' : 'private',
       },
-      lines, net, tax, total, note: NOTES[series], stripeInvoice: inv.id, stripeCustomer: custId || '',
+      lines, net, tax, total, test: !live, note: NOTES[series], stripeInvoice: inv.id, stripeCustomer: custId || '',
       uid: (customer && customer.metadata && customer.metadata.uid) || null, product: productOf(inv), createdAt: new Date().toISOString(),
     };
     await db.setSetting('inv:doc:' + number, JSON.stringify(doc));

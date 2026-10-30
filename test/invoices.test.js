@@ -94,6 +94,7 @@ test('pdf', async () => {
   assert.match(s, /^%PDF-1\.4/); assert.match(s, /%%EOF\n$/);
   assert.ok(s.includes('ES-2026-0001')); assert.ok(s.includes('Pe\xf1a & M\xfcller'), 'ñ en ü in WinAnsi');
   assert.ok(s.includes('12,10 \x80'), '€ als WinAnsi-teken');
+  assert.ok(d.test && s.includes('PRUEBA / TEST'), 'testsleutel: duidelijk gemarkeerd als test');
   const xref = Number(s.match(/startxref\n(\d+)/)[1]); assert.equal(s.slice(xref, xref + 4), 'xref', 'verwijzing naar de tabel klopt');
   assert.equal(money(1234.5), '1.234,50 €');
 });
