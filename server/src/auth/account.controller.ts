@@ -27,6 +27,8 @@ import { termsAccepted, acceptTerms, TERMS_VERSION } from './terms';
 import { planPausedIds, fitToPlan, activeCount } from '../plan-limit';
 import { stripeOn, readRecord, stripe, demoCheckoutOn, amountFor } from '../billing/stripe';
 import { taxOn } from '../billing/tax';
+import { invoicesOfUser, readInvoice } from '../billing/invoices';
+import { invoicePdf } from '../billing/invoice-pdf';
 import { listKeys, createKey, revokeKey, revokeAll, publicKey, MAX_KEYS } from './api-keys';
 import { addPayment, listPayments, demoMethod, setDemoMethod } from '../billing/history';
 import { readBuyer, applyBuyer, needsVies, checkVies } from '../billing/tax';
@@ -195,12 +197,29 @@ export class AccountController {
       const rec = await readRecord(this.db, user.id); if (!rec.customer) return { demo: false, items: [] };
       try {
         const r = await stripe('GET', 'invoices', { customer: rec.customer, limit: 24 });
-        return { demo: false, items: (r.data || []).filter((i: any) => i.status !== 'draft').map((i: any) => ({
-          id: i.id, number: i.number || i.id, at: new Date((i.created || 0) * 1000).toISOString(), amount: (i.status === 'paid' ? i.amount_paid : i.amount_due) / 100,
-          status: i.status, desc: (i.lines && i.lines.data && i.lines.data[0] && i.lines.data[0].description) || null, url: i.hosted_invoice_url || null, pdf: i.invoice_pdf || null })) };
+        // Betaald: onze eigen factuur (reeks ES/UE/CN/EX) met ons nummer en onze pdf. Nog niet betaald: zoals bij Stripe (link om te betalen).
+        const own = new Map((await invoicesOfUser(this.db, user.id)).map((d) => [d.stripeInvoice, d]));
+        return { demo: false, items: (r.data || []).filter((i: any) => i.status !== 'draft').map((i: any) => {
+          const d = own.get(i.id);
+          return { id: i.id, number: d ? d.number : i.number || i.id, at: d ? d.date : new Date((i.created || 0) * 1000).toISOString(), amount: (i.status === 'paid' ? i.amount_paid : i.amount_due) / 100,
+            status: i.status, desc: (i.lines && i.lines.data && i.lines.data[0] && i.lines.data[0].description) || null,
+            url: d ? null : i.hosted_invoice_url || null, pdf: d ? 'api/account/invoices/' + encodeURIComponent(d.number) + '/pdf' : i.invoice_pdf || null };
+        }) };
       } catch (e: any) { console.error('Stripe facturen ophalen mislukt:', e.message); throw fail(502, 'stripe'); }
     }
     return { demo: true, items: (await listPayments(this.db, user.id)).map((x) => ({ id: x.id, number: x.id, at: x.at, amount: x.amount, status: x.status, kind: x.kind, plan: x.plan, interval: x.interval, n: x.n || 0, method: x.method })) };
+  }
+
+  /** Eigen factuur als pdf (alleen je eigen facturen) */
+  @Get('account/invoices/:number/pdf')
+  async invoicePdf(@Req() req: Request, @CurrentUser() user: User, @Param('number') number: string, @Res() res: Response) {
+    if ((req as any).member) throw fail(403, 'team');
+    const d = await readInvoice(this.db, String(number));
+    if (!d || d.uid !== user.id) throw fail(404, 'not_found');
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline; filename="Factura-' + d.number + '.pdf"');
+    res.setHeader('Cache-Control', 'private, no-store');
+    res.end(invoicePdf(d));
   }
 
   /** Akkoord met de voorwaarden (18+, Terms, Privacy). Wie via Google/Microsoft een account kreeg, of een account van het team,

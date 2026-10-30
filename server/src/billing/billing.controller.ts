@@ -27,6 +27,8 @@ import type { User } from '../types';
 import { PLANS, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscription';
 import { fitToPlan } from '../plan-limit';
+import { issueInvoice } from './invoices';
+import { invoicePdf, money } from './invoice-pdf';
 import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature, stripePk, ELEMENTS_VERSION } from './stripe';
 
 @Controller('api/billing')
@@ -361,8 +363,20 @@ export class BillingController {
       await this.fillBilling(uid, o.customer_details).catch((e) => console.error('Factuurgegevens overnemen mislukt:', e.message));
     } else if (/^customer\.subscription\.(created|updated|deleted)$/.test(ev.type)) {
       await this.apply(o);
+    } else if (ev.type === 'invoice.paid') {
+      await this.invoicePaid(o);                                                  // gaat het mis: 500, dan herhaalt Stripe de melding
     }
     return { ok: true };
+  }
+
+  /** Betaalde Stripe-factuur: onze eigen factuur maken (reeks ES/UE/CN/EX, invoices.ts) en als pdf mailen. Eén keer per Stripe-factuur. */
+  async invoicePaid(o: any) {
+    const before = o && o.id ? await this.db.getSetting('inv:stripe:' + o.id) : null;
+    const doc = await issueInvoice(this.db, o);
+    if (!doc || before) return;                                                  // geen factuur nodig, of al gemaakt (en gemaild)
+    if (!doc.buyer.email) return;
+    this.mailer.sendInvoice(doc.buyer.email, { number: doc.number, total: money(doc.total, doc.currency), product: doc.product, seller: doc.seller.name }, invoicePdf(doc))
+      .catch((e) => console.error('Factuurmail ' + doc.number + ' mislukt:', e.message));
   }
 
   /** Factuurgegevens nog leeg? Dan overnemen wat de klant bij Stripe invulde (naam, adres, bedrijfsnaam, btw-nummer).

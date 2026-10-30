@@ -108,6 +108,15 @@ export class MailerService {
     if (!this.transport) throw new Error('not_configured');
     await this.transport.sendMail({ from: this.from(), to, subject: 'QR-Codex: test e-mail', text: 'Deze test-e-mail komt van QR-Codex (' + (this.base() || 'server') + '). De mailserver werkt.\n\nThis test email was sent from QR-Codex. Your mail server works.' });
   }
+  /** Factuur (pdf) naar de klant, in het Spaans en Engels (de factuur zelf is ook tweetalig). Afzender: INVOICE_MAIL_FROM, anders MAIL_FROM. */
+  async sendInvoice(to: string, d: { number: string; total: string; product: string; seller: string }, pdf: Buffer) {
+    const subject = 'Factura / Invoice ' + d.number + ' – ' + d.seller;
+    const body = 'Hola,\n\nAdjuntamos la factura ' + d.number + (d.product ? ' (' + d.product + ')' : '') + ' por ' + d.total + '. El pago se ha recibido correctamente.\n\n' +
+      'Hello,\n\nPlease find attached invoice ' + d.number + (d.product ? ' (' + d.product + ')' : '') + ' for ' + d.total + '. Your payment has been received.\n\n' + d.seller;
+    if (!this.transport) { console.log('[e-mail niet ingesteld] Factuur ' + d.number + ' voor ' + to); return; }
+    await this.transport.sendMail({ from: process.env.INVOICE_MAIL_FROM || this.from(), to, subject, text: body,
+      attachments: [{ filename: 'Factura-' + d.number + '.pdf', content: pdf, contentType: 'application/pdf' }] });
+  }
   /** Melding aan het team: veel serverfouten in korte tijd (error-alerts.ts) */
   async sendErrorAlert(count: number, lines: string[]) {
     const to = await teamEmail(this.db); if (!to) return;
