@@ -117,9 +117,15 @@ async function doMigrate(db: Settings) {
   await db.setSetting(MIGRATED, new Date().toISOString());
 }
 
-export function seller() {
-  const address = String(process.env.INVOICE_SELLER_ADDRESS || 'Calle Alfredo Palma 10|29603 Marbella (Málaga)|España').split('|').map((s) => s.trim()).filter(Boolean);
-  return { name: String(process.env.INVOICE_SELLER_NAME || 'OptimaSys').trim(), taxId: String(process.env.INVOICE_SELLER_TAX_ID || '').trim(), address };
+/** Verkoper op de factuur: .env (INVOICE_SELLER_*) gaat voor, anders de bedrijfsgegevens uit Beheer > Instellingen > Bedrijf
+ *  (dezelfde als in de voorwaarden en privacyverklaring), anders OptimaSys Group Spain zoals op optimasys.es. */
+export async function seller(db?: Settings) {
+  let co: any = {}; try { co = db ? JSON.parse((await db.getSetting('company')) || '{}') || {} : {}; } catch { co = {}; }
+  const env = (k: string) => String(process.env[k] || '').trim();
+  const addr = env('INVOICE_SELLER_ADDRESS') || String(co.address || '').trim().replace(/,\s*/g, '|') || 'Calle Alfredo Palma s/n|Edificio Torrevigia B3 L3|29603 Marbella (Málaga)|España';
+  const name = env('INVOICE_SELLER_NAME') || String(co.name || '').trim() || 'OptimaSys Group Spain';
+  const taxId = env('INVOICE_SELLER_TAX_ID') || String(co.vat || '').trim() || env('LEGAL_VAT') || 'ESB93185981';
+  return { name, taxId, address: addr.split('|').map((x) => x.trim()).filter(Boolean) };
 }
 
 /** Is het btw-nummer van deze klant geldig in VIES? Eerst wat wij al controleerden (metadata), dan Stripe, anders nu bij VIES. */
@@ -150,7 +156,7 @@ export async function issueInvoice(db: Settings, inv: any, opts: { live?: boolea
   return locked('invoices', async () => {
     const have = await db.getSetting('inv:stripe:' + inv.id);
     if (have) return readInvoice(db, have);
-    const s = seller();
+    const s = await seller(db);
     const live = opts.live != null ? opts.live : /^sk_live_/.test(String(process.env.STRIPE_SECRET_KEY || ''));
     if (live && !s.taxId) throw new Error('INVOICE_SELLER_TAX_ID (CIF) ontbreekt in .env: geen factuur gemaakt voor ' + inv.id);
     const custId = typeof inv.customer === 'string' ? inv.customer : inv.customer && inv.customer.id;

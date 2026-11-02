@@ -113,11 +113,16 @@ test('oude testfacturen (zonder TEST-) worden eenmalig hernummerd; echte nummeri
   assert.deepEqual((await inv.invoicesOfYear(db, 2026)).map((d) => d.number), ['ES-2026-0001']);
 });
 
-test('live zonder CIF: geen factuur', async () => {
-  const db = memDb(), keep = process.env.INVOICE_SELLER_TAX_ID; delete process.env.INVOICE_SELLER_TAX_ID;
-  await assert.rejects(inv.issueInvoice(db, stripeInvoice(), { live: true }), /CIF/);
-  assert.equal(await db.getSetting('inv:seq:test:ES:2026'), null, 'ook geen nummer verbruikt');
-  process.env.INVOICE_SELLER_TAX_ID = keep;
+test('verkoper: .env, anders de bedrijfsgegevens uit Beheer, anders OptimaSys Group Spain', async () => {
+  const keep = process.env.INVOICE_SELLER_TAX_ID; delete process.env.INVOICE_SELLER_TAX_ID;
+  try {
+    const d = await inv.seller(memDb());
+    assert.equal(d.name, 'OptimaSys Group Spain'); assert.equal(d.taxId, 'ESB93185981'); assert.equal(d.address[0], 'Calle Alfredo Palma s/n');
+    const db = memDb(); await db.setSetting('company', JSON.stringify({ name: 'Bedrijf SL', vat: 'ESB11111111', address: 'Calle 1, 29001 Málaga, España' }));
+    const c = await inv.seller(db);
+    assert.equal(c.name, 'Bedrijf SL'); assert.equal(c.taxId, 'ESB11111111'); assert.deepEqual(c.address, ['Calle 1', '29001 Málaga', 'España']);
+    assert.equal((await inv.issueInvoice(db, stripeInvoice(), { live: true })).seller.taxId, 'ESB11111111', 'live: factuur met het CIF uit Beheer');
+  } finally { process.env.INVOICE_SELLER_TAX_ID = keep; }
 });
 
 test('pdf', async () => {
