@@ -5962,3 +5962,10 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
   .ai-row > span:nth-child(4) { grid-column: 2 / 4; }
   .ai-sum > span:empty { display: none; }
 }
+.ai-access { margin-top: 18px; }
+.ai-access h3 { margin: 0 0 4px; font-size: 16px; }
+.ai-acc-list { list-style: none; margin: 12px 0; padding: 0; }
+.ai-acc-list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+.ai-acc-add { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.ai-acc-add input { flex: 1 1 220px; min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line-strong); background: transparent; color: inherit; font: inherit; }
+.ai-acc-err { color: #d64045; margin: 8px 0 0; font-size: 13.5px; }

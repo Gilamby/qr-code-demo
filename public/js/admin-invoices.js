@@ -1,5 +1,5 @@
 /* =========================================================
-   BEHEER > FACTUREN (alleen voor het team)
+   BEHEER > FACTUREN (de Super Admin, en beheerders aan wie hij toegang gaf)
    Alle facturen die het systeem zelf maakt bij een betaling (QR-Codex én Flexichat, zelfde Stripe-account),
    en de facturas rectificativas bij een terugbetaling. Inzien, zoeken, selecteren en downloaden (pdf of zip),
    en de lijst voor de boekhouder (csv). Niet bewerken: een verstuurde factuur mag in Spanje niet meer veranderd worden.
@@ -8,7 +8,7 @@
 var AdminInvoices = (function () {
   var box = document.getElementById('adminInvoicesPage');
   if (!box) return {};
-  var me = null, res = null, err = false, seq = 0, q = '', year = new Date().getFullYear(), sel = {}, busy = false;
+  var me = null, can = { view: false, manage: false }, access = null, accessErr = '', res = null, err = false, seq = 0, q = '', year = new Date().getFullYear(), sel = {}, busy = false;
   var IC = {
     search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
     csv: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
@@ -32,7 +32,7 @@ var AdminInvoices = (function () {
       .catch(function () { if (my === seq) { err = true; drawList(); } });
   }
   function draw() {
-    if (!me || !me.admin) return;
+    if (!me || !can.view) return;
     box.innerHTML =
       '<header class="help-head ad-head"><div><h2>' + t('inv.title') + '</h2><p>' + t('inv.lead') + '</p></div>' +
         '<div class="ad-head-acts"><a class="btn ghost" id="aiCsv" href="api/admin/invoices/export.csv?year=' + year + '" download>' + ico('csv') + t('inv.export') + '</a></div></header>' +
@@ -42,8 +42,9 @@ var AdminInvoices = (function () {
         '<button type="button" class="btn" id="aiDl" disabled>' + ico('dl') + '<span></span></button>' +
       '</div>' +
       '<div id="aiList"></div>' +
-      '<p class="muted ai-note">' + t('inv.note') + '</p>';
-    drawList();
+      '<p class="muted ai-note">' + t('inv.note') + '</p>' +
+      (can.manage ? '<div id="aiAccess"></div>' : '');
+    drawList(); drawAccess();
   }
   function match(r) {
     if (!q) return true;
@@ -88,6 +89,28 @@ var AdminInvoices = (function () {
       '</div>';
     setDl();
   }
+  /* Toegang (alleen de Super Admin): welke beheerders de facturen ook mogen zien */
+  function drawAccess() {
+    var el = document.getElementById('aiAccess'); if (!el) return;
+    var list = access || [];
+    el.innerHTML = '<section class="glass ad-card ai-access"><h3>' + t('inv.accessTitle') + '</h3><p class="muted">' + t('inv.accessLead') + '</p>' +
+      (access == null ? '<p class="muted">…</p>' : list.length ? '<ul class="ai-acc-list">' + list.map(function (e) { return '<li><span>' + esc(e) + '</span><button type="button" class="link-btn" data-ai-rm="' + attr(e) + '">' + t('inv.accessRemove') + '</button></li>'; }).join('') + '</ul>' : '<p class="muted">' + t('inv.accessNone') + '</p>') +
+      '<form class="ai-acc-add" data-ai-add><label class="sr-only" for="aiAccEmail">' + t('inv.accessEmail') + '</label><input type="email" id="aiAccEmail" placeholder="' + attr(t('inv.accessEmail')) + '" autocomplete="off" required>' +
+      '<button type="submit" class="btn ghost">' + t('inv.accessAdd') + '</button></form>' +
+      (accessErr ? '<p class="ai-acc-err" role="alert">' + esc(accessErr) + '</p>' : '') + '</section>';
+  }
+  function saveAccess(list) {
+    accessErr = '';
+    return fetch('api/admin/invoices/access', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ emails: list }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw j; access = j.emails || []; }); })
+      .catch(function (j) { accessErr = j && j.error === 'not_admin' ? t('inv.accessNotAdmin', { e: (j.details || []).join(', ') }) : t('inv.loadError'); })
+      .then(drawAccess);
+  }
+  function loadAccess() {
+    if (!can.manage) return;
+    fetch('api/admin/invoices/access', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : { emails: [] }; }).then(function (j) { access = j.emails || []; drawAccess(); }).catch(function () { access = []; drawAccess(); });
+  }
+
   /* Geselecteerde facturen downloaden: één = de pdf, meer = een zip met de pdf's */
   function downloadSel() {
     var nums = Object.keys(sel); if (!nums.length || busy) return;
@@ -107,10 +130,26 @@ var AdminInvoices = (function () {
   box.addEventListener('click', function (e) {
     if (e.target.closest('[data-ai-retry]')) { res = null; drawList(); load(); }
     if (e.target.closest('#aiDl')) downloadSel();
+    var rm = e.target.closest('[data-ai-rm]'); if (rm) saveAccess((access || []).filter(function (x) { return x !== rm.getAttribute('data-ai-rm'); }));
+  });
+  box.addEventListener('submit', function (e) {
+    if (!e.target.hasAttribute('data-ai-add')) return;
+    e.preventDefault();
+    var v = (document.getElementById('aiAccEmail').value || '').trim().toLowerCase(); if (!v) return;
+    saveAccess((access || []).filter(function (x) { return x !== v; }).concat([v]));
   });
 
-  Session.onUser(function (u) { me = u; if (!u || !u.admin) { res = null; sel = {}; } });
-  document.addEventListener('pagechange', function (e) { if (e.detail === 'adminInvoices') { draw(); load(); } });
+  // Menu-item alleen voor wie de facturen mag zien: de Super Admin en beheerders met toegang (de server controleert het ook)
+  Session.onUser(function (u) {
+    me = u; can = { view: false, manage: false }; access = null; res = null; sel = {};
+    var nav = document.getElementById('navInvoices'); if (nav) nav.hidden = true;
+    if (!u || !u.admin) return;
+    fetch('api/admin/invoices/can', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) {
+      can = { view: !!j.view, manage: !!j.manage }; if (nav) nav.hidden = !can.view;
+      if (!box.closest('[hidden]')) { draw(); load(); loadAccess(); }
+    }).catch(function () {});
+  });
+  document.addEventListener('pagechange', function (e) { if (e.detail === 'adminInvoices') { draw(); load(); loadAccess(); } });
   i18n.onChange(function () { if (!box.closest('[hidden]')) draw(); });
   return {};
 })();

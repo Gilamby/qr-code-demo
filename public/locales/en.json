@@ -3649,6 +3649,13 @@
     "noMatch": "No invoices match your search.",
     "loadError": "The invoices could not be loaded.",
     "retry": "Try again",
-    "note": "An invoice that has been sent cannot be changed. A correction is made with a credit note (factura rectificativa); the system creates it automatically when you refund a payment in Stripe."
+    "note": "An invoice that has been sent cannot be changed. A correction is made with a credit note (factura rectificativa); the system creates it automatically when you refund a payment in Stripe.",
+    "accessTitle": "Who can see the invoices",
+    "accessLead": "Only the Super Admin and the admins listed here can see this page. Add the email of an existing admin.",
+    "accessNone": "Nobody else yet: only you (Super Admin).",
+    "accessEmail": "Email of an admin",
+    "accessAdd": "Give access",
+    "accessRemove": "Remove",
+    "accessNotAdmin": "Not an admin account: {e}. Make the person an admin first (Users)."
   }
 }
