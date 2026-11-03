@@ -3,6 +3,7 @@
    Eenvoudige A4-pdf met de standaardletters Helvetica (WinAnsi: €, á, ñ, ü … werken). Spaans met Engels erbij.
    ========================================================= */
 import type { InvoiceDoc } from './invoices';
+import { SELLER_LOGO } from './seller-logo';
 
 const W = 595.28, H = 841.89, M = 50;
 
@@ -50,13 +51,15 @@ export function invoicePdf(d: InvoiceDoc): Buffer {
 
   // Testmodus (Stripe sk_test_): duidelijk geen echte factuur
   if (d.test) { box(M, H - 40, W - 2 * M, 22, 1, 0.93, 0.8); text(M + 8, H - 33, 'PRUEBA / TEST: sin validez fiscal (Stripe en modo de prueba) / not a valid invoice', 9, 'F2', 0.3); }
-  // Kop: verkoper links, FACTURA rechts
-  box(0, H - 8, W, 8, 0.082, 0.412, 0.941);
+  // Kop: logo + verkoper links, FACTURA rechts. Balk in de huisstijl van OptimaSys (marineblauw #052648)
+  box(0, H - 8, W, 8, 0.020, 0.149, 0.282);
   const top = H - M - 10 - (d.test ? 16 : 0);
+  const LOGO = 58, lx = M + LOGO + 14;
+  ops.push('q ' + LOGO + ' 0 0 ' + LOGO + ' ' + M + ' ' + (top - LOGO + 14) + ' cm /Im1 Do Q');
   let y = top;
-  text(M, y, d.seller.name, 16, 'F2');
-  y -= 16; if (d.seller.taxId) { text(M, y, 'CIF/NIF: ' + d.seller.taxId, 9.5, 'F1', 0.25); y -= 13; }
-  for (const a of d.seller.address) { text(M, y, a, 9.5, 'F1', 0.25); y -= 13; }
+  text(lx, y, d.seller.name, 16, 'F2');
+  y -= 16; if (d.seller.taxId) { text(lx, y, 'CIF/NIF: ' + d.seller.taxId, 9.5, 'F1', 0.25); y -= 13; }
+  for (const a of d.seller.address) { text(lx, y, a, 9.5, 'F1', 0.25); y -= 13; }
   right(W - M, top, 'FACTURA / INVOICE', 16, 'F2');
   right(W - M, top - 20, 'Nº ' + d.number, 11, 'F2');
   right(W - M, top - 35, 'Fecha / Date: ' + dateEs(d.date), 9.5, 'F1', 0.25);
@@ -110,11 +113,12 @@ export function invoicePdf(d: InvoiceDoc): Buffer {
   const objs = [
     '<< /Type /Catalog /Pages 2 0 R >>',
     '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + W + ' ' + H + '] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + W + ' ' + H + '] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> /XObject << /Im1 8 0 R >> >> /Contents 6 0 R >>',
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>',
     '<< /Length ' + Buffer.byteLength(content, 'latin1') + ' >>\nstream\n' + content + '\nendstream',
     '<< /Title (' + enc('Factura ' + d.number) + ') /Producer (OptimaSys) >>',
+    '<< /Type /XObject /Subtype /Image /Width ' + SELLER_LOGO.width + ' /Height ' + SELLER_LOGO.height + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + SELLER_LOGO.jpeg.length + ' >>\nstream\n' + SELLER_LOGO.jpeg.toString('latin1') + '\nendstream',
   ];
   let pdf = '%PDF-1.4\n%\xe2\xe3\xcf\xd3\n'; const offs: number[] = [];
   objs.forEach((o, i) => { offs.push(Buffer.byteLength(pdf, 'latin1')); pdf += (i + 1) + ' 0 obj\n' + o + '\nendobj\n'; });
