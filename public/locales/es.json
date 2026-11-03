@@ -24,7 +24,8 @@
     "overview": "Resumen",
     "adminSettings": "Ajustes",
     "legal": "Privacidad y condiciones",
-    "settings": "Ajustes"
+    "settings": "Ajustes",
+    "adminInvoices": "Facturas"
   },
   "header": {
     "language": "Idioma",
@@ -3618,5 +3619,36 @@
     "k_stats": "Estadísticas",
     "k_search": "Buscar en tus códigos QR",
     "k_help": "Mostrar estos atajos"
+  },
+  "inv": {
+    "title": "Facturas",
+    "lead": "Todas las facturas que el sistema ha emitido automáticamente por los pagos (QR-Codex y Flexichat), y las facturas rectificativas por devoluciones. Consultar, buscar y descargar.",
+    "export": "Listado para el gestor (CSV)",
+    "search": "Buscar por número, cliente, NIF o email",
+    "year": "Año",
+    "downloadSel": "Descargar selección ({n})",
+    "selectFirst": "Selecciona facturas para descargar",
+    "downloading": "Descargando…",
+    "selectAll": "Seleccionar todo",
+    "select": "Seleccionar {n}",
+    "colNumber": "Número",
+    "colDate": "Fecha",
+    "colCustomer": "Cliente",
+    "colProduct": "Producto",
+    "colNet": "Base",
+    "colVat": "IVA",
+    "colTotal": "Total",
+    "count": "{n} facturas",
+    "credit": "Rectificativa de {n}",
+    "series_ES": "España / particular UE",
+    "series_UE": "Empresa UE (inversión del sujeto pasivo)",
+    "series_CN": "Canarias, Ceuta, Melilla",
+    "series_EX": "Fuera de la UE",
+    "testMode": "Stripe está en modo de prueba: son facturas de prueba (TEST-…), no facturas reales.",
+    "none": "Aún no hay facturas en {year}.",
+    "noMatch": "Ninguna factura coincide con la búsqueda.",
+    "loadError": "No se han podido cargar las facturas.",
+    "retry": "Reintentar",
+    "note": "Una factura emitida no se puede modificar. Las correcciones se hacen con una factura rectificativa, que el sistema crea automáticamente al devolver un pago en Stripe."
   }
 }

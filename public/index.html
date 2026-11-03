@@ -110,6 +110,10 @@ body:not(.booting):not(.pw-wait) #boot{opacity:0;visibility:hidden;pointer-event
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM19 19h2v2M14 19v2M19 14h2"/></svg>
         <span class="label" data-i18n="nav.adminCodes"></span><span class="tip" data-i18n="nav.adminCodes"></span>
       </a>
+      <a class="item" href="#" data-page="adminInvoices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+        <span class="label" data-i18n="nav.adminInvoices"></span><span class="tip" data-i18n="nav.adminInvoices"></span>
+      </a>
       <a class="item" href="#" data-page="customers" id="navCustomers">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.6 3.6-5.5 6.5-5.5s5.5 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.8.7 3 2.5 3.5 5.2"/></svg>
         <span class="label" data-i18n="nav.users"></span><span class="tip" data-i18n="nav.users"></span>
@@ -268,6 +272,10 @@ body:not(.booting):not(.pw-wait) #boot{opacity:0;visibility:hidden;pointer-event
       <section class="help ad-page" id="adminCodesPage"></section>
     </main>
 
+    <main class="canvas" id="adminInvoicesView" hidden>
+      <section class="help ad-page" id="adminInvoicesPage"></section>
+    </main>
+
     <main class="canvas" id="customersView" hidden>
       <section class="help ad-page" id="customersPage"></section>
     </main>
@@ -336,6 +344,7 @@ body:not(.booting):not(.pw-wait) #boot{opacity:0;visibility:hidden;pointer-event
 <script src="js/customers.js"></script>
 <script src="js/admin.js"></script>
 <script src="js/admin-codes.js"></script>
+<script src="js/admin-invoices.js"></script>
 <script src="js/home.js"></script>
 <script src="js/admin-settings.js"></script>
 <script src="js/legal.js"></script>

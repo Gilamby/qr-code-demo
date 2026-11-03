@@ -24,7 +24,8 @@
     "overview": "Overzicht",
     "adminSettings": "Instellingen",
     "legal": "Privacy en voorwaarden",
-    "settings": "Instellingen"
+    "settings": "Instellingen",
+    "adminInvoices": "Facturen"
   },
   "header": {
     "language": "Taal",
@@ -3618,5 +3619,36 @@
     "k_stats": "Statistieken",
     "k_search": "Zoeken in je QR-codes",
     "k_help": "Deze sneltoetsen tonen"
+  },
+  "inv": {
+    "title": "Facturen",
+    "lead": "Alle facturen die het systeem automatisch heeft gemaakt bij betalingen (QR-Codex en Flexichat), en de creditfacturen bij terugbetalingen. Inzien, zoeken en downloaden.",
+    "export": "Lijst voor de boekhouder (CSV)",
+    "search": "Zoek op nummer, klant, btw-nummer of e-mail",
+    "year": "Jaar",
+    "downloadSel": "Selectie downloaden ({n})",
+    "selectFirst": "Selecteer facturen om te downloaden",
+    "downloading": "Bezig met downloaden…",
+    "selectAll": "Alles selecteren",
+    "select": "{n} selecteren",
+    "colNumber": "Nummer",
+    "colDate": "Datum",
+    "colCustomer": "Klant",
+    "colProduct": "Product",
+    "colNet": "Netto",
+    "colVat": "Btw",
+    "colTotal": "Totaal",
+    "count": "{n} facturen",
+    "credit": "Creditfactuur van {n}",
+    "series_ES": "Spanje / EU-particulier",
+    "series_UE": "EU-bedrijf (btw verlegd)",
+    "series_CN": "Canarias, Ceuta, Melilla",
+    "series_EX": "Buiten de EU",
+    "testMode": "Stripe staat in testmodus: dit zijn testfacturen (TEST-…), geen echte facturen.",
+    "none": "Nog geen facturen in {year}.",
+    "noMatch": "Geen facturen gevonden voor je zoekopdracht.",
+    "loadError": "De facturen konden niet worden geladen.",
+    "retry": "Opnieuw proberen",
+    "note": "Een verstuurde factuur kan niet meer worden veranderd. Een correctie gaat met een creditfactuur (factura rectificativa); die maakt het systeem vanzelf als je in Stripe een betaling terugstort."
   }
 }

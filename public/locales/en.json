@@ -24,7 +24,8 @@
     "overview": "Overview",
     "adminSettings": "Settings",
     "legal": "Privacy and terms",
-    "settings": "Settings"
+    "settings": "Settings",
+    "adminInvoices": "Invoices"
   },
   "header": {
     "language": "Language",
@@ -3618,5 +3619,36 @@
     "k_stats": "Analytics",
     "k_search": "Search your QR codes",
     "k_help": "Show these shortcuts"
+  },
+  "inv": {
+    "title": "Invoices",
+    "lead": "All invoices the system made automatically for payments (QR-Codex and Flexichat), and the credit notes for refunds. View, search and download.",
+    "export": "List for the accountant (CSV)",
+    "search": "Search by number, customer, VAT number or email",
+    "year": "Year",
+    "downloadSel": "Download selected ({n})",
+    "selectFirst": "Select invoices to download",
+    "downloading": "Downloading…",
+    "selectAll": "Select all",
+    "select": "Select {n}",
+    "colNumber": "Number",
+    "colDate": "Date",
+    "colCustomer": "Customer",
+    "colProduct": "Product",
+    "colNet": "Net",
+    "colVat": "VAT",
+    "colTotal": "Total",
+    "count": "{n} invoices",
+    "credit": "Credit note for {n}",
+    "series_ES": "Spain / EU private",
+    "series_UE": "EU company (reverse charge)",
+    "series_CN": "Canary Islands, Ceuta, Melilla",
+    "series_EX": "Outside the EU",
+    "testMode": "Stripe is in test mode: these are test invoices (TEST-…), not real invoices.",
+    "none": "No invoices in {year} yet.",
+    "noMatch": "No invoices match your search.",
+    "loadError": "The invoices could not be loaded.",
+    "retry": "Try again",
+    "note": "An invoice that has been sent cannot be changed. A correction is made with a credit note (factura rectificativa); the system creates it automatically when you refund a payment in Stripe."
   }
 }

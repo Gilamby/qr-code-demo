@@ -40,7 +40,7 @@
   var menuBtn = document.getElementById('menuBtn'), closeMobile = document.getElementById('closeMobile');
   var scrim = document.getElementById('scrim'), mq = window.matchMedia('(max-width: 900px)');
   var KEY = 'optimasys-sidebar-collapsed';
-  var PAGES = { codeDetail: 'cd.pageTitle', home: 'nav.overview', settings: 'nav.settings', adminSettings: 'nav.adminSettings', create: 'nav.create', analytics: 'nav.analytics', myCodes: 'nav.myCodes', account: 'nav.account', customers: 'nav.users', adminDash: 'nav.adminDash', adminCodes: 'nav.adminCodes', contact: 'nav.contact', faq: 'nav.faq', logout: 'nav.loggedOut' };
+  var PAGES = { codeDetail: 'cd.pageTitle', home: 'nav.overview', settings: 'nav.settings', adminSettings: 'nav.adminSettings', create: 'nav.create', analytics: 'nav.analytics', myCodes: 'nav.myCodes', account: 'nav.account', customers: 'nav.users', adminDash: 'nav.adminDash', adminCodes: 'nav.adminCodes', adminInvoices: 'nav.adminInvoices', contact: 'nav.contact', faq: 'nav.faq', logout: 'nav.loggedOut' };
   var page = 'create';
   function load() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
   function save(v) { try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
@@ -56,7 +56,7 @@
     document.getElementById('createView').hidden = page !== 'create';
     document.body.classList.toggle('not-create', page !== 'create');
     // Elke pagina heeft een eigen <main id="…View">; de rest is verborgen
-    var VIEWS = ['home', 'account', 'myCodes', 'analytics', 'contact', 'faq', 'settings', 'adminDash', 'adminCodes', 'customers', 'adminSettings'];
+    var VIEWS = ['home', 'account', 'myCodes', 'analytics', 'contact', 'faq', 'settings', 'adminDash', 'adminCodes', 'adminInvoices', 'customers', 'adminSettings'];
     // Detailpagina van één QR-code gebruikt het scherm van de statistiek, maar is een eigen pagina (eigen titel, Mijn QR-codes actief)
     var shown = page === 'codeDetail' ? 'analytics' : page === 'settings' ? 'account' : page;   // Instellingen: zelfde scherm als Mijn account, andere onderdelen
     VIEWS.forEach(function (p) { var v = document.getElementById(p + 'View'); if (v) v.hidden = shown !== p; });
@@ -95,9 +95,9 @@
    Vernieuwen blijft op dezelfde pagina, de terugknop van de browser werkt en je kunt een link naar een pagina delen. ---------- */
 (function () {
   var SLUG = { home: 'overview', create: 'create', analytics: 'analytics', myCodes: 'codes', codeDetail: 'codes', account: 'account', contact: 'contact', faq: 'faq', settings: 'settings',
-    adminDash: 'admin', adminCodes: 'admin-codes', customers: 'users', adminSettings: 'admin-settings' };
+    adminDash: 'admin', adminCodes: 'admin-codes', adminInvoices: 'admin-invoices', customers: 'users', adminSettings: 'admin-settings' };
   var PAGE = {}; Object.keys(SLUG).forEach(function (p) { if (p !== 'codeDetail') PAGE[SLUG[p]] = p; });
-  var ADMIN = ['adminDash', 'adminCodes', 'customers', 'adminSettings'];
+  var ADMIN = ['adminDash', 'adminCodes', 'adminInvoices', 'customers', 'adminSettings'];
   var page = null, tab = null, applying = false, timer = 0, booted = false;
   function parse(h) { var m = String(h || '').match(/^#\/([a-z-]+)(?:\/([a-z]+))?/); return m && PAGE[m[1]] ? { page: PAGE[m[1]], tab: m[2] || null } : null; }
   function want() { var s = SLUG[page]; if (!s) return null; return '#/' + s + ((page === 'account' || page === 'settings') && tab ? '/' + tab : ''); }

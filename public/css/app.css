@@ -5935,3 +5935,30 @@ select:not([multiple]):not([size])::-ms-expand { display: none; }
 .pw-down-price { font-size: 18px; font-weight: 700; margin: 4px 0 18px; }
 /* Cloudflare Turnstile op Account maken / Wachtwoord vergeten: ruimte vasthouden zodat er niets verspringt */
 .auth-ts { min-height: 65px; display: flex; justify-content: center; }
+
+/* ---------- Beheer > Facturen ---------- */
+.ai-tools { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.ai-tools .ad-search { flex: 1 1 240px; }
+.ai-table { border-radius: 20px; overflow: hidden; padding: 4px 0; }
+.ai-row { display: grid; grid-template-columns: 30px minmax(200px, 1.3fr) 110px minmax(180px, 2fr) 96px 100px 90px 110px 84px; gap: 12px; align-items: center; padding: 12px 18px; border-top: 1px solid var(--line); font-size: 14px; }
+.ai-row:first-child { border-top: 0; }
+.ai-row.on { background: var(--hover, rgba(127,127,127,.06)); }
+.ai-head { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, inherit); }
+.ai-row small { display: block; font-size: 12px; color: var(--muted, inherit); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ai-nr b, .ai-cust b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ai-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ai-credit .ai-num { color: #d64045; }
+.ai-act { text-align: right; }
+.ai-act .btn { padding: 6px 10px; font-size: 13px; min-height: 0; }
+.ai-sum { font-weight: 600; }
+.ai-row.ad-skel { min-height: 56px; }
+.ai-test { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; background: rgba(255, 166, 0, .16); font-size: 13.5px; }
+.ai-note { margin-top: 14px; font-size: 13px; }
+@media (min-width: 761px) { .ai-table { overflow-x: auto; } .ai-table .ai-row { min-width: 990px; } }
+@media (max-width: 760px) {
+  .ai-head { display: none; }
+  .ai-row { grid-template-columns: 26px minmax(0, 1fr) auto; gap: 4px 10px; padding: 14px; }
+  .ai-row > span:nth-child(3), .ai-row > span:nth-child(5), .ai-row > span:nth-child(6), .ai-row > span:nth-child(7) { display: none; }
+  .ai-row > span:nth-child(4) { grid-column: 2 / 4; }
+  .ai-sum > span:empty { display: none; }
+}
