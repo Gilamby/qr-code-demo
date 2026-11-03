@@ -3649,13 +3649,6 @@
     "noMatch": "Geen facturen gevonden voor je zoekopdracht.",
     "loadError": "De facturen konden niet worden geladen.",
     "retry": "Opnieuw proberen",
-    "note": "Een verstuurde factuur kan niet meer worden veranderd. Een correctie gaat met een creditfactuur (factura rectificativa); die maakt het systeem vanzelf als je in Stripe een betaling terugstort.",
-    "accessTitle": "Wie de facturen mag zien",
-    "accessLead": "Alleen de Super Admin en de beheerders in deze lijst zien deze pagina. Voeg het e-mailadres van een bestaande beheerder toe.",
-    "accessNone": "Nog niemand anders: alleen jij (Super Admin).",
-    "accessEmail": "E-mailadres van een beheerder",
-    "accessAdd": "Toegang geven",
-    "accessRemove": "Weghalen",
-    "accessNotAdmin": "Geen beheerder: {e}. Maak deze persoon eerst beheerder (Gebruikers)."
+    "note": "Een verstuurde factuur kan niet meer worden veranderd. Een correctie gaat met een creditfactuur (factura rectificativa); die maakt het systeem vanzelf als je in Stripe een betaling terugstort."
   }
 }

@@ -3649,13 +3649,6 @@
     "noMatch": "Ninguna factura coincide con la búsqueda.",
     "loadError": "No se han podido cargar las facturas.",
     "retry": "Reintentar",
-    "note": "Una factura emitida no se puede modificar. Las correcciones se hacen con una factura rectificativa, que el sistema crea automáticamente al devolver un pago en Stripe.",
-    "accessTitle": "Quién puede ver las facturas",
-    "accessLead": "Solo el Super Admin y los administradores de esta lista ven esta página. Añade el email de un administrador existente.",
-    "accessNone": "Nadie más todavía: solo tú (Super Admin).",
-    "accessEmail": "Email de un administrador",
-    "accessAdd": "Dar acceso",
-    "accessRemove": "Quitar",
-    "accessNotAdmin": "No es administrador: {e}. Hazle administrador primero (Usuarios)."
+    "note": "Una factura emitida no se puede modificar. Las correcciones se hacen con una factura rectificativa, que el sistema crea automáticamente al devolver un pago en Stripe."
   }
 }
