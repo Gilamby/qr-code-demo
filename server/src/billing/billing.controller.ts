@@ -29,6 +29,7 @@ import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscrip
 import { fitToPlan } from '../plan-limit';
 import { issueInvoice, issueCreditNote } from './invoices';
 import { invoicePdf, money } from './invoice-pdf';
+import { invoiceLink } from './invoices-admin.controller';
 import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature, stripePk, ELEMENTS_VERSION } from './stripe';
 
 @Controller('api/billing')
@@ -376,11 +377,21 @@ export class BillingController {
     if (!o || !/^in_[A-Za-z0-9]+$/.test(String(o.id || ''))) return;
     const before = await this.db.getSetting('inv:stripe:' + o.id);
     // Opnieuw ophalen met onze vaste API-versie: de webhook kan in een nieuwere versie komen (andere velden voor btw en regels)
-    const doc = await issueInvoice(this.db, before ? o : await stripe('GET', 'invoices/' + o.id));
+    const full = before ? o : await stripe('GET', 'invoices/' + o.id);
+    const doc = await issueInvoice(this.db, full);
     if (!doc || before) return;                                                  // geen factuur nodig, of al gemaakt (en gemaild)
+    await this.markInStripe('invoices/' + o.id, doc.number, typeof full.charge === 'string' ? full.charge : full.charge && full.charge.id);
     if (!doc.buyer.email) return;
     this.mailer.sendInvoice(doc.buyer.email, { number: doc.number, total: money(doc.total, doc.currency), product: doc.product, seller: doc.seller.name }, invoicePdf(doc))
       .catch((e) => console.error('Factuurmail ' + doc.number + ' mislukt:', e.message));
+  }
+
+  /** Ons factuurnummer + downloadlink van de pdf in Stripe zetten (metadata), zodat het team alles in Stripe ziet:
+   *  bij de Stripe-factuur (of de terugbetaling) én bij de betaling zelf. Mislukt dit, dan alleen loggen (de factuur bestaat al). */
+  async markInStripe(path: string, number: string, charge?: string | null, credit = false) {
+    const meta = credit ? { factura_rectificativa: number, factura_rectificativa_pdf: invoiceLink(number) } : { factura: number, factura_pdf: invoiceLink(number) };
+    await stripe('POST', path, { metadata: meta }).catch((e) => console.error('Factuurnummer in Stripe zetten mislukt (' + path + '):', e.message));
+    if (charge && /^ch_/.test(String(charge))) await stripe('POST', 'charges/' + charge, { metadata: meta }).catch((e) => console.error('Factuurnummer bij betaling in Stripe mislukt:', e.message));
   }
 
   /** Terugbetaling (helemaal of deels): per Stripe-refund één factura rectificativa, gemaild als pdf. Eén keer per refund. */
@@ -393,7 +404,9 @@ export class BillingController {
     for (const r of (ch.refunds && ch.refunds.data) || []) {
       const before = await this.db.getSetting('inv:refund:' + r.id);
       const doc = await issueCreditNote(this.db, r, inv);
-      if (!doc || before || !doc.buyer.email) continue;
+      if (!doc || before) continue;
+      await this.markInStripe('refunds/' + r.id, doc.number, ch.id, true);
+      if (!doc.buyer.email) continue;
       this.mailer.sendInvoice(doc.buyer.email, { number: doc.number, total: money(doc.total, doc.currency), product: doc.product, seller: doc.seller.name, rectifies: doc.rectifies }, invoicePdf(doc))
         .catch((e) => console.error('Mail factura rectificativa ' + doc.number + ' mislukt:', e.message));
     }

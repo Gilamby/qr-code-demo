@@ -28,6 +28,7 @@ global.fetch = async (url, o = {}) => {
   const ok = (j) => ({ ok: true, status: 200, json: async () => j });
   if (/^customers\/[^/]+$/.test(p)) return ok(customers[p.split('/')[1]] || { id: p.split('/')[1], metadata: {} });
   if (p === 'invoices') return ok({ data: stripeInvoices });
+  if ((o.method || 'GET') === 'POST' && /^(invoices|charges|refunds)\//.test(p)) { (global.__meta = global.__meta || []).push({ p, body: String(o.body || '') }); return ok({ id: p.split('/')[1] }); }
   if (/^charges\/ch_/.test(p)) return ok(charges[p.split('/')[1]] || {});
   if (/^invoices\/in_/.test(p)) { global.__invGet = (global.__invGet || 0) + 1; return ok(stripeInvoices.find((i) => i.id === p.split('/')[1]) || {}); }
   return { ok: false, status: 404, json: async () => ({ error: { message: 'onbekend ' + p } }) };
@@ -228,4 +229,13 @@ test('webhook charge.refunded: creditfactuur gemaild, één keer', async () => {
   assert.equal((await hook({ type: 'charge.refunded', data: { object: { id: 'ch_r1', object: 'charge' } } })).status, 200, 'herhaalde melding');
   assert.equal(invoiceMails.length, before + 2, 'factuur + één creditfactuur');
   assert.match(invoiceMails[invoiceMails.length - 1].pdf.toString('latin1'), /FACTURA RECTIFICATIVA/);
+  const meta = global.__meta || [];
+  const onInv = meta.find((m) => m.p === 'invoices/' + si.id), onRefund = meta.find((m) => m.p === 'refunds/re_w1'), onCharge = meta.filter((m) => m.p === 'charges/ch_r1');
+  assert.ok(onInv && /metadata%5Bfactura%5D=TEST-ES-/.test(onInv.body), 'ons nummer bij de Stripe-factuur');
+  assert.ok(onRefund && /factura_rectificativa%5D=TEST-R-ES-/.test(onRefund.body), 'rectificativa bij de terugbetaling');
+  assert.equal(onCharge.length, 1, 'en bij de betaling');
+  const link = decodeURIComponent(onInv.body.match(/factura_pdf%5D=([^&]+)/)[1]).replace(/^https?:\/\/[^/]+/, '');
+  const pdf = await realFetch(base + link); assert.equal(pdf.status, 200); assert.match(Buffer.from(await pdf.arrayBuffer()).toString('latin1'), /^%PDF/);
+  assert.equal((await realFetch(base + link.replace(/s=.*/, 's=fout'))).status, 404, 'zonder juiste handtekening: niets');
+  assert.equal((await realFetch(base + link.replace(/\?s=.*/, ''))).status, 404);
 });

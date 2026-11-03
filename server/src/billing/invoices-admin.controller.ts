@@ -12,6 +12,8 @@ import { TeamOnly } from '../auth/admin.controller';
 import { fail } from '../common/http';
 import { invoicesOfYear, readInvoice, madridYear } from './invoices';
 import { invoicePdf } from './invoice-pdf';
+import { sign, signed } from '../database/secret';
+import { publicUrl } from '../config/env';
 
 const yearOf = (y: unknown) => { const n = Math.floor(Number(y)); return n >= 2020 && n <= 2100 ? n : madridYear(new Date()); };
 const csvCell = (v: unknown) => { const s = String(v == null ? '' : v); return /[;"\n\r]/.test(s) || /^[=+\-@]/.test(s) ? '"' + s.replace(/"/g, '""').replace(/^([=+\-@])/, "'$1") + '"' : s; };
@@ -27,14 +29,16 @@ export class InvoicesAdminController {
   @Get()
   async list(@Query('year') year: string) {
     const y = yearOf(year);
-    return { year: y, items: (await invoicesOfYear(this.db, y, testMode())).map((d) => ({ number: d.number, series: d.series, date: d.date, buyer: d.buyer.name, taxId: d.buyer.taxId, country: d.buyer.country, net: d.net, tax: d.tax, total: d.total, product: d.product })) };
+    const items = (await invoicesOfYear(this.db, y, testMode())).sort((a, b) => b.date.localeCompare(a.date) || b.number.localeCompare(a.number));
+    return { year: y, test: testMode(), items: items.map((d) => ({ number: d.number, series: d.series, date: d.date, buyer: d.buyer.name, email: d.buyer.email, taxId: d.buyer.taxId, country: d.buyer.country,
+      net: d.net, tax: d.tax, total: d.total, currency: d.currency, product: d.product, kind: d.kind || 'invoice', rectifies: d.rectifies || null })) };
   }
 
   @Get('export.csv')
   async csv(@Query('year') year: string, @Res() res: Response) {
     const y = yearOf(year), rows = await invoicesOfYear(this.db, y, testMode());
-    const head = ['Numero', 'Serie', 'Fecha', 'Cliente', 'NIF/VAT', 'Pais', 'Base imponible', 'IVA', 'Total', 'Moneda', 'Producto', 'Stripe'];
-    const lines = rows.map((d) => [d.number, d.series, d.date.slice(0, 10), d.buyer.name, d.buyer.taxId, d.buyer.country, num(d.net), num(d.tax), num(d.total), d.currency, d.product, d.stripeInvoice].map(csvCell).join(';'));
+    const head = ['Numero', 'Serie', 'Fecha', 'Cliente', 'NIF/VAT', 'Pais', 'Base imponible', 'IVA', 'Total', 'Moneda', 'Producto', 'Rectifica', 'Stripe'];
+    const lines = rows.map((d) => [d.number, d.series, d.date.slice(0, 10), d.buyer.name, d.buyer.taxId, d.buyer.country, num(d.net), num(d.tax), num(d.total), d.currency, d.product, d.rectifies || '', d.stripeInvoice].map(csvCell).join(';'));
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('Content-Disposition', 'attachment; filename="facturas-' + y + '.csv"');
     res.setHeader('Cache-Control', 'private, no-store');
@@ -47,6 +51,27 @@ export class InvoicesAdminController {
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename="Factura-' + d.number + '.pdf"');
     res.setHeader('Cache-Control', 'private, no-store');
+    res.end(invoicePdf(d));
+  }
+}
+
+/** Downloadlink zonder inloggen, voor in Stripe (metadata "factura_pdf" bij de betaling).
+ *  Alleen met de juiste handtekening: niet te raden zonder de sleutel van de server. */
+export function invoiceLink(number: string): string {
+  const base = (publicUrl() || 'https://my.qr-codex.com').replace(/\/$/, '');
+  return base + '/api/invoice-file/' + encodeURIComponent(number) + '?s=' + sign('invoice:' + number);
+}
+@Controller('api/invoice-file')
+export class InvoiceFileController {
+  constructor(private readonly db: DatabaseService) {}
+  @Get(':number')
+  async file(@Param('number') number: string, @Query('s') s: string, @Res() res: Response) {
+    if (!signed('invoice:' + String(number), String(s || ''))) throw fail(404, 'not_found');
+    const d = await readInvoice(this.db, String(number)); if (!d) throw fail(404, 'not_found');
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline; filename="Factura-' + d.number + '.pdf"');
+    res.setHeader('Cache-Control', 'private, no-store');
+    res.setHeader('X-Robots-Tag', 'noindex');
     res.end(invoicePdf(d));
   }
 }
