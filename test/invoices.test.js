@@ -12,6 +12,8 @@ process.env.ALLOW_SIGNUP = 'true';
 process.env.STRIPE_SECRET_KEY = 'sk_test_nep';
 process.env.STRIPE_WEBHOOK_SECRET = 'whsec_nep';
 process.env.INVOICE_SELLER_TAX_ID = 'B12345678';
+process.env.SUPER_ADMIN_EMAILS = 'baas@example.com';
+process.env.ADMIN_EMAILS = 'helper@example.com';
 const { createApp } = require('../server/dist/main');
 const { MailerService } = require('../server/dist/auth/mailer.service');
 const { DatabaseService } = require('../server/dist/database/database.service');
@@ -238,4 +240,12 @@ test('webhook charge.refunded: creditfactuur gemaild, één keer', async () => {
   const pdf = await realFetch(base + link); assert.equal(pdf.status, 200); assert.match(Buffer.from(await pdf.arrayBuffer()).toString('latin1'), /^%PDF/);
   assert.equal((await realFetch(base + link.replace(/s=.*/, 's=fout'))).status, 404, 'zonder juiste handtekening: niets');
   assert.equal((await realFetch(base + link.replace(/\?s=.*/, ''))).status, 404);
+});
+
+test('facturen: alleen de Super Admin ziet alle facturen', async () => {
+  const boss = await account('baas@example.com'), helper = await account('helper@example.com');
+  assert.equal((await boss.c('GET', '/api/admin/invoices?year=2026')).status, 200, 'Super Admin: ja');
+  assert.equal((await boss.c('GET', '/api/admin/invoices/export.csv?year=2026')).status, 200);
+  assert.equal((await helper.c('GET', '/api/admin/invoices?year=2026')).status, 403, 'gewone beheerder: nee');
+  assert.equal((await helper.c('GET', '/api/admin/invoices/export.csv?year=2026')).status, 403);
 });

@@ -1,5 +1,5 @@
 /* =========================================================
-   BEHEER > FACTUREN (alleen voor het team)
+   BEHEER > FACTUREN (alleen voor de Super Admin)
    Alle facturen die het systeem zelf maakt bij een betaling (QR-Codex én Flexichat, zelfde Stripe-account),
    en de facturas rectificativas bij een terugbetaling. Inzien, zoeken, selecteren en downloaden (pdf of zip),
    en de lijst voor de boekhouder (csv). Niet bewerken: een verstuurde factuur mag in Spanje niet meer veranderd worden.
@@ -32,7 +32,7 @@ var AdminInvoices = (function () {
       .catch(function () { if (my === seq) { err = true; drawList(); } });
   }
   function draw() {
-    if (!me || !me.admin) return;
+    if (!me || !me.superAdmin) return;
     box.innerHTML =
       '<header class="help-head ad-head"><div><h2>' + t('inv.title') + '</h2><p>' + t('inv.lead') + '</p></div>' +
         '<div class="ad-head-acts"><a class="btn ghost" id="aiCsv" href="api/admin/invoices/export.csv?year=' + year + '" download>' + ico('csv') + t('inv.export') + '</a></div></header>' +
@@ -109,7 +109,8 @@ var AdminInvoices = (function () {
     if (e.target.closest('#aiDl')) downloadSel();
   });
 
-  Session.onUser(function (u) { me = u; if (!u || !u.admin) { res = null; sel = {}; } });
+  // Alleen de Super Admin ziet alle facturen (de server controleert het ook); klanten zien hun eigen facturen in Mijn account
+  Session.onUser(function (u) { me = u; var nav = document.getElementById('navInvoices'); if (nav) nav.hidden = !(u && u.superAdmin); if (!u || !u.superAdmin) { res = null; sel = {}; } });
   document.addEventListener('pagechange', function (e) { if (e.detail === 'adminInvoices') { draw(); load(); } });
   i18n.onChange(function () { if (!box.closest('[hidden]')) draw(); });
   return {};

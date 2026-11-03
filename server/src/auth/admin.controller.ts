@@ -29,6 +29,16 @@ export class TeamOnly implements CanActivate {
   }
 }
 
+/** Alleen de Super Admin (bijv. Beheer > Facturen: bedrijfsgegevens en bedragen van alle klanten) */
+@Injectable()
+export class SuperOnly implements CanActivate {
+  constructor(private readonly auth: AuthService) {}
+  canActivate(ctx: ExecutionContext) {
+    if (!this.auth.isSuper(ctx.switchToHttp().getRequest<Request>().user)) throw fail(403, 'super_only');
+    return true;
+  }
+}
+
 /** Reden van uitzetten (settings 'disabled:<id>') */
 function reasonOf(v: string | null | undefined) { try { const o = v ? JSON.parse(v) : null; return o && o.reason ? String(o.reason) : null; } catch (e) { return null; } }
 

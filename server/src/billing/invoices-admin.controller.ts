@@ -1,5 +1,5 @@
 /* =========================================================
-   FACTUREN VOOR DE BOEKHOUDING (alleen het team)
+   FACTUREN VOOR DE BOEKHOUDING (alleen de Super Admin; klanten zien hun eigen facturen in Mijn account)
    GET /api/admin/invoices?year=2026        → lijst (json)
    GET /api/admin/invoices/export.csv?year=2026 → csv voor de boekhouder (puntkomma, Spaanse decimalen)
    GET /api/admin/invoices/:nummer/pdf      → de factuur als pdf
@@ -8,7 +8,7 @@ import { Controller, Get, Param, Query, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
 import { DatabaseService } from '../database/database.service';
 import { LoggedIn } from '../auth/auth.guard';
-import { TeamOnly } from '../auth/admin.controller';
+import { SuperOnly } from '../auth/admin.controller';
 import { fail } from '../common/http';
 import { invoicesOfYear, readInvoice, madridYear } from './invoices';
 import { invoicePdf } from './invoice-pdf';
@@ -22,7 +22,7 @@ const testMode = () => !/^sk_live_/.test(String(process.env.STRIPE_SECRET_KEY ||
 const num = (n: number) => n.toFixed(2).replace('.', ',');
 
 @Controller('api/admin/invoices')
-@UseGuards(LoggedIn, TeamOnly)
+@UseGuards(LoggedIn, SuperOnly)
 export class InvoicesAdminController {
   constructor(private readonly db: DatabaseService) {}
 

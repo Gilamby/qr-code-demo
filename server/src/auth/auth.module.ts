@@ -9,12 +9,12 @@ import { AuthService } from './auth.service';
 import { MailerService } from './mailer.service';
 import { LoggedIn } from './auth.guard';
 import { SupportAccountService } from './support-account.service';
-import { AdminController, TeamOnly } from './admin.controller';
+import { AdminController, TeamOnly, SuperOnly } from './admin.controller';
 import { TeamController } from './team.controller';
 
 @Module({
   controllers: [AuthController, GoogleController, MicrosoftController, BillingController, AccountController, AdminController, TeamController, InvoicesAdminController, InvoiceFileController],
-  providers: [AuthService, MailerService, LoggedIn, SupportAccountService, TeamOnly],
+  providers: [AuthService, MailerService, LoggedIn, SupportAccountService, TeamOnly, SuperOnly],
   exports: [AuthService, MailerService, LoggedIn, TeamOnly],
 })
 export class AuthModule {}
