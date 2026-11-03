@@ -30,6 +30,8 @@ export type InvoiceDoc = {
   buyer: { name: string; taxId: string; address: string[]; country: string; email: string; kind: 'company' | 'private' };
   lines: InvoiceLine[]; net: number; tax: number; total: number;
   test?: boolean;                                                  // gemaakt met een testsleutel: geen echte factuur
+  kind?: 'invoice' | 'credit';                                     // credit = factura rectificativa (bij een terugbetaling)
+  rectifies?: string;                                              // credit: nummer van de factuur die wordt gecorrigeerd
   note: string; stripeInvoice: string; stripeCustomer: string; uid: string | null; product: string; createdAt: string;
 };
 
@@ -63,9 +65,9 @@ export function seriesLabel(series: Series): string {
 /** Volgend nummer in een reeks voor een jaar (één tegelijk, zonder gaten).
  *  Testmodus (Stripe sk_test_): eigen teller en TEST- ervoor, zodat de echte nummering bij live gewoon bij 0001 begint.
  *  INVOICE_START_ES=15 (enz.): eerste nummer als er dit jaar al facturen buiten dit systeem waren. */
-export async function nextNumber(db: Settings, series: Series, year: number, test = false): Promise<string> {
-  const label = seriesLabel(series), key = 'inv:seq:' + (test ? 'test:' : '') + label + ':' + year;   // nieuw voorvoegsel = nieuwe reeks, begint bij 0001
-  const start = test ? 1 : Math.max(1, Math.floor(Number(process.env['INVOICE_START_' + series]) || 1));
+export async function nextNumber(db: Settings, series: Series, year: number, test = false, credit = false): Promise<string> {
+  const label = (credit ? 'R-' : '') + seriesLabel(series), key = 'inv:seq:' + (test ? 'test:' : '') + label + ':' + year;   // nieuw voorvoegsel = nieuwe reeks, begint bij 0001
+  const start = test || credit ? 1 : Math.max(1, Math.floor(Number(process.env['INVOICE_START_' + series]) || 1));
   const n = Math.max(Number(await db.getSetting(key)) || 0, start - 1) + 1;
   await db.setSetting(key, String(n));
   return (test ? 'TEST-' : '') + label + '-' + year + '-' + String(n).padStart(4, '0');
@@ -204,7 +206,7 @@ export async function issueInvoice(db: Settings, inv: any, opts: { live?: boolea
 }
 
 export async function readInvoice(db: Settings, number: string): Promise<InvoiceDoc | null> {
-  if (!/^(TEST-)?[A-Z0-9]{1,8}-\d{4}-\d{4,}$/.test(String(number))) return null;
+  if (!/^(TEST-)?(R-)?[A-Z0-9]{1,8}-\d{4}-\d{4,}$/.test(String(number))) return null;
   try { return JSON.parse((await db.getSetting('inv:doc:' + number)) || 'null'); } catch { return null; }
 }
 export async function invoicesOfUser(db: Settings, uid: string): Promise<InvoiceDoc[]> {
@@ -221,3 +223,34 @@ export async function invoicesOfYear(db: Settings, year: number, test = false): 
   return out.sort((a, b) => a.number.localeCompare(b.number));
 }
 export async function numberForStripe(db: Settings, stripeInvoice: string) { return (await db.getSetting('inv:stripe:' + stripeInvoice)) || null; }
+
+/** Factura rectificativa (creditfactuur) bij een terugbetaling in Stripe. Eén per Stripe-refund (re_…), eigen reeks R-ES/R-UE/R-CN/R-EX,
+ *  zelfde koper en verkoper als de oorspronkelijke factuur, bedragen negatief (ook bij een gedeeltelijke terugbetaling, naar verhouding).
+ *  Geeft de creditfactuur terug, of null als er geen oorspronkelijke factuur van ons is. */
+export async function issueCreditNote(db: Settings, refund: { id: string; amount: number; created?: number; status?: string }, stripeInvoiceId: string): Promise<InvoiceDoc | null> {
+  if (!refund || !/^(re|pyr)_[A-Za-z0-9]+$/.test(String(refund.id || '')) || !(Number(refund.amount) > 0)) return null;
+  if (refund.status && !['succeeded', 'pending'].includes(refund.status)) return null;   // mislukt/geannuleerd: niets terugbetaald
+  await migrateTestNumbers(db);
+  return locked('invoices', async () => {
+    const have = await db.getSetting('inv:refund:' + refund.id);
+    if (have) return readInvoice(db, have);
+    const origNumber = await db.getSetting('inv:stripe:' + stripeInvoiceId);
+    const orig = origNumber ? await readInvoice(db, origNumber) : null;
+    if (!orig || orig.kind === 'credit') return null;
+    const total = -round2(Math.min(cents(refund.amount), orig.total)), ratio = orig.total ? -total / orig.total : 1;
+    const tax = -round2(orig.tax * ratio), net = round2(total - tax);
+    const lines: InvoiceLine[] = orig.lines.map((l) => ({ ...l, desc: ('Rectificación / Correction: ' + l.desc).slice(0, 200), unit: -round2(l.unit * ratio), net: -round2(l.net * ratio), tax: -round2(l.tax * ratio) }));
+    const date = new Date((refund.created || Date.now() / 1000) * 1000), year = madridYear(date);
+    const number = await nextNumber(db, orig.series, year, !!orig.test, true);
+    const doc: InvoiceDoc = {
+      ...orig, number, date: date.toISOString(), year, lines, net, tax, total, kind: 'credit', rectifies: orig.number,
+      note: ('Factura rectificativa de la factura nº ' + orig.number + ' (art. 15 RD 1619/2012). Motivo: devolución. / Credit note for invoice ' + orig.number + ' (refund).' + (orig.note ? ' ' + orig.note : '')).slice(0, 1000),
+      createdAt: new Date().toISOString(),
+    };
+    await db.setSetting('inv:doc:' + number, JSON.stringify(doc));
+    await db.setSetting('inv:refund:' + refund.id, number);
+    await pushList(db, yearKey(year, !!orig.test), number, 100000);
+    if (doc.uid) await pushList(db, 'inv:user:' + doc.uid, number, 500);
+    return doc;
+  });
+}

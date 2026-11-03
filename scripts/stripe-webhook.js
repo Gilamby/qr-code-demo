@@ -20,7 +20,7 @@ const args = process.argv.slice(2);
 const live = args.includes('--live'), fresh = args.includes('--new');
 const ENV = process.env.ENV_FILE || path.join(os.homedir(), 'qr-app', '.env');
 const URL_ = process.env.WEBHOOK_URL || 'https://my.qr-codex.com/api/billing/webhook';
-const EVENTS = ['checkout.session.completed', 'customer.subscription.created', 'customer.subscription.updated', 'customer.subscription.deleted', 'invoice.paid'];
+const EVENTS = ['checkout.session.completed', 'customer.subscription.created', 'customer.subscription.updated', 'customer.subscription.deleted', 'invoice.paid', 'charge.refunded'];
 const VERSION = '2026-09-30.endive';
 
 const text = fs.existsSync(ENV) ? fs.readFileSync(ENV, 'utf8') : '';

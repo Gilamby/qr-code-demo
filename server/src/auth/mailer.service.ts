@@ -109,10 +109,14 @@ export class MailerService {
     await this.transport.sendMail({ from: this.from(), to, subject: 'QR-Codex: test e-mail', text: 'Deze test-e-mail komt van QR-Codex (' + (this.base() || 'server') + '). De mailserver werkt.\n\nThis test email was sent from QR-Codex. Your mail server works.' });
   }
   /** Factuur (pdf) naar de klant, in het Spaans en Engels (de factuur zelf is ook tweetalig). Afzender: INVOICE_MAIL_FROM, anders MAIL_FROM. */
-  async sendInvoice(to: string, d: { number: string; total: string; product: string; seller: string }, pdf: Buffer) {
-    const subject = 'Factura / Invoice ' + d.number + ' – ' + d.seller;
-    const body = 'Hola,\n\nAdjuntamos la factura ' + d.number + (d.product ? ' (' + d.product + ')' : '') + ' por ' + d.total + '. El pago se ha recibido correctamente.\n\n' +
-      'Hello,\n\nPlease find attached invoice ' + d.number + (d.product ? ' (' + d.product + ')' : '') + ' for ' + d.total + '. Your payment has been received.\n\n' + d.seller;
+  async sendInvoice(to: string, d: { number: string; total: string; product: string; seller: string; rectifies?: string }, pdf: Buffer) {
+    const p = d.product ? ' (' + d.product + ')' : '';
+    const subject = (d.rectifies ? 'Factura rectificativa / Credit note ' : 'Factura / Invoice ') + d.number + ' – ' + d.seller;
+    const body = d.rectifies
+      ? 'Hola,\n\nAdjuntamos la factura rectificativa ' + d.number + p + ' de la factura ' + d.rectifies + ', por ' + d.total + '. El importe se ha devuelto.\n\n' +
+        'Hello,\n\nPlease find attached credit note ' + d.number + p + ' for invoice ' + d.rectifies + ', for ' + d.total + '. The amount has been refunded.\n\n' + d.seller
+      : 'Hola,\n\nAdjuntamos la factura ' + d.number + p + ' por ' + d.total + '. El pago se ha recibido correctamente.\n\n' +
+        'Hello,\n\nPlease find attached invoice ' + d.number + p + ' for ' + d.total + '. Your payment has been received.\n\n' + d.seller;
     if (!this.transport) { console.log('[e-mail niet ingesteld] Factuur ' + d.number + ' voor ' + to); return; }
     await this.transport.sendMail({ from: this.invoiceFrom(d.seller), to, subject, text: body,
       attachments: [{ filename: 'Factura-' + d.number + '.pdf', content: pdf, contentType: 'application/pdf' }] });

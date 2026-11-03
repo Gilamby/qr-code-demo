@@ -18,7 +18,7 @@ const { DatabaseService } = require('../server/dist/database/database.service');
 const inv = require('../server/dist/billing/invoices');
 const { invoicePdf, money } = require('../server/dist/billing/invoice-pdf');
 
-const customers = {}, stripeInvoices = [];
+const customers = {}, stripeInvoices = [], charges = {};
 const realFetch = global.fetch;
 global.fetch = async (url, o = {}) => {
   const vm = String(url).match(/vies\/rest-api\/ms\/(\w+)\/vat\/(\w+)$/);
@@ -28,6 +28,7 @@ global.fetch = async (url, o = {}) => {
   const ok = (j) => ({ ok: true, status: 200, json: async () => j });
   if (/^customers\/[^/]+$/.test(p)) return ok(customers[p.split('/')[1]] || { id: p.split('/')[1], metadata: {} });
   if (p === 'invoices') return ok({ data: stripeInvoices });
+  if (/^charges\/ch_/.test(p)) return ok(charges[p.split('/')[1]] || {});
   if (/^invoices\/in_/.test(p)) { global.__invGet = (global.__invGet || 0) + 1; return ok(stripeInvoices.find((i) => i.id === p.split('/')[1]) || {}); }
   return { ok: false, status: 404, json: async () => ({ error: { message: 'onbekend ' + p } }) };
 };
@@ -113,6 +114,31 @@ test('oude testfacturen (zonder TEST-) worden eenmalig hernummerd; echte nummeri
   assert.deepEqual((await inv.invoicesOfYear(db, 2026)).map((d) => d.number), ['ES-2026-0001']);
 });
 
+test('terugbetaling: factura rectificativa (R-reeks), naar verhouding, één keer per refund', async () => {
+  const db = memDb();
+  const si = stripeInvoice();                                  // 12,10 totaal, 2,10 btw
+  const orig = await inv.issueInvoice(db, si);
+  assert.equal(orig.number, 'TEST-ES-2026-0001');
+  const full = await inv.issueCreditNote(db, { id: 're_1', amount: 1210, created: Math.floor(Date.parse('2026-11-05T10:00:00Z') / 1000), status: 'succeeded' }, si.id);
+  assert.equal(full.number, 'TEST-R-ES-2026-0001'); assert.equal(full.kind, 'credit'); assert.equal(full.rectifies, 'TEST-ES-2026-0001');
+  assert.equal(full.total, -12.1); assert.equal(full.tax, -2.1); assert.equal(full.net, -10);
+  assert.equal(full.buyer.name, orig.buyer.name); assert.match(full.note, /rectificativa de la factura nº TEST-ES-2026-0001/);
+  assert.equal((await inv.issueCreditNote(db, { id: 're_1', amount: 1210 }, si.id)).number, full.number, 'zelfde refund: zelfde creditfactuur');
+  const si2 = stripeInvoice(); await inv.issueInvoice(db, si2);
+  const half = await inv.issueCreditNote(db, { id: 're_2', amount: 605 }, si2.id);
+  assert.equal(half.number, 'TEST-R-ES-2026-0002'); assert.equal(half.total, -6.05); assert.equal(half.tax, -1.05); assert.equal(half.net, -5);
+  assert.equal(await inv.issueCreditNote(db, { id: 're_3', amount: 100, status: 'failed' }, si2.id), null, 'mislukte refund: niets');
+  assert.equal(await inv.issueCreditNote(db, { id: 're_4', amount: 100 }, 'in_onbekend'), null, 'geen factuur van ons: niets');
+  assert.equal(await db.getSetting('inv:seq:test:ES:2026'), '2', 'gewone reeks loopt niet op door creditfacturen');
+  const live = await inv.issueInvoice(db, stripeInvoice(), { live: true });
+  const si3 = stripeInvoice(); const l3 = await inv.issueInvoice(db, si3, { live: true });
+  assert.equal((await inv.issueCreditNote(db, { id: 're_5', amount: 1210 }, si3.id)).number, 'R-ES-2026-0001', 'live: R-ES zonder TEST');
+  assert.ok(live && l3);
+  assert.ok(await inv.readInvoice(db, 'TEST-R-ES-2026-0001'));
+  const pdf = require('../server/dist/billing/invoice-pdf').invoicePdf(full).toString('latin1');
+  assert.match(pdf, /FACTURA RECTIFICATIVA/); assert.match(pdf, /Rectifica \/ Corrects: TEST-ES-2026-0001/);
+});
+
 test('verkoper: .env, anders de bedrijfsgegevens uit Beheer, anders OptimaSys Group Spain', async () => {
   const keep = process.env.INVOICE_SELLER_TAX_ID; delete process.env.INVOICE_SELLER_TAX_ID;
   try {
@@ -190,4 +216,16 @@ test('webhook invoice.paid: factuur in Mijn account, pdf alleen voor jezelf, mai
   assert.equal((await other.c('GET', '/api/account/invoices/TEST-ES-2026-0001/pdf')).status, 404, 'niet van jou: niet te zien');
   assert.equal((await c('GET', '/api/account/invoices/..%2Fx/pdf')).status, 404);
   assert.equal((await c('GET', '/api/admin/invoices/export.csv?year=2026')).status, 403, 'export alleen voor het team');
+});
+
+test('webhook charge.refunded: creditfactuur gemaild, één keer', async () => {
+  const before = invoiceMails.length;
+  customers.cus_r = { id: 'cus_r', email: 'refund@example.com', metadata: {} };
+  const si = stripeInvoice({ customer: 'cus_r' }); stripeInvoices.push(si);
+  assert.equal((await hook({ type: 'invoice.paid', data: { object: si } })).status, 200);
+  charges.ch_r1 = { id: 'ch_r1', object: 'charge', invoice: si.id, refunds: { data: [{ id: 're_w1', amount: 1210, status: 'succeeded', created: Math.floor(Date.now() / 1000) }] } };
+  assert.equal((await hook({ type: 'charge.refunded', data: { object: { id: 'ch_r1', object: 'charge' } } })).status, 200);
+  assert.equal((await hook({ type: 'charge.refunded', data: { object: { id: 'ch_r1', object: 'charge' } } })).status, 200, 'herhaalde melding');
+  assert.equal(invoiceMails.length, before + 2, 'factuur + één creditfactuur');
+  assert.match(invoiceMails[invoiceMails.length - 1].pdf.toString('latin1'), /FACTURA RECTIFICATIVA/);
 });

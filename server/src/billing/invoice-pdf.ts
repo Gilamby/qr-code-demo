@@ -60,10 +60,13 @@ export function invoicePdf(d: InvoiceDoc): Buffer {
   text(lx, y, d.seller.name, 16, 'F2');
   y -= 16; if (d.seller.taxId) { text(lx, y, 'CIF/NIF: ' + d.seller.taxId, 9.5, 'F1', 0.25); y -= 13; }
   for (const a of d.seller.address) { text(lx, y, a, 9.5, 'F1', 0.25); y -= 13; }
-  right(W - M, top, 'FACTURA / INVOICE', 16, 'F2');
-  right(W - M, top - 20, 'Nº ' + d.number, 11, 'F2');
-  right(W - M, top - 35, 'Fecha / Date: ' + dateEs(d.date), 9.5, 'F1', 0.25);
-  right(W - M, top - 48, 'Serie / Series: ' + d.series, 9.5, 'F1', 0.25);
+  const credit = d.kind === 'credit', o = credit ? 14 : 0;   // creditfactuur: titel op twee regels, rest iets lager
+  if (credit) { right(W - M, top, 'FACTURA RECTIFICATIVA', 14, 'F2'); right(W - M, top - 13, 'CREDIT NOTE', 9.5, 'F2', 0.35); }
+  else right(W - M, top, 'FACTURA / INVOICE', 16, 'F2');
+  right(W - M, top - 20 - o, 'Nº ' + d.number, 11, 'F2');
+  right(W - M, top - 35 - o, 'Fecha / Date: ' + dateEs(d.date), 9.5, 'F1', 0.25);
+  right(W - M, top - 48 - o, 'Serie / Series: ' + (credit ? 'R-' : '') + d.series, 9.5, 'F1', 0.25);
+  if (credit && d.rectifies) right(W - M, top - 61 - o, 'Rectifica / Corrects: ' + d.rectifies, 9.5, 'F2', 0.25);
 
   // Klant
   y = Math.min(y, top - 70) - 22;
@@ -97,7 +100,7 @@ export function invoicePdf(d: InvoiceDoc): Buffer {
   text(tl, y, 'IVA / VAT', 9.5); right(W - M - 6, y, money(d.tax, d.currency), 9.5); y -= 8;
   line(tl, y, W - M, y, 0.5, 0.8); y -= 16;
   text(tl, y, 'TOTAL', 12, 'F2'); right(W - M - 6, y, money(d.total, d.currency), 12, 'F2'); y -= 16;
-  text(tl, y, 'Pagado / Paid', 9, 'F1', 0.35);
+  text(tl, y, credit ? 'Reembolsado / Refunded' : 'Pagado / Paid', 9, 'F1', 0.35);
 
   // Vermelding per reeks
   if (d.note) {
@@ -117,7 +120,7 @@ export function invoicePdf(d: InvoiceDoc): Buffer {
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>',
     '<< /Length ' + Buffer.byteLength(content, 'latin1') + ' >>\nstream\n' + content + '\nendstream',
-    '<< /Title (' + enc('Factura ' + d.number) + ') /Producer (OptimaSys) >>',
+    '<< /Title (' + enc((credit ? 'Factura rectificativa ' : 'Factura ') + d.number) + ') /Producer (OptimaSys) >>',
     '<< /Type /XObject /Subtype /Image /Width ' + SELLER_LOGO.width + ' /Height ' + SELLER_LOGO.height + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + SELLER_LOGO.jpeg.length + ' >>\nstream\n' + SELLER_LOGO.jpeg.toString('latin1') + '\nendstream',
   ];
   let pdf = '%PDF-1.4\n%\xe2\xe3\xcf\xd3\n'; const offs: number[] = [];

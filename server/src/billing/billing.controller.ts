@@ -27,7 +27,7 @@ import type { User } from '../types';
 import { PLANS, EXTRA_PRICE, EXTRA_MAX } from '../plans';
 import { subFor, saveSub, stateOf, toInterval, emptySub, Sub } from '../subscription';
 import { fitToPlan } from '../plan-limit';
-import { issueInvoice } from './invoices';
+import { issueInvoice, issueCreditNote } from './invoices';
 import { invoicePdf, money } from './invoice-pdf';
 import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature, stripePk, ELEMENTS_VERSION } from './stripe';
 
@@ -365,6 +365,8 @@ export class BillingController {
       await this.apply(o);
     } else if (ev.type === 'invoice.paid') {
       await this.invoicePaid(o);                                                  // gaat het mis: 500, dan herhaalt Stripe de melding
+    } else if (ev.type === 'charge.refunded') {
+      await this.refunded(o);                                                     // terugbetaling: factura rectificativa
     }
     return { ok: true };
   }
@@ -379,6 +381,22 @@ export class BillingController {
     if (!doc.buyer.email) return;
     this.mailer.sendInvoice(doc.buyer.email, { number: doc.number, total: money(doc.total, doc.currency), product: doc.product, seller: doc.seller.name }, invoicePdf(doc))
       .catch((e) => console.error('Factuurmail ' + doc.number + ' mislukt:', e.message));
+  }
+
+  /** Terugbetaling (helemaal of deels): per Stripe-refund één factura rectificativa, gemaild als pdf. Eén keer per refund. */
+  async refunded(o: any) {
+    if (!o || !/^ch_[A-Za-z0-9]+$/.test(String(o.id || ''))) return;
+    // Opnieuw ophalen met onze vaste API-versie (daarin staat charge.invoice) en met alle refunds erbij
+    const ch = await stripe('GET', 'charges/' + o.id, { 'expand[]': 'refunds' });
+    const inv = typeof ch.invoice === 'string' ? ch.invoice : ch.invoice && ch.invoice.id;
+    if (!inv) return;                                                             // geen abonnementsbetaling: geen factuur van ons
+    for (const r of (ch.refunds && ch.refunds.data) || []) {
+      const before = await this.db.getSetting('inv:refund:' + r.id);
+      const doc = await issueCreditNote(this.db, r, inv);
+      if (!doc || before || !doc.buyer.email) continue;
+      this.mailer.sendInvoice(doc.buyer.email, { number: doc.number, total: money(doc.total, doc.currency), product: doc.product, seller: doc.seller.name, rectifies: doc.rectifies }, invoicePdf(doc))
+        .catch((e) => console.error('Mail factura rectificativa ' + doc.number + ' mislukt:', e.message));
+    }
   }
 
   /** Factuurgegevens nog leeg? Dan overnemen wat de klant bij Stripe invulde (naam, adres, bedrijfsnaam, btw-nummer).
