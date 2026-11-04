@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* =========================================================
-   Stripe-webhook voor de facturen en abonnementen (QR-Codex én Flexichat, zelfde Stripe-account).
+   Stripe-webhook voor de abonnementen van QR-Codex. Facturen lopen via OptimaSys Facturen (invoices.optimasys.es).
    Draai op de server als qrgen, NA het zetten van de nieuwe STRIPE_SECRET_KEY in ~/qr-app/.env:
        node scripts/stripe-webhook.js            (testmodus)
        node scripts/stripe-webhook.js --live     (live-sleutel: alleen met --live)
@@ -20,7 +20,9 @@ const args = process.argv.slice(2);
 const live = args.includes('--live'), fresh = args.includes('--new');
 const ENV = process.env.ENV_FILE || path.join(os.homedir(), 'qr-app', '.env');
 const URL_ = process.env.WEBHOOK_URL || 'https://my.qr-codex.com/api/billing/webhook';
-const EVENTS = ['checkout.session.completed', 'customer.subscription.created', 'customer.subscription.updated', 'customer.subscription.deleted', 'invoice.paid', 'charge.refunded'];
+// Facturen (invoice.paid, charge.refunded) gaan sinds 4-11-2026 naar OptimaSys Facturen (invoices.optimasys.es), niet meer hierheen.
+const EVENTS = ['checkout.session.completed', 'customer.subscription.created', 'customer.subscription.updated', 'customer.subscription.deleted'];
+const NOT_HERE = ['invoice.paid', 'charge.refunded'];
 const VERSION = '2026-09-30.endive';
 
 const text = fs.existsSync(ENV) ? fs.readFileSync(ENV, 'utf8') : '';
@@ -60,13 +62,15 @@ function saveSecret(secret) {
   let hook = (list.data || []).find((w) => w.url === URL_ && w.status !== 'disabled');
   if (hook && fresh) { await stripe('DELETE', 'webhook_endpoints/' + hook.id); hook = null; console.log('Oude webhook verwijderd (--new).'); }
   if (!hook) {
-    const made = await stripe('POST', 'webhook_endpoints', { url: URL_, enabled_events: EVENTS, api_version: VERSION, description: 'OptimaSys: abonnementen en facturen (QR-Codex en Flexichat)' });
+    const made = await stripe('POST', 'webhook_endpoints', { url: URL_, enabled_events: EVENTS, api_version: VERSION, description: 'QR-Codex app: abonnementen (pakket, periode, opzeggen)' });
     if (!made.secret) throw new Error('Stripe gaf geen ondertekensleutel terug');
     saveSecret(made.secret);
     console.log('Webhook aangemaakt. STRIPE_WEBHOOK_SECRET staat in ' + ENV + ' (niet getoond).');
   } else {
-    const missing = EVENTS.filter((e) => !(hook.enabled_events || []).includes(e) && !(hook.enabled_events || []).includes('*'));
-    if (missing.length) { await stripe('POST', 'webhook_endpoints/' + hook.id, { enabled_events: [...new Set([...(hook.enabled_events || []), ...missing])] }); console.log('Meldingen aangevuld: ' + missing.join(', ')); }
+    const have = (hook.enabled_events || []).filter((e) => e !== '*');
+    const want = [...new Set([...have.filter((e) => !NOT_HERE.includes(e)), ...EVENTS])];
+    const changed = want.length !== have.length || want.some((e) => !have.includes(e)) || (hook.enabled_events || []).includes('*');
+    if (changed) { await stripe('POST', 'webhook_endpoints/' + hook.id, { enabled_events: want }); console.log('Meldingen bijgewerkt: ' + want.join(', ')); }
     else console.log('Webhook bestaat al en is compleet.');
     if (!/^\s*STRIPE_WEBHOOK_SECRET\s*=\s*whsec_/m.test(fs.readFileSync(ENV, 'utf8'))) console.log('LET OP: geen STRIPE_WEBHOOK_SECRET in .env. Draai opnieuw met --new' + (live ? ' --live' : '') + '.');
   }
