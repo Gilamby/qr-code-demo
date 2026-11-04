@@ -25,10 +25,12 @@ export type StripeRecord = { customer?: string; subscription?: string; cancelMai
   next?: { plan: string; period: string; at: string } | null };   // next: naar een kleiner pakket, gaat in op 'at' (einde van de betaalde periode)
 type Settings = { getSetting(k: string): Promise<string | null | undefined>; setSetting(k: string, v: string | null): Promise<void> };
 
+/** Opslag-sleutel voor Stripe-gegevens: live en test apart (een test-id bestaat niet in live) */
+export function stripeKey(k: string): string { return (/^(sk|rk)_live_/.test(String(process.env.STRIPE_SECRET_KEY || '')) ? 'stripe:live:' : 'stripe:') + k; }
 export async function readRecord(db: Settings, userId: string): Promise<StripeRecord> {
-  try { return JSON.parse((await db.getSetting('stripe:' + userId)) || '{}') || {}; } catch { return {}; }
+  try { return JSON.parse((await db.getSetting(stripeKey(userId))) || '{}') || {}; } catch { return {}; }
 }
-export async function writeRecord(db: Settings, userId: string, r: StripeRecord) { await db.setSetting('stripe:' + userId, JSON.stringify(r)); }
+export async function writeRecord(db: Settings, userId: string, r: StripeRecord) { await db.setSetting(stripeKey(userId), JSON.stringify(r)); }
 
 /** Parameters zoals Stripe ze wil: a[b][0][c]=… */
 export function form(obj: any, prefix = '', out: string[] = []): string {

@@ -30,7 +30,7 @@ import { fitToPlan } from '../plan-limit';
 import { issueInvoice, issueCreditNote } from './invoices';
 import { invoicePdf, money } from './invoice-pdf';
 import { invoiceLink } from './invoices-admin.controller';
-import { stripe, stripeOn, readRecord, writeRecord, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature, stripePk, ELEMENTS_VERSION } from './stripe';
+import { stripe, stripeOn, readRecord, writeRecord, stripeKey, amountFor, firstYearDiscount, recurringOf, planName, isPlanId, verifySignature, stripePk, ELEMENTS_VERSION } from './stripe';
 
 @Controller('api/billing')
 export class BillingController {
@@ -48,7 +48,7 @@ export class BillingController {
   /** Coupon voor het eerste jaar (2 maanden gratis), per pakket één keer aangemaakt en onthouden */
   private async yearCoupon(planId: string) {
     const off = firstYearDiscount(PLANS[planId]); if (!off) return null;
-    const key = 'stripe:coupon:' + planId + ':' + off, have = await this.db.getSetting(key);
+    const key = stripeKey('coupon:' + planId) + ':' + off, have = await this.db.getSetting(key);
     if (have) return have;
     const c = await stripe('POST', 'coupons', { amount_off: off, currency: 'eur', duration: 'once', name: '2 maanden gratis (1e jaar)' });
     await this.db.setSetting(key, c.id); return c.id;
@@ -59,20 +59,20 @@ export class BillingController {
   private async firstMonthCoupon(planId: string) {
     const P = PLANS[planId]; if (P.price == null || P.priceFirstMonth == null) return null;
     const off = Math.round(P.price * 100) - Math.round(P.priceFirstMonth * 100); if (off <= 0) return null;
-    const key = 'stripe:coupon1m:' + planId + ':' + off, have = await this.db.getSetting(key);
+    const key = stripeKey('coupon1m:' + planId) + ':' + off, have = await this.db.getSetting(key);
     if (have) return have;
     const c = await stripe('POST', 'coupons', { amount_off: off, currency: 'eur', duration: 'repeating', duration_in_months: 1, name: 'Actie eerste maand' });
     await this.db.setSetting(key, c.id); return c.id;
   }
   /** Product "Extra QR-code" bij Stripe (één keer aangemaakt en onthouden): zo herkennen we extra codes in een abonnement */
   private async extraProduct() {
-    const have = await this.db.getSetting('stripe:extraProduct'); if (have) return have;
+    const have = await this.db.getSetting(stripeKey('extraProduct')); if (have) return have;
     const p = await stripe('POST', 'products', { name: 'QR-Codex extra QR-code' });
-    await this.db.setSetting('stripe:extraProduct', p.id); return p.id;
+    await this.db.setSetting(stripeKey('extraProduct'), p.id); return p.id;
   }
   /** Product per pakket bij Stripe (één keer aangemaakt): nodig voor een geplande wissel (subscription schedule) */
   private async planProduct(planId: string) {
-    const key = 'stripe:product:' + planId, have = await this.db.getSetting(key); if (have) return have;
+    const key = stripeKey('product:' + planId), have = await this.db.getSetting(key); if (have) return have;
     const p = await stripe('POST', 'products', { name: planName(planId) });
     await this.db.setSetting(key, p.id); return p.id;
   }
@@ -453,7 +453,7 @@ export class BillingController {
     }
     const before = await this.db.getSetting('plan:' + uid);
     if (isPlanId(s.metadata.plan)) await this.db.setSetting('plan:' + uid, s.metadata.plan);
-    const xp = await this.db.getSetting('stripe:extraProduct');                 // losse QR-codes in dit abonnement
+    const xp = await this.db.getSetting(stripeKey('extraProduct'));                 // losse QR-codes in dit abonnement
     if (xp && s.items && s.items.data) { const n = s.items.data.filter((i: any) => i.price && i.price.product === xp).reduce((a: number, i: any) => a + (i.quantity || 0), 0); await this.db.setSetting('extra:' + uid, n ? String(n) : null); }
     // Ander pakket of andere hoeveelheid: codes laten passen (gekozen codes blijven aan, de rest gepauzeerd; meer ruimte = weer aan)
     let keep: string[] | null = null; try { keep = JSON.parse((await this.db.getSetting('keep:' + uid)) || 'null'); } catch { keep = null; }
