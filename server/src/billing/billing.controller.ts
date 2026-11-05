@@ -11,8 +11,22 @@
    - Betaling mislukt of opgezegd en de periode is om: codes stoppen meteen, 30 dagen bewaard (subscription.ts).
    - Opgezegd (loopt nog tot het einde van de periode): bevestigingsmail.
    Niet voor het team en niet voor teamleden (het abonnement is van de eigenaar).
+   Betalen op de promotiesite (qr-codex.com), zonder account vooraf:
+   POST site-checkout  (alleen de server van de site, met de sleutel SITE_CHECKOUT_KEY in de kop x-site-key)
+     { email, name, plan, period, lang, buyer, accept, ip, embedded } → { clientSecret, pk } of { url }
+     Zelfde prijzen, proef, acties en btw als hierboven. Bestaand account met een abonnement: 409 exists (inloggen in de app).
+   GET  site-checkout/session?id=cs_…  → { status, plan, period }  voor het bedankt-scherm op de site
+   Webhook checkout.session.completed (metadata.site = 1): account zoeken of maken op het e-mailadres, abonnement eraan koppelen
+     (uid in de metadata van het abonnement) en een mail met een link om een wachtwoord te kiezen en in te loggen.
    ========================================================= */
+import * as crypto from 'crypto';
 import { validateBilling } from '../auth/billing';
+import { isDisposable, canonicalEmail } from '../auth/email-rules';
+import { isBlocked as emailBlocked } from '../auth/blocklist';
+import { acceptTerms } from '../auth/terms';
+import { memberOf } from '../team';
+import { EMAIL } from '../qr-codes/validation';
+import { INVITE_HOURS, INVITED } from '../database/database.service';
 import { readBuyer, applyBuyer, taxOn, taxBehavior, needsVies, checkVies, locationMismatch, BLOCKED } from './tax';
 import { place } from '../analytics/scan-stats';
 import { Body, Controller, Get, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
@@ -113,6 +127,21 @@ export class BillingController {
     }
   }
 
+  /** Regels, proef en acties van een abonnement: zelfde voor de app en de promotiesite.
+   *  Acties gelden één keer: alleen een nieuwe klant krijgt de eerste maand goedkoper (per maand) of het eerste jaar 2 maanden gratis (per jaar). */
+  private async offer(planId: string, interval: 'month' | 'quarter' | 'year', first: boolean, buyerType: string | undefined, tax: boolean, meta: Record<string, string>, extraLines: any[] = []) {
+    const plan = PLANS[planId];
+    const coupon = !first ? null : interval === 'month' ? await this.firstMonthCoupon(planId) : interval === 'year' ? await this.yearCoupon(planId) : null;
+    return {
+      line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), tax_behavior: taxBehavior(buyerType), product_data: { name: planName(planId) } } }, ...extraLines],
+      automatic_tax: tax ? { enabled: true } : undefined,
+      subscription_data: { metadata: meta, trial_period_days: first && plan.trialDays ? plan.trialDays : undefined },
+      discounts: coupon ? [{ coupon }] : undefined,
+      allow_promotion_codes: coupon ? undefined : true,                 // kortingscode invullen (niet samen met de actie voor nieuwe klanten)
+      metadata: meta,
+    };
+  }
+
   @Post('checkout')
   @UseGuards(LoggedIn)
   @HttpCode(200)
@@ -144,17 +173,11 @@ export class BillingController {
       const meta = { uid: user.id, plan: planId, period: interval };
       await this.db.setSetting('keep:' + user.id, Array.isArray(b.keep) ? JSON.stringify(b.keep.map(String).slice(0, 500)) : null);   // welke codes aan blijven bij minder ruimte
       // Acties gelden één keer: alleen een nieuwe klant krijgt de eerste maand goedkoper (per maand) of het eerste jaar 2 maanden gratis (per jaar)
-      const coupon = !first ? null : interval === 'month' ? await this.firstMonthCoupon(planId) : interval === 'year' ? await this.yearCoupon(planId) : null;
       const extras = plan.codes != null ? Number(await this.db.getSetting('extra:' + user.id)) || 0 : 0;   // gekochte losse codes gaan mee
       const extraLines = extras ? [this.extraLine(await this.extraProduct(), interval, extras, (await readRecord(this.db, user.id)).buyer || (b.buyer && b.buyer.type))] : [];
       const common = {
         mode: 'subscription', customer, client_reference_id: user.id, locale: 'auto', payment_method_collection: 'always',
-        line_items: [{ quantity: 1, price_data: { currency: 'eur', unit_amount: amountFor(plan, interval), recurring: recurringOf(interval), tax_behavior: taxBehavior(buyerType), product_data: { name: planName(planId) } } }, ...extraLines],
-        automatic_tax: tax ? { enabled: true } : undefined,
-        subscription_data: { metadata: meta, trial_period_days: first && plan.trialDays ? plan.trialDays : undefined },
-        discounts: coupon ? [{ coupon }] : undefined,
-        allow_promotion_codes: coupon ? undefined : true,                 // kortingscode invullen (niet samen met de actie voor nieuwe klanten)
-        metadata: meta,
+        ...(await this.offer(planId, interval, first, buyerType, tax, meta, extraLines)),
       };
       // Betalen in de app zelf (eigen ontwerp, velden van Stripe). Lukt dat niet, dan gewoon de betaalpagina van Stripe.
       if (b.embedded && stripePk()) {
@@ -177,6 +200,126 @@ export class BillingController {
       console.error('Stripe afrekenen mislukt:', (e as Error).message);
       throw fail(502, 'stripe');
     }
+  }
+
+  /* ---------- Betalen op de promotiesite (qr-codex.com) ---------- */
+  /** Alleen de server van de site mag dit (gedeelde sleutel SITE_CHECKOUT_KEY, minstens 32 tekens). Zonder sleutel: uit. */
+  private siteOk(req: Request) {
+    const want = String(process.env.SITE_CHECKOUT_KEY || ''), got = String(req.get('x-site-key') || '');
+    return want.length >= 32 && got.length === want.length && crypto.timingSafeEqual(Buffer.from(got), Buffer.from(want));
+  }
+  /** Adres van de promotiesite (terug na het betalen). Standaard https://qr-codex.com */
+  private siteUrl() { const u = String(process.env.SITE_URL || 'https://qr-codex.com').trim().replace(/\/+$/, ''); return /^https?:\/\/[a-z0-9.-]+(:\d+)?$/i.test(u) ? u : 'https://qr-codex.com'; }
+  /** Apple Pay / Google Pay op de site: het domein moet bij Stripe staan (Payment method domains). Eén keer per modus (test/live). */
+  private async pmDomain() {
+    let host = ''; try { host = new URL(this.siteUrl()).hostname; } catch { return; }
+    if (!/\./.test(host) || /^(localhost|127\.|192\.168\.|10\.)/.test(host)) return;
+    const key = stripeKey('pmdomain:' + host); if (await this.db.getSetting(key)) return;
+    try { await stripe('POST', 'payment_method_domains', { domain_name: host }); await this.db.setSetting(key, '1'); }
+    catch (e) { if (/already/i.test((e as Error).message)) await this.db.setSetting(key, '1'); else console.error('Betaaldomein ' + host + ' bij Stripe zetten mislukt:', (e as Error).message); }
+  }
+
+  @Post('site-checkout')
+  @HttpCode(200)
+  async siteCheckout(@Req() req: Request, @Body() b: any = {}) {
+    if (!this.siteOk(req)) throw fail(403, 'forbidden');
+    if (!stripeOn()) throw fail(503, 'off');
+    const ip = /^[0-9a-fA-F:.]{3,45}$/.test(String(b.ip || '')) ? String(b.ip) : '';   // adres van de bezoeker, doorgegeven door de site
+    if (this.auth.limited('sitecheckout:' + (ip || 'none'), 20, 60)) throw fail(429, 'too_many');
+    if (!(await this.auth.signupOpen())) throw fail(403, 'signup_closed');
+    if (!isPlanId(b.plan)) throw fail(400, 'plan');
+    const planId = b.plan, interval = toInterval(b.period), lang = ['en', 'es', 'nl', 'fr', 'de'].includes(b.lang) ? b.lang : 'en';
+    const email = String(b.email || '').trim().toLowerCase(), name = String(b.name || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+    if (!EMAIL.test(email) || email.length > 254 || isDisposable(email)) throw fail(400, 'buyer', { details: ['email'] });
+    if (this.auth.limited('sitecheckout:' + email, 10, 60)) throw fail(429, 'too_many');
+    if (b.accept !== true) throw fail(400, 'buyer', { details: ['accept'] });            // 18+ en akkoord met Terms en Privacy
+    if (await emailBlocked(this.db, email)) throw fail(403, 'blocked');
+    // Bestaat het account al? Met een abonnement (of team): inloggen in de app en daar het pakket wijzigen.
+    const row = await this.db.userByEmail(email), existing = row ? await this.db.getUser(row.id) : null;
+    let first = true, customer = '';
+    if (existing) {
+      const rec = await readRecord(this.db, existing.id), st = stateOf(await subFor(this.db, existing.id));
+      if (this.auth.isAdmin(existing) || (await memberOf(this.db, existing.id)) || existing.disabledAt || rec.subscription || (st !== 'unpaid' && st !== 'none')) throw fail(409, 'exists');
+      first = st === 'unpaid';
+      customer = (await this.customerFor(existing)).customer;
+    } else {
+      const c = canonicalEmail(email);
+      if ((await this.db.listCustomers()).some((u) => canonicalEmail(u.email) === c)) throw fail(409, 'exists');   // variant van een bestaand adres
+    }
+    const r = readBuyer(b.buyer); if (!r.buyer) throw fail(400, 'buyer', { details: r.errors });
+    const here = place(ip);
+    if (BLOCKED.includes(here.cc)) throw fail(400, 'buyer', { details: ['blocked'] });
+    const away = locationMismatch(r.buyer, here); if (away) throw fail(400, 'buyer', { details: ['location'], where: away });
+    const vies = needsVies(r.buyer) ? await checkVies(r.buyer.vat) : undefined;
+    if (vies && vies.state !== 'valid') throw fail(400, 'buyer', { details: [vies.state === 'down' ? 'viesDown' : 'vies'] });
+    try {
+      if (!customer) {                                                     // nieuw: één Stripe-klant per adres (opnieuw proberen = dezelfde klant)
+        const key = stripeKey('sitecus:' + email); customer = (await this.db.getSetting(key)) || '';
+        if (!customer) { customer = (await stripe('POST', 'customers', { email, name: name || undefined, preferred_locales: [lang], metadata: { site: '1' } })).id; await this.db.setSetting(key, customer); }
+      }
+      await applyBuyer(customer, r.buyer, email, name, vies);
+      const tax = await taxOn(), site = this.siteUrl();
+      const meta: Record<string, string> = { site: '1', plan: planId, period: interval, email, lang, name, ...(existing ? { uid: existing.id } : {}) };
+      const common = {
+        mode: 'subscription', customer, client_reference_id: existing ? existing.id : undefined, locale: lang, payment_method_collection: 'always',
+        ...(await this.offer(planId, interval, first, r.buyer.type, tax, meta)),
+      };
+      if (b.embedded && stripePk()) {
+        await this.pmDomain();
+        try {
+          const s2 = await stripe('POST', 'checkout/sessions', { ...common, ui_mode: 'elements', return_url: site + '/?checkout=done&session_id={CHECKOUT_SESSION_ID}' }, ELEMENTS_VERSION);
+          if (s2.client_secret) return { clientSecret: s2.client_secret, pk: stripePk(), trial: first ? PLANS[planId].trialDays : 0 };
+        } catch (e) { console.error('Stripe betalen op de site mislukt, terug naar de betaalpagina van Stripe:', (e as Error).message); }
+      }
+      const session = await stripe('POST', 'checkout/sessions', { ...common, customer_update: { name: 'auto' },
+        success_url: site + '/?checkout=done&session_id={CHECKOUT_SESSION_ID}', cancel_url: site + '/#pricing' });
+      return { url: session.url };
+    } catch (e) {
+      if (e && (e as any).getStatus) throw e;
+      console.error('Stripe afrekenen (site) mislukt:', (e as Error).message);
+      throw fail(502, 'stripe');
+    }
+  }
+
+  /** Bedankt-scherm op de site: is de betaling rond? Geen persoonsgegevens terug. */
+  @Get('site-checkout/session')
+  async siteSession(@Req() req: Request) {
+    if (!this.siteOk(req)) throw fail(403, 'forbidden');
+    if (!stripeOn()) throw fail(503, 'off');
+    const id = String((req.query && req.query.id) || '');
+    if (!/^cs_(test|live)_[A-Za-z0-9]+$/.test(id)) throw fail(400, 'id');
+    const s = await stripe('GET', 'checkout/sessions/' + id).catch(() => null);
+    if (!s || !s.metadata || s.metadata.site !== '1') throw fail(404, 'not_found');
+    return { status: s.status, plan: isPlanId(s.metadata.plan) ? s.metadata.plan : null, period: toInterval(s.metadata.period) };
+  }
+
+  /** Betaald op de site zonder account: account op het e-mailadres zoeken of maken (uitgenodigd, wachtwoord via de mail). */
+  private async siteAccount(o: any): Promise<string | null> {
+    const m = o.metadata || {}, email = String(m.email || (o.customer_details && o.customer_details.email) || '').trim().toLowerCase();
+    if (!EMAIL.test(email)) return null;
+    const have = await this.db.userByEmail(email);
+    if (have) {
+      const rec = await readRecord(this.db, have.id);
+      if (rec.subscription && rec.subscription !== o.subscription) {
+        const cur = await stripe('GET', 'subscriptions/' + rec.subscription).catch(() => null);
+        if (cur && ['active', 'trialing', 'past_due'].includes(cur.status)) { console.error('Betaling op de site ' + o.id + ': ' + email + ' heeft al een abonnement, niet gekoppeld (team: controleren in Stripe)'); return null; }
+      }
+      return have.id;
+    }
+    const name = String(m.name || (o.customer_details && o.customer_details.name) || '').slice(0, 80);
+    const user = await this.db.createUser({ email, name, passwordHash: INVITED });
+    await acceptTerms(this.db, user.id);                                     // akkoord gegeven op de site (verplicht vinkje)
+    if (['en', 'es', 'nl', 'fr', 'de'].includes(m.lang)) await this.db.updateUser(user.id, { lang: m.lang }).catch(() => {});
+    this.mailer.notifySignup(email, name, 'qr-codex.com (betaald)');
+    return user.id;
+  }
+  /** Eén mail per betaling: je pakket staat klaar, kies een wachtwoord (link 7 dagen geldig) */
+  private async sitePaidMail(req: Request, uid: string, o: any) {
+    const k = 'sitepaid:' + o.id; if (await this.db.getSetting(k)) return;
+    await this.db.setSetting(k, '1');
+    const u = await this.db.getUser(uid); if (!u) return;
+    const link = baseUrl(req) + '/?invite=' + encodeURIComponent(await this.db.createReset(uid, INVITE_HOURS));
+    await this.mailer.sendPaid(u.email, link, String((o.metadata && o.metadata.lang) || u.lang || 'en'), planName(o.metadata && o.metadata.plan)).catch((e) => console.error('Mail na betaling op de site mislukt:', e.message));
   }
 
   /* ---------- Abonnement beheren in de app zelf (in plaats van de klantportal van Stripe) ---------- */
@@ -353,7 +496,11 @@ export class BillingController {
       const uid = o.client_reference_id || (o.metadata && o.metadata.uid);
       if (uid) await this.useSetup(o, uid).catch((e) => console.error('Betaalmethode (webhook) mislukt:', e.message));
     } else if (ev.type === 'checkout.session.completed' && o.mode === 'subscription' && o.subscription) {
-      const uid = o.client_reference_id || (o.metadata && o.metadata.uid); if (!uid || !(await this.db.getUser(uid))) return { ok: true };
+      const site = !!(o.metadata && o.metadata.site === '1');
+      let uid = o.client_reference_id || (o.metadata && o.metadata.uid);
+      if (!uid && site) uid = await this.siteAccount(o);                         // betaald op qr-codex.com: account op het e-mailadres
+      if (!uid || !(await this.db.getUser(uid))) return { ok: true };
+      if (site) await stripe('POST', 'subscriptions/' + o.subscription, { metadata: { uid } });   // latere meldingen van Stripe horen bij dit account
       const rec = await readRecord(this.db, uid), old = rec.subscription;
       rec.customer = o.customer || rec.customer; rec.subscription = o.subscription; rec.cancelMailed = null; rec.next = null;   // ander pakket gekozen: geplande wissel vervalt
       await writeRecord(this.db, uid, rec);
@@ -362,6 +509,7 @@ export class BillingController {
       await this.apply(await stripe('GET', 'subscriptions/' + o.subscription));
       await this.db.addActivity(uid, old ? 'plan_changed' : 'plan_chosen', {} as any).catch(() => {});
       await this.fillBilling(uid, o.customer_details).catch((e) => console.error('Factuurgegevens overnemen mislukt:', e.message));
+      if (site) await this.sitePaidMail(req, uid, o);
     } else if (/^customer\.subscription\.(created|updated|deleted)$/.test(ev.type)) {
       await this.apply(o);
     } else if (ev.type === 'invoice.paid') {
