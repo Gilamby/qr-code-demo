@@ -1672,7 +1672,10 @@
     "confirmLead": "Ešte jedno kliknutie a váš e-mail je potvrdený.",
     "confirmBtn": "Potvrdiť môj účet",
     "errVerifyExpired": "Tento odkaz vypršal. Poslali sme ti nový, pozri si e-mail.",
-    "errHuman": "Najprv potvrď, že si človek (políčko nad tlačidlom)."
+    "errHuman": "Najprv potvrď, že si človek (políčko nad tlačidlom).",
+    "noAccount": "Ešte nemáte účet?",
+    "choosePlan": "Vyberte si balík",
+    "haveAccount": "Už máte účet?"
   },
   "acct": {
     "profile": "Profil",

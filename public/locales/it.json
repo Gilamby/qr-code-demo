@@ -1672,7 +1672,10 @@
     "confirmLead": "Ancora un clic e il tuo indirizzo email è confermato.",
     "confirmBtn": "Conferma il mio account",
     "errVerifyExpired": "Questo link è scaduto. Te ne abbiamo inviato uno nuovo, controlla la tua e-mail.",
-    "errHuman": "Conferma prima di essere una persona (la casella sopra il pulsante)."
+    "errHuman": "Conferma prima di essere una persona (la casella sopra il pulsante).",
+    "noAccount": "Non hai ancora un account?",
+    "choosePlan": "Scegli un piano",
+    "haveAccount": "Hai già un account?"
   },
   "acct": {
     "profile": "Profilo",

@@ -43,7 +43,7 @@ export class SystemController {
       const access = dev && !req.query.probe ? await checkCodespaceAccess() : undefined;
       const legal = await legalInfo(this.db);   // bedrijfsgegevens voor de privacyverklaring en voorwaarden
       let maintenance = { on: false, message: '' }; try { const m = JSON.parse((await this.db.getSetting('maintenance')) || '{}'); maintenance = { on: !!m.on, message: String(m.message || '') }; } catch (e) { /* uit */ }
-      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: await signupOpen(this.db), google: googleOn(), microsoft: microsoftOn(), stripe: stripeOn(), customDomains: domainsOn(), stripePk: stripePk() || undefined, demoCheckout: demoCheckoutOn(), vatFlat: flatPrivate(), turnstile: turnstileSiteKey() || undefined, legal, maintenance, mail: !!process.env.SMTP_HOST };
+      return { ok: true, qrBase, phoneReachable: phoneReachable(qrBase), devUrl: dev, access, signup: await signupOpen(this.db), google: googleOn(), microsoft: microsoftOn(), stripe: stripeOn(), customDomains: domainsOn(), stripePk: stripePk() || undefined, demoCheckout: demoCheckoutOn(), vatFlat: flatPrivate(), turnstile: turnstileSiteKey() || undefined, legal, maintenance, mail: !!process.env.SMTP_HOST, site: siteOf() };
     } catch (e) { throw reply(503, { ok: false }); }
   }
 
@@ -101,3 +101,6 @@ export class HelpersController {
     return { ok, reason: ok ? '' : 'domain' };
   }
 }
+
+/** Adres van de website (SITE_URL), voor de link "Kies een pakket" op het inlogscherm */
+function siteOf() { const u = String(process.env.SITE_URL || 'https://qr-codex.com').trim().replace(/\/+$/, ''); return /^https?:\/\/[a-z0-9.-]+(:\d+)?$/i.test(u) ? u : 'https://qr-codex.com'; }

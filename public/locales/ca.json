@@ -1672,7 +1672,10 @@
     "confirmLead": "Un clic més i el teu correu quedarà confirmat.",
     "confirmBtn": "Confirmar el meu compte",
     "errVerifyExpired": "Aquest enllaç ha caducat. T'hem enviat un de nou, revisa el teu correu.",
-    "errHuman": "Confirma primer que ets una persona (la casella damunt del botó)."
+    "errHuman": "Confirma primer que ets una persona (la casella damunt del botó).",
+    "noAccount": "Encara no tens compte?",
+    "choosePlan": "Tria un pla",
+    "haveAccount": "Ja tens compte?"
   },
   "acct": {
     "profile": "Perfil",

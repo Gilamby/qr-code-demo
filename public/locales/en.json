@@ -1673,7 +1673,10 @@
     "confirmLead": "One click and your email address is confirmed.",
     "confirmBtn": "Confirm my account",
     "errVerifyExpired": "This link has expired. We've sent you a new one, check your email.",
-    "errHuman": "Please confirm you're human first (the check above the button)."
+    "errHuman": "Please confirm you're human first (the check above the button).",
+    "noAccount": "No account yet?",
+    "choosePlan": "Choose a plan",
+    "haveAccount": "Already have an account?"
   },
   "acct": {
     "profile": "Profile",

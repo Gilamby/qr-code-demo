@@ -1672,7 +1672,10 @@
     "confirmLead": "Vielä yksi napsautus, niin sähköpostiosoitteesi on vahvistettu.",
     "confirmBtn": "Vahvista tilini",
     "errVerifyExpired": "Tämä linkki on vanhentunut. Lähetimme sinulle uuden, tarkista sähköpostisi.",
-    "errHuman": "Vahvista ensin, että olet ihminen (ruutu painikkeen yläpuolella)."
+    "errHuman": "Vahvista ensin, että olet ihminen (ruutu painikkeen yläpuolella).",
+    "noAccount": "Eikö sinulla ole vielä tiliä?",
+    "choosePlan": "Valitse paketti",
+    "haveAccount": "Onko sinulla jo tili?"
   },
   "acct": {
     "profile": "Profiili",

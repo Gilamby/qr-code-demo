@@ -1778,7 +1778,10 @@
     "confirmLead": "Edhe një klikim dhe email-i juaj konfirmohet.",
     "confirmBtn": "Konfirmo llogarinë time",
     "errVerifyExpired": "Kjo lidhje ka skaduar. Të dërguam një të re, kontrollo emailin.",
-    "errHuman": "Konfirmo fillimisht që je njeri (kutia mbi butonin)."
+    "errHuman": "Konfirmo fillimisht që je njeri (kutia mbi butonin).",
+    "noAccount": "Nuk keni ende llogari?",
+    "choosePlan": "Zgjidhni një paketë",
+    "haveAccount": "Keni tashmë llogari?"
   },
   "acct": {
     "profile": "Profili",

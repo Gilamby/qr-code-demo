@@ -63,12 +63,14 @@ var Session = (function () {
           (api.info().google ? '<a class="btn auth-google" href="api/auth/google">' + GOOGLE + '<span>' + t('auth.google') + '</span></a>' : '') +
           (api.info().microsoft ? '<a class="btn auth-google auth-ms" href="api/auth/microsoft">' + MICROSOFT + '<span>' + t('auth.microsoft') + '</span></a>' : '') +
           '<p class="auth-or"><span>' + t('auth.or') + '</span></p>' : '') +
-        (signup ? '<div class="auth-tabs" role="tablist"><button type="button" role="tab" data-mode="login" aria-selected="' + (mode === 'login') + '">' + t('auth.login') + '</button><button type="button" role="tab" data-mode="register" aria-selected="' + (mode === 'register') + '">' + t('auth.register') + '</button></div>' : '') + note +
+        // Geen tabbladen meer: inloggen is alleen inloggen; account maken gaat via een pakket op de website (?signup)
         '<form class="auth-form" novalidate>' + (mode === 'register' ? field('name', 'text', t('auth.name'), 'name', name) : '') +
         field('email', 'email', t('auth.email'), 'email', email) + field('password', 'password', t('auth.password'), mode === 'login' ? 'current-password' : 'new-password') +
         (mode === 'register' ? termsBox(accepted) + (ts() ? '<div class="auth-ts" id="authTs"></div>' : '') + '' : '') +
         '<button class="btn primary auth-go" type="submit">' + t(mode === 'login' ? 'auth.login' : 'auth.createAccount') + '</button></form>' +
         (mode === 'login' ? '<button type="button" class="link-btn auth-link" data-mode="forgot">' + t('auth.forgot') + '</button>' : '<p class="auth-small">' + t('auth.privacyNote') + '</p>') +
+        (mode === 'login' && signup ? '<p class="auth-small auth-switch">' + esc(t('auth.noAccount')) + ' <a href="' + esc(((api.info && api.info().site) || 'https://qr-codex.com') + '/#pricing') + '">' + esc(t('auth.choosePlan')) + '</a></p>' : '') +
+        (mode === 'register' ? '<p class="auth-small auth-switch">' + esc(t('auth.haveAccount')) + ' <button type="button" class="link-btn" data-mode="login">' + esc(t('auth.login')) + '</button></p>' : '') +
         (mode === 'login' && !signup && !ADMIN ? '<p class="auth-license">' + t('auth.licenseNote') + '</p>' : '') +
         (mode === 'login' && ADMIN ? '<p class="auth-license">' + t('adminApp.onlyAdmins') + '</p>' : '');
     } else if (mode === 'twofa') {

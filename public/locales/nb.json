@@ -1672,7 +1672,10 @@
     "confirmLead": "Ett klikk til, så er e-postadressen din bekreftet.",
     "confirmBtn": "Bekreft kontoen min",
     "errVerifyExpired": "Denne lenken er utløpt. Vi har sendt deg en ny, sjekk e-posten din.",
-    "errHuman": "Bekreft først at du er et menneske (feltet over knappen)."
+    "errHuman": "Bekreft først at du er et menneske (feltet over knappen).",
+    "noAccount": "Ingen konto ennå?",
+    "choosePlan": "Velg en pakke",
+    "haveAccount": "Har du allerede en konto?"
   },
   "acct": {
     "profile": "Profil",

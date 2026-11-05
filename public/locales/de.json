@@ -1672,7 +1672,10 @@
     "confirmLead": "Noch ein Klick und deine E-Mail-Adresse ist bestätigt.",
     "confirmBtn": "Mein Konto bestätigen",
     "errVerifyExpired": "Dieser Link ist abgelaufen. Wir haben dir einen neuen geschickt, schau in deine E-Mails.",
-    "errHuman": "Bestätige zuerst, dass du ein Mensch bist (das Feld über dem Button)."
+    "errHuman": "Bestätige zuerst, dass du ein Mensch bist (das Feld über dem Button).",
+    "noAccount": "Noch kein Konto?",
+    "choosePlan": "Paket wählen",
+    "haveAccount": "Schon ein Konto?"
   },
   "acct": {
     "profile": "Profil",

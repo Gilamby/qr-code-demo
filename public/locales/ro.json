@@ -1672,7 +1672,10 @@
     "confirmLead": "Încă un clic și adresa ta de e-mail este confirmată.",
     "confirmBtn": "Confirmă-mi contul",
     "errVerifyExpired": "Acest link a expirat. Ți-am trimis unul nou, verifică-ți e-mailul.",
-    "errHuman": "Confirmă mai întâi că ești om (caseta de deasupra butonului)."
+    "errHuman": "Confirmă mai întâi că ești om (caseta de deasupra butonului).",
+    "noAccount": "Nu ai încă un cont?",
+    "choosePlan": "Alege un plan",
+    "haveAccount": "Ai deja un cont?"
   },
   "acct": {
     "profile": "Profil",

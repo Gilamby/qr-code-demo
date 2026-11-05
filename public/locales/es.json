@@ -1673,7 +1673,10 @@
     "confirmLead": "Un clic más y tu correo quedará confirmado.",
     "confirmBtn": "Confirmar mi cuenta",
     "errVerifyExpired": "Este enlace ha caducado. Te hemos enviado uno nuevo, revisa tu correo.",
-    "errHuman": "Confirma primero que eres una persona (la casilla encima del botón)."
+    "errHuman": "Confirma primero que eres una persona (la casilla encima del botón).",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "choosePlan": "Elige un plan",
+    "haveAccount": "¿Ya tienes cuenta?"
   },
   "acct": {
     "profile": "Perfil",

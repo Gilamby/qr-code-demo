@@ -1672,7 +1672,10 @@
     "confirmLead": "Encore un clic et votre adresse e-mail est confirmée.",
     "confirmBtn": "Confirmer mon compte",
     "errVerifyExpired": "Ce lien a expiré. Nous vous en avons envoyé un nouveau, consultez vos e-mails.",
-    "errHuman": "Confirmez d’abord que vous êtes humain (la case au-dessus du bouton)."
+    "errHuman": "Confirmez d’abord que vous êtes humain (la case au-dessus du bouton).",
+    "noAccount": "Pas encore de compte ?",
+    "choosePlan": "Choisissez une offre",
+    "haveAccount": "Déjà un compte ?"
   },
   "acct": {
     "profile": "Profil",

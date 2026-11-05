@@ -1672,7 +1672,10 @@
     "confirmLead": "Jeszcze jedno kliknięcie i Twój adres e-mail zostanie potwierdzony.",
     "confirmBtn": "Potwierdź moje konto",
     "errVerifyExpired": "Ten link wygasł. Wysłaliśmy Ci nowy, sprawdź swoją skrzynkę.",
-    "errHuman": "Najpierw potwierdź, że jesteś człowiekiem (pole nad przyciskiem)."
+    "errHuman": "Najpierw potwierdź, że jesteś człowiekiem (pole nad przyciskiem).",
+    "noAccount": "Nie masz jeszcze konta?",
+    "choosePlan": "Wybierz plan",
+    "haveAccount": "Masz już konto?"
   },
   "acct": {
     "profile": "Profil",

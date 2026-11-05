@@ -1672,7 +1672,10 @@
     "confirmLead": "Vēl viens klikšķis, un jūsu e-pasts ir apstiprināts.",
     "confirmBtn": "Apstiprināt manu kontu",
     "errVerifyExpired": "Šī saite ir novecojusi. Mēs nosūtījām tev jaunu, pārbaudi savu e-pastu.",
-    "errHuman": "Vispirms apstiprini, ka esi cilvēks (lodziņš virs pogas)."
+    "errHuman": "Vispirms apstiprini, ka esi cilvēks (lodziņš virs pogas).",
+    "noAccount": "Vēl nav konta?",
+    "choosePlan": "Izvēlieties plānu",
+    "haveAccount": "Jau ir konts?"
   },
   "acct": {
     "profile": "Profils",
