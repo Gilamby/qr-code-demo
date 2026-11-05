@@ -233,10 +233,10 @@ var Session = (function () {
   if (gerr) { history.replaceState(null, '', location.pathname); flash = [{ signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', too_many: 'auth.errTooMany', '2fa': 'auth.g2fa' }[gerr[2]] || (gerr[1] === 'm' ? (gerr[2] === 'unverified' ? 'auth.mUnverified' : 'auth.mErr') : 'auth.gErr'), 'bad']; }
   api.available().then(function (online) {
     if (g2) { tfa = { google: g2[1] }; show('twofa'); return; }
-    // Vanaf de website met ?login: altijd het inlogscherm. Een bestaande sessie wordt eerst beëindigd (de klant wil zelf inloggen);
+    // Vanaf de website: een bestaande sessie wordt eerst beëindigd (de klant kiest zelf: inloggen of account maken);
     // het gekozen pakket blijft bewaard en na het inloggen gaat de app meteen naar Abonnement.
-    if (fromSite && siteLogin && !m) return api.auth.logout().catch(function () {}).then(function () { user = null; show('login'); });
-    if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); syncTz(u); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });
+    // ?login → inlogscherm, ?signup (pakketknop) → scherm "Account maken". Nooit meteen de app in.
+    if (fromSite && !m) return api.auth.logout().catch(function () {}).then(function () { user = null; show(siteLogin ? 'login' : 'register'); });
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); verifyToken = decodeURIComponent(v[1]); return show('confirm'); }   // eerst op de knop klikken
