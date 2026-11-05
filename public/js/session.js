@@ -218,7 +218,9 @@ var Session = (function () {
   var m = location.search.match(/[?&](reset|invite)=([^&]+)/);
   // Vanaf de website (qr-codex.com): ?signup&plan=pro&period=year&lang=nl → taal zetten, gekozen pakket onthouden
   // (ook na de bevestigingslink in een nieuw tabblad) en meteen het scherm "Account maken" tonen.
-  var fromSite = /[?&]signup\b/.test(location.search), qp = function (k) { var r = location.search.match(new RegExp('[?&]' + k + '=([a-z]+)')); return r ? r[1] : ''; };
+  // ?login (zelfde parameters): eerst het inlogscherm, met "Account maken" ernaast; wie al ingelogd is gaat meteen naar Abonnement.
+  var siteLogin = /[?&]login\b/.test(location.search);
+  var fromSite = /[?&](signup|login)\b/.test(location.search), qp = function (k) { var r = location.search.match(new RegExp('[?&]' + k + '=([a-z]+)')); return r ? r[1] : ''; };
   if (fromSite) {
     var wl = qp('lang'), wp = qp('plan'), wper = qp('period');
     if (wl && window.LANGUAGES && LANGUAGES.some(function (l) { return l.code === wl; })) i18n.set(wl);
@@ -231,7 +233,7 @@ var Session = (function () {
   if (gerr) { history.replaceState(null, '', location.pathname); flash = [{ signup_closed: 'auth.licenseNote', disabled: 'auth.errDisabled', email_disposable: 'auth.errDisposable', blocked: 'auth.errBlocked', too_many: 'auth.errTooMany', '2fa': 'auth.g2fa' }[gerr[2]] || (gerr[1] === 'm' ? (gerr[2] === 'unverified' ? 'auth.mUnverified' : 'auth.mErr') : 'auth.gErr'), 'bad']; }
   api.available().then(function (online) {
     if (g2) { tfa = { google: g2[1] }; show('twofa'); return; }
-    if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); syncTz(u); listeners.forEach(function (f) { f(u); }); }, function () { show('register'); });
+    if (fromSite && !m) return api.auth.me().then(function (u) { user = u; i18n.setZone(u && u.timezone); ready(); syncTz(u); listeners.forEach(function (f) { f(u); }); }, function () { show(siteLogin ? 'login' : 'register'); });
     if (m) { resetToken = decodeURIComponent(m[2]); history.replaceState(null, '', location.pathname); return show(m[1]); }
     var v = location.search.match(/[?&]verify=([^&]+)/);
     if (v) { history.replaceState(null, '', location.pathname); verifyToken = decodeURIComponent(v[1]); return show('confirm'); }   // eerst op de knop klikken
