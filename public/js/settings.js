@@ -60,7 +60,8 @@
   // Link uit de mail: ?go=plan opent na het inloggen meteen Abonnement
   var goPlan = /[?&]go=plan\b/.test(location.search);
   // Pakket gekozen op de website (zie session.js): na het inloggen meteen naar Abonnement (max. 1 dag bewaard)
-  function wanted() { try { var w = JSON.parse(localStorage.getItem('optimasys-want') || 'null'); localStorage.removeItem('optimasys-want'); if (w && Date.now() - w.at < 864e5) { window.wantedPlan = w; return true; } } catch (e) {} return false; }
+  // Het pakket blijft bewaard tot er betaald is (paywall.js), zodat elk tabblad het kent
+  function wanted() { try { var w = JSON.parse(localStorage.getItem('optimasys-want') || 'null'); if (w && Date.now() - w.at < 864e5) { window.wantedPlan = w; return true; } localStorage.removeItem('optimasys-want'); } catch (e) {} return false; }
   var goCodes = /[?&]go=myCodes\b/.test(location.search);           // herinnering oude QR-app: meteen naar Mijn QR-codes
   var goContact = /[?&]go=contact\b/.test(location.search);         // antwoord op een supportvraag: meteen naar Contact (Mijn vragen)
   if (window.Session && Session.onUser) Session.onUser(function () {

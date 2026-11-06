@@ -376,6 +376,9 @@ var Plans = (function () {
     document.body.classList.add('paywall-open'); unwait(); var f = box.querySelector('.pw-card.on') || box.querySelector('[data-pw-go]'); if (f) f.focus(); }
   function close() { stripeReset(); if (box) box.remove(); box = null; document.body.classList.remove('paywall-open'); }
   function unwait() { document.body.classList.remove('pw-wait'); }
+  function readWant() { try { var w = JSON.parse(localStorage.getItem('optimasys-want') || 'null'); return w && /^(standard|pro|business)$/.test(w.plan) && Date.now() - w.at < 864e5 ? w : null; } catch (e) { return null; } }
+  function saveWant(w) { try { localStorage.setItem('optimasys-want', JSON.stringify(w)); } catch (e) {} }
+  function dropWant() { window.wantedPlan = null; try { localStorage.removeItem('optimasys-want'); } catch (e) {} }
   function check() {
     if (!api.account || !api.account.plan) return unwait();
     if (window.TermsGate && TermsGate.waiting()) return;                 // eerst akkoord met de voorwaarden (terms-gate.js); laadscherm blijft tot 'terms-ok' (of het voorwaarden-scherm opent)
@@ -384,12 +387,13 @@ var Plans = (function () {
       // Net betaald bij Stripe: even wachten tot Stripe het heeft gemeld (webhook), dan de app in
       if (returned && info.sub && info.sub.state === 'unpaid' && waited < 15) { waited++; mode = 'must'; step = 'wait'; show(); setTimeout(check, 1500); return; }
       if (returned) { returned = false; document.dispatchEvent(new CustomEvent('paywall-done')); if (step === 'wait') { result = { sub: info.sub }; chosen = info.plan.id; period = PlanPeriod.norm(info.sub.interval); step = 'done'; mode = 'must'; return show(); } }
-      var w = window.wantedPlan; if (w) { chosen = w.plan || chosen; period = PlanPeriod.norm(w.period); window.wantedPlan = null; }
-      // Pakket al gekozen op de website: niet opnieuw laten kiezen, meteen naar betalen
+      // Pakket gekozen op de website (?signup&plan=…): bewaard tot er betaald is, zodat ook een tweede tabblad (bevestigingslink) het kent
+      var w = window.wantedPlan || readWant(); if (w) { chosen = w.plan || chosen; period = PlanPeriod.norm(w.period); }
       if (needed()) {
+        // Niet opnieuw laten kiezen: meteen naar betalen. Doorsturen naar Stripe maar één keer (terug zonder betalen = gewoon de keuze zien).
         mode = 'must'; step = w && (demo() || inApp()) ? 'pay' : 'choose'; show();
-        if (w && stripeOn() && !inApp()) { var g = box && box.querySelector('[data-pw-go]'); if (g) g.click(); }
-      } else if (mode === 'must') close();
+        if (w && stripeOn() && !inApp() && !w.sent) { saveWant(Object.assign({}, w, { sent: true })); var g = box && box.querySelector('[data-pw-go]'); if (g) g.click(); }
+      } else { if (w) dropWant(); if (mode === 'must') close(); }
       unwait();
     }).catch(unwait);
   }
